@@ -1,5 +1,5 @@
 /**
- * Class to query for AggregatedCases.
+ * Class to query for SurveyPoints.
  */
 MDSS.QuerySurvey= Mojo.Class.create();
 MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
@@ -65,7 +65,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   },
 
   /**
-   * Returns the method to save this AggregatedCase search.
+   * Returns the method to save this SurveyPoint search.
    */
   _getQueryType: function()
   {
@@ -89,6 +89,44 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   {
     return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
   },
+  
+  _getReportQueryType : function()
+  {
+    return 'INDICATOR_SURVEY';
+  },
+  
+  _loadNumericCriteria : function(attributeName, userAlias, operator, value)
+  {
+    if(operator === MDSS.QueryXML.Operator.GE)
+    {
+      var item = this._menuItems[userAlias+'-range'];
+      var obj = item.onclick.obj;
+      
+      this._setNumberInputValues(obj, value, null);
+      this._toggleRange(obj.attribute, true);
+    }
+    // LastSprayed uses LE, but it is only for the single
+    // value criteria, not the range.
+    else if(operator === MDSS.QueryXML.Operator.LE
+      && attributeName !== this._Household.LASTSPRAYED)
+    {
+      var item = this._menuItems[userAlias+'-range'];
+      var obj = item.onclick.obj;
+
+      this._setNumberInputValues(obj, null, value);
+      this._toggleRange(obj.attribute, true);
+    }
+    else
+    {
+      var item = this._menuItems[userAlias+'-single'];
+      var obj = item.onclick.obj;
+
+      this._setNumberInputValues(obj, value, null);
+      this._toggleSingle(obj.attribute, true);
+    }
+    
+    this._setNumberCriteria(null, obj);
+  },
 
   _loadQueryState : function(view)
   {
@@ -97,8 +135,8 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var xml = view.getQueryXml();
     var parser = new MDSS.Query.Parser(xml);
 
-    var selectStart = false;
-    var selectEnd = false;
+    var selectStart = this._queryPanel.getStartDateCheck();
+    var selectEnd = this._queryPanel.getEndDateCheck();
     
     parser.parseSelectables({
       attribute : function(entityAlias, attributeName, userAlias){
@@ -110,19 +148,27 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         thisRef._checkBox(userAlias);
         thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.SUM);
       },
+      count : function(entityAlias, attributeName, userAlias){
+      
+        thisRef._checkBox(userAlias);
+      },
+      sqlcharacter : function(entityAlias, attributeName, userAlias)
+      {
+        thisRef._checkBox(attributeName); // Date selection
+      },
       sqlinteger: function(entityAlias, attributeName, userAlias){
 
         thisRef._checkBox(userAlias);
       },
       sqldate : function(entityAlias, attributeName, userAlias){
 
-        if(userAlias === thisRef._queryPanel.getStartDateCheck().id)
+        if(userAlias === selectStart.id)
         {
-          selectStart = true;
+          thisRef._checkBox(selectStart);
         }
-        else if(userAlias === thisRef._queryPanel.getEndDateCheck().id)
+        else if(userAlias === selectEnd.id)
         {
-          selectEnd = true;
+          thisRefthis._checkBox(selectEnd);
         }
       },
     });
@@ -155,39 +201,10 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         else
         {
           // Set all attribute criteria with single or numeric ranges.
-          if(attributeName === thisRef._Person.DOB ||
-             attributeName === thisRef._Person.HAEMOGLOBIN ||
+          if(attributeName === thisRef._Person.HAEMOGLOBIN ||
              attributeName === thisRef._Household.LASTSPRAYED)
           {
-            if(operator === MDSS.QueryXML.Operator.GE)
-            {
-              var item = thisRef._menuItems[userAlias+'-range'];
-              var obj = item.onclick.obj;
-              
-              thisRef._setNumberInputValues(obj, value, null);
-              thisRef._toggleRange(obj.attribute, true);
-            }
-            // LastSprayed uses LE, but it is only for the single
-            // value criteria, not the range.
-            else if(operator === MDSS.QueryXML.Operator.LE
-              && attributeName !== thisRef._Household.LASTSPRAYED)
-            {
-              var item = thisRef._menuItems[userAlias+'-range'];
-              var obj = item.onclick.obj;
-
-              thisRef._setNumberInputValues(obj, null, value);
-              thisRef._toggleRange(obj.attribute, true);
-            }
-            else
-            {
-              var item = thisRef._menuItems[userAlias+'-single'];
-              var obj = item.onclick.obj;
-
-              thisRef._setNumberInputValues(obj, value, null);
-              thisRef._toggleSingle(obj.attribute, true);
-            }
-            
-            thisRef._setNumberCriteria(null, obj);
+            thisRef._loadNumericCriteria(attributeName, userAlias, operator, value);
           }
           else
           {
@@ -215,16 +232,36 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       }
     });
     
-    this._queryPanel.disableDateCheck();
-    
-    if(selectStart)
+    // check if DOB has been added as criteria
+    var configRaw = view.getConfig();
+    var config = new MDSS.Query.Config(configRaw);
+    var dobCrit = config.getProperty("dobCriteria");
+    if(dobCrit != null)
     {
-      this._checkBox(this._queryPanel.getStartDateCheck());
-    }
-    
-    if(selectEnd)
-    {
-      this._checkBox(this._queryPanel.getEndDateCheck());
+      if(dobCrit.indexOf('-') != -1)
+      {
+        var range = dobCrit.split('-');
+        if(range.length == 2)
+        {
+          if(range[0] !== '')
+          {
+            this._loadNumericCriteria(this._Person.DOB, this._Person.DOB, MDSS.QueryXML.Operator.GE, range[0]);
+          }
+          
+          if(range[1] !== '')
+          {
+            this._loadNumericCriteria(this._Person.DOB, this._Person.DOB, MDSS.QueryXML.Operator.LE, range[1]);
+          }
+        }
+        else
+        {
+          this._loadNumericCriteria(this._Person.DOB, this._Person.DOB, MDSS.QueryXML.Operator.GE, range[0]);
+        }
+      }
+      else
+      {
+        this._loadNumericCriteria(this._Person.DOB, this._Person.DOB, MDSS.QueryXML.Operator.EQ, dobCrit);
+      }
     }
     
     this._reconstructSearch(entities, view);
@@ -258,7 +295,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
    */
   mapQuery : function()
   {
-    var queryXML = this._constructQuery();
+    var queryXML = this._constructQuery(true);
     var xml = queryXML.getXML();
 
     var request = new MDSS.Request({
@@ -273,7 +310,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var savedSearchView = this._queryPanel.getCurrentSavedSearch();
     var savedSearchId = (savedSearchView != null ? savedSearchView.getSavedQueryId() : "");
 
-    Mojo.$.dss.vector.solutions.query.MappingController.mapAggregatedCaseQuery(request, xml, this._config.getJSON(), layerIds, savedSearchId);
+    Mojo.$.dss.vector.solutions.query.MappingController.mapSurveyQuery(request, xml, this._config.getJSON(), layerIds, savedSearchId);
   },
 
   /**
@@ -401,11 +438,11 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var keys = Mojo.util.getKeys(this._dateGroupSelectables);
     for(var i=0; i < keys.length; i++)
     {
-    	var selectable = this._dateGroupSelectables[keys[i]];
-    	if(selectable != null)
-    	{
-    		queryXML.addSelectable(keys[i], selectable);
-    	}
+      var selectable = this._dateGroupSelectables[keys[i]];
+      if(selectable != null)
+      {
+        queryXML.addSelectable(keys[i], selectable);
+      }
     }
 
     var dateAndOr = null;
@@ -428,6 +465,22 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       surveyPointQuery.setCondition(composite);
     }
 
+    // count
+    if(this._countSelectable != null)
+    {
+      queryXML.addSelectable(surveyPointQuery.getAlias()+'_globalCount', this._countSelectable);
+    }
+    
+    var keys = Mojo.util.getKeys(this._dateGroupSelectables);
+    for(var i=0; i < keys.length; i++)
+    {
+      var selectable = this._dateGroupSelectables[keys[i]];
+      if(selectable != null)
+      {
+        queryXML.addSelectable(keys[i], selectable);
+      }
+    }
+    
     return queryXML;
   },
   
@@ -911,9 +964,10 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     // aggregate functions
     var aggFunc = null;
+    var displayLabel = "("+func+") "+ attribute.getDisplayLabel();
     if(func === MDSS.QueryXML.Functions.SUM)
     {
-      aggFunc = new MDSS.QueryXML.SUM(selectable, key);
+      aggFunc = new MDSS.QueryXML.SUM(selectable, key, displayLabel);
     }
 
     this._removeHouseholdAttribute(attribute, false, true, false);
@@ -921,7 +975,59 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
     this._householdAggregateSelectables[attribute.getKey()] = aggSelectable;
   },
+  
+  /**
+   * Handler to toggle the visibility of a list.
+   */
+  _toggleVisibility : function(toggle, element)
+  {
+   YAHOO.util.Event.on(toggle, 'click', function(e, obj){
+     var el = obj.element;
+     var toggle = obj.toggle;
 
+     if(YAHOO.util.Dom.getStyle(el, 'display') === 'block')
+     {
+       YAHOO.util.Dom.setStyle(el, 'display', 'none');
+       toggle.innerHTML = MDSS.Localized.Toggle_Show;
+     }
+     else
+     {
+       YAHOO.util.Dom.setStyle(el, 'display', 'block');
+       toggle.innerHTML = MDSS.Localized.Toggle_Hide;
+     }
+
+   }, {toggle: toggle, element: element}, this);
+  },
+
+  _toggleCount : function(e, attribute)
+  {
+    var check = e.target;
+
+    if(check.checked)
+    {
+      var selectable = attribute.getSelectable();
+
+      var count = new MDSS.QueryXML.COUNT(selectable, attribute.getKey());
+      var aggSelectable = new MDSS.QueryXML.Selectable(count);
+      this._countSelectable = aggSelectable;
+
+      this._queryPanel.insertColumn(attribute.getColumnObject());
+
+      
+      // ADD THEMATIC VARIABLE
+      this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
+    }
+    else
+    {
+      var column = this._queryPanel.getColumn(attribute.getKey());
+      this._queryPanel.removeColumn(column);
+
+      this._countSelectable = null;
+
+      this._queryPanel.removeThematicVariable(attribute.getKey());
+    }
+  },   
+  
   /**
    * Builds the query items for the left column.
    */
@@ -937,6 +1043,11 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       onclick: {handler: boundSearch},
       id: "areaItem"
     });
+    
+    this._queryPanel.addQueryItem({
+        html: this._getCountDiv(this,"Group_By", this._SurveyPoint),
+        id: 'globalCount'
+      });
     
     /*
      * Household attributes
@@ -1722,11 +1833,10 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   },
 
   /**
-   * Renders the QueryPanel to query on AggregatedCases.
+   * Renders the QueryPanel to query on SurveyPoints.
    */
   render : function()
   {
-    // render the panel
     this._queryPanel.render();
   }
 });

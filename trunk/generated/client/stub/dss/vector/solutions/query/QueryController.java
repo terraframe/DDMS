@@ -725,7 +725,7 @@ public class QueryController extends QueryControllerBase implements
   {
     try
     {
-      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML,
+      InputStream stream = SurveyPointDTO.exportQueryToExcel(this.getClientRequest(), queryXML,
           config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);

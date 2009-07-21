@@ -117,7 +117,6 @@ public class QueryUtil implements Reloadable
        * are omitted.
        */
 
-      thematicLayer.getGeoHierarchy().getGeoEntityClass();
       MdBusiness geoEntityMd = thematicLayer.getGeoHierarchy().getGeoEntityClass();
       String thematicLayerType = geoEntityMd.definesType();
 

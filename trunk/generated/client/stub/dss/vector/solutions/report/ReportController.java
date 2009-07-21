@@ -45,6 +45,7 @@ import com.terraframe.mojo.util.FileIO;
 
 import dss.vector.solutions.QueryTypeDTO;
 import dss.vector.solutions.entomology.MosquitoDTO;
+import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.query.SavedSearchDTO;
 import dss.vector.solutions.query.SavedSearchRequiredExceptionDTO;
@@ -93,6 +94,10 @@ public class ReportController extends ReportControllerBase implements Reloadable
     else if(type.equals(QueryTypeDTO.IRS))
     {
       return AbstractSprayDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
+    }
+    else if(type.equals(QueryTypeDTO.INDICATOR_SURVEY))
+    {
+      return SurveyPointDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
     }
 
     throw new RuntimeException("Query Type does not have a CSV exporter defined");

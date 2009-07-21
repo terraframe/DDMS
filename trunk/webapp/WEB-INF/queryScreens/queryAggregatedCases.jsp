@@ -21,8 +21,9 @@
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.CollectionSite"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%>
+
 <jsp:include page="../templates/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
 <jwr:script src="/bundles/queryBundle.js"/>
@@ -40,7 +41,7 @@
 
 MDSS.AbstractSelectSearch.Political = true;
 MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= CollectionSite.CLASS %>*');
+MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= CollectionSiteDTO.CLASS %>*');
 MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*');
 
 (function(){

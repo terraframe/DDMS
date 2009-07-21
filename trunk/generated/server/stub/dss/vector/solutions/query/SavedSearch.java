@@ -45,8 +45,7 @@ public class SavedSearch extends SavedSearchBase implements
 
     // restrict by type and search name
     searchQuery.WHERE(searchQuery.getQueryName().EQ(searchName));
-    searchQuery.WHERE(searchQuery.getType().EQ(this.getType()));
-    //searchQuery.WHERE(searchQuery.persistedBy(persistsQuery));
+    searchQuery.WHERE(searchQuery.getQueryType().EQ(this.getQueryType()));
 
     if (searchQuery.getCount() > 0)
     {
@@ -142,19 +141,22 @@ public class SavedSearch extends SavedSearchBase implements
     
     String name = view.getQueryName();
 
-    checkUniqueness(name, mdssUser);
 
     String xml = view.getQueryXml();
+
+
+    this.setQueryName(name);
+    this.setQueryXml(xml);
+    this.setQueryType(view.getQueryType());
+    this.setConfig(view.getConfig());
+    
+    checkUniqueness(name, mdssUser);
 
     // Create the thematic layer if it does not exist
     String thematicLayerType = view.getThematicLayer();
     ThematicLayer thematicLayer = ThematicLayer.newInstance(thematicLayerType);
     this.setThematicLayer(thematicLayer);
 
-    this.setQueryName(name);
-    this.setQueryXml(xml);
-    this.setQueryType(view.getQueryType());
-    this.setConfig(view.getConfig());
     this.apply();
 
     if(asDefault)

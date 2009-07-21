@@ -142,7 +142,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       },
       sqlcharacter : function(entityAlias, attributeName, userAlias){
 
-        thisRef._checkBox(userAlias);
+        thisRef._checkBox(attributeName);
       },
       
       sqldate : function(entityAlias, attributeName, userAlias){
@@ -367,16 +367,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       queryXML.addSelectable(alias, selectable);
     }
 
-    /*
-    var gAliases = Mojo.util.getKeys(this._gridGroupBySelectables);
-    for(var i=0; i<gAliases.length; i++)
-    {
-      var alias = gAliases[i];
-      var selectable = this._gridGroupBySelectables[alias];
-      groupBy.addSelectable(alias, selectable);
-    }
-    */
-
     var gridAggAliases = Mojo.util.getKeys(this._gridAggregateSelectables);
     for(var i=0; i<gridAggAliases.length; i++)
     {
@@ -388,32 +378,35 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     return queryXML;
   },
-
-  /**
-   * Handler to toggle grouping by startAge/endAge.
-  _groupByAgeGroupHandler : function(e)
+  
+  _toggleCount : function(e, attribute)
   {
     var check = e.target;
 
     if(check.checked)
     {
-      var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
-      var startAge = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.STARTAGE, aggregatedCase.STARTAGE);
-      var startAgeSel = new MDSS.QueryXML.Selectable(startAge);
+      var selectable = attribute.getSelectable();
 
-      var endAge = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.ENDAGE, aggregatedCase.ENDAGE);
-      var endAgeSel = new MDSS.QueryXML.Selectable(endAge);
+      var count = new MDSS.QueryXML.COUNT(selectable, attribute.getKey());
+      var aggSelectable = new MDSS.QueryXML.Selectable(count);
+      this._countSelectable = aggSelectable;
 
-      this._startAgeGroupBySel = startAgeSel;
-      this._endAgeGroupBySel = endAgeSel;
+      this._queryPanel.insertColumn(attribute.getColumnObject());
+
+      
+      // ADD THEMATIC VARIABLE
+      this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
     }
     else
     {
-      this._startAgeGroupBySel = null;
-      this._endAgeGroupBySel = null;
+      var column = this._queryPanel.getColumn(attribute.getKey());
+      this._queryPanel.removeColumn(column);
+
+      this._countSelectable = null;
+
+      this._queryPanel.removeThematicVariable(attribute.getKey());
     }
-  },
-   */
+  }, 
 
   /**
    * Handler for when an age group checkbox is selected as WHERE criteria.
@@ -623,17 +616,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     this._queryPanel.updateColumnLabel(key, func);
 
-    // special cases
-    /*
-    if(func === MDSS.QueryXML.Functions.GB)
-    {
-  	  this._removeGridAttribute(attribute, false, false, false);
-      this._gridSelectables[key] = selectable;
-      this._gridGroupBySelectables[key] = selectable;
-      return;
-    }
-    */
-
     if(func === '')
     {
       // Use regular selectable (this is just here for clarity).
@@ -644,21 +626,22 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     // aggregate functions
     var aggFunc = null;
+    var displayLabel = "("+func+") "+ attribute.getDisplayLabel();
     if(func === MDSS.QueryXML.Functions.SUM)
     {
-      aggFunc = new MDSS.QueryXML.SUM(selectable, key);
+      aggFunc = new MDSS.QueryXML.SUM(selectable, key, displayLabel);
     }
     else if(func === MDSS.QueryXML.Functions.MIN)
     {
-      aggFunc = new MDSS.QueryXML.MIN(selectable, key);
+      aggFunc = new MDSS.QueryXML.MIN(selectable, key, displayLabel);
     }
     else if(func === MDSS.QueryXML.Functions.MAX)
     {
-      aggFunc = new MDSS.QueryXML.MAX(selectable, key);
+      aggFunc = new MDSS.QueryXML.MAX(selectable, key, displayLabel);
     }
     else if(func === MDSS.QueryXML.Functions.AVG)
     {
-      aggFunc = new MDSS.QueryXML.AVG(selectable, key);
+      aggFunc = new MDSS.QueryXML.AVG(selectable, key, displayLabel);
     }
 
   	this._removeGridAttribute(attribute, false, true, false);
@@ -709,21 +692,22 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     // aggregate functions
     var aggFunc = null;
+    var displayLabel = "("+func+") "+ attribute.getDisplayLabel();
     if(func === MDSS.QueryXML.Functions.SUM)
     {
-      aggFunc = new MDSS.QueryXML.SUM(selectable, key);
+      aggFunc = new MDSS.QueryXML.SUM(selectable, key, displayLabel);
     }
     else if(func === MDSS.QueryXML.Functions.MIN)
     {
-      aggFunc = new MDSS.QueryXML.MIN(selectable, key);
+      aggFunc = new MDSS.QueryXML.MIN(selectable, key, displayLabel);
     }
     else if(func === MDSS.QueryXML.Functions.MAX)
     {
-      aggFunc = new MDSS.QueryXML.MAX(selectable, key);
+      aggFunc = new MDSS.QueryXML.MAX(selectable, key, displayLabel);
     }
     else if(func === MDSS.QueryXML.Functions.AVG)
     {
-      aggFunc = new MDSS.QueryXML.AVG(selectable, key);
+      aggFunc = new MDSS.QueryXML.AVG(selectable, key, displayLabel);
     }
 
   	this._removeVisibleAttribute(attribute, false, true, false);

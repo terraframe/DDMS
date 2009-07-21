@@ -1,5 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
+import java.io.InputStream;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,9 +13,15 @@ import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.query.ValueQueryCSVExporter;
+import com.terraframe.mojo.query.ValueQueryExcelExporter;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.query.MapUtil;
+import dss.vector.solutions.query.NoThematicLayerException;
+import dss.vector.solutions.query.SavedSearch;
+import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.util.QueryConfig;
 import dss.vector.solutions.util.QueryUtil;
@@ -228,6 +235,89 @@ public class SurveyPoint extends SurveyPointBase implements
     QueryUtil.setQueryDates(xml, valueQuery, surveyPointQuery.getSurveyDate());
     
     return valueQuery;
+  }
+  
+  @Transaction
+  public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
+  {
+    QueryConfig queryConfig = new QueryConfig(config);
+
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    {
+      String error = "Cannot export to Excel without a current SavedSearch instance.";
+      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
+      throw ex;
+    }
+
+    SavedSearch search = SavedSearch.get(savedSearchId);
+
+    ValueQuery query = xmlToValueQuery(queryXML, queryConfig, false, null);
+
+    ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
+    return exporter.exportStream();
+  }
+
+  @Transaction
+  public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId)
+  {
+    QueryConfig queryConfig = new QueryConfig(config);
+
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    {
+      String error = "Cannot export to CSV without a current SavedSearch instance.";
+      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
+      throw ex;
+    }
+
+    ValueQuery query = xmlToValueQuery(queryXML, queryConfig, false, null);
+
+    ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
+    return exporter.exportStream();
+  }
+  
+  /**
+   * Creates a
+   *
+   * @param xml
+   * @return
+   */
+  @Transaction
+  public static String mapQuery(String xml, String config, String[] universalLayers, String savedSearchId)
+  {
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    {
+      String error = "Cannot map a query without a current SavedSearch instance.";
+      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
+      throw ex;
+    }
+
+    SavedSearch search = SavedSearch.get(savedSearchId);
+    QueryConfig queryConfig = new QueryConfig(config);
+
+    ThematicLayer thematicLayer = search.getThematicLayer();
+
+    if (thematicLayer == null || thematicLayer.getGeoHierarchy() == null)
+    {
+      String error = "Cannot create a map for search [" + search.getQueryName()
+          + "] without having selected a thematic layer.";
+      NoThematicLayerException ex = new NoThematicLayerException(error);
+      throw ex;
+    }
+
+    // Update ThematicLayer if the thematic layer type has changed or
+    // if one has not yet been defined.
+    String thematicLayerType = thematicLayer.getGeoHierarchy().getGeoEntityClass().definesType();
+    if (thematicLayer.getGeometryStyle() == null
+        || !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
+    {
+      thematicLayer.changeLayerType(thematicLayerType);
+    }
+
+    ValueQuery query = xmlToValueQuery(xml, queryConfig, true, thematicLayer);
+
+    String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
+
+    return layers;
   }
 
   /**

@@ -571,10 +571,11 @@ MDSS.QueryXML.Sqldate.prototype = {
 
 
 
-MDSS.QueryXML.SUM = function(selectable, userAlias)
+MDSS.QueryXML.SUM = function(selectable, userAlias, userDisplayLabel)
 {
   this._selectable = selectable;
   this._userAlias = userAlias;
+  this._userDisplayLabel = userDisplayLabel || '';
 }
 MDSS.QueryXML.SUM.prototype = {
 
@@ -585,17 +586,20 @@ MDSS.QueryXML.SUM.prototype = {
 
   	var obj = {
   	  'sum': [selectableObj,
-  	  {'userAlias': alias}]
+  	  {
+  	    'userAlias': alias,
+  	    'userDisplayLabel': this._userDisplayLabel}]
   	};
 
   	return obj;
   }
 }
 
-MDSS.QueryXML.MIN = function(selectable, userAlias)
+MDSS.QueryXML.MIN = function(selectable, userAlias , userDisplayLabel)
 {
   this._selectable = selectable;
   this._userAlias = userAlias;
+  this._userDisplayLabel = userDisplayLabel || '';
 }
 MDSS.QueryXML.MIN.prototype = {
 
@@ -606,17 +610,19 @@ MDSS.QueryXML.MIN.prototype = {
 
   	var obj = {
   	  'min': [selectableObj,
-  	  {'userAlias': alias}]
+  	  {'userAlias': alias,
+  	   'userDisplayLabel': this._userDisplayLabel}]
   	};
 
   	return obj;
   }
 }
 
-MDSS.QueryXML.MAX = function(selectable, userAlias)
+MDSS.QueryXML.MAX = function(selectable, userAlias , userDisplayLabel)
 {
   this._selectable = selectable;
   this._userAlias = userAlias;
+  this._userDisplayLabel = userDisplayLabel || '';
 }
 MDSS.QueryXML.MAX.prototype = {
 
@@ -627,16 +633,18 @@ MDSS.QueryXML.MAX.prototype = {
 
   	var obj = {
   	  'max': [selectableObj,
-  	  {'userAlias': alias}]
+  	  {'userAlias': alias,
+  	   'userDisplayLabel': this._userDisplayLabel}]
   	};
   	return obj;
   }
 }
 
-MDSS.QueryXML.AVG = function(selectable, userAlias)
+MDSS.QueryXML.AVG = function(selectable, userAlias , userDisplayLabel)
 {
   this._selectable = selectable;
   this._userAlias = userAlias;
+  this._userDisplayLabel = userDisplayLabel || '';
 }
 MDSS.QueryXML.AVG.prototype = {
 
@@ -647,17 +655,19 @@ MDSS.QueryXML.AVG.prototype = {
 
   	var obj = {
   	  'avg': [selectableObj,
-  	  {'userAlias': alias}]
+  	  {'userAlias': alias,
+  	   'userDisplayLabel': this._userDisplayLabel}]
   	};
 
   	return obj;
   }
 }
 
-MDSS.QueryXML.COUNT = function(selectable, userAlias)
+MDSS.QueryXML.COUNT = function(selectable, userAlias , userDisplayLabel)
 {
   this._selectable = selectable;
   this._userAlias = userAlias;
+  this._userDisplayLabel = userDisplayLabel || '';
 }
 MDSS.QueryXML.COUNT.prototype = {
 
@@ -668,7 +678,8 @@ MDSS.QueryXML.COUNT.prototype = {
 
   	var obj = {
   	  'count': [selectableObj,
-  	  {'userAlias': alias}]
+  	  {'userAlias': alias,
+  	   'userDisplayLabel': this._userDisplayLabel}]
   	};
 
   	return obj;

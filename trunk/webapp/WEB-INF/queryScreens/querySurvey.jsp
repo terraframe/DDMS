@@ -22,6 +22,8 @@
 <%@page import="dss.vector.solutions.query.LayerViewDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
+
 <jsp:include page="../templates/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
 <jwr:script src="/bundles/queryBundle.js"/>
@@ -39,6 +41,7 @@
 
 MDSS.AbstractSelectSearch.Political = true;
 MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
+MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= SentinelSiteDTO.CLASS %>');
 
 (function(){
 

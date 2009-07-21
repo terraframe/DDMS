@@ -345,7 +345,7 @@ MDSS.QueryPanel.prototype = {
     YAHOO.util.Dom.setAttribute(this._startDate, 'type', 'text');
     this._startDate.id = this.START_DATE_RANGE;
     YAHOO.util.Dom.addClass(this._startDate, 'DatePick');
-    YAHOO.util.Event.addListener(this._startDate, "blur", this.disableDateCheck, null, this);
+    //YAHOO.util.Event.addListener(this._startDate, "blur", this.disableDateCheck, null, this);
 
     this._startDateRangeCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'type', 'checkbox');
@@ -359,7 +359,7 @@ MDSS.QueryPanel.prototype = {
     YAHOO.util.Dom.setAttribute(this._endDate, 'type', 'text');
     this._endDate.id = this.END_DATE_RANGE;
     YAHOO.util.Dom.addClass(this._endDate, 'DatePick');
-    YAHOO.util.Event.addListener(this._endDate, "blur", this.disableDateCheck, null, this);
+    //YAHOO.util.Event.addListener(this._endDate, "blur", this.disableDateCheck, null, this);
 
     this._endDateRangeCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'type', 'checkbox');

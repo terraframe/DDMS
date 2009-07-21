@@ -297,15 +297,12 @@ MDSS.QueryBase.prototype = {
   	YAHOO.util.Event.on(startCheck, 'click', this.toggleDates, 'START_DATE_RANGE', this);
   	YAHOO.util.Event.on(endCheck, 'click', this.toggleDates, 'END_DATE_RANGE', this);
   	
-  	startCheck.disabled = true;
-  	endCheck.disabled = true;
-
     // set the default for the date searching
     var startDate = this._queryPanel.getStartDate();
     var endDate = this._queryPanel.getEndDate();
 
-    this._defaults.push({element: startCheck, checked:false, disabled:true});
-    this._defaults.push({element: endCheck, checked:false, disabled:true});
+    this._defaults.push({element: startCheck, checked:false});
+    this._defaults.push({element: endCheck, checked:false});
     this._defaults.push({element: startDate, value: ''});
     this._defaults.push({element: endDate, value: ''});
 
@@ -608,11 +605,6 @@ MDSS.QueryBase.prototype = {
             element.click();
           }
         }
-        
-        if(obj.disabled)
-        {
-          element.disabled = true;
-        }
       }
       else if(element.nodeName === 'INPUT' && element.type === 'text')
       {
@@ -633,6 +625,12 @@ MDSS.QueryBase.prototype = {
         {
           element.disabled = true;
         }
+      }
+      
+              
+      if(obj.disabled)
+      {
+        element.disabled = true;
       }
     }
   },

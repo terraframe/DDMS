@@ -10,6 +10,7 @@ import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.entomology.MosquitoDTO;
+import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.sld.SLDWriter;
 import dss.vector.solutions.surveillance.AggregatedCaseDTO;
 
@@ -57,6 +58,33 @@ public class MappingController extends MappingControllerBase implements
       layerWriter.write();
     }
 
+  }
+  
+  @Override
+  public void mapSurveyQuery(String queryXML, String config, String[] universalLayers,
+      String savedSearchId) throws IOException, ServletException
+  {
+    try
+    {
+      // must write layers first so the mapping has valid SLD files to reference. If
+      // the search id is null, skip this step so control flow continues and the proper
+      // error can be thrown.
+      if(savedSearchId != null && savedSearchId.trim().length() > 0)
+      {
+        writeLayers(savedSearchId);
+      }
+      
+      String layers = SurveyPointDTO.mapQuery(this.getClientRequest(), queryXML, config,
+          universalLayers, savedSearchId);
+      
+      resp.getWriter().print(layers);
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
 
   @Override
