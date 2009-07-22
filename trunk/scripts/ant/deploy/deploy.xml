@@ -467,8 +467,8 @@
 			</fileset>
 		</copy>
 
-		<antcall target="compile_generated">
-		</antcall>
+		<antcall target="compile_generated"/>
+
 		<copy todir="${deploy.bin}">
 			<fileset dir="${server.bin}" includes="**/*.class" />
 			<fileset dir="${common.bin}" includes="**/*.class" />
@@ -476,6 +476,7 @@
 		</copy>
 
 		<!-- compile and jar the application library (e.g., servlet filters) -->
+		<!--
 		<iajc sourceroots="${local.src}" destDir="${deploy.bin}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/terraframe.jar"  maxmem="1024m">
 			<classpath>
 				<path refid="framework.classpath" />
@@ -484,6 +485,7 @@
 				<pathelement location="${server.bin}" />
 			</classpath>
 		</iajc>
+		-->
 
 		<!-- These files are needed for compilation, but should not exist in the deploy -->
 		<delete file="${deploy.bin}/dss/vector/solutions/global/CredentialsSingleton.class" />
@@ -543,6 +545,18 @@
 			</classpath>
 		</java>
 	</target>
+
+	<target name="redo_last_import" description="RollsBack one Version and then ReImports it" depends="get_version_number">
+			<echo message="Update domain to the most recent schema" />
+			<java classname="com.terraframe.mojo.dataaccess.io.RedoLastUpdate" failonerror="true">
+				<arg value="${version.dir}/" />
+				<arg value="${version.xsd}"/>
+				<classpath>
+					<path refid="framework.classpath" />
+				</classpath>
+			</java>
+		</target>
+
 
 	<target name="create_new_domain_model" description="Creates a new time stamped domain model">
 		<echo message="Create a time stamped schema" />

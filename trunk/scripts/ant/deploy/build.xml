@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="MDSS" default="fast_build">
+	<project name="MDSS" default="fast_build">
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="../../../lib/ant/ant-contrib-1.0b3.jar" />
 	<taskdef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="../../../lib/ant/svnant.jar;../../../lib/ant/svnClientAdapter.jar;../../../lib/ant/svnkit.jar;../../../lib/ant/svnjavahl.jar;../../../lib/ant/ganymed.jar;" />
 
@@ -28,12 +27,10 @@
 	<!--<property name="write_rev" value="false" />-->
 
 	<!-- Rebuild Deploy -->
-	<target name="deploy_rebuild_all"
-		depends="deploy_cleanup_files_rebuild_db, deploy_all_files, deploy_import_schema, import_geodata_deploy"
-		description="Deploy - Everything">
+	<target name="deploy_rebuild_all" depends="deploy_cleanup_files_rebuild_db, deploy_all_files, deploy_import_schema, import_geodata_deploy" description="Deploy - Everything">
 	</target>
 
-    <!-- depends="deploy_cleanup_files_rebuild_db, deploy_all_files, deploy_import_schema, deploy_update_db_source_and_classes, import_geodata_deploy" -->
+	<!-- depends="deploy_cleanup_files_rebuild_db, deploy_all_files, deploy_import_schema, deploy_update_db_source_and_classes, import_geodata_deploy" -->
 	<target name="deploy_cleanup_files_rebuild_db" depends="" description="Deploy Step 1 - Cleanup Files and Rebuild MOJO">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy - Cleanup Files and Rebuild MOJO">
 			<jvmarg value="-Xmx${max_memory_use}" />
@@ -120,27 +117,27 @@
 	<!-- Deploy Incremental Schema Update -->
 	<target name="deploy_incremental_schema_update" depends="deploy_all_application_files, deploy_import_schema, deploy_update_db_source_and_classes" description="Deploy - Incremental Schema Update">
 		<antcall target="call_reload_jsp">
-	    </antcall>
+		</antcall>
 	</target>
-    <!-- depends="deploy_delete_generated_all, deploy_all_files, deploy_import_schema, deploy_update_db_source_and_classes" -->
+	<!-- depends="deploy_delete_generated_all, deploy_all_files, deploy_import_schema, deploy_update_db_source_and_classes" -->
 
 	<!-- Deploy Incremental File Update -->
 	<target name="deploy_incremental_file_update_1" depends="deploy_all_application_files, deploy_update_db_source_and_classes" description="Deploy - Incremental File Update (including DB) ">
-	    <antcall target="call_reload_jsp">
-	    </antcall>
+		<antcall target="call_reload_jsp">
+		</antcall>
 	</target>
 
 	<!-- Deploy Incremental File Update -->
 	<target name="deploy_incremental_file_update_2" depends="deploy_all_application_files" description="Deploy - Incremental File Update (not including DB)">
-	    <antcall target="call_reload_jsp">
-	    </antcall>
+		<antcall target="call_reload_jsp">
+		</antcall>
 	</target>
 
 	<!-- Deploy Presentation Files -->
 	<target name="deploy_presentation_files" depends="" description="Deploy - Presentaiton Files">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy Presentaiton Files">
 			<jvmarg value="-Xmx${max_memory_use}" />
-		    <jvmarg value="-Dmojo.keepSource=true" />
+			<jvmarg value="-Dmojo.keepSource=true" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -192,8 +189,8 @@
 	<target name="develop_change_schema_version" depends="" description="Updates the schema to the given version">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop change schema version">
 			<jvmarg value="-Xmx${max_memory_use}" />
-		    <jvmarg value="-Dmojo.keepSource=true" />
-		    <jvmarg value="-DversionNumber=${versionNumber}" />
+			<jvmarg value="-Dmojo.keepSource=true" />
+			<jvmarg value="-DversionNumber=${versionNumber}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -203,11 +200,40 @@
 		</java>
 	</target>
 
+	<target name="develop_redo_last_schema_change" depends="" description="Undo and Redo the last schmea update">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop change schema version">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-Dmojo.keepSource=true" />
+			<jvmarg value="-DversionNumber=${versionNumber}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="redo_last_import" />
+		</java>
+	</target>
+
+	<target name="deploy_redo_last_schema_change" depends="" description="Undo and Redo the last schmea update">
+			<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop change schema version">
+				<jvmarg value="-Xmx${max_memory_use}" />
+				<jvmarg value="-Dmojo.keepSource=true" />
+				<jvmarg value="-DversionNumber=${versionNumber}" />
+				<classpath>
+					<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+				</classpath>
+				<arg value="-buildfile" />
+				<arg file="deploy.xml" />
+				<arg value="redo_last_import" />
+			</java>
+		</target>
+
+
 	<target name="deploy_change_schema_version" depends="" description="Updates the schema to the given version">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop change schema version">
 			<jvmarg value="-Xmx${max_memory_use}" />
-		    <jvmarg value="-Dmojo.keepSource=true" />
-		    <jvmarg value="-DversionNumber=${versionNumber}" />
+			<jvmarg value="-Dmojo.keepSource=true" />
+			<jvmarg value="-DversionNumber=${versionNumber}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -232,6 +258,9 @@
 		<echo message="The build is complete, please start tomcat" />
 	</target>
 
+	<target name="fast_build_2" depends="deploy_all,import_geodata,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
+		<echo message="The build is complete, please start tomcat" />
+	</target>
 
 	<target name="copy_dev_to_deploy" depends="kill_tomcat" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="dumping the develop db to a sql file " />
@@ -457,40 +486,40 @@
 
 	<target name="auto_localize" description="Automagicly update MDSS.properties with any new localizations">
 
-	<!-- Change spaces to underscores-->
-	<replaceregexp byline="true" match='(.*(mjl:command|c:set *var="page_title")[^>]+value="[A-Za-z0-9_]+)([^"A-Za-z0-9_])([^"]+".*)$' replace="\1_\4" >
+		<!-- Change spaces to underscores-->
+		<replaceregexp byline="true" match='(.*(mjl:command|c:set *var="page_title")[^>]+value="[A-Za-z0-9_]+)([^"A-Za-z0-9_])([^"]+".*)$' replace="\1_\4">
 		<fileset dir="../../../webapp" includes="**/*.jsp" />
-	</replaceregexp>
+		</replaceregexp>
 
 
-	<!-- Print all the places that have spaces   pattern='mjl:command?[^>]+value="[^"$ ][^" ]+( )[^" ]+"' -->
-	<concat >
-		<header filtering="no" trimleading="yes">
+		<!-- Print all the places that have spaces   pattern='mjl:command?[^>]+value="[^"$ ][^" ]+( )[^" ]+"' -->
+		<concat>
+			<header filtering="no" trimleading="yes">
          SPACES IN KEYS :
 	     =============================
 	     </header>
-		<filterchain>
-			<containsregex pattern='(.*(mjl:command|c:set *var="page_title")[^>]+value="[A-Za-z0-9_]+)([^"A-Za-z0-9_])([^"]+".*)$' />
+			<filterchain>
+				<containsregex pattern='(.*(mjl:command|c:set *var="page_title")[^>]+value="[A-Za-z0-9_]+)([^"A-Za-z0-9_])([^"]+".*)$' />
 		</filterchain>
-		<fileset dir="../../../webapp" includes="**/*.jsp" />
-	</concat>
+				<fileset dir="../../../webapp" includes="**/*.jsp" />
+			</concat>
 
-	<!-- Collect all the keys into one file-->
-	<concat force="yes" destfile="MDSS.properties" append="false" >
-		<filterchain>
-			<containsregex pattern='(fmt:message[^>]+key|var="page_title"[^>]+value|mjl:command[^>]+value)="[A-Za-z0-9_]+"' />
+			<!-- Collect all the keys into one file-->
+			<concat force="yes" destfile="MDSS.properties" append="false">
+				<filterchain>
+					<containsregex pattern='(fmt:message[^>]+key|var="page_title"[^>]+value|mjl:command[^>]+value)="[A-Za-z0-9_]+"' />
 		</filterchain>
-		<fileset dir="../../../webapp" includes="**/*.jsp" />
-	</concat>
+					<fileset dir="../../../webapp" includes="**/*.jsp" />
+				</concat>
 
-	<concat force="yes" destfile="MDSS.properties" append="true" >
-		<filterchain>
-			<containsregex pattern='text:\s*"([A-Za-z0-9_]+)[("]' />
-		</filterchain>
-		<fileset dir="../../../webapp" includes="**/navMenu.js" />
-	</concat>
+				<concat force="yes" destfile="MDSS.properties" append="true">
+					<filterchain>
+						<containsregex pattern='text:\s*"([A-Za-z0-9_]+)[("]' />
+					</filterchain>
+					<fileset dir="../../../webapp" includes="**/navMenu.js" />
+				</concat>
 
-	<!-- Collect all the mjl commands
+				<!-- Collect all the mjl commands
 	<concat force="yes" destfile="MDSS.properties" append="true" >
 		<filterchain>
 			<containsregex pattern='mjl:command?[^>]+value="([^"$ ][^" ]+)"' />
@@ -498,10 +527,10 @@
 		<fileset dir="../../../webapp" includes="**/*.jsp" />
 	</concat>-->
 
-	<!--mark these keys as new-->
-	<replaceregexp byline="true" file="MDSS.properties" match='^(.*text:\s*")([A-Za-z0-9_]+)([("].*)' replace="\2=\2  FOUND-A-NEW-KEY" />
+				<!--mark these keys as new-->
+				<replaceregexp byline="true" file="MDSS.properties" match='^(.*text:\s*")([A-Za-z0-9_]+)([("].*)' replace="\2=\2  FOUND-A-NEW-KEY" />
 
-	<replaceregexp byline="true" file="MDSS.properties" match='^.*(fmt:message[^>]+key|var="page_title"[^>]+value|mjl:command[^>]+value)="([^"]+)(".*)' replace="\2=\2  FOUND-A-NEW-KEY" />
+				<replaceregexp byline="true" file="MDSS.properties" match='^.*(fmt:message[^>]+key|var="page_title"[^>]+value|mjl:command[^>]+value)="([^"]+)(".*)' replace="\2=\2  FOUND-A-NEW-KEY" />
 
 	<replaceregexp byline="true" file="MDSS.properties" match='^(.*var="page_title" *value=")([^"]+)(".*)' replace="\2=\2  FOUND-A-NEW-KEY" />
 
@@ -526,7 +555,7 @@
 	<property file="MDSS.properties" prefix="localized" />
 
 	<!-- write out the new properties list -->
-	<echoproperties prefix="localized"  destfile="MDSS.properties"/>
+	<echoproperties prefix="localized" destfile="MDSS.properties" />
 
 	<!-- remove the prefix-->
 	<replaceregexp byline="true" file="MDSS.properties" match='^(localized\.)(.*)$' replace="\2" />
