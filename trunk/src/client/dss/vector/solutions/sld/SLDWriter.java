@@ -70,7 +70,7 @@ public abstract class SLDWriter implements Reloadable
     this.layer.setSldFile(webFile.getId());
     this.layer.apply();
 
-    // Applying a layer on unlocks the individual layer not all of the objects
+    // Applying a layer only unlocks the individual layer not all of the objects
     // used in a layer. Therefore we must call the unlock method so that all of
     // the objects used in a layer are also unlocked.
     this.layer.unlock();
