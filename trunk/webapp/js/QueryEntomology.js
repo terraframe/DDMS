@@ -20,6 +20,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    // START: query objects that dictate state of the query.
 
 	    this._countSelectable = null;
+	    this._ratioSelectable = null;
 
 	    this._specieGroupSelectables = {};
 	    this._visibleSelectables = {};
@@ -39,6 +40,17 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
 
 	    // END: query objects
+
+
+	    // Key/value where key is attribute.getKey() + "_li"
+	    // (which is the id of the relevant LI node,
+	    // and value is an array of ContextMenuItems.
+	    this._menus = {};
+
+	    // Map of criteria ids and associated ContextMenuItems.
+	    this._menuItems = {};
+
+
 
 	    for(var i=0; i<queryList.length; i++)
 	    {
@@ -166,6 +178,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      var selectable = this._visibleSelectables[name];
 
 	      queryXML.addSelectable(mosquitoQuery.getAlias()+'_'+name, selectable);
+	      //da
 
 	      if(selectable.attribute)
 	      {
@@ -189,18 +202,25 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	          queryXML.addEntity(new MDSS.QueryXML.Entity(t,t));
 	        }
 
+	        var items = this._menus[selectable.attribute.getKey()+'_li'];
+
+	        if(items)
+	        {
 	      	if(selectable.attribute.getDtoType() == 'AttributeEnumerationDTO')
 	      	{
-		      	var enumIds = selectable.attribute._whereValues.filter(
-		      			function(a){return a.checked;}).map(function(a){return a.uuid;}).join(',');
+		      	var enumIds = items.filter(
+		      			function(a){return a.checked;}).map(
+		      					function(a){return a.uuid;}
+		      						).join(',');
 		      	if  (enumIds.length > 0)
 		      	{
 		      		var condition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.CONTAINS_ANY, enumIds);
 		      		conditions.push(condition);
 		      	}
 	      	}else{
-
-	      		var whereIds = selectable.attribute._whereValues.filter(function(a){return a.checked;}).map(function(a){return a.uuid;});
+	      		var whereIds = items.filter(
+	      				function(a){return a.checked;}).map(
+	      						function(a){return a.uuid;});
 	      		if(whereIds.length == 1)
 	      		{
 	      		  var condition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.EQ, whereIds[0]);
@@ -220,6 +240,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      		}
 	      	}
 	      }
+	     }
 	    }
 
 	    var aggNames = Mojo.util.getKeys(this._visibleAggregateSelectables);
@@ -274,6 +295,10 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    {
 	      queryXML.addSelectable(mosquitoQuery.getAlias()+'_globalCount', this._countSelectable);
 	    }
+	    if(this._ratioSelectable != null)
+	    {
+	      queryXML.addSelectable(MDSS.QueryXML.RATIO_FUNCTION, this._ratioSelectable);
+	    }
 
 	    var where = null;
 	    if(conditions.length > 0 )
@@ -302,7 +327,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    var attributeName = attribute.getAttributeName();
 
 	    if(attribute.getType() == 'sqlcharacter'){
-	    	var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attributeName));
+	    	var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attributeName,attribute.getDisplayLabel(),attribute._isAggregate));
 	    	selectable.attribute = attribute;
 	    	var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
 	 	    column.attribute = attribute;
@@ -372,14 +397,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      this._addVisibleAttribute(attribute);
 
 	      check.nextSibling.disabled = false;
-	      check.contextMenu = new YAHOO.widget.ContextMenu(
-	      			                                "contextmenu"+attribute.getAttributeName(),
-	      			                                {
-	      			                                    trigger: liTarget,
-	      			                                    itemdata: attribute._whereValues,
-	      			                                    lazyload: true
-	      			                                }
-	      			                            );
+
 	      // check.contextMenu.suscribe('beforeHideEvent',_addSelectedColumn)
 	      if(YAHOO.util.Dom.hasClass(check, 'specieGroupCheck'))
 	      {
@@ -396,7 +414,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    else
 	    {
 	      this._removeVisibleAttribute(attribute, true, true, true);
-	      check.contextMenu.destroy();
 	      var select = check.nextSibling;
 	      select.selectedIndex = 0;
 	      select.disabled = true;
@@ -437,6 +454,37 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      this._countSelectable = aggSelectable;
 
 	      this._queryPanel.insertColumn(attribute.getColumnObject());
+
+	      // ADD THEMATIC VARIABLE
+	      this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
+	    }
+	    else
+	    {
+	      var column = this._queryPanel.getColumn(attribute.getKey());
+	      this._queryPanel.removeColumn(column);
+
+	      this._countSelectable = null;
+
+	      this._queryPanel.removeThematicVariable(attribute.getKey());
+	    }
+	  },
+
+	  _toggleRatio : function(e, attribute)
+	  {
+	    var check = e.target;
+
+	    if(check.checked)
+	    {
+	    	//if(attribute.getType() == 'sqlcharacter'){
+		    	var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel(),attribute._isAggregate));
+		    	selectable.attribute = attribute;
+		    	var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+		 	    column.attribute = attribute;
+		    //}
+
+	      this._ratioSelectable = selectable;
+
+	      this._queryPanel.insertColumn(column);
 
 	      // ADD THEMATIC VARIABLE
 	      this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
@@ -503,24 +551,24 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  },
 
 
-	  _whereValueHandler: function(e,ee,obj){
-	    obj.checked = ! obj.checked;
-	    this.cfg.setProperty('checked', ! this.cfg.getProperty('checked'));
-	    var listId = obj.attribute.getKey() + '_whereValues';
-	    var list = document.getElementById(listId);
-	    var liId = obj.uuid + "_summary";
-	    if(obj.checked)
-	    {
-		    var li = document.createElement('li');
-		    li.id = liId;
-		    li.innerHTML = obj.text;
-		    list.appendChild(li);
-	    }
-	    else
-	    {
-	    	var li = document.getElementById(liId);
-	    	list.removeChild(li);
-	    }
+	  _whereValueHandler: function(eventType, event, obj)
+	  {
+
+	  	 var attribute = obj.attribute;
+	     var value = obj.value;
+	     var display = obj.display;
+
+	     var item = this._menuItems[attribute.getKey()+'-'+value];
+	     item.checked = !item.checked;
+
+	     if(item.checked)
+	     {
+	    	 this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
+	     }
+	     else
+	     {
+	    	 this._queryPanel.removeWhereCriteria(attribute.getKey(), value);
+	     }
 	  },
 
 
@@ -595,27 +643,30 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	      if (visibleObj.dropDownMap)
 	      {
-	      	var options = [''];
-	      	var displayLabels = [''];
-		      options = options.concat(Mojo.util.getKeys(visibleObj.dropDownMap));
-		      displayLabels = displayLabels.concat(Mojo.util.getValues(visibleObj.dropDownMap));
+
+	      	li.id = attribute.getKey()+'_li';
+
+		      var options = Mojo.util.getKeys(visibleObj.dropDownMap);
+		      var displayLabels = Mojo.util.getValues(visibleObj.dropDownMap);
+		      var items = [];
 		      for(var j=0; j<options.length; j++)
 		      {
-		      	attribute._whereValues.push({
+		      	var item = {
 		        		checked : false,
 		        		text : displayLabels[j],
-		        		id:options[j],
 		        		uuid:options[j],
 		        		myIndex:j,
-		        		attribute:attribute,
+		        		//attribute:attribute,
 		        		onclick: {
-		      				fn: that._whereValueHandler
+		      				fn: that._whereValueHandler,
+		      				obj: {attribute: attribute, value: options[j], display: displayLabels[j]},
+		              scope: this
 		      	  }
-		        });
-		      	// give menu onclick handler reference back to the original
-						// attribute
-		        attribute._whereValues[attribute._whereValues.length-1].onclick.obj = attribute._whereValues[attribute._whereValues.length-1];
+		      	}
+		        items.push(item);
+		      	this._menuItems[attribute.getKey()+'-'+options[j]] = item;
 		      }
+		      this._menus[li.id] = items;
 	      }
 
 	      visibleUl.appendChild(li);
@@ -650,27 +701,32 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    this._queryPanel.addQueryItem({
 	      html: this._getVizDiv(this,visibleAttributes, "Individuals", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS,"individualMosquitoCheck"),
-	      id: 'visibleAttributesItem'
+	      id: 'visibleAttributesItem',
+	      menuBuilder : MDSS.util.bind(this, this._menuBuilder)
 	    });
 
 	    this._queryPanel.addQueryItem({
 	      html: this._getVizDiv(this,assays[0], "Infectivity_Assays", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS,"individualMosquitoCheck"),
-	      id: 'Infectivity_Assays'
+	      id: 'Infectivity_Assays',
+	      menuBuilder : MDSS.util.bind(this, this._menuBuilder)
 	    });
 
 	    this._queryPanel.addQueryItem({
 	      html: this._getVizDiv(this,assays[1], "Molecular_Assays", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS,"individualMosquitoCheck"),
-	      id: 'Molecular_Assays'
+	      id: 'Molecular_Assays',
+	      menuBuilder : MDSS.util.bind(this, this._menuBuilder)
 	    });
 
 	    this._queryPanel.addQueryItem({
 	      html: this._getVizDiv(this,assays[2], "Biochemical_Assays", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS,"individualMosquitoCheck"),
-	      id: 'Biochemical_Assays'
+	      id: 'Biochemical_Assays',
+	      menuBuilder : MDSS.util.bind(this, this._menuBuilder)
 	    });
 
 	    this._queryPanel.addQueryItem({
 	      html: this._getVizDiv(this,specieGroups, "Groups", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS,"specieGroupCheck"),
-	      id: 'specieGroupsItem'
+	      id: 'specieGroupsItem',
+	      menuBuilder : MDSS.util.bind(this, this._menuBuilder)
 	    });
 
 	  },
