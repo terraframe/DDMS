@@ -1576,10 +1576,8 @@ MDSS.QueryPanel.prototype = {
     // make OL compute scale according to WMS spec
     OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
 
-    var bounds = new OpenLayers.Bounds(
-        36.718452, -17.700377000000003,
-        36.938452, -17.480376999999997
-    );
+    var bbox = baseLayer.bbox;
+    var bounds = new OpenLayers.Bounds(bbox[0], bbox[1], bbox[2], bbox[3]);
     var options = {
         controls: [],
         projection: "EPSG:4326",

@@ -128,7 +128,7 @@ public class QueryUtil implements Reloadable
       MdAttributeGeometry mdAttrGeo = GeoHierarchy.getGeometry(geoEntityMd);
       String attributeName = mdAttrGeo.getAttributeName();
 
-      valueQueryParser.addAttributeSelectable(thematicLayerType, attributeName, attributeName, "");
+      valueQueryParser.addAttributeSelectable(thematicLayerType, attributeName, attributeName, QueryConstants.GEOMETRY_NAME_COLUMN);
       valueQueryParser.addAttributeSelectable(thematicLayerType, GeoEntity.ENTITYNAME, GeoEntity.ENTITYNAME, QueryConstants.ENTITY_NAME_COLUMN);
 
       queryMap = valueQueryParser.parse();
@@ -166,7 +166,7 @@ public class QueryUtil implements Reloadable
         valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
 
       }
-
+      
     }
     else
     {

@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,6 +37,8 @@ import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPolygon;
 import com.terraframe.mojo.system.gis.metadata.MdAttributePoint;
 import com.terraframe.mojo.system.gis.metadata.MdAttributePolygon;
 import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Envelope;
 
 import dss.vector.solutions.geo.DuplicateMapDataException;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -143,6 +147,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
      baseLayer.put("view", baseView);
      baseLayer.put("sld", sldFile);
      baseLayer.put("geoserverURL", geoserverPath);
+     baseLayer.put("bbox", getThematicBBox(viewName));
      layers.put(baseLayer);
    }
    catch (JSONException e)
@@ -397,5 +402,92 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
    }
  }
 
+ /**
+  * Gets the bounding box of the thematic layer.
+  * 
+  * @return
+  */
+ public static JSONArray getThematicBBox(String viewName)
+ {
+   ResultSet resultSet = Database.query("SELECT AsText(extent("+viewName+"."+QueryConstants.GEOMETRY_NAME_COLUMN+")) AS bbox FROM "+viewName);
+   try
+   {
+     if(resultSet.next())
+     {
+       String bbox = resultSet.getString("bbox");
+       if(bbox != null)
+       {
+         Pattern p = Pattern.compile("POLYGON\\(\\((.*)\\)\\)");
+         Matcher m = p.matcher(bbox);
+         m.matches();
+         
+         String coordinates = m.group(1);
+         List<Coordinate> coords = new LinkedList<Coordinate>();
+         
+         for(String c : coordinates.split(","))
+         {
+           String[] xAndY = c.split(" ");
+           double x = Double.valueOf(xAndY[0]);
+           double y = Double.valueOf(xAndY[1]);
+
+           coords.add(new Coordinate(x,y));
+         }
+         
+         Envelope e = new Envelope(coords.get(0), coords.get(2));
+
+         JSONArray bboxArr = new JSONArray();
+         
+         try
+         {
+           bboxArr.put(e.getMinX());
+           bboxArr.put(e.getMinY());
+           bboxArr.put(e.getMaxX());
+           bboxArr.put(e.getMaxY());
+         }
+         catch(JSONException ex)
+         {
+           throw new ProgrammingErrorException(ex);
+         }
+         
+         return bboxArr;
+       }
+     }
+   }
+   catch (SQLException sqlEx1)
+   {
+     Database.throwDatabaseException(sqlEx1);
+   }
+   finally
+   {
+     try
+     {
+       java.sql.Statement statement = resultSet.getStatement();
+       resultSet.close();
+       statement.close();
+     }
+     catch (SQLException sqlEx2)
+     {
+       Database.throwDatabaseException(sqlEx2);
+     }
+   }
+   
+   // Some problem occured and the bbox couldn't be calculated.
+   // Just return the African defaults
+   JSONArray bboxArr = new JSONArray();
+   
+   try
+   {
+     bboxArr.put(36.718452);
+     bboxArr.put(-17.700377000000003);
+     bboxArr.put(36.938452);
+     bboxArr.put(-17.480376999999997);
+   }
+   catch(JSONException ex)
+   {
+     throw new ProgrammingErrorException(ex);
+   }
+   
+   return bboxArr;
+ }
 
 }
