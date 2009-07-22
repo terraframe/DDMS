@@ -131,21 +131,31 @@ public class QueryUtil implements Reloadable
 
       AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
       GeoEntityQuery geoEntityQuery = (GeoEntityQuery) queryMap.get(thematicLayerType);
+      GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
 
       if(allPathsQuery == null)
       {
-        //this case is for when they have not restricted to a specific geoEntity, so we want parents
         allPathsQuery = new AllPathsQuery(queryFactory);
-        GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
+        //this case is for when they have not restricted to a specific geoEntity, so we want parents
         valueQuery.WHERE(allPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
         valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
+
       }
       else
       {
-      //this case is for when they have restricted to a specific geoEntity, so we want the children
-        valueQuery.WHERE(allPathsQuery.getChildGeoEntity().EQ(geoEntityQuery));
-        GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
+
+        //This is the case for where we are restricting by one or more entitys
+
+        //first we make a seond all paths query so that we can narrow down the all paths table to just rows that match entity restrictions
+        AllPathsQuery allPathsParent = new AllPathsQuery(queryFactory);
+
+        //
+        valueQuery.WHERE(allPathsParent.getParentGeoEntity().EQ(geoEntityQuery));
+
+        valueQuery.WHERE(allPathsParent.getChildGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
+
         valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
+
       }
 
     }
