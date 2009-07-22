@@ -16,7 +16,6 @@ import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableMoment;
 import com.terraframe.mojo.query.SelectableSQL;
-import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
@@ -142,25 +141,16 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     valueQuery.FROM(collectionQuery);
     if (mosquitoQuery != null)
     {
-      //valueQuery.FROM(mosquitoQuery);
       valueQuery.WHERE(mosquitoQuery.getCollection().getId().EQ(collectionQuery.getId()));
     }
 
     UninterestingSpecieGroupQuery groupQuery = (UninterestingSpecieGroupQuery) queryMap.get(UninterestingSpecieGroup.CLASS);
     if (groupQuery != null)
     {
-      //valueQuery.FROM(groupQuery);
       valueQuery.WHERE(groupQuery.getCollection().getId().EQ(collectionQuery.getId()));
     }
 
-    if (xml.indexOf("SpecieRatio") > 0)
-    {
-      SelectableSQLCharacter specieRatio = (SelectableSQLCharacter) valueQuery.getSelectable("SpecieRatio");
-      specieRatio.setSQL("''");
-    }
-
     SelectableMoment dateAttribute = collectionQuery.getDateCollected();
-    //valueQuery.FROM(dateAttribute.getDefiningTableName(), dateAttribute.getDefiningTableAlias());
 
     //force the joins for date based selectables
     ConcreteMosquitoCollectionQuery concreteCollectionQuery = (ConcreteMosquitoCollectionQuery) queryMap.get(ConcreteMosquitoCollection.CLASS);
@@ -172,12 +162,27 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       }
     }
 
+
     valueQuery = joinAssays(valueQuery, mosquitoQuery, "InfectivityAssaysSnapshot", InfectivityAssayTestResult.CLASS);
     valueQuery = joinAssays(valueQuery, mosquitoQuery, "TargetSiteAssaysSnapshot", TargetSiteAssayTestResult.CLASS);
     valueQuery = joinAssays(valueQuery, mosquitoQuery, "MetabolicAssaysSnapshot",MetabolicAssayTestResult.CLASS);
 
-    return QueryUtil.setQueryDates(xml,valueQuery,dateAttribute);
+    valueQuery = QueryUtil.setQueryDates(xml,valueQuery,dateAttribute);
 
+
+
+    if (mosquitoQuery != null)
+    {
+      valueQuery = QueryUtil.setQueryRatio(xml,valueQuery,"COUNT("+mosquitoQuery.getTableAlias()+".id)");
+    }
+
+    if (groupQuery != null)
+    {
+      valueQuery = QueryUtil.setQueryRatio(xml,valueQuery,"COUNT("+groupQuery.getTableAlias()+".id)");
+    }
+
+
+    return valueQuery;
   }
 
    public static ValueQuery joinAssays(ValueQuery valueQuery,MosquitoQuery mosquitoQuery,String tableName, String klass)
@@ -268,6 +273,8 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
      String[] selectedUniversals = queryConfig.getSelectedUniversals();
      ValueQuery query = xmlToValueQuery(xml, selectedUniversals, true, thematicLayer);
+
+     System.out.println(query.getSQL());
 
      String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
 
