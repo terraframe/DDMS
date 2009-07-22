@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import org.xml.sax.SAXParseException;
 
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
+import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.AttributeReference;
@@ -20,6 +21,7 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableMoment;
 import com.terraframe.mojo.query.SelectableReference;
+import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.SelectableSQLDate;
 import com.terraframe.mojo.query.SelectableSingle;
@@ -53,6 +55,8 @@ public class QueryUtil implements Reloadable
   private static final String DATEGROUP_SEASON  = "dategroup_season";
 
   private static final String START_DATE_RANGE  = "start_date_range";
+
+  private static final String RATIO  = "ratio_of_this_row_to_total_count";
 
   private static final String END_DATE_RANGE    = "end_date_range";
 
@@ -357,6 +361,29 @@ public class QueryUtil implements Reloadable
       {
         dateGroup.setSQL("'" + matcher.group(1) + "'");
       }
+    }
+
+    return valueQuery;
+
+  }
+
+  public static ValueQuery setQueryRatio(String xml, ValueQuery valueQuery, String countSql)
+  {
+
+    if (xml.indexOf(RATIO) > 0)
+    {
+      SelectableSQL ratio = (SelectableSQL) valueQuery.getSelectable(RATIO);
+      Double sum = 0.0;
+
+      //specieRatio.setSQL("");
+      ratio.setSQL(countSql);
+
+      for(ValueObject v :valueQuery.getIterator())
+      {
+        sum += Double.parseDouble(v.getValue(RATIO));
+      }
+
+      ratio.setSQL("to_char("+countSql+"/"+sum+",'99.99')");
     }
 
     return valueQuery;
