@@ -3,7 +3,7 @@
  */
 MDSS.QueryXML = {
   DEBUG: true,
-  
+
   Operator : {
     EQ: 'EQ',
     GT: 'GT',
@@ -29,7 +29,8 @@ MDSS.QueryXML = {
   },
 
   GROUP_BY_FUNCTION : 'GB',
-  COUNT_FUNCTION : 'COUNT'
+  COUNT_FUNCTION : 'COUNT',
+  RATIO_FUNCTION : 'ratio_of_this_row_to_total_count',
 };
 
 /**
@@ -511,12 +512,13 @@ MDSS.QueryXML.Sqlinteger.prototype = {
   }
 }
 
-MDSS.QueryXML.Sqlcharacter = function(entityAlias, name, userAlias, userDisplayLabel)
+MDSS.QueryXML.Sqlcharacter = function(entityAlias, name, userAlias, userDisplayLabel, isAggregate)
 {
   this._entityAlias = entityAlias;
   this._name = name;
   this._userAlias = userAlias || '';
   this._userDisplayLabel = userDisplayLabel || '';
+  this._isAggregate = isAggregate || false;
 }
 MDSS.QueryXML.Sqlcharacter.prototype = {
 
@@ -532,7 +534,9 @@ MDSS.QueryXML.Sqlcharacter.prototype = {
       'sqlcharacter': {
         'name': this._name,
         'userAlias': this._userAlias,
-        'userDisplayLabel': this._userDisplayLabel
+        'userDisplayLabel': this._userDisplayLabel,
+        'isaggregate': this._isAggregate
+
       }
     };
 
