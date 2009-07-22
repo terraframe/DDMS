@@ -488,7 +488,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      var column = this._queryPanel.getColumn(attribute.getKey());
 	      this._queryPanel.removeColumn(column);
 
-	      this._countSelectable = null;
+	      this._ratioSelectable = null;
 
 	      this._queryPanel.removeThematicVariable(attribute.getKey());
 	    }
