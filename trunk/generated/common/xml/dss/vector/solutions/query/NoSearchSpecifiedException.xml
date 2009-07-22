@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">Cannot perform the operation without having first specified a saved search.</locale>
+  <locale language="en">Cannot perform the operation without having first loaded a saved search.</locale>
 </exception>
