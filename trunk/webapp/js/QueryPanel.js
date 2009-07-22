@@ -10,7 +10,7 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
   var minHeight = 500;
 
   var pWidth =  (window.innerWidth - 30) > minWidth ? (window.innerWidth - 30) : minWidth;
-  var pHeight = (window.innerHeight * 0.6) > minHeight ? (window.innerHeight * 0.6) : minHeight;
+  var pHeight = (window.innerHeight - 160) > minHeight ? (window.innerHeight -160) : minHeight;
 
 
   this._queryLayout = new YAHOO.widget.Layout(queryPanelId, {
@@ -200,7 +200,7 @@ MDSS.QueryPanel.prototype = {
 
     ul.appendChild(li);
   },
-  
+
   clearWhereCriteria : function(key)
   {
     var whereValues = document.getElementById(key+"_whereValues");
@@ -209,7 +209,7 @@ MDSS.QueryPanel.prototype = {
       whereValues.innerHTML = '';
     }
   },
-  
+
   /**
    * Adds a WHERE criteria label to the attribute with
    * the given key.
@@ -222,15 +222,15 @@ MDSS.QueryPanel.prototype = {
     {
       return;
     }
-  
+
     var whereValues = document.getElementById(key+"_whereValues");
     li = document.createElement('li');
     li.id = id;
     li.innerHTML = display;
-    
+
     whereValues.appendChild(li);
   },
-  
+
   /**
    * Removes a single entry in the WHERE criteria for
    * an attribute with the given key.
@@ -244,7 +244,7 @@ MDSS.QueryPanel.prototype = {
       li.parentNode.removeChild(li);
     }
   },
-  
+
   /**
    * Removes a column from the query summary in
    * the right panel.
@@ -403,7 +403,7 @@ MDSS.QueryPanel.prototype = {
     body.appendChild(dateRange);
 
   },
-  
+
   /**
    */
   disableDateCheck : function()
@@ -477,7 +477,7 @@ MDSS.QueryPanel.prototype = {
       if(Mojo.util.isFunction(queryItem.menuBuilder))
       {
         this._queryMenuBuilders[queryItem.id] = queryItem.menuBuilder;
-        liE.addClass('contextMenuContainer'); 
+        liE.addClass('contextMenuContainer');
       }
     }
 
@@ -1634,6 +1634,7 @@ MDSS.QueryPanel.prototype = {
 
          mapLayers.push(extraLayer);
     }
+
 
 
     this._map.addLayers(mapLayers);
