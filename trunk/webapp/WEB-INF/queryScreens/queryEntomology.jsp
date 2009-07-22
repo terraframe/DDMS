@@ -63,6 +63,8 @@
 
 <%=Halp.loadTypes((List<String>) Arrays.asList(mosquitoTypes))%>
 <%=Halp.loadTypes((List<String>) Arrays.asList(queryTypes))%>
+
+
 <script type="text/javascript">
 // Setting both values to false will select *all* univerals
 MDSS.AbstractSelectSearch.Political = false;
@@ -109,6 +111,8 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
           row.attributeName = attribName;
           row.type = 'sqlcharacter';
           row.displayLabel = attribName;
+          row.key = attribName;
+
         }
         return row;
       });
@@ -182,9 +186,9 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 <div style="display: none" id="CSVFormContainer"></div>
 <div style="display: none" id="ReportFormContainer"></div>
 
-<textarea id="debug_xml" cols="40" rows="40" style="width:1280px">
+<textarea id="debug_xml" cols="40" rows="40" style="width:1280px"> </textarea>
 
-</textarea>
+
 </div>
 
 <div style="display: none" id="XLSFormContainer"></div>
