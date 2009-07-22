@@ -62,7 +62,8 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     person.addSex(this.getSex().get(0));
     
     String geoId = this.getResidentialGeoId();
-    if (geoId!=null)
+    
+    if (geoId!=null && !geoId.equals(""))
     {
       person.setResidentialGeoEntity(GeoEntity.searchByGeoId(geoId));
     }
