@@ -1645,7 +1645,7 @@ MDSS.QueryPanel.prototype = {
     }));
     this._map.addControl(new OpenLayers.Control.Navigation());
     this._map.addControl(new OpenLayers.Control.Scale($('scale')));
-    this._map.addControl(new OpenLayers.Control.MousePosition({element: $('location')}));
+    //this._map.addControl(new OpenLayers.Control.MousePosition({element: $('location')}));
     this._map.zoomToExtent(bounds);
   },
 

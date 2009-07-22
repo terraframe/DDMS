@@ -375,7 +375,7 @@ MDSS.QueryBase.prototype = {
     // abstract
   },
 
-  _getCountDiv : function(that,divName,klass){
+  _getCountDiv : function(that,divName,klass,useRatio){
 
 
     var visibleDiv = document.createElement('div');
@@ -431,31 +431,32 @@ MDSS.QueryBase.prototype = {
     /*
 		 * Global RATIO, causes implicit group by on all selected attributes
 		 */
+    if(useRatio)
+    {
+	    var ratioAttribute = new MDSS.BasicAttribute({
+	      type: 'sqlcharacter',
+	      key: MDSS.QueryXML.RATIO_FUNCTION,
+	      displayLabel: 'RATIO',
+	      attributeName: MDSS.QueryXML.RATIO_FUNCTION,
+	      isAggregate:true,
+	    });
 
-    var ratioAttribute = new MDSS.BasicAttribute({
-      type: 'sqlcharacter',
-      key: MDSS.QueryXML.RATIO_FUNCTION,
-      displayLabel: 'RATIO',
-      attributeName: MDSS.QueryXML.RATIO_FUNCTION,
-      isAggregate:true,
-    });
+	    var ratioCheck = document.createElement('input');
+	    YAHOO.util.Dom.setAttribute(ratioCheck, 'type', 'checkbox');
+	    YAHOO.util.Dom.setAttribute(ratioCheck, 'id', ratioAttribute.getKey());
+	    YAHOO.util.Event.on(ratioCheck, 'click', that._toggleRatio, ratioAttribute, that);
+	    this._defaults.push({element: ratioCheck, checked:false});
 
-    var ratioCheck = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(ratioCheck, 'type', 'checkbox');
-    YAHOO.util.Dom.setAttribute(ratioCheck, 'id', ratioAttribute.getKey());
-    YAHOO.util.Event.on(ratioCheck, 'click', that._toggleRatio, ratioAttribute, that);
-    this._defaults.push({element: ratioCheck, checked:false});
+	    var ratioSpan = document.createElement('span');
+	    ratioSpan.innerHTML = ratioAttribute.getDisplayLabel() + ' (GB)';
 
-    var ratioSpan = document.createElement('span');
-    ratioSpan.innerHTML = ratioAttribute.getDisplayLabel() + ' (GB)';
+	    var li = document.createElement('li');
 
-    var li = document.createElement('li');
+	    li.appendChild(ratioCheck);
+	    li.appendChild(ratioSpan);
 
-    li.appendChild(ratioCheck);
-    li.appendChild(ratioSpan);
-
-    visibleUl.appendChild(li);
-
+	    visibleUl.appendChild(li);
+    }
 
 
     var options = Mojo.util.getValues(MDSS.QueryXML.DateGroupOpts);

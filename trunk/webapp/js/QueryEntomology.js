@@ -26,21 +26,18 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._visibleSelectables = {};
 	    this._whereOptions = {};
 	    this._visibleAggregateSelectables = {};
-	    this._visibleGroupBySelectables= {};
+	    this._visibleGroupBySelectables = {};
 
-	    var concerteMosquitoCollection = Mojo.$.dss.vector.solutions.entomology.ConcreteMosquitoCollection;
+	    this._concerteMosquitoCollection = Mojo.$.dss.vector.solutions.entomology.ConcreteMosquitoCollection;
 	    var mosquitoCollection = Mojo.$.dss.vector.solutions.entomology.MosquitoCollection;
-      var attribute = new MDSS.QueryXML.Attribute(mosquitoCollection.CLASS, concerteMosquitoCollection.DATECOLLECTED, concerteMosquitoCollection.DATECOLLECTED);
+      var attribute = new MDSS.QueryXML.Attribute(mosquitoCollection.CLASS, this._concerteMosquitoCollection.DATECOLLECTED, this._concerteMosquitoCollection.DATECOLLECTED);
       this._startDateSelectable = new MDSS.QueryXML.Selectable(attribute);
       this._endDateSelectable = new MDSS.QueryXML.Selectable(attribute);
-
-	    this._thematicSearchList = [];
 
 	    //this screen can query two diffrent classes, so we have a place to store the selected class
 	    this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
 
 	    // END: query objects
-
 
 	    // Key/value where key is attribute.getKey() + "_li"
 	    // (which is the id of the relevant LI node,
@@ -49,8 +46,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    // Map of criteria ids and associated ContextMenuItems.
 	    this._menuItems = {};
-
-
 
 	    for(var i=0; i<queryList.length; i++)
 	    {
@@ -178,7 +173,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      var selectable = this._visibleSelectables[name];
 
 	      queryXML.addSelectable(mosquitoQuery.getAlias()+'_'+name, selectable);
-	      //da
 
 	      if(selectable.attribute)
 	      {
@@ -527,21 +521,22 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    // aggregate functions
 	    var aggFunc = null;
+	    var displayLabel = "("+func+") "+ attribute.getDisplayLabel();
 	    if(func === MDSS.QueryXML.Functions.SUM)
 	    {
-	      aggFunc = new MDSS.QueryXML.SUM(selectable, key);
+	      aggFunc = new MDSS.QueryXML.SUM(selectable, key, displayLabel);
 	    }
 	    else if(func === MDSS.QueryXML.Functions.MIN)
 	    {
-	      aggFunc = new MDSS.QueryXML.MIN(selectable, key);
+	      aggFunc = new MDSS.QueryXML.MIN(selectable, key, displayLabel);
 	    }
 	    else if(func === MDSS.QueryXML.Functions.MAX)
 	    {
-	      aggFunc = new MDSS.QueryXML.MAX(selectable, key);
+	      aggFunc = new MDSS.QueryXML.MAX(selectable, key, displayLabel);
 	    }
 	    else if(func === MDSS.QueryXML.Functions.AVG)
 	    {
-	      aggFunc = new MDSS.QueryXML.AVG(selectable, key);
+	      aggFunc = new MDSS.QueryXML.AVG(selectable, key, displayLabel);
 	    }
 
 	  	this._removeVisibleAttribute(attribute, false, true, false);
@@ -569,6 +564,116 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	     {
 	    	 this._queryPanel.removeWhereCriteria(attribute.getKey(), value);
 	     }
+	  },
+
+
+	  _loadQueryState : function(view)
+	  {
+	    var thisRef = this;
+
+	    var xml = view.getQueryXml();
+	    var parser = new MDSS.Query.Parser(xml);
+
+	    parser.parseSelectables({
+	      attribute : function(entityAlias, attributeName, userAlias){
+	          thisRef._checkBox(userAlias);
+	      },
+	      sum: function(entityAlias, attributeName, userAlias){
+
+	        thisRef._checkBox(userAlias);
+	        thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.SUM);
+	      },
+	      min: function(entityAlias, attributeName, userAlias){
+
+	        thisRef._checkBox(userAlias);
+	        thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MIN);
+	      },
+	      max: function(entityAlias, attributeName, userAlias){
+
+	        thisRef._checkBox(userAlias);
+	        thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MAX);
+	      },
+	      avg: function(entityAlias, attributeName, userAlias){
+
+	        thisRef._checkBox(userAlias);
+	        thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.AVG);
+	      },
+	      count: function(entityAlias, attributeName, userAlias){
+
+	        thisRef._checkBox(userAlias);
+	      },
+	      sqlcharacter : function(entityAlias, attributeName, userAlias){
+
+	        thisRef._checkBox(attributeName);
+	      },
+
+	      sqldate : function(entityAlias, attributeName, userAlias){
+
+	        thisRef._checkBox(userAlias);
+	      },
+	    });
+
+	    var entities = [];
+
+	    parser.parseCriteria({
+	      attribute : function(entityAlias, attributeName, userAlias, operator, value){
+
+	        // restricting geo entities
+	        if(entityAlias === thisRef.ALL_PATHS)
+	        {
+	          entities.push(value);
+	        }else
+	        if(userAlias === thisRef._concerteMosquitoCollection.DATECOLLECTED)
+	        {
+	        	var formatted = MDSS.Calendar.getLocalizedString(value);
+		        if(operator === MDSS.QueryXML.Operator.GE)
+		        {
+		        	var start = thisRef._queryPanel.getStartDate();
+		        	start.value = formatted;
+		        }
+		        else
+		        {
+		        	var end = thisRef._queryPanel.getEndDate();
+		        	end.value = formatted;
+		        }
+	        }
+	        else
+	        {
+	        	var item = thisRef._menuItems[userAlias+'-'+value];
+	        	if(item)
+	        	{
+	        		item.checked = true;
+	        		var attribute = item.onclick.obj.attribute;
+	        		var display = item.onclick.obj.display;
+	        		thisRef._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
+	        	}
+	        }
+
+
+	      }
+	    });
+
+	    this._reconstructSearch(entities, view);
+	  },
+
+	  /**
+	   * Resets all defaults, including clearing all criteria and unchecking
+	   * all context menu items.
+	   */
+	  _resetToDefault : function()
+	  {
+	    MDSS.QueryBase.prototype._resetToDefault.call(this); // super
+
+	    // uncheck all menu items
+	    var keys = Mojo.util.getKeys(this._menuItems);
+	    for(var i=0; i<keys.length; i++)
+	    {
+	      var item = this._menuItems[keys[i]];
+	      item.checked = false;
+	    }
+
+	    this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
+
 	  },
 
 
@@ -613,18 +718,23 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
 	      YAHOO.util.Dom.addClass(check,checkClass);
 	      YAHOO.util.Event.on(check, 'click', that._visibleAttributeHandler, attribute, that);
+	      check.id = attribute.getKey();
 	      li.appendChild(check);
-
+	      this._defaults.push({element:check, checked:false});
 	      if(visibleObj.dtoType === 'AttributeIntegerDTO')
 	      {
 	      	var select = document.createElement('select');
+
+
 		      var options = [''];
 		      options = options.concat(Mojo.util.getValues(MDSS.QueryXML.Functions));
+
 
 		      for(var j=0; j<options.length; j++)
 		      {
 		      	var option = options[j];
 		        var optionEl = document.createElement('option');
+		        optionEl.id = attribute.getKey()+'-'+option;
 		        optionEl.innerHTML = option;
 		        YAHOO.util.Dom.setAttribute(optionEl, 'value', option);
 
@@ -633,7 +743,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 		        select.appendChild(optionEl);
 		      }
 		      select.disabled = true; // default (must be checked to enabled)
-
+		      this._defaults.push({element:select, index:0});
 		      li.appendChild(select);
 	      }
 
@@ -656,7 +766,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 		        		text : displayLabels[j],
 		        		uuid:options[j],
 		        		myIndex:j,
-		        		//attribute:attribute,
 		        		onclick: {
 		      				fn: that._whereValueHandler,
 		      				obj: {attribute: attribute, value: options[j], display: displayLabels[j]},
@@ -695,7 +804,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 
 	    this._queryPanel.addQueryItem({
-	      html: this._getCountDiv(this,"Group_By",Mojo.$.dss.vector.solutions.entomology.Mosquito),
+	      html: this._getCountDiv(this,"Group_By",Mojo.$.dss.vector.solutions.entomology.Mosquito,true),
 	      id: 'globalCount'
 	    });
 
