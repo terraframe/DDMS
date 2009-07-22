@@ -296,7 +296,7 @@ MDSS.QueryBase.prototype = {
 
   	YAHOO.util.Event.on(startCheck, 'click', this.toggleDates, 'START_DATE_RANGE', this);
   	YAHOO.util.Event.on(endCheck, 'click', this.toggleDates, 'END_DATE_RANGE', this);
-  	
+
     // set the default for the date searching
     var startDate = this._queryPanel.getStartDate();
     var endDate = this._queryPanel.getEndDate();
@@ -427,6 +427,36 @@ MDSS.QueryBase.prototype = {
     li.appendChild(countSpan);
 
     visibleUl.appendChild(li);
+
+    /*
+		 * Global RATIO, causes implicit group by on all selected attributes
+		 */
+
+    var ratioAttribute = new MDSS.BasicAttribute({
+      type: 'sqlcharacter',
+      key: MDSS.QueryXML.RATIO_FUNCTION,
+      displayLabel: 'RATIO',
+      attributeName: MDSS.QueryXML.RATIO_FUNCTION,
+      isAggregate:true,
+    });
+
+    var ratioCheck = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(ratioCheck, 'type', 'checkbox');
+    YAHOO.util.Dom.setAttribute(ratioCheck, 'id', ratioAttribute.getKey());
+    YAHOO.util.Event.on(ratioCheck, 'click', that._toggleRatio, ratioAttribute, that);
+    this._defaults.push({element: ratioCheck, checked:false});
+
+    var ratioSpan = document.createElement('span');
+    ratioSpan.innerHTML = ratioAttribute.getDisplayLabel() + ' (GB)';
+
+    var li = document.createElement('li');
+
+    li.appendChild(ratioCheck);
+    li.appendChild(ratioSpan);
+
+    visibleUl.appendChild(li);
+
+
 
     var options = Mojo.util.getValues(MDSS.QueryXML.DateGroupOpts);
     var keys = Mojo.util.getKeys(MDSS.QueryXML.DateGroupOpts);
@@ -626,12 +656,54 @@ MDSS.QueryBase.prototype = {
           element.disabled = true;
         }
       }
-      
-              
+
+
       if(obj.disabled)
       {
         element.disabled = true;
       }
+    }
+  },
+
+
+  _menuBuilder : function(outerLi, targetEl)
+  {
+    var li = null;
+    if(targetEl.nodeName === 'LI')
+    {
+      li = targetEl;
+    }
+    else
+    {
+      var parent = YAHOO.util.Dom.getAncestorByTagName(targetEl, "LI");
+      if(parent != null)
+      {
+        li = parent;
+      }
+    }
+
+    // make sure the attribute is selected before
+    // showing the context menu
+    if(li == null || !li.firstChild.checked)
+    {
+      return [];
+    }
+
+    var items = this._menus[li.id].sort(
+      	function(a,b)
+    		{
+    				x = a.text.toUpperCase();
+    				y = b.text.toUpperCase();
+    				return x>y?1:x<y?-1:0;
+    		});
+
+    if(items != null)
+    {
+      return items;
+    }
+    else
+    {
+      return [];
     }
   },
 
@@ -930,7 +1002,7 @@ MDSS.QueryBase.prototype = {
 
     if(addColumn)
     {
-    
+
       // use the type name and lowercase it so it adheres to attribute naming conventions
       var typeName = type.substring(type.lastIndexOf('.')+1).toLowerCase();
 
@@ -1299,6 +1371,7 @@ MDSS.AbstractAttribute = function(obj, dereference)
     this._entityAlias = obj.entityAlias || this._type;
     this._whereValues = [];
     this._dereference = dereference || false;
+    this._isAggregate = obj.isAggregate || false;
 
     if(obj.key)
     {
@@ -1355,7 +1428,7 @@ MDSS.AbstractAttribute.prototype = {
   {
     return this._displayLabel;
   },
-  
+
   getEntityAlias : function()
   {
     return this._entityAlias;
