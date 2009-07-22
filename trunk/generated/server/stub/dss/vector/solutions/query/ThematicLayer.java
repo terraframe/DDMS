@@ -12,6 +12,7 @@ public class ThematicLayer extends ThematicLayerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long   serialVersionUID          = 1241158194588L;
+  public static final String GEO_VIEW_PREFIX = "geo$";
 
   public ThematicLayer()
   {
@@ -192,9 +193,7 @@ public class ThematicLayer extends ThematicLayerBase implements
       thematicLayer.setGeometryStyle(null);
     }
 
-    // Create the view name, which has to be unique as unique as possible
-    // without going over the maximum view name size.
-    String viewName = "view_" + thematicLayer.getId().substring(0, 16);
+    String viewName = GEO_VIEW_PREFIX + System.currentTimeMillis();
     thematicLayer.setViewName(viewName);
 
     // text style

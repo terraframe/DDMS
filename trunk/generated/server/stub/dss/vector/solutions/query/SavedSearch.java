@@ -1,10 +1,12 @@
 package dss.vector.solutions.query;
 
 import java.io.InputStream;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.business.rbac.UserDAOIF;
+import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -270,10 +272,38 @@ public class SavedSearch extends SavedSearchBase implements
   @Transaction
   public static SavedSearchView loadDefaultSearch(SavedSearchView view)
   {
+    // This is an entry point common to all query screens, so we take this opportunity to clear out old views
+    cleanOldViews();
+    
     SavedSearch search = new DefaultSavedSearch();
     
     search.create(view, true);
     
     return search.getAsView(false, false);
+  }
+
+  private static void cleanOldViews()
+  {
+    long yesterday = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
+    List<String> viewsToDelete = new LinkedList<String>();
+    for (String viewName : Database.getViewsByPrefix(ThematicLayer.GEO_VIEW_PREFIX))
+    {
+      String next = viewName;
+      try
+      {
+        long parseLong = Long.parseLong(next.substring(ThematicLayer.GEO_VIEW_PREFIX.length()));
+        if (parseLong < yesterday)
+        {
+          // This view is old.  Add it to the deletion list 
+          viewsToDelete.add(viewName);
+        }
+      }
+      catch (NumberFormatException e)
+      {
+        // This can happen if there's a view that matches the prefix but doesn't have the timestamp.  Just ignore it.
+      }
+    }
+    // Perform the actual drop commands
+    Database.dropViews(viewsToDelete);
   }
 }
