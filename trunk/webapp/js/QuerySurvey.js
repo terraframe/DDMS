@@ -484,6 +484,21 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     return queryXML;
   },
   
+  /**
+   * Clears (unchecks) all menu items for an attribute.
+   */
+  _clearAllAttributeItems : function(key)
+  {
+    var items = this._menus[key+"_li"];
+    if(items != null)
+    {
+      for(var i=0; i<items.length; i++)
+      {
+        items[i].checked = false;
+      }
+    }
+  },
+  
   _setHouseholdCriteria : function(attribute, value, display, addCriteria)
   {
     var key = attribute.getKey();
@@ -794,11 +809,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     if(removeSelectable)
     {
-      delete this._householdSelectables[attribute.getKey()];
-      
-      // Clear any criteria since criteria cannot exist
-      // without the attribute as a selectable.
-      delete this._householdCriteria[attribute.getKey()];
+      delete this._householdSelectables[key];
     }
 
     // remove all possible query references
@@ -858,11 +869,11 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     if(removeSelectable)
     {
-      delete this._personSelectables[attribute.getKey()];
+      delete this._personSelectables[key];
     }
 
     // remove all possible query references
-    delete this._personAggregateSelectables[attribute.getKey()];
+    delete this._personAggregateSelectables[key];
 
     if(removeColumn)
     {
@@ -874,7 +885,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       this._person.getAttributeDTO(attributeName) instanceof Mojo.dto.AttributeNumberDTO ||
       attributeName === this._Person.DOB))
     {
-      this._queryPanel.removeThematicVariable(attribute.getKey());
+      this._queryPanel.removeThematicVariable(key);
     }
   },
 
@@ -897,6 +908,12 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     else
     {
       this._removeHouseholdAttribute(attribute, true, true, true);
+
+      // Clear any criteria since criteria cannot exist
+      // without the attribute as a selectable.
+      var key = attribute.getKey();
+      delete this._householdCriteria[key];
+      this._clearAllAttributeItems(key);
 
       var select = check.nextSibling;
       if(select && select.nodeName == 'SELECT' && select.disabled === false)
@@ -926,6 +943,12 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     else
     {
       this._removePersonAttribute(attribute, true, true, true);
+
+      // Clear any criteria since criteria cannot exist
+      // without the attribute as a selectable.
+      var key = attribute.getKey();
+      this._clearAllAttributeItems(key);
+      delete this._personCriteria[key];
 
       var select = check.nextSibling;
       if(select && select.nodeName == 'SELECT' && select.disabled === false)
@@ -1194,7 +1217,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     personDiv.appendChild(personUl);
 
     // 15. Person Id
-    attribute = new MDSS.HouseholdAttribute({
+    attribute = new MDSS.PersonAttribute({
       type: this._person.getType(),
       displayLabel: this._person.getPersonIdMd().getDisplayLabel(),
       attributeName: this._person.getPersonIdMd().getName()
@@ -1214,10 +1237,9 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     personUl.appendChild(li);
     
     // 16. Age
-    // FIXME reperesent as age and add WHERE
-    attribute = new MDSS.HouseholdAttribute({
+    attribute = new MDSS.PersonAttribute({
       type: this._person.getType(),
-      displayLabel: this._person.getDobMd().getDisplayLabel(),
+      displayLabel: MDSS.Localized.Age,
       attributeName: this._person.getDobMd().getName()
     });
     attribute.setKey(this._Person.DOB);// overwrite key for use with SQL pass-through
