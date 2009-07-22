@@ -135,10 +135,15 @@ public class QueryUtil implements Reloadable
 
       if(allPathsQuery == null)
       {
+        //this case is for when they have not restricted to a specific geoEntity
         allPathsQuery = new AllPathsQuery(queryFactory);
-        //this case is for when they have not restricted to a specific geoEntity, so we want parents
+
+        //find all the parents that are of the type of the thematicLayer
         valueQuery.WHERE(allPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
+
+        //find all the rows where the children match geoEntities of the children we are looking for.
         valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
+
 
       }
       else
@@ -146,14 +151,14 @@ public class QueryUtil implements Reloadable
 
         //This is the case for where we are restricting by one or more entitys
 
-        //first we make a seond all paths query so that we can narrow down the all paths table to just rows that match entity restrictions
+        //first we make a seond all paths query
         AllPathsQuery allPathsParent = new AllPathsQuery(queryFactory);
 
-        //
+        //we narrow down the secoond all paths table to just rows that match entity restrictions
         valueQuery.WHERE(allPathsParent.getParentGeoEntity().EQ(geoEntityQuery));
-
+        //we join the second all paths to the primary all paths
         valueQuery.WHERE(allPathsParent.getChildGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
-
+        //we join the primary all paths to the md business  which is located at a certain geoEntity
         valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
 
       }
@@ -223,6 +228,7 @@ public class QueryUtil implements Reloadable
         GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
         for (SelectableReference geoSelectable : joinGeoSelctables)
         {
+          // join the subselect to prevent cross products
           valueQuery.AND( ((SelectableReference)generatedEntityQuery.aAttribute(geoEntityAttribute)).EQ(geoSelectable));
         }
       }
