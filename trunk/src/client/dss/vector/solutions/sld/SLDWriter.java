@@ -83,7 +83,7 @@ public abstract class SLDWriter implements Reloadable
     {
       requestIF.delete(oldFileId);
 
-      // Ensure that the existing file artifact is delete
+      // Ensure that the existing file artifact is deleted
       String rootPath = LocalProperties.getWebDirectory();
       String filepath = rootPath + path + fileName + "." + extension;
       
