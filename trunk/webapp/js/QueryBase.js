@@ -1410,6 +1410,11 @@ MDSS.AbstractAttribute.prototype = {
     return this._type;
   },
 
+  setType : function(type)
+  {
+    this._type = type;
+  },
+
   getDtoType : function()
   {
     return this._dtoType;
