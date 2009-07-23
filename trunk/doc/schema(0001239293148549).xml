@@ -26,14 +26,14 @@
           <enumeration
             name="periodType"
             label="Period Type"
-            required="false"
+            required="true"
             type="dss.vector.solutions.surveillance.PeriodType"
             description="The period type"
             selectMultiple="false" />
           <integer
             name="period"
             label="Period"
-            required="false"
+            required="true"
             rejectZero="true"
             rejectNegative="true" />
           <integer
