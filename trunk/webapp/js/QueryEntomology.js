@@ -433,11 +433,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  {
 	    var check = e.target;
 
-	    attribute = new MDSS.VisibleAttribute({
-	      type: this._mainQueryClass,
-	      displayLabel: MDSS.QueryXML.COUNT_FUNCTION,
-	      attributeName: 'id'
-	    });
+	    attribute.setType(this._mainQueryClass);
 
 	    if(check.checked)
 	    {
@@ -488,7 +484,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      var column = this._queryPanel.getColumn(attribute.getKey());
 	      this._queryPanel.removeColumn(column);
 
-	      this._ratioSelectable = null;
+	      this._countSelectable = null;
 
 	      this._queryPanel.removeThematicVariable(attribute.getKey());
 	    }
