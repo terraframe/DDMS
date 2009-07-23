@@ -476,7 +476,7 @@
 		</copy>
 
 		<!-- compile and jar the application library (e.g., servlet filters) -->
-		<!--
+		<!-- You can comment this section out to speed up deploy if you want to use the class files produced by eclipse -->
 		<iajc sourceroots="${local.src}" destDir="${deploy.bin}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/terraframe.jar"  maxmem="1024m">
 			<classpath>
 				<path refid="framework.classpath" />
@@ -485,7 +485,6 @@
 				<pathelement location="${server.bin}" />
 			</classpath>
 		</iajc>
-		-->
 
 		<!-- These files are needed for compilation, but should not exist in the deploy -->
 		<delete file="${deploy.bin}/dss/vector/solutions/global/CredentialsSingleton.class" />
