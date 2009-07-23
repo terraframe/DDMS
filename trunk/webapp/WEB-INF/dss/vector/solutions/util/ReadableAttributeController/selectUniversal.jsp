@@ -114,24 +114,11 @@
   </dl>
   <dl>
     <dt><label><f:message key="Aggregated_Cases_Management"/></label></dt>
-    <dd>
-      <span id="dss.vector.solutions.surveillance.InfiantCaseView" class="roleLink"><f:message key="Aggregated_Cases_1"/> (<c:out value="${ageGroups[0].displayLabel}"/>)</span>
-    </dd>
-    <dd>
-      <span id="dss.vector.solutions.surveillance.ChildCaseView" class="roleLink"><f:message key="Aggregated_Cases_2"/> (<c:out value="${ageGroups[1].displayLabel}"/>)</span>
-    </dd>
-    <dd>
-      <span id="dss.vector.solutions.surveillance.TeenCaseView" class="roleLink"><f:message key="Aggregated_Cases_3"/> (<c:out value="${ageGroups[2].displayLabel}"/>)</span>
-    </dd>
-    <dd>
-      <span id="dss.vector.solutions.surveillance.AdultCaseView" class="roleLink"><f:message key="Aggregated_Cases_4"/> (<c:out value="${ageGroups[3].displayLabel}"/>)</span>
-    </dd>
-    <dd>
-      <span id="dss.vector.solutions.surveillance.ElderCaseView" class="roleLink"><f:message key="Aggregated_Cases_5"/> (<c:out value="${ageGroups[4].displayLabel}"/>)</span>
-    </dd>
-    <dd>
-      <span id="dss.vector.solutions.surveillance.AncientCaseView" class="roleLink"><f:message key="Aggregated_Cases_6"/> (<c:out value="${ageGroups[5].displayLabel}"/>)</span>
-    </dd>    
+    <c:forEach items="${ageGroups}" varStatus="status" var="ageGroup">
+      <dd>
+        <span id="dss.vector.solutions.surveillance.${ageGroup.mdView.typeName}" class="roleLink"><f:message key="Age_Group"/> <c:out value="${ageGroup.displayLabel}"/> </span>
+      </dd>    
+    </c:forEach>
     <dd>
       <span id="dss.vector.solutions.general.EpiDate" class="roleLink"><f:message key="Epi_Date"/></span>
     </dd>    
