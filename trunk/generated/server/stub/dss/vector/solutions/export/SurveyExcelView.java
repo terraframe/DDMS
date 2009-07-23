@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
+import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.SurfacePosition;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.BloodslideResponse;
 import dss.vector.solutions.intervention.FeverResponse;
@@ -265,7 +268,8 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
         return e;
       }
     }
-    return null;
+    String message = "[" + label + "] is not a valid display label for [" + WindowType.CLASS + "]";
+    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(WindowType.CLASS));
   }
   
   public static HumanSex getHumanSexByLabel(String label)
@@ -277,7 +281,8 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
         return e;
       }
     }
-    return null;
+    String message = "[" + label + "] is not a valid display label for [" + HumanSex.CLASS + "]";
+    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(HumanSex.CLASS));
   }
 
   private RDTResponse getRDTResponseByLabel(String label)

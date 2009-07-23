@@ -131,7 +131,7 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
     return list;
   }
 
-  private Sex getSexByLabel(String label)
+  public static Sex getSexByLabel(String label)
   {
     for (Sex e : Sex.values())
     {
