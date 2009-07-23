@@ -166,7 +166,8 @@ UninterestingSpecieGroupData = { rows:<%=Halp.getDataMap(unint_rows, unint_attri
               div_id: "UninterestingSpecieGroups",
               copy_from_above: ["IdentificationMethod"],
               //collection_setter: "setCollection()",
-              data_type: "Mojo.$.dss.vector.solutions.entomology.UninterestingSpecieGroupView"
+              data_type: "Mojo.$.dss.vector.solutions.entomology.UninterestingSpecieGroupView",
+              excelType: "dss.vector.solutions.export.UninterestingSpecieGroupExcelView"
           };
 YAHOO.util.Event.addListener(window, 'load', MojoGrid.createDataTable(UninterestingSpecieGroupData));
 </script></div>
