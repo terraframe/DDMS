@@ -447,8 +447,8 @@ MojoGrid.createDataTable = function(table_data) {
     buttons.innerHTML += '<button type="button" id="' + table_data.div_id + 'Saverows">' + MDSS.localize('Save_Rows_To_DB') + '</button>';
 
     if (table_data.excelButtons !== false) {
-      buttons.innerHTML += '<form method="get" action="excelimport" style="display: inline;"><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Import_Header') + '</button></span></span></form>';
-      buttons.innerHTML += '<form method="post" action="excelexport" style="display: inline;"><input type="hidden" name="type" value="' + table_data.div_id + '" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Export_Header') + '</button></span></span></form>';
+      buttons.innerHTML += '<form method="get" action="excelimport" style="display: inline;"><input type="hidden" name="excelType" value="' + table_data.excelType + '" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Import_Header') + '</button></span></span></form>';
+      buttons.innerHTML += '<form method="post" action="excelexport" style="display: inline;"><input type="hidden" name="excelType" value="' + table_data.excelType + '" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Export_Header') + '</button></span></span></form>';
     }
 
     YAHOO.util.Dom.insertAfter(buttons, tableDiv);
