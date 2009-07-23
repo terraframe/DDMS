@@ -53,7 +53,7 @@
           <char
             name="caseId"
             label="Case Id"
-            required="false"
+            required="true"
             size="64" />
         </attributes>
         <mdMethod
