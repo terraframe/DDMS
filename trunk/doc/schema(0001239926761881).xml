@@ -534,7 +534,7 @@
             type="dss.vector.solutions.geo.generated.Wall" />
           <char
             name="wallInfo"
-            label="Wall other"
+            label="Wall Information"
             size="255"
             description="The specific kind of wall if not in Wall Surface list" />
           <reference
