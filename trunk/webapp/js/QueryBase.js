@@ -1019,7 +1019,7 @@ MDSS.QueryBase.prototype = {
         var column = new YAHOO.widget.Column(obj);
         this._queryPanel.insertColumn(column);
 
-        var entityNameAttr = new MDSS.QueryXML.Attribute(type, geoEntityView.getEntityNameMd().getName(), entityNameColumn);
+        var entityNameAttr = new MDSS.QueryXML.Attribute(type, geoEntityView.getEntityNameMd().getName(), entityNameColumn, obj.label);
         //var entityNameAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), geoEntityView.getEntityNameMd().getName(), entityNameColumn);
         var entityNameSel = new MDSS.QueryXML.Selectable(entityNameAttr);
         this._geoEntitySelectables[type+'_'+entityNameAttr.getName()] = entityNameSel;
@@ -1036,7 +1036,7 @@ MDSS.QueryBase.prototype = {
         var column = new YAHOO.widget.Column(obj);
         this._queryPanel.insertColumn(column);
 
-        var geoIdAttr = new MDSS.QueryXML.Attribute(type, geoEntityView.getGeoIdMd().getName(), geoIdColumn);
+        var geoIdAttr = new MDSS.QueryXML.Attribute(type, geoEntityView.getGeoIdMd().getName(), geoIdColumn, obj.label);
         //var geoIdAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), geoEntityView.getGeoIdMd().getName(), geoIdColumn);
         var geoIdSel = new MDSS.QueryXML.Selectable(geoIdAttr);
         this._geoEntitySelectables[type+'_'+geoIdAttr.getName()] = geoIdSel;
