@@ -237,7 +237,7 @@ MDSS.QueryBase.prototype = {
         	 {
         	   displayValue = query.getAttributeDTO(attr).getAttributeMdDTO().getPositiveDisplayLabel();
         	 }
-        	 else
+        	 else if(value === false) // must be boolean false to avoid matching against an empty string
         	 {
         	   displayValue = query.getAttributeDTO(attr).getAttributeMdDTO().getNegativeDisplayLabel();
         	 }
