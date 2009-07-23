@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorExceptionDTO;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
@@ -53,6 +54,10 @@ public abstract class PersonCRUDPermissions extends TestCase
 
       PersonViewDTO test = PersonDTO.getView(request, dto.getPersonId());
       assertEquals(update.getFirstName(), test.getFirstName());
+    }
+    catch(ProgrammingErrorExceptionDTO e)
+    {
+      fail(e.getLocalizedMessage());
     }
     finally
     {

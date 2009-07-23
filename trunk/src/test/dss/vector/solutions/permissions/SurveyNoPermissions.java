@@ -5,6 +5,8 @@ import java.util.Date;
 import junit.framework.TestCase;
 
 import com.terraframe.mojo.ClientSession;
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 
@@ -102,43 +104,57 @@ public abstract class SurveyNoPermissions extends TestCase
     view.setSurveyDate(new Date());
     view.apply();
 
-    HouseholdDTO household = new HouseholdDTO(systemRequest);
-    household.setSurveyPoint(SurveyPointDTO.get(request, view.getConcreteId()));
-    household.setHasWindows(true);
-    household.setWall(WallDTO.get(request, walls[0].getWallId()));
-    household.setRoof(RoofDTO.get(request, roofs[0].getRoofId()));
-    household.setHouseholdName("232");
-    household.setNets(40);
-
-    HouseholdNetDTO[] nets = household.getHouseholdNets();
-
-    household.applyAll(nets);
-
     try
     {
-      PersonViewDTO person = new PersonViewDTO(request);
-      person.addBloodslide(BloodslideResponseDTO.DONE);
-      person.addFever(FeverResponseDTO.DONT_KNOW);
-      person.addMalaria(FeverResponseDTO.DONT_KNOW);
-      person.addPayment(FeverResponseDTO.DONT_KNOW);
-      person.addPerformedRDT(RDTResponseDTO.NO);
-      person.addRDTResult(RDTResultDTO.MALARIAE_POSITIVE);
-      person.addSex(HumanSexDTO.FEMALE);
-      person.setAnaemiaTreatment(treatments[0]);
-      person.setFeverTreatment(fever[0]);
-      person.setHousehold(household);
-      person.setPersonId("teste3243");
-      person.apply();
-      
-      fail("Able to create a person without permissions");
+      HouseholdDTO household = new HouseholdDTO(systemRequest);
+      household.setSurveyPoint(SurveyPointDTO.get(request, view.getConcreteId()));
+      household.setHasWindows(true);
+      household.setWall(WallDTO.get(request, walls[0].getWallId()));
+      household.setRoof(RoofDTO.get(request, roofs[0].getRoofId()));
+      household.setHouseholdName("232");
+      household.setNets(40);
+
+      HouseholdNetDTO[] nets = household.getHouseholdNets();
+      nets[0].setAmount(40);
+
+      household.applyAll(nets);
+
+      try
+      {
+        PersonViewDTO person = new PersonViewDTO(request);
+        person.addBloodslide(BloodslideResponseDTO.DONE);
+        person.addFever(FeverResponseDTO.DONT_KNOW);
+        person.addMalaria(FeverResponseDTO.DONT_KNOW);
+        person.addPayment(FeverResponseDTO.DONT_KNOW);
+        person.addPerformedRDT(RDTResponseDTO.NO);
+        person.addRDTResult(RDTResultDTO.MALARIAE_POSITIVE);
+        person.addSex(HumanSexDTO.FEMALE);
+        person.setAnaemiaTreatment(treatments[0]);
+        person.setFeverTreatment(fever[0]);
+        person.setHousehold(household);
+        person.setPersonId("teste3243");
+        person.apply();
+
+        fail("Able to create a person without permissions");
+      }
+      catch (CreatePermissionExceptionDTO e)
+      {
+        // This is expected
+      }
+      finally
+      {
+        household.delete();
+      }
     }
-    catch (CreatePermissionExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
-      // This is expected
+      for(ProblemDTOIF p : e.getProblems())
+      {
+        fail(p.getMessage());
+      }
     }
     finally
     {
-      household.delete();
       view.deleteConcrete();
     }
   }

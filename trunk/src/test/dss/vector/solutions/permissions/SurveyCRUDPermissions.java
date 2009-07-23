@@ -75,6 +75,7 @@ public abstract class SurveyCRUDPermissions extends TestCase
     household.setNets(40);
 
     HouseholdNetDTO[] nets = household.getHouseholdNets();
+    nets[0].setAmount(40);
     
     household.applyAll(nets);
     
