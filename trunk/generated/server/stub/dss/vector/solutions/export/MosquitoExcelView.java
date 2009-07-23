@@ -7,11 +7,15 @@ import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.entomology.ConcreteMosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoView;
+import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult;
 import dss.vector.solutions.entomology.assay.infectivity.POvaleTestResult;
+import dss.vector.solutions.mo.Generation;
+import dss.vector.solutions.mo.IdentificationMethod;
 import dss.vector.solutions.mo.InfectivityMethodology;
 import dss.vector.solutions.mo.InsecticideMethodology;
 import dss.vector.solutions.mo.MolecularAssayResult;
+import dss.vector.solutions.mo.Specie;
 
 public class MosquitoExcelView extends MosquitoExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -47,6 +51,13 @@ public class MosquitoExcelView extends MosquitoExcelViewBase implements com.terr
     MosquitoView view = new MosquitoView();
     
     view.setCollection(ConcreteMosquitoCollection.getByCollectionId(this.getCollectionId()));
+    view.setSampleId(this.getSampleId());
+    view.setSpecie(Specie.validateByDisplayLabel(this.getSpecie()));
+    view.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod()));
+    view.setGeneration(Generation.validateByDisplayLabel(this.getGeneration()));
+    view.setIsofemale(this.getIsofemale());
+    view.addSex(PersonExcelView.getSexByLabel(this.getSex()));
+    view.setTestDate(this.getTestDate());
     
     // Biochemical Assays
     view.setAAcetate(getTestResultByDisplayLabel(this.getAAcetate()));
