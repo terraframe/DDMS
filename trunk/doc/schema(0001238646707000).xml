@@ -5070,6 +5070,7 @@
             required="false" />
           <virtual
             name="wKDRMethod"
+            label="WKDR Method"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
             required="false" />
@@ -5080,6 +5081,7 @@
             required="false" />
           <virtual
             name="eKDRMethod"
+            label="EKDR Method"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
             required="false" />
@@ -5090,6 +5092,7 @@
             required="false" />
           <virtual
             name="iAcHEMethod"
+            label="IACHE Method"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
             required="false" />
@@ -5100,6 +5103,7 @@
             required="false" />
           <virtual
             name="acHEVMethod"
+            label="ACHE V Method"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
             required="false" />
@@ -5110,6 +5114,7 @@
             required="false" />
           <virtual
             name="acHEWMethod"
+            label="ACHE W Method"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
             required="false" />
@@ -5120,6 +5125,7 @@
             required="false" />
           <virtual
             name="acHESMethod"
+            label="ACHE S Method"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
             required="false" />
@@ -5130,6 +5136,7 @@
             required="false" />
           <virtual
             name="gABAGMethod"
+            label="GABA G Method"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
             required="false" />
@@ -5140,6 +5147,7 @@
             required="false" />
           <virtual
             name="gABASMethod"
+            label="GABA S Method"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
             required="false" />
@@ -5185,6 +5193,7 @@
             required="false" />
           <virtual
             name="pFalciparumMethod"
+            label="P.falciparum Method"
             type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
             concrete="testMethod"
             required="false" />
@@ -5195,6 +5204,7 @@
             required="false" />
           <virtual
             name="pOvaleMethod"
+            label="P.ovale Method"
             type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
             concrete="testMethod"
             required="false" />
@@ -5206,6 +5216,7 @@
           <virtual
             name="pMalariaeMethod"
             type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
+            label="P.malariae Method"
             concrete="testMethod"
             required="false" />
           <virtual
@@ -5215,6 +5226,7 @@
             required="false" />
           <virtual
             name="pVivaxMethod"
+            label="P.vivax Method"
             type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
             concrete="testMethod"
             required="false" />

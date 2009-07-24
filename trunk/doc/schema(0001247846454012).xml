@@ -4,15 +4,15 @@
   <doIt>
     <create>
       <mdBusiness
-        name="dss.vector.solutions.entomology.assay.infectivity.UnknownTestResult"
-        label="Unknown"
+        name="dss.vector.solutions.entomology.assay.infectivity.MixedTestResult"
+        label="Mixed"
         extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-        description="Unknown assay"
+        description="Mixed assay"
         generateController="false">
         <attributes>
           <boolean
             name="testResult"
-            label="Unknown"
+            label="Mixed"
             required="false"
             description="assay result"
             positiveLabel="Positive"
@@ -57,12 +57,12 @@
         <create>
           <attributes>
             <char
-              name="unknownAssay"
-              label="Unknown"
+              name="mixed"
+              label="Mixed"
               size="255" />
             <char
-              name="unknownMethod"
-              label="Unknown Method"
+              name="mixedMethod"
+              label="Mixed Method"
               size="255" />
           </attributes>
         </create>
@@ -72,13 +72,14 @@
         <create>
           <attributes>
             <virtual
-              name="unknown"
-              type="dss.vector.solutions.entomology.assay.infectivity.UnknownTestResult"
+              name="mixed"
+              type="dss.vector.solutions.entomology.assay.infectivity.MixedTestResult"
               concrete="testResult"
               required="false" />
             <virtual
-              name="unknownMethod"
+              name="mixedMethod"
               type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
+              label="Mixed Method"
               concrete="testMethod"
               required="false" />
           </attributes>
