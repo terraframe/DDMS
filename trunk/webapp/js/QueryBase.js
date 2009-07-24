@@ -344,7 +344,7 @@ MDSS.QueryBase.prototype = {
       this._queryPanel.insertColumn({
     	  key: range,
     	  label: MDSS.localize(range),
-    	});
+      });
     }
     else
     {

@@ -1,6 +1,7 @@
 package dss.vector.solutions.query;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.system.WebFile;
 
 public abstract class Layer extends LayerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -45,6 +46,19 @@ public abstract class Layer extends LayerBase implements com.terraframe.mojo.gen
     this.getTextStyle().unlock();
   }
 
+  @Override
+  @Transaction
+  public void delete()
+  {
+    String webId = this.getSldFile();
+    if(webId != null && webId.trim().length() > 0)
+    {
+      WebFile.get(webId).delete();
+    }
+    
+    super.delete();
+  }
+  
   /**
    * Updates the given layer and its associated styles.
    *

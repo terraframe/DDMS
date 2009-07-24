@@ -176,6 +176,7 @@ public class SurveyPoint extends SurveyPointBase implements
       {
         householdQuery = new HouseholdQuery(queryFactory);
         valueQuery.WHERE(surveyPointQuery.households(householdQuery));
+        valueQuery.FROM(householdQuery);
       }
       
       valueQuery.WHERE(householdQuery.persons(personQuery));
@@ -234,6 +235,30 @@ public class SurveyPoint extends SurveyPointBase implements
     }
     
     QueryUtil.setQueryDates(xml, valueQuery, surveyPointQuery.getSurveyDate());
+    
+    // Add net selectables
+    for(String entityAlias : queryMap.keySet())
+    {
+      if(entityAlias.startsWith(HouseholdNet.CLASS))
+      {
+        if(householdQuery == null)
+        {
+          householdQuery = new HouseholdQuery(queryFactory);
+          valueQuery.WHERE(surveyPointQuery.households(householdQuery));
+          valueQuery.FROM(householdQuery);
+        }
+        
+        NetQuery netQuery = new NetQuery(queryFactory);
+        
+        String netName = entityAlias.substring(entityAlias.indexOf("_")+1);
+        
+        HouseholdNetQuery householdNetQuery = (HouseholdNetQuery) queryMap.get(entityAlias);
+        
+        valueQuery.AND(householdQuery.nets(householdNetQuery));
+        valueQuery.AND(householdNetQuery.hasChild(netQuery));
+        valueQuery.AND(netQuery.getNetName().EQ(netName));
+      }
+    }
     
     return valueQuery;
   }

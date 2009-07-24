@@ -1592,13 +1592,10 @@ MDSS.QueryPanel.prototype = {
     var tiled = new OpenLayers.Layer.WMS(
         "", geoServerPath+"/wms",
         {
-            width: '430',
             srs: 'EPSG:4326',
             layers: baseLayer.view,
-            height: '430',
             styles: '',
             format: 'image/png',
-            tiled: 'true',
             sld: Mojo.ClientSession.getBaseEndpoint()+baseLayer.sld
         },
         {
@@ -1614,13 +1611,10 @@ MDSS.QueryPanel.prototype = {
         var extraLayer = new OpenLayers.Layer.WMS(
         "", geoServerPath+"/wms",
         {
-            width: '430',
             srs: 'EPSG:4326',
             layers: layerName.view,
-            height: '430',
             styles: '',
             format: 'image/png',
-            tiled: 'true',
             sld: Mojo.ClientSession.getBaseEndpoint()+layerName.sld,
             transparent: true
         },

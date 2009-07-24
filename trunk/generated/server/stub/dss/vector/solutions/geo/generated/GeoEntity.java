@@ -47,7 +47,6 @@ import com.terraframe.mojo.util.IdParser;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
-import dss.vector.solutions.geo.ConfirmDeleteEntityException;
 import dss.vector.solutions.geo.ConfirmParentChangeException;
 import dss.vector.solutions.geo.DuplicateParentException;
 import dss.vector.solutions.geo.GeoEntityView;
@@ -58,6 +57,7 @@ import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.NoCompatibleTypesException;
+import dss.vector.solutions.query.ActionNotAllowedException;
 import dss.vector.solutions.util.GeoEntityImporter;
 
 public abstract class GeoEntity extends GeoEntityBase implements
@@ -261,7 +261,10 @@ public abstract class GeoEntity extends GeoEntityBase implements
   @Override
   public void confirmDeleteEntity(String parentId)
   {
-
+    // V1 Restriction
+    throw new ActionNotAllowedException();
+    
+    /*
     List<GeoEntity> parents = this.getImmediateParents();
     if (parents.size() > 1)
     {
@@ -275,6 +278,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
     {
       this.delete();
     }
+    */
   }
 
   @Override
@@ -796,6 +800,10 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     if (!cloneOperation)
     {
+      // V1 Restriction
+      throw new ActionNotAllowedException();
+      
+      /* 
       OIterator<? extends LocatedIn> iter = this.getAllLocatedInGeoEntityRel();
       try
       {
@@ -808,6 +816,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
       {
         iter.close();
       }
+      */
     }
     else
     {

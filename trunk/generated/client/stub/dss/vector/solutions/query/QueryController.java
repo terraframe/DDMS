@@ -187,7 +187,8 @@ public class QueryController extends QueryControllerBase implements
       for(NetDTO netDTO : NetDTO.getAllLeafs(this.getClientRequest()))
       {
         JSONObject net = new JSONObject();
-        net.put("entityAlias", NetDTO.CLASS+"_"+netDTO.getNetName());
+        net.put("entityAlias", HouseholdNetDTO.CLASS+"_"+netDTO.getNetName());
+        net.put("key", HouseholdNetDTO.AMOUNT+"_"+netDTO.getNetName());
         net.put("displayLabel", netDTO.getDisplayLabel().getDefaultLocale());
         net.put("attributeName", HouseholdNetDTO.AMOUNT);
         net.put("type", HouseholdNetDTO.CLASS);

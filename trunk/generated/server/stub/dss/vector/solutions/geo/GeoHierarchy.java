@@ -1101,7 +1101,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   {
     GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(type);
 
-    List<GeoHierarchyView> hierarchy = new LinkedList<GeoHierarchyView>();
+    LinkedHashSet<GeoHierarchyView> hierarchy = new LinkedHashSet<GeoHierarchyView>();
     recursePoliticalHierarchy(hierarchy, earthH);
 
     return hierarchy.toArray(new GeoHierarchyView[hierarchy.size()]);
@@ -1129,23 +1129,23 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   {
     GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(type);
 
-    List<GeoHierarchyView> hierarchy = new LinkedList<GeoHierarchyView>();
+    LinkedHashSet<GeoHierarchyView> hierarchy = new LinkedHashSet<GeoHierarchyView>();
     recurseSprayHierarchy(hierarchy, earthH);
 
     return hierarchy.toArray(new GeoHierarchyView[hierarchy.size()]);
   }
   
-  private static void recursePoliticalHierarchy(List<GeoHierarchyView> hierarchy, GeoHierarchy parent)
+  private static void recursePoliticalHierarchy(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent)
   {
     treeRecurse(hierarchy, parent, true, false);
   }
 
-  private static void recurseSprayHierarchy(List<GeoHierarchyView> hierarchy, GeoHierarchy parent)
+  private static void recurseSprayHierarchy(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent)
   {
     treeRecurse(hierarchy, parent, false, true);
   }
   
-  private static void treeRecurse(List<GeoHierarchyView> hierarchy, GeoHierarchy parent, boolean political, boolean spray)
+  private static void treeRecurse(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent, boolean political, boolean spray)
   {
     if (political && parent.getPolitical())
     {

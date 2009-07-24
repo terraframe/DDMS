@@ -1,7 +1,6 @@
 package dss.vector.solutions.query;
 
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -64,6 +63,7 @@ public class SavedSearch extends SavedSearchBase implements
    * @param view
    * @return
    */
+  @Transaction
   public static SavedSearchView saveSearch(SavedSearchView view)
   {
     SavedSearch search = new SavedSearch();
@@ -72,6 +72,7 @@ public class SavedSearch extends SavedSearchBase implements
     return search.getAsView(false, false);
   }
   
+  @Transaction
   public static SavedSearchView updateSearch(SavedSearchView view)
   {
     if(view == null || view.getSavedQueryId() == null || view.getSavedQueryId().trim().length() == 0)

@@ -34,7 +34,8 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._personCriteria = {};
     this._personAggregateSelectables = {};
     
-    this._nets = {};
+    this._netSelectables = {};
+    this._netAggregateSelectables = {};
     
     // END: query objects
 
@@ -147,6 +148,21 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
         thisRef._checkBox(userAlias);
         thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.SUM);
+      },
+      min: function(entityAlias, attributeName, userAlias){
+
+        thisRef._checkBox(userAlias);
+        thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MIN);
+      },
+      max: function(entityAlias, attributeName, userAlias){
+
+        thisRef._checkBox(userAlias);
+        thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MAX);
+      },
+      avg: function(entityAlias, attributeName, userAlias){
+
+        thisRef._checkBox(userAlias);
+        thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.AVG);
       },
       count : function(entityAlias, attributeName, userAlias){
       
@@ -421,6 +437,38 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         var composite = new MDSS.QueryXML.CompositeCondition(and);
         personQuery.setCondition(composite);
       }
+    }
+    
+    
+    // net selectables
+    var netKeys = Mojo.util.getKeys(this._netSelectables);
+    for(var i=0; i<netKeys.length; i++)
+    {
+      var name = netKeys[i];
+      var selectable = this._netSelectables[name];
+      
+      var attribute = selectable.getComponent();
+      
+      queryXML.addSelectable(attribute.getEntityAlias(), selectable);
+      var type = "dss.vector.solutions.intervention.monitor.HouseholdNet";
+      
+      var householdNetQuery = new MDSS.QueryXML.Entity(type, attribute.getEntityAlias());
+      queryXML.addEntity(householdNetQuery);
+    }
+    
+    var netAggKeys = Mojo.util.getKeys(this._netAggregateSelectables);
+    for(var i=0; i<netAggKeys.length; i++)
+    {
+      var name = netAggKeys[i];
+      var aggSelectable = this._netAggregateSelectables[name];
+      
+      var attribute = aggSelectable.getComponent().getSelectable().getComponent();
+      
+      queryXML.addSelectable(attribute.getEntityAlias(), aggSelectable);
+      var type = "dss.vector.solutions.intervention.monitor.HouseholdNet";
+      
+      var householdNetQuery = new MDSS.QueryXML.Entity(type, attribute.getEntityAlias());
+      queryXML.addEntity(householdNetQuery);
     }
     
     // Date selectables/criteria
@@ -798,6 +846,24 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
     }
   },
+  
+  /**
+   * Helper method to add Household attributes to selectables and as a column.
+   */
+  _addNetAttribute : function(attribute)
+  {
+    var column = new YAHOO.widget.Column(attribute.getColumnObject());
+    column = this._queryPanel.insertColumn(column);
+
+    var attributeName = attribute.getAttributeName();
+    
+    var selectable = attribute.getSelectable(true);
+
+    this._netSelectables[attribute.getKey()] = selectable;
+
+    // ADD THEMATIC VARIABLE
+    this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
+  },
 
   /**
    * Removes an attribute as a selectable and column.
@@ -823,6 +889,34 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     if(removeThematic &&
       this._household.getAttributeDTO(attributeName) instanceof Mojo.dto.AttributeNumberDTO)
+    {
+      this._queryPanel.removeThematicVariable(attribute.getKey());
+    }
+  },
+  
+  /**
+   * Removes an attribute as a selectable and column.
+   */
+  _removeNetAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
+  {
+    var attributeName = attribute.getAttributeName();
+    var key = attribute.getKey();
+
+    if(removeSelectable)
+    {
+      delete this._netSelectables[key];
+    }
+
+    // remove all possible query references
+    delete this._netAggregateSelectables[attribute.getKey()];
+
+    if(removeColumn)
+    {
+      var column = this._queryPanel.getColumn(key);
+      this._queryPanel.removeColumn(column);
+    }
+
+    if(removeThematic)
     {
       this._queryPanel.removeThematicVariable(attribute.getKey());
     }
@@ -887,6 +981,85 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     {
       this._queryPanel.removeThematicVariable(key);
     }
+  },
+  
+  _netAttributeHandler : function(e, attribute)
+  {
+    var check = e.target;
+    if(check.checked)
+    {
+      this._addNetAttribute(attribute);
+      
+      var select = check.nextSibling;
+      if(select && select.nodeName == 'SELECT' && select.disabled === true)
+      {
+        select.disabled = false;
+      }
+    }
+    else
+    {
+      this._removeNetAttribute(attribute, true, true, true);
+
+      var select = check.nextSibling;
+      if(select && select.nodeName == 'SELECT' && select.disabled === false)
+      {
+        select.selectedIndex = 0;
+        select.disabled = true;
+      }
+    }
+  },
+  
+  /**
+   * Handler when someone selects an aggregate function
+   * on a net attribute.
+   */
+  _netAggregateHandler : function(e, attribute)
+  {
+    var func = e.target.value;
+
+    var attributeName = attribute.getAttributeName();
+    var key = attribute.getKey();
+
+    var selectable = attribute.getSelectable();
+
+    this._queryPanel.updateColumnLabel(key, func);
+
+    // special cases
+
+    if(func === '')
+    {
+      // Use regular selectable (this is just here for clarity).
+  	  this._removeNetAttribute(attribute, false, true, false);
+      this._netSelectables[attribute.getKey()] = selectable;
+
+
+      return;
+    }
+
+    // aggregate functions
+    var aggFunc = null;
+    var displayLabel = "("+func+") "+ attribute.getDisplayLabel();
+    if(func === MDSS.QueryXML.Functions.SUM)
+    {
+      aggFunc = new MDSS.QueryXML.SUM(selectable, key, displayLabel);
+    }
+    else if(func === MDSS.QueryXML.Functions.MIN)
+    {
+      aggFunc = new MDSS.QueryXML.MIN(selectable, key, displayLabel);
+    }
+    else if(func === MDSS.QueryXML.Functions.MAX)
+    {
+      aggFunc = new MDSS.QueryXML.MAX(selectable, key, displayLabel);
+    }
+    else if(func === MDSS.QueryXML.Functions.AVG)
+    {
+      aggFunc = new MDSS.QueryXML.AVG(selectable, key, displayLabel);
+    }
+
+  	this._removeNetAttribute(attribute, false, true, false);
+
+    var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
+    this._netAggregateSelectables[attribute.getKey()] = aggSelectable;
   },
 
   /**
@@ -1150,27 +1323,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     
     this._createHouseholdInt(householdUl, attribute);
     
-    // ?? Household nets
-    /*
-    for(var i=0; i<nets.length; i++)
-    {
-      var net = nets[i];
-      var netAttribute = new MDSS.BasicAttribute(net);
-      
-      var li = document.createElement('li');
-      var check = document.createElement('input');
-      check.id = netAttribute.getKey();
-      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
-      this._defaults.push({element: check, checked: false});
-      YAHOO.util.Event.on(check, 'click', this._netHandler, netAttribute, this);
-      var span = document.createElement('span');
-      span.innerHTML = netAttribute.getDisplayLabel();
-      
-      li.appendChild(check);
-      li.appendChild(span);
-      householdUl.appendChild(li);
-    }
-    */
+
 
     // 13. # people slept under a net
     attribute = new MDSS.HouseholdAttribute({
@@ -1197,6 +1350,65 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       menuBuilder : MDSS.util.bind(this, this._menuBuilder)
     });
     
+    // nets
+    var netDiv = document.createElement('div');
+    
+    var labelDiv = document.createElement('div');
+    YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
+    labelDiv.innerHTML = MDSS.Localized.Nets
+    
+    var netUl = document.createElement('ul');
+    YAHOO.util.Dom.addClass(netUl, 'gridList');
+    YAHOO.util.Dom.setStyle(netUl, 'clear', 'both');
+
+    netDiv.appendChild(labelDiv);
+    netDiv.appendChild(netUl);
+    
+    for(var i=0; i<nets.length; i++)
+    {
+      var net = nets[i];
+      var netAttribute = new MDSS.BasicAttribute(net);
+      
+      var li = document.createElement('li');
+      var check = document.createElement('input');
+      check.id = netAttribute.getKey();
+      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+      this._defaults.push({element: check, checked: false});
+      YAHOO.util.Event.on(check, 'click', this._netAttributeHandler, netAttribute, this);
+      var span = document.createElement('span');
+      span.innerHTML = netAttribute.getDisplayLabel();
+      
+      var select = document.createElement('select');
+      this._defaults.push({element:select, index:0});
+      var aggOptions = [''];
+      aggOptions = aggOptions.concat(Mojo.util.getValues(MDSS.QueryXML.Functions));
+
+      for(var k=0; k<aggOptions.length; k++)
+      {
+        var aggOption = aggOptions[k];
+        var optionEl = document.createElement('option');
+        optionEl.id = netAttribute.getKey()+'-'+aggOption;
+        optionEl.innerHTML = aggOption;
+        YAHOO.util.Dom.setAttribute(optionEl, 'value', aggOption);
+
+        YAHOO.util.Event.on(optionEl, 'click', this._netAggregateHandler, netAttribute, this);
+
+        select.appendChild(optionEl);
+      }
+      select.disabled = true; // default (must be checked to enabled)
+
+      
+      li.appendChild(check);
+      li.appendChild(select);
+      li.appendChild(span);
+      netUl.appendChild(li);
+    }
+    
+    this._queryPanel.addQueryItem({
+      html : netDiv,
+      id: 'netItems',
+      menuBuilder : MDSS.util.bind(this, this._menuBuilder)
+    });
     
     /*
      * Person attributes

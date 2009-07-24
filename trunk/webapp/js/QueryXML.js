@@ -583,6 +583,8 @@ MDSS.QueryXML.SUM = function(selectable, userAlias, userDisplayLabel)
 }
 MDSS.QueryXML.SUM.prototype = {
 
+  getSelectable : function() { return this._selectable; },
+
   build : function()
   {
   	var selectableObj = this._selectable.build();
@@ -607,6 +609,8 @@ MDSS.QueryXML.MIN = function(selectable, userAlias , userDisplayLabel)
 }
 MDSS.QueryXML.MIN.prototype = {
 
+  getSelectable : function() { return this._selectable; },
+
   build : function()
   {
   	var selectableObj = this._selectable.build();
@@ -630,6 +634,8 @@ MDSS.QueryXML.MAX = function(selectable, userAlias , userDisplayLabel)
 }
 MDSS.QueryXML.MAX.prototype = {
 
+  getSelectable : function() { return this._selectable; },
+
   build : function()
   {
   	var selectableObj = this._selectable.build();
@@ -651,6 +657,8 @@ MDSS.QueryXML.AVG = function(selectable, userAlias , userDisplayLabel)
   this._userDisplayLabel = userDisplayLabel || '';
 }
 MDSS.QueryXML.AVG.prototype = {
+
+  getSelectable : function() { return this._selectable; },
 
   build : function()
   {
@@ -674,6 +682,8 @@ MDSS.QueryXML.COUNT = function(selectable, userAlias , userDisplayLabel)
   this._userDisplayLabel = userDisplayLabel || '';
 }
 MDSS.QueryXML.COUNT.prototype = {
+
+  getSelectable : function() { return this._selectable; },
 
   build : function()
   {

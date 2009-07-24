@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
-  name="dss.vector.solutions.query.MapWithoutGeoEntityException">
+  name="dss.vector.solutions.query.ActionNotAllowedException">
   <!--
     - {id} id
     -->
-  <locale language="en">Cannot create a map without first restricting by Geo Entities.</locale>
+  <locale language="en">The action is not available in this version.</locale>
 </exception>

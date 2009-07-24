@@ -516,7 +516,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
   	// remove all possible query references
     delete this._visibleAggregateSelectables[attribute.getKey()];
-    //delete this._visibleGroupBySelectables[attribute.getKey()];
 
     if(removeColumn)
     {

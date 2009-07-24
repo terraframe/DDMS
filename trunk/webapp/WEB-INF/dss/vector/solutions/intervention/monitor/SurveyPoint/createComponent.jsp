@@ -17,6 +17,7 @@
 <script type="text/javascript">
 MDSS.AbstractSelectSearch.Political = false;
 MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
+MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= SentinelSiteDTO.CLASS %>');
 </script>
 
 <c:set var="page_title" value="Create_Survey_Point"  scope="request"/>

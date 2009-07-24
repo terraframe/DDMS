@@ -1,35 +1,36 @@
 package dss.vector.solutions;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.business.BusinessQuery;
-import com.terraframe.mojo.constants.CommonProperties;
 import com.terraframe.mojo.constants.ComponentInfo;
 import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ValueObject;
+import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectableSingle;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Envelope;
+import com.vividsolutions.jts.geom.GeometryFactory;
 
-import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedInQuery;
-import dss.vector.solutions.geo.generated.CountryQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.geo.generated.HealthFacility;
-import dss.vector.solutions.geo.generated.ProvinceQuery;
-import dss.vector.solutions.surveillance.AggregatedCaseQuery;
 
 public class Sandbox
 {
@@ -39,7 +40,57 @@ public class Sandbox
 
   public static void main(String[] args) throws Exception
   {
+    ResultSet resultSet = Database.query("select AsText(extent(town_view.multipoint_5)) AS bbox FROM town_view");
+    try
+    {
+      if(resultSet.next())
+      {
+        String bbox = resultSet.getString("bbox");
+        if(bbox != null)
+        {
+          Pattern p = Pattern.compile("POLYGON\\(\\((.*)\\)\\)");
+          Matcher m = p.matcher(bbox);
+          m.matches();
+          
+          String coordinates = m.group(1);
+          List<Coordinate> coords = new LinkedList<Coordinate>();
+          
+          for(String c : coordinates.split(","))
+          {
+            String[] xAndY = c.split(" ");
+            double x = Double.valueOf(xAndY[0]);
+            double y = Double.valueOf(xAndY[1]);
 
+            coords.add(new Coordinate(x,y));
+          }
+          
+          Envelope e = new Envelope(coords.get(0), coords.get(2));
+          
+          System.out.println(e.getMinX());
+          System.out.println(e.getMinY());
+          System.out.println(e.getMaxX());
+          System.out.println(e.getMaxY());
+        }
+      }
+    }
+    catch (SQLException sqlEx1)
+    {
+      Database.throwDatabaseException(sqlEx1);
+    }
+    finally
+    {
+      try
+      {
+        java.sql.Statement statement = resultSet.getStatement();
+        resultSet.close();
+        statement.close();
+      }
+      catch (SQLException sqlEx2)
+      {
+        Database.throwDatabaseException(sqlEx2);
+      }
+    }
+    
     // String temp = "CaseTreatmentStock_SP_TreatmentGrid";
     //
     // int firstIndex = temp.indexOf("_", 0);
