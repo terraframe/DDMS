@@ -34,6 +34,13 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    //this screen can query two diffrent classes, so we have a place to store the selected class
 	    this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS;
 
+	    this._commonQueryClasses = [Mojo.$.dss.vector.solutions.entomology.MosquitoCollection.CLASS,
+	                                Mojo.$.dss.vector.solutions.general.Insecticide];
+
+	    this._exclusionClasses = ['common_selectables'];
+
+	    this._dataQueryFunction = Mojo.$.dss.vector.solutions.entomology.assay.AbstractAssay.queryResistance;
+	    this._mapQueryFunction  = Mojo.$.dss.vector.solutions.query.MappingController.mapResistanceQuery;
 	    // END: query objects
 
 	    // Key/value where key is attribute.getKey() + "_li"
@@ -92,10 +99,6 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	   */
 	  executeQuery : function()
 	  {
-	  	var mosquito = Mojo.$.dss.vector.solutions.entomology.Mosquito;
-      var concerteMosquitoCollection = Mojo.$.dss.vector.solutions.entomology.ConcreteMosquitoCollection;
-      var dateAttrib = concerteMosquitoCollection.DATECOLLECTED;
-      var mosquitoCollection = Mojo.$.dss.vector.solutions.entomology.MosquitoCollection;
 
 
 	    // execute the query
@@ -116,7 +119,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    var page = this.getCurrentPage();
 
         // FIXME json conversion below is temporary
-	    Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml, this._config.getJSON(), '', true, page, this.PAGE_SIZE);
+	    this._dataQueryFunction(request, xml, this._config.getJSON(), '', true, page, this.PAGE_SIZE);
 	  },
 
 	  /**
@@ -140,7 +143,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    var savedSearchId = (savedSearchView != null ? savedSearchView.getSavedQueryId() : "");
 
         // FIXME json conversion below is temporary
-	    Mojo.$.dss.vector.solutions.query.MappingController.mapEntomologyQuery(request, xml, this._config.getJSON(), layerIds, savedSearchId);
+	    this._mapQueryFunction(request, xml, this._config.getJSON(), layerIds, savedSearchId);
 	  },
 
 	  /**
@@ -150,17 +153,22 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  {
 	  	var queryXML = MDSS.QueryBase.prototype._constructQuery.call(this,formapping); // super
 
-	    var mosquito = this._mainQueryClass;
-	    var mosquitoQuery = new MDSS.QueryXML.Entity(mosquito, mosquito);
-	    queryXML.addEntity(mosquitoQuery);
+	    var mainQuery = new MDSS.QueryXML.Entity(this._mainQueryClass, this._mainQueryClass);
+	    queryXML.addEntity(mainQuery);
+
+
+	    //add the common alaies
+	    this._commonQueryClasses.map(function(klass){
+	    	var query = new MDSS.QueryXML.Entity(klass, klass);
+		    queryXML.addEntity(query);
+	   	},this);
+
 	    var mosquitoCollection = Mojo.$.dss.vector.solutions.entomology.MosquitoCollection.CLASS;
 	    var collectionQuery = new MDSS.QueryXML.Entity(mosquitoCollection, mosquitoCollection);
 	    queryXML.addEntity(collectionQuery);
 
 	    var conditions = [];
 	    var groupBy = queryXML.getGroupBy();
-
-	    //var mosqutoIdSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(mosquito,'id','id'));
 
 	    // Visible Attributes
 	    var selNames = Mojo.util.getKeys(this._visibleSelectables);
@@ -169,7 +177,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      var name = selNames[i];
 	      var selectable = this._visibleSelectables[name];
 
-	      queryXML.addSelectable(mosquitoQuery.getAlias()+'_'+name, selectable);
+	      queryXML.addSelectable(mainQuery.getAlias()+'_'+name, selectable);
 
 	      if(selectable.attribute)
 	      {
@@ -385,21 +393,14 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    var liTarget = YAHOO.util.Dom.getAncestorByTagName(check, "LI");
 	    if(check.checked)
 	    {
+
+	    	this.uncheckAllNotInGroup(check);
+
 	      this._addVisibleAttribute(attribute);
 
 	      check.nextSibling.disabled = false;
 
-	      // check.contextMenu.suscribe('beforeHideEvent',_addSelectedColumn)
-	      if(YAHOO.util.Dom.hasClass(check, 'specieGroupCheck'))
-	      {
-	      	this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.UninterestingSpecieGroup.CLASS;
-	      	this._uncheckAllByClass('individualMosquitoCheck');
-	      }
-	      if(YAHOO.util.Dom.hasClass(check, 'individualMosquitoCheck'))
-	      {
-	      	this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
-	      	this._uncheckAllByClass('specieGroupCheck');
-	      }
+
 
 	    }
 	    else
@@ -411,19 +412,25 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    }
 	  },
 
-	  _uncheckAllByClass : function(klass)
+	  _uncheckAllNotInGroup : function(target)
 	  {
-	  	for each (check in YAHOO.util.Dom.getElementsByClassName(klass))
-      {
-	  		if(check.checked)
+	    for each (removeClass in  this._exclusionClasses)
+	    {
+	    	if(! YAHOO.util.Dom.hasClass(check, removeClass))
+	    	{
+		  	for each (check in YAHOO.util.Dom.getElementsByClassName(removeClass))
 	      {
-	  			if(YAHOO.util.Dom.hasClass(check, 'selectAllCheck')){
-	  				check.checked = false;
-	  			}else{
-	  				check.click();
-	  			}
+		  		if(check.checked && )
+		      {
+		  			if(YAHOO.util.Dom.hasClass(check, 'selectAllCheck')){
+		  				check.checked = false;
+		  			}else{
+		  				check.click();
+		  			}
+		      }
 	      }
-      }
+	    }
+	   }
 	  },
 
 	  _toggleCount : function(e, attribute)
@@ -664,7 +671,6 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      item.checked = false;
 	    }
 
-	    this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
 
 	  },
 
@@ -708,7 +714,9 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	      var check = document.createElement('input');
 	      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+	      //this is the marker for the mutual exculsion group
 	      YAHOO.util.Dom.addClass(check,checkClass);
+
 	      YAHOO.util.Event.on(check, 'click', that._visibleAttributeHandler, attribute, that);
 	      check.id = attribute.getKey();
 	      li.appendChild(check);
@@ -807,6 +815,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 		      id: group.group + '_checkbox_group',
 		      menuBuilder : MDSS.util.bind(this, this._menuBuilder)
 		    });
+	    	this._exclusionClasses.push(group.group);
 	    };
 
 	    selectableGroups.map(setupDiv,this);
