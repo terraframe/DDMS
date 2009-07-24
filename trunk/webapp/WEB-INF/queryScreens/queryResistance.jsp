@@ -133,7 +133,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var collectionAttribs = ["collectionId","dateCollected","collectionMethod"];
     var collectionColumns = [];
 
-    var Insectcide = new Mojo.$.dss.vector.solutions.general.Insecticide();
+    var insectcide = new Mojo.$.dss.vector.solutions.general.Insecticide();
     var insectcideAttribs = ["activeIngredient","amount","units"];
 
     var abstractAssayAttribs = ["specie","identificationMethod","generation","isofemale","exposureTime","testDate"];
