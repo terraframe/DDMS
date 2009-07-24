@@ -36,6 +36,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.terraframe.mojo.business.BusinessDTO;
 import com.terraframe.mojo.business.ComponentDTO;
 import com.terraframe.mojo.business.ViewDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
@@ -96,7 +97,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
   {
     return Halp.join(s, ",");
   }
-  
+
   public static String join(List<String> s, String delimiter)
   {
     StringBuilder builder = new StringBuilder();
@@ -288,8 +289,77 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return ( Halp.join(dropdownbuff, "\n") );
   }
 
-  @SuppressWarnings("unchecked")
+
   public static String getDropDownMaps(ViewDTO view, ClientRequestIF clientRequest) throws JSONException
+  {
+    int colnum = 0;
+    Class<?> v = view.getClass();
+    ArrayList<String> ordered_attribs = new ArrayList<String>();
+
+    for (String a : view.getAccessorNames())
+    {
+      if (a.length() >= 3)
+      {
+        ordered_attribs.add(a);
+      }
+    }
+
+    ArrayList<String> dropdownbuff = new ArrayList<String>();
+    for (String attrib : ordered_attribs)
+    {
+      try
+      {
+        AttributeMdDTO md = (AttributeMdDTO) v.getMethod(
+            "get" + attrib.substring(0, 1).toUpperCase() + attrib.substring(1) + "Md").invoke(view);
+
+        if (md instanceof AttributeReferenceMdDTO)
+        {
+          Class<?> clazz = md.getJavaType();
+          if (LabeledDTO.class.isAssignableFrom(clazz))
+          {
+            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAllActive",
+                new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
+            dropdownbuff.add(attrib + " : " + getDropDownMap(terms) + ",");
+          }
+        }
+        if (md instanceof AttributeEnumerationMdDTO)
+        {
+          AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
+          String map = "{";
+          /*
+           * for (Map.Entry<String, String> e :
+           * enumMd.getEnumItems().entrySet()) { map += "'" + e.getKey() + "':'"
+           * + e.getValue() + "',"; }
+           */
+          for (EnumerationMasterDTO e : (List<EnumerationMasterDTO>) clientRequest
+              .getAllEnumerations(enumMd.getReferencedMdEnumeration()))
+          {
+            map += "'" + e.getId() + "':'" + e.getDisplayLabel() + "',";
+          }
+          map += "}";
+          dropdownbuff.add(attrib + " : " + map + ",");
+        }
+        if (md instanceof AttributeBooleanMdDTO)
+        {
+          dropdownbuff.add(attrib + ":{'true':'"
+              + ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'", "\\'")
+              + "', 'false':'"
+              + ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'", "\\'") + "'},");
+        }
+
+      }
+      catch (Exception x)
+      {
+        throw new RuntimeException(x);
+      }
+      colnum++;
+    }
+
+    return ( Halp.join(dropdownbuff, "\n") );
+  }
+
+  //@SuppressWarnings("unchecked")
+  public static String getBusinessDropDownMaps(BusinessDTO view, ClientRequestIF clientRequest) throws JSONException
   {
     int colnum = 0;
     Class<?> v = view.getClass();
@@ -588,21 +658,21 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       List<String> radioOptions = new LinkedList<String>();
       radioOptions.add("{label:'" + positiveLabel + "', value:'true'}");
       radioOptions.add("{label:'" + negativeLabel + "', value:'false'}");
-      
+
       options.add("dropdownOptions:[" + Halp.join(radioOptions) + "]");
-     
+
       editor = DROPDOWN_EDITOR;
     }
     else if (md instanceof AttributeDateMdDTO)
     {
       options.add("calendar:MDSS.Calendar.init()");
-      
+
       editor = DATE_EDITOR;
     }
     else
     {
       if (md instanceof AttributeEnumerationMdDTO)
-      {                       
+      {
         List<String> dropdownOptions = new LinkedList<String>();
         AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
 
@@ -610,7 +680,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         {
           dropdownOptions.add("{label:'" + e.getValue() + "', value:'" + e.getKey() + "'}");
         }
-        
+
         options.add("dropdownOptions:[" + Halp.join(dropdownOptions) + "]");
 
         editor = DROPDOWN_EDITOR;
@@ -627,7 +697,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         }
       }
     }
-    
+
     options.add(generateValidator(view, md, setup));
     options.add("disableBtns:true");
 
