@@ -48,8 +48,8 @@
 <%@page import="dss.vector.solutions.entomology.MosquitoView"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dss.vector.solutions.entomology.assay.AdultAssayDTO"%>
-<%@page import="dss.vector.solutions.entomology.assay.LarvaeAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO"%>
 <%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayDTO"%>
 <%@page import="dss.vector.solutions.entomology.assay.KnockDownAssayDTO"%>
 
@@ -63,7 +63,7 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ AdultAssayDTO.CLASS, SpecieDTO.CLASS, LarvaeAssayDTO.CLASS, EfficacyAssayDTO.CLASS, KnockDownAssayDTO.CLASS};
+    String[] mosquitoTypes = new String[]{ MosquitoCollectionDTO.CLASS, AdultDiscriminatingDoseAssayDTO.CLASS, SpecieDTO.CLASS, LarvaeDiscriminatingDoseAssayDTO.CLASS, EfficacyAssayDTO.CLASS, KnockDownAssayDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
 
 
@@ -82,76 +82,75 @@
 MDSS.AbstractSelectSearch.Political = false;
 MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 
-(function(){
 
-  YAHOO.util.Event.onDOMReady(function(){
+YAHOO.util.Event.onDOMReady(function(){
 
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
-     dropDownMaps = {<%=Halp.getDropDownMaps(mosquitoViewDTO,  requestIF)%>};
+    dropDownMaps = {<%=Halp.getDropDownMaps(mosquitoViewDTO,  requestIF)%>};
 
-    //var mosquitoAttribs = <%=mosquitoAttribs%>
 
-    function mapAttribs(arr, type, obj, appendToKey){
-      tmpType = type;
-      obj = obj;
-      appendToKey = appendToKey;
-      return arr.map(function(attribName){
-        var attrib = obj.attributeMap[attribName];
-        var row = {};
-        if(attrib){
-          row.attributeName = attrib.attributeName;
-          if(attrib.dtoType === 'AttributeReferenceDTO')
-          {
-          	row.attributeName += '.displayLabel.currentValue';
-          }
-          if(attrib.dtoType === 'AttributeEnumerationDTO')
-          {
-            row.attributeName += '.displayLabel.currentValue';
-          }
-          row.key = attrib.attributeName + appendToKey;
-          row.type = tmpType;
-          row.dtoType = attrib.dtoType;
-          row.displayLabel = attrib.attributeMdDTO.displayLabel;
-          if(dropDownMaps[attrib.attributeName]){
-            row.dropDownMap = dropDownMaps[attrib.attributeName];
-          }
-        }else{
-          row.attributeName = attribName;
-          row.type = 'sqlcharacter';
-          row.displayLabel = attribName;
-          row.key = attribName;
-
+    var mapAttribs = function(attribName,index){
+      var attrib = this.obj.attributeMap[attribName];
+      var row = {};
+      if(attrib){
+        row.attributeName = attrib.attributeName;
+        if(attrib.dtoType === 'AttributeReferenceDTO')
+        {
+          row.attributeName += '.displayLabel.currentValue';
         }
-        return row;
-      });
-      delete tmpType;
-      delete obj;
+        if(attrib.dtoType === 'AttributeEnumerationDTO')
+        {
+          row.attributeName += '.displayLabel.currentValue';
+        }
+        row.key = attrib.attributeName + this.suffix;
+        row.type = this.obj.getType();
+        row.dtoType = attrib.dtoType;
+        row.displayLabel = attrib.attributeMdDTO.displayLabel;
+        if(dropDownMaps[attrib.attributeName]){
+          row.dropDownMap = dropDownMaps[attrib.attributeName];
+        }
+      }else{
+        row.attributeName = attribName;
+        row.type = 'sqlcharacter';
+        row.displayLabel = attribName;
+        row.key = attribName;
+
+      }
+      return row;
     }
 
+
+
+
+    var mosquitoCollection = new Mojo.$.dss.vector.solutions.entomology.MosquitoCollection();
     var collectionAttribs = ["collectionId","dateCollected","collectionMethod"];
     var collectionColumns = [];
 
     var abstractAssayAttribs = ["specie","identificationMethod","generation","isofemale","exposureTime","insecticide","testDate"];
     var abstractCalculations = ["resistanceStatus"];
 
-    var adultAssay = new  Mojo.$.dss.vector.solutions.entomology.assay.AdultAssay();
+    var adultAssay = new  Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
     var adultAttribs = ["quantityTested" ,"quantityDead","quantityLive","ageStart","ageEnd","quantity","sex","fed","gravid","holdingTime","mortality"];
     var adultCalulations = ["quantityKD","percentKD","timeToFifty"];
-    var adultColumns =  collectionColumns.concat(mapAttribs(groupAttribs,'<%=AdultAssayDTO.CLASS%>', adultAssay,'_adult'));
+
+    collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_adult'});
+    var adultColumns =  collectionColumns.concat(adultAttribs.map(mapAttribs, {obj:adultAssay, suffix:'_adult'}));
 
     var knockDownAssay = new  Mojo.$.dss.vector.solutions.entomology.assay.KnockDownAssay();
     var knockDownAttribs = ["quantityTested","ageStart","ageEnd","quantity","sex","fed","gravid","kd50","kd95"];
     var knockDownCalulations = [];
-    var knockDownColumns =  collectionColumns.concat(mapAttribs(groupAttribs,'<%=KnockDownAssayDTO.CLASS%>', larveAssay,'_larve'));
+    collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_knockDown'});
+    var knockDownColumns =  collectionColumns.concat(knockDownAttribs.map(mapAttribs, {obj:knockDownAssay, suffix:'_knockDown'}));
 
-    var larvaeAssay = new  Mojo.$.dss.vector.solutions.entomology.assay.LarvaeAssay();
+    var larvaeAssay = new  Mojo.$.dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay();
     var larvaeAttribs = ["quantityTested","ageStart","ageEnd","quantity","sex","fed","gravid","quantityDead","controlTestMortality"];
     var larvaeCalculations = ["quanityAlive","percentMortality"];
-    var larvaeColumns =  collectionColumns.concat(mapAttribs(groupAttribs,'<%=LarvaeAssayDTO.CLASS%>', knockDownAssay,'_knockdown'));
+    collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_larvae'});
+    var larvaeColumns =  collectionColumns.concat(adultAttribs.map(mapAttribs, {obj:larvaeAssay, suffix:'_larvae'}));
 
     //var efficacyAssay = new Mojo.$.dss.vector.solutions.entomology.assay.EfficacyAssay();
     //public static java.lang.String GEOENTITY = "geoEntity";
@@ -165,12 +164,11 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
     //          ]
     //];
 
-    var query = new MDSS.QueryResistance(adultColumns, larveColumns, knockDownColumns, queryList);
+    var query = new MDSS.QueryResistance(adultColumns, larvaeColumns, knockDownColumns, queryList);
     query.render();
 
-  });
+});
 
-})();
 </script>
 
 <div class="yui-skin-sam">
