@@ -159,9 +159,9 @@ YAHOO.util.Event.onDOMReady(function(){
     //var efficayCalculations = ["quanityAlive","percentMortality","controlTestMortality"];
 
     var selectableGroups = [
-              {title:"Adult Assays", values:adultColumns, group:"adult", klass:Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS},
-              {title:"Larvae Assays", values:larvaeColumns, group:"lavae", klass:Mojo.$.dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS},
-              {title:"Knock Down Assays", values:knockDownColumns, group:"knockDown", klass:Mojo.$.dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS}
+              {title:"Adult_DDA", values:adultColumns, group:"adult", klass:Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS},
+              {title:"Larvae_DDA", values:larvaeColumns, group:"lavae", klass:Mojo.$.dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS},
+              {title:"Knock_Down_Assay", values:knockDownColumns, group:"knockDown", klass:Mojo.$.dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS}
     ];
 
     var query = new MDSS.QueryResistance(selectableGroups, queryList);
