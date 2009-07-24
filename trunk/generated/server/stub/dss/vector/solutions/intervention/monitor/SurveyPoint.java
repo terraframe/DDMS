@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
@@ -330,6 +331,7 @@ public class SurveyPoint extends SurveyPointBase implements
    * @param pageNumber
    * @return
    */
+  @Authenticate
   public static com.terraframe.mojo.query.ValueQuery querySurvey(String xml, String config,
       Integer pageNumber, Integer pageSize)
   {

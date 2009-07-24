@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.constants.MdBusinessInfo;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -203,6 +204,7 @@ public abstract class AbstractAssay extends AbstractAssayBase implements
    * @param xml
    */
   @Transaction
+  @Authenticate
   public static com.terraframe.mojo.query.ValueQuery queryResistance(String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
     QueryConfig queryConfig = new QueryConfig(config);

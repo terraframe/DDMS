@@ -2,6 +2,8 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -16,7 +18,7 @@ public class HouseholdController extends HouseholdControllerBase implements
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/intervention/monitor/Household/";
 
-  public static final String LAYOUT           = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT           = "/layout.jsp";
 
   private static final long  serialVersionUID = 1239641309417L;
 
@@ -57,7 +59,6 @@ public class HouseholdController extends HouseholdControllerBase implements
     req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
     req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Households");
     req.setAttribute("nets", Arrays.asList(nets));
     render("createComponent.jsp");
   }
@@ -94,7 +95,6 @@ public class HouseholdController extends HouseholdControllerBase implements
     req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
     req.setAttribute("item", dto);
     req.setAttribute("nets", Arrays.asList(dto.getHouseholdNets()));
-    req.setAttribute("page_title", "Edit Households");
     render("editComponent.jsp");
   }
 
@@ -110,10 +110,17 @@ public class HouseholdController extends HouseholdControllerBase implements
     utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
+    ClientRequestIF request = this.getClientSession().getRequest();
+    List<PersonViewDTO> people = new LinkedList<PersonViewDTO>();
+    
+    for(PersonDTO person : dto.getAllPersons())
+    {
+      people.add(PersonDTO.getView(request, person.getId()));
+    }
+
     req.setAttribute("item", dto);
-    req.setAttribute("people", dto.getAllPersons());
+    req.setAttribute("people", people);
     req.setAttribute("nets", Arrays.asList(dto.getHouseholdNets()));
-    req.setAttribute("page_title", "View Households");
     render("viewComponent.jsp");
   }
 
@@ -141,7 +148,6 @@ public class HouseholdController extends HouseholdControllerBase implements
     HouseholdQueryDTO query = HouseholdDTO.getAllInstances(clientRequest, sortAttribute, isAscending,
         pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Households");
     render("viewAllComponent.jsp");
   }
 
@@ -166,7 +172,6 @@ public class HouseholdController extends HouseholdControllerBase implements
     req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
     req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Households");
     render("createComponent.jsp");
   }
 
@@ -206,7 +211,6 @@ public class HouseholdController extends HouseholdControllerBase implements
     req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
     req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update Households");
     req.setAttribute("nets", Arrays.asList(nets));
 
     render("editComponent.jsp");
@@ -240,7 +244,6 @@ public class HouseholdController extends HouseholdControllerBase implements
     req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
     req.setAttribute("nets", Arrays.asList(HouseholdDTO.getHouseholdNets(clientRequest, dto.getId())));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Households");
     render("editComponent.jsp");
   }
 
@@ -256,7 +259,6 @@ public class HouseholdController extends HouseholdControllerBase implements
     ClientRequestIF clientRequest = super.getClientRequest();
     HouseholdQueryDTO query = HouseholdDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Households");
     render("viewAllComponent.jsp");
   }
 

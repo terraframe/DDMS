@@ -219,7 +219,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
         throw new ProgrammingErrorException(t);
       }
     }
-    
+
     ValueQuery valueQuery = new ValueQuery(f);
 
     Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID),
@@ -600,15 +600,15 @@ public abstract class GeoEntity extends GeoEntityBase implements
   {
     List<String> list = new LinkedList<String>();
     List<GeoEntity> children = new LinkedList<GeoEntity>();
-    
-    for(GeoHierarchyView view : GeoHierarchy.getSprayHierarchies(this))
+
+    for (GeoHierarchyView view : GeoHierarchy.getSprayHierarchies(this))
     {
       list.add(view.getGeneratedType());
     }
 
-    for(GeoEntity geoEntity : this.getImmediateChildren())
+    for (GeoEntity geoEntity : this.getImmediateChildren())
     {
-      if(list.contains(geoEntity.getType()))
+      if (list.contains(geoEntity.getType()))
       {
         children.add(geoEntity);
       }
@@ -649,21 +649,21 @@ public abstract class GeoEntity extends GeoEntityBase implements
   public List<GeoEntity> getPrunedChildren(List<String> types)
   {
     List<Condition> conditions = new LinkedList<Condition>();
-    
+
     QueryFactory factory = new QueryFactory();
-    GeoEntityQuery geoEntityQuery = new GeoEntityQuery(factory);    
+    GeoEntityQuery geoEntityQuery = new GeoEntityQuery(factory);
     AllPathsQuery query = new AllPathsQuery(factory);
-    
-    for(String type : types)
+
+    for (String type : types)
     {
       conditions.add(query.getChildUniversal().EQ(MdClass.getMdClass(type)));
     }
-    
+
     Condition[] array = conditions.toArray(new Condition[conditions.size()]);
     Condition and = AND.get(query.getParentGeoEntity().EQ(this), OR.get(array));
-    
+
     query.WHERE(and);
-    
+
     geoEntityQuery.WHERE(geoEntityQuery.getId().EQ(query.getChildGeoEntity().getId()));
 
     List<GeoEntity> list = new LinkedList<GeoEntity>(geoEntityQuery.getIterator().getAll());
@@ -679,21 +679,21 @@ public abstract class GeoEntity extends GeoEntityBase implements
   public List<GeoEntity> getPrunedParents(List<String> types)
   {
     List<Condition> conditions = new LinkedList<Condition>();
-    
+
     QueryFactory factory = new QueryFactory();
-    GeoEntityQuery geoEntityQuery = new GeoEntityQuery(factory);    
+    GeoEntityQuery geoEntityQuery = new GeoEntityQuery(factory);
     AllPathsQuery query = new AllPathsQuery(factory);
-    
-    for(String type : types)
+
+    for (String type : types)
     {
       conditions.add(query.getParentUniversal().EQ(MdClass.getMdClass(type)));
     }
-    
+
     Condition[] array = conditions.toArray(new Condition[conditions.size()]);
     Condition and = AND.get(query.getChildGeoEntity().EQ(this), OR.get(array));
-    
+
     query.WHERE(and);
-    
+
     geoEntityQuery.WHERE(geoEntityQuery.getId().EQ(query.getParentGeoEntity().getId()));
 
     List<GeoEntity> list = new LinkedList<GeoEntity>(geoEntityQuery.getIterator().getAll());
@@ -1037,7 +1037,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     return query;
   }
-  
+
   private class OrderedGeoEntityQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
 
@@ -1096,14 +1096,14 @@ public abstract class GeoEntity extends GeoEntityBase implements
       vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityName());
     }
   }
-  
+
   public static GeoEntityViewQuery getAsViews(String[] entities)
   {
     QueryFactory f = new QueryFactory();
     GeoEntityViewQuery q = new GeoEntityViewQuery(f, entities);
     return q;
   }
-  
+
   /**
    * Given a filter (a GeoEntity class), this method returns all parents and
    * children and the filter type itself that's allowed in the hierarchy.

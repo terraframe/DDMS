@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.business.rbac.Operation;
 import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
@@ -537,6 +538,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
    * @param xml
    */
   @Transaction
+  @Authenticate
   public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String config,
       Integer pageNumber, Integer pageSize)
   {

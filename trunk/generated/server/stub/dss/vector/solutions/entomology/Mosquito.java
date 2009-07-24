@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
@@ -287,6 +288,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    * @param xml
    */
   @Transaction
+  @Authenticate
   public static com.terraframe.mojo.query.ValueQuery queryEntomology(String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
     QueryConfig queryConfig = new QueryConfig(config);

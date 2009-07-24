@@ -1,5 +1,7 @@
 package dss.vector.solutions.geo;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
+
 import dss.vector.solutions.geo.LocatedInBase;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
@@ -18,6 +20,7 @@ public class LocatedIn extends LocatedInBase implements com.terraframe.mojo.gene
   }
   
   @Override
+  @Transaction
   public void apply()
   {
     super.apply();

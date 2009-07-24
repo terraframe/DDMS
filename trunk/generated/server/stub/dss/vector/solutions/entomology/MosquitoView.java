@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import com.terraframe.mojo.business.generation.GenerationUtil;
+import com.terraframe.mojo.business.rbac.Operation;
 import com.terraframe.mojo.constants.MdAttributeConcreteInfo;
 import com.terraframe.mojo.constants.MdAttributeVirtualInfo;
 import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
@@ -15,11 +16,15 @@ import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeVirtualDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.metadata.MdAttributeConcreteDAO;
+import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.session.Session;
+import com.terraframe.mojo.session.SessionFacade;
+import com.terraframe.mojo.session.SessionIF;
 import com.terraframe.mojo.system.metadata.MdAttributeBoolean;
 import com.terraframe.mojo.system.metadata.MdAttributeVirtual;
 import com.terraframe.mojo.system.metadata.MdBusiness;
@@ -38,7 +43,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
 {
   private static final long serialVersionUID = 1235599942174L;
 
-  private static boolean    viewGenerated    = false;
+//  private static boolean    viewGenerated    = false;
 
   public MosquitoView()
   {
@@ -280,10 +285,17 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
 
     for (Class<AssayTestResult> key : map.keySet())
     {
-
       if (assayClass.isAssignableFrom(key))
       {
-        list.add(MdAttributeVirtual.get(map.get(key).getId()));
+        //Ensure that an assay attribute has read permissions
+        
+        SessionIF session = Session.getCurrentSession();
+        String attributeId = map.get(key).getId();
+
+        if(SessionFacade.checkAttributeAccess(session.getId(), Operation.READ, (MdAttributeDAO) MdAttributeDAO.get(attributeId)))
+        {
+          list.add(MdAttributeVirtual.get(attributeId));
+        }
       }
     }
     return list.toArray(new MdAttributeVirtual[list.size()]);
@@ -295,7 +307,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
 
     // MosquitoView.createDatabaseView();
 
-    MosquitoView view = new MosquitoView();
+//    MosquitoView view = new MosquitoView();
     String s = "[";
     MdAttributeVirtual[] mdArray = MosquitoView.getAccessors(superAssayClass);
     for (MdAttributeVirtual md : mdArray)
@@ -306,10 +318,10 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       String method = acc.toLowerCase() + "testmethod_defualtLocale";
       String type = "sqlcharacter";
 
-      String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
-      MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
+//      String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
+//      MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
 
-      MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
+//      MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
 
       s += "{";
       s += "viewAccessor:'" + acc + "',";
@@ -322,7 +334,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       try
       {
         String testMdGetter = acc + "Method";
-        String testMethodID = view.getMdAttributeDAO(testMdGetter).getId();
+//        String testMethodID = view.getMdAttributeDAO(testMdGetter).getId();
 
         s += "{";
         s += "viewAccessor:'" + testMdGetter + "',";

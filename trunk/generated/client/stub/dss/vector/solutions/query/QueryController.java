@@ -44,6 +44,7 @@ import dss.vector.solutions.intervention.monitor.HouseholdDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdNetDTO;
 import dss.vector.solutions.intervention.monitor.NetDTO;
 import dss.vector.solutions.intervention.monitor.PersonDTO;
+import dss.vector.solutions.intervention.monitor.PersonViewDTO;
 import dss.vector.solutions.intervention.monitor.RoofViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.intervention.monitor.WallViewDTO;
@@ -199,7 +200,7 @@ public class QueryController extends QueryControllerBase implements
       // Map of menu items. Key/Value where key is the attribute name
       // on Person and value is an object with display label and ids.
       JSONObject personMenuItems = new JSONObject();
-      PersonDTO person = new PersonDTO(this.getClientRequest());
+      PersonViewDTO person = new PersonViewDTO(this.getClientRequest());
 
       // 17. Sex
       items = new JSONArray();

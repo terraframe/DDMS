@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.xml.sax.SAXParseException;
 
+import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -214,6 +215,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
    * @param xml
    */
   @Transaction
+  @Authenticate
   public static com.terraframe.mojo.query.ValueQuery queryIRS(String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
     QueryConfig queryConfig = new QueryConfig(config);

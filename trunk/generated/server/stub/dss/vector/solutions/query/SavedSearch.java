@@ -186,7 +186,11 @@ public class SavedSearch extends SavedSearchBase implements
     ThematicLayer layer = this.getThematicLayer();
     if(layer != null)
     {
-      view.setThematicLayerId(layer.getId());
+      String layerId = layer.getId();
+      view.setThematicLayerId(layerId);
+      
+      String thematicLayerId = view.getThematicLayerId();
+      System.out.println(thematicLayerId);
     }
 
     if(includeXML)
