@@ -112,15 +112,17 @@
            ${current.personId}
          </td>
          <td>
-           <mjl:commandLink display="View" action="dss.vector.solutions.intervention.monitor.PersonController.view.mojo" name="Person.view.link">
-             <mjl:property name="id" value="${current.id}"/>
+           <mjl:commandLink action="dss.vector.solutions.intervention.monitor.PersonController.view.mojo" name="Person.view.link">
+             <fmt:message key="View"/>
+             <mjl:property name="id" value="${current.concreteId}"/>
            </mjl:commandLink>
          </td>
         </tr>
       </c:forEach>
     </table>
   </dd>
-  <mjl:commandLink display="Add a person" action="dss.vector.solutions.intervention.monitor.PersonController.newInstance.mojo" name="Person.newInstance.link">
+  <mjl:commandLink action="dss.vector.solutions.intervention.monitor.PersonController.newInstance.mojo" name="Person.newInstance.link">
+    <fmt:message key="Add_Person"/>
     <mjl:property name="householdId" value="${item.id}"/>
   </mjl:commandLink>
 </dl>
