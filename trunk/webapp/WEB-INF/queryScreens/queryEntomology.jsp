@@ -83,7 +83,6 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
-    var assayTree = <%= (String) request.getAttribute("assayTree") %>;
 
      dropDownMaps = {<%=Halp.getDropDownMaps(mosquitoViewDTO,  requestIF)%>};
 
