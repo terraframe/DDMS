@@ -30,7 +30,7 @@
 	<property name="geodata.db" value="mozambique" />
 
 	<!-- =================================================================== -->
-	<!-- Define tomcat tasks                                                 -->
+	<!-- Define the tomcat tasks                                                 -->
 	<!-- =================================================================== -->
 
 	<taskdef name="reload" classname="org.apache.catalina.ant.ReloadTask" classpath="${server.lib}/catalina-ant.jar" />
@@ -588,6 +588,29 @@
 		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
 			<jvmarg value="-Xmx1024m" />
 			<jvmarg value="-javaagent:${local.lib}/server/aspectjweaver.jar" />
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+			<arg value="${root.user}" />
+			<arg value="${root.pass}" />
+			<arg value="${geodata.db}" />
+		</java>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Import the geo data into the db                                     -->
+	<!-- =================================================================== -->
+	<target name="build_all_paths_geodata" depends="" description="imports a db of geodata into the db">
+		<!--
+		<diagnostics/>
+		<echoproperties>
+		</echoproperties>
+		-->
+		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
+			<jvmarg value="-Xmx1024m" />
+			<!--
+			<jvmarg value="-javaagent:${local.lib}/server/aspectjweaver.jar" />
+			-->
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
