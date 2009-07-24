@@ -14,6 +14,15 @@
     <mjl:attributeColumn attributeName="lastName">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="sex">
+      <mjl:row>
+        <ul>
+          <c:forEach var="enumName" items="${item.sexEnumNames}">
+            <li>
+              ${item.sexMd.enumItems[enumName]}
+            </li>
+          </c:forEach>
+        </ul>      
+      </mjl:row>      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="dateOfBirth">
       <mjl:row>
