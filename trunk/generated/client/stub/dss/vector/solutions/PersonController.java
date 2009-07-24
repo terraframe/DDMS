@@ -163,13 +163,9 @@ public class PersonController extends PersonControllerBase implements
 
   private void renderView(PersonViewDTO view) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id="
-          + view.getPersonId());
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", view.getPersonId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     req.setAttribute("sexes", SexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", view);
@@ -210,10 +206,6 @@ public class PersonController extends PersonControllerBase implements
 
   public void view(String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("id", id);
-    utility.checkURL(this.getClass().getSimpleName(), "view");
-
     ClientRequestIF clientRequest = super.getClientRequest();
     PersonViewDTO view = PersonDTO.getView(clientRequest, id);
 
