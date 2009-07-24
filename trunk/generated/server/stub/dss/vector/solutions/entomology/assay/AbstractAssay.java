@@ -12,11 +12,11 @@ import com.terraframe.mojo.constants.MdBusinessInfo;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.InnerJoin;
 import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableMoment;
-import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
@@ -25,12 +25,8 @@ import com.terraframe.mojo.system.metadata.MdBusiness;
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.entomology.ConcreteMosquitoCollection;
 import dss.vector.solutions.entomology.ConcreteMosquitoCollectionQuery;
-import dss.vector.solutions.entomology.Mosquito;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
-import dss.vector.solutions.entomology.MosquitoQuery;
-import dss.vector.solutions.entomology.UninterestingSpecieGroup;
-import dss.vector.solutions.entomology.UninterestingSpecieGroupQuery;
 import dss.vector.solutions.mo.AbstractTerm;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
@@ -161,34 +157,37 @@ public abstract class AbstractAssay extends AbstractAssayBase implements
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
         valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, MosquitoCollection.CLASS, MosquitoCollection.GEOENTITY);
 
-    MosquitoQuery mosquitoQuery = (MosquitoQuery) queryMap.get(Mosquito.CLASS);
-    UninterestingSpecieGroupQuery groupQuery = (UninterestingSpecieGroupQuery) queryMap.get(UninterestingSpecieGroup.CLASS);
-
     // join Mosquito with mosquito collection
     MosquitoCollectionQuery collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
-    if (mosquitoQuery != null)
+
+    // join Mosquito with mosquito collection
+    AdultDiscriminatingDoseAssayQuery adultQuery = (AdultDiscriminatingDoseAssayQuery) queryMap.get(AdultDiscriminatingDoseAssay.CLASS);
+    if (adultQuery != null)
     {
-      valueQuery.FROM(mosquitoQuery);
-      valueQuery.WHERE(mosquitoQuery.getCollection().getId().EQ(collectionQuery.getId()));
+      valueQuery.WHERE(adultQuery.getCollection().getId().EQ(collectionQuery.getId()));
     }
 
-    if (xml.indexOf("SpecieRatio") > 0)
+    LarvaeDiscriminatingDoseAssayQuery larvaeQuery = (LarvaeDiscriminatingDoseAssayQuery) queryMap.get(LarvaeDiscriminatingDoseAssay.CLASS);
+    if (larvaeQuery != null)
     {
-      SelectableSQLCharacter specieRatio = (SelectableSQLCharacter) valueQuery.getSelectable("SpecieRatio");
-      specieRatio.setSQL("''");
+      valueQuery.WHERE(larvaeQuery.getCollection().getId().EQ(collectionQuery.getId()));
+    }
+
+    KnockDownAssayQuery kdQuery = (KnockDownAssayQuery) queryMap.get(KnockDownAssay.CLASS);
+    if (kdQuery != null)
+    {
+      valueQuery.WHERE(kdQuery.getCollection().getId().EQ(collectionQuery.getId()));
     }
 
     SelectableMoment dateAttribute = collectionQuery.getDateCollected();
 
-
-    ConcreteMosquitoCollectionQuery concreteCollectionQuery = (ConcreteMosquitoCollectionQuery) queryMap.get(ConcreteMosquitoCollection.CLASS);
     //this ensures that the date attribute is joined correctly
-    if (concreteCollectionQuery == null)
+    ConcreteMosquitoCollectionQuery concreteCollectionQuery = (ConcreteMosquitoCollectionQuery) queryMap.get(ConcreteMosquitoCollection.CLASS);
+    if(concreteCollectionQuery == null)
     {
-      valueQuery.FROM(dateAttribute.getDefiningTableName(), dateAttribute.getDefiningTableAlias());
       for(Join join: dateAttribute.getJoinStatements())
       {
-        //valueQuery.WHERE((InnerJoin) join);
+        valueQuery.WHERE((InnerJoin) join);
       }
     }
 
