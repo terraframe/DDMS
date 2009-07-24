@@ -68,6 +68,12 @@
         </mdBusinessPermission>        
       </role>      
       <role roleName="mdssCoordinator">
+        <mdBusinessPermission type="dss.vector.solutions.geo.AllPaths">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.surveillance.AggregatedAgeGroup">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
@@ -107,6 +113,12 @@
         </mdBusinessPermission>
       </role>
       <role roleName="entomologist">
+        <mdBusinessPermission type="dss.vector.solutions.geo.AllPaths">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>      
         <mdBusinessPermission type="dss.vector.solutions.entomology.assay.infectivity.MixedTestResult">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
