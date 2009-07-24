@@ -420,7 +420,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    	{
 		  	for each (check in YAHOO.util.Dom.getElementsByClassName(removeClass))
 	      {
-		  		if(check.checked && )
+		  		if(check.checked)
 		      {
 		  			if(YAHOO.util.Dom.hasClass(check, 'selectAllCheck')){
 		  				check.checked = false;
