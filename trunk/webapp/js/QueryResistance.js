@@ -1,7 +1,7 @@
 MDSS.QueryResistance = Mojo.Class.create();
 MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
-	  initialize : function(adult, larvae, knockdown, queryList)
+	  initialize : function(selectableGroups, queryList)
 	  {
 	  	MDSS.QueryBase.prototype.initialize.call(this);
 
@@ -32,7 +32,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       this._endDateSelectable = new MDSS.QueryXML.Selectable(attribute);
 
 	    //this screen can query two diffrent classes, so we have a place to store the selected class
-	    this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
+	    this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS;
 
 	    // END: query objects
 
@@ -49,7 +49,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      this._queryPanel.addAvailableQuery(queryList[i]);
 	    }
 
-	    this._buildQueryItems(adult,larvae, knockDown);
+	    this._buildQueryItems(selectableGroups);
 
 	    this._buildColumns();
 	  },
@@ -781,7 +781,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  /**
 	   * Builds the query items for the left column.
 	   */
-	  _buildQueryItems : function(adult, larvae, knockDown)
+	  _buildQueryItems : function(selectableGroups)
 	  {
 	  	/*
 	  	 * Target
@@ -800,25 +800,16 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      id: 'globalCount'
 	    });
 
-	    this._queryPanel.addQueryItem({
-	      html: this._getVizDiv(this, adult, "Infectivity_Assays", Mojo.$.dss.vector.solutions.entomology.assay.AdultAssay.CLASS,"adultAssays"),
-	      id: 'Infectivity_Assays',
-	      menuBuilder : MDSS.util.bind(this, this._menuBuilder)
-	    });
 
-	    this._queryPanel.addQueryItem({
-	      html: this._getVizDiv(this, larvae, "Molecular_Assays", Mojo.$.dss.vector.solutions.entomology.assay.LarvaeAssay.CLASS,"larvaeAssays"),
-	      id: 'Molecular_Assays',
-	      menuBuilder : MDSS.util.bind(this, this._menuBuilder)
-	    });
+	    var setupDiv =  function(group,idx){
+	    	this._queryPanel.addQueryItem({
+		      html: this._getVizDiv(this, group.values, group.title, group.klass, group.group),
+		      id: group.group + '_checkbox_group',
+		      menuBuilder : MDSS.util.bind(this, this._menuBuilder)
+		    });
+	    };
 
-	    this._queryPanel.addQueryItem({
-	      html: this._getVizDiv(this, knockDown, "Biochemical_Assays", Mojo.$.dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS,"knockDownAssays"),
-	      id: 'Biochemical_Assays',
-	      menuBuilder : MDSS.util.bind(this, this._menuBuilder)
-	    });
-
-
+	    selectableGroups.map(setupDiv,this);
 
 	  },
 
