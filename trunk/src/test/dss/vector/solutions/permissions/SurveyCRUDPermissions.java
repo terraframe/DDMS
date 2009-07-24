@@ -39,33 +39,33 @@ public abstract class SurveyCRUDPermissions extends TestCase
     view.setGeoId(geoId);
     view.setSurveyDate(new Date());
     view.apply();
-    
+
     try
     {
       SurveyPointViewDTO update = SurveyPointDTO.lockView(request, view.getConcreteId());
       update.setSurveyDate(new Date());
       update.apply();
-      
+
       SurveyPointViewDTO test = SurveyPointDTO.getView(request, view.getConcreteId());
       assertEquals(update.getGeoId(), test.getGeoId());
-      assertEquals(update.getSurveyDate(), test.getSurveyDate());      
+      assertEquals(update.getSurveyDate(), test.getSurveyDate());
     }
     finally
     {
       view.deleteConcrete();
     }
   }
-  
+
   public void testHousehold()
   {
     SurveyPointViewDTO view = new SurveyPointViewDTO(request);
     view.setGeoId(geoId);
     view.setSurveyDate(new Date());
     view.apply();
-    
+
     WallViewDTO[] walls = WallViewDTO.getAll(request);
     RoofViewDTO[] roofs = RoofViewDTO.getAll(request);
-    
+
     HouseholdDTO household = new HouseholdDTO(request);
     household.setSurveyPoint(SurveyPointDTO.get(request, view.getConcreteId()));
     household.setHasWindows(true);
@@ -76,17 +76,17 @@ public abstract class SurveyCRUDPermissions extends TestCase
 
     HouseholdNetDTO[] nets = household.getHouseholdNets();
     nets[0].setAmount(40);
-    
+
     household.applyAll(nets);
-    
+
     try
     {
       household.lock();
-      household.setNetsUsed(20);      
+      household.setNetsUsed(20);
       HouseholdNetDTO[] lockedNets = household.getHouseholdNets();
 
       household.applyAll(lockedNets);
-      
+
       HouseholdDTO test = HouseholdDTO.get(request, household.getId());
 
       assertEquals(household.getId(), test.getId());
@@ -95,7 +95,7 @@ public abstract class SurveyCRUDPermissions extends TestCase
     {
       household.delete();
       view.deleteConcrete();
-    }    
+    }
   }
 
   public void testPerson()
@@ -109,49 +109,61 @@ public abstract class SurveyCRUDPermissions extends TestCase
     view.setGeoId(geoId);
     view.setSurveyDate(new Date());
     view.apply();
-    
-    
-    HouseholdDTO household = new HouseholdDTO(request);
-    household.setSurveyPoint(SurveyPointDTO.get(request, view.getConcreteId()));
-    household.setHasWindows(true);
-    household.setWall(WallDTO.get(request, walls[0].getWallId()));
-    household.setRoof(RoofDTO.get(request, roofs[0].getRoofId()));
-    household.setHouseholdName("232");
-    household.setNets(40);
-    
-    HouseholdNetDTO[] nets = household.getHouseholdNets();
-    
-    household.applyAll(nets);
-    
-    PersonViewDTO person = new PersonViewDTO(request);
-    person.addBloodslide(BloodslideResponseDTO.DONE);
-    person.addFever(FeverResponseDTO.DONT_KNOW);
-    person.addMalaria(FeverResponseDTO.DONT_KNOW);
-    person.addPayment(FeverResponseDTO.DONT_KNOW);
-    person.addPerformedRDT(RDTResponseDTO.NO);
-    person.addRDTResult(RDTResultDTO.MALARIAE_POSITIVE);
-    person.addSex(HumanSexDTO.FEMALE);
-    person.setAnaemiaTreatment(treatments[0]);
-    person.setFeverTreatment(fever[0]);
-    person.setHousehold(household);
-    person.setPersonId("teste3243");
-    person.apply();
-    
-    
+
     try
     {
-      PersonViewDTO update = PersonDTO.lockView(request, person.getConcreteId());
-      update.apply();
-      
-      PersonViewDTO test = PersonDTO.getView(request, person.getConcreteId());
-      
-      assertEquals(update.getConcreteId(), test.getConcreteId());
+
+      HouseholdDTO household = new HouseholdDTO(request);
+      household.setSurveyPoint(SurveyPointDTO.get(request, view.getConcreteId()));
+      household.setHasWindows(true);
+      household.setWall(WallDTO.get(request, walls[0].getWallId()));
+      household.setRoof(RoofDTO.get(request, roofs[0].getRoofId()));
+      household.setHouseholdName("232");
+      household.setNets(40);
+
+      HouseholdNetDTO[] nets = household.getHouseholdNets();
+      nets[0].setAmount(40);
+
+      household.applyAll(nets);
+
+      try
+      {
+        PersonViewDTO person = new PersonViewDTO(request);
+        person.addBloodslide(BloodslideResponseDTO.DONE);
+        person.addFever(FeverResponseDTO.DONT_KNOW);
+        person.addMalaria(FeverResponseDTO.DONT_KNOW);
+        person.addPayment(FeverResponseDTO.DONT_KNOW);
+        person.addPerformedRDT(RDTResponseDTO.NO);
+        person.addRDTResult(RDTResultDTO.MALARIAE_POSITIVE);
+        person.addSex(HumanSexDTO.FEMALE);
+        person.setAnaemiaTreatment(treatments[0]);
+        person.setFeverTreatment(fever[0]);
+        person.setHousehold(household);
+        person.setPersonId("teste3243");
+        person.apply();
+
+        try
+        {
+          PersonViewDTO update = PersonDTO.lockView(request, person.getConcreteId());
+          update.apply();
+
+          PersonViewDTO test = PersonDTO.getView(request, person.getConcreteId());
+
+          assertEquals(update.getConcreteId(), test.getConcreteId());
+        }
+        finally
+        {
+          person.delete();
+        }
+      }
+      finally
+      {
+        household.delete();
+      }
     }
     finally
     {
-      person.delete();
-      household.delete();
       view.deleteConcrete();
-    }    
+    }
   }
 }
