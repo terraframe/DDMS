@@ -428,14 +428,14 @@ public class QueryController extends QueryControllerBase implements
 
       // Visible attributes
       String[] visibleAttributes = AggregatedCaseDTO.getVisibleAttributeNames(this.getClientRequest());
-      
+
       ClassQueryDTO classQuery = this.getClientRequest().getQuery(AggregatedCaseDTO.CLASS);
 
       JSONArray visible = new JSONArray();
       for (String visibleAttribute : visibleAttributes)
       {
         AttributeDTO attributeDTO = classQuery.getAttributeDTO(visibleAttribute);
-        
+
         if (attributeDTO.isReadable() && ! ( attributeDTO instanceof AttributeReferenceDTO )
             && ! ( attributeDTO instanceof AttributeStructDTO )
             && !attributeDTO.getName().equals(AggregatedCaseDTO.GEOENTITY)
@@ -817,6 +817,26 @@ public class QueryController extends QueryControllerBase implements
       resp.getWriter().write(t.getLocalizedMessage());
     }
   }
+
+  @Override
+  public void exportResistanceQueryToExcel(String queryXML, String geoEntityType, String savedSearchId)
+      throws IOException, ServletException
+  {
+    try
+    {
+      InputStream stream = MosquitoDTO.exportQueryToExcel(this.getClientRequest(), queryXML,
+          geoEntityType, savedSearchId);
+
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+
+      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
+  }
+
 
   @Override
   public void cancelQuery(SavedSearchViewDTO savedQueryView) throws IOException, ServletException
