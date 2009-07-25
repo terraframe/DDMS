@@ -75,9 +75,8 @@
 MDSS.AbstractSelectSearch.Political = false;
 MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 
-(function(){
 
-  YAHOO.util.Event.onDOMReady(function(){
+YAHOO.util.Event.onDOMReady(function(){
 
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
@@ -88,42 +87,36 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 
     //var mosquitoAttribs = <%=mosquitoAttribs%>
 
-    function mapAttribs(arr, type, obj, appendToKey){
-      tmpType = type;
-      obj = obj;
-      appendToKey = appendToKey;
-      return arr.map(function(attribName){
-        var attrib = obj.attributeMap[attribName];
-        var row = {};
-        if(attrib){
-          row.attributeName = attrib.attributeName;
-          if(attrib.dtoType === 'AttributeReferenceDTO')
-          {
-          	row.attributeName += '.displayLabel.currentValue';
-          }
-          if(attrib.dtoType === 'AttributeEnumerationDTO')
-          {
-            row.attributeName += '.displayLabel.currentValue';
-          }
-          row.key = attrib.attributeName + appendToKey;
-          row.type = tmpType;
-          row.dtoType = attrib.dtoType;
-          row.displayLabel = attrib.attributeMdDTO.displayLabel;
-          if(dropDownMaps[attrib.attributeName]){
-            row.dropDownMap = dropDownMaps[attrib.attributeName];
-          }
-        }else{
-          row.attributeName = attribName;
-          row.type = 'sqlcharacter';
-          row.displayLabel = attribName;
-          row.key = attribName;
+     var mapAttribs = function(attribName,index){
+       var attrib = this.obj.attributeMap[attribName];
+       var row = {};
+       if(attrib){
+         row.attributeName = attrib.attributeName;
+         if(attrib.dtoType === 'AttributeReferenceDTO')
+         {
+           row.attributeName += '.displayLabel.currentValue';
+         }
+         if(attrib.dtoType === 'AttributeEnumerationDTO')
+         {
+           row.attributeName += '.displayLabel.currentValue';
+         }
+         row.key = attrib.attributeName + this.suffix;
+         row.type = this.obj.getType();
+         row.dtoType = attrib.dtoType;
+         row.displayLabel = attrib.attributeMdDTO.displayLabel;
+         if(dropDownMaps[attrib.attributeName]){
+           row.dropDownMap = dropDownMaps[attrib.attributeName];
+         }
+       }else{
+         row.attributeName = attribName;
+         row.type = 'sqlcharacter';
+         row.displayLabel = attribName;
+         row.key = attribName;
 
-        }
-        return row;
-      });
-      delete tmpType;
-      delete obj;
-    }
+       }
+       return row;
+     }
+
 
 
     function mapAssayAttribs(arr,obj){
@@ -132,13 +125,14 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
             row.dropDownMap = dropDownMaps[row.viewAccessor];
           }
           var attrib = mosquitoView.attributeMap[row.viewAccessor];
-          row.dtoType = attrib.dtoType;
+
           row.key = row.attributeName;
           return row;
       });
     }
 
 
+    var mosquito = new Mojo.$.dss.vector.solutions.entomology.Mosquito();
     var mosquitoView = new Mojo.$.dss.vector.solutions.entomology.MosquitoView();
     var mosquitoGroup = new  Mojo.$.dss.vector.solutions.entomology.UninterestingSpecieGroup();
     var mosquitoCollection = new Mojo.$.dss.vector.solutions.entomology.MosquitoCollection();
@@ -146,14 +140,14 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
     var collectionAttribs = ["collectionId","dateCollected"];
     var collectionColumns = [];
 
-    collectionColumns =  mapAttribs(collectionAttribs,'<%=MosquitoCollectionDTO.CLASS%>', mosquitoCollection,'_group');
+
+    collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_group'});
     var groupAttribs = ["sampleId","specie","identificationMethod","quantity"];
-    var groupColumns =  collectionColumns.concat(mapAttribs(groupAttribs,'<%=UninterestingSpecieGroupDTO.CLASS%>', mosquitoGroup,'_group'));
+    var groupColumns =  collectionColumns.concat(groupAttribs.map(mapAttribs, {obj:mosquitoGroup, suffix:'_group'}));
 
-    collectionColumns =  mapAttribs(collectionAttribs,'<%=MosquitoCollectionDTO.CLASS%>', mosquitoCollection,'_individual');
+    collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_individual'});
     var mosquitoAttribs = ["sampleId","specie","identificationMethod","sex","generation","isofemale","testDate"];
-    var mosquitoColumns = collectionColumns.concat(mapAttribs(mosquitoAttribs,'<%=MosquitoDTO.CLASS%>', mosquitoView,'_individual'));
-
+    var mosquitoColumns =  collectionColumns.concat(mosquitoAttribs.map(mapAttribs, {obj:mosquito, suffix:'_individual'}));
     var assays = [];
 
     var infectivityColumns = <%=MosquitoViewDTO.getAssayColumns(requestIF,InfectivityAssayTestResult.class.getCanonicalName())%>;
@@ -169,9 +163,8 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
     var query = new MDSS.QueryEntomology(groupColumns,mosquitoColumns, assays, queryList);
     query.render();
 
-  });
+});
 
-})();
 </script>
 
 <div class="yui-skin-sam">
