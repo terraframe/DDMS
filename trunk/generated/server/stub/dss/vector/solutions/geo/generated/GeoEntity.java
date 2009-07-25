@@ -1,6 +1,7 @@
 package dss.vector.solutions.geo.generated;
 
 import java.lang.reflect.Constructor;
+import java.sql.Savepoint;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,7 +21,9 @@ import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.MdClassDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
+import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
+import com.terraframe.mojo.dataaccess.database.IDGenerator;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -782,7 +785,8 @@ public abstract class GeoEntity extends GeoEntityBase implements
     // set the active status of the child to that of the parent
     // unless the child has more than one parent.
 
-    if (this.isNew())
+    boolean isNew = this.isNew();
+    if (isNew)
     {
       this.apply(); // has no children
     }
@@ -801,8 +805,10 @@ public abstract class GeoEntity extends GeoEntityBase implements
     if (!cloneOperation)
     {
       // V1 Restriction
-      throw new ActionNotAllowedException();
-      
+      if(!isNew)
+      {
+        throw new ActionNotAllowedException();
+      }
       /* 
       OIterator<? extends LocatedIn> iter = this.getAllLocatedInGeoEntityRel();
       try
@@ -1248,18 +1254,34 @@ public abstract class GeoEntity extends GeoEntityBase implements
   private static void createPath(String parentId, String parentMdBusiness, String childId,
       String childMdBusiness)
   {
+    // create save point
+//    Savepoint savepoint = Database.setSavepoint();
+    
+    String saveId = "a"+IDGenerator.nextID();
+    Database.parseAndExecute("SAVEPOINT "+saveId+"");
+    
     try
     {
+
       AllPaths allPaths = new AllPaths();
       allPaths.setValue(AllPaths.PARENTGEOENTITY, parentId);
       allPaths.setValue(AllPaths.PARENTUNIVERSAL, parentMdBusiness);
       allPaths.setValue(AllPaths.CHILDGEOENTITY, childId);
       allPaths.setValue(AllPaths.CHILDUNIVERSAL, childMdBusiness);
       allPaths.apply();
+      
+      //Database.parseAndExecute("RELEASE "+saveId+"");
     }
     catch (DuplicateDataDatabaseException ex)
     {
       // This might happen. Relationship already exists.
+//      Database.rollbackSavepoint(savepoint);
+      Database.parseAndExecute("ROLLBACK TO SAVEPOINT "+saveId+"");
+    }
+    finally
+    {
+//      Database.releaseSavepoint(savepoint);
+      Database.parseAndExecute("RELEASE "+saveId+"");
     }
   }
 
