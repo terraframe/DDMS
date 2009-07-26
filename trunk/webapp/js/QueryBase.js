@@ -95,13 +95,13 @@ MDSS.QueryBase.prototype = {
 	    var selectable = new MDSS.QueryXML.Selectable(attribute);
       this._dateGroupSelectables[group] = selectable;
       this._queryPanel.insertColumn({
-    	  key: group,
+    	  key: group.toLowerCase(),
     	  label: MDSS.QueryXML.DateGroupOpts[group]
     	});
     }
     else
     {
-      var column = this._queryPanel.getColumn(group);
+      var column = this._queryPanel.getColumn(group.toLowerCase());
       this._queryPanel.removeColumn(column);
       this._dateGroupSelectables[group] = null;
     }
@@ -342,13 +342,13 @@ MDSS.QueryBase.prototype = {
 	    var selectable = new MDSS.QueryXML.Selectable(attribute);
       this._dateGroupSelectables[range] = selectable;
       this._queryPanel.insertColumn({
-    	  key: range,
+    	  key: range.toLowerCase(),
     	  label: MDSS.localize(range),
       });
     }
     else
     {
-      var column = this._queryPanel.getColumn(range);
+      var column = this._queryPanel.getColumn(range.toLowerCase());
       this._queryPanel.removeColumn(column);
       this._dateGroupSelectables[range] = null;
     }
