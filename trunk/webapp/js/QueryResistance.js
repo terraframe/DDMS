@@ -27,19 +27,19 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    this._concerteMosquitoCollection = Mojo.$.dss.vector.solutions.entomology.ConcreteMosquitoCollection;
 	    var mosquitoCollection = Mojo.$.dss.vector.solutions.entomology.MosquitoCollection;
-      var attribute = new MDSS.QueryXML.Attribute(mosquitoCollection.CLASS, this._concerteMosquitoCollection.DATECOLLECTED, this._concerteMosquitoCollection.DATECOLLECTED);
-      this._startDateSelectable = new MDSS.QueryXML.Selectable(attribute);
-      this._endDateSelectable = new MDSS.QueryXML.Selectable(attribute);
+      this._dateAttribute = new MDSS.QueryXML.Attribute(mosquitoCollection.CLASS, this._concerteMosquitoCollection.DATECOLLECTED, this._concerteMosquitoCollection.DATECOLLECTED);
+      this._startDateSelectable = new MDSS.QueryXML.Selectable(this._dateAttribute);
+      this._endDateSelectable = new MDSS.QueryXML.Selectable(this._dateAttribute);
 
 	    //this screen can query two diffrent classes, so we have a place to store the selected class
 	    this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS;
 
 	    this._commonQueryClasses = [Mojo.$.dss.vector.solutions.entomology.MosquitoCollection.CLASS,
-	                                Mojo.$.dss.vector.solutions.general.Insecticide];
+	                                Mojo.$.dss.vector.solutions.general.Insecticide.CLASS];
 
-	    this._exclusionClasses = ['common_selectables'];
+	    this._exclusionClasses = [];
 
-	    this._dataQueryFunction = Mojo.$.dss.vector.solutions.entomology.assay.AbstractAssay.queryResistance;
+	    this._dataQueryFunction = Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.queryResistance;
 	    this._mapQueryFunction  = Mojo.$.dss.vector.solutions.query.MappingController.mapResistanceQuery;
 	    // END: query objects
 
@@ -89,7 +89,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	  _getReportQueryType : function()
 	  {
-		return 'ENTOMOLOGY';
+		return 'RESISTANCE';
 	  },
 
 	  /**
@@ -163,9 +163,6 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 		    queryXML.addEntity(query);
 	   	},this);
 
-	    var mosquitoCollection = Mojo.$.dss.vector.solutions.entomology.MosquitoCollection.CLASS;
-	    var collectionQuery = new MDSS.QueryXML.Entity(mosquitoCollection, mosquitoCollection);
-	    queryXML.addEntity(collectionQuery);
 
 	    var conditions = [];
 	    var groupBy = queryXML.getGroupBy();
@@ -248,7 +245,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      var name = aggNames[i];
 	      var selectable = this._visibleAggregateSelectables[name];
 
-	      queryXML.addSelectable(mosquitoQuery.getAlias()+'_'+name, selectable);
+	      queryXML.addSelectable(mainQuery.getAlias()+'_'+name, selectable);
 	    }
 
 	    var gbNames = Mojo.util.getKeys(this._visibleGroupBySelectables);
@@ -275,7 +272,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 		    	where.addCondition(('EndDateRange'), this._endDate );
 		    }
 		    var composite = new MDSS.QueryXML.CompositeCondition(where);
-		    collectionQuery.setCondition(composite);
+		    mainQuery.setCondition(composite);
 	    }
 
 	    //date groups
@@ -292,7 +289,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    if(this._countSelectable != null)
 	    {
-	      queryXML.addSelectable(mosquitoQuery.getAlias()+'_globalCount', this._countSelectable);
+	      queryXML.addSelectable(mainQuery.getAlias()+'_globalCount', this._countSelectable);
 	    }
 	    if(this._ratioSelectable != null)
 	    {
@@ -309,7 +306,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 		    }
 
 	      var composite = new MDSS.QueryXML.CompositeCondition(where);
-	      mosquitoQuery.setCondition(composite);
+	      mainQuery.setCondition(composite);
 	    }
 
 	    return queryXML;
@@ -324,6 +321,11 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  _addVisibleAttribute : function(attribute)
 	  {
 	    var attributeName = attribute.getAttributeName();
+
+	    if(attribute.mainQueryClass)
+	    {
+	    	this._mainQueryClass = attribute.mainQueryClass;
+	    }
 
 	    if(attribute.getType() == 'sqlcharacter'){
 	    	var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attributeName,attribute.getDisplayLabel(),attribute._isAggregate));
@@ -393,15 +395,9 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    var liTarget = YAHOO.util.Dom.getAncestorByTagName(check, "LI");
 	    if(check.checked)
 	    {
-
-	    	this.uncheckAllNotInGroup(check);
-
+	    	this._uncheckAllNotInGroup(check);
 	      this._addVisibleAttribute(attribute);
-
 	      check.nextSibling.disabled = false;
-
-
-
 	    }
 	    else
 	    {
@@ -414,23 +410,34 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	  _uncheckAllNotInGroup : function(target)
 	  {
-	    for each (removeClass in  this._exclusionClasses)
+	  	//find all the exclusion classes the target is not a member of
+	    var uncheckClasses = this._exclusionClasses.filter(function(klass){return !YAHOO.util.Dom.hasClass(target, klass);});
+
+	    var queryTypeSwitched = uncheckClasses.filter(function(uncheckClass){
+	    	return this._uncheckAllByClass(uncheckClass).length > 0;
+	    },this);
+
+	    if(queryTypeSwitched.length > 0)
 	    {
-	    	if(! YAHOO.util.Dom.hasClass(check, removeClass))
-	    	{
-		  	for each (check in YAHOO.util.Dom.getElementsByClassName(removeClass))
-	      {
-		  		if(check.checked)
-		      {
-		  			if(YAHOO.util.Dom.hasClass(check, 'selectAllCheck')){
-		  				check.checked = false;
-		  			}else{
-		  				check.click();
-		  			}
-		      }
-	      }
+	    	this._uncheckAllByClass('uncheckMeOnQueryTypeSwitch');
 	    }
-	   }
+	  },
+
+	  _uncheckAllByClass : function(klass,root)
+	  {
+	  	return YAHOO.util.Dom.getElementsByClassName(klass,'input',root).filter(function(check){
+    		if(check.checked)
+	      {
+    			//do not fire click event on select all checkbox
+	  			if(YAHOO.util.Dom.hasClass(check, 'selectAllCheck')){
+	  				check.checked = false;
+	  			}else{
+	  				check.click();
+	  				return true;
+	  			}
+	      }
+    		return false;
+    	});
 	  },
 
 	  _toggleCount : function(e, attribute)
@@ -622,7 +629,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	        {
 	          entities.push(value);
 	        }else
-	        if(userAlias === thisRef._concerteMosquitoCollection.DATECOLLECTED)
+	        if(userAlias === thisRef._dateAttribute.getUserAlias())
 	        {
 	        	var formatted = MDSS.Calendar.getLocalizedString(value);
 		        if(operator === MDSS.QueryXML.Operator.GE)
@@ -678,7 +685,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     /*
      * Visible Attributes
      */
-    _getVizDiv : function(that,visibleAttributes,divName,type,checkClass)
+    _getVizDiv : function(that,visibleAttributes,divName,mainQueryClass,checkClass)
     {
 	    var visibleDiv = document.createElement('div');
 	    // YAHOO.util.Dom.addClass(visibleDiv, 'scrollable');
@@ -709,6 +716,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    {
 	      var visibleObj = visibleAttributes[i];
 	      var attribute = new MDSS.VisibleAttribute(visibleObj);
+	      attribute.mainQueryClass = mainQueryClass;
 
 	      var li = document.createElement('li');
 

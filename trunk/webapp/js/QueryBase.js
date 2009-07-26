@@ -415,6 +415,7 @@ MDSS.QueryBase.prototype = {
     var countCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
     YAHOO.util.Dom.setAttribute(countCheck, 'id', countAttribute.getKey());
+    YAHOO.util.Dom.addClass(countCheck,'uncheckMeOnQueryTypeSwitch');
     YAHOO.util.Event.on(countCheck, 'click', that._toggleCount, countAttribute, that);
     this._defaults.push({element: countCheck, checked:false});
 
@@ -444,6 +445,7 @@ MDSS.QueryBase.prototype = {
 	    var ratioCheck = document.createElement('input');
 	    YAHOO.util.Dom.setAttribute(ratioCheck, 'type', 'checkbox');
 	    YAHOO.util.Dom.setAttribute(ratioCheck, 'id', ratioAttribute.getKey());
+        YAHOO.util.Dom.addClass(ratioCheck,'uncheckMeOnQueryTypeSwitch');
 	    YAHOO.util.Event.on(ratioCheck, 'click', that._toggleRatio, ratioAttribute, that);
 	    this._defaults.push({element: ratioCheck, checked:false});
 
@@ -467,6 +469,7 @@ MDSS.QueryBase.prototype = {
 	    YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
       YAHOO.util.Dom.setAttribute(countCheck, 'value', keys[j]);
       YAHOO.util.Dom.setAttribute(countCheck, 'id', keys[j]);
+      YAHOO.util.Dom.addClass(countCheck,'uncheckMeOnQueryTypeSwitch');
       YAHOO.util.Event.on(countCheck, 'click', that._dateGroupHandler, keys[j],that);
       this._defaults.push({element: countCheck, checked: false});
 
@@ -690,17 +693,17 @@ MDSS.QueryBase.prototype = {
       return [];
     }
 
-    var items = this._menus[li.id].sort(
-      	function(a,b)
-    		{
-    				x = a.text.toUpperCase();
-    				y = b.text.toUpperCase();
-    				return x>y?1:x<y?-1:0;
-    		});
+    var items = this._menus[li.id];
+
+    var itemSorter = function(a,b){
+    	x = a.text.toUpperCase();
+    	y = b.text.toUpperCase();
+        return x>y?1:x<y?-1:0;
+      }
 
     if(items != null)
     {
-      return items;
+      return items.sort(itemSorter);
     }
     else
     {
