@@ -10,11 +10,15 @@ public enum QueryType implements com.terraframe.mojo.business.BusinessEnumeratio
 {
   AGGREGATED_CASES(),
   
+  EFFICACY(),
+  
   ENTOMOLOGY(),
   
   INDICATOR_SURVEY(),
   
-  IRS();
+  IRS(),
+  
+  RESISTANCE();
   
   public static final java.lang.String CLASS = "dss.vector.solutions.QueryType";
   private dss.vector.solutions.QueryTypeMaster enumeration;
