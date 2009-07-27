@@ -48,7 +48,7 @@ MDSS.Calendar = {};
     var var_to_date = function(date_str) {
     	if(date_str instanceof Date) return date_str;
 
-    	date = Date.parseString(date_str,java_date_format);
+    	var date = Date.parseString(date_str,java_date_format);
     	if(date == null) date = Date.parseString(date_str,db_datetime_format);
     	if(date == null) date = Date.parseString(date_str,db_date_format);
     	if(date == null) date = Date.parseString(date_str);
@@ -59,7 +59,7 @@ MDSS.Calendar = {};
     MDSS.Calendar.parseDate = var_to_date;
 
     var var_to_db_string = function(date_str) {
-    	date = var_to_date(date_str);
+    	var date = var_to_date(date_str);
     	if(date == null) return null;
     	return date.format(db_date_format);
     }
@@ -67,7 +67,7 @@ MDSS.Calendar = {};
     MDSS.Calendar.getMojoDateString = var_to_db_string;
 
     var var_to_localized_string = function(date_str) {
-    	date = var_to_date(date_str);
+    	var date = var_to_date(date_str);
     	if(date == null) return null;
     	return date.format(java_date_format);
     }

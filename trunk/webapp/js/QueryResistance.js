@@ -23,7 +23,6 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._visibleSelectables = {};
 	    this._whereOptions = {};
 	    this._visibleAggregateSelectables = {};
-	    this._visibleGroupBySelectables = {};
 
 	    this._concerteMosquitoCollection = Mojo.$.dss.vector.solutions.entomology.ConcreteMosquitoCollection;
 	    var mosquitoCollection = Mojo.$.dss.vector.solutions.entomology.MosquitoCollection;
@@ -79,7 +78,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	  _getExportCSVAction : function()
 	  {
-	  	return 'dss.vector.solutions.query.QueryController.exportResistacneQueryToCSV.mojo';
+	  	return 'dss.vector.solutions.query.QueryController.exportResistanceQueryToCSV.mojo';
 	  },
 
 	  _getExportReportAction : function()
@@ -158,14 +157,14 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 
 	    //add the common alaies
-	    this._commonQueryClasses.map(function(klass){
+	    //the first common query holds the date attrib
+	    var commonQueries = this._commonQueryClasses.map(function(klass){
 	    	var query = new MDSS.QueryXML.Entity(klass, klass);
 		    queryXML.addEntity(query);
+		    return query;
 	   	},this);
 
-
 	    var conditions = [];
-	    var groupBy = queryXML.getGroupBy();
 
 	    // Visible Attributes
 	    var selNames = Mojo.util.getKeys(this._visibleSelectables);
@@ -187,16 +186,17 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 		      	n = selectable.attribute.getAttributeName().replace(/_defaultLocale/,'');
 		      	k = selectable.attribute.getKey().replace(/_defaultLocale/,'');
 	      		var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', n, k));
+		        //add entity for assay if this selectable is an assay
+	      		 //if(t.indexOf('.assay.') > 0 )
+		        //{
+		          //queryXML.addEntity(new MDSS.QueryXML.Entity(t,t));
+		        //}
 	      	}
 	      	else
 	      	{
 	      		var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(t,n,k));
 	      	}
-	        //add entity for assay if this selectable is an assay
-	        if(t.indexOf('.assay.') > 0 )
-	        {
-	          queryXML.addEntity(new MDSS.QueryXML.Entity(t,t));
-	        }
+
 
 	        var items = this._menus[selectable.attribute.getKey()+'_li'];
 
@@ -248,15 +248,6 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      queryXML.addSelectable(mainQuery.getAlias()+'_'+name, selectable);
 	    }
 
-	    var gbNames = Mojo.util.getKeys(this._visibleGroupBySelectables);
-	    for(var i=0; i<gbNames.length; i++)
-	    {
-	      var name = gbNames[i];
-	      var selectable = this._visibleGroupBySelectables[name];
-
-	      groupBy.addSelectable(name, selectable);
-	    }
-
 	    // start and end dates
 
 		  if(this._startDate != null || this._endDate != null)
@@ -272,7 +263,9 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 		    	where.addCondition(('EndDateRange'), this._endDate );
 		    }
 		    var composite = new MDSS.QueryXML.CompositeCondition(where);
-		    mainQuery.setCondition(composite);
+		    //the first common query holds the date attrib
+		    //commonQueries[0].setCondition(composite);
+		    conditions.push(composite);
 	    }
 
 	    //date groups
@@ -299,7 +292,7 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    var where = null;
 	    if(conditions.length > 0 )
 	    {
-	      where = new MDSS.QueryXML.And();
+	      var where = new MDSS.QueryXML.And();
 	      for(var i=0; i<conditions.length; i++)
 		    {
 		      where.addCondition(('cond' + i), conditions[i]);
@@ -369,7 +362,6 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	  	// remove all possible query references
 	    delete this._visibleAggregateSelectables[attribute.getKey()];
-	    delete this._visibleGroupBySelectables[attribute.getKey()];
 
 	    if(removeColumn)
 	    {
