@@ -30,6 +30,7 @@ import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import dss.vector.solutions.entomology.MosquitoDTO;
 import dss.vector.solutions.entomology.SexMasterDTO;
 import dss.vector.solutions.entomology.assay.AbstractAssayDTO;
+import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
 import dss.vector.solutions.intervention.BloodslideResponseDTO;
@@ -819,12 +820,32 @@ public class QueryController extends QueryControllerBase implements
   }
 
   @Override
+  public void exportResistanceQueryToCSV(String queryXML, String geoEntityType, String savedSearchId)
+      throws IOException, ServletException
+  {
+    try
+    {
+      InputStream stream = AdultDiscriminatingDoseAssayDTO.exportQueryToCSV(this.getClientRequest(), queryXML,
+          geoEntityType, savedSearchId);
+
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+
+      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
+  }
+
+
+  @Override
   public void exportResistanceQueryToExcel(String queryXML, String geoEntityType, String savedSearchId)
       throws IOException, ServletException
   {
     try
     {
-      InputStream stream = MosquitoDTO.exportQueryToExcel(this.getClientRequest(), queryXML,
+      InputStream stream = AdultDiscriminatingDoseAssayDTO.exportQueryToExcel(this.getClientRequest(), queryXML,
           geoEntityType, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
