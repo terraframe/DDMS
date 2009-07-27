@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,10 +38,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.terraframe.mojo.business.BusinessDTO;
+import com.terraframe.mojo.business.ClassQueryDTO;
 import com.terraframe.mojo.business.ComponentDTO;
 import com.terraframe.mojo.business.ViewDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.Constants;
+import com.terraframe.mojo.controller.DTOFacade;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.system.EnumerationMasterDTO;
 import com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO;
@@ -172,7 +175,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         ordered_attribs.add(a.substring(0, 1).toUpperCase() + a.substring(1));
       }
     }
-    System.out.println("attribs length =  " + ordered_attribs.size());
+
     for (ViewDTO row : rows)
     {
       JSONObject element = new JSONObject();
@@ -289,11 +292,8 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return ( Halp.join(dropdownbuff, "\n") );
   }
 
-
   public static String getDropDownMaps(ViewDTO view, ClientRequestIF clientRequest) throws JSONException
   {
-    int colnum = 0;
-    Class<?> v = view.getClass();
     ArrayList<String> ordered_attribs = new ArrayList<String>();
 
     for (String a : view.getAccessorNames())
@@ -309,63 +309,33 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     {
       try
       {
-        AttributeMdDTO md = (AttributeMdDTO) v.getMethod(
-            "get" + attrib.substring(0, 1).toUpperCase() + attrib.substring(1) + "Md").invoke(view);
+        AttributeMdDTO md = new DTOFacade(attrib, view).getAttributeMdDTO();
 
-        if (md instanceof AttributeReferenceMdDTO)
-        {
-          Class<?> clazz = md.getJavaType();
-          if (LabeledDTO.class.isAssignableFrom(clazz))
-          {
-            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAllActive",
-                new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
-            dropdownbuff.add(attrib + " : " + getDropDownMap(terms) + ",");
-          }
-        }
-        if (md instanceof AttributeEnumerationMdDTO)
-        {
-          AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
-          String map = "{";
-          /*
-           * for (Map.Entry<String, String> e :
-           * enumMd.getEnumItems().entrySet()) { map += "'" + e.getKey() + "':'"
-           * + e.getValue() + "',"; }
-           */
-          for (EnumerationMasterDTO e : (List<EnumerationMasterDTO>) clientRequest
-              .getAllEnumerations(enumMd.getReferencedMdEnumeration()))
-          {
-            map += "'" + e.getId() + "':'" + e.getDisplayLabel() + "',";
-          }
-          map += "}";
-          dropdownbuff.add(attrib + " : " + map + ",");
-        }
-        if (md instanceof AttributeBooleanMdDTO)
-        {
-          dropdownbuff.add(attrib + ":{'true':'"
-              + ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'", "\\'")
-              + "', 'false':'"
-              + ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'", "\\'") + "'},");
-        }
+        String map = Halp.getDropDownMap(md, clientRequest);
 
+        if (map != null)
+        {
+          String accessor = md.getAccessorName();
+          String key = accessor.substring(0, 1).toUpperCase() + accessor.substring(1);
+
+          dropdownbuff.add(key + " : " + map);
+        }
       }
       catch (Exception x)
       {
         throw new RuntimeException(x);
       }
-      colnum++;
     }
 
     return ( Halp.join(dropdownbuff, "\n") );
   }
 
-  //@SuppressWarnings("unchecked")
-  public static String getBusinessDropDownMaps(BusinessDTO view, ClientRequestIF clientRequest) throws JSONException
+  public static String getDropDownMaps(ClassQueryDTO query, ClientRequestIF clientRequest)
+      throws JSONException
   {
-    int colnum = 0;
-    Class<?> v = view.getClass();
     ArrayList<String> ordered_attribs = new ArrayList<String>();
 
-    for (String a : view.getAccessorNames())
+    for (String a : query.getAttributeNames())
     {
       if (a.length() >= 3)
       {
@@ -374,57 +344,80 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     }
 
     ArrayList<String> dropdownbuff = new ArrayList<String>();
+
     for (String attrib : ordered_attribs)
     {
       try
       {
-        AttributeMdDTO md = (AttributeMdDTO) v.getMethod(
-            "get" + attrib.substring(0, 1).toUpperCase() + attrib.substring(1) + "Md").invoke(view);
+        AttributeMdDTO md = query.getAttributeDTO(attrib).getAttributeMdDTO();
 
-        if (md instanceof AttributeReferenceMdDTO)
-        {
-          Class<?> clazz = md.getJavaType();
-          if (LabeledDTO.class.isAssignableFrom(clazz))
-          {
-            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAllActive",
-                new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
-            dropdownbuff.add(attrib + " : " + getDropDownMap(terms) + ",");
-          }
-        }
-        if (md instanceof AttributeEnumerationMdDTO)
-        {
-          AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
-          String map = "{";
-          /*
-           * for (Map.Entry<String, String> e :
-           * enumMd.getEnumItems().entrySet()) { map += "'" + e.getKey() + "':'"
-           * + e.getValue() + "',"; }
-           */
-          for (EnumerationMasterDTO e : (List<EnumerationMasterDTO>) clientRequest
-              .getAllEnumerations(enumMd.getReferencedMdEnumeration()))
-          {
-            map += "'" + e.getId() + "':'" + e.getDisplayLabel() + "',";
-          }
-          map += "}";
-          dropdownbuff.add(attrib + " : " + map + ",");
-        }
-        if (md instanceof AttributeBooleanMdDTO)
-        {
-          dropdownbuff.add(attrib + ":{'true':'"
-              + ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'", "\\'")
-              + "', 'false':'"
-              + ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'", "\\'") + "'},");
-        }
+        String map = Halp.getDropDownMap(md, clientRequest);
 
+        if (map != null)
+        {
+          String accessor = md.getAccessorName();
+          String key = accessor.substring(0, 1).toUpperCase() + accessor.substring(1);
+
+          dropdownbuff.add(key + " : " + map);
+        }
       }
       catch (Exception x)
       {
         throw new RuntimeException(x);
       }
-      colnum++;
     }
 
-    return ( Halp.join(dropdownbuff, "\n") );
+    return ( Halp.join(dropdownbuff, ", ") );
+  }
+
+  private static String getDropDownMap(AttributeMdDTO md, ClientRequestIF request)
+  {
+    try
+    {
+      if (md instanceof AttributeReferenceMdDTO)
+      {
+        Class<?> clazz = md.getJavaType();
+
+        if (LabeledDTO.class.isAssignableFrom(clazz))
+        {
+          Class<?>[] params = new Class[] { ClientRequestIF.class };
+          Method method = clazz.getMethod("getAllActive", params);
+
+          return getDropDownMap((LabeledDTO[]) method.invoke(null, request));
+        }
+      }
+      else if (md instanceof AttributeEnumerationMdDTO)
+      {
+        List<String> list = new LinkedList<String>();
+
+        AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
+        String enumeration = enumMd.getReferencedMdEnumeration();
+
+        for (BusinessDTO dto : request.getAllEnumerations(enumeration))
+        {
+          EnumerationMasterDTO e = (EnumerationMasterDTO) dto;
+
+          list.add("'" + e.getId() + "':'" + e.getDisplayLabel() + "'");
+        }
+
+        return "{" + Halp.join(list) + "}";
+      }
+      else if (md instanceof AttributeBooleanMdDTO)
+      {
+        String positiveLabel = ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'",
+            "\\\\'");
+        String negativeLabel = ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'",
+            "\\\\'");
+
+        return "{'true':'" + positiveLabel + "', 'false':'" + negativeLabel + "'}";
+      }
+
+      return null;
+    }
+    catch (Exception x)
+    {
+      throw new RuntimeException(x);
+    }
   }
 
   public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload)
@@ -569,16 +562,12 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
   {
     try
     {
-      Class<?> clazz = view.getClass();
-
       ArrayList<String> buff = new ArrayList<String>();
+      AttributeMdDTO md = new DTOFacade(attrib, view).getAttributeMdDTO();
+
+      String label = md.getDisplayLabel();
 
       buff.add("key:'" + attrib + "'");
-
-      AttributeMdDTO md = (AttributeMdDTO) clazz.getMethod("get" + attrib + "Md").invoke(view);
-      Class<?> mdClass = md.getClass();
-
-      String label = (String) mdClass.getMethod("getDisplayLabel").invoke(md).toString();
       buff.add("label:'" + label.replaceAll("'", "\\\\'") + "'");
 
       if (setup.isHidden())
@@ -649,11 +638,12 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     String editor = TEXTBOX_EDITOR;
     List<String> options = new LinkedList<String>();
 
-
     if (md instanceof AttributeBooleanMdDTO)
     {
-      String positiveLabel = ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'", "\\\\'");
-      String negativeLabel = ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'", "\\\\'");
+      String positiveLabel = ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'",
+          "\\\\'");
+      String negativeLabel = ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'",
+          "\\\\'");
 
       List<String> radioOptions = new LinkedList<String>();
       radioOptions.add("{label:'" + positiveLabel + "', value:'true'}");
