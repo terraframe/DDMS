@@ -139,7 +139,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return builder.toString();
   }
 
-  public static String getDropDownMap(LabeledDTO[] terms) throws JSONException
+  private static String generateDropDownMap(LabeledDTO[] terms) throws JSONException
   {
     JSONObject map = new JSONObject();
     for (LabeledDTO term : terms)
@@ -296,27 +296,60 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
   {
     return Halp.getDropDownMaps(view, clientRequest, "\n");
   }
-  
+
   public static String getDropDownMaps(ViewDTO view, ClientRequestIF clientRequest, String delimeter) throws JSONException
   {
-    ArrayList<String> ordered_attribs = new ArrayList<String>();
+    List<AttributeMdDTO> list = new LinkedList<AttributeMdDTO>();
 
-    for (String a : view.getAccessorNames())
+    for (String attrib : view.getAccessorNames())
     {
-      if (a.length() >= 3)
+      if (attrib.length() >= 3)
       {
-        ordered_attribs.add(a);
+        try
+        {
+          list.add(new DTOFacade(attrib, view).getAttributeMdDTO());
+        }
+        catch (Exception x)
+        {
+          throw new RuntimeException(x);
+        }
       }
     }
 
+    return Halp.getDropDownMaps(list, clientRequest, delimeter);
+  }
+
+  public static String getDropDownMaps(ClassQueryDTO query, ClientRequestIF clientRequest, String delimeter) throws JSONException
+  {
+    List<AttributeMdDTO> list = new LinkedList<AttributeMdDTO>();
+
+    for (String attrib : query.getAttributeNames())
+    {
+      if (attrib.length() >= 3)
+      {
+        try
+        {
+          list.add(query.getAttributeDTO(attrib).getAttributeMdDTO());
+        }
+        catch (Exception x)
+        {
+          throw new RuntimeException(x);
+        }
+      }
+    }
+
+    return Halp.getDropDownMaps(list, clientRequest, delimeter);
+  }
+
+  public static String getDropDownMaps(List<AttributeMdDTO> list, ClientRequestIF request, String delimeter)
+  {
     ArrayList<String> dropdownbuff = new ArrayList<String>();
-    for (String attrib : ordered_attribs)
+
+    for (AttributeMdDTO md : list)
     {
       try
       {
-        AttributeMdDTO md = new DTOFacade(attrib, view).getAttributeMdDTO();
-
-        String map = Halp.getDropDownMap(md, clientRequest);
+        String map = Halp.generateDropDownMap(md, request);
 
         if (map != null)
         {
@@ -335,46 +368,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return ( Halp.join(dropdownbuff, delimeter) );
   }
 
-  public static String getDropDownMaps(ClassQueryDTO query, ClientRequestIF clientRequest) throws JSONException
-  {
-    ArrayList<String> ordered_attribs = new ArrayList<String>();
-
-    for (String a : query.getAttributeNames())
-    {
-      if (a.length() >= 3)
-      {
-        ordered_attribs.add(a);
-      }
-    }
-
-    ArrayList<String> dropdownbuff = new ArrayList<String>();
-
-    for (String attrib : ordered_attribs)
-    {
-      try
-      {
-        AttributeMdDTO md = query.getAttributeDTO(attrib).getAttributeMdDTO();
-
-        String map = Halp.getDropDownMap(md, clientRequest);
-
-        if (map != null)
-        {
-          String accessor = md.getAccessorName();
-          String key = accessor.substring(0, 1).toUpperCase() + accessor.substring(1);
-
-          dropdownbuff.add(key + " : " + map);
-        }
-      }
-      catch (Exception x)
-      {
-        throw new RuntimeException(x);
-      }
-    }
-
-    return ( Halp.join(dropdownbuff, ", ") );
-  }
-
-  private static String getDropDownMap(AttributeMdDTO md, ClientRequestIF request)
+  private static String generateDropDownMap(AttributeMdDTO md, ClientRequestIF request)
   {
     try
     {
@@ -387,7 +381,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
           Class<?>[] params = new Class[] { ClientRequestIF.class };
           Method method = clazz.getMethod("getAllActive", params);
 
-          return getDropDownMap((LabeledDTO[]) method.invoke(null, request));
+          return generateDropDownMap((LabeledDTO[]) method.invoke(null, request));
         }
       }
       else if (md instanceof AttributeEnumerationMdDTO)

@@ -642,22 +642,22 @@ public class QueryController extends QueryControllerBase implements
 
       // Load label map for Adult Discriminating Dose Assay      
       ClassQueryDTO adda = request.getQuery(AdultDiscriminatingDoseAssayDTO.CLASS);
-      String adultMap = Halp.getDropDownMaps(adda, request);
+      String adultMap = Halp.getDropDownMaps(adda, request, ", ");
       req.setAttribute("adultMap", adultMap);
       
       // Load label map for Larvae Discriminating Dose Assay
       ClassQueryDTO ldda = request.getQuery(LarvaeDiscriminatingDoseAssayDTO.CLASS);
-      String larvaeMap = Halp.getDropDownMaps(ldda, request);
+      String larvaeMap = Halp.getDropDownMaps(ldda, request, ", ");
       req.setAttribute("larvaeMap", larvaeMap);
       
       // Load label map for Knock Down Dose Assay
       ClassQueryDTO kda = request.getQuery(KnockDownAssayDTO.CLASS);
-      String knockDownMap = Halp.getDropDownMaps(kda, request);
+      String knockDownMap = Halp.getDropDownMaps(kda, request, ", ");
       req.setAttribute("knockDownMap", knockDownMap);      
       
       // Load label map for Insecticde 
       ClassQueryDTO insecticide = request.getQuery(InsecticideDTO.CLASS);
-      String insecticideMap = Halp.getDropDownMaps(insecticide, request);
+      String insecticideMap = Halp.getDropDownMaps(insecticide, request, ", ");
       req.setAttribute("insecticideMap", insecticideMap);      
 
       req.getRequestDispatcher(QUERY_RESISTANCE).forward(req, resp);
