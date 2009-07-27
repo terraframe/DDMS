@@ -49,6 +49,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     
     // List of attributes that can be used to specify numeric single and range criteria
     this._singleAndRangeAttributes = [];
+    
 
     for(var i=0; i<queryList.length; i++)
     {
@@ -61,6 +62,11 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     
     // Criteria for Person.DOB
     this._config.setProperty('dobCriteria', null);
+
+    // Key of Person.RDTRESULT attribute for use with prevalence
+    this._rdtResultKey = null;
+    this._prevalenceSelectables = {};
+    this._prevalenceCheck = null;
 
     this._buildQueryItems(householdMenuItems, personMenuItems, nets);
   },
@@ -426,6 +432,17 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       and.addCondition(name, condition);
     }
     
+    // prevalence selectables
+    var prevalenceKeys = Mojo.util.getKeys(this._prevalenceSelectables);
+    for(var i=0; i<prevalenceKeys.length; i++)
+    {
+      addedPerson = true;
+    
+      var name = prevalenceKeys[i];
+      var selectable = this._prevalenceSelectables[name];
+      queryXML.addSelectable(name, selectable);
+    }
+
     if(addedPerson)
     {
       var personType = this._person.getType();
@@ -438,7 +455,6 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         personQuery.setCondition(composite);
       }
     }
-    
     
     // net selectables
     var netKeys = Mojo.util.getKeys(this._netSelectables);
@@ -642,6 +658,14 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   {
     var key = attribute.getKey();
   
+    // force removal of prevalence columns.
+    // This is done for simplicity instead of synchronizing
+    // the columns.
+    if(key === this._rdtResultKey)
+    {
+      this._setPrevalence(false);
+    }
+  
     var condition;
     
     var attrDTO = this._person.getAttributeDTO(attribute.getAttributeName());
@@ -663,6 +687,12 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         this._queryPanel.removeWhereCriteria(key, value);
       }
       
+      // force regeneration of prevalence columns
+      if(key === this._rdtResultKey)
+      {
+        this._setPrevalence(true);
+      }
+
       var finalEnumIds = set.values();
       if(finalEnumIds.length == 0)
       {
@@ -674,6 +704,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
       var selectable = attribute.getSelectable(false);  
       condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.CONTAINS_ANY, finalEnumIds.join(','));
+      
     }
     else if(attrDTO instanceof Mojo.dto.AttributeReferenceDTO ||
       attrDTO instanceof Mojo.dto.AttributeBooleanDTO)
@@ -983,6 +1014,73 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     }
   },
   
+  _setPrevalence : function(doSet)
+  {
+    // create columns and selectables for each checked RDTResult menu item.
+    // Or, if none are checked, create a generic prevalence column
+    if(doSet)
+    {
+      var useDefault = true;
+      var menuKeys = Mojo.util.getKeys(this._menuItems);
+      for(var i=0; i<menuKeys.length; i++)
+      {
+        var menuKey = menuKeys[i];
+        if(menuKey.indexOf(this._rdtResultKey) != -1)
+        {
+          var menuItem = this._menuItems[menuKey];
+          if(menuItem.checked)
+          {
+            useDefault = false;
+            var display = menuItem.onclick.obj.display + " " + MDSS.Localized.Prevalence;
+            var name = "prevalence_"+menuItem.onclick.obj.value;  // name == key == userAlias
+        
+            var sqlDouble = new MDSS.QueryXML.Sqldouble(this._Person.CLASS, name, name, display, true);
+            var selectable = new MDSS.QueryXML.Selectable(sqlDouble);
+        
+            this._queryPanel.insertColumn({key:name,label:display});
+        
+            this._prevalenceSelectables[name] = selectable;
+            this._queryPanel.addThematicVariable(this._Person.CLASS, sqlInt.getName(), sqlInt.getUserAlias(), display);
+          }
+        }
+      }
+      
+      if(useDefault)
+      {
+        var display = MDSS.Localized.Prevalence;
+        var name = "prevalence"; //  name == key == userAlias
+        
+        var sqlDouble = new MDSS.QueryXML.Sqldouble(this._Person.CLASS, name, name, display, true);
+        var selectable = new MDSS.QueryXML.Selectable(sqlDouble);
+        
+        this._queryPanel.insertColumn({key:name,label:display});
+        
+        this._prevalenceSelectables[name] = selectable;
+        this._queryPanel.addThematicVariable(this._Person.CLASS, sqlDouble.getName(), sqlDouble.getUserAlias(), display);
+      }
+    }
+    else
+    {
+      // remove all prevalence entries
+      var keys = Mojo.util.getKeys(this._prevalenceSelectables);
+      for(var i=0; i<keys.length; i++)
+      {
+        var key = keys[i];
+        var column = this._queryPanel.getColumn(key);
+        this._queryPanel.removeColumn(column);
+        this._queryPanel.removeThematicVariable(key);
+      }
+      
+      this._prevalenceSelectables = {};
+    }
+  },
+  
+  _prevalenceHandler : function(e)
+  {
+    var check = e.target;
+    this._setPrevalence(check.checked);
+  },
+  
   _netAttributeHandler : function(e, attribute)
   {
     var check = e.target;
@@ -1112,11 +1210,16 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       {
         select.disabled = false;
       }
+
+      if(attribute.getKey() === this._rdtResultKey)
+      {
+        this._prevalenceCheck.disabled = false;
+      }
     }
     else
     {
       this._removePersonAttribute(attribute, true, true, true);
-
+      
       // Clear any criteria since criteria cannot exist
       // without the attribute as a selectable.
       var key = attribute.getKey();
@@ -1128,6 +1231,13 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       {
         select.selectedIndex = 0;
         select.disabled = true;
+      }
+      
+      if(key === this._rdtResultKey)
+      {
+        this._setPrevalence(false);
+        this._prevalenceCheck.checked = false;
+        this._prevalenceCheck.disabled = true;
       }
     }
   },
@@ -1482,11 +1592,28 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     // 23. RDT Treatment
     this._createPersonMenu(personUl, this._Person.RDTTREATMENT, personMenuItems);   
     
+     // 27. Bloodslide
+    this._createPersonMenu(personUl, this._Person.BLOODSLIDE, personMenuItems);      
+    
     // 24. RDT Result
-    this._createPersonMenu(personUl, this._Person.RDTRESULT, personMenuItems);
-
-    // 27. Bloodslide
-    this._createPersonMenu(personUl, this._Person.BLOODSLIDE, personMenuItems);   
+    var rdtResultAttr = this._createPersonMenu(personUl, this._Person.RDTRESULT, personMenuItems);
+    this._rdtResultKey = rdtResultAttr.getKey();
+    
+    // 25. Prevalence
+    li = document.createElement('li');
+    this._prevalenceCheck = document.createElement('input');
+    this._prevalenceCheck.id = "Prevalence";
+    YAHOO.util.Dom.setAttribute(this._prevalenceCheck, 'type', 'checkbox');
+    this._defaults.push({element:this._prevalenceCheck, checked:false});
+    YAHOO.util.Event.on(this._prevalenceCheck, 'click', this._prevalenceHandler, null, this);
+    span = document.createElement('span');
+    span.innerHTML = MDSS.Localized.Prevalence;
+    
+    //this._prevalenceCheck.disabled = true; // RDTRESULT must be checked first.
+    
+    li.appendChild(this._prevalenceCheck);
+    li.appendChild(span);
+    personUl.appendChild(li);    
     
     // 28. Fever
     this._createPersonMenu(personUl, this._Person.FEVER, personMenuItems);   
@@ -1602,7 +1729,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
           
       items.push(single);
     }
-    else
+    else if(householdMenuItems[attribute.getAttributeName()] != null)
     {
       // Use the JSON object sent from the server to build objects
       // compatible with YUI's context menu constructor.
@@ -1653,6 +1780,8 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     
     li.appendChild(span);
     householdUl.appendChild(li);
+    
+    return attribute;
   },
   
   /**
@@ -1716,7 +1845,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
           
       items.push(range);
     }
-    else
+    else if(personMenuItems[attribute.getAttributeName()] != null)
     {
       // Use the JSON object sent from the server to build objects
       // compatible with YUI's context menu constructor.    
@@ -1724,7 +1853,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       for(var i=0; i<rawItems.length; i++)
       {
         var rawItem = rawItems[i];
-  
+ 
         var item = {
           text: rawItem.displayLabel,
           checked: false,
@@ -1734,7 +1863,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
             scope: this
           }
         };
-        
+      
         this._menuItems[attribute.getKey()+'-'+rawItem.value] = item;
         items.push(item);
       }
@@ -1749,6 +1878,8 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     
     li.appendChild(span);
     personUl.appendChild(li);
+    
+    return attribute;
   },
   
   _toggleSingle : function(attribute, toggleOverride)

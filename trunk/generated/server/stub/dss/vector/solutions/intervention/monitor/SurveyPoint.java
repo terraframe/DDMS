@@ -8,10 +8,14 @@ import java.util.Map;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.Condition;
+import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQLDouble;
 import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
@@ -19,6 +23,9 @@ import com.terraframe.mojo.query.ValueQueryExcelExporter;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.intervention.BloodslideResponse;
+import dss.vector.solutions.intervention.RDTResponse;
+import dss.vector.solutions.intervention.RDTResult;
 import dss.vector.solutions.query.MapUtil;
 import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.SavedSearch;
@@ -258,6 +265,37 @@ public class SurveyPoint extends SurveyPointBase implements
         valueQuery.AND(householdNetQuery.hasChild(netQuery));
         valueQuery.AND(netQuery.getNetName().EQ(netName));
       }
+    }
+    
+    
+    // Precision query
+    try
+    {
+      SelectableSQLDouble defaultPrecision = (SelectableSQLDouble) valueQuery.getSelectable("prevalence");
+      
+      ValueQuery innerVQ = new ValueQuery(queryFactory);
+      
+      PersonQuery precisionPQ = new PersonQuery(queryFactory); // PersonQuery for Prevalence
+      
+      // total tested
+      Condition or = OR.get(precisionPQ.getPerformedRDT().containsAny(RDTResponse.YES),
+          precisionPQ.getBloodslide().containsAny(BloodslideResponse.DONE));
+      precisionPQ.WHERE(or);
+      
+      // total positive
+      precisionPQ.AND(precisionPQ.getRDTResult().containsAny(RDTResult.MALARIAE_POSITIVE, RDTResult.MIXED_POSITIVE,
+          RDTResult.OVALE_POSITIVE, RDTResult.PF_POSITIVE, RDTResult.VIVAX_POSITIVE));
+      
+      innerVQ.SELECT(F.COUNT(precisionPQ.getId()));
+      
+      defaultPrecision.setSQL("100 * AVG( ("+innerVQ.getSQL()+" AND "+precisionPQ.getTableAlias()+".id = "+personQuery.getTableAlias()+".id))");
+      
+      String sql = valueQuery.getSQL();
+      sql = null;
+    }
+    catch(QueryException e)
+    {
+      // no default precision query
     }
     
     return valueQuery;

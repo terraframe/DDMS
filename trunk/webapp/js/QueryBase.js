@@ -498,7 +498,7 @@ MDSS.QueryBase.prototype = {
    */
   render : function()
   {
-  	// Abstract
+  	// Abstract 
   },
 
   /**
