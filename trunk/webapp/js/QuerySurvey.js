@@ -1213,7 +1213,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
       if(attribute.getKey() === this._rdtResultKey)
       {
-        this._prevalenceCheck.disabled = false;
+//        this._prevalenceCheck.disabled = false;
       }
     }
     else
@@ -1236,8 +1236,8 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       if(key === this._rdtResultKey)
       {
         this._setPrevalence(false);
-        this._prevalenceCheck.checked = false;
-        this._prevalenceCheck.disabled = true;
+//        this._prevalenceCheck.checked = false;
+//        this._prevalenceCheck.disabled = true;
       }
     }
   },
