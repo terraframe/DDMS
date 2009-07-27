@@ -31,6 +31,9 @@ import dss.vector.solutions.entomology.MosquitoDTO;
 import dss.vector.solutions.entomology.SexMasterDTO;
 import dss.vector.solutions.entomology.assay.AbstractAssayDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
+import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
+import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
+import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
 import dss.vector.solutions.intervention.BloodslideResponseDTO;
@@ -66,6 +69,7 @@ import dss.vector.solutions.surveillance.ReferralGridDTO;
 import dss.vector.solutions.surveillance.TreatmentGridDTO;
 import dss.vector.solutions.surveillance.TreatmentMethodGridDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
+import dss.vector.solutions.util.Halp;
 
 public class QueryController extends QueryControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -616,10 +620,12 @@ public class QueryController extends QueryControllerBase implements
     try
     {
       // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      ClientRequestIF request = this.getClientRequest();
+
+      EarthDTO earth = EarthDTO.getEarthInstance(request);
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
 
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(),
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(request,
           QueryConstants.QUERY_RESISTANCE);
       JSONArray queries = new JSONArray();
       // Available queries
@@ -634,8 +640,27 @@ public class QueryController extends QueryControllerBase implements
 
       req.setAttribute("queryList", queries.toString());
 
-      req.getRequestDispatcher(QUERY_RESISTANCE).forward(req, resp);
+      // Load label map for Adult Discriminating Dose Assay      
+      ClassQueryDTO adda = request.getQuery(AdultDiscriminatingDoseAssayDTO.CLASS);
+      String adultMap = Halp.getDropDownMaps(adda, request);
+      req.setAttribute("adultMap", adultMap);
+      
+      // Load label map for Larvae Discriminating Dose Assay
+      ClassQueryDTO ldda = request.getQuery(LarvaeDiscriminatingDoseAssayDTO.CLASS);
+      String larvaeMap = Halp.getDropDownMaps(ldda, request);
+      req.setAttribute("larvaeMap", larvaeMap);
+      
+      // Load label map for Knock Down Dose Assay
+      ClassQueryDTO kda = request.getQuery(KnockDownAssayDTO.CLASS);
+      String knockDownMap = Halp.getDropDownMaps(kda, request);
+      req.setAttribute("knockDownMap", knockDownMap);      
+      
+      // Load label map for Insecticde 
+      ClassQueryDTO insecticide = request.getQuery(InsecticideDTO.CLASS);
+      String insecticideMap = Halp.getDropDownMaps(insecticide, request);
+      req.setAttribute("insecticideMap", insecticideMap);      
 
+      req.getRequestDispatcher(QUERY_RESISTANCE).forward(req, resp);
     }
     catch (Throwable t)
     {

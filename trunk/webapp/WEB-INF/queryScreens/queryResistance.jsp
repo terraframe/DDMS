@@ -68,11 +68,9 @@
     String[] mosquitoTypes = new String[]{ MosquitoCollectionDTO.CLASS, AdultDiscriminatingDoseAssayDTO.CLASS, SpecieDTO.CLASS, LarvaeDiscriminatingDoseAssayDTO.CLASS, EfficacyAssayDTO.CLASS, KnockDownAssayDTO.CLASS, InsecticideDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
 
-
-    MosquitoDTO mosquito = new MosquitoDTO(requestIF);
     MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
-    JSONArray mosquitoAttribs = new JSONArray(mosquito.getAttributeNames());
-    List loadables = new ArrayList();
+
+    List<String> loadables = new ArrayList<String>();
     loadables.addAll(Arrays.asList(mosquitoTypes));
     loadables.addAll(Arrays.asList(queryTypes));
 %>
@@ -92,13 +90,13 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
-    adultMaps = {<%=Halp.getBusinessDropDownMaps((BusinessDTO)new AdultDiscriminatingDoseAssayDTO(requestIF),  requestIF)%>};
+    adultMaps = {<%=(String) request.getAttribute("adultMap")%>};
 
-    larvaeMaps = {<%=Halp.getBusinessDropDownMaps((BusinessDTO)new LarvaeDiscriminatingDoseAssayDTO(requestIF),  requestIF)%>};
+    larvaeMaps = {<%=(String) request.getAttribute("larvaeMap")%>};
 
-    knockDownMaps = {<%=Halp.getBusinessDropDownMaps((BusinessDTO)new KnockDownAssayDTO(requestIF),  requestIF)%>};
+    knockDownMaps = {<%=(String) request.getAttribute("knockDownMap")%>};
 
-    insecticideMaps = {<%=Halp.getBusinessDropDownMaps((BusinessDTO)new InsecticideDTO(requestIF),  requestIF)%>};
+    insecticideMaps = {<%=(String) request.getAttribute("insecticideMap")%>};
 
     var mapAttribs = function(attribName,index){
       var attrib = this.obj.attributeMap[attribName];
