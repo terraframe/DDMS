@@ -294,6 +294,11 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
   public static String getDropDownMaps(ViewDTO view, ClientRequestIF clientRequest) throws JSONException
   {
+    return Halp.getDropDownMaps(view, clientRequest, "\n");
+  }
+  
+  public static String getDropDownMaps(ViewDTO view, ClientRequestIF clientRequest, String delimeter) throws JSONException
+  {
     ArrayList<String> ordered_attribs = new ArrayList<String>();
 
     for (String a : view.getAccessorNames())
@@ -327,11 +332,10 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       }
     }
 
-    return ( Halp.join(dropdownbuff, "\n") );
+    return ( Halp.join(dropdownbuff, delimeter) );
   }
 
-  public static String getDropDownMaps(ClassQueryDTO query, ClientRequestIF clientRequest)
-      throws JSONException
+  public static String getDropDownMaps(ClassQueryDTO query, ClientRequestIF clientRequest) throws JSONException
   {
     ArrayList<String> ordered_attribs = new ArrayList<String>();
 

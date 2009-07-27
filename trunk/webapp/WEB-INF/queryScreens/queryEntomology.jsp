@@ -81,7 +81,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
-     dropDownMaps = {<%=Halp.getDropDownMaps(mosquitoViewDTO,  requestIF)%>};
+     dropDownMaps = {<%=Halp.getDropDownMaps(mosquitoViewDTO,  requestIF, ",")%>};
 
      var mapAttribs = function(attribName,index){
        var attrib = this.obj.attributeMap[attribName];
