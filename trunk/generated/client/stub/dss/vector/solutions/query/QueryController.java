@@ -120,8 +120,9 @@ public class QueryController extends QueryControllerBase implements
   {
     try
     {
+      ClientRequestIF request = this.getClientRequest();
 
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(),
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(request,
           QueryConstants.QUERY_INDICATOR_SURVEY);
       JSONArray queries = new JSONArray();
       for (SavedSearchViewDTO view : query.getResultSet())
@@ -138,14 +139,16 @@ public class QueryController extends QueryControllerBase implements
       // Map of menu items. Key/Value where key is the attribute name
       // on Person and value is an object with display label and ids.
       JSONObject householdMenuItems = new JSONObject();
-      HouseholdDTO household = new HouseholdDTO(this.getClientRequest());
+
+      ClassQueryDTO household = request.getQuery(HouseholdDTO.CLASS);
 
       // 5. House type (urban/rural)
-      householdMenuItems.put(HouseholdDTO.URBAN, createBooleanItems(household.getUrbanMd()));
+      AttributeBooleanMdDTO urbanMd = (AttributeBooleanMdDTO) household.getAttributeDTO(HouseholdDTO.URBAN).getAttributeMdDTO();
+      householdMenuItems.put(HouseholdDTO.URBAN, createBooleanItems(urbanMd));
 
       // 7. Walls
       JSONArray items = new JSONArray();
-      for(WallViewDTO wall : Arrays.asList(WallViewDTO.getAll(this.getClientRequest())))
+      for(WallViewDTO wall : Arrays.asList(WallViewDTO.getAll(request)))
       {
         JSONObject item = new JSONObject();
         item.put("displayLabel", wall.getDisplayLabel());
@@ -158,7 +161,7 @@ public class QueryController extends QueryControllerBase implements
 
       // 8. Roof
       items = new JSONArray();
-      for(RoofViewDTO roof : Arrays.asList(RoofViewDTO.getAll(this.getClientRequest())))
+      for(RoofViewDTO roof : Arrays.asList(RoofViewDTO.getAll(request)))
       {
         JSONObject item = new JSONObject();
         item.put("displayLabel", roof.getDisplayLabel());
@@ -171,7 +174,7 @@ public class QueryController extends QueryControllerBase implements
 
       // 9. Windows
       items = new JSONArray();
-      for(WindowMasterDTO window : WindowTypeDTO.allItems(this.getClientRequest()))
+      for(WindowMasterDTO window : WindowTypeDTO.allItems(request))
       {
         JSONObject item = new JSONObject();
         item.put("displayLabel", window.getDisplayLabel());
@@ -185,7 +188,7 @@ public class QueryController extends QueryControllerBase implements
 
       // All available net options (not abstract)
       JSONArray nets = new JSONArray();
-      for(NetDTO netDTO : NetDTO.getAllLeafs(this.getClientRequest()))
+      for(NetDTO netDTO : NetDTO.getAllLeafs(request))
       {
         JSONObject net = new JSONObject();
         net.put("entityAlias", HouseholdNetDTO.CLASS+"_"+netDTO.getNetName());
@@ -202,11 +205,11 @@ public class QueryController extends QueryControllerBase implements
       // Map of menu items. Key/Value where key is the attribute name
       // on Person and value is an object with display label and ids.
       JSONObject personMenuItems = new JSONObject();
-      PersonViewDTO person = new PersonViewDTO(this.getClientRequest());
+      PersonViewDTO person = new PersonViewDTO(request);
 
       // 17. Sex
       items = new JSONArray();
-      for (SexMasterDTO sex : HumanSexDTO.allItems(this.getClientRequest()))
+      for (SexMasterDTO sex : HumanSexDTO.allItems(request))
       {
         JSONObject item = new JSONObject();
         item.put("displayLabel", sex.getDisplayLabel());
@@ -227,7 +230,7 @@ public class QueryController extends QueryControllerBase implements
 
       // 21. Anemia Treatment, 23. RDT Treatment, 31. Malaria Treatment
       items = new JSONArray();
-      for (TreatmentGridDTO drug : Arrays.asList(TreatmentGridDTO.getAll(this.getClientRequest())))
+      for (TreatmentGridDTO drug : Arrays.asList(TreatmentGridDTO.getAll(request)))
       {
         JSONObject item = new JSONObject();
         item.put("displayLabel", drug.getDisplayLabel());
@@ -245,7 +248,7 @@ public class QueryController extends QueryControllerBase implements
       // 24. RDT Result
       items = new JSONArray();
       JSONArray positives = new JSONArray();
-      List<RDTResultMasterDTO> results = RDTResultDTO.allItems(this.getClientRequest());
+      List<RDTResultMasterDTO> results = RDTResultDTO.allItems(request);
       for (RDTResultMasterDTO result : results)
       {
         JSONObject item = new JSONObject();
@@ -266,7 +269,7 @@ public class QueryController extends QueryControllerBase implements
       // 27. Bloodslide
       items = new JSONArray();
       for (BloodslideResponseMasterDTO response : BloodslideResponseDTO
-          .allItems(this.getClientRequest()))
+          .allItems(request))
       {
         JSONObject item = new JSONObject();
         item.put("displayLabel", response.getDisplayLabel());
@@ -278,8 +281,7 @@ public class QueryController extends QueryControllerBase implements
 
       // 29. Fever Treatment
       items = new JSONArray();
-      for (FeverTreatmentDTO treatment : Arrays.asList(FeverTreatmentDTO.getAllActive(this
-          .getClientRequest())))
+      for (FeverTreatmentDTO treatment : Arrays.asList(FeverTreatmentDTO.getAllActive(request)))
       {
         JSONObject item = new JSONObject();
         item.put("displayLabel", treatment.getDisplayLabel());
@@ -291,7 +293,7 @@ public class QueryController extends QueryControllerBase implements
 
       // 28. Fever, 30. Malaria 32. Payment
       items = new JSONArray();
-      for (ResponseMasterDTO response : FeverResponseDTO.allItems(this.getClientRequest()))
+      for (ResponseMasterDTO response : FeverResponseDTO.allItems(request))
       {
         JSONObject item = new JSONObject();
         item.put("displayLabel", response.getDisplayLabel());
