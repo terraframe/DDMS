@@ -59,11 +59,9 @@
     String[] mosquitoTypes = new String[]{ MosquitoDTO.CLASS, SpecieDTO.CLASS, MosquitoViewDTO.CLASS, UninterestingSpecieGroupDTO.CLASS,MosquitoCollectionDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
 
-
-    MosquitoDTO mosquito = new MosquitoDTO(requestIF);
     MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
-    JSONArray mosquitoAttribs = new JSONArray(mosquito.getAttributeNames());
-    List loadables = new ArrayList();
+
+    List<String> loadables = new ArrayList<String>();
     loadables.addAll(Arrays.asList(mosquitoTypes));
     loadables.addAll(Arrays.asList(queryTypes));
 %>
@@ -84,8 +82,6 @@ YAHOO.util.Event.onDOMReady(function(){
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
      dropDownMaps = {<%=Halp.getDropDownMaps(mosquitoViewDTO,  requestIF)%>};
-
-    //var mosquitoAttribs = <%=mosquitoAttribs%>
 
      var mapAttribs = function(attribName,index){
        var attrib = this.obj.attributeMap[attribName];
