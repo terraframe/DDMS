@@ -149,7 +149,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
         valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, MosquitoCollection.CLASS, MosquitoCollection.GEOENTITY);
 
     // join Mosquito with mosquito collection
-    MosquitoCollectionQuery collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
+    MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
 
     Integer needsUnion = 0;
 
@@ -157,25 +157,32 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     AdultDiscriminatingDoseAssayQuery adultQuery = (AdultDiscriminatingDoseAssayQuery) queryMap.get(AdultDiscriminatingDoseAssay.CLASS);
     if (adultQuery != null)
     {
-      valueQuery.WHERE(adultQuery.getCollection().getId().EQ(collectionQuery.getId()));
+      valueQuery.WHERE(adultQuery.getCollection().getId().EQ(mosquitoCollectionQuery.getId()));
       needsUnion ++;
     }
 
     LarvaeDiscriminatingDoseAssayQuery larvaeQuery = (LarvaeDiscriminatingDoseAssayQuery) queryMap.get(LarvaeDiscriminatingDoseAssay.CLASS);
     if (larvaeQuery != null)
     {
-      valueQuery.WHERE(larvaeQuery.getCollection().getId().EQ(collectionQuery.getId()));
+      valueQuery.WHERE(larvaeQuery.getCollection().getId().EQ(mosquitoCollectionQuery.getId()));
       needsUnion ++;
     }
 
     KnockDownAssayQuery kdQuery = (KnockDownAssayQuery) queryMap.get(KnockDownAssay.CLASS);
     if (kdQuery != null)
     {
-      valueQuery.WHERE(kdQuery.getCollection().getId().EQ(collectionQuery.getId()));
+      valueQuery.WHERE(kdQuery.getCollection().getId().EQ(mosquitoCollectionQuery.getId()));
       needsUnion ++;
     }
 
-    SelectableMoment dateAttribute = collectionQuery.getDateCollected();
+    CollectionAssayQuery collectionAssayQuery = (CollectionAssayQuery) queryMap.get(CollectionAssay.CLASS);
+    if (collectionAssayQuery != null)
+    {
+      valueQuery.WHERE(collectionAssayQuery.getCollection().getId().EQ(mosquitoCollectionQuery.getId()));
+      needsUnion ++;
+    }
+
+    SelectableMoment dateAttribute = mosquitoCollectionQuery.getDateCollected();
 
     //this ensures that the date attribute is joined correctly
     ConcreteMosquitoCollectionQuery concreteCollectionQuery = (ConcreteMosquitoCollectionQuery) queryMap.get(ConcreteMosquitoCollection.CLASS);
@@ -186,7 +193,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
         valueQuery.WHERE((InnerJoin) join);
       }
     }
-
 
     valueQuery = QueryUtil.setQueryDates(xml, valueQuery, dateAttribute);
     valueQuery = QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
