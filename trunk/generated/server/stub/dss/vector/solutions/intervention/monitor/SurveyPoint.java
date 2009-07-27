@@ -268,37 +268,59 @@ public class SurveyPoint extends SurveyPointBase implements
     }
     
     
-    // Precision query
-    try
+    // Default prevalence
+    addPrevalenceColumn("prevalence", valueQuery, personQuery, null);
+
+    // specific prevalences
+    for(RDTResult result : RDTResult.values())
     {
-      SelectableSQLDouble defaultPrecision = (SelectableSQLDouble) valueQuery.getSelectable("prevalence");
-      
-      ValueQuery innerVQ = new ValueQuery(queryFactory);
-      
-      PersonQuery precisionPQ = new PersonQuery(queryFactory); // PersonQuery for Prevalence
-      
-      // total tested
-      Condition or = OR.get(precisionPQ.getPerformedRDT().containsAny(RDTResponse.YES),
-          precisionPQ.getBloodslide().containsAny(BloodslideResponse.DONE));
-      precisionPQ.WHERE(or);
-      
-      // total positive
-      precisionPQ.AND(precisionPQ.getRDTResult().containsAny(RDTResult.MALARIAE_POSITIVE, RDTResult.MIXED_POSITIVE,
-          RDTResult.OVALE_POSITIVE, RDTResult.PF_POSITIVE, RDTResult.VIVAX_POSITIVE));
-      
-      innerVQ.SELECT(F.COUNT(precisionPQ.getId()));
-      
-      defaultPrecision.setSQL("100 * AVG( ("+innerVQ.getSQL()+" AND "+precisionPQ.getTableAlias()+".id = "+personQuery.getTableAlias()+".id))");
-      
-      String sql = valueQuery.getSQL();
-      sql = null;
-    }
-    catch(QueryException e)
-    {
-      // no default precision query
+      addPrevalenceColumn("prevalence_"+result.getId(), valueQuery, personQuery, result);
     }
     
     return valueQuery;
+  }
+  
+  private static void addPrevalenceColumn(String prevalenceSel, ValueQuery valueQuery, PersonQuery personQuery, RDTResult rdtResult)
+  {
+    try
+    {
+      SelectableSQLDouble prevalence = (SelectableSQLDouble) valueQuery.getSelectable(prevalenceSel);
+      
+      // shorten the column alias to avoid truncation.
+      if(rdtResult != null)
+      {
+        prevalence.setColumnAlias(rdtResult.name());
+      }
+      
+      ValueQuery innerVQ = new ValueQuery(valueQuery.getQueryFactory());
+      
+      PersonQuery prevalencePQ = new PersonQuery(valueQuery.getQueryFactory()); // PersonQuery for Prevalence
+      
+      // total tested
+      Condition or = OR.get(prevalencePQ.getPerformedRDT().containsAny(RDTResponse.YES),
+          prevalencePQ.getBloodslide().containsAny(BloodslideResponse.DONE));
+      prevalencePQ.WHERE(or);
+      
+      // total positive
+      if(rdtResult != null)
+      {
+        prevalencePQ.AND(prevalencePQ.getRDTResult().containsAny(rdtResult));
+      }
+      else
+      {
+        prevalencePQ.AND(prevalencePQ.getRDTResult().containsAny(RDTResult.MALARIAE_POSITIVE, RDTResult.MIXED_POSITIVE,
+          RDTResult.OVALE_POSITIVE, RDTResult.PF_POSITIVE, RDTResult.VIVAX_POSITIVE));
+      }
+      
+      innerVQ.SELECT(F.COUNT(prevalencePQ.getId()));
+      
+      prevalence.setSQL("100 * AVG( ("+innerVQ.getSQL()+" AND "+prevalencePQ.getTableAlias()+".id = "+personQuery.getTableAlias()+".id))");
+      
+    }
+    catch(QueryException e)
+    {
+      // no precision query
+    }
   }
   
   @Transaction

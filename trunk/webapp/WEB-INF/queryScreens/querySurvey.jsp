@@ -54,8 +54,9 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= SentinelSiteDTO.CLASS %>');
     var householdMenuItems = <%= (String) request.getAttribute("householdMenuItems") %>;
     var personMenuItems = <%= (String) request.getAttribute("personMenuItems") %>;
     var nets = <%= (String) request.getAttribute("nets") %>;
+    var positives = <%= (String) request.getAttribute("positives") %>;
 
-    var query = new MDSS.QuerySurvey(queryList, householdMenuItems, personMenuItems, nets);
+    var query = new MDSS.QuerySurvey(queryList, householdMenuItems, personMenuItems, nets, positives);
     query.render();
 
     // attach load listener to Iframe to receive message when error occurs during

@@ -4,7 +4,7 @@
 MDSS.QuerySurvey= Mojo.Class.create();
 MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
-  initialize : function(queryList, householdMenuItems, personMenuItems, nets)
+  initialize : function(queryList, householdMenuItems, personMenuItems, nets, positives)
   {
     MDSS.QueryBase.prototype.initialize.call(this);
 
@@ -13,6 +13,8 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       // FIXME used for inheritance optimization
       return;
     }
+    
+    this._positives = positives;
     
     // Ref to instances (used as template for display labels/metadata)
     this._SurveyPoint = Mojo.$.dss.vector.solutions.intervention.monitor.SurveyPoint;
@@ -145,6 +147,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var selectStart = this._queryPanel.getStartDateCheck();
     var selectEnd = this._queryPanel.getEndDateCheck();
     
+    var addPrevalence = false;
     parser.parseSelectables({
       attribute : function(entityAlias, attributeName, userAlias){
       
@@ -177,6 +180,13 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       sqlcharacter : function(entityAlias, attributeName, userAlias)
       {
         thisRef._checkBox(attributeName); // Date selection
+      },
+      sqldouble: function(entityAlias, attributeName, userAlias){
+        
+        // this checks for prevalence. If it makes it in here at all
+        // that means at least one prevalence option was selected, but we
+        // cannot add the selectables until the WHERE criteria has been parsed.
+        addPrevalence = true;
       },
       sqlinteger: function(entityAlias, attributeName, userAlias){
 
@@ -228,6 +238,25 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
           {
             thisRef._loadNumericCriteria(attributeName, userAlias, operator, value);
           }
+          else if(attributeName === thisRef._Person.RDTRESULT)
+          {
+            var enumIds = value.split(',');
+            var attribute = null;
+            for(var i=0; i<enumIds.length; i++)
+            {
+              var item = thisRef._menuItems[userAlias+'-'+enumIds[i]];
+              item.checked = true;
+              attribute = item.onclick.obj.attribute;
+
+              thisRef._queryPanel.addWhereCriteria(attribute.getKey(), enumIds[i], item.onclick.obj.display);              
+              
+            }
+            
+            var selectable = attribute.getSelectable(false);  
+            var condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.CONTAINS_ANY, value);
+            
+            thisRef._personCriteria[attribute.getKey()] = condition;
+          }
           else
           {
             // Handle all other attribute criteria.
@@ -253,6 +282,11 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         }
       }
     });
+    
+    if(addPrevalence)
+    {
+      this._checkBox(this._prevalenceCheck);
+    }
     
     // check if DOB has been added as criteria
     var configRaw = view.getConfig();
@@ -658,21 +692,22 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   {
     var key = attribute.getKey();
   
-    // force removal of prevalence columns.
-    // This is done for simplicity instead of synchronizing
-    // the columns.
-    if(key === this._rdtResultKey)
-    {
-      this._setPrevalence(false);
-    }
-  
     var condition;
     
     var attrDTO = this._person.getAttributeDTO(attribute.getAttributeName());
     if(attrDTO instanceof Mojo.dto.AttributeEnumerationDTO)
     {
+      // force removal of prevalence columns.
+      // This is done for simplicity instead of synchronizing
+      // the columns.
+      if(key === this._rdtResultKey)
+      {
+        this._setPrevalence(false);
+      }
+
       var existing = this._personCriteria[key];
       var enumIds = existing != null ? existing.getValue().split(',') : [];
+
       var set = new MDSS.Set();
       set.addAll(enumIds);
     
@@ -687,7 +722,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         this._queryPanel.removeWhereCriteria(key, value);
       }
       
-      // force regeneration of prevalence columns
+      // add prevalence columns
       if(key === this._rdtResultKey)
       {
         this._setPrevalence(true);
@@ -831,6 +866,8 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   _resetToDefault : function()
   {
     MDSS.QueryBase.prototype._resetToDefault.call(this); // super
+  
+    this._setPrevalence(false);
   
     // uncheck all menu items
     var keys = Mojo.util.getKeys(this._menuItems);
@@ -1014,7 +1051,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     }
   },
   
-  _setPrevalence : function(doSet)
+  _setPrevalence : function(doSet, excludeIds)
   {
     // create columns and selectables for each checked RDTResult menu item.
     // Or, if none are checked, create a generic prevalence column
@@ -1030,9 +1067,17 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
           var menuItem = this._menuItems[menuKey];
           if(menuItem.checked)
           {
+            var value = menuItem.onclick.obj.value;
+            var name = "prevalence_"+value;  // name == key == userAlias == enum id
+            
+            // the option must be a positive result
+            if(!this._contains(this._positives, value))
+            {
+              continue;
+            }
+
             useDefault = false;
             var display = menuItem.onclick.obj.display + " " + MDSS.Localized.Prevalence;
-            var name = "prevalence_"+menuItem.onclick.obj.value;  // name == key == userAlias
         
             var sqlDouble = new MDSS.QueryXML.Sqldouble(this._Person.CLASS, name, name, display, true);
             var selectable = new MDSS.QueryXML.Selectable(sqlDouble);
@@ -1040,7 +1085,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
             this._queryPanel.insertColumn({key:name,label:display});
         
             this._prevalenceSelectables[name] = selectable;
-            this._queryPanel.addThematicVariable(this._Person.CLASS, sqlInt.getName(), sqlInt.getUserAlias(), display);
+            this._queryPanel.addThematicVariable(this._Person.CLASS, sqlDouble.getName(), sqlDouble.getUserAlias(), display);
           }
         }
       }
@@ -1079,6 +1124,19 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   {
     var check = e.target;
     this._setPrevalence(check.checked);
+  },
+  
+  _contains : function(array, value)
+  {
+    for(var i=0; i<array.length; i++)
+    {
+      if(array[i] === value)
+      {
+        return true;
+      }
+    }
+    
+    return false;
   },
   
   _netAttributeHandler : function(e, attribute)
@@ -1134,7 +1192,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       return;
     }
 
-    // aggregate functions
+    // aggregate functions 
     var aggFunc = null;
     var displayLabel = "("+func+") "+ attribute.getDisplayLabel();
     if(func === MDSS.QueryXML.Functions.SUM)
@@ -1211,10 +1269,6 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         select.disabled = false;
       }
 
-      if(attribute.getKey() === this._rdtResultKey)
-      {
-//        this._prevalenceCheck.disabled = false;
-      }
     }
     else
     {
@@ -1233,11 +1287,11 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         select.disabled = true;
       }
       
-      if(key === this._rdtResultKey)
+      // reset prevalence
+      if(key === this._rdtResultKey && this._prevalenceCheck.checked)
       {
         this._setPrevalence(false);
-//        this._prevalenceCheck.checked = false;
-//        this._prevalenceCheck.disabled = true;
+        this._setPrevalence(true);
       }
     }
   },

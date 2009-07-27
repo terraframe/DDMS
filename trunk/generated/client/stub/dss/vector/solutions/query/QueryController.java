@@ -244,16 +244,25 @@ public class QueryController extends QueryControllerBase implements
 
       // 24. RDT Result
       items = new JSONArray();
-      for (RDTResultMasterDTO result : RDTResultDTO.allItems(this.getClientRequest()))
+      JSONArray positives = new JSONArray();
+      List<RDTResultMasterDTO> results = RDTResultDTO.allItems(this.getClientRequest());
+      for (RDTResultMasterDTO result : results)
       {
         JSONObject item = new JSONObject();
         item.put("displayLabel", result.getDisplayLabel());
         item.put("value", result.getId());
+        
+        if(!result.getEnumName().equals(RDTResultDTO.NOT_VALID.getName()) && 
+            !result.getEnumName().equals(RDTResultDTO.NEGATIVE.getName()))
+        {
+          positives.put(result.getId());
+        }
 
         items.put(item);
       }
       personMenuItems.put(PersonDTO.RDTRESULT, items);
-
+      req.setAttribute("positives", positives.toString());
+      
       // 27. Bloodslide
       items = new JSONArray();
       for (BloodslideResponseMasterDTO response : BloodslideResponseDTO
