@@ -10,11 +10,15 @@ public enum QueryTypeDTO implements com.terraframe.mojo.business.EnumerationDTOI
 {
   AGGREGATED_CASES(),
   
+  EFFICACY(),
+  
   ENTOMOLOGY(),
   
   INDICATOR_SURVEY(),
   
-  IRS();
+  IRS(),
+  
+  RESISTANCE();
   
   public final static String CLASS = "dss.vector.solutions.QueryType";
   

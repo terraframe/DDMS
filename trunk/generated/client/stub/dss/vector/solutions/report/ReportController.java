@@ -45,6 +45,7 @@ import com.terraframe.mojo.util.FileIO;
 
 import dss.vector.solutions.QueryTypeDTO;
 import dss.vector.solutions.entomology.MosquitoDTO;
+import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.query.SavedSearchDTO;
@@ -66,19 +67,19 @@ public class ReportController extends ReportControllerBase implements Reloadable
   {
     super(req, resp, isAsynchronous);
   }
-  
+
   public void generateReport(String queryXML, String config, String savedSearchId, String type) throws IOException, ServletException
   {
     try
     {
       validateParameters(queryXML, config, savedSearchId);
-            
+
       buildReport(savedSearchId, this.getCSV(queryXML, config, savedSearchId, QueryTypeDTO.valueOf(type)));
     }
     catch (Throwable t)
     {
       resp.getWriter().write(t.getLocalizedMessage());
-    }        
+    }
   }
 
   private InputStream getCSV(String queryXML, String config, String savedSearchId, QueryTypeDTO type)
@@ -91,6 +92,10 @@ public class ReportController extends ReportControllerBase implements Reloadable
     {
       return MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
     }
+    else if(type.equals(QueryTypeDTO.RESISTANCE))
+    {
+      return AdultDiscriminatingDoseAssayDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
+    }
     else if(type.equals(QueryTypeDTO.IRS))
     {
       return AbstractSprayDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
@@ -102,7 +107,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
 
     throw new RuntimeException("Query Type does not have a CSV exporter defined");
   }
-  
+
   private void validateParameters(String queryXML, String geoEntityType, String savedSearchId)
   {
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
@@ -133,7 +138,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
 
       // set output options
       String queryName = search.getQueryName().replaceAll(" ", "");
-      
+
       resp.setHeader("Content-Disposition", "attachment;filename=" + queryName + ".pdf");
       IRenderOption options = new RenderOption();
       options.setOutputFormat(RenderOption.OUTPUT_FORMAT_PDF);
