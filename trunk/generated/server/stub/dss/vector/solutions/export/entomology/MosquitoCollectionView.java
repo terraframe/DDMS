@@ -3,10 +3,13 @@ package dss.vector.solutions.export.entomology;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
+import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -82,6 +85,15 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
       match = iterator.next();
     }
     iterator.close();
+    
+    if (match==null)
+    {
+      String message = "No mosquito collection found with date [" + this.getDateCollected()
+          + "], Geo Entity [" + entity.getEntityName() + "], and collection method ["
+          + method.getDisplayLabel().getValue(Locale.US) + "]";
+      throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(MosquitoCollection.CLASS));
+    }
+    
     return match;
   }
 
