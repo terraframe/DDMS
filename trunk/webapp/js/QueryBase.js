@@ -91,7 +91,7 @@ MDSS.QueryBase.prototype = {
     //var group = check.value;
     if(check.checked)
     {
-      var attribute = new MDSS.QueryXML.Sqlcharacter('', group , group.toLowerCase());
+      var attribute = new MDSS.QueryXML.Sqlcharacter('', group , group.toLowerCase(),MDSS.QueryXML.DateGroupOpts[group]);
 	    var selectable = new MDSS.QueryXML.Selectable(attribute);
       this._dateGroupSelectables[group] = selectable;
       this._queryPanel.insertColumn({
@@ -148,16 +148,19 @@ MDSS.QueryBase.prototype = {
   	{
   	case 'DATEGROUP_EPIWEEK':
   		Mojo.$.dss.vector.solutions.general.EpiDate.snapToEpiWeek(request,date);
-  	  break;
+  	    break;
   	case 'DATEGROUP_MONTH':
   		Mojo.$.dss.vector.solutions.general.EpiDate.snapToMonth(request,date);
-  	  break;
+  	    break;
   	case 'DATEGROUP_QUARTER':
   		Mojo.$.dss.vector.solutions.general.EpiDate.snapToQuarter(request,date);
-  	  break;
+  		break;
+    case 'DATEGROUP_YEAR':
+  		Mojo.$.dss.vector.solutions.general.EpiDate.snapToYear(request,date);
+  	    break;
   	case 'DATEGROUP_SEASON':
   		Mojo.$.dss.vector.solutions.general.EpiDate.snapToSeason(request,date);
-  	  break;
+  	    break;
   	default:
   		targetEl.set('value',MDSS.Calendar.getLocalizedString(result));
   	}
@@ -338,7 +341,7 @@ MDSS.QueryBase.prototype = {
   	var check = e.target;
     if(check.checked)
     {
-      var attribute = new MDSS.QueryXML.Sqldate('', range, range.toLowerCase());
+      var attribute = new MDSS.QueryXML.Sqldate('', range, range.toLowerCase(), MDSS.localize(range));
 	    var selectable = new MDSS.QueryXML.Selectable(attribute);
       this._dateGroupSelectables[range] = selectable;
       this._queryPanel.insertColumn({
