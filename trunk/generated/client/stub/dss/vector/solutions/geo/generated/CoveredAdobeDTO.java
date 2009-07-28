@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public class CoveredAdobeDTO extends CoveredAdobeDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1245276057161L;
+  private static final long serialVersionUID = 1248809057105L;
   
   public CoveredAdobeDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
