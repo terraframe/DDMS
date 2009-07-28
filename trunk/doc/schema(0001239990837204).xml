@@ -162,19 +162,6 @@
         </mdAction>
       </mdController>
       <object
-        type="com.terraframe.mojo.system.Roles"
-        id="entomologist">
-        <valueAttribute
-          name="roleName"
-          value="entomologist" />
-        <structAttribute
-          name="displayLabel">
-          <valueAttribute
-            name="defaultLocale"
-            value="Entomologist" />
-        </structAttribute>
-      </object>
-      <object
         id="testEntomologist"
         type="com.terraframe.mojo.system.Users">
         <valueAttribute
@@ -197,9 +184,6 @@
       <object
         key="dss.vector.solutions.util.ReadableAttributeController"
         type="com.terraframe.mojo.system.metadata.MdController" />
-      <object
-        key="com.terraframe.mojo.system.Roles.entomologist"
-        type="com.terraframe.mojo.system.Roles" />
       <object
         key="com.terraframe.mojo.system.Users.testEntomologist"
         type="com.terraframe.mojo.system.Users" />

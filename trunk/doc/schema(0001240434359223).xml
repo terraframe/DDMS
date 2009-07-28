@@ -3,47 +3,6 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
 
-    <create>
-      <object
-        type="com.terraframe.mojo.system.Roles"
-        id="GUIVisibility">
-        <valueAttribute
-          name="roleName"
-          value="GUIVisibility" />
-        <structAttribute
-          name="displayLabel">
-          <valueAttribute
-            name="defaultLocale"
-            value="GUIVisibility" />
-        </structAttribute>
-      </object>
-      <object
-        type="com.terraframe.mojo.system.Roles"
-        id="dataCapturer">
-        <valueAttribute
-          name="roleName"
-          value="dataCapturer" />
-        <structAttribute
-          name="displayLabel">
-          <valueAttribute
-            name="defaultLocale"
-            value="Data Capturer" />
-        </structAttribute>
-      </object>
-      <object
-        type="com.terraframe.mojo.system.Roles"
-        id="manager">
-        <valueAttribute
-          name="roleName"
-          value="manager" />
-        <structAttribute
-          name="displayLabel">
-          <valueAttribute
-            name="defaultLocale"
-            value="Manager" />
-        </structAttribute>          
-      </object>
-    </create>
     <permissions>
       <role
         roleName="GUIVisibility">
@@ -457,18 +416,6 @@
       <object
         key="dss.vector.solutions.geo.GeoHierarchy.viewName"
         type="com.terraframe.mojo.system.metadata.MdAttributeCharacter" />
-      <object
-        key="com.terraframe.mojo.system.Roles.dataCapturer"
-        type="com.terraframe.mojo.system.Roles" />
-      <object
-        key="com.terraframe.mojo.system.Users.testDataCapturer"
-        type="com.terraframe.mojo.system.Users" />
-      <object
-        key="com.terraframe.mojo.system.Roles.manager"
-        type="com.terraframe.mojo.system.Roles" />
-      <object
-        key="com.terraframe.mojo.system.Users.testManager"
-        type="com.terraframe.mojo.system.Users" />
     </delete>
   </undoIt>
 </version>

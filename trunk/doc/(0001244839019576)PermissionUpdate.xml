@@ -12,47 +12,7 @@
         type="com.terraframe.mojo.system.Roles"
         id="GUIVisibility" />
     </existing>
-    <create>
-      <object
-        type="com.terraframe.mojo.system.Roles"
-        id="mdssCoordinator">
-        <valueAttribute
-          name="roleName"
-          value="mdssCoordinator" />
-        <structAttribute
-          name="displayLabel">
-          <valueAttribute
-            name="defaultLocale"
-            value="MDSS Coordinator" />
-        </structAttribute>
-      </object>
-      <object
-        type="com.terraframe.mojo.system.Roles"
-        id="operationalManager">
-        <valueAttribute
-          name="roleName"
-          value="operationalManager" />
-        <structAttribute
-          name="displayLabel">
-          <valueAttribute
-            name="defaultLocale"
-            value="Operational Manager" />
-        </structAttribute>
-      </object>
-      <object
-        type="com.terraframe.mojo.system.Roles"
-        id="MDSS">
-        <valueAttribute
-          name="roleName"
-          value="MDSS" />
-        <structAttribute
-          name="displayLabel">
-          <valueAttribute
-            name="defaultLocale"
-            value="MDSS" />
-        </structAttribute>
-      </object>
-    </create>
+
     <permissions>
       <role roleName="MDSS">
         <superRole roleName="Administrator"/>
