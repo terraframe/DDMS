@@ -68,11 +68,12 @@ public class SprayTeamController extends SprayTeamControllerBase implements
     List<SprayOperatorViewDTO> currentOperators = new LinkedList<SprayOperatorViewDTO>();
     List<SprayOperatorViewDTO> assignedOperators = new LinkedList<SprayOperatorViewDTO>();
     List<SprayOperatorViewDTO> availableOperators = new LinkedList<SprayOperatorViewDTO>();
+    
     for (SprayOperatorViewDTO operator : SprayOperatorViewDTO.getAll(clientRequest))
     {
       if (operator.getIsAssigned())
       {
-        assignedOperators.add(operator);
+//        assignedOperators.add(operator);
       }
       else
       {

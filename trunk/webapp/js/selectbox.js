@@ -214,6 +214,14 @@ Selectbox.removeSelectedOptions = function(from) {
 	from.selectedIndex = -1;
 };
 
+Selectbox.removeAllQualifiedOptions = function(from, regex) {
+	if (!this.unselectOptions(from,regex)) {
+		return false;
+	}
+	
+	this.removeSelectedOptions(from);
+};
+
 Selectbox.removeAllOptions = function(from) {
 	if (!this.hasOptions(from)) { return false; }
 	for (var i=(from.options.length-1); i>=0; i--) {

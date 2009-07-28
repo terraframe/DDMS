@@ -36,6 +36,7 @@ public class PersonController extends PersonControllerBase implements
     PersonQueryDTO query = person.searchForDuplicates();
     req.setAttribute("query", query);
     req.setAttribute("newPerson", person);
+    
     // Saving the sex is a pain. This is a shortcut.
     req.setAttribute("sexEnumName", person.getSex().get(0).getName());
     render("searchResults.jsp");
@@ -157,8 +158,22 @@ public class PersonController extends PersonControllerBase implements
     }
     catch (ProblemExceptionDTO e)
     {
-      renderView(person);
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failDeleteFromView(person);
     }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failDeleteFromView(person);
+    }    
+  }
+  
+  @Override
+  public void failDeleteFromView(PersonViewDTO person) throws IOException, ServletException
+  {
+    this.renderEdit(person);
   }
 
   private void renderView(PersonViewDTO view) throws IOException, ServletException
@@ -237,20 +252,7 @@ public class PersonController extends PersonControllerBase implements
 
   public void failCreate(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("dss_vector_solutions_Person_iptRecipientDelegate", IPTRecipientDTO
-        .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_itnRecipientDelegate", ITNRecipientDTO
-        .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_patientDelegate", PatientDTO.getAllInstances(
-        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_sex", SexDTO.allItems(super.getClientSession()
-        .getRequest()));
-    req.setAttribute("dss_vector_solutions_Person_sprayLeaderDelegate", SprayLeaderDTO.getAllInstances(
-        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_sprayOperatorDelegate", SprayOperatorDTO
-        .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_userDelegate", dss.vector.solutions.MDSSUserDTO
-        .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    this.setupRequest();
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
@@ -275,20 +277,7 @@ public class PersonController extends PersonControllerBase implements
 
   public void failUpdate(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("dss_vector_solutions_Person_iptRecipientDelegate", IPTRecipientDTO
-        .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_itnRecipientDelegate", ITNRecipientDTO
-        .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_patientDelegate", PatientDTO.getAllInstances(
-        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_sex", SexDTO.allItems(super.getClientSession()
-        .getRequest()));
-    req.setAttribute("dss_vector_solutions_Person_sprayLeaderDelegate", SprayLeaderDTO.getAllInstances(
-        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_sprayOperatorDelegate", SprayOperatorDTO
-        .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_userDelegate", dss.vector.solutions.MDSSUserDTO
-        .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    this.setupRequest();
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -311,13 +300,29 @@ public class PersonController extends PersonControllerBase implements
       dto.delete();
       this.viewAll();
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failDelete(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failDelete(dto);
     }
   }
 
   public void failDelete(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.setupRequest();
+    
+    req.setAttribute("item", dto);
+    render("editComponent.jsp");
+  }
+
+  private void setupRequest()
   {
     req.setAttribute("dss_vector_solutions_Person_iptRecipientDelegate", IPTRecipientDTO
         .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
@@ -333,8 +338,6 @@ public class PersonController extends PersonControllerBase implements
         .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_Person_userDelegate", dss.vector.solutions.MDSSUserDTO
         .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
   }
 
   public void failSearch(PersonDTO person) throws java.io.IOException, javax.servlet.ServletException

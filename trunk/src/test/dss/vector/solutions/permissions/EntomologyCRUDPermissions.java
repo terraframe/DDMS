@@ -294,6 +294,8 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
     assay.setSpecie(species[0]);
     assay.setTestDate(date);
     assay.setInsecticide(insecticide);
+    assay.setKd50(77.7);
+    assay.setKd95(77.7);
     assay.apply();
     
     try
@@ -315,6 +317,8 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
       assertEquals(assay.getIdentificationMethod().getId(), test.getIdentificationMethod().getId());
       assertEquals(assay.getSex().get(0), test.getSex().get(0));
       assertEquals(assay.getTestDate(), test.getTestDate());
+      assertEquals(assay.getKd50(), test.getKd50());
+      assertEquals(assay.getKd95(), test.getKd95());
     }
     finally
     {
@@ -360,6 +364,8 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
     assay.setSpecie(species[0]);
     assay.setTestDate(date);
     assay.setInsecticide(insecticide);
+    assay.setLt50(77.7);
+    assay.setLt95(77.7);    
     assay.apply();
     
     try
@@ -380,6 +386,8 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
       assertEquals(assay.getGeneration().getId(), test.getGeneration().getId());
       assertEquals(assay.getIdentificationMethod().getId(), test.getIdentificationMethod().getId());
       assertEquals(assay.getTestDate(), test.getTestDate());
+      assertEquals(assay.getLt50(), test.getLt50());
+      assertEquals(assay.getLt95(), test.getLt95());
     }
     finally
     {
@@ -425,6 +433,8 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
     assay.setSpecie(species[0]);
     assay.setTestDate(date);
     assay.setInsecticide(insecticide);
+    assay.setKd50(77.7);
+    assay.setKd95(77.7);
     assay.apply();
     
     try
@@ -444,6 +454,8 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
       assertEquals(assay.getIdentificationMethod().getId(), test.getIdentificationMethod().getId());
       assertEquals(assay.getSex().get(0), test.getSex().get(0));
       assertEquals(assay.getTestDate(), test.getTestDate());
+      assertEquals(assay.getKd50(), test.getKd50());
+      assertEquals(assay.getKd95(), test.getKd95());
     }
     finally
     {

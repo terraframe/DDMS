@@ -7,11 +7,14 @@ import junit.framework.TestCase;
 
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ClassQueryDTO;
+import com.terraframe.mojo.business.ComponentDTOIF;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.system.metadata.MdBusinessDTO;
 
+import dss.vector.solutions.geo.AllPathsDTO;
 import dss.vector.solutions.geo.GeoEntityDefinitionDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyQueryDTO;
@@ -46,14 +49,17 @@ public abstract class GeoEntityCRUDPermissions extends TestCase
 
         GeoEntityDTO geoEntity = (GeoEntityDTO) c.getConstructor(ClientRequestIF.class).newInstance(
             request);
-        geoEntity.setGeoId("GeoId" + i);
-        geoEntity.setEntityName("EntityName" + i);
+        String idLabel = "Geo_Id";
+        String entityLabel = "Entity_Name";
+
+        geoEntity.setGeoId(idLabel + i);
+        geoEntity.setEntityName(entityLabel + i);
         geoEntity.apply();
 
         try
         {
           geoEntity.lock();
-          geoEntity.setGeoId("GeoId" + i + "_" + i);
+          geoEntity.setGeoId(idLabel + i + "_" + i);
           geoEntity.apply();
 
           GeoEntityDTO test = GeoEntityDTO.get(request, geoEntity.getId());
@@ -61,7 +67,18 @@ public abstract class GeoEntityCRUDPermissions extends TestCase
           assertEquals(geoEntity.getGeoId(), test.getGeoId());
         }
         finally
-        {
+        {          
+          // Delete the entry in the AllPaths table
+          ClassQueryDTO query = request.getQuery(AllPathsDTO.CLASS); 
+           
+          query.addCondition(AllPathsDTO.PARENTGEOENTITY, "EQ", geoEntity.getId());
+          
+          for(ComponentDTOIF component : (List<? extends ComponentDTOIF>) query.getResultSet())
+          {
+            request.delete(component.getId());
+          }
+          
+          // Delete the geo entity
           geoEntity.delete();
         }
       }
@@ -74,7 +91,7 @@ public abstract class GeoEntityCRUDPermissions extends TestCase
     List<? extends GeoHierarchyDTO> set = instances.getResultSet();
 
     String geoHierarchyId = null;
-    String type = "TestType13";
+    String type = "TestType1";
 
     GeoEntityDefinitionDTO def1 = new GeoEntityDefinitionDTO(request);
     def1.setTypeName(type);
@@ -89,18 +106,18 @@ public abstract class GeoEntityCRUDPermissions extends TestCase
     {
       geoHierarchyId = GeoHierarchyDTO.defineGeoEntity(request, def1);
     }
-    catch(ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
-      for(ProblemDTOIF p : e.getProblems())
+      for (ProblemDTOIF p : e.getProblems())
       {
         fail(p.getMessage());
       }
     }
     finally
-    {      
-      if(geoHierarchyId != null)
+    {
+      if (geoHierarchyId != null)
       {
-        GeoHierarchyDTO.get(request, geoHierarchyId).delete();      
+        GeoHierarchyDTO.get(request, geoHierarchyId).delete();
       }
     }
   }

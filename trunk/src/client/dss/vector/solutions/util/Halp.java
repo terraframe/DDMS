@@ -297,7 +297,8 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return Halp.getDropDownMaps(view, clientRequest, "\n");
   }
 
-  public static String getDropDownMaps(ViewDTO view, ClientRequestIF clientRequest, String delimeter) throws JSONException
+  public static String getDropDownMaps(ViewDTO view, ClientRequestIF clientRequest, String delimeter)
+      throws JSONException
   {
     List<AttributeMdDTO> list = new LinkedList<AttributeMdDTO>();
 
@@ -319,7 +320,8 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return Halp.getDropDownMaps(list, clientRequest, delimeter);
   }
 
-  public static String getDropDownMaps(ClassQueryDTO query, ClientRequestIF clientRequest, String delimeter) throws JSONException
+  public static String getDropDownMaps(ClassQueryDTO query, ClientRequestIF clientRequest,
+      String delimeter) throws JSONException
   {
     List<AttributeMdDTO> list = new LinkedList<AttributeMdDTO>();
 
@@ -341,7 +343,8 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return Halp.getDropDownMaps(list, clientRequest, delimeter);
   }
 
-  public static String getDropDownMaps(List<AttributeMdDTO> list, ClientRequestIF request, String delimeter)
+  public static String getDropDownMaps(List<AttributeMdDTO> list, ClientRequestIF request,
+      String delimeter)
   {
     ArrayList<String> dropdownbuff = new ArrayList<String>();
 
@@ -516,44 +519,37 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return ( "[" + Halp.join(columns, ",\n") + "]" );
   }
 
-  public static String getHiddenColumns(ViewDTO view, String[] attributes, Map<String, ColumnSetup> map)
+  public static String getEditorDefinitions(ViewDTO view, Map<String, ColumnSetup> map)
       throws JSONException
   {
-    List<String> list = Arrays.asList(attributes);
+    JSONObject json = new JSONObject();
 
-    List<String> columns = new ArrayList<String>();
-    List<String> ordered = new ArrayList<String>();
-
-    for (String accessorName : view.getAccessorNames())
+    try
     {
-      String attributeName = accessorName.substring(0, 1).toUpperCase() + accessorName.substring(1);
-
-      if (!list.contains(attributeName) && accessorName.length() >= 3)
+      for (String attribute : view.getAccessorNames())
       {
-        ordered.add(attributeName);
-      }
+        ColumnSetup setup = new ColumnSetup();
 
-      if (!view.isReadable(accessorName))
-      {
-        ordered.remove(attributeName);
+        if (map.containsKey(attribute))
+        {
+          setup = map.get(attribute);
+        }
+        String key = attribute.substring(0, 1).toUpperCase() + attribute.substring(1);
+
+        AttributeMdDTO md = new DTOFacade(attribute, view).getAttributeMdDTO();
+
+        String buffer = Halp.generateEditor(view, attribute, md, setup);
+        buffer = buffer.replaceFirst("editor:", "");
+        
+        json.put(key, buffer);
       }
     }
-
-    for (String attribute : ordered)
+    catch (Exception e)
     {
-      ColumnSetup setup = new ColumnSetup();
 
-      if (map.containsKey(attribute))
-      {
-        setup = map.get(attribute);
-      }
-
-      String buffer = Halp.generateColumnMap(view, setup, attribute);
-
-      columns.add("{" + buffer + "}");
     }
 
-    return ( "[" + Halp.join(columns, ",\n") + "]" );
+    return json.toString();
   }
 
   private static String generateColumnMap(ViewDTO view, ColumnSetup setup, String attrib)

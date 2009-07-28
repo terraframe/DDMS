@@ -10,7 +10,8 @@
 <%@page import="dss.vector.solutions.irs.SprayOperatorDTO"%>
 <%@page import="dss.vector.solutions.PersonDTO"%>
 
-<dt><label> ${item.teamIdMd.displayLabel} </label></dt>
+
+<%@page import="dss.vector.solutions.irs.SprayOperatorViewDTO"%><dt><label> ${item.teamIdMd.displayLabel} </label></dt>
     <dd>
     <mjl:component item="${item}" param="team">
       <mjl:input type="text" param="teamId" />
@@ -82,33 +83,70 @@
         <input type="button" name="right" value="<fmt:message key="All"/> &gt;&gt;" onClick="Selectbox.moveAllOptions(onTeam,onOtherTeam,true,teamRegex)">
 
         </td>
-        <td><mjl:select var="operator" valueAttribute="actorId" items="${assigned}" param="onOtherTeam" multiple="true" size="12" id="onOtherTeam" style="width:15em">
-          <mjl:option>[${operator.teamId}] ${operator.firstName} ${operator.lastName} - ${operator.operatorId}</mjl:option>
-        </mjl:select> <mjl:messages attribute="actorId">
-          <mjl:message />
-        </mjl:messages></td>
+        <td>
+          <mjl:select var="operator" valueAttribute="actorId" items="${assigned}" param="onOtherTeam" multiple="true" size="12" id="onOtherTeam" style="width:15em">
+            <mjl:option>[${operator.teamId}] ${operator.firstName} ${operator.lastName} - ${operator.operatorId}</mjl:option>
+          </mjl:select>
+        </td>
       </tr>
       <tr>
-        <td colspan = 2> </td>
+        <td > </td>
+        <td align="center" width="15%">
+          <input type="button" name="left" value="&lt;&lt;" id="add.button.id">
+        </td>
         <td>
           <mjl:input id="operatorInput" param="operatorId" type="text" size="12" style="width:15em"/>
           <mjl:input id="operatorId" param="id" type="hidden" />        
           <mjl:input id="operatorLabel" param="label" type="hidden" />        
         </td>
-        <td align="center" width="15%">
-          <input type="button" name="left" value="&lt;&lt;" id="add.button.id">
-        </td>
       </tr>
     </table>
     </dd>
     
-    <%=Halp.loadTypes(Arrays.asList(new String[]{PersonDTO.CLASS}))%>
-    <%=Halp.loadTypes(Arrays.asList(new String[]{SprayOperatorDTO.CLASS}))%>
+    <%=Halp.loadTypes(Arrays.asList(new String[]{SprayOperatorViewDTO.CLASS}))%>
 
     <script type="text/javascript" defer="defer">  
       addButton = document.getElementById('add.button.id');
       onTeam = document.getElementById('onTeam');      
       notOnTeam = document.getElementById('notOnTeam');   
+      onOtherTeam = document.getElementById('onOtherTeam');   
 
-      MDSS.operatorSearch(addButton, onTeam, notOnTeam);                
+      MDSS.operatorSearch(addButton, onTeam, notOnTeam);       
+
+      var loadAssignedOperators = function(geoId)
+      {
+        var request = new MDSS.Request({
+            onSend: function(){},
+            onComplete: function(){},
+            onSuccess: function(operators)
+            {
+                // Remove all options
+            	Selectbox.removeAllOptions(onOtherTeam);
+            	Selectbox.removeAllQualifiedOptions(onTeam, teamRegex);
+
+            	// Add new options to the select list
+            	for(var i = 0; i < operators.length; i++)
+            	{
+                    var operator = operators[i];
+                	var text = '[' + operator.getTeamId() + '] ' + operator.getFirstName() + ' ' + operator.getLastName() + ' - ' + operator.getOperatorId();
+                	var value = operator.getActorId();
+
+                	Selectbox.addOption(onOtherTeam,text,value,false);
+            	}
+            }
+          });
+
+        Mojo.$.dss.vector.solutions.irs.SprayOperatorView.getAllForLocation(request, geoId);
+      }        
+
+	  var onValidGeoEntitySelected = function()
+	  {
+	    var geoId = document.getElementById('geoIdEl');
+
+	    if(geoId.value != null)
+	    {
+	    	loadAssignedOperators(geoId.value);
+	    }
+	  }		  
+               
     </script>    

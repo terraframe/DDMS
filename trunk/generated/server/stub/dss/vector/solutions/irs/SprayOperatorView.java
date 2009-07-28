@@ -21,6 +21,22 @@ public class SprayOperatorView extends SprayOperatorViewBase implements com.terr
     return getViewsFromQuery(query);
   }
   
+  public static SprayOperatorView[] getAllForLocation(String geoId)
+  {
+    QueryFactory queryFactory = new QueryFactory();
+    
+    SprayTeamQuery sprayTeamQuery = new SprayTeamQuery(queryFactory);
+    sprayTeamQuery.WHERE(sprayTeamQuery.getSprayZone().getGeoId().EQ(geoId));
+    
+    InTeamQuery inTeamQuery = new InTeamQuery(queryFactory);
+    inTeamQuery.WHERE(inTeamQuery.hasParent(sprayTeamQuery));
+    
+    SprayOperatorQuery sprayOperatorQuery = new SprayOperatorQuery(queryFactory);
+    sprayOperatorQuery.WHERE(sprayOperatorQuery.sprayTeam(inTeamQuery));
+    
+    return getViewsFromQuery(sprayOperatorQuery);    
+  }
+  
   public static SprayOperatorView[] getAllForTeam(SprayTeam sprayTeam)
   {
     QueryFactory queryFactory = new QueryFactory();

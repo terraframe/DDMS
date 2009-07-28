@@ -562,4 +562,50 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     }
 
   }
+  
+  public void testUpdateUser()
+  {
+    PersonViewDTO dto = new PersonViewDTO(systemRequest);
+    dto.setFirstName("Test");
+    dto.setLastName("Test");
+    dto.setDateOfBirth(new Date());
+    dto.setIsMDSSUser(true);
+    dto.setUsername("Test2");
+    dto.setPassword("test2");
+    dto.setIsIPTRecipient(true);
+    dto.setIsITNRecipient(true);
+    dto.setIsPatient(true);
+    dto.setIsSprayLeader(true);
+    dto.setIsSprayOperator(true);
+    dto.setLeaderId("1434343");
+    dto.setOperatorId("1434343a");
+    dto.apply();
+
+    try
+    {      
+      PersonViewDTO update = PersonDTO.lockView(request, dto.getPersonId());
+      update.setFirstName("Test");
+      update.setLastName("Test");
+      update.setDateOfBirth(new Date());
+      update.setIsMDSSUser(true);
+      update.setUsername("Test2");
+      update.setPassword("test2");
+      update.setIsIPTRecipient(true);
+      update.setIsITNRecipient(true);
+      update.setIsPatient(true);
+      update.setIsSprayLeader(true);
+      update.setIsSprayOperator(true);
+      update.setLeaderId("1434343");
+      update.setOperatorId("1434343a");
+      update.apply();
+
+      PersonViewDTO view = PersonDTO.getView(request, dto.getPersonId());
+      
+      assertEquals(update.getUsername(), view.getUsername());
+    }
+    finally
+    {
+      PersonDTO.lock(request, dto.getPersonId()).delete();
+    }
+  }
 }

@@ -3,6 +3,7 @@ package dss.vector.solutions.entomology;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,7 +25,9 @@ import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.mo.CollectionMethodDTO;
+import dss.vector.solutions.util.ColumnSetup;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.RedirectUtility;
 
 public class MosquitoCollectionController extends MosquitoCollectionControllerBase implements Reloadable
@@ -219,23 +222,20 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public void viewAssays(String id) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(this.getClass().getName() + ".viewAssays.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName()
-          + ".viewAssays.mojo");
-      path = path.replaceFirst("mojo\\?*.*", "mojo" + "?id=" + id);
-
-      resp.sendRedirect(path);
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", id);
+    utility.checkURL(this.getClass().getSimpleName(), "viewAssays");
 
     try
     {
-
       ClientRequestIF request = super.getClientRequest();
+      
       try
       {
+        MosquitoViewDTO view = new MosquitoViewDTO(request);
+        HashMap<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+               
+        req.setAttribute("editors", Halp.getEditorDefinitions(view, map));        
         req.setAttribute("item", ConcreteMosquitoCollectionDTO.get(request, id));
 
         render("viewAssaysComponent.jsp");
