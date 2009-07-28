@@ -4,15 +4,19 @@ import java.io.InputStream;
 import java.util.Map;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
+import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.InnerJoin;
+import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableMoment;
+import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
@@ -47,7 +51,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   @Override
   public void validateControlTestMortality()
   {
-    if(this.getControlTestMortality() != null && this.getControlTestMortality() > 20)
+    if (this.getControlTestMortality() != null && this.getControlTestMortality() > 20)
     {
       String msg = "The mortality rate of the control collection exceeds 20% invalidating this test";
 
@@ -76,14 +80,15 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     this.setQuantityLive(live);
     this.setMortality(mortality);
 
-    if(this.getControlTestMortality() != null && this.getControlTestMortality() > 5)
+    if (this.getControlTestMortality() != null && this.getControlTestMortality() > 5)
     {
-      //Use abbots formula to correct the mortality rate
-      //Corrected % = 100 * (T - C) / (100 - C) (WHO/CDC/NTD/WHOPES/GCDPP/2006.3)
-      //T = % mortality of the treated population
-      //C = % mortality of the control population
+      // Use abbots formula to correct the mortality rate
+      // Corrected % = 100 * (T - C) / (100 - C)
+      // (WHO/CDC/NTD/WHOPES/GCDPP/2006.3)
+      // T = % mortality of the treated population
+      // C = % mortality of the control population
 
-      float corrected = 100.0F * (mortality - this.getControlTestMortality()) / (100.0F - this.getControlTestMortality());
+      float corrected = 100.0F * ( mortality - this.getControlTestMortality() ) / ( 100.0F - this.getControlTestMortality() );
       this.setMortality(corrected);
     }
 
@@ -128,8 +133,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     return ( this.getMortality() > susceptible );
   }
 
-
-
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
@@ -145,53 +148,74 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
-        valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, MosquitoCollection.CLASS, MosquitoCollection.GEOENTITY);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, MosquitoCollection.CLASS, MosquitoCollection.GEOENTITY);
 
     // join Mosquito with mosquito collection
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
 
-    Integer needsUnion = 0;
+    CollectionAssayQuery joinResults = null;
+    String joinTable = null;
 
     // join Mosquito with mosquito collection
     AdultDiscriminatingDoseAssayQuery adultQuery = (AdultDiscriminatingDoseAssayQuery) queryMap.get(AdultDiscriminatingDoseAssay.CLASS);
     if (adultQuery != null)
     {
       valueQuery.WHERE(adultQuery.getCollection().getId().EQ(mosquitoCollectionQuery.getId()));
-      needsUnion ++;
+      joinResults = adultQuery;
+      // joinTable = adultQuery.getMdClassIF().getTableName();
     }
 
     LarvaeDiscriminatingDoseAssayQuery larvaeQuery = (LarvaeDiscriminatingDoseAssayQuery) queryMap.get(LarvaeDiscriminatingDoseAssay.CLASS);
     if (larvaeQuery != null)
     {
       valueQuery.WHERE(larvaeQuery.getCollection().getId().EQ(mosquitoCollectionQuery.getId()));
-      needsUnion ++;
+      joinResults = larvaeQuery;
     }
 
     KnockDownAssayQuery kdQuery = (KnockDownAssayQuery) queryMap.get(KnockDownAssay.CLASS);
     if (kdQuery != null)
     {
       valueQuery.WHERE(kdQuery.getCollection().getId().EQ(mosquitoCollectionQuery.getId()));
-      needsUnion ++;
+      joinResults = kdQuery;
     }
 
     CollectionAssayQuery collectionAssayQuery = (CollectionAssayQuery) queryMap.get(CollectionAssay.CLASS);
     if (collectionAssayQuery != null)
     {
       valueQuery.WHERE(collectionAssayQuery.getCollection().getId().EQ(mosquitoCollectionQuery.getId()));
-      needsUnion ++;
+      joinResults = collectionAssayQuery;
     }
 
     SelectableMoment dateAttribute = mosquitoCollectionQuery.getDateCollected();
 
-    //this ensures that the date attribute is joined correctly
+    // this ensures that the date attribute is joined correctly
     ConcreteMosquitoCollectionQuery concreteCollectionQuery = (ConcreteMosquitoCollectionQuery) queryMap.get(ConcreteMosquitoCollection.CLASS);
-    if(concreteCollectionQuery == null)
+    if (concreteCollectionQuery == null)
     {
-      for(Join join: dateAttribute.getJoinStatements())
+      for (Join join : dateAttribute.getJoinStatements())
       {
         valueQuery.WHERE((InnerJoin) join);
       }
+    }
+
+    String susceptibleLabel = "Susceptible";
+    String resistantLabel = "Resistant";
+    String potentialyResistantLabel = "Potentially Resistant";
+    String tableName = "resistance_table";
+
+    String result = "resistance_result";
+
+    SelectableSQL s = (SelectableSQL) valueQuery.getSelectable(result);
+    if (s != null)
+    {
+      s.setSQL(result);
+
+      String[] labels = { susceptibleLabel, potentialyResistantLabel, resistantLabel };
+      String sql = AdultDiscriminatingDoseAssay.getTempTableSQL(tableName, labels);
+      System.out.println(sql);
+      Database.parseAndExecute(sql);
+      valueQuery.FROM(tableName, tableName);
+      valueQuery.WHERE(new InnerJoinEq("id", joinResults.getMdClassIF().getTableName(), joinResults.getTableAlias(), "id", tableName, tableName));
     }
 
     valueQuery = QueryUtil.setQueryDates(xml, valueQuery, dateAttribute);
@@ -200,9 +224,30 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
   }
 
+  public static String getTempTableSQL(String tableName, String[] labels)
+  {
+    String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
+    sql += "CREATE TEMP TABLE " + tableName + " AS ";
+    sql += AdultDiscriminatingDoseAssay.getResistanceSQL(labels);
+    sql += " UNION \n";
+    sql += LarvaeDiscriminatingDoseAssay.getResistanceSQL(labels);
+    sql += " UNION \n";
+    sql += KnockDownAssay.getResistanceSQL(labels);
+    sql += ";\n";
+    return sql;
+  }
 
+  public static String getResistanceSQL(String[] labels)
+  {
+    String assayTable = MdBusiness.getMdBusiness(AdultDiscriminatingDoseAssay.CLASS).getTableName();
+    Integer resistant = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.ADULT_DDA_RESISTANCE);
+    Integer susceptible = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.ADULT_DDA_SUSCEPTIBILE);
+    String mortality = AdultDiscriminatingDoseAssay.MORTALITY;
 
-   /**
+    return CollectionAssay.getCollectionResistanceSQL(assayTable, mortality, resistant.toString(), susceptible.toString(), labels);
+  }
+
+  /**
    * Queries for Mosquitos.
    *
    * @param xml

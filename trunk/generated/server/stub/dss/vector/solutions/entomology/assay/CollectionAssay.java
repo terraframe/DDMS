@@ -16,12 +16,12 @@ import dss.vector.solutions.mo.Generation;
 public abstract class CollectionAssay extends CollectionAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236893774938L;
-  
+
   public CollectionAssay()
   {
     super();
   }
-  
+
   @Override
   public void validateIsofemale()
   {
@@ -33,20 +33,20 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
 
       InvalidGenerationProblem p = new InvalidGenerationProblem(msg);
       p.setNotification(this, ISOFEMALE);
-      p.apply();      
+      p.apply();
       p.throwIt();
     }
   }
-  
+
   private boolean isGenerationF0()
   {
     Generation gen = this.getGeneration();
     List<String> ids = new LinkedList<String>();
     ids.add("MIRO_343458349");
-        
+
     return ids.contains(gen.getTermId());
   }
-  
+
   @Override
   public void validateIntervalTime()
   {
@@ -58,18 +58,18 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
       p.setIntervalTime(this.getIntervalTime());
       p.setExposureTime(this.getExposureTime());
       p.setNotification(this, INTERVALTIME);
-      p.apply();      
+      p.apply();
       p.throwIt();
     }
   }
-  
+
   @Override
   public void validateTestDate()
   {
     if (this.getTestDate() != null)
-    {      
+    {
       super.validateTestDate();
-      
+
       Date collectionDate = this.getCollection().getDateCollected();
 
       if (this.getTestDate().before(collectionDate))
@@ -86,7 +86,7 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
     }
   }
 
-  
+
   @Override
   public Double getKD50()
   {
@@ -98,7 +98,7 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
   {
     return this.getKD(95);
   }
-  
+
   private Double getKD(int value)
   {
     // Use regression of the form log(y) = (a1 * x) + a0 where a0 = 0
@@ -124,7 +124,7 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
     // return representer.eval(new GVector(new double[]{Math.log(value)}));
     return representer.eval(new GVector(new double[] { value }));
   }
-  
+
   public abstract TestIntervalIF[] getTestIntervals();
 
   private double[] getTimeIntervals()
@@ -163,7 +163,7 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
 
     return d;
   }
-  
+
   @Override
   public void apply()
   {
@@ -172,9 +172,9 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
 
     super.apply();
   }
-    
 
-  
+
+
   public Integer calculatePeriod()
   {
     double exposureTime = (double) this.getExposureTime();
@@ -182,4 +182,32 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
 
     return (int) Math.ceil(exposureTime / intervalTime) + 1;
   }
+
+
+
+
+  public static String getCollectionResistanceSQL(String assayTable,String mortality,String resistant, String susceptible, String[] labels)
+  {
+
+    String resistance_result = "resistance_result";
+
+    String susceptibleLabel = labels[0];
+    String potentialyResistantLabel = labels[1];
+    String resistantLabel = labels[2];
+
+    String select = "SELECT assay.id AS id,\n";
+    String from = "FROM  " + assayTable + " AS assay,\n";
+    String where = "";
+
+    select += "(CASE WHEN (assay." + mortality + " > " + resistant + ") THEN '" + resistantLabel + "'\n";
+    select += "WHEN (assay." + mortality + " > " + susceptible + ")  THEN '" + potentialyResistantLabel + "'\n";
+    select += "ELSE '" + susceptibleLabel + "' END) AS " + resistance_result + ",\n";
+
+    select = select.substring(0, select.length() - 2);
+    // where = "WHERE " + where.substring(3, where.length() - 2);
+    from = from.substring(0, from.length() - 2);
+
+    return select + "\n" + from + "\n" + where;
+  }
+
 }
