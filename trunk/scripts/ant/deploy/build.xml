@@ -17,13 +17,13 @@
 
 	<property name="deploy.path" location="${deploy.root}/webapps/MDSS/" />
 
-	<property name="postgres.bin" location="/Library/PostgreSQL/8.3/bin/" />
+	<property name="postgres.bin" location="/usr/local/pgsql/bin/" />
 	<property name="testserver.address" value="66.116.103.235" />
 	<property name="testserver.username" value="administrator" />
 
 	<property name="deploy.db" value="mdssdeploy" />
 	<property name="develop.db" value="mdssdevelop" />
-	<property name="geodata.db" value="mozambique" />
+	<property name="geodata.db" value="mrc_mozambique" />
 	<!--<property name="write_rev" value="false" />-->
 
 	<!-- Rebuild Deploy -->
@@ -627,6 +627,58 @@
 		</filterchain>
 	</move>
 
+	</target>
+
+	<target name="remove_generated_universals" depends="" description="Remove all java files for selected (old) generated universals">
+		<delete>
+		    <fileset dir="../../../generated/client/stub/dss/vector/solutions/geo/generated/">
+		    	<include name="AdminPost*.java" />
+		    	<include name="BambooWoodWithMudWall*.java" />
+		    	<include name="CalamineCementFibreRoof*.java" />
+		    	<include name="CementConcreteRoof*.java" />
+		    	<include name="CommunityHealthCenter*.java" />
+		    	<include name="CommunityHealthWorker*.java" />
+		    	<include name="CoveredAbode*.java" />
+		    	<include name="Lodge*.java" />
+		    	<include name="MobileClinic*.java" />            
+		    	<include name="OtherRoof*.java" />          
+		    	<include name="PointCollection*.java" />
+		    	<include name="PrivateClinic*.java" />
+		    	<include name="PrivatePractice*.java" />
+		    	<include name="PublicClinic*.java" />
+		    	<include name="PublicHospital*.java" />
+		    	<include name="ReedBambooRoof*.java" />
+		    	<include name="RusticMatPlasticSheetRoof*.java" />
+		    	<include name="StickAndMudRoof*.java" />
+		    	<include name="ThatchLeafRoof*.java" />
+		    	<include name="UncoveredAbode*.java" />
+		    	<include name="WoodPlansShingles*.java" />
+		    	
+		    	<include name="AdministrativePost*.java" />
+		    	<include name="CentralHospital*.java" />
+		    	<include name="ChamHealthCentre*.java" />
+		    	<include name="ChamHospital*.java" />
+		    	<include name="CoveredAbode*.java" />
+		    	<include name="CoveredAdobe*.java" />
+		    	<include name="ExitTrap*.java" />
+		    	<include name="HealthFacilityCatchment*.java" />
+		    	<include name="LocalGvtDispensary*.java" />
+		    	<include name="LocalGvtMaternity*.java" />
+		    	<include name="PrivateHospital*.java" />
+		    	<include name="Province*.java" />
+		    	<include name="ProvincialHospital*.java" />
+		    	<include name="Region*.java" />
+		    	<include name="RegionalHospital*.java" />
+		    	<include name="Reserve*.java" />
+		    	<include name="RuralHealthCentre1*.java" />
+		    	<include name="RuralHealthCentre2*.java" />
+		    	<include name="RuralHospital*.java" />
+		    	<include name="TraditionalAuthority*.java" />
+		    	<include name="UncoveredAbode*.java" />
+		    	<include name="UncoveredAdobe*.java" />
+		    	<include name="UrbanHealthCentre*.java" />
+		    </fileset>
+		</delete>
 	</target>
 
 
