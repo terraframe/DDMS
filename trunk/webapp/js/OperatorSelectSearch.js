@@ -75,92 +75,90 @@
       {
         return;
       }
-
-
       
-          var resultSet = getResultSet(notOnTeam.options, value);
+      var resultSet = getResultSet(notOnTeam.options, value);
 
-          var outer = document.createElement('div');
+      var outer = document.createElement('div');
 
-          var header = document.createElement('div');
-          header.innerHTML = '<h3>'+MDSS.Localized.Search_Results+'</h3><hr />';
-          outer.appendChild(header);
+      var header = document.createElement('div');
+      header.innerHTML = '<h3>'+MDSS.Localized.Search_Results+'</h3><hr />';
+      outer.appendChild(header);
 
-          var inner = document.createElement('div');
-          YAHOO.util.Dom.addClass(inner, 'entitySearchResults');
-          outer.appendChild(inner);
+      var inner = document.createElement('div');
+      YAHOO.util.Dom.addClass(inner, 'entitySearchResults');
+      outer.appendChild(inner);
 
-          var ul = document.createElement('ul');
-          YAHOO.util.Dom.addClass(ul, 'selectableList')
-          YAHOO.util.Event.on(ul, 'mouseover', function(e, obj){
+      var ul = document.createElement('ul');
+      YAHOO.util.Dom.addClass(ul, 'selectableList')
+      YAHOO.util.Event.on(ul, 'mouseover', function(e, obj){
+    	  
+        var li = e.target;
+        var ul = e.currentTarget;
+        if(li.nodeName === 'SPAN')
+        {
+          li = li.parentNode;
+        }
 
-            var li = e.target;
-            var ul = e.currentTarget;
-            if(li.nodeName === 'SPAN')
-            {
-              li = li.parentNode;
-            }
+        if(li.nodeName !== 'LI')
+        {
+          return;
+        }
 
-            if(li.nodeName !== 'LI')
-            {
-              return;
-            }
+        // clear all lis of their current class
+        var lis = YAHOO.util.Selector.query('li.currentSelection', ul);
+        for(var i=0; i<lis.length; i++)
+        {
+          YAHOO.util.Dom.removeClass(lis[i], 'currentSelection');
+        }
 
-            // clear all lis of their current class
-            var lis = YAHOO.util.Selector.query('li.currentSelection', ul);
-            for(var i=0; i<lis.length; i++)
-            {
-              YAHOO.util.Dom.removeClass(lis[i], 'currentSelection');
-            }
+        YAHOO.util.Dom.addClass(li, 'currentSelection');
+      });
 
-            YAHOO.util.Dom.addClass(li, 'currentSelection');
-          });
+      YAHOO.util.Event.on(ul, 'click', function(e, obj){
 
-          YAHOO.util.Event.on(ul, 'click', function(e, obj){
+        var li = e.target;
+        var ul = e.currentTarget;
+        if(li.nodeName === 'SPAN')
+        {
+          li = li.parentNode;
+        }
 
-            var li = e.target;
-            var ul = e.currentTarget;
-            if(li.nodeName === 'SPAN')
-            {
-              li = li.parentNode;
-            }
+        if(li.nodeName !== 'LI')
+        {
+          return;
+        }
 
-            if(li.nodeName !== 'LI')
-            {
-              return;
-            }
+        resultPanel.hide();
+        selectHandler(li);
 
-            resultPanel.hide();
-            selectHandler(li);
+      }, {input: this.input, panel: this.resultPanel}, this.searchRef);
 
-          }, {input: this.input, panel: this.resultPanel}, this.searchRef);
+      for(var i=0; i<resultSet.length; i++)
+      {
+        var valueObj = resultSet[i];
 
-          for(var i=0; i<resultSet.length; i++)
-          {
-            var valueObj = resultSet[i];
+        var li = document.createElement('li');
 
-            var li = document.createElement('li');
+        li.id = valueObj.value;
+        li.operatorLabel = valueObj.text;
+        li.operatorId = valueObj.text;
 
-            li.id = valueObj.value;
-            li.operatorLabel = valueObj.text;
-            li.operatorId = valueObj.text;
-
-            var displayStr = valueObj.text;
-            var matched = displayStr.replace(new RegExp("(.*?)("+this.value+")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
-            li.innerHTML = matched;
+        var displayStr = valueObj.text;
+        var matched = displayStr.replace(new RegExp("(.*?)("+this.value+")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
+        li.innerHTML = matched;
             
-            ul.appendChild(li);
-          }
+        ul.appendChild(li);
+      }
 
-          inner.appendChild(ul);
+      inner.appendChild(ul);
 
-          resultPanel.setBody(outer);
-          resultPanel.render();
-          resultPanel.show();
-          resultPanel.bringToTop();
+      resultPanel.setBody(outer);
+      resultPanel.render();
+      resultPanel.show();
+      resultPanel.bringToTop();
 
-          // refocus the input field
-          input.focus();
+      // refocus the input field
+      input.focus();
     }
     
     var removeOption = function(selectbox, operatorId)
@@ -195,20 +193,19 @@
 
       if(operatorId.value !== null && operatorLabel.value !== null)
       {
-          // Remove the selected operator from the notOnTeam list
-          removeOption(notOnTeam, operatorId.value);                        
+        // Remove the selected operator from the notOnTeam list
+        removeOption(notOnTeam, operatorId.value);                        
 
-          // Add the selected operator to the onTeam list
-          addOption(onTeam, operatorLabel.value, operatorId.value);
+        // Add the selected operator to the onTeam list
+        addOption(onTeam, operatorLabel.value, operatorId.value);
 
-          // Clear values of the drop down box
-          operatorId.value=null;
-          operatorLabel.value=null;
-          operatorInput.value=null;
+        // Clear values of the drop down box
+        operatorId.value=null;
+        operatorLabel.value=null;
+        operatorInput.value=null;
       }          
     }
-
     
-     YAHOO.util.Event.on(operatorInput, 'keyup', ajaxSearch, null, null);    
-     YAHOO.util.Event.on(addButton, 'click', addClick, null, null);    
+    YAHOO.util.Event.on(operatorInput, 'keyup', ajaxSearch, null, null);    
+    YAHOO.util.Event.on(addButton, 'click', addClick, null, null);    
   }
