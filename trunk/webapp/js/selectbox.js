@@ -229,6 +229,19 @@ Selectbox.addOption = function(obj,text,value,selected) {
 	}
 };
 
+Selectbox.containsOption = function(obj, option) {	
+	
+	for(var i = 0; i < obj.options.length; i++)
+	{
+		if(obj.options[i].value === option.value)
+		{
+			return true;
+		}
+	}
+	
+	return false;
+};
+
 // Create a jQuery Plugin wrapper around the functions
 /*
 if (typeof jQuery!="undefined") {

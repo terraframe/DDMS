@@ -1,4 +1,5 @@
-  MDSS.operatorSearch = function(){
+  MDSS.operatorSearch = function(addButton, onTeam, notOnTeam){
+	  
     var operatorInput = document.getElementById('operatorInput');                
 
     var collectionResults = document.createElement('div');
@@ -40,25 +41,25 @@
       }
     }
 
-    var checkManualEntry = function() {
-      var operatorInput = document.getElementById('operatorInput');
+    var getResultSet = function(array, value)
+    {
+  	  var filtered = [];
 
-      var request = new MDSS.Request({
-          selectHandler: selectHandler,
-          onSend: function(){},
-          onComplete: function(){},
-          onFailure: function(){},
-          onSuccess : function(result){
-        	if(result !== null) {
-        		selectHandler({id:result.getId(), operatorId:result.getoperatorId()});
-        	}
-        }
-      });
-
-      Mojo.$.dss.vector.solutions.irs.SprayOperator.get(request, operatorInput.value);
+  	  for(var i=0; i<array.length;i++)
+  	  {
+  	    var element = array[i];
+  	    var text = element.text.toUpperCase();
+  	    
+  	    if(text.search(value.toUpperCase()) !== -1)
+  	    {
+  	      filtered.push(element);
+  	    }
+  	  }
+  	  
+  	  return filtered;
     }
-    
 
+    
      /**
      * Performs an ajax search based on the entity
      * name and type.
@@ -75,19 +76,9 @@
         return;
       }
 
-      var request = new MDSS.Request({
-        resultPanel: resultPanel,
-        searchValue: value,
-        selectHandler: selectHandler,
-        input: input,
-        searchRef: this,
-        
-        // don't paint a loading bar. It's too slow for this type of call
-        onSend: function(){},
-        onComplete: function(){},
-        onSuccess: function(query)
-        {
-          var resultSet = query.getResultSet();
+
+      
+          var resultSet = getResultSet(notOnTeam.options, value);
 
           var outer = document.createElement('div');
 
@@ -144,23 +135,18 @@
 
           }, {input: this.input, panel: this.resultPanel}, this.searchRef);
 
-          var idAttr = "id";
-          var operatorIdAttr = "operatorId";
-          var firstNameAttr = "firstName";
-          var lastNameAttr = "lastName";
-                    
           for(var i=0; i<resultSet.length; i++)
           {
             var valueObj = resultSet[i];
 
             var li = document.createElement('li');
 
-            li.id = valueObj.getValue(idAttr);
-            li.operatorLabel = valueObj.getValue(firstNameAttr) + ' ' + valueObj.getValue(lastNameAttr);
-            li.operatorId = valueObj.getValue(lastNameAttr) + ', '+ valueObj.getValue(firstNameAttr) + ' - ' + valueObj.getValue(operatorIdAttr);
+            li.id = valueObj.value;
+            li.operatorLabel = valueObj.text;
+            li.operatorId = valueObj.text;
 
-            var displayStr = valueObj.getValue(lastNameAttr) + ', '+ valueObj.getValue(firstNameAttr) + ' - ' + valueObj.getValue(operatorIdAttr);
-            var matched = displayStr.replace(new RegExp("(.*?)("+this.searchValue+")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
+            var displayStr = valueObj.text;
+            var matched = displayStr.replace(new RegExp("(.*?)("+this.value+")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
             li.innerHTML = matched;
             
             ul.appendChild(li);
@@ -168,18 +154,61 @@
 
           inner.appendChild(ul);
 
-          this.resultPanel.setBody(outer);
-          this.resultPanel.render();
-          this.resultPanel.show();
-          this.resultPanel.bringToTop();
+          resultPanel.setBody(outer);
+          resultPanel.render();
+          resultPanel.show();
+          resultPanel.bringToTop();
 
           // refocus the input field
-          this.input.focus();
-        }
-      });
-
-      Mojo.$.dss.vector.solutions.irs.SprayOperator.searchForOperators(request, value);
+          input.focus();
     }
     
+    var removeOption = function(selectbox, operatorId)
+    {
+      var i;
+
+      for(i=0; i < selectbox.options.length; i++)
+      {
+        if(selectbox.options[i].value === operatorId)          
+          selectbox.remove(i);
+      }
+    }   
+
+    var addOption =  function(selectbox, text,value)
+    {
+      var optn = document.createElement("OPTION");
+
+      optn.text = text;
+      optn.value = value;
+
+      if(!Selectbox.containsOption(selectbox, optn))
+      {
+        selectbox.options.add(optn);
+      }
+    }
+    
+    var addClick = function()
+    {
+      var operatorId = document.getElementById('operatorId');      
+      var operatorInput = document.getElementById('operatorInput');      
+      var operatorLabel = document.getElementById('operatorLabel');      
+
+      if(operatorId.value !== null && operatorLabel.value !== null)
+      {
+          // Remove the selected operator from the notOnTeam list
+          removeOption(notOnTeam, operatorId.value);                        
+
+          // Add the selected operator to the onTeam list
+          addOption(onTeam, operatorLabel.value, operatorId.value);
+
+          // Clear values of the drop down box
+          operatorId.value=null;
+          operatorLabel.value=null;
+          operatorInput.value=null;
+      }          
+    }
+
+    
      YAHOO.util.Event.on(operatorInput, 'keyup', ajaxSearch, null, null);    
+     YAHOO.util.Event.on(addButton, 'click', addClick, null, null);    
   }

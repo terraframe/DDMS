@@ -4,7 +4,13 @@
 <%@page import="dss.vector.solutions.geo.generated.SprayZoneDTO"%>
 
 
-    <dt><label> ${item.teamIdMd.displayLabel} </label></dt>
+    
+<%@page import="dss.vector.solutions.util.Halp"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="dss.vector.solutions.irs.SprayOperatorDTO"%>
+<%@page import="dss.vector.solutions.PersonDTO"%>
+
+<dt><label> ${item.teamIdMd.displayLabel} </label></dt>
     <dd>
     <mjl:component item="${item}" param="team">
       <mjl:input type="text" param="teamId" />
@@ -42,7 +48,7 @@
       <tr>
         <td><mjl:select var="operator" valueAttribute="actorId" items="${current}" param="operatorIds" multiple="true" size="12" id="onTeam" style="width:15em">
           <mjl:option>
-                ${operator.firstName} ${operator.lastName}
+                ${operator.firstName} ${operator.lastName} - ${operator.operatorId}
               </mjl:option>
         </mjl:select> <mjl:messages attribute="actorId">
           <mjl:message />
@@ -58,7 +64,7 @@
 
         <td><mjl:select var="operator" valueAttribute="actorId" items="${available}" param="removedIds" multiple="true" size="12" id="notOnTeam" style="width:15em">
           <mjl:option>
-                ${operator.firstName} ${operator.lastName}
+                ${operator.firstName} ${operator.lastName} - ${operator.operatorId}
               </mjl:option>
         </mjl:select> <mjl:messages attribute="actorId">
           <mjl:message />
@@ -77,10 +83,32 @@
 
         </td>
         <td><mjl:select var="operator" valueAttribute="actorId" items="${assigned}" param="onOtherTeam" multiple="true" size="12" id="onOtherTeam" style="width:15em">
-          <mjl:option>[${operator.teamId}] ${operator.firstName} ${operator.lastName}</mjl:option>
+          <mjl:option>[${operator.teamId}] ${operator.firstName} ${operator.lastName} - ${operator.operatorId}</mjl:option>
         </mjl:select> <mjl:messages attribute="actorId">
           <mjl:message />
         </mjl:messages></td>
       </tr>
+      <tr>
+        <td colspan = 2> </td>
+        <td>
+          <mjl:input id="operatorInput" param="operatorId" type="text" size="12" style="width:15em"/>
+          <mjl:input id="operatorId" param="id" type="hidden" />        
+          <mjl:input id="operatorLabel" param="label" type="hidden" />        
+        </td>
+        <td align="center" width="15%">
+          <input type="button" name="left" value="&lt;&lt;" id="add.button.id">
+        </td>
+      </tr>
     </table>
     </dd>
+    
+    <%=Halp.loadTypes(Arrays.asList(new String[]{PersonDTO.CLASS}))%>
+    <%=Halp.loadTypes(Arrays.asList(new String[]{SprayOperatorDTO.CLASS}))%>
+
+    <script type="text/javascript" defer="defer">  
+      addButton = document.getElementById('add.button.id');
+      onTeam = document.getElementById('onTeam');      
+      notOnTeam = document.getElementById('notOnTeam');   
+
+      MDSS.operatorSearch(addButton, onTeam, notOnTeam);                
+    </script>    
