@@ -26,11 +26,13 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.StartSession;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.LineString;
+import com.vividsolutions.jts.geom.MultiLineString;
 import com.vividsolutions.jts.geom.MultiPoint;
 import com.vividsolutions.jts.geom.MultiPolygon;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 
+import dss.vector.solutions.Universal;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.geo.LocatedIn;
@@ -48,11 +50,15 @@ public class GeoEntityImporter
 
   private static String              GEOM_CENTRIOD                 = "geom_centriod";
 
-  private static String              GEOM_LINESTRING               = "geom_linestring";
-
-  private static String              GEOM_POLYGON                  = "geom_polygon";
+  private static String              GEOM_POINT                    = "geom_point";
 
   private static String              GEOM_MULTIPOINT               = "geom_multipoint";
+
+  private static String              GEOM_LINESTRING               = "geom_linestring";
+
+  private static String              GEOM_MULTILINESTRING          = "geom_multilinestring";
+
+  private static String              GEOM_POLYGON                  = "geom_polygon";
 
   private static String              GEOM_MULTIPOLYGON             = "geom_multipolygon";
 
@@ -230,7 +236,7 @@ public class GeoEntityImporter
 
         // Parent GeoEntity (will be Earth if unspecified)
         GeoEntity parentGeoEntity;
-        if (locatedIn != null && !locatedIn.trim().equals(""))
+        if ((locatedIn != null) && (locatedIn.trim().length() > 0) && (!locatedIn.trim().equals("1")))
         {
           parentGeoEntity = GeoEntity.searchByGeoId(locatedIn);
         }
@@ -273,11 +279,14 @@ public class GeoEntityImporter
   private String appendFileteredUniversalClause()
   {
     return
+    "";
+    /*
     "    AND rel."+INSTANCE_OF+" != 14 \n"+
     "    AND rel."+INSTANCE_OF+" != 16 \n"+
     "    AND rel."+INSTANCE_OF+" != 17 \n"+
     "    AND rel."+INSTANCE_OF+" != 18 \n"+
     "    AND rel."+INSTANCE_OF+" != 19";
+    */
   }
 
   /*
@@ -303,10 +312,12 @@ public class GeoEntityImporter
     int applyCount = 0;
 
     String sql =
-      " SELECT geom."+GEOM_CENTRIOD+", geom."+GEOM_LINESTRING+", geom."+GEOM_POLYGON+", geom."+GEOM_MULTIPOINT+", geom."+GEOM_MULTIPOLYGON+",\n" +
+      //" SELECT geom."+GEOM_CENTRIOD+", geom."+GEOM_LINESTRING+", geom."+GEOM_POLYGON+", geom."+GEOM_MULTIPOINT+", geom."+GEOM_MULTIPOLYGON+",\n" +
+      " SELECT geom."+GEOM_MULTILINESTRING+", geom."+GEOM_POINT+", geom."+GEOM_MULTIPOLYGON+",\n" +
       "        rel."+INSTANCE_OF+", rel."+GEO_ID+",\n"+
-      "        ent."+GEO_NAME+", ent."+ENTITY_ID+",\n"+
-      "        ent."+GAZ_ID+"\n"+
+      "        ent."+GEO_NAME+", ent."+ENTITY_ID+"\n"+
+//      "        ent."+GEO_NAME+", ent."+ENTITY_ID+",\n"+
+//      "        ent."+GAZ_ID+"\n"+
       "   FROM "+GEOGRAPHIC_ENTITIES_RELATIONS+" rel,\n" +
       "        "+GEOGRAPHIC_ENTITIES+" ent LEFT JOIN "+GEOGRAPHIC_ENTITIES_GEOMETRY+" geom ON ent."+GEO_ID+" = geom."+GEO_ID+"\n"+
       "  WHERE rel."+GEO_ID+" = ent."+GEO_ID+"\n"+
@@ -326,7 +337,7 @@ public class GeoEntityImporter
       {
         int universalId = resultSet.getInt(INSTANCE_OF);
         long geoId = resultSet.getLong(GEO_ID);
-        long gazId = resultSet.getLong(GAZ_ID);
+        //long gazId = resultSet.getLong(GAZ_ID);
         String geoName = resultSet.getString(GEO_NAME);
 
         // if (resultSet.getObject(GEOM_CENTRIOD) != null)
@@ -362,20 +373,45 @@ public class GeoEntityImporter
         GeoEntity geoEntity = (GeoEntity) businessClass.getConstructor().newInstance();
 
         geoEntity.setGeoId(Long.toString(geoId));
-        geoEntity.setGazId(gazId);
+       // geoEntity.setGazId(gazId);
         geoEntity.setEntityName(geoName);
 
-        JtsGeometry pontField = (JtsGeometry) resultSet.getObject(GEOM_CENTRIOD);
-        JtsGeometry lineStringField = (JtsGeometry) resultSet.getObject(GEOM_LINESTRING);
-        JtsGeometry polygonField = (JtsGeometry) resultSet.getObject(GEOM_POLYGON);
-        JtsGeometry multiPointField = (JtsGeometry) resultSet.getObject(GEOM_MULTIPOINT);
+        //JtsGeometry centriodField = (JtsGeometry) resultSet.getObject(GEOM_CENTRIOD);
+        JtsGeometry pointField = (JtsGeometry) resultSet.getObject(GEOM_POINT);
+        //JtsGeometry multiPointField = (JtsGeometry) resultSet.getObject(GEOM_MULTIPOINT);
+        //JtsGeometry lineStringField = (JtsGeometry) resultSet.getObject(GEOM_LINESTRING);
+        JtsGeometry multiLineStringField = (JtsGeometry) resultSet.getObject(GEOM_MULTILINESTRING);
+        //JtsGeometry polygonField = (JtsGeometry) resultSet.getObject(GEOM_POLYGON);
         JtsGeometry multiPolygonField = (JtsGeometry) resultSet.getObject(GEOM_MULTIPOLYGON);
 
         try
         {
-          if (pontField != null)
+          if (pointField != null) {
+              businessClass.getMethod("setPoint", Point.class).invoke(geoEntity,
+                      (Point) pointField.getGeometry());
+          }
+          else if (multiLineStringField != null)
           {
-            MultiPoint mp = new MultiPoint(new Point[]{(Point)pontField.getGeometry()}, pontField.getGeometry().getFactory());
+              Geometry geometry = multiLineStringField.getGeometry();
+
+              MultiLineString multiLineString;
+
+              if (geometry instanceof LineString)
+              {
+            	  multiLineString = new MultiLineString(new LineString[] { (LineString) geometry }, geometry
+                    .getFactory());
+              }
+              else
+              {
+            	  multiLineString = (MultiLineString) geometry;
+              }
+            businessClass.getMethod("setMultiLineString", MultiLineString.class).invoke(geoEntity,
+                   multiLineString);
+          }
+/*          
+          else if (centriodField != null)
+          {
+            MultiPoint mp = new MultiPoint(new Point[]{(Point)centriodField.getGeometry()}, centriodField.getGeometry().getFactory());
 
             businessClass.getMethod("setMultiPoint", MultiPoint.class).invoke(geoEntity, mp);
           }
@@ -394,6 +430,7 @@ public class GeoEntityImporter
             businessClass.getMethod("setMultiPoint", MultiPoint.class).invoke(geoEntity,
                 (MultiPoint) multiPointField.getGeometry());
           }
+*/          
           else if (multiPolygonField != null)
           {
             Geometry geometry = multiPolygonField.getGeometry();
@@ -494,8 +531,10 @@ public class GeoEntityImporter
     QueryFactory f = new QueryFactory();
     GeoHierarchyQuery q = new GeoHierarchyQuery(f);
 
-    q.WHERE(F.UPPER(F.TRIM(q.getGeoEntityClass().getTypeName())).EQ(universalName.trim().toUpperCase())
-        .OR(F.UPPER(F.TRIM(q.getGeoEntityClass().getDisplayLabel().getDefaultLocale())).EQ(universalName.trim().toUpperCase())));
+//    q.WHERE(F.UPPER(F.TRIM(q.getGeoEntityClass().getTypeName())).EQ(universalName.trim().toUpperCase())
+//            .OR(F.UPPER(F.TRIM(q.getGeoEntityClass().getDisplayLabel().getDefaultLocale())).EQ(universalName.trim().toUpperCase())));
+
+    q.WHERE(q.getGeoEntityClass().getTypeName().EQ(Universal.getSystemName(universalName)));
 
     OIterator<? extends GeoHierarchy> i = q.getIterator();
 
@@ -512,7 +551,7 @@ public class GeoEntityImporter
     }
     else
     {
-      String errMsg = "Unable to find a universal with the name \"" + universalName + "\"";
+      String errMsg = "Unable to find a universal with the name \"" + universalName + "\" (or \"" + Universal.getSystemName(universalName) + "\")";
       System.err.println(errMsg);
 
       return null;

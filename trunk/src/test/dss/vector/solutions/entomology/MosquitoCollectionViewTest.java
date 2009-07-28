@@ -15,7 +15,7 @@ import dss.vector.solutions.AmbigiousGeoEntityException;
 import dss.vector.solutions.UnknownGeoEntityException;
 import dss.vector.solutions.UnknownTermException;
 import dss.vector.solutions.export.entomology.MosquitoCollectionView;
-import dss.vector.solutions.geo.generated.AdminPost;
+import dss.vector.solutions.geo.generated.AdministrativePost;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.District;
 import dss.vector.solutions.geo.generated.Locality;
@@ -32,7 +32,7 @@ public class MosquitoCollectionViewTest extends TestCase
 
   private static District         district                 = null;
 
-  private static AdminPost        adminPost                = null;
+  private static AdministrativePost        adminPost                = null;
 
   private static Locality         locality                 = null;
 
@@ -136,7 +136,7 @@ public class MosquitoCollectionViewTest extends TestCase
     district.setEntityName(districtName);
     district.applyWithParent(province.getId(), false);
 
-    adminPost = new AdminPost();
+    adminPost = new AdministrativePost();
     adminPost.setGeoId(next());
     adminPost.setEntityName(adminName);
     adminPost.applyWithParent(district.getId(), false);

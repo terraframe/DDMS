@@ -13,7 +13,7 @@ import dss.vector.solutions.geo.DuplicateParentException;
 import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoEntityViewQuery;
 import dss.vector.solutions.geo.LocatedInException;
-import dss.vector.solutions.geo.generated.AdminPost;
+import dss.vector.solutions.geo.generated.AdministrativePost;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.District;
 import dss.vector.solutions.geo.generated.Earth;
@@ -404,7 +404,7 @@ public class GeoEntityTest extends GeoTest
     Country country = null;
     Province province = null;
     District district = null;
-    AdminPost adminPost = null;
+    AdministrativePost adminPost = null;
 
     try
     {
@@ -433,7 +433,7 @@ public class GeoEntityTest extends GeoTest
       district.applyWithParent(country.getId(), false);
       testEntities.add(district);
 
-      adminPost = new AdminPost();
+      adminPost = new AdministrativePost();
       adminPost.setActivated(true);
       adminPost.setEntityName("Admin Post 1");
       adminPost.setGeoId(genGeoId());
@@ -444,7 +444,7 @@ public class GeoEntityTest extends GeoTest
       Country cRef = Country.get(country.getId());
       Province pRef = Province.get(province.getId());
       District dRef = District.get(district.getId());
-      AdminPost aRef = AdminPost.get(adminPost.getId());
+      AdministrativePost aRef = AdministrativePost.get(adminPost.getId());
 
       assertEquals(Boolean.TRUE, cRef.getActivated());
       assertEquals(Boolean.FALSE, pRef.getActivated());
@@ -469,7 +469,7 @@ public class GeoEntityTest extends GeoTest
     Country country = null;
     Province province = null;
     District district = null;
-    AdminPost adminPost = null;
+    AdministrativePost adminPost = null;
 
     try
     {
@@ -498,7 +498,7 @@ public class GeoEntityTest extends GeoTest
       district.applyWithParent(country.getId(), false);
       testEntities.add(district);
 
-      adminPost = new AdminPost();
+      adminPost = new AdministrativePost();
       adminPost.setActivated(false);
       adminPost.setEntityName("Admin Post 1");
       adminPost.setGeoId(genGeoId());
@@ -510,7 +510,7 @@ public class GeoEntityTest extends GeoTest
       Country cRef = Country.get(country.getId());
       Province pRef = Province.get(province.getId());
       District dRef = District.get(district.getId());
-      AdminPost aRef = AdminPost.get(adminPost.getId());
+      AdministrativePost aRef = AdministrativePost.get(adminPost.getId());
 
       assertEquals(Boolean.FALSE, cRef.getActivated());
       assertEquals(Boolean.TRUE, pRef.getActivated());
@@ -535,7 +535,7 @@ public class GeoEntityTest extends GeoTest
     Country country = null;
     Province province = null;
     District district = null;
-    AdminPost adminPost = null;
+    AdministrativePost adminPost = null;
 
     try
     {
@@ -564,7 +564,7 @@ public class GeoEntityTest extends GeoTest
       district.applyWithParent(country.getId(), false);
       testEntities.add(district);
 
-      adminPost = new AdminPost();
+      adminPost = new AdministrativePost();
       adminPost.setActivated(true);
       adminPost.setEntityName("Admin Post 1");
       adminPost.setGeoId(genGeoId());
@@ -575,7 +575,7 @@ public class GeoEntityTest extends GeoTest
       Country cRef = Country.get(country.getId());
       Province pRef = Province.get(province.getId());
       District dRef = District.get(district.getId());
-      AdminPost aRef = AdminPost.get(adminPost.getId());
+      AdministrativePost aRef = AdministrativePost.get(adminPost.getId());
 
       assertEquals(Boolean.TRUE, cRef.getActivated());
       assertEquals(Boolean.FALSE, pRef.getActivated());
@@ -599,7 +599,7 @@ public class GeoEntityTest extends GeoTest
     Country country = null;
     Province province = null;
     District district = null;
-    AdminPost adminPost = null;
+    AdministrativePost adminPost = null;
 
     try
     {
@@ -624,7 +624,7 @@ public class GeoEntityTest extends GeoTest
       district.applyWithParent(country.getId(), false);
       testEntities.add(district);
 
-      adminPost = new AdminPost();
+      adminPost = new AdministrativePost();
       adminPost.setActivated(false);
       adminPost.setEntityName("Admin Post 1");
       adminPost.setGeoId(genGeoId());
@@ -642,7 +642,7 @@ public class GeoEntityTest extends GeoTest
       Country cRef = Country.get(country.getId());
       Province pRef = Province.get(province.getId());
       District dRef = District.get(district.getId());
-      AdminPost aRef = AdminPost.get(adminPost.getId());
+      AdministrativePost aRef = AdministrativePost.get(adminPost.getId());
 
       assertEquals(Boolean.FALSE, cRef.getActivated());
       assertEquals(Boolean.TRUE, pRef.getActivated());
@@ -666,7 +666,7 @@ public class GeoEntityTest extends GeoTest
     Country country = null;
     Province province = null;
     District district = null;
-    AdminPost adminPost = null;
+    AdministrativePost adminPost = null;
 
     try
     {
@@ -691,7 +691,7 @@ public class GeoEntityTest extends GeoTest
       district.applyWithParent(country.getId(), false);
       testEntities.add(district);
 
-      adminPost = new AdminPost();
+      adminPost = new AdministrativePost();
       adminPost.setActivated(true);
       adminPost.setEntityName("Admin Post 1");
       adminPost.setGeoId(genGeoId());
@@ -709,7 +709,7 @@ public class GeoEntityTest extends GeoTest
       Country cRef = Country.get(country.getId());
       Province pRef = Province.get(province.getId());
       District dRef = District.get(district.getId());
-      AdminPost aRef = AdminPost.get(adminPost.getId());
+      AdministrativePost aRef = AdministrativePost.get(adminPost.getId());
 
       assertEquals(Boolean.TRUE, cRef.getActivated());
       assertEquals(Boolean.FALSE, pRef.getActivated());
@@ -764,7 +764,7 @@ public class GeoEntityTest extends GeoTest
     Country country = null;
     Province province = null;
     District district = null;
-    AdminPost adminPost = null;
+    AdministrativePost adminPost = null;
 
     try
     {
@@ -790,7 +790,7 @@ public class GeoEntityTest extends GeoTest
       district.applyWithParent(country.getId(), false);
       testEntities.add(district);
 
-      adminPost = new AdminPost();
+      adminPost = new AdministrativePost();
       adminPost.setActivated(true);
       adminPost.setEntityName("Admin Post 1");
       adminPost.setGeoId(genGeoId());
