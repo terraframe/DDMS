@@ -1108,6 +1108,30 @@ public abstract class GeoEntity extends GeoEntityBase implements
         vQuery.WHERE(geoEntityQuery.getType().IN(types));
       }
 
+   // Restricted types to avoid returning large data sets
+      String[] baseTypes = {
+        //MDSSInfo.GENERATED_GEO_PACKAGE+".WaterBody",
+        MDSSInfo.GENERATED_GEO_PACKAGE+".River",
+        MDSSInfo.GENERATED_GEO_PACKAGE+".Road",
+        MDSSInfo.GENERATED_GEO_PACKAGE+".Railway"
+      };
+      
+      // Grab all is_a children of the restricted types to add to
+      // the restricted list.
+      Set<String> notInSet = new HashSet<String>(Arrays.asList(baseTypes));
+      for(String baseType : baseTypes)
+      {
+        MdBusiness baseMd = MdBusiness.getMdBusiness(baseType);
+        MdBusinessDAOIF baseDAOIF = (MdBusinessDAOIF) BusinessFacade.getEntityDAO(baseMd);
+        
+        for(MdBusinessDAOIF subclass : baseDAOIF.getAllConcreteSubClasses())
+        {
+          notInSet.add(subclass.definesType());
+        }
+      }
+      
+      vQuery.WHERE(geoEntityQuery.getType().NI(notInSet.toArray(new String[notInSet.size()])));
+      
       vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityName());
     }
   }
