@@ -14,7 +14,7 @@
 <%@page import="dss.vector.solutions.irs.SprayOperatorViewDTO"%><dt><label> ${item.teamIdMd.displayLabel} </label></dt>
     <dd>
     <mjl:component item="${item}" param="team">
-      <mjl:input type="text" param="teamId" />
+      <mjl:input type="text" param="teamId" id="teamId" />
       <mjl:messages attribute="teamId">
         <mjl:message />
       </mjl:messages>
@@ -110,6 +110,7 @@
       onTeam = document.getElementById('onTeam');      
       notOnTeam = document.getElementById('notOnTeam');   
       onOtherTeam = document.getElementById('onOtherTeam');   
+      teamId = document.getElementById('teamId').value;   
 
       MDSS.operatorSearch(addButton, onTeam, notOnTeam);       
 
@@ -128,10 +129,14 @@
             	for(var i = 0; i < operators.length; i++)
             	{
                     var operator = operators[i];
-                	var text = '[' + operator.getTeamId() + '] ' + operator.getFirstName() + ' ' + operator.getLastName() + ' - ' + operator.getOperatorId();
+                	var team = operators.getTeamId();
                 	var value = operator.getActorId();
+                	var text = '[' + team + '] ' + operator.getFirstName() + ' ' + operator.getLastName() + ' - ' + operator.getOperatorId();
 
-                	Selectbox.addOption(onOtherTeam,text,value,false);
+                	if(teamId !== team)
+                	{
+                	  Selectbox.addOption(onOtherTeam,text,value,false);
+                	}
             	}
             }
           });
