@@ -112,6 +112,8 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
           </fieldset>
         </div>
       </dd>
+<%--  Removed from screen on 7/28/09 because of ticket #445
+
       <dt>
         <label>
           ${item.isIPTRecipientMd.displayLabel}
@@ -163,6 +165,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
           <!-- Patient Fieldset -->
         </div>
       </dd>
+--%>       
       <%-- 5.13.09 - Marlize says we don't need Spray Leaders --%>
       <dt>
         <label>

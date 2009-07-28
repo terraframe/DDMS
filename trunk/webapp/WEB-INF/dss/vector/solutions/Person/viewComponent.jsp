@@ -73,6 +73,8 @@
         </fieldset>
       </dd>
     </c:if>
+<!--  Removed from screen on 7/28/09 because of ticket #445
+    
     <c:if test="${item.isPatient}">
       <dt>
         <label>
@@ -94,6 +96,7 @@
         </label>
       </dt>
     </c:if>
+-->    
     <c:if test="${item.isSprayOperator}">
       <dt>
         <label>

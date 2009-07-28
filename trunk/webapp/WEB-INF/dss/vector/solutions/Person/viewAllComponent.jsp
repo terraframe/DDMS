@@ -38,6 +38,8 @@
         </c:choose>
       </mjl:row>
     </mjl:freeColumn>
+<%--  Removed from screen on 7/28/09 because of ticket #445
+    
     <mjl:freeColumn>
       <mjl:header><fmt:message key="Patient"/></mjl:header>
       <mjl:row>
@@ -65,6 +67,7 @@
         </c:choose>
       </mjl:row>
     </mjl:freeColumn>
+--%>
     <mjl:freeColumn>
       <mjl:header><fmt:message key="Spray_Operator"/></mjl:header>
       <mjl:row>
