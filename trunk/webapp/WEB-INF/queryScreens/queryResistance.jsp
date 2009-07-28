@@ -138,7 +138,12 @@ YAHOO.util.Event.onDOMReady(function(){
     var insectcideAttribs = ["activeIngredient","amount","units"];
 
     var abstractAssayAttribs = ["specie","identificationMethod","generation","isofemale","exposureTime","testDate","quantityTested"];
-    var abstractCalculations = ["resistanceStatus"];
+    var abstractCalculations = {
+        key:"resistance_result",
+    	attributeName:"resistance_result",
+      	type:"sqlcharacter",
+      	displayLabel:"Resistance"
+     };
 
     var adultAssay = new  Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
     var adultAttribs = abstractAssayAttribs.concat(["quantityLive","quantityDead","sex","fed","gravid","holdingTime","mortality","kd50","kd95","controlTestMortality"]);
@@ -146,6 +151,7 @@ YAHOO.util.Event.onDOMReady(function(){
     collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_adult', dropDownMaps:adultMaps});
     collectionColumns =  collectionColumns.concat(insectcideAttribs.map(mapAttribs, {obj:insectcide, suffix:'_adult', dropDownMaps:insecticideMaps}));
     var adultColumns =  collectionColumns.concat(adultAttribs.map(mapAttribs, {obj:adultAssay, suffix:'_adult', dropDownMaps:adultMaps}));
+    adultColumns.push(abstractCalculations);
 
     var larvaeAssay = new  Mojo.$.dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay();
     var larvaeAttribs = abstractAssayAttribs.concat(["quantityLive","quantityDead","startPoint","endPoint","controlTestMortality","lt50","lt95","mortality"]);
@@ -153,6 +159,7 @@ YAHOO.util.Event.onDOMReady(function(){
     collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_larvae', dropDownMaps:adultMaps});
     collectionColumns =  collectionColumns.concat(insectcideAttribs.map(mapAttribs, {obj:insectcide, suffix:'_larvae', dropDownMaps:insecticideMaps}));
     var larvaeColumns =  collectionColumns.concat(larvaeAttribs.map(mapAttribs, {obj:larvaeAssay, suffix:'_larvae', dropDownMaps:larvaeMaps}));
+    larvaeColumns.push(abstractCalculations);
 
     var knockDownAssay = new  Mojo.$.dss.vector.solutions.entomology.assay.KnockDownAssay();
     var knockDownAttribs = abstractAssayAttribs.concat(["sex","fed","gravid","kd50","kd95"]);
@@ -160,6 +167,7 @@ YAHOO.util.Event.onDOMReady(function(){
     collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_knockDown', dropDownMaps:adultMaps});
     collectionColumns =  collectionColumns.concat(insectcideAttribs.map(mapAttribs, {obj:insectcide, suffix:'_knockDown', dropDownMaps:insecticideMaps}));
     var knockDownColumns =  collectionColumns.concat(knockDownAttribs.map(mapAttribs, {obj:knockDownAssay, suffix:'_knockDown', dropDownMaps:knockDownMaps}));
+    knockDownColumns.push(abstractCalculations);
 
     var pooledAssay = new  Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
     var pooledAttribs = abstractAssayAttribs;
@@ -167,6 +175,7 @@ YAHOO.util.Event.onDOMReady(function(){
     collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_adult', dropDownMaps:adultMaps});
     collectionColumns =  collectionColumns.concat(insectcideAttribs.map(mapAttribs, {obj:insectcide, suffix:'_adult', dropDownMaps:insecticideMaps}));
     var pooledColumns =  collectionColumns.concat(pooledAttribs.map(mapAttribs, {obj:adultAssay, suffix:'_adult', dropDownMaps:adultMaps}));
+    pooledColumns.push(abstractCalculations);
 
     pooledColumns = pooledColumns.map(function(attrib){attrib.type = attrib.type.replace('AdultDiscriminatingDose','Collection');return attrib;});
 
