@@ -405,7 +405,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   public static String[] deleteGeoHierarchy(String geoHierarchyId)
   {
     Set<String> ids = new HashSet<String>();
-    
+
     GeoHierarchy geoHierarchy = GeoHierarchy.get(geoHierarchyId);
 
     List<GeoHierarchy> children = geoHierarchy.getImmediateChildren();
@@ -413,7 +413,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     {
       child.deleteInternal(ids);
     }
-    
+
     geoHierarchy.deleteInternal(ids);
 
     return ids.toArray(new String[ids.size()]);
@@ -428,11 +428,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Deletes this GeoHierarchy and it's associated MdBusiness that defines a
    * GeoEntity subtype. All children are deleted recursively.
-   */ 
+   */
   private void deleteInternal(Set<String> ids)
   {
-    ids.add(this.getId()); 
-    
+    ids.add(this.getId());
+
     MdBusiness geoEntityClass = this.getGeoEntityClass();
 
     // delete is_a hierarchy
@@ -440,11 +440,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     {
       GeoHierarchy.getGeoHierarchyFromType(child).deleteInternal(ids);
     }
-    
+
     super.delete();
 
-    geoEntityClass.delete();    
-    
+    geoEntityClass.delete();
+
     super.delete();
   }
 
@@ -477,7 +477,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   {
     return getGeometry(this.getGeoEntityClass());
   }
-  
+
   public static MdAttributeGeometry getGeometry(MdBusinessDAOIF mdBusinessDAO)
   {
     List<? extends MdAttributeDAOIF> attributeDAOs = mdBusinessDAO.getAllDefinedMdAttributes();
@@ -1106,7 +1106,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     return hierarchy.toArray(new GeoHierarchyView[hierarchy.size()]);
   }
-  
+
   /**
    * Returns all political GeoHierarchy views starting with the GeoHierarchy
    * that represents the given GeoEntity.
@@ -1118,7 +1118,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   {
     return getSprayHierarchiesByType(geoEntity.getType());
   }
-  
+
   /**
    * Returns all political GeoHierarchies under and including the given type.
    *
@@ -1134,7 +1134,35 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     return hierarchy.toArray(new GeoHierarchyView[hierarchy.size()]);
   }
-  
+
+  /**
+   * Returns all GeoHierarchy views starting with the GeoHierarchy
+   * that represents the given GeoEntity.
+   *
+   * @param geoEntityId
+   * @return
+   */
+  public static GeoHierarchyView[] getHierarchies(GeoEntity geoEntity)
+  {
+    return getGeoHierarchiesByType(geoEntity.getType());
+  }
+
+  /**
+   * Returns all GeoHierarchies under and including the given type.
+   *
+   * @param type
+   * @return
+   */
+  public static GeoHierarchyView[] getGeoHierarchiesByType(String type)
+  {
+    GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(type);
+
+    LinkedHashSet<GeoHierarchyView> hierarchy = new LinkedHashSet<GeoHierarchyView>();
+    recurseHierarchy(hierarchy, earthH);
+
+    return hierarchy.toArray(new GeoHierarchyView[hierarchy.size()]);
+  }
+
   private static void recursePoliticalHierarchy(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent)
   {
     treeRecurse(hierarchy, parent, true, false);
@@ -1144,7 +1172,12 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   {
     treeRecurse(hierarchy, parent, false, true);
   }
-  
+
+  private static void recurseHierarchy(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent)
+  {
+    treeRecurse(hierarchy, parent, true, true);
+  }
+
   private static void treeRecurse(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent, boolean political, boolean spray)
   {
     if (political && parent.getPolitical())
@@ -1391,7 +1424,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
         break;
       }
     }
-    
+
     return true;
   }
 
