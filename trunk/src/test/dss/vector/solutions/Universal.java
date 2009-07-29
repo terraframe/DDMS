@@ -165,10 +165,12 @@ public class Universal {
 			this.parent.getChildren().remove(this);
 		}
 		
-		this.parent = parent;
+		if (parent != null) {
+			this.parent = parent;
 		
-		// Add me to my new parent's children
-		parent.getChildren().add(this);
+			// Add me to my new parent's children
+			parent.getChildren().add(this);
+		}
 	}
 
 	public List<Universal> getChildren() {
@@ -214,7 +216,7 @@ public class Universal {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<mdBusiness\n");
 		sb.append("   name=\"dss.vector.solutions.geo.generated." + this.getName() + "\"\n");   		 
-		sb.append("   label=\"" + this.getName() + "\"\n");
+		sb.append("   label=\"" + this.getDescription() + "\"\n");
 		sb.append("   description=\"" + this.getDescription() + "\"\n");
 		sb.append("   removable=\"true\"\n");
         sb.append("   extends=\"dss.vector.solutions.geo.generated." + (this.getParent()==null ? "GeoEntity" : this.getParent().getName()) + "\">\n");

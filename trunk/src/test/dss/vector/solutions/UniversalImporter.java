@@ -4,9 +4,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.poi.hpsf.SummaryInformation;
 import org.apache.poi.hssf.usermodel.*;
 /*
 SELECT DISTINCT 
@@ -27,29 +29,38 @@ public class UniversalImporter {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		UniversalImporter ui = new UniversalImporter();
 		String filename = "";
-
 		if (args.length > 0) {
 			filename = args[0];
 		}
 
-		ui.importExcelFile(filename);
+		UniversalImporter ui = new UniversalImporter(filename);
+		ui.importUniversals();
 	}
 
-	public UniversalImporter() {
+	private UniversalImporter() {
 		super();
 		this.addUniversal(Universal.EARTH);
+	}
+	
+	public UniversalImporter(String filename) {
+		this();
+		this.filename = filename;
 	}
 
 	private Map<String, Universal> universals = new LinkedHashMap<String, Universal>();
 	private int errorCount = 0;
+	private String filename;
 
-	public void importExcelFile(String filename) {
+	public void importUniversals() {
+		this.importExcelFile(filename);
+	}
+	
+	private void importExcelFile(String filename) {
 		InputStream stream;
 		try {
 			stream = new FileInputStream(filename);
-			this.importExcelStream(stream);
+			this.importExcelStream(filename, stream);
 			stream.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -60,13 +71,13 @@ public class UniversalImporter {
 		}
 	}
 
-	private void importExcelStream(InputStream stream) {
+	private void importExcelStream(String sourceName, InputStream stream) {
 		HSSFWorkbook wb;
 		try {
 			wb = new HSSFWorkbook(stream);
 			this.importWorkbook(wb);
 			if (this.errorCount == 0) {
-				this.processUniversals();
+				this.processUniversals(sourceName);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -148,8 +159,9 @@ public class UniversalImporter {
 		return universals.get(description);
 	}
 
-	private void processUniversals() {
+	private void processUniversals(String sourceName) {
 		System.out.println("<version xsi:noNamespaceSchemaLocation=\"../profiles/version_gis.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
+		System.out.println("<!-- Created on " + new Date() + " from " + sourceName + " -->");
 		System.out.println("<doIt>");
 		System.out.println("<existing>");	
 		System.out.println("   <object key=\"GeoHierarchy_Earth\"");
