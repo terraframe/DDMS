@@ -761,6 +761,65 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     attr.setSrid(SRID);
     attr.apply();
   }
+  
+  public GeoEntityDefinition getGeoEntityDefinition()
+  {
+    GeoEntityDefinition definition = new GeoEntityDefinition();
+    SpatialTypes spatialType = this.getSpatialType();
+    MdBusiness mdBusiness = this.getGeoEntityClass();
+    MdBusiness superMdBusiness = mdBusiness.getSuperMdBusiness();
+    
+    definition.setTypeName(mdBusiness.getTypeName());
+    definition.setDisplayLabel(mdBusiness.getDisplayLabel().getValue());
+    definition.setDescription(mdBusiness.getDescription().getValue());
+    definition.setPolitical(this.getPolitical());
+    definition.setSprayTargetAllowed(this.getSprayTargetAllowed());
+    
+    if(spatialType != null)
+    {
+      definition.addSpatialType(spatialType);
+    }
+
+    if(superMdBusiness != null)
+    {
+      String superId = superMdBusiness.getId();
+      definition.setParentTypeGeoHierarchyId(superId);
+    }
+    
+    return definition;
+  }
+  
+  public SpatialTypes getSpatialType()
+  {
+    MdAttributeGeometry geometry = this.getGeometry();
+    
+    if (geometry instanceof MdAttributePoint)
+    {
+      return SpatialTypes.POINT;
+    }
+    else if (geometry instanceof MdAttributeLineString)
+    {
+      return SpatialTypes.LINE;
+    }
+    else if (geometry instanceof MdAttributePolygon)
+    {
+      return SpatialTypes.POLYGON;
+    }
+    else if (geometry instanceof MdAttributeMultiPoint)
+    {
+      return SpatialTypes.MULTI_POINT;
+    }
+    else if (geometry instanceof MdAttributeMultiLineString)
+    {
+      return SpatialTypes.MULTI_LINE;
+    }
+    else if (geometry instanceof MdAttributeMultiPolygon)
+    {
+      return SpatialTypes.MULTI_POLYGON;
+    }
+    
+    return null;
+  }
 
   /**
    * Locks this object and the MdBusiness which represents a GeoEntity subtype.

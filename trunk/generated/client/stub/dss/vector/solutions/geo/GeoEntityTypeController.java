@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.MdBusinessInfo;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
@@ -51,7 +52,7 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
       req.setAttribute("availableParents", query.getResultSet());
       req.setAttribute("types", types);
       req.setAttribute("definition", def);
-
+      
       req.getRequestDispatcher(NEW_DEFINITION_JSP).forward(req, resp);
     }
     catch (ProblemExceptionDTO e)
@@ -115,11 +116,15 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
   {
     try
     {
-      GeoHierarchyDTO.lock(this.getClientRequest(), geoHierarchyId);
-      GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(this.getClientRequest(),
-          geoHierarchyId);
-
-      req.setAttribute("geoHierarchyId", view.getGeoHierarchyId());
+      ClientRequestIF clientRequest = this.getClientRequest();
+      GeoHierarchyDTO.lock(clientRequest, geoHierarchyId);
+      
+      GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(clientRequest, geoHierarchyId);
+      GeoEntityDefinitionDTO definition = GeoHierarchyDTO.getGeoEntityDefinition(clientRequest, geoHierarchyId);
+      
+      req.setAttribute("parentLabel", view.getIsADisplayLabel());            
+      req.setAttribute("geoHierarchyId", geoHierarchyId);
+      req.setAttribute("definition", definition);
       req.setAttribute("view", view);
 
       req.getRequestDispatcher(EDIT_DEFINITION_JSP).forward(req, resp);
@@ -191,9 +196,9 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
   {
     try
     {
-      GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(this.getClientRequest(),
-          geoHierarchyId);
-
+      ClientRequestIF clientRequest = this.getClientRequest();
+      GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(clientRequest, geoHierarchyId);
+            
       req.setAttribute("view", view);
 
       if (this.isAsynchronous())

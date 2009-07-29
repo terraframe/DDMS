@@ -7,21 +7,21 @@
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.geo.generated.GeoHierarchy.form.name" id="dss.vector.solutions.geo.generated.GeoHierarchy.form.id" method="POST">
   <mjl:input type="hidden" param="geoHierarchyId" value="${geoHierarchyId}" />
-  <mjl:component item="${view}" param="view">
-    <mjl:input type="hidden" param="geoHierarchyId" />
-    <mjl:input type="hidden" param="referenceId" />
-    <dl>
+  <dl>
+    <mjl:component item="${view}" param="view">
+      <mjl:input type="hidden" param="geoHierarchyId" />
+      <mjl:input type="hidden" param="referenceId" />
       <dt>
         <label>
-          ${view.isADisplayLabelMd.displayLabel}
+          ${definition.typeNameMd.displayLabel}
         </label>
       </dt>
       <dd>
-          ${view.isADisplayLabel}
+        ${definition.typeName}
       </dd>
       <dt>
         <label>
-          ${view.displayLabelMd.displayLabel}
+          ${definition.displayLabelMd.displayLabel}
         </label>
       </dt>
       <dd>
@@ -32,7 +32,7 @@
       </dd>
       <dt>
         <label>
-          ${view.descriptionMd.displayLabel}
+          ${definition.descriptionMd.displayLabel}
         </label>
       </dt>
       <dd>
@@ -43,7 +43,15 @@
       </dd>
       <dt>
         <label>
-          ${view.politicalMd.displayLabel}
+          ${definition.parentTypeGeoHierarchyIdMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        ${parentLabel}
+      </dd>
+      <dt>
+        <label>
+          ${definition.politicalMd.displayLabel}
         </label>
       </dt>
       <dd>
@@ -54,7 +62,7 @@
       </dd>
       <dt>
         <label>
-          ${view.sprayTargetAllowedMd.displayLabel}
+          ${definition.sprayTargetAllowedMd.displayLabel}
         </label>
       </dt>
       <dd>
@@ -63,8 +71,22 @@
           <mjl:message />
         </mjl:messages>
       </dd>
-  </mjl:component>
-    </dl>
-  <mjl:command value="Update" action="dss.vector.solutions.geo.GeoEntityTypeController.updateDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.updateDefinition.button" />
-  <mjl:command value="Cancel" action="dss.vector.solutions.geo.GeoEntityTypeController.cancelUpdateDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.cancelUpdateDefinition.button" />
+      <dt>
+        <label>
+          ${definition.spatialTypeMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <ul>
+          <c:forEach var="enumName" items="${definition.spatialTypeEnumNames}">
+            <li>
+              ${definition.spatialTypeMd.enumItems[enumName]}
+            </li>
+          </c:forEach>
+        </ul>            
+      </dd>      
+    </mjl:component>
+    <mjl:command value="Update" action="dss.vector.solutions.geo.GeoEntityTypeController.updateDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.updateDefinition.button" />
+    <mjl:command value="Cancel" action="dss.vector.solutions.geo.GeoEntityTypeController.cancelUpdateDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.cancelUpdateDefinition.button" />
+  </dl>
 </mjl:form>

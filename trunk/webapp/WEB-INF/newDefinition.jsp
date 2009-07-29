@@ -6,9 +6,9 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.geo.generated.GeoEntity.form.name" id="dss.vector.solutions.geo.generated.GeoEntity.form.id" method="POST">
-  <mjl:component item="${definition}" param="definition">
-  <mjl:input type="hidden" param="parentGeoHierarchyId" />
-    <dl>
+  <dl>
+    <mjl:component item="${definition}" param="definition">
+    <mjl:input type="hidden" param="parentGeoHierarchyId" />
       <dt>
         <label>
           ${definition.typeNameMd.displayLabel}
@@ -82,8 +82,8 @@
           </mjl:option>
         </mjl:select>
       </dd>
-  </mjl:component>
-    </dl>
-  <mjl:command value="Create" action="dss.vector.solutions.geo.GeoEntityTypeController.createDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.createDefinition.button" />
-  <mjl:command value="Cancel" action="dss.vector.solutions.geo.GeoEntityTypeController.cancelCreateDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.cancelCreateDefinition.button" />
+    </mjl:component>
+    <mjl:command value="Create" action="dss.vector.solutions.geo.GeoEntityTypeController.createDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.createDefinition.button" />
+    <mjl:command value="Cancel" action="dss.vector.solutions.geo.GeoEntityTypeController.cancelCreateDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.cancelCreateDefinition.button" />
+  </dl>
 </mjl:form>
