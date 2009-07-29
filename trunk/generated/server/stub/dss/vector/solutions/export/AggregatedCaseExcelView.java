@@ -1,11 +1,8 @@
 package dss.vector.solutions.export;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
@@ -14,7 +11,10 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.surveillance.AggregatedAgeGroup;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupQuery;
 import dss.vector.solutions.surveillance.AggregatedCase;
@@ -29,9 +29,6 @@ import dss.vector.solutions.surveillance.PeriodType;
 import dss.vector.solutions.surveillance.ReferralGrid;
 import dss.vector.solutions.surveillance.TreatmentGrid;
 import dss.vector.solutions.surveillance.TreatmentMethodGrid;
-import dss.vector.solutions.util.GeoColumnListener;
-import dss.vector.solutions.util.GeoEntitySearcher;
-import dss.vector.solutions.util.SearchableHierarchy;
 
 public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -69,22 +66,7 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
   @Transaction
   public void apply()
   {
-    GeoEntitySearcher searcher = new GeoEntitySearcher(GeoColumnListener.getLocalityHierarchy());
-    
-    List<String> geoEntityNames = new LinkedList<String>();
-    geoEntityNames.add(this.getGeoEntity_0());
-    geoEntityNames.add(this.getGeoEntity_01());
-    geoEntityNames.add(this.getGeoEntity_02());
-    geoEntityNames.add(this.getGeoEntity_03());
-    geoEntityNames.add(this.getGeoEntity_04());
-    geoEntityNames.add(this.getGeoEntity_05());
-    geoEntityNames.add(this.getGeoEntity_06());
-    geoEntityNames.add(this.getGeoEntity_07()); 
-    geoEntityNames.add(this.getGeoEntity_08());
-    geoEntityNames.add(this.getGeoEntity_09());
-    geoEntityNames.add(this.getGeoEntity_10());
-    
-    GeoEntity geoEntity = searcher.getGeoEntity(geoEntityNames);
+    GeoEntity geoEntity = getGeoEntity();
     
     PeriodType periodType = getPeriodTypeByLabel(this.getPeriodType());
     
@@ -179,40 +161,10 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    Map<String, String> map = new HashMap<String, String>();
-    List<SearchableHierarchy> hierarchy = GeoColumnListener.getLocalityHierarchy();
-    List<MdAttributeDAOIF> attributes = getGeoEntityAttributes();
-
-    int size = Math.min(hierarchy.size(), attributes.size());
-
-    for (int i = 0; i < size; i++)
-    {
-      String key = attributes.get(i).getId();
-      String displayLabel = hierarchy.get(i).getDisplayLabel();
-
-      map.put(key, displayLabel);
-    }
-
-    exporter.addListener(new GeoColumnListener(map));
+    GeoHierarchy collectionSite = GeoHierarchy.getGeoHierarchyFromType(CollectionSite.CLASS);
+    GeoHierarchy healthFacility = GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS);
+    exporter.addListener(new DynamicGeoColumnListener(CLASS, GEOENTITY, collectionSite, healthFacility));
     exporter.addListener(new AggregatedCaseListener());
-  }
-  
-  private static List<MdAttributeDAOIF> getGeoEntityAttributes()
-  {
-    List<MdAttributeDAOIF> list = new LinkedList<MdAttributeDAOIF>();
-    list.add(getGeoEntity_0Md());
-    list.add(getGeoEntity_01Md());
-    list.add(getGeoEntity_02Md());
-    list.add(getGeoEntity_03Md());
-    list.add(getGeoEntity_04Md());
-    list.add(getGeoEntity_05Md());
-    list.add(getGeoEntity_06Md());
-    list.add(getGeoEntity_07Md());
-    list.add(getGeoEntity_08Md());
-    list.add(getGeoEntity_09Md());
-    list.add(getGeoEntity_10Md());
-    
-    return list;
   }
   
   private PeriodType getPeriodTypeByLabel(String label)

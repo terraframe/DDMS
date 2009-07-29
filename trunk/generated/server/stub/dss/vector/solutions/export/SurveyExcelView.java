@@ -1,11 +1,8 @@
 package dss.vector.solutions.export;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
@@ -14,8 +11,8 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.SurfacePosition;
-import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.intervention.BloodslideResponse;
 import dss.vector.solutions.intervention.FeverResponse;
 import dss.vector.solutions.intervention.FeverTreatment;
@@ -34,9 +31,6 @@ import dss.vector.solutions.intervention.monitor.WallQuery;
 import dss.vector.solutions.intervention.monitor.WindowType;
 import dss.vector.solutions.surveillance.TreatmentGrid;
 import dss.vector.solutions.surveillance.TreatmentGridQuery;
-import dss.vector.solutions.util.GeoColumnListener;
-import dss.vector.solutions.util.GeoEntitySearcher;
-import dss.vector.solutions.util.SearchableHierarchy;
 
 public class SurveyExcelView extends SurveyExcelViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -142,61 +136,14 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    Map<String, String> map = new HashMap<String, String>();
-    List<SearchableHierarchy> hierarchy = GeoColumnListener.getSentinelSiteHierarchy();
-    List<MdAttributeDAOIF> attributes = SurveyExcelView.getGeoEntityAttributes();
-
-    int size = Math.min(hierarchy.size(), attributes.size());
-
-    for (int i = 0; i < size; i++)
-    {
-      String key = attributes.get(i).getId();
-      String displayLabel = hierarchy.get(i).getDisplayLabel();
-
-      map.put(key, displayLabel);
-    }
-
-    exporter.addListener(new GeoColumnListener(map));
+    GeoHierarchy sentinelSite = GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS);
+    exporter.addListener(new DynamicGeoColumnListener(CLASS, GEOENTITY, sentinelSite));
     exporter.addListener(new DynamicNetListener());
-  }
-  
-  private static List<MdAttributeDAOIF> getGeoEntityAttributes()
-  {
-    List<MdAttributeDAOIF> list = new LinkedList<MdAttributeDAOIF>();
-    list.add(getGeoEntity_0Md());
-    list.add(getGeoEntity_01Md());
-    list.add(getGeoEntity_02Md());
-    list.add(getGeoEntity_03Md());
-    list.add(getGeoEntity_04Md());
-    list.add(getGeoEntity_05Md());
-    list.add(getGeoEntity_06Md());
-    list.add(getGeoEntity_07Md());
-    list.add(getGeoEntity_08Md());
-    list.add(getGeoEntity_09Md());
-    list.add(getGeoEntity_10Md());
-    
-    return list;
   }
   
   public SurveyPoint getSurveyPoint()
   {
-    GeoEntitySearcher searcher = new GeoEntitySearcher(GeoColumnListener.getSentinelSiteHierarchy());
-    
-    List<String> geoEntityNames = new LinkedList<String>();
-    geoEntityNames.add(this.getGeoEntity_0());
-    geoEntityNames.add(this.getGeoEntity_01());
-    geoEntityNames.add(this.getGeoEntity_02());
-    geoEntityNames.add(this.getGeoEntity_03());
-    geoEntityNames.add(this.getGeoEntity_04());
-    geoEntityNames.add(this.getGeoEntity_05());
-    geoEntityNames.add(this.getGeoEntity_06());
-    geoEntityNames.add(this.getGeoEntity_07()); 
-    geoEntityNames.add(this.getGeoEntity_08());
-    geoEntityNames.add(this.getGeoEntity_09());
-    geoEntityNames.add(this.getGeoEntity_10());
-    
-    GeoEntity entity = searcher.getGeoEntity(geoEntityNames);
-    return SurveyPoint.searchByGeoEntityAndDate(entity, this.getSurveyDate());
+    return SurveyPoint.searchByGeoEntityAndDate(this.getGeoEntity(), this.getSurveyDate());
   }
 
   /**

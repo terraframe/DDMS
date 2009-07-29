@@ -28,6 +28,7 @@ public class HierarchyBuilder
     // Termination condition
     if (child.getGeoEntityClass().definesType().equals(Earth.CLASS))
     {
+      // Earth is always depth 0.  Thus any child of Earth must be depth 1.
       return 1;
     }
 
@@ -68,7 +69,6 @@ public class HierarchyBuilder
     
     for (GeoEntry entry : entryList)
     {
-      System.out.println(entry.depth + " " + entry.hierarchy);
       newList.add(entry.hierarchy);
     }
     

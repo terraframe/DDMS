@@ -958,6 +958,17 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     return viewQuery;
   }
+  
+  /**
+   * @return An array of all Geo Hierarchies where SprayTargetAllowed==true
+   */
+  public static GeoHierarchy[] getAllSprayTargets()
+  {
+    GeoHierarchyQuery query = new GeoHierarchyQuery(new QueryFactory());
+    query.WHERE(query.getSprayTargetAllowed().EQ(true));
+    List<? extends GeoHierarchy> list = query.getIterator().getAll();
+    return list.toArray(new GeoHierarchy[list.size()]);
+  }
 
   /**
    * Returns a {@link GeoHierarchyView} representative of this GeoHierarchy.

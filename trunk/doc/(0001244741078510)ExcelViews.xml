@@ -23,50 +23,10 @@
             name="dateCollected"
             label="Collection Date"
             required="true" />
-          <char
-            name="geoEntity_0"
-            label="Geo Entity 0"
-            size="255" />
-          <char
-            name="geoEntity_01"
-            label="Geo Entity 1"
-            size="255" />
-          <char
-            name="geoEntity_02"
-            label="Geo Entity 2"
-            size="255" />
-          <char
-            name="geoEntity_03"
-            label="Geo Entity 3"
-            size="255" />
-          <char
-            name="geoEntity_04"
-            label="Geo Entity 4"
-            size="255" />
-          <char
-            name="geoEntity_05"
-            label="Geo Entity 5"
-            size="255" />
-          <char
-            name="geoEntity_06"
-            label="Geo Entity 6"
-            size="255" />
-          <char
-            name="geoEntity_07"
-            label="Geo Entity 7"
-            size="255" />
-          <char
-            name="geoEntity_08"
-            label="Geo Entity 8"
-            size="255" />
-          <char
-            name="geoEntity_09"
-            label="Geo Entity 9"
-            size="255" />
-          <char
-            name="geoEntity_10"
-            label="Geo Entity 10"
-            size="255" />
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
           <virtual
             name="testDate"
             concrete="testDate"
@@ -158,50 +118,10 @@
             concrete="surveyDate"
             type="dss.vector.solutions.intervention.monitor.SurveyPoint"/>
           <!-- GeoEntity -->
-          <char
-            name="geoEntity_0"
-            label="Geo Entity 0"
-            size="255" />
-          <char
-            name="geoEntity_01"
-            label="Geo Entity 1"
-            size="255" />
-          <char
-            name="geoEntity_02"
-            label="Geo Entity 2"
-            size="255" />
-          <char
-            name="geoEntity_03"
-            label="Geo Entity 3"
-            size="255" />
-          <char
-            name="geoEntity_04"
-            label="Geo Entity 4"
-            size="255" />
-          <char
-            name="geoEntity_05"
-            label="Geo Entity 5"
-            size="255" />
-          <char
-            name="geoEntity_06"
-            label="Geo Entity 6"
-            size="255" />
-          <char
-            name="geoEntity_07"
-            label="Geo Entity 7"
-            size="255" />
-          <char
-            name="geoEntity_08"
-            label="Geo Entity 8"
-            size="255" />
-          <char
-            name="geoEntity_09"
-            label="Geo Entity 9"
-            size="255" />
-          <char
-            name="geoEntity_10"
-            label="Geo Entity 10"
-            size="255" />
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
           <!-- Household -->
           <virtual
             name="householdName"
@@ -367,50 +287,10 @@
             name="dateCollected"
             label="Collection Date"
             required="true" />
-          <char
-            name="geoEntity_0"
-            label="Geo Entity 0"
-            size="255" />
-          <char
-            name="geoEntity_01"
-            label="Geo Entity 1"
-            size="255" />
-          <char
-            name="geoEntity_02"
-            label="Geo Entity 2"
-            size="255" />
-          <char
-            name="geoEntity_03"
-            label="Geo Entity 3"
-            size="255" />
-          <char
-            name="geoEntity_04"
-            label="Geo Entity 4"
-            size="255" />
-          <char
-            name="geoEntity_05"
-            label="Geo Entity 5"
-            size="255" />
-          <char
-            name="geoEntity_06"
-            label="Geo Entity 6"
-            size="255" />
-          <char
-            name="geoEntity_07"
-            label="Geo Entity 7"
-            size="255" />
-          <char
-            name="geoEntity_08"
-            label="Geo Entity 8"
-            size="255" />
-          <char
-            name="geoEntity_09"
-            label="Geo Entity 9"
-            size="255" />
-          <char
-            name="geoEntity_10"
-            label="Geo Entity 10"
-            size="255" />
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
           <!-- LarvaeDiscriminatingDoseAssay -->
           <virtual
             name="testDate"
@@ -499,50 +379,10 @@
             name="dateCollected"
             label="Collection Date"
             required="true" />
-          <char
-            name="geoEntity_0"
-            label="Geo Entity 0"
-            size="255" />
-          <char
-            name="geoEntity_01"
-            label="Geo Entity 1"
-            size="255" />
-          <char
-            name="geoEntity_02"
-            label="Geo Entity 2"
-            size="255" />
-          <char
-            name="geoEntity_03"
-            label="Geo Entity 3"
-            size="255" />
-          <char
-            name="geoEntity_04"
-            label="Geo Entity 4"
-            size="255" />
-          <char
-            name="geoEntity_05"
-            label="Geo Entity 5"
-            size="255" />
-          <char
-            name="geoEntity_06"
-            label="Geo Entity 6"
-            size="255" />
-          <char
-            name="geoEntity_07"
-            label="Geo Entity 7"
-            size="255" />
-          <char
-            name="geoEntity_08"
-            label="Geo Entity 8"
-            size="255" />
-          <char
-            name="geoEntity_09"
-            label="Geo Entity 9"
-            size="255" />
-          <char
-            name="geoEntity_10"
-            label="Geo Entity 10"
-            size="255" />
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
           <!-- KnockDownAssay -->
           <virtual
             name="testDate"
@@ -625,50 +465,10 @@
             name="dateCollected"
             label="Collection Date"
             required="true" />
-          <char
-            name="geoEntity_0"
-            label="Geo Entity 0"
-            size="255" />
-          <char
-            name="geoEntity_01"
-            label="Geo Entity 1"
-            size="255" />
-          <char
-            name="geoEntity_02"
-            label="Geo Entity 2"
-            size="255" />
-          <char
-            name="geoEntity_03"
-            label="Geo Entity 3"
-            size="255" />
-          <char
-            name="geoEntity_04"
-            label="Geo Entity 4"
-            size="255" />
-          <char
-            name="geoEntity_05"
-            label="Geo Entity 5"
-            size="255" />
-          <char
-            name="geoEntity_06"
-            label="Geo Entity 6"
-            size="255" />
-          <char
-            name="geoEntity_07"
-            label="Geo Entity 7"
-            size="255" />
-          <char
-            name="geoEntity_08"
-            label="Geo Entity 8"
-            size="255" />
-          <char
-            name="geoEntity_09"
-            label="Geo Entity 9"
-            size="255" />
-          <char
-            name="geoEntity_10"
-            label="Geo Entity 10"
-            size="255" />
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
           <!-- MorphologicalSpecieGroup -->
           <char
             name="specie"
@@ -698,50 +498,10 @@
         description="Excel View for people">
         <attributes>
           <!-- Residential GeoEntity -->
-          <char
-            name="geoEntity_0"
-            label="Geo Entity 0"
-            size="255" />
-          <char
-            name="geoEntity_01"
-            label="Geo Entity 1"
-            size="255" />
-          <char
-            name="geoEntity_02"
-            label="Geo Entity 2"
-            size="255" />
-          <char
-            name="geoEntity_03"
-            label="Geo Entity 3"
-            size="255" />
-          <char
-            name="geoEntity_04"
-            label="Geo Entity 4"
-            size="255" />
-          <char
-            name="geoEntity_05"
-            label="Geo Entity 5"
-            size="255" />
-          <char
-            name="geoEntity_06"
-            label="Geo Entity 6"
-            size="255" />
-          <char
-            name="geoEntity_07"
-            label="Geo Entity 7"
-            size="255" />
-          <char
-            name="geoEntity_08"
-            label="Geo Entity 8"
-            size="255" />
-          <char
-            name="geoEntity_09"
-            label="Geo Entity 9"
-            size="255" />
-          <char
-            name="geoEntity_10"
-            label="Geo Entity 10"
-            size="255" />
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
           <!-- Display Label for the Sex enumeration -->
           <char
             name="sex"
@@ -808,50 +568,10 @@
         description="Excel View for Efficacy Assays">
         <attributes>
           <!-- Surface GeoEntity -->
-          <char
-            name="geoEntity_0"
-            label="Geo Entity 0"
-            size="255" />
-          <char
-            name="geoEntity_01"
-            label="Geo Entity 1"
-            size="255" />
-          <char
-            name="geoEntity_02"
-            label="Geo Entity 2"
-            size="255" />
-          <char
-            name="geoEntity_03"
-            label="Geo Entity 3"
-            size="255" />
-          <char
-            name="geoEntity_04"
-            label="Geo Entity 4"
-            size="255" />
-          <char
-            name="geoEntity_05"
-            label="Geo Entity 5"
-            size="255" />
-          <char
-            name="geoEntity_06"
-            label="Geo Entity 6"
-            size="255" />
-          <char
-            name="geoEntity_07"
-            label="Geo Entity 7"
-            size="255" />
-          <char
-            name="geoEntity_08"
-            label="Geo Entity 8"
-            size="255" />
-          <char
-            name="geoEntity_09"
-            label="Geo Entity 9"
-            size="255" />
-          <char
-            name="geoEntity_10"
-            label="Geo Entity 10"
-            size="255" />
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
           <!-- EffecacyAssay Attributes -->
           <virtual
             name="testDate"
@@ -931,50 +651,10 @@
         description="Excel View for Aggregated Cases">
         <attributes>
           <!-- GeoEntity -->
-          <char
-            name="geoEntity_0"
-            label="Geo Entity 0"
-            size="255" />
-          <char
-            name="geoEntity_01"
-            label="Geo Entity 1"
-            size="255" />
-          <char
-            name="geoEntity_02"
-            label="Geo Entity 2"
-            size="255" />
-          <char
-            name="geoEntity_03"
-            label="Geo Entity 3"
-            size="255" />
-          <char
-            name="geoEntity_04"
-            label="Geo Entity 4"
-            size="255" />
-          <char
-            name="geoEntity_05"
-            label="Geo Entity 5"
-            size="255" />
-          <char
-            name="geoEntity_06"
-            label="Geo Entity 6"
-            size="255" />
-          <char
-            name="geoEntity_07"
-            label="Geo Entity 7"
-            size="255" />
-          <char
-            name="geoEntity_08"
-            label="Geo Entity 8"
-            size="255" />
-          <char
-            name="geoEntity_09"
-            label="Geo Entity 9"
-            size="255" />
-          <char
-            name="geoEntity_10"
-            label="Geo Entity 10"
-            size="255" />
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
           <!-- EpiWeek -->
           <char
             name="periodType"
@@ -1109,50 +789,10 @@
         description="Abstract Excel View for sprays">
         <attributes>
           <!-- Geo Id -->
-          <char
-            name="geoEntity_0"
-            label="Geo Entity 0"
-            size="255" />
-          <char
-            name="geoEntity_01"
-            label="Geo Entity 1"
-            size="255" />
-          <char
-            name="geoEntity_02"
-            label="Geo Entity 2"
-            size="255" />
-          <char
-            name="geoEntity_03"
-            label="Geo Entity 3"
-            size="255" />
-          <char
-            name="geoEntity_04"
-            label="Geo Entity 4"
-            size="255" />
-          <char
-            name="geoEntity_05"
-            label="Geo Entity 5"
-            size="255" />
-          <char
-            name="geoEntity_06"
-            label="Geo Entity 6"
-            size="255" />
-          <char
-            name="geoEntity_07"
-            label="Geo Entity 7"
-            size="255" />
-          <char
-            name="geoEntity_08"
-            label="Geo Entity 8"
-            size="255" />
-          <char
-            name="geoEntity_09"
-            label="Geo Entity 9"
-            size="255" />
-          <char
-            name="geoEntity_10"
-            label="Geo Entity 10"
-            size="255" />
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
           <!-- Insecticide Brand -->
           <virtual
             name="brandName"

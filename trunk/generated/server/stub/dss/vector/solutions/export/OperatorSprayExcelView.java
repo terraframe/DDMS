@@ -1,23 +1,17 @@
 package dss.vector.solutions.export;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.SprayOperator;
 import dss.vector.solutions.irs.SprayOperatorQuery;
 import dss.vector.solutions.irs.SprayTeamQuery;
-import dss.vector.solutions.util.GeoColumnListener;
-import dss.vector.solutions.util.SearchableHierarchy;
 
 public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -76,20 +70,6 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
   
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    Map<String, String> map = new HashMap<String, String>();
-    List<SearchableHierarchy> hierarchy = GeoColumnListener.getSprayHierarchy();
-    List<MdAttributeDAOIF> attributes = AbstractSprayExcelView.getGeoEntityAttributes();
-
-    int size = Math.min(hierarchy.size(), attributes.size());
-
-    for (int i = 0; i < size; i++)
-    {
-      String key = attributes.get(i).getId();
-      String displayLabel = hierarchy.get(i).getDisplayLabel();
-
-      map.put(key, displayLabel);
-    }
-
-    exporter.addListener(new GeoColumnListener(map));
+    exporter.addListener(new DynamicGeoColumnListener(CLASS, GEOENTITY, GeoHierarchy.getAllSprayTargets()));
   }
 }
