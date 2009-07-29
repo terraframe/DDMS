@@ -23,6 +23,7 @@
     </dd>
     <dt><label> ${item.sprayZoneMd.displayLabel} </label></dt>
     <dd>
+      <mjl:input type="hidden" param="typeSearchFilter" id="typeSearchFilter" value="dss.vector.solutions.geo.generated.SprayZone" />
       <mjl:input type="text" param="geoId" value="${item.sprayZone.geoId}" id="geoIdEl" classes="geoInput"/>
     </dd>
     <%-- 5.13.09 - Marlize says we don't need Spray Leaders --%>
