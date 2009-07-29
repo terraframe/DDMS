@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OIterator;
