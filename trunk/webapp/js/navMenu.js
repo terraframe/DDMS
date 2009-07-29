@@ -26,12 +26,31 @@ var aSubmenuData = [
     {
         id: "Administration",
         itemdata: [
-            	 { text: "Configure_System_Variables(109)", url: "dss.vector.solutions.PropertyController.viewAll.mojo" , visibleTo:'Administrator'},
+               { text: "Configure_System_Variables(109)", url: "dss.vector.solutions.PropertyController.viewAll.mojo" , visibleTo:'Administrator'},
                { text: "Configure_Malaria_Season(127)", url: "dss.vector.solutions.general.MalariaSeasonController.viewAll.mojo" , visibleTo:'Administrator'},
                { text: "Configure_Epi_Week(119)", url: "dss.vector.solutions.PropertyController.newInstance.mojo" , visibleTo:'Administrator'},
+               { text: "Population_Data",
+            	   submenu: {
+            	     id: "Population_Data",
+            	     itemdata: [
+            	       { text: "Enter_Population_Data", disabled: true, disabled: true, url: "#", visibleTo:'Administrator'},
+            	       { text: "Import_Population_Data", disabled: true, url: "#", visibleTo:'Administrator'}
+            	     ]
+                   }
+               },
+               { text: "Thresholds",
+            	   submenu: {
+            	     id: "Thresholds",
+            	     itemdata: [
+            	       { text: "Configure_Thresholds", disabled: true, url: "#", visibleTo:'Administrator'},
+            	       { text: "Import_Thresholds", disabled: true, url: "#", visibleTo:'Administrator'},
+            	       { text: "Enter_Thresholds", disabled: true, url: "#", visibleTo:'Administrator'}
+            	     ]
+                   }
+               },
                { text: "Configure_Catalogues_and_Grids(103)", url: "dss.vector.solutions.util.ConfigurableListController.viewAll.mojo" , visibleTo:'Administrator'},
-                {text: "User_Administration",
-                submenu: {
+               { text: "User_Administration",
+                 submenu: {
                             id: "User_Administration",
                             itemdata: [
                                        { text: "Manage_People(114)", url: "dss.vector.solutions.PersonController.viewAll.mojo" , visibleTo:'Administrator'},
@@ -40,6 +59,8 @@ var aSubmenuData = [
                             ]
                         }
                 },
+                { text: "Synchronise", disabled: true, url: "#" , visibleTo:'Administrator'},
+
         ]
     },
     {
@@ -68,6 +89,7 @@ var aSubmenuData = [
 	                      id: "Efficacy_studies",
 	                      itemdata: [
 	                                 { text: "Search_for_Efficacy_Studies_Adult(025)", url: "dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo" , visibleTo:'Administrator'},
+	                                 { text: "Query_Efficacy_Studies", disabled: true, url: "#" , visibleTo:'Administrator'}
 	                      ]
 	                  }
 
@@ -90,20 +112,37 @@ var aSubmenuData = [
   {
     id: "Case_Surveillance",
     itemdata: [
-        { text: "Search_for_Aggregated_Cases(002)", url: "dss.vector.solutions.surveillance.AggregatedCaseController.search.mojo" , visibleTo:'Administrator'},
-        { text: "Query_Aggregated_Cases(129)", url: "dss.vector.solutions.query.QueryController.queryAggregatedCases.mojo" , visibleTo:'Administrator'},
+        { text: "Aggregated_Cases",
+		  submenu: {
+		    id: "Aggregated_Cases",
+		    itemdata: [               
+              { text: "Search_for_Aggregated_Cases(002)", url: "dss.vector.solutions.surveillance.AggregatedCaseController.search.mojo" , visibleTo:'Administrator'},
+              { text: "Query_Aggregated_Cases(129)", url: "dss.vector.solutions.query.QueryController.queryAggregatedCases.mojo" , visibleTo:'Administrator'}
+            ]
+          }
+        },
+        { text: "Individual_Cases",
+        	submenu: {
+        	  id: "Individual_Cases",
+        	  itemdata: [               
+        	    { text: "Enter_For_Individual_Cases", disabled: true, url: "#" , visibleTo:'Administrator'},
+        	    { text: "Query_Individual_Cases", disabled: true, url: "#" , visibleTo:'Administrator'}
+        	  ]
+            }
+        }
 
     ]
   },
     {
         id: "Intervention_Planning",
         itemdata: [
-            { text: "Manage_IRS_Teams(141)", url: "dss.vector.solutions.irs.SprayTeamController.viewAll.mojo", visibleTo:'Administrator' },
             {
-                text: "IRS_Intervention_Targets",
+                text: "IRS_Intervention_Planning",
                 submenu: {
                             id: "IRS_INV",
                             itemdata: [
+                                       { text: "IRS_Planning(077)", disabled: true, url: "#", visibleTo:'Administrator' },
+                                       { text: "Manage_IRS_Teams(141)", url: "dss.vector.solutions.irs.SprayTeamController.viewAll.mojo", visibleTo:'Administrator' },
                                        { text: "Area_Targets(028)", url: "dss.vector.solutions.irs.GeoTargetController.viewAll.mojo" , visibleTo:'Administrator'},
                                        { text: "Operator_and_Team_Targets(028)", url: "dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo" , visibleTo:'Administrator'},
 
@@ -125,28 +164,68 @@ var aSubmenuData = [
                                        { text: "Operator_Spray_Level_1(027)", url: "dss.vector.solutions.irs.OperatorSprayController.search.mojo" , visibleTo:'Administrator'},
                                        { text: "Team_Spray_Level_2(027)", url: "dss.vector.solutions.irs.TeamSprayController.search.mojo" , visibleTo:'Administrator'},
                                        { text: "Sprayed_Area_Level_3(027)", url: "dss.vector.solutions.irs.ZoneSprayController.search.mojo" , visibleTo:'Administrator'},
+                                       { text: "Query_IRS(132)", url: "dss.vector.solutions.query.QueryController.queryIRS.mojo" , visibleTo:'Administrator'}
                             ]
                         }
             },
-            { text: "Aggregated_IPT_Information(069)", url: "dss.vector.solutions.intervention.monitor.AggregatedIPTController.search.mojo", visibileTo:'Administrator'},
-            { text: "ITN_Data_Distribution(080)", url: "dss.vector.solutions.intervention.monitor.ITNDataController.search.mojo", visibileTo:'Administrator'},
-            { text: "Query_IRS(132)", url: "dss.vector.solutions.query.QueryController.queryIRS.mojo" , visibleTo:'Administrator'},
+            {
+            	text: "IPT",
+            	submenu: {
+            	id: "IPT",
+            	itemdata: [
+            	           { text: "Enter_Aggregated_IPT_records(069)", url: "dss.vector.solutions.intervention.monitor.AggregatedIPTController.search.mojo", visibileTo:'Administrator'},
+            	           { text: "Query_Aggregated_IPT", disabled: true, url: "#", visibileTo:'Administrator'},
+            	           { text: "Enter_Individual_IPT_records", disabled: true, url: "#", visibileTo:'Administrator'},
+            	           { text: "Query_Individual_IPT", disabled: true, url: "#", visibileTo:'Administrator'}
+           	           ]
+                }
+            },
+            {
+            	text: "ITN",
+            	submenu: {
+            	id: "ITN",
+            	itemdata: [
+            	           { text: "Aggregated_ITN_Data_Distribution", url: "dss.vector.solutions.intervention.monitor.ITNDataController.search.mojo", visibileTo:'Administrator'},
+            	           { text: "Query_Aggregated_ITN_Data_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
+            	           { text: "ITN_Facility_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
+            	           { text: "Query_ITN_Facility_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
+            	           { text: "ITN_Community_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
+            	           { text: "Query_ITN_Community_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
+            	           { text: "ITN_Household_Use", disabled: true, url: "#", visibileTo:'Administrator'},
+            	           { text: "Query_ITN_Household_Use", disabled: true, url: "#", visibileTo:'Administrator'}
+           	           ]
+               }
+            },
         ]
     },
     {
+    	id: "Control_of_Immatures",
+    	itemdata: [
+    	           { text: "Enter_for_Control_of_Immatures_records", disabled: true, url: "#", visibileTo:'Administrator'},
+    	           { text: "Query_Control_of_Immatures", disabled: true, url: "#", visibileTo:'Administrator'}    	               	           
+   	           ]
+    },
+    {
     	id: "StockControl",
-      itemdata: [
-
-
-      ]
+    	itemdata: [
+                 { text: "Manage_Stock", disabled: true, url: "#", visibileTo:'Administrator'},
+                 { text: "Query_Stock", disabled: true, url: "#", visibileTo:'Administrator'}    	               	           
+              ]
     },
     {
         id: "Surveys",
         itemdata: [
-                   	{ text: "View_Surveys(026)", url: "dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" , visibleTo:'Administrator'},
-                 	{ text: "Query_Indicator_Surveys(140)", url: "dss.vector.solutions.query.QueryController.querySurvey.mojo" , visibleTo:'Administrator'},
-
-        ]
+          {
+    	    text: "Indicator_Surveys",
+    	    submenu: {
+    	      id: "Indicator_Surveys",
+    	      itemdata: [
+  	                 { text: "Enter_Indicator_Survey_records(026)", url: "dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" , visibleTo:'Administrator'},
+   	                 { text: "Query_Indicator_Surveys(140)", url: "dss.vector.solutions.query.QueryController.querySurvey.mojo" , visibleTo:'Administrator'},
+    	      ]
+            }
+         }
+       ]
     },
     {
         id: "GIS",
