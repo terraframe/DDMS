@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
+import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -62,8 +63,8 @@ public class SprayTeamController extends SprayTeamControllerBase implements
       ServletException
   {
     req.setAttribute("item", team);
-    req.setAttribute("leaders", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(),
-        "keyName", true, 0, 0).getResultSet());
+//    req.setAttribute("leaders", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(),
+//        "keyName", true, 0, 0).getResultSet());
 
     List<SprayOperatorViewDTO> currentOperators = new LinkedList<SprayOperatorViewDTO>();
     List<SprayOperatorViewDTO> assignedOperators = new LinkedList<SprayOperatorViewDTO>();
@@ -90,8 +91,8 @@ public class SprayTeamController extends SprayTeamControllerBase implements
       ClientRequestIF clientRequest = super.getClientRequest();
       SprayTeamDTO team = SprayTeamDTO.lock(clientRequest, id);
       req.setAttribute("item", team);
-      req.setAttribute("leaders", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(),
-          "keyName", true, 0, 0).getResultSet());
+//      req.setAttribute("leaders", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(),
+//          "keyName", true, 0, 0).getResultSet());
 
       SprayOperatorViewDTO[] assigned = SprayOperatorViewDTO.getAllForLocation(clientRequest, team.getSprayZone().getGeoId());
       List<String> locatedIn = new LinkedList<String>();
@@ -132,7 +133,11 @@ public class SprayTeamController extends SprayTeamControllerBase implements
 
       if (leader.size() > 0)
       {
-        req.setAttribute("leaderId", leader.get(0).getId());
+        SprayLeaderDTO l = leader.get(0);
+        PersonDTO person = l.getPerson();
+        
+        req.setAttribute("leaderLabel", person.getFirstName() + " " + person.getLastName() + " - " + l.getLeaderId());
+        req.setAttribute("leaderId", l.getId()); 
       }
 
       req.setAttribute("current", currentOperators);

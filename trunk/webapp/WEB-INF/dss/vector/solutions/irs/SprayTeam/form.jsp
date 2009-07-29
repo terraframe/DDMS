@@ -10,6 +10,7 @@
 <%@page import="dss.vector.solutions.irs.SprayOperatorDTO"%>
 <%@page import="dss.vector.solutions.PersonDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayOperatorViewDTO"%>
+<%@page import="dss.vector.solutions.irs.SprayLeaderDTO"%>
 
 <dt><label> ${item.teamIdMd.displayLabel} </label></dt>
     <dd>
@@ -26,14 +27,12 @@
     </dd>
     <%-- 5.13.09 - Marlize says we don't need Spray Leaders --%>
     <dt><label> <fmt:message key="Spray_Team_Leader" /> </label></dt>
-    <dd><mjl:select var="leader" valueAttribute="id" items="${leaders}" param="leaderId" includeBlank="true">
-      <mjl:option selected="${(leaderId!=null && leader.id==leaderId)?'selected':'false'}">
-          ${leader.person.firstName} ${leader.person.lastName}
-        </mjl:option>
-    </mjl:select>
-    <mjl:messages attribute="leaderId">
-      <mjl:message />
-    </mjl:messages>
+    <dd>
+      <mjl:input id="leaderInput" param="leaderInput" type="text" value="${leaderLabel}"/>
+      <mjl:input id="leaderId" param="leaderId" type="hidden" value="${leaderId}"/>        
+      <mjl:messages attribute="leaderId">
+        <mjl:message />
+      </mjl:messages>
     </dd>
     <dt><label> <fmt:message key="Spray_Team_Manage_Operators" /> </label></dt>
     <dd>
@@ -112,11 +111,15 @@
     </dd>
     
     <%=Halp.loadTypes(Arrays.asList(new String[]{SprayOperatorViewDTO.CLASS}))%>
+    <%=Halp.loadTypes(Arrays.asList(new String[]{SprayLeaderDTO.CLASS}))%>
 
     <script type="text/javascript" defer="defer">  
       onTeam = document.getElementById('onTeam');      
       notOnTeam = document.getElementById('notOnTeam');   
       onOtherTeam = document.getElementById('onOtherTeam');   
+
+      leaderInput = document.getElementById('leaderInput');   
+      leaderId = document.getElementById('leaderId');   
 
       availableButton = document.getElementById('available.button.id');
       availableInput = document.getElementById('availableInput');   
@@ -130,6 +133,7 @@
 
       MDSS.operatorSearch(onTeam, notOnTeam, availableButton, availableInput, availableId);       
       MDSS.operatorSearch(onTeam, onOtherTeam, assignButton, assignInput, assignId);       
+      MDSS.leaderSearch(leaderInput, leaderId);       
 
       var loadAssignedOperators = function(geoId)
       {
