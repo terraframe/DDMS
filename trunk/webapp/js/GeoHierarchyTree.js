@@ -750,7 +750,7 @@ MDSS.GeoHierarchyTree = (function(){
   // return all public methods/properties
   return {
     initializeTree : _initializeTree,
-    getGeoEntity : _getGeoHierarchyView,
-    destroyAll : _destroyAll
+    getGeoEntity : _getGeoHierarchyView
+    //destroyAll : _destroyAll
   };
 })();

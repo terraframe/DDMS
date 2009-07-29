@@ -44,7 +44,6 @@
             ${category.lowerBoundMd.displayLabel} - ${category.upperBoundMd.displayLabel}
           </dt>
           <dd>
-            <div>
             <div style='float: left'>
               <input type="hidden" name="type" value="${category.type}" />
               <input maxlength="7" type="hidden" name="dto.thematicColor" value="${category.thematicColor}" id="${category.id}_thematicColor" />
@@ -67,7 +66,6 @@
             ${category.exactValueMd.displayLabel}
           </dt>
           <dd>
-            <div>
             <div style='float: left'>
               <input type="hidden" name="type" value="${category.type}" />
               <input maxlength="7" type="hidden" name="dto.thematicColor" value="${category.thematicColor}" id="${category.id}_thematicColor" />
@@ -85,7 +83,9 @@
     </c:choose>
 <script type="text/javascript">
 (function(){
-  new MDSS.ColorPicker('${category.id}', '${category.id}_opener', '${category.id}_thematicColor', '${category.thematicColor}');
+
+  var picker = MDSS.ColorPicker.getInstance();
+  picker.attach('${category.id}_opener', '${category.id}_thematicColor', '${category.thematicColor}');
 
   // deletes the category from the DOM
   YAHOO.util.Event.on("${category.id}_delBtn", 'click', function(e, dlId){

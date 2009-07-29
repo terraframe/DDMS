@@ -1772,19 +1772,45 @@ MDSS.QueryPanel.prototype = {
  * Class to manage a color picker inside of a
  * dialog.
  */
-MDSS.ColorPicker = function(baseId, openerId, inputId, colorHex)
+MDSS.ColorPicker = function()
 {
-  this._baseId = baseId;
-  this._openerId = openerId;
-  this._inputId = inputId;
-  this._colorHex = colorHex;
   this._dialog = null;
   this._picker = null;
+};
 
-  YAHOO.util.Event.on(openerId, 'click', this._renderDialog, null, this);
+// the singleton instance
+MDSS.ColorPicker._instance = null;
+// accessor to get and instantiate
+// the singleton Color picker.
+MDSS.ColorPicker.getInstance = function()
+{
+  if(MDSS.ColorPicker._instance == null)
+  {
+    MDSS.ColorPicker._instance = new MDSS.ColorPicker();
+  }
+  
+  return MDSS.ColorPicker._instance;
 };
 
 MDSS.ColorPicker.prototype = {
+
+  /**
+   * Attaches the picker to the element of the given id such
+   * that a click event on the element will render the picker.
+   */
+  attach : function(openerId, inputId, colorHex)
+  {
+    YAHOO.util.Event.removeListener(openerId, 'click', this._renderDialog);
+  
+    var obj = {
+      openerId : openerId,
+      inputId : inputId,
+      colorHex : colorHex
+    };
+  
+    var openerEl = document.getElementById(openerId);
+    YAHOO.util.Event.on(openerEl, 'click', this._renderDialog, obj, this);
+  },
 
   /**
    * Handles the submit click after
@@ -1792,9 +1818,11 @@ MDSS.ColorPicker.prototype = {
    */
   _handleSubmit: function()
   {
+    var openerEl = document.getElementById(this._openerId);
+  
     var sColor = "#" + this._picker.get("hex");
     document.getElementById(this._inputId).value = sColor;
-    YAHOO.util.Dom.setStyle(this._openerId, 'background-color', sColor);
+    YAHOO.util.Dom.setStyle(openerEl, 'background-color', sColor);
 
     this._dialog.hide();
   },
@@ -1808,11 +1836,11 @@ MDSS.ColorPicker.prototype = {
   	this._dialog.hide();
   },
 
-  _renderPicker : function()
+  _renderPicker : function(colorHex)
   {
   	var val = this._colorHex.substring(1);
 
-    this._picker = new YAHOO.widget.ColorPicker(this._baseId+"_picker", {
+    this._picker = new YAHOO.widget.ColorPicker("singleton_picker", {
       container: this._dialog,
       showcontrols: false,
       images: {
@@ -1823,14 +1851,18 @@ MDSS.ColorPicker.prototype = {
     this._picker.set('hex', val);
   },
 
-  _renderDialog : function()
+  _renderDialog : function(e, obj)
   {
+    this._openerId = obj.openerId;
+    this._inputId = obj.inputId;
+    this._colorHex = obj.colorHex;
+  
     if(this._dialog == null)
     {
       var sBound = MDSS.util.bind(this, this._handleSubmit);
       var cBound = MDSS.util.bind(this, this._handleCancel);
 
-      this._dialog = new YAHOO.widget.Dialog(this._baseId+"_pickerPanel", {
+      this._dialog = new YAHOO.widget.Dialog("singleton_pickerPanel", {
         width : "400px",
         height: "250px",
         fixedcenter : true,
@@ -1843,9 +1875,7 @@ MDSS.ColorPicker.prototype = {
             { text: MDSS.Localized.Cancel, handler:cBound } ]
       });
 
-      var rBound = MDSS.util.bind(this, this._renderPicker);
-      //this._dialog.renderEvent.subscribe(rBound);
-      this._dialog.setBody('<div class="yui-picker" id="'+this._baseId+'_picker"></div>');
+      this._dialog.setBody('<div class="yui-picker" id="singleton_picker"></div>');
       this._dialog.render(document.body);
       this._dialog.bringToTop();
 
@@ -1854,6 +1884,7 @@ MDSS.ColorPicker.prototype = {
     else
     {
       this._dialog.show();
+      this._dialog.bringToTop();
     }
   }
 };

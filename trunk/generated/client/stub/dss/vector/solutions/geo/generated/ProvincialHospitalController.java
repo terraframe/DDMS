@@ -5,61 +5,13 @@ public class ProvincialHospitalController extends ProvincialHospitalControllerBa
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/ProvincialHospital/";
   public static final String LAYOUT = "/layout.jsp";
   
-  private static final long serialVersionUID = 1248809008611L;
+  private static final long serialVersionUID = 1248824459024L;
   
   public ProvincialHospitalController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.ProvincialHospitalDTO dto = new dss.vector.solutions.geo.generated.ProvincialHospitalDTO(clientRequest);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create ProvincialHospital");
-    render("createComponent.jsp");
-  }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
-  public void create(dss.vector.solutions.geo.generated.ProvincialHospitalDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failCreate(dto);
-    }
-  }
-  public void failCreate(dss.vector.solutions.geo.generated.ProvincialHospitalDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create ProvincialHospital");
-    render("createComponent.jsp");
-  }
-  public void delete(dss.vector.solutions.geo.generated.ProvincialHospitalDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.delete();
-      this.viewAll();
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failDelete(dto);
-    }
-  }
-  public void failDelete(dss.vector.solutions.geo.generated.ProvincialHospitalDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit ProvincialHospital");
-    render("editComponent.jsp");
-  }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
@@ -83,6 +35,18 @@ public class ProvincialHospitalController extends ProvincialHospitalControllerBa
   {
     this.view(id);
   }
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.geo.generated.ProvincialHospitalDTO dto = new dss.vector.solutions.geo.generated.ProvincialHospitalDTO(clientRequest);
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create ProvincialHospital");
+    render("createComponent.jsp");
+  }
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
+  }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
@@ -95,16 +59,23 @@ public class ProvincialHospitalController extends ProvincialHospitalControllerBa
   {
     resp.sendError(500);
   }
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void create(dss.vector.solutions.geo.generated.ProvincialHospitalDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", dss.vector.solutions.geo.generated.ProvincialHospitalDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View ProvincialHospital");
-    render("viewComponent.jsp");
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failCreate(dto);
+    }
   }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(dss.vector.solutions.geo.generated.ProvincialHospitalDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    this.viewAll();
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create ProvincialHospital");
+    render("createComponent.jsp");
   }
   public void update(dss.vector.solutions.geo.generated.ProvincialHospitalDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -132,5 +103,34 @@ public class ProvincialHospitalController extends ProvincialHospitalControllerBa
   public void failCancel(dss.vector.solutions.geo.generated.ProvincialHospitalDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     this.edit(dto.getId());
+  }
+  public void delete(dss.vector.solutions.geo.generated.ProvincialHospitalDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.delete();
+      this.viewAll();
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failDelete(dto);
+    }
+  }
+  public void failDelete(dss.vector.solutions.geo.generated.ProvincialHospitalDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit ProvincialHospital");
+    render("editComponent.jsp");
+  }
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("item", dss.vector.solutions.geo.generated.ProvincialHospitalDTO.get(clientRequest, id));
+    req.setAttribute("page_title", "View ProvincialHospital");
+    render("viewComponent.jsp");
+  }
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
   }
 }

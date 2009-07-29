@@ -9,6 +9,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
+import dss.vector.solutions.PolygonStyleDTO;
 import dss.vector.solutions.entomology.MosquitoDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.sld.SLDWriter;
@@ -309,8 +310,11 @@ public class MappingController extends MappingControllerBase implements
     {
       LayerDTO layer = LayerDTO.lock(this.getClientRequest(), layerId);
 
+      GeometryStyleDTO geoStyle = layer.getGeometryStyle();
+      req.setAttribute("hasFill", geoStyle.hasAttribute(PolygonStyleDTO.FILL));
+      
       req.setAttribute("layerId", layerId);
-      req.setAttribute("geoStyle", layer.getGeometryStyle());
+      req.setAttribute("geoStyle", geoStyle);
       req.setAttribute("textStyle", layer.getTextStyle());
 
       req.getRequestDispatcher(EDIT_LAYER).forward(req, resp);

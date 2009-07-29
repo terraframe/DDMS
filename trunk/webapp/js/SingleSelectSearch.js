@@ -43,6 +43,21 @@ MDSS.SingleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearch,
   	  this._selectHandler(geoEntityView);
   	}
   },
+  
+  /**
+   * Notifies the select handler that a GeoEntity
+   * has been selected via the tree. The GeoEntityView is passed
+   * to the handler.
+   */
+  _notifyTreeSelectHandler : function(geoEntityView)
+  {
+  	this._updateSelection(geoEntityView);
+
+  	if(Mojo.util.isFunction(this._treeSelectHandler))
+  	{
+  	  this._treeSelectHandler(geoEntityView);
+  	}
+  },
 
   getSelectHandler : function()
   {

@@ -77,18 +77,18 @@ public class ThematicLayer extends ThematicLayerBase implements
   public static ThematicLayer updateThematicVariable(String layerId, ThematicVariable thematicVariable,
       AbstractCategory[] categories)
   {
-    if (thematicVariable == null)
+    if (thematicVariable == null && categories != null && categories.length > 0)
     {
       String error = "A layer is required when adding categories to a thematic variable.";
       CategoriesWithoutThematicException ex = new CategoriesWithoutThematicException(error);
       throw ex;
     }
-    else
+    else if(thematicVariable != null)
     {
       thematicVariable.apply();
+      validateCategoryBounds(categories);
     }
 
-    validateCategoryBounds(categories);
 
     ThematicLayer layer = ThematicLayer.get(layerId);
 
@@ -194,6 +194,7 @@ public class ThematicLayer extends ThematicLayerBase implements
     }
 
     String viewName = GEO_VIEW_PREFIX + System.currentTimeMillis();
+//    String viewName = GEO_VIEW_PREFIX + thematicLayer.getId().substring(0, 16);
     thematicLayer.setViewName(viewName);
 
     // text style

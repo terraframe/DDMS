@@ -5,13 +5,66 @@ public class RuralHealthCentre2Controller extends RuralHealthCentre2ControllerBa
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/RuralHealthCentre2/";
   public static final String LAYOUT = "/layout.jsp";
   
-  private static final long serialVersionUID = 1248809023445L;
+  private static final long serialVersionUID = 1248824498114L;
   
   public RuralHealthCentre2Controller(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    dss.vector.solutions.geo.generated.RuralHealthCentre2DTO dto = dss.vector.solutions.geo.generated.RuralHealthCentre2DTO.lock(super.getClientRequest(), id);
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit RuralHealthCentre2");
+    render("editComponent.jsp");
+  }
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.view(id);
+  }
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.geo.generated.RuralHealthCentre2DTO dto = new dss.vector.solutions.geo.generated.RuralHealthCentre2DTO(clientRequest);
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create RuralHealthCentre2");
+    render("createComponent.jsp");
+  }
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
+  }
+  public void update(dss.vector.solutions.geo.generated.RuralHealthCentre2DTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failUpdate(dto);
+    }
+  }
+  public void failUpdate(dss.vector.solutions.geo.generated.RuralHealthCentre2DTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Update RuralHealthCentre2");
+    render("editComponent.jsp");
+  }
+  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.geo.generated.RuralHealthCentre2QueryDTO query = dss.vector.solutions.geo.generated.RuralHealthCentre2DTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    req.setAttribute("query", query);
+    req.setAttribute("page_title", "View All RuralHealthCentre2 Objects");
+    render("viewAllComponent.jsp");
+  }
+  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    resp.sendError(500);
+  }
   public void create(dss.vector.solutions.geo.generated.RuralHealthCentre2DTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -39,47 +92,6 @@ public class RuralHealthCentre2Controller extends RuralHealthCentre2ControllerBa
   {
     this.edit(dto.getId());
   }
-  public void update(dss.vector.solutions.geo.generated.RuralHealthCentre2DTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failUpdate(dto);
-    }
-  }
-  public void failUpdate(dss.vector.solutions.geo.generated.RuralHealthCentre2DTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update RuralHealthCentre2");
-    render("editComponent.jsp");
-  }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dss.vector.solutions.geo.generated.RuralHealthCentre2DTO dto = dss.vector.solutions.geo.generated.RuralHealthCentre2DTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit RuralHealthCentre2");
-    render("editComponent.jsp");
-  }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.view(id);
-  }
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.RuralHealthCentre2DTO dto = new dss.vector.solutions.geo.generated.RuralHealthCentre2DTO(clientRequest);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create RuralHealthCentre2");
-    render("createComponent.jsp");
-  }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
   public void delete(dss.vector.solutions.geo.generated.RuralHealthCentre2DTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -98,15 +110,15 @@ public class RuralHealthCentre2Controller extends RuralHealthCentre2ControllerBa
     req.setAttribute("page_title", "Edit RuralHealthCentre2");
     render("editComponent.jsp");
   }
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.RuralHealthCentre2QueryDTO query = dss.vector.solutions.geo.generated.RuralHealthCentre2DTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    dss.vector.solutions.geo.generated.RuralHealthCentre2QueryDTO query = dss.vector.solutions.geo.generated.RuralHealthCentre2DTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All RuralHealthCentre2 Objects");
     render("viewAllComponent.jsp");
   }
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
@@ -120,17 +132,5 @@ public class RuralHealthCentre2Controller extends RuralHealthCentre2ControllerBa
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
-  }
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.RuralHealthCentre2QueryDTO query = dss.vector.solutions.geo.generated.RuralHealthCentre2DTO.getAllInstances(clientRequest, null, true, 20, 1);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All RuralHealthCentre2 Objects");
-    render("viewAllComponent.jsp");
-  }
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
   }
 }

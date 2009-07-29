@@ -66,6 +66,12 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
   */
  public static String generateLayers(String[] universalLayers, ValueQuery valueQuery, SavedSearch savedSearch, ThematicLayer thematicLayer)
  {
+   if(valueQuery.getCount() == 0)
+   {
+     String error = "The thematic layer doesn't contain spatial data.";
+     throw new NoEntitiesInThematicLayerException(error);
+   }
+   
    String sql = valueQuery.getSQL();
 
    // reload the view for the thematic layer
@@ -73,12 +79,12 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
 
    try
    {
-     Database.dropView(viewName, sql, false);
+     Database.dropView(viewName, sql, false); 
    }
    catch(DatabaseException e)
    {
      // View doesn't exist, but that's okay. It may have never
-	 // been created or a cleanup task has removed.
+	 // been created or a cleanup task has removed it.
    }
    finally
    {
@@ -188,6 +194,15 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
        layers.put(layerObj);
      }
    }
+   
+   
+   // Rename the layer for next time because the SLDs have already been generated
+   // for the previous name. Doing this will keep the timestamp up to date to help
+   // the cleanup task.
+   String newViewName = ThematicLayer.GEO_VIEW_PREFIX + System.currentTimeMillis();
+   thematicLayer.appLock();
+   thematicLayer.setViewName(newViewName);     
+   thematicLayer.apply();
 
    return layers.toString();
  }

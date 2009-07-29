@@ -1229,7 +1229,7 @@ MDSS.GeoEntityTree = (function(){
 
   // return all public methods/properties
   return {
-    initializeTree : _initializeTree,
-    destroyAll : _destroyAll
+    initializeTree : _initializeTree
+    //destroyAll : _destroyAll
   };
 })();

@@ -1,6 +1,7 @@
 package dss.vector.solutions.geo.generated;
 
 import java.lang.reflect.Constructor;
+import java.sql.Savepoint;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,7 +21,9 @@ import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.MdClassDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
+import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
+import com.terraframe.mojo.dataaccess.database.IDGenerator;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -263,22 +266,15 @@ public abstract class GeoEntity extends GeoEntityBase implements
   {
     // V1 Restriction
     throw new ActionNotAllowedException();
-    
-    /*
-    List<GeoEntity> parents = this.getImmediateParents();
-    if (parents.size() > 1)
-    {
-      GeoEntity parent = GeoEntity.get(parentId);
-      ConfirmDeleteEntityException ex = new ConfirmDeleteEntityException();
-      ex.setEntityName(parent.getEntityName());
 
-      throw ex;
-    }
-    else
-    {
-      this.delete();
-    }
-    */
+    /*
+     * List<GeoEntity> parents = this.getImmediateParents(); if (parents.size()
+     * > 1) { GeoEntity parent = GeoEntity.get(parentId);
+     * ConfirmDeleteEntityException ex = new ConfirmDeleteEntityException();
+     * ex.setEntityName(parent.getEntityName());
+     * 
+     * throw ex; } else { this.delete(); }
+     */
   }
 
   @Override
@@ -1105,30 +1101,28 @@ public abstract class GeoEntity extends GeoEntityBase implements
         vQuery.WHERE(geoEntityQuery.getType().IN(types));
       }
 
-   // Restricted types to avoid returning large data sets
+      // Restricted types to avoid returning large data sets
       String[] baseTypes = {
-        //MDSSInfo.GENERATED_GEO_PACKAGE+".WaterBody",
-        MDSSInfo.GENERATED_GEO_PACKAGE+".River",
-        MDSSInfo.GENERATED_GEO_PACKAGE+".Road",
-        MDSSInfo.GENERATED_GEO_PACKAGE+".Railway"
-      };
-      
+          // MDSSInfo.GENERATED_GEO_PACKAGE+".WaterBody",
+          MDSSInfo.GENERATED_GEO_PACKAGE + ".River", MDSSInfo.GENERATED_GEO_PACKAGE + ".Road",
+          MDSSInfo.GENERATED_GEO_PACKAGE + ".Railway" };
+
       // Grab all is_a children of the restricted types to add to
       // the restricted list.
       Set<String> notInSet = new HashSet<String>(Arrays.asList(baseTypes));
-      for(String baseType : baseTypes)
+      for (String baseType : baseTypes)
       {
         MdBusiness baseMd = MdBusiness.getMdBusiness(baseType);
         MdBusinessDAOIF baseDAOIF = (MdBusinessDAOIF) BusinessFacade.getEntityDAO(baseMd);
-        
-        for(MdBusinessDAOIF subclass : baseDAOIF.getAllConcreteSubClasses())
+
+        for (MdBusinessDAOIF subclass : baseDAOIF.getAllConcreteSubClasses())
         {
           notInSet.add(subclass.definesType());
         }
       }
-      
+
       vQuery.WHERE(geoEntityQuery.getType().NI(notInSet.toArray(new String[notInSet.size()])));
-      
+
       vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityName());
     }
   }
@@ -1276,22 +1270,17 @@ public abstract class GeoEntity extends GeoEntityBase implements
       String childMdBusiness)
   {
     // create save point
-//    Savepoint savepoint = Database.setSavepoint();
-    
-//    String saveId = "a"+IDGenerator.nextID();
-//    Database.parseAndExecute("SAVEPOINT "+saveId+"");
-    
+    //Savepoint savepoint = Database.setSavepoint();
+
     try
     {
-
+      
       // Check if the entry already exists. If so, don't create it.
       // WARNING: this is not thread safe. Make SAVEPOINTS work instead.
-      QueryFactory f = new QueryFactory();
-      AllPathsQuery q = new AllPathsQuery(f);
-      q.WHERE(q.getChildGeoEntity().EQ(childId));
+      QueryFactory f = new QueryFactory(); AllPathsQuery q = new
+      AllPathsQuery(f); q.WHERE(q.getChildGeoEntity().EQ(childId));
       q.WHERE(q.getParentGeoEntity().EQ(parentId));
       
-
       if(q.getCount() == 0)
       {
         AllPaths allPaths = new AllPaths();
@@ -1301,15 +1290,12 @@ public abstract class GeoEntity extends GeoEntityBase implements
         allPaths.setValue(AllPaths.CHILDUNIVERSAL, childMdBusiness);
         allPaths.apply();
       }
-      
-      //Database.parseAndExecute("RELEASE "+saveId+"");
-//      Database.parseAndExecute("RELEASE "+saveId+"");
+
     }
     catch (DuplicateDataDatabaseException ex)
     {
       // This might happen. Relationship already exists.
 //      Database.rollbackSavepoint(savepoint);
-//      Database.parseAndExecute("ROLLBACK TO SAVEPOINT "+saveId+"");
     }
     finally
     {

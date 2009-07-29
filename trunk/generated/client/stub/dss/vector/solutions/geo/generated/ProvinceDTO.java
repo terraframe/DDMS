@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public class ProvinceDTO extends ProvinceDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1248809046419L;
+  private static final long serialVersionUID = 1248824550955L;
   
   public ProvinceDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

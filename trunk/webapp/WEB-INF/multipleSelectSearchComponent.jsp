@@ -6,6 +6,7 @@
 
 <div style="width: 725px; margin-top: 15px;" >
 <div id="selectSearchComponent">
+  <dl>
   <c:forEach items="${views}" var="view" varStatus="status">
   <dt id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_dt">
     <c:if test="${!status.first}">

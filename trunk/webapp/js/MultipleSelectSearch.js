@@ -18,6 +18,11 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     this._initSelectedUniversals = [];
   },
   
+  _notifyTreeSelectHandler : function(geoEntityView)
+  {
+    this._updateSelection(geoEntityView, true);
+  },
+  
   setSelectedUniversals : function(selected)
   {
     if(this._rendered)

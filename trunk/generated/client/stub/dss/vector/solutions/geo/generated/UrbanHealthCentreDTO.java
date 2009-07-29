@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public class UrbanHealthCentreDTO extends UrbanHealthCentreDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1248808978854L;
+  private static final long serialVersionUID = 1248824387246L;
   
   public UrbanHealthCentreDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

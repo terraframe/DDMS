@@ -31,6 +31,12 @@
             value="Efficacy"/>
         </structAttribute>
       </object>
+      
+      <mdException
+        name="dss.vector.solutions.query.NoEntitiesInThematicLayerException"
+        label="No Entities in thematic layer exception"
+        description="Thrown when a user tries to create a thematic layer without any geometry data.">
+      </mdException>
     </create>
     <update></update>
   </doIt>

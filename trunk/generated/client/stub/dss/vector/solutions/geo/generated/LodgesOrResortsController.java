@@ -5,7 +5,7 @@ public class LodgesOrResortsController extends LodgesOrResortsControllerBase imp
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/LodgesOrResorts/";
   public static final String LAYOUT = "/layout.jsp";
   
-  private static final long serialVersionUID = 1248808982837L;
+  private static final long serialVersionUID = 1248824397034L;
   
   public LodgesOrResortsController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -41,59 +41,6 @@ public class LodgesOrResortsController extends LodgesOrResortsControllerBase imp
     req.setAttribute("page_title", "Create LodgesOrResorts");
     render("createComponent.jsp");
   }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dss.vector.solutions.geo.generated.LodgesOrResortsDTO dto = dss.vector.solutions.geo.generated.LodgesOrResortsDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit LodgesOrResorts");
-    render("editComponent.jsp");
-  }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.view(id);
-  }
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.LodgesOrResortsDTO dto = new dss.vector.solutions.geo.generated.LodgesOrResortsDTO(clientRequest);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create LodgesOrResorts");
-    render("createComponent.jsp");
-  }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.LodgesOrResortsQueryDTO query = dss.vector.solutions.geo.generated.LodgesOrResortsDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All LodgesOrResorts Objects");
-    render("viewAllComponent.jsp");
-  }
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-  public void delete(dss.vector.solutions.geo.generated.LodgesOrResortsDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.delete();
-      this.viewAll();
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failDelete(dto);
-    }
-  }
-  public void failDelete(dss.vector.solutions.geo.generated.LodgesOrResortsDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit LodgesOrResorts");
-    render("editComponent.jsp");
-  }
   public void update(dss.vector.solutions.geo.generated.LodgesOrResortsDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -111,6 +58,29 @@ public class LodgesOrResortsController extends LodgesOrResortsControllerBase imp
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update LodgesOrResorts");
     render("editComponent.jsp");
+  }
+  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.geo.generated.LodgesOrResortsQueryDTO query = dss.vector.solutions.geo.generated.LodgesOrResortsDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    req.setAttribute("query", query);
+    req.setAttribute("page_title", "View All LodgesOrResorts Objects");
+    render("viewAllComponent.jsp");
+  }
+  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    resp.sendError(500);
+  }
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    dss.vector.solutions.geo.generated.LodgesOrResortsDTO dto = dss.vector.solutions.geo.generated.LodgesOrResortsDTO.lock(super.getClientRequest(), id);
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit LodgesOrResorts");
+    render("editComponent.jsp");
+  }
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.view(id);
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -132,5 +102,35 @@ public class LodgesOrResortsController extends LodgesOrResortsControllerBase imp
   public void failCancel(dss.vector.solutions.geo.generated.LodgesOrResortsDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     this.edit(dto.getId());
+  }
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.geo.generated.LodgesOrResortsDTO dto = new dss.vector.solutions.geo.generated.LodgesOrResortsDTO(clientRequest);
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create LodgesOrResorts");
+    render("createComponent.jsp");
+  }
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
+  }
+  public void delete(dss.vector.solutions.geo.generated.LodgesOrResortsDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.delete();
+      this.viewAll();
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failDelete(dto);
+    }
+  }
+  public void failDelete(dss.vector.solutions.geo.generated.LodgesOrResortsDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit LodgesOrResorts");
+    render("editComponent.jsp");
   }
 }

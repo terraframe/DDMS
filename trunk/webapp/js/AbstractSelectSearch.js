@@ -320,6 +320,11 @@ MDSS.AbstractSelectSearch.prototype = {
   {
     // abstract
   },
+  
+  _notifyTreeSelectHandler : function(geoEntityView, updateSelection)
+  {
+    // abstract
+  },
 
   /**
    * Invokes the appropriate controller action to
@@ -349,35 +354,35 @@ MDSS.AbstractSelectSearch.prototype = {
     {
       this._geoTreePanel = new YAHOO.widget.Panel(containerId, {width:'400px', height:'400px', zindex:9});
 
+      /*
       // Bug Workaround: The Yahoo ContextMenu loses its event handlers in
       // the tree, so destroy the tree every time the panel is closed, then
-      // use a new tree per request.
+      // use a new tree per request. NO LONGER NEEDED
       this._geoTreePanel.subscribe('beforeHide', function(e, obj){
         YAHOO.util.Dom.setStyle(obj.containerId, 'overflow', 'none');
-        MDSS.GeoEntityTree.destroyAll();
+        //MDSS.GeoEntityTree.destroyAll();
       }, {containerId:containerId});
+      */
       this._geoTreePanel.render();
       this._geoTreePanel.bringToTop();
+
+      var wrappedHandler = (function(searchRef)
+      {
+        return function(geoEntity){
+        
+          searchRef._notifyTreeSelectHandler(geoEntity);
+          searchRef._geoTreePanel.hide();
+        }
+      })(this);
+
+      YAHOO.util.Dom.setStyle(containerId, 'overflow', 'scroll');
+      MDSS.GeoEntityTree.initializeTree("treeView", wrappedHandler);
     }
     else
     {
       this._geoTreePanel.show();
       this._geoTreePanel.bringToTop();
     }
-
-    // always create a new tree per request
-    var wrappedHandler = (function(searchRef)
-    {
-      return function(geoEntity){
-        searchRef._treeSelectHandler(geoEntity);
-        searchRef.hide();
-      }
-    })(this);
-
-    MDSS.GeoEntityTree.initializeTree("treeView", wrappedHandler);
-
-
-    YAHOO.util.Dom.setStyle(containerId, 'overflow', 'scroll');
   },
 
   /**

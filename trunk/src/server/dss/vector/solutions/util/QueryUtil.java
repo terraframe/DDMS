@@ -132,6 +132,10 @@ public class QueryUtil implements Reloadable
       valueQueryParser.addAttributeSelectable(thematicLayerType, GeoEntity.ENTITYNAME, GeoEntity.ENTITYNAME, QueryConstants.ENTITY_NAME_COLUMN);
 
       queryMap = valueQueryParser.parse();
+      
+      // exclude any entity without spatial data
+      Selectable geometrySelectable = valueQuery.getSelectable(attributeName);
+      valueQuery.AND(geometrySelectable.NE(null));
 
       AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
       GeoEntityQuery geoEntityQuery = (GeoEntityQuery) queryMap.get(thematicLayerType);

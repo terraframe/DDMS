@@ -38,6 +38,7 @@ import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFacade;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
@@ -1258,6 +1259,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements
         vQuery.WHERE(q1.aCharacter(ComponentInfo.ID).EQ(q2.aCharacter(ComponentInfo.ID)));
         vQuery.WHERE(q2.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
       }
+      
+      // exclude any entity without spatial data
+      Selectable geometrySelectable = vQuery.getSelectable(attrName);
+      vQuery.AND(geometrySelectable.NE(null));
 
       String sql = vQuery.getSQL();
 

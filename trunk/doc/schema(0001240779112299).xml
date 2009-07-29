@@ -465,7 +465,7 @@
             decimal="4"
             label="Upper Bound Value"
             description="The upper bound of the range"
-            required="false" />
+            required="true" />
         </attributes>
       </mdBusiness>
 
