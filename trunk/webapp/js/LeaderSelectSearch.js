@@ -1,6 +1,6 @@
 
   MDSS.leaderSearch = function(input, id){
-	  
+    
     var leaderResults = document.createElement('div');
     leaderResults.id = input.id + '_results';
     leaderResults.className = "yui-panel-container show-scrollbars shadow";
@@ -37,6 +37,8 @@
      */
     var ajaxSearch = function(e)
     {
+      id.value = '';
+      
       var value = input.value;
       var resultPanel = panel; 
 

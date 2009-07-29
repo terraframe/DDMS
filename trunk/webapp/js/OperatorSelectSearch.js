@@ -1,5 +1,5 @@
   MDSS.operatorSearch = function(to, from, button, input, id){
-	  
+    
     var searchResults = document.createElement('div');
     searchResults.id = input.id + '_results';
     searchResults.className = "yui-panel-container show-scrollbars shadow";
@@ -33,20 +33,20 @@
 
     var getResultSet = function(array, value)
     {
-  	  var filtered = [];
+      var filtered = [];
 
-  	  for(var i=0; i<array.length;i++)
-  	  {
-  	    var element = array[i];
-  	    var text = element.text.toUpperCase();
-  	    
-  	    if(text.search(value.toUpperCase()) !== -1)
-  	    {
-  	      filtered.push(element);
-  	    }
-  	  }
-  	  
-  	  return filtered;
+      for(var i=0; i<array.length;i++)
+      {
+        var element = array[i];
+        var text = element.text.toUpperCase();
+        
+        if(text.search(value.toUpperCase()) !== -1)
+        {
+          filtered.push(element);
+        }
+      }
+      
+      return filtered;
     }
 
     
@@ -56,6 +56,8 @@
      */
     var ajaxSearch = function(e)
     {
+      id.value = ''
+      
       var value = input.value;
       var resultPanel = panel;
 
@@ -80,7 +82,7 @@
       var ul = document.createElement('ul');
       YAHOO.util.Dom.addClass(ul, 'selectableList')
       YAHOO.util.Event.on(ul, 'mouseover', function(e, obj){
-    	  
+        
         var li = e.target;
         var ul = e.currentTarget;
         if(li.nodeName === 'SPAN')
@@ -164,13 +166,13 @@
     {
       if(!Selectbox.containsOption(selectbox, value))
       {
-    	Selectbox.addOption(selectbox, text, value, false);
+        Selectbox.addOption(selectbox, text, value, false);
       }
     }
     
     var addClick = function()
     {
-      if(id.value !== null && input.value !== null)
+      if(id.value !== null && input.value !== null && id.value !== '' && input.value !== '')
       {
         // Remove the selected operator from the from list
         removeOption(from, id.value);                        
