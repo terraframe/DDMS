@@ -237,11 +237,11 @@ Selectbox.addOption = function(obj,text,value,selected) {
 	}
 };
 
-Selectbox.containsOption = function(obj, option) {	
+Selectbox.containsOption = function(obj, value) {	
 	
 	for(var i = 0; i < obj.options.length; i++)
 	{
-		if(obj.options[i].value === option.value)
+		if(obj.options[i].value === value)
 		{
 			return true;
 		}

@@ -71,11 +71,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements
     
     for (SprayOperatorViewDTO operator : SprayOperatorViewDTO.getAll(clientRequest))
     {
-      if (operator.getIsAssigned())
-      {
-//        assignedOperators.add(operator);
-      }
-      else
+      if (!operator.getIsAssigned())
       {
         availableOperators.add(operator);
       }
@@ -97,23 +93,40 @@ public class SprayTeamController extends SprayTeamControllerBase implements
       req.setAttribute("leaders", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(),
           "keyName", true, 0, 0).getResultSet());
 
-      List<SprayOperatorViewDTO> currentOperators = new LinkedList<SprayOperatorViewDTO>();
+      SprayOperatorViewDTO[] assigned = SprayOperatorViewDTO.getAllForLocation(clientRequest, team.getSprayZone().getGeoId());
+      List<String> locatedIn = new LinkedList<String>();
+      
+      for(SprayOperatorViewDTO view : assigned)
+      {
+        locatedIn.add(view.getActorId());
+      }
+      
+      
+      
       List<SprayOperatorViewDTO> assignedOperators = new LinkedList<SprayOperatorViewDTO>();
+      List<SprayOperatorViewDTO> currentOperators = new LinkedList<SprayOperatorViewDTO>();
       List<SprayOperatorViewDTO> availableOperators = new LinkedList<SprayOperatorViewDTO>();
+
       for (SprayOperatorViewDTO operator : SprayOperatorViewDTO.getAll(clientRequest))
       {
         if (operator.getIsAssigned())
         {
           if (operator.getTeamId().equals(team.getTeamId()))
+          {
             currentOperators.add(operator);
-          else
+          }
+          else if (locatedIn.contains(operator.getActorId()))
+          {
             assignedOperators.add(operator);
+          }
         }
         else
         {
           availableOperators.add(operator);
         }
       }
+      
+            
 
       List<? extends SprayLeaderDTO> leader = team.getAllTeamLeader();
 

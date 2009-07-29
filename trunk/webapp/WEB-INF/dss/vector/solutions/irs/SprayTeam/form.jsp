@@ -9,9 +9,9 @@
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.irs.SprayOperatorDTO"%>
 <%@page import="dss.vector.solutions.PersonDTO"%>
+<%@page import="dss.vector.solutions.irs.SprayOperatorViewDTO"%>
 
-
-<%@page import="dss.vector.solutions.irs.SprayOperatorViewDTO"%><dt><label> ${item.teamIdMd.displayLabel} </label></dt>
+<dt><label> ${item.teamIdMd.displayLabel} </label></dt>
     <dd>
     <mjl:component item="${item}" param="team">
       <mjl:input type="text" param="teamId" id="teamId" />
@@ -21,7 +21,9 @@
     </mjl:component>
     </dd>
     <dt><label> ${item.sprayZoneMd.displayLabel} </label></dt>
-    <dd><mjl:input type="text" param="geoId" value="${item.sprayZone.geoId}" id="geoIdEl" classes="geoInput"/>  </dd>
+    <dd>
+      <mjl:input type="text" param="geoId" value="${item.sprayZone.geoId}" id="geoIdEl" classes="geoInput"/>
+    </dd>
     <%-- 5.13.09 - Marlize says we don't need Spray Leaders --%>
     <dt><label> <fmt:message key="Spray_Team_Leader" /> </label></dt>
     <dd><mjl:select var="leader" valueAttribute="id" items="${leaders}" param="leaderId" includeBlank="true">
@@ -92,12 +94,18 @@
       <tr>
         <td > </td>
         <td align="center" width="15%">
-          <input type="button" name="left" value="&lt;&lt;" id="add.button.id">
+          <input type="button" name="left" value="&lt;&lt;" id="available.button.id">
         </td>
         <td>
-          <mjl:input id="operatorInput" param="operatorId" type="text" size="12" style="width:15em"/>
-          <mjl:input id="operatorId" param="id" type="hidden" />        
-          <mjl:input id="operatorLabel" param="label" type="hidden" />        
+          <mjl:input id="availableInput" param="availableId" type="text" size="11" style="width:15em"/>
+          <mjl:input id="availableId" param="id" type="hidden" />        
+        </td>
+        <td align="center" width="15%">
+          <input type="button" name="left" value="&lt;&lt;" id="assigned.button.id">
+        </td>
+        <td>
+          <mjl:input id="assignedInput" param="assignedId" type="text" size="11" style="width:15em"/>
+          <mjl:input id="assignedId" param="id" type="hidden" />        
         </td>
       </tr>
     </table>
@@ -106,13 +114,22 @@
     <%=Halp.loadTypes(Arrays.asList(new String[]{SprayOperatorViewDTO.CLASS}))%>
 
     <script type="text/javascript" defer="defer">  
-      addButton = document.getElementById('add.button.id');
       onTeam = document.getElementById('onTeam');      
       notOnTeam = document.getElementById('notOnTeam');   
       onOtherTeam = document.getElementById('onOtherTeam');   
-      teamId = document.getElementById('teamId').value;   
 
-      MDSS.operatorSearch(addButton, onTeam, notOnTeam);       
+      availableButton = document.getElementById('available.button.id');
+      availableInput = document.getElementById('availableInput');   
+      availableId = document.getElementById('availableId');   
+      
+      assignButton = document.getElementById('assigned.button.id');
+      assignInput = document.getElementById('assignedInput');   
+      assignId = document.getElementById('assignedId');   
+      
+      var teamId = document.getElementById('teamId').value;   
+
+      MDSS.operatorSearch(onTeam, notOnTeam, availableButton, availableInput, availableId);       
+      MDSS.operatorSearch(onTeam, onOtherTeam, assignButton, assignInput, assignId);       
 
       var loadAssignedOperators = function(geoId)
       {
@@ -129,7 +146,7 @@
             	for(var i = 0; i < operators.length; i++)
             	{
                     var operator = operators[i];
-                	var team = operators.getTeamId();
+                	var team = operator.getTeamId();
                 	var value = operator.getActorId();
                 	var text = '[' + team + '] ' + operator.getFirstName() + ' ' + operator.getLastName() + ' - ' + operator.getOperatorId();
 

@@ -1,14 +1,12 @@
-  MDSS.operatorSearch = function(addButton, onTeam, notOnTeam){
+  MDSS.operatorSearch = function(to, from, button, input, id){
 	  
-    var operatorInput = document.getElementById('operatorInput');                
-
-    var collectionResults = document.createElement('div');
-    collectionResults.id = 'operatorInput_results';
-    collectionResults.className = "yui-panel-container show-scrollbars shadow";
+    var searchResults = document.createElement('div');
+    searchResults.id = input.id + '_results';
+    searchResults.className = "yui-panel-container show-scrollbars shadow";
     
-    YAHOO.util.Dom.insertAfter(collectionResults,operatorInput);
+    YAHOO.util.Dom.insertAfter(searchResults,input);
 
-    var panel = new YAHOO.widget.Panel(collectionResults, {
+    var panel = new YAHOO.widget.Panel(searchResults, {
       width:'400px',
       height:'200px',
       zindex:15,
@@ -17,26 +15,18 @@
     });
 
     var selectHandler = function(selected) {
-      var operatorInput = document.getElementById('operatorInput');
-      var operatorId = document.getElementById('operatorId');
-      var operatorLabel = document.getElementById('operatorLabel');
 
       if(selected != null) {
-         operatorInput.value = selected.operatorId;
+         input.value = selected.label;
          
-         if(operatorId) {
-           operatorId.value = selected.id;
-         }
-         
-         if(operatorLabel) {
-           operatorLabel.value = selected.operatorLabel;
-         }
+         if(id) {
+           id.value = selected.id;
+         }         
       }
       else {
-        if(operatorId)
+        if(id)
         {
-            operatorId.value = '';
-            operatorLabel.value = '';
+            id.value = '';
         }
       }
     }
@@ -66,9 +56,8 @@
      */
     var ajaxSearch = function(e)
     {
-      var input = document.getElementById('operatorInput');
       var value = input.value;
-      var resultPanel = panel; //document.getElementById('geoIdEl'+'_results');
+      var resultPanel = panel;
 
       // must have at least 2 characters ready
       if(value.length < 2)
@@ -76,7 +65,7 @@
         return;
       }
       
-      var resultSet = getResultSet(notOnTeam.options, value);
+      var resultSet = getResultSet(from.options, value);
 
       var outer = document.createElement('div');
 
@@ -140,8 +129,7 @@
         var li = document.createElement('li');
 
         li.id = valueObj.value;
-        li.operatorLabel = valueObj.text;
-        li.operatorId = valueObj.text;
+        li.label = valueObj.text;
 
         var displayStr = valueObj.text;
         var matched = displayStr.replace(new RegExp("(.*?)("+this.value+")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
@@ -161,51 +149,41 @@
       input.focus();
     }
     
-    var removeOption = function(selectbox, operatorId)
+    var removeOption = function(selectbox, id)
     {
       var i;
 
       for(i=0; i < selectbox.options.length; i++)
       {
-        if(selectbox.options[i].value === operatorId)          
+        if(selectbox.options[i].value === id)          
           selectbox.remove(i);
       }
     }   
 
     var addOption =  function(selectbox, text,value)
     {
-      var optn = document.createElement("OPTION");
-
-      optn.text = text;
-      optn.value = value;
-
-      if(!Selectbox.containsOption(selectbox, optn))
+      if(!Selectbox.containsOption(selectbox, value))
       {
-        selectbox.options.add(optn);
+    	Selectbox.addOption(selectbox, text, value, false);
       }
     }
     
     var addClick = function()
     {
-      var operatorId = document.getElementById('operatorId');      
-      var operatorInput = document.getElementById('operatorInput');      
-      var operatorLabel = document.getElementById('operatorLabel');      
-
-      if(operatorId.value !== null && operatorLabel.value !== null)
+      if(id.value !== null && input.value !== null)
       {
-        // Remove the selected operator from the notOnTeam list
-        removeOption(notOnTeam, operatorId.value);                        
+        // Remove the selected operator from the from list
+        removeOption(from, id.value);                        
 
-        // Add the selected operator to the onTeam list
-        addOption(onTeam, operatorLabel.value, operatorId.value);
+        // Add the selected operator to the to list
+        addOption(to, input.value, id.value);
 
         // Clear values of the drop down box
-        operatorId.value=null;
-        operatorLabel.value=null;
-        operatorInput.value=null;
+        id.value=null;
+        input.value=null;
       }          
     }
     
-    YAHOO.util.Event.on(operatorInput, 'keyup', ajaxSearch, null, null);    
-    YAHOO.util.Event.on(addButton, 'click', addClick, null, null);    
+    YAHOO.util.Event.on(input, 'keyup', ajaxSearch, null, null);    
+    YAHOO.util.Event.on(button, 'click', addClick, null, null);    
   }
