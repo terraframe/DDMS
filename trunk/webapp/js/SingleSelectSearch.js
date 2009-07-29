@@ -196,6 +196,8 @@ YAHOO.util.Event.onDOMReady(function(){
     selectSearch.setTreeSelectHandler(selectHandler);
 
     var defaultFilter = '';
+    // Allow either filtering via radio button or through
+    // a predictable element whose value is a type.
     for each (radio in radios)
     {
       if(radio.checked)
@@ -212,6 +214,13 @@ YAHOO.util.Event.onDOMReady(function(){
         }
 
       }, null, selectSearch);
+      
+    }
+    
+    var typeSearchFilter = document.getElementById('typeSearchFilter');
+    if(typeSearchFilter)
+    {
+      defaultFilter = typeSearchFilter.value;
     }
     
     selectSearch.setFilter(defaultFilter);   
