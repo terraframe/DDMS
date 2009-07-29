@@ -157,7 +157,11 @@ data = {
         return oData;
        }
      }
-     
+
+     var beforeRowAdd = function() {        
+         YAHOO.util.Dom.get(data.div_id + 'Saverows-button').click();
+     }
+      
      var loadUnusedTeams = function(e){
          var column = data.myDataTable.getColumn('SprayTeam');
          var cell = e.editor.getTdEl();

@@ -127,6 +127,10 @@
               excelButtons:false
           };
 
+    var beforeRowAdd = function() {        
+        YAHOO.util.Dom.get(data.div_id + 'Saverows-button').click();
+    }
+    
     var validateSprayOperator = function(oData) {
         // Validate
 	    var selectedValues = data.myDataTable.getRecordSet().getRecords().map( function(record) {

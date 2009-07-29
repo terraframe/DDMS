@@ -148,6 +148,10 @@
             return undefined;
         }
     }
+
+    var beforeRowAdd = function() {        
+        YAHOO.util.Dom.get(data.div_id + 'Saverows-button').click();
+    }
     
 	var indexHouseholds = 4;
 	var indexStructures = 5;
@@ -179,7 +183,7 @@
     	delete data.columnDefs[indexPrevSprayedHouseholds].editor;
     	delete data.columnDefs[indexPrevSprayedStructures].editor;
     	delete data.columnDefs[indexRooms].editor;
-    }
+    }    
     
     document.addEventListener('load', MojoGrid.createDataTable(data), false);
 

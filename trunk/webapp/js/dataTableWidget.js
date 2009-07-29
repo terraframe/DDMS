@@ -428,6 +428,80 @@ MojoGrid.createDataTable = function(table_data) {
     //myDataTable.unselectCell(editor.getTdEl());
     YAHOO.log("Saved Cell:" + editor._oColumn.label, "warn", "Widget");
   };
+  
+  var persistData = function() {
+      // save any open editors before we send the ajax request
+      myDataTable.saveCellEditor();
+      var request = new MDSS.Request( {
+        // success handler for saved rows
+        dataTable : myDataTable,
+        table_data : table_data,
+        btnSaveRows : btnSaveRows,
+        onSuccess : function(savedRows) {
+          if (!table_data.dont_update_on_save) {
+            var id_key = table_data.fields[0].key;
+
+            for( var i = 0; i < savedRows.length; i++) {
+              var id = savedRows[i]["get" + id_key]();
+              this.dataTable.getRecord(i).setData(id_key, id);
+              this.table_data.rows[i][id_key] = id;
+            }
+
+            table_data.dirty = false;
+            btnSaveRows.set("disabled", true);
+            this.dataTable.render();
+
+            if (table_data.after_save) {
+              table_data.after_save();
+            }
+            this.fireEvent("tableSaveEvent");
+          }
+        }
+      });
+
+      function setValue(){
+        var setter_exists = Mojo.util.isFunction(view['set' + attrib.key]);
+        if (setter_exists) {
+          if (val != null) {
+            if (view.attributeMap[attribName].dtoType == "AttributeDateDTO") {
+              view['set' + attrib.key](MDSS.Calendar.parseDate(val));
+            } else {
+              view['set' + attrib.key](val);
+            }
+          } else {
+            //FIXME: this is a workaround for a bug in mojo
+            view['set' + attrib.key]("");
+          }
+        }
+        else{
+           // enum setters start with "add" instead of "set"
+          var setter_exists = Mojo.util.isFunction(view['add' + attrib.key]);
+          if (setter_exists) {
+            view['add' + attrib.key](val);
+          }
+        }
+      }
+
+      var view_arr = new Array();
+
+      for ( var r = 0; r < table_data.rows.length; r++) {
+        var row = table_data.rows[r];
+        var view_contructor = Mojo.util.getType(table_data.data_type);
+        var view = new view_contructor();
+
+        for ( var i = 0; i < table_data.fields.length; i++) {
+          var attrib = table_data.fields[i];
+          var val = row[attrib.key];
+          var attribName = attrib.key.substring(0, 1).toLowerCase() + attrib.key.substring(1);
+          setValue();
+        }
+        view_arr.push(view);
+      }
+      eval(table_data.data_type + "." + table_data.saveFunction + '(request,view_arr)');
+      btnSaveRows.set("disabled", true);
+    };
+	  
+  
 
   MojoGrid.saveHandler = saveSomeData;
   myDataTable.subscribe("editorSaveEvent", saveSomeData);
@@ -457,82 +531,19 @@ MojoGrid.createDataTable = function(table_data) {
   if (YAHOO.util.Dom.get(table_data.div_id + 'Saverows')) {
     // set up the button that saves the rows to the db
     var btnSaveRows = new YAHOO.widget.Button(table_data.div_id + "Saverows");
-    btnSaveRows.on("click", function(){
-      // save any open editors before we send the ajax request
-        myDataTable.saveCellEditor();
-        var request = new MDSS.Request( {
-          // success handler for saved rows
-          dataTable : myDataTable,
-          table_data : table_data,
-          btnSaveRows : btnSaveRows,
-          onSuccess : function(savedRows) {
-            if (!table_data.dont_update_on_save) {
-              var id_key = table_data.fields[0].key;
-
-              for( var i = 0; i < savedRows.length; i++) {
-                var id = savedRows[i]["get" + id_key]();
-                this.dataTable.getRecord(i).setData(id_key, id);
-                this.table_data.rows[i][id_key] = id;
-              }
-
-              table_data.dirty = false;
-              btnSaveRows.set("disabled", true);
-              this.dataTable.render();
-
-              if (table_data.after_save) {
-                table_data.after_save();
-              }
-              this.fireEvent("tableSaveEvent");
-            }
-          }
-        });
-
-        function setValue(){
-          var setter_exists = Mojo.util.isFunction(view['set' + attrib.key]);
-          if (setter_exists) {
-            if (val != null) {
-              if (view.attributeMap[attribName].dtoType == "AttributeDateDTO") {
-                view['set' + attrib.key](MDSS.Calendar.parseDate(val));
-              } else {
-                view['set' + attrib.key](val);
-              }
-            } else {
-              //FIXME: this is a workaround for a bug in mojo
-              view['set' + attrib.key]("");
-            }
-          }
-          else{
-             // enum setters start with "add" instead of "set"
-            var setter_exists = Mojo.util.isFunction(view['add' + attrib.key]);
-            if (setter_exists) {
-              view['add' + attrib.key](val);
-            }
-          }
-        }
-
-        var view_arr = new Array();
-
-        for ( var r = 0; r < table_data.rows.length; r++) {
-          var row = table_data.rows[r];
-          var view_contructor = Mojo.util.getType(table_data.data_type);
-          var view = new view_contructor();
-
-          for ( var i = 0; i < table_data.fields.length; i++) {
-            var attrib = table_data.fields[i];
-            var val = row[attrib.key];
-            var attribName = attrib.key.substring(0, 1).toLowerCase() + attrib.key.substring(1);
-            setValue();
-          }
-          view_arr.push(view);
-        }
-        eval(table_data.data_type + "." + table_data.saveFunction + '(request,view_arr)');
-        btnSaveRows.set("disabled", true);
-      });
+    btnSaveRows.on("click", persistData);
   }
 
 
   // Add one row to the bottom
   var addRow = function() {
+	  
+	// Execute before row add
+    if(typeof beforeRowAdd !== 'undefined' && Mojo.util.isFunction(beforeRowAdd))
+    {
+    	beforeRowAdd();
+    }    
+	  
     // Clear sort when necessary
     if (bReverseSorted) {
       myDataTable.set("sortedBy", null);
@@ -553,7 +564,7 @@ MojoGrid.createDataTable = function(table_data) {
     table_data.rows.push(new_data_row);
     myDataTable.addRow(new_label_row);
     table_data.dirty = true;
-    btnSaveRows.set("disabled", false);
+    btnSaveRows.set("disabled", false);    
   }
 
   if (YAHOO.util.Dom.get(table_data.div_id + 'Addrow')) {
