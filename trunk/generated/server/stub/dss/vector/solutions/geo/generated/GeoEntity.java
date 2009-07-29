@@ -1270,36 +1270,36 @@ public abstract class GeoEntity extends GeoEntityBase implements
       String childMdBusiness)
   {
     // create save point
-    //Savepoint savepoint = Database.setSavepoint();
+    Savepoint savepoint = Database.setSavepoint();
 
     try
     {
       
       // Check if the entry already exists. If so, don't create it.
       // WARNING: this is not thread safe. Make SAVEPOINTS work instead.
-      QueryFactory f = new QueryFactory(); AllPathsQuery q = new
-      AllPathsQuery(f); q.WHERE(q.getChildGeoEntity().EQ(childId));
-      q.WHERE(q.getParentGeoEntity().EQ(parentId));
-      
-      if(q.getCount() == 0)
-      {
+//      QueryFactory f = new QueryFactory(); AllPathsQuery q = new
+//      AllPathsQuery(f); q.WHERE(q.getChildGeoEntity().EQ(childId));
+//      q.WHERE(q.getParentGeoEntity().EQ(parentId));
+//      
+//      if(q.getCount() == 0)
+//      {
         AllPaths allPaths = new AllPaths();
         allPaths.setValue(AllPaths.PARENTGEOENTITY, parentId);
         allPaths.setValue(AllPaths.PARENTUNIVERSAL, parentMdBusiness);
         allPaths.setValue(AllPaths.CHILDGEOENTITY, childId);
         allPaths.setValue(AllPaths.CHILDUNIVERSAL, childMdBusiness);
         allPaths.apply();
-      }
+//      }
 
     }
     catch (DuplicateDataDatabaseException ex)
     {
       // This might happen. Relationship already exists.
-//      Database.rollbackSavepoint(savepoint);
+      Database.rollbackSavepoint(savepoint);
     }
     finally
     {
-//      Database.releaseSavepoint(savepoint);
+      Database.releaseSavepoint(savepoint);
     }
   }
 

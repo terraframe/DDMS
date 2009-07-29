@@ -287,9 +287,12 @@ public class SavedSearch extends SavedSearchBase implements
     return search.getAsView(false, false);
   }
 
+  /**
+   * Cleans up all views older than an hour.
+   */
   private static void cleanOldViews()
   {
-    long yesterday = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
+    long anHourAgo = System.currentTimeMillis() - (60 * 60 * 1000);
     List<String> viewsToDelete = new LinkedList<String>();
     for (String viewName : Database.getViewsByPrefix(ThematicLayer.GEO_VIEW_PREFIX))
     {
@@ -297,7 +300,7 @@ public class SavedSearch extends SavedSearchBase implements
       try
       {
         long parseLong = Long.parseLong(next.substring(ThematicLayer.GEO_VIEW_PREFIX.length()));
-        if (parseLong < yesterday)
+        if (parseLong < anHourAgo)
         {
           // This view is old.  Add it to the deletion list 
           viewsToDelete.add(viewName);

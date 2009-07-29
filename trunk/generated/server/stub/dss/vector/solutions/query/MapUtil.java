@@ -342,7 +342,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
 
      HttpClient createClient = new HttpClient();
      int createCode = createClient.executeMethod(createPost);
-     printResponse("Create", createCode, createPost, true);
+     printResponse("Create", createCode, createPost, false);
      createPost.releaseConnection();
 
      // Apply
