@@ -173,6 +173,11 @@ h2 {
 	text-decoration: none;
 }
 
+.yui-skin-sam .yuimenubaritemlabel-disabled {
+	cursor: default;
+	color: white;
+	background-color: darkgrey;
+}
 .yui-skin-sam .yuimenubaritem-selected {
 	background: url(/MDSS/imgs/design/sprite.png) repeat-x 0 -100px;
 }
