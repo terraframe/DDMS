@@ -104,33 +104,24 @@
 <script type="text/javascript">
 function showCol(key,checked)
 {
-  var className = "yui-dt-col-" + key;
-  var methodName = "yui-dt-col-" + key + "Method";
-  var resultColumn = YAHOO.util.Selector.query("." + className);
-  var methodColumn = YAHOO.util.Selector.query("." + methodName);
-  var elements = resultColumn.concat(methodColumn);
+  var methodKey = key +'Method';
 
-  for (var e = 0; e < elements.length; e++)
-  {
-    if(checked)
-    {
+  if(checked)
+  {        
       table_data.myDataTable.showColumn(key);
-      table_data.myDataTable.showColumn(key+'Method');
-//      elements[e].style.display = '';
-    }
-    else
-    {        
-      table_data.myDataTable.hideColumn(key);
-      table_data.myDataTable.hideColumn(key+'Method');
-//      elements[e].style.display = 'none';
-    }
+      table_data.myDataTable.showColumn(methodKey);
   }
-
-//  table_data.myDataTable.render();  
+  else
+  {        
+      table_data.myDataTable.hideColumn(key);
+      table_data.myDataTable.hideColumn(methodKey);
+  }
 }
 
 <%String[] types_to_load = {MosquitoViewDTO.CLASS, UninterestingSpecieGroupViewDTO.CLASS}; %>
 <%=Halp.getDropdownSetup(mdView, attribs, delete_row,clientRequest)%>
+
+var editors = Mojo.util.getObject(<%=request.getAttribute("editors")%>);
 
 MDSS.Calendar.init()
 table_data = {rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
@@ -185,10 +176,6 @@ var reloadColumns = function()
     showCol(checkboxes[i].id,checkboxes[i].checked);  
   }  
 }
-
-//table_data.myDataTable.subscribe("postRenderEvent", reloadColumns);     
-//table_data.myDataTable.subscribe("rowAddEvent", reloadColumns);     
-//table_data.myDataTable.subscribe("tableSaveEvent", reloadColumns);     
 
 reloadColumns();
 </script>
