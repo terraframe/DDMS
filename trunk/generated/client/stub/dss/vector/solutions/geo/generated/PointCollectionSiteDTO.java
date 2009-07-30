@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public class PointCollectionSiteDTO extends PointCollectionSiteDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1248824437878L;
+  private static final long serialVersionUID = 1248910460705L;
   
   public PointCollectionSiteDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

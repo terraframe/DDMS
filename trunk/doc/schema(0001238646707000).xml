@@ -22,7 +22,8 @@
             name="entityName"
             required="false"
             label="Geo Entity Name"
-            size="255" />
+            size="255"
+            indexType="non-unique index" />
           <boolean
             name="activated"
             required="true"
@@ -5390,7 +5391,7 @@
           name="definition"
           value="Larvae Age: Egg" />
       </object>
-      
+
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
         id="LarvaeAge_1st_Instar">
@@ -5413,7 +5414,7 @@
           name="definition"
           value="Larvae Age: 1st Instar" />
       </object>
-      
+
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
         id="LarvaeAge_2nd_Instar">
@@ -5436,7 +5437,7 @@
           name="definition"
           value="Larvae Age: 2nd Instar" />
       </object>
-      
+
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
         id="LarvaeAge_3rd_Instar">
@@ -5459,7 +5460,7 @@
           name="definition"
           value="Larvae Age: 3rd Instar" />
       </object>
-      
+
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
         id="LarvaeAge_4th_Instar">
@@ -5482,7 +5483,7 @@
           name="definition"
           value="Larvae Age: 4th Instar" />
       </object>
-      
+
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
         id="LarvaeAge_Pupae">
@@ -5550,7 +5551,7 @@
         name="geoEntityClass"
         id="EarthMd" />
       </object>
-			
+
       <object
         id="earth"
         type="dss.vector.solutions.geo.generated.Earth">
@@ -5656,7 +5657,7 @@
           <valueAttribute
             name="defaultLocale"
             value="Manager" />
-        </structAttribute>          
+        </structAttribute>
       </object>
 	</create>
 

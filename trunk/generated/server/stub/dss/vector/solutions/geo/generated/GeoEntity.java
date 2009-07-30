@@ -23,7 +23,6 @@ import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
-import com.terraframe.mojo.dataaccess.database.IDGenerator;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -56,6 +55,7 @@ import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoEntityViewQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyView;
+import dss.vector.solutions.geo.GeoSynonym;
 import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.LocatedInQuery;
@@ -82,7 +82,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
   /**
    * Applies this GeoEntity and recursively sets the activated status of all
    * children if the status has changed on the parent.
-   * 
+   *
    * @return
    */
   @Transaction
@@ -105,7 +105,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
   /**
    * Updates this GeoEntity and its children if its activated attribute has been
    * modified.
-   * 
+   *
    * @return
    */
   @Override
@@ -151,7 +151,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Searches for a GeoEntity based on the entity name and type.
-   * 
+   *
    * @param type
    * @param name
    * @return
@@ -195,7 +195,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Searches for a GeoEntity based on the entity name and type.
-   * 
+   *
    * @param type
    * @param name
    * @return
@@ -272,7 +272,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
      * > 1) { GeoEntity parent = GeoEntity.get(parentId);
      * ConfirmDeleteEntityException ex = new ConfirmDeleteEntityException();
      * ex.setEntityName(parent.getEntityName());
-     * 
+     *
      * throw ex; } else { this.delete(); }
      */
   }
@@ -319,10 +319,10 @@ public abstract class GeoEntity extends GeoEntityBase implements
      * clean up the paths table. This will invalidate the paths table
      * QueryFactory f = new QueryFactory(); AllPathsQuery pathsQuery = new
      * AllPathsQuery(f);
-     * 
+     *
      * pathsQuery.WHERE(OR.get(pathsQuery.getChildGeoEntity().EQ(this),
      * pathsQuery.getParentGeoEntity().EQ(this)));
-     * 
+     *
      * OIterator<? extends AllPaths> iter = pathsQuery.getIterator(); try {
      * while(iter.hasNext()) { iter.next().delete(); } } finally { iter.close();
      * }
@@ -351,7 +351,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
   /**
    * Searches for the GeoEntity with the given geoId and returns itself and its
    * children and parents.
-   * 
+   *
    * @param geoId
    * @param filter
    * @return
@@ -418,7 +418,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Converts a GeoEntity id into a view representation.
-   * 
+   *
    * @return
    */
 
@@ -429,7 +429,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Converts a GeoEntity id into a view representation.
-   * 
+   *
    * @return
    */
 
@@ -440,7 +440,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Converts this GeoEntity into a view representation.
-   * 
+   *
    * @return
    */
   private GeoEntityView getViewFromGeoEntity()
@@ -461,7 +461,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Returns all parents of this GeoEntity up to one level.
-   * 
+   *
    * @return
    */
   public List<GeoEntity> getImmediateParents()
@@ -485,7 +485,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Recursively collects all children with the {@link LocatedIn} relationship.
-   * 
+   *
    * @return
    */
   public List<GeoEntity> getAllChildren()
@@ -497,7 +497,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Recursively collects all child ids with the {@link LocatedIn} relationship.
-   * 
+   *
    * @param filter
    *          Return only children with this class
    * @return Array of child Ids sorted by name
@@ -522,7 +522,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Recursive function to collect {@link LocatedIn} children.
-   * 
+   *
    * @param children
    * @param parent
    */
@@ -538,7 +538,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Recursively collects all parents of the LocatedIn relationship.
-   * 
+   *
    * @return
    */
   public List<GeoEntity> getAllParents()
@@ -552,7 +552,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Recursive method that collects all parents for the given parent.
-   * 
+   *
    * @param allChildren
    * @param parent
    * @return
@@ -569,7 +569,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Returns all the children of this GeoEntity up to one level.
-   * 
+   *
    * @return
    */
   public List<GeoEntity> getImmediateChildren()
@@ -593,7 +593,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Returns the first level of children which belong to the spray hierarchy.
-   * 
+   *
    * @return
    */
   public GeoEntity[] getImmediateSprayChildren()
@@ -704,7 +704,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
   /**
    * Sets all children of the parent GeoEntity to the given activated status. If
    * a child has more than one parent then nothing is changed for that child.
-   * 
+   *
    * @param activated
    * @param parent
    * @return A list of ids for each updated child.
@@ -736,7 +736,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
    * Checks if this GoeEntity is eligible to have its active status changed. The
    * general rule is as follows: A child with more than one parent set to active
    * cannot be deactivated. All other cases are allowed.
-   * 
+   *
    * @param activated
    *          The active status of the parent.
    * @return
@@ -767,7 +767,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
    * Adds this GeoEntity as a child of the given parent for the
    * {@link LocatedIn} relationship. If this is not for a clone operation then
    * all prior parent relationships will be removed.
-   * 
+   *
    */
   @Override
   @Transaction
@@ -802,7 +802,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
       {
         throw new ActionNotAllowedException();
       }
-      /* 
+      /*
       OIterator<? extends LocatedIn> iter = this.getAllLocatedInGeoEntityRel();
       try
       {
@@ -881,7 +881,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Validates that this GeoEntity is allowed in the given parent GeoEntity.
-   * 
+   *
    * @param parentGeoEntityId
    * @return
    */
@@ -925,7 +925,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Recursively checks if the child GeoHierarcy is allowed in the parent.
-   * 
+   *
    * @param parent
    * @param child
    * @return
@@ -1137,7 +1137,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
   /**
    * Given a filter (a GeoEntity class), this method returns all parents and
    * children and the filter type itself that's allowed in the hierarchy.
-   * 
+   *
    * @param type
    * @return
    */
@@ -1274,13 +1274,13 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     try
     {
-      
+
       // Check if the entry already exists. If so, don't create it.
       // WARNING: this is not thread safe. Make SAVEPOINTS work instead.
 //      QueryFactory f = new QueryFactory(); AllPathsQuery q = new
 //      AllPathsQuery(f); q.WHERE(q.getChildGeoEntity().EQ(childId));
 //      q.WHERE(q.getParentGeoEntity().EQ(parentId));
-//      
+//
 //      if(q.getCount() == 0)
 //      {
         AllPaths allPaths = new AllPaths();
@@ -1313,5 +1313,15 @@ public abstract class GeoEntity extends GeoEntityBase implements
       System.out.println();
     }
     return applyCount;
+  }
+
+  @Transaction
+  public void addSynonym(String synonymEntityName)
+  {
+    GeoSynonym geoSynonym = new GeoSynonym();
+    geoSynonym.setEntityName(synonymEntityName);
+    geoSynonym.apply();
+
+    this.addSynonyms(geoSynonym).apply();
   }
 }

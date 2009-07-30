@@ -1,8 +1,9 @@
 package dss.vector.solutions.export;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -17,77 +18,125 @@ import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
+import dss.vector.solutions.UnknownGeoEntityException;
+import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.util.GenericHierarchySearcher;
-import dss.vector.solutions.util.GeoEntitySearcher;
 import dss.vector.solutions.util.HierarchyBuilder;
-import dss.vector.solutions.util.SearchableHierarchy;
 
 public class DynamicGeoColumnListener implements ExcelExportListener, ImportListener, Reloadable
 {
   private String attributeName;
   private String excelType;
+  private GeoHierarchy[] endPoints;
   private List<GeoHierarchy> hierarchyList;
-  
+  private Map<String, List<GeoHierarchy>> endPointHierarchyMap;
+
   public static final String PREFIX = "Geo ";
-  
+
   public DynamicGeoColumnListener(String excelType, String attributeName, GeoHierarchy... endPoints)
   {
     this.attributeName = attributeName;
     this.excelType = excelType;
-    HierarchyBuilder hierarchyBuilder = new HierarchyBuilder();
+    this.endPoints = endPoints;
+    this.endPointHierarchyMap = new HashMap<String, List<GeoHierarchy>>();
+    HierarchyBuilder mainHierarchyBuilder = new HierarchyBuilder();
     for (GeoHierarchy endPoint : endPoints)
     {
-      hierarchyBuilder.add(endPoint);
+      mainHierarchyBuilder.add(endPoint);
+
+      HierarchyBuilder endPointHierarchyBuilder = new HierarchyBuilder();
+      endPointHierarchyBuilder.add(endPoint);
+      this.endPointHierarchyMap.put(endPoint.getGeoEntityClass().definesType(), endPointHierarchyBuilder.getHierarchy());
     }
-    hierarchyList = hierarchyBuilder.getHierarchy();
+    hierarchyList = mainHierarchyBuilder.getHierarchy();
   }
 
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    
+
     for(GeoHierarchy hierarchy : hierarchyList)
     {
       MdBusiness geoEntityClass = hierarchy.getGeoEntityClass();
       String geoLabel = geoEntityClass.getDisplayLabel().getValue();
       String geoAttribute = getExcelAttribute(geoEntityClass);
-      
+
       extraColumns.add(new ExcelColumn(geoAttribute, geoLabel));
     }
   }
 
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row) throws Exception
   {
-    List<SearchableHierarchy> searchable = new LinkedList<SearchableHierarchy>();
     List<String> geoEntityNames = new ArrayList<String>(hierarchyList.size());
-    
-    // Iterate over every expected column
-    for(GeoHierarchy hierarchy : hierarchyList)
+
+    String endPointEntityName = "";
+
+    GeoEntity entity = null;
+    for (GeoHierarchy endPoint : this.endPoints)
     {
-      MdBusiness geoEntityClass = hierarchy.getGeoEntityClass();
-      searchable.add(new GenericHierarchySearcher(geoEntityClass.definesType()));
-      String excelAttribute = getExcelAttribute(geoEntityClass);
-      
-      // Go find the expected column
-      for (ExcelColumn column : extraColumns)
+      Map<String, String> parentGeoEntityMap = new HashMap<String, String>();
+
+      MdBusiness endPointgeoEntityClass = endPoint.getGeoEntityClass();
+      String endPointExcelAttribute = getExcelAttribute(endPointgeoEntityClass);
+
+      for(GeoHierarchy hierarchy : this.endPointHierarchyMap.get(endPoint.getGeoEntityClass().definesType()))
       {
-        if (column.getAttributeName().equals(excelAttribute))
+        MdBusiness geoEntityClass = hierarchy.getGeoEntityClass();
+        String excelAttribute = getExcelAttribute(geoEntityClass);
+
+        // Go find the expected column
+        for (ExcelColumn column : extraColumns)
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          geoEntityNames.add(cell.getRichStringCellValue().getString());
-          continue;
+          String entityName;
+          if (cell==null)
+          {
+            entityName = "";
+          }
+          else
+          {
+            entityName = cell.getRichStringCellValue().getString();
+          }
+
+          if (column.getAttributeName().equals(endPointExcelAttribute))
+          {
+            endPointEntityName = entityName;
+          }
+          else if (column.getAttributeName().equals(excelAttribute))
+          {
+            geoEntityNames.add(entityName);
+            parentGeoEntityMap.put(geoEntityClass.definesType(), entityName);
+          }
+        }
+      }
+
+      if (!endPointEntityName.equals(""))
+      {
+        try
+        {
+          entity = AllPaths.search(parentGeoEntityMap, endPointgeoEntityClass.definesType(), endPointEntityName);
+        }
+        catch(UnknownGeoEntityException e)
+        {
+          // This may happen if there are multiple endpoints and the current endpoint.
         }
       }
     }
-    
-    GeoEntitySearcher searcher = new GeoEntitySearcher(searchable);
-    GeoEntity entity = searcher.getGeoEntity(geoEntityNames);
-    
-    // Now use reflection to set the value
-    Class<?> excelClass = LoaderDecorator.load(excelType);
-    String accessorName = GenerationUtil.upperFirstCharacter(instance.getMdAttributeDAO(attributeName).getAccessorName());
-    excelClass.getMethod("set" + accessorName, GeoEntity.class).invoke(instance, entity);
+
+    if (entity != null)
+    {
+      // Now use reflection to set the value
+      Class<?> excelClass = LoaderDecorator.load(excelType);
+      String accessorName = GenerationUtil.upperFirstCharacter(instance.getMdAttributeDAO(attributeName).getAccessorName());
+      excelClass.getMethod("set" + accessorName, GeoEntity.class).invoke(instance, entity);
+    }
+    else
+    {
+      String msg = "Unknown Geo Entity [" + endPointEntityName + "]";
+      UnknownGeoEntityException e =  new UnknownGeoEntityException(msg);
+      e.setEntityName(endPointEntityName);
+      e.apply();
+    }
   }
 
   private String getExcelAttribute(MdBusiness geoEntityClass)

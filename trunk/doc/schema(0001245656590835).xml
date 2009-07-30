@@ -23,7 +23,8 @@
             required="true"
             unique="false"
             type="com.terraframe.mojo.system.metadata.MdBusiness"
-            description="The Universal of the Parent"/>
+            description="The Universal of the Parent"
+            indexType="non-unique index"/>
           <reference
             name="childGeoEntity"
             label="Child Geo Entity"
@@ -38,7 +39,8 @@
             required="true"
             unique="false"
             type="com.terraframe.mojo.system.metadata.MdBusiness"
-            description="The Universal of the Child"/>
+            description="The Universal of the Child"
+            indexType="non-unique index"/>
         </attributes>
       </mdBusiness>
 
@@ -90,8 +92,8 @@
             type="java.lang.String" />
         </mdMethod>
         </create>
-      </mdBusiness> 
-    
+      </mdBusiness>
+
     </update>
   </doIt>
   <undoIt>

@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public class ExitTrapDTO extends ExitTrapDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1248824484647L;
+  private static final long serialVersionUID = 1248910519241L;
   
   public ExitTrapDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

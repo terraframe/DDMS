@@ -38,12 +38,18 @@ public class GeoEntitySearcher implements Reloadable
           if (results.size() == 0)
           {
             String msg = "Unknown Geo Entity [" + entityName + "]";
-            throw new UnknownGeoEntityException(msg);
+            UnknownGeoEntityException e =  new UnknownGeoEntityException(msg);
+            e.setEntityName(entityName);
+            e.apply();
+            throw e;
           }
           else if (results.size() != 1)
           {
             String msg = "Geo Entity ending with [" + entityName + "] is ambiguous (It has more than one possible solution)";
-            throw new AmbigiousGeoEntityException(msg);
+            AmbigiousGeoEntityException e = new AmbigiousGeoEntityException(msg);
+            e.setEntityName(entityName);
+            e.apply();
+            throw e;
           }
 
           current = results.get(0);
