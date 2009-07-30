@@ -137,7 +137,23 @@ YAHOO.util.Event.onDOMReady(function(){
           return;
         }
 
-        if (validTypes.length == 0  || validTypes.indexOf(selected.getEntityType()) > -1 )
+
+        var valid;
+        if(currentFilter == null || currentFilter == '')
+        {
+          valid = true;
+        }
+        else
+        {
+          var currentFilter = selectSearch.getFilter();
+          var expectedType = Mojo.util.getType(currentFilter);
+          var tempC = Mojo.util.getType(geoEntity.getEntityType());
+          var tempGeo = new tempC();
+          
+          valid = tempGeo instanceof expectedType;
+        }
+
+        if (valid)
         {
             YAHOO.util.Dom.removeClass(geoInfo,'alert');
             geoId.value = selected.getGeoId();
