@@ -18,6 +18,13 @@ public class GeoHierarchyView extends GeoHierarchyViewBase implements Searchable
   {
     super();
   }
+  
+  @Override
+  public int hashCode() {
+    
+    return this.getGeoHierarchyId().hashCode();
+    
+  };
 
   @Override
   public boolean equals(Object obj)

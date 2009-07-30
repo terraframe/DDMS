@@ -398,6 +398,11 @@ MDSS.AbstractSelectSearch.prototype = {
       this._doFilter();
     }
   },
+  
+  getFilter : function()
+  {
+    return this._filterType;
+  },
 
   /**
    * Performs the DOM level filtering by hiding/showing

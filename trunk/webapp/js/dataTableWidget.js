@@ -4,14 +4,12 @@
 var MojoGrid = YAHOO.namespace('MojoGrid');
 MojoGrid.cellLock = false;
 
-
-
-
 MojoGrid.validateBool = function(inputValue, currentValue, editorInstance) {
   return "test";
 };
 
 MojoGrid.createDataTable = function(table_data) {
+
   // locals to be returned
   var myDataSource, myDataTable;
 
@@ -161,9 +159,16 @@ MojoGrid.createDataTable = function(table_data) {
   var onCellClick = function(oArgs) {
     var target = oArgs.target;
     //myDataTable.focusTbodyEl();
-    //myDataTable.unselectAllCells();
+    myDataTable.unselectAllCells();
     myDataTable.selectCell(target);
     var column = myDataTable.getColumn(target);
+    
+    // don't allow editing if column is hidden
+    if(column.hidden)
+    {
+      return;
+    }
+    
     switch (column.action) {
       case 'delete':
         var record = myDataTable.getRecord(target);
@@ -230,10 +235,10 @@ MojoGrid.createDataTable = function(table_data) {
   
     // 9 = tab, 13 = enter
     var e = obj.event;
-
-
+    
     if (e.keyCode === 9) {
     
+      //e.preventDefault();
       YAHOO.util.Event.stopEvent(e);
 
       if(MojoGrid.cellLock)
@@ -306,45 +311,14 @@ MojoGrid.createDataTable = function(table_data) {
           
           myDataTable.unselectAllCells();
           
-          // Use delays to allow a proper reflow before letting YUI
-          // complete the selection and editor processes. This fixes
-          // faulty tabbing.
-          setTimeout((function(table, cell){
-            
-            return function(){
-              try
-              {
-                table.selectCell(cell);
-              }
-              catch(e)
-              {
-                // Something bad happened. Release the lock for the next attempt
-                MojoGrid.cellLock = false;
-              }
-              
-              setTimeout(function(){
-              
-                try
-                {
-                  table.showCellEditor(cell);
-                }
-                finally
-                {
-                  // All operations are done, release the lock
-                  MojoGrid.cellLock = false;
-                }
-              
-              }, 15);
-            }
-          })(myDataTable, nextCell), 15);
-            
-          //YAHOO.log("Showing Cell Editor:" + nextCell.headers, "warn", "Widget");
+          myDataTable.selectCell(nextCell);
+          myDataTable.showCellEditor(nextCell);
           
+          //YAHOO.log("Showing Cell Editor:" + nextCell.headers, "warn", "Widget");
         }
       }
-      catch(e)
+      finally
       {
-        // Something bad happened. Release the lock for the next attempt
         MojoGrid.cellLock = false;
       }
     }
