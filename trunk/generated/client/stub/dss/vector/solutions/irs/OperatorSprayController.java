@@ -56,8 +56,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
   public void failCreate(OperatorSprayViewDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
   {
-    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
-    req.setAttribute("operators", getTeamMembers(dto.getSprayOperator()));
+    this.setupRequest(dto);
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
@@ -105,10 +104,13 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     utility.put("id", dto.getSprayId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    dto.setModified(true);
-    dto.setModified(TeamSprayViewDTO.SPRAYID, true);
+    ClientRequestIF request = this.getClientSession().getRequest();
+    
+    InsecticideBrandDTO brand = dto.getBrand();    
+    req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("status", dto.getStatus());
     req.setAttribute("item", dto);
+    
     render("viewComponent.jsp");
   }
 
@@ -123,8 +125,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     {
       OperatorSprayViewDTO dto = OperatorSprayDTO.lockView(super.getClientRequest(), id);
 
-      req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
-      req.setAttribute("operators", getTeamMembers(dto.getSprayOperator()));
+      this.setupRequest(dto);
       req.setAttribute("item", dto);
       render("editComponent.jsp");
     }
@@ -225,8 +226,8 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
       }
       else
       {
-        req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
-        req.setAttribute("operators", getTeamMembers(operator));
+        this.setupRequest(dto);
+        
         req.setAttribute("item", dto);
         render("createComponent.jsp");
       }
@@ -247,6 +248,16 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
       this.failSearchByParameters(brand, geoId, failDate, sprayMethod, teamId, operator);
     }
+  }
+
+  private void setupRequest(OperatorSprayViewDTO dto)
+  {
+    ClientRequestIF request = this.getClientSession().getRequest();
+    InsecticideBrandDTO brand = dto.getBrand();
+    
+    req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
+    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(request));
+    req.setAttribute("operators", getTeamMembers(dto.getSprayOperator()));
   }
 
   private List<SprayOperatorDTO> getTeamMembers(SprayOperatorDTO operator)
