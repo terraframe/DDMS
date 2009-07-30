@@ -25,7 +25,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/ZoneSpray/";
 
-  public static final String LAYOUT           = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT           = "/layout.jsp";
 
   private static final long  serialVersionUID = 1240860686933L;
 
@@ -59,7 +59,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
   public void failCreate(ZoneSprayViewDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+    this.setupRequest(dto);
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
@@ -88,9 +88,18 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
   public void failUpdate(ZoneSprayViewDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+    this.setupRequest(dto);
     req.setAttribute("item", dto);
     render("editComponent.jsp");
+  }
+
+  private void setupRequest(ZoneSprayViewDTO dto)
+  {
+    ClientRequestIF request = this.getClientSession().getRequest();
+    InsecticideBrandDTO brand = dto.getBrand();
+    
+    req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
+    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(request));
   }
 
   public void view(String id) throws IOException, ServletException
@@ -108,10 +117,12 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
     TeamSprayStatusViewDTO[] status = dto.getStatus();
     SprayTeamDTO[] teams = SprayTeamDTO.findByLocation(request, dto.getGeoEntity().getGeoId());
+    InsecticideBrandDTO brand = dto.getBrand();
 
     JSONObject teamMap = buildTeamsMap(teams);
     JSONObject operators = buildOperatorsMap(teams);
-
+    
+    req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("teams", teamMap);
     req.setAttribute("operators", operators);
     req.setAttribute("status", status);
@@ -182,7 +193,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
     {
       ZoneSprayViewDTO dto = ZoneSprayDTO.lockView(super.getClientRequest(), id);
 
-      req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+      this.setupRequest(dto);
       req.setAttribute("item", dto);
       render("editComponent.jsp");
     }
@@ -231,7 +242,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
   public void failDelete(ZoneSprayViewDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+    this.setupRequest(dto);
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -269,7 +280,8 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
       }
       else
       {
-        req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+        this.setupRequest(dto);
+        
         req.setAttribute("item", dto);
         render("createComponent.jsp");
       }

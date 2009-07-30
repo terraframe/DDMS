@@ -8,7 +8,7 @@
       <mjl:input type="hidden" param="geoEntity" value="${item.geoEntity.id}" />      
       <mjl:input type="hidden" param="sprayMethod" value="${item.sprayMethodEnumNames[0]}"/>  
       <mjl:dt attribute="geoEntity"> ${item.geoEntity.geoId} </mjl:dt>
-      <mjl:dt attribute="brand"> ${item.brand.brandName} </mjl:dt>
+      <mjl:dt attribute="brand"> ${brand.brandName} </mjl:dt>
       <mjl:dt attribute="sprayDate">
         <span id="testDateSpan" class="formatDate">${item.sprayDate}</span>
       </mjl:dt>
