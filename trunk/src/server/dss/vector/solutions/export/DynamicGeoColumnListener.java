@@ -73,50 +73,46 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
     String endPointEntityType = "";
 
     GeoEntity entity = null;
-    for (GeoHierarchy endPoint : this.endPoints)
+    Map<String, String> parentGeoEntityMap = new HashMap<String, String>();
+    for(GeoHierarchy hierarchy : hierarchyList)
     {
-      Map<String, String> parentGeoEntityMap = new HashMap<String, String>();
-
-      for(GeoHierarchy hierarchy : this.endPointHierarchyMap.get(endPoint.getGeoEntityClass().definesType()))
+      MdBusiness geoEntityClass = hierarchy.getGeoEntityClass();
+      String excelAttribute = getExcelAttribute(geoEntityClass);
+      
+      // Go find the expected column
+      for (ExcelColumn column : extraColumns)
       {
-        MdBusiness geoEntityClass = hierarchy.getGeoEntityClass();
-        String excelAttribute = getExcelAttribute(geoEntityClass);
-
-        // Go find the expected column
-        for (ExcelColumn column : extraColumns)
+        HSSFCell cell = row.getCell(column.getIndex());
+        String entityName;
+        if (cell==null)
         {
-          HSSFCell cell = row.getCell(column.getIndex());
-          String entityName;
-          if (cell==null)
+          entityName = "";
+        }
+        else
+        {
+          if (column.getAttributeName().equals(excelAttribute))
           {
-            entityName = "";
-          }
-          else
-          {
-            if (column.getAttributeName().equals(excelAttribute))
-            {
-              entityName = cell.getRichStringCellValue().getString();
-
-              geoEntityNames.add(entityName);
-              parentGeoEntityMap.put(geoEntityClass.definesType(), entityName);
-
-              endPointEntityName = entityName;
-              endPointEntityType = geoEntityClass.definesType();
-            }
+            entityName = cell.getRichStringCellValue().getString();
+            
+            geoEntityNames.add(entityName);
+            parentGeoEntityMap.put(geoEntityClass.definesType(), entityName);
+            
+            endPointEntityName = entityName;
+            endPointEntityType = geoEntityClass.definesType();
           }
         }
       }
-
-      if (!endPointEntityName.equals(""))
+    }
+    
+    if (!endPointEntityName.equals(""))
+    {
+      try
       {
-        try
-        {
-          entity = AllPaths.search(parentGeoEntityMap, endPointEntityType, endPointEntityName);
-        }
-        catch(UnknownGeoEntityException e)
-        {
-          // This may happen if there are multiple endpoints and the current endpoint.
-        }
+        entity = AllPaths.search(parentGeoEntityMap, endPointEntityType, endPointEntityName);
+      }
+      catch(UnknownGeoEntityException e)
+      {
+        // This may happen if there are multiple endpoints and the current endpoint.
       }
     }
 
