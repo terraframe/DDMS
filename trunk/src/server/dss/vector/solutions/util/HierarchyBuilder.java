@@ -77,7 +77,7 @@ public class HierarchyBuilder implements Reloadable
     return newList;
   }
 
-  private class GeoEntry implements Comparable<GeoEntry>
+  private class GeoEntry implements Comparable<GeoEntry>, Reloadable
   {
     private GeoHierarchy hierarchy;
     private Integer depth;
