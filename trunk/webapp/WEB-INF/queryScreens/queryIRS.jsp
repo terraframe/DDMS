@@ -10,6 +10,7 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.query.QueryController"%>
+<%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
 <%@page import="dss.vector.solutions.query.MappingController"%>
 <%@page import="dss.vector.solutions.query.RangeCategoryDTO"%>
@@ -17,17 +18,62 @@
 <%@page import="dss.vector.solutions.query.RangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
+<%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
+<%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
+<%@page import="dss.vector.solutions.entomology.MosquitoDTO"%>
 <%@page import="dss.vector.solutions.mo.SpecieDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
+<%@page import="dss.vector.solutions.entomology.MosquitoViewDTO"%>
+<%@page import="org.json.JSONArray"%>
+<%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
+<%@page import="org.json.JSONException"%>
+<%@page import="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"%>
+<%@page import="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"%>
+<%@page import="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"%>
+<%@page import="dss.vector.solutions.entomology.UninterestingSpecieGroupDTO"%>
+<%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%>
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
-<%@page import="dss.vector.solutions.irs.*"%>
+<%@page import="com.terraframe.mojo.constants.MdAttributeConcreteInfo"%>
+<%@page import="com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF"%>
+<%@page import="com.terraframe.mojo.dataaccess.metadata.MdAttributeConcreteDAO"%>
+<%@page import="com.terraframe.mojo.dataaccess.MdBusinessDAOIF"%>
+<%@page import="com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO"%>
+<%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
+<%@page import="dss.vector.solutions.query.LayerViewDTO"%>
+<%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
+<%@page import="dss.vector.solutions.entomology.MosquitoView"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.assay.KnockDownAssayDTO"%>
+<%@page import="dss.vector.solutions.general.InsecticideDTO"%>
+<%@page import="com.terraframe.mojo.business.BusinessDTO"%>
+<%@page import="dss.vector.solutions.irs.ActorSprayStatusDTO"%>
+<%@page import="dss.vector.solutions.irs.ZoneSprayDTO"%>
+<%@page import="dss.vector.solutions.irs.OperatorSprayDTO"%>
+<%@page import="dss.vector.solutions.irs.TeamSprayDTO"%>
+<%@page import="dss.vector.solutions.irs.HouseholdSprayStatusDTO"%>
+<%@page import="dss.vector.solutions.irs.TeamSprayStatusViewDTO"%>
+<%@page import="dss.vector.solutions.irs.OperatorSprayStatusViewDTO"%>
+<%@page import="dss.vector.solutions.irs.InsecticideBrandDTO"%>
+<%@page import="dss.vector.solutions.irs.TeamSprayView"%>
+<%@page import="dss.vector.solutions.irs.HouseholdSprayStatusViewDTO"%>
+<%@page import="dss.vector.solutions.irs.ZoneSprayViewDTO"%>
+<%@page import="dss.vector.solutions.irs.OperatorSprayViewDTO"%>
+<%@page import="dss.vector.solutions.irs.InsecticideBrandViewDTO"%>
+<%@page import="dss.vector.solutions.irs.SprayStatusViewDTO"%>
+<%@page import="dss.vector.solutions.irs.SprayTeamDTO"%>
+<%@page import="dss.vector.solutions.irs.ActorSprayStatusViewDTO"%>
+<%@page import="dss.vector.solutions.irs.SprayStatusDTO"%>
+<%@page import="dss.vector.solutions.irs.SprayDataDTO"%>
 
-
-<c:set var="page_title" value="Query_IRS"  scope="request"/>
-
+<%@page import="dss.vector.solutions.irs.ActorSprayDTO"%><c:set var="page_title" value="Query_IRS"  scope="request"/>
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
 <jwr:script src="/bundles/queryBundle.js" useRandomParam="false"/>
@@ -35,261 +81,249 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] types = new String[]{ AbstractSprayDTO.CLASS};
-    String[] queryTypes = new String[]{EpiDateDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
+    String[] sprayTypes = new String[]{InsecticideBrandViewDTO.CLASS,
+    InsecticideBrandDTO.CLASS,
+    SprayDataDTO.CLASS,
+    SprayStatusDTO.CLASS,
+    ZoneSprayDTO.CLASS,
+    ActorSprayDTO.CLASS,
+    OperatorSprayDTO.CLASS
+    //TeamSprayStatusViewDTO.CLASS,
+    //TeamSprayView.CLASS,ZoneSprayViewDTO.CLASS,
+    //OperatorSprayStatusViewDTO.CLASS,OperatorSprayViewDTO.CLASS,
+    //HouseholdSprayStatusViewDTO.CLASS,
+    };
+    String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
+
+
+    List<String> loadables = new ArrayList<String>();
+    loadables.addAll(Arrays.asList(sprayTypes));
+    loadables.addAll(Arrays.asList(queryTypes));
 %>
-<%=Halp.loadTypes((List<String>) Arrays.asList(types))%>
-<%=Halp.loadTypes((List<String>) Arrays.asList(queryTypes))%>
+
+<%=Halp.loadTypes(loadables)%>
+<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayTeamDTO.CLASS}))%>
+<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayStatusViewDTO.CLASS}))%>
+<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{ActorSprayStatusViewDTO.CLASS}))%>
+<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{TeamSprayStatusViewDTO.CLASS}))%>
+
 <script type="text/javascript">
 // Setting both values to false will select *all* univerals
 MDSS.AbstractSelectSearch.Political = false;
 MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 
-(function(){
 
-  YAHOO.util.Event.onDOMReady(function(){
+YAHOO.util.Event.onDOMReady(function(){
 
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
-    var assayTree = <%= (String) request.getAttribute("assayTree") %>;
 
-    dropDownMaps = {<%//=Halp.getDropDownMaps(mosquitoView,  requestIF)%>};
+    var sprayMaps = {<%//=(String) request.getAttribute("sprayStatusMap")%>};
 
+    var mapAttribs = function(attribName,index){
+      var attrib = this.obj.attributeMap[attribName];
+      var row = {};
+      if(attrib){
+        row.attributeName = attrib.attributeName;
+        if(attrib.dtoType === 'AttributeReferenceDTO')
+        {
+          row.attributeName += '.displayLabel.currentValue';
+        }
+        if(attrib.dtoType === 'AttributeEnumerationDTO')
+        {
+          row.attributeName += '.displayLabel.currentValue';
+        }
+        row.key = attrib.attributeName + this.suffix;
+        row.type = this.type;
+        row.dtoType = attrib.dtoType;
+        row.displayLabel = attrib.attributeMdDTO.displayLabel;
+        if(this.dropDownMaps[attrib.attributeName]){
+          row.dropDownMap = this.dropDownMaps[attrib.attributeName];
+        }
+      }else{
+        row.attributeName = attribName;
+        row.type = 'sqlcharacter';
+        row.displayLabel = attribName;
+        row.key = attribName;
 
-
-    function mapAssayAttribs(arr){
-      return arr.map(function(row){
-          if(dropDownMaps[row.attributeName]){
-            row.dropDownMap = dropDownMaps[row.attributeName];
-          }
-          var splitType = row.dtoType.split('.');
-          row.dtoType = splitType[splitType.length - 1];
-          return row;
-      });
+      }
+      return row;
     }
 
-    selectableGroups = [
-                        {title:"Planed_Targets",
-                        	values:[
+
+    var sprayStatus = new Mojo.$.dss.vector.solutions.irs.TeamSprayStatusView();
+    var sprayData = new Mojo.$.dss.vector.solutions.irs.SprayData();
+    var actorSpray = new Mojo.$.dss.vector.solutions.irs.ActorSpray();
+    var insectcide = new Mojo.$.dss.vector.solutions.irs.InsecticideBrandView();
+
+
+    var insectcideAttribs = ["brandName","activeIngredient","amount","weight","sachetsPerRefill"];
+    var actorSprayAtribs = ["recived","used","refills","returned"];
+
+    var Insecticide_Details = insectcideAttribs.map(mapAttribs, {obj:insectcide, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.InsecticideBrand'});
+    Insecticide_Details = Insecticide_Details.concat(actorSprayAtribs.map(mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.ActorSpray'}));
+
+    var abstractCalculations = {
+        key:"resistance_result",
+    	attributeName:"resistance_result",
+      	type:"sqlcharacter",
+      	displayLabel:"Resistance"
+     };
+
+
+
+
+    //var sprayStatus = new Mojo.$.dss.vector.solutions.irs.SprayStatusView();
+    var sprayDataAttribs = ["sprayDate", "sprayMethod", "surfaceType"];
+    var sprayStatusAttribs = ["households","structures","rooms","sprayedHouseholds","sprayedStructures","sprayedRooms","locked","refused","other"];
+
+
+    var Spray_Details = [];
+    Spray_Details = Spray_Details.concat(sprayDataAttribs.map(mapAttribs, {obj:sprayData, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayData'}));
+    Spray_Details = Spray_Details.concat(sprayStatusAttribs.map(mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayStatus'}));
+
+
+    var netAttribs = ["people","roomsWithBedNets","bedNets","prevSprayedHouseholds","prevSprayedStructures"];
+    var HouseHold_Structure_Detail = netAttribs.map(mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayStatus'});
+
+
+     var Planed_Targets = [
                                   {
                                     displayLabel:"Spray Area Target",
-                                    dtotype:"sqlcharacter",
+                                    key:"spray_area_target_planed",
                                     type:"sqlcharacter",
-                                    attributeName:"SPRAY_AREA_TARGET",
+                                    attributeName:"spray_area_target_planed",
                                   },
                                   {
                                     displayLabel:"Oprator Target",
-                                    dtotype:"sqlcharacter",
+                                    key:"oprator_target_planed",
                                     type:"sqlcharacter",
-                                    attributeName:"OPRATOR_TARGET",
+                                    attributeName:"oprator_target_planed",
                                   },
                                   {
                                     displayLabel:"Team Target",
-                                    dtotype:"sqlcharacter",
+                                    key:"team_target",
                                     type:"sqlcharacter",
-                                    attributeName:"test",
+                                    attributeName:"team_target_planed",
                                   }
-                                  ]},
-                        {title:"Actual_Targets",
-                        	values:[
+                              ];
+
+     var Actual_Targets = [
                                   {
                                     displayLabel:"Oprator Target",
-                                    dtotype:"sqlcharacter",
+                                    key:"oprator_target_actual",
                                     type:"sqlcharacter",
                                     attributeName:"test",
                                   },
                                   {
                                     displayLabel:"Team Target",
-                                    dtotype:"sqlcharacter",
+                                    key:"oprator_target_actual",
                                     type:"sqlcharacter",
-                                    attributeName:"test",
+                                    attributeName:"oprator_target_actual",
                                   }
-                                  ]},
-                         {title:"Spray_Details",
-                        	 values:[
-                                   {
-                                     displayLabel:"Spray Method",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
-                                     displayLabel:"Total Structures",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
-                                     displayLabel:"Total Households",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
-                                     displayLabel:"Total Rooms",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
-                                     displayLabel:"Reason Locked",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
-                                     displayLabel:"Reason Refused",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
-                                     displayLabel:"Reason Other",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
-                                     displayLabel:"Insectcide Active Ingredint",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
-                                     displayLabel:"Instecticde Brand Name",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
-                                     displayLabel:"Insectcide Refills",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
-                                     displayLabel:"Insecticde Sachets Used",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
+                           ];
+
+   /* Spray_Details = Spray_Details.concat([
+
                                    {
                                      displayLabel:"Unsprayed Strucures",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
+                                     key:"unsprayed_structures",
+                                     type:"sqlinteger",
+                                     attributeName:"unsprayed_structures",
                                    },
                                    {
                                      displayLabel:"Unsprayed Households",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
+                                     key:"unsprayed_households",
+                                     type:"sqlinteger",
+                                     attributeName:"unsprayed_households",
                                    },
                                    {
                                      displayLabel:"Unsprayed Rooms",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
+                                     key:"unsprayed_rooms",
+                                     type:"sqlinteger",
+                                     attributeName:"unsprayed_rooms",
                                    }
-                                   ]},
-                         {title:"Coverege",
-                         	values:[
+                                ]);*/
+
+     var Coverege = [
+
+                   /*  select += "actorspray."+ActorSpray.RECEIVED+",\n";
+                     select += "actorspray."+ActorSpray.RETURNED+",\n";
+                     select += "actorspray."+ActorSpray.USED+",\n";
+                     select += "actorspray."+ActorSpray.REFILLS+",\n";*/
+
                                    {
                                      displayLabel:"Operational Coverage",
-                                     dtotype:"sqlcharacter",
+                                     key:"sqlcharacter",
                                      type:"sqlcharacter",
                                      attributeName:"test",
                                    },
                                    {
                                      displayLabel:"Planned Coverage",
-                                     dtotype:"sqlcharacter",
+                                     key:"sqlcharacter",
                                      type:"sqlcharacter",
                                      attributeName:"test",
                                    },
                                    {
                                      displayLabel:"Application Rate",
-                                     dtotype:"sqlcharacter",
+                                     key:"sqlcharacter",
                                      type:"sqlcharacter",
                                      attributeName:"test",
                                    },
                                    {
                                      displayLabel:"Application Ratio",
-                                     dtotype:"sqlcharacter",
+                                     key:"sqlcharacter",
                                      type:"sqlcharacter",
                                      attributeName:"test",
                                    }
-                                   ]},
-                         {title:"HouseHold_Structure_Detail",
-                         	values:[
-                                   {
-                                     displayLabel:"Number Of People Protected",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
-                                     displayLabel:"Number Of Rooms With Bed Nets",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
-                                     displayLabel:"Total Number Of Bed Nets",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
-                                     displayLabel:"Structures Sprayed Last Year",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
-                                     displayLabel:"HouseHolds Sprayed Last Year",
-                                     dtotype:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   }
-                                   ]},
-                          {title:"Spray_Team_Detail",
-                          	 values:[
+                                ];
+
+    var Spray_Team_Detail = [
                                      {
                                        displayLabel:"Spray Team",
-                                       dtotype:"sqlcharacter",
+                                       key:"sprayoperator_displaylabel",
                                         type:"sqlcharacter",
-                                       attributeName:"test",
+                                       attributeName:"sprayoperator_displaylabel",
                                      },
                                      {
                                        displayLabel:"Spray Team Week",
-                                       dtotype:"sqlcharacter",
+                                       key:"spray_team_week",
                                        type:"sqlcharacter",
-                                       attributeName:"test",
+                                       attributeName:"spray_team_week",
                                      },
                                      {
                                        displayLabel:"Operator",
-                                       dtotype:"sqlcharacter",
+                                       key:"sprayoperator_displaylabel",
                                        type:"sqlcharacter",
-                                       attributeName:"test",
+                                       attributeName:"sprayoperator_displaylabel",
                                      },
                                      {
-                                       displayLabel:"Oporator Spray Week",
-                                       dtotype:"sqlcharacter",
+                                       displayLabel:"Operator Spray Week",
+                                       key:"operator_week",
                                        type:"sqlcharacter",
-                                       attributeName:"test",
+                                       attributeName:"operator_week",
                                      }
-                             ]}
-    ];
+                             ];
 
+
+
+    var selectableGroups = [
+ 	                         {title:"Planed_Targets", values:Planed_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS},
+ 	                         //{title:"Actual_Targets", values:Actual_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS},
+                             {title:"Insecticide", values:Insecticide_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
+ 	                         {title:"Spray_Details", values:Spray_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
+ 	                         //{title:"Coverege", values:Coverege, group:"spray", klass:Mojo.$.dss.vector.solutions.entomology.assay.CollectionAssay.CLASS},
+ 	                         {title:"HouseHold_Structure_Detail", values:HouseHold_Structure_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
+ 	                         //{title:"Spray_Team_Detail", values:Spray_Team_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.entomology.assay.CollectionAssay.CLASS},
+ 	                     ];
 
     var query = new MDSS.QueryIRS(selectableGroups, queryList);
     query.render();
 
-  });
+});
 
-})();
 </script>
 
 <div class="yui-skin-sam">
@@ -309,9 +343,9 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 <div style="display: none" id="CSVFormContainer"></div>
 <div style="display: none" id="ReportFormContainer"></div>
 
-<textarea id="debug_xml" cols="40" rows="40" style="width:1280px">
+<textarea id="debug_xml" cols="40" rows="40" style="width:1280px"> </textarea>
 
-</textarea>
+
 </div>
 
 <div style="display: none" id="XLSFormContainer"></div>
