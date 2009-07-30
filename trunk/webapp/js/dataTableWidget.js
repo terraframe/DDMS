@@ -454,7 +454,7 @@ MojoGrid.createDataTable = function(table_data) {
             if (table_data.after_save) {
               table_data.after_save();
             }
-            this.fireEvent("tableSaveEvent");
+            myDataTable.fireEvent("tableSaveEvent");
           }
         }
       });
@@ -565,6 +565,13 @@ MojoGrid.createDataTable = function(table_data) {
     myDataTable.addRow(new_label_row);
     table_data.dirty = true;
     btnSaveRows.set("disabled", false);    
+    
+	// Execute after row add
+    if(typeof afterRowAdd !== 'undefined' && Mojo.util.isFunction(afterRowAdd))
+    {    	
+    	var index = myDataTable.getRecordSet().getLength() - 1;
+    	afterRowAdd(myDataTable.getRecord(index), index);
+    }        
   }
 
   if (YAHOO.util.Dom.get(table_data.div_id + 'Addrow')) {

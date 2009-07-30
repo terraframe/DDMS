@@ -2,6 +2,8 @@ package dss.vector.solutions.irs;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.Property;
+
 public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -64,4 +66,10 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
 
     return views;
   }
+  
+  public static String[] getGeneratedIds()
+  {    
+    return new String[]{Property.getNextId(), Property.getNextId()};
+  }
+
 }

@@ -152,6 +152,28 @@
     var beforeRowAdd = function() {        
         YAHOO.util.Dom.get(data.div_id + 'Saverows-button').click();
     }
+
+    var afterRowAdd = function(record, index) {
+
+    	var request = new MDSS.Request({
+          record: record,
+          index: index,
+          data: data,
+          onSend: function(){},
+          onComplete: function(){},
+          onSuccess: function(ids)
+          {
+        	  this.record.setData("HouseholdId", ids[0]);
+        	  this.record.setData("StructureId", ids[1]);    
+        	  this.data.rows[index]['HouseholdId'] = ids[0];
+        	  this.data.rows[index]['StructureId'] = ids[0];
+
+        	  this.data.myDataTable.render();
+          }
+      });
+
+      Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatusView.getGeneratedIds(request);        
+    }
     
 	var indexHouseholds = 4;
 	var indexStructures = 5;
@@ -169,7 +191,7 @@
               div_id: "Status",
               data_type: "Mojo.$.<%=HouseholdSprayStatusViewDTO.CLASS%>",
               saveFunction:"applyAll",
-              excelButtons:false              
+              excelButtons:false
           };
 
     if (isMainSpray) {
