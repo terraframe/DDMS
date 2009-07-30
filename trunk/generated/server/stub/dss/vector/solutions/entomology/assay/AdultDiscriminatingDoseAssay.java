@@ -25,6 +25,8 @@ import dss.vector.solutions.entomology.ConcreteMosquitoCollectionQuery;
 import dss.vector.solutions.entomology.ControlMortalityException;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
+import dss.vector.solutions.query.MapUtil;
+import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
@@ -267,6 +269,49 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     return valueQuery;
   }
+
+  @Transaction
+  public static String mapQuery(String xml, String config, String[] universalLayers, String savedSearchId)
+  {
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    {
+      String error = "Cannot map a query without a current SavedSearch instance.";
+      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
+      throw ex;
+    }
+
+    SavedSearch search = SavedSearch.get(savedSearchId);
+    QueryConfig queryConfig = new QueryConfig(config);
+
+    ThematicLayer thematicLayer = search.getThematicLayer();
+
+    if (thematicLayer == null || thematicLayer.getGeoHierarchy() == null)
+    {
+      String error = "Cannot create a map for search [" + search.getQueryName()
+          + "] without having selected a thematic layer.";
+      NoThematicLayerException ex = new NoThematicLayerException(error);
+      throw ex;
+    }
+
+    // Update ThematicLayer if the thematic layer type has changed or
+    // if one has not yet been defined.
+    String thematicLayerType = thematicLayer.getGeoHierarchy().getGeoEntityClass().definesType();
+    if (thematicLayer.getGeometryStyle() == null
+        || !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
+    {
+      thematicLayer.changeLayerType(thematicLayerType);
+    }
+
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
+    ValueQuery query = xmlToValueQuery(xml, selectedUniversals, true, thematicLayer);
+
+    System.out.println(query.getSQL());
+
+    String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
+
+    return layers;
+  }
+
 
   @Transaction
   public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
