@@ -130,7 +130,7 @@ table_data = {rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
           copy_from_above: ["IdentificationMethod"],
           div_id: "Mosquitos",
           data_type: "Mojo.$.dss.vector.solutions.entomology.MosquitoView",
-          width:"1200px",
+          width:"65em",
           excelButtons:false          
       };
 YAHOO.util.Event.addListener(window, 'load', MojoGrid.createDataTable(table_data));
