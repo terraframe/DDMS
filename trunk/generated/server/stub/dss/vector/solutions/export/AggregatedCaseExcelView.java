@@ -157,14 +157,20 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
   public static void setupImportListener(ExcelImporter importer, String... params)
   {
     importer.addListener(new AggregatedCaseListener());
+    importer.addListener(createExcelGeoListener());
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
+    exporter.addListener(createExcelGeoListener());
+    exporter.addListener(new AggregatedCaseListener());
+  }
+
+  private static DynamicGeoColumnListener createExcelGeoListener()
+  {
     GeoHierarchy collectionSite = GeoHierarchy.getGeoHierarchyFromType(CollectionSite.CLASS);
     GeoHierarchy healthFacility = GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS);
-    exporter.addListener(new DynamicGeoColumnListener(CLASS, GEOENTITY, collectionSite, healthFacility));
-    exporter.addListener(new AggregatedCaseListener());
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, collectionSite, healthFacility);
   }
   
   private PeriodType getPeriodTypeByLabel(String label)

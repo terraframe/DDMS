@@ -2,6 +2,7 @@ package dss.vector.solutions.export;
 
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
+import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
@@ -53,8 +54,18 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
   
   public static void setupExportListener(ExcelExporter exporter, String...params)
   {
+    exporter.addListener(createExcelGeoListener());
+  }
+
+  public static void setupImportListener(ExcelImporter importer, String... params)
+  {
+    importer.addListener(createExcelGeoListener());
+  }
+  
+  private static DynamicGeoColumnListener createExcelGeoListener()
+  {
     GeoHierarchy subPopulatedArea = GeoHierarchy.getGeoHierarchyFromType(SubPopulatedArea.CLASS);
-    exporter.addListener(new DynamicGeoColumnListener(CLASS, GEOENTITY, subPopulatedArea));
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, subPopulatedArea);
   }
 
   public static Sex getSexByLabel(String label)

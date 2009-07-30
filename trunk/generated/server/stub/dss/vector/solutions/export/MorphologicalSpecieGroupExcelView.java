@@ -1,6 +1,7 @@
 package dss.vector.solutions.export;
 
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
+import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.entomology.MorphologicalSpecieGroup;
@@ -38,8 +39,18 @@ public class MorphologicalSpecieGroupExcelView extends MorphologicalSpecieGroupE
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
+    exporter.addListener(createExcelGeoListener());
+  }
+  
+  public static void setupImportListener(ExcelImporter importer, String... params)
+  {
+    importer.addListener(createExcelGeoListener());
+  }
+
+  private static DynamicGeoColumnListener createExcelGeoListener()
+  {
     GeoHierarchy trap = GeoHierarchy.getGeoHierarchyFromType(Trap.CLASS);
     GeoHierarchy pwb = GeoHierarchy.getGeoHierarchyFromType(PermanentWaterBody.CLASS);
-    exporter.addListener(new DynamicGeoColumnListener(CLASS, GEOENTITY, trap, pwb));
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, trap, pwb);
   }
 }

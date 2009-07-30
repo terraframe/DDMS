@@ -1,6 +1,7 @@
 package dss.vector.solutions.export;
 
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
+import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -46,7 +47,17 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements com.te
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    exporter.addListener(new DynamicGeoColumnListener(CLASS, GEOENTITY, GeoHierarchy.getAllSprayTargets()));
+    exporter.addListener(createExcelGeoListener());
+  }
+  
+  public static void setupImportListener(ExcelImporter importer, String... params)
+  {
+    importer.addListener(createExcelGeoListener());
+  }
+
+  private static DynamicGeoColumnListener createExcelGeoListener()
+  {
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, GeoHierarchy.getAllSprayTargets());
   }
   
 }

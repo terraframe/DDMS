@@ -1,6 +1,7 @@
 package dss.vector.solutions.export;
 
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
+import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
@@ -63,8 +64,19 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
   
   public static void setupExportListener(ExcelExporter exporter, String...params)
   {
+    exporter.addListener(createExcelGeoListener());
+  }
+  
+  public static void setupImportListener(ExcelImporter importer, String... params)
+  {
+    importer.addListener(createExcelGeoListener());
+  }
+
+  private static DynamicGeoColumnListener createExcelGeoListener()
+  {
     GeoHierarchy sentinelSite = GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS);
     GeoHierarchy nonSentinelSite = GeoHierarchy.getGeoHierarchyFromType(NonSentinelSite.CLASS);
-    exporter.addListener(new DynamicGeoColumnListener(CLASS, GEOENTITY, sentinelSite, nonSentinelSite));
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, sentinelSite, nonSentinelSite);
   }
+
 }

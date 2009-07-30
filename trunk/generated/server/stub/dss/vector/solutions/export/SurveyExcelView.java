@@ -132,13 +132,19 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   public static void setupImportListener(ExcelImporter importer, String... params)
   {
     importer.addListener(new DynamicNetListener());
+    importer.addListener(createExcelGeoListener());
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    GeoHierarchy sentinelSite = GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS);
-    exporter.addListener(new DynamicGeoColumnListener(CLASS, GEOENTITY, sentinelSite));
+    exporter.addListener(createExcelGeoListener());
     exporter.addListener(new DynamicNetListener());
+  }
+
+  private static DynamicGeoColumnListener createExcelGeoListener()
+  {
+    GeoHierarchy sentinelSite = GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS);
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, sentinelSite);
   }
   
   public SurveyPoint getSurveyPoint()

@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
+import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
@@ -126,8 +127,18 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
   
   public static void setupExportListener(ExcelExporter exporter, String...params)
   {
+    exporter.addListener(createExcelGeoListener());
+  }
+  
+  public static void setupImportListener(ExcelImporter importer, String... params)
+  {
+    importer.addListener(createExcelGeoListener());
+  }
+  
+  private static DynamicGeoColumnListener createExcelGeoListener()
+  {
     GeoHierarchy sentinelSite = GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS);
     GeoHierarchy nonSentinelSite = GeoHierarchy.getGeoHierarchyFromType(NonSentinelSite.CLASS);
-    exporter.addListener(new DynamicGeoColumnListener(CLASS, GEOENTITY, sentinelSite, nonSentinelSite));
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, sentinelSite, nonSentinelSite);
   }
 }

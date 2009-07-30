@@ -2,6 +2,7 @@ package dss.vector.solutions.export;
 
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
+import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
@@ -59,7 +60,17 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
   
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    exporter.addListener(new DynamicGeoColumnListener(CLASS, GEOENTITY, GeoHierarchy.getGeoHierarchyFromType(Surface.CLASS)));
+    exporter.addListener(createExcelGeoListener());
+  }
+  
+  public static void setupImportListener(ExcelImporter importer, String... params)
+  {
+    importer.addListener(createExcelGeoListener());
+  }
+
+  private static DynamicGeoColumnListener createExcelGeoListener()
+  {
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, GeoHierarchy.getGeoHierarchyFromType(Surface.CLASS));
   }
 
   public static SurfacePosition getSurfacePositionByLabel(String label)
