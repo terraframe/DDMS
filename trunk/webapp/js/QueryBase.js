@@ -1156,14 +1156,14 @@ MDSS.QueryBase.prototype = {
    * Creates a modal with the given HTML as its body and the given title
    * as the modal title, wrapped in an H3.
    */
-  _createModal : function(html, title)
+  _createModal : function(html, title, useLarge)
   {
     var executable = MDSS.util.extractScripts(html);
     var html = MDSS.util.removeScripts(html);
 
     var modal = new YAHOO.widget.Panel("editQuery", {
       width:"400px",
-      height: "400px",
+      height: useLarge ? "530px" : "400px",
       fixedcenter:true,
       close: false,
       draggable:false,
@@ -1180,7 +1180,7 @@ MDSS.QueryBase.prototype = {
     outer.appendChild(header);
 
     var contentDiv = document.createElement('div');
-    YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
+    YAHOO.util.Dom.addClass(contentDiv, (useLarge ? 'innerContentModalLarge' : 'innerContentModal'));
     contentDiv.innerHTML = html;
     outer.appendChild(contentDiv);
 
@@ -1188,6 +1188,8 @@ MDSS.QueryBase.prototype = {
     modal.render(document.body);
 
     eval(executable);
+
+    modal.bringToTop();
 
     return modal;
   },
@@ -1228,7 +1230,7 @@ MDSS.QueryBase.prototype = {
       controller: controller,
       onSuccess: function(html){
 
-        var modal = this.thisRef._createModal(html, MDSS.Localized.Update);
+        var modal = this.thisRef._createModal(html, MDSS.Localized.Update, true);
 
         var update = MDSS.util.bind(this.thisRef, this.thisRef._updateLayerListener, modal);
         var canceled = MDSS.util.bind(this.thisRef, this.thisRef._cancelLayerListener, modal, layerId, true);

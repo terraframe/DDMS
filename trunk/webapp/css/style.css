@@ -462,6 +462,12 @@ div.innerContentModal {
 	padding-right: 5px;
 }
 
+div.innerContentModalLarge {
+	height: 480px;
+	overflow-y: scroll;
+	padding-right: 5px;
+}
+
 div.yui-module div.bd form dl {
 	margin-bottom: 5px;
 }
