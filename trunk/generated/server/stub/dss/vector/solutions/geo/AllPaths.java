@@ -42,10 +42,13 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
     QueryFactory qf = new QueryFactory();
 
     GeoEntityQuery childGeoEntityQuery = new GeoEntityQuery(qf);
-    childGeoEntityQuery.
-      WHERE(childGeoEntityQuery.getType().EQ(childGeoEntityType).
-      AND(childGeoEntityQuery.getEntityName().EQ(childGeoEntityName)));
+//    childGeoEntityQuery.
+//      WHERE(childGeoEntityQuery.getType().EQ(childGeoEntityType).
+//      AND(childGeoEntityQuery.getEntityName().EQ(childGeoEntityName)));
 
+    childGeoEntityQuery.
+    WHERE(childGeoEntityQuery.getEntityName().EQ(childGeoEntityName));
+    
     ValueQuery geoEntityIdQuery = new ValueQuery(qf);
     geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("child_id"));
 
@@ -55,10 +58,13 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
       MdBusiness parentMdBusiness = MdBusiness.getMdBusiness(parentEntityType);
 
       GeoEntityQuery parentGeoEntityQuery = new GeoEntityQuery(qf);
-      parentGeoEntityQuery.
-        WHERE(parentGeoEntityQuery.getType().EQ(parentEntityType).
-        AND(parentGeoEntityQuery.getEntityName().EQ(parentGeoEntityMap.get(parentEntityType))));
+//      parentGeoEntityQuery.
+//        WHERE(parentGeoEntityQuery.getType().EQ(parentEntityType).
+//        AND(parentGeoEntityQuery.getEntityName().EQ(parentGeoEntityMap.get(parentEntityType))));
 
+      parentGeoEntityQuery.
+      WHERE(parentGeoEntityQuery.getEntityName().EQ(parentGeoEntityMap.get(parentEntityType)));
+      
       geoEntityIdQuery.
         AND(allPathsQuery.getParentUniversal().EQ(parentMdBusiness).
         AND(allPathsQuery.getParentGeoEntity().EQ(parentGeoEntityQuery.getId())).
@@ -82,6 +88,7 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
           AmbigiousGeoEntityException e = new AmbigiousGeoEntityException(msg);
           e.setEntityName(childGeoEntityName);
           e.apply();
+          throw e;
         }
       }
       else

@@ -15,7 +15,7 @@ public class HierarchyBuilder
   public HierarchyBuilder()
   {
     entryList = new LinkedList<GeoEntry>();
-    entryList.add(new GeoEntry(GeoHierarchy.getGeoHierarchyFromType(Earth.CLASS), 0));
+//    entryList.add(new GeoEntry(GeoHierarchy.getGeoHierarchyFromType(Earth.CLASS), 0));
   }
 
   public void add(GeoHierarchy endPoint)
