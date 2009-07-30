@@ -47,7 +47,7 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
       AND(childGeoEntityQuery.getEntityName().EQ(childGeoEntityName)));
 
     ValueQuery geoEntityIdQuery = new ValueQuery(qf);
-    geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("CHILD_ID"));
+    geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("child_id"));
 
     for (String parentEntityType : parentGeoEntityMap.keySet())
     {
@@ -74,7 +74,7 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
     {
       if (iterator.hasNext())
       {
-        returnGeoEntity = GeoEntity.get(iterator.next().getValue("CHILD_ID"));
+        returnGeoEntity = GeoEntity.get(iterator.next().getValue("child_id"));
 
         if (iterator.hasNext())
         {
