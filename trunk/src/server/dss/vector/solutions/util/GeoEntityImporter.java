@@ -14,20 +14,23 @@ import org.postgresql.PGConnection;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.postgresql.ds.common.BaseDataSource;
 
-import com.terraframe.mojo.business.BusinessFacade;
+//import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.gis.dataaccess.database.PostGIS;
-import com.terraframe.mojo.query.F;
+//import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.StartSession;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPolygon;
+import com.terraframe.mojo.system.gis.metadata.MdAttributePoint;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.MultiLineString;
-import com.vividsolutions.jts.geom.MultiPoint;
+//import com.vividsolutions.jts.geom.MultiPoint;
 import com.vividsolutions.jts.geom.MultiPolygon;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
@@ -434,22 +437,41 @@ public class GeoEntityImporter
           else if (multiPolygonField != null)
           {
             Geometry geometry = multiPolygonField.getGeometry();
+            MdAttributeGeometry targetTypeAttr = GeoHierarchy.getGeometry(type);
+            if (targetTypeAttr instanceof MdAttributeMultiPolygon) {
+            	// The target type is MultiPolygon
+                MultiPolygon multiPolygon;
 
-            MultiPolygon multiPolygon;
+                if (geometry instanceof Polygon)
+                {
+                  // The current geometry is a Polygon, so coerce it into a MultiPolygon 
+                  multiPolygon = new MultiPolygon(new Polygon[] { (Polygon) geometry }, geometry
+                      .getFactory());
+                }
+                else
+                {
+                    // The current geometry is a MultiPolygon, so leave it alone 
+                	multiPolygon = (MultiPolygon) geometry;
+                }
 
-            if (geometry instanceof Polygon)
-            {
-              multiPolygon = new MultiPolygon(new Polygon[] { (Polygon) geometry }, geometry
-                  .getFactory());
+                businessClass.getMethod("setMultiPolygon", MultiPolygon.class).invoke(geoEntity,
+                    multiPolygon);
+            } else if (targetTypeAttr instanceof MdAttributePoint) {
+            	// The target type is a point 
+                Point point;
+
+                if (geometry instanceof Point) {
+                	point = (Point) geometry;
+                } else {
+                	point = geometry.getCentroid();
+                }
+
+                businessClass.getMethod("setPoint", Point.class).invoke(geoEntity,
+                    point);
+            } else {
+            	throw new Exception("Incompatible Geometry");
             }
-            else
-            {
-              multiPolygon = (MultiPolygon) geometry;
-            }
-
-
-            businessClass.getMethod("setMultiPolygon", MultiPolygon.class).invoke(geoEntity,
-                multiPolygon);
+            	
           }
         }
         catch (Exception e)

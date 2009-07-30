@@ -23,7 +23,7 @@
 
 	<property name="deploy.db" value="mdssdeploy" />
 	<property name="develop.db" value="mdssdevelop" />
-	<property name="geodata.db" value="mrc_mozambique" />
+	<property name="geodata.db" value="mrc_zambia" />
 	<!--<property name="write_rev" value="false" />-->
 
 	<!-- Rebuild Deploy -->
@@ -639,6 +639,7 @@
 			<include name="CentralHospital*.java" />
 			<include name="ChamHealthCentre*.java" />
 			<include name="ChamHospital*.java" />
+			<include name="Clinic*.java" />
 			<include name="CommunityHealthCenter*.java" />
 			<include name="CommunityHealthWorker*.java" />
 			<include name="Constituency*.java" />
@@ -649,6 +650,7 @@
 			<include name="HealthClinic*.java" />
 			<include name="HealthFacilityCatchment*.java" />
 			<include name="LargeRuralHealthCentre*.java" />
+			<include name="Locality*.java" />
 			<include name="LocalGvtDispensary*.java" />
 			<include name="LocalGvtMaternity*.java" />
 			<include name="Lodge*.java" />
@@ -672,6 +674,7 @@
 			<include name="RuralHospital*.java" />
 			<include name="RusticMatPlasticSheetRoof*.java" />
 			<include name="SmallRuralHealthCentre*.java" />
+			<include name="SprayBase*.java" />
 			<include name="StickAndMudRoof*.java" />
 			<include name="ThatchLeafRoof*.java" />
 			<include name="TraditionalAuthority*.java" />
@@ -703,7 +706,7 @@
 		</delete>
 	</target>
 		
-	<target name="copy_country_schema" depends="" description="Coppy the appropriate country schema file">
-		<copy file="../../../doc/country/${geodata.db}-schema(0001238646707001).xml" tofile="../../../doc/schema(0001238646707001).xml" />
+	<target name="copy_country_schema" depends="" description="Copy the appropriate country schema file">
+		<copy file="../../../doc/country/${geodata.db}-schema(0001238646707001).xml" tofile="../../../doc/schema(0001238646707001).xml" overwrite="true" />
 	</target> 
 </project>
