@@ -18,7 +18,6 @@ import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
-import dss.vector.solutions.UnknownGeoEntityException;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -28,9 +27,7 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
 {
   private String attributeName;
   private String excelType;
-  private GeoHierarchy[] endPoints;
   private List<GeoHierarchy> hierarchyList;
-  private Map<String, List<GeoHierarchy>> endPointHierarchyMap;
 
   public static final String PREFIX = "Geo ";
 
@@ -38,16 +35,10 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
   {
     this.attributeName = attributeName;
     this.excelType = excelType;
-    this.endPoints = endPoints;
-    this.endPointHierarchyMap = new HashMap<String, List<GeoHierarchy>>();
     HierarchyBuilder mainHierarchyBuilder = new HierarchyBuilder();
     for (GeoHierarchy endPoint : endPoints)
     {
       mainHierarchyBuilder.add(endPoint);
-
-      HierarchyBuilder endPointHierarchyBuilder = new HierarchyBuilder();
-      endPointHierarchyBuilder.add(endPoint);
-      this.endPointHierarchyMap.put(endPoint.getGeoEntityClass().definesType(), endPointHierarchyBuilder.getHierarchy());
     }
     hierarchyList = mainHierarchyBuilder.getHierarchy();
   }
@@ -106,30 +97,13 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
     
     if (!endPointEntityName.equals(""))
     {
-      try
-      {
-        entity = AllPaths.search(parentGeoEntityMap, endPointEntityType, endPointEntityName);
-      }
-      catch(UnknownGeoEntityException e)
-      {
-        // This may happen if there are multiple endpoints and the current endpoint.
-      }
+      entity = AllPaths.search(parentGeoEntityMap, endPointEntityType, endPointEntityName);
     }
 
-    if (entity != null)
-    {
-      // Now use reflection to set the value
-      Class<?> excelClass = LoaderDecorator.load(excelType);
-      String accessorName = GenerationUtil.upperFirstCharacter(instance.getMdAttributeDAO(attributeName).getAccessorName());
-      excelClass.getMethod("set" + accessorName, GeoEntity.class).invoke(instance, entity);
-    }
-    else
-    {
-      String msg = "Unknown Geo Entity [" + endPointEntityName + "]";
-      UnknownGeoEntityException e =  new UnknownGeoEntityException(msg);
-      e.setEntityName(endPointEntityName);
-      e.apply();
-    }
+    // Now use reflection to set the value
+    Class<?> excelClass = LoaderDecorator.load(excelType);
+    String accessorName = GenerationUtil.upperFirstCharacter(instance.getMdAttributeDAO(attributeName).getAccessorName());
+    excelClass.getMethod("set" + accessorName, GeoEntity.class).invoke(instance, entity);
   }
 
   private String getExcelAttribute(MdBusiness geoEntityClass)
