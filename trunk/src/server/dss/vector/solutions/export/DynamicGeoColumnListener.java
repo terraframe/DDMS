@@ -70,14 +70,12 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
     List<String> geoEntityNames = new ArrayList<String>(hierarchyList.size());
 
     String endPointEntityName = "";
+    String endPointEntityType = "";
 
     GeoEntity entity = null;
     for (GeoHierarchy endPoint : this.endPoints)
     {
       Map<String, String> parentGeoEntityMap = new HashMap<String, String>();
-
-      MdBusiness endPointgeoEntityClass = endPoint.getGeoEntityClass();
-      String endPointExcelAttribute = getExcelAttribute(endPointgeoEntityClass);
 
       for(GeoHierarchy hierarchy : this.endPointHierarchyMap.get(endPoint.getGeoEntityClass().definesType()))
       {
@@ -95,17 +93,16 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
           }
           else
           {
-            entityName = cell.getRichStringCellValue().getString();
-          }
+            if (column.getAttributeName().equals(excelAttribute))
+            {
+              entityName = cell.getRichStringCellValue().getString();
 
-          if (column.getAttributeName().equals(endPointExcelAttribute))
-          {
-            endPointEntityName = entityName;
-          }
-          else if (column.getAttributeName().equals(excelAttribute))
-          {
-            geoEntityNames.add(entityName);
-            parentGeoEntityMap.put(geoEntityClass.definesType(), entityName);
+              geoEntityNames.add(entityName);
+              parentGeoEntityMap.put(geoEntityClass.definesType(), entityName);
+
+              endPointEntityName = entityName;
+              endPointEntityType = geoEntityClass.definesType();
+            }
           }
         }
       }
@@ -114,7 +111,7 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
       {
         try
         {
-          entity = AllPaths.search(parentGeoEntityMap, endPointgeoEntityClass.definesType(), endPointEntityName);
+          entity = AllPaths.search(parentGeoEntityMap, endPointEntityType, endPointEntityName);
         }
         catch(UnknownGeoEntityException e)
         {
