@@ -73,7 +73,8 @@
 <%@page import="dss.vector.solutions.irs.SprayStatusDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayDataDTO"%>
 
-<%@page import="dss.vector.solutions.irs.ActorSprayDTO"%><c:set var="page_title" value="Query_IRS"  scope="request"/>
+<%@page import="dss.vector.solutions.irs.ActorSprayDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.SprayZoneDTO"%><c:set var="page_title" value="Query_IRS"  scope="request"/>
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
 <jwr:script src="/bundles/queryBundle.js" useRandomParam="false"/>
@@ -110,8 +111,8 @@
 <script type="text/javascript">
 // Setting both values to false will select *all* univerals
 MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-
+MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
+//MDSS.AbstractSelectSearch.ExtraUniversals.push('<%=SprayZoneDTO.CLASS %>*');
 
 YAHOO.util.Event.onDOMReady(function(){
 
@@ -160,7 +161,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
 
     var insectcideAttribs = ["brandName","activeIngredient","amount","weight","sachetsPerRefill"];
-    var actorSprayAtribs = ["recived","used","refills","returned"];
+    var actorSprayAtribs = ["received","used","refills","returned"];
 
     var Insecticide_Details = insectcideAttribs.map(mapAttribs, {obj:insectcide, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.InsecticideBrand'});
     Insecticide_Details = Insecticide_Details.concat(actorSprayAtribs.map(mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.ActorSpray'}));
@@ -171,8 +172,6 @@ YAHOO.util.Event.onDOMReady(function(){
       	type:"sqlcharacter",
       	displayLabel:"Resistance"
      };
-
-
 
 
     //var sprayStatus = new Mojo.$.dss.vector.solutions.irs.SprayStatusView();
@@ -248,36 +247,67 @@ YAHOO.util.Event.onDOMReady(function(){
                                 ]);*/
 
      var Coverege = [
-
-                   /*  select += "actorspray."+ActorSpray.RECEIVED+",\n";
-                     select += "actorspray."+ActorSpray.RETURNED+",\n";
-                     select += "actorspray."+ActorSpray.USED+",\n";
-                     select += "actorspray."+ActorSpray.REFILLS+",\n";*/
-
-                                   {
-                                     displayLabel:"Operational Coverage",
-                                     key:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   },
-                                   {
+                                  /* {
                                      displayLabel:"Planned Coverage",
-                                     key:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
+                                     key:"planned_coverage",
+                                     type:"sqldouble",
+                                     attributeName:"planned_coverage",
+                                   },*/
+                                   {
+                                     displayLabel:"Room Operational Coverage",
+                                     key:"room_operational_coverage",
+                                     type:"sqldouble",
+                                     attributeName:"room_operational_coverage",
                                    },
                                    {
-                                     displayLabel:"Application Rate",
-                                     key:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
+                                     displayLabel:"Structure Operational Coverage",
+                                     key:"structure_operational_coverage",
+                                     type:"sqldouble",
+                                     attributeName:"structure_operational_coverage",
                                    },
                                    {
-                                     displayLabel:"Application Ratio",
-                                     key:"sqlcharacter",
-                                     type:"sqlcharacter",
-                                     attributeName:"test",
-                                   }
+                                     displayLabel:"Household Operational Coverage",
+                                     key:"household_operational_coverage",
+                                     type:"sqldouble",
+                                     attributeName:"household_operational_coverage",
+                                   },
+                                   {
+                                     displayLabel:"Room Application Rate",
+                                     key:"room_application_rate",
+                                     type:"sqldouble",
+                                     attributeName:"room_application_rate",
+                                   },
+                                   {
+                                     displayLabel:"Structure Application Rate",
+                                     key:"structure_application_rate",
+                                     type:"sqldouble",
+                                     attributeName:"structure_application_rate",
+                                   },
+                                   {
+                                     displayLabel:"Household Application Rate",
+                                     key:"household_application_rate",
+                                     type:"sqldouble",
+                                     attributeName:"household_application_rate",
+                                   },
+                                   {
+                                     displayLabel:"Room Application Ratio",
+                                     key:"room_application_ratio",
+                                     type:"sqldouble",
+                                     attributeName:"room_application_ratio",
+                                   },
+                                   {
+                                     displayLabel:"Structure Application Ratio",
+                                     key:"structure_application_ratio",
+                                     type:"sqldouble",
+                                     attributeName:"structure_application_ratio",
+                                   },
+                                   {
+                                     displayLabel:"Household Application Ratio",
+                                     key:"household_application_ratio",
+                                     type:"sqldouble",
+                                     attributeName:"household_application_ratio",
+                                   },
+
                                 ];
 
     var Spray_Team_Detail = [
@@ -310,13 +340,13 @@ YAHOO.util.Event.onDOMReady(function(){
 
 
     var selectableGroups = [
- 	                         {title:"Planed_Targets", values:Planed_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS},
+ 	                         //{title:"Planed_Targets", values:Planed_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                         //{title:"Actual_Targets", values:Actual_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS},
                              {title:"Insecticide", values:Insecticide_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                         {title:"Spray_Details", values:Spray_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
- 	                         //{title:"Coverege", values:Coverege, group:"spray", klass:Mojo.$.dss.vector.solutions.entomology.assay.CollectionAssay.CLASS},
+ 	                         {title:"Coverege", values:Coverege, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                         {title:"HouseHold_Structure_Detail", values:HouseHold_Structure_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
- 	                         //{title:"Spray_Team_Detail", values:Spray_Team_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.entomology.assay.CollectionAssay.CLASS},
+ 	                         //{title:"Spray_Team_Detail", values:Spray_Team_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                     ];
 
     var query = new MDSS.QueryIRS(selectableGroups, queryList);

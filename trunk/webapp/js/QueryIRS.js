@@ -26,7 +26,7 @@ MDSS.QueryIRS.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    this._sprayData = Mojo.$.dss.vector.solutions.irs.SprayData;
 	    var sprayStatus = Mojo.$.dss.vector.solutions.irs.SprayStatus;
-      this._dateAttribute = new MDSS.QueryXML.Attribute(sprayStatus.CLASS, this._sprayData.DATECOLLECTED, this._sprayData.DATECOLLECTED);
+      this._dateAttribute = new MDSS.QueryXML.Attribute(this._sprayData.CLASS, this._sprayData.SPRAYDATE, this._sprayData.SPRAYDATE);
       this._startDateSelectable = new MDSS.QueryXML.Selectable(this._dateAttribute);
       this._endDateSelectable = new MDSS.QueryXML.Selectable(this._dateAttribute);
 
@@ -35,7 +35,8 @@ MDSS.QueryIRS.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    this._commonQueryClasses = [Mojo.$.dss.vector.solutions.irs.SprayData.CLASS,
 	                                Mojo.$.dss.vector.solutions.irs.InsecticideBrand.CLASS,
-	                                Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS];
+	                                Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS,
+	                                Mojo.$.dss.vector.solutions.irs.ActorSpray.CLASS];
 
 	    this._exclusionClasses = [];
 
@@ -178,7 +179,6 @@ MDSS.QueryIRS.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	      if(selectable.attribute)
 	      {
-
 	      	var t =  selectable.attribute.getType();
 	      	var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'');
 	      	var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'');
@@ -192,6 +192,9 @@ MDSS.QueryIRS.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 		        //{
 		          //queryXML.addEntity(new MDSS.QueryXML.Entity(t,t));
 		        //}
+	      	}else if(t == 'sqldouble')
+	      	{
+	      		var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', n, k));
 	      	}
 	      	else
 	      	{
@@ -323,6 +326,12 @@ MDSS.QueryIRS.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    if(attribute.getType() == 'sqlcharacter'){
 	    	var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attributeName,attribute.getDisplayLabel(),attribute._isAggregate));
+	    	selectable.attribute = attribute;
+	    	var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+	 	    column.attribute = attribute;
+	    }
+	    if(attribute.getType() == 'sqldouble'){
+	    	var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', attributeName, attributeName,attribute.getDisplayLabel(),attribute._isAggregate));
 	    	selectable.attribute = attribute;
 	    	var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
 	 	    column.attribute = attribute;
@@ -604,7 +613,11 @@ MDSS.QueryIRS.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      },
 	      sqlcharacter : function(entityAlias, attributeName, userAlias){
 
-	        thisRef._checkBox(attributeName);
+	        thisRef._checkBox(userAlias);
+	      },
+	      sqldouble : function(entityAlias, attributeName, userAlias){
+
+	        thisRef._checkBox(userAlias);
 	      },
 	      sqldate : function(entityAlias, attributeName, userAlias){
 
