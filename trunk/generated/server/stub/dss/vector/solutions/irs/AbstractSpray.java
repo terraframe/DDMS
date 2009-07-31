@@ -1,44 +1,27 @@
 package dss.vector.solutions.irs;
 
 import java.io.InputStream;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Map;
 
-import org.xml.sax.SAXParseException;
-
 import com.terraframe.mojo.business.rbac.Authenticate;
-import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
-import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
-import com.terraframe.mojo.query.OR;
-import com.terraframe.mojo.query.QueryException;
+import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectableSingle;
+import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
-import com.terraframe.mojo.query.ValueQueryParser;
-import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
-import com.terraframe.mojo.system.metadata.MdBusiness;
 
-import dss.vector.solutions.entomology.MosquitoCollection;
-import dss.vector.solutions.entomology.MosquitoCollectionQuery;
-import dss.vector.solutions.geo.AllPaths;
-import dss.vector.solutions.geo.AllPathsQuery;
-import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.query.NoColumnsAddedException;
-import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.query.MapUtil;
+import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
-import dss.vector.solutions.query.ThematicVariable;
 import dss.vector.solutions.util.QueryConfig;
+import dss.vector.solutions.util.QueryUtil;
 
 public abstract class AbstractSpray extends AbstractSprayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -60,9 +43,10 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     {
       data.delete();
     }
-    catch(Exception e)
+    catch (Exception e)
     {
-      //The spray data is still being referenced by some other spray so do not delete it
+      // The spray data is still being referenced by some other spray so do not
+      // delete it
     }
   }
 
@@ -78,12 +62,12 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     view.clearSprayMethod();
     view.clearSurfaceType();
 
-    for(SprayMethod method : data.getSprayMethod())
+    for (SprayMethod method : data.getSprayMethod())
     {
       view.addSprayMethod(method);
     }
 
-    for(SurfaceType type : data.getSurfaceType())
+    for (SurfaceType type : data.getSurfaceType())
     {
       view.addSurfaceType(type);
     }
@@ -91,7 +75,6 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     view.setDataId(data.getId());
     view.setSprayId(this.getId());
   }
-
 
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
@@ -106,108 +89,66 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
-    ValueQueryParser valueQueryParser;
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, SprayData.CLASS, SprayData.GEOENTITY);
 
-    try
+    SprayStatusQuery sprayStatusQuery = (SprayStatusQuery) queryMap.get(SprayStatus.CLASS);
+
+
+    AbstractSprayQuery abstractSprayQuery = (AbstractSprayQuery) queryMap.get(AbstractSpray.CLASS);
+    if (abstractSprayQuery != null)
     {
-      valueQueryParser = new ValueQueryParser(xml, valueQuery);
+      valueQuery.WHERE(sprayStatusQuery.getSpray().EQ(abstractSprayQuery));
     }
-    catch (QueryException e)
+
+    SprayDataQuery sprayDataQuery = (SprayDataQuery) queryMap.get(SprayData.CLASS);
+    if (sprayDataQuery != null)
     {
-      // Check if the error was because no selectables were added.
-      Throwable t = e.getCause();
-      if (t != null && t instanceof SAXParseException && t.getMessage().contains("{selectable}"))
+      valueQuery.WHERE(abstractSprayQuery.getSprayData().EQ(sprayDataQuery));
+    }
+
+    InsecticideBrandQuery insecticideQuery = (InsecticideBrandQuery) queryMap.get(InsecticideBrand.CLASS);
+    if (abstractSprayQuery != null)
+    {
+      valueQuery.WHERE(sprayDataQuery.getBrand().EQ(insecticideQuery));
+    }
+
+    ActorSprayQuery actorSprayQuery = (ActorSprayQuery) queryMap.get(ActorSpray.CLASS);
+    if (actorSprayQuery != null)
+    {
+      valueQuery.WHERE(abstractSprayQuery.getId().EQ(actorSprayQuery.getId()));
+    }
+
+
+    String tableName = "spray_table";
+    String sprayStatusTable = "spray_data_view";
+    String zoneTable = "zone_spray_table";
+    String operatorTable = "operator_spray_table";
+    String teamTable = "operator_spray_table";
+    String sprayTargetTable = "spray_target_table";
+    //AbstractSpray.createTempTables(tableName,sprayDataTable,sprayTargetTable,zoneTable,operatorTable,teamTable);
+    //ResourceTarget.createTempTable(sprayTargetTable);
+    //SprayStatus.createTempTable( sprayStatusTable);
+    String sprayCaluclationsSQL = "(" + SprayStatus.getTempTableSQL() +")";
+
+    valueQuery.FROM(sprayCaluclationsSQL , sprayStatusTable);
+    valueQuery.WHERE(new InnerJoinEq("id", sprayStatusQuery.getMdClassIF().getTableName(), sprayStatusQuery.getTableAlias(), "id", sprayCaluclationsSQL, sprayStatusTable));
+
+    // set all the spray selectable sql to match up with the temp table columns
+    for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
+    {
+      if (s instanceof SelectableSQL)
       {
-        NoColumnsAddedException ex = new NoColumnsAddedException();
-        throw ex;
-      }
-      else
-      {
-        throw e;
+        ( (SelectableSQL) s ).setSQL(s.getUserDefinedAlias());
       }
     }
 
-    // include the thematic variable (if applicable).
-    if (thematicLayer != null)
-    {
-      ThematicVariable thematicVariable = thematicLayer.getThematicVariable();
-      if (thematicVariable != null)
-      {
-        String entityAlias = thematicVariable.getEntityAlias();
-        String userAlias = thematicVariable.getUserAlias();
-
-        valueQueryParser.setColumnAlias(entityAlias, userAlias, QueryConstants.THEMATIC_DATA_COLUMN);
-      }
-    }
-
-    // include the geometry of the GeoEntity
-    if (includeGeometry)
-    {
-      thematicLayer.getGeoHierarchy().getGeoEntityClass();
-      MdBusiness geoEntityMd = thematicLayer.getGeoHierarchy().getGeoEntityClass();
-
-      MdAttributeGeometry mdAttrGeo = GeoHierarchy.getGeometry(geoEntityMd);
-
-      String attributeName = mdAttrGeo.getAttributeName();
-
-      // FIXME might need a ValueQuery and might need to go after the code below
-      String type = geoEntityMd.definesType();
-      valueQueryParser.addAttributeSelectable(type, attributeName, "", "");
-      valueQueryParser.addAttributeSelectable(type, GeoEntity.ENTITYNAME, "", QueryConstants.ENTITY_NAME_COLUMN);
-    }
-
-    List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
-    for (String selectedGeoEntityType : selectedUniversals)
-    {
-      GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
-
-      AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
-      ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
-      MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
-
-      Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName() + "_entityName");
-      Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName() + "_geoId");
-
-      List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
-      Condition[] geoConditions = new Condition[allClasses.size()];
-      for (int i = 0; i < allClasses.size(); i++)
-      {
-        geoConditions[i] = subAllPathsQuery.getParentUniversal().EQ(allClasses.get(i));
-      }
-
-      geoEntityVQ.SELECT(selectable1, selectable2, subAllPathsQuery.getChildGeoEntity("CHILD_ID"));
-      geoEntityVQ.WHERE(OR.get(geoConditions));
-      geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
-
-      leftJoinValueQueries.add(geoEntityVQ);
-
-      valueQueryParser.setValueQuery(selectedGeoEntityType, geoEntityVQ);
-    }
-
-    Map<String, GeneratedEntityQuery> queryMap = valueQueryParser.parse();
-
-    AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
-    MosquitoCollectionQuery collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
-
-    if (allPathsQuery != null)
-    {
-      List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
-      for (ValueQuery leftJoinVQ : leftJoinValueQueries)
-      {
-        leftJoinSelectables.add(leftJoinVQ.aReference("CHILD_ID"));
-      }
-
-      valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[leftJoinSelectables.size()])));
-
-      // Join Collection to GeoEntity
-      valueQuery.AND(collectionQuery.getGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
-    }
-
-
-    String sql = valueQuery.getSQL();
-    System.out.println(sql);
+    valueQuery = QueryUtil.setQueryDates(xml, valueQuery, SprayData.SPRAYDATE);
+    valueQuery = QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
     return valueQuery;
   }
+
+
 
   /**
    * Queries for Mosquitos.
@@ -225,7 +166,49 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
 
     valueQuery.restrictRows(pageSize, pageNumber);
 
+    System.out.println(valueQuery.getSQL());
+
     return valueQuery;
+  }
+
+  @Transaction
+  public static String mapQuery(String xml, String config, String[] universalLayers, String savedSearchId)
+  {
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    {
+      String error = "Cannot map a query without a current SavedSearch instance.";
+      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
+      throw ex;
+    }
+
+    SavedSearch search = SavedSearch.get(savedSearchId);
+    QueryConfig queryConfig = new QueryConfig(config);
+
+    ThematicLayer thematicLayer = search.getThematicLayer();
+
+    if (thematicLayer == null || thematicLayer.getGeoHierarchy() == null)
+    {
+      String error = "Cannot create a map for search [" + search.getQueryName() + "] without having selected a thematic layer.";
+      NoThematicLayerException ex = new NoThematicLayerException(error);
+      throw ex;
+    }
+
+    // Update ThematicLayer if the thematic layer type has changed or
+    // if one has not yet been defined.
+    String thematicLayerType = thematicLayer.getGeoHierarchy().getGeoEntityClass().definesType();
+    if (thematicLayer.getGeometryStyle() == null || !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
+    {
+      thematicLayer.changeLayerType(thematicLayerType);
+    }
+
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
+    ValueQuery query = xmlToValueQuery(xml, selectedUniversals, true, thematicLayer);
+
+    System.out.println(query.getSQL());
+
+    String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
+
+    return layers;
   }
 
   @Transaction
@@ -268,5 +251,25 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     return exporter.exportStream();
   }
 
+  public static void createTempTables(String tableName, String insecticideTable, String sprayTargetView ,String zoneTable, String operatorTable, String teamTable)
+  {
+    //InsecticideBrand.createTempTable(insecticideTable);
+
+    //ZoneSpray.createTempTable(zoneTable,insecticideTable );
+    //OperatorSpray.createTempTable(operatorTable,insecticideTable);
+    //TeamSpray.createTempTable(teamTable,insecticideTable);
+
+    String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
+    sql += "CREATE TEMP TABLE " + tableName + " AS ";
+    sql += "SELECT * FROM " + zoneTable;
+    sql += " UNION \n";
+    sql += "SELECT * FROM " + operatorTable;
+    sql += " UNION \n";
+    sql += "SELECT * FROM " + teamTable;
+    sql += ";\n";
+
+    System.out.println(sql);
+    //Database.parseAndExecute(sql);
+  }
 
 }

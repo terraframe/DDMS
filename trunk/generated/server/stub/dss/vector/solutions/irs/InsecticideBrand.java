@@ -3,7 +3,6 @@ package dss.vector.solutions.irs;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -119,22 +118,22 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.terraf
       it.close();
     }
   }
-
+/*
   public static void createTempTable(String tableName)
   {
     String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
     sql += "CREATE TEMP TABLE " + tableName + " AS ";
-    sql += InsecticideBrand.getTempTableSQL();
+    sql += InsecticideBrand.getTempTableSQL() + ";\n";
     System.out.println(sql);
     Database.parseAndExecute(sql);
   }
-
+*/
   public static String getTempTableSQL()
   {
 
     String select = "SELECT insecticidebrand.id,\n";
     // --% active ingredient in sachet (2) * weight of sachet (3) * number of sachets in can refill using nozzle 8002 (4) * Nozzle type ratio (6)
-    select += "insecticidebrand.brandname,\n";
+    //select += "insecticidebrand.brandname,\n";
     select += "amount*weight*sachetsperrefill*ratio AS active_ingredient_per_can,\n";
     select += "nozzle.ratio AS nozzle_ratio,\n";
     select += "insecticidenozzle.enabled,\n";
