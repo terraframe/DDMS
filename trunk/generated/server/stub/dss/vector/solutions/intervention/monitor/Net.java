@@ -40,6 +40,7 @@ public class Net extends NetBase implements com.terraframe.mojo.generation.loade
       deleteAllParents();
 
       Net parent = this.getParentNet();
+      parent.lock();
       
       NetHeiarchy heiarchy = new NetHeiarchy(parent, this);
       heiarchy.apply();

@@ -86,7 +86,7 @@ public abstract class GeoEntityCRUDPermissions extends TestCase
       }
     }
   }
-
+  
   public void testUniversal()
   {
     GeoHierarchyQueryDTO instances = GeoHierarchyDTO.getAllInstances(systemRequest, null, false, 0, 0);

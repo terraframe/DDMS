@@ -18,9 +18,15 @@ import dss.vector.solutions.PropertyDTO;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.MalariaSeasonDTO;
+import dss.vector.solutions.intervention.FeverTreatmentDTO;
 import dss.vector.solutions.intervention.monitor.DoseGridDTO;
+import dss.vector.solutions.intervention.monitor.NetDTO;
 import dss.vector.solutions.intervention.monitor.PatientGridDTO;
+import dss.vector.solutions.intervention.monitor.RoofDTO;
+import dss.vector.solutions.intervention.monitor.ServiceGridDTO;
+import dss.vector.solutions.intervention.monitor.TargetGroupGridDTO;
 import dss.vector.solutions.intervention.monitor.VisitGridDTO;
+import dss.vector.solutions.intervention.monitor.WallDTO;
 import dss.vector.solutions.mo.ActiveIngredientDTO;
 import dss.vector.solutions.mo.CollectionMethodDTO;
 import dss.vector.solutions.mo.GenerationDTO;
@@ -30,6 +36,7 @@ import dss.vector.solutions.mo.LarvaeAgeDTO;
 import dss.vector.solutions.mo.MolecularAssayResultDTO;
 import dss.vector.solutions.mo.ResistanceMethodologyDTO;
 import dss.vector.solutions.mo.SpecieDTO;
+import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
 import dss.vector.solutions.surveillance.DiagnosticGridDTO;
 import dss.vector.solutions.surveillance.ReferralGridDTO;
 import dss.vector.solutions.surveillance.TreatmentGridDTO;
@@ -507,27 +514,257 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     }
   }
 
+  public void testNetGrid()
+  {
+    NetDTO dto = new NetDTO(request);
+    dto.setNetName("Test Term");
+    dto.getDisplayLabel().setDefaultLocale("Test Label");
+    dto.apply();
+
+    try
+    {
+      NetDTO child = new NetDTO(request);
+
+      try
+      {
+        child.setNetName("Test Net");
+        child.getDisplayLabel().setDefaultLocale("Test Label");
+        child.setParentNet(dto);
+        child.apply();
+      }
+      finally
+      {
+        if(!child.isNewInstance())
+        {
+          child.delete();
+        }
+      }
+
+      dto.lock();
+      dto.setNetName("Test Term1");
+      dto.getDisplayLabel().setDefaultLocale("Test Label 2");
+      dto.apply();
+
+      NetDTO test = NetDTO.get(request, dto.getId());
+      assertEquals(dto.getNetName(), test.getNetName());
+      assertEquals(dto.getDisplayLabel().getDefaultLocale(), test.getDisplayLabel().getDefaultLocale());
+    }
+    finally
+    {
+      dto.delete();
+    }
+  }
+
+  public void testRoofGrid()
+  {
+    RoofDTO dto = new RoofDTO(request);
+    dto.setRoofName("Test Term");
+    dto.getDisplayLabel().setDefaultLocale("Test Label");
+    dto.apply();
+
+    try
+    {
+      RoofDTO child = new RoofDTO(request);
+
+      try
+      {
+        child.setRoofName("Test Term");
+        child.getDisplayLabel().setDefaultLocale("Test Label");
+        child.setParentRoof(dto);
+        child.apply();
+      }
+      catch(Exception e)
+      {
+        fail(e.getLocalizedMessage());
+      }
+      finally
+      {
+        child.delete();
+      }
+
+      dto.lock();
+      dto.setRoofName("Test Term1");
+      dto.getDisplayLabel().setDefaultLocale("Test Label 2");
+      dto.apply();
+
+      RoofDTO test = RoofDTO.get(request, dto.getId());
+      assertEquals(dto.getRoofName(), test.getRoofName());
+      assertEquals(dto.getDisplayLabel().getDefaultLocale(), test.getDisplayLabel().getDefaultLocale());
+    }
+    finally
+    {
+      dto.delete();
+    }
+
+  }
+
+  public void testWallGrid()
+  {
+    WallDTO dto = new WallDTO(request);
+    dto.setWallName("Test Term");
+    dto.getDisplayLabel().setDefaultLocale("Test Label");
+    dto.apply();
+
+    try
+    {
+      WallDTO child = new WallDTO(request);
+
+      try
+      {
+        child.setWallName("Test Term");
+        child.getDisplayLabel().setDefaultLocale("Test Label");
+        child.setParentWall(dto);
+        child.apply();
+      }
+      catch(Exception e)
+      {
+        fail(e.getLocalizedMessage());
+      }
+      finally
+      {
+        child.delete();
+      }
+
+      dto.lock();
+      dto.setWallName("Test Term1");
+      dto.getDisplayLabel().setDefaultLocale("Test Label 2");
+      dto.apply();
+
+      WallDTO test = WallDTO.get(request, dto.getId());
+      assertEquals(dto.getWallName(), test.getWallName());
+      assertEquals(dto.getDisplayLabel().getDefaultLocale(), test.getDisplayLabel().getDefaultLocale());
+    }
+    finally
+    {
+      dto.delete();
+    }
+  }
+
+  public void testAgeGroupGrid()
+  {
+    AggregatedAgeGroupDTO[] groups = AggregatedAgeGroupDTO.getAll(request);
+
+    AggregatedAgeGroupDTO dto = groups[groups.length - 1];
+
+    Integer startAge = dto.getStartAge();
+    Integer endAge = dto.getStartAge();
+
+    try
+    {
+
+      dto.lock();
+      dto.setStartAge(1);
+      dto.setEndAge(2);
+      dto.apply();
+    }
+    catch (Exception e)
+    {
+      fail(e.getLocalizedMessage());
+    }
+    finally
+    {
+      AggregatedAgeGroupDTO system = AggregatedAgeGroupDTO.lock(systemRequest, dto.getId());
+      system.setStartAge(startAge);
+      system.setEndAge(endAge);
+      system.apply();
+    }
+  }
+
+  public void testFeverTreatmentGrid()
+  {
+    FeverTreatmentDTO dto = new FeverTreatmentDTO(request);
+    dto.setTreatmentName("Test Term");
+    dto.getDisplayLabel().setDefaultLocale("Test Label");
+    dto.apply();
+
+    try
+    {
+      dto.lock();
+      dto.setTreatmentName("Test Term1");
+      dto.getDisplayLabel().setDefaultLocale("Test Label 2");
+      dto.apply();
+
+      FeverTreatmentDTO test = FeverTreatmentDTO.get(request, dto.getId());
+      assertEquals(dto.getTreatmentName(), test.getTreatmentName());
+      assertEquals(dto.getDisplayLabel().getDefaultLocale(), test.getDisplayLabel().getDefaultLocale());
+    }
+    finally
+    {
+      dto.delete();
+    }
+
+  }
+
+  public void testServiceGrid()
+  {
+    ServiceGridDTO dto = new ServiceGridDTO(request);
+    dto.setOptionName("Test Term");
+    dto.getDisplayLabel().setDefaultLocale("Test Label");
+    dto.apply();
+
+    try
+    {
+      dto.lock();
+      dto.setOptionName("Test Term1");
+      dto.getDisplayLabel().setDefaultLocale("Test Label 2");
+      dto.apply();
+
+      ServiceGridDTO test = ServiceGridDTO.get(request, dto.getId());
+      assertEquals(dto.getOptionName(), test.getOptionName());
+      assertEquals(dto.getDisplayLabel().getDefaultLocale(), test.getDisplayLabel().getDefaultLocale());
+    }
+    finally
+    {
+      dto.delete();
+    }
+  }
+
+  public void testTargetGroupGrid()
+  {
+    TargetGroupGridDTO dto = new TargetGroupGridDTO(request);
+    dto.setOptionName("Test Term");
+    dto.getDisplayLabel().setDefaultLocale("Test Label");
+    dto.apply();
+
+    try
+    {
+      dto.lock();
+      dto.setOptionName("Test Term1");
+      dto.getDisplayLabel().setDefaultLocale("Test Label 2");
+      dto.apply();
+
+      TargetGroupGridDTO test = TargetGroupGridDTO.get(request, dto.getId());
+      assertEquals(dto.getOptionName(), test.getOptionName());
+      assertEquals(dto.getDisplayLabel().getDefaultLocale(), test.getDisplayLabel().getDefaultLocale());
+    }
+    finally
+    {
+      dto.delete();
+    }
+  }
 
   public void testGUIVisibility()
   {
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
     AttributeDateMdDTO attributeMd = dto.getDateCollectedMd();
-    
+
     ReadableAttributeViewDTO view = new ReadableAttributeViewDTO(request);
     view.setAttributeName(attributeMd.getName());
     view.setDisplayLabel("Test");
     view.setReadPermission(false);
     view.setAttributeDescription("Desc");
-    
-    ReadableAttributeViewDTO.setActorAttributes(request, MosquitoCollectionDTO.CLASS, MDSSRoleInfo.GUI_VISIBILITY, new ReadableAttributeViewDTO[]{view});    
+
+    ReadableAttributeViewDTO.setActorAttributes(request, MosquitoCollectionDTO.CLASS,
+        MDSSRoleInfo.GUI_VISIBILITY, new ReadableAttributeViewDTO[] { view });
 
     view = new ReadableAttributeViewDTO(request);
     view.setAttributeName(attributeMd.getName());
     view.setDisplayLabel(attributeMd.getDisplayLabel());
     view.setReadPermission(true);
     view.setAttributeDescription(attributeMd.getDescription());
-    
-    ReadableAttributeViewDTO.setActorAttributes(request, MosquitoCollectionDTO.CLASS, MDSSRoleInfo.GUI_VISIBILITY, new ReadableAttributeViewDTO[]{view});    
+
+    ReadableAttributeViewDTO.setActorAttributes(request, MosquitoCollectionDTO.CLASS,
+        MDSSRoleInfo.GUI_VISIBILITY, new ReadableAttributeViewDTO[] { view });
   }
 
   public void testRoleAssignment()
@@ -552,9 +789,9 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     {
       PersonDTO personDTO = PersonDTO.get(request, dto.getPersonId());
       MDSSUserDTO user = personDTO.getUserDelegate();
-      
-      user.updateRoles(new String[]{MDSSRoleInfo.GUI_VISIBILITY}, new String[]{});
-      user.updateRoles(new String[]{}, new String[]{MDSSRoleInfo.GUI_VISIBILITY});
+
+      user.updateRoles(new String[] { MDSSRoleInfo.GUI_VISIBILITY }, new String[] {});
+      user.updateRoles(new String[] {}, new String[] { MDSSRoleInfo.GUI_VISIBILITY });
     }
     finally
     {
@@ -562,7 +799,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     }
 
   }
-  
+
   public void testUpdateUser()
   {
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
@@ -582,7 +819,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     dto.apply();
 
     try
-    {      
+    {
       PersonViewDTO update = PersonDTO.lockView(request, dto.getPersonId());
       update.setFirstName("Test");
       update.setLastName("Test");
@@ -600,7 +837,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
       update.apply();
 
       PersonViewDTO view = PersonDTO.getView(request, dto.getPersonId());
-      
+
       assertEquals(update.getUsername(), view.getUsername());
     }
     finally

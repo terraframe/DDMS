@@ -11,10 +11,9 @@
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.NonSentinelSiteDTO"%>
+<c:set var="page_title" value="Edit_Survey_Point"  scope="request"/>
+
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
-
-
-
 
 <mjl:messages>
   <mjl:message />

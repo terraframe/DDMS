@@ -216,6 +216,8 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
     view.setAAcetate(false);
     view.setPMalariae(true);
     view.setPMalariaeMethod(infectivity[0]);
+    view.setMixed(true);
+    view.setMixedMethod(infectivity[0]);
     view.apply();
 
     try
@@ -230,6 +232,8 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
       update.setAAcetate(true);
       update.setPMalariae(false);
       update.setPMalariaeMethod(infectivity[1]);
+      update.setMixed(false);
+      update.setMixedMethod(infectivity[1]);     
       update.apply();
       
       MosquitoViewDTO test = MosquitoDTO.getView(request, view.getMosquitoId());
@@ -246,6 +250,8 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
       assertEquals(update.getAAcetate(), test.getAAcetate());
       assertEquals(update.getPMalariae(), test.getPMalariae());
       assertEquals(update.getPMalariaeMethod().getId(), test.getPMalariaeMethod().getId());
+      assertEquals(update.getMixed(), test.getMixed());
+      assertEquals(update.getMixedMethod().getId(), test.getMixedMethod().getId());
       assertNull(update.getEKDR());
     }
     finally

@@ -56,7 +56,6 @@ public class SurveyPointController extends SurveyPointControllerBase implements
 
     req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update Survey Point");
     render("editComponent.jsp");
   }
 
@@ -67,7 +66,6 @@ public class SurveyPointController extends SurveyPointControllerBase implements
     ClientRequestIF clientRequest = super.getClientRequest();
     SurveyPointQueryDTO query = SurveyPointDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Survey Points");
     render("viewAllComponent.jsp");
   }
 
@@ -104,7 +102,6 @@ public class SurveyPointController extends SurveyPointControllerBase implements
 
     req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Survey Point");
 
     render("createComponent.jsp");
   }
@@ -115,7 +112,6 @@ public class SurveyPointController extends SurveyPointControllerBase implements
     SurveyPointViewDTO dto = new SurveyPointViewDTO(clientRequest);
 
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Survey Point");
     render("createComponent.jsp");
   }
 
@@ -137,7 +133,6 @@ public class SurveyPointController extends SurveyPointControllerBase implements
 
     req.setAttribute("item", survey);
     req.setAttribute("households", Arrays.asList(survey.getHouseholds()));
-    req.setAttribute("page_title", "View Survey Point");
     render("viewComponent.jsp");
   }
 
@@ -184,7 +179,6 @@ public class SurveyPointController extends SurveyPointControllerBase implements
 
     req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Survey Point");
     render("editComponent.jsp");
   }
 
@@ -196,7 +190,6 @@ public class SurveyPointController extends SurveyPointControllerBase implements
     SurveyPointQueryDTO query = SurveyPointDTO.getAllInstances(clientRequest, sortAttribute,
         isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Survey Points");
     render("viewAllComponent.jsp");
   }
 
@@ -214,7 +207,6 @@ public class SurveyPointController extends SurveyPointControllerBase implements
       SurveyPointViewDTO dto = SurveyPointDTO.lockView(super.getClientRequest(), id);
 
       req.setAttribute("item", dto);
-      req.setAttribute("page_title", "Edit Survey Point");
       render("editComponent.jsp");
     }
     catch (ProblemExceptionDTO e)
