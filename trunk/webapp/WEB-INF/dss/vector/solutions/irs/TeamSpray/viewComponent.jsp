@@ -92,14 +92,22 @@
       <mjl:dt attribute="target"> ${item.target} </mjl:dt>     
     </mjl:component>
     <mjl:command value="Edit" action="dss.vector.solutions.irs.TeamSprayController.edit.mojo" name="dss.vector.solutions.irs.TeamSpray.form.edit.button" />
-    <mjl:command value="Create_New_Team_Spray_Button" action="dss.vector.solutions.irs.TeamSprayController.search.mojo" name="TeamSprayController.search" />
   </dl>  
 </mjl:form>
 
 <h2><fmt:message key="Operator_Sprays"/></h2>
 <div id="Status"></div>
+<span class="noprint dataTableButtons">
+<button type="button" id="StatusCreate"> <fmt:message key="Create_New_Team_Spray_Button"/> </button>
+</span>
 
 <script type="text/javascript" defer="defer">
+
+    var createButton = new YAHOO.widget.Button("StatusCreate", 
+	      {
+	        type:"link",
+	        href:"dss.vector.solutions.irs.TeamSprayController.search.mojo"
+	      });
 
     <%
      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{SprayStatusViewDTO.CLASS}, true));

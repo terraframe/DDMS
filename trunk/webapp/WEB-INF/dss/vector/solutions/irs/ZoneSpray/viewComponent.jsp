@@ -100,12 +100,16 @@ left:75px;
     </mjl:component>
     
     <mjl:command value="Edit" action="dss.vector.solutions.irs.ZoneSprayController.edit.mojo" name="dss.vector.solutions.irs.ZoneSpray.form.edit.button" />
-    <mjl:command value="Create_New_Zone_Spray_Button" action="dss.vector.solutions.irs.ZoneSprayController.search.mojo" name="ZoneSprayController.search" />
   </dl>
 </mjl:form>
 
 <h2><fmt:message key="Team_Sprays"/></h2>
 <div id="Status"></div>
+<span class="noprint dataTableButtons">
+<button type="button" id="StatusCreate"> <fmt:message key="Create_New_Zone_Spray_Button"/> </button>
+</span>
+
+
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayTeamDTO.CLASS}))%>
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayStatusViewDTO.CLASS}))%>
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{ActorSprayStatusViewDTO.CLASS}))%>
@@ -119,6 +123,13 @@ map.put("TeamLabel", new ColumnSetup(true, false));
 %>
 
 <script type="text/javascript" defer="defer">
+
+  var createButton = new YAHOO.widget.Button("StatusCreate", {
+    type:"link",
+    href:"dss.vector.solutions.irs.ZoneSprayController.search.mojo"
+  });
+
+
 teams = <%=request.getAttribute("teams")%>;
 operators = <%=request.getAttribute("operators")%>;
 <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>

@@ -96,15 +96,24 @@
       <mjl:dt attribute="used"> ${item.used} </mjl:dt>
     </mjl:component>
     <mjl:command value="Edit" action="dss.vector.solutions.irs.OperatorSprayController.edit.mojo" name="dss.vector.solutions.irs.OperatorSpray.form.edit.button" />
-    <mjl:command value="Create_New_Operator_Spray_Button" action="dss.vector.solutions.irs.OperatorSprayController.search.mojo" name="OperatorSprayController.search" />
   </dl>
 </mjl:form>
 
 <h2><fmt:message key="Households_Sprayed"/></h2>
-<div id="Status"></div>
+<div id="Status">
+</div>
+<span class="noprint dataTableButtons">
+<button type="button" id="StatusCreate"> <fmt:message key="Create_New_Operator_Spray_Button"/> </button>
+</span>
 
 
-<script type="text/javascript">
+<script type="text/javascript" defer="defer">
+
+    var createButton = new YAHOO.widget.Button("StatusCreate", 
+      {
+        type:"link",
+        href:"dss.vector.solutions.irs.OperatorSprayController.search.mojo"
+      });
 
     <%
       Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
