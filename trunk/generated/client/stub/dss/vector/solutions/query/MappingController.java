@@ -12,6 +12,7 @@ import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 import dss.vector.solutions.PolygonStyleDTO;
 import dss.vector.solutions.entomology.MosquitoDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
+import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.sld.SLDWriter;
 import dss.vector.solutions.surveillance.AggregatedCaseDTO;
 
@@ -76,6 +77,33 @@ public class MappingController extends MappingControllerBase implements
       }
 
       String layers = SurveyPointDTO.mapQuery(this.getClientRequest(), queryXML, config,
+          universalLayers, savedSearchId);
+
+      resp.getWriter().print(layers);
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+  }
+
+  @Override
+  public void mapIRSQuery(String queryXML, String config, String[] universalLayers,
+      String savedSearchId) throws IOException, ServletException
+  {
+    try
+    {
+      // must write layers first so the mapping has valid SLD files to reference. If
+      // the search id is null, skip this step so control flow continues and the proper
+      // error can be thrown.
+      if(savedSearchId != null && savedSearchId.trim().length() > 0)
+      {
+        writeLayers(savedSearchId);
+      }
+
+      String layers = AbstractSprayDTO.mapQuery(this.getClientRequest(), queryXML, config,
           universalLayers, savedSearchId);
 
       resp.getWriter().print(layers);
@@ -312,7 +340,7 @@ public class MappingController extends MappingControllerBase implements
 
       GeometryStyleDTO geoStyle = layer.getGeometryStyle();
       req.setAttribute("hasFill", geoStyle.hasAttribute(PolygonStyleDTO.FILL));
-      
+
       req.setAttribute("layerId", layerId);
       req.setAttribute("geoStyle", geoStyle);
       req.setAttribute("textStyle", layer.getTextStyle());
