@@ -42,6 +42,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:form name="dss.vector.solutions.general.Insecticide.form.name" id="dss.vector.solutions.general.Insecticide.form.id" method="GET">
-  <mjl:command value="Define_Insecticide" action="dss.vector.solutions.general.InsecticideController.newInstance.mojo" name="InsecticideController.newInstance" />
-</mjl:form>
+<mjl:commandLink action="dss.vector.solutions.general.InsecticideController.newInstance.mojo" name="InsecticideController.newInstance" >
+  <fmt:message key="Define_Insecticide"/>
+</mjl:commandLink>

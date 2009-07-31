@@ -6,8 +6,8 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.general.Insecticide.form.name" id="dss.vector.solutions.general.Insecticide.form.id" method="POST">
-  <mjl:component item="${item}" param="dto">
-    <dl>
+  <dl>
+    <mjl:component item="${item}" param="dto">
       <dt>
         <label>
           ${item.activeIngredientMd.displayLabel}
@@ -52,7 +52,7 @@
           </c:choose>
         </mjl:select>
       </dd>
-    </dl>
-  </mjl:component>
-  <mjl:command value="Define_Insecticide" action="dss.vector.solutions.general.InsecticideController.create.mojo" name="dss.vector.solutions.general.Insecticide.form.create.button" />
+    </mjl:component>
+    <mjl:command value="Define_Insecticide" action="dss.vector.solutions.general.InsecticideController.create.mojo" name="dss.vector.solutions.general.Insecticide.form.create.button" />
+  </dl>
 </mjl:form>
