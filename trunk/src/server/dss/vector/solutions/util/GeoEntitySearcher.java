@@ -18,6 +18,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import com.terraframe.mojo.SystemException;
 import com.terraframe.mojo.business.Business;
 import com.terraframe.mojo.business.BusinessQuery;
+import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.ColumnInfo;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.OIterator;
@@ -34,9 +35,9 @@ import dss.vector.solutions.geo.UnknownGeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
-public class GeoEntitySearcher
+public class GeoEntitySearcher implements Reloadable
 {
-  private static class GeoHeaderInfo
+  private static class GeoHeaderInfo implements Reloadable
   {
     private String excelColumnName;
     private int columnIndex;
