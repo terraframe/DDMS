@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
+import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.InnerJoinEq;
@@ -120,19 +121,20 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     }
 
 
-    String tableName = "spray_table";
-    String sprayStatusTable = "spray_data_view";
-    String zoneTable = "zone_spray_table";
-    String operatorTable = "operator_spray_table";
-    String teamTable = "operator_spray_table";
-    String sprayTargetTable = "spray_target_table";
-    //AbstractSpray.createTempTables(tableName,sprayDataTable,sprayTargetTable,zoneTable,operatorTable,teamTable);
-    //ResourceTarget.createTempTable(sprayTargetTable);
-    //SprayStatus.createTempTable( sprayStatusTable);
+    //ResourceTarget.createTempTable(resourceTargetView);
+
+
+    String coverageCalculationsView = "spray_data_view";
     String sprayCaluclationsSQL = "(" + SprayStatus.getTempTableSQL() +")";
 
-    valueQuery.FROM(sprayCaluclationsSQL , sprayStatusTable);
-    valueQuery.WHERE(new InnerJoinEq("id", sprayStatusQuery.getMdClassIF().getTableName(), sprayStatusQuery.getTableAlias(), "id", sprayCaluclationsSQL, sprayStatusTable));
+    valueQuery.FROM(sprayCaluclationsSQL , coverageCalculationsView);
+    valueQuery.WHERE(new InnerJoinEq("id", sprayStatusQuery.getMdClassIF().getTableName(), sprayStatusQuery.getTableAlias(), "id", sprayCaluclationsSQL, coverageCalculationsView));
+
+    String unionView = "all_levels_spray_view";
+    String unionSQL = "(" + AbstractSpray.getSubquerySql() +")";
+
+    valueQuery.FROM(unionSQL , unionView);
+    valueQuery.WHERE(new InnerJoinEq("id", sprayStatusQuery.getMdClassIF().getTableName(), sprayStatusQuery.getTableAlias(), "id", unionSQL, unionView));
 
     // set all the spray selectable sql to match up with the temp table columns
     for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
@@ -251,25 +253,34 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     return exporter.exportStream();
   }
 
-  public static void createTempTables(String tableName, String insecticideTable, String sprayTargetView ,String zoneTable, String operatorTable, String teamTable)
+  public static void createTempTable(String tableName)
   {
     //InsecticideBrand.createTempTable(insecticideTable);
 
-    //ZoneSpray.createTempTable(zoneTable,insecticideTable );
-    //OperatorSpray.createTempTable(operatorTable,insecticideTable);
-    //TeamSpray.createTempTable(teamTable,insecticideTable);
-
     String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
-    sql += "CREATE TEMP TABLE " + tableName + " AS ";
-    sql += "SELECT * FROM " + zoneTable;
-    sql += " UNION \n";
-    sql += "SELECT * FROM " + operatorTable;
-    sql += " UNION \n";
-    sql += "SELECT * FROM " + teamTable;
+    sql += "CREATE TEMP TABLE " + tableName + " AS \n";
+    sql += AbstractSpray.getSubquerySql();
     sql += ";\n";
 
+    Database.parseAndExecute(sql);
+  }
+
+
+  public static String getSubquerySql()
+  {
+    //InsecticideBrand.createTempTable(insecticideTable);
+
+
+    String sql = "";
+    sql += OperatorSpray.getTempTableSQL();
+    sql += "\n UNION \n";
+    sql += TeamSpray.getTempTableSQL();
+    sql += "\n UNION \n";
+    sql += ZoneSpray.getTempTableSQL();
+    sql += "\n";
+
     System.out.println(sql);
-    //Database.parseAndExecute(sql);
+    return sql;
   }
 
 }

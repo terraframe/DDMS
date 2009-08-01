@@ -143,7 +143,7 @@ public class ResourceTarget extends ResourceTargetBase implements com.terraframe
 
     String select = "SELECT id AS target_id,\n";
     select += "season AS season_id,\n";
-    select += "spray_week AS week,\n";
+    select += "spray_week AS target_week,\n";
     select += "startdate AS season_start,\n";
     select += "enddate AS season_end,\n";
     select += "target_array[spray_week] AS target,\n";

@@ -1,5 +1,6 @@
 package dss.vector.solutions.irs;
 
+import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.Person;
@@ -58,85 +59,77 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
     return ZoneSpray.get(id).getView();
   }
 
-  public static void createTempTable(String tableName,String activeIngredientView)
+  public static void createTempTable(String tableName)
   {
     String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
     sql += "CREATE TEMP TABLE " + tableName + " AS ";
-    sql += ZoneSpray.getTempTableSQL(activeIngredientView) + ";\n";
+    sql += ZoneSpray.getTempTableSQL() + ";\n";
     System.out.println(sql);
-    //Database.parseAndExecute(sql);
+    Database.parseAndExecute(sql);
   }
 
 
-  public static String getTempTableSQL(String activeIngredientView)
+  public static String getTempTableSQL()
   {
     String select = "SELECT spraystatus.id,\n";
 
-    select += "householdspraystatus."+HouseholdSprayStatus.HOUSEHOLDID+",\n";
-    select += "householdspraystatus."+HouseholdSprayStatus.STRUCTUREID+",\n";
+    select += "'3' AS aggregation_level,\n";
+    //operator stuff
+    select += "'' AS household_id,\n";
+    select += "'' AS structure_id,\n";
+    select += "'' AS sprayoperator,\n";
+    select += "'' AS sprayoperator_defaultLocale,\n";
+    select += "NULL AS operator_week,\n";
+    select += "NULL AS operator_target,\n";
+    //team stuff
+    select += "sprayteam."+SprayTeam.ID+" AS sprayteam,\n";
+    select += "sprayteam."+SprayTeam.TEAMID+" AS sprayteam_defaultLocale,\n";
+    select += "actorspray."+ActorSpray.TEAMLEADER+" AS sprayleader,\n";
+    select += "sprayleader.operatorid || ' - ' || person.firstname || ' ' || person.lastname AS sprayleader_defaultLocale,\n";
+    select += "actorspray."+ActorSpray.TEAMSPRAYWEEK+" AS team_week,\n";
+    select += "actorspray."+ActorSpray.TARGET+" AS team_target,\n";
 
-    select += "actorspray."+ActorSpray.TEAMLEADER+",\n";
-    select += "actorspray."+ActorSpray.TARGET+",\n";
+    //zone stuff
+    select += "zonespray."+ZoneSpray.SUPERVISORNAME+" || ' '|| zonespray."+ZoneSpray.SUPERVISORSURNAME+" AS zone_supervisor,\n";
+    select += "zonespray."+ZoneSpray.SPRAYWEEK+" AS zone_week,\n";
+    select += "zonespray."+ZoneSpray.TARGET+" AS zone_target,\n";
 
-
-    select += "operatorspray."+OperatorSpray.SPRAYOPERATOR+",\n";
-    select += "sprayoperator.operatorid || ' - ' || person.firstname || ' - ' || person.lastname as sprayoperator_displaylabel,\n";
-    select += "operatorspray."+OperatorSpray.OPERATORSPRAYWEEK+",\n";
-
-    select += "spraydata."+SprayData.GEOENTITY+",\n";
-    select += "spraydata."+SprayData.SPRAYDATE+",\n";
-    select += "spraydata.spraymethod_c AS spraymethod,\n";
-    select += "metadatadisplaylabel_2.defaultLocale AS spraymethod_displaylabel,\n";
-    select += "spraydata."+SprayData.BRAND+",\n";
-    select += "spraydata.surfacetype_c AS surfacetype,\n";
-    select += "metadatadisplaylabel_1.defaultLocale AS surfacetype_displaylabel,\n";
 
     String from = " FROM ";
-    //get the main tables
-    from += MdBusiness.getMdBusiness(OperatorSpray.CLASS).getTableName() + " AS operatorspray,\n";
+    from += MdBusiness.getMdBusiness(ZoneSpray.CLASS).getTableName() + " AS zonespray,\n";
+    from += MdBusiness.getMdBusiness(TeamSpray.CLASS).getTableName() + " AS teamspray,\n";
+    from += MdBusiness.getMdBusiness(SprayTeam.CLASS).getTableName() + " AS sprayteam,\n";
+    from += "inteam AS inteam,\n";
     from += MdBusiness.getMdBusiness(ActorSpray.CLASS).getTableName() + " AS actorspray,\n";
-    from += MdBusiness.getMdBusiness(AbstractSpray.CLASS).getTableName() + " AS abstractspray,\n";
-    from += MdBusiness.getMdBusiness(HouseholdSprayStatus.CLASS).getTableName() + " AS householdspraystatus,\n";
+    from += MdBusiness.getMdBusiness(AbstractSpray.CLASS).getTableName() + " AS abstractspray_team,\n";
+    from += MdBusiness.getMdBusiness(AbstractSpray.CLASS).getTableName() + " AS abstractspray_zone,\n";
     from += MdBusiness.getMdBusiness(SprayStatus.CLASS).getTableName() + " AS spraystatus,\n";
     from += MdBusiness.getMdBusiness(SprayData.CLASS).getTableName() + " AS spraydata,\n";
-    from += MdBusiness.getMdBusiness(SprayOperator.CLASS).getTableName() + " AS sprayoperator,\n";
+    from += MdBusiness.getMdBusiness(SprayOperator.CLASS).getTableName() + " AS sprayleader,\n";
     from += MdBusiness.getMdBusiness(Person.CLASS).getTableName() + " AS person,\n";
-    from += MdBusiness.getMdBusiness(AreaStandards.CLASS).getTableName() + " AS areastandards,\n";
-    from += "surfacetype AS surfacetype,\n";
-    from += "surfacetypemaster AS surfacetypemaster,\n";
-    from += "spraymethod AS spraymethod,\n";
-    from += "spraymethodmaster AS spraymethodmaster,\n";
-
-    //get the enums
-    from += "enumeration_master AS enumeration_master_1\n";
-    from += " LEFT JOIN metadatadisplaylabel metadatadisplaylabel_1 ON enumeration_master_1.displayLabel = metadatadisplaylabel_1.id,\n";
-    from += "enumeration_master AS enumeration_master_2\n";
-    from += " LEFT JOIN metadatadisplaylabel metadatadisplaylabel_2 ON enumeration_master_2.displayLabel = metadatadisplaylabel_2.id,\n";
-
-    //get views
-    from += activeIngredientView + " AS active_ingredient_per_can_view,\n";
-    //from += sprayTargetView + " AS spray_target_view,\n";
 
     String where = "";
-    //join main tables
-    where += "AND spraydata.id = abstractspray.spraydata \n";
-    where += "AND abstractspray.id = actorspray.id \n";
-    where += "AND operatorspray.id = actorspray.id \n";
-    where += "AND householdspraystatus.id = spraystatus.id \n";
-    where += "AND spraystatus.spray = operatorspray.id \n";
-    where += "AND operatorspray.sprayoperator = sprayoperator.id \n";
-    where += "AND person.id = sprayoperator.person \n";
+    //join the team spray to the operator spray
+    where += "AND abstractspray_team.spraydata = abstractspray_zone.spraydata \n";
 
-    //join enums
-    where += "AND spraydata.surfacetype = surfacetype.set_id \n";
-    where += "AND surfacetypemaster.id = surfacetype.item_id \n";
-    where += "AND surfacetypemaster.id = enumeration_master_1.id \n";
-    where += "AND spraydata.spraymethod = spraymethod.set_id \n";
-    where += "AND spraymethodmaster.id = spraymethod.item_id \n";
-    where += "AND spraymethodmaster.id = enumeration_master_2.id \n";
+    // join the teamspray to the team
+    where += "AND teamspray.sprayteam = sprayteam.id \n";
+    where += "AND teamspray.id = actorspray.id  \n";
+    where += "AND sprayteam.id = inteam.parent_id  \n";
+    where += "AND sprayleader.id = inteam.child_id \n";
 
-    //join views
-    where += "AND spraydata.brand = active_ingredient_per_can_view.id \n";
+    //join abstractspray_team to the team spray
+    where += "AND teamspray.id = abstractspray_team.id \n";
+    where += "AND teamspray.id = actorspray.id \n";
+    where += "AND spraydata.id = abstractspray_team.spraydata \n";
+
+    //join abstractspray_zone
+    where += "AND abstractspray_zone.id = zonespray.id \n";
+    where += "AND spraystatus.spray = teamspray.id \n";
+
+    //join the people
+    where += "AND actorspray.teamleader = sprayleader.id \n";
+    where += "AND person.id = sprayleader.person \n";
 
     select = select.substring(0, select.length() - 2);
     from = from.substring(0, from.length() - 2);

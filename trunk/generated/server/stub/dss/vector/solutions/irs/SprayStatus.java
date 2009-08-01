@@ -75,6 +75,11 @@ public class SprayStatus extends SprayStatusBase implements com.terraframe.mojo.
     select += "(spraystatus.sprayedstructures / CAST(spraystatus.structures AS float))  * 100 AS structure_operational_coverage,\n";
     select += "(spraystatus.sprayedhouseholds / CAST(spraystatus.households AS float)) * 100  AS household_operational_coverage,\n";
 
+    // unsprayed
+    select += "(spraystatus.rooms - spraystatus.sprayedrooms) AS room_unsprayed,\n";
+    select += "(spraystatus.structures - spraystatus.sprayedstructures) AS structure_unsprayed,\n";
+    select += "(spraystatus.households - spraystatus.sprayedhouseholds) AS household_unsprayed,\n";
+
     String from = " FROM ";
     // get the main tables
     from += MdBusiness.getMdBusiness(AbstractSpray.CLASS).getTableName() + " AS abstractspray,\n";
