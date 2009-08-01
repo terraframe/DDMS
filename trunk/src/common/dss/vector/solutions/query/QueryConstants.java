@@ -14,7 +14,7 @@ public class QueryConstants implements Reloadable
   public static final String THEMATIC_DATA_COLUMN = "data";
 
   public static final String ENTITY_NAME_COLUMN = "entityname_v";
-  
+
   public static final String GEOMETRY_NAME_COLUMN = "geometry_v";
 
   public static final String VIEW_NAME_SUFFIX = "_view";
@@ -28,5 +28,5 @@ public class QueryConstants implements Reloadable
 
   public static final String QUERY_IRS ="QueryIRS";
 
-  public static final String QUERY_RESISTANCE = "QueryRestisance";
+  public static final String QUERY_RESISTANCE = "QueryResistance";
 }
