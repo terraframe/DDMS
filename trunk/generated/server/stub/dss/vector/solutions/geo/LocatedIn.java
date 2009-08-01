@@ -27,4 +27,10 @@ public class LocatedIn extends LocatedInBase implements com.terraframe.mojo.gene
     
     GeoEntity.updateAllPathForGeoEntity(this.getChildId());
   }
+  
+  @Transaction
+  public void applyWithoutCreatingAllPaths()
+  {
+    super.apply();
+  }
 }
