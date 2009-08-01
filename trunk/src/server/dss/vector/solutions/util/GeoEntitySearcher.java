@@ -362,6 +362,11 @@ public class GeoEntitySearcher
    */
   public static List<GeoEntity> search(boolean soundsLikeMatch, Map<String, String> parentGeoEntityMap, String childGeoEntityType, String childGeoEntityName)
   {
+    if(childGeoEntityType.equals("") && childGeoEntityName.equals(""))
+    {
+      return new LinkedList<GeoEntity>();
+    }
+    
     MdBusiness childMdBusiness = MdBusiness.getMdBusiness(childGeoEntityType);
 
     QueryFactory qf = new QueryFactory();
