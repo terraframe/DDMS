@@ -268,7 +268,7 @@ public class GeoEntityImporter
 	        }
 	
 	        ((LocatedIn) childGeoEntity.addParent(parentGeoEntity, LocatedIn.CLASS)).applyWithoutCreatingAllPaths();
-        
+
 	        //        childGeoEntity.addLocatedInGeoEntity(parentGeoEntity).apply();
         }
       }
@@ -431,7 +431,7 @@ public class GeoEntityImporter
             businessClass.getMethod("setMultiLineString", MultiLineString.class).invoke(geoEntity,
                    multiLineString);
           }
-/*          
+/*
           else if (centriodField != null)
           {
             MultiPoint mp = new MultiPoint(new Point[]{(Point)centriodField.getGeometry()}, centriodField.getGeometry().getFactory());
@@ -453,7 +453,7 @@ public class GeoEntityImporter
             businessClass.getMethod("setMultiPoint", MultiPoint.class).invoke(geoEntity,
                 (MultiPoint) multiPointField.getGeometry());
           }
-*/          
+*/
           else if (multiPolygonField != null)
           {
             Geometry geometry = multiPolygonField.getGeometry();

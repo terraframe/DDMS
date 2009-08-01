@@ -76,7 +76,7 @@ public class GeoEntityAllPathBuilder
   @Transaction
   public static int updateBatchOfPaths(List<String> ids, int applyCount) {
 	  for (String id: ids) {
-		  applyCount = GeoEntity.updateAllPathForGeoEntity(id, true, applyCount);
+		  applyCount = GeoEntity.updateAllPathForGeoEntity(id, false, true, applyCount);
 	  }
 	  return applyCount;
   }

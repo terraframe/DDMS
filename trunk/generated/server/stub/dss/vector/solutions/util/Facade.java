@@ -1,18 +1,9 @@
 package dss.vector.solutions.util;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Iterator;
+import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-
-import com.terraframe.mojo.SystemException;
 import com.terraframe.mojo.constants.MdBusinessInfo;
 import com.terraframe.mojo.constants.MdViewInfo;
-import com.terraframe.mojo.query.ColumnInfo;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
@@ -22,7 +13,7 @@ import com.terraframe.mojo.system.Roles;
 import com.terraframe.mojo.system.metadata.MdClassQuery;
 import com.terraframe.mojo.system.metadata.MdElementQuery;
 
-import dss.vector.solutions.geo.GeoSynonym;
+import dss.vector.solutions.geo.UnknownGeoEntity;
 
 public abstract class Facade extends FacadeBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -65,6 +56,28 @@ public abstract class Facade extends FacadeBase implements com.terraframe.mojo.g
       Roles.findRoleByName("mdssCoordinator"),
       Roles.findRoleByName("operationalManager")
     };
+  }
+
+  /**
+   * Checks the geo entity hierarchy in the excel file and tries to find synonym matches.  Each geo universal column is checked
+   * in order of depth, starting from lowest to highest.
+   *
+   *
+   * @param inputStream
+   * @param type
+   * @return
+   */
+  public static dss.vector.solutions.geo.UnknownGeoEntity[] checkSynonyms(java.io.InputStream inputStream, java.lang.String type)
+  {
+    GeoEntitySearcher geoEntitySearcher = new GeoEntitySearcher();
+
+    List<UnknownGeoEntity> unknownGeoEntityList = geoEntitySearcher.checkExcelGeoHierarchy(inputStream);
+
+    UnknownGeoEntity[] unknownGeoEntityArray = new UnknownGeoEntity[unknownGeoEntityList.size()];
+
+    unknownGeoEntityList.toArray(unknownGeoEntityArray);
+
+    return unknownGeoEntityArray;
   }
 
   /**

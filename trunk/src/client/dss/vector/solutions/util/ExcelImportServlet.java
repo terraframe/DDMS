@@ -98,16 +98,12 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
 
           return; // error case
         }
-// Heads up: clean up
-//        errorStream = clientRequest.importExcelFile(new ByteArrayInputStream(bytes), type, "setupImportListener", fields.get("parentGeoEntityId"));
         String[] params = new String[1];
         params[0] = fields.get("parentGeoEntityId");
         errorStream = FacadeDTO.importExcelFile(clientRequest, new ByteArrayInputStream(bytes), type, "setupImportListener", params);
       }
       else
       {
-// Heads up: clean up
-//        errorStream = clientRequest.importExcelFile(new ByteArrayInputStream(bytes), type, "setupImportListener");
         errorStream = FacadeDTO.importExcelFile(clientRequest, new ByteArrayInputStream(bytes), type, "setupImportListener", new String[0]);
       }
 

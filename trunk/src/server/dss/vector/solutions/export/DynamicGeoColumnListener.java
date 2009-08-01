@@ -2,6 +2,7 @@ package dss.vector.solutions.export;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,9 +19,11 @@ import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
-import dss.vector.solutions.geo.AllPaths;
+import dss.vector.solutions.AmbigiousGeoEntityException;
+import dss.vector.solutions.UnknownGeoEntityException;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.util.GeoEntitySearcher;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class DynamicGeoColumnListener implements ExcelExportListener, ImportListener, Reloadable
@@ -63,13 +66,13 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
     String endPointEntityName = "";
     String endPointEntityType = "";
 
-    GeoEntity entity = null;
+    List<GeoEntity> entityList = new LinkedList<GeoEntity>();
     Map<String, String> parentGeoEntityMap = new HashMap<String, String>();
     for(GeoHierarchy hierarchy : hierarchyList)
     {
       MdBusiness geoEntityClass = hierarchy.getGeoEntityClass();
       String excelAttribute = getExcelAttribute(geoEntityClass);
-      
+
       // Go find the expected column
       for (ExcelColumn column : extraColumns)
       {
@@ -77,39 +80,54 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
         String entityName;
         if (cell==null)
         {
-          entityName = "";
+
+          entityList = GeoEntitySearcher.search(false, parentGeoEntityMap, endPointEntityType, endPointEntityName);
         }
         else
         {
           if (column.getAttributeName().equals(excelAttribute))
           {
             entityName = cell.getRichStringCellValue().getString();
-            
+
             geoEntityNames.add(entityName);
             parentGeoEntityMap.put(geoEntityClass.definesType(), entityName);
-            
+
             endPointEntityName = entityName;
             endPointEntityType = geoEntityClass.definesType();
           }
         }
       }
     }
-    
-    if (!endPointEntityName.equals(""))
-    {
-      entity = AllPaths.search(parentGeoEntityMap, endPointEntityType, endPointEntityName);
-    }
 
-    // Now use reflection to set the value
-    Class<?> excelClass = LoaderDecorator.load(excelType);
-    String accessorName = GenerationUtil.upperFirstCharacter(instance.getMdAttributeDAO(attributeName).getAccessorName());
-    excelClass.getMethod("set" + accessorName, GeoEntity.class).invoke(instance, entity);
+    if (entityList.size() == 0)
+    {
+      String msg = "Unknown Geo Entity [" + endPointEntityName + "]";
+      UnknownGeoEntityException e =  new UnknownGeoEntityException(msg);
+      e.setEntityName(endPointEntityName);
+      e.apply();
+      throw e;
+    }
+    else if (entityList.size() == 1)
+    {
+      // Now use reflection to set the value
+      Class<?> excelClass = LoaderDecorator.load(excelType);
+      String accessorName = GenerationUtil.upperFirstCharacter(instance.getMdAttributeDAO(attributeName).getAccessorName());
+      excelClass.getMethod("set" + accessorName, GeoEntity.class).invoke(instance, entityList.get(0));
+    }
+    else // entityList.size() > 1
+    {
+      String msg = "Geo Entity ending with [" + endPointEntityName + "] is ambiguous (It has more than one possible solution)";
+      AmbigiousGeoEntityException e = new AmbigiousGeoEntityException(msg);
+      e.setEntityName(endPointEntityName);
+      e.apply();
+      throw e;
+    }
   }
 
   private String getExcelAttribute(MdBusiness geoEntityClass)
   {
-    String geoType = geoEntityClass.getTypeName();
-    return PREFIX + this.attributeName + " " + geoType;
+    String geoTypeName = geoEntityClass.getTypeName();
+    return PREFIX + this.attributeName + " " + geoTypeName;
   }
 
   public void preHeader(ExcelColumn columnInfo) { }

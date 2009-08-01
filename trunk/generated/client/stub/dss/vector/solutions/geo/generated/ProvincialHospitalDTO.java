@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public class ProvincialHospitalDTO extends ProvincialHospitalDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1248910391260L;
+  private static final long serialVersionUID = 1248976408751L;
   
   public ProvincialHospitalDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

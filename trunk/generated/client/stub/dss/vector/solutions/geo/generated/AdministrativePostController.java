@@ -5,31 +5,13 @@ public class AdministrativePostController extends AdministrativePostControllerBa
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/AdministrativePost/";
   public static final String LAYOUT = "/layout.jsp";
   
-  private static final long serialVersionUID = 1248910617778L;
+  private static final long serialVersionUID = 1248976640189L;
   
   public AdministrativePostController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void create(dss.vector.solutions.geo.generated.AdministrativePostDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failCreate(dto);
-    }
-  }
-  public void failCreate(dss.vector.solutions.geo.generated.AdministrativePostDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create AdministrativePost");
-    render("createComponent.jsp");
-  }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
@@ -42,16 +24,32 @@ public class AdministrativePostController extends AdministrativePostControllerBa
   {
     resp.sendError(500);
   }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void update(dss.vector.solutions.geo.generated.AdministrativePostDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.geo.generated.AdministrativePostDTO dto = dss.vector.solutions.geo.generated.AdministrativePostDTO.lock(super.getClientRequest(), id);
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failUpdate(dto);
+    }
+  }
+  public void failUpdate(dss.vector.solutions.geo.generated.AdministrativePostDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit AdministrativePost");
+    req.setAttribute("page_title", "Update AdministrativePost");
     render("editComponent.jsp");
   }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(dss.vector.solutions.geo.generated.AdministrativePostDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    this.view(id);
+    dto.unlock();
+    this.view(dto.getId());
+  }
+  public void failCancel(dss.vector.solutions.geo.generated.AdministrativePostDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.edit(dto.getId());
   }
   public void delete(dss.vector.solutions.geo.generated.AdministrativePostDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -70,27 +68,6 @@ public class AdministrativePostController extends AdministrativePostControllerBa
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit AdministrativePost");
     render("editComponent.jsp");
-  }
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.AdministrativePostDTO dto = new dss.vector.solutions.geo.generated.AdministrativePostDTO(clientRequest);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create AdministrativePost");
-    render("createComponent.jsp");
-  }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
-  public void cancel(dss.vector.solutions.geo.generated.AdministrativePostDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dto.unlock();
-    this.view(dto.getId());
-  }
-  public void failCancel(dss.vector.solutions.geo.generated.AdministrativePostDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.edit(dto.getId());
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -115,7 +92,18 @@ public class AdministrativePostController extends AdministrativePostControllerBa
   {
     this.viewAll();
   }
-  public void update(dss.vector.solutions.geo.generated.AdministrativePostDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    dss.vector.solutions.geo.generated.AdministrativePostDTO dto = dss.vector.solutions.geo.generated.AdministrativePostDTO.lock(super.getClientRequest(), id);
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit AdministrativePost");
+    render("editComponent.jsp");
+  }
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.view(id);
+  }
+  public void create(dss.vector.solutions.geo.generated.AdministrativePostDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -124,13 +112,25 @@ public class AdministrativePostController extends AdministrativePostControllerBa
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
-      this.failUpdate(dto);
+      this.failCreate(dto);
     }
   }
-  public void failUpdate(dss.vector.solutions.geo.generated.AdministrativePostDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(dss.vector.solutions.geo.generated.AdministrativePostDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update AdministrativePost");
-    render("editComponent.jsp");
+    req.setAttribute("page_title", "Create AdministrativePost");
+    render("createComponent.jsp");
+  }
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.geo.generated.AdministrativePostDTO dto = new dss.vector.solutions.geo.generated.AdministrativePostDTO(clientRequest);
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create AdministrativePost");
+    render("createComponent.jsp");
+  }
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
   }
 }

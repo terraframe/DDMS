@@ -5,7 +5,7 @@ public class ExitTrapController extends ExitTrapControllerBase implements com.te
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/ExitTrap/";
   public static final String LAYOUT = "/layout.jsp";
   
-  private static final long serialVersionUID = 1248910407028L;
+  private static final long serialVersionUID = 1248976425528L;
   
   public ExitTrapController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -23,6 +23,18 @@ public class ExitTrapController extends ExitTrapControllerBase implements com.te
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
+  }
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.geo.generated.ExitTrapDTO dto = new dss.vector.solutions.geo.generated.ExitTrapDTO(clientRequest);
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create ExitTrap");
+    render("createComponent.jsp");
+  }
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
   }
   public void delete(dss.vector.solutions.geo.generated.ExitTrapDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -42,55 +54,6 @@ public class ExitTrapController extends ExitTrapControllerBase implements com.te
     req.setAttribute("page_title", "Edit ExitTrap");
     render("editComponent.jsp");
   }
-  public void create(dss.vector.solutions.geo.generated.ExitTrapDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failCreate(dto);
-    }
-  }
-  public void failCreate(dss.vector.solutions.geo.generated.ExitTrapDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create ExitTrap");
-    render("createComponent.jsp");
-  }
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", dss.vector.solutions.geo.generated.ExitTrapDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View ExitTrap");
-    render("viewComponent.jsp");
-  }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dss.vector.solutions.geo.generated.ExitTrapDTO dto = dss.vector.solutions.geo.generated.ExitTrapDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit ExitTrap");
-    render("editComponent.jsp");
-  }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.view(id);
-  }
-  public void cancel(dss.vector.solutions.geo.generated.ExitTrapDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dto.unlock();
-    this.view(dto.getId());
-  }
-  public void failCancel(dss.vector.solutions.geo.generated.ExitTrapDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.edit(dto.getId());
-  }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
@@ -103,17 +66,14 @@ public class ExitTrapController extends ExitTrapControllerBase implements com.te
   {
     resp.sendError(500);
   }
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(dss.vector.solutions.geo.generated.ExitTrapDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.ExitTrapDTO dto = new dss.vector.solutions.geo.generated.ExitTrapDTO(clientRequest);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create ExitTrap");
-    render("createComponent.jsp");
+    dto.unlock();
+    this.view(dto.getId());
   }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(dss.vector.solutions.geo.generated.ExitTrapDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    this.viewAll();
+    this.edit(dto.getId());
   }
   public void update(dss.vector.solutions.geo.generated.ExitTrapDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -132,5 +92,45 @@ public class ExitTrapController extends ExitTrapControllerBase implements com.te
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update ExitTrap");
     render("editComponent.jsp");
+  }
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("item", dss.vector.solutions.geo.generated.ExitTrapDTO.get(clientRequest, id));
+    req.setAttribute("page_title", "View ExitTrap");
+    render("viewComponent.jsp");
+  }
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
+  }
+  public void create(dss.vector.solutions.geo.generated.ExitTrapDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failCreate(dto);
+    }
+  }
+  public void failCreate(dss.vector.solutions.geo.generated.ExitTrapDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create ExitTrap");
+    render("createComponent.jsp");
+  }
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    dss.vector.solutions.geo.generated.ExitTrapDTO dto = dss.vector.solutions.geo.generated.ExitTrapDTO.lock(super.getClientRequest(), id);
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit ExitTrap");
+    render("editComponent.jsp");
+  }
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.view(id);
   }
 }

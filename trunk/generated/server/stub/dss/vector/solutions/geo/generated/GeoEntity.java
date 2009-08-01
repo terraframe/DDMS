@@ -13,7 +13,6 @@ import java.util.Set;
 
 import com.terraframe.mojo.business.Business;
 import com.terraframe.mojo.business.BusinessFacade;
-import com.terraframe.mojo.constants.ComponentInfo;
 import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.dataaccess.InvalidIdException;
 import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
@@ -1180,42 +1179,23 @@ public abstract class GeoEntity extends GeoEntityBase implements
     }
   }
 
-  @Transaction
-  public static void updateAllPaths()
+  public static void updateAllPathForGeoEntity(String childId, String parentId)
   {
-    QueryFactory qf = new QueryFactory();
-
-    GeoEntityQuery geoEntityQ = new GeoEntityQuery(qf);
-
-    ValueQuery q = new ValueQuery(qf);
-    q.SELECT(geoEntityQ.getId(ComponentInfo.ID));
-
-    OIterator<ValueObject> i = q.getIterator();
-
-    try
-    {
-      int applyCount = 0;
-
-      for (ValueObject valueObject : i)
-      {
-        String childId = valueObject.getValue(ComponentInfo.ID);
-
-        applyCount = updateAllPathForGeoEntity(childId, true, applyCount);
-      }
-    }
-    finally
-    {
-      i.close();
-    }
+    updateAllPathForGeoEntity(childId, parentId, true, false, 0);
   }
 
-  public static void updateAllPathForGeoEntity(String childId)
+  public static int updateAllPathForGeoEntityWithParent(String childId, String parentId, boolean copyChildren, boolean showTicker, int applyCount)
   {
-    updateAllPathForGeoEntity(childId, false, 0);
+    return updateAllPathForGeoEntity(childId, parentId, copyChildren, showTicker, applyCount);
+  }
+
+  public static int updateAllPathForGeoEntity(String childId, boolean copyChildren, boolean showTicker, int applyCount)
+  {
+    return updateAllPathForGeoEntity(childId, null, copyChildren, showTicker, applyCount);
   }
 
   @Transaction
-  public static int updateAllPathForGeoEntity(String childId, boolean showTicker, int applyCount)
+  private static int updateAllPathForGeoEntity(String childId, String parentId, boolean copyChildren, boolean showTicker, int applyCount)
   {
     MdClassDAOIF childMdClassIF = MdClassDAO.getMdClassByRootId(IdParser
         .parseMdTypeRootIdFromId(childId));
@@ -1227,23 +1207,45 @@ public abstract class GeoEntity extends GeoEntityBase implements
       applyCount = updateAllPathsTicker(applyCount);
     }
 
-    List<String> parentIdList = getParentIds(childId);
+    // If an id of a parent is given, only build paths between this node, the given parent
+    // and that parent's parents.  This is ideal for copies, so we don't have to traverse
+    // the paths of existing parents.
+    List<String> parentIdList;
+    if (parentId != null)
+    {
+      parentIdList = getRecursiveParentIds(parentId);
+      parentIdList.add(0, parentId);
+    }
+    else
+    {
+      parentIdList = getRecursiveParentIds(childId);
+    }
 
-    for (String parentId : parentIdList)
+    for (String someParentId : parentIdList)
     {
       MdClassDAOIF parentMdClassIF = MdClassDAO.getMdClassByRootId(IdParser
-          .parseMdTypeRootIdFromId(parentId));
-      createPath(parentId, parentMdClassIF.getId(), childId, childMdClassIF.getId());
+          .parseMdTypeRootIdFromId(someParentId));
+      createPath(someParentId, parentMdClassIF.getId(), childId, childMdClassIF.getId());
       if (showTicker)
       {
         applyCount = updateAllPathsTicker(applyCount);
       }
     }
 
+    if (copyChildren)
+    {
+      // Update paths of the children.
+      List<String> childOfChildIdList = getChildIds(childId);
+      for (String childOfChild : childOfChildIdList)
+      {
+        applyCount = updateAllPathForGeoEntity(childOfChild, childId, copyChildren, showTicker, applyCount);
+      }
+    }
+
     return applyCount;
   }
 
-  private static List<String> getParentIds(String childId)
+  private static List<String> getRecursiveParentIds(String childId)
   {
     QueryFactory queryFactory = new QueryFactory();
 
@@ -1262,10 +1264,34 @@ public abstract class GeoEntity extends GeoEntityBase implements
     {
       String parentId = valueObject.getValue(RelationshipInfo.PARENT_ID);
       parentIdList.add(parentId);
-      parentIdList.addAll(getParentIds(parentId));
+      parentIdList.addAll(getRecursiveParentIds(parentId));
     }
 
     return parentIdList;
+  }
+
+  private static List<String> getChildIds(String parentId)
+  {
+    QueryFactory queryFactory = new QueryFactory();
+
+    LocatedInQuery locatedInQuery = new LocatedInQuery(queryFactory);
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    valueQuery.SELECT(locatedInQuery.childId(RelationshipInfo.CHILD_ID));
+    valueQuery.WHERE(locatedInQuery.parentId().EQ(parentId));
+
+    List<ValueObject> valueObjectList = valueQuery.getIterator().getAll();
+
+    List<String> childOfChildIdList = new LinkedList<String>();
+
+    for (ValueObject valueObject : valueObjectList)
+    {
+      String childId = valueObject.getValue(RelationshipInfo.CHILD_ID);
+      childOfChildIdList.add(childId);
+    }
+
+    return childOfChildIdList;
   }
 
   private static void createPath(String parentId, String parentMdBusiness, String childId,

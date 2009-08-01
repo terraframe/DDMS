@@ -23,14 +23,19 @@
             size="255" />
           <text
             name="synonyms"
-            required="true"
-            label="Synonyms"
+            required="false"
+            label="Similar Geo Entity Names"
             description="Comma delimited list of synonyms"/>
           <text
             name="knownHierarchy"
-            required="true"
+            required="false"
             label="Hierarchy"
             description="List of the hierarchy that is known for this geo entity"/>
+          <text
+            name="siblings"
+            required="false"
+            label="Other Possible Matches"
+            description="List of all potential matches based on the known hierarchy for this geo entity."/>
         </attributes>
       </mdView>
 
@@ -71,7 +76,7 @@
             label="Check Synonym"
             description="Checks the Synonyms of an Excel Input file"
             static="true"
-            returnType="dss.vector.solutions.geo.UnknownGeoEntity">
+            returnType="dss.vector.solutions.geo.UnknownGeoEntity[]">
             <mdParameter
               name="inputStream"
               label="Input Stream"

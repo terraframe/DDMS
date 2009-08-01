@@ -1,10 +1,11 @@
 package dss.vector.solutions;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
-import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.business.BusinessQuery;
 import com.terraframe.mojo.constants.ComponentInfo;
 import com.terraframe.mojo.constants.RelationshipInfo;
@@ -12,12 +13,8 @@ import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectableSQLDouble;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.system.metadata.MdBusiness;
@@ -26,12 +23,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.intervention.BloodslideResponse;
-import dss.vector.solutions.intervention.RDTResponse;
-import dss.vector.solutions.intervention.RDTResult;
-import dss.vector.solutions.intervention.monitor.PersonQuery;
-import dss.vector.solutions.surveillance.TreatmentGrid;
-import dss.vector.solutions.surveillance.TreatmentGridQuery;
+import dss.vector.solutions.util.GeoEntitySearcher;
 
 public class Sandbox
 {
@@ -41,8 +33,10 @@ public class Sandbox
 
   public static void main(String[] args) throws Exception
   {
-    test(ClientSession.createUserSession("MDSS", "mdsstest2", Locale.ENGLISH).getSessionId());
-    
+    testNoLogin();
+
+    // test(ClientSession.createUserSession("MDSS", "mdsstest2", Locale.ENGLISH).getSessionId());
+    //
     // String temp = "CaseTreatmentStock_SP_TreatmentGrid";
     //
     // int firstIndex = temp.indexOf("_", 0);
@@ -87,37 +81,97 @@ public class Sandbox
 
     // testAllPaths();
   }
-  
+
+  @StartSession
+  public static void testNoLogin()
+  {
+
+    try
+    {
+      FileInputStream fileInputStream = new FileInputStream(new File("/Users/nathan/workspace3.4/MDSS/PersonExcelView.xls"));
+
+      GeoEntitySearcher geoSynonymMatcher = new GeoEntitySearcher();
+      geoSynonymMatcher.checkExcelGeoHierarchy(fileInputStream);
+    }
+    catch (FileNotFoundException e)
+    {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+/*
+ Mocambique
+ Mozambique
+
+ select metaphone('Mocambique', 255);
+ select metaphone('Mozambique', 255);
+
+ select dmetaphone('Mocambique');
+ select dmetaphone_alt('Mocambique');
+
+ select dmetaphone('Mozambique');
+ select dmetaphone_alt('Mozambique');
+
+SELECT levenshtein('Mocambique', 'Mozambique');
+
+
+ */
+//    QueryFactory qf = new QueryFactory();
+//    GeoEntityQuery geoEntityQuery = new GeoEntityQuery(qf);
+//
+//    geoEntityQuery.WHERE(geoEntityQuery.getEntityName().EQ("Bilene"));
+//
+//    OIterator<? extends GeoEntity> i = geoEntityQuery.getIterator();
+//
+//    try
+//    {
+//      GeoEntity geoEntity = i.next();
+//      System.out.println(geoEntity.getEntityName());
+//
+//      GeoSynonym geoSynonym = new GeoSynonym();
+//      geoSynonym.setEntityName("Bellene");
+//      geoSynonym.apply();
+//
+//      geoEntity.addSynonyms(geoSynonym).apply();
+//
+//    }
+//    finally
+//    {
+//      i.close();
+//    }
+  }
+
   @StartSession
   public static void test(String sessionId)
   {
-    QueryFactory f = new QueryFactory();
-    
-    ValueQuery v = new ValueQuery(f);
-    ValueQuery v2 = new ValueQuery(f);
-    
-    PersonQuery p1 = new PersonQuery(f); // Original PersonQuery
-    PersonQuery p2 = new PersonQuery(f); // PersonQuery for Prevalence
-    
-    // total tested
-    Condition or = OR.get(p2.getPerformedRDT().containsAny(RDTResponse.YES),
-        p2.getBloodslide().containsAny(BloodslideResponse.DONE));
-    p2.WHERE(or);
-    
-    // total positive
-    p2.AND(p2.getRDTResult().containsAny(RDTResult.MALARIAE_POSITIVE, RDTResult.MIXED_POSITIVE,
-        RDTResult.OVALE_POSITIVE, RDTResult.PF_POSITIVE, RDTResult.VIVAX_POSITIVE));
-    
-    v2.SELECT(F.COUNT(p2.getId()));
-    
-    SelectableSQLDouble precision = v.aSQLAggregateDouble("precision", "");
-    precision.setSQL("100 * AVG( ("+v2.getSQL()+" WHERE "+p2.getTableAlias()+".id = "+p1.getTableAlias()+".id))");
-    
-    
-    v.SELECT(precision);
-    v.FROM(p1);
-    
-    System.out.println(v.getSQL());
+
+
+//    QueryFactory f = new QueryFactory();
+//
+//    ValueQuery v = new ValueQuery(f);
+//    ValueQuery v2 = new ValueQuery(f);
+//
+//    PersonQuery p1 = new PersonQuery(f); // Original PersonQuery
+//    PersonQuery p2 = new PersonQuery(f); // PersonQuery for Prevalence
+//
+//    // total tested
+//    Condition or = OR.get(p2.getPerformedRDT().containsAny(RDTResponse.YES),
+//        p2.getBloodslide().containsAny(BloodslideResponse.DONE));
+//    p2.WHERE(or);
+//
+//    // total positive
+//    p2.AND(p2.getRDTResult().containsAny(RDTResult.MALARIAE_POSITIVE, RDTResult.MIXED_POSITIVE,
+//        RDTResult.OVALE_POSITIVE, RDTResult.PF_POSITIVE, RDTResult.VIVAX_POSITIVE));
+//
+//    v2.SELECT(F.COUNT(p2.getId()));
+//
+//    SelectableSQLDouble precision = v.aSQLAggregateDouble("precision", "");
+//    precision.setSQL("100 * AVG( ("+v2.getSQL()+" WHERE "+p2.getTableAlias()+".id = "+p1.getTableAlias()+".id))");
+//
+//
+//    v.SELECT(precision);
+//    v.FROM(p1);
+//
+//    System.out.println(v.getSQL());
   }
 
   @StartSession

@@ -16,6 +16,25 @@
             indexType="non-unique index"
             size="255" />
         </attributes>
+          <mdMethod
+            name="createSynonym"
+            label="Create Synonym"
+            description="Creates a new synonym with the given name with the given geo id"
+            static="true"
+            returnType="void">
+            <mdParameter
+              name="entityName"
+              label="Entity Name"
+              description="Geo Entity Name"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="geoId"
+              label="Geo Id"
+              description="Geo Id"
+              order="1"
+              type="java.lang.String" />
+          </mdMethod>
       </mdBusiness>
 
       <mdGraph
