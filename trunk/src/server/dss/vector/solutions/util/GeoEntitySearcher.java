@@ -269,14 +269,14 @@ public class GeoEntitySearcher implements Reloadable
               unknownGeoEntityNameSet.add(endPointEntityName);
 
 
-System.out.println("Heads up: matches for: "+endPointEntityName+" "+endPointEntityType);
-System.out.println("   Possible synonym matches: "+delimitedSynonymList);
-System.out.println("   Synonyms: "+delimitedSiblingList+"\n");
+//System.out.println("matches for: "+endPointEntityName+" "+endPointEntityType);
+//System.out.println("   Possible synonym matches: "+delimitedSynonymList);
+//System.out.println("   Synonyms: "+delimitedSiblingList+"\n");
             }
             else if (geoEntityList.size() == 1)
             {
               // do nothing.  We found an exact match, which is what we wanted
-System.out.println("Heads up: match: "+geoEntityList.get(0).getEntityName());
+//System.out.println("match: "+geoEntityList.get(0).getEntityName());
             }
             else // geoEntityList.size() > 1
             {
