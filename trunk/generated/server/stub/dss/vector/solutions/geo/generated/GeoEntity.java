@@ -1103,8 +1103,10 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
       // Restricted types to avoid returning large data sets
       String[] baseTypes = {
-          // MDSSInfo.GENERATED_GEO_PACKAGE+".WaterBody",
-          MDSSInfo.GENERATED_GEO_PACKAGE + ".River", MDSSInfo.GENERATED_GEO_PACKAGE + ".Road",
+          MDSSInfo.GENERATED_GEO_PACKAGE + ".WaterBody",
+          MDSSInfo.GENERATED_GEO_PACKAGE + ".Reserve",
+          MDSSInfo.GENERATED_GEO_PACKAGE + ".River",
+          MDSSInfo.GENERATED_GEO_PACKAGE + ".Road",
           MDSSInfo.GENERATED_GEO_PACKAGE + ".Railway" };
 
       // Grab all is_a children of the restricted types to add to
