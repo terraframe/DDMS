@@ -16,7 +16,7 @@ import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.entomology.Sex;
-import dss.vector.solutions.geo.generated.PrivateHospital;
+import dss.vector.solutions.geo.generated.Hospital;
 
 public class D_AggregatedIPTCRUDPermissions extends AggregatedIPTCRUDPermissions
 {
@@ -26,7 +26,7 @@ public class D_AggregatedIPTCRUDPermissions extends AggregatedIPTCRUDPermissions
 
   private static String          password = "test";
 
-  private static PrivateHospital site;
+  private static Hospital site;
 
   public static Test suite()
   {
@@ -88,7 +88,7 @@ public class D_AggregatedIPTCRUDPermissions extends AggregatedIPTCRUDPermissions
     person.setUserDelegate(user);
     person.apply();
 
-    site = new PrivateHospital();
+    site = new Hospital();
     site.setGeoId("44");
     site.setEntityName("Test Site");
     site.apply();

@@ -16,6 +16,7 @@ import org.postgresql.ds.common.BaseDataSource;
 
 //import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.constants.DatabaseProperties;
+import com.terraframe.mojo.dataaccess.InvalidIdException;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
@@ -201,14 +202,15 @@ public class GeoEntityImporter
     this.geoHierarchyMap = new HashMap<Integer, GeoHierarchy>();
   }
 
-  @Transaction
+
   private void importGeoEntities() throws Exception
   {
     this.buildGeoHierarchyMap();
     this.createGeoEntities();
     this.createLocatedInRelationships();
   }
-
+  
+  @Transaction
   private void createLocatedInRelationships() throws Exception
   {
     System.out.println("Creating GeoEntity LocatedIn Relationships ");
@@ -238,30 +240,37 @@ public class GeoEntityImporter
         String geoId = resultSet.getString(GEO_ID);
 
         // Parent GeoEntity (will be Earth if unspecified)
-        GeoEntity parentGeoEntity;
+        GeoEntity parentGeoEntity = null;
         if ((locatedIn != null) && (locatedIn.trim().length() > 0) && (!locatedIn.trim().equals("1")))
         {
-          parentGeoEntity = GeoEntity.searchByGeoId(locatedIn);
+        	try {
+        		parentGeoEntity = GeoEntity.searchByGeoId(locatedIn);
+        	} catch (InvalidIdException iie) {
+        		System.out.println("\nWARNING: Parent" + locatedIn + " not found for child " + geoId);
+                parentGeoEntity = Earth.getEarthInstance();
+        	}
         }
         else
         {
           parentGeoEntity = Earth.getEarthInstance();
         }
 
-        GeoEntity childGeoEntity = GeoEntity.searchByGeoId(geoId);
-
-        System.out.print(".");
-
-        applyCount++;
-
-        if (applyCount % feedbackMod == 0)
-        {
-          System.out.println();
-        }
-
-        childGeoEntity.addParent(parentGeoEntity, LocatedIn.CLASS).apply();
+        if (parentGeoEntity != null) {
+	        GeoEntity childGeoEntity = GeoEntity.searchByGeoId(geoId);
+	
+	        System.out.print(".");
+	
+	        applyCount++;
+	
+	        if (applyCount % feedbackMod == 0)
+	        {
+	          System.out.println();
+	        }
+	
+	        ((LocatedIn) childGeoEntity.addParent(parentGeoEntity, LocatedIn.CLASS)).applyWithoutCreatingAllPaths();
         
-//        childGeoEntity.addLocatedInGeoEntity(parentGeoEntity).apply();
+	        //        childGeoEntity.addLocatedInGeoEntity(parentGeoEntity).apply();
+        }
       }
     }
     finally
@@ -281,8 +290,16 @@ public class GeoEntityImporter
 
   private String appendFileteredUniversalClause()
   {
+	/************* WARNING WARNING WARNING WARNING ****************************
+	 * This is a GIANT HACK due to the Malawi data being utterly ridiculous --
+	 * They created a single River entity that contains line data from ALL of
+	 * the rivers in the entire country!  The geo_id is also used in Mozambique
+	 * so we need to use the geo_id/entity_id which IS unique across the three
+	 * countries
+	 */
     return
-    "";
+    " AND NOT (ent.geo_id = 15000 AND ent.entity_id=42542)";
+
     /*
     "    AND rel."+INSTANCE_OF+" != 14 \n"+
     "    AND rel."+INSTANCE_OF+" != 16 \n"+
@@ -308,6 +325,7 @@ public class GeoEntityImporter
    * GEOGRAPHIC_ENTITIES_GEOMETRY+" geom, "
    *
    */
+  @Transaction
   private void createGeoEntities() throws Exception
   {
     System.out.println("Creating GeoEntities ");
@@ -326,6 +344,7 @@ public class GeoEntityImporter
       "  WHERE rel."+GEO_ID+" = ent."+GEO_ID+"\n"+
       appendFileteredUniversalClause();
 
+    System.out.println(sql);
     Statement statement = null;
     ResultSet resultSet = null;
 
@@ -340,6 +359,7 @@ public class GeoEntityImporter
       {
         int universalId = resultSet.getInt(INSTANCE_OF);
         long geoId = resultSet.getLong(GEO_ID);
+
         //long gazId = resultSet.getLong(GAZ_ID);
         String geoName = resultSet.getString(GEO_NAME);
 
@@ -508,6 +528,7 @@ public class GeoEntityImporter
     System.out.println("\nFINISHED\n");
   }
 
+  @Transaction
   private void buildGeoHierarchyMap() throws Exception
   {
     String sql = "SELECT " + UNIVERSAL_ID + ", " + UNIVERSAL_NAME + " FROM " + UNIVERSAL_TABLE;

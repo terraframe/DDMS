@@ -1,7 +1,7 @@
 <version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<!--
-		Created on Wed Jul 29 11:19:02 MDT 2009 from
+		Created on Thu Jul 30 14:11:12 MDT 2009 from
 		/home/chris/TerraFrame/mdss-full-head/geodata/mozambique/Geo_EntitiesMozambique.xls
 	-->
 	<doIt>
@@ -1028,22 +1028,22 @@
 
 			<object id="CityH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_City">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="CityMd" />
 			</object>
 
 			<object id="TownH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_Town">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="TownMd" />
 			</object>
 
 			<object id="VillageH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_Village">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="VillageMd" />
 			</object>
 

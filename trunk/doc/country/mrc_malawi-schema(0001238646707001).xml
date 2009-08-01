@@ -1,7 +1,7 @@
 <version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<!--
-		Created on Wed Jul 29 11:19:53 MDT 2009 from
+		Created on Thu Jul 30 14:57:02 MDT 2009 from
 		/home/chris/TerraFrame/mdss-full-head/geodata/malawi/Geo_EntitiesMalawi.xls
 	-->
 	<doIt>
@@ -89,6 +89,16 @@
 				<attributes>
 					<multilinestring name="multiLineString" label="Multi LineString"
 						description="Multi LineString" removable="false" required="false"
+						srid="4326" dimension="2" />
+				</attributes>
+			</mdBusiness>
+
+			<mdBusiness name="dss.vector.solutions.geo.generated.Reserve"
+				label="Reserve" description="Reserve" removable="true"
+				extends="dss.vector.solutions.geo.generated.GeoEntity">
+				<attributes>
+					<multipolygon name="multiPolygon" label="Multi Polygon"
+						description="Multi Polygon" removable="false" required="false"
 						srid="4326" dimension="2" />
 				</attributes>
 			</mdBusiness>
@@ -614,6 +624,9 @@
 			<object key="dss.vector.solutions.geo.generated.River" id="RiverMd"
 				type="com.terraframe.mojo.system.metadata.MdBusiness" />
 
+			<object key="dss.vector.solutions.geo.generated.Reserve" id="ReserveMd"
+				type="com.terraframe.mojo.system.metadata.MdBusiness" />
+
 			<object key="dss.vector.solutions.geo.generated.Railway" id="RailwayMd"
 				type="com.terraframe.mojo.system.metadata.MdBusiness" />
 
@@ -884,28 +897,28 @@
 		<create>
 			<object id="CountryH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_Country">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="CountryMd" />
 			</object>
 
 			<object id="RegionH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_Region">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="RegionMd" />
 			</object>
 
 			<object id="DistrictH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_District">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="DistrictMd" />
 			</object>
 
 			<object id="TraditionalAuthorityH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_TraditionalAuthority">
-				<valueAttribute name="political" value="false" />
+				<valueAttribute name="political" value="true" />
 				<valueAttribute name="sprayTargetAllowed" value="false" />
 				<referenceAttribute name="geoEntityClass" id="TraditionalAuthorityMd" />
 			</object>
@@ -946,6 +959,13 @@
 				<referenceAttribute name="geoEntityClass" id="RiverMd" />
 			</object>
 
+			<object id="ReserveH" type="dss.vector.solutions.geo.GeoHierarchy"
+				key="GeoHierarchy_Reserve">
+				<valueAttribute name="political" value="false" />
+				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<referenceAttribute name="geoEntityClass" id="ReserveMd" />
+			</object>
+
 			<object id="RailwayH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_Railway">
 				<valueAttribute name="political" value="false" />
@@ -970,42 +990,42 @@
 			<object id="SprayZoneH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_SprayZone">
 				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="SprayZoneMd" />
 			</object>
 
 			<object id="SprayAreaH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_SprayArea">
 				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="SprayAreaMd" />
 			</object>
 
 			<object id="PopulatedAreaH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_PopulatedArea">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="PopulatedAreaMd" />
 			</object>
 
 			<object id="CityH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_City">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="CityMd" />
 			</object>
 
 			<object id="TownH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_Town">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="TownMd" />
 			</object>
 
 			<object id="VillageH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_Village">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="VillageMd" />
 			</object>
 
@@ -1600,6 +1620,10 @@
 
 			<relationship type="dss.vector.solutions.geo.AllowedIn"
 				childId="RiverH" parentId="CountryH" id="RiverInCountry">
+			</relationship>
+
+			<relationship type="dss.vector.solutions.geo.AllowedIn"
+				childId="ReserveH" parentId="CountryH" id="ReserveInCountry">
 			</relationship>
 
 			<relationship type="dss.vector.solutions.geo.AllowedIn"
@@ -4581,6 +4605,11 @@
 					<operation name="READ_ALL" />
 				</mdBusinessPermission>
 
+				<mdBusinessPermission type="dss.vector.solutions.geo.generated.Reserve">
+					<operation name="READ" />
+					<operation name="READ_ALL" />
+				</mdBusinessPermission>
+
 				<mdBusinessPermission type="dss.vector.solutions.geo.generated.Railway">
 					<operation name="READ" />
 					<operation name="READ_ALL" />
@@ -5134,6 +5163,13 @@
 				</mdBusinessPermission>
 
 				<mdBusinessPermission type="dss.vector.solutions.geo.generated.River">
+					<operation name="CREATE" />
+					<operation name="WRITE" />
+					<operation name="WRITE_ALL" />
+					<operation name="DELETE" />
+				</mdBusinessPermission>
+
+				<mdBusinessPermission type="dss.vector.solutions.geo.generated.Reserve">
 					<operation name="CREATE" />
 					<operation name="WRITE" />
 					<operation name="WRITE_ALL" />
@@ -5867,6 +5903,13 @@
 				</mdBusinessPermission>
 
 				<mdBusinessPermission type="dss.vector.solutions.geo.generated.River">
+					<operation name="CREATE" />
+					<operation name="WRITE" />
+					<operation name="WRITE_ALL" />
+					<operation name="DELETE" />
+				</mdBusinessPermission>
+
+				<mdBusinessPermission type="dss.vector.solutions.geo.generated.Reserve">
 					<operation name="CREATE" />
 					<operation name="WRITE" />
 					<operation name="WRITE_ALL" />

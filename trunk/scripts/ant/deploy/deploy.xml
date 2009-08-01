@@ -606,7 +606,7 @@
 		<echoproperties>
 		</echoproperties>
 		-->
-		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
+		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
 			<!--
 			<jvmarg value="-javaagent:${local.lib}/server/aspectjweaver.jar" />

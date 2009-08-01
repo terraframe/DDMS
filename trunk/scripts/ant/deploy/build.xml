@@ -437,7 +437,8 @@
 	<!-- =================================================================== -->
 
 	<target name="import_geodata" depends="kill_tomcat" description="imports geodata.db of geodata into the develop db">
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="import geodata">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import geodata">
+			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -451,7 +452,7 @@
 	</target>
 
 	<target name="develop_build_all_paths_geodata" depends="kill_tomcat" description="builds the all paths geo entity table for development">
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="import geodata">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="develop_build_all_paths_geodata">
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -513,7 +514,7 @@
 			<entry key="db.connection.max" value="30" />
 		</propertyfile>
 		<!-- run the importer -->
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="import geodata">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="deploy_build_all_paths_geodata">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />

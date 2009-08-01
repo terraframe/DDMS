@@ -1,5 +1,8 @@
 package dss.vector.solutions.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.terraframe.mojo.constants.ComponentInfo;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -15,6 +18,7 @@ import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
 public class GeoEntityAllPathBuilder
 {
+	public static int BATCH_SIZE = 1000;
 
   /**
    * @param args
@@ -25,7 +29,6 @@ public class GeoEntityAllPathBuilder
     rebuildAllPaths();
   }
 
-  @Transaction
   private static void rebuildAllPaths()
   {
     MdBusiness mdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);
@@ -35,7 +38,6 @@ public class GeoEntityAllPathBuilder
     updateAllPaths();
   }
 
-  @Transaction
   public static void updateAllPaths()
   {
     QueryFactory qf = new QueryFactory();
@@ -50,12 +52,19 @@ public class GeoEntityAllPathBuilder
     try
     {
       int applyCount = 0;
+      ArrayList<String> ids = new ArrayList<String>(BATCH_SIZE);
 
       for (ValueObject valueObject : i)
       {
         String childId = valueObject.getValue(ComponentInfo.ID);
-
-        applyCount = GeoEntity.updateAllPathForGeoEntity(childId, true, applyCount);
+        ids.add(childId);
+        if (ids.size() >= BATCH_SIZE) {
+        	applyCount = updateBatchOfPaths(ids, applyCount);
+        	ids = new ArrayList<String>(BATCH_SIZE);
+        }
+      }
+      if (ids.size() > 0) {
+    	  applyCount = updateBatchOfPaths(ids, applyCount);
       }
     }
     finally
@@ -64,4 +73,11 @@ public class GeoEntityAllPathBuilder
     }
   }
 
+  @Transaction
+  public static int updateBatchOfPaths(List<String> ids, int applyCount) {
+	  for (String id: ids) {
+		  applyCount = GeoEntity.updateAllPathForGeoEntity(id, true, applyCount);
+	  }
+	  return applyCount;
+  }
 }

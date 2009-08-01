@@ -1,7 +1,7 @@
 <version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<!--
-		Created on Wed Jul 29 11:20:42 MDT 2009 from
+		Created on Thu Jul 30 14:09:25 MDT 2009 from
 		/home/chris/TerraFrame/mdss-full-head/geodata/zambia/Geo_EntitiesZambia.xls
 	-->
 	<doIt>
@@ -928,15 +928,15 @@
 		<create>
 			<object id="CountryH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_Country">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="CountryMd" />
 			</object>
 
 			<object id="ProvinceH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_Province">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="ProvinceMd" />
 			</object>
 
@@ -998,8 +998,8 @@
 
 			<object id="DistrictH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_District">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="DistrictMd" />
 			</object>
 
@@ -1020,7 +1020,7 @@
 
 			<object id="WardH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_Ward">
-				<valueAttribute name="political" value="false" />
+				<valueAttribute name="political" value="true" />
 				<valueAttribute name="sprayTargetAllowed" value="false" />
 				<referenceAttribute name="geoEntityClass" id="WardMd" />
 			</object>
@@ -1028,42 +1028,42 @@
 			<object id="SprayZoneH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_SprayZone">
 				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="SprayZoneMd" />
 			</object>
 
 			<object id="SprayAreaH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_SprayArea">
 				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="SprayAreaMd" />
 			</object>
 
 			<object id="PopulatedAreaH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_PopulatedArea">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="PopulatedAreaMd" />
 			</object>
 
 			<object id="CityH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_City">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="CityMd" />
 			</object>
 
 			<object id="TownH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_Town">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="TownMd" />
 			</object>
 
 			<object id="VillageH" type="dss.vector.solutions.geo.GeoHierarchy"
 				key="GeoHierarchy_Village">
-				<valueAttribute name="political" value="false" />
-				<valueAttribute name="sprayTargetAllowed" value="false" />
+				<valueAttribute name="political" value="true" />
+				<valueAttribute name="sprayTargetAllowed" value="true" />
 				<referenceAttribute name="geoEntityClass" id="VillageMd" />
 			</object>
 
