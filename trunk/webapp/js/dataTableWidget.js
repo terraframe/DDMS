@@ -281,28 +281,33 @@ MojoGrid.createDataTable = function(table_data) {
   
         // No editable cell found on this row, go to the next row and search for
         // editable cell
-        if (nextCell === null) {
-          if (e.shiftKey) {
-            nextRow = myDataTable.getPreviousTrEl(cell);
-          } else {
-            nextRow = myDataTable.getNextTrEl(cell);
-          }
+        if (nextCell === null)
+        {
+          nextCell = cell;
+//          if (e.shiftKey)
+//          {
+//            nextRow = myDataTable.getPreviousTrEl(cell);
+//          }
+//          else
+//          {
+//            nextRow = myDataTable.getNextTrEl(cell);
+//          }
   
           // No next cell, make a new row and open the editor for that one
-          if (nextRow === null) {
-            if (table_data.addButton !== false) {
-              addRow();
-              nextRow = myDataTable.getLastTrEl();
-            } else {
-              // wrap around
-              // nextRow = myDataTable.getFirstTrEl();
-            }
-          }
-          if (e.shiftKey) {
-            nextCell = findNext(myDataTable.getLastTdEl(nextRow));
-          } else {
-            nextCell = findNext(myDataTable.getFirstTdEl(nextRow));
-          }
+//          if (nextRow === null) {
+//            if (table_data.addButton !== false) {
+//              //addRow();
+//              //nextRow = myDataTable.getLastTrEl();
+//            } else {
+//              // wrap around
+//              // nextRow = myDataTable.getFirstTrEl();
+//            }
+//          }
+//          if (e.shiftKey) {
+//            nextCell = findNext(myDataTable.getLastTdEl(nextRow));
+//          } else {
+//            nextCell = findNext(myDataTable.getFirstTdEl(nextRow));
+//          }
         }
   
 
