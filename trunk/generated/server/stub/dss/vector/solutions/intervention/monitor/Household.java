@@ -69,12 +69,11 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
   {
     if(this.getNets() != null && this.getSleptUnderNets() != null)
     {
-      if(this.getNets() < this.getSleptUnderNets())
+      if(this.getNets() == 0 && this.getSleptUnderNets() > 0)
       {
-        String msg = "Slept under nets cannot be greater than the total number of nets";
-        NetQuantityProblem p = new NetQuantityProblem(msg);
-        p.setNetCount(this.getSleptUnderNets());
-        p.setQuantity(this.getNets());
+        String msg = "Slept under nets cannot be set when the total number of nets is 0";
+        
+        SleptUnderNetsProblem p = new SleptUnderNetsProblem(msg);
         p.setNotification(this, SLEPTUNDERNETS);
         p.apply();
         p.throwIt();

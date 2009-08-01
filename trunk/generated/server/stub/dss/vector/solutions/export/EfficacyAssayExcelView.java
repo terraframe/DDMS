@@ -75,6 +75,11 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
 
   public static SurfacePosition getSurfacePositionByLabel(String label)
   {
+    if(label == null || label.equals(""))
+    {
+      return null;
+    }
+    
     for (SurfacePosition e : SurfacePosition.values())
     {
       if (e.getDisplayLabel().equals(label))

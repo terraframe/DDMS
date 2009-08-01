@@ -67,35 +67,34 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     person.setHousehold(house);
     person.setPersonId(this.getPersonId());
     person.setDob(this.getDob());
-    person.addSex(getHumanSexByLabel(this.getSex()));
     person.setPregnant(this.getPregnant());
     person.setSleptUnderNet(this.getSleptUnderNet());
     person.setHaemoglobinMeasured(this.getHaemoglobinMeasured());
     person.setHaemoglobin(this.getHaemoglobin());
-    
     person.setAnaemiaTreatment(getTreatment(this.getAnaemiaTreatment()));
-    
     person.setIron(this.getIron());
+    
+    person.addSex(getHumanSexByLabel(this.getSex()));
     person.addPerformedRDT(getRDTResponseByLabel(this.getPerformedRDT()));
     person.addBloodslide(getBloodsideByLabel(this.getBloodslide()));
     
     // This block mirrors the check boxes for RDT Results
-    if (this.getMalariaePositive())
+    if (this.getMalariaePositive() != null && this.getMalariaePositive())
       person.addRDTResult(RDTResult.MALARIAE_POSITIVE);
-    if (this.getMixedPositive())
+    if (this.getMixedPositive() != null && this.getMixedPositive())
       person.addRDTResult(RDTResult.MIXED_POSITIVE);
-    if (this.getNegative())
+    if (this.getNegative() != null && this.getNegative())
       person.addRDTResult(RDTResult.NEGATIVE);
-    if (this.getNotValid())
+    if (this.getNotValid() != null && this.getNotValid())
       person.addRDTResult(RDTResult.NOT_VALID);
-    if (this.getOvalePositive())
+    if (this.getOvalePositive() != null && this.getOvalePositive())
       person.addRDTResult(RDTResult.OVALE_POSITIVE);
-    if (this.getPfPositive())
+    if (this.getPfPositive() != null && this.getPfPositive())
       person.addRDTResult(RDTResult.PF_POSITIVE);
-    if (this.getVivaxPositive())
+    if (this.getVivaxPositive() != null && this.getVivaxPositive())
       person.addRDTResult(RDTResult.VIVAX_POSITIVE);
     
-    person.setRdtTreatment(getTreatment(this.getRdtTreatment()));
+    person.setRdtTreatment(getTreatment(this.getRdtTreatment()));    
     person.addFever(getFeverByLabel(this.getFever()));
     
     FeverTreatmentQuery ftq = new FeverTreatmentQuery(new QueryFactory());
@@ -149,7 +148,19 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   
   public SurveyPoint getSurveyPoint()
   {
-    return SurveyPoint.searchByGeoEntityAndDate(this.getGeoEntity(), this.getSurveyDate());
+    SurveyPoint surveyPoint = SurveyPoint.searchByGeoEntityAndDate(this.getGeoEntity(), this.getSurveyDate());
+    
+    
+    if(surveyPoint == null)
+    {
+      // The survey point is null so we need to create it
+      surveyPoint = new SurveyPoint();
+      surveyPoint.setGeoEntity(this.getGeoEntity());
+      surveyPoint.setSurveyDate(this.getSurveyDate());
+      surveyPoint.apply();      
+    }
+    
+    return surveyPoint;
   }
 
   /**
@@ -189,7 +200,13 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     house.setRooms(this.getRooms());
     house.setSleptUnderNets(this.getSleptUnderNets());
     house.setUrban(this.getUrban());
-    house.addWindowType(getWindowTypeByLabel(this.getWindowType()));
+
+    WindowType windowType = getWindowTypeByLabel(this.getWindowType());
+    
+    if(windowType != null)
+    {
+      house.addWindowType(windowType);
+    }
     
     WallQuery wallQuery = new WallQuery(new QueryFactory());
     wallQuery.WHERE(wallQuery.getDisplayLabel().currentLocale().EQ(this.getWallName()));
@@ -214,6 +231,11 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   
   public static WindowType getWindowTypeByLabel(String label)
   {
+    if(label == null || label == "")
+    {
+      return null;
+    }
+    
     for (WindowType e : WindowType.values())
     {
       if (e.getDisplayLabel().equals(label))
@@ -227,6 +249,11 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   
   public static HumanSex getHumanSexByLabel(String label)
   {
+    if(label == null || label == "")
+    {
+      return null;
+    }
+
     for (HumanSex e : HumanSex.values())
     {
       if (e.getDisplayLabel().equals(label))

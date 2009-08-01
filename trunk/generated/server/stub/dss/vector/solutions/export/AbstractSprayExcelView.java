@@ -23,6 +23,11 @@ public class AbstractSprayExcelView extends AbstractSprayExcelViewBase implement
   
   public SurfaceType getSurfaceTypeByLabel(String label)
   {
+    if(label == null || label.equals(""))
+    {
+      return null;
+    }
+
     for (SurfaceType e : SurfaceType.values())
     {
       if (e.getDisplayLabel().equals(label))
@@ -36,6 +41,11 @@ public class AbstractSprayExcelView extends AbstractSprayExcelViewBase implement
 
   public SprayMethod getSprayMethodByLabel(String label)
   {
+    if(label == null || label.equals(""))
+    {
+      return null;
+    }
+    
     for (SprayMethod e : SprayMethod.values())
     {
       if (e.getDisplayLabel().equals(label))

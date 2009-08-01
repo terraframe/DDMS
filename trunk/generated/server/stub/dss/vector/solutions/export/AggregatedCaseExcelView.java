@@ -30,22 +30,33 @@ import dss.vector.solutions.surveillance.ReferralGrid;
 import dss.vector.solutions.surveillance.TreatmentGrid;
 import dss.vector.solutions.surveillance.TreatmentMethodGrid;
 
-public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1246505362370L;
-  
-  private List<TreatmentGrid> stock;
-  private List<Boolean> stockValues;
-  private List<TreatmentGrid> treatments;
-  private List<Integer> treatmentAmounts;
+  private static final long         serialVersionUID = 1246505362370L;
+
+  private List<TreatmentGrid>       stock;
+
+  private List<Boolean>             stockValues;
+
+  private List<TreatmentGrid>       treatments;
+
+  private List<Integer>             treatmentAmounts;
+
   private List<TreatmentMethodGrid> methods;
-  private List<Integer> methodAmounts;
-  private List<DiagnosticGrid> diagnostics;
-  private List<Integer> diagnosticAmounts;
-  private List<Integer> diagnosticPositives;
-  private List<ReferralGrid> referrals;
-  private List<Integer> referralAmounts;
-  
+
+  private List<Integer>             methodAmounts;
+
+  private List<DiagnosticGrid>      diagnostics;
+
+  private List<Integer>             diagnosticAmounts;
+
+  private List<Integer>             diagnosticPositives;
+
+  private List<ReferralGrid>        referrals;
+
+  private List<Integer>             referralAmounts;
+
   public AggregatedCaseExcelView()
   {
     super();
@@ -61,21 +72,22 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     referrals = new LinkedList<ReferralGrid>();
     referralAmounts = new LinkedList<Integer>();
   }
-  
+
   @Override
   @Transaction
   public void apply()
   {
     GeoEntity geoEntity = getGeoEntity();
-    
+
     PeriodType periodType = getPeriodTypeByLabel(this.getPeriodType());
-    
+
     AggregatedAgeGroupQuery query = new AggregatedAgeGroupQuery(new QueryFactory());
     query.WHERE(query.getDisplayLabel().EQ(this.getAggregatedAgeGroup()));
     OIterator<? extends AggregatedAgeGroup> iterator = query.getIterator();
     AggregatedAgeGroup ageGroup = iterator.next();
-    
-    AggregatedCaseView acv = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, periodType, this.getPeriod(), this.getEpiYear(), ageGroup);
+
+    AggregatedCaseView acv = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, periodType, this
+        .getPeriod(), this.getEpiYear(), ageGroup);
     acv.setCases(this.getCases());
     acv.setCasesFemale(this.getCasesFemale());
     acv.setCasesMale(this.getCasesMale());
@@ -112,45 +124,60 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     acv.setOutPatientsNotTreated(this.getOutPatientsNotTreated());
     acv.setStillBirths(this.getStillBirths());
     acv.setDaysOutOfStock(this.getDaysOutOfStock());
-    
+
     AggregatedCase aggregatedCase = acv.getAggregatedCase();
-    
+
     CaseTreatmentStock[] stockArray = new CaseTreatmentStock[stock.size()];
-    for (int i=0; i<stockArray.length; i++)
+    for (int i = 0; i < stockArray.length; i++)
     {
-      stockArray[i] = new CaseTreatmentStock(aggregatedCase, stock.get(i));
-      stockArray[i].setOutOfStock(stockValues.get(i));
+      if (i < stockValues.size())
+      {
+        stockArray[i] = new CaseTreatmentStock(aggregatedCase, stock.get(i));
+        stockArray[i].setOutOfStock(stockValues.get(i));
+      }
     }
-    
+
     CaseTreatment[] treatmentArray = new CaseTreatment[treatments.size()];
-    for (int i=0; i<treatmentArray.length; i++)
+    for (int i = 0; i < treatmentArray.length; i++)
     {
-      treatmentArray[i] = new CaseTreatment(aggregatedCase, treatments.get(i));
-      treatmentArray[i].setAmount(treatmentAmounts.get(i));
+      if (i < treatmentAmounts.size())
+      {
+        treatmentArray[i] = new CaseTreatment(aggregatedCase, treatments.get(i));
+        treatmentArray[i].setAmount(treatmentAmounts.get(i));
+      }
     }
-    
+
     CaseTreatmentMethod[] methodArray = new CaseTreatmentMethod[methods.size()];
-    for (int i=0; i<methodArray.length; i++)
+    for (int i = 0; i < methodArray.length; i++)
     {
-      methodArray[i] = new CaseTreatmentMethod(aggregatedCase, methods.get(i));
-      methodArray[i].setAmount(methodAmounts.get(i));
+      if (i < methodAmounts.size())
+      {
+        methodArray[i] = new CaseTreatmentMethod(aggregatedCase, methods.get(i));
+        methodArray[i].setAmount(methodAmounts.get(i));
+      }
     }
-    
+
     CaseDiagnostic[] diagnosticArray = new CaseDiagnostic[diagnostics.size()];
-    for (int i=0; i<diagnosticArray.length; i++)
+    for (int i = 0; i < diagnosticArray.length; i++)
     {
-      diagnosticArray[i] = new CaseDiagnostic(aggregatedCase, diagnostics.get(i));
-      diagnosticArray[i].setAmount(diagnosticAmounts.get(i));
-      diagnosticArray[i].setAmountPositive(diagnosticPositives.get(i));
+      if (i < diagnosticAmounts.size())
+      {
+        diagnosticArray[i] = new CaseDiagnostic(aggregatedCase, diagnostics.get(i));
+        diagnosticArray[i].setAmount(diagnosticAmounts.get(i));
+        diagnosticArray[i].setAmountPositive(diagnosticPositives.get(i));
+      }
     }
-    
+
     CaseReferral[] referralArray = new CaseReferral[referrals.size()];
-    for (int i=0; i<referralArray.length; i++)
+    for (int i = 0; i < referralArray.length; i++)
     {
-      referralArray[i] = new CaseReferral(aggregatedCase, referrals.get(i));
-      referralArray[i].setAmount(referralAmounts.get(i));
+      if (i < referralAmounts.size())
+      {
+        referralArray[i] = new CaseReferral(aggregatedCase, referrals.get(i));
+        referralArray[i].setAmount(referralAmounts.get(i));
+      }
     }
-    
+
     acv.applyAll(treatmentArray, methodArray, stockArray, diagnosticArray, referralArray);
   }
 
@@ -172,9 +199,14 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     GeoHierarchy healthFacility = GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS);
     return new DynamicGeoColumnListener(CLASS, GEOENTITY, collectionSite, healthFacility);
   }
-  
+
   private PeriodType getPeriodTypeByLabel(String label)
   {
+    if(label == null || label.equals(""))
+    {
+      return null;
+    }
+    
     for (PeriodType e : PeriodType.values())
     {
       if (e.getDisplayLabel().equals(label))

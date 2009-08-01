@@ -30,7 +30,7 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.te
     String entityType = getEntityType();
     GeoEntity entity = (GeoEntity) BusinessFacade.newBusiness(entityType);
     entity.setEntityName(this.getEntityName());
-    entity.setActivated(this.getActivated());
+    entity.setActivated(this.getActivated() != null && this.getActivated());
     entity.setGazId(this.getGazId());
     entity.setGeoId(this.getGeoId());
     

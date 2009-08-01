@@ -35,18 +35,18 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
     personView.addSex(getSexByLabel(this.getSex()));
     personView.setResidentialGeoId(entity.getGeoId());
     
-    personView.setIsMDSSUser(this.getIsMDSSUser());
+    personView.setIsMDSSUser(this.getIsMDSSUser() != null && this.getIsMDSSUser());
     personView.setUsername(this.getUsername());
     personView.setPassword(this.getPassword());
     
-    personView.setIsPatient(this.getIsPatient());
-    personView.setIsIPTRecipient(this.getIsIPTRecipient());
-    personView.setIsITNRecipient(this.getIsITNRecipient());
+    personView.setIsPatient(this.getIsPatient() != null && this.getIsPatient());
+    personView.setIsIPTRecipient(this.getIsIPTRecipient() != null && this.getIsIPTRecipient());
+    personView.setIsITNRecipient(this.getIsITNRecipient() != null && this.getIsITNRecipient());
     
-    personView.setIsSprayLeader(this.getIsSprayLeader());
+    personView.setIsSprayLeader(this.getIsSprayLeader() != null && this.getIsSprayLeader());
     personView.setLeaderId(this.getLeaderId());
     
-    personView.setIsSprayOperator(this.getIsSprayOperator());
+    personView.setIsSprayOperator(this.getIsSprayOperator() != null && this.getIsSprayOperator());
     personView.setOperatorId(this.getOperatorId());
     
     personView.apply();
@@ -70,6 +70,11 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
 
   public static Sex getSexByLabel(String label)
   {
+    if(label == null || label == "")
+    {
+      return null;
+    }
+
     for (Sex e : Sex.values())
     {
       if (e.getDisplayLabel().equals(label))

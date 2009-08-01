@@ -49,9 +49,14 @@ public class DynamicNetListener implements ExcelExportListener, ImportListener, 
         if (column.getAttributeName().equals(net.getNetName()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          int count = new Double(cell.getNumericCellValue()).intValue();
-          survey.addNets(net, count);
-          continue;
+          
+          // Ensure that the net cells have been defined.
+          if(cell != null && cell.getCellType() != HSSFCell.CELL_TYPE_BLANK)
+          {
+            int count = new Double(cell.getNumericCellValue()).intValue();
+            survey.addNets(net, count);
+            continue;
+          }
         }
       }
     }

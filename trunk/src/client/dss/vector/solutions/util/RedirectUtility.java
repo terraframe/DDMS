@@ -39,11 +39,8 @@ public class RedirectUtility implements Reloadable
       String path = req.getRequestURL().toString();
       path = path.replaceFirst("(\\w+)Controller", controller);
       path = path.replaceFirst("\\.[a-zA-Z]+\\.mojo", mojoAction);
-      
-      URLUtility utility = new URLUtility(path, map);      
-      ErrorUtility.addErrorMessages(req, utility);
-      
-      resp.sendRedirect(utility.getURL());
+
+      this.sendRedirect(path);
 
       return true;
     }
@@ -51,5 +48,13 @@ public class RedirectUtility implements Reloadable
     ErrorUtility.prepareMessages(req);
     
     return false;
+  }
+  
+  public void sendRedirect(String url) throws IOException
+  {
+    URLUtility utility = new URLUtility(url, map);      
+    ErrorUtility.addErrorMessages(req, utility);
+    
+    resp.sendRedirect(utility.getURL());    
   }
 }
