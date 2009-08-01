@@ -166,20 +166,20 @@ YAHOO.util.Event.onDOMReady(function(){
     var Insecticide_Details = insectcideAttribs.map(mapAttribs, {obj:insectcide, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.InsecticideBrand'});
     Insecticide_Details = Insecticide_Details.concat(actorSprayAtribs.map(mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.ActorSpray'}));
 
-    var abstractCalculations = {
-        key:"resistance_result",
-    	attributeName:"resistance_result",
-      	type:"sqlcharacter",
-      	displayLabel:"Resistance"
-     };
+    var Spray_Details = ([
+                          {
+                            displayLabel:"Aggregation Level",
+                            key:"aggregation_level",
+                            type:"sqlcharacter",
+                            attributeName:"aggregation_level",
+                          },
+                         ]);
 
 
     //var sprayStatus = new Mojo.$.dss.vector.solutions.irs.SprayStatusView();
     var sprayDataAttribs = ["sprayDate", "sprayMethod", "surfaceType"];
     var sprayStatusAttribs = ["households","structures","rooms","sprayedHouseholds","sprayedStructures","sprayedRooms","locked","refused","other"];
 
-
-    var Spray_Details = [];
     Spray_Details = Spray_Details.concat(sprayDataAttribs.map(mapAttribs, {obj:sprayData, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayData'}));
     Spray_Details = Spray_Details.concat(sprayStatusAttribs.map(mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayStatus'}));
 
@@ -192,67 +192,91 @@ YAHOO.util.Event.onDOMReady(function(){
                                   {
                                     displayLabel:"Spray Area Target",
                                     key:"spray_area_target_planed",
-                                    type:"sqlcharacter",
+                                    type:"sqlinteger",
                                     attributeName:"spray_area_target_planed",
                                   },
                                   {
                                     displayLabel:"Oprator Target",
                                     key:"oprator_target_planed",
-                                    type:"sqlcharacter",
+                                    type:"sqlinteger",
                                     attributeName:"oprator_target_planed",
                                   },
                                   {
                                     displayLabel:"Team Target",
                                     key:"team_target",
-                                    type:"sqlcharacter",
+                                    type:"sqlinteger",
                                     attributeName:"team_target_planed",
-                                  }
+                                  },
+                                  /* {
+                                  displayLabel:"Planned Coverage",
+                                  key:"planned_coverage",
+                                  type:"sqldouble",
+                                  attributeName:"planned_coverage",
+                                },*/
                               ];
 
      var Actual_Targets = [
                                   {
-                                    displayLabel:"Oprator Target",
-                                    key:"oprator_target_actual",
-                                    type:"sqlcharacter",
-                                    attributeName:"test",
+                                    displayLabel:"Operator Target",
+                                    key:"operator_target",
+                                    type:"sqlinteger",
+                                    attributeName:"operator_target",
                                   },
                                   {
                                     displayLabel:"Team Target",
-                                    key:"oprator_target_actual",
-                                    type:"sqlcharacter",
-                                    attributeName:"oprator_target_actual",
+                                    key:"team_target",
+                                    type:"sqlinteger",
+                                    attributeName:"team_target",
+                                  },
+                                  {
+                                    displayLabel:"Zone Target",
+                                    key:"zone_target",
+                                    type:"sqlinteger",
+                                    attributeName:"zone_target",
                                   }
                            ];
 
-   /* Spray_Details = Spray_Details.concat([
+   Spray_Details = Spray_Details.concat([
 
-                                   {
+                                  {
                                      displayLabel:"Unsprayed Strucures",
-                                     key:"unsprayed_structures",
+                                     key:"structure_unsprayed",
                                      type:"sqlinteger",
-                                     attributeName:"unsprayed_structures",
+                                     attributeName:"structure_unsprayed",
                                    },
                                    {
                                      displayLabel:"Unsprayed Households",
-                                     key:"unsprayed_households",
+                                     key:"household_unsprayed",
                                      type:"sqlinteger",
-                                     attributeName:"unsprayed_households",
+                                     attributeName:"household_unsprayed",
                                    },
                                    {
                                      displayLabel:"Unsprayed Rooms",
-                                     key:"unsprayed_rooms",
+                                     key:"room_unsprayed",
                                      type:"sqlinteger",
-                                     attributeName:"unsprayed_rooms",
-                                   }
-                                ]);*/
+                                     attributeName:"room_unsprayed",
+                                }
+                                ]);
+
+
+   HouseHold_Structure_Detail = HouseHold_Structure_Detail.concat([
+                                         {
+                                           displayLabel:"Household ID",
+                                           key:"household_id",
+                                           type:"sqlcharacter",
+                                           attributeName:"household_id",
+                                         },
+                                         {
+                                           displayLabel:"Structure ID",
+                                           key:"structure_id",
+                                           type:"sqlcharacter",
+                                           attributeName:"structure_id",
+                                         },
+
+                                       ]);
 
      var Coverege = [
-                                  /* {
-                                     displayLabel:"Planned Coverage",
-                                     key:"planned_coverage",
-                                     type:"sqldouble",
-                                     attributeName:"planned_coverage",
-                                   },*/
+
                                    {
                                      displayLabel:"Room Operational Coverage",
                                      key:"room_operational_coverage",
@@ -311,42 +335,63 @@ YAHOO.util.Event.onDOMReady(function(){
                                 ];
 
     var Spray_Team_Detail = [
-                                     {
-                                       displayLabel:"Spray Team",
-                                       key:"sprayoperator_displaylabel",
-                                        type:"sqlcharacter",
-                                       attributeName:"sprayoperator_displaylabel",
-                                     },
-                                     {
-                                       displayLabel:"Spray Team Week",
-                                       key:"spray_team_week",
-                                       type:"sqlcharacter",
-                                       attributeName:"spray_team_week",
-                                     },
-                                     {
-                                       displayLabel:"Operator",
-                                       key:"sprayoperator_displaylabel",
-                                       type:"sqlcharacter",
-                                       attributeName:"sprayoperator_displaylabel",
-                                     },
-                                     {
-                                       displayLabel:"Operator Spray Week",
-                                       key:"operator_week",
-                                       type:"sqlcharacter",
-                                       attributeName:"operator_week",
-                                     }
+                                {
+                                  displayLabel:"Spray Operator",
+                                  key:"sprayoperator_defaultLocale",
+                                  type:"sqlcharacter",
+                                  attributeName:"sprayoperator_defaultLocale",
+                                },
+                                {
+                                  displayLabel:"Operator Week",
+                                  key:"operator_week",
+                                  type:"sqlinteger",
+                                  attributeName:"operator_week",
+                                },
+                                {
+                                  displayLabel:"Spray Team Leader",
+                                  key:"sprayleader_defaultLocale",
+                                  type:"sqlcharacter",
+                                  attributeName:"sprayleader_defaultLocale",
+                                },
+                                {
+                                  displayLabel:"Spray Team",
+                                  key:"sprayteam_defaultLocale",
+                                  type:"sqlcharacter",
+                                  attributeName:"sprayteam_defaultLocale",
+                                },
+                                {
+                                  displayLabel:"Team Week",
+                                  key:"team_week",
+                                  type:"sqlinteger",
+                                  attributeName:"team_week",
+                                },
+                                {
+                                  displayLabel:"Zone Supervisor",
+                                  key:"zone_supervisor",
+                                  type:"sqlcharacter",
+                                  attributeName:"zone_supervisor",
+                                },
+                                {
+                                  displayLabel:"Zone Week",
+                                  key:"zone_week",
+                                  type:"sqlinteger",
+                                  attributeName:"zone_week",
+                                },
+
+
+
                              ];
 
 
 
     var selectableGroups = [
- 	                         //{title:"Planed_Targets", values:Planed_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
- 	                         //{title:"Actual_Targets", values:Actual_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS},
+ 	                         //{title:"Planed_Targets", values:Planed_Targets, group:"targets", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
+ 	                         {title:"Actual_Targets", values:Actual_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
                              {title:"Insecticide", values:Insecticide_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                         {title:"Spray_Details", values:Spray_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                         {title:"Coverege", values:Coverege, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                         {title:"HouseHold_Structure_Detail", values:HouseHold_Structure_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
- 	                         //{title:"Spray_Team_Detail", values:Spray_Team_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
+ 	                         {title:"Spray_Team_Detail", values:Spray_Team_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                     ];
 
     var query = new MDSS.QueryIRS(selectableGroups, queryList);

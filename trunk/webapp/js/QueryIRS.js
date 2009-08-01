@@ -195,8 +195,10 @@ MDSS.QueryIRS.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      	}else if(t == 'sqldouble')
 	      	{
 	      		var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', n, k));
-	      	}
-	      	else
+	      	}else if(t == 'sqlinteger')
+	      	{
+	      		var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', n, k));
+	      	}else
 	      	{
 	      		var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(t,n,k));
 	      	}
@@ -329,14 +331,19 @@ MDSS.QueryIRS.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    	selectable.attribute = attribute;
 	    	var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
 	 	    column.attribute = attribute;
-	    }
+	    }else
 	    if(attribute.getType() == 'sqldouble'){
 	    	var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', attributeName, attributeName,attribute.getDisplayLabel(),attribute._isAggregate));
 	    	selectable.attribute = attribute;
 	    	var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
 	 	    column.attribute = attribute;
-	    }
-	    else
+	    }else
+	    if(attribute.getType() == 'sqlinteger'){
+	    	var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', attributeName, attributeName,attribute.getDisplayLabel(),attribute._isAggregate));
+	    	selectable.attribute = attribute;
+	    	var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+	 	    column.attribute = attribute;
+	    }else
 	    {
 		    var selectable = attribute.getSelectable();
 		    selectable.attribute = attribute;
@@ -616,6 +623,10 @@ MDSS.QueryIRS.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	        thisRef._checkBox(userAlias);
 	      },
 	      sqldouble : function(entityAlias, attributeName, userAlias){
+
+	        thisRef._checkBox(userAlias);
+	      },
+	      sqlinteger: function(entityAlias, attributeName, userAlias){
 
 	        thisRef._checkBox(userAlias);
 	      },
