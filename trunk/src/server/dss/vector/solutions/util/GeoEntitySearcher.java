@@ -270,8 +270,9 @@ public class GeoEntitySearcher implements Reloadable
 
 
 //System.out.println("matches for: "+endPointEntityName+" "+endPointEntityType);
+//System.out.println("   Known Hierarchy: "+knownHierarchy);
 //System.out.println("   Possible synonym matches: "+delimitedSynonymList);
-//System.out.println("   Synonyms: "+delimitedSiblingList+"\n");
+//System.out.println("   Siblings: "+delimitedSiblingList+"\n");
             }
             else if (geoEntityList.size() == 1)
             {
@@ -424,10 +425,17 @@ public class GeoEntitySearcher implements Reloadable
       AllPathsQuery allPathsQuery = new AllPathsQuery(qf);
       MdBusiness parentMdBusiness = MdBusiness.getMdBusiness(parentEntityType);
 
+      String parentGeoEntityName = parentGeoEntityMap.get(parentEntityType);
+
+      GeoSynonymQuery geoSynonymQuery = new GeoSynonymQuery(qf);
+      geoSynonymQuery.WHERE(geoSynonymQuery.getEntityName().EQ(parentGeoEntityName));
+
       GeoEntityQuery parentGeoEntityQuery = new GeoEntityQuery(qf);
 
       parentGeoEntityQuery.
-      WHERE(parentGeoEntityQuery.getEntityName().EQ(parentGeoEntityMap.get(parentEntityType)));
+      WHERE(
+          OR.get(parentGeoEntityQuery.getEntityName().EQ(parentGeoEntityName),
+              parentGeoEntityQuery.synonyms(geoSynonymQuery)));
 
       geoEntityIdQuery.
         AND(allPathsQuery.getParentUniversal().EQ(parentMdBusiness).
@@ -503,10 +511,17 @@ public class GeoEntitySearcher implements Reloadable
       AllPathsQuery allPathsQuery = new AllPathsQuery(qf);
       MdBusiness parentMdBusiness = MdBusiness.getMdBusiness(parentEntityType);
 
+      String parentGeoEntityName = parentGeoEntityMap.get(parentEntityType);
+
+      GeoSynonymQuery geoSynonymQuery = new GeoSynonymQuery(qf);
+      geoSynonymQuery.WHERE(geoSynonymQuery.getEntityName().EQ(parentGeoEntityName));
+
       GeoEntityQuery parentGeoEntityQuery = new GeoEntityQuery(qf);
 
       parentGeoEntityQuery.
-      WHERE(parentGeoEntityQuery.getEntityName().EQ(parentGeoEntityMap.get(parentEntityType)));
+      WHERE(
+          OR.get(parentGeoEntityQuery.getEntityName().EQ(parentGeoEntityName),
+              parentGeoEntityQuery.synonyms(geoSynonymQuery)));
 
       geoEntityIdQuery.
         AND(allPathsQuery.getParentUniversal().EQ(parentMdBusiness).
