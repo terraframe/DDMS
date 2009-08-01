@@ -3,11 +3,13 @@ package dss.vector.solutions.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -112,6 +114,8 @@ public class GeoEntitySearcher implements Reloadable
 
     // list of potential synonym matches, if any
     List<UnknownGeoEntity> unknownEntityList = new LinkedList<UnknownGeoEntity>();
+    Set<String>unknownGeoEntityNameSet = new HashSet<String>();
+
 
     Iterator<HSSFRow> rowIterator = sheet.rowIterator();
 
@@ -185,6 +189,11 @@ public class GeoEntitySearcher implements Reloadable
 
             if (geoEntityList.size() == 0)
             {
+              if (unknownGeoEntityNameSet.contains(endPointEntityName))
+              {
+                continue;
+              }
+
               // Unable to find a match
               // Look up synonyms
               List<GeoEntity> possibleMatchEntityList = GeoEntitySearcher.search(true, parentGeoEntityMap, endPointEntityType, endPointEntityName);
@@ -248,7 +257,8 @@ public class GeoEntitySearcher implements Reloadable
 
 
               UnknownGeoEntity unknownGeoEntity = new UnknownGeoEntity();
-              unknownGeoEntity.setEntityType(endPointEntityType);
+
+              unknownGeoEntity.setEntityType(MdBusiness.getMdBusiness(endPointEntityType).getDisplayLabel().getValue());
               unknownGeoEntity.setEntityName(endPointEntityName);
               unknownGeoEntity.setSynonyms(delimitedSynonymList);
               unknownGeoEntity.setKnownHierarchy(knownHierarchy);
@@ -256,11 +266,17 @@ public class GeoEntitySearcher implements Reloadable
               unknownGeoEntity.applyNoPersist();
 
               unknownEntityList.add(unknownGeoEntity);
+              unknownGeoEntityNameSet.add(endPointEntityName);
 
+
+//System.out.println("matches for: "+endPointEntityName+" "+endPointEntityType);
+//System.out.println("   Possible synonym matches: "+delimitedSynonymList);
+//System.out.println("   Synonyms: "+delimitedSiblingList+"\n");
             }
             else if (geoEntityList.size() == 1)
             {
               // do nothing.  We found an exact match, which is what we wanted
+//System.out.println("match: "+geoEntityList.get(0).getEntityName());
             }
             else // geoEntityList.size() > 1
             {
@@ -367,7 +383,7 @@ public class GeoEntitySearcher implements Reloadable
     {
       return new LinkedList<GeoEntity>();
     }
-    
+
     MdBusiness childMdBusiness = MdBusiness.getMdBusiness(childGeoEntityType);
 
     QueryFactory qf = new QueryFactory();
@@ -375,8 +391,6 @@ public class GeoEntitySearcher implements Reloadable
     ValueQuery geoEntityIdQuery = new ValueQuery(qf);
 
     GeoEntityQuery childGeoEntityQuery = new GeoEntityQuery(qf);
-
-    geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("child_id"));
 
     if (soundsLikeMatch)
     {
@@ -393,7 +407,12 @@ public class GeoEntitySearcher implements Reloadable
       WHERE(
           OR.get(childGeoEntityQuery.getEntityName().EQ(childGeoEntityName),
           childGeoEntityQuery.synonyms(geoSynonymQuery)));
+
     }
+
+    // This select clause must be located here and not above the if block, otherwise the
+    // joins above will not be proper subselects
+    geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("child_id"));
 
     for (String parentEntityType : parentGeoEntityMap.keySet())
     {
@@ -416,7 +435,6 @@ public class GeoEntitySearcher implements Reloadable
         AND(allPathsQuery.getChildUniversal().EQ(childMdBusiness)).
         AND(allPathsQuery.getChildGeoEntity().EQ(childGeoEntityQuery.getId())));
     }
-
 
     BusinessQuery resultQuery = qf.businessQuery(childGeoEntityType);
     resultQuery.WHERE(resultQuery.IN(resultQuery.id(), geoEntityIdQuery));
