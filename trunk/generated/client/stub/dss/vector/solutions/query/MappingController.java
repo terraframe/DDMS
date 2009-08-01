@@ -1,9 +1,14 @@
 package dss.vector.solutions.query;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.ServletException;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
@@ -32,10 +37,113 @@ public class MappingController extends MappingControllerBase implements
   {
     super(req, resp, isAsynchronous);
   }
+  
+  private class CategoryComparator implements Comparator<AbstractCategoryDTO>, com.terraframe.mojo.generation.loader.Reloadable
+  {
+
+    public int compare(AbstractCategoryDTO c1, AbstractCategoryDTO c2)
+    {
+      Double min1;
+      if(c1 instanceof RangeCategoryDTO)
+      {
+        min1 = ((RangeCategoryDTO)c1).getLowerBound();
+      }
+      else
+      {
+        min1 = ((NonRangeCategoryDTO)c1).getExactValue();
+      }
+      
+      Double min2;
+      if(c2 instanceof RangeCategoryDTO)
+      {
+        min2 = ((RangeCategoryDTO)c2).getLowerBound();
+      }
+      else
+      {
+        min2 = ((NonRangeCategoryDTO)c2).getExactValue();
+      }
+      
+      if(min1 == min2)
+      {
+        return 0;
+      }
+      else if(min1 > min2)
+      {
+        return 1;
+      }
+      else
+      {
+        return -1;
+      }
+    }
+    
+  }
+  
+  /**
+   * Gets the legend of a saved search as a JSON object.
+   * 
+   */
+  @Override
+  public void getLegend(String savedSearchId) throws IOException, ServletException
+  {
+    try
+    {
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+
+      ThematicLayerDTO thematic = search.getThematicLayer();
+
+      ThematicVariableDTO variable = thematic.getThematicVariable();
+      if (variable != null)
+      {
+        JSONObject legend = new JSONObject();
+        JSONArray categoriesArr = new JSONArray();
+        
+        legend.put("thematicVariable", variable.getDisplayLabel());
+        legend.put("categories", categoriesArr);
+        
+        List<? extends AbstractCategoryDTO> categories = thematic.getAllDefinesCategory();
+        Collections.sort(categories, new CategoryComparator());
+        
+        for(AbstractCategoryDTO category : categories)
+        {
+          JSONArray values = new JSONArray();
+          if(category instanceof NonRangeCategoryDTO)
+          {
+            values.put(( (NonRangeCategoryDTO) category ).getExactValue());
+          }
+          else
+          {
+            values.put(( (RangeCategoryDTO) category ).getLowerBound());
+            values.put(( (RangeCategoryDTO) category ).getUpperBound());
+          }
+
+          JSONObject categoryObj = new JSONObject();
+          categoryObj.put("values", values);
+          categoryObj.put("color", category.getThematicColor());
+          
+          categoriesArr.put(categoryObj);
+        }
+        
+        resp.getWriter().print(legend.toString());
+      }
+      else
+      {
+        // no thematic variable so there can't be a legend 
+        LegendWithoutVariableExceptionDTO ex = new LegendWithoutVariableExceptionDTO(this.getClientRequest(), this.req.getLocale());
+        resp.getWriter().print(ex.getLocalizedMessage());
+      }
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+  }
 
   /**
    * Writes all layers for the SavedSearch with the given id.
-   *
+   * 
    * @param savedSearchId
    */
   private void writeLayers(String savedSearchId)
@@ -43,18 +151,20 @@ public class MappingController extends MappingControllerBase implements
     SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
     List<? extends LayerDTO> layers = search.getAllDefinesLayers();
 
-    // Check that a thematic layer has been defined with valid a valid geometry style.
+    // Check that a thematic layer has been defined with valid a valid geometry
+    // style.
     ThematicLayerDTO thematicLayerDTO = search.getThematicLayer();
-    if(thematicLayerDTO.getGeometryStyle() == null)
+    if (thematicLayerDTO.getGeometryStyle() == null)
     {
-      NoThematicLayerExceptionDTO ex = new NoThematicLayerExceptionDTO(this.getClientRequest(), this.req.getLocale());
+      NoThematicLayerExceptionDTO ex = new NoThematicLayerExceptionDTO(this.getClientRequest(), this.req
+          .getLocale());
       throw ex;
     }
 
     SLDWriter sldWriter = SLDWriter.getSLDWriter(thematicLayerDTO);
     sldWriter.write();
 
-    for(LayerDTO layer : layers)
+    for (LayerDTO layer : layers)
     {
       SLDWriter layerWriter = SLDWriter.getSLDWriter(layer);
       layerWriter.write();
@@ -68,10 +178,12 @@ public class MappingController extends MappingControllerBase implements
   {
     try
     {
-      // must write layers first so the mapping has valid SLD files to reference. If
-      // the search id is null, skip this step so control flow continues and the proper
+      // must write layers first so the mapping has valid SLD files to
+      // reference. If
+      // the search id is null, skip this step so control flow continues and the
+      // proper
       // error can be thrown.
-      if(savedSearchId != null && savedSearchId.trim().length() > 0)
+      if (savedSearchId != null && savedSearchId.trim().length() > 0)
       {
         writeLayers(savedSearchId);
       }
@@ -122,10 +234,12 @@ public class MappingController extends MappingControllerBase implements
   {
     try
     {
-      // must write layers first so the mapping has valid SLD files to reference. If
-      // the search id is null, skip this step so control flow continues and the proper
+      // must write layers first so the mapping has valid SLD files to
+      // reference. If
+      // the search id is null, skip this step so control flow continues and the
+      // proper
       // error can be thrown.
-      if(savedSearchId != null && savedSearchId.trim().length() > 0)
+      if (savedSearchId != null && savedSearchId.trim().length() > 0)
       {
         writeLayers(savedSearchId);
       }
@@ -149,17 +263,18 @@ public class MappingController extends MappingControllerBase implements
   {
     try
     {
-      // must write layers first so the mapping has valid SLD files to reference. If
-      // the search id is null, skip this step so control flow continues and the proper
+      // must write layers first so the mapping has valid SLD files to
+      // reference. If
+      // the search id is null, skip this step so control flow continues and the
+      // proper
       // error can be thrown.
-      if(savedSearchId != null && savedSearchId.trim().length() > 0)
+      if (savedSearchId != null && savedSearchId.trim().length() > 0)
       {
         writeLayers(savedSearchId);
       }
 
-      String layers = MosquitoDTO.mapQuery(this.getClientRequest(), queryXML, config,
-          universalLayers, savedSearchId);
-
+      String layers = MosquitoDTO.mapQuery(this.getClientRequest(), queryXML, config, universalLayers,
+          savedSearchId);
 
       resp.getWriter().print(layers);
     }
@@ -177,17 +292,18 @@ public class MappingController extends MappingControllerBase implements
   {
     try
     {
-      // must write layers first so the mapping has valid SLD files to reference. If
-      // the search id is null, skip this step so control flow continues and the proper
+      // must write layers first so the mapping has valid SLD files to
+      // reference. If
+      // the search id is null, skip this step so control flow continues and the
+      // proper
       // error can be thrown.
-      if(savedSearchId != null && savedSearchId.trim().length() > 0)
+      if (savedSearchId != null && savedSearchId.trim().length() > 0)
       {
         writeLayers(savedSearchId);
       }
 
-      String layers = MosquitoDTO.mapQuery(this.getClientRequest(), queryXML, config,
-          universalLayers, savedSearchId);
-
+      String layers = MosquitoDTO.mapQuery(this.getClientRequest(), queryXML, config, universalLayers,
+          savedSearchId);
 
       resp.getWriter().print(layers);
     }
@@ -200,15 +316,16 @@ public class MappingController extends MappingControllerBase implements
   }
 
   @Override
-  public void editThematicLayer(String thematicLayerId, ThematicVariableDTO[] thematicVariables) throws IOException,
-      ServletException
+  public void editThematicLayer(String thematicLayerId, ThematicVariableDTO[] thematicVariables)
+      throws IOException, ServletException
   {
     try
     {
       ThematicLayerDTO layer = ThematicLayerDTO.lock(this.getClientRequest(), thematicLayerId);
 
       List<? extends AbstractCategoryDTO> categories = layer.getAllDefinesCategory();
-
+      Collections.sort(categories, new CategoryComparator());
+      
       req.setAttribute("categories", categories);
       req.setAttribute("thematicVariable", layer.getThematicVariable());
 
@@ -231,8 +348,8 @@ public class MappingController extends MappingControllerBase implements
   {
     try
     {
-      ThematicLayerDTO.updateThematicVariable(this.getClientRequest(), layerId,
-          thematicVariable, categories);
+      ThematicLayerDTO.updateThematicVariable(this.getClientRequest(), layerId, thematicVariable,
+          categories);
     }
     catch (ProblemExceptionDTO e)
     {

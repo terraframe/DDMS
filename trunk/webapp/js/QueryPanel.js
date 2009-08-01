@@ -34,6 +34,9 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
         { position: 'center', body: '<div id="'+this.MAP_CONTAINER+'"></div>', gutter: '0 2 0 0', scroll: true }
     ]
   });
+  
+  this._pWidth = pWidth;
+  this._pHeight = pHeight;
 
   this._config = config;
 
@@ -90,9 +93,13 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
   // a map of ThematicVariable objects
   this._thematicVariables = {};
   this._thematicLayers = [];
+  
+  this._annotation = new MDSS.Annotation(this);
 };
 
 MDSS.QueryPanel.prototype = {
+
+  ANNOTATIONS : "annotations",
 
   CATEGORY_LIST : "categoryList",
 
@@ -176,6 +183,16 @@ MDSS.QueryPanel.prototype = {
     var li = document.getElementById(key+"_summary");
     var prependEl = li.firstChild;
     prependEl.innerHTML = (prepend === '') ? '' : '('+prepend+') ';
+  },
+  
+  getSelectedDisplayLabel : function(key)
+  {
+    // grab the first element which holes an possible aggregate function info
+    // and append its contents to that of its sibling that contains the selectable
+    // display. 
+    var li = document.getElementById(key+"_summary");
+    var display = li.firstChild.textContent+li.firstChild.nextSibling.textContent;
+    return display;
   },
 
   /**
@@ -755,7 +772,7 @@ MDSS.QueryPanel.prototype = {
 
     YAHOO.util.Event.on(thematicSelect, 'change', this._thematicLayerSelected, null, this);
   },
-
+  
   /**
    * Adds a thematic variable to the map.
    */
@@ -1211,7 +1228,16 @@ MDSS.QueryPanel.prototype = {
     var mapButtonDiv = new YAHOO.util.Element(document.createElement('div'));
     mapButtonDiv.setStyle('float', 'right');
 
-
+    // annotation
+    var annotation = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(annotation, 'type', 'button');
+    YAHOO.util.Dom.setAttribute(annotation, 'id', this.ANNOTATIONS);
+    YAHOO.util.Dom.setAttribute(annotation, 'value', MDSS.Localized.Annotations); 
+    YAHOO.util.Dom.addClass(annotation, 'queryButton');
+    YAHOO.util.Event.on(annotation, 'click', this._annotation.showModal, null, this._annotation);
+    annotation.disabled = true;
+    mapButtonDiv.appendChild(annotation);
+    
     var refreshMapButton = new YAHOO.util.Element(document.createElement('input'));
     refreshMapButton.set('type', 'button');
     refreshMapButton.set('value', MDSS.Localized.Query.Refresh);
@@ -1219,6 +1245,7 @@ MDSS.QueryPanel.prototype = {
     refreshMapButton.addClass('queryButton');
     refreshMapButton.on('click', this._mapQuery, {}, this);
     mapButtonDiv.appendChild(refreshMapButton);
+    
 
     var mBottom = new YAHOO.util.Element(this._mBottomUnit.body);
     mBottom.appendChild(mapButtonDiv);
@@ -1444,7 +1471,7 @@ MDSS.QueryPanel.prototype = {
     thematicVar.setEntityAlias(entityAlias);
     thematicVar.setAttributeName(attributeName);
     thematicVar.setUserAlias(userAlias);
-    thematicVar.setDisplayLabel(displayLabel);
+    // thematicVar.setDisplayLabel(displayLabel); obsolete because display will be cached
 
   	this._thematicVariables[userAlias] = thematicVar;
   },
@@ -1569,6 +1596,7 @@ MDSS.QueryPanel.prototype = {
     if(this._map != null)
     {
       this._map.destroy();
+      this._annotation.hideAll();
     }
 
     // pink tile avoidance
@@ -1596,10 +1624,12 @@ MDSS.QueryPanel.prototype = {
             layers: baseLayer.view,
             styles: '',
             format: 'image/png',
-            sld: Mojo.ClientSession.getBaseEndpoint()+baseLayer.sld
+            sld: Mojo.ClientSession.getBaseEndpoint()+baseLayer.sld,
+            tiled: 'true'
         },
         {
           buffer: 0,
+          opacity: 1.0,
           isBaseLayer: true
         }
     );
@@ -1616,11 +1646,12 @@ MDSS.QueryPanel.prototype = {
             styles: '',
             format: 'image/png',
             sld: Mojo.ClientSession.getBaseEndpoint()+layerName.sld,
-            transparent: true
+            transparent: true,
+            tiled: 'true'
         },
         {
           buffer: 0,
-          opacity: 0.3
+          opacity: 0.5
         }
     );
 
@@ -1636,8 +1667,7 @@ MDSS.QueryPanel.prototype = {
         position: new OpenLayers.Pixel(2, 15)
     }));
     this._map.addControl(new OpenLayers.Control.Navigation());
-    this._map.addControl(new OpenLayers.Control.Scale($('scale')));
-    //this._map.addControl(new OpenLayers.Control.MousePosition({element: $('location')}));
+    //this._map.addControl(new OpenLayers.Control.ScaleLine());
     this._map.zoomToExtent(bounds);
   },
 
@@ -1686,6 +1716,8 @@ MDSS.QueryPanel.prototype = {
     if(Mojo.util.isFunction(this._config.mapQuery))
     {
       this._config.mapQuery.call(this._queryClass);
+      
+      document.getElementById(this.ANNOTATIONS).disabled = false;
     }
   },
 
@@ -1983,4 +2015,362 @@ MDSS.Pagination.Page.prototype = {
 
   getPageNumber : function() { return this._pageNumber; },
 
+};
+
+MDSS.Annotation = function(queryPanel)
+{
+  this._queryPanel = queryPanel;
+  
+  this._modal = null;
+};
+
+MDSS.Annotation.prototype = {
+
+  showModal : function()
+  {
+
+    if(this._modal == null)
+    {
+      this._modal = new YAHOO.widget.Panel("editAnnotations", {
+        width:"400px",
+        height: "400px",
+        fixedcenter:true,
+        close: true,
+        draggable:false,
+        zindex:4,
+        modal:true,
+        visible:true
+      });
+  
+      // wrap content in divs
+      var outer = document.createElement('div');
+  
+      var header = document.createElement('div');
+      header.innerHTML = '<h3>'+MDSS.Localized.Annotations+'</h3><hr />';
+      outer.appendChild(header);
+  
+      var html = '';
+      html += '<dl>';
+      html += '  <dt>';
+      html += '    '+MDSS.Localized.Title+'&nbsp;<input id="titleInput" type="text" />';
+      html += '  </dt>';
+      html += '  <dd>';
+      html += '    <input type="checkbox" id="titleAnnotationCheck" />&nbsp;'+MDSS.Localized.Enable;
+      html += '  </dd>';
+      html += '  <dt>';
+      html += '    '+MDSS.Localized.NorthArrow;
+      html += '  </dt>';
+      html += '  <dd>';
+      html += '    <input type="checkbox" id="arrowAnnotationCheck" />&nbsp;'+MDSS.Localized.Enable;
+      html += '  </dd>';
+      html += '  <dt>';
+      html += '   '+MDSS.Localized.Legend;
+      html += '  </dt>';
+      html += '  <dd>';
+      html += '    <input type="checkbox" id="legendAnnotationCheck" />&nbsp;'+MDSS.Localized.Enable;
+      html += '  </dd>';
+      html += '  <dt>';
+      html += '   Scale';
+      html += '  </dt>';
+      html += '  <dd>';
+      html += '    <input type="checkbox" id="scaleAnnotationCheck" />&nbsp;'+MDSS.Localized.Enable;
+      html += '  </dd>';
+      html += '</dl>';
+      html += '<input type="button" id="updateAnnotations" value="'+MDSS.Localized.Update+'" />';
+
+      var contentDiv = document.createElement('div');
+      YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
+      contentDiv.innerHTML = html;
+      outer.appendChild(contentDiv);
+  
+      this._modal.setBody(outer);
+      this._modal.render(document.body);
+      
+      header = null; // cleanup
+      contentDiv = null;
+      
+      YAHOO.util.Event.on('updateAnnotations', 'click', this.updateAnnotations, null, this);
+    }
+    else
+    {
+      this._modal.show();
+      this._modal.bringToTop();
+    }
+
+  },
+  
+  updateAnnotations : function()
+  {
+    var titleC = document.getElementById('titleAnnotationCheck');
+    if(titleC.checked)
+    {
+      this.showTitle();
+    }
+    else
+    {
+      this.hideTitle();
+    }
+    
+    var arrowC = document.getElementById('arrowAnnotationCheck');
+    if(arrowC.checked)
+    {
+      this.showArrow();
+    }
+    else
+    {
+      this.hideArrow();
+    }
+  
+    var legendC = document.getElementById('legendAnnotationCheck');
+    if(legendC.checked)
+    {
+      this.showLegend();
+    }
+    else
+    {
+      this.hideLegend();
+    }
+    
+    try
+    {
+    var scaleC = document.getElementById('scaleAnnotationCheck');
+    if(scaleC.checked)
+    {
+      this.showScale();
+    }
+    else
+    {
+      this.hideScale();
+    }
+    }
+    catch(e){alert(e);}
+    
+    this.hideModal();
+  },
+  
+  hideModal : function()
+  {
+    this._modal.hide();
+  },
+  
+  showScale : function()
+  {
+    var scaleDiv = document.getElementById('scaleDiv');
+    if(scaleDiv == null)
+    {
+      scaleDiv = document.createElement('div');
+      scaleDiv.id = 'scaleDiv';
+      
+      this.addDragDrop(scaleDiv);
+    }
+    
+    // always clear the div just to be safe
+    scaleDiv.innerHTML = '';
+    
+    if(this._queryPanel._map != null)
+    {
+      this._queryPanel._map.addControl(new OpenLayers.Control.ScaleLine({'div':scaleDiv}));
+    }
+    
+    this.position(scaleDiv, -100, -100);
+  },
+  
+  hideScale : function()
+  {
+    var scaleDiv = document.getElementById('scaleDiv');
+    if(scaleDiv)
+    {
+      YAHOO.util.Dom.setStyle(scaleDiv, 'display', 'none');
+    }
+  },
+  
+  showTitle : function()
+  {
+    var titleDiv = document.getElementById('titleDiv');
+    if(titleDiv == null)
+    {
+      titleDiv = document.createElement('div');
+      titleDiv.id = 'titleDiv';
+      
+      this.addDragDrop(titleDiv);
+    }
+    
+    var title = document.getElementById('titleInput').value;
+    titleDiv.innerHTML = title;
+    
+    
+    this.position(titleDiv, 100, -100);
+  },
+  
+  hideAll : function()
+  {
+    this.hideTitle();
+    this.hideScale();
+    this.hideLegend();
+    this.hideArrow();
+  },
+  
+  hideTitle : function()
+  {
+    var titleDiv = document.getElementById('titleDiv');
+    if(titleDiv)
+    {
+      YAHOO.util.Dom.setStyle(titleDiv, 'display', 'none');
+      document.getElementById('titleInput').value = '';
+    }
+  },
+  
+  position : function(div, leftOffset, topOffset)
+  {
+    YAHOO.util.Dom.setStyle(div, 'display', 'block');  
+    
+    var mapDiv = document.getElementById('mapContainer');
+
+    var xy = YAHOO.util.Dom.getXY(mapDiv);
+  
+    var mWidth = parseInt(YAHOO.util.Dom.getStyle(mapDiv, 'width'), 10);
+    var mHeight = parseInt(YAHOO.util.Dom.getStyle(mapDiv, 'height'), 10);
+
+    var dWidth = parseInt(YAHOO.util.Dom.getStyle(div, 'width'), 10);
+    var dHeight = parseInt(YAHOO.util.Dom.getStyle(div, 'height'), 10);
+  
+    var center = [xy[0] + (mWidth/2) - (dWidth/2) + leftOffset,
+      xy[1] + (mHeight/2) - (dHeight/2) + topOffset];
+
+    YAHOO.util.Dom.setXY(div, center);
+    
+    var region = YAHOO.util.Region.getRegion(mapDiv);
+    xy = YAHOO.util.Dom.getXY(div);
+
+    //Set left to x minus left
+    var left = xy[0] - region.left;
+
+    //Set right to right minus x minus width
+    var right = region.right - xy[0] - dWidth;
+
+    //Set top to y minus top
+    var top = xy[1] - region.top;
+
+    //Set bottom to bottom minus y minus height
+    var bottom = region.bottom - xy[1] - dHeight;
+
+    //Set the constraints based on the above calculations
+    var dd = YAHOO.util.DragDropMgr.getDDById(div.id);
+    dd.setXConstraint(left, right);
+    dd.setYConstraint(top, bottom);
+  },
+  
+  addDragDrop : function(div)
+  {
+    var mapDiv = document.getElementById('mapPanel');
+    var region = YAHOO.util.Region.getRegion(mapDiv);
+  
+    YAHOO.util.Dom.setStyle(div, 'position', 'absolute');
+    YAHOO.util.Dom.setStyle(div, 'display', 'block');
+    
+    mapDiv.appendChild(div);
+    
+    var dd = new YAHOO.util.DD(div, {
+      dragOnly : true
+    });
+  },
+  
+  showArrow : function()
+  {
+    var arrowDiv = document.getElementById('arrowDiv');
+    if(arrowDiv == null)
+    {
+      arrowDiv = document.createElement('div');
+      arrowDiv.id = 'arrowDiv';
+      arrowDiv.innerHTML = '<img src="imgs/northArrow.png" style="width: 50px; height: 50px;" />';
+      
+      this.addDragDrop(arrowDiv);
+    }
+    
+    this.position(arrowDiv, -100, 100);  
+  },
+  
+  hideArrow : function()
+  {
+    var arrowDiv = document.getElementById('arrowDiv');
+    if(arrowDiv)
+    {
+      YAHOO.util.Dom.setStyle(arrowDiv, 'display', 'none');
+    }
+  },
+  
+  hideLegend : function()
+  {
+    var legendDiv = document.getElementById('legendDiv');
+    if(legendDiv)
+    {
+      YAHOO.util.Dom.setStyle(legendDiv, 'display', 'none');
+    }
+  },
+  
+  showLegend : function()
+  {
+    var request = new MDSS.Request({
+      thisRef : this,
+      onSuccess : function(legendJSON)
+      {
+        var legendDiv = document.getElementById('legendDiv');
+      
+        legendJSON = MDSS.util.stripWhitespace(legendJSON);
+        if(legendJSON.indexOf('{') == -1)
+        {
+          new MDSS.ErrorModal(legendJSON);          
+        }
+        else if(legendDiv == null)
+        {
+          legendDiv = document.createElement('div');
+          legendDiv.id = 'legendDiv';
+          this.thisRef.addDragDrop(legendDiv);
+        }
+        
+        var table = '<table>';
+        
+        var legend = Mojo.util.getObject(legendJSON);
+        table += '<tr><td colspan="2">'+legend.thematicVariable+'</td></tr>';
+        
+        var categories = legend.categories;
+        for(var i=0; i<categories.length; i++)
+        {
+          var category = categories[i];
+          var color = category.color;
+          var values = category.values;
+          
+          table += '<tr>';
+          
+          if(values.length == 1)
+          {
+            // exact value
+              table += '<td>'+values[0]+'</td>';
+          }
+          else
+          {
+            // range
+            table += '<td>'+values[0]+'  -  '+values[1]+'</td>';
+          }
+          
+          table += '<td><div class="colorPickerValue" style="background-color: '+color+'">&nbsp;</div></td>';
+          
+          
+          table += '</tr>';
+        }
+        
+        table += '</table>';
+        
+        legendDiv.innerHTML = table;
+
+        this.thisRef.position(legendDiv, 100, 100);  
+      }
+
+    });
+    
+    var savedSearchView = this._queryPanel.getCurrentSavedSearch();
+    var savedSearchId = savedSearchView.getSavedQueryId();
+    Mojo.$.dss.vector.solutions.query.MappingController.getLegend(request, savedSearchId);
+  },
+  
 };

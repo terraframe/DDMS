@@ -58,7 +58,6 @@ h2 {
 	margin-top: 10px;
 }
 
-
 .pageDescription {
 	font-size: 12px;
 	color: #333333;
@@ -493,8 +492,8 @@ span.searchMatch {
 #mapContainer {
 	clear: both;
 	position: relative;
-	width: 99%;
-	height: 99%;
+	width: 100%;
+	height: 100%;
 	border: 0px solid black;
 	margin-left: 0px;
 	margin-top: 0px;
@@ -660,6 +659,50 @@ div.scrollable {
 input.queryNumberCriteria {
   width: 30px;
 }
+
+#legendDiv {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: move;
+  border: 1px solid black;
+  padding: 5px;
+}
+
+#titleDiv {
+  font-size: 20px;
+  font-weight: bold;
+  cursor: move;
+}
+
+#arrowDiv {
+  cursor: move;
+  width: 100px;
+  height: 100px;
+}
+
+#scaleDiv {
+  cursor: move;
+}
+
+
+.olControlScaleLine {
+   bottom: 15px;
+   font-size: xx-small;
+}
+.olControlScaleLineBottom {
+   border: solid 2px black;
+   border-bottom: none;
+   margin-top:-2px;
+   text-align: center;
+}
+.olControlScaleLineTop {
+   border: solid 2px black;
+   border-top: none;
+   text-align: center;
+}
+
 
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */

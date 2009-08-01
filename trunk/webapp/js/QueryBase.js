@@ -1320,10 +1320,13 @@ MDSS.QueryBase.prototype = {
     {
       // The string values are set in editVariableStyles.jsp
       thematicVar = new Mojo.$.dss.vector.solutions.query.ThematicVariable();
-      var pieces = thematicVarStr.split(',');
+      var pieces = thematicVarStr.split('_-_');
       thematicVar.setEntityAlias(pieces[0]);
       thematicVar.setAttributeName(pieces[1]);
       thematicVar.setUserAlias(pieces[2]);
+      
+      var display = this._queryPanel.getSelectedDisplayLabel(pieces[2]);
+      thematicVar.setDisplayLabel(display);
     }
     else
     {
@@ -1366,6 +1369,15 @@ MDSS.QueryBase.prototype = {
     });
 
     var thematicVars = this._queryPanel.getThematicVariables();
+    for(var i=0; i<thematicVars.length; i++)
+    {
+      // grab the most recent version of the display 
+      // label (taking aggregate functions into account)
+      var thematic = thematicVars[i];
+      
+      var display = this._queryPanel.getSelectedDisplayLabel(thematic.getUserAlias());
+      thematic.setDisplayLabel(display);
+    }
 
     controller.editThematicLayer(request, thematicLayerId, thematicVars);
   }

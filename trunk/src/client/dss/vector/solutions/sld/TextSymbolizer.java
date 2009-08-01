@@ -57,6 +57,15 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
       writer.writeln("<CssParameter name=\"font-size\">"+fontSize+"</CssParameter>");
       writer.writeln("<CssParameter name=\"fill\">"+fill+"</CssParameter>");
       writer.writeln("</Font>");
+      writer.writeln("<LabelPlacement>");
+      writer.writeln("<PointPlacement>");
+      writer.writeln("<Displacement>");
+      writer.writeln("<DisplacementX>10</DisplacementX>");
+      writer.writeln("<DisplacementY>0</DisplacementY>");
+      writer.writeln("</Displacement>");
+      writer.writeln("</PointPlacement>");
+      writer.writeln("</LabelPlacement>");
+      writer.writeln("<Opacity>1.0</Opacity>");
       writer.writeln("</TextSymbolizer>");
       writer.writeln("</Rule>");
       writer.writeln("<Rule>");
@@ -78,6 +87,15 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
       writer.writeln("<CssParameter name=\"font-size\">"+fontSize+"</CssParameter>");
       writer.writeln("<CssParameter name=\"fill\">"+fill+"</CssParameter>");
       writer.writeln("</Font>");
+      writer.writeln("<LabelPlacement>");
+      writer.writeln("<PointPlacement>");
+      writer.writeln("<Displacement>");
+      writer.writeln("<DisplacementX>10</DisplacementX>");
+      writer.writeln("<DisplacementY>0</DisplacementY>");
+      writer.writeln("</Displacement>");
+      writer.writeln("</PointPlacement>");
+      writer.writeln("</LabelPlacement>");
+      writer.writeln("<Opacity>1.0</Opacity>");
       writer.writeln("</TextSymbolizer>");
       writer.writeln("</Rule>");
     }
@@ -96,8 +114,18 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
       writer.writeln("<Fill>");
       writer.writeln("<CssParameter name=\"fill\">"+fill+"</CssParameter>");
       writer.writeln("</Fill>");
+      writer.writeln("<LabelPlacement>");
+      writer.writeln("<PointPlacement>");
+      writer.writeln("<Displacement>");
+      writer.writeln("<DisplacementX>10</DisplacementX>");
+      writer.writeln("<DisplacementY>0</DisplacementY>");
+      writer.writeln("</Displacement>");
+      writer.writeln("</PointPlacement>");
+      writer.writeln("</LabelPlacement>");
+      writer.writeln("<Opacity>1.0</Opacity>");
       writer.writeln("</TextSymbolizer>");
       writer.writeln("</Rule>");
+
     }
   }
 

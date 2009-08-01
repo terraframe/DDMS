@@ -251,6 +251,6 @@ public class ThematicLayer extends ThematicLayerBase implements
     }
     
     return view;
-  } 
+  }
 
 }

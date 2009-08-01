@@ -3,12 +3,15 @@
 // setting up mojo  namespace
 var MojoGrid = YAHOO.namespace('MojoGrid');
 MojoGrid.cellLock = false;
+MojoGrid.limitTab = false;
+
 
 MojoGrid.validateBool = function(inputValue, currentValue, editorInstance) {
   return "test";
 };
 
 MojoGrid.createDataTable = function(table_data) {
+
 
   // locals to be returned
   var myDataSource, myDataTable;
@@ -238,7 +241,7 @@ MojoGrid.createDataTable = function(table_data) {
     
     if (e.keyCode === 9) {
     
-      //e.preventDefault();
+      e.preventDefault();
       YAHOO.util.Event.stopEvent(e);
 
       if(MojoGrid.cellLock)

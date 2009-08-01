@@ -29,7 +29,6 @@ public class PointSymbolizer extends Symbolizer implements Reloadable
     WellKnownNamesDTO wknDTO = style.getWellKnownName().get(0);
     String wkn = wknDTO.name().toLowerCase();
 
-
     LayerDTO layer = this.getLayer();
     if (layer instanceof ThematicLayerDTO)
     {
@@ -61,7 +60,7 @@ public class PointSymbolizer extends Symbolizer implements Reloadable
       // write default style (with Else Filter if other filters exist).
       writer.writeln("<Rule>");
 
-      if(categories.size() > 0)
+      if (categories.size() > 0)
       {
         ElseFilter elseFilter = new ElseFilter();
         elseFilter.write(writer);

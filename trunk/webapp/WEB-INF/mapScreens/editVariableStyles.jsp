@@ -15,10 +15,10 @@
   <c:forEach items="${variables}" var="variable">
     <c:choose>
       <c:when test="${thematicVariable != null && thematicVariable.entityAlias == variable.entityAlias && thematicVariable.attributeName == variable.attributeName}">
-        <option value="${variable.entityAlias},${variable.attributeName},${variable.userAlias}" selected="selected">${variable.displayLabel}</option>
+        <option value="${variable.entityAlias}_-_${variable.attributeName}_-_${variable.userAlias}" selected="selected">${variable.displayLabel}</option>
       </c:when>
       <c:otherwise>
-        <option value="${variable.entityAlias},${variable.attributeName},${variable.userAlias}">${variable.displayLabel}</option>
+        <option value="${variable.entityAlias}_-_${variable.attributeName}_-_${variable.userAlias}">${variable.displayLabel}</option>
       </c:otherwise>
     </c:choose>
   </c:forEach>
