@@ -510,7 +510,7 @@
             label="Stroke Width"
             description="The width of the stroke."
             required="true"
-            default_value="1" />
+            default_value="2" />
         </attributes>
       </mdBusiness>
 
@@ -526,7 +526,7 @@
             description="Name of a predefined graphic."
             required="true"
             type="dss.vector.solutions.query.WellKnownNames"
-            default_value="SQUARE" />
+            default_value="CIRCLE" />
         </attributes>
       </mdBusiness>
 
