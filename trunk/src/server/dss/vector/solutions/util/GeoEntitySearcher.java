@@ -269,14 +269,14 @@ public class GeoEntitySearcher implements Reloadable
               unknownGeoEntityNameSet.add(endPointEntityName);
 
 
-//System.out.println("matches for: "+endPointEntityName+" "+endPointEntityType);
-//System.out.println("   Possible synonym matches: "+delimitedSynonymList);
-//System.out.println("   Synonyms: "+delimitedSiblingList+"\n");
+System.out.println("Heads up: matches for: "+endPointEntityName+" "+endPointEntityType);
+System.out.println("   Possible synonym matches: "+delimitedSynonymList);
+System.out.println("   Synonyms: "+delimitedSiblingList+"\n");
             }
             else if (geoEntityList.size() == 1)
             {
               // do nothing.  We found an exact match, which is what we wanted
-//System.out.println("match: "+geoEntityList.get(0).getEntityName());
+System.out.println("Heads up: match: "+geoEntityList.get(0).getEntityName());
             }
             else // geoEntityList.size() > 1
             {
@@ -477,17 +477,19 @@ public class GeoEntitySearcher implements Reloadable
 
     GeoEntityQuery childGeoEntityQuery = new GeoEntityQuery(qf);
 
-
-    String[] idArray = new String[excludeGeoEntityList.size()];
-
-    int i = 0;
-    for (GeoEntity geoEntity : excludeGeoEntityList)
+    if (excludeGeoEntityList.size() > 0)
     {
-      idArray[i] = geoEntity.getId();
-      i++;
-    }
+      String[] idArray = new String[excludeGeoEntityList.size()];
 
-    childGeoEntityQuery.WHERE(childGeoEntityQuery.getId().NI(idArray));
+      int i = 0;
+      for (GeoEntity geoEntity : excludeGeoEntityList)
+      {
+        idArray[i] = geoEntity.getId();
+        i++;
+      }
+
+      childGeoEntityQuery.WHERE(childGeoEntityQuery.getId().NI(idArray));
+    }
 
     geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("child_id"));
 
