@@ -25,6 +25,7 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.util.FileIO;
 
 import dss.vector.solutions.export.GeoEntityExcelViewDTO;
+import dss.vector.solutions.geo.UnknownGeoEntityDTO;
 
 public class ExcelImportServlet extends HttpServlet implements Reloadable
 {
@@ -54,6 +55,10 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
 
     // Create a new file upload handler
     ServletFileUpload upload = new ServletFileUpload(factory);
+
+    // Data structure that contains synonym matching information for geo entities that could not
+    // be identified.
+    UnknownGeoEntityDTO[] unknownGeoEntityDTOArray = null;
 
     // Parse the request
     boolean isGeoImport = false;
@@ -104,15 +109,21 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
       }
       else
       {
-        errorStream = FacadeDTO.importExcelFile(clientRequest, new ByteArrayInputStream(bytes), type, "setupImportListener", new String[0]);
-      }
+        unknownGeoEntityDTOArray = FacadeDTO.checkSynonyms(clientRequest, new ByteArrayInputStream(bytes), type);
 
-      if (errorStream.available()>0)
-      {
-        res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
-        ServletOutputStream outputStream = res.getOutputStream();
-        FileIO.write(outputStream, errorStream);
-        return;
+        // all geo entities in the file were identified
+        if (unknownGeoEntityDTOArray.length == 0)
+        {
+          errorStream = FacadeDTO.importExcelFile(clientRequest, new ByteArrayInputStream(bytes), type, "setupImportListener", new String[0]);
+
+          if (errorStream.available()>0)
+          {
+            res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
+            ServletOutputStream outputStream = res.getOutputStream();
+            FileIO.write(outputStream, errorStream);
+            return;
+          }
+        }
       }
     }
     catch (ProblemExceptionDTO p)
@@ -124,7 +135,12 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
       ErrorUtility.prepareThrowable(e, req);
     }
 
-    if(isGeoImport)
+    if (unknownGeoEntityDTOArray != null && unknownGeoEntityDTOArray.length > 0)
+    {
+      req.setAttribute("unknownGeoEntitys", unknownGeoEntityDTOArray);
+      req.getRequestDispatcher("/WEB-INF/synonymFinder.jsp").forward(req, res);
+    }
+    else if(isGeoImport)
     {
       res.setContentType("text/html;charset=UTF-8");
       res.setCharacterEncoding("UTF-8");
