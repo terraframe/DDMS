@@ -258,8 +258,8 @@ public class QueryController extends QueryControllerBase implements
         JSONObject item = new JSONObject();
         item.put("displayLabel", result.getDisplayLabel());
         item.put("value", result.getId());
-        
-        if(!result.getEnumName().equals(RDTResultDTO.NOT_VALID.getName()) && 
+
+        if(!result.getEnumName().equals(RDTResultDTO.NOT_VALID.getName()) &&
             !result.getEnumName().equals(RDTResultDTO.NEGATIVE.getName()))
         {
           positives.put(result.getId());
@@ -269,7 +269,7 @@ public class QueryController extends QueryControllerBase implements
       }
       personMenuItems.put(PersonDTO.RDTRESULT, items);
       req.setAttribute("positives", positives.toString());
-      
+
       // 27. Bloodslide
       items = new JSONArray();
       for (BloodslideResponseMasterDTO response : BloodslideResponseDTO
@@ -640,25 +640,25 @@ public class QueryController extends QueryControllerBase implements
 
       req.setAttribute("queryList", queries.toString());
 
-      // Load label map for Adult Discriminating Dose Assay      
+      // Load label map for Adult Discriminating Dose Assay
       ClassQueryDTO adda = request.getQuery(AdultDiscriminatingDoseAssayDTO.CLASS);
       String adultMap = Halp.getDropDownMaps(adda, request, ", ");
       req.setAttribute("adultMap", adultMap);
-      
+
       // Load label map for Larvae Discriminating Dose Assay
       ClassQueryDTO ldda = request.getQuery(LarvaeDiscriminatingDoseAssayDTO.CLASS);
       String larvaeMap = Halp.getDropDownMaps(ldda, request, ", ");
       req.setAttribute("larvaeMap", larvaeMap);
-      
+
       // Load label map for Knock Down Dose Assay
       ClassQueryDTO kda = request.getQuery(KnockDownAssayDTO.CLASS);
       String knockDownMap = Halp.getDropDownMaps(kda, request, ", ");
-      req.setAttribute("knockDownMap", knockDownMap);      
-      
-      // Load label map for Insecticde 
+      req.setAttribute("knockDownMap", knockDownMap);
+
+      // Load label map for Insecticde
       ClassQueryDTO insecticide = request.getQuery(InsecticideDTO.CLASS);
       String insecticideMap = Halp.getDropDownMaps(insecticide, request, ", ");
-      req.setAttribute("insecticideMap", insecticideMap);      
+      req.setAttribute("insecticideMap", insecticideMap);
 
       req.getRequestDispatcher(QUERY_RESISTANCE).forward(req, resp);
     }
@@ -679,6 +679,7 @@ public class QueryController extends QueryControllerBase implements
       // The Earth is the root. FIXME use country's default root
       EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+      ClientRequestIF request = this.getClientRequest();
 
       SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(),
           QueryConstants.QUERY_IRS);
@@ -694,6 +695,20 @@ public class QueryController extends QueryControllerBase implements
       }
 
       req.setAttribute("queryList", queries.toString());
+
+      // Load label map for spray data
+     // ClassQueryDTO sprayData = request.getQuery(SprayDataDTO.CLASS);
+     // String sprayDataMap = Halp.getDropDownMaps(sprayData, request, ", ");
+     // req.setAttribute("sprayDataMap", sprayDataMap);
+
+      //Load label map for InsecticdeBrand
+     // ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandViewDTO.CLASS);
+      //String insecticideMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
+
+      //InsecticideBrandViewDTO brandView = new InsecticideBrandViewDTO(request);
+      //String insecticideMap = Halp.getDropDownMaps(brandView, request);
+      //req.setAttribute("insecticideBrandMap", insecticideMap);
+
 
       req.getRequestDispatcher(QUERY_IRS).forward(req, resp);
 
