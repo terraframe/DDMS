@@ -611,7 +611,7 @@ MDSS.QueryPanel.prototype = {
     if(select)
     {
       var oldSelected = select.selectedIndex != -1 ? select.options[select.selectedIndex].value : null;
-      var selectIndex = 0;
+      var startIndex = null;
       select.innerHTML = '<option value="">&nbsp;</value>';
       for(var i=0; i<this._thematicLayers.length; i++)
       {
@@ -625,11 +625,11 @@ MDSS.QueryPanel.prototype = {
 
         if(oldSelected != null && oldSelected === layer)
         {
-          selectIndex = i;
+          startIndex = i;
         }
       }
 
-      select.selectedIndex = selectIndex;
+      select.selectedIndex = startIndex != null ? startIndex + 1 : 0;
     }
   },
 
