@@ -100,6 +100,8 @@
     List<String> loadables = new ArrayList<String>();
     loadables.addAll(Arrays.asList(sprayTypes));
     loadables.addAll(Arrays.asList(queryTypes));
+
+
 %>
 
 <%=Halp.loadTypes(loadables)%>
@@ -121,7 +123,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
-    var sprayMaps = {<%//=(String) request.getAttribute("sprayStatusMap")%>};
+    //var sprayMaps = {<%//=(String) request.getAttribute("sprayStatusMap")%>};
 
     var mapAttribs = function(attribName,index){
       var attrib = this.obj.attributeMap[attribName];
@@ -161,10 +163,32 @@ YAHOO.util.Event.onDOMReady(function(){
 
 
     var insectcideAttribs = ["brandName","activeIngredient","amount","weight","sachetsPerRefill"];
-    var actorSprayAtribs = ["received","used","refills","returned"];
+    var actorSprayAtribs = ["refills","received","used","returned"];
 
     var Insecticide_Details = insectcideAttribs.map(mapAttribs, {obj:insectcide, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.InsecticideBrand'});
-    Insecticide_Details = Insecticide_Details.concat(actorSprayAtribs.map(mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.ActorSpray'}));
+    Insecticide_Details = Insecticide_Details.concat([
+
+                                                      {
+                                                         displayLabel:"Nozzle",
+                                                         key:"nozzle_defaultLocale",
+                                                         type:"sqlcharacter",
+                                                         attributeName:"nozzle_defaultLocale",
+                                                       },
+                                                       {
+                                                         displayLabel:"Nozle Ratio",
+                                                         key:"nozzle_ratio",
+                                                         type:"sqldouble",
+                                                         attributeName:"nozzle_ratio",
+                                                       },
+                                                       {
+                                                         displayLabel:"Application Rate (g/m^2)",
+                                                         key:"standard_application_rate",
+                                                         type:"sqldouble",
+                                                         attributeName:"standard_application_rate",
+                                                    }
+                                                    ]);
+
+     Insecticide_Details = Insecticide_Details.concat(actorSprayAtribs.map(mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.ActorSpray'}));
 
     var Spray_Details = ([
                           {
@@ -172,6 +196,7 @@ YAHOO.util.Event.onDOMReady(function(){
                             key:"aggregation_level",
                             type:"sqlcharacter",
                             attributeName:"aggregation_level",
+                            dropDownMap:{'1':'1','2':'2','3':'3'}
                           },
                          ]);
 
@@ -259,6 +284,10 @@ YAHOO.util.Event.onDOMReady(function(){
                                 ]);
 
 
+
+
+
+
    HouseHold_Structure_Detail = HouseHold_Structure_Detail.concat([
                                          {
                                            displayLabel:"Household ID",
@@ -275,7 +304,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
                                        ]);
 
-     var Coverege = [
+     var Coverage = [
 
                                    {
                                      displayLabel:"Room Operational Coverage",
@@ -389,7 +418,7 @@ YAHOO.util.Event.onDOMReady(function(){
  	                         {title:"Actual_Targets", values:Actual_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
                              {title:"Insecticide", values:Insecticide_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                         {title:"Spray_Details", values:Spray_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
- 	                         {title:"Coverege", values:Coverege, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
+ 	                         {title:"Calculations", values:Coverage, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                         {title:"HouseHold_Structure_Detail", values:HouseHold_Structure_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                         {title:"Spray_Team_Detail", values:Spray_Team_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                     ];
