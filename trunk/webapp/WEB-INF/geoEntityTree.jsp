@@ -1,3 +1,7 @@
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="page_title" value="Manage_Geo_Entities"  scope="request"/>
+
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 
 <jsp:include page="geoEntityTreeComponent.jsp"></jsp:include>

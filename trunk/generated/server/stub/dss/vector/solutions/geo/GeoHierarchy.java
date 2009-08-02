@@ -26,6 +26,7 @@ import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.database.Database;
+import com.terraframe.mojo.dataaccess.database.DatabaseException;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.AbortIfProblem;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -444,9 +445,24 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     super.delete();
 
+    // remove the view associated with this universal
+    String viewName = geoEntityClass.getTypeName().toLowerCase() + QueryConstants.VIEW_NAME_SUFFIX;
+    try
+    {
+      MdAttributeGeometry mdAttrGeo = this.getGeometry();
+      String sql = this.getViewSQL(geoEntityClass, mdAttrGeo);
+      Database.dropView(viewName, sql, false);
+    }
+    catch(DatabaseException ex)
+    {
+      // View doesn't exist but that's okay. It may have been
+      // deleted earlier.
+    }
+    
+    // finally, delete this class's MdBusiness, which must be removed
+    // after this GeoHierarchy to avoid a dependency error as the MdBusiness
+    // is a required attribute.
     geoEntityClass.delete();
-
-    super.delete();
   }
 
   /**
@@ -1283,6 +1299,48 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     return equals;
   }
+  
+  private String getViewSQL(MdBusiness md, MdAttributeGeometry mdAttrGeo)
+  {
+
+    MdBusiness definingMd = (MdBusiness) mdAttrGeo.getDefiningMdClass();
+
+    String attrName = mdAttrGeo.getAttributeName();
+
+    // create the ValueQuery whose SELECT will become a database view
+    QueryFactory f = new QueryFactory();
+    ValueQuery vQuery = new ValueQuery(f);
+
+    GeoEntityQuery geoQuery = new GeoEntityQuery(f);
+    Attribute entityNameAttr = (Attribute) geoQuery.getEntityName();
+    entityNameAttr.setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
+
+    // if the MdBusiness that defines the geometry is the MdBusiness this
+    // GeoHierarchy wraps, then just join with GeoEntity to get the entityName
+    if (md.getId().equals(definingMd.getId()))
+    {
+      BusinessQuery q = f.businessQuery(md.definesType());
+      vQuery.SELECT(q.aAttribute(attrName), entityNameAttr);
+      vQuery.WHERE(q.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
+    }
+    else
+    {
+      // perform a join between *this* GeoEntity table and the one
+      // that defines the geometry attribute.
+      BusinessQuery q1 = f.businessQuery(md.definesType());
+      BusinessQuery q2 = f.businessQuery(definingMd.definesType());
+      vQuery.SELECT(q2.aAttribute(attrName), entityNameAttr);
+      vQuery.WHERE(q1.aCharacter(ComponentInfo.ID).EQ(q2.aCharacter(ComponentInfo.ID)));
+      vQuery.WHERE(q2.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
+    }
+    
+    // exclude any entity without spatial data
+    Selectable geometrySelectable = vQuery.getSelectable(attrName);
+    vQuery.AND(geometrySelectable.NE(null));
+
+    String sql = vQuery.getSQL();
+    return sql;
+  }
 
   /**
    * Creates a database view that represents this GeoHierarchy (i.e., the
@@ -1293,57 +1351,31 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    */
   public boolean createViewTable(String sessionId)
   {
-    Boolean viewCreated = this.getViewCreated();
     MdBusiness md = this.getGeoEntityClass();
     String viewName = md.getTypeName().toLowerCase() + QueryConstants.VIEW_NAME_SUFFIX;
-    if (!viewCreated.booleanValue())
-    {
-      MdAttributeGeometry mdAttrGeo = getGeometry(md);
-      MdBusiness definingMd = (MdBusiness) mdAttrGeo.getDefiningMdClass();
-
-      String attrName = mdAttrGeo.getAttributeName();
-
-      // create the ValueQuery whose SELECT will become a database view
-      QueryFactory f = new QueryFactory();
-      ValueQuery vQuery = new ValueQuery(f);
-
-      GeoEntityQuery geoQuery = new GeoEntityQuery(f);
-      Attribute entityNameAttr = (Attribute) geoQuery.getEntityName();
-      entityNameAttr.setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
-
-      // if the MdBusiness that defines the geometry is the MdBusiness this
-      // GeoHierarchy wraps, then just join with GeoEntity to get the entityName
-      if (md.getId().equals(definingMd.getId()))
-      {
-        BusinessQuery q = f.businessQuery(md.definesType());
-        vQuery.SELECT(q.aAttribute(attrName), entityNameAttr);
-        vQuery.WHERE(q.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
-      }
-      else
-      {
-        // perform a join between *this* GeoEntity table and the one
-        // that defines the geometry attribute.
-        BusinessQuery q1 = f.businessQuery(md.definesType());
-        BusinessQuery q2 = f.businessQuery(definingMd.definesType());
-        vQuery.SELECT(q2.aAttribute(attrName), entityNameAttr);
-        vQuery.WHERE(q1.aCharacter(ComponentInfo.ID).EQ(q2.aCharacter(ComponentInfo.ID)));
-        vQuery.WHERE(q2.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
-      }
+    
+    MdAttributeGeometry mdAttrGeo = getGeometry(md);
+    String sql = this.getViewSQL(md, mdAttrGeo);
       
-      // exclude any entity without spatial data
-      Selectable geometrySelectable = vQuery.getSelectable(attrName);
-      vQuery.AND(geometrySelectable.NE(null));
-
-      String sql = vQuery.getSQL();
-
-      Database.createView(viewName, sql);
-
-      MapUtil.reload(sessionId, viewName, mdAttrGeo);
-
-      this.appLock();
-      this.setViewCreated(true);
-      this.apply();
+    // as with thematic layers, drop the view and recreate
+    // to force a refresh of the sql (in case there was a change)
+    try
+    {
+      Database.dropView(viewName, sql, false); 
     }
+    catch(DatabaseException e)
+    {
+      // View doesn't exist, but that's okay. It may have never
+      // been created or a cleanup task has removed it.
+    }
+    finally
+    {
+      // Create a new view that will reflect the current state of the query.
+      Database.createView(viewName, sql);
+    }
+
+    MapUtil.reload(sessionId, viewName, mdAttrGeo);
+
 
     // To avoid a bug in GeoServer, only include the layer if count > 0
     String countSQL = "SELECT COUNT(*) " + Database.formatColumnAlias("ct") + " FROM " + viewName;

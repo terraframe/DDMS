@@ -1,7 +1,13 @@
 package dss.vector.solutions.query;
 
+import java.io.File;
+import java.io.IOException;
+
+import com.terraframe.mojo.constants.LocalProperties;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.system.WebFile;
+import com.terraframe.mojo.util.FileIO;
 
 public abstract class Layer extends LayerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -53,8 +59,31 @@ public abstract class Layer extends LayerBase implements com.terraframe.mojo.gen
     String webId = this.getSldFile();
     if(webId != null && webId.trim().length() > 0)
     {
-      WebFile.get(webId).delete();
+      WebFile webFile = WebFile.get(webId);
+      String path = webFile.getFilePath();
+      String fileName = webFile.getFileName();
+      String extension = webFile.getFileExtension();
+
+      webFile.delete();
+      
+      // remove the SLD artifact
+      String rootPath = LocalProperties.getWebDirectory();
+      
+      String filepath = rootPath + path + fileName + "." + extension;
+      File file = new File(filepath);
+      if(file.exists())
+      {
+        try
+        {
+          FileIO.deleteFile(file);
+        }
+        catch (IOException e)
+        {
+          throw new ProgrammingErrorException(e);
+        }
+      }
     }
+    
     
     super.delete();
   }

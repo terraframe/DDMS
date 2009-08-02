@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="com.terraframe.mojo.business.ClassQueryDTO"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="com.terraframe.mojo.transport.attributes.AttributeDTO"%>
@@ -24,7 +25,11 @@
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%>
 
+<c:set var="page_title" value="Query_Aggregated_Cases"  scope="request" />
+
 <jsp:include page="../templates/header.jsp"></jsp:include>
+
+
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
 <jwr:script src="/bundles/queryBundle.js"/>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
