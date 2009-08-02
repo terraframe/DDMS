@@ -809,7 +809,7 @@
             size="255" />
           <char
             name="surfaceType"
-            label="Spray Operator Last Name"
+            label="Surface Type"
             size="255" />
         </attributes>
       </mdView>
