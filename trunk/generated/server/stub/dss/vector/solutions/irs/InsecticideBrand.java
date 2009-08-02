@@ -134,7 +134,7 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.terraf
     String select = "SELECT insecticidebrand.id,\n";
     // --% active ingredient in sachet (2) * weight of sachet (3) * number of sachets in can refill using nozzle 8002 (4) * Nozzle type ratio (6)
     //select += "insecticidebrand.brandname,\n";
-    select += "amount*weight*sachetsperrefill*ratio AS active_ingredient_per_can,\n";
+    select += "weight*sachetsperrefill*ratio*(amount/100.0) AS active_ingredient_per_can,\n";
     select += "nozzle.ratio AS nozzle_ratio,\n";
     select += "nozzle.displaylabel AS nozzle_defaultLocale,\n";
     select += "insecticidenozzle.enabled,\n";
