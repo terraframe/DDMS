@@ -233,6 +233,11 @@ MDSS.QueryBase.prototype = {
          if(dto.dtoType === 'AttributeDateDTO'){
         	 value = MDSS.Calendar.getLocalizedString(value);
          }
+         if(dto instanceof Mojo.dto.AttributeDecDTO){
+	         if(value != null){
+	        	 value = value.toFixed(2);
+	         }
+         }
          if(dto.dtoType === 'AttributeBooleanDTO'){
 
         	 var displayValue = null;
@@ -250,8 +255,6 @@ MDSS.QueryBase.prototype = {
         	 {
         	   value = displayValue;
         	 }
-
-        	 //value = this._visibleSelectables[dto.attributeName].attribute._whereValues.filter(function(v){return v.uuid == value.toString();})[0].text;
          }
 
          entry[attr] = value;
@@ -498,7 +501,7 @@ MDSS.QueryBase.prototype = {
    */
   render : function()
   {
-  	// Abstract 
+  	// Abstract
   },
 
   /**
@@ -1324,7 +1327,7 @@ MDSS.QueryBase.prototype = {
       thematicVar.setEntityAlias(pieces[0]);
       thematicVar.setAttributeName(pieces[1]);
       thematicVar.setUserAlias(pieces[2]);
-      
+
       var display = this._queryPanel.getSelectedDisplayLabel(pieces[2]);
       thematicVar.setDisplayLabel(display);
     }
@@ -1371,10 +1374,10 @@ MDSS.QueryBase.prototype = {
     var thematicVars = this._queryPanel.getThematicVariables();
     for(var i=0; i<thematicVars.length; i++)
     {
-      // grab the most recent version of the display 
+      // grab the most recent version of the display
       // label (taking aggregate functions into account)
       var thematic = thematicVars[i];
-      
+
       var display = this._queryPanel.getSelectedDisplayLabel(thematic.getUserAlias());
       thematic.setDisplayLabel(display);
     }
