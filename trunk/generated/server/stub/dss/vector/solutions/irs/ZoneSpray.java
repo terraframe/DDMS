@@ -4,6 +4,7 @@ import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.general.MalariaSeason;
 
 public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -93,6 +94,11 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
     select += "zonespray."+ZoneSpray.SUPERVISORNAME+" || ' '|| zonespray."+ZoneSpray.SUPERVISORSURNAME+" AS zone_supervisor,\n";
     select += "zonespray."+ZoneSpray.SPRAYWEEK+" AS zone_week,\n";
     select += "zonespray."+ZoneSpray.TARGET+" AS zone_target,\n";
+    //calculation stuff
+    select += "zonespray."+ZoneSpray.TARGET+" AS daily_target,\n";
+    select += "spraydata."+SprayData.GEOENTITY+" AS targetable_id,\n";
+    select += "sprayseason.id  AS spray_season,\n";
+    select += "zonespray."+ZoneSpray.SPRAYWEEK+" AS spray_week,\n";
 
 
     String from = " FROM ";
@@ -104,9 +110,12 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
     from += MdBusiness.getMdBusiness(AbstractSpray.CLASS).getTableName() + " AS abstractspray_team,\n";
     from += MdBusiness.getMdBusiness(AbstractSpray.CLASS).getTableName() + " AS abstractspray_zone,\n";
     from += MdBusiness.getMdBusiness(SprayStatus.CLASS).getTableName() + " AS spraystatus,\n";
-    from += MdBusiness.getMdBusiness(SprayData.CLASS).getTableName() + " AS spraydata,\n";
     from += MdBusiness.getMdBusiness(SprayOperator.CLASS).getTableName() + " AS sprayleader,\n";
     from += MdBusiness.getMdBusiness(Person.CLASS).getTableName() + " AS person,\n";
+    from += MdBusiness.getMdBusiness(SprayData.CLASS).getTableName() + " AS spraydata \n";
+    from += " LEFT JOIN " ;
+    from += MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName() + " AS sprayseason ";
+    from += "ON spraydata.spraydate BETWEEN sprayseason.startdate AND sprayseason.enddate,\n";
 
     String where = "";
     //join the team spray to the operator spray

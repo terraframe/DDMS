@@ -120,16 +120,25 @@ public class ResourceTarget extends ResourceTargetBase implements com.terraframe
   {
     String sql = "DROP VIEW IF EXISTS " + tableName + ";\n";
     sql += "CREATE VIEW " + tableName + " AS ";
-    sql += ResourceTarget.getTempTableSQL(MdBusiness.getMdBusiness(ResourceTarget.CLASS).getTableName());
-    sql += " UNION \n";
-    sql += ResourceTarget.getTempTableSQL(MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName());
+    sql += ResourceTarget.getTempTableSQL();
     sql += "ORDER BY season_id;\n";
     System.out.println(sql);
     Database.parseAndExecute(sql);
 
   }
 
-  public static String getTempTableSQL(String tableName)
+  public static String getTempTableSQL()
+  {
+    String sql = "";
+    sql += ResourceTarget.getTargetSQL(MdBusiness.getMdBusiness(ResourceTarget.CLASS).getTableName(),"targeter");
+    sql += " UNION \n";
+    sql += ResourceTarget.getTargetSQL(MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName(),"geoentity");
+    sql += " ";
+    return sql;
+
+  }
+
+  public static String getTargetSQL(String tableName,String targetColumn)
   {
     Integer number_of_weeks = 53;
 
@@ -137,38 +146,19 @@ public class ResourceTarget extends ResourceTargetBase implements com.terraframe
     for (Integer i = 0; i < number_of_weeks; i++)
     {
       weeks += "target_" + i + ",";
-      if(i%10 == 0) weeks += "\n";
+      if (i % 10 == 0)
+        weeks += "\n";
     }
     weeks = weeks.substring(0, weeks.length() - 1);
 
-    String select = "SELECT id AS target_id,\n";
-    select += "season AS season_id,\n";
-    select += "spray_week AS target_week,\n";
-    select += "startdate AS season_start,\n";
-    select += "enddate AS season_end,\n";
-    select += "target_array[spray_week] AS target,\n";
-
-    /*
-    switch (targetUnit)
-    {
-      case HOUSEHOLD:
-        select += "(spraystatus.sprayedrooms / spraystatus.rooms) AS operational_coverage,\n";
-        break;
-      case STRUCTURE:
-        select += "(spraystatus.sprayedrooms / spraystatus.rooms) AS operational_coverage,\n";
-        break;
-      case ROOM:
-        select += "(spraystatus.sprayedrooms / spraystatus.rooms) AS operational_coverage,\n";
-        break;
-    }
-    */
-
-    String seasonTable = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
+    String select = "SELECT tar.targeter AS target_id,\n";
+    select += "tar.season AS season_id,\n";
+    select += "i AS target_week,\n";
+    select += "target_array[i] AS weekly_target,\n";
 
     String from = "FROM ";
-    from += "(SELECT tar.id,season,startdate,enddate, ARRAY["+weeks+"] AS target_array FROM "+tableName+" AS tar " +
-    		"JOIN "+seasonTable+" AS ms ON  tar.season = ms.id) AS resourcetargets \n";
-    from += "CROSS JOIN generate_series(1, " + ( number_of_weeks + 1 ) + ") AS spray_week \n";
+    from += "(SELECT "+targetColumn+" AS targeter, season, ARRAY[" + weeks + "] AS target_array FROM " + tableName + ") AS tar ";
+    from += "CROSS JOIN generate_series(1, " + ( number_of_weeks + 1 ) + ") AS i \n";
 
     select = select.substring(0, select.length() - 2);
     from = from.substring(0, from.length() - 2);

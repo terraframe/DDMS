@@ -6,6 +6,7 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.general.MalariaSeason;
 
 
 public class OperatorSpray extends OperatorSprayBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -133,8 +134,11 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
     select += "'' AS zone_supervisor,\n";
     select += "CAST(NULL AS INT)  AS zone_week,\n";
     select += "CAST(NULL AS INT)  AS zone_target,\n";
-
-
+    //target stuff
+    select += "actorspray."+ActorSpray.TARGET+" AS daily_target,\n";
+    select += "sprayoperator.id AS targetable_id,\n";
+    select += "sprayseason.id  AS spray_season,\n";
+    select += "operatorspray."+OperatorSpray.OPERATORSPRAYWEEK+" AS spray_week,\n";
 
     String from = " FROM ";
     //get the main tables
@@ -145,12 +149,14 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
     from += MdBusiness.getMdBusiness(AbstractSpray.CLASS).getTableName() + " AS abstractspray,\n";
     from += MdBusiness.getMdBusiness(HouseholdSprayStatus.CLASS).getTableName() + " AS householdspraystatus,\n";
     from += MdBusiness.getMdBusiness(SprayStatus.CLASS).getTableName() + " AS spraystatus,\n";
-    from += MdBusiness.getMdBusiness(SprayData.CLASS).getTableName() + " AS spraydata,\n";
     from += MdBusiness.getMdBusiness(SprayOperator.CLASS).getTableName() + " AS sprayoperator,\n";
     from += MdBusiness.getMdBusiness(Person.CLASS).getTableName() + " AS person,\n";
     from += MdBusiness.getMdBusiness(SprayOperator.CLASS).getTableName() + " AS sprayleader,\n";
     from += MdBusiness.getMdBusiness(Person.CLASS).getTableName() + " AS person2,\n";
-
+    from += MdBusiness.getMdBusiness(SprayData.CLASS).getTableName() + " AS spraydata \n";
+    from += " LEFT JOIN " ;
+    from += MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName() + " AS sprayseason ";
+    from += "ON spraydata.spraydate BETWEEN sprayseason.startdate AND sprayseason.enddate,\n";
 
 
     String where = "";

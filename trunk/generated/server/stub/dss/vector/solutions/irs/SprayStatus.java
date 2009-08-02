@@ -54,26 +54,30 @@ public class SprayStatus extends SprayStatusBase implements com.terraframe.mojo.
   {
     String select = "SELECT spraystatus.id,\n";
 
+    //insecticide stuff
     //select += "active_ingredient_per_can_view.active_ingredient_per_can,\n";
+    select += "active_ingredient_per_can_view.active_ingredient_per_can /  areastandards.unitnozzleareacoverage AS standard_application_rate,\n";
+    select += "nozzle_defaultLocale AS nozzle_defaultLocale,\n";
+    select += "nozzle_ratio AS nozzle_ratio,\n";
 
     // --application rate is:
     // --(# can refills * amount of active ingredient per can refill) / (# units
     // sprayed *average size of unit).\n";
-    select += "(CAST(refills AS float) * active_ingredient_per_can_view.active_ingredient_per_can)/(spraystatus.sprayedrooms * areastandards.room) AS room_application_rate,\n";
-    select += "(CAST(refills AS float) * active_ingredient_per_can_view.active_ingredient_per_can)/(spraystatus.sprayedstructures * areastandards.structurearea) AS structure_application_rate,\n";
-    select += "(CAST(refills AS float) * active_ingredient_per_can_view.active_ingredient_per_can)/(spraystatus.sprayedhouseholds * areastandards.household) AS household_application_rate,\n";
+    select += "(CAST(refills AS float) * active_ingredient_per_can_view.active_ingredient_per_can) / NULLIF(spraystatus.sprayedrooms      * areastandards.room * room_total, 0) AS room_application_rate,\n";
+    select += "(CAST(refills AS float) * active_ingredient_per_can_view.active_ingredient_per_can) / NULLIF(spraystatus.sprayedstructures * areastandards.structurearea * structure_total, 0) AS structure_application_rate,\n";
+    select += "(CAST(refills AS float) * active_ingredient_per_can_view.active_ingredient_per_can) / NULLIF(spraystatus.sprayedhouseholds * areastandards.household * household_total, 0) AS household_application_rate,\n";
 
     // --application ratio is:\n";
     // --"--(# can refills (30)* ave m_ per can refill (10)*nozzle ratio (6)) / (total units sprayed (11, 12 or 13)*ave m_ per unit (38, 37 or 36))\n";
-    select += "(CAST(refills AS float) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / (spraystatus.sprayedrooms * areastandards.room) AS room_application_ratio,\n";
-    select += "(CAST(refills AS float) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / (spraystatus.sprayedstructures * areastandards.structurearea) AS structure_application_ratio,\n";
-    select += "(CAST(refills AS float) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / (spraystatus.sprayedhouseholds * areastandards.household) AS household_application_ratio,\n";
+    select += "(CAST(refills AS float) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / NULLIF(spraystatus.sprayedrooms      * areastandards.room, 0) AS room_application_ratio,\n";
+    select += "(CAST(refills AS float) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / NULLIF(spraystatus.sprayedstructures * areastandards.structurearea, 0) AS structure_application_ratio,\n";
+    select += "(CAST(refills AS float) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / NULLIF(spraystatus.sprayedhouseholds * areastandards.household, 0) AS household_application_ratio,\n";
 
     // --operational coverage is:\n";
     // --(Total units sprayed / Total units available) *100 (to calculate percentage of units sprayed). \n";
-    select += "(spraystatus.sprayedrooms / CAST(spraystatus.rooms AS float))  * 100 AS room_operational_coverage,\n";
-    select += "(spraystatus.sprayedstructures / CAST(spraystatus.structures AS float))  * 100 AS structure_operational_coverage,\n";
-    select += "(spraystatus.sprayedhouseholds / CAST(spraystatus.households AS float)) * 100  AS household_operational_coverage,\n";
+    select += "CAST(spraystatus.sprayedrooms      AS float) / NULLIF(spraystatus.rooms      ,0) * 100 AS room_operational_coverage,\n";
+    select += "CAST(spraystatus.sprayedstructures AS float) / NULLIF(spraystatus.structures ,0) * 100 AS structure_operational_coverage,\n";
+    select += "CAST(spraystatus.sprayedhouseholds AS float) / NULLIF(spraystatus.households ,0) * 100 AS household_operational_coverage,\n";
 
     // unsprayed
     select += "(spraystatus.rooms - spraystatus.sprayedrooms) AS room_unsprayed,\n";
@@ -88,9 +92,9 @@ public class SprayStatus extends SprayStatusBase implements com.terraframe.mojo.
     from += MdBusiness.getMdBusiness(AreaStandards.CLASS).getTableName() + " AS areastandards,\n";
     from += MdBusiness.getMdBusiness(ActorSpray.CLASS).getTableName() + " AS actorspray,\n";
 
-
     // get views
     from += "(" + InsecticideBrand.getTempTableSQL() + ") AS active_ingredient_per_can_view,\n";
+    from += "("+ActorSpray.getUnitTotalsSQL()+") AS unit_totals_view,\n";
 
     String where = "";
     // join main tables
@@ -99,6 +103,7 @@ public class SprayStatus extends SprayStatusBase implements com.terraframe.mojo.
     where += "AND abstractspray.id = actorspray.id \n";
     // join views
     where += "AND spraydata.brand = active_ingredient_per_can_view.id \n";
+    where += "AND actorspray.id = unit_totals_view.id \n";
 
     select = select.substring(0, select.length() - 2);
     from = from.substring(0, from.length() - 2);

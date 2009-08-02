@@ -136,8 +136,8 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.terraf
     //select += "insecticidebrand.brandname,\n";
     select += "amount*weight*sachetsperrefill*ratio AS active_ingredient_per_can,\n";
     select += "nozzle.ratio AS nozzle_ratio,\n";
+    select += "nozzle.displaylabel AS nozzle_defaultLocale,\n";
     select += "insecticidenozzle.enabled,\n";
-    // --insecticidebrand.activeingredient,
 
     String from = "FROM ";
     from += MdBusiness.getMdBusiness(InsecticideBrand.CLASS).getTableName() + " AS insecticidebrand,\n";
@@ -153,10 +153,6 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.terraf
     from = from.substring(0, from.length() - 2);
 
     return select + "\n" + from + "\n" + where;
-    // --insecticidebrand.amount,
-    // --insecticidebrand.weight,
-    // --insecticidebrand.sachetsperrefill,
-    // --insecticidebrand.enabled,
     // --nozzle.enabled,
     // --nozzle.lastupdatedate,
   }
