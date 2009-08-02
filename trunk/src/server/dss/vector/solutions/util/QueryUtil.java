@@ -213,7 +213,7 @@ public class QueryUtil implements Reloadable
 
       AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
 
-      if (allPathsQuery == null)
+      if (allPathsQuery == null && leftJoinValueQueries.size() > 0)
       {
         // This case is for when they have not restricted by any specific  geoEntity
         allPathsQuery = new AllPathsQuery(queryFactory);
