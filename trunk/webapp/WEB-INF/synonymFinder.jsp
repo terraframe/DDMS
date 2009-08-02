@@ -60,7 +60,7 @@ YAHOO.util.Event.onDOMReady(function(){
   <c:otherwise>
     <div class="pageTitle"><fmt:message key="Synonym_Finder" /></div>
       
-      <fmt:message key="Save" var="saveLocalized"></fmt:message>
+      <fmt:message key="save" var="saveLocalized"></fmt:message>
        
       <ul>
         <c:forEach var="unknownGeoEntity" items="${unknownGeoEntitys}">
