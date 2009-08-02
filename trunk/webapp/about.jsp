@@ -30,4 +30,11 @@
 
 </div>
 
+<br/><br/>
+
+<jsp:include page="/revision.html" />
+
+
+
+
 <jsp:include page="/WEB-INF/templates/footer.jsp" />
