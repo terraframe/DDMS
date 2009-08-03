@@ -87,14 +87,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     return getGeoHierarchyFromType(Earth.CLASS).getViewForGeoHierarchy();
   }
 
-  private static void invalidateAllowedInTree()
-  {
-    synchronized (lockObj)
-    {
-      allowedInTree = null;
-    }
-  }
-
   /**
    * Returns a JSON object representing the allowed GeoEntity types within the
    * GeoEntity of the given id.
@@ -426,19 +418,26 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   @Transaction
   public static String[] deleteGeoHierarchy(String geoHierarchyId)
   {
-    Set<String> ids = new HashSet<String>();
+    Set<String> ids;
 
-    GeoHierarchy geoHierarchy = GeoHierarchy.get(geoHierarchyId);
-
-    List<GeoHierarchy> children = geoHierarchy.getImmediateChildren();
-    for (GeoHierarchy child : children)
+    synchronized (lockObj)
     {
-      child.deleteInternal(ids);
+
+      ids = new HashSet<String>();
+
+      GeoHierarchy geoHierarchy = GeoHierarchy.get(geoHierarchyId);
+
+      List<GeoHierarchy> children = geoHierarchy.getImmediateChildren();
+      for (GeoHierarchy child : children)
+      {
+        child.deleteInternal(ids);
+      }
+
+      geoHierarchy.deleteInternal(ids);
+
+      allowedInTree = null;
+
     }
-
-    geoHierarchy.deleteInternal(ids);
-
-    invalidateAllowedInTree();
 
     return ids.toArray(new String[ids.size()]);
   }
@@ -722,25 +721,29 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   @Transaction
   public void deleteRelationship(String parentId)
   {
-    QueryFactory f = new QueryFactory();
-    AllowedInQuery query = new AllowedInQuery(f);
-    query.WHERE(query.childId().EQ(this.getId()));
-    query.WHERE(query.parentId().EQ(parentId));
-
-    OIterator<? extends AllowedIn> iter = query.getIterator();
-    try
+    synchronized (lockObj)
     {
-      while (iter.hasNext())
+
+      QueryFactory f = new QueryFactory();
+      AllowedInQuery query = new AllowedInQuery(f);
+      query.WHERE(query.childId().EQ(this.getId()));
+      query.WHERE(query.parentId().EQ(parentId));
+
+      OIterator<? extends AllowedIn> iter = query.getIterator();
+      try
       {
-        iter.next().delete();
+        while (iter.hasNext())
+        {
+          iter.next().delete();
+        }
       }
-    }
-    finally
-    {
-      iter.close();
-    }
+      finally
+      {
+        iter.close();
+      }
 
-    invalidateAllowedInTree();
+      allowedInTree = null;
+    }
   }
 
   /**
@@ -894,29 +897,33 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   @Transaction
   public static void updateFromView(GeoHierarchyView view)
   {
-    // GeoHierarchy should already be locked
-    GeoHierarchy geoHierarchy = GeoHierarchy.get(view.getGeoHierarchyId());
-    geoHierarchy.setPolitical(view.getPolitical());
-    geoHierarchy.setSprayTargetAllowed(view.getSprayTargetAllowed());
-    geoHierarchy.apply();
+    synchronized (lockObj)
+    {
 
-    MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();
-    geoEntityClass.getDisplayLabel().setValue(view.getDisplayLabel());
-    // if (!view.getDisplayLabel().trim().equals(""))
-    // {
-    geoEntityClass.getDisplayLabel().setDefaultValue(view.getDisplayLabel());
-    // }
+      // GeoHierarchy should already be locked
+      GeoHierarchy geoHierarchy = GeoHierarchy.get(view.getGeoHierarchyId());
+      geoHierarchy.setPolitical(view.getPolitical());
+      geoHierarchy.setSprayTargetAllowed(view.getSprayTargetAllowed());
+      geoHierarchy.apply();
 
-    geoEntityClass.getDescription().setValue(view.getDescription());
+      MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();
+      geoEntityClass.getDisplayLabel().setValue(view.getDisplayLabel());
+      // if (!view.getDisplayLabel().trim().equals(""))
+      // {
+      geoEntityClass.getDisplayLabel().setDefaultValue(view.getDisplayLabel());
+      // }
 
-    // if (!view.getDescription().trim().equals(""))
-    // {
-    geoEntityClass.getDescription().setDefaultValue(view.getDescription());
-    // }
+      geoEntityClass.getDescription().setValue(view.getDescription());
 
-    geoEntityClass.apply();
+      // if (!view.getDescription().trim().equals(""))
+      // {
+      geoEntityClass.getDescription().setDefaultValue(view.getDescription());
+      // }
 
-    invalidateAllowedInTree();
+      geoEntityClass.apply();
+
+      allowedInTree = null;
+    }
   }
 
   /**
@@ -931,69 +938,74 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   public static void applyExistingWithParent(String childGeoHierarchyId, String parentGeoHierarchyId,
       Boolean cloneOperation)
   {
-    GeoHierarchy childGeoHierarchy = GeoHierarchy.get(childGeoHierarchyId);
-    GeoHierarchy parentGeoHierarchy = GeoHierarchy.get(parentGeoHierarchyId);
-
-    // make sure a child cannot be applied to itself
-    if (childGeoHierarchy.getId().equals(parentGeoHierarchy.getId()))
+    synchronized (lockObj)
     {
-      String childLabel = childGeoHierarchy.getGeoEntityClass().getDisplayLabel().getValue();
 
-      String error = "The child [" + childLabel + "] cannot be its own parent.";
+      GeoHierarchy childGeoHierarchy = GeoHierarchy.get(childGeoHierarchyId);
+      GeoHierarchy parentGeoHierarchy = GeoHierarchy.get(parentGeoHierarchyId);
 
-      AllowedInSelfException e = new AllowedInSelfException(error);
-      e.setDisplayLabel(childLabel);
-      throw e;
-    }
-
-    if (!cloneOperation)
-    {
-      validateModifyGeoHierarchy(childGeoHierarchy);
-    }
-
-    if (!cloneOperation)
-    {
-      // remove the old parent from the child
-      OIterator<? extends AllowedIn> iter = childGeoHierarchy.getAllAllowedInGeoEntityRel();
-      try
+      // make sure a child cannot be applied to itself
+      if (childGeoHierarchy.getId().equals(parentGeoHierarchy.getId()))
       {
-        while (iter.hasNext())
-        {
-          iter.next().delete();
-        }
-      }
-      finally
-      {
-        iter.close();
-      }
-    }
-    else
-    {
-      // confirm this entity can't be applied to the same
-      // parent more than once.
-      QueryFactory f = new QueryFactory();
-      AllowedInQuery q = new AllowedInQuery(f);
-      q.WHERE(q.childId().EQ(childGeoHierarchyId));
-      q.WHERE(q.parentId().EQ(parentGeoHierarchyId));
+        String childLabel = childGeoHierarchy.getGeoEntityClass().getDisplayLabel().getValue();
 
-      if (q.getCount() > 0)
-      {
-        String childDL = childGeoHierarchy.getGeoEntityClass().getDisplayLabel().getValue();
-        String parentDL = parentGeoHierarchy.getGeoEntityClass().getDisplayLabel().getValue();
+        String error = "The child [" + childLabel + "] cannot be its own parent.";
 
-        String error = "The child [" + childDL + "] is already located in the parent [" + parentDL
-            + "].";
-        DuplicateHierarchyParentException e = new DuplicateHierarchyParentException(error);
-        e.setChildDisplayLabel(childDL);
-        e.setChildDisplayLabel(parentDL);
-
+        AllowedInSelfException e = new AllowedInSelfException(error);
+        e.setDisplayLabel(childLabel);
         throw e;
       }
+
+      if (!cloneOperation)
+      {
+        validateModifyGeoHierarchy(childGeoHierarchy);
+      }
+
+      if (!cloneOperation)
+      {
+        // remove the old parent from the child
+        OIterator<? extends AllowedIn> iter = childGeoHierarchy.getAllAllowedInGeoEntityRel();
+        try
+        {
+          while (iter.hasNext())
+          {
+            iter.next().delete();
+          }
+        }
+        finally
+        {
+          iter.close();
+        }
+      }
+      else
+      {
+        // confirm this entity can't be applied to the same
+        // parent more than once.
+        QueryFactory f = new QueryFactory();
+        AllowedInQuery q = new AllowedInQuery(f);
+        q.WHERE(q.childId().EQ(childGeoHierarchyId));
+        q.WHERE(q.parentId().EQ(parentGeoHierarchyId));
+
+        if (q.getCount() > 0)
+        {
+          String childDL = childGeoHierarchy.getGeoEntityClass().getDisplayLabel().getValue();
+          String parentDL = parentGeoHierarchy.getGeoEntityClass().getDisplayLabel().getValue();
+
+          String error = "The child [" + childDL + "] is already located in the parent [" + parentDL
+              + "].";
+          DuplicateHierarchyParentException e = new DuplicateHierarchyParentException(error);
+          e.setChildDisplayLabel(childDL);
+          e.setChildDisplayLabel(parentDL);
+
+          throw e;
+        }
+      }
+
+      childGeoHierarchy.addAllowedInGeoEntity(parentGeoHierarchy).apply();
+
+      allowedInTree = null;
+
     }
-
-    childGeoHierarchy.addAllowedInGeoEntity(parentGeoHierarchy).apply();
-
-    invalidateAllowedInTree();
   }
 
   /**
