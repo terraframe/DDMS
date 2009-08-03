@@ -147,11 +147,10 @@ public class MdssControlPanel extends JFrame {
 	        	return true;
 	        }
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
+			// This shouldn't happen
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// Do nothing--if we can't get there, then MDSS isn't running
 		}
 		return false;
 	}
