@@ -60,13 +60,13 @@ public class AbstractSprayTest extends TestCase
 
     //SprayStatus.createTempTable(sprayStatusView);
     //InsecticideBrand.createTempTable(insecticideView);
-    ResourceTarget.createTempTable(resourceTargetView);
+    ResourceTarget.createDatabaseView(resourceTargetView);
 
     //OperatorSpray.createTempTable("operator_spray_view");
     //TeamSpray.createTempTable("team_spray_view");
     //ZoneSpray.createTempTable(zoneSprayView);
 
-    AbstractSpray.createTempTable(tableName);
+     AbstractSpray.createTempTable(tableName,resourceTargetView);
 
 
   }
