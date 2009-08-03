@@ -8,7 +8,6 @@ import com.terraframe.mojo.system.metadata.MdBusiness;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.general.MalariaSeason;
 
-
 public class OperatorSpray extends OperatorSprayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240853391117L;
@@ -64,7 +63,7 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
 
   public static OperatorSpray find(SprayData data, SprayOperator operator)
   {
-    if(data == null || operator == null)
+    if (data == null || operator == null)
     {
       return null;
     }
@@ -94,7 +93,7 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
   {
     OperatorSpray spray = OperatorSpray.find(data, operator);
 
-    if(spray == null)
+    if (spray == null)
     {
       spray = new OperatorSpray();
     }
@@ -106,12 +105,12 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
   {
     String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
     sql += "CREATE TEMP TABLE " + tableName + " AS ";
-    sql += OperatorSpray.getTempTableSQL()+ ";\n";
+    sql += OperatorSpray.getTempTableSQL("") + ";\n";
     System.out.println(sql);
     Database.parseAndExecute(sql);
   }
 
-  public static String getTempTableSQL()
+  public static String getTempTableSQL(String viewName)
   {
     String select = "SELECT spraystatus.id,\n";
 
@@ -135,10 +134,21 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
     select += "CAST(NULL AS INT)  AS zone_week,\n";
     select += "CAST(NULL AS INT)  AS zone_target,\n";
     //target stuff
-    select += "actorspray."+ActorSpray.TARGET+" AS daily_target,\n";
-    select += "sprayoperator.id AS targetable_id,\n";
-    select += "sprayseason.id  AS spray_season,\n";
-    select += "operatorspray."+OperatorSpray.OPERATORSPRAYWEEK+" AS spray_week,\n";
+    //select += "sprayseason.id  AS spray_season,\n";
+    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE "+
+              "spray_target_view.target_id = sprayoperator.id \n"+
+              "AND spray_target_view.season_id = sprayseason.id \n" +
+              "AND spray_target_view.target_week = operatorspray."+OperatorSpray.OPERATORSPRAYWEEK+") AS planed_operator_target,\n";
+    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE "+
+              "spray_target_view.target_id = sprayteam.id \n"+
+              "AND spray_target_view.season_id = sprayseason.id \n" +
+              "AND spray_target_view.target_week = actorspray."+ActorSpray.TEAMSPRAYWEEK+") AS planed_team_target,\n";
+    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE "+
+              "spray_target_view.target_id = spraydata.geoentity  \n"+
+              "AND spray_target_view.season_id = sprayseason.id \n" +
+              "AND spray_target_view.target_week = EXTRACT(WEEK FROM spraydata.spraydate)"+") AS planed_area_target,\n";
+
+
 
     String from = " FROM ";
     //get the main tables
@@ -156,7 +166,12 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
     from += MdBusiness.getMdBusiness(SprayData.CLASS).getTableName() + " AS spraydata \n";
     from += " LEFT JOIN " ;
     from += MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName() + " AS sprayseason ";
-    from += "ON spraydata.spraydate BETWEEN sprayseason.startdate AND sprayseason.enddate,\n";
+    from += "ON spraydata.spraydate BETWEEN sprayseason.startdate AND sprayseason.enddate \n";
+//  from += " LEFT JOIN " ;
+    //from += viewName + " AS operator_target_view \n";
+//  from += "ON (,\n";
+  //from += "viewName AS team_target_view,\n";
+  //from += "viewName AS geo_target_view,\n";
 
 
     String where = "";

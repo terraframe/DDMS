@@ -121,6 +121,8 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
       valueQuery.WHERE(abstractSprayQuery.getId().EQ(actorSprayQuery.getId()));
     }
 
+    String viewName = ThematicLayer.GEO_VIEW_PREFIX + System.currentTimeMillis();
+    ResourceTarget.createDatabaseView(viewName);
 
     String coverageCalculationsView = "spray_data_view";
     String sprayCaluclationsSQL = "(" + SprayStatus.getTempTableSQL() +")";
@@ -129,21 +131,20 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
 
 
     String unionView = "all_levels_spray_view";
-    String unionSQL = "(" + AbstractSpray.getSubquerySql() +")";
+    String unionSQL = "(" + AbstractSpray.getSubquerySql(viewName) +")";
     valueQuery.FROM(unionSQL , unionView);
     valueQuery.WHERE(new InnerJoinEq("id", sprayStatusQuery.getMdClassIF().getTableName(), sprayStatusQuery.getTableAlias(), "id", unionSQL, unionView));
 
-    //ResourceTarget.createTempTable(resourceTargetView);
-    //String targetView = "unit_totals_view";
-    //String targetViewSQL = "(" + ResourceTarget.getTempTableSQL() +")";
-    //valueQuery.FROM(targetViewSQL , targetView);
-    //RawLeftJoinEq lj = new RawLeftJoinEq("targetable_id", unionSQL, unionView, "target_id", targetViewSQL, targetView);
+   /*
+    String targetView = "unit_totals_view";
+    String targetViewSQL = "(" + ResourceTarget.getTempTableSQL() +")";
+    RawLeftJoinEq lj = new RawLeftJoinEq("targetable_id", unionSQL, unionView, "target_id", targetViewSQL, targetView);
 
-    //lj.setSql(unionView+".targetable_id = "+targetView+".target_id AND " +
-    //    unionView+".spray_season = "+targetView+".season_id AND " +
-    //    unionView+".spray_week = "+targetView+".target_week");
-    //valueQuery.WHERE(lj);
-
+    lj.setSql(unionView+".targetable_id = "+targetView+".target_id AND " +
+        unionView+".spray_season = "+targetView+".season_id AND " +
+        unionView+".spray_week = "+targetView+".target_week");
+    valueQuery.WHERE(lj);
+    */
 
     // set all the spray selectable sql to match up with the temp table columns
     for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
@@ -262,27 +263,27 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     return exporter.exportStream();
   }
 
-  public static void createTempTable(String tableName)
+  public static void createTempTable(String tableName, String viewName)
   {
     //InsecticideBrand.createTempTable(insecticideTable);
 
     String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
     sql += "CREATE TEMP TABLE " + tableName + " AS \n";
-    sql += AbstractSpray.getSubquerySql();
+    sql += AbstractSpray.getSubquerySql(viewName);
     sql += ";\n";
     //System.out.println(sql);
     Database.parseAndExecute(sql);
   }
 
 
-  public static String getSubquerySql()
+  public static String getSubquerySql(String viewName)
   {
     String sql = "";
-    sql += OperatorSpray.getTempTableSQL();
+    sql += OperatorSpray.getTempTableSQL(viewName);
     sql += "\n UNION \n";
-    sql += TeamSpray.getTempTableSQL();
+    sql += TeamSpray.getTempTableSQL(viewName);
     sql += "\n UNION \n";
-    sql += ZoneSpray.getTempTableSQL();
+    sql += ZoneSpray.getTempTableSQL(viewName);
     sql += "\n";
 
     return sql;

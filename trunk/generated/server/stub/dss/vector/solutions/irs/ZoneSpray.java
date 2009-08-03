@@ -60,17 +60,17 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
     return ZoneSpray.get(id).getView();
   }
 
-  public static void createTempTable(String tableName)
+  public static void createTempTable(String tableName, String viewName)
   {
     String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
     sql += "CREATE TEMP TABLE " + tableName + " AS ";
-    sql += ZoneSpray.getTempTableSQL() + ";\n";
+    sql += ZoneSpray.getTempTableSQL(viewName) + ";\n";
     System.out.println(sql);
     Database.parseAndExecute(sql);
   }
 
 
-  public static String getTempTableSQL()
+  public static String getTempTableSQL(String viewName)
   {
     String select = "SELECT spraystatus.id,\n";
 
@@ -94,11 +94,17 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
     select += "zonespray."+ZoneSpray.SUPERVISORNAME+" || ' '|| zonespray."+ZoneSpray.SUPERVISORSURNAME+" AS zone_supervisor,\n";
     select += "zonespray."+ZoneSpray.SPRAYWEEK+" AS zone_week,\n";
     select += "zonespray."+ZoneSpray.TARGET+" AS zone_target,\n";
-    //calculation stuff
-    select += "zonespray."+ZoneSpray.TARGET+" AS daily_target,\n";
-    select += "spraydata."+SprayData.GEOENTITY+" AS targetable_id,\n";
-    select += "sprayseason.id  AS spray_season,\n";
-    select += "zonespray."+ZoneSpray.SPRAYWEEK+" AS spray_week,\n";
+    //target stuff
+    //select += "sprayseason.id  AS spray_season,\n";
+    select += "NULL  AS planed_operator_target,\n";
+    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE "+
+           "spray_target_view.target_id = sprayteam.id \n"+
+           "AND spray_target_view.season_id = sprayseason.id \n" +
+           "AND spray_target_view.target_week = actorspray."+ActorSpray.TEAMSPRAYWEEK+") AS planed_team_target,\n";
+    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE "+
+           "spray_target_view.target_id = spraydata.geoentity  \n"+
+           "AND spray_target_view.season_id = sprayseason.id \n" +
+           "AND spray_target_view.target_week = EXTRACT(WEEK FROM spraydata.spraydate)"+") AS planed_area_target,\n";
 
 
     String from = " FROM ";

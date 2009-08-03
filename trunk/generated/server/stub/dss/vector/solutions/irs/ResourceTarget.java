@@ -116,12 +116,13 @@ public class ResourceTarget extends ResourceTargetBase implements com.terraframe
     return searchByTargeterAndSeason(Targeter.get(id), season);
   }
 
-  public static void createTempTable(String tableName)
+  public static void createDatabaseView(String viewName)
   {
-    String sql = "DROP VIEW IF EXISTS " + tableName + ";\n";
-    sql += "CREATE VIEW " + tableName + " AS ";
+    String sql = "DROP VIEW IF EXISTS " + viewName + ";\n";
+    sql += "CREATE VIEW " + viewName + " AS ";
     sql += ResourceTarget.getTempTableSQL();
-    sql += "ORDER BY season_id;\n";
+    //sql += "ORDER BY season_id;\n";
+    sql += ";\n";
     System.out.println(sql);
     Database.parseAndExecute(sql);
 
