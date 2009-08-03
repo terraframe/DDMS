@@ -4,6 +4,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
+import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
@@ -114,5 +115,26 @@ public class SprayOperator extends SprayOperatorBase implements
     valueQuery.restrictRows(20, 1);
     
     return valueQuery;
+  }
+  
+  public static SprayOperator getByOperatorId(String operatorId)
+  {
+    SprayOperatorQuery query = new SprayOperatorQuery(new QueryFactory());
+    query.WHERE(query.getOperatorId().EQ(operatorId));
+
+    OIterator<? extends SprayOperator> iterator = query.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      return null;
+    }
+    finally
+    {
+      iterator.close();
+    }
   }
 }

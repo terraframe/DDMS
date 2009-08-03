@@ -43,11 +43,11 @@
   /*writing-mode: tb-rl;*/
   -moz-transform: rotate(-90deg);
   width:10px;
-  height:170px;
+  height:240px;
   display:block;
   position:relative;
-  top:75px;
-  left:75px;
+  top:110px;
+  left:110px;
 }
 </style>
 

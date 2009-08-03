@@ -6,7 +6,7 @@ package dss.vector.solutions.export;
  */
 public class TeamSprayExcelViewQuery extends dss.vector.solutions.export.TeamSprayExcelViewQueryBase  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1246603807064L;
+private static final long serialVersionUID = 1249163851305L;
 
   public TeamSprayExcelViewQuery(com.terraframe.mojo.query.QueryFactory queryFactory)
   {

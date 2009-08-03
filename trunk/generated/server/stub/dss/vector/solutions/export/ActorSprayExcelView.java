@@ -1,6 +1,7 @@
 package dss.vector.solutions.export;
 
 import dss.vector.solutions.irs.ActorSprayView;
+import dss.vector.solutions.irs.SprayOperator;
 
 public abstract class ActorSprayExcelView extends ActorSprayExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -14,6 +15,10 @@ public abstract class ActorSprayExcelView extends ActorSprayExcelViewBase implem
   public void populate(ActorSprayView actorSprayView)
   {
     super.populate(actorSprayView);
+
+    SprayOperator leader = SprayOperator.getByOperatorId(this.getLeaderId());
+    
+    actorSprayView.setTeamLeader(leader);
     actorSprayView.setTeamSprayWeek(this.getTeamSprayWeek());
     actorSprayView.setTarget(this.getTarget());
     actorSprayView.setReceived(this.getReceived());

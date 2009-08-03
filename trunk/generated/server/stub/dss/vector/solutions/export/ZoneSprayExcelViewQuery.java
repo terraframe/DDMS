@@ -6,7 +6,7 @@ package dss.vector.solutions.export;
  */
 public class ZoneSprayExcelViewQuery extends dss.vector.solutions.export.ZoneSprayExcelViewQueryBase  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1246603807098L;
+private static final long serialVersionUID = 1249245363509L;
 
   public ZoneSprayExcelViewQuery(com.terraframe.mojo.query.QueryFactory queryFactory)
   {

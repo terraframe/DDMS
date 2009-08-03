@@ -33,7 +33,11 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
     personView.setLastName(this.getLastName());
     personView.setDateOfBirth(this.getDateOfBirth());
     personView.addSex(getSexByLabel(this.getSex()));
-    personView.setResidentialGeoId(entity.getGeoId());
+    
+    if(entity != null)
+    {
+      personView.setResidentialGeoId(entity.getGeoId());
+    }
     
     personView.setIsMDSSUser(this.getIsMDSSUser() != null && this.getIsMDSSUser());
     personView.setUsername(this.getUsername());

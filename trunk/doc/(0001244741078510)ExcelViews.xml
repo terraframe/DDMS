@@ -792,21 +792,25 @@
           <reference
             name="geoEntity"
             label="Geo Entity"
-            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            required="true"/>
           <!-- Insecticide Brand -->
           <virtual
             name="brandName"
             concrete="brandName"
-            type="dss.vector.solutions.irs.InsecticideBrand"/>
+            type="dss.vector.solutions.irs.InsecticideBrand"
+            required="true"/>
           <!-- Spray Data -->
           <virtual
             name="sprayDate"
             concrete="sprayDate"
-            type="dss.vector.solutions.irs.SprayData"/>
+            type="dss.vector.solutions.irs.SprayData"
+            required="true"/>
           <char
             name="sprayMethod"
             label="Spray Method"
-            size="255" />
+            size="255"
+            required="true" />
           <char
             name="surfaceType"
             label="Surface Type"
@@ -825,12 +829,8 @@
             label="Spray Team"
             size="255" />
           <char
-            name="leaderFirstName"
-            label="Spray Leader First Name"
-            size="255" />
-          <char
-            name="leaderLastName"
-            label="Spray Leader Last Name"
+            name="leaderId"
+            label="Team Leader Id"
             size="255" />
           <virtual
             name="teamSprayWeek"
@@ -865,12 +865,8 @@
         extends="dss.vector.solutions.export.ActorSprayExcelView">
         <attributes>
           <char
-            name="operatorFirstName"
-            label="Spray Operator First Name"
-            size="255" />
-          <char
-            name="operatorLastName"
-            label="Spray Operator Last Name"
+            name="operatorId"
+            label="Spray Operator Id"
             size="255" />
           <virtual
             name="operatorSprayWeek"

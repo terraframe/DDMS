@@ -3,6 +3,8 @@ package dss.vector.solutions.irs;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
+import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -47,7 +49,22 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.terraf
     }
     return null;
   }
+  
+  public static InsecticideBrand validateByName(String name)
+  {
+    InsecticideBrand brand = InsecticideBrand.getByName(name);
 
+    if(brand == null)
+    {
+      String msg = "An insecticide brand with the name [" + name + "] does not exist";
+
+      throw new DataNotFoundException(msg, MdTypeDAO.getMdTypeDAO(InsecticideBrand.CLASS));
+    }
+    
+    return brand;
+  }
+
+  
   public InsecticideBrandView getView()
   {
     InsecticideBrandView view = new InsecticideBrandView();
