@@ -6,7 +6,7 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
 
   this._queryClass = queryClass;
 
-  var minWidth = 1270;
+  var minWidth = 1250;
   var minHeight = 500;
 
   var pWidth =  (window.innerWidth - 30) > minWidth ? (window.innerWidth - 30) : minWidth;
@@ -34,7 +34,7 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
         { position: 'center', body: '<div id="'+this.MAP_CONTAINER+'"></div>', gutter: '0 2 0 0', scroll: true }
     ]
   });
-  
+
   this._pWidth = pWidth;
   this._pHeight = pHeight;
 
@@ -93,7 +93,7 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
   // a map of ThematicVariable objects
   this._thematicVariables = {};
   this._thematicLayers = [];
-  
+
   this._annotation = new MDSS.Annotation(this);
 };
 
@@ -184,12 +184,12 @@ MDSS.QueryPanel.prototype = {
     var prependEl = li.firstChild;
     prependEl.innerHTML = (prepend === '') ? '' : '('+prepend+') ';
   },
-  
+
   getSelectedDisplayLabel : function(key)
   {
     // grab the first element which holes an possible aggregate function info
     // and append its contents to that of its sibling that contains the selectable
-    // display. 
+    // display.
     var li = document.getElementById(key+"_summary");
     var display = li.firstChild.textContent+li.firstChild.nextSibling.textContent;
     return display;
@@ -772,7 +772,7 @@ MDSS.QueryPanel.prototype = {
 
     YAHOO.util.Event.on(thematicSelect, 'change', this._thematicLayerSelected, null, this);
   },
-  
+
   /**
    * Adds a thematic variable to the map.
    */
@@ -1232,12 +1232,12 @@ MDSS.QueryPanel.prototype = {
     var annotation = document.createElement('input');
     YAHOO.util.Dom.setAttribute(annotation, 'type', 'button');
     YAHOO.util.Dom.setAttribute(annotation, 'id', this.ANNOTATIONS);
-    YAHOO.util.Dom.setAttribute(annotation, 'value', MDSS.Localized.Annotations); 
+    YAHOO.util.Dom.setAttribute(annotation, 'value', MDSS.Localized.Annotations);
     YAHOO.util.Dom.addClass(annotation, 'queryButton');
     YAHOO.util.Event.on(annotation, 'click', this._annotation.showModal, null, this._annotation);
     annotation.disabled = true;
     mapButtonDiv.appendChild(annotation);
-    
+
     var refreshMapButton = new YAHOO.util.Element(document.createElement('input'));
     refreshMapButton.set('type', 'button');
     refreshMapButton.set('value', MDSS.Localized.Query.Refresh);
@@ -1245,7 +1245,7 @@ MDSS.QueryPanel.prototype = {
     refreshMapButton.addClass('queryButton');
     refreshMapButton.on('click', this._mapQuery, {}, this);
     mapButtonDiv.appendChild(refreshMapButton);
-    
+
 
     var mBottom = new YAHOO.util.Element(this._mBottomUnit.body);
     mBottom.appendChild(mapButtonDiv);
@@ -1716,7 +1716,7 @@ MDSS.QueryPanel.prototype = {
     if(Mojo.util.isFunction(this._config.mapQuery))
     {
       this._config.mapQuery.call(this._queryClass);
-      
+
       document.getElementById(this.ANNOTATIONS).disabled = false;
     }
   },
@@ -1820,7 +1820,7 @@ MDSS.ColorPicker.getInstance = function()
   {
     MDSS.ColorPicker._instance = new MDSS.ColorPicker();
   }
-  
+
   return MDSS.ColorPicker._instance;
 };
 
@@ -1833,13 +1833,13 @@ MDSS.ColorPicker.prototype = {
   attach : function(openerId, inputId, colorHex)
   {
     YAHOO.util.Event.removeListener(openerId, 'click', this._renderDialog);
-  
+
     var obj = {
       openerId : openerId,
       inputId : inputId,
       colorHex : colorHex
     };
-  
+
     var openerEl = document.getElementById(openerId);
     YAHOO.util.Event.on(openerEl, 'click', this._renderDialog, obj, this);
   },
@@ -1851,7 +1851,7 @@ MDSS.ColorPicker.prototype = {
   _handleSubmit: function()
   {
     var openerEl = document.getElementById(this._openerId);
-  
+
     var sColor = "#" + this._picker.get("hex");
     document.getElementById(this._inputId).value = sColor;
     YAHOO.util.Dom.setStyle(openerEl, 'background-color', sColor);
@@ -1888,7 +1888,7 @@ MDSS.ColorPicker.prototype = {
     this._openerId = obj.openerId;
     this._inputId = obj.inputId;
     this._colorHex = obj.colorHex;
-  
+
     if(this._dialog == null)
     {
       var sBound = MDSS.util.bind(this, this._handleSubmit);
@@ -2020,7 +2020,7 @@ MDSS.Pagination.Page.prototype = {
 MDSS.Annotation = function(queryPanel)
 {
   this._queryPanel = queryPanel;
-  
+
   this._modal = null;
 };
 
@@ -2041,14 +2041,14 @@ MDSS.Annotation.prototype = {
         modal:true,
         visible:true
       });
-  
+
       // wrap content in divs
       var outer = document.createElement('div');
-  
+
       var header = document.createElement('div');
       header.innerHTML = '<h3>'+MDSS.Localized.Annotations+'</h3><hr />';
       outer.appendChild(header);
-  
+
       var html = '';
       html += '<dl>';
       html += '  <dt>';
@@ -2082,13 +2082,13 @@ MDSS.Annotation.prototype = {
       YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
       contentDiv.innerHTML = html;
       outer.appendChild(contentDiv);
-  
+
       this._modal.setBody(outer);
       this._modal.render(document.body);
-      
+
       header = null; // cleanup
       contentDiv = null;
-      
+
       YAHOO.util.Event.on('updateAnnotations', 'click', this.updateAnnotations, null, this);
     }
     else
@@ -2098,7 +2098,7 @@ MDSS.Annotation.prototype = {
     }
 
   },
-  
+
   updateAnnotations : function()
   {
     var titleC = document.getElementById('titleAnnotationCheck');
@@ -2110,7 +2110,7 @@ MDSS.Annotation.prototype = {
     {
       this.hideTitle();
     }
-    
+
     var arrowC = document.getElementById('arrowAnnotationCheck');
     if(arrowC.checked)
     {
@@ -2120,7 +2120,7 @@ MDSS.Annotation.prototype = {
     {
       this.hideArrow();
     }
-  
+
     var legendC = document.getElementById('legendAnnotationCheck');
     if(legendC.checked)
     {
@@ -2130,7 +2130,7 @@ MDSS.Annotation.prototype = {
     {
       this.hideLegend();
     }
-    
+
     try
     {
     var scaleC = document.getElementById('scaleAnnotationCheck');
@@ -2144,15 +2144,15 @@ MDSS.Annotation.prototype = {
     }
     }
     catch(e){alert(e);}
-    
+
     this.hideModal();
   },
-  
+
   hideModal : function()
   {
     this._modal.hide();
   },
-  
+
   showScale : function()
   {
     var scaleDiv = document.getElementById('scaleDiv');
@@ -2160,21 +2160,21 @@ MDSS.Annotation.prototype = {
     {
       scaleDiv = document.createElement('div');
       scaleDiv.id = 'scaleDiv';
-      
+
       this.addDragDrop(scaleDiv);
     }
-    
+
     // always clear the div just to be safe
     scaleDiv.innerHTML = '';
-    
+
     if(this._queryPanel._map != null)
     {
       this._queryPanel._map.addControl(new OpenLayers.Control.ScaleLine({'div':scaleDiv}));
     }
-    
+
     this.position(scaleDiv, -100, -100);
   },
-  
+
   hideScale : function()
   {
     var scaleDiv = document.getElementById('scaleDiv');
@@ -2183,7 +2183,7 @@ MDSS.Annotation.prototype = {
       YAHOO.util.Dom.setStyle(scaleDiv, 'display', 'none');
     }
   },
-  
+
   showTitle : function()
   {
     var titleDiv = document.getElementById('titleDiv');
@@ -2191,17 +2191,17 @@ MDSS.Annotation.prototype = {
     {
       titleDiv = document.createElement('div');
       titleDiv.id = 'titleDiv';
-      
+
       this.addDragDrop(titleDiv);
     }
-    
+
     var title = document.getElementById('titleInput').value;
     titleDiv.innerHTML = title;
-    
-    
+
+
     this.position(titleDiv, 100, -100);
   },
-  
+
   hideAll : function()
   {
     this.hideTitle();
@@ -2209,7 +2209,7 @@ MDSS.Annotation.prototype = {
     this.hideLegend();
     this.hideArrow();
   },
-  
+
   hideTitle : function()
   {
     var titleDiv = document.getElementById('titleDiv');
@@ -2219,26 +2219,26 @@ MDSS.Annotation.prototype = {
       document.getElementById('titleInput').value = '';
     }
   },
-  
+
   position : function(div, leftOffset, topOffset)
   {
-    YAHOO.util.Dom.setStyle(div, 'display', 'block');  
-    
+    YAHOO.util.Dom.setStyle(div, 'display', 'block');
+
     var mapDiv = document.getElementById('mapContainer');
 
     var xy = YAHOO.util.Dom.getXY(mapDiv);
-  
+
     var mWidth = parseInt(YAHOO.util.Dom.getStyle(mapDiv, 'width'), 10);
     var mHeight = parseInt(YAHOO.util.Dom.getStyle(mapDiv, 'height'), 10);
 
     var dWidth = parseInt(YAHOO.util.Dom.getStyle(div, 'width'), 10);
     var dHeight = parseInt(YAHOO.util.Dom.getStyle(div, 'height'), 10);
-  
+
     var center = [xy[0] + (mWidth/2) - (dWidth/2) + leftOffset,
       xy[1] + (mHeight/2) - (dHeight/2) + topOffset];
 
     YAHOO.util.Dom.setXY(div, center);
-    
+
     var region = YAHOO.util.Region.getRegion(mapDiv);
     xy = YAHOO.util.Dom.getXY(div);
 
@@ -2259,22 +2259,22 @@ MDSS.Annotation.prototype = {
     dd.setXConstraint(left, right);
     dd.setYConstraint(top, bottom);
   },
-  
+
   addDragDrop : function(div)
   {
     var mapDiv = document.getElementById('mapPanel');
     var region = YAHOO.util.Region.getRegion(mapDiv);
-  
+
     YAHOO.util.Dom.setStyle(div, 'position', 'absolute');
     YAHOO.util.Dom.setStyle(div, 'display', 'block');
-    
+
     mapDiv.appendChild(div);
-    
+
     var dd = new YAHOO.util.DD(div, {
       dragOnly : true
     });
   },
-  
+
   showArrow : function()
   {
     var arrowDiv = document.getElementById('arrowDiv');
@@ -2283,13 +2283,13 @@ MDSS.Annotation.prototype = {
       arrowDiv = document.createElement('div');
       arrowDiv.id = 'arrowDiv';
       arrowDiv.innerHTML = '<img src="imgs/northArrow.png" style="width: 50px; height: 50px;" />';
-      
+
       this.addDragDrop(arrowDiv);
     }
-    
-    this.position(arrowDiv, -100, 100);  
+
+    this.position(arrowDiv, -100, 100);
   },
-  
+
   hideArrow : function()
   {
     var arrowDiv = document.getElementById('arrowDiv');
@@ -2298,7 +2298,7 @@ MDSS.Annotation.prototype = {
       YAHOO.util.Dom.setStyle(arrowDiv, 'display', 'none');
     }
   },
-  
+
   hideLegend : function()
   {
     var legendDiv = document.getElementById('legendDiv');
@@ -2307,7 +2307,7 @@ MDSS.Annotation.prototype = {
       YAHOO.util.Dom.setStyle(legendDiv, 'display', 'none');
     }
   },
-  
+
   showLegend : function()
   {
     var request = new MDSS.Request({
@@ -2315,11 +2315,11 @@ MDSS.Annotation.prototype = {
       onSuccess : function(legendJSON)
       {
         var legendDiv = document.getElementById('legendDiv');
-      
+
         legendJSON = MDSS.util.stripWhitespace(legendJSON);
         if(legendJSON.indexOf('{') == -1)
         {
-          new MDSS.ErrorModal(legendJSON);          
+          new MDSS.ErrorModal(legendJSON);
         }
         else if(legendDiv == null)
         {
@@ -2327,21 +2327,21 @@ MDSS.Annotation.prototype = {
           legendDiv.id = 'legendDiv';
           this.thisRef.addDragDrop(legendDiv);
         }
-        
+
         var table = '<table>';
-        
+
         var legend = Mojo.util.getObject(legendJSON);
         table += '<tr><td colspan="2">'+legend.thematicVariable+'</td></tr>';
-        
+
         var categories = legend.categories;
         for(var i=0; i<categories.length; i++)
         {
           var category = categories[i];
           var color = category.color;
           var values = category.values;
-          
+
           table += '<tr>';
-          
+
           if(values.length == 1)
           {
             // exact value
@@ -2352,25 +2352,25 @@ MDSS.Annotation.prototype = {
             // range
             table += '<td>'+values[0]+'  -  '+values[1]+'</td>';
           }
-          
+
           table += '<td><div class="colorPickerValue" style="background-color: '+color+'">&nbsp;</div></td>';
-          
-          
+
+
           table += '</tr>';
         }
-        
+
         table += '</table>';
-        
+
         legendDiv.innerHTML = table;
 
-        this.thisRef.position(legendDiv, 100, 100);  
+        this.thisRef.position(legendDiv, 100, 100);
       }
 
     });
-    
+
     var savedSearchView = this._queryPanel.getCurrentSavedSearch();
     var savedSearchId = savedSearchView.getSavedQueryId();
     Mojo.$.dss.vector.solutions.query.MappingController.getLegend(request, savedSearchId);
   },
-  
+
 };
