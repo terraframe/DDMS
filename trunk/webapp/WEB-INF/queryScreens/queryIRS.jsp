@@ -130,7 +130,7 @@ YAHOO.util.Event.onDOMReady(function(){
       }
 
     }, null, this);
-	
+
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
@@ -188,7 +188,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                                          attributeName:"nozzle_defaultLocale",
                                                        },
                                                        {
-                                                         displayLabel:"Nozle Ratio",
+                                                         displayLabel:"Nozzle Ratio",
                                                          key:"nozzle_ratio",
                                                          type:"sqldouble",
                                                          attributeName:"nozzle_ratio",
@@ -239,23 +239,24 @@ YAHOO.util.Event.onDOMReady(function(){
 
 
      var Planed_Targets = [
+
                                   {
-                                    displayLabel:"Spray Area Target",
-                                    key:"spray_area_target_planed",
+                                    displayLabel:"Oprator Target (P)",
+                                    key:"planed_operator_target",
                                     type:"sqlinteger",
-                                    attributeName:"spray_area_target_planed",
+                                    attributeName:"planed_operator_target",
                                   },
                                   {
-                                    displayLabel:"Oprator Target",
-                                    key:"oprator_target_planed",
+                                    displayLabel:"Team Target (P)",
+                                    key:"planed_team_target",
                                     type:"sqlinteger",
-                                    attributeName:"oprator_target_planed",
+                                    attributeName:"planed_team_target",
                                   },
                                   {
-                                    displayLabel:"Team Target",
-                                    key:"team_target",
+                                    displayLabel:"Spray Area Target (P)",
+                                    key:"planed_area_target",
                                     type:"sqlinteger",
-                                    attributeName:"team_target_planed",
+                                    attributeName:"planed_area_target",
                                   },
                                   /* {
                                   displayLabel:"Planned Coverage",
@@ -267,19 +268,19 @@ YAHOO.util.Event.onDOMReady(function(){
 
      var Actual_Targets = [
                                   {
-                                    displayLabel:"Operator Target",
+                                    displayLabel:"Operator Target (A)",
                                     key:"operator_target",
                                     type:"sqlinteger",
                                     attributeName:"operator_target",
                                   },
                                   {
-                                    displayLabel:"Team Target",
+                                    displayLabel:"Team Target (A)",
                                     key:"team_target",
                                     type:"sqlinteger",
                                     attributeName:"team_target",
                                   },
                                   {
-                                    displayLabel:"Zone Target",
+                                    displayLabel:"Zone Target (A)",
                                     key:"zone_target",
                                     type:"sqlinteger",
                                     attributeName:"zone_target",
@@ -437,9 +438,8 @@ YAHOO.util.Event.onDOMReady(function(){
                              ];
 
 
-
     var selectableGroups = [
- 	                         //{title:"Planed_Targets", values:Planed_Targets, group:"targets", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
+ 	                         {title:"Planned_Targets", values:Planed_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                         {title:"Actual_Targets", values:Actual_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
                              {title:"Insecticide", values:Insecticide_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                         {title:"Spray_Details", values:Spray_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
