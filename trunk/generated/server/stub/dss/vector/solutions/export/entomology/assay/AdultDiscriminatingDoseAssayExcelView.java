@@ -45,9 +45,15 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
     adda.setTestMethod(ResistanceMethodology.validateByDisplayLabel(this.getTestMethod()));
     adda.setGeneration(Generation.validateByDisplayLabel(this.getGeneration()));
     adda.setIsofemale(this.getIsofemale());
-    adda.addSex(getAssaySexByLabel(this.getSex()));
-    adda.setSpecie(Specie.validateByDisplayLabel(this.getSpecie()));
+    adda.addSex(getAssaySexByLabel(this.getSex()));    
     adda.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod()));
+
+    // Specie is optional so don't validate the input if
+    // the value is null or empty
+    if(this.hasSpecie())
+    {
+      adda.setSpecie(Specie.validateByDisplayLabel(this.getSpecie()));
+    }
     
     AdultAgeRange excelAgeRange = this.getAgeRange();
     AdultAgeRange newAgeRange = adda.getAgeRange();
@@ -69,6 +75,11 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
     adda.apply();
   }
   
+  private boolean hasSpecie()
+  {
+    return this.getSpecie() != null && !this.getSpecie().equals("");
+  }
+
   public static AssaySex getAssaySexByLabel(String label)
   {
     for (AssaySex e : AssaySex.values())
