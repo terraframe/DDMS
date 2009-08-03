@@ -1,16 +1,18 @@
 package dss.vector.solutions.controlpanel;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -23,14 +25,13 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import com.ibm.icu.text.MessageFormat;
-
 public class MdssControlPanel extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	public final int HEIGHT = 300;
 	public final int WIDTH = 400; 
 	
+	private static final String URL = "url.server";
 	private static final String TITLE = "title";
 
 	private static final String START = "start";
@@ -104,12 +105,13 @@ public class MdssControlPanel extends JFrame {
 		outputTextArea.setEditable(false);
 		mainPanel.add(new JScrollPane(outputTextArea), "Center");
 
-		this.setButtons(false);
+		this.setButtons();
 
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setButtons(true);
 				runCommand(START, false);
+				//setButtons();
 			}
 		});
 
@@ -117,6 +119,7 @@ public class MdssControlPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setButtons(false);
 				runCommand(STOP, false);
+				//setButtons();
 			}
 		});
 
@@ -135,6 +138,28 @@ public class MdssControlPanel extends JFrame {
 		this.setVisible(true);
 	}
 
+	private boolean isMdssRunning() {
+		URL mdss;
+		try {
+			mdss = new URL(this.bundle.getString(URL));
+	        URLConnection mdssConnection = mdss.openConnection();
+	        if (mdssConnection.getDate() > 0) {
+	        	return true;
+	        }
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	private void setButtons() {
+		this.setButtons(this.isMdssRunning());
+	}
+	
 	private void setButtons(boolean started) {
 		startButton.setEnabled(!started);
 		stopButton.setEnabled(started);
@@ -195,7 +220,7 @@ public class MdssControlPanel extends JFrame {
 	}
 	
 	private void runCommand(String commandKey, boolean selectFile) {
-		String[] parameters = new String[2];
+		Object[] parameters = new Object[2];
 		parameters[0] = group.getSelection().getActionCommand();
 		
 		if (selectFile) {
