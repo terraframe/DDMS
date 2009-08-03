@@ -80,7 +80,17 @@ Restore to other machines
 
 
 + Make sure Geo Server is properly configured
-	+ Point GeoServer to correct mdss_[country name] database
+	+ Point GeoServer to correct mdss_[country name] database. Steps are as follows:
+	1) Log into MDSS
+	2) Go to http://localhost:8080/geoserver in a separate tab.
+	3) Go to Config -> Data -> DataStores
+	4) Select MDSS_maps from the select list and click Edit.
+	5) Make sure the enabled checkbox is checked.
+	6) Set the password and database to that of the country.
+	7) Click Save.
+	8) Click Apply, then click Save.
+	9) Close the Geo Server tab.
+	
 + Make sure Screen Grab works in Firefox (https://addons.mozilla.org/en-US/firefox/addon/1146)
 	
 	
