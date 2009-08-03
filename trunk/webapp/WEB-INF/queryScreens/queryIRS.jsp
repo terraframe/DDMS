@@ -194,11 +194,23 @@ YAHOO.util.Event.onDOMReady(function(){
                                                          attributeName:"nozzle_ratio",
                                                        },
                                                        {
-                                                         displayLabel:"Application Rate (g/m^2)",
+                                                         displayLabel:"Active Ingredient per Can (g)",
+                                                         key:"active_ingredient_per_can",
+                                                         type:"sqldouble",
+                                                         attributeName:"active_ingredient_per_can",
+                                                       },
+                                                       {
+                                                         displayLabel:"Application Rate (g/m²)",
                                                          key:"standard_application_rate",
                                                          type:"sqldouble",
                                                          attributeName:"standard_application_rate",
-                                                    }
+                                                       },
+                                                       {
+                                                         displayLabel:"Application Rate (mg/m²)",
+                                                         key:"standard_application_rate_mg",
+                                                         type:"sqldouble",
+                                                         attributeName:"standard_application_rate_mg",
+                                                       }
                                                     ]);
 
      Insecticide_Details = Insecticide_Details.concat(actorSprayAtribs.map(mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.ActorSpray'}));
