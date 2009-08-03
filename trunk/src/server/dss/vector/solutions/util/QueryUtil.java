@@ -338,12 +338,14 @@ public class QueryUtil implements Reloadable
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery)
   {
-
+    // NOTE: the regex uses \W{1,2} to match against newlines because \N
+    // does not work for all encodings.
+    
     if (xml.indexOf(START_DATE_RANGE) > 0)
     {
       SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(START_DATE_RANGE);
       dateGroup.setSQL("''");
-      Pattern pattern = Pattern.compile("<operator>GE</operator>\\n<value>(" + DATE_REGEX + ")</value>");
+      Pattern pattern = Pattern.compile("<operator>GE</operator>\\W{1,2}<value>(" + DATE_REGEX + ")</value>");
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
       {
@@ -355,7 +357,7 @@ public class QueryUtil implements Reloadable
     {
       SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(END_DATE_RANGE);
       dateGroup.setSQL("''");
-      Pattern pattern = Pattern.compile("<operator>LE</operator>\\n<value>(" + DATE_REGEX + ")</value>");
+      Pattern pattern = Pattern.compile("<operator>LE</operator>\\W{1,2}<value>(" + DATE_REGEX + ")</value>");
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
       {
