@@ -156,15 +156,15 @@ public class SurveyPoint extends SurveyPointBase implements
     }
   }
 
-  private static ValueQuery xmlToValueQuery(String xml, QueryConfig queryConfig,
-      boolean includeGeometry, ThematicLayer thematicLayer)
+  @Authenticate
+  public static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals,
+      boolean includeGeometry, ThematicLayer thematicLayer, String dobCriteria)
   {
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
         valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, SurveyPoint.CLASS, SurveyPoint.GEOENTITY);
     
@@ -201,10 +201,8 @@ public class SurveyPoint extends SurveyPointBase implements
       valueQuery.FROM("person", personTable);
 
       // Check for equals or range criteria on Person.DOB
-      String dobCriteriaKey = "dobCriteria";
-      if(queryConfig.has(dobCriteriaKey) && !queryConfig.isNull(dobCriteriaKey))
+      if(dobCriteria != null)
       {
-        String dobCriteria = queryConfig.getString(dobCriteriaKey);
         if(dobCriteria.contains("-"))
         {
           String[] range = dobCriteria.split("-");
@@ -238,7 +236,6 @@ public class SurveyPoint extends SurveyPointBase implements
     catch(QueryException e)
     {
       // Person.DOB not included in query.
-      
     }
     
     QueryUtil.setQueryDates(xml, valueQuery, surveyPointQuery.getSurveyDate());
@@ -278,6 +275,19 @@ public class SurveyPoint extends SurveyPointBase implements
     }
     
     return valueQuery;
+  }
+  
+  private static String getDobCriteria(QueryConfig config)
+  {
+    String dobCriteriaKey = "dobCriteria";
+    if(config.has(dobCriteriaKey) && !config.isNull(dobCriteriaKey))
+    {
+      return config.getString(dobCriteriaKey);
+    }
+    else
+    {
+      return null;
+    }
   }
   
   private static void addPrevalenceColumn(String prevalenceSel, ValueQuery valueQuery, PersonQuery personQuery, RDTResult rdtResult)
@@ -327,7 +337,9 @@ public class SurveyPoint extends SurveyPointBase implements
   public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
   {
     QueryConfig queryConfig = new QueryConfig(config);
-
+    String dobCriteria = getDobCriteria(queryConfig);
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
+    
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to Excel without a current SavedSearch instance.";
@@ -337,7 +349,7 @@ public class SurveyPoint extends SurveyPointBase implements
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    ValueQuery query = xmlToValueQuery(queryXML, queryConfig, false, null);
+    ValueQuery query = xmlToValueQuery(queryXML, selectedUniversals, false, null, dobCriteria);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
@@ -347,7 +359,9 @@ public class SurveyPoint extends SurveyPointBase implements
   public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId)
   {
     QueryConfig queryConfig = new QueryConfig(config);
-
+    String dobCriteria = getDobCriteria(queryConfig);
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
+    
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to CSV without a current SavedSearch instance.";
@@ -355,9 +369,12 @@ public class SurveyPoint extends SurveyPointBase implements
       throw ex;
     }
 
-    ValueQuery query = xmlToValueQuery(queryXML, queryConfig, false, null);
+    ValueQuery query = xmlToValueQuery(queryXML, selectedUniversals, false, null, dobCriteria);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
+    
+    
+    String sql = query.getSQL();
     return exporter.exportStream();
   }
   
@@ -379,6 +396,9 @@ public class SurveyPoint extends SurveyPointBase implements
 
     SavedSearch search = SavedSearch.get(savedSearchId);
     QueryConfig queryConfig = new QueryConfig(config);
+    
+    String dobCriteria = getDobCriteria(queryConfig);
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
 
     ThematicLayer thematicLayer = search.getThematicLayer();
 
@@ -399,7 +419,7 @@ public class SurveyPoint extends SurveyPointBase implements
       thematicLayer.changeLayerType(thematicLayerType);
     }
 
-    ValueQuery query = xmlToValueQuery(xml, queryConfig, true, thematicLayer);
+    ValueQuery query = xmlToValueQuery(xml, selectedUniversals, true, thematicLayer, dobCriteria);
 
     String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
 
@@ -421,11 +441,14 @@ public class SurveyPoint extends SurveyPointBase implements
       Integer pageNumber, Integer pageSize)
   {
     QueryConfig queryConfig = new QueryConfig(config);
-
-    ValueQuery valueQuery = xmlToValueQuery(xml, queryConfig, false, null);
+    String dobCriteria = getDobCriteria(queryConfig);
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
+    
+    ValueQuery valueQuery = xmlToValueQuery(xml, selectedUniversals, false, null, dobCriteria);
 
     valueQuery.restrictRows(pageSize, pageNumber);
 
+    String sql = valueQuery.getSQL();
     return valueQuery;
   }
 }

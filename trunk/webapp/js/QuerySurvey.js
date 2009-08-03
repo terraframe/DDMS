@@ -200,7 +200,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         }
         else if(userAlias === selectEnd.id)
         {
-          thisRefthis._checkBox(selectEnd);
+          thisRef._checkBox(selectEnd);
         }
       },
     });

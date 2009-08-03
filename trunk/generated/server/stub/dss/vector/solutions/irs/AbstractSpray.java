@@ -85,7 +85,8 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
    * @param xml
    * @return
    */
-  private static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals, boolean includeGeometry, ThematicLayer thematicLayer)
+  @Authenticate
+  public static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals, boolean includeGeometry, ThematicLayer thematicLayer)
   {
     QueryFactory queryFactory = new QueryFactory();
 

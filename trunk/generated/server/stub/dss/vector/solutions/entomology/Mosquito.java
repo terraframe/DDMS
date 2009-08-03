@@ -124,7 +124,8 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    * @param xml
    * @return
    */
-  private static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals, boolean includeGeometry, ThematicLayer thematicLayer)
+  @Authenticate
+  public static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals, boolean includeGeometry, ThematicLayer thematicLayer)
   {
 
     QueryFactory queryFactory = new QueryFactory();

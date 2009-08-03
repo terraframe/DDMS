@@ -41,6 +41,8 @@ public abstract class SLDWriter implements Reloadable
 
   public void write()
   {
+    this.layer.lock();
+
     GeometryStyleDTO geoStyle = layer.getGeometryStyle();
     TextStyleDTO textStyle = layer.getTextStyle();
 
@@ -66,7 +68,6 @@ public abstract class SLDWriter implements Reloadable
     BusinessDTO webFile = requestIF.newFile(path, fileName, extension, stream);
 
     // Lock this layer. This lock all objects used by this layer
-    this.layer.lock();
     this.layer.setSldFile(webFile.getId());
     this.layer.apply();
 
