@@ -15,7 +15,7 @@
     </mjl:dt>
 
     <mjl:dt attribute="urban">
-      ${item.urban?item.urbanMd.positiveDisplayLabel:item.urbanMd.negativeDisplayLabel}
+      ${item.urban != null && item.urban?item.urbanMd.positiveDisplayLabel : item.urbanMd.negativeDisplayLabel}
     </mjl:dt>
 
     <mjl:dt attribute="people">
@@ -39,7 +39,7 @@
     </mjl:dt>
 
     <mjl:dt attribute="hasWindows">
-      ${item.hasWindows?item.hasWindowsMd.positiveDisplayLabel:item.hasWindowsMd.negativeDisplayLabel}
+      ${item.hasWindows?item.hasWindowsMd.positiveDisplayLabel : item.hasWindowsMd.negativeDisplayLabel}
     </mjl:dt>
 
     <mjl:dt attribute="windowType">

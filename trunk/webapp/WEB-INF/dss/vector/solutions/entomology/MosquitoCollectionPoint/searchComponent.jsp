@@ -20,7 +20,7 @@
 %>
 
 <script type="text/javascript">
-  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= TrapDTO.CLASS %>');
+  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= TrapDTO.CLASS %>*');
   MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= PermanentWaterBodyDTO.CLASS %>');
 </script>
 
