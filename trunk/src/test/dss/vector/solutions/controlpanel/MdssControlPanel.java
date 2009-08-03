@@ -6,16 +6,10 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
-import java.io.PrintStream;
-import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -31,8 +25,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
-import com.terraframe.mojo.dataaccess.io.Backup;
 
 public class MdssControlPanel extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -173,6 +165,13 @@ public class MdssControlPanel extends JFrame {
 		mozambiqueButton.setEnabled(!started);
 		malawiButton.setEnabled(!started);
 		zambiaButton.setEnabled(!started);
+	}	
+	
+	private void disableButtons() {
+		startButton.setEnabled(false);
+		stopButton.setEnabled(false);
+		backupButton.setEnabled(false);
+		restoreButton.setEnabled(false);
 	}
 
 	private JPanel createCountryPanel() {
@@ -240,6 +239,8 @@ public class MdssControlPanel extends JFrame {
 	}
 	
 	private void runCommand(String commandKey, String path, String file) {
+		disableButtons();
+		
 		Object[] parameters = new Object[3];
 		parameters[0] = group.getSelection().getActionCommand();
 		parameters[1] = path;
@@ -250,24 +251,35 @@ public class MdssControlPanel extends JFrame {
 		outputTextArea.setText(null);
         try {
             Runtime rt = Runtime.getRuntime();
-            Process pr = rt.exec(command);
+            final Process pr = rt.exec(command);
 
-            BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+			Thread outputThread = new Thread() {
+				public void run() {
+		            outputTextArea.setText(null);
+		            BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 
-            String line=null;
+		            String line=null;
 
-            while((line=input.readLine()) != null) {
-                outputTextArea.append(line + "\n");
-            }
-
-            int exitVal = pr.waitFor();
-            outputTextArea.append("Exit code: "+exitVal);
-
+		            try {
+						while((line=input.readLine()) != null) {
+						    outputTextArea.append(line + "\n");
+						    outputTextArea.setCaretPosition(outputTextArea.getText().length());
+						}
+			            int exitVal = pr.waitFor();
+			            outputTextArea.append("Exit code: "+exitVal);
+					} catch (IOException e) {
+						outputTextArea.append(e.toString());
+					} catch (InterruptedException e) {
+						// Do nothing);
+					}
+					
+			        setButtons();
+				}
+			};
+			outputThread.start();
         } catch(Exception e) {
-            System.out.println(e.toString());
-            e.printStackTrace();
+            outputTextArea.append(e.toString());
         }
-
 	}
 	
 	private String getText(String key) {
