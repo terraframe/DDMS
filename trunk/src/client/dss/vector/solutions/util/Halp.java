@@ -18,16 +18,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -540,7 +533,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
         String buffer = Halp.generateEditor(view, attribute, md, setup);
         buffer = buffer.replaceFirst("editor:", "");
-        
+
         json.put(key, buffer);
       }
     }
@@ -690,6 +683,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
   public static void sendErrorMail(Throwable exception, HttpServletRequest request, String text)
   {
+   /*
     String from = "MDSSS-no-reply@terraframe.com";
     String to = EMAIL_ERRORS_TO;
     String subject = "MDSS has produced an uncaught exception";
@@ -734,13 +728,14 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     {
       e.printStackTrace();
     }
+    */
   }
 
   class MyAuth extends Authenticator
   {
     protected PasswordAuthentication getPasswordAuthentication()
     {
-      return new PasswordAuthentication("dtaylor", "Rc9hs8Z2");
+      return new PasswordAuthentication("", "");
     }
   }
 
