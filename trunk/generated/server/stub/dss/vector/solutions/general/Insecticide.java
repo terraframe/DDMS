@@ -34,6 +34,27 @@ public class Insecticide extends InsecticideBase implements
   {
     ActiveIngredient ingredient = ActiveIngredient.validateByDisplayLabel(activeIngredient);
     Unit u = getUnitByLabel(unit);
+    
+    if(u == null)
+    {
+      //TODO Change required exception
+      String msg = "Unit is a required value";
+      throw new RuntimeException(msg);
+    }
+    
+    if(amount == null)
+    {
+      //TODO Change required exception
+      String msg = "Concentration is a required value";
+      throw new RuntimeException(msg);
+    }
+    
+    if(ingredient == null)
+    {
+      //TODO Change required exception
+      String msg = "Active ingredient is a required value";
+      throw new RuntimeException(msg);      
+    }
 
     InsecticideQuery insecticideQuery = new InsecticideQuery(new QueryFactory());
     insecticideQuery.WHERE(insecticideQuery.getActiveIngredient().EQ(ingredient));
@@ -47,12 +68,13 @@ public class Insecticide extends InsecticideBase implements
       {
         return iterator.next();
       }
+
       return null;
     }
     finally
     {
       iterator.close();
-    }
+    }    
   }
   
   public static Unit getUnitByLabel(String label)
