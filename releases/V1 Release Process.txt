@@ -1,0 +1,47 @@
+Complete Development
+
+Dump Mozambique database from server
+Restore locally
+
+Build
+	Build Mozambique incremental
+		Save full Tomcat directory (zip?)
+		Dump database
+	Build Zambia full
+		Save full Tomcat directory (zip?)
+		Dump database
+	Build Malawi full
+		Save full Tomcat directory (zip?)
+		Dump database
+	Build Mozambique full
+		Save full Tomcat directory (zip?)
+		Dump database
+		
+Restore laptop
+	Create mrc_mozambique database
+		Restore from Mozambique dump
+	Create mrc_zambia database
+		Restore from Zambia dump
+	Create mrc_malawi database
+		Restore from Malawi dump
+
+	Create C:\MDSS
+	Create C:\MDSS\mozambique
+		Restore Mozambique tomcat directory
+		Modify MDSS.properties to set country name
+		Modify database properties to point to mrc_mozambique
+	Create C:\MDSS\zambia
+		Restore Zambia tomcat directory
+		Modify MDSS.properties to set country name
+		Modify database properties to point to mrc_zambia
+	Create C:\MDSS\malawi
+		Restore Malawi tomcat directory
+		Modify MDSS.properties to set country name
+		Modify database properties to point to mrc_malawi
+		
+Download & Install Acronis backup on laptop
+
+Create DVD image
+
+Restore to other machines
+	Make changes (as necessary)
