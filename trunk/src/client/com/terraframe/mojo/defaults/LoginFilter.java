@@ -95,6 +95,11 @@ public class LoginFilter implements Filter, Reloadable
     {
       return true;
     }
+    
+    if(uri.endsWith("status.jsp"))
+    {
+      return true;
+    }
 
     // Login/Logout requests
     if(uri.endsWith(LoginController.LOGIN_ACTION) || uri.endsWith(LoginController.LOGOUT_ACTION))

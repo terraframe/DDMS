@@ -14,9 +14,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.MessageFormat;
+import java.util.Enumeration;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -106,7 +108,19 @@ public class MdssControlPanel extends JFrame {
 		outputTextArea.setEditable(false);
 		mainPanel.add(new JScrollPane(outputTextArea), "Center");
 
-		this.setButtons();
+		String status = this.checkMdssStatus();
+		if (status != null) {
+			Enumeration<AbstractButton> e = group.getElements();
+			while (e.hasMoreElements()) {
+				AbstractButton button = e.nextElement();
+				if (button.getActionCommand().equals(status.toLowerCase())) {
+					button.setSelected(true);
+				}
+			}
+			setButtons(true);
+		} else {
+			setButtons(false);
+		}
 
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -135,25 +149,26 @@ public class MdssControlPanel extends JFrame {
 		this.setVisible(true);
 	}
 
-	private boolean isMdssRunning() {
+	private String checkMdssStatus() {
+		String status = null;
 		URL mdss;
 		try {
-			mdss = new URL(this.bundle.getString(URL));
+			mdss = new URL(this.bundle.getString(URL) + "/status.jsp");
 	        URLConnection mdssConnection = mdss.openConnection();
-	        if (mdssConnection.getDate() > 0) {
-	        	return true;
-	        }
+	        BufferedReader in = new BufferedReader(new InputStreamReader(mdssConnection.getInputStream()));
+	        status=in.readLine();
+	        in.close();
 		} catch (MalformedURLException e) {
 			// This shouldn't happen
 			e.printStackTrace();
 		} catch (IOException e) {
 			// Do nothing--if we can't get there, then MDSS isn't running
 		}
-		return false;
+		return status;
 	}
 
 	private void setButtons() {
-		this.setButtons(this.isMdssRunning());
+		this.setButtons(this.checkMdssStatus() != null );
 	}
 	
 	private void setButtons(boolean started) {
