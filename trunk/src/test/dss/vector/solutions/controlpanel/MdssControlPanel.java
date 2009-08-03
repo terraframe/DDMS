@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -109,29 +110,25 @@ public class MdssControlPanel extends JFrame {
 
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setButtons(true);
-				runCommand(START, false);
-				//setButtons();
+				start();
 			}
 		});
 
 		stopButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setButtons(false);
-				runCommand(STOP, false);
-				//setButtons();
+				stop();
 			}
 		});
 
 		backupButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				runCommand(BACKUP, true);
+				backup();
 			}
 		});
 
 		restoreButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				runCommand(RESTORE, true);
+				restore();
 			}
 		});
 
@@ -218,19 +215,28 @@ public class MdssControlPanel extends JFrame {
 		return actionsPanel;
 	}
 	
-	private void runCommand(String commandKey, boolean selectFile) {
-		Object[] parameters = new Object[2];
-		parameters[0] = group.getSelection().getActionCommand();
-		
-		if (selectFile) {
-	        int returnVal = fc.showOpenDialog(this);
-
-	        if (returnVal == JFileChooser.APPROVE_OPTION) {
-	            parameters[1] = fc.getSelectedFile().getAbsolutePath();
-	        } else {
-	        	return;
-	        }
+	private File chooseFile(boolean chooseDirectoryOnly) {
+		if (chooseDirectoryOnly) {
+			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		} else {
+			fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		}
+		
+        int returnVal = fc.showOpenDialog(this);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            return fc.getSelectedFile();
+        } else {
+        	return null;
+        }
+	}
+	
+	private void runCommand(String commandKey, String path, String file) {
+		Object[] parameters = new Object[3];
+		parameters[0] = group.getSelection().getActionCommand();
+		parameters[1] = path;
+		parameters[2] = file;
+		
 		String command = MessageFormat.format(this.bundle.getString("command." + commandKey), parameters);
 		
 		outputTextArea.setText(null);
@@ -259,4 +265,31 @@ public class MdssControlPanel extends JFrame {
 	private String getText(String key) {
 		return this.bundle.getString("text." + key);
 	}
+	
+	private void start() {
+		setButtons(true);
+		runCommand(START, null, null);
+		//setButtons();
+	}
+	
+	private void stop() {
+		setButtons(false);
+		runCommand(STOP, null, null);
+		//setButtons();
+	}
+	
+	private void backup() {
+		File file = chooseFile(true);
+		if (file != null) {
+			runCommand(BACKUP, file.getAbsolutePath(), group.getSelection().getActionCommand());
+		}
+	}
+	
+	private void restore() {
+		File file = chooseFile(false);
+		if (file != null) {
+			runCommand(RESTORE, file.getAbsolutePath().substring(0, file.getAbsolutePath().length()-(file.getName().length()+1)), file.getName());
+		}
+	}
+
 }
