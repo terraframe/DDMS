@@ -179,21 +179,23 @@ public class SprayStatus extends SprayStatusBase implements
     // insecticide stuff
     // select += "active_ingredient_per_can_view.active_ingredient_per_can,\n";
     select += "active_ingredient_per_can_view.active_ingredient_per_can /  areastandards.unitnozzleareacoverage AS standard_application_rate,\n";
+    select += "active_ingredient_per_can_view.active_ingredient_per_can AS active_ingredient_per_can,\n";
+    select += "(1000.0 * active_ingredient_per_can_view.active_ingredient_per_can) /  areastandards.unitnozzleareacoverage AS standard_application_rate_mg,\n";
     select += "nozzle_defaultLocale AS nozzle_defaultLocale,\n";
     select += "nozzle_ratio AS nozzle_ratio,\n";
 
     // --application rate is:
     // --(# can refills * amount of active ingredient per can refill) / (# units
     // sprayed *average size of unit).\n";
-    select += "(CAST(refills AS float) * active_ingredient_per_can_view.active_ingredient_per_can) / NULLIF(spraystatus.sprayedrooms      * areastandards.room * room_total, 0) AS room_application_rate,\n";
-    select += "(CAST(refills AS float) * active_ingredient_per_can_view.active_ingredient_per_can) / NULLIF(spraystatus.sprayedstructures * areastandards.structurearea * structure_total, 0) AS structure_application_rate,\n";
-    select += "(CAST(refills AS float) * active_ingredient_per_can_view.active_ingredient_per_can) / NULLIF(spraystatus.sprayedhouseholds * areastandards.household * household_total, 0) AS household_application_rate,\n";
+    select += "(CAST(refills AS float) * active_ingredient_per_can_view.active_ingredient_per_can * (spraystatus.sprayedrooms / room_total)) / NULLIF(spraystatus.sprayedrooms * areastandards.room , 0) AS room_application_rate,\n";
+    select += "(CAST(refills AS float) * active_ingredient_per_can_view.active_ingredient_per_can * (spraystatus.sprayedstructures/structure_total)) / NULLIF(spraystatus.sprayedstructures * areastandards.structurearea, 0) AS structure_application_rate,\n";
+    select += "(CAST(refills AS float) * active_ingredient_per_can_view.active_ingredient_per_can * (spraystatus.sprayedhouseholds/ household_total)) / NULLIF(spraystatus.sprayedhouseholds * areastandards.household, 0) AS household_application_rate,\n";
 
     // --application ratio is:\n";
     // --"--(# can refills (30)* ave m_ per can refill (10)*nozzle ratio (6)) / (total units sprayed (11, 12 or 13)*ave m_ per unit (38, 37 or 36))\n";
-    select += "(CAST(refills AS float) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / NULLIF(spraystatus.sprayedrooms      * areastandards.room, 0) AS room_application_ratio,\n";
-    select += "(CAST(refills AS float) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / NULLIF(spraystatus.sprayedstructures * areastandards.structurearea, 0) AS structure_application_ratio,\n";
-    select += "(CAST(refills AS float) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / NULLIF(spraystatus.sprayedhouseholds * areastandards.household, 0) AS household_application_ratio,\n";
+    select += "((CAST(refills AS float) * (spraystatus.sprayedrooms / room_total)) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / NULLIF(spraystatus.sprayedrooms      * areastandards.room, 0) AS room_application_ratio,\n";
+    select += "((CAST(refills AS float) * (spraystatus.sprayedstructures/structure_total)) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / NULLIF(spraystatus.sprayedstructures * areastandards.structurearea, 0) AS structure_application_ratio,\n";
+    select += "((CAST(refills AS float) * (spraystatus.sprayedhouseholds/ household_total)) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / NULLIF(spraystatus.sprayedhouseholds * areastandards.household, 0) AS household_application_ratio,\n";
 
     // --operational coverage is:\n";
     // --(Total units sprayed / Total units available) *100 (to calculate
