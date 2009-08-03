@@ -384,9 +384,6 @@
 			</fileset>
 		</copy>
 
-		<!-- Overwrite local.properties with the JEE defaults -->
-		<copy tofile="${deploy.bin}/local.properties" file="JEElocal.properties" overwrite="true" />
-
 		<!-- Finally, delete the temp directory -->
 		<delete dir="${profile.root}/$$${deploy.appname}_tmp" />
 
@@ -608,15 +605,50 @@
 		-->
 		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-			<!--
 			<jvmarg value="-javaagent:${local.lib}/server/aspectjweaver.jar" />
-			-->
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
 			<arg value="${root.user}" />
 			<arg value="${root.pass}" />
 			<arg value="${geodata.db}" />
+		</java>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Backup the application                                              -->
+	<!-- =================================================================== -->
+	<target name="backupApplication" depends="" description="backs up the application to a zip file">
+		<!--
+		<diagnostics/>
+		<echoproperties>
+		</echoproperties>
+		-->
+		<java classname="com.terraframe.mojo.dataaccess.io.Backup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Backup Application">
+			<jvmarg value="-Xmx1024m" />
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+			<arg value="${backupFileRootName}" />
+			<arg value="${backupFileLocationDir}" />
+		</java>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Restore the application                                             -->
+	<!-- =================================================================== -->
+	<target name="restoreApplication" depends="" description="restores the application">
+		<!--
+		<diagnostics/>
+		<echoproperties>
+		</echoproperties>
+		-->
+		<java classname="com.terraframe.mojo.dataaccess.io.Restore" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Restore Application">
+			<jvmarg value="-Xmx1024m" />
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+			<arg value="${zipFileLocation}" />
 		</java>
 	</target>
 
