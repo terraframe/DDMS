@@ -69,6 +69,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   private static final Integer SRID             = 4326;
 
   private static String        allowedInTree    = null;
+  
+  private static Object lockObj = new Object();
 
   public GeoHierarchy()
   {
@@ -84,6 +86,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   {
     return getGeoHierarchyFromType(Earth.CLASS).getViewForGeoHierarchy();
   }
+  
+  private static void invalidateAllowedInTree()
+  {
+    synchronized(lockObj)
+    {
+      allowedInTree = null;
+    }
+  }
 
   /**
    * Returns a JSON object representing the allowed GeoEntity types within the
@@ -92,27 +102,30 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * @param geoEntityId
    * @return
    */
-  public static synchronized String defineAllowedTree(String geoEntityId)
+  public static String defineAllowedTree(String geoEntityId)
   {
     try
     {
-      if (allowedInTree == null)
+      synchronized (lockObj)
       {
-        GeoEntity geoEntity = GeoEntity.get(geoEntityId);
-        MdBusiness rootMd = MdBusiness.getMdBusiness(geoEntity.getType());
+        if (allowedInTree == null)
+        {
+          GeoEntity geoEntity = GeoEntity.get(geoEntityId);
+          MdBusiness rootMd = MdBusiness.getMdBusiness(geoEntity.getType());
 
-        GeoHierarchy geo = getGeoHierarchyFromType(rootMd);
+          GeoHierarchy geo = getGeoHierarchyFromType(rootMd);
 
-        JSONObject map = new JSONObject();
-        JSONObject types = new JSONObject();
-        HashSet<String> imports = new HashSet<String>();
+          JSONObject map = new JSONObject();
+          JSONObject types = new JSONObject();
+          HashSet<String> imports = new HashSet<String>();
 
-        treeRecurse(types, imports, geo, null);
+          treeRecurse(types, imports, geo, null);
 
-        map.put("types", types);
-        map.put("imports", new JSONArray(imports));
+          map.put("types", types);
+          map.put("imports", new JSONArray(imports));
 
-        allowedInTree = map.toString();
+          allowedInTree = map.toString();
+        }
       }
 
       return allowedInTree;
@@ -424,8 +437,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     }
 
     geoHierarchy.deleteInternal(ids);
-
-    allowedInTree = null;
+    
+    invalidateAllowedInTree();
     
     return ids.toArray(new String[ids.size()]);
   }
@@ -727,7 +740,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       iter.close();
     }
     
-    allowedInTree = null;
+    invalidateAllowedInTree();
   }
 
   /**
@@ -903,7 +916,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     geoEntityClass.apply();
     
-    allowedInTree = null;
+    invalidateAllowedInTree();
   }
 
   /**
@@ -980,7 +993,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     childGeoHierarchy.addAllowedInGeoEntity(parentGeoHierarchy).apply();
     
-    allowedInTree = null;
+    invalidateAllowedInTree();
   }
 
   /**
