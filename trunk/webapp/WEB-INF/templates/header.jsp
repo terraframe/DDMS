@@ -28,8 +28,8 @@
 </c:choose>
 </head>
 <body class="yui-skin-sam">
-<div id="freeText"><strong>National Malaria Control Program</strong><br/>MALAWI</div>
-<div id="uploadLogo"><img src="./imgs/design/sample_logo.gif" width="85" height="57" /></div>
+<div id="freeText"><strong><fmt:message key="Country_Tagline" /></strong><br /><fmt:message key="Country" /></div>
+<div id="uploadLogo"><img src="./imgs/flags/<fmt:message key="Country" />.gif" width="85" height="57" /></div>
 <div class="header">
 <div class="hTitle"></div>
 </div>
