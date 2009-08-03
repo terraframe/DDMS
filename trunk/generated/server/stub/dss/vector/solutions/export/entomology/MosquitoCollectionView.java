@@ -56,10 +56,10 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     CollectionMethod method = null;
     GeoEntity entity = getGeoEntity();
     
-    if(this.hasCollectionMethod())
-    {
+//    if(this.hasCollectionMethod())
+//    {
       method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this.getCollectionMethod());
-    }
+//    }
     
     MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
     query.WHERE(query.getGeoEntity().EQ(entity));
