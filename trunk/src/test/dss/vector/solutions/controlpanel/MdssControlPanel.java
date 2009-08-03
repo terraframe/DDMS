@@ -6,10 +6,16 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.io.PrintStream;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -25,6 +31,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+import com.terraframe.mojo.dataaccess.io.Backup;
 
 public class MdssControlPanel extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -281,7 +289,36 @@ public class MdssControlPanel extends JFrame {
 	private void backup() {
 		File file = chooseFile(true);
 		if (file != null) {
-			runCommand(BACKUP, file.getAbsolutePath(), group.getSelection().getActionCommand());
+			//runCommand(BACKUP, file.getAbsolutePath(), group.getSelection().getActionCommand());
+			outputTextArea.setText(null);
+			final PipedOutputStream out = new PipedOutputStream();
+			PrintStream ps = new PrintStream(out);
+			
+			final Backup backup = new Backup(ps, group.getSelection().getActionCommand(), group.getSelection().getActionCommand(), true, true);
+			Thread backupThread = new Thread() {
+				public void run() {
+					backup.backup();
+				}
+			};
+			backupThread.start();
+
+			
+			Thread outputThread = new Thread() {
+				public void run() {
+					try {
+						BufferedReader in = new BufferedReader(new InputStreamReader(new PipedInputStream(out)));
+						String line = null;
+						while((line=in.readLine()) != null) {
+							outputTextArea.append(line + "\n");
+						}
+						outputTextArea.append("Done!");
+					} catch (IOException e) {
+						// Do nothing -- streams close themselves
+					}
+					outputTextArea.append("Done!");
+				}
+			};
+			outputThread.start();
 		}
 	}
 	
