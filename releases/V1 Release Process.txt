@@ -45,3 +45,7 @@ Create DVD image
 
 Restore to other machines
 	Make changes (as necessary)
+	
+Post Installation
+	- Make sure Geo Server is properly configured
+	- Make sure Screen Grab works in Firefox (https://addons.mozilla.org/en-US/firefox/addon/1146)
