@@ -2,7 +2,9 @@ package dss.vector.solutions.general;
 
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.session.Session;
 
+import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.mo.ActiveIngredient;
 
@@ -32,28 +34,37 @@ public class Insecticide extends InsecticideBase implements
   
   public static Insecticide get(String activeIngredient, String unit, Double amount)
   {
-    ActiveIngredient ingredient = ActiveIngredient.validateByDisplayLabel(activeIngredient);
+    ActiveIngredient ingredient = ActiveIngredient.validateByDisplayLabel(activeIngredient, Insecticide.getActiveIngredientMd());
     Unit u = getUnitByLabel(unit);
     
     if(u == null)
     {
-      //TODO Change required exception
-      String msg = "Unit is a required value";
-      throw new RuntimeException(msg);
+      String msg = "Units is a required value";
+      RequiredAttributeException e = new RequiredAttributeException(msg);
+      e.setAttributeLabel(Insecticide.getUnitsMd().getDisplayLabel(Session.getCurrentLocale()));
+      e.apply();
+      
+      throw e;
     }
     
     if(amount == null)
     {
-      //TODO Change required exception
-      String msg = "Concentration is a required value";
-      throw new RuntimeException(msg);
+      String msg = "Amount is a required value";
+      RequiredAttributeException e = new RequiredAttributeException(msg);
+      e.setAttributeLabel(Insecticide.getAmountMd().getDisplayLabel(Session.getCurrentLocale()));
+      e.apply();
+      
+      throw e;
     }
     
     if(ingredient == null)
     {
-      //TODO Change required exception
       String msg = "Active ingredient is a required value";
-      throw new RuntimeException(msg);      
+      RequiredAttributeException e = new RequiredAttributeException(msg);
+      e.setAttributeLabel(Insecticide.getActiveIngredientMd().getDisplayLabel(Session.getCurrentLocale()));
+      e.apply();
+      
+      throw e;
     }
 
     InsecticideQuery insecticideQuery = new InsecticideQuery(new QueryFactory());

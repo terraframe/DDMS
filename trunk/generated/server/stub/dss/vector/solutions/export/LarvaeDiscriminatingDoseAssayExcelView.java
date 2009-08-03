@@ -12,6 +12,7 @@ import dss.vector.solutions.geo.generated.NonSentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.mo.Generation;
 import dss.vector.solutions.mo.IdentificationMethod;
+import dss.vector.solutions.mo.LarvaeAge;
 import dss.vector.solutions.mo.ResistanceMethodology;
 import dss.vector.solutions.mo.Specie;
 
@@ -37,13 +38,21 @@ public class LarvaeDiscriminatingDoseAssayExcelView extends LarvaeDiscriminating
     ldda.setCollection(mosquitoCollectionView.findMatch());
     
     ldda.setTestDate(this.getTestDate());
-    ldda.setSpecie(Specie.validateByDisplayLabel(this.getSpecie()));
-    ldda.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod()));
-    ldda.setTestMethod(ResistanceMethodology.validateByDisplayLabel(this.getTestMethod()));
-    ldda.setGeneration(Generation.validateByDisplayLabel(this.getGeneration()));
+    ldda.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod(), LarvaeDiscriminatingDoseAssay.getIdentificationMethodMd()));
+    ldda.setTestMethod(ResistanceMethodology.validateByDisplayLabel(this.getTestMethod(), LarvaeDiscriminatingDoseAssay.getTestMethodMd()));
+    ldda.setGeneration(Generation.validateByDisplayLabel(this.getGeneration(), LarvaeDiscriminatingDoseAssay.getGenerationMd()));
     ldda.setIsofemale(this.getIsofemale());
 
+    // Specie is optional so don't validate the input if
+    // the value is null or empty
+    if(this.hasSpecie())
+    {
+      ldda.setSpecie(Specie.validateByDisplayLabel(this.getSpecie(), LarvaeDiscriminatingDoseAssay.getSpecieMd()));
+    }
+
     // Age ranges
+    ldda.setStartPoint(LarvaeAge.validateByDisplayLabel(this.getStartPoint(), LarvaeDiscriminatingDoseAssay.getStartPointMd()));
+    ldda.setEndPoint(LarvaeAge.validateByDisplayLabel(this.getEndPoint(), LarvaeDiscriminatingDoseAssay.getEndPointMd()));
     
     ldda.setExposureTime(this.getExposureTime());
     ldda.setIntervalTime(this.getIntervalTime());
@@ -52,9 +61,13 @@ public class LarvaeDiscriminatingDoseAssayExcelView extends LarvaeDiscriminating
     ldda.setQuantityDead(this.getQuantityDead());
     ldda.setControlTestMortality(this.getControlTestMortality());
     
-    ldda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(), this.getInsecticideUnits(), this.getInsecticideAmount()));
-    
+    ldda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(), this.getInsecticideUnits(), this.getInsecticideAmount()));    
     ldda.apply();
+  }
+  
+  private boolean hasSpecie()
+  {
+    return this.getSpecie() != null && !this.getSpecie().equals("");
   }
   
   public static void setupExportListener(ExcelExporter exporter, String...params)

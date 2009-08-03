@@ -3,6 +3,7 @@ package dss.vector.solutions.mo;
 
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.query.QueryFactory;
 
 public class InfectivityMethodology extends InfectivityMethodologyBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -30,8 +31,8 @@ public class InfectivityMethodology extends InfectivityMethodologyBase implement
     return list.toArray(new InfectivityMethodology[list.size()]);
   }
   
-  public static InfectivityMethodology validateByDisplayLabel(String displayLabel)
+  public static InfectivityMethodology validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
-    return (InfectivityMethodology)AbstractTerm.validateByDisplayLabel(displayLabel);
+    return (InfectivityMethodology)AbstractTerm.validateByDisplayLabel(displayLabel, mdAttribute);
   }
 }

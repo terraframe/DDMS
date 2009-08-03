@@ -29,8 +29,8 @@ public class MorphologicalSpecieGroupExcelView extends MorphologicalSpecieGroupE
     
     MosquitoCollectionPoint mcp = MosquitoCollectionPoint.findOrCreate(this.getGeoEntity(), this.getDateCollected());
     msg.setCollection(mcp);
-    msg.setSpecie(Specie.validateByDisplayLabel(this.getSpecie()));
-    msg.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod()));
+    msg.setSpecie(Specie.validateByDisplayLabel(this.getSpecie(), MorphologicalSpecieGroup.getSpecieMd()));
+    msg.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod(), MorphologicalSpecieGroup.getIdentificationMethodMd()));
     msg.setQuantity(this.getQuantity());
     msg.setQuantityMale(this.getQuantityMale());
     msg.setQuantityFemale(this.getQuantityFemale());

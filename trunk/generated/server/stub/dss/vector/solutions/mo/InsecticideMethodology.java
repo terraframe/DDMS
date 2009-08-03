@@ -3,6 +3,7 @@ package dss.vector.solutions.mo;
 
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.query.QueryFactory;
 
 public class InsecticideMethodology extends InsecticideMethodologyBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -30,8 +31,8 @@ public class InsecticideMethodology extends InsecticideMethodologyBase implement
     return list.toArray(new InsecticideMethodology[list.size()]);
   }
   
-  public static InsecticideMethodology validateByDisplayLabel(String displayLabel)
+  public static InsecticideMethodology validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
-    return (InsecticideMethodology)AbstractTerm.validateByDisplayLabel(displayLabel);
+    return (InsecticideMethodology)AbstractTerm.validateByDisplayLabel(displayLabel, mdAttribute);
   }
 }

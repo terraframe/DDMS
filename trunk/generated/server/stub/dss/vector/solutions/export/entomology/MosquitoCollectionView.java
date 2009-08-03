@@ -9,12 +9,11 @@ import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.session.Session;
 
+import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
-import dss.vector.solutions.entomology.RequiredCollectionDateProblem;
-import dss.vector.solutions.entomology.RequiredCollectionMethodProblem;
-import dss.vector.solutions.entomology.RequiredGeoIdProblem;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -43,7 +42,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
     if (this.hasCollectionMethod())
     {
-      method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this.getCollectionMethod());
+      method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this.getCollectionMethod(), MosquitoCollection.getCollectionMethodMd());
     }
 
     MosquitoCollection collection = new MosquitoCollection();
@@ -57,73 +56,66 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
   public MosquitoCollection findMatch()
   {
-    boolean errors = false;
-
     GeoEntity entity = getGeoEntity();
 
     if (!this.hasCollectionMethod())
     {
-      String msg = "Collection method is required";
-      RequiredCollectionMethodProblem p = new RequiredCollectionMethodProblem(msg);
-      p.apply();
-      p.throwIt();
-
-      errors = true;
+      String msg = "Collection Method is a required value";
+      RequiredAttributeException e = new RequiredAttributeException(msg);
+      e.setAttributeLabel(MosquitoCollectionView.getCollectionMethodMd().getDisplayLabel(Session.getCurrentLocale()));
+      e.apply();
+      
+      throw e;
     }
 
     if (entity == null)
     {
-      String msg = "Geo Entity is required";
-      RequiredGeoIdProblem p = new RequiredGeoIdProblem(msg);
-      p.apply();
-      p.throwIt();
-
-      errors = true;
+      String msg = "Geo Entity is a required value";
+      RequiredAttributeException e = new RequiredAttributeException(msg);
+      e.setAttributeLabel(MosquitoCollectionView.getGeoEntityMd().getDisplayLabel(Session.getCurrentLocale()));
+      e.apply();
+      
+      throw e;
     }
 
     if (this.getDateCollected() == null)
     {
-      String msg = "Date Collected is required";
-
-      RequiredCollectionDateProblem p = new RequiredCollectionDateProblem(msg);
-      p.apply();
-      p.throwIt();
-
-      errors = true;
+      String msg = "Date Collected is a required value";
+      RequiredAttributeException e = new RequiredAttributeException(msg);
+      e.setAttributeLabel(MosquitoCollectionView.getDateCollectedMd().getDisplayLabel(Session.getCurrentLocale()));
+      e.apply();
+      
+      throw e;
     }
 
-    if (!errors)
+    CollectionMethod method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this
+        .getCollectionMethod(), MosquitoCollection.getCollectionMethodMd());
+
+    MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
+    query.WHERE(query.getGeoEntity().EQ(entity));
+    query.WHERE(query.getDateCollected().EQ(this.getDateCollected()));
+    query.WHERE(query.getCollectionMethod().EQ(method));
+
+    OIterator<? extends MosquitoCollection> iterator = query.getIterator();
+
+    try
     {
-      CollectionMethod method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this.getCollectionMethod());
-
-      MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
-      query.WHERE(query.getGeoEntity().EQ(entity));
-      query.WHERE(query.getDateCollected().EQ(this.getDateCollected()));
-      query.WHERE(query.getCollectionMethod().EQ(method));
-
-      OIterator<? extends MosquitoCollection> iterator = query.getIterator();
-
-      try
+      if (iterator.hasNext())
       {
-        if (iterator.hasNext())
-        {
-          return iterator.next();
-        }
-        else
-        {
-          String message = "No mosquito collection found with date [" + this.getDateCollected()
-          + "], Geo Entity [" + entity.getEntityName() + "], and collection method ["
-          + method.getDisplayLabel().getValue(Locale.US) + "]";
-          throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(MosquitoCollection.CLASS));          
-        }
+        return iterator.next();
       }
-      finally
+      else
       {
-        iterator.close();
+        String message = "No mosquito collection found with date [" + this.getDateCollected()
+            + "], Geo Entity [" + entity.getEntityName() + "], and collection method ["
+            + method.getDisplayLabel().getValue(Locale.US) + "]";
+        throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(MosquitoCollection.CLASS));
       }
     }
-
-    return null;
+    finally
+    {
+      iterator.close();
+    }
   }
 
   private boolean hasCollectionMethod()

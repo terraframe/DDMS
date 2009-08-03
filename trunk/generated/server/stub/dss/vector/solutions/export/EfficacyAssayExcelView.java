@@ -33,8 +33,8 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
     
     eav.setGeoId(getGeoEntity().getGeoId());
 
-    eav.setTestMethod(ResistanceMethodology.validateByDisplayLabel(this.getTestMethod()));
-    eav.setSpecie(Specie.validateByDisplayLabel(this.getSpecie()));
+    eav.setTestMethod(ResistanceMethodology.validateByDisplayLabel(this.getTestMethod(), EfficacyAssayView.getTestMethodMd()));
+    eav.setSpecie(Specie.validateByDisplayLabel(this.getSpecie(), EfficacyAssayView.getSpecieMd()));
     eav.setTestDate(this.getTestDate());
     eav.setColonyName(this.getColonyName());
     

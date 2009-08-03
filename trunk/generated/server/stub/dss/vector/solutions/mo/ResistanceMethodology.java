@@ -3,6 +3,7 @@ package dss.vector.solutions.mo;
 
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.query.QueryFactory;
 
 public class ResistanceMethodology extends ResistanceMethodologyBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -30,8 +31,8 @@ public class ResistanceMethodology extends ResistanceMethodologyBase implements 
     return list.toArray(new ResistanceMethodology[list.size()]);
   }
   
-  public static ResistanceMethodology validateByDisplayLabel(String displayLabel)
+  public static ResistanceMethodology validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
-    return (ResistanceMethodology) AbstractTerm.validateByDisplayLabel(displayLabel);
+    return (ResistanceMethodology) AbstractTerm.validateByDisplayLabel(displayLabel, mdAttribute);
   }
 }

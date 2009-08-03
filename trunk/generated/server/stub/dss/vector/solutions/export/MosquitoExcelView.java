@@ -51,9 +51,9 @@ public class MosquitoExcelView extends MosquitoExcelViewBase implements com.terr
     
     view.setCollection(ConcreteMosquitoCollection.getByCollectionId(this.getCollectionId()));
     view.setSampleId(this.getSampleId());
-    view.setSpecie(Specie.validateByDisplayLabel(this.getSpecie()));
-    view.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod()));
-    view.setGeneration(Generation.validateByDisplayLabel(this.getGeneration()));
+    view.setSpecie(Specie.validateByDisplayLabel(this.getSpecie(), MosquitoView.getSpecieMd()));
+    view.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod(), MosquitoView.getIdentificationMethodMd()));
+    view.setGeneration(Generation.validateByDisplayLabel(this.getGeneration(), MosquitoView.getGenerationMd()));
     view.setIsofemale(this.getIsofemale());
     view.addSex(PersonExcelView.getSexByLabel(this.getSex()));
     view.setTestDate(this.getTestDate());
@@ -68,34 +68,34 @@ public class MosquitoExcelView extends MosquitoExcelViewBase implements com.terr
     view.setPNPA(getTestResultByDisplayLabel(this.getPNPA()));
     
     // Molecular Assays
-    view.setIAcHE(MolecularAssayResult.validateByDisplayLabel(this.getIAcHE()));
-    view.setIAcHEMethod(InsecticideMethodology.validateByDisplayLabel(this.getIAcHEMethod()));
-    view.setAcHEW(MolecularAssayResult.validateByDisplayLabel(this.getAcHEW()));
-    view.setAcHEWMethod(InsecticideMethodology.validateByDisplayLabel(this.getAcHEWMethod()));
-    view.setGABAG(MolecularAssayResult.validateByDisplayLabel(this.getGABAG()));
-    view.setGABAGMethod(InsecticideMethodology.validateByDisplayLabel(this.getGABAGMethod()));
-    view.setAcHEV(MolecularAssayResult.validateByDisplayLabel(this.getAcHEV()));
-    view.setAcHEVMethod(InsecticideMethodology.validateByDisplayLabel(this.getAcHEVMethod()));
-    view.setEKDR(MolecularAssayResult.validateByDisplayLabel(this.getEKDR()));
-    view.setEKDRMethod(InsecticideMethodology.validateByDisplayLabel(this.getEKDRMethod()));
-    view.setWKDR(MolecularAssayResult.validateByDisplayLabel(this.getWKDR()));
-    view.setWKDRMethod(InsecticideMethodology.validateByDisplayLabel(this.getWKDRMethod()));
-    view.setAcHES(MolecularAssayResult.validateByDisplayLabel(this.getAcHES()));
-    view.setAcHESMethod(InsecticideMethodology.validateByDisplayLabel(this.getAcHESMethod()));
-    view.setGABAS(MolecularAssayResult.validateByDisplayLabel(this.getGABAS()));
-    view.setGABASMethod(InsecticideMethodology.validateByDisplayLabel(this.getGABASMethod()));
+    view.setIAcHE(MolecularAssayResult.validateByDisplayLabel(this.getIAcHE(), MosquitoView.getIAcHEMd()));
+    view.setIAcHEMethod(InsecticideMethodology.validateByDisplayLabel(this.getIAcHEMethod(), MosquitoView.getIAcHEMethodMd()));
+    view.setAcHEW(MolecularAssayResult.validateByDisplayLabel(this.getAcHEW(), MosquitoView.getAcHEWMd()));
+    view.setAcHEWMethod(InsecticideMethodology.validateByDisplayLabel(this.getAcHEWMethod(), MosquitoView.getAcHEWMethodMd()));
+    view.setGABAG(MolecularAssayResult.validateByDisplayLabel(this.getGABAG(), MosquitoView.getGABAGMd()));
+    view.setGABAGMethod(InsecticideMethodology.validateByDisplayLabel(this.getGABAGMethod(), MosquitoView.getGABAGMethodMd()));
+    view.setAcHEV(MolecularAssayResult.validateByDisplayLabel(this.getAcHEV(), MosquitoView.getAcHEVMd()));
+    view.setAcHEVMethod(InsecticideMethodology.validateByDisplayLabel(this.getAcHEVMethod(), MosquitoView.getAcHEVMethodMd()));
+    view.setEKDR(MolecularAssayResult.validateByDisplayLabel(this.getEKDR(), MosquitoView.getEKDRMd()));
+    view.setEKDRMethod(InsecticideMethodology.validateByDisplayLabel(this.getEKDRMethod(), MosquitoView.getEKDRMethodMd()));
+    view.setWKDR(MolecularAssayResult.validateByDisplayLabel(this.getWKDR(), MosquitoView.getWKDRMd()));
+    view.setWKDRMethod(InsecticideMethodology.validateByDisplayLabel(this.getWKDRMethod(), MosquitoView.getWKDRMethodMd()));
+    view.setAcHES(MolecularAssayResult.validateByDisplayLabel(this.getAcHES(), MosquitoView.getAcHESMd()));
+    view.setAcHESMethod(InsecticideMethodology.validateByDisplayLabel(this.getAcHESMethod(), MosquitoView.getAcHESMethodMd()));
+    view.setGABAS(MolecularAssayResult.validateByDisplayLabel(this.getGABAS(), MosquitoView.getGABASMd()));
+    view.setGABASMethod(InsecticideMethodology.validateByDisplayLabel(this.getGABASMethod(), MosquitoView.getGABASMethodMd()));
     
     // Infectivity Assays
     view.setPOvale(getTestResultByDisplayLabel(this.getPOvale()));
-    view.setPOvaleMethod(InfectivityMethodology.validateByDisplayLabel(this.getPOvaleMethod()));
+    view.setPOvaleMethod(InfectivityMethodology.validateByDisplayLabel(this.getPOvaleMethod(), MosquitoView.getPOvaleMethodMd()));
     view.setPMalariae(getTestResultByDisplayLabel(this.getPMalariae()));
-    view.setPMalariaeMethod(InfectivityMethodology.validateByDisplayLabel(this.getPMalariaeMethod()));
+    view.setPMalariaeMethod(InfectivityMethodology.validateByDisplayLabel(this.getPMalariaeMethod(), MosquitoView.getPMalariaeMethodMd()));
     view.setPFalciparum(getTestResultByDisplayLabel(this.getPFalciparum()));
-    view.setPFalciparumMethod(InfectivityMethodology.validateByDisplayLabel(this.getPFalciparumMethod()));
+    view.setPFalciparumMethod(InfectivityMethodology.validateByDisplayLabel(this.getPFalciparumMethod(), MosquitoView.getPFalciparumMethodMd()));
     view.setPVivax(getTestResultByDisplayLabel(this.getPVivax()));
-    view.setPVivaxMethod(InfectivityMethodology.validateByDisplayLabel(this.getPVivaxMethod()));
+    view.setPVivaxMethod(InfectivityMethodology.validateByDisplayLabel(this.getPVivaxMethod(), MosquitoView.getPVivaxMethodMd()));
     view.setMixed(getTestResultByDisplayLabel(this.getMixed()));
-    view.setMixedMethod(InfectivityMethodology.validateByDisplayLabel(this.getMixedMethod()));
+    view.setMixedMethod(InfectivityMethodology.validateByDisplayLabel(this.getMixedMethod(), MosquitoView.getMixedMethodMd()));
     
     view.apply();
   }

@@ -2,9 +2,8 @@ package dss.vector.solutions.mo;
 
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.query.QueryFactory;
-
-import dss.vector.solutions.entomology.AbstractMosquitoCollection;
 
 public class MolecularAssayResult extends MolecularAssayResultBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -32,8 +31,8 @@ public class MolecularAssayResult extends MolecularAssayResultBase implements
     return list.toArray(new MolecularAssayResult[list.size()]);
   }
   
-  public static MolecularAssayResult validateByDisplayLabel(String displayLabel)
+  public static MolecularAssayResult validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
-    return (MolecularAssayResult)AbstractTerm.validateByDisplayLabel(displayLabel);
+    return (MolecularAssayResult)AbstractTerm.validateByDisplayLabel(displayLabel, mdAttribute);
   }
 }

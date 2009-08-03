@@ -21,8 +21,8 @@ public class UninterestingSpecieGroupExcelView extends UninterestingSpecieGroupE
     
     view.setCollection(ConcreteMosquitoCollection.getByCollectionId(this.getCollectionId()));
     view.setSampleId(this.getSampleId());
-    view.setSpecie(Specie.validateByDisplayLabel(this.getSpecie()));
-    view.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod()));
+    view.setSpecie(Specie.validateByDisplayLabel(this.getSpecie(), UninterestingSpecieGroupView.getSpecieMd()));
+    view.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod(), UninterestingSpecieGroupView.getIdentificationMethodMd()));
     view.setQuantity(this.getQuantity());
     view.apply();
   }

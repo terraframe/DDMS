@@ -3,8 +3,10 @@ package dss.vector.solutions.mo;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.UnknownTermException;
 
@@ -68,7 +70,7 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
     }    
   }
   
-  public static AbstractTerm validateByDisplayLabel(String displayLabel)
+  public static AbstractTerm validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
     QueryFactory factory = new QueryFactory();
     AbstractTermQuery query = new AbstractTermQuery(factory);
@@ -85,10 +87,12 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
         return iterator.next();
       }
 
-      String msg = "Unknown term with the given name [" + displayLabel + "]";
+      String attributeLabel = mdAttribute.getDisplayLabel(Session.getCurrentLocale());
+      String msg = "Unknown " + attributeLabel + " with the given name [" + displayLabel + "]";
       
       UnknownTermException e = new UnknownTermException(msg);
       e.setTermName(displayLabel);
+      e.setAttributeLabel(attributeLabel);
       e.apply();
       
       throw e;

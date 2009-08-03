@@ -39,12 +39,12 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
     kda.setCollection(mosquitoCollectionView.findMatch());
     
     kda.setTestDate(this.getTestDate());
-    kda.setTestMethod(ResistanceMethodology.validateByDisplayLabel(this.getTestMethod()));
-    kda.setGeneration(Generation.validateByDisplayLabel(this.getGeneration()));
+    kda.setTestMethod(ResistanceMethodology.validateByDisplayLabel(this.getTestMethod(), KnockDownAssay.getTestMethodMd()));
+    kda.setGeneration(Generation.validateByDisplayLabel(this.getGeneration(), KnockDownAssay.getGenerationMd()));
     kda.setIsofemale(this.getIsofemale());
     kda.addSex(AdultDiscriminatingDoseAssayExcelView.getAssaySexByLabel(this.getSex()));
-    kda.setSpecie(Specie.validateByDisplayLabel(this.getSpecie()));
-    kda.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod()));
+    kda.setSpecie(Specie.validateByDisplayLabel(this.getSpecie(), KnockDownAssay.getSpecieMd()));
+    kda.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod(), KnockDownAssay.getIdentificationMethodMd()));
     
     AdultAgeRange excelAgeRange = this.getAgeRange();
     AdultAgeRange newAgeRange = kda.getAgeRange();

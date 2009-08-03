@@ -42,17 +42,17 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
     adda.setCollection(mosquitoCollectionView.findMatch());
     
     adda.setTestDate(this.getTestDate());
-    adda.setTestMethod(ResistanceMethodology.validateByDisplayLabel(this.getTestMethod()));
-    adda.setGeneration(Generation.validateByDisplayLabel(this.getGeneration()));
+    adda.setTestMethod(ResistanceMethodology.validateByDisplayLabel(this.getTestMethod(), AdultDiscriminatingDoseAssay.getTestMethodMd()));
+    adda.setGeneration(Generation.validateByDisplayLabel(this.getGeneration(), AdultDiscriminatingDoseAssay.getGenerationMd()));
     adda.setIsofemale(this.getIsofemale());
     adda.addSex(getAssaySexByLabel(this.getSex()));    
-    adda.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod()));
+    adda.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod(), AdultDiscriminatingDoseAssay.getIdentificationMethodMd()));
 
     // Specie is optional so don't validate the input if
     // the value is null or empty
     if(this.hasSpecie())
     {
-      adda.setSpecie(Specie.validateByDisplayLabel(this.getSpecie()));
+      adda.setSpecie(Specie.validateByDisplayLabel(this.getSpecie(), AdultDiscriminatingDoseAssay.getSpecieMd()));
     }
     
     AdultAgeRange excelAgeRange = this.getAgeRange();

@@ -2,6 +2,7 @@ package dss.vector.solutions.mo;
 
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.query.QueryFactory;
 
 public class LarvaeAge extends LarvaeAgeBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -28,4 +29,9 @@ public class LarvaeAge extends LarvaeAgeBase implements com.terraframe.mojo.gene
 
     return list.toArray(new LarvaeAge[list.size()]);
   }  
+  
+  public static LarvaeAge validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
+  {
+    return (LarvaeAge) AbstractTerm.validateByDisplayLabel(displayLabel, mdAttribute);
+  }
 }

@@ -3,6 +3,7 @@ package dss.vector.solutions.mo;
 
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.query.QueryFactory;
 
 public class IdentificationMethod extends IdentificationMethodBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -36,8 +37,8 @@ public class IdentificationMethod extends IdentificationMethodBase implements co
     return list.toArray(new IdentificationMethod[list.size()]);
   }
   
-  public static IdentificationMethod validateByDisplayLabel(String displayLabel)
+  public static IdentificationMethod validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
-    return (IdentificationMethod) AbstractTerm.validateByDisplayLabel(displayLabel);
+    return (IdentificationMethod) AbstractTerm.validateByDisplayLabel(displayLabel, mdAttribute);
   }
 }

@@ -3,6 +3,7 @@ package dss.vector.solutions.mo;
 
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.query.QueryFactory;
 
 public class Specie extends SpecieBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -36,8 +37,8 @@ public class Specie extends SpecieBase implements com.terraframe.mojo.generation
     return list.toArray(new Specie[list.size()]);
   }
   
-  public static Specie validateByDisplayLabel(String displayLabel)
+  public static Specie validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
-    return (Specie) AbstractTerm.validateByDisplayLabel(displayLabel);
+    return (Specie) AbstractTerm.validateByDisplayLabel(displayLabel, mdAttribute);
   }
 }

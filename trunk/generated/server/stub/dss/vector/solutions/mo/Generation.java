@@ -3,6 +3,7 @@ package dss.vector.solutions.mo;
 
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.query.QueryFactory;
 
 public class Generation extends GenerationBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -30,8 +31,8 @@ public class Generation extends GenerationBase implements com.terraframe.mojo.ge
     return list.toArray(new Generation[list.size()]);
   }
   
-  public static Generation validateByDisplayLabel(String displayLabel)
+  public static Generation validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
-    return (Generation) AbstractTerm.validateByDisplayLabel(displayLabel);
+    return (Generation) AbstractTerm.validateByDisplayLabel(displayLabel, mdAttribute);
   }
 }

@@ -3,6 +3,7 @@ package dss.vector.solutions.mo;
 
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.query.QueryFactory;
 
 public class ActiveIngredient extends ActiveIngredientBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -30,8 +31,8 @@ public class ActiveIngredient extends ActiveIngredientBase implements com.terraf
     return list.toArray(new ActiveIngredient[list.size()]);
   }
   
-  public static ActiveIngredient validateByDisplayLabel(String displayLabel)
+  public static ActiveIngredient validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
-    return (ActiveIngredient) AbstractTerm.validateByDisplayLabel(displayLabel);
+    return (ActiveIngredient) AbstractTerm.validateByDisplayLabel(displayLabel, mdAttribute);
   }
 }
