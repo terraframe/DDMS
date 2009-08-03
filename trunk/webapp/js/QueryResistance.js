@@ -113,8 +113,8 @@ MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    });
 
 
-	    $('debug_xml').value = xml;
-	    xml = $('debug_xml').value;
+//	    $('debug_xml').value = xml;
+//	    xml = $('debug_xml').value;
 	    var page = this.getCurrentPage();
 
         // FIXME json conversion below is temporary

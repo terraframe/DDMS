@@ -85,6 +85,19 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 
 YAHOO.util.Event.onDOMReady(function(){
 
+    // attach load listener to Iframe to receive message when error occurs during
+    // export operations
+    YAHOO.util.Event.on('messageFrame', 'load', function(e){
+      var body = e.target.contentDocument.getElementsByTagName('body')[0];
+      var text = typeof body.textContent !== 'undefined' ? body.textContent : body.innerText;
+      text = MDSS.util.stripWhitespace(text);
+      if(text.length > 0)
+      {
+        new MDSS.ErrorModal(text);
+      }
+
+    }, null, this);
+	
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
@@ -210,13 +223,6 @@ YAHOO.util.Event.onDOMReady(function(){
         <div><div id="mapPanel"></div></div>
     </div>
 </div>
-
-<div style="display: none" id="XLSFormContainer"></div>
-<div style="display: none" id="CSVFormContainer"></div>
-<div style="display: none" id="ReportFormContainer"></div>
-
-<textarea id="debug_xml" cols="40" rows="40" style="width:1280px"> </textarea>
-
 
 </div>
 
