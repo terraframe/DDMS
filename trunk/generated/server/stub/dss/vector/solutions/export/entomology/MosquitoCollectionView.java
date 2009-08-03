@@ -12,7 +12,9 @@ import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
+import dss.vector.solutions.entomology.RequiredCollectionDateProblem;
 import dss.vector.solutions.entomology.RequiredCollectionMethodProblem;
+import dss.vector.solutions.entomology.RequiredGeoIdProblem;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -55,13 +57,44 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
   public MosquitoCollection findMatch()
   {
-    CollectionMethod method = null;
-    MosquitoCollection match = null;
+    boolean errors = false;
+
     GeoEntity entity = getGeoEntity();
 
-    if (this.hasCollectionMethod())
+    if (!this.hasCollectionMethod())
     {
-      method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this.getCollectionMethod());
+      String msg = "Collection method is required";
+      RequiredCollectionMethodProblem p = new RequiredCollectionMethodProblem(msg);
+      p.apply();
+      p.throwIt();
+
+      errors = true;
+    }
+
+    if (entity == null)
+    {
+      String msg = "Geo Entity is required";
+      RequiredGeoIdProblem p = new RequiredGeoIdProblem(msg);
+      p.apply();
+      p.throwIt();
+
+      errors = true;
+    }
+
+    if (this.getDateCollected() == null)
+    {
+      String msg = "Date Collected is required";
+
+      RequiredCollectionDateProblem p = new RequiredCollectionDateProblem(msg);
+      p.apply();
+      p.throwIt();
+
+      errors = true;
+    }
+
+    if (!errors)
+    {
+      CollectionMethod method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this.getCollectionMethod());
 
       MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
       query.WHERE(query.getGeoEntity().EQ(entity));
@@ -74,7 +107,14 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
       {
         if (iterator.hasNext())
         {
-          match = iterator.next();
+          return iterator.next();
+        }
+        else
+        {
+          String message = "No mosquito collection found with date [" + this.getDateCollected()
+          + "], Geo Entity [" + entity.getEntityName() + "], and collection method ["
+          + method.getDisplayLabel().getValue(Locale.US) + "]";
+          throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(MosquitoCollection.CLASS));          
         }
       }
       finally
@@ -82,23 +122,8 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
         iterator.close();
       }
     }
-    else
-    {
-      String msg = "Collection method is required";
-      RequiredCollectionMethodProblem p = new RequiredCollectionMethodProblem(msg);
-      p.apply();
-      p.throwIt();
-    }
 
-    if (match == null)
-    {
-      String message = "No mosquito collection found with date [" + this.getDateCollected()
-          + "], Geo Entity [" + entity.getEntityName() + "], and collection method ["
-          + method.getDisplayLabel().getValue(Locale.US) + "]";
-      throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(MosquitoCollection.CLASS));
-    }
-
-    return match;
+    return null;
   }
 
   private boolean hasCollectionMethod()

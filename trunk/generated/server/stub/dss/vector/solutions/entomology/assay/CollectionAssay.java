@@ -66,7 +66,7 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
   @Override
   public void validateTestDate()
   {
-    if (this.getTestDate() != null)
+    if (this.getTestDate() != null && this.getCollection() != null)
     {
       super.validateTestDate();
 
