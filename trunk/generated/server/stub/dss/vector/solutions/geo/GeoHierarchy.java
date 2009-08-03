@@ -69,8 +69,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   private static final Integer SRID             = 4326;
 
   private static String        allowedInTree    = null;
-  
-  private static Object lockObj = new Object();
+
+  private static Object        lockObj          = new Object();
 
   public GeoHierarchy()
   {
@@ -86,10 +86,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   {
     return getGeoHierarchyFromType(Earth.CLASS).getViewForGeoHierarchy();
   }
-  
+
   private static void invalidateAllowedInTree()
   {
-    synchronized(lockObj)
+    synchronized (lockObj)
     {
       allowedInTree = null;
     }
@@ -104,9 +104,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    */
   public static String defineAllowedTree(String geoEntityId)
   {
-    try
+    synchronized (lockObj)
     {
-      synchronized (lockObj)
+      try
       {
         if (allowedInTree == null)
         {
@@ -126,13 +126,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
           allowedInTree = map.toString();
         }
-      }
 
-      return allowedInTree;
-    }
-    catch (JSONException e)
-    {
-      throw new ProgrammingErrorException(e);
+        return allowedInTree;
+      }
+      catch (JSONException e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
     }
   }
 
@@ -437,9 +437,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     }
 
     geoHierarchy.deleteInternal(ids);
-    
+
     invalidateAllowedInTree();
-    
+
     return ids.toArray(new String[ids.size()]);
   }
 
@@ -739,7 +739,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     {
       iter.close();
     }
-    
+
     invalidateAllowedInTree();
   }
 
@@ -915,7 +915,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     // }
 
     geoEntityClass.apply();
-    
+
     invalidateAllowedInTree();
   }
 
@@ -992,7 +992,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     }
 
     childGeoHierarchy.addAllowedInGeoEntity(parentGeoHierarchy).apply();
-    
+
     invalidateAllowedInTree();
   }
 
