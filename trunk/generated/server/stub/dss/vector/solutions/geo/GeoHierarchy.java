@@ -68,6 +68,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   private static final Integer SRID             = 4326;
 
+  private static String        allowedInTree    = null;
+
   public GeoHierarchy()
   {
     super();
@@ -75,7 +77,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Returns the {@link GeoHierarchyView} that represents Earth.
-   *
+   * 
    * @return
    */
   public static GeoHierarchyView getEarthGeoHierarchy()
@@ -86,29 +88,34 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Returns a JSON object representing the allowed GeoEntity types within the
    * GeoEntity of the given id.
-   *
+   * 
    * @param geoEntityId
    * @return
    */
-  public static String defineAllowedTree(String geoEntityId)
+  public static synchronized String defineAllowedTree(String geoEntityId)
   {
     try
     {
-      GeoEntity geoEntity = GeoEntity.get(geoEntityId);
-      MdBusiness rootMd = MdBusiness.getMdBusiness(geoEntity.getType());
+      if (allowedInTree == null)
+      {
+        GeoEntity geoEntity = GeoEntity.get(geoEntityId);
+        MdBusiness rootMd = MdBusiness.getMdBusiness(geoEntity.getType());
 
-      GeoHierarchy geo = getGeoHierarchyFromType(rootMd);
+        GeoHierarchy geo = getGeoHierarchyFromType(rootMd);
 
-      JSONObject map = new JSONObject();
-      JSONObject types = new JSONObject();
-      HashSet<String> imports = new HashSet<String>();
+        JSONObject map = new JSONObject();
+        JSONObject types = new JSONObject();
+        HashSet<String> imports = new HashSet<String>();
 
-      treeRecurse(types, imports, geo, null);
+        treeRecurse(types, imports, geo, null);
 
-      map.put("types", types);
-      map.put("imports", new JSONArray(imports));
+        map.put("types", types);
+        map.put("imports", new JSONArray(imports));
 
-      return map.toString(4);
+        allowedInTree = map.toString();
+      }
+
+      return allowedInTree;
     }
     catch (JSONException e)
     {
@@ -119,7 +126,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Returns the GeoHiearachy representative of the given type (a GeoEntity
    * subtype).
-   *
+   * 
    * @param mdType
    * @return
    */
@@ -131,7 +138,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Recursively collects all parents of the AllowedIn relationship.
-   *
+   * 
    * @return
    */
   public List<GeoHierarchy> getAllParents()
@@ -145,7 +152,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Recursive method that collects all parents for the given parent.
-   *
+   * 
    * @param allChildren
    * @param parent
    * @return
@@ -162,7 +169,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Returns all parents of the first level of the AllowedIn relationship.
-   *
+   * 
    * @return
    */
   public List<GeoHierarchy> getImmediateParents()
@@ -187,7 +194,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Recursively collects all children of the AllowedIn relationship.
-   *
+   * 
    * @return
    */
   public List<GeoHierarchy> getAllChildren()
@@ -201,7 +208,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Recursive method that collects all children for the given parent.
-   *
+   * 
    * @param allChildren
    * @param parent
    * @return
@@ -218,7 +225,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Returns all children of the first level of the AllowedIn relationship.
-   *
+   * 
    * @return
    */
   public List<GeoHierarchy> getImmediateChildren()
@@ -244,7 +251,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Returns the GeoHierarchy representative of the given MdBusiness (a
    * GeoEntity subtype).
-   *
+   * 
    * @param md
    * @return
    */
@@ -273,7 +280,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Recursive function to build a tree structure denoting what GeoHierarchy
    * types are allowed in one another.
-   *
+   * 
    * @param types
    * @param imports
    * @param parent
@@ -325,7 +332,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * type is a member. Abstract types will be recursed through but the type
    * itself will not be added to the list. Although a Set is returned, the order
    * of insertion is preserved to as closely mimic a flattened tree as possible.
-   *
+   * 
    * @param type
    * @return
    */
@@ -377,7 +384,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Returns the concatenated package and type name of the underlying MdBusiness
    * this GeoHierarchy represents.
-   *
+   * 
    * @return
    */
   public String getQualifiedType()
@@ -389,7 +396,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Returns the concatenated package and type name of the underlying MdBusiness
    * this GeoHierarchy represents.
-   *
+   * 
    * @return
    */
   public String getQualifiedType(MdBusiness md)
@@ -399,7 +406,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Static accessor to delete the given GeoHierarchy.
-   *
+   * 
    * @param geoHierarchyId
    * @return An array of ids for all GeoHierarchies that were deleted.
    */
@@ -418,6 +425,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     geoHierarchy.deleteInternal(ids);
 
+    allowedInTree = null;
+    
     return ids.toArray(new String[ids.size()]);
   }
 
@@ -453,12 +462,12 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       String sql = this.getViewSQL(geoEntityClass, mdAttrGeo);
       Database.dropView(viewName, sql, false);
     }
-    catch(DatabaseException ex)
+    catch (DatabaseException ex)
     {
       // View doesn't exist but that's okay. It may have been
       // deleted earlier.
     }
-    
+
     // finally, delete this class's MdBusiness, which must be removed
     // after this GeoHierarchy to avoid a dependency error as the MdBusiness
     // is a required attribute.
@@ -480,7 +489,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Checks the given MdBusiness and its parents for an MdAttributeGeometry and
    * returns it. If no MdAttributeGeometry is defined this method returns null.
-   *
+   * 
    * @param mdBusiness
    * @return
    */
@@ -513,7 +522,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Checks the given MdBusiness and its parents for an MdAttributeGeometry and
    * returns it. If no MdAttributeGeometry is defined this method returns null.
-   *
+   * 
    * @param mdBusiness
    * @return
    */
@@ -526,7 +535,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Defines a new GeoEntity type. This method will error out if there are any
    * problems.
-   *
+   * 
    * @param definition
    * @param allowedInIds
    * @return
@@ -717,11 +726,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     {
       iter.close();
     }
+    
+    allowedInTree = null;
   }
 
   /**
    * Adds a Geometric attribute to the given MdBusiness.
-   *
+   * 
    * @param mdGeoEntity
    * @param spatialType
    */
@@ -777,38 +788,38 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     attr.setSrid(SRID);
     attr.apply();
   }
-  
+
   public GeoEntityDefinition getGeoEntityDefinition()
   {
     GeoEntityDefinition definition = new GeoEntityDefinition();
     SpatialTypes spatialType = this.getSpatialType();
     MdBusiness mdBusiness = this.getGeoEntityClass();
     MdBusiness superMdBusiness = mdBusiness.getSuperMdBusiness();
-    
+
     definition.setTypeName(mdBusiness.getTypeName());
     definition.setDisplayLabel(mdBusiness.getDisplayLabel().getValue());
     definition.setDescription(mdBusiness.getDescription().getValue());
     definition.setPolitical(this.getPolitical());
     definition.setSprayTargetAllowed(this.getSprayTargetAllowed());
-    
-    if(spatialType != null)
+
+    if (spatialType != null)
     {
       definition.addSpatialType(spatialType);
     }
 
-    if(superMdBusiness != null)
+    if (superMdBusiness != null)
     {
       String superId = superMdBusiness.getId();
       definition.setParentTypeGeoHierarchyId(superId);
     }
-    
+
     return definition;
   }
-  
+
   public SpatialTypes getSpatialType()
   {
     MdAttributeGeometry geometry = this.getGeometry();
-    
+
     if (geometry instanceof MdAttributePoint)
     {
       return SpatialTypes.POINT;
@@ -833,7 +844,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     {
       return SpatialTypes.MULTI_POLYGON;
     }
-    
+
     return null;
   }
 
@@ -864,7 +875,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Updates a GeoHierarchy and its enclosed MdBusiness
-   *
+   * 
    * @param view
    */
   @Transaction
@@ -891,12 +902,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     // }
 
     geoEntityClass.apply();
+    
+    allowedInTree = null;
   }
 
   /**
    * Adds the given childGeoHierarchyId as a child of the given
    * parentGeoHierarchyId in the {@link AllowedIn} relationship.
-   *
+   * 
    * @param childId
    * @param parentId
    * @param cloneOperation
@@ -920,7 +933,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       throw e;
     }
 
-    if(!cloneOperation)
+    if (!cloneOperation)
     {
       validateModifyGeoHierarchy(childGeoHierarchy);
     }
@@ -966,13 +979,15 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     }
 
     childGeoHierarchy.addAllowedInGeoEntity(parentGeoHierarchy).apply();
+    
+    allowedInTree = null;
   }
 
   /**
    * Checks that the GeoHierarchy can be modified, which is only possible if no
    * GeoEntity instances have been created for any types except the single Earth
    * instance.
-   *
+   * 
    * @throws ModifyHierarchyWithInstancesException
    */
   private static void validateModifyGeoHierarchy(GeoHierarchy toValidate)
@@ -1009,7 +1024,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * Returns all GeoHierarchy views that fit the following critiera. Note that a
    * GeoHierarchy that maps to an abstract GeoEntity subtype will not be
    * included, for those are used internally only.
-   *
+   * 
    * @param sortAttribute
    * @param ascending
    * @param pageSize
@@ -1033,7 +1048,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     return viewQuery;
   }
-  
+
   /**
    * @return An array of all Geo Hierarchies where SprayTargetAllowed==true
    */
@@ -1086,13 +1101,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * Collects and returns al GeoHierarchy objects (parents and children) that
    * are of the type of GeoEntity of the given id. The collection is restricted
    * by the political and sprayZoneAllowed flag on each GeoHierarchy.
-   *
-   *
+   * 
+   * 
    * @param rootGeoEntityId
    * @param political
    * @param sprayZoneAllowed
    * @param extraUniversals
-   *            Any extra univerals to append to the final list.
+   *          Any extra univerals to append to the final list.
    * @return
    */
   public static GeoHierarchyView[] collectHierarchies(String rootGeoEntityId, Boolean political,
@@ -1123,7 +1138,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       if (collectChildren)
       {
         Set<String> children = getIsAHierarchy(universal);
-        for(String child : children)
+        for (String child : children)
         {
           GeoHierarchy childH = GeoHierarchy.getGeoHierarchyFromType(child);
           hierarchies.add(childH.getViewForGeoHierarchy());
@@ -1167,7 +1182,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Returns all political GeoHierarchy views starting with the GeoHierarchy
    * that represents the given GeoEntity.
-   *
+   * 
    * @param geoEntityId
    * @return
    */
@@ -1180,7 +1195,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Returns all political GeoHierarchies under and including the given type.
-   *
+   * 
    * @param type
    * @return
    */
@@ -1197,7 +1212,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Returns all political GeoHierarchy views starting with the GeoHierarchy
    * that represents the given GeoEntity.
-   *
+   * 
    * @param geoEntityId
    * @return
    */
@@ -1208,7 +1223,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Returns all political GeoHierarchies under and including the given type.
-   *
+   * 
    * @param type
    * @return
    */
@@ -1223,9 +1238,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   }
 
   /**
-   * Returns all GeoHierarchy views starting with the GeoHierarchy
-   * that represents the given GeoEntity.
-   *
+   * Returns all GeoHierarchy views starting with the GeoHierarchy that
+   * represents the given GeoEntity.
+   * 
    * @param geoEntityId
    * @return
    */
@@ -1236,7 +1251,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Returns all GeoHierarchies under and including the given type.
-   *
+   * 
    * @param type
    * @return
    */
@@ -1250,12 +1265,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     return hierarchy.toArray(new GeoHierarchyView[hierarchy.size()]);
   }
 
-  private static void recursePoliticalHierarchy(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent)
+  private static void recursePoliticalHierarchy(LinkedHashSet<GeoHierarchyView> hierarchy,
+      GeoHierarchy parent)
   {
     treeRecurse(hierarchy, parent, true, false);
   }
 
-  private static void recurseSprayHierarchy(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent)
+  private static void recurseSprayHierarchy(LinkedHashSet<GeoHierarchyView> hierarchy,
+      GeoHierarchy parent)
   {
     treeRecurse(hierarchy, parent, false, true);
   }
@@ -1265,13 +1282,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     treeRecurse(hierarchy, parent, true, true);
   }
 
-  private static void treeRecurse(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent, boolean political, boolean spray)
+  private static void treeRecurse(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent,
+      boolean political, boolean spray)
   {
     if (political && parent.getPolitical())
     {
       hierarchy.add(parent.getViewForGeoHierarchy());
     }
-    else if(spray && parent.getSprayTargetAllowed())
+    else if (spray && parent.getSprayTargetAllowed())
     {
       hierarchy.add(parent.getViewForGeoHierarchy());
     }
@@ -1299,7 +1317,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     return equals;
   }
-  
+
   private String getViewSQL(MdBusiness md, MdAttributeGeometry mdAttrGeo)
   {
 
@@ -1333,7 +1351,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       vQuery.WHERE(q1.aCharacter(ComponentInfo.ID).EQ(q2.aCharacter(ComponentInfo.ID)));
       vQuery.WHERE(q2.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
     }
-    
+
     // exclude any entity without spatial data
     Selectable geometrySelectable = vQuery.getSelectable(attrName);
     vQuery.AND(geometrySelectable.NE(null));
@@ -1346,24 +1364,24 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * Creates a database view that represents this GeoHierarchy (i.e., the
    * underlying GeoEntity MdBusiness and its spatial attribute). If the view
    * already exists this method does nothing but return the view name.
-   *
+   * 
    * @return The name of the database view
    */
   public boolean createViewTable(String sessionId)
   {
     MdBusiness md = this.getGeoEntityClass();
     String viewName = md.getTypeName().toLowerCase() + QueryConstants.VIEW_NAME_SUFFIX;
-    
+
     MdAttributeGeometry mdAttrGeo = getGeometry(md);
     String sql = this.getViewSQL(md, mdAttrGeo);
-      
+
     // as with thematic layers, drop the view and recreate
     // to force a refresh of the sql (in case there was a change)
     try
     {
-      Database.dropView(viewName, sql, false); 
+      Database.dropView(viewName, sql, false);
     }
-    catch(DatabaseException e)
+    catch (DatabaseException e)
     {
       // View doesn't exist, but that's okay. It may have never
       // been created or a cleanup task has removed it.
@@ -1375,7 +1393,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     }
 
     MapUtil.reload(sessionId, viewName, mdAttrGeo);
-
 
     // To avoid a bug in GeoServer, only include the layer if count > 0
     String countSQL = "SELECT COUNT(*) " + Database.formatColumnAlias("ct") + " FROM " + viewName;
