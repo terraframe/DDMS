@@ -76,9 +76,13 @@ Restore to other machines
 		+ path to Postgres
 	+ change geoserver.properties to localhost
 	+ Change local.properties environment to deploy
+	+ Change terraframe.properties local root and deploy root
 
+
++ Make sure Geo Server is properly configured
+	+ Point GeoServer to correct mdss_[country name] database
++ Make sure Screen Grab works in Firefox (https://addons.mozilla.org/en-US/firefox/addon/1146)
+	
+	
+	
 // END: Full Deploy Checklist
-
-Post Installation
-	Make sure Geo Server is properly configured
-	Make sure Screen Grab works in Firefox (https://addons.mozilla.org/en-US/firefox/addon/1146)
