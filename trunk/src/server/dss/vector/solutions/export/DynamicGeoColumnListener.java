@@ -91,7 +91,7 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
         {
           if (column.getAttributeName().equals(excelAttribute))
           {
-            entityName = cell.getRichStringCellValue().getString();
+            entityName = cell.getRichStringCellValue().getString().trim();
 
             geoEntityNames.add(entityName);
             parentGeoEntityMap.put(geoEntityClass.definesType(), entityName);
@@ -126,16 +126,16 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
 
     // Now use reflection to set the value
     GeoEntity geoEntity = null;
-    
+
     if (entityList.size() == 1)
     {
       geoEntity = entityList.get(0);
     }
-        
+
     Class<?> excelClass = LoaderDecorator.load(excelType);
-    
-    String accessorName = GenerationUtil.upperFirstCharacter(instance.getMdAttributeDAO(attributeName).getAccessorName());    
-    excelClass.getMethod("set" + accessorName, GeoEntity.class).invoke(instance, geoEntity);    
+
+    String accessorName = GenerationUtil.upperFirstCharacter(instance.getMdAttributeDAO(attributeName).getAccessorName());
+    excelClass.getMethod("set" + accessorName, GeoEntity.class).invoke(instance, geoEntity);
   }
 
   private String getExcelAttribute(MdBusiness geoEntityClass)

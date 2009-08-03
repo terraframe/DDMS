@@ -163,7 +163,7 @@ public class GeoEntitySearcher implements Reloadable
 
             if (cell != null)
             {
-              String geoEntityName = cell.getRichStringCellValue().getString();
+              String geoEntityName = cell.getRichStringCellValue().getString().trim();
 
               if (!geoEntityName.trim().equals(""))
               {
@@ -341,7 +341,7 @@ public class GeoEntitySearcher implements Reloadable
     {
       HSSFCell nameCell = nameIterator.next();
 
-      String nameValue = nameCell.getRichStringCellValue().getString();
+      String nameValue = nameCell.getRichStringCellValue().getString().trim();
       if (nameValue.startsWith(DynamicGeoColumnListener.PREFIX))
       {
         String[] nameComponents = nameValue.split(" ");
