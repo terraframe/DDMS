@@ -3,6 +3,8 @@ package dss.vector.solutions.util;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,15 +21,13 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ViewDTO;
 import com.terraframe.mojo.constants.ClientConstants;
 import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.util.FileIO;
 
-import dss.vector.solutions.export.GeoEntityExcelViewDTO;
-import dss.vector.solutions.geo.UnknownGeoEntityDTO;
-
-public class ExcelImportServlet extends HttpServlet implements Reloadable
+public class ExcelImportServlet extends HttpServlet
 {
   /**
    *
@@ -58,7 +58,7 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
 
     // Data structure that contains synonym matching information for geo entities that could not
     // be identified.
-    UnknownGeoEntityDTO[] unknownGeoEntityDTOArray = null;
+    ViewDTO[] unknownGeoEntityDTOArray = null;
 
     // Parse the request
     boolean isGeoImport = false;
@@ -91,7 +91,9 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
 
       InputStream errorStream;
       String type = fields.get(TYPE);
-      isGeoImport = type.equals(GeoEntityExcelViewDTO.CLASS);
+      
+      // This referenced a constant, GeoEntityExcelViewDTO.CLASS, but was removed for now to eliminate the compile-time reference to a Reloadable class
+      isGeoImport = type.equals("dss.vector.solutions.export.GeoEntityExcelViewDTO");
 
       if (isGeoImport)
       {
@@ -105,16 +107,18 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
         }
         String[] params = new String[1];
         params[0] = fields.get("parentGeoEntityId");
-        errorStream = FacadeDTO.importExcelFile(clientRequest, new ByteArrayInputStream(bytes), type, "setupImportListener", params);
+        errorStream = importExcelFile(clientRequest, bytes, type, params);
       }
       else
       {
-        unknownGeoEntityDTOArray = FacadeDTO.checkSynonyms(clientRequest, new ByteArrayInputStream(bytes), type);
+        Class<?> facadeClass = LoaderDecorator.load("dss.vector.solutions.util.FacadeDTO");
+        Method method = facadeClass.getMethod("checkSynonyms", ClientRequestIF.class, InputStream.class, String.class);
+        unknownGeoEntityDTOArray = (ViewDTO[]) method.invoke(null, clientRequest, new ByteArrayInputStream(bytes), type);
 
         // all geo entities in the file were identified
         if (unknownGeoEntityDTOArray.length == 0)
         {
-          errorStream = FacadeDTO.importExcelFile(clientRequest, new ByteArrayInputStream(bytes), type, "setupImportListener", new String[0]);
+          errorStream = importExcelFile(clientRequest, bytes, type, new String[0]);
 
           if (errorStream.available()>0)
           {
@@ -150,6 +154,13 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
     {
       req.getRequestDispatcher("/WEB-INF/excelImportDone.jsp").forward(req, res);
     }
+  }
+
+  private InputStream importExcelFile(ClientRequestIF clientRequest, byte[] bytes, String type, String[] params) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
+  {
+    Class<?> facadeClass = LoaderDecorator.load("dss.vector.solutions.util.FacadeDTO");
+    Method method = facadeClass.getMethod("importExcelFile", ClientRequestIF.class, InputStream.class, String.class, String.class, String[].class);
+    return (InputStream) method.invoke(null, clientRequest, new ByteArrayInputStream(bytes), type, "setupImportListener", params);
   }
 
   @Override
