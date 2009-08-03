@@ -12,6 +12,7 @@ import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
+import dss.vector.solutions.entomology.RequiredCollectionMethodProblem;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -55,31 +56,39 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
   public MosquitoCollection findMatch()
   {
     CollectionMethod method = null;
+    MosquitoCollection match = null;
     GeoEntity entity = getGeoEntity();
 
-    // I commented out the empty value check on collection method
-    // because collection method is a required value on mosquito collections,
-    // and if the following query is run when Collection Method is null then
-    // a uninformative null pointer exception is thrown.
-    //  -Justin Smethie
-
-    // if(this.hasCollectionMethod())
-    // {
-    method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this.getCollectionMethod());
-    // }
-
-    MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
-    query.WHERE(query.getGeoEntity().EQ(entity));
-    query.WHERE(query.getDateCollected().EQ(this.getDateCollected()));
-    query.WHERE(query.getCollectionMethod().EQ(method));
-
-    OIterator<? extends MosquitoCollection> iterator = query.getIterator();
-    MosquitoCollection match = null;
-    if (iterator.hasNext())
+    if (this.hasCollectionMethod())
     {
-      match = iterator.next();
+      method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this.getCollectionMethod());
+
+      MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
+      query.WHERE(query.getGeoEntity().EQ(entity));
+      query.WHERE(query.getDateCollected().EQ(this.getDateCollected()));
+      query.WHERE(query.getCollectionMethod().EQ(method));
+
+      OIterator<? extends MosquitoCollection> iterator = query.getIterator();
+
+      try
+      {
+        if (iterator.hasNext())
+        {
+          match = iterator.next();
+        }
+      }
+      finally
+      {
+        iterator.close();
+      }
     }
-    iterator.close();
+    else
+    {
+      String msg = "Collection method is required";
+      RequiredCollectionMethodProblem p = new RequiredCollectionMethodProblem(msg);
+      p.apply();
+      p.throwIt();
+    }
 
     if (match == null)
     {
