@@ -10,7 +10,6 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.RawLeftJoinEq;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.ValueQuery;
@@ -135,15 +134,15 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     valueQuery.WHERE(new InnerJoinEq("id", sprayStatusQuery.getMdClassIF().getTableName(), sprayStatusQuery.getTableAlias(), "id", unionSQL, unionView));
 
     //ResourceTarget.createTempTable(resourceTargetView);
-    String targetView = "unit_totals_view";
-    String targetViewSQL = "(" + ResourceTarget.getTempTableSQL() +")";
+    //String targetView = "unit_totals_view";
+    //String targetViewSQL = "(" + ResourceTarget.getTempTableSQL() +")";
     //valueQuery.FROM(targetViewSQL , targetView);
-    RawLeftJoinEq lj = new RawLeftJoinEq("targetable_id", unionSQL, unionView, "target_id", targetViewSQL, targetView);
+    //RawLeftJoinEq lj = new RawLeftJoinEq("targetable_id", unionSQL, unionView, "target_id", targetViewSQL, targetView);
 
-    lj.setSql(unionView+".targetable_id = "+targetView+".target_id AND " +
-        unionView+".spray_season = "+targetView+".season_id AND " +
-        unionView+".spray_week = "+targetView+".target_week");
-    valueQuery.WHERE(lj);
+    //lj.setSql(unionView+".targetable_id = "+targetView+".target_id AND " +
+    //    unionView+".spray_season = "+targetView+".season_id AND " +
+    //    unionView+".spray_week = "+targetView+".target_week");
+    //valueQuery.WHERE(lj);
 
 
     // set all the spray selectable sql to match up with the temp table columns
