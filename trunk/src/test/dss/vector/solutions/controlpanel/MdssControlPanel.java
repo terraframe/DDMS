@@ -289,8 +289,10 @@ public class MdssControlPanel extends JFrame {
 	private void backup() {
 		File file = chooseFile(true);
 		if (file != null) {
-			//runCommand(BACKUP, file.getAbsolutePath(), group.getSelection().getActionCommand());
+			runCommand(BACKUP, file.getAbsolutePath(), group.getSelection().getActionCommand());
+			/*
 			outputTextArea.setText(null);
+			
 			final PipedOutputStream out = new PipedOutputStream();
 			PrintStream ps = new PrintStream(out);
 			
@@ -319,6 +321,7 @@ public class MdssControlPanel extends JFrame {
 				}
 			};
 			outputThread.start();
+			*/
 		}
 	}
 	
