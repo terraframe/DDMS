@@ -45,7 +45,40 @@ Create DVD image
 
 Restore to other machines
 	Make changes (as necessary)
+
+
+// START: Full Deploy Checklist (+ means done)
+
++ Install Postgres
+	+ Execute fuzzy string SQL
 	
++ Install Java
+
++ Install Firefox 3.5
+	+ Install Screengrab plugin
+	
++ Install Adobe Acrobat
+
++ Create mdss_[country name]
+	Restore mdss_[country name]
+
++ Copy Tomcat
+	+ Set JAVA_HOME
+	+ Set CATALINA_OPTS
+
++ Create C:/MDSS/[country name]
+
++ Copy MDSS
+	+ Copy OpenLayers/imgs to /img (in webapp/MDSS)
+	+ Change mdss.properties to reflect [country name]
+	+ Change database.properties to:
+		+ reflect mdss_[country name]
+		+ path to Postgres
+	+ change geoserver.properties to localhost
+	+ Change local.properties environment to deploy
+
+// END: Full Deploy Checklist
+
 Post Installation
-	- Make sure Geo Server is properly configured
-	- Make sure Screen Grab works in Firefox (https://addons.mozilla.org/en-US/firefox/addon/1146)
+	Make sure Geo Server is properly configured
+	Make sure Screen Grab works in Firefox (https://addons.mozilla.org/en-US/firefox/addon/1146)
