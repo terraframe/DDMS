@@ -253,6 +253,25 @@ data = {
          }
 	 }
 
+ 	var indexHouseholds = 10;
+	var indexStructures = 11;
+	var indexSprayedHouseholds = 12;
+	var indexSprayedStructures = 13;
+	var indexPrevSprayedHouseholds = 14;
+	var indexPrevSprayedStructures = 15;
+	var indexRooms = 16;
+	var isMainSpray = <%= (spray.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
+
+    if (!isMainSpray)
+    {
+    	delete data.columnDefs[indexHouseholds].editor;
+    	delete data.columnDefs[indexStructures].editor;
+    	delete data.columnDefs[indexPrevSprayedHouseholds].editor;
+    	delete data.columnDefs[indexPrevSprayedStructures].editor;
+    	delete data.columnDefs[indexRooms].editor;
+    }    	
+     
+     
      SprayTeamLabels=Mojo.util.getValues(teams);   
      SprayTeamIds=Mojo.util.getKeys(teams);   
  

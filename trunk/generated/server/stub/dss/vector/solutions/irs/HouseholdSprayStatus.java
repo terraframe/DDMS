@@ -1,6 +1,5 @@
 package dss.vector.solutions.irs;
 
-import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -28,35 +27,14 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
     return view;
   }
 
-  private SprayMethod getSprayMethod()
-  {
-    List<SprayMethod> method = this.getSpray().getSprayData().getSprayMethod();
-
-    if (method.size() > 0)
-    {
-      return method.get(0);
-    }
-
-    return null;
-  }
-
   public void validateHouseholds(SprayMethod method)
   {
+    super.validateHouseholds(method);
+    
     Integer value = this.getHouseholds();
 
     if (value != null)
     {
-      if (method.equals(SprayMethod.MOP_UP))
-      {
-        String msg = "Household value is not applicable on a mop-up spray";
-        HouseholdValueNotApplicableProblem p = new HouseholdValueNotApplicableProblem(msg);
-        p.setHouseholdId(this.getHouseholdId());
-        p.setStructureId(this.getStructureId());
-        p.setNotification(this, HOUSEHOLDS);
-        p.apply();
-        p.throwIt();
-      }
-
       if (value != 1 && value != 0)
       {
         String msg = "Household value may only be 0 or 1";
@@ -100,9 +78,10 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
     }
   }
 
-  @Override
-  public void validateStructures()
+  public void validateStructures(SprayMethod method)
   {
+    super.validateStructures(method);
+    
     if (this.getStructures() != null)
     {
       if (this.getStructures() != 1 && this.getStructures() != 0)
@@ -118,7 +97,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
     }
   }
 
-  public void validateSprayedHouseholds(SprayMethod method)
+  public void validateSprayedHouseholds()
   {
     Integer value = this.getSprayedHouseholds();
     if (value != null)
@@ -173,21 +152,11 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
 
   public void validatePrevSprayedHouseholds(SprayMethod method)
   {
+    super.validatePrevSprayedHouseholds();
+    
     Integer value = this.getPrevSprayedHouseholds();
     if (value != null)
     {
-      if (method.equals(SprayMethod.MOP_UP))
-      {
-        String msg = "Value is not applicable on a mop-up spray";
-        PrevSprayedHouseholdValueNotApplicableProblem p = new PrevSprayedHouseholdValueNotApplicableProblem(
-            msg);
-        p.setNotification(this, PREVSPRAYEDHOUSEHOLDS);
-        p.setHouseholdId(this.getHouseholdId());
-        p.setStructureId(this.getStructureId());
-        p.apply();
-        p.throwIt();
-      }
-
       if (value != 1 && value != 0)
       {
         String msg = "Previously Sprayed Household value may only be 0 or 1";
@@ -217,8 +186,10 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
   }
 
   @Override
-  public void validatePrevSprayedStructures()
+  public void validatePrevSprayedStructures(SprayMethod method)
   {
+    super.validatePrevSprayedStructures(method);
+    
     if (this.getPrevSprayedStructures() != null)
     {
       if (this.getPrevSprayedStructures() != 1 && this.getPrevSprayedStructures() != 0)
@@ -234,23 +205,6 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
     }
   }
 
-  public void validateRooms(SprayMethod method)
-  {
-    if (this.getRooms() != null)
-    {
-      if (method.equals(SprayMethod.MOP_UP))
-      {
-        String msg = "Value is not applicable on a mop-up spray";
-        RoomValueNotApplicableProblem p = new RoomValueNotApplicableProblem(msg);
-        p.setNotification(this, ROOMS);
-        p.setHouseholdId(this.getHouseholdId());
-        p.setStructureId(this.getStructureId());
-        p.apply();
-        p.throwIt();
-      }
-    }
-  }
-
   @Transaction
   public void apply()
   {
@@ -258,15 +212,8 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
 
     try
     {
-      SprayMethod method = this.getSprayMethod();
-
-      validateHouseholds(method);
-      validateSprayedHouseholds(method);
-      validatePrevSprayedHouseholds(method);
-      validateRooms(method);
-      validateStructures();
+      validateSprayedHouseholds();
       validateSprayedStructures();
-      validatePrevSprayedStructures();
 
       super.apply();
     }

@@ -194,6 +194,24 @@
           selectEl.innerHTML = "<option selected value=\"\"></option>";             
         }
 	 }
+	 
+	var indexHouseholds = 8;
+	var indexStructures = 9;
+	var indexSprayedHouseholds = 10;
+	var indexSprayedStructures = 11;
+	var indexPrevSprayedHouseholds = 12;
+	var indexPrevSprayedStructures = 13;
+	var indexRooms = 14;
+	var isMainSpray = <%= (spray.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
+
+    if (!isMainSpray)
+    {
+    	delete data.columnDefs[indexHouseholds].editor;
+    	delete data.columnDefs[indexStructures].editor;
+    	delete data.columnDefs[indexPrevSprayedHouseholds].editor;
+    	delete data.columnDefs[indexPrevSprayedStructures].editor;
+    	delete data.columnDefs[indexRooms].editor;
+    }    	
     
     SprayOperatorLabels=Mojo.util.getValues(operators);   
     SprayOperatorIds=Mojo.util.getKeys(operators);   
