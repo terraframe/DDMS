@@ -32,7 +32,6 @@
 	<!-- =================================================================== -->
 	<!-- Define the tomcat tasks                                                 -->
 	<!-- =================================================================== -->
-
 	<taskdef name="reload" classname="org.apache.catalina.ant.ReloadTask" classpath="${server.lib}/catalina-ant.jar" />
 
 	<taskdef name="start" classname="org.apache.catalina.ant.StartTask" classpath="${server.lib}/catalina-ant.jar" />
@@ -200,6 +199,7 @@
 
 		<!-- These files are needed for compilation, but should not exist in the deploy -->
 		<delete file="${deploy.bin}/dss/vector/solutions/global/CredentialsSingleton.class" />
+		<delete file="${deploy.bin}/dss/vector/solutions/global/CredentialsSingleton$1.class" />
 		<delete file="${deploy.bin}/dss/vector/solutions/global/CredentialsSingleton$Singleton.class" />
 		<delete file="${deploy.bin}/dss/vector/solutions/geoserver/GeoServerRequestFilter.class" />
 
@@ -485,6 +485,7 @@
 
 		<!-- These files are needed for compilation, but should not exist in the deploy -->
 		<delete file="${deploy.bin}/dss/vector/solutions/global/CredentialsSingleton.class" />
+		<delete file="${deploy.bin}/dss/vector/solutions/global/CredentialsSingleton$1.class" />
 		<delete file="${deploy.bin}/dss/vector/solutions/global/CredentialsSingleton$Singleton.class" />
 		<delete file="${deploy.bin}/dss/vector/solutions/geoserver/GeoServerRequestFilter.class" />
 
