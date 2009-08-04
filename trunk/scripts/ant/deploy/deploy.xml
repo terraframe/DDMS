@@ -653,4 +653,25 @@
 		</java>
 	</target>
 
+	<!-- =================================================================== -->
+	<!-- Jar Heavy Client Control Pannel                                     -->
+	<!-- =================================================================== -->
+	<target name="buildControllPannelJar" depends="" description="Builds the controll pannel jar">
+		<javac srcdir="${local.src}" destDir="${local.bin}" source="1.5" target="1.5">
+			<include name="**/MdssControlPanel.java"/>
+		</javac>
+
+		<jar destfile="../../../mdsscontrolanel.jar" compress="true">
+            <manifest>
+                <attribute name="Main-Class" value="dss.vector.solutions.controlpanel.MdssControlPanel"/>
+            </manifest>
+			<fileset dir="${local.bin}">
+  		      <include name="**/MdssControlPanel*.class"/>
+			</fileset>
+   		    <fileset dir="${profile.root}/controlpanel">
+	          <include name="**/MdssControlPanel.properties"/>
+	   	    </fileset>
+		</jar>
+	</target>
+
 </project>
