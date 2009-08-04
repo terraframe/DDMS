@@ -70,7 +70,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   private static String        allowedInTree    = null;
 
-  private static Object        lockObj          = new Object();
+//  private static Object        lockObj          = new Object();
 
   public GeoHierarchy()
   {
@@ -96,7 +96,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    */
   public static String defineAllowedTree(String geoEntityId)
   {
-    synchronized (lockObj)
+    
+//    System.out.println("defineAllowedTree: "+ lockObj);
+    
+    synchronized (Object.class)
     {
       try
       {
@@ -420,7 +423,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   {
     Set<String> ids;
 
-    synchronized (lockObj)
+//    System.out.println("deleteGeoHierarchy: " +lockObj);
+    
+    synchronized (Object.class)
     {
 
       ids = new HashSet<String>();
@@ -492,10 +497,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   @Transaction
   public static String defineGeoEntity(GeoEntityDefinition definition)
   {
-    // validate attributes
-    definition.applyNoPersist();
+    synchronized (Object.class)    
+    {
+      // validate attributes
+      definition.applyNoPersist();
 
-    return defineGeoEntityInternal(definition);
+      return defineGeoEntityInternal(definition);
+    }
   }
 
   /**
@@ -721,7 +729,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   @Transaction
   public void deleteRelationship(String parentId)
   {
-    synchronized (lockObj)
+//    System.out.println("deleteRelationship: " +lockObj);
+    
+    synchronized (Object.class)
     {
 
       QueryFactory f = new QueryFactory();
@@ -897,7 +907,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   @Transaction
   public static void updateFromView(GeoHierarchyView view)
   {
-    synchronized (lockObj)
+//    System.out.println("updateFromView: " +lockObj);
+    
+    synchronized (Object.class)
     {
 
       // GeoHierarchy should already be locked
@@ -938,7 +950,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   public static void applyExistingWithParent(String childGeoHierarchyId, String parentGeoHierarchyId,
       Boolean cloneOperation)
   {
-    synchronized (lockObj)
+//    System.out.println("applyExistingWithParent: " +lockObj);
+    
+    synchronized (Object.class)
     {
 
       GeoHierarchy childGeoHierarchy = GeoHierarchy.get(childGeoHierarchyId);
