@@ -88,13 +88,13 @@ YAHOO.util.Event.onDOMReady(function(){
       }
 
     }, null, this);
-	
+
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
-     dropDownMaps = {<%=Halp.getDropDownMaps(mosquitoViewDTO,  requestIF, ",")%>};
+     var ddMaps = {<%=Halp.getDropDownMaps(mosquitoViewDTO,  requestIF, ",")%>};
 
      var mapAttribs = function(attribName,index){
        var attrib = this.obj.attributeMap[attribName];
@@ -113,8 +113,9 @@ YAHOO.util.Event.onDOMReady(function(){
          row.type = this.obj.getType();
          row.dtoType = attrib.dtoType;
          row.displayLabel = attrib.attributeMdDTO.displayLabel;
-         if(dropDownMaps[attrib.attributeName]){
-           row.dropDownMap = dropDownMaps[attrib.attributeName];
+         var uppFirst = attrib.attributeName.slice(0,1).toUpperCase() + attrib.attributeName.slice(1);
+         if(this.dropDownMaps[uppFirst]){
+           row.dropDownMap = this.dropDownMaps[uppFirst];
          }
        }else{
          row.attributeName = attribName;
@@ -130,14 +131,15 @@ YAHOO.util.Event.onDOMReady(function(){
 
     function mapAssayAttribs(arr,obj){
       return arr.map(function(row){
-          if(dropDownMaps[row.viewAccessor]){
-            row.dropDownMap = dropDownMaps[row.viewAccessor];
+      	var uppFirst = row.viewAccessor.slice(0,1).toUpperCase() + row.viewAccessor.slice(1);
+          if(this.dropDownMaps[uppFirst]){
+            row.dropDownMap = this.dropDownMaps[uppFirst];
           }
           var attrib = mosquitoView.attributeMap[row.viewAccessor];
 
           row.key = row.attributeName;
           return row;
-      });
+      }, {dropDownMaps:ddMaps});
     }
 
 
@@ -150,13 +152,13 @@ YAHOO.util.Event.onDOMReady(function(){
     var collectionColumns = [];
 
 
-    collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_group'});
+    collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_group',dropDownMaps:ddMaps});
     var groupAttribs = ["sampleId","specie","identificationMethod","quantity"];
-    var groupColumns =  collectionColumns.concat(groupAttribs.map(mapAttribs, {obj:mosquitoGroup, suffix:'_group'}));
+    var groupColumns =  collectionColumns.concat(groupAttribs.map(mapAttribs, {obj:mosquitoGroup, suffix:'_group',dropDownMaps:ddMaps}));
 
-    collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_individual'});
+    collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_individual',dropDownMaps:ddMaps});
     var mosquitoAttribs = ["sampleId","specie","identificationMethod","sex","generation","isofemale","testDate"];
-    var mosquitoColumns =  collectionColumns.concat(mosquitoAttribs.map(mapAttribs, {obj:mosquito, suffix:'_individual'}));
+    var mosquitoColumns =  collectionColumns.concat(mosquitoAttribs.map(mapAttribs, {obj:mosquito, suffix:'_individual',dropDownMaps:ddMaps}));
     var assays = [];
 
     var infectivityColumns = <%=MosquitoViewDTO.getAssayColumns(requestIF,InfectivityAssayTestResult.class.getCanonicalName())%>;
