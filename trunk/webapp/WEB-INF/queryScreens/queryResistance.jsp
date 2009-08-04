@@ -97,7 +97,7 @@ YAHOO.util.Event.onDOMReady(function(){
       }
 
     }, null, this);
-	
+
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
@@ -128,8 +128,9 @@ YAHOO.util.Event.onDOMReady(function(){
         row.type = this.obj.getType();
         row.dtoType = attrib.dtoType;
         row.displayLabel = attrib.attributeMdDTO.displayLabel;
-        if(this.dropDownMaps[attrib.attributeName]){
-          row.dropDownMap = this.dropDownMaps[attrib.attributeName];
+        var uppFirst = attrib.attributeName.slice(0,1).toUpperCase() + attrib.attributeName.slice(1);
+        if(this.dropDownMaps[uppFirst]){
+          row.dropDownMap = this.dropDownMaps[uppFirst];
         }
       }else{
         row.attributeName = attribName;
