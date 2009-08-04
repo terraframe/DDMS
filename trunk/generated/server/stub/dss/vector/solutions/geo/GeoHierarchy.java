@@ -96,38 +96,41 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    */
   public static String defineAllowedTree(String geoEntityId)
   {
-    
-//    System.out.println("defineAllowedTree: "+ lockObj);
-    
     synchronized (Object.class)
     {
-      try
+      return defineAllowedTree2(geoEntityId);
+    }
+  }
+  
+  @Transaction
+  private static String defineAllowedTree2(String geoEntityId)
+  {
+    try
+    {
+      if (allowedInTree == null)
       {
-        if (allowedInTree == null)
-        {
-          GeoEntity geoEntity = GeoEntity.get(geoEntityId);
-          MdBusiness rootMd = MdBusiness.getMdBusiness(geoEntity.getType());
+        GeoEntity geoEntity = GeoEntity.get(geoEntityId);
+        MdBusiness rootMd = MdBusiness.getMdBusiness(geoEntity.getType());
 
-          GeoHierarchy geo = getGeoHierarchyFromType(rootMd);
+        GeoHierarchy geo = getGeoHierarchyFromType(rootMd);
 
-          JSONObject map = new JSONObject();
-          JSONObject types = new JSONObject();
-          HashSet<String> imports = new HashSet<String>();
+        JSONObject map = new JSONObject();
+        JSONObject types = new JSONObject();
+        HashSet<String> imports = new HashSet<String>();
 
-          treeRecurse(types, imports, geo, null);
+        treeRecurse(types, imports, geo, null);
 
-          map.put("types", types);
-          map.put("imports", new JSONArray(imports));
+        map.put("types", types);
+        map.put("imports", new JSONArray(imports));
 
-          allowedInTree = map.toString();
-        }
-
-        return allowedInTree;
+        allowedInTree = map.toString();
       }
-      catch (JSONException e)
-      {
-        throw new ProgrammingErrorException(e);
-      }
+
+      return allowedInTree;
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
     }
   }
 
@@ -418,33 +421,35 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * @param geoHierarchyId
    * @return An array of ids for all GeoHierarchies that were deleted.
    */
-  @Transaction
   public static String[] deleteGeoHierarchy(String geoHierarchyId)
   {
     Set<String> ids;
 
-//    System.out.println("deleteGeoHierarchy: " +lockObj);
-    
     synchronized (Object.class)
     {
-
-      ids = new HashSet<String>();
-
-      GeoHierarchy geoHierarchy = GeoHierarchy.get(geoHierarchyId);
-
-      List<GeoHierarchy> children = geoHierarchy.getImmediateChildren();
-      for (GeoHierarchy child : children)
-      {
-        child.deleteInternal(ids);
-      }
-
-      geoHierarchy.deleteInternal(ids);
-
+      ids = deleteGeoHierarchy2(geoHierarchyId);
       allowedInTree = null;
-
     }
 
     return ids.toArray(new String[ids.size()]);
+  }
+  
+  @Transaction
+  private static Set<String> deleteGeoHierarchy2(String geoHierarchyId)
+  {
+    Set<String> ids = new HashSet<String>();
+
+    GeoHierarchy geoHierarchy = GeoHierarchy.get(geoHierarchyId);
+
+    List<GeoHierarchy> children = geoHierarchy.getImmediateChildren();
+    for (GeoHierarchy child : children)
+    {
+      child.deleteInternal(ids);
+    }
+
+    geoHierarchy.deleteInternal(ids);
+
+    return ids;
   }
 
   @Transaction
@@ -494,16 +499,29 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Defines a new GeoEntity type based on the value of this view.
    */
-  @Transaction
   public static String defineGeoEntity(GeoEntityDefinition definition)
   {
+    
     synchronized (Object.class)    
     {
-      // validate attributes
-      definition.applyNoPersist();
-
-      return defineGeoEntityInternal(definition);
+      String id = defineGeoEntity2(definition);
+      
+      allowedInTree = null;
+      
+      return id;
     }
+  }
+
+  @Transaction
+  private static String defineGeoEntity2(GeoEntityDefinition definition)
+  {
+    // validate attributes
+    definition.applyNoPersist();
+
+    String id = defineGeoEntityInternal(definition);
+
+    
+    return id;
   }
 
   /**
@@ -726,33 +744,35 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   }
 
   @Override
-  @Transaction
   public void deleteRelationship(String parentId)
   {
-//    System.out.println("deleteRelationship: " +lockObj);
-    
     synchronized (Object.class)
     {
-
-      QueryFactory f = new QueryFactory();
-      AllowedInQuery query = new AllowedInQuery(f);
-      query.WHERE(query.childId().EQ(this.getId()));
-      query.WHERE(query.parentId().EQ(parentId));
-
-      OIterator<? extends AllowedIn> iter = query.getIterator();
-      try
-      {
-        while (iter.hasNext())
-        {
-          iter.next().delete();
-        }
-      }
-      finally
-      {
-        iter.close();
-      }
+      deleteRelationship2(parentId);
 
       allowedInTree = null;
+    }
+  }
+
+  @Transaction
+  private void deleteRelationship2(String parentId)
+  {
+    QueryFactory f = new QueryFactory();
+    AllowedInQuery query = new AllowedInQuery(f);
+    query.WHERE(query.childId().EQ(this.getId()));
+    query.WHERE(query.parentId().EQ(parentId));
+
+    OIterator<? extends AllowedIn> iter = query.getIterator();
+    try
+    {
+      while (iter.hasNext())
+      {
+        iter.next().delete();
+      }
+    }
+    finally
+    {
+      iter.close();
     }
   }
 
@@ -904,38 +924,41 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * 
    * @param view
    */
-  @Transaction
   public static void updateFromView(GeoHierarchyView view)
   {
-//    System.out.println("updateFromView: " +lockObj);
-    
     synchronized (Object.class)
     {
-
-      // GeoHierarchy should already be locked
-      GeoHierarchy geoHierarchy = GeoHierarchy.get(view.getGeoHierarchyId());
-      geoHierarchy.setPolitical(view.getPolitical());
-      geoHierarchy.setSprayTargetAllowed(view.getSprayTargetAllowed());
-      geoHierarchy.apply();
-
-      MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();
-      geoEntityClass.getDisplayLabel().setValue(view.getDisplayLabel());
-      // if (!view.getDisplayLabel().trim().equals(""))
-      // {
-      geoEntityClass.getDisplayLabel().setDefaultValue(view.getDisplayLabel());
-      // }
-
-      geoEntityClass.getDescription().setValue(view.getDescription());
-
-      // if (!view.getDescription().trim().equals(""))
-      // {
-      geoEntityClass.getDescription().setDefaultValue(view.getDescription());
-      // }
-
-      geoEntityClass.apply();
-
+      updateFromView2(view);
+      
       allowedInTree = null;
     }
+  }
+
+  @Transaction
+  private static void updateFromView2(GeoHierarchyView view)
+  {
+    // GeoHierarchy should already be locked
+    GeoHierarchy geoHierarchy = GeoHierarchy.get(view.getGeoHierarchyId());
+    geoHierarchy.setPolitical(view.getPolitical());
+    geoHierarchy.setSprayTargetAllowed(view.getSprayTargetAllowed());
+    geoHierarchy.apply();
+
+    MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();
+    geoEntityClass.getDisplayLabel().setValue(view.getDisplayLabel());
+    // if (!view.getDisplayLabel().trim().equals(""))
+    // {
+    geoEntityClass.getDisplayLabel().setDefaultValue(view.getDisplayLabel());
+    // }
+
+    geoEntityClass.getDescription().setValue(view.getDescription());
+
+    // if (!view.getDescription().trim().equals(""))
+    // {
+    geoEntityClass.getDescription().setDefaultValue(view.getDescription());
+    // }
+
+    geoEntityClass.apply();
+
   }
 
   /**
@@ -946,80 +969,85 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * @param parentId
    * @param cloneOperation
    */
-  @Transaction
   public static void applyExistingWithParent(String childGeoHierarchyId, String parentGeoHierarchyId,
       Boolean cloneOperation)
   {
-//    System.out.println("applyExistingWithParent: " +lockObj);
     
     synchronized (Object.class)
     {
 
-      GeoHierarchy childGeoHierarchy = GeoHierarchy.get(childGeoHierarchyId);
-      GeoHierarchy parentGeoHierarchy = GeoHierarchy.get(parentGeoHierarchyId);
-
-      // make sure a child cannot be applied to itself
-      if (childGeoHierarchy.getId().equals(parentGeoHierarchy.getId()))
-      {
-        String childLabel = childGeoHierarchy.getGeoEntityClass().getDisplayLabel().getValue();
-
-        String error = "The child [" + childLabel + "] cannot be its own parent.";
-
-        AllowedInSelfException e = new AllowedInSelfException(error);
-        e.setDisplayLabel(childLabel);
-        throw e;
-      }
-
-      if (!cloneOperation)
-      {
-        validateModifyGeoHierarchy(childGeoHierarchy);
-      }
-
-      if (!cloneOperation)
-      {
-        // remove the old parent from the child
-        OIterator<? extends AllowedIn> iter = childGeoHierarchy.getAllAllowedInGeoEntityRel();
-        try
-        {
-          while (iter.hasNext())
-          {
-            iter.next().delete();
-          }
-        }
-        finally
-        {
-          iter.close();
-        }
-      }
-      else
-      {
-        // confirm this entity can't be applied to the same
-        // parent more than once.
-        QueryFactory f = new QueryFactory();
-        AllowedInQuery q = new AllowedInQuery(f);
-        q.WHERE(q.childId().EQ(childGeoHierarchyId));
-        q.WHERE(q.parentId().EQ(parentGeoHierarchyId));
-
-        if (q.getCount() > 0)
-        {
-          String childDL = childGeoHierarchy.getGeoEntityClass().getDisplayLabel().getValue();
-          String parentDL = parentGeoHierarchy.getGeoEntityClass().getDisplayLabel().getValue();
-
-          String error = "The child [" + childDL + "] is already located in the parent [" + parentDL
-              + "].";
-          DuplicateHierarchyParentException e = new DuplicateHierarchyParentException(error);
-          e.setChildDisplayLabel(childDL);
-          e.setChildDisplayLabel(parentDL);
-
-          throw e;
-        }
-      }
-
-      childGeoHierarchy.addAllowedInGeoEntity(parentGeoHierarchy).apply();
+      applyExistingWithParent2(childGeoHierarchyId, parentGeoHierarchyId, cloneOperation);
 
       allowedInTree = null;
 
     }
+  }
+
+  @Transaction
+  private static void applyExistingWithParent2(String childGeoHierarchyId, String parentGeoHierarchyId,
+      Boolean cloneOperation)
+  {
+    GeoHierarchy childGeoHierarchy = GeoHierarchy.get(childGeoHierarchyId);
+    GeoHierarchy parentGeoHierarchy = GeoHierarchy.get(parentGeoHierarchyId);
+
+    // make sure a child cannot be applied to itself
+    if (childGeoHierarchy.getId().equals(parentGeoHierarchy.getId()))
+    {
+      String childLabel = childGeoHierarchy.getGeoEntityClass().getDisplayLabel().getValue();
+
+      String error = "The child [" + childLabel + "] cannot be its own parent.";
+
+      AllowedInSelfException e = new AllowedInSelfException(error);
+      e.setDisplayLabel(childLabel);
+      throw e;
+    }
+
+    if (!cloneOperation)
+    {
+      validateModifyGeoHierarchy(childGeoHierarchy);
+    }
+
+    if (!cloneOperation)
+    {
+      // remove the old parent from the child
+      OIterator<? extends AllowedIn> iter = childGeoHierarchy.getAllAllowedInGeoEntityRel();
+      try
+      {
+        while (iter.hasNext())
+        {
+          iter.next().delete();
+        }
+      }
+      finally
+      {
+        iter.close();
+      }
+    }
+    else
+    {
+      // confirm this entity can't be applied to the same
+      // parent more than once.
+      QueryFactory f = new QueryFactory();
+      AllowedInQuery q = new AllowedInQuery(f);
+      q.WHERE(q.childId().EQ(childGeoHierarchyId));
+      q.WHERE(q.parentId().EQ(parentGeoHierarchyId));
+
+      if (q.getCount() > 0)
+      {
+        String childDL = childGeoHierarchy.getGeoEntityClass().getDisplayLabel().getValue();
+        String parentDL = parentGeoHierarchy.getGeoEntityClass().getDisplayLabel().getValue();
+
+        String error = "The child [" + childDL + "] is already located in the parent [" + parentDL
+            + "].";
+        DuplicateHierarchyParentException e = new DuplicateHierarchyParentException(error);
+        e.setChildDisplayLabel(childDL);
+        e.setChildDisplayLabel(parentDL);
+
+        throw e;
+      }
+    }
+
+    childGeoHierarchy.addAllowedInGeoEntity(parentGeoHierarchy).apply();
   }
 
   /**
