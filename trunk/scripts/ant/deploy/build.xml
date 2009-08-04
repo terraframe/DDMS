@@ -23,7 +23,7 @@
 
 	<property name="deploy.db" value="mdssdeploy" />
 	<property name="develop.db" value="mdssdevelop" />
-	<property name="geodata.db" value="mrc_mozambique" />
+	<property name="geodata.db" value="mrc_malawi" />
 	<!--<property name="write_rev" value="false" />-->
 
 	<!-- Rebuild Deploy -->
@@ -254,11 +254,11 @@
 	<!-- so that posgres does not require a password from localhost         -->
 	<!-- Also check that "postgres.bin" is set to the location of psql and pg_dump -->
 	<!-- =================================================================== -->
-	<target name="fast_build" depends="alert_status,kill_tomcat,develop_rebuild_import,deploy_all,import_geodata,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
-		<echo message="The build is complete, please start tomcat" />
+	<target name="fast_build" depends="alert_status,kill_tomcat,remove_generated_universals,copy_country_schema,develop_rebuild_import" description="Rebuild Develop from scratch and then copy everything to deploy.">
+		<echo message="Build part 1 complete, please refresh and clean" />
 	</target>
 
-	<target name="fast_build_2" depends="deploy_all,import_geodata,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
+	<target name="fast_build_2" depends="alert_status,deploy_all,import_geodata,develop_build_all_paths_geodata,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="The build is complete, please start tomcat" />
 	</target>
 
@@ -655,8 +655,8 @@
 			<include name="LocalGvtDispensary*.java" />
 			<include name="LocalGvtMaternity*.java" />
 			<include name="Lodge*.java" />
-			<include name="MobileClinic*.java" />            
-			<include name="OtherRoof*.java" />          
+			<include name="MobileClinic*.java" />
+			<include name="OtherRoof*.java" />
 			<include name="PointCollection*.java" />
 			<include name="PrivateClinic*.java" />
 			<include name="PrivateHospital*.java" />
@@ -686,13 +686,13 @@
 			<include name="Ward*.java" />
 			<include name="WoodPlansShingles*.java" />
 		</patternset>
-		
+
 		<delete>
 			<fileset dir="../../../generated/client/stub/dss/vector/solutions/geo/generated/">
 				<patternset refid="generated.artifacts" />
 			</fileset>
 		</delete>
-		
+
 		<delete>
 			<fileset dir="../../../generated/server/stub/dss/vector/solutions/geo/generated/">
 				<patternset refid="generated.artifacts" />
@@ -706,8 +706,9 @@
 			</fileset>
 		</delete>
 	</target>
-		
+
 	<target name="copy_country_schema" depends="" description="Copy the appropriate country schema file">
+		<echo message="Switching to country: ${geodata.db}" />
 		<copy file="../../../doc/country/${geodata.db}-schema(0001238646707001).xml" tofile="../../../doc/schema(0001238646707001).xml" overwrite="true" />
-	</target> 
+	</target>
 </project>
