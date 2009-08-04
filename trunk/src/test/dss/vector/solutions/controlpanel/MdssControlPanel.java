@@ -304,13 +304,13 @@ public class MdssControlPanel extends JFrame {
 	private void start() {
 		setButtons(true);
 		runCommand(START, null, null);
-		//setButtons();
+		setButtons();
 	}
 	
 	private void stop() {
 		setButtons(false);
 		runCommand(STOP, null, null);
-		//setButtons();
+		setButtons();
 	}
 	
 	private void backup() {
