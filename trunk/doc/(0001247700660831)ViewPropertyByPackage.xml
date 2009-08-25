@@ -2,10 +2,6 @@
   xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <existing>
-    </existing>
-    <delete>
-    </delete>
     <update>
       <mdController
         name="dss.vector.solutions.PropertyController"

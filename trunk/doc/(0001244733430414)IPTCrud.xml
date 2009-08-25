@@ -19,7 +19,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.PatientGrid"
-        id="InPatient">
+        key="dss.vector.solutions.intervention.monitor.PatientGrid.inPatient">
         <valueAttribute
           name="optionName"
           value="inPatient" />
@@ -33,7 +33,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.PatientGrid"
-        id="outPatient">
+        key="dss.vector.solutions.intervention.monitor.PatientGrid.outPatient">
         <valueAttribute
           name="optionName"
           value="outPatient" />
@@ -61,7 +61,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.VisitGrid"
-        id="1st">
+        key="dss.vector.solutions.intervention.monitor.VisitGrid.1st">
         <valueAttribute
           name="optionName"
           value="1st" />
@@ -76,7 +76,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.VisitGrid"
-        id="2nd">
+        key="dss.vector.solutions.intervention.monitor.VisitGrid.2nd">
         <valueAttribute
           name="optionName"
           value="2nd" />
@@ -91,7 +91,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.VisitGrid"
-        id="3rd">
+        key="dss.vector.solutions.intervention.monitor.VisitGrid.3rd">
         <valueAttribute
           name="optionName"
           value="3rd" />
@@ -119,7 +119,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.DoseGrid"
-        id="1stDose">
+        key="dss.vector.solutions.intervention.monitor.DoseGrid.1st">
         <valueAttribute
           name="optionName"
           value="1st" />
@@ -133,7 +133,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.DoseGrid"
-        id="2ndDose">
+        key="dss.vector.solutions.intervention.monitor.DoseGrid.2nd">
         <valueAttribute
           name="optionName"
           value="2nd" />
@@ -147,7 +147,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.DoseGrid"
-        id="3rdDose">
+        key="dss.vector.solutions.intervention.monitor.DoseGrid.3rd">
         <valueAttribute
           name="optionName"
           value="3rd" />
@@ -251,14 +251,6 @@
         name="dss.vector.solutions.intervention.monitor.IPTPatients"
         label="IPT Patients"
         generateController="false">
-        <parent
-          cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.AggregatedIPT"
-          method="AggregatedIPTs" />
-        <child
-          cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.PatientGrid"
-          method="Patients" />
         <attributes>
           <integer
             name="amount"
@@ -267,20 +259,20 @@
             required="true"
             rejectNegative="true" />
         </attributes>
-      </mdTree>
-
-      <mdTree
-        name="dss.vector.solutions.intervention.monitor.IPTANCVisit"
-        label="IPT ANC visit"
-        generateController="false">
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.AggregatedIPT"
           method="AggregatedIPTs" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.VisitGrid"
-          method="ANCVisits" />
+          name="dss.vector.solutions.intervention.monitor.PatientGrid"
+          method="Patients" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.IPTANCVisit"
+        label="IPT ANC visit"
+        generateController="false">
         <attributes>
           <integer
             name="amount"
@@ -289,20 +281,20 @@
             required="true"
             rejectNegative="true" />
         </attributes>
-      </mdTree>
-
-      <mdTree
-        name="dss.vector.solutions.intervention.monitor.IPTDose"
-        label="IPT Dose"
-        generateController="false">
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.AggregatedIPT"
           method="AggregatedIPTs" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.DoseGrid"
-          method="Doses" />
+          name="dss.vector.solutions.intervention.monitor.VisitGrid"
+          method="ANCVisits" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.IPTDose"
+        label="IPT Dose"
+        generateController="false">
         <attributes>
           <integer
             name="amount"
@@ -311,20 +303,20 @@
             required="true"
             rejectNegative="true" />
         </attributes>
-      </mdTree>
-
-      <mdTree
-        name="dss.vector.solutions.intervention.monitor.IPTTreatment"
-        label="IPT Treatment"
-        generateController="false">
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.AggregatedIPT"
           method="AggregatedIPTs" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.surveillance.TreatmentGrid"
-          method="Treatments" />
+          name="dss.vector.solutions.intervention.monitor.DoseGrid"
+          method="Doses" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.IPTTreatment"
+        label="IPT Treatment"
+        generateController="false">
         <attributes>
           <integer
             name="amount"
@@ -333,6 +325,14 @@
             required="true"
             rejectNegative="true" />
         </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.AggregatedIPT"
+          method="AggregatedIPTs" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.TreatmentGrid"
+          method="Treatments" />
       </mdTree>
 
       <mdView

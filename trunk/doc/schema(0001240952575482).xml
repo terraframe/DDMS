@@ -11,7 +11,7 @@
 
       <object
         type="dss.vector.solutions.irs.SprayMethodMaster"
-        id="Main_Spray">
+        key="dss.vector.solutions.irs.SprayMethodMaster.MAIN_SPRAY">
         <valueAttribute
           name="enumName"
           value="MAIN_SPRAY" />
@@ -25,7 +25,7 @@
 
       <object
         type="dss.vector.solutions.irs.SprayMethodMaster"
-        id="Mop_Up">
+        key="dss.vector.solutions.irs.SprayMethodMaster.MOP_UP">
         <valueAttribute
           name="enumName"
           value="MOP_UP" />
@@ -51,7 +51,7 @@
 
       <object
         type="dss.vector.solutions.irs.SurfaceTypeMaster"
-        id="Porous">
+        key="dss.vector.solutions.irs.SurfaceTypeMaster.POROUS">
         <valueAttribute
           name="enumName"
           value="POROUS" />
@@ -65,7 +65,7 @@
 
       <object
         type="dss.vector.solutions.irs.SurfaceTypeMaster"
-        id="Non-Porous">
+        key="dss.vector.solutions.irs.SurfaceTypeMaster.NON_POROUS">
         <valueAttribute
           name="enumName"
           value="NON_POROUS" />
@@ -344,14 +344,6 @@
         name="dss.vector.solutions.irs.InsecticideNozzle"
         label="Configuration"
         generateController="false">
-        <parent
-          cardinality="*"
-          name="dss.vector.solutions.irs.InsecticideBrand"
-          method="Insecticides" />
-        <child
-          cardinality="*"
-          name="dss.vector.solutions.irs.Nozzle"
-          method="Nozzles" />
         <attributes>
           <boolean
             name="enabled"
@@ -380,6 +372,14 @@
             order="0"
             type="dss.vector.solutions.irs.InsecticideNozzle[]" />
         </mdMethod>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.irs.InsecticideBrand"
+          method="Insecticides" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.irs.Nozzle"
+          method="Nozzles" />
       </mdRelationship>
 
       <mdBusiness
@@ -1194,7 +1194,7 @@
           <virtual
             name="sprayTeam"
             concrete="sprayTeam"
-            type="dss.vector.solutions.irs.TeamSpray" />            
+            type="dss.vector.solutions.irs.TeamSpray" />
           <virtual
             name="teamLeader"
             concrete="teamLeader"

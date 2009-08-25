@@ -360,8 +360,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
-        id="NA1"
-        key="ElderCaseView">
+        key="dss.vector.solutions.surveillance.ElderCaseView">
         <valueAttribute
           name="startAge"
           value="0" />
@@ -376,13 +375,12 @@
           value="true" />
         <referenceAttribute
           name="mdView"
-          id="dss.vector.solutions.surveillance.ElderCaseView" />
+          key="dss.vector.solutions.surveillance.ElderCaseView" />
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
-        id="NA2"
-        key="AncientCaseView">
+        key="dss.vector.solutions.surveillance.AncientCaseView">
         <valueAttribute
           name="startAge"
           value="201" />
@@ -397,7 +395,7 @@
           value="false" />
         <referenceAttribute
           name="mdView"
-          id="dss.vector.solutions.surveillance.AncientCaseView" />
+          key="dss.vector.solutions.surveillance.AncientCaseView" />
       </object>
     </create>
   </doIt>

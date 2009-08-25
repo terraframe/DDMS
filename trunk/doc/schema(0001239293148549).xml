@@ -882,8 +882,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
-        id="LT1"
-        key="InfiantCaseView">
+        key="dss.vector.solutions.surveillance.InfiantCaseView">
         <valueAttribute
           name="startAge"
           value="0" />
@@ -898,13 +897,12 @@
           value="true" />
         <referenceAttribute
           name="mdView"
-          id="dss.vector.solutions.surveillance.InfiantCaseView" />
+          key="dss.vector.solutions.surveillance.InfiantCaseView" />
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
-        id="GTE1"
-        key="ChildCaseView">
+        key="dss.vector.solutions.surveillance.ChildCaseView">
         <valueAttribute
           name="startAge"
           value="1" />
@@ -919,13 +917,12 @@
           value="1 &lt; 5" />
         <referenceAttribute
           name="mdView"
-          id="dss.vector.solutions.surveillance.ChildCaseView" />
+          key="dss.vector.solutions.surveillance.ChildCaseView" />
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
-        id="GET5"
-        key="TeenCaseView">
+        key="dss.vector.solutions.surveillance.TeenCaseView">
         <valueAttribute
           name="startAge"
           value="5" />
@@ -940,13 +937,12 @@
           value="5 &lt; 14" />
         <referenceAttribute
           name="mdView"
-          id="dss.vector.solutions.surveillance.TeenCaseView" />
+          key="dss.vector.solutions.surveillance.TeenCaseView" />
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
-        id="GTE14"
-        key="AdultCaseView">
+        key="dss.vector.solutions.surveillance.AdultCaseView">
         <valueAttribute
           name="startAge"
           value="14" />
@@ -961,7 +957,7 @@
           value="14+" />
         <referenceAttribute
           name="mdView"
-          id="dss.vector.solutions.surveillance.AdultCaseView" />
+          key="dss.vector.solutions.surveillance.AdultCaseView" />
       </object>
 
     </create>

@@ -3,7 +3,7 @@
 
     <create></create>
     <update>
-    
+
       <mdBusiness name="dss.vector.solutions.intervention.monitor.SurveyPoint">
         <create>
           <mdMethod
@@ -40,7 +40,7 @@
           </mdMethod>
         </create>
       </mdBusiness>
-    
+
       <mdBusiness name="dss.vector.solutions.surveillance.AggregatedCase">
         <create>
           <mdMethod
@@ -72,7 +72,7 @@
           </mdMethod>
         </create>
       </mdBusiness>
-    
+
       <mdBusiness name="dss.vector.solutions.irs.AbstractSpray">
         <create>
           <mdMethod
@@ -104,7 +104,7 @@
           </mdMethod>
         </create>
       </mdBusiness>
-    
+
       <mdBusiness name="dss.vector.solutions.entomology.Mosquito">
         <create>
           <mdMethod
@@ -136,7 +136,7 @@
           </mdMethod>
         </create>
       </mdBusiness>
-    
+
       <mdBusiness name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
         <create>
           <mdMethod
@@ -168,40 +168,11 @@
           </mdMethod>
         </create>
       </mdBusiness>
-    
+
     </update>
-    
-    
-    <existing>
-      <object
-        key="com.terraframe.mojo.system.Roles.operationalManager"
-        type="com.terraframe.mojo.system.Roles"
-        id="operationalManager" />
-      <object
-        key="com.terraframe.mojo.system.Roles.entomologist"
-        type="com.terraframe.mojo.system.Roles"
-        id="entomologist" />
-      <object
-        key="com.terraframe.mojo.system.Roles.dataCapturer"
-        type="com.terraframe.mojo.system.Roles"
-        id="dataCapturer" />
-      <object
-        key="com.terraframe.mojo.system.Roles.mdssCoordinator"
-        type="com.terraframe.mojo.system.Roles"
-        id="mdssCoordinator" />
-      <object
-        key="com.terraframe.mojo.system.Roles.manager"
-        type="com.terraframe.mojo.system.Roles"
-        id="manager" />
-      <object
-        key="com.terraframe.mojo.system.Roles.GUIVisibility"
-        type="com.terraframe.mojo.system.Roles"
-        id="GUIVisibility" />
-    </existing>
-    
+
+
     <permissions>
-      
-  
       <role roleName="mdssCoordinator">
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.SurveyPoint">
           <mdMethodPermission methodName="xmlToValueQuery">
@@ -355,7 +326,7 @@
       </method>
 
     </permissions>
-    
+
   </doIt>
   <undoIt>
     <delete></delete>

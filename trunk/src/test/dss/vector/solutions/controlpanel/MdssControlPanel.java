@@ -30,10 +30,10 @@ import javax.swing.JTextArea;
 
 public class MdssControlPanel extends JFrame {
 	private static final long serialVersionUID = 1L;
-	
+
 	public final int HEIGHT = 300;
-	public final int WIDTH = 400; 
-	
+	public final int WIDTH = 400;
+
 	private static final String URL = "url.server";
 	private static final String TITLE = "title";
 
@@ -41,13 +41,13 @@ public class MdssControlPanel extends JFrame {
 	private static final String STOP = "stop";
 	private static final String BACKUP = "backup";
 	private static final String RESTORE = "restore";
-	
+
 	private static final String MOZAMBIQUE = "mozambique";
 	private static final String MALAWI = "malawi";
 	private static final String ZAMBIA = "zambia";
 
 	private ResourceBundle bundle;
-	
+
 	private JButton startButton;
 	private JButton stopButton;
 	private JButton backupButton;
@@ -57,9 +57,9 @@ public class MdssControlPanel extends JFrame {
 	private JRadioButton mozambiqueButton;
 	private JRadioButton malawiButton;
 	private JRadioButton zambiaButton;
-	
+
 	private JTextArea outputTextArea;
-	
+
 	final JFileChooser fc = new JFileChooser();
 
 	public MdssControlPanel() {
@@ -69,7 +69,7 @@ public class MdssControlPanel extends JFrame {
 	public MdssControlPanel(Locale locale) {
 		bundle = ResourceBundle.getBundle("MdssControlPanel", locale);
 	}
-	
+
 	public static void main(String[] args) {
 		Locale locale = Locale.getDefault();
 		if (args.length > 0) {
@@ -84,7 +84,7 @@ public class MdssControlPanel extends JFrame {
 			}
 		}
 		MdssControlPanel mcp = new MdssControlPanel(locale);
-		
+
 		mcp.initialize();
 	}
 
@@ -93,7 +93,7 @@ public class MdssControlPanel extends JFrame {
 
 		setTitle(this.getText(TITLE));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
 		getContentPane().add(mainPanel);
@@ -103,7 +103,7 @@ public class MdssControlPanel extends JFrame {
 		userPanel.add(this.createCountryPanel(), "North");
 		userPanel.add(this.createActionsPanel(), "South");
 		mainPanel.add(userPanel, "North");
-		
+
 		outputTextArea = new JTextArea();
 		outputTextArea.setEditable(false);
 		mainPanel.add(new JScrollPane(outputTextArea), "Center");
@@ -170,7 +170,7 @@ public class MdssControlPanel extends JFrame {
 	private void setButtons() {
 		this.setButtons(this.checkMdssStatus() != null );
 	}
-	
+
 	private void setButtons(boolean started) {
 		startButton.setEnabled(!started);
 		stopButton.setEnabled(started);
@@ -180,8 +180,8 @@ public class MdssControlPanel extends JFrame {
 		mozambiqueButton.setEnabled(!started);
 		malawiButton.setEnabled(!started);
 		zambiaButton.setEnabled(!started);
-	}	
-	
+	}
+
 	private void disableButtons() {
 		startButton.setEnabled(false);
 		stopButton.setEnabled(false);
@@ -236,14 +236,14 @@ public class MdssControlPanel extends JFrame {
 
 		return actionsPanel;
 	}
-	
+
 	private File chooseFile(boolean chooseDirectoryOnly) {
 		if (chooseDirectoryOnly) {
 			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		} else {
 			fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		}
-		
+
         int returnVal = fc.showOpenDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -252,17 +252,17 @@ public class MdssControlPanel extends JFrame {
         	return null;
         }
 	}
-	
+
 	private void runCommand(String commandKey, String path, String file) {
 		disableButtons();
-		
+
 		Object[] parameters = new Object[3];
 		parameters[0] = group.getSelection().getActionCommand();
 		parameters[1] = path;
 		parameters[2] = file;
-		
+
 		String command = MessageFormat.format(this.bundle.getString("command." + commandKey), parameters);
-		
+
 		outputTextArea.setText(null);
         try {
             Runtime rt = Runtime.getRuntime();
@@ -287,7 +287,7 @@ public class MdssControlPanel extends JFrame {
 					} catch (InterruptedException e) {
 						// Do nothing);
 					}
-					
+
 			        setButtons();
 				}
 			};
@@ -296,33 +296,33 @@ public class MdssControlPanel extends JFrame {
             outputTextArea.append(e.toString());
         }
 	}
-	
+
 	private String getText(String key) {
 		return this.bundle.getString("text." + key);
 	}
-	
+
 	private void start() {
 		setButtons(true);
 		runCommand(START, null, null);
 		setButtons();
 	}
-	
+
 	private void stop() {
 		setButtons(false);
 		runCommand(STOP, null, null);
 		setButtons();
 	}
-	
+
 	private void backup() {
 		File file = chooseFile(true);
 		if (file != null) {
 			runCommand(BACKUP, file.getAbsolutePath(), group.getSelection().getActionCommand());
 			/*
 			outputTextArea.setText(null);
-			
+
 			final PipedOutputStream out = new PipedOutputStream();
 			PrintStream ps = new PrintStream(out);
-			
+
 			final Backup backup = new Backup(ps, group.getSelection().getActionCommand(), group.getSelection().getActionCommand(), true, true);
 			Thread backupThread = new Thread() {
 				public void run() {
@@ -331,7 +331,7 @@ public class MdssControlPanel extends JFrame {
 			};
 			backupThread.start();
 
-			
+
 			Thread outputThread = new Thread() {
 				public void run() {
 					try {
@@ -351,7 +351,7 @@ public class MdssControlPanel extends JFrame {
 			*/
 		}
 	}
-	
+
 	private void restore() {
 		File file = chooseFile(false);
 		if (file != null) {

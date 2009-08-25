@@ -2,20 +2,6 @@
   xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <existing>
-      <object
-        key="dss.vector.solutions.entomology.SexMaster.FEMALE"
-        type="dss.vector.solutions.entomology.SexMaster"
-        id="FEMALE" />
-      <object
-        key="dss.vector.solutions.entomology.SexMaster.MALE"
-        type="dss.vector.solutions.entomology.SexMaster"
-        id="MALE" />
-      <object
-        key="GeoHierarchy_NonSentinelSite"
-        type="dss.vector.solutions.geo.GeoHierarchy"
-        id="NON_SENTINEL_SITE" />
-    </existing>
     <create>
       <mdBusiness
         name="dss.vector.solutions.intervention.monitor.SurveyPoint"
@@ -132,8 +118,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
-        id="Net_Permanent_Net"
-        key="Net_Permanent_Net">
+        key="Permanent_Net">
         <valueAttribute
           name="netName"
           value="Permanent_Net" />
@@ -150,8 +135,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
-        id="Net_Permanent"
-        key="Net_Permanent">
+        key="Permanent">
         <valueAttribute
           name="netName"
           value="Permanet" />
@@ -163,21 +147,19 @@
         </structAttribute>
         <referenceAttribute
           name="parentNet"
-          id="Net_Permanent_Net" />
+          key="Permanent_Net" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
-        parentId="Net_Permanent_Net"
-        childId="Net_Permanent"
-        id="Net_Permanent_Net-Net_Permanent"
-        key="Net_Permanent_Net-Net_Permanent">
+        parentKey="Permanent_Net"
+        childKey="Permanent"
+        key="Permanent_Net-Permanent">
       </relationship>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
-        id="Net_Olyset"
-        key="Net_Olyset">
+        key="Olyset">
         <valueAttribute
           name="netName"
           value="Olyset" />
@@ -189,21 +171,19 @@
         </structAttribute>
         <referenceAttribute
           name="parentNet"
-          id="Net_Permanent_Net" />        
+          key="Permanent_Net" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
-        parentId="Net_Permanent_Net"
-        childId="Net_Olyset"
-        id="Net_Permanent_Net-Net_Olyset"
-        key="Net_Permanent_Net-Net_Olyset">
+        parentKey="Permanent_Net"
+        childKey="Olyset"
+        key="Permanent_Net-Olyset">
       </relationship>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
-        id="Net_Permanent_Other"
-        key="Net_Permanent_Other">
+        key="Permanent_Other">
         <valueAttribute
           name="netName"
           value="Permanent_Other" />
@@ -215,21 +195,19 @@
         </structAttribute>
         <referenceAttribute
           name="parentNet"
-          id="Net_Permanent_Net" />        
+          key="Permanent_Net" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
-        parentId="Net_Permanent_Net"
-        childId="Net_Permanent_Other"
-        id="Net_Permanent_Net-Net_Permanent_Other"
-        key="Net_Permanent_Net-Net_Permanent_Other">
+        parentKey="Permanent_Net"
+        childKey="Permanent_Other"
+        key="Permanent_Net-Permanent_Other">
       </relationship>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
-        id="Net_Pretreated_Net"
-        key="Net_Pretreated_Net">
+        key="Pretreated_Net">
         <valueAttribute
           name="netName"
           value="Pretreated_Net" />
@@ -246,8 +224,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
-        id="Net_Salam_Enkilfe"
-        key="Net_Salam_Enkilfe">
+        key="Salam_Enkilfe">
         <valueAttribute
           name="netName"
           value="Salam_Enkilfe" />
@@ -259,21 +236,19 @@
         </structAttribute>
         <referenceAttribute
           name="parentNet"
-          id="Net_Pretreated_Net" />
+          key="Pretreated_Net" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
-        parentId="Net_Pretreated_Net"
-        childId="Net_Salam_Enkilfe"
-        id="Net_Pretreated_Net-Net_Salam_Enkilfe"
-        key="Net_Pretreated_Net-Net_Salam_Enkilfe">
+        parentKey="Pretreated_Net"
+        childKey="Salam_Enkilfe"
+        key="Pretreated_Net-Salam_Enkilfe">
       </relationship>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
-        id="Net_Fennet"
-        key="Net_Fennet">
+        key="Fennet">
         <valueAttribute
           name="netName"
           value="Fennet" />
@@ -285,21 +260,19 @@
         </structAttribute>
         <referenceAttribute
           name="parentNet"
-          id="Net_Pretreated_Net" />
+          key="Pretreated_Net" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
-        parentId="Net_Pretreated_Net"
-        childId="Net_Fennet"
-        id="Net_Pretreated_Net-Net_Fennet"
-        key="Net_Pretreated_Net-Net_Fennet">
+        parentKey="Pretreated_Net"
+        childKey="Fennet"
+        key="Pretreated_Net-Fennet">
       </relationship>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
-        id="Net_KO_Net"
-        key="Net_KO_Net">
+        key="KO_Net">
         <valueAttribute
           name="netName"
           value="KO_Net" />
@@ -311,21 +284,19 @@
         </structAttribute>
         <referenceAttribute
           name="parentNet"
-          id="Net_Pretreated_Net" />
+          key="Pretreated_Net" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
-        parentId="Net_Pretreated_Net"
-        childId="Net_KO_Net"
-        id="Net_Pretreated_Net-Net_KO_Net"
-        key="Net_Pretreated_Net-Net_KO_Net">
+        parentKey="Pretreated_Net"
+        childKey="KO_Net"
+        key="Pretreated_Net-KO_Net">
       </relationship>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
-        id="Net_ICONET"
-        key="Net_ICONET">
+        key="ICONET">
         <valueAttribute
           name="netName"
           value="ICONET" />
@@ -337,21 +308,19 @@
         </structAttribute>
         <referenceAttribute
           name="parentNet"
-          id="Net_Pretreated_Net" />
+          key="Pretreated_Net" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
-        parentId="Net_Pretreated_Net"
-        childId="Net_ICONET"
-        id="Net_Pretreated_Net-Net_ICONET"
-        key="Net_Pretreated_Net-Net_ICONET">
+        parentKey="Pretreated_Net"
+        childKey="ICONET"
+        key="Pretreated_Net-ICONET">
       </relationship>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
-        id="Net_SAFINET"
-        key="Net_SAFINET">
+        key="SAFINET">
         <valueAttribute
           name="netName"
           value="SAFINET" />
@@ -363,21 +332,19 @@
         </structAttribute>
         <referenceAttribute
           name="parentNet"
-          id="Net_Pretreated_Net" />
+          key="Pretreated_Net" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
-        parentId="Net_Pretreated_Net"
-        childId="Net_SAFINET"
-        id="Net_Pretreated_Net-Net_SAFINET"
-        key="Net_Pretreated_Net-Net_SAFINET">
+        parentKey="Pretreated_Net"
+        childKey="SAFINET"
+        key="Pretreated_Net-SAFINET">
       </relationship>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
-        id="Net_Pretreated_Other"
-        key="Net_Pretreated_Other">
+        key="Pretreated_Other">
         <valueAttribute
           name="netName"
           value="Pretreated_Other" />
@@ -389,21 +356,19 @@
         </structAttribute>
         <referenceAttribute
           name="parentNet"
-          id="Net_Pretreated_Net" />
+          key="Pretreated_Net" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
-        parentId="Net_Pretreated_Net"
-        childId="Net_Pretreated_Other"
-        id="Net_Pretreated_Net-Net_Pretreated_Other"
-        key="Net_Pretreated_Net-Net_Pretreated_Other">
+        parentKey="Pretreated_Net"
+        childKey="Pretreated_Other"
+        key="Pretreated_Net-Pretreated_Other">
       </relationship>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
-        id="Net_Other"
-        key="Net_Other">
+        key="Other">
         <valueAttribute
           name="netName"
           value="Other" />
@@ -422,7 +387,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.WindowMaster"
-        id="ANY_WINDOW">
+        key="dss.vector.solutions.intervention.monitor.WindowMaster.ANY_WINDOW">
         <valueAttribute
           name="enumName"
           value="ANY_WINDOW" />
@@ -436,7 +401,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.WindowMaster"
-        id="WINDOW_WITH_GLASS">
+        key="dss.vector.solutions.intervention.monitor.WindowMaster.WINDOW_WITH_GLASS">
         <valueAttribute
           name="enumName"
           value="WINDOW_WITH_GLASS" />
@@ -450,7 +415,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.WindowMaster"
-        id="WINDOW_WITH_SCREENS">
+        key="dss.vector.solutions.intervention.monitor.WindowMaster.WINDOW_WITH_SCREENS">
         <valueAttribute
           name="enumName"
           value="WINDOW_WITH_SCREENS" />
@@ -464,7 +429,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.WindowMaster"
-        id="WINDOW_WITH_CURTAINS">
+        key="dss.vector.solutions.intervention.monitor.WindowMaster.WINDOW_WITH_CURTAINS">
         <valueAttribute
           name="enumName"
           value="WINDOW_WITH_CURTAINS" />
@@ -478,7 +443,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.WindowMaster"
-        id="SHUTTERS">
+        key="dss.vector.solutions.intervention.monitor.WindowMaster.SHUTTERS">
         <valueAttribute
           name="enumName"
           value="SHUTTERS" />
@@ -621,14 +586,6 @@
         name="dss.vector.solutions.intervention.monitor.HouseholdNet"
         label="Household Net"
         generateController="false">
-        <parent
-          cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.Household"
-          method="Households" />
-        <child
-          cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.Net"
-          method="Nets" />
         <attributes>
           <integer
             name="amount"
@@ -637,6 +594,14 @@
             rejectNegative="true"
             default_value="0" />
         </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Household"
+          method="Households" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Net"
+          method="Nets" />
       </mdTree>
 
       <mdEnumeration
@@ -645,9 +610,9 @@
         label="Sex"
         description="List of person sex options">
         <addEnumItem
-          id="MALE" />
+          name="MALE" />
         <addEnumItem
-          id="FEMALE" />
+          name="FEMALE" />
       </mdEnumeration>
 
       <mdBusiness
@@ -683,7 +648,6 @@
 
       <object
         type="dss.vector.solutions.intervention.FeverTreatment"
-        id="Fever_None"
         key="none">
         <valueAttribute
           name="treatmentName"
@@ -698,7 +662,6 @@
 
       <object
         type="dss.vector.solutions.intervention.FeverTreatment"
-        id="Fever_private"
         key="private">
         <valueAttribute
           name="treatmentName"
@@ -713,7 +676,6 @@
 
       <object
         type="dss.vector.solutions.intervention.FeverTreatment"
-        id="Fever_public"
         key="public">
         <valueAttribute
           name="treatmentName"
@@ -728,7 +690,6 @@
 
       <object
         type="dss.vector.solutions.intervention.FeverTreatment"
-        id="Fever_local healer"
         key="local healer">
         <valueAttribute
           name="treatmentName"
@@ -743,7 +704,6 @@
 
       <object
         type="dss.vector.solutions.intervention.FeverTreatment"
-        id="Fever_pharmacist"
         key="pharmacist">
         <valueAttribute
           name="treatmentName"
@@ -763,7 +723,7 @@
 
       <object
         type="dss.vector.solutions.intervention.ResponseMaster"
-        id="YES">
+        key="dss.vector.solutions.intervention.ResponseMaster.YES">
         <valueAttribute
           name="enumName"
           value="YES" />
@@ -777,7 +737,7 @@
 
       <object
         type="dss.vector.solutions.intervention.ResponseMaster"
-        id="NO">
+        key="dss.vector.solutions.intervention.ResponseMaster.NO">
         <valueAttribute
           name="enumName"
           value="NO" />
@@ -791,7 +751,7 @@
 
       <object
         type="dss.vector.solutions.intervention.ResponseMaster"
-        id="REFUSED">
+        key="dss.vector.solutions.intervention.ResponseMaster.REFUSED">
         <valueAttribute
           name="enumName"
           value="REFUSED" />
@@ -805,7 +765,7 @@
 
       <object
         type="dss.vector.solutions.intervention.ResponseMaster"
-        id="NOT_PRESENT">
+        key="dss.vector.solutions.intervention.ResponseMaster.NOT_PRESENT">
         <valueAttribute
           name="enumName"
           value="NOT_PRESENT" />
@@ -819,7 +779,7 @@
 
       <object
         type="dss.vector.solutions.intervention.ResponseMaster"
-        id="DONT_KNOW">
+        key="dss.vector.solutions.intervention.ResponseMaster.DONT_KNOW">
         <valueAttribute
           name="enumName"
           value="DONT_KNOW" />
@@ -836,11 +796,11 @@
         type="dss.vector.solutions.intervention.ResponseMaster"
         label="RDTResponse">
         <addEnumItem
-          id="YES" />
+          name="YES" />
         <addEnumItem
-          id="NO" />
+          name="NO" />
         <addEnumItem
-          id="REFUSED" />
+          name="REFUSED" />
       </mdEnumeration>
 
       <enumerationMaster
@@ -850,7 +810,7 @@
 
       <object
         type="dss.vector.solutions.intervention.RDTResultMaster"
-        id="Pf positive">
+        key="dss.vector.solutions.intervention.RDTResultMaster.PF_POSITIVE">
         <valueAttribute
           name="enumName"
           value="PF_POSITIVE" />
@@ -864,7 +824,7 @@
 
       <object
         type="dss.vector.solutions.intervention.RDTResultMaster"
-        id="Mixed positive">
+        key="dss.vector.solutions.intervention.RDTResultMaster.MIXED_POSITIVE">
         <valueAttribute
           name="enumName"
           value="MIXED_POSITIVE" />
@@ -878,7 +838,7 @@
 
       <object
         type="dss.vector.solutions.intervention.RDTResultMaster"
-        id="Vivax positive">
+        key="dss.vector.solutions.intervention.RDTResultMaster.VIVAX_POSITIVE">
         <valueAttribute
           name="enumName"
           value="VIVAX_POSITIVE" />
@@ -892,7 +852,7 @@
 
       <object
         type="dss.vector.solutions.intervention.RDTResultMaster"
-        id="Malariae positive">
+        key="dss.vector.solutions.intervention.RDTResultMaster.MALARIAE_POSITIVE">
         <valueAttribute
           name="enumName"
           value="MALARIAE_POSITIVE" />
@@ -906,7 +866,7 @@
 
       <object
         type="dss.vector.solutions.intervention.RDTResultMaster"
-        id="Ovale positive">
+        key="dss.vector.solutions.intervention.RDTResultMaster.OVALE_POSITIVE">
         <valueAttribute
           name="enumName"
           value="OVALE_POSITIVE" />
@@ -920,7 +880,7 @@
 
       <object
         type="dss.vector.solutions.intervention.RDTResultMaster"
-        id="NEGATIVE">
+        key="dss.vector.solutions.intervention.RDTResultMaster.NEGATIVE">
         <valueAttribute
           name="enumName"
           value="NEGATIVE" />
@@ -934,7 +894,7 @@
 
       <object
         type="dss.vector.solutions.intervention.RDTResultMaster"
-        id="NOT VALID">
+        key="dss.vector.solutions.intervention.RDTResultMaster.NOT_VALID">
         <valueAttribute
           name="enumName"
           value="NOT_VALID" />
@@ -960,7 +920,7 @@
 
       <object
         type="dss.vector.solutions.intervention.BloodslideResponseMaster"
-        id="Done">
+        key="dss.vector.solutions.intervention.BloodslideResponseMaster.DONE">
         <valueAttribute
           name="enumName"
           value="DONE" />
@@ -974,7 +934,7 @@
 
       <object
         type="dss.vector.solutions.intervention.BloodslideResponseMaster"
-        id="Not_Available">
+        key="dss.vector.solutions.intervention.BloodslideResponseMaster.NOT_AVAILABLE">
         <valueAttribute
           name="enumName"
           value="NOT_AVAILABLE" />
@@ -988,7 +948,7 @@
 
       <object
         type="dss.vector.solutions.intervention.BloodslideResponseMaster"
-        id="Blood_Refused">
+        key="dss.vector.solutions.intervention.BloodslideResponseMaster.REFUSED">
         <valueAttribute
           name="enumName"
           value="REFUSED" />
@@ -1012,11 +972,11 @@
         type="dss.vector.solutions.intervention.ResponseMaster"
         label="Fever Response">
         <addEnumItem
-          id="YES" />
+          name="YES" />
         <addEnumItem
-          id="NO" />
+          name="NO" />
         <addEnumItem
-          id="DONT_KNOW" />
+          name="DONT_KNOW" />
       </mdEnumeration>
 
       <mdBusiness

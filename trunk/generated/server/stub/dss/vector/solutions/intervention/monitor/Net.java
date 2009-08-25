@@ -20,19 +20,19 @@ public class Net extends NetBase implements com.terraframe.mojo.generation.loade
   {
     super();
   }
-  
+
   @Transaction
   public void apply()
   {
     super.apply();
-    
+
     List<? extends Net> parents = this.getAllParentNets().getAll();
-    
+
     if(this.getParentNet() == null)
     {
       if(parents.size() > 0)
       {
-        this.deleteAllParents();        
+        this.deleteAllParents();
       }
     }
     else if(!parents.contains(this.getParentNet()))
@@ -41,10 +41,10 @@ public class Net extends NetBase implements com.terraframe.mojo.generation.loade
 
       Net parent = this.getParentNet();
       parent.lock();
-      
+
       NetHeiarchy heiarchy = new NetHeiarchy(parent, this);
       heiarchy.apply();
-      
+
       if(!parent.getIsAbstract())
       {
         parent.setIsAbstract(true);
@@ -57,7 +57,7 @@ public class Net extends NetBase implements com.terraframe.mojo.generation.loade
   private void deleteAllParents()
   {
     List<? extends NetHeiarchy> hierarchy = this.getAllParentNetsRel().getAll();
-    
+
     for(NetHeiarchy h : hierarchy)
     {
       h.delete();
@@ -67,9 +67,9 @@ public class Net extends NetBase implements com.terraframe.mojo.generation.loade
   @Override
   protected String buildKey()
   {
-    return this.getMdClass().getTypeName() + "_" + this.getNetName();
+    return this.getNetName();
   }
-  
+
   public String getOptionName()
   {
     return this.getNetName();
@@ -147,14 +147,14 @@ public class Net extends NetBase implements com.terraframe.mojo.generation.loade
       it.close();
     }
   }
-  
+
   public static ValueQuery getPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     QueryFactory factory = new QueryFactory();
-    
+
     NetQuery netQuery = new NetQuery(factory);
     ValueQuery valueQuery = new ValueQuery(factory);
-    
+
     Selectable[] selectables = new Selectable[] {
         netQuery.getId(),
         netQuery.getDisplayLabel(),
@@ -162,7 +162,7 @@ public class Net extends NetBase implements com.terraframe.mojo.generation.loade
         netQuery.getIsAbstract(),
         netQuery.getParentNet().getDisplayLabel(Net.PARENTNET, Net.PARENTNET)
     };
-    
+
     valueQuery.SELECT(selectables);
 
     SelectablePrimitive selectablePrimitive = (SelectablePrimitive) netQuery.aAttributePrimitive("id");
@@ -188,7 +188,7 @@ public class Net extends NetBase implements com.terraframe.mojo.generation.loade
     if (pageSize != 0 && pageNumber != 0)
     {
       valueQuery.restrictRows(pageSize, pageNumber);
-    }    
+    }
     return valueQuery;
 
   }

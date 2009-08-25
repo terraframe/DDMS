@@ -15,6 +15,11 @@ public class AggregatedAgeGroup extends AggregatedAgeGroupBase implements com.te
     super();
   }
 
+  protected String buildKey()
+  {
+    return this.getMdView().definesType();
+  }
+
   public static AggregatedAgeGroup[] getAll()
   {
     List<AggregatedAgeGroup> list = new LinkedList<AggregatedAgeGroup>();

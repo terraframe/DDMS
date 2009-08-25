@@ -8,21 +8,26 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.apache.poi.hpsf.SummaryInformation;
-import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import com.terraframe.mojo.dataaccess.io.dataDefinition.XMLTags;
 /*
-SELECT DISTINCT 
-	universal, 
+SELECT DISTINCT
+	universal,
 	CASE
-		WHEN (geom_multipolygon IS NOT NULL AND geom_point IS NULL and geom_multilinestring IS NULL) THEN 'MULTIPOLYGON' 
-		WHEN (geom_multipolygon IS NULL AND geom_point IS NOT NULL and geom_multilinestring IS NULL) THEN 'POINT' 
-		WHEN (geom_multipolygon IS NULL AND geom_point IS NULL and geom_multilinestring IS NOT NULL) THEN 'MULTILINESTRING' 
-		ELSE 'ERROR' 
-	END AS geometry 
-FROM geographic_entities_geometry 
+		WHEN (geom_multipolygon IS NOT NULL AND geom_point IS NULL and geom_multilinestring IS NULL) THEN 'MULTIPOLYGON'
+		WHEN (geom_multipolygon IS NULL AND geom_point IS NOT NULL and geom_multilinestring IS NULL) THEN 'POINT'
+		WHEN (geom_multipolygon IS NULL AND geom_point IS NULL and geom_multilinestring IS NOT NULL) THEN 'MULTILINESTRING'
+		ELSE 'ERROR'
+	END AS geometry
+FROM geographic_entities_geometry
 JOIN geographic_entities_relations USING (geo_id)
-JOIN universal ON (instance_of = universal_id) 
-ORDER BY universal 
+JOIN universal ON (instance_of = universal_id)
+ORDER BY universal
  */
 public class UniversalImporter {
 	/**
@@ -42,7 +47,7 @@ public class UniversalImporter {
 		super();
 		this.addUniversal(Universal.EARTH);
 	}
-	
+
 	public UniversalImporter(String filename) {
 		this();
 		this.filename = filename;
@@ -55,7 +60,7 @@ public class UniversalImporter {
 	public void importUniversals() {
 		this.importExcelFile(filename);
 	}
-	
+
 	private void importExcelFile(String filename) {
 		InputStream stream;
 		try {
@@ -160,99 +165,100 @@ public class UniversalImporter {
 	}
 
 	private void processUniversals(String sourceName) {
-		System.out.println("<version xsi:noNamespaceSchemaLocation=\"../profiles/version_gis.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
+		System.out.println("<"+XMLTags.VERSION_TAG+" xsi:noNamespaceSchemaLocation=\"../profiles/version_gis.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
 		System.out.println("<!-- Created on " + new Date() + " from " + sourceName + " -->");
-		System.out.println("<doIt>");
-		System.out.println("<existing>");	
-		System.out.println("   <object key=\"GeoHierarchy_Earth\"");
-		System.out.println("      id=\"EarthH\"");
-		System.out.println("      type=\"dss.vector.solutions.geo.GeoHierarchy\" />");
-		System.out.println("   <object key=\"dss.vector.solutions.geo.generated.Earth\"");
-		System.out.println("      id=\"EarthMd\"");
-		System.out.println("      type=\"com.terraframe.mojo.system.metadata.MdBusiness\" />");
-		System.out.println("</existing>");	
-	      
+		System.out.println("<"+XMLTags.DO_IT+">");
+// Heads up: clean up
+//		System.out.println("<existing>");
+//		System.out.println("   <object key=\"GeoHierarchy_Earth\"");
+//		System.out.println("      id=\"EarthH\"");
+//		System.out.println("      type=\"dss.vector.solutions.geo.GeoHierarchy\" />");
+//		System.out.println("   <object key=\"dss.vector.solutions.geo.generated.Earth\"");
+//		System.out.println("      id=\"EarthMd\"");
+//		System.out.println("      type=\"com.terraframe.mojo.system.metadata.MdBusiness\" />");
+//		System.out.println("</existing>");
+
 		//1) define an <mdBusiness> to define the class that will store instances of the geo universal
-		System.out.println("<create>");
+		System.out.println("<"+XMLTags.CREATE_TAG+">");
 		for (Universal u : universals.values()) {
 			if (u != Universal.EARTH) {
 				System.out.println(u.getMdBusinessTag());
 			}
 		}
-		System.out.println("</create>\n");
-		
-		//2) create an <existing> tag to create a pseudo ID for the <mdBusiness> definition
-		System.out.println("<existing>");
-		for (Universal u : universals.values()) {
-			if (u != Universal.EARTH) {
-				System.out.println(u.getMetadataTag());
-			}
-		}
-		System.out.println("</existing>\n");
-		
-		System.out.println("<create>");
+		System.out.println("</"+XMLTags.CREATE_TAG+">\n");
+
+//		//2) create an <existing> tag to create a pseudo ID for the <mdBusiness> definition
+//		System.out.println("<existing>");
+//		for (Universal u : universals.values()) {
+//			if (u != Universal.EARTH) {
+//				System.out.println(u.getMetadataTag());
+//			}
+//		}
+//		System.out.println("</existing>\n");
+
+		System.out.println("<"+XMLTags.CREATE_TAG+">");
 		//3) create an instance of dss.vector.solutions.geo.GeoHierarchy using an <object> tag that references the <mdBusiness> using the pseudo ID
 		for (Universal u : universals.values()) {
 			if (u != Universal.EARTH) {
 				System.out.println(u.getGeoHierarchyTag());
 			}
 		}
-		System.out.println("</create>\n");
-		
+		System.out.println("</"+XMLTags.CREATE_TAG+">\n");
+
 		//4) create instancees of the dss.vector.solutions.geo.AllowedIn relationship as necessary for the GeoHierarchy instance you just created
-		System.out.println("<create>");
+		System.out.println("<"+XMLTags.CREATE_TAG+">");
 		for (Universal u : universals.values()) {
 			if (u != Universal.EARTH) {
 				if (u.getAllowedIn() != null) {
 					Universal allowedIn = u.getAllowedIn();
-					System.out.println(u.getRelationshipTag(allowedIn.getName()));
+					System.out.println(u.getRelationshipTag(allowedIn.getType(), allowedIn.getTypeName()));
 					for (Universal allowedInDescendant: allowedIn.getIsADescendants()) {
-						System.out.println(u.getRelationshipTag(allowedInDescendant.getName()));
+						System.out.println(u.getRelationshipTag(allowedInDescendant.getType(), allowedInDescendant.getTypeName()));
 					}
-					
-					
+
+
 					for (Universal allowedInAncestor: allowedIn.getAllowedInAncestors()) {
 						for (Universal allowedInDescendant: allowedInAncestor.getIsADescendants()) {
-							System.out.println(u.getRelationshipTag(allowedInDescendant.getName()));
+							System.out.println(u.getRelationshipTag(allowedInDescendant.getType(), allowedInDescendant.getTypeName()));
 						}
 					}
 				}
 			}
 		}
-		System.out.println("</create>\n");
-		
+		System.out.println("</"+XMLTags.CREATE_TAG+">\n");
+
 		//5) Define all necessary permissions
-		System.out.println("<permissions>");
-		
-		System.out.println("   <role roleName=\"GUIVisibility\">");
+		System.out.println("<"+XMLTags.PERMISSIONS_TAG+">");
+
+		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"GUIVisibility\">");
 		for (Universal u : universals.values()) {
 			if (u != Universal.EARTH) {
 				System.out.println(u.getReadPermissionsTag());
 			}
 		}
-		System.out.println("   </role>\n");
-		
-		System.out.println("   <role roleName=\"mdssCoordinator\">");
+		System.out.println("   </"+XMLTags.ROLE_TAG+">\n");
+
+		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"mdssCoordinator\">");
 		for (Universal u : universals.values()) {
 			if (u != Universal.EARTH) {
 				System.out.println(u.getUpdatePermissionsTag());
 			}
 		}
-		System.out.println("   </role>\n");	
-		
-		System.out.println("   <role roleName=\"entomologist\">");
+		System.out.println("   </"+XMLTags.ROLE_TAG+">\n");
+
+		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"entomologist\">");
 		for (Universal u : universals.values()) {
 			if (u != Universal.EARTH) {
 				System.out.println(u.getUpdatePermissionsTag());
 			}
 		}
-		System.out.println("   </role>\n");
-		
-		System.out.println("</permissions>\n");
-		
-		System.out.println("</doIt>");
-		System.out.println("<undoIt>");
-		System.out.println("</undoIt>");
-		System.out.println("</version>");
+		System.out.println("   </"+XMLTags.ROLE_TAG+">\n");
+
+		System.out.println("</"+XMLTags.PERMISSIONS_TAG+">\n");
+
+		System.out.println("</"+XMLTags.DO_IT+">");
+		System.out.println("<"+XMLTags.UNDO_IT+">");
+		System.out.println("</"+XMLTags.UNDO_IT+">");
+		System.out.println("</"+XMLTags.VERSION_TAG+">");
 	}
 }

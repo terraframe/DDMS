@@ -2,28 +2,6 @@
   xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <existing>
-      <object
-        key="com.terraframe.mojo.system.Roles.operationalManager"
-        type="com.terraframe.mojo.system.Roles"
-        id="operationalManager" />
-      <object
-        key="com.terraframe.mojo.system.Roles.entomologist"
-        type="com.terraframe.mojo.system.Roles"
-        id="entomologist" />
-      <object
-        key="com.terraframe.mojo.system.Roles.dataCapturer"
-        type="com.terraframe.mojo.system.Roles"
-        id="dataCapturer" />
-      <object
-        key="com.terraframe.mojo.system.Roles.mdssCoordinator"
-        type="com.terraframe.mojo.system.Roles"
-        id="mdssCoordinator" />
-      <object
-        key="com.terraframe.mojo.system.Roles.GUIVisibility"
-        type="com.terraframe.mojo.system.Roles"
-        id="GUIVisibility" />
-    </existing>
     <permissions>
       <role roleName="GUIVisibility">
         <mdBusinessPermission type="com.terraframe.mojo.system.Roles">
@@ -134,12 +112,12 @@
           <operation name="READ"/>
           <operation name="READ_ALL"/>
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="dss.vector.solutions.entomology.MosquitoCollectionPoint">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
         </mdBusinessPermission>
-        
+
         <mdViewPermission type="dss.vector.solutions.entomology.MosquitoCollectionPointView">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
@@ -242,7 +220,7 @@
           <operation name="DELETE"/>
           <operation name="READ"/>
           <operation name="READ_ALL"/>
-        </mdViewPermission>        
+        </mdViewPermission>
       </role>
       <role roleName="dataCapturer">
         <mdBusinessPermission

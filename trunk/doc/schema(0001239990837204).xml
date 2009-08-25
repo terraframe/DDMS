@@ -162,7 +162,7 @@
         </mdAction>
       </mdController>
       <object
-        id="testEntomologist"
+        key="Users.testEntomologist"
         type="com.terraframe.mojo.system.Users">
         <valueAttribute
           name="username"
@@ -185,7 +185,7 @@
         key="dss.vector.solutions.util.ReadableAttributeController"
         type="com.terraframe.mojo.system.metadata.MdController" />
       <object
-        key="com.terraframe.mojo.system.Users.testEntomologist"
+        key="Users.testEntomologist"
         type="com.terraframe.mojo.system.Users" />
     </delete>
   </undoIt>

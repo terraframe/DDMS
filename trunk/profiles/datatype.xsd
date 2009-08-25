@@ -5,22 +5,12 @@
 
   <xs:complexType name="rootOptions">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="existing" />
       <xs:element ref="delete" />
       <xs:element ref="update" />
       <xs:element ref="create" />
       <xs:element ref="permissions" />
     </xs:choice>
   </xs:complexType>
-
-  <xs:element name="existing">
-    <xs:complexType>
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="object" type="entityKey" />
-        <xs:element name="relationship" type="entityKey" />
-      </xs:choice>
-    </xs:complexType>
-  </xs:element>
 
   <xs:element name="delete">
     <xs:complexType>
@@ -98,12 +88,6 @@
     <xs:key name="enumPath">
       <xs:selector xpath=".//enumerationMaster" />
       <xs:field xpath="@name" />
-    </xs:key>
-
-    <!--Ensure the each object id is a unique key-->
-    <xs:key name="instancePath">
-      <xs:selector xpath=".//object | .//relationship" />
-      <xs:field xpath="@id" />
     </xs:key>
 
     <!--VALUES WHICH NEED TO BE UNIQUE, BUT ARE NOT KEYS-->
@@ -283,7 +267,7 @@
   </xs:complexType>
 
   <xs:complexType name="enumItem">
-    <xs:attribute name="id" type="xs:string" use="required" />
+    <xs:attribute name="name" type="xs:string" use="required" />
   </xs:complexType>
 
   <xs:complexType name="mdEnumeration">
@@ -391,13 +375,12 @@
   <xs:complexType name="mdEntity">
     <xs:complexContent>
       <xs:extension base="mdClass">
-        <xs:sequence>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element name="attributes" type="attributes" minOccurs="0" />
           <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
-          <xs:element name="create" type="mdEntityOptions" minOccurs="0" maxOccurs="1" />
           <xs:element name="stubSource" minOccurs="0" maxOccurs="1" />
           <xs:element name="dtoStubSource" minOccurs="0" maxOccurs="1" />
-        </xs:sequence>
+        </xs:choice>
         <xs:attribute name="generateController" type="xs:boolean" default="true" use="optional" />
       </xs:extension>
     </xs:complexContent>
@@ -405,7 +388,12 @@
 
   <xs:complexType name="mdStruct">
     <xs:complexContent>
+
       <xs:extension base="mdEntity">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="create" type="mdEntityOptions" minOccurs="0" maxOccurs="1"/>
+      </xs:choice>
+
         <!--
 					cacheSize: The number of items in the cache, only applicable for
 					most recently used
@@ -419,7 +407,11 @@
 
   <xs:complexType name="mdLocalStruct">
     <xs:complexContent>
-      <xs:extension base="mdEntity"/>
+      <xs:extension base="mdEntity">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="create" type="mdEntityOptions" minOccurs="0" maxOccurs="1"/>
+      </xs:choice>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
@@ -436,9 +428,9 @@
   <xs:complexType name="mdBusinessOptions">
     <xs:complexContent>
       <xs:extension base="mdEntityOptions">
-        <xs:sequence>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element name="mdStateMachine" type="mdStateMachine" minOccurs="0" maxOccurs="1" />
-        </xs:sequence>
+        </xs:choice>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -461,47 +453,39 @@
 
   <xs:complexType name="mdBusiness">
     <xs:complexContent>
-      <xs:restriction base="mdBusinessBase">
-        <xs:sequence>
-          <xs:element name="attributes" type="attributes" minOccurs="0" />
-          <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
+      <xs:extension base="mdBusinessBase">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element name="mdStateMachine" type="mdStateMachine" minOccurs="0" maxOccurs="1" />
-          <xs:element name="create" type="mdBusinessOptions" minOccurs="0" maxOccurs="1" />
-          <xs:element name="stubSource" minOccurs="0" maxOccurs="1" />
-          <xs:element name="dtoStubSource" minOccurs="0" maxOccurs="1" />
-        </xs:sequence>
-      </xs:restriction>
+          <xs:element name="create" type="mdBusinessOptions" minOccurs="0" maxOccurs="1"/>
+        </xs:choice>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
   <!--Data for the mdRelationship type-->
   <xs:complexType name="mdRelationshipBase">
     <xs:complexContent>
-      <xs:restriction base="mdElement">
-        <xs:sequence>
-          <!--The parent mdBusiness of the mdRelationship -->
-          <xs:element name="parent" type="participant" minOccurs="0" maxOccurs="1" />
-          <!--The child mdBusiness of the mdRelationship -->
-          <xs:element name="child" type="participant" minOccurs="0" maxOccurs="1" />
-          <xs:element name="attributes" type="attributes" minOccurs="0" />
-          <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
-          <xs:element name="create" type="mdEntityOptions" minOccurs="0" maxOccurs="1" />
-          <xs:element name="stubSource" minOccurs="0" maxOccurs="1" />
-          <xs:element name="dtoStubSource" minOccurs="0" maxOccurs="1" />
-        </xs:sequence>
-      </xs:restriction>
+      <xs:extension base="mdElement">
+       <xs:attribute name="composition" type="xs:boolean" />
+        <!--extends: The fully qualified name of the parent mdRelationship-->
+        <xs:attribute name="extends" type="xs:string" />
+        <!--cacheAlgorithm: The choice from a list of cacheAlgorithm-->
+        <xs:attribute name="cacheAlgorithm" type="relationshipCacheOptions" />
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
   <xs:complexType name="mdRelationship">
     <xs:complexContent>
       <xs:extension base="mdRelationshipBase">
+       <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <!--The parent mdBusiness of the mdRelationship -->
+          <xs:element name="parent" type="participant" minOccurs="0" maxOccurs="1" />
+          <!--The child mdBusiness of the mdRelationship -->
+          <xs:element name="child" type="participant" minOccurs="0" maxOccurs="1" />
+          <xs:element name="create" type="mdBusinessOptions" minOccurs="0" maxOccurs="1"/>
+       </xs:choice>
         <!--composition: If the mdRelationship is a composition -->
-        <xs:attribute name="composition" type="xs:boolean" />
-        <!--extends: The fully qualified name of the parent mdRelationship-->
-        <xs:attribute name="extends" type="xs:string" />
-        <!--cacheAlgorithm: The choice from a list of cacheAlgorithm-->
-        <xs:attribute name="cacheAlgorithm" type="relationshipCacheOptions" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -615,14 +599,6 @@
     <xs:attribute name="key" type="xs:string" use="required" />
   </xs:complexType>
 
-  <xs:complexType name="entityKey">
-    <xs:complexContent>
-      <xs:extension base="entityReference">
-        <xs:attribute name="id" type="xs:string" use="required" />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
   <xs:complexType name="entity">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <!--The attribute-value pairings of the object-->
@@ -636,19 +612,18 @@
     </xs:choice>
     <!--The qualified path of the mdBusiness being instaniated-->
     <xs:attribute name="type" type="xs:string" use="required" />
-    <!--A unqiue id for the object-->
-    <xs:attribute name="id" type="xs:string" use="required" />
-    <xs:attribute name="key" type="xs:string" use="optional" />
+    <!--A key for the object-->
+     <xs:attribute name="key" type="xs:string" use="required" />
   </xs:complexType>
 
   <!--A new instance of a mdRelationship DAO-->
   <xs:complexType name="relationshipCreate">
     <xs:complexContent>
       <xs:extension base="entity">
-        <!--parentId: The xml id of the object of the parent-->
-        <xs:attribute name="parentId" type="xs:string" use="required" />
-        <!--childId: The xml id of the object of the child-->
-        <xs:attribute name="childId" type="xs:string" use="required" />
+        <!--parentKey: The xml id of the object of the parent-->
+        <xs:attribute name="parentKey" type="xs:string" use="required" />
+        <!--childKey: The xml id of the object of the child-->
+        <xs:attribute name="childKey" type="xs:string" use="required" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -668,8 +643,8 @@
     <xs:complexType>
       <!--attribute: The name of the attribute instantiated-->
       <xs:attribute name="name" type="xs:string" use="required" />
-      <!--id: The xml id of the mdBusiness being referened-->
-      <xs:attribute name="id" type="xs:string" use="required" />
+      <!--key: The xml key of the mdBusiness being referened-->
+       <xs:attribute name="key" type="xs:string" use="required" />
     </xs:complexType>
   </xs:element>
 
@@ -681,8 +656,7 @@
       <xs:sequence>
         <xs:element name="enumeratedItem" minOccurs="0" maxOccurs="unbounded">
           <xs:complexType>
-            <!--id: The puesdo xml id of the enumerated item-->
-            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="name" type="xs:string" use="required" />
           </xs:complexType>
         </xs:element>
       </xs:sequence>
@@ -832,10 +806,10 @@
   <xs:attributeGroup name="attributereference">
     <xs:attributeGroup ref="attribute" />
 		<!--
-	      default_value: The value of the attribute if no other value is
+	      default_value_key: The value of the attribute if no other value is
 		  specified
 		-->
-    <xs:attribute name="default_value" type="xs:string" />
+    <xs:attribute name="default_value_key" type="xs:string" />
 
     <!--The fully qualified path of Object being referenced-->
     <xs:attribute name="type" type="xs:string" />

@@ -5,7 +5,6 @@
     <create>
 
       <object
-        id="MDSSPersonAdmin"
         type="dss.vector.solutions.Person"
         key="dss.vector.solutions.MDSSPersonAdmin">
         <valueAttribute
@@ -17,7 +16,7 @@
       </object>
 
       <object
-        id="MDSSUserAdmin"
+        key="Users.MDSSUserAdmin"
         type="dss.vector.solutions.MDSSUser">
         <valueAttribute
           name="username"
@@ -30,7 +29,7 @@
           value="10" />
         <referenceAttribute
           name="person"
-          id="MDSSPersonAdmin" />
+          key="dss.vector.solutions.MDSSPersonAdmin" />
       </object>
 
       <mdException
@@ -43,12 +42,11 @@
     <update>
 
       <object
-        id="UpdatedMDSSPersonAdmin"
         type="dss.vector.solutions.Person"
         key="dss.vector.solutions.MDSSPersonAdmin">
         <referenceAttribute
           name="userDelegate"
-          id="MDSSUserAdmin" />
+          key="Users.MDSSUserAdmin" />
       </object>
 
     </update>

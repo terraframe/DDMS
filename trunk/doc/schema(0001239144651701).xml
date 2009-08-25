@@ -8,7 +8,7 @@
     <create>
       <object
         type="dss.vector.solutions.mo.InfectivityMethodology"
-        id="MIRO_MISSING1">
+        key="MIRO_MISSING1">
         <valueAttribute
           name="termId"
           value="MIRO_MISSING1" />
@@ -27,7 +27,7 @@
       </object>
       <object
         type="dss.vector.solutions.mo.InfectivityMethodology"
-        id="MIRO_MISSING2">
+        key="MIRO_MISSING2">
         <valueAttribute
           name="termId"
           value="MIRO_MISSING2" />
@@ -46,7 +46,7 @@
       </object>
       <object
         type="dss.vector.solutions.mo.InfectivityMethodology"
-        id="MIRO_MISSING3">
+        key="MIRO_MISSING3">
         <valueAttribute
           name="termId"
           value="MIRO_MISSING3" />
@@ -65,7 +65,7 @@
       </object>
       <object
         type="dss.vector.solutions.mo.InfectivityMethodology"
-        id="MIRO_MISSING4">
+        key="MIRO_MISSING4">
         <valueAttribute
           name="termId"
           value="MIRO_MISSING4" />
@@ -86,7 +86,7 @@
 
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
-        id="MIRO_20000086">
+        key="MIRO_20000086">
         <valueAttribute
           name="termId"
           value="MIRO_20000086" />
@@ -115,7 +115,7 @@
 
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
-        id="MIRO_20000102">
+        key="MIRO_20000102">
         <valueAttribute
           name="termId"
           value="MIRO_20000102" />
@@ -144,7 +144,7 @@
 
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
-        id="MIRO_20000123">
+        key="MIRO_20000123">
         <valueAttribute
           name="termId"
           value="MIRO_20000123" />
@@ -173,7 +173,7 @@
 
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
-        id="MIRO_20000125">
+        key="MIRO_20000125">
         <valueAttribute
           name="termId"
           value="MIRO_20000125" />
@@ -202,7 +202,7 @@
 
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
-        id="MIRO_20000103">
+        key="MIRO_20000103">
         <valueAttribute
           name="termId"
           value="MIRO_20000103" />
@@ -231,7 +231,7 @@
 
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
-        id="MIRO_20000100">
+        key="MIRO_20000100">
         <valueAttribute
           name="termId"
           value="MIRO_20000100" />
@@ -260,7 +260,7 @@
 
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
-        id="MIRO_20000101">
+        key="MIRO_20000101">
         <valueAttribute
           name="termId"
           value="MIRO_20000101" />
@@ -289,7 +289,7 @@
 
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
-        id="MIRO_20000124">
+        key="MIRO_20000124">
         <valueAttribute
           name="termId"
           value="MIRO_20000124" />
@@ -318,7 +318,7 @@
 
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
-        id="MIRO_20000108">
+        key="MIRO_20000108">
         <valueAttribute
           name="termId"
           value="MIRO_20000108" />
@@ -347,7 +347,7 @@
 
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
-        id="MIRO_20000109">
+        key="MIRO_20000109">
         <valueAttribute
           name="termId"
           value="MIRO_20000109" />
@@ -376,7 +376,7 @@
 
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
-        id="MIRO_20000113">
+        key="MIRO_20000113">
         <valueAttribute
           name="termId"
           value="MIRO_20000113" />

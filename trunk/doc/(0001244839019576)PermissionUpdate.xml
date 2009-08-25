@@ -2,24 +2,13 @@
   xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <existing>
-      <object
-        key="com.terraframe.mojo.system.Roles.dataCapturer"
-        type="com.terraframe.mojo.system.Roles"
-        id="dataCapturer" />
-      <object
-        key="com.terraframe.mojo.system.Roles.GUIVisibility"
-        type="com.terraframe.mojo.system.Roles"
-        id="GUIVisibility" />
-    </existing>
-
     <permissions>
       <role roleName="MDSS">
         <superRole roleName="Administrator"/>
       </role>
       <role roleName="operationalManager">
         <superRole roleName="GUIVisibility"/>
-      </role>      
+      </role>
       <role
         roleName="GUIVisibility">
         <mdBusinessPermission

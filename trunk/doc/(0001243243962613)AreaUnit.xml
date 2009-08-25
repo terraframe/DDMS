@@ -10,7 +10,7 @@
 
       <object
         type="dss.vector.solutions.irs.TargetUnitMaster"
-        id="ROOM">
+        key="dss.vector.solutions.irs.TargetUnitMaster.ROOM">
         <valueAttribute
           name="enumName"
           value="ROOM" />
@@ -23,7 +23,7 @@
       </object>
       <object
         type="dss.vector.solutions.irs.TargetUnitMaster"
-        id="STRUCTURE">
+        key="dss.vector.solutions.irs.TargetUnitMaster.STRUCTURE">
         <valueAttribute
           name="enumName"
           value="STRUCTURE" />
@@ -36,7 +36,7 @@
       </object>
       <object
         type="dss.vector.solutions.irs.TargetUnitMaster"
-        id="HOUSEHOLD">
+        key="dss.vector.solutions.irs.TargetUnitMaster.HOUSEHOLD">
         <valueAttribute
           name="enumName"
           value="HOUSEHOLD" />

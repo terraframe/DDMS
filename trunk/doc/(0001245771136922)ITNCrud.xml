@@ -25,7 +25,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.ServiceGrid"
-        id="ANC visits">
+        key="dss.vector.solutions.intervention.monitor.ServiceGrid.ANCVisits">
         <valueAttribute
           name="optionName"
           value="ANCVisits" />
@@ -39,7 +39,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.ServiceGrid"
-        id="maternity ward">
+        key="dss.vector.solutions.intervention.monitor.ServiceGrid.maternityWard">
         <valueAttribute
           name="optionName"
           value="maternityWard" />
@@ -53,7 +53,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.ServiceGrid"
-        id="child vaccination">
+        key="dss.vector.solutions.intervention.monitor.ServiceGrid.childVaccination">
         <valueAttribute
           name="optionName"
           value="childVaccination" />
@@ -67,7 +67,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.ServiceGrid"
-        id="other out patient">
+        key="dss.vector.solutions.intervention.monitor.ServiceGrid.otherOutPatient">
         <valueAttribute
           name="optionName"
           value="otherOutPatient" />
@@ -81,7 +81,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.ServiceGrid"
-        id="other in patient">
+        key="dss.vector.solutions.intervention.monitor.ServiceGrid.otherInPatient">
         <valueAttribute
           name="optionName"
           value="otherInPatient" />
@@ -115,7 +115,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
-        id="lessThanFive">
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.lessThan5">
         <valueAttribute
           name="optionName"
           value="lessThan5" />
@@ -129,7 +129,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
-        id="pregnant women">
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.pregnantWomen">
         <valueAttribute
           name="optionName"
           value="pregnantWomen" />
@@ -143,7 +143,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
-        id="immuno compromised">
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.immunoCompromised">
         <valueAttribute
           name="optionName"
           value="immunoCompromised" />
@@ -157,7 +157,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
-        id="elderly">
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.elderly">
         <valueAttribute
           name="optionName"
           value="elderly" />
@@ -171,7 +171,7 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
-        id="other">
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.other">
         <valueAttribute
           name="optionName"
           value="other" />
@@ -287,14 +287,6 @@
         name="dss.vector.solutions.intervention.monitor.ITNService"
         label="ITN Service"
         generateController="false">
-        <parent
-          cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.ITNData"
-          method="ITNs" />
-        <child
-          cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.ServiceGrid"
-          method="Services" />
         <attributes>
           <integer
             name="amount"
@@ -303,20 +295,20 @@
             required="true"
             rejectNegative="true" />
         </attributes>
-      </mdTree>
-
-      <mdTree
-        name="dss.vector.solutions.intervention.monitor.ITNTargetGroup"
-        label="ITN Target Group"
-        generateController="false">
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.ITNData"
           method="ITNs" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
-          method="TargetGroups" />
+          name="dss.vector.solutions.intervention.monitor.ServiceGrid"
+          method="Services" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.ITNTargetGroup"
+        label="ITN Target Group"
+        generateController="false">
         <attributes>
           <integer
             name="amount"
@@ -325,20 +317,20 @@
             required="true"
             rejectNegative="true" />
         </attributes>
-      </mdTree>
-
-      <mdTree
-        name="dss.vector.solutions.intervention.monitor.ITNNet"
-        label="ITN Net"
-        generateController="false">
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.ITNData"
           method="ITNs" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.Net"
-          method="Nets" />
+          name="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
+          method="TargetGroups" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.ITNNet"
+        label="ITN Net"
+        generateController="false">
         <attributes>
           <integer
             name="amount"
@@ -347,6 +339,14 @@
             rejectNegative="true"
             default_value="0" />
         </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.ITNData"
+          method="ITNs" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Net"
+          method="Nets" />
       </mdTree>
 
       <mdView
@@ -416,7 +416,7 @@
           <integer
             name="displayNets"
             label="ITN Nets"
-            description="Marker for displaying ITN Net grid" />            
+            description="Marker for displaying ITN Net grid" />
         </attributes>
         <mdMethod
           name="deleteConcrete"

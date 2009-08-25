@@ -11,7 +11,7 @@
       </enumerationMaster>
 
       <object
-        id="SQUARE"
+        key="dss.vector.solutions.query.WellKnownNamesMaster.SQUARE"
         type="dss.vector.solutions.query.WellKnownNamesMaster">
         <valueAttribute
           name="enumName"
@@ -22,7 +22,7 @@
       </object>
 
       <object
-        id="CIRCLE"
+        key="dss.vector.solutions.query.WellKnownNamesMaster.CIRCLE"
         type="dss.vector.solutions.query.WellKnownNamesMaster">
         <valueAttribute
           name="enumName"
@@ -33,7 +33,7 @@
       </object>
 
       <object
-        id="TRIANGLE"
+        key="dss.vector.solutions.query.WellKnownNamesMaster.TRIANGLE"
         type="dss.vector.solutions.query.WellKnownNamesMaster">
         <valueAttribute
           name="enumName"
@@ -44,7 +44,7 @@
       </object>
 
       <object
-        id="STAR"
+        key="dss.vector.solutions.query.WellKnownNamesMaster.STAR"
         type="dss.vector.solutions.query.WellKnownNamesMaster">
         <valueAttribute
           name="enumName"
@@ -55,7 +55,7 @@
       </object>
 
       <object
-        id="CROSS"
+        key="dss.vector.solutions.query.WellKnownNamesMaster.CROSS"
         type="dss.vector.solutions.query.WellKnownNamesMaster">
         <valueAttribute
           name="enumName"

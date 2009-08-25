@@ -19,6 +19,7 @@
             name="roofName"
             label="Roof Name"
             required="true"
+            index="unique index"
             size="255" />
           <localChar
             name="displayLabel"
@@ -31,7 +32,7 @@
             required="true"
             default_value="true"
             negativeLabel="false"
-            positiveLabel="true" />            
+            positiveLabel="true" />
           <reference
             name="parentRoof"
             label="Parent"
@@ -65,6 +66,7 @@
             name="wallName"
             label="Wall Name"
             required="true"
+            index="unique index"
             size="255" />
           <localChar
             name="displayLabel"
@@ -106,7 +108,6 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
-        id="Natural_Roof"
         key="Natural_Roof">
         <valueAttribute
           name="roofName"
@@ -127,7 +128,6 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
-        id="Thatch_Leaf"
         key="Thatch_Leaf">
         <valueAttribute
           name="roofName"
@@ -140,18 +140,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentRoof"
-          id="Natural_Roof" />
+          key="Natural_Roof" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
-        childId="Thatch_Leaf"
-        parentId="Natural_Roof"
-        id="P_Thatch_Leaf" />
+        childKey="Thatch_Leaf"
+        parentKey="Natural_Roof"
+        key="Thatch_Leaf_IsA_Natural_Roof" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
-        id="Sticks_and_Mud"
         key="Sticks_and_Mud">
         <valueAttribute
           name="roofName"
@@ -164,18 +163,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentRoof"
-          id="Natural_Roof" />
+          key="Natural_Roof" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
-        childId="Sticks_and_Mud"
-        parentId="Natural_Roof"
-        id="P_Stick" />
+        childKey="Sticks_and_Mud"
+        parentKey="Natural_Roof"
+        key="Sticks_and_Mud_IsA_Natural_Roof" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
-        id="RUDIMENTARY_ROOF"
         key="RUDIMENTARY_ROOF">
         <valueAttribute
           name="roofName"
@@ -190,7 +188,6 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
-        id="Rustic_mat/plastic_sheet"
         key="Rustic_mat/plastic_sheet">
         <valueAttribute
           name="roofName"
@@ -203,18 +200,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentRoof"
-          id="RUDIMENTARY_ROOF" />
+          key="RUDIMENTARY_ROOF" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
-        childId="Rustic_mat/plastic_sheet"
-        parentId="RUDIMENTARY_ROOF"
-        id="P_Rustic" />
+        childKey="Rustic_mat/plastic_sheet"
+        parentKey="RUDIMENTARY_ROOF"
+        key="Rustic_mat/plastic_sheet_IsA_RUDIMENTARY_ROOF" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
-        id="Reed/bamboo"
         key="Reed/bamboo">
         <valueAttribute
           name="roofName"
@@ -227,18 +223,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentRoof"
-          id="RUDIMENTARY_ROOF" />
+          key="RUDIMENTARY_ROOF" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
-        childId="Reed/bamboo"
-        parentId="RUDIMENTARY_ROOF"
-        id="P_Reed" />
+        childKey="Reed/bamboo"
+        parentKey="RUDIMENTARY_ROOF"
+        key="Reed/bamboo_IsA_RUDIMENTARY_ROOF" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
-        id="Wood_planks"
         key="Wood_planks">
         <valueAttribute
           name="roofName"
@@ -251,18 +246,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentRoof"
-          id="RUDIMENTARY_ROOF" />
+          key="RUDIMENTARY_ROOF" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
-        childId="Wood_planks"
-        parentId="RUDIMENTARY_ROOF"
-        id="P_wood_planks" />
+        childKey="Wood_planks"
+        parentKey="RUDIMENTARY_ROOF"
+        key="Wood_planks_IsA_RUDIMENTARY_ROOF" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
-        id="FINISHED_ROOF"
         key="FINISHED_ROOF">
         <valueAttribute
           name="roofName"
@@ -277,7 +271,6 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
-        id="Corrugated_iron"
         key="Corrugated_iron">
         <valueAttribute
           name="roofName"
@@ -290,18 +283,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentRoof"
-          id="FINISHED_ROOF" />
+          key="FINISHED_ROOF" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
-        childId="Corrugated_iron"
-        parentId="FINISHED_ROOF"
-        id="P_Corrugated_iron" />
+        childKey="Corrugated_iron"
+        parentKey="FINISHED_ROOF"
+        key="Corrugated_iron_IsA_FINISHED_ROOF" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
-        id="Wood"
         key="Wood">
         <valueAttribute
           name="roofName"
@@ -314,18 +306,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentRoof"
-          id="FINISHED_ROOF" />
+          key="FINISHED_ROOF" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
-        childId="Wood"
-        parentId="FINISHED_ROOF"
-        id="P_Wood" />
+        childKey="Wood"
+        parentKey="FINISHED_ROOF"
+        key="Wood_IsA_FINISHED_ROOF" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
-        id="Calamine/cement_fiber"
         key="Calamine/cement_fiber">
         <valueAttribute
           name="roofName"
@@ -338,18 +329,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentRoof"
-          id="FINISHED_ROOF" />
+          key="FINISHED_ROOF" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
-        childId="Calamine/cement_fiber"
-        parentId="FINISHED_ROOF"
-        id="P_Calamine/cement_fiber" />
+        childKey="Calamine/cement_fiber"
+        parentKey="FINISHED_ROOF"
+        key="Calamine/cement_fiber_IsA_FINISHED_ROOF" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
-        id="Roofing_shingles"
         key="Roofing_shingles">
         <valueAttribute
           name="roofName"
@@ -362,18 +352,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentRoof"
-          id="FINISHED_ROOF" />
+          key="FINISHED_ROOF" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
-        childId="Roofing_shingles"
-        parentId="FINISHED_ROOF"
-        id="P_Roofing shingles" />
+        childKey="Roofing_shingles"
+        parentKey="FINISHED_ROOF"
+        key="Roofing_shingles_IsA_FINISHED_ROOF" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
-        id="OTHER"
         key="OTHER">
         <valueAttribute
           name="roofName"
@@ -388,7 +377,6 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="NATURAL_WALLS"
         key="NATURAL_WALLS">
         <valueAttribute
           name="wallName"
@@ -403,7 +391,6 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="No_walls"
         key="No_walls">
         <valueAttribute
           name="wallName"
@@ -416,18 +403,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentWall"
-          id="NATURAL_WALLS" />
+          key="NATURAL_WALLS" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
-        childId="No_walls"
-        parentId="NATURAL_WALLS"
-        id="P_No_walls" />
+        childKey="No_walls"
+        parentKey="NATURAL_WALLS"
+        key="No_walls_IsA_NATURAL_WALLS" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="Cane/sticks/bamboo/reed"
         key="Cane/sticks/bamboo/reed">
         <valueAttribute
           name="wallName"
@@ -440,18 +426,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentWall"
-          id="NATURAL_WALLS" />
+          key="NATURAL_WALLS" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
-        childId="Cane/sticks/bamboo/reed"
-        parentId="NATURAL_WALLS"
-        id="P_Cane/sticks/bamboo/reed" />
+        childKey="Cane/sticks/bamboo/reed"
+        parentKey="NATURAL_WALLS"
+        key="Cane/sticks/bamboo/reed_IsA_NATURAL_WALLS" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="RUDIMENTARY_WALLS"
         key="RUDIMENTARY_WALLS">
         <valueAttribute
           name="wallName"
@@ -466,7 +451,6 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="Bamboo/wood_with_mud"
         key="Bamboo/wood_with_mud">
         <valueAttribute
           name="wallName"
@@ -479,18 +463,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentWall"
-          id="RUDIMENTARY_WALLS" />
+          key="RUDIMENTARY_WALLS" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
-        childId="Bamboo/wood_with_mud"
-        parentId="RUDIMENTARY_WALLS"
-        id="P_Bamboo/wood_with_mud" />
+        childKey="Bamboo/wood_with_mud"
+        parentKey="RUDIMENTARY_WALLS"
+        key="Bamboo/wood_with_mud_IsA_RUDIMENTARY_WALLS" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="Stone_with_mud"
         key="Stone_with_mud">
         <valueAttribute
           name="wallName"
@@ -503,18 +486,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentWall"
-          id="RUDIMENTARY_WALLS" />
+          key="RUDIMENTARY_WALLS" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
-        childId="Stone_with_mud"
-        parentId="RUDIMENTARY_WALLS"
-        id="P_Stone_with_mud" />
+        childKey="Stone_with_mud"
+        parentKey="RUDIMENTARY_WALLS"
+        key="Stone_with_mud_IsA_RUDIMENTARY_WALLS" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="Uncovered_abode"
         key="Uncovered_abode">
         <valueAttribute
           name="wallName"
@@ -527,18 +509,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentWall"
-          id="RUDIMENTARY_WALLS" />
+          key="RUDIMENTARY_WALLS" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
-        childId="Uncovered_abode"
-        parentId="RUDIMENTARY_WALLS"
-        id="P_Uncovered_abode" />
+        childKey="Uncovered_abode"
+        parentKey="RUDIMENTARY_WALLS"
+        key="Uncovered_abode_IsA_RUDIMENTARY_WALLS" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="Plywood"
         key="Plywood">
         <valueAttribute
           name="wallName"
@@ -551,18 +532,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentWall"
-          id="RUDIMENTARY_WALLS" />
+          key="RUDIMENTARY_WALLS" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
-        childId="Plywood"
-        parentId="RUDIMENTARY_WALLS"
-        id="P_Plywood" />
+        childKey="Plywood"
+        parentKey="RUDIMENTARY_WALLS"
+        key="Plywood_IsA_RUDIMENTARY_WALLS" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="Carton"
         key="Carton">
         <valueAttribute
           name="wallName"
@@ -575,18 +555,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentWall"
-          id="RUDIMENTARY_WALLS" />
+          key="RUDIMENTARY_WALLS" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
-        childId="Carton"
-        parentId="RUDIMENTARY_WALLS"
-        id="P_Carton" />
+        childKey="Carton"
+        parentKey="RUDIMENTARY_WALLS"
+        key="Carton_IsA_RUDIMENTARY_WALLS" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="FINISHED_WALLS"
         key="FINISHED_WALLS">
         <valueAttribute
           name="wallName"
@@ -601,7 +580,6 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="Cement"
         key="Cement">
         <valueAttribute
           name="wallName"
@@ -614,18 +592,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentWall"
-          id="FINISHED_WALLS" />
+          key="FINISHED_WALLS" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
-        childId="Cement"
-        parentId="FINISHED_WALLS"
-        id="P_Cement" />
+        childKey="Cement"
+        parentKey="FINISHED_WALLS"
+        key="Cement_IsA_FINISHED_WALLS" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="Stone_with_lime/cement"
         key="Stone_with_lime/cement">
         <valueAttribute
           name="wallName"
@@ -638,18 +615,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentWall"
-          id="FINISHED_WALLS" />
+          key="FINISHED_WALLS" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
-        childId="Stone_with_lime/cement"
-        parentId="FINISHED_WALLS"
-        id="P_Stone_with_lime/cement" />
+        childKey="Stone_with_lime/cement"
+        parentKey="FINISHED_WALLS"
+        key="Stone_with_lime/cement_IsA_FINISHED_WALLS" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="Bricks"
         key="Bricks">
         <valueAttribute
           name="wallName"
@@ -662,18 +638,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentWall"
-          id="FINISHED_WALLS" />
+          key="FINISHED_WALLS" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
-        childId="Bricks"
-        parentId="FINISHED_WALLS"
-        id="P_Bricks" />
+        childKey="Bricks"
+        parentKey="FINISHED_WALLS"
+        key="Bricks_IsA_FINISHED_WALLS" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="Cement_blocks"
         key="Cement_blocks">
         <valueAttribute
           name="wallName"
@@ -686,18 +661,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentWall"
-          id="FINISHED_WALLS" />
+          key="FINISHED_WALLS" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
-        childId="Cement_blocks"
-        parentId="FINISHED_WALLS"
-        id="P_Cement_blocks" />
+        childKey="Cement_blocks"
+        parentKey="FINISHED_WALLS"
+        key="Cement_blocks_IsA_FINISHED_WALLS" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="Covered_Adobe"
         key="Covered_Adobe">
         <valueAttribute
           name="wallName"
@@ -710,18 +684,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentWall"
-          id="FINISHED_WALLS" />
+          key="FINISHED_WALLS" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
-        childId="Covered_Adobe"
-        parentId="FINISHED_WALLS"
-        id="P_Covered_Adobe" />
+        childKey="Covered_Adobe"
+        parentKey="FINISHED_WALLS"
+        key="Covered_Adobe_IsA_FINISHED_WALLS" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="Wood_planks/shingles"
         key="Wood_planks/shingles">
         <valueAttribute
           name="wallName"
@@ -734,18 +707,17 @@
         </structAttribute>
         <referenceAttribute
           name="parentWall"
-          id="FINISHED_WALLS" />
+          key="FINISHED_WALLS" />
       </object>
 
       <relationship
         type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
-        childId="Wood_planks/shingles"
-        parentId="FINISHED_WALLS"
-        id="P_Wood_planks/shingles" />
+        childKey="Wood_planks/shingles"
+        parentKey="FINISHED_WALLS"
+        key="Wood_planks/shingles_IsA_FINISHED_WALLS" />
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
-        id="OTHER_WALL"
         key="OTHER">
         <valueAttribute
           name="wallName"

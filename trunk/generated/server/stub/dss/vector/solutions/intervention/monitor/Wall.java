@@ -10,24 +10,29 @@ import com.terraframe.mojo.query.QueryFactory;
 public class Wall extends WallBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1241556936582L;
-  
+
   public Wall()
   {
     super();
   }
-  
+
+  protected String buildKey()
+  {
+    return this.getWallName();
+  }
+
   @Override
   public void apply()
   {
     super.apply();
 
     List<? extends Wall> parents = this.getAllParentWalls().getAll();
-    
+
     if(this.getParentWall() == null)
     {
       if(parents.size() > 0)
       {
-        this.deleteAllParents();        
+        this.deleteAllParents();
       }
     }
     else if(!parents.contains(this.getParentWall()))
@@ -35,42 +40,42 @@ public class Wall extends WallBase implements com.terraframe.mojo.generation.loa
       deleteAllParents();
 
       Wall parent = this.getParentWall();
-      
+
       WallHeiarchy heiarchy = new WallHeiarchy(parent, this);
       heiarchy.apply();
     }
   }
-  
+
   @Transaction
   private void deleteAllParents()
   {
     List<? extends WallHeiarchy> hierarchy = this.getAllParentWallsRel().getAll();
-    
+
     for(WallHeiarchy h : hierarchy)
     {
       h.delete();
     }
   }
 
-  
+
   public WallView getView()
   {
     WallView view = new WallView();
     view.populate(this);
-    
+
     return view;
   }
-  
+
   public static Wall[] getAll()
   {
     WallQuery query = new WallQuery(new QueryFactory());
     query.getEnabled().EQ(true);
-    
+
     List<? extends Wall> walls = query.getIterator().getAll();
-    
+
     return walls.toArray(new Wall[walls.size()]);
   }
-  
+
   public static Wall[] getRoots()
   {
     WallQuery query = new WallQuery(new QueryFactory());

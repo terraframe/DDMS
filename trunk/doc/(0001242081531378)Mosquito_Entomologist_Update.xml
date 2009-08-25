@@ -43,17 +43,7 @@
           </mdMethod>
         </create>
       </mdBusiness>
-    </update>  
-    <existing>
-      <object
-        key="com.terraframe.mojo.system.Roles.entomologist"
-        type="com.terraframe.mojo.system.Roles"
-        id="entomologist" />
-      <object
-        key="com.terraframe.mojo.system.Roles.GUIVisibility"
-        type="com.terraframe.mojo.system.Roles"
-        id="GUIVisibility" />
-    </existing>  
+    </update>
     <permissions>
       <role roleName="entomologist">
         <superRole roleName="GUIVisibility"/>
@@ -314,13 +304,13 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.general.Insecticide">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
       </role>
     </permissions>
   </doIt>

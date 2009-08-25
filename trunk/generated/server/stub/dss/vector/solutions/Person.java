@@ -21,6 +21,13 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   }
 
   @Override
+  protected String buildKey()
+  {
+    // Person class has no attributes that can form a unique identifier
+    return this.getId();
+  }
+
+  @Override
   public void apply()
   {
     validateDateOfBirth();
@@ -49,7 +56,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
       }
     }
   }
-  
+
   @Transaction
   public void deleteDelegates()
   {
@@ -81,14 +88,14 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     if (this.getSprayLeaderDelegate() != null)
     {
       this.getSprayLeaderDelegate().delete();
-    }    
+    }
   }
 
   @Transaction
   public void delete()
   {
     this.deleteDelegates();
-    
+
     super.delete();
   }
 
@@ -96,7 +103,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   public void lock()
   {
     super.lock();
-    
+
     if (this.getUserDelegate() != null)
     {
       this.getUserDelegate().lock();
@@ -106,28 +113,28 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     {
       this.getPatientDelegate().lock();
     }
-    
+
     if (this.getItnRecipientDelegate() != null)
     {
       this.getItnRecipientDelegate().lock();
     }
-    
+
     if (this.getIptRecipientDelegate() != null)
     {
       this.getIptRecipientDelegate().lock();
     }
-    
+
     if (this.getSprayOperatorDelegate() != null)
     {
       this.getSprayOperatorDelegate().lock();
     }
-    
+
     if (this.getSprayLeaderDelegate() != null)
     {
       this.getSprayLeaderDelegate().lock();
     }
   }
-  
+
   @Transaction
   public void unlock()
   {
@@ -142,28 +149,28 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     {
       this.getPatientDelegate().unlock();
     }
-    
+
     if (this.getItnRecipientDelegate() != null)
     {
       this.getItnRecipientDelegate().unlock();
     }
-    
+
     if (this.getIptRecipientDelegate() != null)
     {
       this.getIptRecipientDelegate().unlock();
     }
-    
+
     if (this.getSprayOperatorDelegate() != null)
     {
       this.getSprayOperatorDelegate().unlock();
     }
-    
+
     if (this.getSprayLeaderDelegate() != null)
     {
       this.getSprayLeaderDelegate().unlock();
     }
   }
-  
+
   @Override
   public PersonView lockView()
   {
@@ -187,7 +194,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     view.setLastName(this.getLastName());
     view.setDateOfBirth(this.getDateOfBirth());
     view.addSex(this.getSex().get(0));
-    
+
     if(this.getResidentialGeoEntity() != null)
     {
       view.setResidentialGeoId(this.getResidentialGeoEntity().getGeoId());

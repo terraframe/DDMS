@@ -1,7 +1,8 @@
 <version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <create>
-      <object type="com.terraframe.mojo.system.Vault" id="Vault">
+      <object type="com.terraframe.mojo.system.Vault"
+        key="C:/Tomcat/webapps/MDSS/WEB-INF/vault">
         <valueAttribute name="rootPath" value="C:/Tomcat/webapps/MDSS/WEB-INF/vault"/>
       </object>
     </create>

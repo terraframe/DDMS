@@ -5,7 +5,7 @@
     <create>
       <object
         type="dss.vector.solutions.QueryTypeMaster"
-        id="Entomology">
+        key="dss.vector.solutions.QueryTypeMaster.RESISTANCE">
         <valueAttribute
           name="enumName"
           value="RESISTANCE"/>
@@ -20,7 +20,7 @@
     <create>
       <object
         type="dss.vector.solutions.QueryTypeMaster"
-        id="Efficacy">
+        key="dss.vector.solutions.QueryTypeMaster.EFFICACY">
         <valueAttribute
           name="enumName"
           value="EFFICACY"/>
@@ -31,7 +31,7 @@
             value="Efficacy"/>
         </structAttribute>
       </object>
-      
+
       <mdException
         name="dss.vector.solutions.query.NoEntitiesInThematicLayerException"
         label="No Entities in thematic layer exception"

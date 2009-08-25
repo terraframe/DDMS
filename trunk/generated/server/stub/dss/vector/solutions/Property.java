@@ -23,6 +23,11 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     super();
   }
 
+  protected String buildKey()
+  {
+    return this.getPropertyName();
+  }
+
   public static PropertyQuery getAllByPackage(java.lang.String pkg)
   {
     PropertyQuery query = new PropertyQuery(new QueryFactory());
@@ -31,7 +36,7 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
 
     return query;
   }
-  
+
   public static PropertyQuery getAllEditable()
   {
     PropertyQuery query = new PropertyQuery(new QueryFactory());
@@ -223,7 +228,7 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
   {
     Property currentValue = Property.getByPackageAndName(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_COUNTER);
     currentValue.appLock();
-    
+
     Long counter = currentValue.getPropertyLong();
     int segments = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_SEGMENTS);
     int offset = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_OFFSET);

@@ -113,12 +113,15 @@ public class Sandbox
 
 SELECT levenshtein('Mocambique', 'Mozambique');
 
+Bilene
+Bellene
+
 
  */
 //    QueryFactory qf = new QueryFactory();
 //    GeoEntityQuery geoEntityQuery = new GeoEntityQuery(qf);
 //
-//    geoEntityQuery.WHERE(geoEntityQuery.getEntityName().EQ("Bilene"));
+//    geoEntityQuery.WHERE(geoEntityQuery.getEntityName().EQ("Gaza"));
 //
 //    OIterator<? extends GeoEntity> i = geoEntityQuery.getIterator();
 //
@@ -128,7 +131,7 @@ SELECT levenshtein('Mocambique', 'Mozambique');
 //      System.out.println(geoEntity.getEntityName());
 //
 //      GeoSynonym geoSynonym = new GeoSynonym();
-//      geoSynonym.setEntityName("Bellene");
+//      geoSynonym.setEntityName("Gaaza");
 //      geoSynonym.apply();
 //
 //      geoEntity.addSynonyms(geoSynonym).apply();

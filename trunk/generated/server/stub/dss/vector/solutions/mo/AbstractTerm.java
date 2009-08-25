@@ -14,12 +14,18 @@ import dss.vector.solutions.UnknownTermException;
 public abstract class AbstractTerm extends AbstractTermBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234811656578L;
-  
+
   public AbstractTerm()
   {
     super();
-  }  
-  
+  }
+
+  protected String buildKey()
+  {
+    return this.getTermId();
+  }
+
+
   public static AbstractTerm searchByTermId(java.lang.String moId)
   {
     QueryFactory factory = new QueryFactory();
@@ -44,7 +50,7 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
       iterator.close();
     }
   }
-  
+
   public static AbstractTerm searchByTermName(java.lang.String termName)
   {
     QueryFactory factory = new QueryFactory();
@@ -67,9 +73,9 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
     finally
     {
       iterator.close();
-    }    
+    }
   }
-  
+
   public static AbstractTerm validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
     QueryFactory factory = new QueryFactory();
@@ -89,35 +95,35 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
 
       String attributeLabel = mdAttribute.getDisplayLabel(Session.getCurrentLocale());
       String msg = "Unknown " + attributeLabel + " with the given name [" + displayLabel + "]";
-      
+
       UnknownTermException e = new UnknownTermException(msg);
       e.setTermName(displayLabel);
       e.setAttributeLabel(attributeLabel);
       e.apply();
-      
+
       throw e;
     }
     finally
     {
       iterator.close();
-    }    
+    }
   }
-  
+
   public static AbstractTerm validateByTermName(String termName)
   {
     AbstractTerm term = searchByTermName(termName);
-    
+
     if(term == null)
     {
       String msg = "Unknown term with the given name [" + termName + "]";
-      
+
       UnknownTermException e = new UnknownTermException(msg);
       e.setTermName(termName);
       e.apply();
-      
+
       throw e;
     }
-    
+
     return term;
   }
 
@@ -137,35 +143,35 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
       throw new RuntimeException(msg);
     }
   }
-  
+
   protected static <T> List<T> getAll(AbstractTermQuery query, Class<T> c)
   {
     query.ORDER_BY_ASC(query.getTermName());
-    
+
     return convertQueryToList(query, c);
   }
-  
+
   public static <T> List<T> getAllActive(AbstractTermQuery query, Class<T> c)
   {
     query.WHERE(query.getEnabled().EQ(true));
     query.ORDER_BY_ASC(query.getTermName());
-    
+
     return convertQueryToList(query, c);
   }
 
   @SuppressWarnings("unchecked")
   private static <T> List<T> convertQueryToList(AbstractTermQuery query, Class<T> c)
   {
-    List<T> list = new LinkedList<T>();   
+    List<T> list = new LinkedList<T>();
     OIterator<? extends AbstractTerm> it = query.getIterator();
-    
+
     while(it.hasNext())
     {
       list.add((T) it.next());
     }
-    
+
     it.close();
-    
+
     return list;
   }
 }

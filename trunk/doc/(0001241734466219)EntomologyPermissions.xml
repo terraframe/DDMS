@@ -1,15 +1,5 @@
 <version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <existing>
-      <object
-        key="com.terraframe.mojo.system.Roles.dataCapturer"
-        type="com.terraframe.mojo.system.Roles"
-        id="dataCapturer" />
-      <object
-        key="com.terraframe.mojo.system.Roles.GUIVisibility"
-        type="com.terraframe.mojo.system.Roles"
-        id="GUIVisibility" />
-    </existing>  
     <permissions>
       <role roleName="GUIVisibility">
         <mdBusinessPermission type="dss.vector.solutions.entomology.AbstractMosquitoCollection">
@@ -285,8 +275,8 @@
           <operation name="WRITE_ALL"/>
         </mdViewPermission>
       </role>
-      
-      
+
+
       <role roleName="dataCapturer">
         <mdBusinessPermission type="dss.vector.solutions.entomology.AbstractMosquitoCollection">
           <operation name="CREATE"/>
@@ -545,13 +535,13 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.general.Insecticide">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
       </role>
     </permissions>
   </doIt>

@@ -14,7 +14,7 @@
 
       <object
         type="dss.vector.solutions.QueryTypeMaster"
-        id="IRS">
+        key="dss.vector.solutions.QueryTypeMaster.IRS">
         <valueAttribute
           name="enumName"
           value="IRS" />
@@ -27,7 +27,7 @@
       </object>
       <object
         type="dss.vector.solutions.QueryTypeMaster"
-        id="Entomology">
+        key="dss.vector.solutions.QueryTypeMaster.ENTOMOLOGY">
         <valueAttribute
           name="enumName"
           value="ENTOMOLOGY" />
@@ -40,7 +40,7 @@
       </object>
       <object
         type="dss.vector.solutions.QueryTypeMaster"
-        id="AggregatedCases">
+        key="dss.vector.solutions.QueryTypeMaster.AGGREGATED_CASES">
         <valueAttribute
           name="enumName"
           value="AGGREGATED_CASES" />
@@ -53,7 +53,7 @@
       </object>
       <object
         type="dss.vector.solutions.QueryTypeMaster"
-        id="IndicatorSurvey">
+        key="dss.vector.solutions.QueryTypeMaster.INDICATOR_SURVEY">
         <valueAttribute
           name="enumName"
           value="INDICATOR_SURVEY" />

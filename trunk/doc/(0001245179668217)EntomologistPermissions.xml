@@ -2,16 +2,6 @@
   xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <existing>
-      <object
-        key="com.terraframe.mojo.system.Roles.entomologist"
-        type="com.terraframe.mojo.system.Roles"
-        id="entomologist" />        
-      <object
-        key="com.terraframe.mojo.system.Roles.GUIVisibility"
-        type="com.terraframe.mojo.system.Roles"
-        id="GUIVisibility" />        
-    </existing>
     <permissions>
       <role roleName="entomologist">
         <!-- ENTOMOLOGY PERMISSIONS -->

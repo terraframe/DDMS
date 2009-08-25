@@ -452,7 +452,7 @@
       </enumerationMaster>
 
       <object
-        id="LINE"
+        key="dss.vector.solutions.geo.SpatialMaster.LINE"
         type="dss.vector.solutions.geo.SpatialMaster">
         <valueAttribute
           name="enumName"
@@ -466,7 +466,7 @@
       </object>
 
       <object
-        id="MUTLI_LINE"
+        key="dss.vector.solutions.geo.SpatialMaster.MUTLI_LINE"
         type="dss.vector.solutions.geo.SpatialMaster">
         <valueAttribute
           name="enumName"
@@ -480,7 +480,7 @@
       </object>
 
       <object
-        id="POINT"
+        key="dss.vector.solutions.geo.SpatialMaster.POINT"
         type="dss.vector.solutions.geo.SpatialMaster">
         <valueAttribute
           name="enumName"
@@ -494,7 +494,7 @@
       </object>
 
       <object
-        id="MULTI_POINT"
+        key="dss.vector.solutions.geo.SpatialMaster.MULTI_POINT"
         type="dss.vector.solutions.geo.SpatialMaster">
         <valueAttribute
           name="enumName"
@@ -508,7 +508,7 @@
       </object>
 
       <object
-        id="POLYGON"
+        key="dss.vector.solutions.geo.SpatialMaster.POLYGON"
         type="dss.vector.solutions.geo.SpatialMaster">
         <valueAttribute
           name="enumName"
@@ -522,7 +522,7 @@
       </object>
 
       <object
-        id="MULTI_POLYGON"
+        key="dss.vector.solutions.geo.SpatialMaster.MULTI_POLYGON"
         type="dss.vector.solutions.geo.SpatialMaster">
         <valueAttribute
           name="enumName"
@@ -1587,7 +1587,6 @@
         generateController="false" />
 
       <object
-        id="MALE"
         type="dss.vector.solutions.entomology.SexMaster"
         key="dss.vector.solutions.entomology.SexMaster.MALE">
         <valueAttribute
@@ -1602,7 +1601,6 @@
       </object>
 
       <object
-        id="FEMALE"
         type="dss.vector.solutions.entomology.SexMaster"
         key="dss.vector.solutions.entomology.SexMaster.FEMALE">
         <valueAttribute
@@ -1617,7 +1615,6 @@
       </object>
 
       <object
-        id="MIXED"
         type="dss.vector.solutions.entomology.SexMaster"
         key="dss.vector.solutions.entomology.SexMaster.MIXED">
         <valueAttribute
@@ -1632,7 +1629,6 @@
       </object>
 
       <object
-        id="UNKNOWN"
         type="dss.vector.solutions.entomology.SexMaster"
         key="dss.vector.solutions.entomology.SexMaster.UNKNOWN">
         <valueAttribute
@@ -1652,11 +1648,11 @@
         label="Sex"
         description="List of all possible single mosquito sex options">
         <addEnumItem
-          id="MALE" />
+          name="MALE" />
         <addEnumItem
-          id="FEMALE" />
+          name="FEMALE" />
         <addEnumItem
-          id="UNKNOWN" />
+          name="UNKNOWN" />
       </mdEnumeration>
 
       <mdEnumeration
@@ -2033,7 +2029,7 @@
 
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
-        id="MICROGRAM_PER_MILLILITER">
+        key="dss.vector.solutions.entomology.assay.UnitMaster.MICROGRAM_PER_MILLILITER">
         <valueAttribute
           name="enumName"
           value="MICROGRAM_PER_MILLILITER" />
@@ -2047,7 +2043,7 @@
 
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
-        id="PERCENT">
+        key="dss.vector.solutions.entomology.assay.UnitMaster.PERCENT">
         <valueAttribute
           name="enumName"
           value="PERCENT" />
@@ -2061,7 +2057,7 @@
 
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
-        id="PICOGRAM_PER_MILLILITER">
+        key="dss.vector.solutions.entomology.assay.UnitMaster.PICOGRAM_PER_MILLILITER">
         <valueAttribute
           name="enumName"
           value="PICOGRAM_PER_MILLILITER" />
@@ -2075,7 +2071,7 @@
 
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
-        id="MILLIGRAM_PER_MILLILITER">
+        key="dss.vector.solutions.entomology.assay.UnitMaster.MILLIGRAM_PER_MILLILITER">
         <valueAttribute
           name="enumName"
           value="MILLIGRAM_PER_MILLILITER" />
@@ -2089,7 +2085,7 @@
 
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
-        id="PICOGRAM_PER_LITER">
+        key="dss.vector.solutions.entomology.assay.UnitMaster.PICOGRAM_PER_LITER">
         <valueAttribute
           name="enumName"
           value="PICOGRAM_PER_LITER" />
@@ -2103,7 +2099,7 @@
 
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
-        id="MILLIGRAM_PER_LITER">
+        key="dss.vector.solutions.entomology.assay.UnitMaster.MILLIGRAM_PER_LITER">
         <valueAttribute
           name="enumName"
           value="MILLIGRAM_PER_LITER" />
@@ -2117,7 +2113,7 @@
 
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
-        id="MICROGRAM_PER_LITER">
+        key="dss.vector.solutions.entomology.assay.UnitMaster.MICROGRAM_PER_LITER">
         <valueAttribute
           name="enumName"
           value="MICROGRAM_PER_LITER" />
@@ -2638,7 +2634,7 @@
 
       <object
         type="dss.vector.solutions.SurfacePositionMaster"
-        id="TOP">
+        key="dss.vector.solutions.SurfacePositionMaster.TOP">
         <valueAttribute
           name="enumName"
           value="TOP" />
@@ -2652,7 +2648,7 @@
 
       <object
         type="dss.vector.solutions.SurfacePositionMaster"
-        id="MIDDLE">
+        key="dss.vector.solutions.SurfacePositionMaster.MIDDLE">
         <valueAttribute
           name="enumName"
           value="MIDDLE" />
@@ -2666,7 +2662,7 @@
 
       <object
         type="dss.vector.solutions.SurfacePositionMaster"
-        id="BOTTOM">
+        key="dss.vector.solutions.SurfacePositionMaster.BOTTOM">
         <valueAttribute
           name="enumName"
           value="BOTTOM" />
@@ -2680,7 +2676,7 @@
 
       <object
         type="dss.vector.solutions.SurfacePositionMaster"
-        id="RANDOM">
+        key="dss.vector.solutions.SurfacePositionMaster.RANDOM">
         <valueAttribute
           name="enumName"
           value="RANDOM" />
@@ -2694,7 +2690,7 @@
 
       <object
         type="dss.vector.solutions.SurfacePositionMaster"
-        id="NOT_APPLICABLE">
+        key="dss.vector.solutions.SurfacePositionMaster.NOT_APPLICABLE">
         <valueAttribute
           name="enumName"
           value="NOT_APPLICABLE" />
@@ -3434,7 +3430,7 @@
 
       <object
         type="dss.vector.solutions.Property"
-        id="aDDAR">
+        key="aDDAR">
         <valueAttribute
           name="propertyName"
           value="aDDAR" />
@@ -3463,7 +3459,7 @@
 
       <object
         type="dss.vector.solutions.Property"
-        id="aDDAS">
+        key="aDDAS">
         <valueAttribute
           name="propertyName"
           value="aDDAS" />
@@ -3492,7 +3488,7 @@
 
       <object
         type="dss.vector.solutions.Property"
-        id="lDDAR">
+        key="lDDAR">
         <valueAttribute
           name="propertyName"
           value="lDDAR" />
@@ -3521,7 +3517,7 @@
 
       <object
         type="dss.vector.solutions.Property"
-        id="lDDAS">
+        key="lDDAS">
         <valueAttribute
           name="propertyName"
           value="lDDAS" />
@@ -3550,7 +3546,7 @@
 
       <object
         type="dss.vector.solutions.Property"
-        id="SHORT_ID_SEGMENTS">
+        key="SHORT_ID_SEGMENTS">
         <valueAttribute
           name="propertyName"
           value="SHORT_ID_SEGMENTS" />
@@ -3581,7 +3577,7 @@
       </object>
       <object
         type="dss.vector.solutions.Property"
-        id="SHORT_ID_OFFSET">
+        key="SHORT_ID_OFFSET">
         <valueAttribute
           name="propertyName"
           value="SHORT_ID_OFFSET" />
@@ -3607,7 +3603,7 @@
 
       <object
         type="dss.vector.solutions.Property"
-        id="SHORT_ID_COUNTER">
+        key="SHORT_ID_COUNTER">
         <valueAttribute
           name="propertyName"
           value="SHORT_ID_COUNTER" />
@@ -3671,7 +3667,7 @@
       -->
       <object
         type="dss.vector.solutions.Property"
-        id="countryGeoId">
+        key="countryGeoId">
         <valueAttribute
           name="propertyName"
           value="countryGeoId" />
@@ -3704,7 +3700,7 @@
 
       <object
         type="dss.vector.solutions.mo.MolecularAssayResult"
-        id="RR">
+        key="MIRO_88000039">
         <valueAttribute
           name="termName"
           value="RR" />
@@ -3727,7 +3723,7 @@
 
       <object
         type="dss.vector.solutions.mo.MolecularAssayResult"
-        id="RS">
+        key="MIRO_89000039">
         <valueAttribute
           name="termName"
           value="RS" />
@@ -3750,7 +3746,7 @@
 
       <object
         type="dss.vector.solutions.mo.MolecularAssayResult"
-        id="SS">
+        key="MIRO_90000039">
         <valueAttribute
           name="termName"
           value="SS" />
@@ -4478,7 +4474,7 @@
     <create>
       <object
         type="dss.vector.solutions.mo.Generation"
-        id="F0">
+        key="MIRO_343458349">
         <valueAttribute
           name="termId"
           value="MIRO_343458349" />
@@ -4501,7 +4497,7 @@
 
       <object
         type="dss.vector.solutions.mo.Generation"
-        id="F2">
+        key="MIRO_3535332">
         <valueAttribute
           name="termId"
           value="MIRO_3535332" />
@@ -4528,7 +4524,7 @@
     <create>
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
-        id="MIRO_30000044">
+        key="MIRO_30000044">
         <valueAttribute
           name="termId"
           value="MIRO_30000044" />
@@ -4557,7 +4553,7 @@
 
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
-        id="MIRO_30000045">
+        key="MIRO_30000045">
         <valueAttribute
           name="termId"
           value="MIRO_30000045" />
@@ -4586,7 +4582,7 @@
 
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
-        id="MIRO_30000048">
+        key="MIRO_30000048">
         <valueAttribute
           name="termId"
           value="MIRO_30000048" />
@@ -4615,7 +4611,7 @@
 
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
-        id="MIRO_30000022">
+        key="MIRO_30000022">
         <valueAttribute
           name="termId"
           value="MIRO_30000022" />
@@ -4644,7 +4640,7 @@
 
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
-        id="MIRO_30000049">
+        key="MIRO_30000049">
         <valueAttribute
           name="termId"
           value="MIRO_30000049" />
@@ -4673,7 +4669,7 @@
 
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
-        id="MIRO_30000053">
+        key="MIRO_30000053">
         <valueAttribute
           name="termId"
           value="MIRO_30000053" />
@@ -4702,7 +4698,7 @@
 
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
-        id="MIRO_30000060">
+        key="MIRO_30000060">
         <valueAttribute
           name="termId"
           value="MIRO_30000060" />
@@ -4731,7 +4727,7 @@
 
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
-        id="MIRO_30000050">
+        key="MIRO_30000050">
         <valueAttribute
           name="termId"
           value="MIRO_30000050" />
@@ -4760,7 +4756,7 @@
 
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
-        id="MIRO_30000051">
+        key="MIRO_30000051">
         <valueAttribute
           name="termId"
           value="MIRO_30000051" />
@@ -4789,7 +4785,7 @@
 
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
-        id="MIRO_30000052">
+        key="MIRO_30000052">
         <valueAttribute
           name="termId"
           value="MIRO_30000052" />
@@ -4818,7 +4814,7 @@
 
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
-        id="MIRO_30000046">
+        key="MIRO_30000046">
         <valueAttribute
           name="termId"
           value="MIRO_30000046" />
@@ -4848,7 +4844,7 @@
 
       <object
         type="dss.vector.solutions.mo.IdentificationMethod"
-        id="IRO_30000005">
+        key="IRO_30000005">
         <valueAttribute
           name="termId"
           value="IRO_30000005" />
@@ -4877,7 +4873,7 @@
 
       <object
         type="dss.vector.solutions.mo.IdentificationMethod"
-        id="MIRO_30000036">
+        key="MIRO_30000036">
         <valueAttribute
           name="termId"
           value="MIRO_30000036" />
@@ -4906,7 +4902,7 @@
 
       <object
         type="dss.vector.solutions.mo.IdentificationMethod"
-        id="MIRO_30000037">
+        key="MIRO_30000037">
         <valueAttribute
           name="termId"
           value="MIRO_30000037" />
@@ -4935,7 +4931,7 @@
 
       <object
         type="dss.vector.solutions.mo.IdentificationMethod"
-        id="MIRO_30000038">
+        key="MIRO_30000038">
         <valueAttribute
           name="termId"
           value="MIRO_30000038" />
@@ -4964,7 +4960,7 @@
 
       <object
         type="dss.vector.solutions.mo.IdentificationMethod"
-        id="MIRO_30000039">
+        key="MIRO_30000039">
         <valueAttribute
           name="termId"
           value="MIRO_30000039" />
@@ -4993,7 +4989,7 @@
 
       <object
         type="dss.vector.solutions.mo.IdentificationMethod"
-        id="MIRO_30000040">
+        key="MIRO_30000040">
         <valueAttribute
           name="termId"
           value="MIRO_30000040" />
@@ -5022,7 +5018,7 @@
 
       <object
         type="dss.vector.solutions.mo.IdentificationMethod"
-        id="MIRO_30000041">
+        key="MIRO_30000041">
         <valueAttribute
           name="termId"
           value="MIRO_30000041" />
@@ -5052,7 +5048,7 @@
 
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
-        id="MIRO_20000001">
+        key="MIRO_20000001">
         <valueAttribute
           name="termId"
           value="MIRO_20000001" />
@@ -5081,7 +5077,7 @@
 
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
-        id="MIRO_20000003">
+        key="MIRO_20000003">
         <valueAttribute
           name="termId"
           value="MIRO_20000003" />
@@ -5110,7 +5106,7 @@
 
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
-        id="MIRO_20000004">
+        key="MIRO_20000004">
         <valueAttribute
           name="termId"
           value="MIRO_20000004" />
@@ -5139,7 +5135,7 @@
 
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
-        id="MIRO_20000043">
+        key="MIRO_20000043">
         <valueAttribute
           name="termId"
           value="MIRO_20000043" />
@@ -5168,7 +5164,7 @@
 
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
-        id="MIRO_20000058">
+        key="MIRO_20000058">
         <valueAttribute
           name="termId"
           value="MIRO_20000058" />
@@ -5197,7 +5193,7 @@
 
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
-        id="MIRO_20000090">
+        key="MIRO_20000090">
         <valueAttribute
           name="termId"
           value="MIRO_20000090" />
@@ -5226,7 +5222,7 @@
 
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
-        id="MIRO_20000075">
+        key="MIRO_20000075">
         <valueAttribute
           name="termId"
           value="MIRO_20000075" />
@@ -5255,7 +5251,7 @@
 
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
-        id="MIRO_20000009">
+        key="MIRO_20000009">
         <valueAttribute
           name="termId"
           value="MIRO_20000009" />
@@ -5284,7 +5280,7 @@
 
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
-        id="MIRO_20000039">
+        key="MIRO_20000039">
         <valueAttribute
           name="termId"
           value="MIRO_20000039" />
@@ -5313,7 +5309,7 @@
 
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
-        id="MIRO_20000041">
+        key="MIRO_20000041">
         <valueAttribute
           name="termId"
           value="MIRO_20000041" />
@@ -5342,7 +5338,7 @@
 
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
-        id="MIRO_20000049">
+        key="MIRO_20000049">
         <valueAttribute
           name="termId"
           value="MIRO_20000049" />
@@ -5371,7 +5367,7 @@
 
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
-        id="LarvaeAge_Egg">
+        key="LarvaeAge_Egg">
         <valueAttribute
           name="termId"
           value="LarvaeAge_Egg" />
@@ -5394,7 +5390,7 @@
 
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
-        id="LarvaeAge_1st_Instar">
+        key="LarvaeAge_1st_Instar">
         <valueAttribute
           name="termId"
           value="LarvaeAge_1st_Instar" />
@@ -5417,7 +5413,7 @@
 
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
-        id="LarvaeAge_2nd_Instar">
+        key="LarvaeAge_2nd_Instar">
         <valueAttribute
           name="termId"
           value="LarvaeAge_2nd_Instar" />
@@ -5440,7 +5436,7 @@
 
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
-        id="LarvaeAge_3rd_Instar">
+        key="LarvaeAge_3rd_Instar">
         <valueAttribute
           name="termId"
           value="LarvaeAge_3rd_Instar" />
@@ -5463,7 +5459,7 @@
 
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
-        id="LarvaeAge_4th_Instar">
+        key="LarvaeAge_4th_Instar">
         <valueAttribute
           name="termId"
           value="LarvaeAge_4th_Instar" />
@@ -5486,7 +5482,7 @@
 
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
-        id="LarvaeAge_Pupae">
+        key="LarvaeAge_Pupae">
         <valueAttribute
           name="termId"
           value="LarvaeAge_Pupae" />
@@ -5509,23 +5505,11 @@
 
     </create>
 
-    <existing>
-      <object
-        key="dss.vector.solutions.geo.generated.GeoEntity"
-        id="GeoEntityMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
-
-      <object
-        key="dss.vector.solutions.geo.generated.Earth"
-        id="EarthMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
-    </existing>
 
     <create>
       <object
-        id="GeoEntityH"
         type="dss.vector.solutions.geo.GeoHierarchy"
-        key="GeoHierarchy_GeoEntity">
+        key="dss.vector.solutions.geo.generated.GeoEntity">
       <valueAttribute
         name="political"
         value="false" />
@@ -5534,13 +5518,12 @@
         value="false" />
       <referenceAttribute
         name="geoEntityClass"
-        id="GeoEntityMd" />
+        key="dss.vector.solutions.geo.generated.GeoEntity" />
       </object>
 
       <object
-        id="EarthH"
         type="dss.vector.solutions.geo.GeoHierarchy"
-        key="GeoHierarchy_Earth">
+        key="dss.vector.solutions.geo.generated.Earth">
       <valueAttribute
         name="political"
         value="true" />
@@ -5549,11 +5532,11 @@
         value="true" />
       <referenceAttribute
         name="geoEntityClass"
-        id="EarthMd" />
+        key="dss.vector.solutions.geo.generated.Earth" />
       </object>
 
       <object
-        id="earth"
+        key="000000"
         type="dss.vector.solutions.geo.generated.Earth">
         <valueAttribute
           name="activated"
@@ -5570,7 +5553,7 @@
 	<create>
       <object
         type="com.terraframe.mojo.system.Roles"
-        id="mdssCoordinator">
+        key="Roles.mdssCoordinator">
         <valueAttribute
           name="roleName"
           value="mdssCoordinator" />
@@ -5583,7 +5566,7 @@
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
-        id="entomologist">
+        key="Roles.entomologist">
         <valueAttribute
           name="roleName"
           value="entomologist" />
@@ -5596,7 +5579,7 @@
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
-        id="operationalManager">
+        key="Roles.operationalManager">
         <valueAttribute
           name="roleName"
           value="operationalManager" />
@@ -5609,7 +5592,7 @@
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
-        id="MDSS">
+        key="Roles.MDSS">
         <valueAttribute
           name="roleName"
           value="MDSS" />
@@ -5620,9 +5603,9 @@
             value="MDSS" />
         </structAttribute>
       </object>
-            <object
+      <object
         type="com.terraframe.mojo.system.Roles"
-        id="GUIVisibility">
+        key="Roles.GUIVisibility">
         <valueAttribute
           name="roleName"
           value="GUIVisibility" />
@@ -5635,7 +5618,7 @@
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
-        id="dataCapturer">
+        key="Roles.dataCapturer">
         <valueAttribute
           name="roleName"
           value="dataCapturer" />
@@ -5648,7 +5631,7 @@
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
-        id="manager">
+        key="Roles.manager">
         <valueAttribute
           name="roleName"
           value="manager" />
@@ -5663,9 +5646,8 @@
 
     <update>
       <object
-        key="com.terraframe.mojo.system.Users.SYSTEM"
-        type="com.terraframe.mojo.system.Users"
-        id="SystemUser">
+        key="Users.SYSTEM"
+        type="com.terraframe.mojo.system.Users">
         <valueAttribute
           name="sessionLimit"
           value="20" />

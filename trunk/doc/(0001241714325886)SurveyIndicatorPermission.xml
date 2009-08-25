@@ -2,16 +2,6 @@
   xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <existing>
-      <object
-        key="com.terraframe.mojo.system.Roles.dataCapturer"
-        type="com.terraframe.mojo.system.Roles"
-        id="dataCapturer" />
-      <object
-        key="com.terraframe.mojo.system.Roles.GUIVisibility"
-        type="com.terraframe.mojo.system.Roles"
-        id="GUIVisibility" />
-    </existing>
     <permissions>
       <role roleName="GUIVisibility">
         <mdViewPermission type="dss.vector.solutions.geo.GeoHierarchy">
@@ -47,17 +37,17 @@
           <attributePermission attributeName="locale">
             <operation name="READ"/>
           </attributePermission>
-        </mdBusinessPermission>    
-          
+        </mdBusinessPermission>
+
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.Net">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
-        </mdBusinessPermission>      
+        </mdBusinessPermission>
         <mdRelationshipPermission type="dss.vector.solutions.intervention.monitor.NetHeiarchy">
           <operation name="READ"/>
           <operation name="READ_PARENT"/>
-          <operation name="READ_CHILD"/>          
-          <operation name="READ_ALL"/>        
+          <operation name="READ_CHILD"/>
+          <operation name="READ_ALL"/>
         </mdRelationshipPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.WindowMaster">
           <operation name="READ"/>
@@ -70,32 +60,32 @@
         <mdRelationshipPermission type="dss.vector.solutions.intervention.monitor.SurveyHousehold">
           <operation name="READ"/>
           <operation name="READ_PARENT"/>
-          <operation name="READ_CHILD"/>          
-          <operation name="READ_ALL"/>        
+          <operation name="READ_CHILD"/>
+          <operation name="READ_ALL"/>
         </mdRelationshipPermission>
         <mdRelationshipPermission type="dss.vector.solutions.intervention.monitor.HouseholdNet">
           <operation name="READ"/>
           <operation name="READ_PARENT"/>
-          <operation name="READ_CHILD"/>          
-          <operation name="READ_ALL"/>        
+          <operation name="READ_CHILD"/>
+          <operation name="READ_ALL"/>
         </mdRelationshipPermission>
         <mdBusinessPermission type="dss.vector.solutions.entomology.SexMaster">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>        
+          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.ResponseMaster">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>        
+          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.RDTResultMaster">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>        
+          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdRelationshipPermission type="dss.vector.solutions.intervention.monitor.HouseholdPerson">
           <operation name="READ"/>
           <operation name="READ_PARENT"/>
-          <operation name="READ_CHILD"/>          
-          <operation name="READ_ALL"/>        
+          <operation name="READ_CHILD"/>
+          <operation name="READ_ALL"/>
         </mdRelationshipPermission>
         <mdViewPermission type="dss.vector.solutions.intervention.monitor.PersonView">
           <operation name="READ"/>
@@ -103,7 +93,7 @@
           <operation name="CREATE"/>
           <operation name="WRITE_ALL"/>
           <operation name="WRITE_ALL"/>
-        </mdViewPermission>                
+        </mdViewPermission>
       </role>
       <role roleName="dataCapturer">
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.SurveyPoint">
@@ -141,7 +131,7 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdRelationshipPermission>        
+        </mdRelationshipPermission>
       </role>
     </permissions>
   </doIt>

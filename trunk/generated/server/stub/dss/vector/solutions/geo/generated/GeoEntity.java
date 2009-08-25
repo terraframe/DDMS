@@ -72,6 +72,11 @@ public abstract class GeoEntity extends GeoEntityBase implements
     super();
   }
 
+  protected String buildKey()
+  {
+    return this.getGeoId();
+  }
+
   @Override
   public void apply()
   {
@@ -1324,6 +1329,11 @@ public abstract class GeoEntity extends GeoEntityBase implements
     {
       // This might happen. Relationship already exists.
       Database.rollbackSavepoint(savepoint);
+    }
+    catch (RuntimeException ex)
+    {
+      Database.rollbackSavepoint(savepoint);
+      throw ex;
     }
     finally
     {

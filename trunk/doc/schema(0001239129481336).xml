@@ -80,7 +80,7 @@
 
        <object
         type="dss.vector.solutions.Property"
-        id="epiStartWeekDay">
+        key="epiStartWeekDay">
         <valueAttribute
           name="propertyName"
           value="epiStartWeekDay" />
@@ -321,7 +321,7 @@
             name="pageSize"
             label="Page Size"
             type="java.lang.Integer"
-            order="5" />           
+            order="5" />
         </mdMethod>
         <mdMethod
           name="exportQueryToExcel"
@@ -526,6 +526,20 @@
         </attributes>
       </mdBusiness>
 
+      <mdIndex
+        type="dss.vector.solutions.surveillance.AbstractGrid"
+        label="Option Name Index"
+        active="true"
+        unique="true"
+        description="Enforces a unique index between option names and types">
+        <attribute
+          name="type"
+          indexOrder="0" />
+        <attribute
+          name="optionName"
+          indexOrder="1" />
+      </mdIndex>
+
       <mdBusiness
         name="dss.vector.solutions.surveillance.TreatmentGrid"
         label="Treatment Grid"
@@ -542,7 +556,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
-        id="LA">
+        key="dss.vector.solutions.surveillance.TreatmentGrid.LA">
         <valueAttribute
           name="optionName"
           value="LA" />
@@ -556,7 +570,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
-        id="AA">
+        key="dss.vector.solutions.surveillance.TreatmentGrid.AA">
         <valueAttribute
           name="optionName"
           value="AA" />
@@ -570,7 +584,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
-        id="SP">
+        key="dss.vector.solutions.surveillance.TreatmentGrid.SP">
         <valueAttribute
           name="optionName"
           value="SP" />
@@ -584,7 +598,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
-        id="AS+SP">
+        key="dss.vector.solutions.surveillance.TreatmentGrid.AS_SP">
         <valueAttribute
           name="optionName"
           value="AS_SP" />
@@ -598,7 +612,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
-        id="Cloroquine">
+        key="dss.vector.solutions.surveillance.TreatmentGrid.Cloroquine">
         <valueAttribute
           name="optionName"
           value="Cloroquine" />
@@ -612,7 +626,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
-        id="Quinine">
+        key="dss.vector.solutions.surveillance.TreatmentGrid.Quinine">
         <valueAttribute
           name="optionName"
           value="Quinine" />
@@ -626,7 +640,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
-        id="T_None">
+        key="dss.vector.solutions.surveillance.TreatmentGrid.None">
         <valueAttribute
           name="optionName"
           value="None" />
@@ -640,7 +654,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
-        id="T_Other">
+        key="dss.vector.solutions.surveillance.TreatmentGrid.Other">
         <valueAttribute
           name="optionName"
           value="Other" />
@@ -668,7 +682,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.ReferralGrid"
-        id="Complicated case">
+        key="dss.vector.solutions.surveillance.ReferralGrid.ComplicatedCase">
         <valueAttribute
           name="optionName"
           value="ComplicatedCase" />
@@ -682,7 +696,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.ReferralGrid"
-        id="Less than one">
+        key="dss.vector.solutions.surveillance.ReferralGrid.LessThanOne">
         <valueAttribute
           name="optionName"
           value="LessThanOne" />
@@ -696,7 +710,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.ReferralGrid"
-        id="Out of stock">
+        key="dss.vector.solutions.surveillance.ReferralGrid.OutOfStock">
         <valueAttribute
           name="optionName"
           value="OutOfStock" />
@@ -710,7 +724,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.ReferralGrid"
-        id="R_Other">
+        key="dss.vector.solutions.surveillance.ReferralGrid.Other">
         <valueAttribute
           name="optionName"
           value="Other" />
@@ -738,7 +752,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.DiagnosticGrid"
-        id="Blood smear">
+        key="dss.vector.solutions.surveillance.DiagnosticGrid.BloodSmear">
         <valueAttribute
           name="optionName"
           value="BloodSmear" />
@@ -752,7 +766,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.DiagnosticGrid"
-        id="RDT">
+        key="dss.vector.solutions.surveillance.DiagnosticGrid.RDT">
         <valueAttribute
           name="optionName"
           value="RDT" />
@@ -766,7 +780,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.DiagnosticGrid"
-        id="Clinical">
+        key="dss.vector.solutions.surveillance.DiagnosticGrid.Clinical">
         <valueAttribute
           name="optionName"
           value="Clinical" />
@@ -780,7 +794,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.DiagnosticGrid"
-        id="D_Other">
+        key="dss.vector.solutions.surveillance.DiagnosticGrid.Other">
         <valueAttribute
           name="optionName"
           value="Other" />
@@ -808,7 +822,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
-        id="Tablets">
+        key="dss.vector.solutions.surveillance.TreatmentMethodGrid.Tablets">
         <valueAttribute
           name="optionName"
           value="Tablets" />
@@ -822,7 +836,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
-        id="Syrup">
+        key="dss.vector.solutions.surveillance.TreatmentMethodGrid.Syrup">
         <valueAttribute
           name="optionName"
           value="Syrup" />
@@ -836,7 +850,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
-        id="IV">
+        key="dss.vector.solutions.surveillance.TreatmentMethodGrid.IV">
         <valueAttribute
           name="optionName"
           value="IV" />
@@ -850,7 +864,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
-        id="IM">
+        key="dss.vector.solutions.surveillance.TreatmentMethodGrid.IM">
         <valueAttribute
           name="optionName"
           value="IM" />
@@ -864,7 +878,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
-        id="TM_Other">
+        key="dss.vector.solutions.surveillance.TreatmentMethodGrid.TM_Other">
         <valueAttribute
           name="optionName"
           value="Other" />
@@ -880,14 +894,6 @@
         name="dss.vector.solutions.surveillance.CaseTreatmentStock"
         label="Case Treatment Stock"
         generateController="false">
-        <parent
-          cardinality="*"
-          name="dss.vector.solutions.surveillance.AggregatedCase"
-          method="CaseTreatmentStock" />
-        <child
-          cardinality="*"
-          name="dss.vector.solutions.surveillance.TreatmentGrid"
-          method="TreatmentStock" />
         <attributes>
           <boolean
             name="outOfStock"
@@ -897,20 +903,20 @@
             negativeLabel="No"
             positiveLabel="Yes" />
         </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.AggregatedCase"
+          method="CaseTreatmentStock" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.TreatmentGrid"
+          method="TreatmentStock" />
       </mdTree>
 
       <mdTree
         name="dss.vector.solutions.surveillance.CaseTreatment"
         label="Case Treatment"
         generateController="false">
-        <parent
-          cardinality="*"
-          name="dss.vector.solutions.surveillance.AggregatedCase"
-          method="CaseTreatment" />
-        <child
-          cardinality="*"
-          name="dss.vector.solutions.surveillance.TreatmentGrid"
-          method="Treatment" />
         <attributes>
           <integer
             name="amount"
@@ -920,20 +926,20 @@
             required="true"
             default_value="0" />
         </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.AggregatedCase"
+          method="CaseTreatment" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.TreatmentGrid"
+          method="Treatment" />
       </mdTree>
 
       <mdTree
         name="dss.vector.solutions.surveillance.CaseDiagnostic"
         label="Case Diagnostic Methods"
         generateController="false">
-        <parent
-          cardinality="*"
-          name="dss.vector.solutions.surveillance.AggregatedCase"
-          method="AggregatedCase" />
-        <child
-          cardinality="*"
-          name="dss.vector.solutions.surveillance.DiagnosticGrid"
-          method="DiagnosticMethod" />
         <attributes>
           <integer
             name="amount"
@@ -950,12 +956,29 @@
             required="true"
             default_value="0" />
         </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.AggregatedCase"
+          method="AggregatedCase" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.DiagnosticGrid"
+          method="DiagnosticMethod" />
       </mdTree>
 
       <mdTree
         name="dss.vector.solutions.surveillance.CaseReferral"
         label="Case Referral"
         generateController="false">
+        <attributes>
+          <integer
+            name="amount"
+            label="Amount"
+            description="Amount of people treated for a given treatment"
+            rejectNegative="true"
+            required="true"
+            default_value="0" />
+        </attributes>
         <parent
           cardinality="*"
           name="dss.vector.solutions.surveillance.AggregatedCase"
@@ -964,6 +987,12 @@
           cardinality="*"
           name="dss.vector.solutions.surveillance.ReferralGrid"
           method="Referral" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.surveillance.CaseTreatmentMethod"
+        label="Case Treatment Method"
+        generateController="false">
         <attributes>
           <integer
             name="amount"
@@ -973,12 +1002,6 @@
             required="true"
             default_value="0" />
         </attributes>
-      </mdTree>
-
-      <mdTree
-        name="dss.vector.solutions.surveillance.CaseTreatmentMethod"
-        label="Case Treatment Method"
-        generateController="false">
         <parent
           cardinality="*"
           name="dss.vector.solutions.surveillance.AggregatedCase"
@@ -987,15 +1010,6 @@
           cardinality="*"
           name="dss.vector.solutions.surveillance.TreatmentMethodGrid"
           method="TreatmentMethod" />
-        <attributes>
-          <integer
-            name="amount"
-            label="Amount"
-            description="Amount of people treated for a given treatment"
-            rejectNegative="true"
-            required="true"
-            default_value="0" />
-        </attributes>
       </mdTree>
 
       <enumerationMaster
@@ -1015,7 +1029,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.PeriodTypeMaster"
-        id="WEEK">
+        key="dss.vector.solutions.surveillance.PeriodTypeMaster.WEEK">
         <valueAttribute
           name="enumName"
           value="WEEK" />
@@ -1032,7 +1046,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.PeriodTypeMaster"
-        id="MONTH">
+        key="dss.vector.solutions.surveillance.PeriodTypeMaster.MONTH">
         <valueAttribute
           name="enumName"
           value="MONTH" />
@@ -1049,7 +1063,7 @@
 
       <object
         type="dss.vector.solutions.surveillance.PeriodTypeMaster"
-        id="QUARTER">
+        key="dss.vector.solutions.surveillance.PeriodTypeMaster.QUARTER">
         <valueAttribute
           name="enumName"
           value="QUARTER" />

@@ -2,21 +2,6 @@
   xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-     <existing>
-      <object
-        key="com.terraframe.mojo.system.Roles.GUIVisibility"
-        type="com.terraframe.mojo.system.Roles"
-        id="GUIVisibility" />
-      <object
-        key="com.terraframe.mojo.system.Roles.mdssCoordinator"
-        type="com.terraframe.mojo.system.Roles"
-        id="mdssCoordinator" />
-      <object
-        key="com.terraframe.mojo.system.Roles.entomologist"
-        type="com.terraframe.mojo.system.Roles"
-        id="entomologist" />
-    </existing>
-
     <permissions>
       <role roleName="GUIVisibility">
         <mdViewPermission type="dss.vector.solutions.geo.UnknownGeoEntity">

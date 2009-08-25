@@ -2,32 +2,6 @@
   xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <existing>
-      <object
-        key="com.terraframe.mojo.system.Roles.operationalManager"
-        type="com.terraframe.mojo.system.Roles"
-        id="operationalManager" />
-      <object
-        key="com.terraframe.mojo.system.Roles.entomologist"
-        type="com.terraframe.mojo.system.Roles"
-        id="entomologist" />
-      <object
-        key="com.terraframe.mojo.system.Roles.dataCapturer"
-        type="com.terraframe.mojo.system.Roles"
-        id="dataCapturer" />
-      <object
-        key="com.terraframe.mojo.system.Roles.mdssCoordinator"
-        type="com.terraframe.mojo.system.Roles"
-        id="mdssCoordinator" />
-      <object
-        key="com.terraframe.mojo.system.Roles.manager"
-        type="com.terraframe.mojo.system.Roles"
-        id="manager" />
-      <object
-        key="com.terraframe.mojo.system.Roles.GUIVisibility"
-        type="com.terraframe.mojo.system.Roles"
-        id="GUIVisibility" />
-    </existing>
     <permissions>
       <role roleName="GUIVisibility">
         <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdView">
@@ -60,13 +34,13 @@
           <operation name="READ_ALL"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>        
+          <operation name="DELETE"/>
         </mdViewPermission>
         <mdBusinessPermission type="dss.vector.solutions.entomology.assay.infectivity.MixedTestResult">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
-        </mdBusinessPermission>        
-      </role>      
+        </mdBusinessPermission>
+      </role>
       <role roleName="mdssCoordinator">
         <mdBusinessPermission type="dss.vector.solutions.geo.AllPaths">
           <operation name="CREATE"/>
@@ -85,7 +59,7 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>      
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.SurveyPoint">
           <mdMethodPermission methodName="querySurvey">
             <operation name="EXECUTE"/>
@@ -118,13 +92,13 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>      
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.entomology.assay.infectivity.MixedTestResult">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>      
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.SurveyPoint">
           <mdMethodPermission methodName="querySurvey">
             <operation name="EXECUTE"/>
@@ -184,7 +158,7 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>      
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.SurveyPoint">
           <mdMethodPermission methodName="querySurvey">
             <operation name="EXECUTE"/>
@@ -253,7 +227,7 @@
       <method methodName="queryResistance" type="dss.vector.solutions.entomology.assay.AbstractAssay">
         <assignedRole roleName="Administrator"/>
       </method>
-    </permissions>    
+    </permissions>
   </doIt>
   <undoIt>
     <delete></delete>
