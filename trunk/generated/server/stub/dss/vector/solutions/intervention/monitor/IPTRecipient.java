@@ -9,4 +9,10 @@ public class IPTRecipient extends IPTRecipientBase implements com.terraframe.moj
     super();
   }
   
+  @Override
+  protected String buildKey()
+  {
+    return this.getId();
+  }
+  
 }

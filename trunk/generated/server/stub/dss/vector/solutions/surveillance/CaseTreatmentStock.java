@@ -22,4 +22,9 @@ public class CaseTreatmentStock extends CaseTreatmentStockBase implements ChildO
     return clone;
   }
   
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().getKey() + "." + this.getChild().getKey();
+  }
 }

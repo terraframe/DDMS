@@ -15,6 +15,16 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
     super();
   }
 
+  @Override
+  protected String buildKey()
+  {
+    if(this.getSprayData() != null)
+    {
+      return this.getSprayData().getKey();
+    }
+    return this.getId();
+  }
+  
   public ZoneSprayView unlockView()
   {
     this.unlock();

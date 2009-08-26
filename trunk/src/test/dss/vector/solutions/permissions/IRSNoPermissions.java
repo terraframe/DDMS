@@ -11,6 +11,7 @@ import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.irs.HouseholdSprayStatusViewDTO;
 import dss.vector.solutions.irs.InsecticideBrandDTO;
@@ -51,8 +52,8 @@ public abstract class IRSNoPermissions extends TestCase
     dto.setDateOfBirth(new Date());
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId("3434343");
-    dto.setOperatorId("3434343a");
+    dto.setLeaderId(TestConstants.LEADER_ID);
+    dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
     PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
@@ -60,11 +61,11 @@ public abstract class IRSNoPermissions extends TestCase
     SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
     SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId("test test 7");
+    team.setTeamId(TestConstants.TEAM_ID);
     team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
     InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName("Test Brand 349");
+    view.setBrandName(TestConstants.BRAND_NAME);
     view.setAmount(44);
     view.setActiveIngredient(ingredients[0]);
     view.setWeight(new BigDecimal(3.3));
@@ -107,8 +108,8 @@ public abstract class IRSNoPermissions extends TestCase
     dto.setDateOfBirth(new Date());
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId("3434343");
-    dto.setOperatorId("3434343a");
+    dto.setLeaderId(TestConstants.LEADER_ID);
+    dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
     PersonDTO person = PersonDTO.get(request, dto.getPersonId());
@@ -116,11 +117,11 @@ public abstract class IRSNoPermissions extends TestCase
     SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
     SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId("test test 7");
+    team.setTeamId(TestConstants.TEAM_ID);
     team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
     InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName("Test Brand 349");
+    view.setBrandName(TestConstants.BRAND_NAME);
     view.setAmount(44);
     view.setActiveIngredient(ingredients[0]);
     view.setWeight(new BigDecimal(3.3));
@@ -169,8 +170,8 @@ public abstract class IRSNoPermissions extends TestCase
     dto.setDateOfBirth(new Date());
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId("3434343");
-    dto.setOperatorId("3434343a");
+    dto.setLeaderId(TestConstants.LEADER_ID);
+    dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
     PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
@@ -178,11 +179,11 @@ public abstract class IRSNoPermissions extends TestCase
     SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
     SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId("test test 7");
+    team.setTeamId(TestConstants.TEAM_ID);
     team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
     InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName("Test Brand 349");
+    view.setBrandName(TestConstants.BRAND_NAME);
     view.setAmount(44);
     view.setActiveIngredient(ingredients[0]);
     view.setWeight(new BigDecimal(3.3));
@@ -224,8 +225,8 @@ public abstract class IRSNoPermissions extends TestCase
     dto.setDateOfBirth(new Date());
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId("3434343");
-    dto.setOperatorId("3434343a");
+    dto.setLeaderId(TestConstants.LEADER_ID);
+    dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
     PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
@@ -233,11 +234,11 @@ public abstract class IRSNoPermissions extends TestCase
     SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
     SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId("test test 7");
+    team.setTeamId(TestConstants.TEAM_ID);
     team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
     InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName("Test Brand 349");
+    view.setBrandName(TestConstants.BRAND_NAME);
     view.setAmount(44);
     view.setActiveIngredient(ingredients[0]);
     view.setWeight(new BigDecimal(3.3));
@@ -287,8 +288,8 @@ public abstract class IRSNoPermissions extends TestCase
     dto.setDateOfBirth(new Date());
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId("3434343");
-    dto.setOperatorId("3434343a");
+    dto.setLeaderId(TestConstants.LEADER_ID);
+    dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
     PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
@@ -296,11 +297,11 @@ public abstract class IRSNoPermissions extends TestCase
     SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
     SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId("test test 7");
+    team.setTeamId(TestConstants.TEAM_ID);
     team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
     InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName("Test Brand 349");
+    view.setBrandName(TestConstants.BRAND_NAME);
     view.setAmount(44);
     view.setActiveIngredient(ingredients[0]);
     view.setWeight(new BigDecimal(3.3));
@@ -341,8 +342,8 @@ public abstract class IRSNoPermissions extends TestCase
     dto.setDateOfBirth(new Date());
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId("3434343");
-    dto.setOperatorId("3434343a");
+    dto.setLeaderId(TestConstants.LEADER_ID);
+    dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
     PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
@@ -350,11 +351,11 @@ public abstract class IRSNoPermissions extends TestCase
     SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
     SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId("test test 7");
+    team.setTeamId(TestConstants.TEAM_ID);
     team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
     InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName("Test Brand 349");
+    view.setBrandName(TestConstants.BRAND_NAME);
     view.setAmount(44);
     view.setActiveIngredient(ingredients[0]);
     view.setWeight(new BigDecimal(3.3));

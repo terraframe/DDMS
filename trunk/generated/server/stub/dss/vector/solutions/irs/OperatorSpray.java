@@ -16,6 +16,16 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    if(this.getSprayData() != null && this.getSprayOperator() != null)
+    {
+      return this.getSprayData().getKey() + "." + this.getSprayOperator().getKey();
+    }
+    return this.getId();
+  }
 
   public OperatorSprayView unlockView()
   {

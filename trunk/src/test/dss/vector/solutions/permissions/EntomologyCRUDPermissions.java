@@ -6,6 +6,8 @@ import junit.framework.TestCase;
 
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.DoNotWeave;
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.entomology.AssaySexDTO;
@@ -69,6 +71,13 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
       assertEquals(dto.getCollectionMethod().getId(), test.getCollectionMethod().getId());
       assertEquals(dto.getDateCollected(), test.getDateCollected());
       assertEquals(dto.getCollectionId(), test.getCollectionId());
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      for(ProblemDTOIF p : e.getProblems())
+      {
+        fail(p.getDeveloperMessage());
+      }
     }
     finally
     {

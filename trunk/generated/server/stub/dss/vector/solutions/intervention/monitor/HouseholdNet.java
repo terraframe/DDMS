@@ -14,6 +14,12 @@ public class HouseholdNet extends HouseholdNetBase implements com.terraframe.moj
   {
     this(parent.getId(), child.getId());
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().getKey() + "." + this.getChild().getKey();
+  }
 
   public HouseholdNet clone(Household parent)
   {

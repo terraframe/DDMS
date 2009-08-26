@@ -13,6 +13,7 @@ import com.terraframe.mojo.system.Roles;
 import com.terraframe.mojo.system.metadata.MdClassQuery;
 import com.terraframe.mojo.system.metadata.MdElementQuery;
 
+import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.geo.UnknownGeoEntity;
 
 public abstract class Facade extends FacadeBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -48,13 +49,13 @@ public abstract class Facade extends FacadeBase implements com.terraframe.mojo.g
   {
     return new Roles[]
     {
-      Roles.findRoleByName("GUIVisibility"),
-      Roles.findRoleByName("entomologist"),
-      Roles.findRoleByName("dataCapturer"),
-      Roles.findRoleByName("manager"),
-      Roles.findRoleByName("MDSS"),
-      Roles.findRoleByName("mdssCoordinator"),
-      Roles.findRoleByName("operationalManager")
+      Roles.findRoleByName(MDSSRoleInfo.GUI_VISIBILITY),
+      Roles.findRoleByName(MDSSRoleInfo.ENTOMOLOGIST),
+      Roles.findRoleByName(MDSSRoleInfo.DATACAPTURER),
+      Roles.findRoleByName(MDSSRoleInfo.MANAGER),
+      Roles.findRoleByName(MDSSRoleInfo.MDSS),
+      Roles.findRoleByName(MDSSRoleInfo.MDSS_CORRDINATOR),
+      Roles.findRoleByName(MDSSRoleInfo.OPERATIONAL_MANAGER)
     };
   }
 

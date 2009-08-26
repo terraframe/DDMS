@@ -1,6 +1,8 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,6 +52,19 @@ public class SurveyPoint extends SurveyPointBase implements
     validateSurveyDate();
 
     super.apply();
+  }
+  
+  @Override
+  protected String buildKey()
+  {
+    if(this.getGeoEntity() != null && this.getSurveyDate() != null)
+    {
+      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
+      
+      return this.getGeoEntity().getGeoId() + "." + format.format(this.getSurveyDate());
+    }
+    
+    return this.getId();
   }
 
   @Override
@@ -374,7 +389,7 @@ public class SurveyPoint extends SurveyPointBase implements
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     
     
-    String sql = query.getSQL();
+    query.getSQL();
     return exporter.exportStream();
   }
   

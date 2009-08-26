@@ -22,4 +22,9 @@ public class CaseTreatment extends CaseTreatmentBase implements ChildOption, com
     return clone;
   }
   
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().getKey() + "." + this.getChild().getKey();
+  }
 }

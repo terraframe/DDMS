@@ -21,6 +21,16 @@ public class MalariaSeason extends MalariaSeasonBase implements
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    if(this.getSeasonName() != null)
+    {
+      return this.getSeasonName();
+    }
+    return this.getId();
+  }
 
   @Transaction
   public void apply()

@@ -17,6 +17,17 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    if(this.getSpray() != null && this.getHouseholdId() != null && this.getStructureId() != null)
+    {
+      return this.getSpray().getKey() + "." + this.getHouseholdId() + "." + this.getStructureId();
+    }
+    
+    return this.getId();
+  }
 
   public HouseholdSprayStatusView getView()
   {

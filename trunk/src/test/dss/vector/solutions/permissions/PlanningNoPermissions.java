@@ -4,12 +4,15 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
+import junit.framework.TestCase;
+
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.irs.AreaStandardsViewDTO;
@@ -25,10 +28,10 @@ import dss.vector.solutions.irs.SprayOperatorDTO;
 import dss.vector.solutions.irs.SprayTeamDTO;
 import dss.vector.solutions.irs.TargetUnitDTO;
 import dss.vector.solutions.mo.ActiveIngredientDTO;
-import junit.framework.TestCase;
 
 public abstract class PlanningNoPermissions extends TestCase
 {
+  
   protected static ClientSession   systemSession;
 
   protected static ClientSession   clientSession;
@@ -47,8 +50,8 @@ public abstract class PlanningNoPermissions extends TestCase
     dto.setDateOfBirth(new Date());
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId("3434343");
-    dto.setOperatorId("3434343a");
+    dto.setLeaderId(TestConstants.LEADER_ID);
+    dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
     PersonDTO person = PersonDTO.get(request, dto.getPersonId());
@@ -58,7 +61,7 @@ public abstract class PlanningNoPermissions extends TestCase
     try
     {
       SprayTeamDTO team = new SprayTeamDTO(request);
-      team.setTeamId("test test 7");
+      team.setTeamId(TestConstants.TEAM_ID);
       team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
       fail("Able to create a object without permissions");
@@ -81,7 +84,7 @@ public abstract class PlanningNoPermissions extends TestCase
     try
     {
       InsecticideBrandViewDTO brand = new InsecticideBrandViewDTO(request);
-      brand.setBrandName("Test Brand 349");
+      brand.setBrandName(TestConstants.BRAND_NAME);
       brand.setAmount(44);
       brand.setActiveIngredient(ingredients[0]);
       brand.setWeight(new BigDecimal(3.3));
@@ -103,7 +106,7 @@ public abstract class PlanningNoPermissions extends TestCase
     try
     {
       NozzleViewDTO nozzle = new NozzleViewDTO(request);
-      nozzle.setDisplayLabel("Test Nozzle");
+      nozzle.setDisplayLabel(TestConstants.NOZZLE_NAME);
       nozzle.setRatio(new BigDecimal(3.4));
       nozzle.setEnabled(true);
       nozzle.apply();
@@ -121,7 +124,7 @@ public abstract class PlanningNoPermissions extends TestCase
     ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(request);
 
     InsecticideBrandViewDTO brand = new InsecticideBrandViewDTO(systemRequest);
-    brand.setBrandName("Test Brand 349");
+    brand.setBrandName(TestConstants.BRAND_NAME);
     brand.setAmount(44);
     brand.setActiveIngredient(ingredients[0]);
     brand.setWeight(new BigDecimal(3.3));
@@ -130,7 +133,7 @@ public abstract class PlanningNoPermissions extends TestCase
     brand.apply();
 
     NozzleViewDTO nozzle = new NozzleViewDTO(systemRequest);
-    nozzle.setDisplayLabel("Test Nozzle");
+    nozzle.setDisplayLabel(TestConstants.NOZZLE_NAME);
     nozzle.setRatio(new BigDecimal(3.4));
     nozzle.setEnabled(true);
     nozzle.apply();
@@ -183,17 +186,17 @@ public abstract class PlanningNoPermissions extends TestCase
   {
     Calendar calendar = Calendar.getInstance();
     calendar.clear();
-    calendar.set(2007, 1, 1);
+    calendar.set(2006, 1, 1);
 
     Date startDate = calendar.getTime();
 
     calendar.clear();
-    calendar.set(2007, 10, 1);
+    calendar.set(2006, 10, 1);
 
     Date endDate = calendar.getTime();
 
     MalariaSeasonDTO season = new MalariaSeasonDTO(systemRequest);
-    season.setSeasonName("Test Season");
+    season.setSeasonName(TestConstants.SEASON_NAME);
     season.setStartDate(startDate);
     season.setEndDate(endDate);
     season.apply();
@@ -222,17 +225,17 @@ public abstract class PlanningNoPermissions extends TestCase
   {
     Calendar calendar = Calendar.getInstance();
     calendar.clear();
-    calendar.set(2007, 1, 1);
+    calendar.set(2006, 1, 1);
 
     Date startDate = calendar.getTime();
 
     calendar.clear();
-    calendar.set(2007, 10, 1);
+    calendar.set(2006, 10, 1);
 
     Date endDate = calendar.getTime();
 
     MalariaSeasonDTO season = new MalariaSeasonDTO(systemRequest);
-    season.setSeasonName("Test Season");
+    season.setSeasonName(TestConstants.SEASON_NAME);
     season.setStartDate(startDate);
     season.setEndDate(endDate);
     season.apply();
@@ -243,8 +246,8 @@ public abstract class PlanningNoPermissions extends TestCase
     dto.setDateOfBirth(new Date());
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId("3434343");
-    dto.setOperatorId("3434343a");
+    dto.setLeaderId(TestConstants.LEADER_ID);
+    dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
     PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
@@ -252,7 +255,7 @@ public abstract class PlanningNoPermissions extends TestCase
     SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
     SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId("test test 7");
+    team.setTeamId(TestConstants.TEAM_ID);
     team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
     try

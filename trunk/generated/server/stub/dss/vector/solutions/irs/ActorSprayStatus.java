@@ -9,4 +9,14 @@ public class ActorSprayStatus extends ActorSprayStatusBase implements com.terraf
     super();
   }
   
+  @Override
+  protected String buildKey()
+  {
+    if(this.getSpray() != null)
+    {
+      return this.getSpray().getKey();
+    }
+    
+    return this.getId();
+  }
 }

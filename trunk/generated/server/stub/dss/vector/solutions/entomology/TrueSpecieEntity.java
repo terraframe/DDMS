@@ -11,4 +11,14 @@ public abstract class TrueSpecieEntity extends TrueSpecieEntityBase implements c
     super();
   }
   
+  @Override
+  protected String buildKey()
+  {
+    if(this.getCollection() != null && this.getSampleId() != null)
+    {
+      return this.getCollection().getKey() + "." + this.getSampleId();
+    }
+    
+    return this.getId();
+  }
 }

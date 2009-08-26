@@ -14,4 +14,9 @@ public class HouseholdPerson extends HouseholdPersonBase implements com.terrafra
     this(parent.getId(), child.getId());
   }
   
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().getKey() + "." + this.getChild().getKey();
+  }
 }

@@ -11,6 +11,17 @@ public abstract class AssayTestResult extends AssayTestResultBase implements com
   {
     super();
   }  
+    
+  @Override
+  protected String buildKey()
+  {
+    if(this.getMosquito() != null)
+    {
+      return this.getType() + "." + this.getMosquito().getKey();
+    }
+    
+    return super.getId();
+  }
   
   /**
    * @return The test result of the AssayTestResult

@@ -32,7 +32,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
   {
     super();
   }
-
+  
   @Override
   public void delete()
   {

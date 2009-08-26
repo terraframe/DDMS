@@ -41,7 +41,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   {
     super();
   }
-
+  
   @Override
   public void validateQuantityDead()
   {

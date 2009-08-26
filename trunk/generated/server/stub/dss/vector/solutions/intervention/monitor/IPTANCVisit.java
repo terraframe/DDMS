@@ -27,4 +27,9 @@ public class IPTANCVisit extends IPTANCVisitBase implements ChildOption, Reloada
     return clone;
   }
 
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().getKey() + "." + this.getChild().getKey();
+  }
 }

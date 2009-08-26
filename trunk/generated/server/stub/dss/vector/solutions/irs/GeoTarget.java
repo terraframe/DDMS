@@ -14,6 +14,16 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    if(this.getGeoEntity() != null && this.getSeason() != null)
+    {
+      return this.getGeoEntity().getGeoId() + "." + this.getSeason().getKey();
+    }
+    return this.getId();
+  }
 
   public GeoTargetView getView()
   {    

@@ -1,5 +1,7 @@
 package dss.vector.solutions.entomology;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +22,20 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    if(this.getGeoEntity() != null && this.getDateCollected() != null)
+    {
+      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
+      
+      return this.getGeoEntity().getGeoId() + "." + format.format(this.getDateCollected());
+    }
+    
+    return this.getId();
+  }
+
 
   @Override
   public void apply()

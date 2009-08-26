@@ -2,13 +2,15 @@ package dss.vector.solutions.permissions;
 
 import java.util.Date;
 
+import junit.framework.TestCase;
+
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorExceptionDTO;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
-import junit.framework.TestCase;
+import dss.vector.solutions.TestConstants;
 
 public abstract class PersonCRUDPermissions extends TestCase
 {
@@ -34,8 +36,8 @@ public abstract class PersonCRUDPermissions extends TestCase
     dto.setIsPatient(true);
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId("3434343");
-    dto.setOperatorId("3434343a");
+    dto.setLeaderId(TestConstants.LEADER_ID);
+    dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
     try

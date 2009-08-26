@@ -21,6 +21,12 @@ public class SprayLeader extends SprayLeaderBase implements com.terraframe.mojo.
   }
   
   @Override
+  protected String buildKey()
+  {
+    return this.getLeaderId();
+  }
+  
+  @Override
   public void apply()
   {
     SprayOperator.reentrantLock.lock();

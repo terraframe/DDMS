@@ -15,6 +15,7 @@ import com.terraframe.mojo.web.WebClientSession;
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.Person;
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.Hospital;
 
@@ -89,7 +90,7 @@ public class C_AggregatedCasesCRUDPermissions extends AggregatedCasesCRUDPermiss
     person.apply();
 
     site = new Hospital();
-    site.setGeoId("44");
+    site.setGeoId(TestConstants.GEO_ID);
     site.setEntityName("Test Site");
     site.apply();
 

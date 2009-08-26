@@ -93,12 +93,12 @@ public class E_EntomologyCRUDPermissions extends EntomologyCRUDPermissions imple
     person.apply();
     
     site = new SentinelSite();
-    site.setGeoId("41");
+    site.setGeoId("48");
     site.setEntityName("Test Site");
     site.apply();
     
     water = new PermanentWaterBody();
-    water.setGeoId("40");
+    water.setGeoId("49");
     water.setEntityName("Test Water");
     water.apply();
     

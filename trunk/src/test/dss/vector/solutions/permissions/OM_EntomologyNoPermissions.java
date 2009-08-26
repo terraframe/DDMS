@@ -96,12 +96,12 @@ public class OM_EntomologyNoPermissions extends EntomologyNoPermissions
     person.apply();
     
     site = new SentinelSite();
-    site.setGeoId("41");
+    site.setGeoId(TestConstants.GEO_ID);
     site.setEntityName("Test Site");
     site.apply();
     
     water = new PermanentWaterBody();
-    water.setGeoId("40");
+    water.setGeoId(TestConstants.GEO_ID_2);
     water.setEntityName("Test Water");
     water.apply();
     

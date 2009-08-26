@@ -93,7 +93,7 @@ public class D_PlanningNoPermissions extends PlanningNoPermissions
     person.apply();
 
     site = new SprayZone();
-    site.setGeoId("58");
+    site.setGeoId(TestConstants.GEO_ID);
     site.setEntityName("Test Site");
     site.apply();
 

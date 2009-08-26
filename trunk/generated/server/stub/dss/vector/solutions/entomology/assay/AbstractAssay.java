@@ -23,7 +23,13 @@ public abstract class AbstractAssay extends AbstractAssayBase implements
   {
     super();
   }
-
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getId();
+  }
+  
   @Override
   public void apply()
   {

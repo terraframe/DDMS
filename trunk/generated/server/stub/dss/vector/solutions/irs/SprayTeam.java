@@ -35,6 +35,12 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getTeamId();
+  }
 
   @Override
   @Transaction

@@ -27,4 +27,9 @@ public class IPTTreatment extends IPTTreatmentBase implements ChildOption, Reloa
     return clone;
   }
 
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().getKey() + "." + this.getChild().getKey();
+  }
 }

@@ -16,6 +16,7 @@ import com.terraframe.mojo.web.WebClientSession;
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.Person;
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.PermanentWaterBody;
 import dss.vector.solutions.geo.generated.SentinelSite;
@@ -93,12 +94,12 @@ public class D_EntomologyCRUDPermissions extends EntomologyCRUDPermissions imple
     person.apply();
     
     site = new SentinelSite();
-    site.setGeoId("41");
+    site.setGeoId(TestConstants.GEO_ID);
     site.setEntityName("Test Site");
     site.apply();
     
     water = new PermanentWaterBody();
-    water.setGeoId("40");
+    water.setGeoId(TestConstants.GEO_ID_2);
     water.setEntityName("Test Water");
     water.apply();
     

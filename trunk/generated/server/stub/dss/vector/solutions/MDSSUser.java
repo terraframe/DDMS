@@ -32,7 +32,13 @@ public class MDSSUser extends MDSSUserBase implements com.terraframe.mojo.genera
     // Assign this user to the GUIVisibility role
     UserDAO userDAO = (UserDAO) BusinessFacade.getEntityDAO(this).getEntityDAO();
 
-    RoleDAO.findRole("GUIVisibility").assignMember(userDAO);
+    RoleDAO.findRole(MDSSRoleInfo.GUI_VISIBILITY).assignMember(userDAO);
+  }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getUsername();
   }
 
   @Override

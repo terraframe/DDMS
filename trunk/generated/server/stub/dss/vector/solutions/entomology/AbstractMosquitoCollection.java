@@ -25,6 +25,7 @@ public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollect
     super();
   }
 
+  
   @Override
   public MosquitoView[] getMosquitos()
   {

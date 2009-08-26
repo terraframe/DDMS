@@ -14,7 +14,7 @@ public class SprayStatus extends SprayStatusBase implements
   {
     super();
   }
-
+  
   public SprayStatusView unlockView()
   {
     this.unlock();

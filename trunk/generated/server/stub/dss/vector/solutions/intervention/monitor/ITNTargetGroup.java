@@ -26,4 +26,9 @@ public class ITNTargetGroup extends ITNTargetGroupBase implements Reloadable, Ch
     return clone;
   }  
   
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().getKey() + "." + this.getChild().getKey();
+  }
 }

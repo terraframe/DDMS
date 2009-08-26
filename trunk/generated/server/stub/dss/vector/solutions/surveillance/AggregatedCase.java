@@ -1,6 +1,8 @@
 package dss.vector.solutions.surveillance;
 
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -48,6 +50,21 @@ public class AggregatedCase extends AggregatedCaseBase implements
   public AggregatedCase()
   {
     super();
+  }
+  
+  @Override
+  protected String buildKey()
+  {
+    if(this.getGeoEntity() != null && this.getStartDate() != null && this.getEndDate() != null && this.getStartAge() != null && this.getEndAge() != null)
+    {
+      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
+      
+      String period = format.format(this.getStartDate()) + "-" + format.format(this.getEndDate());
+      String ageRange = this.getStartAge() + "-" + this.getEndAge();
+
+      return this.getGeoEntity().getGeoId() + "." + period + "." + ageRange;
+    }
+    return this.getId();
   }
 
   @StartSession

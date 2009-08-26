@@ -15,6 +15,17 @@ public class KnockDownTimeProperty extends KnockDownTimePropertyBase implements 
   }
   
   @Override
+  protected String buildKey()
+  {
+    if(this.getInsecticide() != null)
+    {      
+      return this.getInsecticide().getKey();
+    }
+    
+    return this.getId();
+  }
+  
+  @Override
   public void validateLowerTime()
   {
     if (this.getLowerTime() != null && this.getUpperTime() != null

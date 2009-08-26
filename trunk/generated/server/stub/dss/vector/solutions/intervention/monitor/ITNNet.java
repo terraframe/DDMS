@@ -25,4 +25,10 @@ public class ITNNet extends ITNNetBase implements Reloadable, ChildOption
 
     return clone;
   }  
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().getKey() + "." + this.getChild().getKey();
+  }
 }

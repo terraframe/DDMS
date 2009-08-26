@@ -1,5 +1,7 @@
 package dss.vector.solutions.entomology;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.terraframe.mojo.business.Entity;
@@ -22,7 +24,20 @@ public class MosquitoCollection extends MosquitoCollectionBase implements
   {
     super();
   }
-
+    
+  @Override
+  protected String buildKey()
+  {
+    if(this.getGeoEntity() != null && this.getCollectionMethod() != null && this.getDateCollected() != null)
+    {
+      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
+      
+      return this.getGeoEntity().getGeoId() + "." + this.getCollectionMethod().getTermName() + "." + format.format(this.getDateCollected());
+    }
+    
+    return this.getId();
+  }
+  
   @Override
   public void apply()
   {

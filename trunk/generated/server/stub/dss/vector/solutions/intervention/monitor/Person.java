@@ -18,6 +18,17 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   {
     super();
   }
+    
+  @Override
+  protected String buildKey()
+  {
+    if(this.getPersonId() != null)
+    {
+      return this.getPersonId();
+    }
+    
+    return this.getId();
+  }
 
   @Override
   public void validatePregnant()

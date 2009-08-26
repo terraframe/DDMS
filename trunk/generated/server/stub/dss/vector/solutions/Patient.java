@@ -9,4 +9,9 @@ public class Patient extends PatientBase implements com.terraframe.mojo.generati
     super();
   }
   
+  @Override
+  protected String buildKey()
+  {
+    return this.getId();
+  }
 }

@@ -16,6 +16,17 @@ public class TeamSpray extends TeamSprayBase implements com.terraframe.mojo.gene
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    if(this.getSprayData() != null && this.getSprayTeam() != null)
+    {
+      return this.getSprayData().getKey() + "." + this.getSprayTeam().getKey();
+    }
+    
+    return this.getId();
+  }
 
   public TeamSprayView unlockView()
   {

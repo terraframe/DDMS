@@ -8,6 +8,12 @@ public class AreaStandards extends AreaStandardsBase implements com.terraframe.m
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getId();
+  }
 
   public void populateView(AreaStandardsView view)
   {

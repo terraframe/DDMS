@@ -1,5 +1,7 @@
 package dss.vector.solutions.irs;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.terraframe.mojo.query.OIterator;
@@ -16,8 +18,22 @@ public class SprayData extends SprayDataBase implements com.terraframe.mojo.gene
     super();
   }
 
-  public static synchronized SprayData search(InsecticideBrand brand, GeoEntity geoEntity, Date date,
-      SprayMethod... sprayMethods)
+  @Override
+  protected String buildKey()
+  {
+    if (this.getBrand() != null && this.getGeoEntity() != null && this.getSprayDate() != null && this.getSprayMethod().size() > 0)
+    {
+      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
+      String dateFormat = format.format(this.getSprayDate());
+      String methodName = this.getSprayMethod().get(0).getEnumName();
+
+      return this.getBrand().getKey() + "." + this.getGeoEntity().getGeoId() + "." + dateFormat + "." + methodName;
+    }
+
+    return this.getId();
+  }
+
+  public static synchronized SprayData search(InsecticideBrand brand, GeoEntity geoEntity, Date date, SprayMethod... sprayMethods)
   {
     SprayDataQuery query = new SprayDataQuery(new QueryFactory());
 
@@ -30,7 +46,7 @@ public class SprayData extends SprayDataBase implements com.terraframe.mojo.gene
 
     try
     {
-      if(it.hasNext())
+      if (it.hasNext())
       {
         return it.next();
       }
@@ -47,14 +63,14 @@ public class SprayData extends SprayDataBase implements com.terraframe.mojo.gene
   {
     SprayData search = SprayData.search(brand, geoEntity, date, sprayMethods);
 
-    if(search == null)
+    if (search == null)
     {
       search = new SprayData();
       search.setBrand(brand);
       search.setGeoEntity(geoEntity);
       search.setSprayDate(date);
 
-      for(SprayMethod method : sprayMethods)
+      for (SprayMethod method : sprayMethods)
       {
         search.addSprayMethod(method);
       }

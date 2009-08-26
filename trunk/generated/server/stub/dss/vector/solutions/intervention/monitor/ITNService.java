@@ -25,4 +25,10 @@ public class ITNService extends ITNServiceBase implements Reloadable, ChildOptio
 
     return clone;
   }  
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().getKey() + "." + this.getChild().getKey();
+  }
 }

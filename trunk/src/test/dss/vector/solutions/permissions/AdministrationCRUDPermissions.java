@@ -16,6 +16,7 @@ import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.PropertyDTO;
 import dss.vector.solutions.PropertyInfo;
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.intervention.FeverTreatmentDTO;
@@ -72,7 +73,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testCreateMalariaSeason()
   {
     MalariaSeasonDTO dto = new MalariaSeasonDTO(request);
-    dto.setSeasonName("Test Season");
+    dto.setSeasonName(TestConstants.SEASON_NAME);
     dto.setStartDate(new Date());
     dto.setEndDate(new Date());
     dto.apply();
@@ -80,7 +81,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     try
     {
       dto.lock();
-      dto.setSeasonName("Test Season 2");
+      dto.setSeasonName(TestConstants.SEASON_NAME_2);
       dto.apply();
 
       MalariaSeasonDTO test = MalariaSeasonDTO.get(request, dto.getId());
@@ -102,7 +103,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testActiveIngredient()
   {
     ActiveIngredientDTO dto = new ActiveIngredientDTO(request);
-    dto.setTermName("Test Term");
+    dto.setTermName(TestConstants.TERM_NAME);
     dto.setTermId("34243");
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
@@ -110,7 +111,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     try
     {
       dto.lock();
-      dto.setTermName("Test Term1");
+      dto.setTermName(TestConstants.TERM_NAME_2);
       dto.setTermId("3424343");
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
@@ -129,7 +130,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testCollectionMethod()
   {
     CollectionMethodDTO dto = new CollectionMethodDTO(request);
-    dto.setTermName("Test Term");
+    dto.setTermName(TestConstants.TERM_NAME);
     dto.setTermId("34243");
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
@@ -137,7 +138,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     try
     {
       dto.lock();
-      dto.setTermName("Test Term1");
+      dto.setTermName(TestConstants.TERM_NAME_2);
       dto.setTermId("3424343");
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
@@ -157,7 +158,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testGeneration()
   {
     GenerationDTO dto = new GenerationDTO(request);
-    dto.setTermName("Test Term");
+    dto.setTermName(TestConstants.TERM_NAME);
     dto.setTermId("34243");
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
@@ -165,7 +166,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     try
     {
       dto.lock();
-      dto.setTermName("Test Term1");
+      dto.setTermName(TestConstants.TERM_NAME_2);
       dto.setTermId("3424343");
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
@@ -185,7 +186,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testIdentificationMethod()
   {
     IdentificationMethodDTO dto = new IdentificationMethodDTO(request);
-    dto.setTermName("Test Term");
+    dto.setTermName(TestConstants.TERM_NAME);
     dto.setTermId("34243");
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
@@ -193,7 +194,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     try
     {
       dto.lock();
-      dto.setTermName("Test Term1");
+      dto.setTermName(TestConstants.TERM_NAME_2);
       dto.setTermId("3424343");
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
@@ -212,7 +213,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testInfectivityMethodologies()
   {
     InfectivityMethodologyDTO dto = new InfectivityMethodologyDTO(request);
-    dto.setTermName("Test Term");
+    dto.setTermName(TestConstants.TERM_NAME);
     dto.setTermId("34243");
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
@@ -220,7 +221,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     try
     {
       dto.lock();
-      dto.setTermName("Test Term1");
+      dto.setTermName(TestConstants.TERM_NAME_2);
       dto.setTermId("3424343");
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
@@ -240,7 +241,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testLarvaeAges()
   {
     LarvaeAgeDTO dto = new LarvaeAgeDTO(request);
-    dto.setTermName("Test Term");
+    dto.setTermName(TestConstants.TERM_NAME);
     dto.setTermId("34243");
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
@@ -248,7 +249,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     try
     {
       dto.lock();
-      dto.setTermName("Test Term1");
+      dto.setTermName(TestConstants.TERM_NAME_2);
       dto.setTermId("3424343");
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
@@ -267,7 +268,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testMolecularAssayResult()
   {
     MolecularAssayResultDTO dto = new MolecularAssayResultDTO(request);
-    dto.setTermName("Test Term");
+    dto.setTermName(TestConstants.TERM_NAME);
     dto.setTermId("34243");
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
@@ -275,7 +276,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     try
     {
       dto.lock();
-      dto.setTermName("Test Term1");
+      dto.setTermName(TestConstants.TERM_NAME_2);
       dto.setTermId("3424343");
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
@@ -295,7 +296,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testResistanceMethodology()
   {
     ResistanceMethodologyDTO dto = new ResistanceMethodologyDTO(request);
-    dto.setTermName("Test Term");
+    dto.setTermName(TestConstants.TERM_NAME);
     dto.setTermId("34243");
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
@@ -303,7 +304,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     try
     {
       dto.lock();
-      dto.setTermName("Test Term1");
+      dto.setTermName(TestConstants.TERM_NAME_2);
       dto.setTermId("3424343");
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
@@ -322,7 +323,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testSpecie()
   {
     SpecieDTO dto = new SpecieDTO(request);
-    dto.setTermName("Test Term");
+    dto.setTermName(TestConstants.TERM_NAME);
     dto.setTermId("34243");
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
@@ -330,7 +331,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     try
     {
       dto.lock();
-      dto.setTermName("Test Term1");
+      dto.setTermName(TestConstants.TERM_NAME_2);
       dto.setTermId("3424343");
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
@@ -349,14 +350,14 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testDiagnosticGrid()
   {
     DiagnosticGridDTO dto = new DiagnosticGridDTO(request);
-    dto.setOptionName("Test Term");
+    dto.setOptionName(TestConstants.TERM_NAME);
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
 
     try
     {
       dto.lock();
-      dto.setOptionName("Test Term1");
+      dto.setOptionName(TestConstants.TERM_NAME_2);
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
 
@@ -373,14 +374,14 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testTreatmentGrid()
   {
     TreatmentGridDTO dto = new TreatmentGridDTO(request);
-    dto.setOptionName("Test Term");
+    dto.setOptionName(TestConstants.TERM_NAME);
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
 
     try
     {
       dto.lock();
-      dto.setOptionName("Test Term1");
+      dto.setOptionName(TestConstants.TERM_NAME_2);
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
 
@@ -397,14 +398,14 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testTreatmentMethodGrid()
   {
     TreatmentMethodGridDTO dto = new TreatmentMethodGridDTO(request);
-    dto.setOptionName("Test Term");
+    dto.setOptionName(TestConstants.TERM_NAME);
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
 
     try
     {
       dto.lock();
-      dto.setOptionName("Test Term1");
+      dto.setOptionName(TestConstants.TERM_NAME_2);
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
 
@@ -421,14 +422,14 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testReferralGrid()
   {
     ReferralGridDTO dto = new ReferralGridDTO(request);
-    dto.setOptionName("Test Term");
+    dto.setOptionName(TestConstants.TERM_NAME);
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
 
     try
     {
       dto.lock();
-      dto.setOptionName("Test Term1");
+      dto.setOptionName(TestConstants.TERM_NAME_2);
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
 
@@ -445,14 +446,14 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testDoseGrid()
   {
     DoseGridDTO dto = new DoseGridDTO(request);
-    dto.setOptionName("Test Term");
+    dto.setOptionName(TestConstants.TERM_NAME);
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
 
     try
     {
       dto.lock();
-      dto.setOptionName("Test Term1");
+      dto.setOptionName(TestConstants.TERM_NAME_2);
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
 
@@ -469,14 +470,14 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testVisitGrid()
   {
     VisitGridDTO dto = new VisitGridDTO(request);
-    dto.setOptionName("Test Term");
+    dto.setOptionName(TestConstants.TERM_NAME);
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
 
     try
     {
       dto.lock();
-      dto.setOptionName("Test Term1");
+      dto.setOptionName(TestConstants.TERM_NAME_2);
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
 
@@ -493,14 +494,14 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testPatientGrid()
   {
     PatientGridDTO dto = new PatientGridDTO(request);
-    dto.setOptionName("Test Term");
+    dto.setOptionName(TestConstants.TERM_NAME);
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
 
     try
     {
       dto.lock();
-      dto.setOptionName("Test Term1");
+      dto.setOptionName(TestConstants.TERM_NAME_2);
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
 
@@ -517,7 +518,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testNetGrid()
   {
     NetDTO dto = new NetDTO(request);
-    dto.setNetName("Test Term");
+    dto.setNetName(TestConstants.TERM_NAME);
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
 
@@ -541,7 +542,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
       }
 
       dto.lock();
-      dto.setNetName("Test Term1");
+      dto.setNetName(TestConstants.TERM_NAME_2);
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
 
@@ -558,7 +559,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testRoofGrid()
   {
     RoofDTO dto = new RoofDTO(request);
-    dto.setRoofName("Test Term");
+    dto.setRoofName(TestConstants.TERM_NAME);
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
 
@@ -568,7 +569,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
 
       try
       {
-        child.setRoofName("Test Term");
+        child.setRoofName(TestConstants.TERM_NAME_3);
         child.getDisplayLabel().setDefaultLocale("Test Label");
         child.setParentRoof(dto);
         child.apply();
@@ -579,11 +580,14 @@ public abstract class AdministrationCRUDPermissions extends TestCase
       }
       finally
       {
-        child.delete();
+        if(!child.isNewInstance())
+        {
+          child.delete();
+        }
       }
 
       dto.lock();
-      dto.setRoofName("Test Term1");
+      dto.setRoofName(TestConstants.TERM_NAME_2);
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
 
@@ -601,7 +605,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testWallGrid()
   {
     WallDTO dto = new WallDTO(request);
-    dto.setWallName("Test Term");
+    dto.setWallName(TestConstants.TERM_NAME);
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
 
@@ -611,7 +615,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
 
       try
       {
-        child.setWallName("Test Term");
+        child.setWallName(TestConstants.TERM_NAME_3);
         child.getDisplayLabel().setDefaultLocale("Test Label");
         child.setParentWall(dto);
         child.apply();
@@ -622,11 +626,14 @@ public abstract class AdministrationCRUDPermissions extends TestCase
       }
       finally
       {
-        child.delete();
+        if(!child.isNewInstance())
+        {
+          child.delete();
+        }
       }
 
       dto.lock();
-      dto.setWallName("Test Term1");
+      dto.setWallName(TestConstants.TERM_NAME_2);
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
 
@@ -673,14 +680,14 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testFeverTreatmentGrid()
   {
     FeverTreatmentDTO dto = new FeverTreatmentDTO(request);
-    dto.setTreatmentName("Test Term");
+    dto.setTreatmentName(TestConstants.TERM_NAME);
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
 
     try
     {
       dto.lock();
-      dto.setTreatmentName("Test Term1");
+      dto.setTreatmentName(TestConstants.TERM_NAME_2);
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
 
@@ -698,14 +705,14 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testServiceGrid()
   {
     ServiceGridDTO dto = new ServiceGridDTO(request);
-    dto.setOptionName("Test Term");
+    dto.setOptionName(TestConstants.TERM_NAME);
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
 
     try
     {
       dto.lock();
-      dto.setOptionName("Test Term1");
+      dto.setOptionName(TestConstants.TERM_NAME_2);
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
 
@@ -722,14 +729,14 @@ public abstract class AdministrationCRUDPermissions extends TestCase
   public void testTargetGroupGrid()
   {
     TargetGroupGridDTO dto = new TargetGroupGridDTO(request);
-    dto.setOptionName("Test Term");
+    dto.setOptionName(TestConstants.TERM_NAME);
     dto.getDisplayLabel().setDefaultLocale("Test Label");
     dto.apply();
 
     try
     {
       dto.lock();
-      dto.setOptionName("Test Term1");
+      dto.setOptionName(TestConstants.TERM_NAME_2);
       dto.getDisplayLabel().setDefaultLocale("Test Label 2");
       dto.apply();
 
@@ -814,8 +821,8 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     dto.setIsPatient(true);
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId("1434343");
-    dto.setOperatorId("1434343a");
+    dto.setLeaderId(TestConstants.LEADER_ID);
+    dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
     try
@@ -832,8 +839,8 @@ public abstract class AdministrationCRUDPermissions extends TestCase
       update.setIsPatient(true);
       update.setIsSprayLeader(true);
       update.setIsSprayOperator(true);
-      update.setLeaderId("1434343");
-      update.setOperatorId("1434343a");
+      update.setLeaderId(TestConstants.LEADER_ID);
+      update.setOperatorId(TestConstants.OPERATOR_ID);
       update.apply();
 
       PersonViewDTO view = PersonDTO.getView(request, dto.getPersonId());

@@ -15,6 +15,12 @@ public class Nozzle extends NozzleBase implements com.terraframe.mojo.generation
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getDisplayLabel();
+  }
 
   public void populateView(NozzleView view)
   {

@@ -23,4 +23,10 @@ public class CaseDiagnostic extends CaseDiagnosticBase implements ChildOption, c
 
     return clone;
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().getKey() + "." + this.getChild().getKey();
+  }
 }

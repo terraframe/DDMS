@@ -12,6 +12,12 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getId();
+  }
 
   @Override
   public void validateQuantity()

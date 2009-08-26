@@ -22,4 +22,9 @@ public class CaseTreatmentMethod extends CaseTreatmentMethodBase implements Chil
     return clone;
   }
   
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().getKey() + "." + this.getChild().getKey();
+  }
 }

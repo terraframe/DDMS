@@ -26,5 +26,11 @@ public class IPTDose extends IPTDoseBase implements ChildOption, Reloadable
 
     return clone;
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().getKey() + "." + this.getChild().getKey();
+  }
 
 }

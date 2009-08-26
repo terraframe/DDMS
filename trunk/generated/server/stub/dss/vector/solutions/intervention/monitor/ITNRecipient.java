@@ -9,4 +9,10 @@ public class ITNRecipient extends ITNRecipientBase implements com.terraframe.moj
     super();
   }
   
+  @Override
+  protected String buildKey()
+  {
+    return this.getId();
+  }
+  
 }

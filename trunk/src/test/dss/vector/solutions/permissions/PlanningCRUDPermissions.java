@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
+import junit.framework.TestCase;
+
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
@@ -11,6 +13,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.irs.AreaStandardsDTO;
@@ -30,7 +33,6 @@ import dss.vector.solutions.irs.SprayOperatorDTO;
 import dss.vector.solutions.irs.SprayTeamDTO;
 import dss.vector.solutions.irs.TargetUnitDTO;
 import dss.vector.solutions.mo.ActiveIngredientDTO;
-import junit.framework.TestCase;
 
 public abstract class PlanningCRUDPermissions extends TestCase
 {
@@ -52,8 +54,8 @@ public abstract class PlanningCRUDPermissions extends TestCase
     dto.setDateOfBirth(new Date());
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId("3434343");
-    dto.setOperatorId("3434343a");
+    dto.setLeaderId(TestConstants.LEADER_ID);
+    dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
     PersonDTO person = PersonDTO.get(request, dto.getPersonId());
@@ -61,7 +63,7 @@ public abstract class PlanningCRUDPermissions extends TestCase
     SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
     SprayTeamDTO team = new SprayTeamDTO(request);
-    team.setTeamId("test test 7");
+    team.setTeamId(TestConstants.TEAM_ID);
     team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
     try
@@ -87,7 +89,7 @@ public abstract class PlanningCRUDPermissions extends TestCase
     ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(request);
 
     InsecticideBrandViewDTO brand = new InsecticideBrandViewDTO(request);
-    brand.setBrandName("Test Brand 349");
+    brand.setBrandName(TestConstants.BRAND_NAME);
     brand.setAmount(44);
     brand.setActiveIngredient(ingredients[0]);
     brand.setWeight(new BigDecimal(3.3));
@@ -99,7 +101,7 @@ public abstract class PlanningCRUDPermissions extends TestCase
     {
 
       InsecticideBrandViewDTO update = InsecticideBrandDTO.lockView(request, brand.getInsecticdeId());
-      update.setBrandName("Test Brand 2");
+      update.setBrandName(TestConstants.BRAND_NAME_2);
       update.setAmount(42);
       update.setActiveIngredient(ingredients[1]);
       update.setEnabled(true);
@@ -127,7 +129,7 @@ public abstract class PlanningCRUDPermissions extends TestCase
   public void testNozzle()
   {
     NozzleViewDTO nozzle = new NozzleViewDTO(request);
-    nozzle.setDisplayLabel("Test Nozzle");
+    nozzle.setDisplayLabel(TestConstants.NOZZLE_NAME);
     nozzle.setRatio(new BigDecimal(3.4));
     nozzle.setEnabled(true);
     nozzle.apply();
@@ -136,7 +138,7 @@ public abstract class PlanningCRUDPermissions extends TestCase
     {
 
       NozzleViewDTO update = NozzleDTO.lockView(request, nozzle.getNozzleId());
-      nozzle.setDisplayLabel("Test Nozzle 2");
+      nozzle.setDisplayLabel(TestConstants.NOZZLE_NAME_2);
       nozzle.setRatio(new BigDecimal(3.1));
       nozzle.setEnabled(true);
       update.apply();
@@ -164,7 +166,7 @@ public abstract class PlanningCRUDPermissions extends TestCase
     ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(request);
 
     InsecticideBrandViewDTO brand = new InsecticideBrandViewDTO(request);
-    brand.setBrandName("Test Brand 349");
+    brand.setBrandName(TestConstants.BRAND_NAME);
     brand.setAmount(44);
     brand.setActiveIngredient(ingredients[0]);
     brand.setWeight(new BigDecimal(3.3));
@@ -173,7 +175,7 @@ public abstract class PlanningCRUDPermissions extends TestCase
     brand.apply();
 
     NozzleViewDTO nozzle = new NozzleViewDTO(request);
-    nozzle.setDisplayLabel("Test Nozzle");
+    nozzle.setDisplayLabel(TestConstants.NOZZLE_NAME);
     nozzle.setRatio(new BigDecimal(3.4));
     nozzle.setEnabled(true);
     nozzle.apply();
@@ -253,17 +255,17 @@ public abstract class PlanningCRUDPermissions extends TestCase
   {
     Calendar calendar = Calendar.getInstance();
     calendar.clear();
-    calendar.set(2007, 1, 1);
+    calendar.set(2005, 1, 1);
 
     Date startDate = calendar.getTime();
 
     calendar.clear();
-    calendar.set(2007, 10, 1);
+    calendar.set(2005, 10, 1);
 
     Date endDate = calendar.getTime();
 
     MalariaSeasonDTO season = new MalariaSeasonDTO(systemRequest);
-    season.setSeasonName("Test Season");
+    season.setSeasonName(TestConstants.SEASON_NAME);
     season.setStartDate(startDate);
     season.setEndDate(endDate);
     season.apply();
@@ -296,17 +298,17 @@ public abstract class PlanningCRUDPermissions extends TestCase
   {
     Calendar calendar = Calendar.getInstance();
     calendar.clear();
-    calendar.set(2007, 1, 1);
+    calendar.set(2005, 1, 1);
 
     Date startDate = calendar.getTime();
 
     calendar.clear();
-    calendar.set(2007, 10, 1);
+    calendar.set(2005, 10, 1);
 
     Date endDate = calendar.getTime();
 
     MalariaSeasonDTO season = new MalariaSeasonDTO(systemRequest);
-    season.setSeasonName("Test Season");
+    season.setSeasonName(TestConstants.SEASON_NAME);
     season.setStartDate(startDate);
     season.setEndDate(endDate);
     season.apply();
@@ -317,8 +319,8 @@ public abstract class PlanningCRUDPermissions extends TestCase
     dto.setDateOfBirth(new Date());
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId("3434343");
-    dto.setOperatorId("3434343a");
+    dto.setLeaderId(TestConstants.LEADER_ID);
+    dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
     PersonDTO person = PersonDTO.get(request, dto.getPersonId());
@@ -326,7 +328,7 @@ public abstract class PlanningCRUDPermissions extends TestCase
     SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
     SprayTeamDTO team = new SprayTeamDTO(request);
-    team.setTeamId("test test 7");
+    team.setTeamId(TestConstants.TEAM_ID);
     team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
     

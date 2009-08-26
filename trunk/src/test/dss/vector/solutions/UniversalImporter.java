@@ -231,28 +231,32 @@ public class UniversalImporter {
 		System.out.println("<"+XMLTags.PERMISSIONS_TAG+">");
 
 		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"GUIVisibility\">");
+		System.out.println("   <"+XMLTags.GRANT_TAG + ">");
 		for (Universal u : universals.values()) {
 			if (u != Universal.EARTH) {
 				System.out.println(u.getReadPermissionsTag());
 			}
 		}
+		System.out.println("   </"+XMLTags.GRANT_TAG + ">");
 		System.out.println("   </"+XMLTags.ROLE_TAG+">\n");
 
-		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"mdssCoordinator\">");
+		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"mdssCoordinator, entomologist\">");
+		System.out.println("   <"+XMLTags.GRANT_TAG + ">");
 		for (Universal u : universals.values()) {
 			if (u != Universal.EARTH) {
 				System.out.println(u.getUpdatePermissionsTag());
 			}
 		}
+		System.out.println("   </"+XMLTags.GRANT_TAG + ">");
 		System.out.println("   </"+XMLTags.ROLE_TAG+">\n");
 
-		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"entomologist\">");
-		for (Universal u : universals.values()) {
-			if (u != Universal.EARTH) {
-				System.out.println(u.getUpdatePermissionsTag());
-			}
-		}
-		System.out.println("   </"+XMLTags.ROLE_TAG+">\n");
+//		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"entomologist\">");
+//		for (Universal u : universals.values()) {
+//			if (u != Universal.EARTH) {
+//				System.out.println(u.getUpdatePermissionsTag());
+//			}
+//		}
+//		System.out.println("   </"+XMLTags.ROLE_TAG+">\n");
 
 		System.out.println("</"+XMLTags.PERMISSIONS_TAG+">\n");
 

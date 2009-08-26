@@ -28,6 +28,12 @@ public class SprayOperator extends SprayOperatorBase implements
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getOperatorId();
+  }
 
   @Override
   public void apply()

@@ -1,5 +1,7 @@
 package dss.vector.solutions.intervention.monitor;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -17,6 +19,19 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.m
   public AggregatedIPT()
   {
     super();
+  }
+  
+  @Override
+  protected String buildKey()
+  {
+    if(this.getGeoEntity() != null && this.getStartDate() != null && this.getEndDate() != null)
+    {
+      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
+      
+      return this.getGeoEntity().getGeoId() + "." + format.format(this.getStartDate()) + "-" + format.format(this.getEndDate());
+
+    }
+    return this.getId();
   }
   
   public static AggregatedIPT searchByGeoEntityAndDate(GeoEntity geoEntity, Date startDate, Date endDate)

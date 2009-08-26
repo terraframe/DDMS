@@ -18,7 +18,27 @@ public class ResourceTarget extends ResourceTargetBase implements com.terraframe
   {
     super();
   }
-
+  
+  @Override
+  protected String buildKey()
+  {
+    if(this.getTargeter() != null && this.getSeason() != null)
+    {
+      return this.getTargeterId() + "." + this.getSeason().getKey();
+    }
+    return this.getId();
+  }
+  
+  private String getTargeterId()
+  {
+    if(this.getTargeter() instanceof SprayOperator)
+    {
+      return ((SprayOperator) this.getTargeter()).getOperatorId();
+    }
+      
+    return ((SprayTeam) this.getTargeter()).getTeamId();
+  }
+  
   public static String getTargeterName(Targeter targeter)
   {
     if (targeter instanceof SprayOperator)

@@ -20,6 +20,12 @@ public class InsecticideNozzle extends InsecticideNozzleBase implements com.terr
   {
     this(parent.getId(), child.getId());
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getId();
+  }
 
   public static InsecticideNozzle[] getAll()
   {

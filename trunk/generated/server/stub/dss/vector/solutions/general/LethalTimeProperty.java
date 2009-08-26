@@ -14,6 +14,17 @@ public class LethalTimeProperty extends LethalTimePropertyBase implements
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    if(this.getInsecticide() != null)
+    {      
+      return this.getInsecticide().getKey();
+    }
+    
+    return this.getId();
+  }
 
   @Override
   public void validateLowerTime()
