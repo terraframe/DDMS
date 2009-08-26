@@ -1,532 +1,342 @@
-<version
-  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <permissions>
-      <role roleName="entomologist">
-        <!-- ENTOMOLOGY PERMISSIONS -->
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.AbstractMosquitoCollection">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.ConcreteMosquitoCollection">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.MosquitoCollection">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.MosquitoCollectionPoint">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.MorphologicalSpecieGroup">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.TrueSpecieEntity">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.UninterestingSpecieGroup">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.Mosquito">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.general.LethalTimeProperty">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdRelationshipPermission
-          type="dss.vector.solutions.entomology.CollectionMosquito">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="WRITE_PARENT" />
-          <operation
-            name="WRITE_CHILD" />
-          <operation
-            name="DELETE" />
-        </mdRelationshipPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.AbstractAssay">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.CollectionAssay">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.AdultAssay">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.KnockDownAssay">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.LarvaeAssay">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.EfficacyAssay">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.SurfacePositionMaster">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.general.KnockDownTimeProperty">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.general.LethalTimeProperty">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.AdultTestInterval">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.LarvaeTestInterval">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.AssayTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.molecular.WKDRTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.molecular.EKDRTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.molecular.IAcHETestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.molecular.AcHEVTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.molecular.AcHEWTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.molecular.AcHESTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.molecular.GABAGTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.molecular.GABASTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.biochemical.BAcetateTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.biochemical.PNPATestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.biochemical.GSTCDNBTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.biochemical.GSTDCNBTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.biochemical.HemeTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.biochemical.P450TestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.infectivity.PFalciparumTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.infectivity.POvaleTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.general.Insecticide">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-
+      <role roleName="mdss.entomologist">
+        <grant>
+          <!-- ENTOMOLOGY PERMISSIONS -->
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.AbstractMosquitoCollection">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.ConcreteMosquitoCollection">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.MosquitoCollection">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.MosquitoCollectionPoint">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.MorphologicalSpecieGroup">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.TrueSpecieEntity">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.UninterestingSpecieGroup">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.Mosquito">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.general.LethalTimeProperty">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdRelationshipPermission
+            type="dss.vector.solutions.entomology.CollectionMosquito">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="WRITE_PARENT" />
+            <operation name="WRITE_CHILD" />
+            <operation name="DELETE" />
+          </mdRelationshipPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AbstractAssay">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.CollectionAssay">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AdultAssay">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.KnockDownAssay">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.LarvaeAssay">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.SurfacePositionMaster">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.general.KnockDownTimeProperty">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.general.LethalTimeProperty">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AdultTestInterval">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.LarvaeTestInterval">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AssayTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.molecular.WKDRTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.molecular.EKDRTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.molecular.IAcHETestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.molecular.AcHEVTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.molecular.AcHEWTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.molecular.AcHESTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.molecular.GABAGTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.molecular.GABASTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.biochemical.BAcetateTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.biochemical.PNPATestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.biochemical.GSTCDNBTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.biochemical.GSTDCNBTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.biochemical.HemeTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.biochemical.P450TestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.infectivity.PFalciparumTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.infectivity.POvaleTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.general.Insecticide">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+        </grant>
       </role>
     </permissions>
   </doIt>

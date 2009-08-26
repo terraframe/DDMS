@@ -1,107 +1,136 @@
-<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <permissions>
-      <role roleName="GUIVisibility">
-        <mdBusinessPermission type="dss.vector.solutions.geo.AllPaths">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.KnockDownAssay">
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-        <mdViewPermission type="dss.vector.solutions.entomology.MosquitoView">
-          <operation name="READ_ALL"/>
-          <operation name="WRITE_ALL"/>
-        </mdViewPermission>
+      <role roleName="mdss.GUIVisibility">
+        <grant>
+          <mdBusinessPermission type="dss.vector.solutions.geo.AllPaths">
+            <operation name="READ" />
+            <operation name="READ_ALL" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+            <operation name="READ_ALL" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
+            <operation name="READ_ALL" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.KnockDownAssay">
+            <operation name="READ_ALL" />
+          </mdBusinessPermission>
+          <mdViewPermission
+            type="dss.vector.solutions.entomology.MosquitoView">
+            <operation name="READ_ALL" />
+            <operation name="WRITE_ALL" />
+          </mdViewPermission>
+        </grant>
       </role>
 
-      <role roleName="mdssCoordinator">
-        <mdBusinessPermission type="com.terraframe.mojo.system.Users">
-          <operation name="WRITE"/>
-          <attributePermission attributeName="username">
-            <operation name="WRITE"/>
-          </attributePermission>
-          <attributePermission attributeName="password">
-            <operation name="WRITE"/>
-          </attributePermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-          <operation name="WRITE_ALL"/>
-          <mdMethodPermission methodName="queryResistance">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
-          <operation name="WRITE_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.KnockDownAssay">
-          <operation name="WRITE_ALL"/>
-        </mdBusinessPermission>
+      <role roleName="mdss.coordinator">
+        <grant>
+          <mdBusinessPermission type="com.terraframe.mojo.system.Users">
+            <operation name="WRITE" />
+            <attributePermission attributeName="username">
+              <operation name="WRITE" />
+            </attributePermission>
+            <attributePermission attributeName="password">
+              <operation name="WRITE" />
+            </attributePermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+            <operation name="WRITE_ALL" />
+            <mdMethodPermission methodName="queryResistance">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
+            <operation name="WRITE_ALL" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.KnockDownAssay">
+            <operation name="WRITE_ALL" />
+          </mdBusinessPermission>
+        </grant>
       </role>
 
-      <role roleName="entomologist">
-        <mdBusinessPermission type="com.terraframe.mojo.system.Users">
-          <operation name="WRITE"/>
-          <attributePermission attributeName="username">
-            <operation name="WRITE"/>
-          </attributePermission>
-          <attributePermission attributeName="password">
-            <operation name="WRITE"/>
-          </attributePermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-          <operation name="WRITE_ALL"/>
-          <mdMethodPermission methodName="queryResistance">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
-          <operation name="WRITE_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.KnockDownAssay">
-          <operation name="WRITE_ALL"/>
-        </mdBusinessPermission>
+      <role roleName="mdss.entomologist">
+        <grant>
+          <mdBusinessPermission type="com.terraframe.mojo.system.Users">
+            <operation name="WRITE" />
+            <attributePermission attributeName="username">
+              <operation name="WRITE" />
+            </attributePermission>
+            <attributePermission attributeName="password">
+              <operation name="WRITE" />
+            </attributePermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+            <operation name="WRITE_ALL" />
+            <mdMethodPermission methodName="queryResistance">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
+            <operation name="WRITE_ALL" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.KnockDownAssay">
+            <operation name="WRITE_ALL" />
+          </mdBusinessPermission>
+        </grant>
       </role>
 
-      <role roleName="dataCapturer">
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-          <operation name="WRITE_ALL"/>
-          <mdMethodPermission methodName="queryResistance">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
-          <operation name="WRITE_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.KnockDownAssay">
-          <operation name="WRITE_ALL"/>
-        </mdBusinessPermission>
+      <role roleName="mdss.dataCapturer">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+            <operation name="WRITE_ALL" />
+            <mdMethodPermission methodName="queryResistance">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
+            <operation name="WRITE_ALL" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.KnockDownAssay">
+            <operation name="WRITE_ALL" />
+          </mdBusinessPermission>
+        </grant>
       </role>
 
-      <role roleName="manager">
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-          <mdMethodPermission methodName="queryResistance">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
+      <role roleName="mdss.manager">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+            <mdMethodPermission methodName="queryResistance">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+        </grant>
       </role>
 
-      <role roleName="operationalManager">
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-          <mdMethodPermission methodName="queryResistance">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
+      <role roleName="mdss.operationalManager">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+            <mdMethodPermission methodName="queryResistance">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+        </grant>
       </role>
 
-      <method methodName="queryResistance" type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-        <assignedRole roleName="Administrator"/>
+      <method methodName="queryResistance"
+        type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+        <assignedRole roleName="Administrator" />
       </method>
     </permissions>
   </doIt>

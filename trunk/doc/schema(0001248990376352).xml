@@ -1,29 +1,38 @@
-<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <permissions>
-      <role roleName="mdssCoordinator">
-        <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdType">
-          <attributePermission attributeName="displayLabel">
-            <operation name="WRITE"/>
-          </attributePermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MetaData">
-          <attributePermission attributeName="description">
-            <operation name="WRITE"/>
-          </attributePermission>
-        </mdBusinessPermission>
+      <role roleName="mdss.coordinator">
+        <grant>
+          <mdBusinessPermission
+            type="com.terraframe.mojo.system.metadata.MdType">
+            <attributePermission attributeName="displayLabel">
+              <operation name="WRITE" />
+            </attributePermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="com.terraframe.mojo.system.metadata.MetaData">
+            <attributePermission attributeName="description">
+              <operation name="WRITE" />
+            </attributePermission>
+          </mdBusinessPermission>
+        </grant>
       </role>
-      <role roleName="entomologist">
-        <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdType">
-          <attributePermission attributeName="displayLabel">
-            <operation name="WRITE"/>
-          </attributePermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MetaData">
-          <attributePermission attributeName="description">
-            <operation name="WRITE"/>
-          </attributePermission>
-        </mdBusinessPermission>
+      <role roleName="mdss.entomologist">
+        <grant>
+          <mdBusinessPermission
+            type="com.terraframe.mojo.system.metadata.MdType">
+            <attributePermission attributeName="displayLabel">
+              <operation name="WRITE" />
+            </attributePermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="com.terraframe.mojo.system.metadata.MetaData">
+            <attributePermission attributeName="description">
+              <operation name="WRITE" />
+            </attributePermission>
+          </mdBusinessPermission>
+        </grant>
       </role>
     </permissions>
   </doIt>

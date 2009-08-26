@@ -1,51 +1,58 @@
-<version
-  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <permissions>
-      <role roleName="GUIVisibility">
-        <mdViewPermission type="dss.vector.solutions.geo.UnknownGeoEntity">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdViewPermission>
+      <role roleName="mdss.GUIVisibility">
+        <grant>
+          <mdViewPermission type="dss.vector.solutions.geo.UnknownGeoEntity">
+            <operation name="READ" />
+            <operation name="READ_ALL" />
+          </mdViewPermission>
+        </grant>
       </role>
     </permissions>
 
     <permissions>
-      <role roleName="mdssCoordinator">
-        <mdRelationshipPermission type="dss.vector.solutions.geo.HasSynonym">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="WRITE_CHILD" />
-          <operation name="WRITE_PARENT" />
-          <operation name="DELETE" />
-        </mdRelationshipPermission>
+      <role roleName="mdss.coordinator">
+        <grant>
+          <mdRelationshipPermission
+            type="dss.vector.solutions.geo.HasSynonym">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="WRITE_CHILD" />
+            <operation name="WRITE_PARENT" />
+            <operation name="DELETE" />
+          </mdRelationshipPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.GeoSynonym">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
+          <mdBusinessPermission type="dss.vector.solutions.geo.GeoSynonym">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+        </grant>
       </role>
 
-      <role roleName="entomologist">
-        <mdRelationshipPermission type="dss.vector.solutions.geo.HasSynonym">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="WRITE_CHILD" />
-          <operation name="WRITE_PARENT" />
-          <operation name="DELETE" />
-        </mdRelationshipPermission>
+      <role roleName="mdss.entomologist">
+        <grant>
+          <mdRelationshipPermission
+            type="dss.vector.solutions.geo.HasSynonym">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="WRITE_CHILD" />
+            <operation name="WRITE_PARENT" />
+            <operation name="DELETE" />
+          </mdRelationshipPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.GeoSynonym">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
+          <mdBusinessPermission type="dss.vector.solutions.geo.GeoSynonym">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+        </grant>
       </role>
 
     </permissions>

@@ -517,7 +517,7 @@
             required="true"
             type="dss.vector.solutions.irs.SprayMethod"
             selectMultiple="false"
-            default_value="Main_Spray" />
+            default_value="MAIN_SPRAY" />
           <reference
             name="brand"
             label="Insecticide Brand"
@@ -528,7 +528,7 @@
             label="Surface Type"
             required="true"
             type="dss.vector.solutions.irs.SurfaceType"
-            default_value="Porous" />
+            default_value="POROUS" />
         </attributes>
       </mdBusiness>
 

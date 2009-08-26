@@ -1,170 +1,95 @@
-<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
 
     <create></create>
     <update>
 
-      <mdBusiness name="dss.vector.solutions.intervention.monitor.SurveyPoint">
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.SurveyPoint">
         <create>
-          <mdMethod
-            name="xmlToValueQuery"
-            label="XML To ValueQuery"
-            description="Xml To ValueQuery"
-            returnType="com.terraframe.mojo.query.ValueQuery"
+          <mdMethod name="xmlToValueQuery" label="XML To ValueQuery"
+            description="Xml To ValueQuery" returnType="com.terraframe.mojo.query.ValueQuery"
             static="true">
-            <mdParameter
-              name="xml"
-              label="xml"
-              order="0"
-              type="java.lang.String"/>
-            <mdParameter
-              name="selectedUniversals"
-              label="Selected Universals"
-              order="1"
-              type="java.lang.String[]"/>
-            <mdParameter
-              name="includeGeometry"
-              label="Include Geometry"
-              order="2"
-              type="java.lang.Boolean"/>
-            <mdParameter
-              name="thematicLayer"
-              label="Thematic Layer"
-              order="3"
-              type="dss.vector.solutions.query.ThematicLayer"/>
-            <mdParameter
-              name="dobCriteria"
-              label="Dob Criteria"
-              order="4"
-              type="java.lang.String"/>
+            <mdParameter name="xml" label="xml" order="0"
+              type="java.lang.String" />
+            <mdParameter name="selectedUniversals" label="Selected Universals"
+              order="1" type="java.lang.String[]" />
+            <mdParameter name="includeGeometry" label="Include Geometry"
+              order="2" type="java.lang.Boolean" />
+            <mdParameter name="thematicLayer" label="Thematic Layer"
+              order="3" type="dss.vector.solutions.query.ThematicLayer" />
+            <mdParameter name="dobCriteria" label="Dob Criteria"
+              order="4" type="java.lang.String" />
           </mdMethod>
         </create>
       </mdBusiness>
 
       <mdBusiness name="dss.vector.solutions.surveillance.AggregatedCase">
         <create>
-          <mdMethod
-            name="xmlToValueQuery"
-            label="XML To ValueQuery"
-            description="Xml To ValueQuery"
-            returnType="com.terraframe.mojo.query.ValueQuery"
+          <mdMethod name="xmlToValueQuery" label="XML To ValueQuery"
+            description="Xml To ValueQuery" returnType="com.terraframe.mojo.query.ValueQuery"
             static="true">
-            <mdParameter
-              name="xml"
-              label="xml"
-              order="0"
-              type="java.lang.String"/>
-            <mdParameter
-              name="selectedUniversals"
-              label="Selected Universals"
-              order="1"
-              type="java.lang.String[]"/>
-            <mdParameter
-              name="includeGeometry"
-              label="Include Geometry"
-              order="2"
-              type="java.lang.Boolean"/>
-            <mdParameter
-              name="thematicLayer"
-              label="Thematic Layer"
-              order="3"
-              type="dss.vector.solutions.query.ThematicLayer"/>
+            <mdParameter name="xml" label="xml" order="0"
+              type="java.lang.String" />
+            <mdParameter name="selectedUniversals" label="Selected Universals"
+              order="1" type="java.lang.String[]" />
+            <mdParameter name="includeGeometry" label="Include Geometry"
+              order="2" type="java.lang.Boolean" />
+            <mdParameter name="thematicLayer" label="Thematic Layer"
+              order="3" type="dss.vector.solutions.query.ThematicLayer" />
           </mdMethod>
         </create>
       </mdBusiness>
 
       <mdBusiness name="dss.vector.solutions.irs.AbstractSpray">
         <create>
-          <mdMethod
-            name="xmlToValueQuery"
-            label="XML To ValueQuery"
-            description="Xml To ValueQuery"
-            returnType="com.terraframe.mojo.query.ValueQuery"
+          <mdMethod name="xmlToValueQuery" label="XML To ValueQuery"
+            description="Xml To ValueQuery" returnType="com.terraframe.mojo.query.ValueQuery"
             static="true">
-            <mdParameter
-              name="xml"
-              label="xml"
-              order="0"
-              type="java.lang.String"/>
-            <mdParameter
-              name="selectedUniversals"
-              label="Selected Universals"
-              order="1"
-              type="java.lang.String[]"/>
-            <mdParameter
-              name="includeGeometry"
-              label="Include Geometry"
-              order="2"
-              type="java.lang.Boolean"/>
-            <mdParameter
-              name="thematicLayer"
-              label="Thematic Layer"
-              order="3"
-              type="dss.vector.solutions.query.ThematicLayer"/>
+            <mdParameter name="xml" label="xml" order="0"
+              type="java.lang.String" />
+            <mdParameter name="selectedUniversals" label="Selected Universals"
+              order="1" type="java.lang.String[]" />
+            <mdParameter name="includeGeometry" label="Include Geometry"
+              order="2" type="java.lang.Boolean" />
+            <mdParameter name="thematicLayer" label="Thematic Layer"
+              order="3" type="dss.vector.solutions.query.ThematicLayer" />
           </mdMethod>
         </create>
       </mdBusiness>
 
       <mdBusiness name="dss.vector.solutions.entomology.Mosquito">
         <create>
-          <mdMethod
-            name="xmlToValueQuery"
-            label="XML To ValueQuery"
-            description="Xml To ValueQuery"
-            returnType="com.terraframe.mojo.query.ValueQuery"
+          <mdMethod name="xmlToValueQuery" label="XML To ValueQuery"
+            description="Xml To ValueQuery" returnType="com.terraframe.mojo.query.ValueQuery"
             static="true">
-            <mdParameter
-              name="xml"
-              label="xml"
-              order="0"
-              type="java.lang.String"/>
-            <mdParameter
-              name="selectedUniversals"
-              label="Selected Universals"
-              order="1"
-              type="java.lang.String[]"/>
-            <mdParameter
-              name="includeGeometry"
-              label="Include Geometry"
-              order="2"
-              type="java.lang.Boolean"/>
-            <mdParameter
-              name="thematicLayer"
-              label="Thematic Layer"
-              order="3"
-              type="dss.vector.solutions.query.ThematicLayer"/>
+            <mdParameter name="xml" label="xml" order="0"
+              type="java.lang.String" />
+            <mdParameter name="selectedUniversals" label="Selected Universals"
+              order="1" type="java.lang.String[]" />
+            <mdParameter name="includeGeometry" label="Include Geometry"
+              order="2" type="java.lang.Boolean" />
+            <mdParameter name="thematicLayer" label="Thematic Layer"
+              order="3" type="dss.vector.solutions.query.ThematicLayer" />
           </mdMethod>
         </create>
       </mdBusiness>
 
-      <mdBusiness name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+      <mdBusiness
+        name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
         <create>
-          <mdMethod
-            name="xmlToValueQuery"
-            label="XML To ValueQuery"
-            description="Xml To ValueQuery"
-            returnType="com.terraframe.mojo.query.ValueQuery"
+          <mdMethod name="xmlToValueQuery" label="XML To ValueQuery"
+            description="Xml To ValueQuery" returnType="com.terraframe.mojo.query.ValueQuery"
             static="true">
-            <mdParameter
-              name="xml"
-              label="xml"
-              order="0"
-              type="java.lang.String"/>
-            <mdParameter
-              name="selectedUniversals"
-              label="Selected Universals"
-              order="1"
-              type="java.lang.String[]"/>
-            <mdParameter
-              name="includeGeometry"
-              label="Include Geometry"
-              order="2"
-              type="java.lang.Boolean"/>
-            <mdParameter
-              name="thematicLayer"
-              label="Thematic Layer"
-              order="3"
-              type="dss.vector.solutions.query.ThematicLayer"/>
+            <mdParameter name="xml" label="xml" order="0"
+              type="java.lang.String" />
+            <mdParameter name="selectedUniversals" label="Selected Universals"
+              order="1" type="java.lang.String[]" />
+            <mdParameter name="includeGeometry" label="Include Geometry"
+              order="2" type="java.lang.Boolean" />
+            <mdParameter name="thematicLayer" label="Thematic Layer"
+              order="3" type="dss.vector.solutions.query.ThematicLayer" />
           </mdMethod>
         </create>
       </mdBusiness>
@@ -173,156 +98,190 @@
 
 
     <permissions>
-      <role roleName="mdssCoordinator">
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.SurveyPoint">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.AggregatedCase">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.Mosquito">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
+      <role roleName="mdss.coordinator">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.SurveyPoint">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.surveillance.AggregatedCase">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.Mosquito">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+        </grant>
       </role>
-      <role roleName="entomologist">
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.SurveyPoint">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.AggregatedCase">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.Mosquito">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
+      <role roleName="mdss.entomologist">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.SurveyPoint">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.surveillance.AggregatedCase">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.Mosquito">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+        </grant>
       </role>
-      <role roleName="manager">
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.SurveyPoint">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.AggregatedCase">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.Mosquito">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
+      <role roleName="mdss.manager">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.SurveyPoint">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.surveillance.AggregatedCase">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.Mosquito">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+        </grant>
       </role>
-      <role roleName="dataCapturer">
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.SurveyPoint">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.AggregatedCase">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.Mosquito">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
+      <role roleName="mdss.dataCapturer">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.SurveyPoint">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.surveillance.AggregatedCase">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.Mosquito">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+        </grant>
       </role>
-      <role roleName="operationalManager">
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.SurveyPoint">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.AggregatedCase">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.Mosquito">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-          <mdMethodPermission methodName="xmlToValueQuery">
-            <operation name="EXECUTE"/>
-          </mdMethodPermission>
-        </mdBusinessPermission>
+      <role roleName="mdss.operationalManager">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.SurveyPoint">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.surveillance.AggregatedCase">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.Mosquito">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+            <mdMethodPermission methodName="xmlToValueQuery">
+              <operation name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+        </grant>
       </role>
 
-      <method methodName="xmlToValueQuery" type="dss.vector.solutions.intervention.monitor.SurveyPoint">
-        <assignedRole roleName="Administrator"/>
+      <method methodName="xmlToValueQuery"
+        type="dss.vector.solutions.intervention.monitor.SurveyPoint">
+        <assignedRole roleName="Administrator" />
       </method>
-      <method methodName="xmlToValueQuery" type="dss.vector.solutions.surveillance.AggregatedCase">
-        <assignedRole roleName="Administrator"/>
+      <method methodName="xmlToValueQuery"
+        type="dss.vector.solutions.surveillance.AggregatedCase">
+        <assignedRole roleName="Administrator" />
       </method>
-      <method methodName="xmlToValueQuery" type="dss.vector.solutions.entomology.Mosquito">
-        <assignedRole roleName="Administrator"/>
+      <method methodName="xmlToValueQuery"
+        type="dss.vector.solutions.entomology.Mosquito">
+        <assignedRole roleName="Administrator" />
       </method>
       <method methodName="xmlToValueQuery" type="dss.vector.solutions.irs.AbstractSpray">
-        <assignedRole roleName="Administrator"/>
+        <assignedRole roleName="Administrator" />
       </method>
-      <method methodName="xmlToValueQuery" type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-        <assignedRole roleName="Administrator"/>
+      <method methodName="xmlToValueQuery"
+        type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+        <assignedRole roleName="Administrator" />
       </method>
 
     </permissions>

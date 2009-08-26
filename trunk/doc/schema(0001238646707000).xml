@@ -5553,10 +5553,10 @@
 	<create>
       <object
         type="com.terraframe.mojo.system.Roles"
-        key="Roles.mdssCoordinator">
+        key="Roles.mdss.coordinator">
         <valueAttribute
           name="roleName"
-          value="mdssCoordinator" />
+          value="mdss.coordinator" />
         <structAttribute
           name="displayLabel">
           <valueAttribute
@@ -5566,10 +5566,10 @@
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
-        key="Roles.entomologist">
+        key="Roles.mdss.entomologist">
         <valueAttribute
           name="roleName"
-          value="entomologist" />
+          value="mdss.entomologist" />
         <structAttribute
           name="displayLabel">
           <valueAttribute
@@ -5579,10 +5579,10 @@
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
-        key="Roles.operationalManager">
+        key="Roles.mdss.operationalManager">
         <valueAttribute
           name="roleName"
-          value="operationalManager" />
+          value="mdss.operationalManager" />
         <structAttribute
           name="displayLabel">
           <valueAttribute
@@ -5592,10 +5592,10 @@
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
-        key="Roles.MDSS">
+        key="Roles.mdss.MDSS">
         <valueAttribute
           name="roleName"
-          value="MDSS" />
+          value="mdss.MDSS" />
         <structAttribute
           name="displayLabel">
           <valueAttribute
@@ -5605,10 +5605,10 @@
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
-        key="Roles.GUIVisibility">
+        key="Roles.mdss.GUIVisibility">
         <valueAttribute
           name="roleName"
-          value="GUIVisibility" />
+          value="mdss.GUIVisibility" />
         <structAttribute
           name="displayLabel">
           <valueAttribute
@@ -5618,10 +5618,10 @@
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
-        key="Roles.dataCapturer">
+        key="Roles.mdss.dataCapturer">
         <valueAttribute
           name="roleName"
-          value="dataCapturer" />
+          value="mdss.dataCapturer" />
         <structAttribute
           name="displayLabel">
           <valueAttribute
@@ -5631,10 +5631,10 @@
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
-        key="Roles.manager">
+        key="Roles.mdss.manager">
         <valueAttribute
           name="roleName"
-          value="manager" />
+          value="mdss.manager" />
         <structAttribute
           name="displayLabel">
           <valueAttribute

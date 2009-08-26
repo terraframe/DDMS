@@ -1,148 +1,99 @@
-<version
-  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <permissions>
-      <role roleName="MDSS">
-        <superRole roleName="Administrator"/>
+      <role roleName="mdss.MDSS">
+        <superRole roleName="Administrator" />
       </role>
-      <role roleName="operationalManager">
-        <superRole roleName="GUIVisibility"/>
+      <role roleName="mdss.operationalManager">
+        <superRole roleName="mdss.GUIVisibility" />
       </role>
-      <role
-        roleName="GUIVisibility">
-        <mdBusinessPermission
-          type="com.terraframe.mojo.system.metadata.MdAttributeVirtual">
-          <operation
-            name="READ" />
-          <attributePermission
-            attributeName="accessor">
-            <operation
-              name="READ" />
-          </attributePermission>
-          <attributePermission
-            attributeName="attributeName">
-            <operation
-              name="READ" />
-          </attributePermission>
-          <attributePermission
-            attributeName="mdAttributeConcrete">
-            <operation
-              name="READ" />
-          </attributePermission>
-          <attributePermission
-            attributeName="displayLabel">
-            <operation
-              name="READ" />
-          </attributePermission>
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="com.terraframe.mojo.system.metadata.MdAttributeVirtual">
-          <operation
-            name="READ" />
-          <attributePermission
-            attributeName="accessor">
-            <operation
-              name="READ" />
-          </attributePermission>
-          <attributePermission
-            attributeName="attributeName">
-            <operation
-              name="READ" />
-          </attributePermission>
-          <attributePermission
-            attributeName="displayLabel">
-            <operation
-              name="READ" />
-          </attributePermission>
-        </mdBusinessPermission>
+      <role roleName="mdss.GUIVisibility">
+        <grant>
+          <mdBusinessPermission
+            type="com.terraframe.mojo.system.metadata.MdAttributeVirtual">
+            <operation name="READ" />
+            <attributePermission attributeName="accessor">
+              <operation name="READ" />
+            </attributePermission>
+            <attributePermission attributeName="attributeName">
+              <operation name="READ" />
+            </attributePermission>
+            <attributePermission attributeName="mdAttributeConcrete">
+              <operation name="READ" />
+            </attributePermission>
+            <attributePermission attributeName="displayLabel">
+              <operation name="READ" />
+            </attributePermission>
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="com.terraframe.mojo.system.metadata.MdAttributeVirtual">
+            <operation name="READ" />
+            <attributePermission attributeName="accessor">
+              <operation name="READ" />
+            </attributePermission>
+            <attributePermission attributeName="attributeName">
+              <operation name="READ" />
+            </attributePermission>
+            <attributePermission attributeName="displayLabel">
+              <operation name="READ" />
+            </attributePermission>
+          </mdBusinessPermission>
 
-        <mdBusinessPermission
-          type="dss.vector.solutions.Property">
-          <operation
-            name="READ" />
-          <operation
-            name="READ_ALL" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.irs.TargetUnitMaster">
-          <operation
-            name="READ" />
-          <operation
-            name="READ_ALL" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.general.MalariaSeason">
-          <operation
-            name="READ" />
-          <operation
-            name="READ_ALL" />
-        </mdBusinessPermission>
-        <mdViewPermission
-          type="dss.vector.solutions.entomology.assay.EfficacyAssayView">
-          <operation
-            name="READ" />
-          <operation
-            name="READ_ALL" />
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-        </mdViewPermission>
-        <mdViewPermission
-          type="dss.vector.solutions.intervention.monitor.SurveyPointView">
-          <operation
-            name="READ" />
-          <operation
-            name="READ_ALL" />
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-        </mdViewPermission>
-        <mdViewPermission
-          type="dss.vector.solutions.intervention.monitor.WallView">
-          <operation
-            name="READ" />
-          <operation
-            name="READ_ALL" />
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-        </mdViewPermission>
-        <mdViewPermission
-          type="dss.vector.solutions.intervention.monitor.RoofView">
-          <operation
-            name="READ" />
-          <operation
-            name="READ_ALL" />
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-        </mdViewPermission>
-        <mdViewPermission
-          type="dss.vector.solutions.general.EpiDate">
-          <operation
-            name="READ" />
-          <operation
-            name="READ_ALL" />
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-        </mdViewPermission>
+          <mdBusinessPermission type="dss.vector.solutions.Property">
+            <operation name="READ" />
+            <operation name="READ_ALL" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.irs.TargetUnitMaster">
+            <operation name="READ" />
+            <operation name="READ_ALL" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.general.MalariaSeason">
+            <operation name="READ" />
+            <operation name="READ_ALL" />
+          </mdBusinessPermission>
+          <mdViewPermission
+            type="dss.vector.solutions.entomology.assay.EfficacyAssayView">
+            <operation name="READ" />
+            <operation name="READ_ALL" />
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+          </mdViewPermission>
+          <mdViewPermission
+            type="dss.vector.solutions.intervention.monitor.SurveyPointView">
+            <operation name="READ" />
+            <operation name="READ_ALL" />
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+          </mdViewPermission>
+          <mdViewPermission
+            type="dss.vector.solutions.intervention.monitor.WallView">
+            <operation name="READ" />
+            <operation name="READ_ALL" />
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+          </mdViewPermission>
+          <mdViewPermission
+            type="dss.vector.solutions.intervention.monitor.RoofView">
+            <operation name="READ" />
+            <operation name="READ_ALL" />
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+          </mdViewPermission>
+          <mdViewPermission type="dss.vector.solutions.general.EpiDate">
+            <operation name="READ" />
+            <operation name="READ_ALL" />
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL" />
+          </mdViewPermission>
+        </grant>
       </role>
     </permissions>
   </doIt>
