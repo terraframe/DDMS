@@ -230,7 +230,7 @@ public class UniversalImporter {
 		//5) Define all necessary permissions
 		System.out.println("<"+XMLTags.PERMISSIONS_TAG+">");
 
-		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"GUIVisibility\">");
+		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"" + MDSSRoleInfo.GUI_VISIBILITY + "\">");
 		System.out.println("   <"+XMLTags.GRANT_TAG + ">");
 		for (Universal u : universals.values()) {
 			if (u != Universal.EARTH) {
@@ -240,7 +240,7 @@ public class UniversalImporter {
 		System.out.println("   </"+XMLTags.GRANT_TAG + ">");
 		System.out.println("   </"+XMLTags.ROLE_TAG+">\n");
 
-		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"mdssCoordinator, entomologist\">");
+		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"" + MDSSRoleInfo.MDSS_CORRDINATOR + ", " + MDSSRoleInfo.ENTOMOLOGIST + "\">");
 		System.out.println("   <"+XMLTags.GRANT_TAG + ">");
 		for (Universal u : universals.values()) {
 			if (u != Universal.EARTH) {
