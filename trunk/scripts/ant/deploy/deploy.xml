@@ -10,13 +10,15 @@
 	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties" classpath="${profile.root};tfprops.jar" />
 	<tfproperties root="${profile.root}" />
 
+	<echo message="${java.ext.dirs}" />
+	
 	<!-- execution path -->
 	<path id="framework.classpath">
 		<fileset dir="${local.lib}">
 			<include name="**/*.jar" />
 		</fileset>
 		<pathelement location="${profile.root}" />
-		<pathelement path="${java.ext.dirs}/sunjce_provider.jar" />
+		<pathelement path="${java.home}/lib/ext/sunjce_provider.jar" />
 		<pathelement location="${local.bin}" />
 		<pathelement location="${client.bin}" />
 		<pathelement location="${server.bin}" />
