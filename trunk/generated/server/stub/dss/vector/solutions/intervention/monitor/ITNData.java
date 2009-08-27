@@ -8,6 +8,7 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.surveillance.PeriodType;
@@ -161,10 +162,59 @@ public class ITNData extends ITNDataBase implements com.terraframe.mojo.generati
   public void apply()
   {    
     //Validate the amount of currency recieved
-    this.validateCurrencyReceived();
+    this.validateCurrencyReceived();    
+    this.validateStartDate();
+    this.validateEndDate();
     
     super.apply();
   }
+  
+  @Override
+  public void validateStartDate()
+  {
+    if (this.getStartDate() != null)
+    {
+      super.validateStartDate();
+
+      Date current = new Date();
+
+      if (current.before(this.getStartDate()))
+      {
+        String msg = "It is impossible to have a start date after the current date";
+
+        CurrentDateProblem p = new CurrentDateProblem(msg);
+        p.setGivenDate(this.getStartDate());
+        p.setCurrentDate(current);
+        p.setNotification(this, STARTDATE);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
+  
+  @Override
+  public void validateEndDate()
+  {
+    if (this.getEndDate() != null)
+    {
+      super.validateEndDate();
+
+      Date current = new Date();
+
+      if (current.before(this.getEndDate()))
+      {
+        String msg = "It is impossible to have a end date after the current date";
+
+        CurrentDateProblem p = new CurrentDateProblem(msg);
+        p.setGivenDate(this.getEndDate());
+        p.setCurrentDate(current);
+        p.setNotification(this, ENDDATE);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
+
   
   @Override
   public void validateCurrencyReceived()

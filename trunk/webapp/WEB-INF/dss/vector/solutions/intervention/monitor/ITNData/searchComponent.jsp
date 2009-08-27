@@ -56,69 +56,21 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
         <mjl:message/>
       </mjl:messages>
     </dd>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.intervention.monitor.ITNDataController.searchByGeoIdAndPeriod.mojo" name="search.button" value="Search" />
+    <mjl:command classes="submitButton" action="dss.vector.solutions.intervention.monitor.ITNDataController.searchByGeoIdAndPeriod.mojo" name="search.button" id="button.id" value="Search" />
   </dl>
 </mjl:form>
 
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{AggregatedCaseViewDTO.CLASS}))%>
 
-<script type="text/javascript">
-  var validate = function(e, obj){
-    var year = document.getElementById('year');
-    var period = document.getElementById('period');
-    var periodType;
-
-    var radios = document.getElementsByName('periodType');
-    for(var i=0; i<radios.length; i++)
-    {
-      var radio = radios[i];
-
-      if(radio.checked)
-      {
-        periodType = radio.value;
-      }
-    }
-
-	var re = /^[0-9]+$/;
-
-	if ( !re.test(year.value) || !re.test(period.value))
-	{
-	  return;
-	}
-
-    if(year.value != '' && period.value != '' && periodType != '')
-    {
-      var request = new MDSS.Request({
-          onSend: function(){},
-          onComplete: function(){},
-          onSuccess : function(){},
-          onProblemExceptionDTO : function(e){
-              var problems = e.getProblems();
-    		  for each (p in problems)
-    		  {
-        		if(p.getType() == "dss.vector.solutions.FuturePeriodProblem")
-            	{
-                	MDSS.Calendar.addError(year,p.getLocalizedMessage());
-        		}
-        		else
-        		{
-                	MDSS.Calendar.addError(period,p.getLocalizedMessage());
-        		}
-    		  }
-    		}
-  		});
-
-  	  MDSS.Calendar.removeError(year);
-	  MDSS.Calendar.removeError(period);
-
-      Mojo.$.dss.vector.solutions.surveillance.AggregatedCaseView.validateEpiDate(request, periodType, parseInt(period.value), parseInt(year.value));
-    }
-  }
-
+<script type="text/javascript" defer="defer">
   var form = document.getElementById('searchAggregatedCase');
-  var periodType = form.periodType;
 
-  YAHOO.util.Event.on(periodType, 'click', validate);
-  YAHOO.util.Event.on('period', 'blur', validate);
-  YAHOO.util.Event.on('year', 'blur', validate);
+  var periodType = form.periodType;
+  var button = document.getElementById('button.id');
+
+  var geoId = document.getElementById('geoIdEl');	  
+  var year = document.getElementById('year');
+  var period = document.getElementById('period');
+
+  MDSS.validateEpiDate(button, geoId, year, period, periodType);
 </script>
