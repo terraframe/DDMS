@@ -12,6 +12,7 @@ import junit.framework.TestSuite;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
@@ -34,8 +35,6 @@ public class OperatorSprayTest extends TestCase
   private static InsecticideBrand brand = null;
 
   private static GeoEntity geoEntity = null;
-
-  private static SprayData data = null;
 
   private static SprayOperator operator = null;
 
@@ -69,8 +68,6 @@ public class OperatorSprayTest extends TestCase
 
   protected static void classTearDown()
   {
-    SprayData.get(data.getId()).delete();
-    
     leader.delete();
     operator.delete();
     person.delete();
@@ -91,21 +88,13 @@ public class OperatorSprayTest extends TestCase
     brand.setAmount(57);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
-    brand.setBrandName("Test Brand");    
+    brand.setBrandName(TestConstants.BRAND_NAME);    
     brand.apply();
 
     geoEntity = new SentinelSite();
-    geoEntity.setGeoId("0");
+    geoEntity.setGeoId(TestConstants.GEO_ID);
     geoEntity.setEntityName("Sentinel Site");
     geoEntity.apply();
-
-    data = new SprayData();
-    data.setBrand(brand);
-    data.setGeoEntity(geoEntity);
-    data.setSprayDate(new Date());
-    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
-    data.apply();
 
     person = new Person();
     person.addSex(Sex.MALE);
@@ -115,11 +104,12 @@ public class OperatorSprayTest extends TestCase
     person.apply();
 
     operator = new SprayOperator();
-    operator.setOperatorId("3");
+    operator.setOperatorId(TestConstants.OPERATOR_ID);
     operator.setPerson(person);
     operator.apply();
     
     leader = new SprayLeader();
+    leader.setLeaderId(TestConstants.LEADER_ID);
     leader.setPerson(person);
     leader.apply();
         
@@ -127,13 +117,21 @@ public class OperatorSprayTest extends TestCase
     person.setSprayOperatorDelegate(operator);
 
     team = new SprayTeam();
-    team.setTeamId("322");
+    team.setTeamId(TestConstants.TEAM_ID);
     team.apply(); 
 
   }
 
   public void testCreate()
   {
+    SprayData data = new SprayData();
+    data.setBrand(brand);
+    data.setGeoEntity(geoEntity);
+    data.setSprayDate(new Date());
+    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
+    data.addSurfaceType(SurfaceType.POROUS);
+    data.apply();
+
     OperatorSpray spray = new OperatorSpray();
     spray.setSprayData(data);
     spray.setOperatorSprayWeek(2);
@@ -171,6 +169,14 @@ public class OperatorSprayTest extends TestCase
 
   public void testUpdate()
   {
+    SprayData data = new SprayData();
+    data.setBrand(brand);
+    data.setGeoEntity(geoEntity);
+    data.setSprayDate(new Date());
+    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
+    data.addSurfaceType(SurfaceType.POROUS);
+    data.apply();
+
     OperatorSpray spray = new OperatorSpray();
     spray.setSprayData(data);
     spray.setOperatorSprayWeek(2);
@@ -219,6 +225,14 @@ public class OperatorSprayTest extends TestCase
 
   public void testEditView()
   {
+    SprayData data = new SprayData();
+    data.setBrand(brand);
+    data.setGeoEntity(geoEntity);
+    data.setSprayDate(new Date());
+    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
+    data.addSurfaceType(SurfaceType.POROUS);
+    data.apply();
+
     OperatorSprayView spray = new OperatorSprayView();
     spray.setBrand(brand);
     spray.setGeoEntity(geoEntity);
@@ -276,6 +290,14 @@ public class OperatorSprayTest extends TestCase
 
   public void testCreateView()
   {
+    SprayData data = new SprayData();
+    data.setBrand(brand);
+    data.setGeoEntity(geoEntity);
+    data.setSprayDate(new Date());
+    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
+    data.addSurfaceType(SurfaceType.POROUS);
+    data.apply();
+
     OperatorSprayView spray = new OperatorSprayView();
     spray.setBrand(brand);
     spray.setGeoEntity(geoEntity);
@@ -358,6 +380,14 @@ public class OperatorSprayTest extends TestCase
 
   public void testSearch()
   {
+    SprayData data = new SprayData();
+    data.setBrand(brand);
+    data.setGeoEntity(geoEntity);
+    data.setSprayDate(new Date());
+    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
+    data.addSurfaceType(SurfaceType.POROUS);
+    data.apply();
+
     Date date = new Date();
     SprayMethod method = SprayMethod.MAIN_SPRAY;
 

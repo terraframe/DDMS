@@ -7,6 +7,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.general.MalariaSeason;
 
 public class ResourceTargetTest extends TestCase
@@ -27,6 +28,8 @@ public class ResourceTargetTest extends TestCase
 
 
   public static SprayTeam targeter;
+
+  public static SprayTeam targeter2;
 
   public static Test suite()
   {
@@ -53,17 +56,22 @@ public class ResourceTargetTest extends TestCase
   protected static void classTearDown()
   {
     targeter.delete();
+    targeter2.delete();
     season.delete();
   }
 
   protected static void classSetUp()
   {
     targeter = new SprayTeam();
-    targeter.setTeamId("000");
+    targeter.setTeamId(TestConstants.TEAM_ID);
     targeter.apply();
     
+    targeter2 = new SprayTeam();
+    targeter2.setTeamId(TestConstants.TEAM_ID_2);
+    targeter2.apply();
+    
     season = new MalariaSeason();
-    season.setSeasonName("Test Season");
+    season.setSeasonName(TestConstants.SEASON_NAME);
     season.setStartDate(new Date());
     season.setEndDate(new Date());
     season.apply();
@@ -306,7 +314,7 @@ public class ResourceTargetTest extends TestCase
     views[0].setSeason(season);
 
     views[1] = new ResourceTargetView();
-    views[1].setTargeter(targeter);
+    views[1].setTargeter(targeter2);
     views[1].setSeason(season);
 
     for (int i = 0; i < 53; i++)
@@ -356,7 +364,7 @@ public class ResourceTargetTest extends TestCase
     views[0].setSeason(season);
 
     views[1] = new ResourceTargetView();
-    views[1].setTargeter(targeter);
+    views[1].setTargeter(targeter2);
     views[1].setSeason(season);
 
     for (int i = 0; i < 53; i++)
@@ -400,43 +408,6 @@ public class ResourceTargetTest extends TestCase
     {
       edits[0].deleteConcrete();
       edits[1].deleteConcrete();
-    }
-  }
-
-  public void testSum() throws Exception
-  {
-    ResourceTargetView[] views = new ResourceTargetView[2];
-
-    views[0] = new ResourceTargetView();
-    views[0].setTargeter(targeter);
-    views[0].setSeason(season);
-
-    views[1] = new ResourceTargetView();
-    views[1].setTargeter(targeter);
-    views[1].setSeason(season);
-
-    for (int i = 0; i < 53; i++)
-    {
-      ResourceTargetView.class.getMethod("setTarget_" + i, Integer.class).invoke(views[0], i);
-      ResourceTargetView.class.getMethod("setTarget_" + i, Integer.class).invoke(views[1], i * 2);
-    }
-
-    ResourceTargetView.applyAll(views);
-    ResourceTargetView sum = ResourceTargetView.sum(targeter, views);
-
-    try
-    {
-      assertEquals(targeter.getId(), sum.getTargeter().getId());
-
-      for (int i = 0; i < 53; i++)
-      {
-        assertEquals(new Integer(i + i * 2), ResourceTargetView.class.getMethod("getTarget_" + i).invoke(sum));
-      }
-    }
-    finally
-    {
-      views[0].deleteConcrete();
-      views[1].deleteConcrete();
     }
   }
 }

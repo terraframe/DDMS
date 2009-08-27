@@ -8,6 +8,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.mo.ActiveIngredient;
@@ -69,12 +70,12 @@ public class SprayDataTest extends TestCase
     brand.setAmount(57);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
-    brand.setBrandName("Test Brand");    
+    brand.setBrandName(TestConstants.BRAND_NAME);    
     brand.apply();
 
     geoEntity = new SentinelSite();
     geoEntity.setGeoId("0");
-    geoEntity.setEntityName("Sentinel Site");
+    geoEntity.setEntityName(TestConstants.GEO_ID);
     geoEntity.apply();
   }
 

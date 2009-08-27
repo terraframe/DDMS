@@ -11,34 +11,38 @@ import junit.framework.TestSuite;
 
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.mo.ActiveIngredient;
 
 public class TeamSprayStatusTest extends TestCase
 {
-	  @Override
-	  public TestResult run()
-	  {
-	    return super.run();
-	  }
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
 
-	  @Override
-	  public void run(TestResult testResult)
-	  {
-	    super.run(testResult);
-	  }
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
-  private static InsecticideBrand brand = null;
+  private static InsecticideBrand brand     = null;
 
-  private static GeoEntity geoEntity = null;
+  private static GeoEntity        geoEntity = null;
 
-  private static SprayData data = null;
+  private static SprayData        data      = null;
 
-  private static SprayTeam team = null;
+  private static SprayTeam        team      = null;
 
-  private static TeamSpray spray = null;
+  private static SprayTeam        team2      = null;
 
+  private static TeamSpray        spray     = null;
+
+  private static TeamSpray        spray2     = null;
 
   public static Test suite()
   {
@@ -64,9 +68,14 @@ public class TeamSprayStatusTest extends TestCase
 
   protected static void classTearDown()
   {
-    spray.delete();
+    TeamSpray.get(spray.getId()).delete();
+    TeamSpray.get(spray2.getId()).delete();
+
     team.delete();
+    team2.delete();
+    
     SprayData.get(data.getId()).delete();
+    
     geoEntity.delete();
     brand.delete();
   }
@@ -82,11 +91,11 @@ public class TeamSprayStatusTest extends TestCase
     brand.setAmount(57);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
-    brand.setBrandName("Test Brand");    
+    brand.setBrandName(TestConstants.BRAND_NAME);
     brand.apply();
 
     geoEntity = new SentinelSite();
-    geoEntity.setGeoId("1");
+    geoEntity.setGeoId(TestConstants.GEO_ID);
     geoEntity.setEntityName("Sentinel Site");
     geoEntity.apply();
 
@@ -99,15 +108,26 @@ public class TeamSprayStatusTest extends TestCase
     data.apply();
 
     team = new SprayTeam();
-    team.setTeamId("333");
+    team.setTeamId(TestConstants.TEAM_ID);
     team.apply();
 
+    team2 = new SprayTeam();
+    team2.setTeamId(TestConstants.TEAM_ID_2);
+    team2.apply();
+    
     spray = new TeamSpray();
     spray.setSprayData(data);
     spray.setSprayTeam(team);
     spray.setTarget(232);
     spray.setTeamSprayWeek(24);
     spray.apply();
+    
+    spray2 = new TeamSpray();
+    spray2.setSprayData(data);
+    spray2.setSprayTeam(team2);
+    spray2.setTarget(232);
+    spray2.setTeamSprayWeek(24);
+    spray2.apply();
   }
 
   public void testCreateView()
@@ -115,13 +135,13 @@ public class TeamSprayStatusTest extends TestCase
     TeamSprayStatusView status = new TeamSprayStatusView();
     status.setSpray(spray);
     status.setSprayData(data);
-    status.setHouseholds(2);
-    status.setStructures(3);
+    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    status.setStructures(TestConstants.NUM_STRUCTURES);
     status.setSprayedHouseholds(5);
     status.setSprayedStructures(2);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(3);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -168,13 +188,13 @@ public class TeamSprayStatusTest extends TestCase
     TeamSprayStatusView status = new TeamSprayStatusView();
     status.setSpray(spray);
     status.setSprayData(data);
-    status.setHouseholds(2);
-    status.setStructures(3);
+    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    status.setStructures(TestConstants.NUM_STRUCTURES);
     status.setSprayedHouseholds(5);
     status.setSprayedStructures(2);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(3);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -187,8 +207,8 @@ public class TeamSprayStatusTest extends TestCase
     status.apply();
 
     TeamSprayStatusView edit = (TeamSprayStatusView) SprayStatus.lockView(status.getStatusId());
-    edit.setHouseholds(4);
-    edit.setStructures(6);
+    edit.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    edit.setStructures(TestConstants.NUM_STRUCTURES);
     edit.setSprayedHouseholds(7);
     edit.setSprayedStructures(8);
     edit.setPrevSprayedHouseholds(11);
@@ -239,13 +259,13 @@ public class TeamSprayStatusTest extends TestCase
     TeamSprayStatusView status = new TeamSprayStatusView();
     status.setSpray(spray);
     status.setSprayData(data);
-    status.setHouseholds(2);
-    status.setStructures(3);
+    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    status.setStructures(TestConstants.NUM_STRUCTURES);
     status.setSprayedHouseholds(5);
     status.setSprayedStructures(2);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(3);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -257,7 +277,6 @@ public class TeamSprayStatusTest extends TestCase
     status.setTeamSprayWeek(2);
     status.apply();
 
-
     String id = status.getStatusId();
 
     status.deleteConcrete();
@@ -268,9 +287,9 @@ public class TeamSprayStatusTest extends TestCase
 
       fail("Unabled to delete the concrete spray operator");
     }
-    catch(DataNotFoundException e)
+    catch (DataNotFoundException e)
     {
-      //This is expected
+      // This is expected
     }
   }
 
@@ -279,13 +298,13 @@ public class TeamSprayStatusTest extends TestCase
     TeamSprayStatusView status = new TeamSprayStatusView();
     status.setSpray(spray);
     status.setSprayData(data);
-    status.setHouseholds(2);
-    status.setStructures(3);
+    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    status.setStructures(TestConstants.NUM_STRUCTURES);
     status.setSprayedHouseholds(5);
     status.setSprayedStructures(2);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(3);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -297,10 +316,10 @@ public class TeamSprayStatusTest extends TestCase
     status.setTeamSprayWeek(2);
 
     TeamSprayStatusView status2 = new TeamSprayStatusView();
-    status2.setSpray(spray);
+    status2.setSpray(spray2);
     status2.setSprayData(data);
-    status2.setHouseholds(4);
-    status2.setStructures(6);
+    status2.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    status2.setStructures(TestConstants.NUM_STRUCTURES);
     status2.setSprayedHouseholds(7);
     status2.setSprayedStructures(8);
     status2.setPrevSprayedHouseholds(11);
@@ -313,19 +332,19 @@ public class TeamSprayStatusTest extends TestCase
     status2.setLocked(41);
     status2.setOther(12);
     status2.setRefused(33);
-    status2.setSprayTeam(team);
+    status2.setSprayTeam(team2);
     status2.setTeamSprayWeek(1);
 
-    TeamSprayStatusView[] array = new TeamSprayStatusView[]{status, status2};
+    TeamSprayStatusView[] array = new TeamSprayStatusView[] { status, status2 };
     TeamSprayStatusView[] test = TeamSprayStatusView.applyAll(array);
 
     try
     {
       assertEquals(array.length, test.length);
 
-      for(int i = 0; i < array.length; i++)
+      for (int i = 0; i < array.length; i++)
       {
-        assertEquals(spray.getId(), test[i].getSpray().getId());
+        assertEquals(array[i].getSpray().getId(), test[i].getSpray().getId());
         assertEquals(data.getId(), test[i].getSprayData().getId());
         assertEquals(array[i].getHouseholds(), test[i].getHouseholds());
         assertEquals(array[i].getStructures(), test[i].getStructures());
@@ -341,13 +360,13 @@ public class TeamSprayStatusTest extends TestCase
         assertEquals(array[i].getLocked(), test[i].getLocked());
         assertEquals(array[i].getOther(), test[i].getOther());
         assertEquals(array[i].getRefused(), test[i].getRefused());
-        assertEquals(team.getId(), test[i].getSprayTeam().getId());
+        assertEquals(array[i].getSprayTeam().getId(), test[i].getSprayTeam().getId());
         assertEquals(array[i].getTeamSprayWeek(), test[i].getTeamSprayWeek());
       }
     }
     finally
     {
-      for(TeamSprayStatusView view : test)
+      for (TeamSprayStatusView view : test)
       {
         view.deleteConcrete();
       }
@@ -359,13 +378,13 @@ public class TeamSprayStatusTest extends TestCase
     TeamSprayStatusView status = new TeamSprayStatusView();
     status.setSpray(spray);
     status.setSprayData(data);
-    status.setHouseholds(2);
-    status.setStructures(3);
+    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    status.setStructures(TestConstants.NUM_STRUCTURES);
     status.setSprayedHouseholds(5);
     status.setSprayedStructures(2);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(3);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);

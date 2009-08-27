@@ -7,6 +7,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.mo.ActiveIngredient;
 
 public class InsecticideNozzleTest extends TestCase
@@ -73,7 +74,7 @@ public class InsecticideNozzleTest extends TestCase
     brand.setAmount(57);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
-    brand.setBrandName("Test Brand");
+    brand.setBrandName(TestConstants.BRAND_NAME);
     brand.apply();
 
     brand2 = new InsecticideBrand();
@@ -81,11 +82,11 @@ public class InsecticideNozzleTest extends TestCase
     brand2.setAmount(13);
     brand2.setWeight(weight);
     brand2.setSachetsPerRefill(refill);
-    brand2.setBrandName("Test Brand 2");    
+    brand2.setBrandName(TestConstants.BRAND_NAME_2);    
     brand2.apply();
 
     nozzle = new Nozzle();
-    nozzle.setDisplayLabel("test Nozzle");
+    nozzle.setDisplayLabel(TestConstants.NOZZLE_NAME);
     nozzle.setEnabled(true);
     nozzle.setRatio(ratio);
     nozzle.apply();
@@ -194,7 +195,7 @@ public class InsecticideNozzleTest extends TestCase
     testBrand.setWeight(weight);
     testBrand.setSachetsPerRefill(refill);
     testBrand.setEnabled(false);
-    testBrand.setBrandName("Test Brand 3");
+    testBrand.setBrandName(TestConstants.BRAND_NAME_3);
     testBrand.apply();
 
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
@@ -224,7 +225,7 @@ public class InsecticideNozzleTest extends TestCase
     BigDecimal ratio = new BigDecimal("0.30");
 
     Nozzle testNozzle = new Nozzle();
-    testNozzle.setDisplayLabel("test Nozzle 9");
+    testNozzle.setDisplayLabel(TestConstants.NOZZLE_NAME_2);
     testNozzle.setEnabled(false);
     testNozzle.setRatio(ratio);
     testNozzle.apply();

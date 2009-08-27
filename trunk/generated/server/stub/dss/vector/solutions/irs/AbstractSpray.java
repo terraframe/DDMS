@@ -32,7 +32,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
   {
     super();
   }
-  
+
   @Override
   public void delete()
   {
@@ -80,7 +80,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
-   *
+   * 
    * @param xml
    * @return
    */
@@ -95,7 +95,6 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, SprayData.CLASS, SprayData.GEOENTITY);
 
     SprayStatusQuery sprayStatusQuery = (SprayStatusQuery) queryMap.get(SprayStatus.CLASS);
-
 
     AbstractSprayQuery abstractSprayQuery = (AbstractSprayQuery) queryMap.get(AbstractSpray.CLASS);
     if (abstractSprayQuery != null)
@@ -125,26 +124,26 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     ResourceTarget.createDatabaseView(viewName);
 
     String coverageCalculationsView = "spray_data_view";
-    String sprayCaluclationsSQL = "(" + SprayStatus.getTempTableSQL() +")";
-    valueQuery.FROM(sprayCaluclationsSQL , coverageCalculationsView);
+    String sprayCaluclationsSQL = "(" + SprayStatus.getTempTableSQL() + ")";
+    valueQuery.FROM(sprayCaluclationsSQL, coverageCalculationsView);
     valueQuery.WHERE(new InnerJoinEq("id", sprayStatusQuery.getMdClassIF().getTableName(), sprayStatusQuery.getTableAlias(), "id", sprayCaluclationsSQL, coverageCalculationsView));
 
-
     String unionView = "all_levels_spray_view";
-    String unionSQL = "(" + AbstractSpray.getSubquerySql(viewName) +")";
-    valueQuery.FROM(unionSQL , unionView);
+    String unionSQL = "(" + AbstractSpray.getSubquerySql(viewName) + ")";
+    valueQuery.FROM(unionSQL, unionView);
     valueQuery.WHERE(new InnerJoinEq("id", sprayStatusQuery.getMdClassIF().getTableName(), sprayStatusQuery.getTableAlias(), "id", unionSQL, unionView));
 
-   /*
-    String targetView = "unit_totals_view";
-    String targetViewSQL = "(" + ResourceTarget.getTempTableSQL() +")";
-    RawLeftJoinEq lj = new RawLeftJoinEq("targetable_id", unionSQL, unionView, "target_id", targetViewSQL, targetView);
-
-    lj.setSql(unionView+".targetable_id = "+targetView+".target_id AND " +
-        unionView+".spray_season = "+targetView+".season_id AND " +
-        unionView+".spray_week = "+targetView+".target_week");
-    valueQuery.WHERE(lj);
-    */
+    /*
+     * String targetView = "unit_totals_view"; String targetViewSQL = "(" +
+     * ResourceTarget.getTempTableSQL() +")"; RawLeftJoinEq lj = new
+     * RawLeftJoinEq("targetable_id", unionSQL, unionView, "target_id",
+     * targetViewSQL, targetView);
+     * 
+     * lj.setSql(unionView+".targetable_id = "+targetView+".target_id AND " +
+     * unionView+".spray_season = "+targetView+".season_id AND " +
+     * unionView+".spray_week = "+targetView+".target_week");
+     * valueQuery.WHERE(lj);
+     */
 
     // set all the spray selectable sql to match up with the temp table columns
     for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
@@ -160,11 +159,9 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     return valueQuery;
   }
 
-
-
   /**
    * Queries for Mosquitos.
-   *
+   * 
    * @param xml
    */
   @Transaction
@@ -265,16 +262,15 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
 
   public static void createTempTable(String tableName, String viewName)
   {
-    //InsecticideBrand.createTempTable(insecticideTable);
+    // InsecticideBrand.createTempTable(insecticideTable);
 
     String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
     sql += "CREATE TEMP TABLE " + tableName + " AS \n";
     sql += AbstractSpray.getSubquerySql(viewName);
     sql += ";\n";
-    //System.out.println(sql);
+    // System.out.println(sql);
     Database.parseAndExecute(sql);
   }
-
 
   public static String getSubquerySql(String viewName)
   {

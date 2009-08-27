@@ -12,6 +12,7 @@ import junit.framework.TestSuite;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
@@ -39,9 +40,13 @@ public class OperatorSprayStatusTest extends TestCase
 
   private static SprayOperator operator = null;
 
+  private static SprayOperator operator2 = null;
+
   private static OperatorSpray spray = null;
 
   private static Person person = null;
+
+  private static Person person2 = null;
 
   public static Test suite()
   {
@@ -67,9 +72,14 @@ public class OperatorSprayStatusTest extends TestCase
 
   protected static void classTearDown()
   {
-    spray.delete();
+    OperatorSpray.get(spray.getId()).delete();
+    
     operator.delete();
+    operator2.delete();
+    
     person.delete();
+    person2.delete();
+    
     SprayData.get(data.getId()).delete();
     geoEntity.delete();
     brand.delete();
@@ -86,11 +96,11 @@ public class OperatorSprayStatusTest extends TestCase
     brand.setAmount(57);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
-    brand.setBrandName("Test Brand");
+    brand.setBrandName(TestConstants.BRAND_NAME);
     brand.apply();
 
     geoEntity = new SentinelSite();
-    geoEntity.setGeoId("0");
+    geoEntity.setGeoId(TestConstants.GEO_ID);
     geoEntity.setEntityName("Sentinel Site");
     geoEntity.apply();
 
@@ -110,9 +120,21 @@ public class OperatorSprayStatusTest extends TestCase
     person.apply();
 
     operator = new SprayOperator();
-    operator.setOperatorId("3");
+    operator.setOperatorId(TestConstants.OPERATOR_ID);
     operator.setPerson(person);
     operator.apply();
+    
+    person2 = new Person();
+    person2.addSex(Sex.MALE);
+    person2.setDateOfBirth(new Date());
+    person2.setFirstName("Justin");
+    person2.setLastName("Smethie");
+    person2.apply();
+    
+    operator2 = new SprayOperator();
+    operator2.setOperatorId(TestConstants.OPERATOR_ID_2);
+    operator2.setPerson(person2);
+    operator2.apply();
 
     spray = new OperatorSpray();
     spray.setSprayData(data);
@@ -131,13 +153,13 @@ public class OperatorSprayStatusTest extends TestCase
   {
     SprayStatus status = new ActorSprayStatus();
     status.setSpray(spray);
-    status.setHouseholds(2);
-    status.setStructures(3);
+    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    status.setStructures(TestConstants.NUM_STRUCTURES);
     status.setSprayedHouseholds(5);
     status.setSprayedStructures(2);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(3);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -178,13 +200,13 @@ public class OperatorSprayStatusTest extends TestCase
   {
     SprayStatus status = new ActorSprayStatus();
     status.setSpray(spray);
-    status.setHouseholds(2);
-    status.setStructures(3);
+    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    status.setStructures(TestConstants.NUM_STRUCTURES);
     status.setSprayedHouseholds(5);
     status.setSprayedStructures(2);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(3);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -196,8 +218,8 @@ public class OperatorSprayStatusTest extends TestCase
 
     SprayStatus edit = SprayStatus.get(status.getId());
     edit.setSpray(spray);
-    edit.setHouseholds(5);
-    edit.setStructures(6);
+    edit.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    edit.setStructures(TestConstants.NUM_STRUCTURES);
     edit.setSprayedHouseholds(1);
     edit.setSprayedStructures(8);
     edit.setPrevSprayedHouseholds(9);
@@ -244,13 +266,13 @@ public class OperatorSprayStatusTest extends TestCase
     OperatorSprayStatusView status = new OperatorSprayStatusView();
     status.setSpray(spray);
     status.setSprayData(data);
-    status.setHouseholds(2);
-    status.setStructures(3);
+    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    status.setStructures(TestConstants.NUM_STRUCTURES);
     status.setSprayedHouseholds(5);
     status.setSprayedStructures(2);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(3);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -305,13 +327,13 @@ public class OperatorSprayStatusTest extends TestCase
     OperatorSprayStatusView status = new OperatorSprayStatusView();
     status.setSpray(spray);
     status.setSprayData(data);
-    status.setHouseholds(2);
-    status.setStructures(3);
+    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    status.setStructures(TestConstants.NUM_STRUCTURES);
     status.setSprayedHouseholds(5);
     status.setSprayedStructures(2);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(3);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -328,8 +350,8 @@ public class OperatorSprayStatusTest extends TestCase
     status.apply();
 
     OperatorSprayStatusView edit = (OperatorSprayStatusView) SprayStatus.lockView(status.getStatusId());
-    edit.setHouseholds(4);
-    edit.setStructures(6);
+    edit.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    edit.setStructures(TestConstants.NUM_STRUCTURES);
     edit.setSprayedHouseholds(7);
     edit.setSprayedStructures(8);
     edit.setPrevSprayedHouseholds(11);
@@ -388,13 +410,13 @@ public class OperatorSprayStatusTest extends TestCase
     OperatorSprayStatusView status = new OperatorSprayStatusView();
     status.setSpray(spray);
     status.setSprayData(data);
-    status.setHouseholds(2);
-    status.setStructures(3);
+    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    status.setStructures(TestConstants.NUM_STRUCTURES);
     status.setSprayedHouseholds(5);
     status.setSprayedStructures(2);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(3);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -430,15 +452,14 @@ public class OperatorSprayStatusTest extends TestCase
   public void testApplyAll()
   {
     OperatorSprayStatusView status = new OperatorSprayStatusView();
-    status.setSpray(spray);
     status.setSprayData(data);
-    status.setHouseholds(2);
-    status.setStructures(3);
+    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    status.setStructures(TestConstants.NUM_STRUCTURES);
     status.setSprayedHouseholds(5);
     status.setSprayedStructures(2);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(3);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -454,10 +475,9 @@ public class OperatorSprayStatusTest extends TestCase
     status.setUsed(3);
 
     OperatorSprayStatusView status2 = new OperatorSprayStatusView();
-    status2.setSpray(spray);
     status2.setSprayData(data);
-    status2.setHouseholds(4);
-    status2.setStructures(6);
+    status2.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    status2.setStructures(TestConstants.NUM_STRUCTURES);
     status2.setSprayedHouseholds(7);
     status2.setSprayedStructures(8);
     status2.setPrevSprayedHouseholds(11);
@@ -470,7 +490,7 @@ public class OperatorSprayStatusTest extends TestCase
     status2.setLocked(41);
     status2.setOther(12);
     status2.setRefused(33);
-    status2.setSprayOperator(operator);
+    status2.setSprayOperator(operator2);
     status2.setOperatorSprayWeek(1);
     status2.setReceived(50);
     status2.setRefills(32);
@@ -486,7 +506,6 @@ public class OperatorSprayStatusTest extends TestCase
 
       for(int i = 0; i < array.length; i++)
       {
-        assertEquals(spray.getId(), test[i].getSpray().getId());
         assertEquals(data.getId(), test[i].getSprayData().getId());
         assertEquals(array[i].getHouseholds(), test[i].getHouseholds());
         assertEquals(array[i].getStructures(), test[i].getStructures());
@@ -502,7 +521,7 @@ public class OperatorSprayStatusTest extends TestCase
         assertEquals(array[i].getLocked(), test[i].getLocked());
         assertEquals(array[i].getOther(), test[i].getOther());
         assertEquals(array[i].getRefused(), test[i].getRefused());
-        assertEquals(operator.getId(), test[i].getSprayOperator().getId());
+        assertEquals(array[i].getSprayOperator().getId(), test[i].getSprayOperator().getId());
         assertEquals(array[i].getOperatorSprayWeek(), test[i].getOperatorSprayWeek());
         assertEquals(array[i].getReceived(), test[i].getReceived());
         assertEquals(array[i].getRefills(), test[i].getRefills());
@@ -524,13 +543,13 @@ public class OperatorSprayStatusTest extends TestCase
     OperatorSprayStatusView status = new OperatorSprayStatusView();
     status.setSpray(spray);
     status.setSprayData(data);
-    status.setHouseholds(2);
-    status.setStructures(3);
+    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+    status.setStructures(TestConstants.NUM_STRUCTURES);
     status.setSprayedHouseholds(5);
     status.setSprayedStructures(2);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(3);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);

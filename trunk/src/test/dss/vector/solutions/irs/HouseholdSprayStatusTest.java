@@ -15,6 +15,7 @@ import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
@@ -22,33 +23,33 @@ import dss.vector.solutions.mo.ActiveIngredient;
 
 public class HouseholdSprayStatusTest extends TestCase
 {
-	  @Override
-	  public TestResult run()
-	  {
-	    return super.run();
-	  }
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
 
-	  @Override
-	  public void run(TestResult testResult)
-	  {
-	    super.run(testResult);
-	  }
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
-  private static InsecticideBrand brand      = null;
+  private static InsecticideBrand brand       = null;
 
-  private static GeoEntity        geoEntity  = null;
+  private static GeoEntity        geoEntity   = null;
 
-  private static SprayData        data       = null;
+  private static SprayData        data        = null;
 
-  private static SprayData        mopUp      = null;
+  private static SprayData        mopUp       = null;
 
-  private static SprayOperator    operator   = null;
+  private static SprayOperator    operator    = null;
 
-  private static OperatorSpray    spray      = null;
+  private static OperatorSpray    spray       = null;
 
-  private static OperatorSpray    mopupSpray = null;
+  private static OperatorSpray    mopupSpray  = null;
 
-  private static Person           person     = null;
+  private static Person           person      = null;
 
   public static Test suite()
   {
@@ -95,11 +96,11 @@ public class HouseholdSprayStatusTest extends TestCase
     brand.setAmount(57);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
-    brand.setBrandName("Test Brand");    
+    brand.setBrandName(TestConstants.BRAND_NAME);
     brand.apply();
 
     geoEntity = new SentinelSite();
-    geoEntity.setGeoId("7");
+    geoEntity.setGeoId(TestConstants.GEO_ID);
     geoEntity.setEntityName("Sentinel Site");
     geoEntity.apply();
 
@@ -127,7 +128,7 @@ public class HouseholdSprayStatusTest extends TestCase
     person.apply();
 
     operator = new SprayOperator();
-    operator.setOperatorId("3");
+    operator.setOperatorId(TestConstants.OPERATOR_ID);
     operator.setPerson(person);
     operator.apply();
 
@@ -161,12 +162,12 @@ public class HouseholdSprayStatusTest extends TestCase
     HouseholdSprayStatus status = new HouseholdSprayStatus();
     status.setSpray(spray);
     status.setHouseholds(1);
-    status.setStructures(0);
+    status.setStructures(1);
     status.setSprayedHouseholds(1);
     status.setSprayedStructures(0);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(0);
-    status.setRooms(1);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(2);
     status.setPeople(3);
     status.setBedNets(3);
@@ -174,8 +175,8 @@ public class HouseholdSprayStatusTest extends TestCase
     status.setLocked(2);
     status.setOther(3);
     status.setRefused(3);
-    status.setHouseholdId("householdId");
-    status.setStructureId("structureId");
+    status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+    status.setStructureId(TestConstants.STRUCTURE_ID);
     status.apply();
 
     try
@@ -217,7 +218,7 @@ public class HouseholdSprayStatusTest extends TestCase
     status.setSprayedStructures(0);
     status.setPrevSprayedHouseholds(0);
     status.setPrevSprayedStructures(1);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -225,18 +226,18 @@ public class HouseholdSprayStatusTest extends TestCase
     status.setLocked(4);
     status.setOther(1);
     status.setRefused(3);
-    status.setHouseholdId("householdId");
-    status.setStructureId("structureId");
+    status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+    status.setStructureId(TestConstants.STRUCTURE_ID);
     status.apply();
 
     HouseholdSprayStatus edit = HouseholdSprayStatus.lock(status.getId());
     edit.setHouseholds(1);
-    edit.setStructures(0);
+    edit.setStructures(1);
     edit.setSprayedHouseholds(1);
     edit.setSprayedStructures(0);
     edit.setPrevSprayedHouseholds(1);
     edit.setPrevSprayedStructures(0);
-    edit.setRooms(1);
+    edit.setRooms(TestConstants.NUM_ROOMS);
     edit.setSprayedRooms(2);
     edit.setPeople(3);
     edit.setBedNets(3);
@@ -244,8 +245,8 @@ public class HouseholdSprayStatusTest extends TestCase
     edit.setLocked(2);
     edit.setOther(3);
     edit.setRefused(3);
-    edit.setHouseholdId("householdId");
-    edit.setStructureId("structureId");
+    edit.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+    edit.setStructureId(TestConstants.STRUCTURE_ID);
     edit.apply();
 
     try
@@ -287,7 +288,7 @@ public class HouseholdSprayStatusTest extends TestCase
     status.setSprayedStructures(1);
     status.setPrevSprayedHouseholds(0);
     status.setPrevSprayedStructures(1);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -295,14 +296,13 @@ public class HouseholdSprayStatusTest extends TestCase
     status.setLocked(4);
     status.setOther(1);
     status.setRefused(3);
-    status.setHouseholdId("householdId");
-    status.setStructureId("structureId");
+    status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+    status.setStructureId(TestConstants.STRUCTURE_ID);
     status.apply();
 
     try
     {
-      HouseholdSprayStatusView test = (HouseholdSprayStatusView) HouseholdSprayStatus.getView(status
-          .getStatusId());
+      HouseholdSprayStatusView test = (HouseholdSprayStatusView) HouseholdSprayStatus.getView(status.getStatusId());
 
       assertNotNull(test);
       assertEquals(spray.getId(), test.getSpray().getId());
@@ -339,7 +339,7 @@ public class HouseholdSprayStatusTest extends TestCase
     status.setSprayedStructures(1);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(1);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -347,12 +347,12 @@ public class HouseholdSprayStatusTest extends TestCase
     status.setLocked(4);
     status.setOther(1);
     status.setRefused(3);
-    status.setHouseholdId("householdId");
-    status.setStructureId("structureId");
+    status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+    status.setStructureId(TestConstants.STRUCTURE_ID);
     status.apply();
 
     HouseholdSprayStatusView edit = (HouseholdSprayStatusView) HouseholdSprayStatus.lockView(status.getStatusId());
-    edit.setHouseholds(0);
+    edit.setHouseholds(1);
     edit.setStructures(1);
     edit.setSprayedHouseholds(1);
     edit.setSprayedStructures(0);
@@ -370,8 +370,7 @@ public class HouseholdSprayStatusTest extends TestCase
 
     try
     {
-      HouseholdSprayStatusView test = (HouseholdSprayStatusView) HouseholdSprayStatus.getView(status
-          .getStatusId());
+      HouseholdSprayStatusView test = (HouseholdSprayStatusView) HouseholdSprayStatus.getView(status.getStatusId());
 
       assertNotNull(test);
       assertEquals(spray.getId(), test.getSpray().getId());
@@ -403,12 +402,12 @@ public class HouseholdSprayStatusTest extends TestCase
     HouseholdSprayStatusView status = new HouseholdSprayStatusView();
     status.setSpray(spray);
     status.setHouseholds(1);
-    status.setStructures(0);
+    status.setStructures(1);
     status.setSprayedHouseholds(0);
     status.setSprayedStructures(1);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(1);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -437,14 +436,16 @@ public class HouseholdSprayStatusTest extends TestCase
   public void testApplyAll()
   {
     HouseholdSprayStatusView status = new HouseholdSprayStatusView();
+    status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+    status.setStructureId(TestConstants.STRUCTURE_ID);
     status.setSpray(spray);
     status.setHouseholds(1);
     status.setStructures(1);
-    status.setSprayedHouseholds(0);
-    status.setSprayedStructures(0);
+    status.setSprayedHouseholds(1);
+    status.setSprayedStructures(1);
     status.setPrevSprayedHouseholds(1);
     status.setPrevSprayedStructures(1);
-    status.setRooms(2);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(3);
     status.setPeople(3);
     status.setBedNets(1);
@@ -454,13 +455,15 @@ public class HouseholdSprayStatusTest extends TestCase
     status.setRefused(3);
 
     HouseholdSprayStatusView status2 = new HouseholdSprayStatusView();
+    status2.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+    status2.setStructureId(TestConstants.STRUCTURE_ID_2);
     status2.setSpray(spray);
     status2.setHouseholds(0);
-    status2.setStructures(1);
-    status2.setSprayedHouseholds(1);
-    status2.setSprayedStructures(1);
+    status2.setStructures(0);
+    status2.setSprayedHouseholds(0);
+    status2.setSprayedStructures(0);
     status2.setPrevSprayedHouseholds(0);
-    status2.setPrevSprayedStructures(1);
+    status2.setPrevSprayedStructures(0);
     status2.setRooms(24);
     status2.setSprayedRooms(13);
     status2.setPeople(34);
@@ -513,47 +516,14 @@ public class HouseholdSprayStatusTest extends TestCase
       HouseholdSprayStatus status = new HouseholdSprayStatus();
       status.setSpray(mopupSpray);
       status.setHouseholds(1);
-      status.setSprayedRooms(2);
       status.setPeople(3);
       status.setBedNets(3);
       status.setRoomsWithBedNets(5);
       status.setLocked(2);
       status.setOther(3);
       status.setRefused(3);
-      status.setHouseholdId("householdId");
-      status.setStructureId("structureId");
-      status.apply();
-
-      status.delete();
-
-      fail("Able to set a households value on a mop up spray ");
-    }
-    catch (ProblemException e)
-    {
-      List<ProblemIF> problems = e.getProblems();
-
-      assertEquals(1, problems.size());
-      assertTrue(problems.get(0) instanceof ValueNotApplicableProblem);
-    }
-  }
-
-  public void testMopUpSprayedHouseholdValue()
-  {
-    try
-    {
-
-      HouseholdSprayStatus status = new HouseholdSprayStatus();
-      status.setSpray(mopupSpray);
-      status.setSprayedHouseholds(1);
-      status.setSprayedRooms(2);
-      status.setPeople(3);
-      status.setBedNets(3);
-      status.setRoomsWithBedNets(5);
-      status.setLocked(2);
-      status.setOther(3);
-      status.setRefused(3);
-      status.setHouseholdId("householdId");
-      status.setStructureId("structureId");
+      status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+      status.setStructureId(TestConstants.STRUCTURE_ID);
       status.apply();
 
       status.delete();
@@ -573,19 +543,17 @@ public class HouseholdSprayStatusTest extends TestCase
   {
     try
     {
-
       HouseholdSprayStatus status = new HouseholdSprayStatus();
       status.setSpray(mopupSpray);
-      status.setPrevSprayedHouseholds(1);
-      status.setSprayedRooms(2);
+      status.setStructures(1);
       status.setPeople(3);
       status.setBedNets(3);
       status.setRoomsWithBedNets(5);
       status.setLocked(2);
       status.setOther(3);
       status.setRefused(3);
-      status.setHouseholdId("householdId");
-      status.setStructureId("structureId");
+      status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+      status.setStructureId(TestConstants.STRUCTURE_ID);
       status.apply();
 
       status.delete();
@@ -608,7 +576,7 @@ public class HouseholdSprayStatusTest extends TestCase
 
       HouseholdSprayStatus status = new HouseholdSprayStatus();
       status.setSpray(mopupSpray);
-      status.setRooms(1);
+      status.setRooms(TestConstants.NUM_ROOMS);
       status.setSprayedRooms(2);
       status.setPeople(3);
       status.setBedNets(3);
@@ -616,8 +584,8 @@ public class HouseholdSprayStatusTest extends TestCase
       status.setLocked(2);
       status.setOther(3);
       status.setRefused(3);
-      status.setHouseholdId("householdId");
-      status.setStructureId("structureId");
+      status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+      status.setStructureId(TestConstants.STRUCTURE_ID);
       status.apply();
 
       status.delete();
@@ -641,7 +609,7 @@ public class HouseholdSprayStatusTest extends TestCase
       HouseholdSprayStatus status = new HouseholdSprayStatus();
       status.setSpray(spray);
       status.setHouseholds(2);
-      status.setRooms(1);
+      status.setRooms(TestConstants.NUM_ROOMS);
       status.setSprayedRooms(2);
       status.setPeople(3);
       status.setBedNets(3);
@@ -649,8 +617,8 @@ public class HouseholdSprayStatusTest extends TestCase
       status.setLocked(2);
       status.setOther(3);
       status.setRefused(3);
-      status.setHouseholdId("householdId");
-      status.setStructureId("structureId");
+      status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+      status.setStructureId(TestConstants.STRUCTURE_ID);
       status.apply();
 
       status.delete();
@@ -674,7 +642,7 @@ public class HouseholdSprayStatusTest extends TestCase
       HouseholdSprayStatus status = new HouseholdSprayStatus();
       status.setSpray(spray);
       status.setStructures(2);
-      status.setRooms(1);
+      status.setRooms(TestConstants.NUM_ROOMS);
       status.setSprayedRooms(2);
       status.setPeople(3);
       status.setBedNets(3);
@@ -682,8 +650,8 @@ public class HouseholdSprayStatusTest extends TestCase
       status.setLocked(2);
       status.setOther(3);
       status.setRefused(3);
-      status.setHouseholdId("householdId");
-      status.setStructureId("structureId");
+      status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+      status.setStructureId(TestConstants.STRUCTURE_ID);
       status.apply();
 
       status.delete();
@@ -707,7 +675,7 @@ public class HouseholdSprayStatusTest extends TestCase
       HouseholdSprayStatus status = new HouseholdSprayStatus();
       status.setSpray(spray);
       status.setSprayedHouseholds(2);
-      status.setRooms(1);
+      status.setRooms(TestConstants.NUM_ROOMS);
       status.setSprayedRooms(2);
       status.setPeople(3);
       status.setBedNets(3);
@@ -715,8 +683,8 @@ public class HouseholdSprayStatusTest extends TestCase
       status.setLocked(2);
       status.setOther(3);
       status.setRefused(3);
-      status.setHouseholdId("householdId");
-      status.setStructureId("structureId");
+      status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+      status.setStructureId(TestConstants.STRUCTURE_ID);
       status.apply();
 
       status.delete();
@@ -740,7 +708,7 @@ public class HouseholdSprayStatusTest extends TestCase
       HouseholdSprayStatus status = new HouseholdSprayStatus();
       status.setSpray(spray);
       status.setSprayedStructures(2);
-      status.setRooms(1);
+      status.setRooms(TestConstants.NUM_ROOMS);
       status.setSprayedRooms(2);
       status.setPeople(3);
       status.setBedNets(3);
@@ -748,8 +716,8 @@ public class HouseholdSprayStatusTest extends TestCase
       status.setLocked(2);
       status.setOther(3);
       status.setRefused(3);
-      status.setHouseholdId("householdId");
-      status.setStructureId("structureId");
+      status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+      status.setStructureId(TestConstants.STRUCTURE_ID);
       status.apply();
 
       status.delete();
@@ -773,7 +741,7 @@ public class HouseholdSprayStatusTest extends TestCase
       HouseholdSprayStatus status = new HouseholdSprayStatus();
       status.setSpray(spray);
       status.setPrevSprayedHouseholds(2);
-      status.setRooms(1);
+      status.setRooms(TestConstants.NUM_ROOMS);
       status.setSprayedRooms(2);
       status.setPeople(3);
       status.setBedNets(3);
@@ -781,8 +749,8 @@ public class HouseholdSprayStatusTest extends TestCase
       status.setLocked(2);
       status.setOther(3);
       status.setRefused(3);
-      status.setHouseholdId("householdId");
-      status.setStructureId("structureId");
+      status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+      status.setStructureId(TestConstants.STRUCTURE_ID);
       status.apply();
 
       status.delete();
@@ -806,7 +774,7 @@ public class HouseholdSprayStatusTest extends TestCase
       HouseholdSprayStatus status = new HouseholdSprayStatus();
       status.setSpray(spray);
       status.setPrevSprayedStructures(2);
-      status.setRooms(1);
+      status.setRooms(TestConstants.NUM_ROOMS);
       status.setSprayedRooms(2);
       status.setPeople(3);
       status.setBedNets(3);
@@ -814,8 +782,8 @@ public class HouseholdSprayStatusTest extends TestCase
       status.setLocked(2);
       status.setOther(3);
       status.setRefused(3);
-      status.setHouseholdId("householdId");
-      status.setStructureId("structureId");
+      status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+      status.setStructureId(TestConstants.STRUCTURE_ID);
       status.apply();
 
       status.delete();
@@ -836,7 +804,7 @@ public class HouseholdSprayStatusTest extends TestCase
     HouseholdSprayStatus status = new HouseholdSprayStatus();
     status.setSpray(spray);
     status.setHouseholds(1);
-    status.setRooms(1);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(2);
     status.setPeople(3);
     status.setBedNets(3);
@@ -844,8 +812,8 @@ public class HouseholdSprayStatusTest extends TestCase
     status.setLocked(2);
     status.setOther(3);
     status.setRefused(3);
-    status.setHouseholdId("householdId");
-    status.setStructureId("structureId");
+    status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+    status.setStructureId(TestConstants.STRUCTURE_ID);
     status.apply();
 
     try
@@ -854,7 +822,7 @@ public class HouseholdSprayStatusTest extends TestCase
       HouseholdSprayStatus invalid = new HouseholdSprayStatus();
       invalid.setSpray(spray);
       invalid.setHouseholds(1);
-      invalid.setRooms(1);
+      invalid.setRooms(TestConstants.NUM_ROOMS);
       invalid.setSprayedRooms(2);
       invalid.setPeople(3);
       invalid.setBedNets(3);
@@ -862,8 +830,8 @@ public class HouseholdSprayStatusTest extends TestCase
       invalid.setLocked(2);
       invalid.setOther(3);
       invalid.setRefused(3);
-      invalid.setHouseholdId("householdId");
-      invalid.setStructureId("structureId 2");
+      invalid.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+      invalid.setStructureId(TestConstants.STRUCTURE_ID_2);
       invalid.apply();
 
       invalid.delete();
@@ -889,7 +857,7 @@ public class HouseholdSprayStatusTest extends TestCase
     HouseholdSprayStatus status = new HouseholdSprayStatus();
     status.setSpray(spray);
     status.setSprayedHouseholds(1);
-    status.setRooms(1);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(2);
     status.setPeople(3);
     status.setBedNets(3);
@@ -897,8 +865,8 @@ public class HouseholdSprayStatusTest extends TestCase
     status.setLocked(2);
     status.setOther(3);
     status.setRefused(3);
-    status.setHouseholdId("householdId");
-    status.setStructureId("structureId");
+    status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+    status.setStructureId(TestConstants.STRUCTURE_ID);
     status.apply();
 
     try
@@ -907,7 +875,7 @@ public class HouseholdSprayStatusTest extends TestCase
       HouseholdSprayStatus invalid = new HouseholdSprayStatus();
       invalid.setSpray(spray);
       invalid.setSprayedHouseholds(1);
-      invalid.setRooms(1);
+      invalid.setRooms(TestConstants.NUM_ROOMS);
       invalid.setSprayedRooms(2);
       invalid.setPeople(3);
       invalid.setBedNets(3);
@@ -915,8 +883,8 @@ public class HouseholdSprayStatusTest extends TestCase
       invalid.setLocked(2);
       invalid.setOther(3);
       invalid.setRefused(3);
-      invalid.setHouseholdId("householdId");
-      invalid.setStructureId("structureId 2");
+      invalid.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+      invalid.setStructureId(TestConstants.STRUCTURE_ID_2);
       invalid.apply();
 
       invalid.delete();
@@ -941,7 +909,7 @@ public class HouseholdSprayStatusTest extends TestCase
     HouseholdSprayStatus status = new HouseholdSprayStatus();
     status.setSpray(spray);
     status.setPrevSprayedHouseholds(1);
-    status.setRooms(1);
+    status.setRooms(TestConstants.NUM_ROOMS);
     status.setSprayedRooms(2);
     status.setPeople(3);
     status.setBedNets(3);
@@ -949,8 +917,8 @@ public class HouseholdSprayStatusTest extends TestCase
     status.setLocked(2);
     status.setOther(3);
     status.setRefused(3);
-    status.setHouseholdId("householdId");
-    status.setStructureId("structureId");
+    status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+    status.setStructureId(TestConstants.STRUCTURE_ID);
     status.apply();
 
     try
@@ -959,7 +927,7 @@ public class HouseholdSprayStatusTest extends TestCase
       HouseholdSprayStatus invalid = new HouseholdSprayStatus();
       invalid.setSpray(spray);
       invalid.setPrevSprayedHouseholds(1);
-      invalid.setRooms(1);
+      invalid.setRooms(TestConstants.NUM_ROOMS);
       invalid.setSprayedRooms(2);
       invalid.setPeople(3);
       invalid.setBedNets(3);
@@ -967,8 +935,8 @@ public class HouseholdSprayStatusTest extends TestCase
       invalid.setLocked(2);
       invalid.setOther(3);
       invalid.setRefused(3);
-      invalid.setHouseholdId("householdId");
-      invalid.setStructureId("structureId 2");
+      invalid.setHouseholdId(TestConstants.HOUSEHOLD_ID);
+      invalid.setStructureId(TestConstants.STRUCTURE_ID_2);
       invalid.apply();
 
       invalid.delete();

@@ -21,7 +21,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
   @Override
   protected String buildKey()
   {
-    if(this.getSpray() != null && this.getHouseholdId() != null && this.getStructureId() != null)
+    if(this.getSpray() != null)
     {
       return this.getSpray().getKey() + "." + this.getHouseholdId() + "." + this.getStructureId();
     }
@@ -110,6 +110,8 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
 
   public void validateSprayedHouseholds()
   {
+    super.validateSprayedHouseholds();
+    
     Integer value = this.getSprayedHouseholds();
     if (value != null)
     {
@@ -146,6 +148,8 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
   @Override
   public void validateSprayedStructures()
   {
+    super.validateSprayedStructures();
+    
     if (this.getSprayedStructures() != null)
     {
       if (this.getSprayedStructures() != 1 && this.getSprayedStructures() != 0)
@@ -163,7 +167,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
 
   public void validatePrevSprayedHouseholds(SprayMethod method)
   {
-    super.validatePrevSprayedHouseholds();
+    super.validatePrevSprayedHouseholds(method);
     
     Integer value = this.getPrevSprayedHouseholds();
     if (value != null)
@@ -223,9 +227,6 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
 
     try
     {
-      validateSprayedHouseholds();
-      validateSprayedStructures();
-
       super.apply();
     }
     finally
