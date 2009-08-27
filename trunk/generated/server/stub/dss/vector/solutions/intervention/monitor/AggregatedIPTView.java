@@ -77,7 +77,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
     }
   }
 
-  private boolean hasConcrete()
+  public boolean hasConcrete()
   {
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
   }

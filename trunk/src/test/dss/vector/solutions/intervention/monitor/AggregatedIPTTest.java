@@ -1,12 +1,17 @@
 package dss.vector.solutions.intervention.monitor;
 
+import java.util.Calendar;
 import java.util.Date;
+
+import com.terraframe.mojo.ProblemException;
+import com.terraframe.mojo.ProblemIF;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.surveillance.PeriodType;
@@ -392,6 +397,72 @@ public class AggregatedIPTTest extends TestCase
     AggregatedIPTView view = AggregatedIPT.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER, 1, 2009);
 
     assertEquals("", view.getConcreteId());
+  }
+  
+  public void testFutureDate()
+  {
+    Calendar calendar = Calendar.getInstance();    
+    calendar.setTime(new Date());
+    int year = calendar.get(Calendar.YEAR) + 1;
+    
+    
+    Integer care = new Integer(50);
+    Integer iron = new Integer(23);
+    Integer itn = new Integer(50);
+    Integer pregnant = new Integer(2);
+    Integer totalItn = new Integer(50);
+
+    AggregatedIPTView view = new AggregatedIPTView();
+    view.setGeoId(geoEntity.getGeoId());
+    view.addPeriodType(PeriodType.MONTH);
+    view.setPeriod(3);
+    view.setPeriodYear(year);
+    view.setNumberNatalCare(care);
+    view.setNumberPregnant(pregnant);
+    view.setNumberPregnantIron(iron);
+    view.setNumberPregnantITN(itn);
+    view.setTotalITN(totalItn);
+
+    IPTPatients[] patients = view.getIPTPatients();
+    IPTANCVisit[] visits = view.getIPTANCVisits();
+    IPTDose[] doses = view.getIPTDoses();
+    IPTTreatment[] treatments = view.getIPTTreatments();
+
+    for (IPTPatients rel : patients)
+    {
+      rel.setAmount(new Integer(50));
+    }
+
+    for (IPTANCVisit rel : visits)
+    {
+      rel.setAmount(new Integer(10));
+    }
+
+    for (IPTDose rel : doses)
+    {
+      rel.setAmount(new Integer(25));
+    }
+
+    for (IPTTreatment rel : treatments)
+    {
+      rel.setAmount(new Integer(15));
+    }
+
+    try
+    {
+      view.applyAll(patients, visits, doses, treatments);
+      
+      fail("Able to create an IPT with a future date");
+    }
+    catch(ProblemException e)
+    {
+      // This is expected: Ensure that the correct problem was thrown
+      
+      for(ProblemIF p : e.getProblems())
+      {
+        assertTrue(p instanceof CurrentDateProblem);
+      }
+    }
   }
 
 }
