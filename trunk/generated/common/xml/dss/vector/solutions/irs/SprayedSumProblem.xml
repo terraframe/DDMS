@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
+  name="dss.vector.solutions.irs.SprayedSumProblem">
+  <!--
+    - {objectLabel} objectLabel
+    - {objects} objects
+    - {sprayedObjectLabel} sprayedObjectLabel
+    - {sprayedObjects} sprayedObjects
+    -->
+  <locale language="en">{sprayedObjectLabel} [{sprayedObjects}] cannot be greater than {objectLabel} [{objects}]</locale>
+</exception>
