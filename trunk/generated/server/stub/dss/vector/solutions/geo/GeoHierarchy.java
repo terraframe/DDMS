@@ -454,8 +454,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   protected String buildKey()
   {
-// Heads up: clean up
-//    return this.getMdClass().getTypeName() + "_" + this.getGeoEntityClass().getTypeName();
     return this.getGeoEntityClass().definesType();
   }
 

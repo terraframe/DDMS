@@ -168,15 +168,6 @@ public class UniversalImporter {
 		System.out.println("<"+XMLTags.VERSION_TAG+" xsi:noNamespaceSchemaLocation=\"../profiles/version_gis.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
 		System.out.println("<!-- Created on " + new Date() + " from " + sourceName + " -->");
 		System.out.println("<"+XMLTags.DO_IT+">");
-// Heads up: clean up
-//		System.out.println("<existing>");
-//		System.out.println("   <object key=\"GeoHierarchy_Earth\"");
-//		System.out.println("      id=\"EarthH\"");
-//		System.out.println("      type=\"dss.vector.solutions.geo.GeoHierarchy\" />");
-//		System.out.println("   <object key=\"dss.vector.solutions.geo.generated.Earth\"");
-//		System.out.println("      id=\"EarthMd\"");
-//		System.out.println("      type=\"com.terraframe.mojo.system.metadata.MdBusiness\" />");
-//		System.out.println("</existing>");
 
 		//1) define an <mdBusiness> to define the class that will store instances of the geo universal
 		System.out.println("<"+XMLTags.CREATE_TAG+">");
@@ -187,17 +178,9 @@ public class UniversalImporter {
 		}
 		System.out.println("</"+XMLTags.CREATE_TAG+">\n");
 
-//		//2) create an <existing> tag to create a pseudo ID for the <mdBusiness> definition
-//		System.out.println("<existing>");
-//		for (Universal u : universals.values()) {
-//			if (u != Universal.EARTH) {
-//				System.out.println(u.getMetadataTag());
-//			}
-//		}
-//		System.out.println("</existing>\n");
 
 		System.out.println("<"+XMLTags.CREATE_TAG+">");
-		//3) create an instance of dss.vector.solutions.geo.GeoHierarchy using an <object> tag that references the <mdBusiness> using the pseudo ID
+		//2) create an instance of dss.vector.solutions.geo.GeoHierarchy using an <object> tag that references the <mdBusiness> using the pseudo ID
 		for (Universal u : universals.values()) {
 			if (u != Universal.EARTH) {
 				System.out.println(u.getGeoHierarchyTag());
@@ -205,7 +188,7 @@ public class UniversalImporter {
 		}
 		System.out.println("</"+XMLTags.CREATE_TAG+">\n");
 
-		//4) create instancees of the dss.vector.solutions.geo.AllowedIn relationship as necessary for the GeoHierarchy instance you just created
+		//3) create instancees of the dss.vector.solutions.geo.AllowedIn relationship as necessary for the GeoHierarchy instance you just created
 		System.out.println("<"+XMLTags.CREATE_TAG+">");
 		for (Universal u : universals.values()) {
 			if (u != Universal.EARTH) {
@@ -227,7 +210,7 @@ public class UniversalImporter {
 		}
 		System.out.println("</"+XMLTags.CREATE_TAG+">\n");
 
-		//5) Define all necessary permissions
+		//4) Define all necessary permissions
 		System.out.println("<"+XMLTags.PERMISSIONS_TAG+">");
 
 		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"" + MDSSRoleInfo.GUI_VISIBILITY + "\">");
