@@ -67,79 +67,14 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{AggregatedCaseViewDTO.CLASS}))%>
 
 <script type="text/javascript" defer="defer">
-  var validate = function(e, obj){
-	var button = document.getElementById('button.id').disabled=true;
-	  
-    var geoId = document.getElementById('geoIdEl');
-    var year = document.getElementById('year');
-    var period = document.getElementById('period');
-    var periodType;
-
-    var radios = document.getElementsByName('periodType');
-    for(var i=0; i<radios.length; i++)
-    {
-      var radio = radios[i];
-
-      if(radio.checked)
-      {
-        periodType = radio.value;
-      }
-    }
-
-	var re = /^[0-9]+$/;
-
-	if ( !re.test(year.value) || !re.test(period.value))
-	{
-	  return;
-	}
-
-    if(geoId.value != '' && year.value != '' && period.value != '' && periodType != '')
-    {
-      var request = new MDSS.Request({
-          onSend: function(){},
-          onComplete: function(){},
-          onSuccess : function(){
-        	  var button = document.getElementById('button.id').disabled=false;              
-          },
-          onFailure : function(e){
-          	MDSS.Calendar.addError(geoId,e.getLocalizedMessage());            
-          },
-          onProblemExceptionDTO : function(e){
-              var problems = e.getProblems();
-    		  for each (p in problems)
-    		  {
-        		if(p.getType() == "dss.vector.solutions.FuturePeriodProblem")
-            	{
-                	MDSS.Calendar.addError(year,p.getLocalizedMessage());
-        		}
-        		else
-        		{
-                	MDSS.Calendar.addError(period,p.getLocalizedMessage());
-        		}
-    		  }
-    		}
-  		});
-
-  	  MDSS.Calendar.removeError(geoId);
-  	  MDSS.Calendar.removeError(year);
-	  MDSS.Calendar.removeError(period);
-
-      Mojo.$.dss.vector.solutions.surveillance.AggregatedCaseView.validateSearchCriteria(request, geoId.value, periodType, parseInt(period.value), parseInt(year.value));
-    }
-  }
-
-  onValidGeoEntitySelected = function() {
-	  validate();	  
-  }
-
-  // Initially disable the search button
-  var button = document.getElementById('button.id').disabled=true;
-
   var form = document.getElementById('searchAggregatedCase');
-  var periodType = form.periodType;
 
-  YAHOO.util.Event.on('geoIdEl', 'blur', validate);
-  YAHOO.util.Event.on(periodType, 'click', validate);
-  YAHOO.util.Event.on('period', 'blur', validate);
-  YAHOO.util.Event.on('year', 'blur', validate);
+  var periodType = form.periodType;
+  var button = document.getElementById('button.id');
+
+  var geoId = document.getElementById('geoIdEl');	  
+  var year = document.getElementById('year');
+  var period = document.getElementById('period');
+
+  MDSS.validateEpiDate(button, geoId, year, period, periodType);
 </script>
