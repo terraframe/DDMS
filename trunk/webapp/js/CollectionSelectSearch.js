@@ -1,7 +1,5 @@
 
-  MDSS.collectionSearch = function(type){
-    var collectionInput = document.getElementById('collectionInput');                
-
+  MDSS.collectionSearch = function(type, collectionInput, collectionId){
     var collectionResults = document.createElement('div');
     collectionResults.id = 'collectionInput_results';
     collectionResults.className = "yui-panel-container show-scrollbars shadow";
@@ -17,8 +15,6 @@
     });
 
     var selectHandler = function(selected) {
-      var collectionInput = document.getElementById('collectionInput');
-      var collectionId = document.getElementById('collectionId');
 
       if(selected != null) {
          collectionInput.value = selected.collectionId;
@@ -36,7 +32,6 @@
     }
 
     var checkManualEntry = function() {
-      var collectionInput = document.getElementById('collectionInput');
 
       var request = new MDSS.Request({
           selectHandler: selectHandler,
@@ -60,8 +55,11 @@
      */
     var ajaxSearch = function(e)
     {
-      var input = document.getElementById('collectionInput');
-      var value = input.value;
+      // Reset the collectionId value because it may contain a 
+      // correct old value that should be removed    	
+      collectionId.value = ''
+      
+   	  var value = collectionInput.value;
       var resultPanel = panel; //document.getElementById('geoIdEl'+'_results');
 
       // must have at least 2 characters ready
@@ -74,7 +72,7 @@
         resultPanel: resultPanel,
         searchValue: value,
         selectHandler: selectHandler,
-        input: input,
+        collectionInput: collectionInput,
         searchRef: this,
         type: type,
         
@@ -138,7 +136,7 @@
             resultPanel.hide();
             selectHandler(li);
 
-          }, {input: this.input, panel: this.resultPanel}, this.searchRef);
+          }, {collectionInput: this.collectionInput, panel: this.resultPanel}, this.searchRef);
 
           var idAttr = "id";
           var typeAttr = "type";
@@ -171,8 +169,8 @@
           this.resultPanel.show();
           this.resultPanel.bringToTop();
 
-          // refocus the input field
-          this.input.focus();
+          // refocus the collectionInput field
+          this.collectionInput.focus();
         }
       });
 

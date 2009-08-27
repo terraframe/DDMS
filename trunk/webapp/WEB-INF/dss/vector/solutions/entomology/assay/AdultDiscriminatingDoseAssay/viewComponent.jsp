@@ -98,16 +98,9 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
       <mjl:dt attribute="intervalTime">
         ${item.intervalTime}
       </mjl:dt>
-
-      <dt><label> <fmt:message key="KD50"/> </label></dt>
-      <dd><fmt:formatNumber pattern="##.##">${item.KD50}</fmt:formatNumber></dd>
-      <dt><label> <fmt:message key="KD95"/> </label></dt>
-      <dd><fmt:formatNumber pattern="##.##">${item.KD95}</fmt:formatNumber></dd>
-
       <mjl:dt attribute="kd50">
         ${item.kd50}
       </mjl:dt>
-
       <mjl:dt attribute="kd95">
         ${item.kd95}
       </mjl:dt>

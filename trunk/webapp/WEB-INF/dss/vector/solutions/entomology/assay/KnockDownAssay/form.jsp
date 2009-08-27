@@ -102,5 +102,8 @@
 <%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionDTO.CLASS}))%>
 
 <script type="text/javascript" defer="defer">  
-  MDSS.collectionSearch('<%=MosquitoCollectionDTO.CLASS%>');
+var collectionInput = document.getElementById('collectionInput');                
+var collectionId = document.getElementById('collectionId');
+
+MDSS.collectionSearch('<%=MosquitoCollectionDTO.CLASS%>', collectionInput, collectionId);
 </script>        
