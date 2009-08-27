@@ -23,7 +23,7 @@
 
 	<property name="deploy.db" value="mdssdeploy" />
 	<property name="develop.db" value="mdssdevelop" />
-	<property name="geodata.db" value="mrc_malawi" />
+	<property name="geodata.db" value="mrc_mozambique" />
 	<!--<property name="write_rev" value="false" />-->
 
 	<!-- Rebuild Deploy -->
