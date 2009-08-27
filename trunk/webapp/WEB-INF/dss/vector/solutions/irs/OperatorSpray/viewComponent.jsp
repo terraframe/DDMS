@@ -191,6 +191,13 @@
 	var indexPrevSprayedHouseholds = 8;
 	var indexPrevSprayedStructures = 9;
 	var indexRooms = 10;
+	var indexPeople = 12;
+	var indexBedNets = 13;
+	var indexRoomsWithBedNets = 14;
+	var indexLocked = 15;
+	var indexRefused = 16;
+	var indexOther = 17;
+	
 	var isMainSpray = <%= (spray.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
 	
     data = {
@@ -214,6 +221,12 @@
     	delete data.columnDefs[indexPrevSprayedHouseholds].editor;
     	delete data.columnDefs[indexPrevSprayedStructures].editor;
     	delete data.columnDefs[indexRooms].editor;
+    	delete data.columnDefs[indexPeople].editor;
+    	delete data.columnDefs[indexBedNets].editor;
+    	delete data.columnDefs[indexRoomsWithBedNets].editor;
+    	delete data.columnDefs[indexLocked].editor;
+    	delete data.columnDefs[indexRefused].editor;
+    	delete data.columnDefs[indexOther].editor;
     }    
     
     document.addEventListener('load', MojoGrid.createDataTable(data), false);
