@@ -20,8 +20,7 @@ import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class ZoneSprayController extends ZoneSprayControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class ZoneSprayController extends ZoneSprayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/ZoneSpray/";
 
@@ -29,8 +28,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
   private static final long  serialVersionUID = 1240860686933L;
 
-  public ZoneSprayController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public ZoneSprayController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
@@ -97,7 +95,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
   {
     ClientRequestIF request = this.getClientSession().getRequest();
     InsecticideBrandDTO brand = dto.getBrand();
-    
+
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(request));
   }
@@ -121,7 +119,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
     JSONObject teamMap = buildTeamsMap(teams);
     String operators = buildOperatorsMap(teams);
-    
+
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("teams", teamMap);
     req.setAttribute("operators", operators);
@@ -146,6 +144,11 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
   private String buildOperatorsMap(SprayTeamDTO[] teams)
   {
+    // IMPORTANT: Even though this method essentially returns a JSONObject, it
+    // cannot actually use the JSONObject class because JSONObject does not
+    // preserve order. We need to preserve order such that the Team Leader is
+    // the first operator in each team list.
+
     // Build the map of possible team leaders for every spray team
     List<String> operators = new LinkedList<String>();
 
@@ -249,8 +252,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
     render("searchComponent.jsp");
   }
 
-  public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date, String sprayMethod)
-      throws IOException, ServletException
+  public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date, String sprayMethod) throws IOException, ServletException
   {
 
     try
@@ -259,8 +261,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
       SprayMethodDTO method = SprayMethodDTO.valueOf(sprayMethod);
 
-      ZoneSprayViewDTO dto = ZoneSprayViewDTO.searchBySprayData(this.getClientRequest(), geoId, date,
-          method, brand);
+      ZoneSprayViewDTO dto = ZoneSprayViewDTO.searchBySprayData(this.getClientRequest(), geoId, date, method, brand);
 
       if (dto.hasConcrete())
       {
@@ -269,7 +270,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
       else
       {
         this.setupRequest(dto);
-        
+
         req.setAttribute("item", dto);
         render("createComponent.jsp");
       }
@@ -326,8 +327,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
     }
   }
 
-  public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date, String method)
-      throws IOException, ServletException
+  public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date, String method) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
