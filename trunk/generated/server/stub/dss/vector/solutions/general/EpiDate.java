@@ -1,8 +1,16 @@
 package dss.vector.solutions.general;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import com.terraframe.mojo.constants.Constants;
+import com.terraframe.mojo.dataaccess.ValueObject;
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.PeriodMonthProblem;
 import dss.vector.solutions.PeriodQuarterProblem;
@@ -108,7 +116,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
       int month = calendar.get(Calendar.MONTH);
 
       // Calendar.month is zero indexed, while period is 1 indexed
-      super.setPeriod((month / 3) + 1);
+      super.setPeriod( ( month / 3 ) + 1);
       super.addPeriodType(PeriodType.QUARTER);
     }
   }
@@ -319,6 +327,59 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
   public static Date snapToSeason(Date snapable)
   {
+    Boolean snapToStart = true;
+
+    SimpleDateFormat formatter = new SimpleDateFormat(Constants.DATE_FORMAT);
+
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    MalariaSeasonQuery seasonQuery = new MalariaSeasonQuery(queryFactory);
+
+    String startOrEnd = null;
+
+    if (snapToStart)
+    {
+      startOrEnd = MalariaSeason.STARTDATE;
+      valueQuery.SELECT(seasonQuery.getStartDate(MalariaSeason.STARTDATE));
+    }
+    else
+    {
+      startOrEnd = MalariaSeason.ENDDATE;
+      valueQuery.SELECT(seasonQuery.getEndDate(MalariaSeason.ENDDATE));
+    }
+
+    valueQuery.ORDER_BY_DESC(valueQuery.aSQLDate("dist", "age(" + startOrEnd + ", '" + formatter.format(snapable) + "')", "dist"));
+
+    System.out.println(valueQuery.getSQL());
+
+    OIterator<? extends ValueObject> iterator = valueQuery.getIterator();
+    try
+    {
+      if (iterator.hasNext())
+      {
+        ValueObject valueObject = iterator.next();
+        try
+        {
+          return formatter.parse(valueObject.getValue(startOrEnd));
+        }
+        catch (ParseException e)
+        {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
+      else
+      {
+        String msg = "This date does not fall in to a season";
+        // throw new InvalidIdException(msg, geoId);
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
     return snapable;
   }
 
