@@ -64,6 +64,30 @@ public class SprayOperator extends SprayOperatorBase implements
       }
     }
   }
+  
+  public SprayOperatorView populateView()
+  {
+    Person person = this.getPerson();
+
+    SprayOperatorView view = new SprayOperatorView();
+    view.setActorId(this.getId());
+    view.setOperatorId(this.getOperatorId());
+    view.setFirstName(person.getFirstName());
+    view.setLastName(person.getLastName());
+    
+    OIterator<? extends SprayTeam> sprayTeam = this.getAllSprayTeam();
+    if (sprayTeam.hasNext())
+    {
+      view.setIsAssigned(true);
+      view.setTeamId(sprayTeam.next().getTeamId());
+    }
+    else
+    {
+      view.setIsAssigned(false);
+    }
+    
+    return view;
+  }
 
   public static boolean checkForExistingId(String id, String uuid)
   {
@@ -143,4 +167,5 @@ public class SprayOperator extends SprayOperatorBase implements
       iterator.close();
     }
   }
+  
 }

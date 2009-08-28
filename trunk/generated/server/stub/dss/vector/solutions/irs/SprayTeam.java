@@ -89,6 +89,14 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
   @Override
   public SprayOperatorView[] getTeamMemberViews()
   {
+    SprayOperator[] operators = this.getTeamMembers();
+    SprayOperatorView[] views = new SprayOperatorView[operators.length];
+    
+    for(int i = 0; i < operators.length; i++)
+    {
+      views[i] = operators[i].populateView();
+    }
+    
     return SprayOperatorView.getAllForTeam(this);
   }
 

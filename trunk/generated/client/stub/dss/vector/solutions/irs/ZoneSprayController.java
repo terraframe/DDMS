@@ -3,7 +3,7 @@ package dss.vector.solutions.irs;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +16,8 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
-import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.RedirectUtility;
 
 public class ZoneSprayController extends ZoneSprayControllerBase implements
@@ -120,7 +120,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
     InsecticideBrandDTO brand = dto.getBrand();
 
     JSONObject teamMap = buildTeamsMap(teams);
-    JSONObject operators = buildOperatorsMap(teams);
+    String operators = buildOperatorsMap(teams);
     
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("teams", teamMap);
@@ -134,52 +134,40 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
   private JSONObject buildTeamsMap(SprayTeamDTO[] teams)
   {
     // Map between an entities id and display label
-    Map<String, String> map = new HashMap<String, String>();
+    Map<String, String> map = new LinkedHashMap<String, String>();
 
     for (SprayTeamDTO team : teams)
     {
-      String label = team.getTeamId();
-
-      List<? extends SprayLeaderDTO> leaders = team.getAllTeamLeader();
-
-      if (leaders.size() > 0)
-      {
-        PersonDTO person = leaders.get(0).getPerson();
-
-        label = label.concat(" - " + person.getLastName() + ", " + person.getFirstName());
-      }
-
-      map.put(team.getId(), label);
+      map.put(team.getId(), team.getTeamId());
     }
 
     return new JSONObject(map);
   }
 
-  private JSONObject buildOperatorsMap(SprayTeamDTO[] teams)
+  private String buildOperatorsMap(SprayTeamDTO[] teams)
   {
     // Build the map of possible team leaders for every spray team
-    Map<String, JSONObject> operators = new HashMap<String, JSONObject>();
+    List<String> operators = new LinkedList<String>();
 
     for (SprayTeamDTO team : teams)
     {
       // Map between an entities id and display label
-      Map<String, String> map = new HashMap<String, String>();
+      List<String> list = new LinkedList<String>();
 
-      SprayOperatorDTO[] members = team.getTeamMembers();
+      SprayOperatorViewDTO[] members = team.getTeamMemberViews();
 
-      for (SprayOperatorDTO operator : members)
+      for (SprayOperatorViewDTO operator : members)
       {
-        PersonDTO person = operator.getPerson();
-        String key = operator.getId();
-        String label = person.getFirstName() + ", " + person.getLastName();
+        String key = operator.getActorId();
+        String label = operator.getFirstName() + ", " + operator.getLastName() + " - " + operator.getOperatorId();
 
-        map.put(key, label);
+        list.add("\"" + key + "\":\"" + label + "\"");
       }
 
-      operators.put(team.getId(), new JSONObject(map));
+      operators.add("\"" + team.getId() + "\":" + "{" + Halp.join(list) + "}");
     }
 
-    return new JSONObject(operators);
+    return "{" + Halp.join(operators) + "}";
   }
 
   public void failView(String id) throws IOException, ServletException

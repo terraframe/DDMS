@@ -3,8 +3,6 @@ package dss.vector.solutions.irs;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.Person;
-
 public class SprayOperatorView extends SprayOperatorViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1241483300982L;
@@ -63,26 +61,8 @@ public class SprayOperatorView extends SprayOperatorViewBase implements com.terr
     for (int i=0; i<count; i++)
     {
       SprayOperator next = iterator.next();
-      Person person = next.getPerson();
-
-      SprayOperatorView view = new SprayOperatorView();
-      view.setActorId(next.getId());
-      view.setOperatorId(next.getOperatorId());
-      view.setFirstName(person.getFirstName());
-      view.setLastName(person.getLastName());
       
-      OIterator<? extends SprayTeam> sprayTeam = next.getAllSprayTeam();
-      if (sprayTeam.hasNext())
-      {
-        view.setIsAssigned(true);
-        view.setTeamId(sprayTeam.next().getTeamId());
-      }
-      else
-      {
-        view.setIsAssigned(false);
-      }
-      
-      views[i] = view;
+      views[i] = next.populateView();
     }
     
     return views;
