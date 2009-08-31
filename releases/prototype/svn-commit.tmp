@@ -1,6 +1,0 @@
-delete old source
-
---This line, and those below, will be ignored--
-
-D    WEB-INF/source
-M    WEB-INF/logs/seriousErrorLog.txt
