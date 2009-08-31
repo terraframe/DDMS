@@ -30,15 +30,15 @@ echo installing tomcat...
 
 cd C:\MDSS\malawi\bin
 call service.bat install MDSSMalawi 
-tomcat6 //US//MDSSMalawi --JvmMs=256 --JvmMx=640 --JavaHome=C:\MDSS\Java\jdk1.5.0_19 --Jvm=C:\MDSS\Java\jdk1.5.0_19\jre\bin\server\jvm.dll --DependsOn postgresql-8.3
+tomcat6 //US//MDSSMalawi --JvmMs=256 --JvmMx=640 --JavaHome=C:\MDSS\Java\jdk1.5.0_19 --Jvm=C:\MDSS\Java\jdk1.5.0_19\jre\bin\server\jvm.dll --DependsOn postgresql-8.3 --JvmOptions "-XX:+CMSPermGenSweepingEnabled#-XX:+CMSClassUnloadingEnabled#-XX:+UseConcMarkSweepGC#-XX:MaxPermSize=256m"
 
 cd C:\MDSS\mozambique\bin
 call service.bat install MDSSMozambique
-tomcat6 //US//MDSSMozambique --JvmMs=256 --JvmMx=640 --JavaHome=C:\MDSS\Java\jdk1.5.0_19 --Jvm=C:\MDSS\Java\jdk1.5.0_19\jre\bin\server\jvm.dll --DependsOn postgresql-8.3 
+tomcat6 //US//MDSSMozambique --JvmMs=256 --JvmMx=640 --JavaHome=C:\MDSS\Java\jdk1.5.0_19 --Jvm=C:\MDSS\Java\jdk1.5.0_19\jre\bin\server\jvm.dll --DependsOn postgresql-8.3 --JvmOptions "-XX:+CMSPermGenSweepingEnabled#-XX:+CMSClassUnloadingEnabled#-XX:+UseConcMarkSweepGC#-XX:MaxPermSize=256m"
 
 cd C:\MDSS\zambia\bin
 call service.bat install MDSSZambia 
-tomcat6 //US//MDSSZambia --JvmMs=256 --JvmMx=640 --JavaHome=C:\MDSS\Java\jdk1.5.0_19 --Jvm=C:\MDSS\Java\jdk1.5.0_19\jre\bin\server\jvm.dll --DependsOn postgresql-8.3
+tomcat6 //US//MDSSZambia --JvmMs=256 --JvmMx=640 --JavaHome=C:\MDSS\Java\jdk1.5.0_19 --Jvm=C:\MDSS\Java\jdk1.5.0_19\jre\bin\server\jvm.dll --DependsOn postgresql-8.3 --JvmOptions "-XX:+CMSPermGenSweepingEnabled#-XX:+CMSClassUnloadingEnabled#-XX:+UseConcMarkSweepGC#-XX:MaxPermSize=256m"
 
 cd C:\MDSS
 copy "MDSS Control Panel.lnk" "%HOMEPATH%\Desktop"
