@@ -16,7 +16,7 @@ rem INSTALL POSTGRES
 rem ---------------------------------------------------------------------------
 
 echo installing postgres...
-C:\MDSS\PostgreSQL\8.3\installer\server>createuser.exe .\ postgres 8aBruD5c
+C:\MDSS\PostgreSQL\8.3\installer\server\createuser.exe .\ postgres 8aBruD5c
 echo y|cacls c:\MDSS\PostgreSQL\8.3\data /E /T /C /G "postgres":F
 postgresql-8.3.7-2-windows --mode unattended  --prefix C:\MDSS\PostgreSql\8.3 --superpassword 8aBruD5c 
 rmdir "%HOMEPATH%\..\All Users\Start Menu\Programs\PostgreSQL 8.3" /Q /S
