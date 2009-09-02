@@ -12,8 +12,7 @@ import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.surveillance.PeriodType;
 
-public class MalariaSeason extends MalariaSeasonBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1242259530708L;
 
@@ -21,11 +20,11 @@ public class MalariaSeason extends MalariaSeasonBase implements
   {
     super();
   }
-  
+
   @Override
   protected String buildKey()
   {
-    if(this.getSeasonName() != null)
+    if (this.getSeasonName() != null)
     {
       return this.getSeasonName();
     }
@@ -35,9 +34,6 @@ public class MalariaSeason extends MalariaSeasonBase implements
   @Transaction
   public void apply()
   {
-    super.validateEndDate();
-    super.validateEndDate();
-
     validateStartEndDates();
     validateLength();
     validateOverlap();
@@ -47,7 +43,8 @@ public class MalariaSeason extends MalariaSeasonBase implements
 
   public EpiDate[] getEpiWeeks()
   {
-    // Date epiStart = Property.getDate(PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START);
+    // Date epiStart =
+    // Property.getDate(PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START);
     long seasonStart = this.getStartDate().getTime();
     long seasonEnd = this.getEndDate().getTime();
     GregorianCalendar cal = new GregorianCalendar();
@@ -72,7 +69,7 @@ public class MalariaSeason extends MalariaSeasonBase implements
 
   public void validateStartEndDates()
   {
-    if (this.getStartDate().getTime() > this.getEndDate().getTime())
+    if (this.getStartDate() != null && this.getEndDate() != null && this.getStartDate().getTime() > this.getEndDate().getTime())
     {
       String msg = "The start date must be less then the end date";
       MalariaSeasonDateProblem e = new MalariaSeasonDateProblem(msg);
@@ -83,7 +80,7 @@ public class MalariaSeason extends MalariaSeasonBase implements
 
   public void validateOverlap()
   {
-    if (this.getOverlap() != null)
+    if (this.getStartDate() != null && this.getEndDate() != null && this.getOverlap() != null)
     {
       String msg = "This malaria season overlaps with an existing season";
       MalariaSeasonOverlapProblem e = new MalariaSeasonOverlapProblem(msg);
@@ -95,21 +92,25 @@ public class MalariaSeason extends MalariaSeasonBase implements
 
   public void validateLength()
   {
-    GregorianCalendar calendar = new GregorianCalendar();
-    calendar.setTime(this.getStartDate());
-    calendar.add(Calendar.YEAR, 1);
-    if (this.getEndDate().getTime() > calendar.getTime().getTime())
+    if (this.getStartDate() != null && this.getEndDate() != null)
     {
-      String msg = "The season may not be longer then one year";
-      MalariaSeasonTooLongProblem e = new MalariaSeasonTooLongProblem(msg);
-      e.apply();
-      e.throwIt();
+      GregorianCalendar calendar = new GregorianCalendar();
+      calendar.setTime(this.getStartDate());
+      calendar.add(Calendar.YEAR, 1);
+      if (this.getEndDate().getTime() > calendar.getTime().getTime())
+      {
+        String msg = "The season may not be longer then one year";
+        MalariaSeasonTooLongProblem e = new MalariaSeasonTooLongProblem(msg);
+        e.apply();
+        e.throwIt();
+      }
     }
 
   }
 
   private MalariaSeason getOverlap()
   {
+
     MalariaSeason startOverlap = MalariaSeason.getSeasonByDate(this.getStartDate());
 
     if (startOverlap != null && !startOverlap.getId().equals(this.getId()))
