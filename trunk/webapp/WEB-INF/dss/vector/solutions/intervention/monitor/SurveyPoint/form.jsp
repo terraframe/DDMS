@@ -19,5 +19,5 @@
   </mjl:dt>
   <mjl:dt attribute="surveyDate">
     <mjl:input param="surveyDate" type="text" classes="DatePick NoFuture" id="surveyDate"/>
-</mjl:dt>
+  </mjl:dt>
 </mjl:component>
