@@ -1,10 +1,9 @@
 package dss.vector.solutions.intervention.monitor;
 
-import java.util.Calendar;
-
 import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.AgeConverter;
 import dss.vector.solutions.intervention.BloodslideResponse;
 import dss.vector.solutions.intervention.FeverResponse;
 import dss.vector.solutions.intervention.HumanSex;
@@ -81,19 +80,8 @@ public class PersonView extends PersonViewBase implements
     }
     else if (this.getAge() != null)
     {      
-      Calendar today = Calendar.getInstance();
-      Calendar dob = Calendar.getInstance();
-      dob.set(Calendar.DAY_OF_YEAR, 1);
-      dob.set(Calendar.MONTH, Calendar.JANUARY);
-      dob.add(Calendar.YEAR, -this.getAge());
-
-      if (today.get(Calendar.DAY_OF_YEAR) <= dob.get(Calendar.DAY_OF_YEAR))
-      {
-        dob.add(Calendar.YEAR, 1);
-      }
-
       // Must calculate the date of birth from the age
-      person.setDob(dob.getTime());
+      person.setDob(new AgeConverter(this.getAge()).getDateOfBirth());
     }
 
     person.setAnaemiaTreatment(this.getAnaemiaTreatment());

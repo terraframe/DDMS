@@ -1,9 +1,8 @@
 package dss.vector.solutions.intervention.monitor;
 
-import java.util.Calendar;
-
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.AgeConverter;
 import dss.vector.solutions.intervention.BloodslideResponse;
 import dss.vector.solutions.intervention.FeverResponse;
 import dss.vector.solutions.intervention.HumanSex;
@@ -94,19 +93,8 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     view.setConcreteId(this.getId());
 
     if(this.getDob() != null)
-    {
-      Calendar today = Calendar.getInstance();
-
-      Calendar dob = Calendar.getInstance();
-      dob.setTime(this.getDob());
-
-      int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
-      if (today.get(Calendar.DAY_OF_YEAR) <= dob.get(Calendar.DAY_OF_YEAR))
-      {
-        age = age - 1;
-      }
-      
-      view.setAge(age);
+    {        
+      view.setAge(new AgeConverter(this.getDob()).getAge());
     }
 
     view.setDob(this.getDob());

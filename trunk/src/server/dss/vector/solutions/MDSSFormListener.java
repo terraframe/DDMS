@@ -40,27 +40,7 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
 
     if (MDSSGenerationUtility.isAGeoEntity(mdBusiness))
     {
-      String attributeName = mdAttribute.definesAttribute();
-
-      writeDT(attributeName);
-
-      HashMap<String, String> geoIdMap = new HashMap<String, String>();
-      geoIdMap.put("param", attributeName + "Id");
-      geoIdMap.put("type", "text");
-      geoIdMap.put("id", "geoIdEl");
-      geoIdMap.put("classes", "geoInput");
-
-      getWriter().writeEmptyEscapedTag(INPUT_TAG, geoIdMap);
-
-      HashMap<String, String> geoEntityMap = new HashMap<String, String>();
-      geoEntityMap.put("param", attributeName);
-      geoEntityMap.put("type", "hidden");
-      geoEntityMap.put("id", "geoEntityId");
-
-      getWriter().writeEmptyEscapedTag(INPUT_TAG, geoEntityMap);
-
-      // Close the dt tag
-      getWriter().closeTag();
+      generateGeoEntityReference(mdAttribute);
     }
     else
     {
@@ -69,26 +49,58 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
       // attribute. If it does then use the displayLabel instead of the id.
       if (MDSSGenerationUtility.definesAttribute(mdBusiness, displayLabel))
       {
-        mdBusiness.definesAttribute(displayLabel);
-
-        String attributeName = mdAttribute.definesAttribute();
-
-        writeDT(attributeName);
-        writeSelect("${" + attributeName + "}", "current", attributeName, "id");
-
-        writeOption("${current." + displayLabel + "}");
-
-        // Close the select tag
-        getWriter().closeTag();
-
-        // Close the dt tag
-        getWriter().closeTag();
+        generateDisplayLabelReference(mdAttribute, mdBusiness, displayLabel);
       }
       else
       {
         super.generateReference(mdAttribute);
       }
     }
+  }
+
+  private void generateDisplayLabelReference(MdAttributeDAOIF mdAttribute, MdBusinessDAOIF mdBusiness, String displayLabel)
+  {
+    mdBusiness.definesAttribute(displayLabel);
+
+    String attributeName = mdAttribute.definesAttribute();
+
+    writeDT(attributeName);
+    writeSelect("${" + attributeName + "}", "current", attributeName, "id");
+
+    writeOption("${current." + displayLabel + "}");
+
+    // Close the select tag
+    getWriter().closeTag();
+
+    // Close the dt tag
+    getWriter().closeTag();
+  }
+
+  private void generateGeoEntityReference(MdAttributeDAOIF mdAttribute)
+  {
+    String attributeName = mdAttribute.definesAttribute();
+    String value = "${" + this.getComponentName() + "." + attributeName + " != null ? " + this.getComponentName() + "." + attributeName + ".geoId : ''}";
+
+    writeDT(attributeName);
+
+    HashMap<String, String> geoIdMap = new HashMap<String, String>();
+    geoIdMap.put("param", attributeName + "Id");
+    geoIdMap.put("type", "text");
+    geoIdMap.put("id", "geoIdEl");
+    geoIdMap.put("classes", "geoInput");
+    geoIdMap.put("value", value);
+
+    getWriter().writeEmptyEscapedTag(INPUT_TAG, geoIdMap);
+
+    HashMap<String, String> geoEntityMap = new HashMap<String, String>();
+    geoEntityMap.put("param", attributeName);
+    geoEntityMap.put("type", "hidden");
+    geoEntityMap.put("id", "geoEntityId");
+
+    getWriter().writeEmptyEscapedTag(INPUT_TAG, geoEntityMap);
+
+    // Close the dt tag
+    getWriter().closeTag();
   }
 
   @Override

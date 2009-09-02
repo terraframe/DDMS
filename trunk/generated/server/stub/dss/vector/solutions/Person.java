@@ -14,6 +14,8 @@ import dss.vector.solutions.irs.SprayOperator;
 public class Person extends PersonBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240792902476L;
+  
+  private static final long MAXIMUM_AGE = 110;
 
   public Person()
   {
@@ -30,7 +32,17 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   @Override
   public void apply()
   {
-    validateDateOfBirth();
+    this.apply(true);
+  }
+  
+  @Transaction
+  public void apply(boolean validate)
+  {
+    if(validate)
+    {
+      validateDateOfBirth();
+    }
+    
     super.apply();
   }
 
@@ -53,6 +65,21 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
         p.setNotification(this, DATEOFBIRTH);
         p.apply();
         p.throwIt();
+      }
+      else
+      {
+        Integer age = new AgeConverter(this.getDateOfBirth()).getAge();
+        
+        if(age > MAXIMUM_AGE)
+        {
+          String msg = "A person's age can not be older than 110";
+          
+          PersonAgeProblem p = new PersonAgeProblem(msg);
+          p.setAge(age);
+          p.setNotification(this, DATEOFBIRTH);
+          p.apply();
+          p.throwIt();          
+        }
       }
     }
   }

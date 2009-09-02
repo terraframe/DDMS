@@ -16,36 +16,35 @@ import dss.vector.solutions.irs.SprayOperator;
 public class PersonView extends PersonViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240852495794L;
-  
+
   public PersonView()
   {
     super();
   }
-  
+
   @Override
   public void validateOperatorId()
   {
-    if(this.getOperatorId() != null && !this.getOperatorId().equals("") &&
-       this.getLeaderId() != null && !this.getLeaderId().equals(""))
+    if (this.getOperatorId() != null && !this.getOperatorId().equals("") && this.getLeaderId() != null && !this.getLeaderId().equals(""))
     {
-      if(this.getOperatorId().equals(this.getLeaderId()))
+      if (this.getOperatorId().equals(this.getLeaderId()))
       {
         String msg = "Operator Id and Leader Id cannot be the same";
         throw new DelegateIdException(msg);
       }
     }
   }
-  
+
   @Override
   @Transaction
   public void apply()
   {
     validateOperatorId();
-    
-    //Update the person data
+
+    // Update the person data
     Person person = Person.get(this.getPersonId());
 
-    if (person==null)
+    if (person == null)
     {
       person = new Person();
     }
@@ -54,27 +53,29 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
       person.lock();
     }
 
-    new AttributeNotificationMap(person, Person.DATEOFBIRTH, this, PersonView.DATEOFBIRTH);
+    this.populateAttributeMapping(person);
 
     person.setFirstName(this.getFirstName());
     person.setLastName(this.getLastName());
     person.setDateOfBirth(this.getDateOfBirth());
     person.addSex(this.getSex().get(0));
-    
+
     String geoId = this.getResidentialGeoId();
-    
-    if (geoId!=null && !geoId.equals(""))
+
+    if (geoId != null && !geoId.equals(""))
     {
       person.setResidentialGeoEntity(GeoEntity.searchByGeoId(geoId));
     }
+
+    // Applying the person with validate it's attributes
     person.apply();
-    
+
     // Update the delegates
     MDSSUser user = person.getUserDelegate();
 
     if (this.getIsMDSSUser())
     {
-      if (user==null)
+      if (user == null)
       {
         user = new MDSSUser();
       }
@@ -85,17 +86,17 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     }
     else
     {
-      if (user!=null)
+      if (user != null)
       {
         user.delete();
         user = null;
       }
     }
-    
+
     Patient patient = person.getPatientDelegate();
     if (this.getIsPatient())
     {
-      if (patient==null)
+      if (patient == null)
       {
         patient = new Patient();
       }
@@ -104,37 +105,37 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     }
     else
     {
-      if (patient!=null)
+      if (patient != null)
       {
         patient.delete();
-        patient=null;
+        patient = null;
       }
     }
-    
+
     ITNRecipient itnRecipient = person.getItnRecipientDelegate();
     if (this.getIsITNRecipient())
     {
-      if (itnRecipient==null)
+      if (itnRecipient == null)
       {
         itnRecipient = new ITNRecipient();
       }
-      
+
       itnRecipient.setPerson(person);
       itnRecipient.apply();
     }
     else
     {
-      if (itnRecipient!=null)
+      if (itnRecipient != null)
       {
         itnRecipient.delete();
         itnRecipient = null;
       }
     }
-    
+
     IPTRecipient iptRecipient = person.getIptRecipientDelegate();
     if (this.getIsIPTRecipient())
     {
-      if (iptRecipient==null)
+      if (iptRecipient == null)
       {
         iptRecipient = new IPTRecipient();
       }
@@ -143,17 +144,17 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     }
     else
     {
-      if (iptRecipient!=null)
+      if (iptRecipient != null)
       {
         iptRecipient.delete();
         iptRecipient = null;
       }
     }
-    
+
     SprayOperator sprayOperator = person.getSprayOperatorDelegate();
     if (this.getIsSprayOperator())
     {
-      if (sprayOperator==null)
+      if (sprayOperator == null)
       {
         sprayOperator = new SprayOperator();
       }
@@ -163,35 +164,35 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     }
     else
     {
-      if (sprayOperator!=null)
+      if (sprayOperator != null)
       {
         sprayOperator.delete();
         sprayOperator = null;
       }
     }
-    
+
     SprayLeader sprayLeader = person.getSprayLeaderDelegate();
     if (this.getIsSprayLeader())
     {
-      if (sprayLeader==null)
+      if (sprayLeader == null)
       {
         sprayLeader = new SprayLeader();
       }
-      
+
       sprayLeader.setPerson(person);
       sprayLeader.setLeaderId(this.getLeaderId());
       sprayLeader.apply();
     }
     else
     {
-      if (sprayLeader!=null)
+      if (sprayLeader != null)
       {
         sprayLeader.delete();
         sprayLeader = null;
       }
     }
 
-    //Update the person delegates   
+    // Update the person delegates
     person = Person.lockPerson(person.getId());
     person.setUserDelegate(user);
     person.setItnRecipientDelegate(itnRecipient);
@@ -199,39 +200,53 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     person.setSprayOperatorDelegate(sprayOperator);
     person.setSprayLeaderDelegate(sprayLeader);
     person.setPatientDelegate(patient);
-    person.apply();
+
+    // Do not validate the person again because a second problem will be
+    // generated for every validation problem that occurs. The person has
+    // already been validated when it was applied for the first time in this
+    // method.
+    person.apply(false);
 
     this.setPersonId(person.getId());
   }
-  
+
+  private void populateAttributeMapping(Person person)
+  {
+    new AttributeNotificationMap(person, Person.DATEOFBIRTH, this, PersonView.DATEOFBIRTH);
+    new AttributeNotificationMap(person, Person.FIRSTNAME, this, PersonView.FIRSTNAME);
+    new AttributeNotificationMap(person, Person.LASTNAME, this, PersonView.LASTNAME);
+    new AttributeNotificationMap(person, Person.SEX, this, PersonView.SEX);
+    new AttributeNotificationMap(person, Person.RESIDENTIALGEOENTITY, this, PersonView.RESIDENTIALGEOID);
+  }
+
   @Override
   public PersonQuery searchForDuplicates()
   {
     PersonQuery query = new PersonQuery(new QueryFactory());
-    
+
     String firstName = this.getFirstName();
-    if (firstName.length()>0)
+    if (firstName.length() > 0)
       query.WHERE(query.getFirstName().EQ(firstName));
-    
+
     String lastName = this.getLastName();
-    if (lastName.length()>0)
+    if (lastName.length() > 0)
       query.WHERE(query.getLastName().EQ(lastName));
-    
+
     Date dob = this.getDateOfBirth();
-    if (dob!=null)
+    if (dob != null)
       query.WHERE(query.getDateOfBirth().EQ(dob));
-    
+
     // We have a default value set, so there is always a value
     Sex sex = this.getSex().get(0);
     if (!sex.equals(Sex.UNKNOWN))
       query.WHERE(query.getSex().containsExactly(sex));
-    
-//    SprayOperator sprayDelegate = this.getSprayOperatorDelegate();
-//    if (sprayDelegate==null)
-//      query.WHERE(query.getSprayOperatorDelegate().EQ(""));
-//    else
-//      query.WHERE(query.getSprayOperatorDelegate().NE(""));
-    
+
+    // SprayOperator sprayDelegate = this.getSprayOperatorDelegate();
+    // if (sprayDelegate==null)
+    // query.WHERE(query.getSprayOperatorDelegate().EQ(""));
+    // else
+    // query.WHERE(query.getSprayOperatorDelegate().NE(""));
+
     return query;
   }
 }
