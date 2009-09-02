@@ -15,6 +15,7 @@
 <br/>
 
 <%
+String sum = request.getAttribute("sumLastRow").toString();
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 ResourceTargetViewDTO[] rows = (ResourceTargetViewDTO[]) request.getAttribute("resourceTargetViews");
 String[] attribs = {"TargetId","TargetYear","Targeter"};
@@ -31,7 +32,7 @@ colConfig += "\n,{key:'TargeterName',label:'" + "Name" + "',resizeable:true}";
 
 for(int i = 0;i<=52;i++)
 {
-    colConfig += ",\n{sum:true, key:'Target_" + i + "',label:'" + (i+1) + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
+    colConfig += ",\n{sum:" + sum  + ", key:'Target_" + i + "',label:'" + (i+1) + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
 }
 
 %>
