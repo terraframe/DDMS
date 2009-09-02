@@ -1,0 +1,116 @@
+package dss.vector.solutions;
+
+import java.util.HashMap;
+import java.util.List;
+
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
+import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
+import com.terraframe.mojo.dataaccess.MdEntityDAOIF;
+import com.terraframe.mojo.dataaccess.io.MarkupWriter;
+import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.system.metadata.MdBusiness;
+
+import dss.vector.solutions.geo.generated.GeoEntity;
+
+public class MDSSGenerationUtility implements Reloadable
+{
+  public static final String MESSAGE_TAG = "fmt:message";
+  
+  public static final String C_SET = "c:set";
+
+
+  static void writeFMTIncludes(MarkupWriter writer)
+  {
+    HashMap<String, String> map = new HashMap<String, String>();
+    map.put("uri", "http://java.sun.com/jsp/jstl/fmt");
+    map.put("prefix", "fmt");
+
+    writer.writeEmptyTag("<%@", "%>", "taglib", map);
+  }
+
+  static void writeCommandLink(MarkupWriter writer, String commandLinkTag, String action, String name, String display)
+  {
+    HashMap<String, String> commandLinkMap = new HashMap<String, String>();
+    commandLinkMap.put("action", action);
+    commandLinkMap.put("name", name);
+
+    writer.openEscapedTag(commandLinkTag, commandLinkMap);
+
+    HashMap<String, String> messageMap = new HashMap<String, String>();
+    messageMap.put("key", display.replaceAll(" ", "_"));
+
+    writer.writeEmptyTag(MESSAGE_TAG, messageMap);
+  }
+
+  static void writeCommandLinkWithNoProperties(MarkupWriter writer, String commandLinkTag, String action, String name, String display)
+  {
+    HashMap<String, String> commandLinkMap = new HashMap<String, String>();
+    commandLinkMap.put("action", action);
+    commandLinkMap.put("name", name);
+
+    // Open the command link tab
+    writer.openEscapedTag(commandLinkTag, commandLinkMap);
+
+    HashMap<String, String> messageMap = new HashMap<String, String>();
+    messageMap.put("key", display.replaceAll(" ", "_"));
+
+    writer.writeEmptyTag(MESSAGE_TAG, messageMap);
+
+    // Close the command link tab
+    writer.closeTag();
+  }
+
+  public static void writePageTitle(MarkupWriter writer, String title)
+  {
+    HashMap<String, String> map = new HashMap<String, String>();
+    map.put("var", "page_title");
+    map.put("value", title);
+    map.put("scope", "request");
+
+    writer.writeEmptyTag(C_SET, map);
+  }
+  
+  public static boolean isAGeoEntity(MdBusinessDAOIF mdBusiness)
+  {
+    List<MdBusinessDAOIF> superClasses = mdBusiness.getSuperClasses();
+    boolean contains = superClasses.contains(MdBusiness.getMdBusiness(GeoEntity.CLASS));
+
+    return contains;
+  }
+  
+  public static boolean definesAttribute(MdEntityDAOIF mdEntity, String attributeName)
+  {
+    for(MdEntityDAOIF superEntity : mdEntity.getSuperClasses())
+    {
+      if(superEntity.definesAttribute(attributeName) != null)
+      {
+        return true;
+      }
+    }  
+    
+    return false;    
+  }
+  
+  public static boolean hasGeoEntityReference(MdEntityDAOIF mdEntity)
+  {
+    for(MdEntityDAOIF superEntity : mdEntity.getSuperClasses())
+    {
+      for(MdAttributeDAOIF mdAttribute : superEntity.definesAttributes())
+      {
+        if(mdAttribute instanceof MdAttributeReferenceDAOIF)
+        {
+          MdBusinessDAOIF mdBusiness = ((MdAttributeReferenceDAOIF) mdAttribute).getReferenceMdBusinessDAO();
+          
+          if(MDSSGenerationUtility.isAGeoEntity(mdBusiness))
+          {
+            return true;
+          }
+        }
+      }
+    }  
+    
+    return false;
+  }
+
+}

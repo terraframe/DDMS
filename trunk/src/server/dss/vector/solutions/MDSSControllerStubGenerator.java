@@ -13,11 +13,12 @@ import com.terraframe.mojo.dataaccess.MdControllerDAOIF;
 import com.terraframe.mojo.dataaccess.MdEntityDAOIF;
 import com.terraframe.mojo.dataaccess.MdMethodDAOIF;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
+import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class MDSSControllerStubGenerator extends ControllerStubGenerator
+public class MDSSControllerStubGenerator extends ControllerStubGenerator implements Reloadable
 {
 
   public MDSSControllerStubGenerator(MdControllerDAOIF mdController)
@@ -110,7 +111,7 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator
     MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) mdAttribute;
     MdBusinessDAOIF mdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
 
-    if (mdBusiness.isPublished())
+    if (mdBusiness.isPublished() && !MDSSGenerationUtility.isAGeoEntity(mdBusiness))
     {
       String request = "super.getClientSession().getRequest()";
       String dtoType = mdBusiness.definesType() + TypeGeneratorInfo.DTO_SUFFIX;
@@ -141,5 +142,4 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator
       getWriter().writeLine("req.setAttribute(\"" + mdAttribute.definesAttribute() + "\", " + command + ");");
     }
   }
-
 }
