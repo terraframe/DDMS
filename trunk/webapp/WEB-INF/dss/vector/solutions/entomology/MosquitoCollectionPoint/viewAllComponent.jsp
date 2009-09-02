@@ -94,6 +94,7 @@ map.put("Collection", new ColumnSetup(false, false, null, null, null));
        div_id: "MorphologicalSpecieGroups",
        copy_from_above: ["DateCollected","IdentificationMethod"],
        data_type: "Mojo.$.<%=MosquitoCollectionPointViewDTO.CLASS%>",
+       excelButtons: false,
        after_save:function(){window.location.reload( false );},
        after_row_load:function(record){
          var request = new MDSS.Request({
