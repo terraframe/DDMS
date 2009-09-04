@@ -8,6 +8,12 @@ public class AdultTestInterval extends AdultTestIntervalBase implements com.terr
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getAssay().buildKey() + "-" + this.getPeriod();
+  }
  
   @Override
   public void validatePeriod()
