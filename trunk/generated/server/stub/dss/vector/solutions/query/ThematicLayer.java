@@ -18,6 +18,12 @@ public class ThematicLayer extends ThematicLayerBase implements
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getId();
+  }
 
   /**
    * Locks this Layer and all of its categories.
