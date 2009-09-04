@@ -468,7 +468,7 @@ MojoGrid.createDataTable = function(table_data) {
 
       for ( var r = 0; r < table_data.rows.length; r++) {
         var row = table_data.rows[r];
-        var view_contructor = Mojo.Meta.findClass(table_data.data_type);
+        var view_contructor = Mojo.Meta.findClass(table_data.data_type.substring(7));
         var view = new view_contructor();
 
         for ( var i = 0; i < table_data.fields.length; i++) {
