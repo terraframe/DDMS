@@ -14,4 +14,9 @@ public class LeadTeam extends LeadTeamBase implements com.terraframe.mojo.genera
     this(parent.getId(), child.getId());
   }
   
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().buildKey() + "-" + this.getChild().buildKey();
+  }
 }
