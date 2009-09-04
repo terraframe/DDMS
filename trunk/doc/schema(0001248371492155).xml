@@ -7,45 +7,45 @@
           <mdBusinessPermission
             type="com.terraframe.mojo.system.metadata.MdView">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="com.terraframe.mojo.system.metadata.MdSession">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="com.terraframe.mojo.system.metadata.MdTransient">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="com.terraframe.mojo.system.metadata.MdClass">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="com.terraframe.mojo.system.metadata.MdType">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="com.terraframe.mojo.system.metadata.MetaData">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdViewPermission type="dss.vector.solutions.query.LayerView">
             <operation name="CREATE" />
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdViewPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.infectivity.MixedTestResult">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
         </grant>
       </role>
@@ -54,21 +54,21 @@
           <mdBusinessPermission type="dss.vector.solutions.geo.AllPaths">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.surveillance.AggregatedAgeGroup">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.infectivity.MixedTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
@@ -107,14 +107,14 @@
           <mdBusinessPermission type="dss.vector.solutions.geo.AllPaths">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.infectivity.MixedTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
@@ -187,7 +187,7 @@
             type="dss.vector.solutions.entomology.assay.infectivity.MixedTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission

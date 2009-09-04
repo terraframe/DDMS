@@ -624,763 +624,763 @@
 
     <create>
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Country">
-        <valueAttribute name="political" value="true" />
-        <valueAttribute name="sprayTargetAllowed" value="true" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="true" />
+        <attribute name="sprayTargetAllowed" value="true" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Country" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Province">
-        <valueAttribute name="political" value="true" />
-        <valueAttribute name="sprayTargetAllowed" value="true" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="true" />
+        <attribute name="sprayTargetAllowed" value="true" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Province" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Reserve">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Reserve" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.WaterBody">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.WaterBody" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Lake">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Lake" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Dam">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Dam" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.River">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.River" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Railway">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Railway" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Road">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Road" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.NationalRoad">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.NationalRoad" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.District">
-        <valueAttribute name="political" value="true" />
-        <valueAttribute name="sprayTargetAllowed" value="true" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="true" />
+        <attribute name="sprayTargetAllowed" value="true" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.District" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.Constituency">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Constituency" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.HealthFacilityCatchment">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.HealthFacilityCatchment" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Ward">
-        <valueAttribute name="political" value="true" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="true" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Ward" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.SprayZone">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="true" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="true" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.SprayZone" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.SprayArea">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="true" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="true" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.SprayArea" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.PopulatedArea">
-        <valueAttribute name="political" value="true" />
-        <valueAttribute name="sprayTargetAllowed" value="true" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="true" />
+        <attribute name="sprayTargetAllowed" value="true" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.PopulatedArea" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.City">
-        <valueAttribute name="political" value="true" />
-        <valueAttribute name="sprayTargetAllowed" value="true" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="true" />
+        <attribute name="sprayTargetAllowed" value="true" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.City" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Town">
-        <valueAttribute name="political" value="true" />
-        <valueAttribute name="sprayTargetAllowed" value="true" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="true" />
+        <attribute name="sprayTargetAllowed" value="true" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Town" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Village">
-        <valueAttribute name="political" value="true" />
-        <valueAttribute name="sprayTargetAllowed" value="true" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="true" />
+        <attribute name="sprayTargetAllowed" value="true" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Village" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.SubPopulatedArea">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.SubPopulatedArea" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Farm">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Farm" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.IndustrialSite">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.IndustrialSite" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.LodgesOrResorts">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.LodgesOrResorts" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Household">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Household" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.HealthFacility">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.HealthFacility" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.HealthPost">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.HealthPost" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.HealthClinic">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.HealthClinic" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Hospital">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Hospital" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.ProvincialHospital">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.ProvincialHospital" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.DistrictHospital">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.DistrictHospital" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.UrbanHealthHospital">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.UrbanHealthHospital" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.PrivateHospital">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.PrivateHospital" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.GeneralHospital">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.GeneralHospital" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.HealthCentre">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.HealthCentre" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.LargeRuralHealthCentre">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.LargeRuralHealthCentre" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.RuralHealthCentre">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.RuralHealthCentre" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.SmallRuralHealthCentre">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.SmallRuralHealthCentre" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.UrbanHealthCentre">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.UrbanHealthCentre" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.CollectionSite">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.CollectionSite" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.SentinelSite">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.SentinelSite" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.NonSentinelSite">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.NonSentinelSite" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.PointCollectionSite">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.PointCollectionSite" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Trap">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Trap" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.ExitTrap">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.ExitTrap" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.PermanentWaterBody">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.PermanentWaterBody" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Surface">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Surface" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Material">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Material" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Net">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Net" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.ITN">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.ITN" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.LLITN">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.LLITN" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Curtain">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Curtain" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.OtherMaterial">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.OtherMaterial" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Wall">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Wall" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.NaturalWall">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.NaturalWall" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.OtherWall">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.OtherWall" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.RudimentaryWall">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.RudimentaryWall" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.BambooOrWoodWithMudWall">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.BambooOrWoodWithMudWall" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.StoneWithMudWall">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.StoneWithMudWall" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.UncoveredAbode">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.UncoveredAbode" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.PlywoodWall">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.PlywoodWall" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.CartonWall">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.CartonWall" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.FinishedWall">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.FinishedWall" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.CementWall">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.CementWall" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.StoneWithLimeWall">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.StoneWithLimeWall" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.BrickWall">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.BrickWall" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.CementBlockWall">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.CementBlockWall" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.CoveredAbode">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.CoveredAbode" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.WoodPlansOrShingles">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.WoodPlansOrShingles" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Roof">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Roof" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.NaturalRoof">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.NaturalRoof" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.ThatchOrLeaf">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.ThatchOrLeaf" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.SticksAndMud">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.SticksAndMud" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.RudimentaryRoof">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.RudimentaryRoof" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.RusticMatOrPlasticSheetRoof">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.RusticMatOrPlasticSheetRoof" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.ReedOrBambooRoof">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.ReedOrBambooRoof" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.WoodPlankRoof">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.WoodPlankRoof" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.FinishedRoof">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.FinishedRoof" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.CorrugatedIronRoof">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.CorrugatedIronRoof" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.WoodRoof">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.WoodRoof" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.CalamineOrCementFibreRoof">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.CalamineOrCementFibreRoof" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.CementOrConcreteRoof">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.CementOrConcreteRoof" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.ShingleRoof">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.ShingleRoof" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.BreedingSite">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.BreedingSite" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.NaturalHabitat">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.NaturalHabitat" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.FreshwaterSwamp">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.FreshwaterSwamp" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.MangroveSwamp">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.MangroveSwamp" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Marsh">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Marsh" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.RiverBed">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.RiverBed" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Seepage">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Seepage" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.AgriculturalArtificialHabitat">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.AgriculturalArtificialHabitat" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.RidgeAndFurrow">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.RidgeAndFurrow" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.RicePaddy">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.RicePaddy" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.OtherAgriculture">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.OtherAgriculture" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.NonAgriculturalArtificialHabitat">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.NonAgriculturalArtificialHabitat" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.Construction">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Construction" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Drain">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Drain" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Puddle">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Puddle" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.TyreTrack">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.TyreTrack" />
       </object>
 
       <object type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.WaterStorageContainer">
-        <valueAttribute name="political" value="false" />
-        <valueAttribute name="sprayTargetAllowed" value="false" />
-        <referenceAttribute name="geoEntityClass"
+        <attribute name="political" value="false" />
+        <attribute name="sprayTargetAllowed" value="false" />
+        <attributeReference name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.WaterStorageContainer" />
       </object>
 
@@ -5041,598 +5041,598 @@
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Country">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Province">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Reserve">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.WaterBody">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Lake">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission type="dss.vector.solutions.geo.generated.Dam">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.River">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Railway">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Road">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.NationalRoad">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.District">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Constituency">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.HealthFacilityCatchment">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Ward">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.SprayZone">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.SprayArea">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.PopulatedArea">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.City">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Town">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Village">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.SubPopulatedArea">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Farm">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.IndustrialSite">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.LodgesOrResorts">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Household">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.HealthFacility">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.HealthPost">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.HealthClinic">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Hospital">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.ProvincialHospital">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.DistrictHospital">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.UrbanHealthHospital">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.PrivateHospital">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.GeneralHospital">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.HealthCentre">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.LargeRuralHealthCentre">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.RuralHealthCentre">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.SmallRuralHealthCentre">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.UrbanHealthCentre">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.CollectionSite">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.SentinelSite">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.NonSentinelSite">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.PointCollectionSite">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Trap">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.ExitTrap">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.PermanentWaterBody">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Surface">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Material">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission type="dss.vector.solutions.geo.generated.Net">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission type="dss.vector.solutions.geo.generated.ITN">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.LLITN">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Curtain">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.OtherMaterial">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Wall">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.NaturalWall">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.OtherWall">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.RudimentaryWall">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.BambooOrWoodWithMudWall">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.StoneWithMudWall">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.UncoveredAbode">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.PlywoodWall">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.CartonWall">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.FinishedWall">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.CementWall">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.StoneWithLimeWall">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.BrickWall">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.CementBlockWall">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.CoveredAbode">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.WoodPlansOrShingles">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Roof">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.NaturalRoof">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.ThatchOrLeaf">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.SticksAndMud">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.RudimentaryRoof">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.RusticMatOrPlasticSheetRoof">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.ReedOrBambooRoof">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.WoodPlankRoof">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.FinishedRoof">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.CorrugatedIronRoof">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.WoodRoof">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.CalamineOrCementFibreRoof">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.CementOrConcreteRoof">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.ShingleRoof">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.BreedingSite">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.NaturalHabitat">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.FreshwaterSwamp">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.MangroveSwamp">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Marsh">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.RiverBed">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Seepage">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.AgriculturalArtificialHabitat">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.RidgeAndFurrow">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.RicePaddy">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.OtherAgriculture">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.NonAgriculturalArtificialHabitat">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Construction">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Drain">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.Puddle">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.TyreTrack">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.WaterStorageContainer">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
         </grant>
       </role>
@@ -5643,7 +5643,7 @@
             type="dss.vector.solutions.geo.generated.Country">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5651,7 +5651,7 @@
             type="dss.vector.solutions.geo.generated.Province">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5659,7 +5659,7 @@
             type="dss.vector.solutions.geo.generated.Reserve">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5667,7 +5667,7 @@
             type="dss.vector.solutions.geo.generated.WaterBody">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5675,14 +5675,14 @@
             type="dss.vector.solutions.geo.generated.Lake">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
           <mdBusinessPermission type="dss.vector.solutions.geo.generated.Dam">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5690,7 +5690,7 @@
             type="dss.vector.solutions.geo.generated.River">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5698,7 +5698,7 @@
             type="dss.vector.solutions.geo.generated.Railway">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5706,7 +5706,7 @@
             type="dss.vector.solutions.geo.generated.Road">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5714,7 +5714,7 @@
             type="dss.vector.solutions.geo.generated.NationalRoad">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5722,7 +5722,7 @@
             type="dss.vector.solutions.geo.generated.District">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5730,7 +5730,7 @@
             type="dss.vector.solutions.geo.generated.Constituency">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5738,7 +5738,7 @@
             type="dss.vector.solutions.geo.generated.HealthFacilityCatchment">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5746,7 +5746,7 @@
             type="dss.vector.solutions.geo.generated.Ward">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5754,7 +5754,7 @@
             type="dss.vector.solutions.geo.generated.SprayZone">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5762,7 +5762,7 @@
             type="dss.vector.solutions.geo.generated.SprayArea">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5770,7 +5770,7 @@
             type="dss.vector.solutions.geo.generated.PopulatedArea">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5778,7 +5778,7 @@
             type="dss.vector.solutions.geo.generated.City">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5786,7 +5786,7 @@
             type="dss.vector.solutions.geo.generated.Town">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5794,7 +5794,7 @@
             type="dss.vector.solutions.geo.generated.Village">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5802,7 +5802,7 @@
             type="dss.vector.solutions.geo.generated.SubPopulatedArea">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5810,7 +5810,7 @@
             type="dss.vector.solutions.geo.generated.Farm">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5818,7 +5818,7 @@
             type="dss.vector.solutions.geo.generated.IndustrialSite">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5826,7 +5826,7 @@
             type="dss.vector.solutions.geo.generated.LodgesOrResorts">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5834,7 +5834,7 @@
             type="dss.vector.solutions.geo.generated.Household">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5842,7 +5842,7 @@
             type="dss.vector.solutions.geo.generated.HealthFacility">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5850,7 +5850,7 @@
             type="dss.vector.solutions.geo.generated.HealthPost">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5858,7 +5858,7 @@
             type="dss.vector.solutions.geo.generated.HealthClinic">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5866,7 +5866,7 @@
             type="dss.vector.solutions.geo.generated.Hospital">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5874,7 +5874,7 @@
             type="dss.vector.solutions.geo.generated.ProvincialHospital">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5882,7 +5882,7 @@
             type="dss.vector.solutions.geo.generated.DistrictHospital">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5890,7 +5890,7 @@
             type="dss.vector.solutions.geo.generated.UrbanHealthHospital">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5898,7 +5898,7 @@
             type="dss.vector.solutions.geo.generated.PrivateHospital">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5906,7 +5906,7 @@
             type="dss.vector.solutions.geo.generated.GeneralHospital">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5914,7 +5914,7 @@
             type="dss.vector.solutions.geo.generated.HealthCentre">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5922,7 +5922,7 @@
             type="dss.vector.solutions.geo.generated.LargeRuralHealthCentre">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5930,7 +5930,7 @@
             type="dss.vector.solutions.geo.generated.RuralHealthCentre">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5938,7 +5938,7 @@
             type="dss.vector.solutions.geo.generated.SmallRuralHealthCentre">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5946,7 +5946,7 @@
             type="dss.vector.solutions.geo.generated.UrbanHealthCentre">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5954,7 +5954,7 @@
             type="dss.vector.solutions.geo.generated.CollectionSite">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5962,7 +5962,7 @@
             type="dss.vector.solutions.geo.generated.SentinelSite">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5970,7 +5970,7 @@
             type="dss.vector.solutions.geo.generated.NonSentinelSite">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5978,7 +5978,7 @@
             type="dss.vector.solutions.geo.generated.PointCollectionSite">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5986,7 +5986,7 @@
             type="dss.vector.solutions.geo.generated.Trap">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -5994,7 +5994,7 @@
             type="dss.vector.solutions.geo.generated.ExitTrap">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6002,7 +6002,7 @@
             type="dss.vector.solutions.geo.generated.PermanentWaterBody">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6010,7 +6010,7 @@
             type="dss.vector.solutions.geo.generated.Surface">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6018,21 +6018,21 @@
             type="dss.vector.solutions.geo.generated.Material">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
           <mdBusinessPermission type="dss.vector.solutions.geo.generated.Net">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
           <mdBusinessPermission type="dss.vector.solutions.geo.generated.ITN">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6040,7 +6040,7 @@
             type="dss.vector.solutions.geo.generated.LLITN">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6048,7 +6048,7 @@
             type="dss.vector.solutions.geo.generated.Curtain">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6056,7 +6056,7 @@
             type="dss.vector.solutions.geo.generated.OtherMaterial">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6064,7 +6064,7 @@
             type="dss.vector.solutions.geo.generated.Wall">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6072,7 +6072,7 @@
             type="dss.vector.solutions.geo.generated.NaturalWall">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6080,7 +6080,7 @@
             type="dss.vector.solutions.geo.generated.OtherWall">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6088,7 +6088,7 @@
             type="dss.vector.solutions.geo.generated.RudimentaryWall">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6096,7 +6096,7 @@
             type="dss.vector.solutions.geo.generated.BambooOrWoodWithMudWall">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6104,7 +6104,7 @@
             type="dss.vector.solutions.geo.generated.StoneWithMudWall">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6112,7 +6112,7 @@
             type="dss.vector.solutions.geo.generated.UncoveredAbode">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6120,7 +6120,7 @@
             type="dss.vector.solutions.geo.generated.PlywoodWall">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6128,7 +6128,7 @@
             type="dss.vector.solutions.geo.generated.CartonWall">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6136,7 +6136,7 @@
             type="dss.vector.solutions.geo.generated.FinishedWall">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6144,7 +6144,7 @@
             type="dss.vector.solutions.geo.generated.CementWall">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6152,7 +6152,7 @@
             type="dss.vector.solutions.geo.generated.StoneWithLimeWall">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6160,7 +6160,7 @@
             type="dss.vector.solutions.geo.generated.BrickWall">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6168,7 +6168,7 @@
             type="dss.vector.solutions.geo.generated.CementBlockWall">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6176,7 +6176,7 @@
             type="dss.vector.solutions.geo.generated.CoveredAbode">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6184,7 +6184,7 @@
             type="dss.vector.solutions.geo.generated.WoodPlansOrShingles">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6192,7 +6192,7 @@
             type="dss.vector.solutions.geo.generated.Roof">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6200,7 +6200,7 @@
             type="dss.vector.solutions.geo.generated.NaturalRoof">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6208,7 +6208,7 @@
             type="dss.vector.solutions.geo.generated.ThatchOrLeaf">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6216,7 +6216,7 @@
             type="dss.vector.solutions.geo.generated.SticksAndMud">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6224,7 +6224,7 @@
             type="dss.vector.solutions.geo.generated.RudimentaryRoof">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6232,7 +6232,7 @@
             type="dss.vector.solutions.geo.generated.RusticMatOrPlasticSheetRoof">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6240,7 +6240,7 @@
             type="dss.vector.solutions.geo.generated.ReedOrBambooRoof">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6248,7 +6248,7 @@
             type="dss.vector.solutions.geo.generated.WoodPlankRoof">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6256,7 +6256,7 @@
             type="dss.vector.solutions.geo.generated.FinishedRoof">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6264,7 +6264,7 @@
             type="dss.vector.solutions.geo.generated.CorrugatedIronRoof">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6272,7 +6272,7 @@
             type="dss.vector.solutions.geo.generated.WoodRoof">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6280,7 +6280,7 @@
             type="dss.vector.solutions.geo.generated.CalamineOrCementFibreRoof">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6288,7 +6288,7 @@
             type="dss.vector.solutions.geo.generated.CementOrConcreteRoof">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6296,7 +6296,7 @@
             type="dss.vector.solutions.geo.generated.ShingleRoof">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6304,7 +6304,7 @@
             type="dss.vector.solutions.geo.generated.BreedingSite">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6312,7 +6312,7 @@
             type="dss.vector.solutions.geo.generated.NaturalHabitat">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6320,7 +6320,7 @@
             type="dss.vector.solutions.geo.generated.FreshwaterSwamp">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6328,7 +6328,7 @@
             type="dss.vector.solutions.geo.generated.MangroveSwamp">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6336,7 +6336,7 @@
             type="dss.vector.solutions.geo.generated.Marsh">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6344,7 +6344,7 @@
             type="dss.vector.solutions.geo.generated.RiverBed">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6352,7 +6352,7 @@
             type="dss.vector.solutions.geo.generated.Seepage">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6360,7 +6360,7 @@
             type="dss.vector.solutions.geo.generated.AgriculturalArtificialHabitat">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6368,7 +6368,7 @@
             type="dss.vector.solutions.geo.generated.RidgeAndFurrow">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6376,7 +6376,7 @@
             type="dss.vector.solutions.geo.generated.RicePaddy">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6384,7 +6384,7 @@
             type="dss.vector.solutions.geo.generated.OtherAgriculture">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6392,7 +6392,7 @@
             type="dss.vector.solutions.geo.generated.NonAgriculturalArtificialHabitat">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6400,7 +6400,7 @@
             type="dss.vector.solutions.geo.generated.Construction">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6408,7 +6408,7 @@
             type="dss.vector.solutions.geo.generated.Drain">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6416,7 +6416,7 @@
             type="dss.vector.solutions.geo.generated.Puddle">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6424,7 +6424,7 @@
             type="dss.vector.solutions.geo.generated.TyreTrack">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -6432,7 +6432,7 @@
             type="dss.vector.solutions.geo.generated.WaterStorageContainer">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
         </grant>

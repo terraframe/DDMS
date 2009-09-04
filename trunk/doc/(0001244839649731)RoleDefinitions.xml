@@ -6,9 +6,9 @@
         <grant>
           <mdBusinessPermission type="dss.vector.solutions.Property">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
         </grant>
       </method>
@@ -24,43 +24,43 @@
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.PatientGrid">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.VisitGrid">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.DoseGrid">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.IPTPatients">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="READ_PARENT" />
             <operation name="READ_CHILD" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.IPTANCVisit">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="READ_PARENT" />
             <operation name="READ_CHILD" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.IPTDose">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="READ_PARENT" />
             <operation name="READ_CHILD" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.IPTTreatment">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="READ_PARENT" />
             <operation name="READ_CHILD" />
           </mdRelationshipPermission>
@@ -68,8 +68,8 @@
             type="dss.vector.solutions.intervention.monitor.AggregatedIPTView">
             <operation name="CREATE" />
             <operation name="READ" />
-            <operation name="READ_ALL" />
-            <operation name="WRITE_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="WRITE" />
           </mdViewPermission>
         </grant>
@@ -81,7 +81,7 @@
             type="dss.vector.solutions.intervention.monitor.IPTPatients">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="WRITE_CHILD" />
             <operation name="WRITE_PARENT" />
             <operation name="DELETE" />
@@ -90,7 +90,7 @@
             type="dss.vector.solutions.intervention.monitor.IPTANCVisit">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="WRITE_CHILD" />
             <operation name="WRITE_PARENT" />
             <operation name="DELETE" />
@@ -99,7 +99,7 @@
             type="dss.vector.solutions.intervention.monitor.IPTDose">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="WRITE_CHILD" />
             <operation name="WRITE_PARENT" />
             <operation name="DELETE" />
@@ -108,7 +108,7 @@
             type="dss.vector.solutions.intervention.monitor.IPTTreatment">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="WRITE_CHILD" />
             <operation name="WRITE_PARENT" />
             <operation name="DELETE" />
@@ -126,28 +126,28 @@
             type="dss.vector.solutions.intervention.monitor.PatientGrid">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.VisitGrid">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.DoseGrid">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.IPTPatients">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="WRITE_CHILD" />
             <operation name="WRITE_PARENT" />
             <operation name="DELETE" />
@@ -156,7 +156,7 @@
             type="dss.vector.solutions.intervention.monitor.IPTANCVisit">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="WRITE_CHILD" />
             <operation name="WRITE_PARENT" />
             <operation name="DELETE" />
@@ -165,7 +165,7 @@
             type="dss.vector.solutions.intervention.monitor.IPTDose">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="WRITE_CHILD" />
             <operation name="WRITE_PARENT" />
             <operation name="DELETE" />
@@ -174,7 +174,7 @@
             type="dss.vector.solutions.intervention.monitor.IPTTreatment">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="WRITE_CHILD" />
             <operation name="WRITE_PARENT" />
             <operation name="DELETE" />
@@ -185,42 +185,42 @@
             type="dss.vector.solutions.intervention.monitor.SurveyPoint">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.Household">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.SurveyHousehold">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.HouseholdNet">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.Person">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.HouseholdPerson">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
 
@@ -229,402 +229,402 @@
             type="dss.vector.solutions.entomology.AbstractMosquitoCollection">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.ConcreteMosquitoCollection">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.MosquitoCollection">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.MosquitoCollectionPoint">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.MorphologicalSpecieGroup">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.TrueSpecieEntity">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.UninterestingSpecieGroup">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.Mosquito">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.AbstractAssay">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.CollectionAssay">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.AdultAssay">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.KnockDownAssay">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.LarvaeAssay">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.EfficacyAssay">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.SurfacePositionMaster">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.general.KnockDownTimeProperty">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.general.LethalTimeProperty">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.AdultTestInterval">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.AssayTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.molecular.WKDRTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.molecular.EKDRTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.molecular.IAcHETestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.molecular.AcHEVTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.molecular.AcHEWTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.molecular.AcHESTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.molecular.GABAGTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.molecular.GABASTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.biochemical.BAcetateTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.biochemical.PNPATestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.biochemical.GSTCDNBTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.biochemical.GSTDCNBTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.biochemical.HemeTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.biochemical.P450TestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.infectivity.PFalciparumTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.infectivity.POvaleTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.general.Insecticide">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission type="dss.vector.solutions.irs.Targeter">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.irs.ResourceTarget">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission type="dss.vector.solutions.irs.GeoTarget">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.irs.InsecticideBrand">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission type="dss.vector.solutions.irs.Nozzle">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.irs.InsecticideNozzle">
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="CREATE" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
           <mdBusinessPermission type="dss.vector.solutions.irs.AreaStandards">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission type="dss.vector.solutions.irs.SprayData">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission type="dss.vector.solutions.irs.ActorSpray">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission type="dss.vector.solutions.irs.OperatorSpray">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission type="dss.vector.solutions.irs.TeamSpray">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission type="dss.vector.solutions.irs.ZoneSpray">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission type="dss.vector.solutions.irs.SprayStatus">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.irs.HouseholdSprayStatus">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
 
@@ -635,14 +635,14 @@
             <operation name="CREATE" />
             <operation name="WRITE" />
             <operation name="DELETE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdRelationshipPermission type="dss.vector.solutions.geo.LocatedIn">
             <operation name="CREATE" />
             <operation name="WRITE" />
             <operation name="DELETE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="WRITE_CHILD" />
             <operation name="WRITE_PARENT" />
           </mdRelationshipPermission>
@@ -652,7 +652,7 @@
             <operation name="CREATE" />
             <operation name="DELETE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdViewPermission
@@ -661,7 +661,7 @@
             <operation name="DELETE" />
             <operation name="READ" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
 
           <mdViewPermission
@@ -669,7 +669,7 @@
             <operation name="CREATE" />
             <operation name="DELETE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
 
           <mdViewPermission
@@ -677,7 +677,7 @@
             <operation name="CREATE" />
             <operation name="DELETE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
 
           <mdViewPermission
@@ -685,7 +685,7 @@
             <operation name="CREATE" />
             <operation name="DELETE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
 
           <mdViewPermission
@@ -693,7 +693,7 @@
             <operation name="CREATE" />
             <operation name="DELETE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
 
           <mdViewPermission
@@ -701,7 +701,7 @@
             <operation name="CREATE" />
             <operation name="DELETE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
 
           <mdViewPermission
@@ -709,7 +709,7 @@
             <operation name="CREATE" />
             <operation name="DELETE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
 
           <mdRelationshipPermission
@@ -717,7 +717,7 @@
             <operation name="CREATE" />
             <operation name="DELETE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
 
           <mdRelationshipPermission
@@ -725,7 +725,7 @@
             <operation name="CREATE" />
             <operation name="DELETE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
 
           <mdRelationshipPermission
@@ -733,7 +733,7 @@
             <operation name="CREATE" />
             <operation name="DELETE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
 
           <mdRelationshipPermission
@@ -741,7 +741,7 @@
             <operation name="CREATE" />
             <operation name="DELETE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
 
           <mdRelationshipPermission
@@ -749,7 +749,7 @@
             <operation name="CREATE" />
             <operation name="DELETE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
         </grant>
       </role>

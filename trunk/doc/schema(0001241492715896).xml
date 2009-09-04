@@ -7,27 +7,27 @@
       <object
         type="dss.vector.solutions.Person"
         key="dss.vector.solutions.MDSSPersonAdmin">
-        <valueAttribute
+        <attribute
           name="firstName"
           value="MDSS"/>
-        <valueAttribute
+        <attribute
           name="lastName"
           value="User"/>
       </object>
 
       <object
-        key="Users.MDSSUserAdmin"
+        key="Users.MDSS"
         type="dss.vector.solutions.MDSSUser">
-        <valueAttribute
+        <attribute
           name="username"
           value="MDSS" />
-        <valueAttribute
+        <attribute
           name="password"
           value="mdsstest2" />
-        <valueAttribute
+        <attribute
           name="sessionLimit"
           value="10" />
-        <referenceAttribute
+        <attributeReference
           name="person"
           key="dss.vector.solutions.MDSSPersonAdmin" />
       </object>
@@ -44,9 +44,9 @@
       <object
         type="dss.vector.solutions.Person"
         key="dss.vector.solutions.MDSSPersonAdmin">
-        <referenceAttribute
+        <attributeReference
           name="userDelegate"
-          key="Users.MDSSUserAdmin" />
+          key="Users.MDSS" />
       </object>
 
     </update>

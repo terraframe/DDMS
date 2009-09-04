@@ -9,76 +9,76 @@
       <object
         type="dss.vector.solutions.mo.InfectivityMethodology"
         key="MIRO_MISSING1">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_MISSING1" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Dissection" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Dissection" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="definition"
           value="Dissection" />
       </object>
       <object
         type="dss.vector.solutions.mo.InfectivityMethodology"
         key="MIRO_MISSING2">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_MISSING2" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="PCR" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="PCR" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="definition"
           value="PCR" />
       </object>
       <object
         type="dss.vector.solutions.mo.InfectivityMethodology"
         key="MIRO_MISSING3">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_MISSING3" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="ELISA" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="ELISA" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="definition"
           value="ELISA" />
       </object>
       <object
         type="dss.vector.solutions.mo.InfectivityMethodology"
         key="MIRO_MISSING4">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_MISSING4" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="qPCR" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="qPCR" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="definition"
           value="qPCR" />
       </object>
@@ -87,28 +87,28 @@
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
         key="MIRO_20000086">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000086" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="insensitive AChE diagnostic assay" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="AChE diagnostic assay" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Biochemical assay to determine whether acetylholinesterase activity depends on the presence or absence of insecticide in the assay. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="acetylcholinesterase assay" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000084" />
       </object>
@@ -116,28 +116,28 @@
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
         key="MIRO_20000102">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000102" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="fluorogenic PCR assay" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="fluorogenic PCR assay" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A PCR based method that uses target specific probes labeled with fluorogenic chromophores. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="monitoring known mutations" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000096" />
       </object>
@@ -145,28 +145,28 @@
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
         key="MIRO_20000123">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000123" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="invasive cleavage invader SISAR" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="SISAR" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="The method requires annealing of two oligonucleotides, called the upstream oligonucleotide and the probe, to a target sequence, which results in the formation of a unique substrate for the 5' nuclease. The probe contains two regions, an analyte-specific region that forms a duplex with the target and a noncomplementary 5' arm region, which is not required for enzyme activity but serves as a reporter molecule precursor. Cleavage of the probe occurs only when the probe and upstream oligonucleotide overlap; therefore, two target DNAs differing only by a single nucleotide that affects formation of the cleavage structure can be differentiated. This extraordinary specificity of substrate structure recognition by the 5' nuclease enables detection of single point mutations with a discrimination level required for single-nucleotide polymorphism analysis. [PMID:10890904 Sensitive detection of DNA polymorphisms by the serial invasive signal amplification reaction. Hall et al.]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="monitoring known mutations" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000096" />
       </object>
@@ -174,28 +174,28 @@
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
         key="MIRO_20000125">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000125" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="ligase chain reaction (LCR)" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="LCR" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A method of DNA amplification similar to PCR. LCR differs from PCR because it amplifies the probe molecule rather than producing amplicon through polymerization of nucleotides. Two probes are used per each DNA strand and are ligated together to form a single probe. LCR uses both a DNA polymerase enzyme and a DNA ligase enzyme to drive the reaction. Like PCR, LCR requires a thermal cycler to drive the rxn and each cycle results in a doubling of the target nucleic acid molecule. LCR can have greater specificity than PCR. [web:glossay]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="monitoring known mutations" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000096" />
       </object>
@@ -203,28 +203,28 @@
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
         key="MIRO_20000103">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000103" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="ligation detection reaction" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Ligation detection" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="DNA detection that uses a thermostable ligase to exquisitely discriminate between a mismatched and complementary DNA helix. Because the enzyme retains activity after multiple thermal cycles, the ligations may be repeated to linearly increase product [termed ligase detection reaction (LDR)]. [PMID:1986365 Genetic disease detection and DNA amplification using cloned thermostable ligase. Barany F.]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="monitoring known mutations" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000096" />
       </object>
@@ -232,28 +232,28 @@
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
         key="MIRO_20000100">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000100" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="PCR amplification of specific alleles" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="PCR" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="monitoring known mutations" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000096" />
       </object>
@@ -261,28 +261,28 @@
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
         key="MIRO_20000101">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000101" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="sequence specific oligonucleotide probe" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Oligonucleotide probe" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="monitoring known mutations" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000096" />
       </object>
@@ -290,28 +290,28 @@
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
         key="MIRO_20000124">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000124" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="single base extension" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Single base extension" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="monitoring known mutations" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000096" />
       </object>
@@ -319,28 +319,28 @@
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
         key="MIRO_20000108">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000108" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="real time PCR" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="real time PCR" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Real Time PCR or quantitative PCR (qPCR) is a modification of the polymerase chain reaction used to rapidly measure the quantity of DNA, cDNA or ribonucleic acid present in a sample. [Wikipedia:RT-PCR]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="RT-PCR assay" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000035" />
       </object>
@@ -348,28 +348,28 @@
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
         key="MIRO_20000109">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000109" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="semi-quantitative PCR" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="semi-quantitative PCR" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="RT-PCR assay, to estimate relative abundance of a specific mRNA. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="RT-PCR assay" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000035" />
       </object>
@@ -377,28 +377,28 @@
       <object
         type="dss.vector.solutions.mo.InsecticideMethodology"
         key="MIRO_20000113">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000113" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="PCR-RFLP" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="PCR-RFLP" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="monitoring known mutations" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000096" />
       </object>

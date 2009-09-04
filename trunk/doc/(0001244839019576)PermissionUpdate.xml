@@ -42,56 +42,56 @@
 
           <mdBusinessPermission type="dss.vector.solutions.Property">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.irs.TargetUnitMaster">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.general.MalariaSeason">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdViewPermission
             type="dss.vector.solutions.entomology.assay.EfficacyAssayView">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
           <mdViewPermission
             type="dss.vector.solutions.intervention.monitor.SurveyPointView">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
           <mdViewPermission
             type="dss.vector.solutions.intervention.monitor.WallView">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
           <mdViewPermission
             type="dss.vector.solutions.intervention.monitor.RoofView">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
           <mdViewPermission type="dss.vector.solutions.general.EpiDate">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
         </grant>
       </role>

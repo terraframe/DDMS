@@ -7,35 +7,35 @@
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.ServiceGrid">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.TargetGroupGrid">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdViewPermission
             type="dss.vector.solutions.intervention.monitor.ITNDataView">
             <operation name="CREATE" />
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.ITNService">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.ITNTargetGroup">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.ITNNet">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
         </grant>
       </role>
@@ -45,28 +45,28 @@
             type="dss.vector.solutions.intervention.monitor.ITNData">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.ITNService">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.ITNTargetGroup">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.ITNNet">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
         </grant>
@@ -77,28 +77,28 @@
             type="dss.vector.solutions.intervention.monitor.ITNData">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.ITNService">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.ITNTargetGroup">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.ITNNet">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
         </grant>
@@ -109,42 +109,42 @@
             type="dss.vector.solutions.intervention.monitor.ServiceGrid">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.TargetGroupGrid">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.ITNData">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.ITNService">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.ITNTargetGroup">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.ITNNet">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
         </grant>

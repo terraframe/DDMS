@@ -164,13 +164,13 @@
       <object
         key="Users.testEntomologist"
         type="com.terraframe.mojo.system.Users">
-        <valueAttribute
+        <attribute
           name="username"
           value="testEntomologist" />
-        <valueAttribute
+        <attribute
           name="password"
           value="bugsarecool" />
-        <valueAttribute
+        <attribute
           name="sessionLimit"
           value="10" />
       </object>

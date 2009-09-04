@@ -8,28 +8,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000032">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000032" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="acephate" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="acephate" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -37,28 +37,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000113">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000113" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="acrinathrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="acrinathrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -66,28 +66,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000004">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000004" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="alanycarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="alanycarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -95,28 +95,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000003">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000003" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="aldicarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="aldicarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -124,28 +124,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000114">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000114" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="allethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="allethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -153,28 +153,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000128">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000128" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="alpha-cypermethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="alpha-cypermethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -182,28 +182,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000005">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000005" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="aminocarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="aminocarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -211,28 +211,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000033">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000033" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="azamethiphos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="azamethiphos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -240,28 +240,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000034">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000034" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="azinphos-ethyl" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="azinphos-ethyl" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -269,28 +269,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000035">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000035" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="azinphos-methyl" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="azinphos-methyl" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -298,28 +298,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000006">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000006" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="bendiocarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="bendiocarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -327,28 +327,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000007">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000007" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="benfuracarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="benfuracarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -356,28 +356,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000123">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000123" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="beta-cyfluthrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="beta-cyfluthrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -385,28 +385,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000129">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000129" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="beta-cypermethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="beta-cypermethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -414,28 +414,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000117">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000117" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="bifenthrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="bifenthrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -443,28 +443,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000118">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000118" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="bioallethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="bioallethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -472,28 +472,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000119">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000119" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="bioallethrin S-cyclopentenyl" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="bioallethrin S-cyclopentenyl" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -501,28 +501,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000120">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000120" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="bioresmethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="bioresmethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -530,28 +530,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000008">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000008" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="butocarboxim" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="butocarboxim" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -559,28 +559,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000009">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000009" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="butoxycarboxim" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="butoxycarboxim" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -588,28 +588,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000036">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000036" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="cadusafos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="cadusafos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -617,28 +617,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000002">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000002" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="carbamate" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="carbamate" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="acetylcholine esterase inhibitor" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000000" />
       </object>
@@ -646,28 +646,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000010">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000010" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="carbaryl" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="carbaryl" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -675,28 +675,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000011">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000011" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="carbofuran" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="carbofuran" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -704,28 +704,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000012">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000012" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="carbosulfan" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="carbosulfan" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -733,28 +733,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000037">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000037" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="chlorethoxyfos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="chlorethoxyfos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -762,28 +762,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000038">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000038" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="chlorfenvinphos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="chlorfenvinphos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -791,28 +791,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000039">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000039" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="chlormephos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="chlormephos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -820,28 +820,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000040">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000040" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="chlorpyrifos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="chlorpyrifos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -849,28 +849,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000041">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000041" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="chlorpyrifos-methyl" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="chlorpyrifos-methyl" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -878,28 +878,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000042">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000042" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="coumaphos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="coumaphos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -907,28 +907,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000043">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000043" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="cyanophos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="cyanophos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -936,28 +936,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000121">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000121" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="cycloprothrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="cycloprothrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -965,28 +965,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000122">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000122" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="cyfluthrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="cyfluthrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -994,28 +994,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000124">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000124" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="cyhalothrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="cyhalothrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -1023,28 +1023,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000127">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000127" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="cypermethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="cypermethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -1052,28 +1052,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000132">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000132" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="cyphenothrin [(1R)-trans- isomers]" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="cyphenothrin [(1R)-trans- isomers]" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -1081,28 +1081,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000115">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000115" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="d-cis-trans allethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="d-cis-trans allethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -1110,28 +1110,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000157">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000157" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="DDT" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="DDT" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="sodium channel modulator" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000111" />
       </object>
@@ -1139,28 +1139,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000133">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000133" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="deltamethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="deltamethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -1168,28 +1168,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000044">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000044" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="demeton-S-methyl" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="demeton-S-methyl" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1197,28 +1197,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000045">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000045" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="diazinon" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="diazinon" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1226,28 +1226,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000046">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000046" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="dichlorvos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="dichlorvos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1255,28 +1255,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000047">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000047" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="dicrotophos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="dicrotophos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1284,28 +1284,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000048">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000048" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="dimethoate" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="dimethoate" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1313,28 +1313,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000049">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000049" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="dimethylvinphos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="dimethylvinphos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1342,28 +1342,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000050">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000050" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="disulfoton" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="disulfoton" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1371,28 +1371,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000116">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000116" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="d-trans allethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="d-trans allethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -1400,28 +1400,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000134">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000134" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="empenthrin [(EZ)- (1R)- isomers]" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="empenthrin [(EZ)- (1R)- isomers]" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -1429,28 +1429,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000051">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000051" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="EPN" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="EPN" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1458,28 +1458,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000135">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000135" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="esfenvalerate" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="esfenvalerate" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -1487,28 +1487,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000013">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000013" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="ethiofencarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="ethiofencarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -1516,28 +1516,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000052">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000052" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="ethion" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="ethion" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1545,28 +1545,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000053">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000053" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="ethoprophos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="ethoprophos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1574,28 +1574,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000136">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000136" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="etofenprox" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="etofenprox" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -1603,28 +1603,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000054">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000054" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="famphur" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="famphur" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1632,28 +1632,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000055">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000055" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="fenamiphos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="fenamiphos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1661,28 +1661,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000056">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000056" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="fenitrothion" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="fenitrothion" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1690,28 +1690,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000014">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000014" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="fenobucarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="fenobucarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -1719,28 +1719,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000137">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000137" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="fenpropathrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="fenpropathrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -1748,28 +1748,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000057">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000057" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="fensulfothion" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="fensulfothion" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1777,28 +1777,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000058">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000058" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="fenthion" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="fenthion" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1806,28 +1806,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000138">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000138" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="fenvalerate" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="fenvalerate" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -1835,28 +1835,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000139">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000139" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="flucythrinate" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="flucythrinate" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -1864,28 +1864,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000140">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000140" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="flumethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="flumethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -1893,28 +1893,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000059">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000059" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="fonofos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="fonofos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1922,28 +1922,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000015">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000015" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="formetanate" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="formetanate" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -1951,28 +1951,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000060">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000060" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="fosthiazate" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="fosthiazate" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -1980,28 +1980,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000016">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000016" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="furathiocarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="furathiocarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -2009,28 +2009,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000126">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000126" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="gamma-cyhalothrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="gamma-cyhalothrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -2038,28 +2038,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000142">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000142" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="halfenprox" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="halfenprox" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -2067,28 +2067,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000061">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000061" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="heptenophos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="heptenophos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2096,28 +2096,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000143">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000143" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="imiprothrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="imiprothrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -2125,28 +2125,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000062">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000062" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="isofenphos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="isofenphos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2154,28 +2154,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000017">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000017" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="isoprocarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="isoprocarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -2183,28 +2183,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000063">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000063" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="isopropyl O-(methoxyaminothio-phosphoryl)salicylate" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="isopropyl O-(methoxyaminothio-phosphoryl)salicylate" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2212,28 +2212,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000064">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000064" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="isoxathion" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="isoxathion" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2241,28 +2241,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000125">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000125" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="lambda-cyhalothrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="lambda-cyhalothrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -2270,28 +2270,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000065">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000065" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="malathion" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="malathion" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2299,28 +2299,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000066">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000066" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="mecarbam" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="mecarbam" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2328,28 +2328,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000067">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000067" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="methamidophos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="methamidophos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2357,28 +2357,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000068">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000068" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="methidathion" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="methidathion" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2386,28 +2386,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000018">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000018" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="methiocarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="methiocarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -2415,28 +2415,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000019">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000019" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="methomyl" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="methomyl" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -2444,28 +2444,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000158">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000158" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="methoxychlor" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="methoxychlor" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="sodium channel modulator" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000111" />
       </object>
@@ -2473,28 +2473,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000020">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000020" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="metolcarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="metolcarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -2502,28 +2502,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000069">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000069" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="mevinphos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="mevinphos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2531,28 +2531,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000070">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000070" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="monocrotophos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="monocrotophos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2560,28 +2560,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000071">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000071" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="naled" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="naled" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2589,28 +2589,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000072">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000072" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="omethoate" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="omethoate" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2618,28 +2618,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000031">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000031" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="organophosphate" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="organophosphate" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="acetylcholine esterase inhibitor" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000000" />
       </object>
@@ -2647,28 +2647,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000021">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000021" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="oxamyl" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="oxamyl" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -2676,28 +2676,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000073">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000073" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="oxydemeton-methyl" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="oxydemeton-methyl" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2705,28 +2705,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000074">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000074" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="parathion" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="parathion" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2734,28 +2734,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000075">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000075" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="parathion-methyl" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="parathion-methyl" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2763,28 +2763,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000144">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000144" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="permethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="permethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -2792,28 +2792,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000145">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000145" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="phenothrin [(1R)-trans- isomer]" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="phenothrin [(1R)-trans- isomer]" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -2821,28 +2821,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000076">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000076" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="phenthoate" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="phenthoate" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2850,28 +2850,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000077">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000077" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="phorate" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="phorate" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2879,28 +2879,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000078">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000078" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="phosalone" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="phosalone" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2908,28 +2908,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000079">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000079" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="phosmet" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="phosmet" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2937,28 +2937,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000080">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000080" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="phosphamidon" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="phosphamidon" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2966,28 +2966,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000081">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000081" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="phoxim" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="phoxim" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -2995,28 +2995,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000022">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000022" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="pirimicarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="pirimicarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -3024,28 +3024,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000082">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000082" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="pirimiphos-methyl" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="pirimiphos-methyl" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3053,28 +3053,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000146">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000146" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="prallethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="prallethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -3082,28 +3082,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000083">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000083" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="profenofos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="profenofos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3111,28 +3111,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000084">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000084" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="propaphos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="propaphos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3140,28 +3140,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000085">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000085" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="propetamphos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="propetamphos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3169,28 +3169,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000023">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000023" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="propoxur" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="propoxur" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -3198,28 +3198,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000086">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000086" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="prothiofos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="prothiofos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3227,28 +3227,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000087">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000087" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="pyraclofos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="pyraclofos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3256,28 +3256,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000112">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000112" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="pyrethroid" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="pyrethroid" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="sodium channel modulator" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000111" />
       </object>
@@ -3285,28 +3285,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000088">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000088" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="pyridaphenthion" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="pyridaphenthion" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3314,28 +3314,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000089">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000089" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="quinalphos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="quinalphos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3343,28 +3343,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000147">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000147" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="resmethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="resmethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -3372,28 +3372,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000148">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000148" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="rU 15525" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="rU 15525" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -3401,28 +3401,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000149">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000149" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="silafluofen" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="silafluofen" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -3430,28 +3430,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000090">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000090" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="sulfotep" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="sulfotep" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3459,28 +3459,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000091">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000091" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="sulprofos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="sulprofos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3488,28 +3488,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000141">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000141" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="tau-fluvalinate" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="tau-fluvalinate" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -3517,28 +3517,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000092">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000092" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="tebupirimfos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="tebupirimfos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3546,28 +3546,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000150">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000150" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="tefluthrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="tefluthrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -3575,28 +3575,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000093">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000093" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="temephos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="temephos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3604,28 +3604,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000094">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000094" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="terbufos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="terbufos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3633,28 +3633,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000095">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000095" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="tetrachlorvinphos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="tetrachlorvinphos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3662,28 +3662,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000151">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000151" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="tetramethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="tetramethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -3691,28 +3691,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000152">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000152" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="tetramethrin [(1R)- isomers]" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="tetramethrin [(1R)- isomers]" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -3720,28 +3720,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000130">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000130" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="theta-cypermethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="theta-cypermethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -3749,28 +3749,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000024">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000024" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="thiodicarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="thiodicarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -3778,28 +3778,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000025">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000025" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="thiofanox" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="thiofanox" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -3807,28 +3807,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000096">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000096" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="thiometon" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="thiometon" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3836,28 +3836,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000153">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000153" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="tralomethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="tralomethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -3865,28 +3865,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000154">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000154" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="transfluthrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="transfluthrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -3894,28 +3894,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000097">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000097" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="triazophos" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="triazophos" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3923,28 +3923,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000098">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000098" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="trichlorfon" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="trichlorfon" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -3952,28 +3952,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000026">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000026" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="trimethacarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="trimethacarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -3981,28 +3981,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000099">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000099" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="vamidothion" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="vamidothion" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="organophosphate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000031" />
       </object>
@@ -4010,28 +4010,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000027">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000027" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="XMC" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="XMC" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -4039,28 +4039,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000028">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000028" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="xylylcarb" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="xylylcarb" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="carbamate" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000002" />
       </object>
@@ -4068,28 +4068,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000131">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000131" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="zeta-cypermethrin" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="zeta-cypermethrin" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -4097,28 +4097,28 @@
       <object
         type="dss.vector.solutions.mo.ActiveIngredient"
         key="MIRO_10000155">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_10000155" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="ZXI 8901" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="ZXI 8901" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A chemical substance which is being used as insecticide. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="pyrethroid" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_10000112" />
       </object>
@@ -4126,28 +4126,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003653">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003653" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Culicinae" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Culicine" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A subfamily of Culicidae. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Culicidae" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003818" />
       </object>
@@ -4155,28 +4155,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003478">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003478" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles funestus sensu lato" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. funestus s.l." />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A species complex of subgenus Cellia. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Cellia" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40002217" />
       </object>
@@ -4184,28 +4184,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40002237">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40002237" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles brucei" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. brucei" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A member species of the species complex Anopheles funestus sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles funestus sensu lato" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003478" />
       </object>
@@ -4213,28 +4213,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40002252">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40002252" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles confusus" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. confuses" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A member species of the species complex Anopheles funestus sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles funestus sensu lato" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003478" />
       </object>
@@ -4242,28 +4242,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003834">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003834" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles funestus" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. funestus" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A member species of the species complex Anopheles funestus sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles funestus sensu lato" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003478" />
       </object>
@@ -4271,28 +4271,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003479">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003479" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles fuscivenosus" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. fuscivenosus" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A member species of the species complex Anopheles funestus sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles funestus sensu lato" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003478" />
       </object>
@@ -4300,28 +4300,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003509">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003509" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles leesoni" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An.leesoni" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A member species of the species complex Anopheles funestus sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles funestus sensu lato" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003478" />
       </object>
@@ -4329,28 +4329,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003561">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003561" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles parensis" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. parensis" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A member species of the species complex Anopheles funestus sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles funestus sensu lato" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003478" />
       </object>
@@ -4358,28 +4358,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003581">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003581" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles rivulorum" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. rivulorum" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A member species of the species complex Anopheles funestus sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles funestus sensu lato" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003478" />
       </object>
@@ -4387,28 +4387,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003619">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003619" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles vaneedeni" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. vaneedeni" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A member species of the species complex Anopheles funestus sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles funestus sensu lato" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003478" />
       </object>
@@ -4416,28 +4416,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003480">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003480" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles gambiae sensu lato" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. gambiae s.l." />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A species complex of subgenus Cellia. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Cellia" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40002217" />
       </object>
@@ -4445,28 +4445,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40002224">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40002224" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles arabiensis" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. arabiensis" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles gambiae sensu lato" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003480" />
       </object>
@@ -4474,28 +4474,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40002241">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40002241" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles bwambae" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. bwambae" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles gambiae sensu lato" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003480" />
       </object>
@@ -4503,28 +4503,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003829">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003829" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles gambiae" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. gambiae" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles gambiae sensu lato" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003480" />
       </object>
@@ -4532,28 +4532,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003235">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003235" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles gambiae molecular form M" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. gambiae molecular form M" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A molecular form of Anopheles gambiae sensu stricto, defined by the presence of a given haplotype of the rDNA intergenic spacer. [PMID:11240632 Insect Mol Biol. 2001 Feb;10(1):9-18.]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles gambiae molecular form" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003065" />
       </object>
@@ -4561,28 +4561,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003836">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003836" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles gambiae molecular form S" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. gambiae molecular form S" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A molecular form of Anopheles gambiae sensu stricto, defined by the presence of a given haplotype of the rDNA intergenic spacer. [PMID:11240632 Insect Mol Biol. 2001 Feb;10(1):9-18.]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles gambiae molecular form" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003065" />
       </object>
@@ -4590,28 +4590,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003532">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003532" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles melas" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. melas" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles gambiae sensu lato" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003480" />
       </object>
@@ -4619,28 +4619,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003534">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003534" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles merus" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. merus" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles gambiae sensu lato" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003480" />
       </object>
@@ -4648,28 +4648,28 @@
       <object
         type="dss.vector.solutions.mo.Specie"
         key="MIRO_40003572">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_40003572" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="Anopheles quadriannulatus" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="An. quadriannulatus" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="Anopheles gambiae sensu lato" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_40003480" />
       </object>

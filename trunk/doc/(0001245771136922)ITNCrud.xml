@@ -26,71 +26,71 @@
       <object
         type="dss.vector.solutions.intervention.monitor.ServiceGrid"
         key="dss.vector.solutions.intervention.monitor.ServiceGrid.ANCVisits">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="ANCVisits" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="ANC visits" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.ServiceGrid"
         key="dss.vector.solutions.intervention.monitor.ServiceGrid.maternityWard">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="maternityWard" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="maternity ward" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.ServiceGrid"
         key="dss.vector.solutions.intervention.monitor.ServiceGrid.childVaccination">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="childVaccination" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="child vaccination" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.ServiceGrid"
         key="dss.vector.solutions.intervention.monitor.ServiceGrid.otherOutPatient">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="otherOutPatient" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="other out patient" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.ServiceGrid"
         key="dss.vector.solutions.intervention.monitor.ServiceGrid.otherInPatient">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="otherInPatient" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="other in patient" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdBusiness
@@ -116,71 +116,71 @@
       <object
         type="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
         key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.lessThan5">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="lessThan5" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="&lt;5" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
         key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.pregnantWomen">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="pregnantWomen" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="pregnant women" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
         key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.immunoCompromised">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="immunoCompromised" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="immuno compromised" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
         key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.elderly">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="elderly" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="elderly" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
         key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.other">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="other" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="other" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdBusiness
@@ -291,7 +291,7 @@
           <integer
             name="amount"
             label="Total per type of service received"
-            default_value="0"
+            defaultValue="0"
             required="true"
             rejectNegative="true" />
         </attributes>
@@ -313,7 +313,7 @@
           <integer
             name="amount"
             label="Total ITNs distributed per target group/s"
-            default_value="0"
+            defaultValue="0"
             required="true"
             rejectNegative="true" />
         </attributes>
@@ -337,7 +337,7 @@
             label="Total ITN distributed by type"
             required="true"
             rejectNegative="true"
-            default_value="0" />
+            defaultValue="0" />
         </attributes>
         <parent
           cardinality="*"

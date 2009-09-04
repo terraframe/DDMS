@@ -12,29 +12,29 @@
       <object
         type="dss.vector.solutions.irs.SprayMethodMaster"
         key="dss.vector.solutions.irs.SprayMethodMaster.MAIN_SPRAY">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MAIN_SPRAY" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Main Spray" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.irs.SprayMethodMaster"
         key="dss.vector.solutions.irs.SprayMethodMaster.MOP_UP">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MOP_UP" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Mop Up" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdEnumeration
@@ -52,29 +52,29 @@
       <object
         type="dss.vector.solutions.irs.SurfaceTypeMaster"
         key="dss.vector.solutions.irs.SurfaceTypeMaster.POROUS">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="POROUS" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Porous" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.irs.SurfaceTypeMaster"
         key="dss.vector.solutions.irs.SurfaceTypeMaster.NON_POROUS">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="NON_POROUS" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Non Porous" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdEnumeration
@@ -118,7 +118,7 @@
             name="enabled"
             label="Enabled"
             required="true"
-            default_value="true"
+            defaultValue="true"
             description="If the insecticide brand is enabled"
             negativeLabel="No"
             positiveLabel="Yes" />
@@ -244,7 +244,7 @@
             name="enabled"
             label="Enabled"
             required="true"
-            default_value="true"
+            defaultValue="true"
             description="If the nozzle is enabled"
             negativeLabel="No"
             positiveLabel="Yes" />
@@ -349,7 +349,7 @@
             name="enabled"
             label="Enabled"
             required="true"
-            default_value="true"
+            defaultValue="true"
             description="If the nozzle is enabled"
             negativeLabel="No"
             positiveLabel="Yes" />
@@ -517,7 +517,7 @@
             required="true"
             type="dss.vector.solutions.irs.SprayMethod"
             selectMultiple="false"
-            default_value="MAIN_SPRAY" />
+            defaultValue="MAIN_SPRAY" />
           <reference
             name="brand"
             label="Insecticide Brand"
@@ -528,7 +528,7 @@
             label="Surface Type"
             required="true"
             type="dss.vector.solutions.irs.SurfaceType"
-            default_value="POROUS" />
+            defaultValue="POROUS" />
         </attributes>
       </mdBusiness>
 

@@ -13,10 +13,10 @@
       <object
         key="dss.vector.solutions.query.WellKnownNamesMaster.SQUARE"
         type="dss.vector.solutions.query.WellKnownNamesMaster">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="SQUARE" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="Square" />
       </object>
@@ -24,10 +24,10 @@
       <object
         key="dss.vector.solutions.query.WellKnownNamesMaster.CIRCLE"
         type="dss.vector.solutions.query.WellKnownNamesMaster">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="CIRCLE" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="Circle" />
       </object>
@@ -35,10 +35,10 @@
       <object
         key="dss.vector.solutions.query.WellKnownNamesMaster.TRIANGLE"
         type="dss.vector.solutions.query.WellKnownNamesMaster">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="TRIANGLE" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="Triangle" />
       </object>
@@ -46,10 +46,10 @@
       <object
         key="dss.vector.solutions.query.WellKnownNamesMaster.STAR"
         type="dss.vector.solutions.query.WellKnownNamesMaster">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="STAR" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="Star" />
       </object>
@@ -57,10 +57,10 @@
       <object
         key="dss.vector.solutions.query.WellKnownNamesMaster.CROSS"
         type="dss.vector.solutions.query.WellKnownNamesMaster">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="CROSS" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="Cross" />
       </object>
@@ -386,7 +386,7 @@
             label="View Created"
             description="Denotes if a database view has been created for the thematic layer."
             required="true"
-            default_value="false"
+            defaultValue="false"
             type="java.lang.Boolean"
             positiveLabel="Yes"
             negativeLabel="No" />
@@ -426,7 +426,7 @@
             label="Thematic Color"
             description="Thematic Color"
             required="true"
-            default_value="#7F7F7F" />
+            defaultValue="#7F7F7F" />
         </attributes>
       </mdBusiness>
 
@@ -503,14 +503,14 @@
             label="Stroke"
             description="The stroke color"
             required="true"
-            default_value="#7F7F7F"
+            defaultValue="#7F7F7F"
             size="7" />
           <integer
             name="strokeWidth"
             label="Stroke Width"
             description="The width of the stroke."
             required="true"
-            default_value="2" />
+            defaultValue="2" />
         </attributes>
       </mdBusiness>
 
@@ -526,7 +526,7 @@
             description="Name of a predefined graphic."
             required="true"
             type="dss.vector.solutions.query.WellKnownNames"
-            default_value="CIRCLE" />
+            defaultValue="CIRCLE" />
         </attributes>
       </mdBusiness>
 
@@ -548,7 +548,7 @@
             label="Fill"
             description="The fill color"
             required="true"
-            default_value="#FFFFFF"
+            defaultValue="#FFFFFF"
             size="7" />
         </attributes>
       </mdBusiness>
@@ -564,14 +564,14 @@
             label="Font Family"
             description="Font Family"
             required="true"
-            default_value="Times New Roman"
+            defaultValue="Times New Roman"
             size="50" />
           <char
             name="fontStyle"
             label="Font Style"
             description="Font Style"
             required="true"
-            default_value="Normal"
+            defaultValue="Normal"
             size="50" />
           <integer
             name="fontSize"
@@ -580,13 +580,13 @@
             required="true"
             rejectNegative="true"
             rejectZero="true"
-            default_value="14" />
+            defaultValue="14" />
           <char
             name="fill"
             label="Fill"
             description="The fill color"
             required="true"
-            default_value="#000000"
+            defaultValue="#000000"
             size="7" />
         </attributes>
       </mdBusiness>

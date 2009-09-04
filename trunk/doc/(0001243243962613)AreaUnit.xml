@@ -11,41 +11,41 @@
       <object
         type="dss.vector.solutions.irs.TargetUnitMaster"
         key="dss.vector.solutions.irs.TargetUnitMaster.ROOM">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="ROOM" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Room" />
-        </structAttribute>
+        </attributeStruct>
       </object>
       <object
         type="dss.vector.solutions.irs.TargetUnitMaster"
         key="dss.vector.solutions.irs.TargetUnitMaster.STRUCTURE">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="STRUCTURE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Structure" />
-        </structAttribute>
+        </attributeStruct>
       </object>
       <object
         type="dss.vector.solutions.irs.TargetUnitMaster"
         key="dss.vector.solutions.irs.TargetUnitMaster.HOUSEHOLD">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="HOUSEHOLD" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Household" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdEnumeration

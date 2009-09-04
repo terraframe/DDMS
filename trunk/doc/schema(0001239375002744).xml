@@ -361,19 +361,19 @@
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
         key="dss.vector.solutions.surveillance.ElderCaseView">
-        <valueAttribute
+        <attribute
           name="startAge"
           value="0" />
-        <valueAttribute
+        <attribute
           name="endAge"
           value="200" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="All" />
-        <valueAttribute
+        <attribute
           name="active"
           value="true" />
-        <referenceAttribute
+        <attributeReference
           name="mdView"
           key="dss.vector.solutions.surveillance.ElderCaseView" />
       </object>
@@ -381,19 +381,19 @@
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
         key="dss.vector.solutions.surveillance.AncientCaseView">
-        <valueAttribute
+        <attribute
           name="startAge"
           value="201" />
-        <valueAttribute
+        <attribute
           name="endAge"
           value="202" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="[201,202)" />
-        <valueAttribute
+        <attribute
           name="active"
           value="false" />
-        <referenceAttribute
+        <attributeReference
           name="mdView"
           key="dss.vector.solutions.surveillance.AncientCaseView" />
       </object>

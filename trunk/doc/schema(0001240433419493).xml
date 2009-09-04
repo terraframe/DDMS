@@ -10,35 +10,35 @@
             <boolean
               name="caseStocks"
               label="Treatment Stock"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatment stocks should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseTreatments"
               label="Treatments"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatments should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseTreatmentMethod"
               label="Treatment Methods"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatment methods should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseReferrals"
               label="Referral Reasons"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the referral reasons should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseDiagnostic"
               label="Diagnostic Methods"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the diagnostic methods should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
@@ -53,35 +53,35 @@
             <boolean
               name="caseStocks"
               label="Treatment Stock"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatment stocks should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseTreatments"
               label="Treatments"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatments should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseTreatmentMethod"
               label="Treatment Methods"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatment methods should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseReferrals"
               label="Referral Reasons"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the referral reasons should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseDiagnostic"
               label="Diagnostic Methods"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the diagnostic methods should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
@@ -96,35 +96,35 @@
             <boolean
               name="caseStocks"
               label="Treatment Stock"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatment stocks should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseTreatments"
               label="Treatments"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatments should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseTreatmentMethod"
               label="Treatment Methods"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatment methods should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseReferrals"
               label="Referral Reasons"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the referral reasons should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseDiagnostic"
               label="Diagnostic Methods"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the diagnostic methods should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
@@ -139,35 +139,35 @@
             <boolean
               name="caseStocks"
               label="Treatment Stock"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatment stocks should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseTreatments"
               label="Treatments"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatments should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseTreatmentMethod"
               label="Treatment Methods"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatment methods should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseReferrals"
               label="Referral Reasons"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the referral reasons should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseDiagnostic"
               label="Diagnostic Methods"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the diagnostic methods should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
@@ -182,35 +182,35 @@
             <boolean
               name="caseStocks"
               label="Treatment Stock"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatment stocks should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseTreatments"
               label="Treatments"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatments should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseTreatmentMethod"
               label="Treatment Methods"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatment methods should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseReferrals"
               label="Referral Reasons"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the referral reasons should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseDiagnostic"
               label="Diagnostic Methods"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the diagnostic methods should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
@@ -225,35 +225,35 @@
             <boolean
               name="caseStocks"
               label="Treatment Stock"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatment stocks should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseTreatments"
               label="Treatments"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatments should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseTreatmentMethod"
               label="Treatment Methods"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the treatment methods should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseReferrals"
               label="Referral Reasons"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the referral reasons should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />
             <boolean
               name="caseDiagnostic"
               label="Diagnostic Methods"
-              default_value="false"
+              defaultValue="false"
               description="Marker indicating if the diagnostic methods should be displayed"
               negativeLabel="No"
               positiveLabel="Yes" />

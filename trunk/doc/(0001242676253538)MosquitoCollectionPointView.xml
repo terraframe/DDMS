@@ -27,7 +27,7 @@
             label="Total"
             description="Total Number of mosquitos on which assays have been performed"
             required="true"
-            default_value="0" />
+            defaultValue="0" />
           <virtual
             name="dateCollected"
             required="true"

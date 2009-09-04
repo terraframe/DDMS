@@ -77,14 +77,14 @@
             name="isAbstract"
             label="Abstract"
             required="true"
-            default_value="false"
+            defaultValue="false"
             negativeLabel="False"
             positiveLabel="True" />
           <boolean
             name="enabled"
             label="Enabled"
             required="true"
-            default_value="true"
+            defaultValue="true"
             negativeLabel="False"
             positiveLabel="True" />
         </attributes>
@@ -119,16 +119,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
         key="Permanent_Net">
-        <valueAttribute
+        <attribute
           name="netName"
           value="Permanent_Net" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="PERMANENT NET" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="isAbstract"
           value="true" />
       </object>
@@ -136,16 +136,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
         key="Permanent">
-        <valueAttribute
+        <attribute
           name="netName"
           value="Permanet" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Permanet" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentNet"
           key="Permanent_Net" />
       </object>
@@ -160,16 +160,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
         key="Olyset">
-        <valueAttribute
+        <attribute
           name="netName"
           value="Olyset" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Olyset" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentNet"
           key="Permanent_Net" />
       </object>
@@ -184,16 +184,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
         key="Permanent_Other">
-        <valueAttribute
+        <attribute
           name="netName"
           value="Permanent_Other" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Other/Don't Know brand" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentNet"
           key="Permanent_Net" />
       </object>
@@ -208,16 +208,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
         key="Pretreated_Net">
-        <valueAttribute
+        <attribute
           name="netName"
           value="Pretreated_Net" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="PRETREATED NET" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="isAbstract"
           value="true" />
       </object>
@@ -225,16 +225,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
         key="Salam_Enkilfe">
-        <valueAttribute
+        <attribute
           name="netName"
           value="Salam_Enkilfe" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Salam Enkilfe" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentNet"
           key="Pretreated_Net" />
       </object>
@@ -249,16 +249,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
         key="Fennet">
-        <valueAttribute
+        <attribute
           name="netName"
           value="Fennet" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Fennet" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentNet"
           key="Pretreated_Net" />
       </object>
@@ -273,16 +273,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
         key="KO_Net">
-        <valueAttribute
+        <attribute
           name="netName"
           value="KO_Net" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="KO Net" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentNet"
           key="Pretreated_Net" />
       </object>
@@ -297,16 +297,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
         key="ICONET">
-        <valueAttribute
+        <attribute
           name="netName"
           value="ICONET" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Iconet" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentNet"
           key="Pretreated_Net" />
       </object>
@@ -321,16 +321,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
         key="SAFINET">
-        <valueAttribute
+        <attribute
           name="netName"
           value="SAFINET" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Safinet" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentNet"
           key="Pretreated_Net" />
       </object>
@@ -345,16 +345,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
         key="Pretreated_Other">
-        <valueAttribute
+        <attribute
           name="netName"
           value="Pretreated_Other" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Other - Don't Know" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentNet"
           key="Pretreated_Net" />
       </object>
@@ -369,15 +369,15 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
         key="Other">
-        <valueAttribute
+        <attribute
           name="netName"
           value="Other" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="OTHER- DON'T KNOW BRAND" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <enumerationMaster
@@ -388,71 +388,71 @@
       <object
         type="dss.vector.solutions.intervention.monitor.WindowMaster"
         key="dss.vector.solutions.intervention.monitor.WindowMaster.ANY_WINDOW">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="ANY_WINDOW" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Any Window" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.WindowMaster"
         key="dss.vector.solutions.intervention.monitor.WindowMaster.WINDOW_WITH_GLASS">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="WINDOW_WITH_GLASS" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Window with Glass" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.WindowMaster"
         key="dss.vector.solutions.intervention.monitor.WindowMaster.WINDOW_WITH_SCREENS">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="WINDOW_WITH_SCREENS" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Window with Screens" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.WindowMaster"
         key="dss.vector.solutions.intervention.monitor.WindowMaster.WINDOW_WITH_CURTAINS">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="WINDOW_WITH_CURTAINS" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Window with Curtains" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.WindowMaster"
         key="dss.vector.solutions.intervention.monitor.WindowMaster.SHUTTERS">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="SHUTTERS" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Shutters" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdEnumeration
@@ -536,19 +536,19 @@
             label="Number of nets in household"
             description="Number of nets in household"
             rejectNegative="true"
-            default_value="0" />
+            defaultValue="0" />
           <integer
             name="sleptUnderNets"
             label="Number of people who slept under nets last night"
             description="How many people in this household  slept under a net last night?"
             rejectNegative="true"
-            default_value="0" />
+            defaultValue="0" />
           <integer
             name="netsUsed"
             label="Number of nets used last night"
             description="The number of nets which were used to sleep under last night"
             rejectNegative="true"
-            default_value="0" />
+            defaultValue="0" />
         </attributes>
         <mdMethod
           name="applyAll"
@@ -592,7 +592,7 @@
             label="amount"
             required="true"
             rejectNegative="true"
-            default_value="0" />
+            defaultValue="0" />
         </attributes>
         <parent
           cardinality="*"
@@ -635,7 +635,7 @@
             name="enabled"
             label="Enabled"
             required="true"
-            default_value="true"
+            defaultValue="true"
             positiveLabel="Yes"
             negativeLabel="No" />
         </attributes>
@@ -649,71 +649,71 @@
       <object
         type="dss.vector.solutions.intervention.FeverTreatment"
         key="none">
-        <valueAttribute
+        <attribute
           name="treatmentName"
           value="none" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="None" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.FeverTreatment"
         key="private">
-        <valueAttribute
+        <attribute
           name="treatmentName"
           value="private" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Private" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.FeverTreatment"
         key="public">
-        <valueAttribute
+        <attribute
           name="treatmentName"
           value="public" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Public" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.FeverTreatment"
         key="local healer">
-        <valueAttribute
+        <attribute
           name="treatmentName"
           value="local healer" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Local healer" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.FeverTreatment"
         key="pharmacist">
-        <valueAttribute
+        <attribute
           name="treatmentName"
           value="pharmacist" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Pharmacist" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <enumerationMaster
@@ -724,71 +724,71 @@
       <object
         type="dss.vector.solutions.intervention.ResponseMaster"
         key="dss.vector.solutions.intervention.ResponseMaster.YES">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="YES" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="YES" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.ResponseMaster"
         key="dss.vector.solutions.intervention.ResponseMaster.NO">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="NO" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="No" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.ResponseMaster"
         key="dss.vector.solutions.intervention.ResponseMaster.REFUSED">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="REFUSED" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Refused" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.ResponseMaster"
         key="dss.vector.solutions.intervention.ResponseMaster.NOT_PRESENT">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="NOT_PRESENT" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Not Present" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.ResponseMaster"
         key="dss.vector.solutions.intervention.ResponseMaster.DONT_KNOW">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="DONT_KNOW" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Don't Know" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdEnumeration
@@ -811,99 +811,99 @@
       <object
         type="dss.vector.solutions.intervention.RDTResultMaster"
         key="dss.vector.solutions.intervention.RDTResultMaster.PF_POSITIVE">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="PF_POSITIVE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Pf positive" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.RDTResultMaster"
         key="dss.vector.solutions.intervention.RDTResultMaster.MIXED_POSITIVE">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MIXED_POSITIVE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Mixed positive" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.RDTResultMaster"
         key="dss.vector.solutions.intervention.RDTResultMaster.VIVAX_POSITIVE">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="VIVAX_POSITIVE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Vivax positive" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.RDTResultMaster"
         key="dss.vector.solutions.intervention.RDTResultMaster.MALARIAE_POSITIVE">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MALARIAE_POSITIVE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Malariae positive" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.RDTResultMaster"
         key="dss.vector.solutions.intervention.RDTResultMaster.OVALE_POSITIVE">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="OVALE_POSITIVE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Ovale positive" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.RDTResultMaster"
         key="dss.vector.solutions.intervention.RDTResultMaster.NEGATIVE">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="NEGATIVE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Negative" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.RDTResultMaster"
         key="dss.vector.solutions.intervention.RDTResultMaster.NOT_VALID">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="NOT_VALID" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Not Valid" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdEnumeration
@@ -921,43 +921,43 @@
       <object
         type="dss.vector.solutions.intervention.BloodslideResponseMaster"
         key="dss.vector.solutions.intervention.BloodslideResponseMaster.DONE">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="DONE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Done" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.BloodslideResponseMaster"
         key="dss.vector.solutions.intervention.BloodslideResponseMaster.NOT_AVAILABLE">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="NOT_AVAILABLE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Not Available" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.BloodslideResponseMaster"
         key="dss.vector.solutions.intervention.BloodslideResponseMaster.REFUSED">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="REFUSED" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Refused" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdEnumeration

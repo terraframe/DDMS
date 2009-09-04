@@ -18,7 +18,7 @@
             name="active"
             label="active"
             required="true"
-            default_value="true"
+            defaultValue="true"
             description="If this is an active age group"
             negativeLabel="False"
             positiveLabel="True" />
@@ -81,31 +81,31 @@
        <object
         type="dss.vector.solutions.Property"
         key="epiStartWeekDay">
-        <valueAttribute
+        <attribute
           name="propertyName"
           value="epiStartWeekDay" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="First Weekday of the Epi Year" />
-        <valueAttribute
+        <attribute
           name="propertyPackage"
           value="dss.vector.solutions.surveillance.EpiWeek" />
-        <valueAttribute
+        <attribute
           name="propertyValue"
           value="0" />
-        <valueAttribute
+        <attribute
           name="propertyType"
           value="Integer" />
-        <valueAttribute
+        <attribute
           name="propertyValidator"
           value="^[0-6]$" />
-        <valueAttribute
+        <attribute
           name="description"
           value="Sunday is the (WHO/PAHO) Standard" />
-        <valueAttribute
+        <attribute
           name="validValues"
           value="0,1,2,3,4,5,6" />
-        <valueAttribute
+        <attribute
           name="editable"
           value="false" />
       </object>
@@ -520,7 +520,7 @@
             name="active"
             label="Active"
             required="true"
-            default_value="true"
+            defaultValue="true"
             negativeLabel="False"
             positiveLabel="True" />
         </attributes>
@@ -557,113 +557,113 @@
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
         key="dss.vector.solutions.surveillance.TreatmentGrid.LA">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="LA" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="LA" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
         key="dss.vector.solutions.surveillance.TreatmentGrid.AA">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="AA" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="AA" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
         key="dss.vector.solutions.surveillance.TreatmentGrid.SP">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="SP" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="SP" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
         key="dss.vector.solutions.surveillance.TreatmentGrid.AS_SP">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="AS_SP" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="AS+SP" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
         key="dss.vector.solutions.surveillance.TreatmentGrid.Cloroquine">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="Cloroquine" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Cloroquine" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
         key="dss.vector.solutions.surveillance.TreatmentGrid.Quinine">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="Quinine" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Quinine" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
         key="dss.vector.solutions.surveillance.TreatmentGrid.None">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="None" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="None" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentGrid"
         key="dss.vector.solutions.surveillance.TreatmentGrid.Other">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="Other" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Other" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdBusiness
@@ -683,57 +683,57 @@
       <object
         type="dss.vector.solutions.surveillance.ReferralGrid"
         key="dss.vector.solutions.surveillance.ReferralGrid.ComplicatedCase">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="ComplicatedCase" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Complicated case" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.ReferralGrid"
         key="dss.vector.solutions.surveillance.ReferralGrid.LessThanOne">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="LessThanOne" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Less than one year old" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.ReferralGrid"
         key="dss.vector.solutions.surveillance.ReferralGrid.OutOfStock">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="OutOfStock" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Out of stock" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.ReferralGrid"
         key="dss.vector.solutions.surveillance.ReferralGrid.Other">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="Other" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Other" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdBusiness
@@ -753,57 +753,57 @@
       <object
         type="dss.vector.solutions.surveillance.DiagnosticGrid"
         key="dss.vector.solutions.surveillance.DiagnosticGrid.BloodSmear">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="BloodSmear" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Blood smear" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.DiagnosticGrid"
         key="dss.vector.solutions.surveillance.DiagnosticGrid.RDT">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="RDT" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="RDT" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.DiagnosticGrid"
         key="dss.vector.solutions.surveillance.DiagnosticGrid.Clinical">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="Clinical" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Clinical" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.DiagnosticGrid"
         key="dss.vector.solutions.surveillance.DiagnosticGrid.Other">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="Other" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Other" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdBusiness
@@ -823,71 +823,71 @@
       <object
         type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
         key="dss.vector.solutions.surveillance.TreatmentMethodGrid.Tablets">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="Tablets" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Tablets" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
         key="dss.vector.solutions.surveillance.TreatmentMethodGrid.Syrup">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="Syrup" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Syrup" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
         key="dss.vector.solutions.surveillance.TreatmentMethodGrid.IV">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="IV" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="IV" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
         key="dss.vector.solutions.surveillance.TreatmentMethodGrid.IM">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="IM" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="IM" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
         key="dss.vector.solutions.surveillance.TreatmentMethodGrid.TM_Other">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="Other" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Other" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdTree
@@ -924,7 +924,7 @@
             description="Amount of people treated for a given treatment"
             rejectNegative="true"
             required="true"
-            default_value="0" />
+            defaultValue="0" />
         </attributes>
         <parent
           cardinality="*"
@@ -947,14 +947,14 @@
             description="Amount of people a diagnostic test was performed upon"
             rejectNegative="true"
             required="true"
-            default_value="0" />
+            defaultValue="0" />
           <integer
             name="amountPositive"
             label="Amount Positive"
             description="Amount of positive people a diagnostic test was performed upon"
             rejectNegative="true"
             required="true"
-            default_value="0" />
+            defaultValue="0" />
         </attributes>
         <parent
           cardinality="*"
@@ -977,7 +977,7 @@
             description="Amount of people treated for a given treatment"
             rejectNegative="true"
             required="true"
-            default_value="0" />
+            defaultValue="0" />
         </attributes>
         <parent
           cardinality="*"
@@ -1000,7 +1000,7 @@
             description="Amount of people treated for a given treatment"
             rejectNegative="true"
             required="true"
-            default_value="0" />
+            defaultValue="0" />
         </attributes>
         <parent
           cardinality="*"
@@ -1030,16 +1030,16 @@
       <object
         type="dss.vector.solutions.surveillance.PeriodTypeMaster"
         key="dss.vector.solutions.surveillance.PeriodTypeMaster.WEEK">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="WEEK" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Week" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="maximumPeriod"
           value="53" />
       </object>
@@ -1047,16 +1047,16 @@
       <object
         type="dss.vector.solutions.surveillance.PeriodTypeMaster"
         key="dss.vector.solutions.surveillance.PeriodTypeMaster.MONTH">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MONTH" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Month" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="maximumPeriod"
           value="12" />
       </object>
@@ -1064,16 +1064,16 @@
       <object
         type="dss.vector.solutions.surveillance.PeriodTypeMaster"
         key="dss.vector.solutions.surveillance.PeriodTypeMaster.QUARTER">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="QUARTER" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Quarter" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="maximumPeriod"
           value="4" />
       </object>

@@ -15,54 +15,54 @@
       <object
         type="dss.vector.solutions.QueryTypeMaster"
         key="dss.vector.solutions.QueryTypeMaster.IRS">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="IRS" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="IRS" />
-        </structAttribute>
+        </attributeStruct>
       </object>
       <object
         type="dss.vector.solutions.QueryTypeMaster"
         key="dss.vector.solutions.QueryTypeMaster.ENTOMOLOGY">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="ENTOMOLOGY" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Entomology" />
-        </structAttribute>
+        </attributeStruct>
       </object>
       <object
         type="dss.vector.solutions.QueryTypeMaster"
         key="dss.vector.solutions.QueryTypeMaster.AGGREGATED_CASES">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="AGGREGATED_CASES" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Aggregated Cases" />
-        </structAttribute>
+        </attributeStruct>
       </object>
       <object
         type="dss.vector.solutions.QueryTypeMaster"
         key="dss.vector.solutions.QueryTypeMaster.INDICATOR_SURVEY">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="INDICATOR_SURVEY" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="IndicatorSurvey" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdEnumeration

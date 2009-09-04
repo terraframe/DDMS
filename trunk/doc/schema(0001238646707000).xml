@@ -27,7 +27,7 @@
           <boolean
             name="activated"
             required="true"
-            default_value="true"
+            defaultValue="true"
             label="Activated"
             description="Determines if this entity is active or not."
             negativeLabel="No"
@@ -117,7 +117,7 @@
             label="View Created"
             description="Denotes if the view table has been created"
             required="true"
-            default_value="false"
+            defaultValue="false"
             negativeLabel="No"
             positiveLabel="Yes" />
           <boolean
@@ -127,7 +127,7 @@
             required="true"
             negativeLabel="No"
             positiveLabel="Yes"
-            default_value="false" />
+            defaultValue="false" />
           <boolean
             name="sprayTargetAllowed"
             label="Spray Target Allowed"
@@ -454,85 +454,85 @@
       <object
         key="dss.vector.solutions.geo.SpatialMaster.LINE"
         type="dss.vector.solutions.geo.SpatialMaster">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="LINE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Line" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         key="dss.vector.solutions.geo.SpatialMaster.MUTLI_LINE"
         type="dss.vector.solutions.geo.SpatialMaster">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MULTI_LINE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Multi-Line" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         key="dss.vector.solutions.geo.SpatialMaster.POINT"
         type="dss.vector.solutions.geo.SpatialMaster">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="POINT" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Point" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         key="dss.vector.solutions.geo.SpatialMaster.MULTI_POINT"
         type="dss.vector.solutions.geo.SpatialMaster">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MULTI_POINT" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Multi-Point" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         key="dss.vector.solutions.geo.SpatialMaster.POLYGON"
         type="dss.vector.solutions.geo.SpatialMaster">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="POLYGON" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Polygon" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         key="dss.vector.solutions.geo.SpatialMaster.MULTI_POLYGON"
         type="dss.vector.solutions.geo.SpatialMaster">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MULTI_POLYGON" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Multi-Polygon" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdEnumeration
@@ -1495,7 +1495,7 @@
             name="isofemale"
             label="Isofemale"
             required="true"
-            default_value="false"
+            defaultValue="false"
             description="Flag denoting if this mosquito is from the iso-female line"
             positiveLabel="Yes"
             negativeLabel="No" />
@@ -1589,57 +1589,57 @@
       <object
         type="dss.vector.solutions.entomology.SexMaster"
         key="dss.vector.solutions.entomology.SexMaster.MALE">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MALE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Male" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.entomology.SexMaster"
         key="dss.vector.solutions.entomology.SexMaster.FEMALE">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="FEMALE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Female" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.entomology.SexMaster"
         key="dss.vector.solutions.entomology.SexMaster.MIXED">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MIXED" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Mixed" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.entomology.SexMaster"
         key="dss.vector.solutions.entomology.SexMaster.UNKNOWN">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="UNKNOWN" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Unknown" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdEnumeration
@@ -1725,7 +1725,7 @@
             name="enabled"
             label="Active"
             required="true"
-            default_value="true"
+            defaultValue="true"
             description="If the MO term is enabled"
             negativeLabel="No"
             positiveLabel="Yes" />
@@ -2030,99 +2030,99 @@
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
         key="dss.vector.solutions.entomology.assay.UnitMaster.MICROGRAM_PER_MILLILITER">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MICROGRAM_PER_MILLILITER" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="µg/ml" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
         key="dss.vector.solutions.entomology.assay.UnitMaster.PERCENT">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="PERCENT" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="%" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
         key="dss.vector.solutions.entomology.assay.UnitMaster.PICOGRAM_PER_MILLILITER">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="PICOGRAM_PER_MILLILITER" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="pg/ml" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
         key="dss.vector.solutions.entomology.assay.UnitMaster.MILLIGRAM_PER_MILLILITER">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MILLIGRAM_PER_MILLILITER" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="mg/ml" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
         key="dss.vector.solutions.entomology.assay.UnitMaster.PICOGRAM_PER_LITER">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="PICOGRAM_PER_LITER" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="pg/l" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
         key="dss.vector.solutions.entomology.assay.UnitMaster.MILLIGRAM_PER_LITER">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MILLIGRAM_PER_LITER" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="mg/l" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
         key="dss.vector.solutions.entomology.assay.UnitMaster.MICROGRAM_PER_LITER">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MICROGRAM_PER_LITER" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="µg/l" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdEnumeration
@@ -2224,7 +2224,7 @@
             name="units"
             label="Units"
             required="true"
-            default_value="PERCENT"
+            defaultValue="PERCENT"
             type="dss.vector.solutions.entomology.assay.Unit"
             selectMultiple="false" />
         </attributes>
@@ -2290,7 +2290,7 @@
             name="isofemale"
             label="Isofemale"
             required="true"
-            default_value="false"
+            defaultValue="false"
             description="Flag denoting if this mosquito is from the iso-female line"
             positiveLabel="Yes"
             negativeLabel="No" />
@@ -2306,7 +2306,7 @@
             description="The exposure time in minutes"
             rejectNegative="true"
             rejectZero="true"
-            default_value="60"
+            defaultValue="60"
             immutable="true" />
           <integer
             name="quantityTested"
@@ -2323,7 +2323,7 @@
             rejectZero="true"
             required="true"
             description="The interval time in minutes"
-            default_value="10" />
+            defaultValue="10" />
         </attributes>
         <mdMethod
           name="getKD50"
@@ -2400,7 +2400,7 @@
             required="true"
             rejectNegative="true"
             description="The amount of time the mosquitos were held before exposure in hours"
-            default_value="23" />
+            defaultValue="23" />
           <integer
             name="quantityDead"
             label="Number Dead"
@@ -2471,7 +2471,7 @@
             required="true"
             rejectNegative="true"
             description="The amount of time the mosquitos were held before exposure in hours"
-            default_value="23" />
+            defaultValue="23" />
           <integer
             name="quantityDead"
             label="Number Dead"
@@ -2517,7 +2517,7 @@
             required="true"
             rejectNegative="true"
             description="The amount of time the mosquitos were held before exposure in hours"
-            default_value="23" />
+            defaultValue="23" />
           <integer
             name="quantityDead"
             label="Number Dead"
@@ -2548,7 +2548,7 @@
             description="The exposure time in minutes"
             rejectNegative="true"
             rejectZero="true"
-            default_value="60"
+            defaultValue="60"
             immutable="true" />
           <integer
             name="quantityTested"
@@ -2635,71 +2635,71 @@
       <object
         type="dss.vector.solutions.SurfacePositionMaster"
         key="dss.vector.solutions.SurfacePositionMaster.TOP">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="TOP" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Top" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.SurfacePositionMaster"
         key="dss.vector.solutions.SurfacePositionMaster.MIDDLE">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="MIDDLE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Middle" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.SurfacePositionMaster"
         key="dss.vector.solutions.SurfacePositionMaster.BOTTOM">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="BOTTOM" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Bottom" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.SurfacePositionMaster"
         key="dss.vector.solutions.SurfacePositionMaster.RANDOM">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="RANDOM" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Random" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.SurfacePositionMaster"
         key="dss.vector.solutions.SurfacePositionMaster.NOT_APPLICABLE">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="NOT_APPLICABLE" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Not Applicable" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdEnumeration
@@ -2726,7 +2726,7 @@
             required="true"
             rejectNegative="true"
             rejectZero="true"
-            default_value="95" />
+            defaultValue="95" />
           <integer
             name="upperTime"
             label="Upper Time"
@@ -2739,7 +2739,7 @@
             required="true"
             rejectNegative="true"
             rejectZero="true"
-            default_value="50" />
+            defaultValue="50" />
           <integer
             name="lowerTime"
             label="Lower Time"
@@ -2776,7 +2776,7 @@
             required="true"
             rejectNegative="true"
             rejectZero="true"
-            default_value="95" />
+            defaultValue="95" />
           <integer
             name="upperTime"
             label="Upper Time"
@@ -2789,7 +2789,7 @@
             required="true"
             rejectNegative="true"
             rejectZero="true"
-            default_value="50" />
+            defaultValue="50" />
           <integer
             name="lowerTime"
             label="Lower Time"
@@ -2888,7 +2888,7 @@
             rejectNegative="true"
             label="# Knocked Down"
             required="true"
-            default_value="0" />
+            defaultValue="0" />
         </attributes>
       </mdBusiness>
 
@@ -2973,7 +2973,7 @@
             rejectNegative="true"
             label="Number Dead"
             required="true"
-            default_value="0" />
+            defaultValue="0" />
         </attributes>
       </mdBusiness>
 
@@ -3282,7 +3282,7 @@
             name="editable"
             label="Editable"
             required="true"
-            default_value="true"
+            defaultValue="true"
             negativeLabel="Not Editable"
             positiveLabel="Editable"/>
         </attributes>
@@ -3431,28 +3431,28 @@
       <object
         type="dss.vector.solutions.Property"
         key="aDDAR">
-        <valueAttribute
+        <attribute
           name="propertyName"
           value="aDDAR" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="Adult Diagnostic Dose Assay Resistant" />
-        <valueAttribute
+        <attribute
           name="propertyPackage"
           value="dss.vector.solutions.entomology.ResistantanceCutOff" />
-        <valueAttribute
+        <attribute
           name="propertyValue"
           value="95" />
-        <valueAttribute
+        <attribute
           name="propertyType"
           value="Integer" />
-        <valueAttribute
+        <attribute
           name="propertyValidator"
           value="^[0-9]+$" />
-        <valueAttribute
+        <attribute
           name="validValues"
           value="0-100" />
-        <valueAttribute
+        <attribute
           name="description"
           value="% mortality that the population is resistant – Less Than" />
       </object>
@@ -3460,28 +3460,28 @@
       <object
         type="dss.vector.solutions.Property"
         key="aDDAS">
-        <valueAttribute
+        <attribute
           name="propertyName"
           value="aDDAS" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="Adult Diagnostic Dose Assay Susceptible" />
-        <valueAttribute
+        <attribute
           name="propertyPackage"
           value="dss.vector.solutions.entomology.ResistantanceCutOff" />
-        <valueAttribute
+        <attribute
           name="propertyValue"
           value="98" />
-        <valueAttribute
+        <attribute
           name="propertyType"
           value="Integer" />
-        <valueAttribute
+        <attribute
           name="propertyValidator"
           value="^[0-9]+$" />
-        <valueAttribute
+        <attribute
           name="validValues"
           value="0-100" />
-        <valueAttribute
+        <attribute
           name="description"
           value="% mortality that the population is susceptible – Greater than or Equal to" />
       </object>
@@ -3489,28 +3489,28 @@
       <object
         type="dss.vector.solutions.Property"
         key="lDDAR">
-        <valueAttribute
+        <attribute
           name="propertyName"
           value="lDDAR" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="Larvae Diagnostic Dose Assay Resistant" />
-        <valueAttribute
+        <attribute
           name="propertyPackage"
           value="dss.vector.solutions.entomology.ResistantanceCutOff" />
-        <valueAttribute
+        <attribute
           name="propertyValue"
           value="95" />
-        <valueAttribute
+        <attribute
           name="propertyType"
           value="Integer" />
-        <valueAttribute
+        <attribute
           name="propertyValidator"
           value="^[0-9]+$" />
-        <valueAttribute
+        <attribute
           name="validValues"
           value="0-100" />
-        <valueAttribute
+        <attribute
           name="description"
           value="% mortality that the population is resistant – Less Than" />
       </object>
@@ -3518,28 +3518,28 @@
       <object
         type="dss.vector.solutions.Property"
         key="lDDAS">
-        <valueAttribute
+        <attribute
           name="propertyName"
           value="lDDAS" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="Larvae Diagnostic Dose Assay Susceptible" />
-        <valueAttribute
+        <attribute
           name="propertyPackage"
           value="dss.vector.solutions.entomology.ResistantanceCutOff" />
-        <valueAttribute
+        <attribute
           name="propertyValue"
           value="98" />
-        <valueAttribute
+        <attribute
           name="propertyType"
           value="Integer" />
-        <valueAttribute
+        <attribute
           name="validValues"
           value="0-100" />
-        <valueAttribute
+        <attribute
           name="propertyValidator"
           value="^[0-9]+$" />
-        <valueAttribute
+        <attribute
           name="description"
           value="% mortality that the population is susceptible – Greater than or Equal to" />
       </object>
@@ -3547,56 +3547,56 @@
       <object
         type="dss.vector.solutions.Property"
         key="SHORT_ID_SEGMENTS">
-        <valueAttribute
+        <attribute
           name="propertyName"
           value="SHORT_ID_SEGMENTS" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="SHORT_ID_SEGMENTS" />
-        <valueAttribute
+        <attribute
           name="propertyPackage"
           value="dss.vector.solutions.system.global" />
-        <valueAttribute
+        <attribute
           name="propertyValue"
           value="1024" />
-        <valueAttribute
+        <attribute
           name="propertyType"
           value="Integer" />
-        <valueAttribute
+        <attribute
           name="propertyValidator"
           value="^1024$" />
-        <valueAttribute
+        <attribute
           name="validValues"
           value="1024" />
-        <valueAttribute
+        <attribute
           name="description"
           value="Number of address space segments(installs), NOT EDITABLE" />
-        <valueAttribute
+        <attribute
           name="editable"
           value="false" />
       </object>
       <object
         type="dss.vector.solutions.Property"
         key="SHORT_ID_OFFSET">
-        <valueAttribute
+        <attribute
           name="propertyName"
           value="SHORT_ID_OFFSET" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="SHORT_ID_OFFSET" />
-        <valueAttribute
+        <attribute
           name="propertyPackage"
           value="dss.vector.solutions.system.install" />
-        <valueAttribute
+        <attribute
           name="propertyValue"
           value="23" />
-        <valueAttribute
+        <attribute
           name="propertyType"
           value="Integer" />
-        <valueAttribute
+        <attribute
           name="propertyValidator"
           value="^[0-9]{0,4}$" />
-        <valueAttribute
+        <attribute
           name="description"
           value="The id address space offset or install number, MUST be unique for each server, 0-23 are reserved" />
       </object>
@@ -3604,92 +3604,92 @@
       <object
         type="dss.vector.solutions.Property"
         key="SHORT_ID_COUNTER">
-        <valueAttribute
+        <attribute
           name="propertyName"
           value="SHORT_ID_COUNTER" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="SHORT_ID_COUNTER" />
-        <valueAttribute
+        <attribute
           name="propertyPackage"
           value="dss.vector.solutions.system.install" />
-        <valueAttribute
+        <attribute
           name="propertyValue"
           value="0" />
-        <valueAttribute
+        <attribute
           name="propertyType"
           value="Long" />
-        <valueAttribute
+        <attribute
           name="propertyValidator"
           value="^[0-9]+$" />
-        <valueAttribute
+        <attribute
           name="description"
           value="How many ids have we generated in this install's address space" />
-        <valueAttribute
+        <attribute
           name="editable"
           value="false" />
       </object>
       <!--
         <object type="dss.vector.solutions.Property" id="dateFormat">
-        <valueAttribute name="propertyName" value="dateFormat" />
-        <valueAttribute name="displayLabel" value="Date Format" />
-        <valueAttribute name="propertyPackage"
-        value="dss.vector.solutions" /> <valueAttribute
-        name="propertyValue" value="mm/dd/yyyy" /> <valueAttribute
-        name="propertyType" value="String" /> <valueAttribute
+        <attribute name="propertyName" value="dateFormat" />
+        <attribute name="displayLabel" value="Date Format" />
+        <attribute name="propertyPackage"
+        value="dss.vector.solutions" /> <attribute
+        name="propertyValue" value="mm/dd/yyyy" /> <attribute
+        name="propertyType" value="String" /> <attribute
         name="propertyValidator" value="^[MmDdYy/- ]+$" />
-        <valueAttribute name="description" value="Date Format For
-        Display" /> <valueAttribute name="validValues"
+        <attribute name="description" value="Date Format For
+        Display" /> <attribute name="validValues"
         value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" /> </object> <object
         type="dss.vector.solutions.Property" id="systemDateFormat">
-        <valueAttribute name="propertyName" value="systemDateFormat" />
-        <valueAttribute name="displayLabel" value="Date Format" />
-        <valueAttribute name="propertyPackage"
-        value="dss.vector.solutions" /> <valueAttribute
-        name="propertyValue" value="yyyy-mm-dd" /> <valueAttribute
-        name="propertyType" value="String" /> <valueAttribute
-        name="propertyValidator" value="^yyyy-mm-dd$" /> <valueAttribute
+        <attribute name="propertyName" value="systemDateFormat" />
+        <attribute name="displayLabel" value="Date Format" />
+        <attribute name="propertyPackage"
+        value="dss.vector.solutions" /> <attribute
+        name="propertyValue" value="yyyy-mm-dd" /> <attribute
+        name="propertyType" value="String" /> <attribute
+        name="propertyValidator" value="^yyyy-mm-dd$" /> <attribute
         name="description" value="Date Format for system date
-        Properties, NOT EDITABLE" /> <valueAttribute name="validValues"
+        Properties, NOT EDITABLE" /> <attribute name="validValues"
         value="yyyy-mm-dd" /> </object> <object
         type="dss.vector.solutions.Property" id="dateFormatShort">
-        <valueAttribute name="propertyName" value="dateFormatShort" />
-        <valueAttribute name="displayLabel" value="Short Date Format" />
-        <valueAttribute name="propertyPackage"
-        value="dss.vector.solutions" /> <valueAttribute
-        name="propertyValue" value="mm/yy" /> <valueAttribute
-        name="propertyType" value="String" /> <valueAttribute
+        <attribute name="propertyName" value="dateFormatShort" />
+        <attribute name="displayLabel" value="Short Date Format" />
+        <attribute name="propertyPackage"
+        value="dss.vector.solutions" /> <attribute
+        name="propertyValue" value="mm/yy" /> <attribute
+        name="propertyType" value="String" /> <attribute
         name="propertyValidator" value="^[MmDdYy/- ]+$" />
-        <valueAttribute name="validValues"
-        value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" /> <valueAttribute
+        <attribute name="validValues"
+        value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" /> <attribute
         name="description" value="Short Date Format, should not include
         year" /> </object>
       -->
       <object
         type="dss.vector.solutions.Property"
         key="countryGeoId">
-        <valueAttribute
+        <attribute
           name="propertyName"
           value="countryGeoId" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="Country Geo ID" />
-        <valueAttribute
+        <attribute
           name="propertyPackage"
           value="dss.vector.solutions.install" />
-        <valueAttribute
+        <attribute
           name="propertyValue"
           value="1100" />
-        <valueAttribute
+        <attribute
           name="propertyType"
           value="STRING" />
-        <valueAttribute
+        <attribute
           name="propertyValidator"
           value="^[0-9A-Za-z]{1,16}$" />
-        <valueAttribute
+        <attribute
           name="validValues"
           value="12323,ABCD,23AB,ZZZ456" />
-        <valueAttribute
+        <attribute
           name="description"
           value="The GeoID of the Country in which this server is installed" />
       </object>
@@ -3701,22 +3701,22 @@
       <object
         type="dss.vector.solutions.mo.MolecularAssayResult"
         key="MIRO_88000039">
-        <valueAttribute
+        <attribute
           name="termName"
           value="RR" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="RR" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="termId"
           value="MIRO_88000039" />
-        <valueAttribute
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Molecular assay reult" />
       </object>
@@ -3724,22 +3724,22 @@
       <object
         type="dss.vector.solutions.mo.MolecularAssayResult"
         key="MIRO_89000039">
-        <valueAttribute
+        <attribute
           name="termName"
           value="RS" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="RS" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="termId"
           value="MIRO_89000039" />
-        <valueAttribute
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Molecular assay reult" />
       </object>
@@ -3747,22 +3747,22 @@
       <object
         type="dss.vector.solutions.mo.MolecularAssayResult"
         key="MIRO_90000039">
-        <valueAttribute
+        <attribute
           name="termName"
           value="SS" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="SS" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="termId"
           value="MIRO_90000039" />
-        <valueAttribute
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Molecular assay reult" />
       </object>
@@ -4475,22 +4475,22 @@
       <object
         type="dss.vector.solutions.mo.Generation"
         key="MIRO_343458349">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_343458349" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="F0" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="F0" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="F0" />
       </object>
@@ -4498,22 +4498,22 @@
       <object
         type="dss.vector.solutions.mo.Generation"
         key="MIRO_3535332">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_3535332" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="F1" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="F1" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="F1" />
       </object>
@@ -4525,28 +4525,28 @@
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
         key="MIRO_30000044">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000044" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="field population catch" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="field population catch" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Any population catch method using either aspiration or traps. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="method" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000000" />
       </object>
@@ -4554,28 +4554,28 @@
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
         key="MIRO_30000045">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000045" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="catch of live specimens" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="catch of live specimens" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Any population catch method meant to collect live specimens. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="field population catch" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000044" />
       </object>
@@ -4583,28 +4583,28 @@
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
         key="MIRO_30000048">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000048" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="aquatic environment catch" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="aquatic environment catch" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Any catch of live specimens method meant to collect mosquitoes from aquatic environment. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="catch of live specimens" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000045" />
       </object>
@@ -4612,28 +4612,28 @@
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
         key="MIRO_30000022">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000022" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="collection of larvae" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="collection of larvae" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Any method designed to collect (and later examine) live larvae from a field population. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="aquatic environment catch" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000048" />
       </object>
@@ -4641,28 +4641,28 @@
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
         key="MIRO_30000049">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000049" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="collection of eggs" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="collection of eggs" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Any method designed to collect (and later examine) eggs from a field population. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="aquatic environment catch" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000048" />
       </object>
@@ -4670,28 +4670,28 @@
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
         key="MIRO_30000053">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000053" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="collection of naturally deposited eggs" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="collection of naturally deposited eggs" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Any eggs collection method which targets naturally deposited eggs. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="collection of eggs" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000049" />
       </object>
@@ -4699,28 +4699,28 @@
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
         key="MIRO_30000060">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000060" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="collection of eggs via scraping" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="collection of eggs via scraping" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Any eggs collection method that uses scraping. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="collection of eggs" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000049" />
       </object>
@@ -4728,28 +4728,28 @@
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
         key="MIRO_30000050">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000050" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="collection of pupae" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="collection of pupae" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Any method designed to collect (and later examine) live pupae from a field population. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="aquatic environment catch" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000048" />
       </object>
@@ -4757,28 +4757,28 @@
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
         key="MIRO_30000051">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000051" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="terrain environment catch" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="terrain environment catch" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Any catch of live specimens method meant to collect mosquitoes from aquatic environment. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="catch of live specimens" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000045" />
       </object>
@@ -4786,28 +4786,28 @@
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
         key="MIRO_30000052">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000052" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="collection of adults" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="collection of adults" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Any method designed to collect (and later examine) live adults from a field population. [PT:PT]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="terrain environment catch" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000051" />
       </object>
@@ -4815,28 +4815,28 @@
       <object
         type="dss.vector.solutions.mo.CollectionMethod"
         key="MIRO_30000046">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000046" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="collection of dead specimens" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="collection of dead specimens" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Any population catch method meant to collect dead specimens. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="field population catch" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000044" />
       </object>
@@ -4845,28 +4845,28 @@
       <object
         type="dss.vector.solutions.mo.IdentificationMethod"
         key="IRO_30000005">
-        <valueAttribute
+        <attribute
           name="termId"
           value="IRO_30000005" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="species identification method" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="species identification method" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Any method designed to identify the species of the insect specimen under study, usually caught /isolated from a field population. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="method" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000000" />
       </object>
@@ -4874,28 +4874,28 @@
       <object
         type="dss.vector.solutions.mo.IdentificationMethod"
         key="MIRO_30000036">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000036" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="cross mating experiment" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="cross mating experiment" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Genetic crossings between specimens collected in the field to determine whether fertile progeny is produced. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="species identification method" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000005" />
       </object>
@@ -4903,28 +4903,28 @@
       <object
         type="dss.vector.solutions.mo.IdentificationMethod"
         key="MIRO_30000037">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000037" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="cytological chromosome examination" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="cytological chromosome examination" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Analysis of polytene chromosomes to determine, through cytological examination of the banding pattern, the species that they belong to. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="species identification method" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000005" />
       </object>
@@ -4932,28 +4932,28 @@
       <object
         type="dss.vector.solutions.mo.IdentificationMethod"
         key="MIRO_30000038">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000038" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="isoenzyme electrophoresis" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="isoenzyme electrophoresis" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Electrophoresis to determine the isozymes that are present in a given mosquito/population, from which in some cases the species can be determined. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="species identification method" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000005" />
       </object>
@@ -4961,28 +4961,28 @@
       <object
         type="dss.vector.solutions.mo.IdentificationMethod"
         key="MIRO_30000039">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000039" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="morphological examination" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="morphological examination" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Examination of the morphology to determine, through the use of specific \taxonomical keys\ the species a specimen belongs to. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="species identification method" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000005" />
       </object>
@@ -4990,28 +4990,28 @@
       <object
         type="dss.vector.solutions.mo.IdentificationMethod"
         key="MIRO_30000040">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000040" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="PCR-based species identification" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="PCR-based species identification" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Use of a variety of PCR-based procedures to determine the species that a specimen belongs to. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="species identification method" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000005" />
       </object>
@@ -5019,28 +5019,28 @@
       <object
         type="dss.vector.solutions.mo.IdentificationMethod"
         key="MIRO_30000041">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_30000041" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="species specific DNA hybridization" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="species specific DNA hybridization" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Usage of labeled DNA fragments of variable length (usually 100-1000 bases long), to detect in DNA or RNA samples the presence of nucleotide sequences that are complementary to the sequence in the probe through hybridization. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="species identification method" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_30000005" />
       </object>
@@ -5049,28 +5049,28 @@
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
         key="MIRO_20000001">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000001" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="resistance identification/monitoring" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="resistance identification/monitoring" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="A series of analytical procedures to detect the presence, and estimate the frequency of resistance phenotypes, or resistance-associated markers in wild populations at a given time or over a defined time period. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="method" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000000" />
       </object>
@@ -5078,28 +5078,28 @@
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
         key="MIRO_20000003">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000003" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="biochemical assay" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="biochemical assay" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="An assay used to determine enzyme activity associated with insecticide resistance phenotypes. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="resistance identification/monitoring" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000001" />
       </object>
@@ -5107,28 +5107,28 @@
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
         key="MIRO_20000004">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000004" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="molecular assay" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="molecular assay" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="An assay used to determine changes at genomic DNA or mRNA levels associated with insecticide resistance phenotypes. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="resistance identification/monitoring" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000001" />
       </object>
@@ -5136,28 +5136,28 @@
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
         key="MIRO_20000043">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000043" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="penetration/excretion assay" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="penetration/excretion assay" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="In vivo assays to measure the rate of insecticide uptake, translocation or excretion by a living organism. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="resistance identification/monitoring" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000001" />
       </object>
@@ -5165,28 +5165,28 @@
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
         key="MIRO_20000058">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000058" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="bioassay" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="bioassay" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Bioassay is a shorthand commonly used term for biological assay and is a type of scientific experiment. Bioassays are typically conducted to measure the effects of a substance on a living organism. [Wikipedia:bioassay]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="resistance identification/monitoring" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000001" />
       </object>
@@ -5194,28 +5194,28 @@
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
         key="MIRO_20000090">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000090" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="antibody-based assay" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="antibody-based assay" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Antibody-based assays to measure, in a biological sample, levels of antigens. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="resistance identification/monitoring" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000001" />
       </object>
@@ -5223,28 +5223,28 @@
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
         key="MIRO_20000075">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000075" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="diagnostic test" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="diagnostic test" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Bioassay at preset insecticide dosage scoring mortality to determine resistance of a population. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="direct bioassay" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000044" />
       </object>
@@ -5252,28 +5252,28 @@
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
         key="MIRO_20000009">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000009" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="bottle bioassay DT" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="bottle bioassay DT" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Diagnostic assay, performed in a glass bottle coated with insecticides. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="diagnostic test" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000075" />
       </object>
@@ -5281,28 +5281,28 @@
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
         key="MIRO_20000039">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000039" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="cone DT" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="cone DT" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Diagnostic assay, using WHO cone kit. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="diagnostic test" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000075" />
       </object>
@@ -5310,28 +5310,28 @@
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
         key="MIRO_20000041">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000041" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="WHO paper kit DT" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="WHO paper kit DT" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Diagnostic assay, using WHO paper kit. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="diagnostic test" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000075" />
       </object>
@@ -5339,28 +5339,28 @@
       <object
         type="dss.vector.solutions.mo.ResistanceMethodology"
         key="MIRO_20000049">
-        <valueAttribute
+        <attribute
           name="termId"
           value="MIRO_20000049" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="WHO larvicide DT" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="WHO larvicide DT" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Diagnostic assay, testing survival of larvae in a medium supplemented with insecticide. [KL:KL]" />
-        <valueAttribute
+        <attribute
           name="inheritsTerm"
           value="diagnostic test" />
-        <valueAttribute
+        <attribute
           name="inheritsTermName"
           value="MIRO_20000075" />
       </object>
@@ -5368,22 +5368,22 @@
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
         key="LarvaeAge_Egg">
-        <valueAttribute
+        <attribute
           name="termId"
           value="LarvaeAge_Egg" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="0_Egg" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Egg" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Larvae Age: Egg" />
       </object>
@@ -5391,22 +5391,22 @@
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
         key="LarvaeAge_1st_Instar">
-        <valueAttribute
+        <attribute
           name="termId"
           value="LarvaeAge_1st_Instar" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="1st_Instar" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="1st Instar" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Larvae Age: 1st Instar" />
       </object>
@@ -5414,22 +5414,22 @@
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
         key="LarvaeAge_2nd_Instar">
-        <valueAttribute
+        <attribute
           name="termId"
           value="LarvaeAge_2nd_Instar" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="2nd_Instar" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="2nd Instar" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Larvae Age: 2nd Instar" />
       </object>
@@ -5437,22 +5437,22 @@
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
         key="LarvaeAge_3rd_Instar">
-        <valueAttribute
+        <attribute
           name="termId"
           value="LarvaeAge_3rd_Instar" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="3rd_Instar" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="3rd Instar" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Larvae Age: 3rd Instar" />
       </object>
@@ -5460,22 +5460,22 @@
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
         key="LarvaeAge_4th_Instar">
-        <valueAttribute
+        <attribute
           name="termId"
           value="LarvaeAge_4th_Instar" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="4th_Instar" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="4th Instar" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Larvae Age: 4th Instar" />
       </object>
@@ -5483,22 +5483,22 @@
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
         key="LarvaeAge_Pupae">
-        <valueAttribute
+        <attribute
           name="termId"
           value="LarvaeAge_Pupae" />
-        <valueAttribute
+        <attribute
           name="termName"
           value="5_Pupae" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Pupae" />
-        </structAttribute>
-        <valueAttribute
+        </attributeStruct>
+        <attribute
           name="oboNamespace"
           value="" />
-        <valueAttribute
+        <attribute
           name="definition"
           value="Larvae Age: Pupae" />
       </object>
@@ -5510,13 +5510,13 @@
       <object
         type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.GeoEntity">
-      <valueAttribute
+      <attribute
         name="political"
         value="false" />
-      <valueAttribute
+      <attribute
         name="sprayTargetAllowed"
         value="false" />
-      <referenceAttribute
+      <attributeReference
         name="geoEntityClass"
         key="dss.vector.solutions.geo.generated.GeoEntity" />
       </object>
@@ -5524,13 +5524,13 @@
       <object
         type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.Earth">
-      <valueAttribute
+      <attribute
         name="political"
         value="true" />
-      <valueAttribute
+      <attribute
         name="sprayTargetAllowed"
         value="true" />
-      <referenceAttribute
+      <attributeReference
         name="geoEntityClass"
         key="dss.vector.solutions.geo.generated.Earth" />
       </object>
@@ -5538,13 +5538,13 @@
       <object
         key="000000"
         type="dss.vector.solutions.geo.generated.Earth">
-        <valueAttribute
+        <attribute
           name="activated"
           value="true" />
-        <valueAttribute
+        <attribute
           name="entityName"
           value="Earth" />
-        <valueAttribute
+        <attribute
           name="geoId"
           value="000000" />
       </object>
@@ -5554,93 +5554,93 @@
       <object
         type="com.terraframe.mojo.system.Roles"
         key="Roles.mdss.coordinator">
-        <valueAttribute
+        <attribute
           name="roleName"
           value="mdss.coordinator" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="MDSS Coordinator" />
-        </structAttribute>
+        </attributeStruct>
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
         key="Roles.mdss.entomologist">
-        <valueAttribute
+        <attribute
           name="roleName"
           value="mdss.entomologist" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Entomologist" />
-        </structAttribute>
+        </attributeStruct>
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
         key="Roles.mdss.operationalManager">
-        <valueAttribute
+        <attribute
           name="roleName"
           value="mdss.operationalManager" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Operational Manager" />
-        </structAttribute>
+        </attributeStruct>
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
         key="Roles.mdss.MDSS">
-        <valueAttribute
+        <attribute
           name="roleName"
           value="mdss.MDSS" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="MDSS" />
-        </structAttribute>
+        </attributeStruct>
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
         key="Roles.mdss.GUIVisibility">
-        <valueAttribute
+        <attribute
           name="roleName"
           value="mdss.GUIVisibility" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="GUIVisibility" />
-        </structAttribute>
+        </attributeStruct>
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
         key="Roles.mdss.dataCapturer">
-        <valueAttribute
+        <attribute
           name="roleName"
           value="mdss.dataCapturer" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Data Capturer" />
-        </structAttribute>
+        </attributeStruct>
       </object>
       <object
         type="com.terraframe.mojo.system.Roles"
         key="Roles.mdss.manager">
-        <valueAttribute
+        <attribute
           name="roleName"
           value="mdss.manager" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Manager" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 	</create>
 
@@ -5648,10 +5648,10 @@
       <object
         key="Users.SYSTEM"
         type="com.terraframe.mojo.system.Users">
-        <valueAttribute
+        <attribute
           name="sessionLimit"
           value="20" />
-        <valueAttribute
+        <attribute
           name="password"
           value="mdsstest2" />
       </object>

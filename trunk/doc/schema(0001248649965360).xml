@@ -6,30 +6,30 @@
       <object
         type="dss.vector.solutions.QueryTypeMaster"
         key="dss.vector.solutions.QueryTypeMaster.RESISTANCE">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="RESISTANCE"/>
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Resistance"/>
-        </structAttribute>
+        </attributeStruct>
       </object>
     </create>
     <create>
       <object
         type="dss.vector.solutions.QueryTypeMaster"
         key="dss.vector.solutions.QueryTypeMaster.EFFICACY">
-        <valueAttribute
+        <attribute
           name="enumName"
           value="EFFICACY"/>
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Efficacy"/>
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdException

@@ -167,7 +167,7 @@ public class UniversalImporter {
 	private void processUniversals(String sourceName) {
 		System.out.println("<"+XMLTags.VERSION_TAG+" xsi:noNamespaceSchemaLocation=\"../profiles/version_gis.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
 		System.out.println("<!-- Created on " + new Date() + " from " + sourceName + " -->");
-		System.out.println("<"+XMLTags.DO_IT+">");
+		System.out.println("<"+XMLTags.DO_IT_TAG+">");
 
 		//1) define an <mdBusiness> to define the class that will store instances of the geo universal
 		System.out.println("<"+XMLTags.CREATE_TAG+">");
@@ -243,9 +243,9 @@ public class UniversalImporter {
 
 		System.out.println("</"+XMLTags.PERMISSIONS_TAG+">\n");
 
-		System.out.println("</"+XMLTags.DO_IT+">");
-		System.out.println("<"+XMLTags.UNDO_IT+">");
-		System.out.println("</"+XMLTags.UNDO_IT+">");
+		System.out.println("</"+XMLTags.DO_IT_TAG+">");
+		System.out.println("<"+XMLTags.UNDO_IT_TAG+">");
+		System.out.println("</"+XMLTags.UNDO_IT_TAG+">");
 		System.out.println("</"+XMLTags.VERSION_TAG+">");
 	}
 }

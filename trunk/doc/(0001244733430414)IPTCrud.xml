@@ -20,29 +20,29 @@
       <object
         type="dss.vector.solutions.intervention.monitor.PatientGrid"
         key="dss.vector.solutions.intervention.monitor.PatientGrid.inPatient">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="inPatient" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="in patient" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.PatientGrid"
         key="dss.vector.solutions.intervention.monitor.PatientGrid.outPatient">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="outPatient" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="out patient" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdBusiness
@@ -62,45 +62,45 @@
       <object
         type="dss.vector.solutions.intervention.monitor.VisitGrid"
         key="dss.vector.solutions.intervention.monitor.VisitGrid.1st">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="1st" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="1st Visit" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
 
       <object
         type="dss.vector.solutions.intervention.monitor.VisitGrid"
         key="dss.vector.solutions.intervention.monitor.VisitGrid.2nd">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="2nd" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="2nd Visit" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
 
       <object
         type="dss.vector.solutions.intervention.monitor.VisitGrid"
         key="dss.vector.solutions.intervention.monitor.VisitGrid.3rd">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="3rd" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="3rd Visit" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdBusiness
@@ -120,43 +120,43 @@
       <object
         type="dss.vector.solutions.intervention.monitor.DoseGrid"
         key="dss.vector.solutions.intervention.monitor.DoseGrid.1st">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="1st" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="1st Dose" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.DoseGrid"
         key="dss.vector.solutions.intervention.monitor.DoseGrid.2nd">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="2nd" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="2nd Dose" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.DoseGrid"
         key="dss.vector.solutions.intervention.monitor.DoseGrid.3rd">
-        <valueAttribute
+        <attribute
           name="optionName"
           value="3rd" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="3rd Dose" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdBusiness
@@ -255,7 +255,7 @@
           <integer
             name="amount"
             label="Number per person category"
-            default_value="0"
+            defaultValue="0"
             required="true"
             rejectNegative="true" />
         </attributes>
@@ -277,7 +277,7 @@
           <integer
             name="amount"
             label="Number of pregnant females who received IPT per ANC visit"
-            default_value="0"
+            defaultValue="0"
             required="true"
             rejectNegative="true" />
         </attributes>
@@ -299,7 +299,7 @@
           <integer
             name="amount"
             label="Number of pregnant females who received IPT per IPT dose number"
-            default_value="0"
+            defaultValue="0"
             required="true"
             rejectNegative="true" />
         </attributes>
@@ -321,7 +321,7 @@
           <integer
             name="amount"
             label="Number of pregnant females who received IPT per type"
-            default_value="0"
+            defaultValue="0"
             required="true"
             rejectNegative="true" />
         </attributes>

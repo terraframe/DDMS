@@ -6,24 +6,24 @@
         <grant>
           <mdBusinessPermission type="dss.vector.solutions.geo.AllPaths">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.KnockDownAssay">
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdViewPermission
             type="dss.vector.solutions.entomology.MosquitoView">
-            <operation name="READ_ALL" />
-            <operation name="WRITE_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
         </grant>
       </role>
@@ -41,18 +41,18 @@
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <mdMethodPermission methodName="queryResistance">
               <operation name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.KnockDownAssay">
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
         </grant>
       </role>
@@ -70,18 +70,18 @@
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <mdMethodPermission methodName="queryResistance">
               <operation name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.KnockDownAssay">
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
         </grant>
       </role>
@@ -90,18 +90,18 @@
         <grant>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <mdMethodPermission methodName="queryResistance">
               <operation name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.KnockDownAssay">
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
         </grant>
       </role>

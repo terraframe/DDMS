@@ -3,7 +3,7 @@
     <create>
       <object type="com.terraframe.mojo.system.Vault"
         key="C:/Tomcat/webapps/MDSS/WEB-INF/vault">
-        <valueAttribute name="rootPath" value="C:/Tomcat/webapps/MDSS/WEB-INF/vault"/>
+        <attribute name="rootPath" value="C:/Tomcat/webapps/MDSS/WEB-INF/vault"/>
       </object>
     </create>
   </doIt>

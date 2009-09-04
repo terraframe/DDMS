@@ -30,7 +30,7 @@
             name="enabled"
             label="Enabled"
             required="true"
-            default_value="true"
+            defaultValue="true"
             negativeLabel="false"
             positiveLabel="true" />
           <reference
@@ -77,7 +77,7 @@
             name="enabled"
             label="Enabled"
             required="true"
-            default_value="true"
+            defaultValue="true"
             negativeLabel="false"
             positiveLabel="true" />
           <reference
@@ -109,36 +109,36 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
         key="Natural_Roof">
-        <valueAttribute
+        <attribute
           name="roofName"
           value="Natural_Roof" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="NATURAL ROOF" />
-        </structAttribute>
-        <structAttribute
+        </attributeStruct>
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="NATURAL ROOF" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
         key="Thatch_Leaf">
-        <valueAttribute
+        <attribute
           name="roofName"
           value="Thatch_Leaf" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Thatch/Leaf" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentRoof"
           key="Natural_Roof" />
       </object>
@@ -152,16 +152,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
         key="Sticks_and_Mud">
-        <valueAttribute
+        <attribute
           name="roofName"
           value="Sticks_and_Mud" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Sticks and mud" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentRoof"
           key="Natural_Roof" />
       </object>
@@ -175,30 +175,30 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
         key="RUDIMENTARY_ROOF">
-        <valueAttribute
+        <attribute
           name="roofName"
           value="RUDIMENTARY_ROOF" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="RUDIMENTARY ROOF" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
         key="Rustic_mat/plastic_sheet">
-        <valueAttribute
+        <attribute
           name="roofName"
           value="Rustic_mat/plastic_sheet" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Rustic mat/plastic sheet" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentRoof"
           key="RUDIMENTARY_ROOF" />
       </object>
@@ -212,16 +212,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
         key="Reed/bamboo">
-        <valueAttribute
+        <attribute
           name="roofName"
           value="Reed/bamboo" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Reed/bamboo" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentRoof"
           key="RUDIMENTARY_ROOF" />
       </object>
@@ -235,16 +235,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
         key="Wood_planks">
-        <valueAttribute
+        <attribute
           name="roofName"
           value="Wood_planks" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Wood planks" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentRoof"
           key="RUDIMENTARY_ROOF" />
       </object>
@@ -258,30 +258,30 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
         key="FINISHED_ROOF">
-        <valueAttribute
+        <attribute
           name="roofName"
           value="FINISHED ROOF" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="FINISHED ROOF" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
         key="Corrugated_iron">
-        <valueAttribute
+        <attribute
           name="roofName"
           value="Corrugated_iron" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Corrugated iron" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentRoof"
           key="FINISHED_ROOF" />
       </object>
@@ -295,16 +295,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
         key="Wood">
-        <valueAttribute
+        <attribute
           name="roofName"
           value="Wood" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Wood" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentRoof"
           key="FINISHED_ROOF" />
       </object>
@@ -318,16 +318,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
         key="Calamine/cement_fiber">
-        <valueAttribute
+        <attribute
           name="roofName"
           value="Calamine/cement_fiber" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Calamine/cement fiber" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentRoof"
           key="FINISHED_ROOF" />
       </object>
@@ -341,16 +341,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
         key="Roofing_shingles">
-        <valueAttribute
+        <attribute
           name="roofName"
           value="Roofing_shingles" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Roofing shingles" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentRoof"
           key="FINISHED_ROOF" />
       </object>
@@ -364,44 +364,44 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Roof"
         key="OTHER">
-        <valueAttribute
+        <attribute
           name="roofName"
           value="OTHER" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="OTHER" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="NATURAL_WALLS">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="NATURAL_WALLS" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="NATURAL WALLS" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="No_walls">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="No_walls" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="No walls" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentWall"
           key="NATURAL_WALLS" />
       </object>
@@ -415,16 +415,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="Cane/sticks/bamboo/reed">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="Cane/sticks/bamboo/reed" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Cane/sticks/bamboo/reed" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentWall"
           key="NATURAL_WALLS" />
       </object>
@@ -438,30 +438,30 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="RUDIMENTARY_WALLS">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="RUDIMENTARY_WALLS" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="RUDIMENTARY WALLS" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="Bamboo/wood_with_mud">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="Bamboo/wood_with_mud" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Bamboo/wood with mud" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentWall"
           key="RUDIMENTARY_WALLS" />
       </object>
@@ -475,16 +475,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="Stone_with_mud">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="Stone_with_mud" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Stone with mud" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentWall"
           key="RUDIMENTARY_WALLS" />
       </object>
@@ -498,16 +498,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="Uncovered_abode">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="Uncovered_abode" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Uncovered abode" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentWall"
           key="RUDIMENTARY_WALLS" />
       </object>
@@ -521,16 +521,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="Plywood">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="Plywood" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Plywood" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentWall"
           key="RUDIMENTARY_WALLS" />
       </object>
@@ -544,16 +544,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="Carton">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="Carton" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Carton" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentWall"
           key="RUDIMENTARY_WALLS" />
       </object>
@@ -567,30 +567,30 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="FINISHED_WALLS">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="FINISHED_WALLS" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="FINISHED WALLS" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="Cement">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="Cement" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Cement" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentWall"
           key="FINISHED_WALLS" />
       </object>
@@ -604,16 +604,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="Stone_with_lime/cement">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="Stone_with_lime/cement" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Stone with lime/cement" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentWall"
           key="FINISHED_WALLS" />
       </object>
@@ -627,16 +627,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="Bricks">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="Bricks" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Bricks" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentWall"
           key="FINISHED_WALLS" />
       </object>
@@ -650,16 +650,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="Cement_blocks">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="Cement_blocks" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Cement blocks" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentWall"
           key="FINISHED_WALLS" />
       </object>
@@ -673,16 +673,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="Covered_Adobe">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="Covered_Adobe" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Covered Adobe" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentWall"
           key="FINISHED_WALLS" />
       </object>
@@ -696,16 +696,16 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="Wood_planks/shingles">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="Wood_planks/shingles" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="Wood planks/shingles" />
-        </structAttribute>
-        <referenceAttribute
+        </attributeStruct>
+        <attributeReference
           name="parentWall"
           key="FINISHED_WALLS" />
       </object>
@@ -719,15 +719,15 @@
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         key="OTHER">
-        <valueAttribute
+        <attribute
           name="wallName"
           value="OTHER" />
-        <structAttribute
+        <attributeStruct
           name="displayLabel">
-          <valueAttribute
+          <attribute
             name="defaultLocale"
             value="OTHER" />
-        </structAttribute>
+        </attributeStruct>
       </object>
 
       <mdView

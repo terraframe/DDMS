@@ -67,10 +67,10 @@ public class Universal {
 	}
 
 	private final String[] geometryXML = {
-	        "<"+XMLTags.MULTIPOLYGON_TAG+" "+XMLTags.ATTRIBUTE_ATTRIBUTE+"=\"multiPolygon\" "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"Multi Polygon\" "+XMLTags.DESCRIPTION_TAG+"=\"Multi Polygon\" "+XMLTags.REMOVE_TAG+"=\"false\" "+XMLTags.REQUIRED_TAG+"=\"false\" "+XMLTags.SRID_ATTRIBUTE+"=\"4326\" "+XMLTags.DIMENSION_ATTRIBUTE+"=\"2\" />",
-	        "<"+XMLTags.POINT_TAG+" "+XMLTags.ATTRIBUTE_ATTRIBUTE+"=\"point\" "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"Point\" "+XMLTags.DESCRIPTION_TAG+"=\"Point\" "+XMLTags.REMOVE_TAG+"=\"false\" "+XMLTags.REQUIRED_TAG+"=\"false\" "+XMLTags.SRID_ATTRIBUTE+"=\"4326\" "+XMLTags.DIMENSION_ATTRIBUTE+"=\"2\" />",
-	        "<"+XMLTags.MULTILINESTRING_TAG+" "+XMLTags.ATTRIBUTE_ATTRIBUTE+"=\"multiLineString\" "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"Multi LineString\" "+XMLTags.DESCRIPTION_TAG+"=\"Multi LineString\" "+XMLTags.REMOVE_TAG+"=\"false\" "+XMLTags.REQUIRED_TAG+"=\"false\" "+XMLTags.SRID_ATTRIBUTE+"=\"4326\" "+XMLTags.DIMENSION_ATTRIBUTE+"=\"2\" />"
-//	        "<"+XMLTags.LINESTRING_TAG+" "+XMLTags.ATTRIBUTE_ATTRIBUTE+"=\"lineString\" "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"LineString\" "+XMLTags.DESCRIPTION_TAG+"=\"LineString\" "+XMLTags.REMOVE_TAG+"=\"false\" "+XMLTags.REQUIRED_TAG+"=\"false\" "+XMLTags.SRID_ATTRIBUTE+"=\"4326\" "+XMLTags.DIMENSION_ATTRIBUTE+"=\"2\" />"
+	        "<"+XMLTags.MULTIPOLYGON_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\"multiPolygon\" "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"Multi Polygon\" "+XMLTags.DESCRIPTION_ATTRIBUTE+"=\"Multi Polygon\" "+XMLTags.REMOVE_ATTRIBUTE+"=\"false\" "+XMLTags.REQUIRED_ATTRIBUTE+"=\"false\" "+XMLTags.SRID_ATTRIBUTE+"=\"4326\" "+XMLTags.DIMENSION_ATTRIBUTE+"=\"2\" />",
+	        "<"+XMLTags.POINT_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\"point\" "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"Point\" "+XMLTags.DESCRIPTION_ATTRIBUTE+"=\"Point\" "+XMLTags.REMOVE_ATTRIBUTE+"=\"false\" "+XMLTags.REQUIRED_ATTRIBUTE+"=\"false\" "+XMLTags.SRID_ATTRIBUTE+"=\"4326\" "+XMLTags.DIMENSION_ATTRIBUTE+"=\"2\" />",
+	        "<"+XMLTags.MULTILINESTRING_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\"multiLineString\" "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"Multi LineString\" "+XMLTags.DESCRIPTION_ATTRIBUTE+"=\"Multi LineString\" "+XMLTags.REMOVE_ATTRIBUTE+"=\"false\" "+XMLTags.REQUIRED_ATTRIBUTE+"=\"false\" "+XMLTags.SRID_ATTRIBUTE+"=\"4326\" "+XMLTags.DIMENSION_ATTRIBUTE+"=\"2\" />"
+//	        "<"+XMLTags.LINESTRING_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\"lineString\" "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"LineString\" "+XMLTags.DESCRIPTION_ATTRIBUTE+"=\"LineString\" "+XMLTags.REMOVE_ATTRIBUTE+"=\"false\" "+XMLTags.REQUIRED_ATTRIBUTE+"=\"false\" "+XMLTags.SRID_ATTRIBUTE+"=\"4326\" "+XMLTags.DIMENSION_ATTRIBUTE+"=\"2\" />"
 	};
 
 	private String description;
@@ -227,11 +227,11 @@ public class Universal {
 	public String getMdBusinessTag() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<"+XMLTags.MD_BUSINESS_TAG+"\n");
-		sb.append("   "+XMLTags.NAME_TAG+"=\""+ this.getType() + "\"\n");
+		sb.append("   "+XMLTags.NAME_ATTRIBUTE+"=\""+ this.getType() + "\"\n");
 		sb.append("   "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"" + this.getDescription() + "\"\n");
-		sb.append("   "+XMLTags.DESCRIPTION_TAG+"=\"" + this.getDescription() + "\"\n");
-		sb.append("   "+XMLTags.REMOVE_TAG+"=\"true\"\n");
-        sb.append("   "+XMLTags.EXTENDS_TAG+"=\"" + (this.getParent()==null ? "dss.vector.solutions.geo.generated.GeoEntity" : this.getParent().getType()) + "\">\n");
+		sb.append("   "+XMLTags.DESCRIPTION_ATTRIBUTE+"=\"" + this.getDescription() + "\"\n");
+		sb.append("   "+XMLTags.REMOVE_ATTRIBUTE+"=\"true\"\n");
+        sb.append("   "+XMLTags.EXTENDS_ATTRIBUTE+"=\"" + (this.getParent()==null ? "dss.vector.solutions.geo.generated.GeoEntity" : this.getParent().getType()) + "\">\n");
         if (this.getGeometry() >= 0 && this.getGeometry() < geometryXML.length) {
         	sb.append("   <"+XMLTags.ATTRIBUTES_TAG+">\n");
         	sb.append("      " + geometryXML[this.getGeometry()] + "\n");
@@ -244,8 +244,8 @@ public class Universal {
 	public String getReadPermissionsTag() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<"+XMLTags.MD_BUSINESS_PERMISSION_TAG+" "+XMLTags.TYPE_ATTRIBUTE+"=\"" + this.getType() + "\">\n");
-        sb.append("   <"+XMLTags.OPERATION_TAG+" "+XMLTags.ATTRIBUTE_ATTRIBUTE+"=\"READ\" />\n");
-		sb.append("   <"+XMLTags.OPERATION_TAG+" "+XMLTags.ATTRIBUTE_ATTRIBUTE+"=\""+XMLTags.READ_ALL+"\" />\n");
+        sb.append("   <"+XMLTags.OPERATION_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\""+XMLTags.READ+"\" />\n");
+		sb.append("   <"+XMLTags.OPERATION_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\""+XMLTags.READ_ALL_ATTRIBUTES+"\" />\n");
 		sb.append("</"+XMLTags.MD_BUSINESS_PERMISSION_TAG+">\n");
 		return sb.toString();
 	}
@@ -253,10 +253,10 @@ public class Universal {
 	public String getUpdatePermissionsTag() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<"+XMLTags.MD_BUSINESS_PERMISSION_TAG+" type=\"" + this.getType() + "\">\n");
-        sb.append("   <"+XMLTags.OPERATION_TAG+" "+XMLTags.ATTRIBUTE_ATTRIBUTE+"=\"CREATE\" />\n");
-		sb.append("   <"+XMLTags.OPERATION_TAG+" "+XMLTags.ATTRIBUTE_ATTRIBUTE+"=\"WRITE\" />\n");
-		sb.append("   <"+XMLTags.OPERATION_TAG+" "+XMLTags.ATTRIBUTE_ATTRIBUTE+"=\""+XMLTags.WRITE_ALL+"\" />\n");
-		sb.append("   <"+XMLTags.OPERATION_TAG+" "+XMLTags.ATTRIBUTE_ATTRIBUTE+"=\"DELETE\" />\n");
+        sb.append("   <"+XMLTags.OPERATION_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\""+XMLTags.CREATE+"\" />\n");
+		sb.append("   <"+XMLTags.OPERATION_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\""+XMLTags.WRITE+"\" />\n");
+		sb.append("   <"+XMLTags.OPERATION_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\""+XMLTags.WRITE_ALL_ATTRIBUTES+"\" />\n");
+		sb.append("   <"+XMLTags.OPERATION_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\""+XMLTags.DELETE+"\" />\n");
 		sb.append("</"+XMLTags.MD_BUSINESS_PERMISSION_TAG+">\n");
 		return sb.toString();
 	}
@@ -276,7 +276,6 @@ public class Universal {
 		StringBuffer sb = new StringBuffer();
 		sb.append("   <object\n");
     	sb.append("      "+XMLTags.KEY_ATTRIBUTE+"=\"" + this.getType() + "\"\n");
-//    	sb.append("      id=\"" + this.getName() + "Md\"\n");
     	sb.append("      "+XMLTags.TYPE_ATTRIBUTE+"=\""+MdBusinessInfo.CLASS+"\" />\n");
 		return sb.toString();
 	}
@@ -284,18 +283,17 @@ public class Universal {
 	public String getGeoHierarchyTag() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<"+XMLTags.OBJECT_TAG+"\n");
-//		sb.append("   id=\"" + this.getName() + "H\"\n");
 		sb.append("   "+XMLTags.TYPE_ATTRIBUTE+"=\"dss.vector.solutions.geo.GeoHierarchy\"\n");
 		sb.append("   "+XMLTags.KEY_ATTRIBUTE+"=\"" + this.getType() + "\">\n");
-		sb.append("   <"+XMLTags.VALUE_ATTRIBUTE_TAG+"\n");
-		sb.append("      "+XMLTags.ATTRIBUTE_ATTRIBUTE+"=\"political\"\n");
-		sb.append("      "+XMLTags.VALUE_ATTRIBUTE+"=\"" + (this.isPolitical() ? "true" : "false") + "\" />\n");
-		sb.append("   <"+XMLTags.VALUE_ATTRIBUTE_TAG+"\n");
-		sb.append("      "+XMLTags.ATTRIBUTE_ATTRIBUTE+"=\"sprayTargetAllowed\"\n");
-		sb.append("      "+XMLTags.VALUE_ATTRIBUTE+"=\"" + (this.isSprayTarget() ? "true" : "false") + "\" />\n");
-		sb.append("   <"+XMLTags.REFERENCE_ATTRIBUTE_TAG+"\n");
-		sb.append("      "+XMLTags.ATTRIBUTE_ATTRIBUTE+"=\"geoEntityClass\"\n");
-        sb.append("      "+XMLTags.KEY_ATTRIBUTE+"=\"" + this.getType() + "\"/>\n");
+		sb.append("   <"+XMLTags.ATTRIBUTE_TAG+"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"political\"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"" + (this.isPolitical() ? "true" : "false") + "\" />\n");
+		sb.append("   <"+XMLTags.ATTRIBUTE_TAG+"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"sprayTargetAllowed\"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"" + (this.isSprayTarget() ? "true" : "false") + "\" />\n");
+		sb.append("   <"+XMLTags.ATTRIBUTE_REFERENCE_TAG+"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"geoEntityClass\"\n");
+        sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"" + this.getType() + "\"/>\n");
 		sb.append("</"+XMLTags.OBJECT_TAG+">\n");
 		return sb.toString();
 	}

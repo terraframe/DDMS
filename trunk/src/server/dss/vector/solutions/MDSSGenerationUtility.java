@@ -16,7 +16,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 public class MDSSGenerationUtility implements Reloadable
 {
   public static final String MESSAGE_TAG = "fmt:message";
-  
+
   public static final String C_SET = "c:set";
 
 
@@ -70,15 +70,15 @@ public class MDSSGenerationUtility implements Reloadable
 
     writer.writeEmptyTag(C_SET, map);
   }
-  
+
   public static boolean isAGeoEntity(MdBusinessDAOIF mdBusiness)
   {
     List<MdBusinessDAOIF> superClasses = mdBusiness.getSuperClasses();
-    boolean contains = superClasses.contains(MdBusiness.getMdBusiness(GeoEntity.CLASS));
+    boolean contains = superClasses.contains(MdBusiness.getMdBusiness("dss.vector.solutions.geo.generated.GeoEntity"));
 
     return contains;
   }
-  
+
   public static boolean definesAttribute(MdEntityDAOIF mdEntity, String attributeName)
   {
     for(MdEntityDAOIF superEntity : mdEntity.getSuperClasses())
@@ -87,11 +87,11 @@ public class MDSSGenerationUtility implements Reloadable
       {
         return true;
       }
-    }  
-    
-    return false;    
+    }
+
+    return false;
   }
-  
+
   public static boolean hasGeoEntityReference(MdEntityDAOIF mdEntity)
   {
     for(MdEntityDAOIF superEntity : mdEntity.getSuperClasses())
@@ -101,15 +101,15 @@ public class MDSSGenerationUtility implements Reloadable
         if(mdAttribute instanceof MdAttributeReferenceDAOIF)
         {
           MdBusinessDAOIF mdBusiness = ((MdAttributeReferenceDAOIF) mdAttribute).getReferenceMdBusinessDAO();
-          
+
           if(MDSSGenerationUtility.isAGeoEntity(mdBusiness))
           {
             return true;
           }
         }
       }
-    }  
-    
+    }
+
     return false;
   }
 

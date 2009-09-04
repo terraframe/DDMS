@@ -883,19 +883,19 @@
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
         key="dss.vector.solutions.surveillance.InfiantCaseView">
-        <valueAttribute
+        <attribute
           name="startAge"
           value="0" />
-        <valueAttribute
+        <attribute
           name="endAge"
           value="1" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="0 &lt; 1" />
-        <valueAttribute
+        <attribute
           name="active"
           value="true" />
-        <referenceAttribute
+        <attributeReference
           name="mdView"
           key="dss.vector.solutions.surveillance.InfiantCaseView" />
       </object>
@@ -903,19 +903,19 @@
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
         key="dss.vector.solutions.surveillance.ChildCaseView">
-        <valueAttribute
+        <attribute
           name="startAge"
           value="1" />
-        <valueAttribute
+        <attribute
           name="endAge"
           value="5" />
-        <valueAttribute
+        <attribute
           name="active"
           value="true" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="1 &lt; 5" />
-        <referenceAttribute
+        <attributeReference
           name="mdView"
           key="dss.vector.solutions.surveillance.ChildCaseView" />
       </object>
@@ -923,19 +923,19 @@
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
         key="dss.vector.solutions.surveillance.TeenCaseView">
-        <valueAttribute
+        <attribute
           name="startAge"
           value="5" />
-        <valueAttribute
+        <attribute
           name="endAge"
           value="14" />
-        <valueAttribute
+        <attribute
           name="active"
           value="true" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="5 &lt; 14" />
-        <referenceAttribute
+        <attributeReference
           name="mdView"
           key="dss.vector.solutions.surveillance.TeenCaseView" />
       </object>
@@ -943,19 +943,19 @@
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
         key="dss.vector.solutions.surveillance.AdultCaseView">
-        <valueAttribute
+        <attribute
           name="startAge"
           value="14" />
-        <valueAttribute
+        <attribute
           name="endAge"
           value="200" />
-        <valueAttribute
+        <attribute
           name="active"
           value="true" />
-        <valueAttribute
+        <attribute
           name="displayLabel"
           value="14+" />
-        <referenceAttribute
+        <attributeReference
           name="mdView"
           key="dss.vector.solutions.surveillance.AdultCaseView" />
       </object>

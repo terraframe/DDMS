@@ -6,26 +6,26 @@
         <grant>
           <mdViewPermission type="dss.vector.solutions.geo.GeoHierarchy">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdViewPermission>
 
           <mdViewPermission type="dss.vector.solutions.geo.GeoEntityView">
             <operation name="CREATE" />
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
 
           <mdBusinessPermission
             type="dss.vector.solutions.geo.generated.GeoEntity">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
           <mdRelationshipPermission type="dss.vector.solutions.geo.LocatedIn">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="READ_CHILD" />
             <operation name="READ_PARENT" />
           </mdRelationshipPermission>
@@ -43,68 +43,68 @@
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.Net">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.NetHeiarchy">
             <operation name="READ" />
             <operation name="READ_PARENT" />
             <operation name="READ_CHILD" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.WindowMaster">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.Household">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.SurveyHousehold">
             <operation name="READ" />
             <operation name="READ_PARENT" />
             <operation name="READ_CHILD" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.HouseholdNet">
             <operation name="READ" />
             <operation name="READ_PARENT" />
             <operation name="READ_CHILD" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.SexMaster">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.ResponseMaster">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.RDTResultMaster">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.HouseholdPerson">
             <operation name="READ" />
             <operation name="READ_PARENT" />
             <operation name="READ_CHILD" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
           <mdViewPermission
             type="dss.vector.solutions.intervention.monitor.PersonView">
             <operation name="READ" />
-            <operation name="READ_ALL" />
+            <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="CREATE" />
-            <operation name="WRITE_ALL" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
         </grant>
       </role>
@@ -114,42 +114,42 @@
             type="dss.vector.solutions.intervention.monitor.SurveyPoint">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.Household">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.SurveyHousehold">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.HouseholdNet">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.Person">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.HouseholdPerson">
             <operation name="CREATE" />
             <operation name="WRITE" />
-            <operation name="WRITE_ALL" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
         </grant>
