@@ -25,6 +25,14 @@ public class SavedSearch extends SavedSearchBase implements
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    // Ask Naifeh if this is a valid key
+//    return this.getQueryType() + "-" + this.getQueryName();
+    return this.getId();
+  }
 
   /**
    * Checks that a search name is unique for a user on a given SavedSearch
