@@ -876,7 +876,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Logger', {
     // FIXME use faster method for IE
     addRow : function(html)
     {
-      if(this._rowCount === this.constructor.MAX_ROWS)
+      if(this._rowCount > this.constructor.MAX_ROWS)
       {
         this.removeOldest();
       }
@@ -889,7 +889,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Logger', {
     
     removeOldest : function()
     {
-      this._logger.removeRow(this._rowCount-1);
+      this._tracer.deleteRow(this.constructor.MAX_ROWS+1);
     }
   }
   
@@ -937,14 +937,14 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
     },
     
     // FIXME use faster method for IE
-    addRow : function(html)
+    addRow : function(html, id)
     {
-      if(this._rowCount === this.constructor.MAX_ROWS)
+      if(this._rowCount > this.constructor.MAX_ROWS)
       {
         this.removeOldest();
       }
       
-      var tr = this._logger.insertRow(1);
+      var tr = this._tracer.insertRow(1);
       tr.id = id+'_row';
       tr.innerHTML = html;
       
@@ -953,7 +953,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
     
     removeOldest : function()
     {
-      this._logger.removeRow(this._rowCount-1);
+      this._tracer.deleteRow(this.constructor.MAX_ROWS+1);
     },
     
     beforeTrace : function(context, args, klass, method)
@@ -1033,6 +1033,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
         Mojo.$.com.terraframe.mojo.Base.prototype.toString.call(context) : context.toString();
     
       var html = '';
+      html += '<td>'+this._rowCount+'</td>';
       html += '<td>'+Mojo.Util.toISO8601(new Date())+'</td>';
       html += '<td>AFTER</td>';
       html += '<td>'+this.constructor.viewClassAction(klass)+'</td>';
