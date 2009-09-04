@@ -659,13 +659,13 @@
   <xs:complexType name="entity">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <!--The attribute-value pairings of the object-->
-      <xs:element ref="valueAttribute" />
+      <xs:element ref="attribute" />
       <!--The attribute-xml id pairing of the object-->
-      <xs:element ref="referenceAttribute" />
+      <xs:element ref="attributeReference" />
       <!--The attribute-multi xml id pairing of the object-->
-      <xs:element ref="selectionAttribute" />
+      <xs:element ref="attributeEnumeration" />
       <!--The struct attribute values-->
-      <xs:element ref="structAttribute" />
+      <xs:element ref="attributeStruct" />
     </xs:choice>
     <!--The qualified path of the mdBusiness being instaniated-->
     <xs:attribute name="type" type="xs:string" use="required" />
@@ -687,7 +687,7 @@
   </xs:complexType>
 
   <!--Sets the value of an attribute for a particular object-->
-  <xs:element name="valueAttribute">
+  <xs:element name="attribute">
     <xs:complexType>
       <!--attribute: The name of the attribute instantiated-->
       <xs:attribute name="name" type="xs:string" use="required" />
@@ -697,7 +697,7 @@
   </xs:element>
 
   <!--Sets the value of an attribute which references another object-->
-  <xs:element name="referenceAttribute">
+  <xs:element name="attributeReference">
     <xs:complexType>
       <!--attribute: The name of the attribute instantiated-->
       <xs:attribute name="name" type="xs:string" use="required" />
@@ -709,7 +709,7 @@
   <!--
     Sets the value of an attribute which references multiple instances
   -->
-  <xs:element name="selectionAttribute">
+  <xs:element name="attributeEnumeration">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="enumeratedItem" minOccurs="0"
@@ -727,15 +727,15 @@
   <!--
     Use for object of struct attributes, must reference standalone type
   -->
-  <xs:element name="structAttribute">
+  <xs:element name="attributeStruct">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <!--The attribute-value pairings of the object-->
-        <xs:element ref="valueAttribute" />
+        <xs:element ref="attribute" />
         <!--The attribute-multi xml id pairing of the object-->
-        <xs:element ref="selectionAttribute" />
+        <xs:element ref="attributeEnumeration" />
         <!--The attribute-xml id pairing of the object-->
-        <xs:element ref="referenceAttribute" />
+        <xs:element ref="attributeReference" />
       </xs:choice>
       <!--attribute: The name of the struct attribute-->
       <xs:attribute name="name" type="xs:string" use="required" />
@@ -829,17 +829,17 @@
   <xs:attributeGroup name="attributePrimitive">
     <xs:attributeGroup ref="attribute" />
     <!--
-      default_value: The value of the attribute if no other value is
+      defaultValue: The value of the attribute if no other value is
       specified
     -->
-    <xs:attribute name="default_value" type="xs:string" />
+    <xs:attribute name="defaultValue" type="xs:string" />
   </xs:attributeGroup>
 
   <!--
     Common Attributes of integer, long, float, double, float, and
     decimal attributes
   -->
-  <xs:attributeGroup name="attributenumber">
+  <xs:attributeGroup name="attributeNumber">
     <xs:attributeGroup ref="attributePrimitive" />
     <!--rejectPositive: Positive numbers are not allowed -->
     <xs:attribute name="rejectPositive" type="xs:boolean" />
@@ -850,8 +850,8 @@
   </xs:attributeGroup>
 
   <!--Common Attributes of float, double, and decimal attributes-->
-  <xs:attributeGroup name="attributedec">
-    <xs:attributeGroup ref="attributenumber" />
+  <xs:attributeGroup name="attributeDec">
+    <xs:attributeGroup ref="attributeNumber" />
     <!--Length: Total number of digits-->
     <xs:attribute name="length" type="xs:integer" />
     <!--Decimal: The number of digits after the decimal point-->
@@ -863,13 +863,13 @@
     Common Attributes of reference, foreginProperty, and enumeration
     attributes
   -->
-  <xs:attributeGroup name="attributereference">
+  <xs:attributeGroup name="attributeReference">
     <xs:attributeGroup ref="attribute" />
     <!--
-      default_value_key: The value of the attribute if no other value is
+      defaultValueKey: The value of the attribute if no other value is
       specified
     -->
-    <xs:attribute name="default_value_key" type="xs:string" />
+    <xs:attribute name="defaultValueKey" type="xs:string" />
 
     <!--The fully qualified path of Object being referenced-->
     <xs:attribute name="type" type="xs:string" />
@@ -885,10 +885,10 @@
   <xs:attributeGroup name="attributeEncryption">
     <xs:attributeGroup ref="attribute" />
     <!--
-      default_value: The value of the attribute if no other value is
+      defaultValue: The value of the attribute if no other value is
       specified
     -->
-    <xs:attribute name="default_value" type="xs:string" />
+    <xs:attribute name="defaultValue" type="xs:string" />
   </xs:attributeGroup>
 
   <!--Represents a Char object in the database-->
@@ -912,27 +912,27 @@
 
   <!--Represents a Double object in the database-->
   <xs:complexType name="integer">
-    <xs:attributeGroup ref="attributenumber" />
+    <xs:attributeGroup ref="attributeNumber" />
   </xs:complexType>
 
   <!--Represents a Long object in the database-->
   <xs:complexType name="long">
-    <xs:attributeGroup ref="attributenumber" />
+    <xs:attributeGroup ref="attributeNumber" />
   </xs:complexType>
 
   <!--Represents a Float object in the database-->
   <xs:complexType name="float">
-    <xs:attributeGroup ref="attributedec" />
+    <xs:attributeGroup ref="attributeDec" />
   </xs:complexType>
 
   <!--Represents a Double object in the database-->
   <xs:complexType name="double">
-    <xs:attributeGroup ref="attributedec" />
+    <xs:attributeGroup ref="attributeDec" />
   </xs:complexType>
 
   <!--Represents a Decimal object in the database-->
   <xs:complexType name="decimal">
-    <xs:attributeGroup ref="attributedec" />
+    <xs:attributeGroup ref="attributeDec" />
   </xs:complexType>
 
   <!--Represents a Time object in the database-->
@@ -952,7 +952,7 @@
 
   <!-- referenceName: Must reference a defined mdBusiness type -->
   <xs:complexType name="reference">
-    <xs:attributeGroup ref="attributereference" />
+    <xs:attributeGroup ref="attributeReference" />
   </xs:complexType>
 
   <!-- local character: a localized character attribute -->
@@ -970,7 +970,7 @@
     selectMultiple: Check boxes vs. Radio Buttons
   -->
   <xs:complexType name="enumeration">
-    <xs:attributeGroup ref="attributereference" />
+    <xs:attributeGroup ref="attributeReference" />
     <!--
       selectMultipe: If multiple values of the enumeration can be
       checked simulataneously
@@ -1247,8 +1247,8 @@
       <xs:enumeration value="GRANT" />
       <xs:enumeration value="REVOKE" />
       <xs:enumeration value="EXECUTE" />
-      <xs:enumeration value="READ_ALL" />
-      <xs:enumeration value="WRITE_ALL" />
+      <xs:enumeration value="READ_ALL_ATTRIBUTES" />
+      <xs:enumeration value="WRITE_ALL_ATTRIBUTES" />
     </xs:restriction>
   </xs:simpleType>
 
