@@ -14,4 +14,10 @@ public class CollectionMosquito extends CollectionMosquitoBase implements com.te
     this(parent.getId(), child.getId());
   }
   
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().getKey() + "-" + this.getChild().getSampleId();
+  }
+  
 }
