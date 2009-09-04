@@ -17,4 +17,12 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
   {
     GeoEntityAllPathBuilder.main(new String[]{});
   }
+  
+  
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Naifeh needs to define this key
+    return this.getId();
+  }
 }

@@ -11,4 +11,11 @@ public class SpatialMaster extends SpatialMasterBase implements com.terraframe.m
     super();
   }
   
+  
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Naifeh needs to define this key
+    return this.getId();
+  }
 }
