@@ -47,12 +47,12 @@ MDSS.QueryXML.objectToXML = function(obj)
   for(var key in obj)
   {
     var value = obj[key];
-    if(Mojo.util.isObject(value))
+    if(Mojo.Util.isObject(value))
     {
       var fragment = MDSS.QueryXML.objectToXML(value);
       xml += toXML(key, fragment);
     }
-    else if(Mojo.util.isArray(value))
+    else if(Mojo.Util.isArray(value))
     {
       // collect all elements under current name
       var subXML = '';
@@ -177,7 +177,7 @@ MDSS.QueryXML.Entities.prototype = {
 
   build : function()
   {
-    var entities = Mojo.util.getValues(this._entityMap);
+    var entities = Mojo.Util.getValues(this._entityMap);
     var entitiesArray = [];
     for(var i=0; i<entities.length; i++)
     {
@@ -301,7 +301,7 @@ MDSS.QueryXML.Or.prototype = {
 
   getSize : function()
   {
-    return Mojo.util.getKeys(this._conditions).length;
+    return Mojo.Util.getKeys(this._conditions).length;
   },
 
   addCondition : function(key, condition)
@@ -321,7 +321,7 @@ MDSS.QueryXML.Or.prototype = {
 
   build : function()
   {
-    var conditions = Mojo.util.getValues(this._conditions);
+    var conditions = Mojo.Util.getValues(this._conditions);
     var conditionsArray = [];
     for(var i=0; i<conditions.length; i++)
     {
@@ -347,7 +347,7 @@ MDSS.QueryXML.And.prototype = {
 
   getSize : function()
   {
-    return Mojo.util.getKeys(this._conditions).length;
+    return Mojo.Util.getKeys(this._conditions).length;
   },
 
   addCondition : function(key, condition)
@@ -367,7 +367,7 @@ MDSS.QueryXML.And.prototype = {
 
   build : function()
   {
-    var conditions = Mojo.util.getValues(this._conditions);
+    var conditions = Mojo.Util.getValues(this._conditions);
     var conditionsArray = [];
     for(var i=0; i<conditions.length; i++)
     {
@@ -414,7 +414,7 @@ MDSS.QueryXML.Select.prototype = {
 
   build : function()
   {
-    var selectables = Mojo.util.getValues(this._selectableMap);
+    var selectables = Mojo.Util.getValues(this._selectableMap);
     var selectablesArray = [];
 
     for(var i=0; i<selectables.length; i++)
@@ -754,7 +754,7 @@ MDSS.QueryXML.GroupBy.prototype = {
 
   build : function()
   {
-    var selectables = Mojo.util.getValues(this._selectableMap);
+    var selectables = Mojo.Util.getValues(this._selectableMap);
     var selectablesArray = [];
 
     for(var i=0; i<selectables.length; i++)
@@ -812,8 +812,8 @@ MDSS.Query.Config = function(configJSON)
 
   if(configJSON != null)
   {
-    var config = Mojo.util.getObject(configJSON);
-    Mojo.util.copy(config._config, this._config);
+    var config = Mojo.Util.getObject(configJSON);
+    Mojo.Util.copy(config._config, this._config);
   }
 };
 
@@ -863,7 +863,7 @@ MDSS.Query.Config.prototype = {
 
   getJSON : function()
   {
-    return Mojo.util.getJSON(this._config);
+    return Mojo.Util.getJSON(this._config);
   }
 };
 
@@ -911,7 +911,7 @@ MDSS.Query.Parser.prototype = {
       }
 
       var first = child.firstChild;
-      if(Mojo.util.isFunction(handlers[first.nodeName]))
+      if(Mojo.Util.isFunction(handlers[first.nodeName]))
       {
         var entityAlias = this._getValue(first, 'entityAlias');
         var attributeName = this._getValue(first, 'name');
@@ -938,7 +938,7 @@ MDSS.Query.Parser.prototype = {
       {
         var selectable = selectables[j];
         var attribute = selectable.firstChild;
-        if(Mojo.util.isFunction(handlers[attribute.nodeName]))
+        if(Mojo.Util.isFunction(handlers[attribute.nodeName]))
         {
           var entityAlias = this._getValue(selectable, 'entityAlias');
           var attributeName = this._getValue(selectable, 'name');

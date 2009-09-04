@@ -442,7 +442,7 @@ MojoGrid.createDataTable = function(table_data) {
       });
 
       function setValue(){
-        var setter_exists = Mojo.util.isFunction(view['set' + attrib.key]);
+        var setter_exists = Mojo.Util.isFunction(view['set' + attrib.key]);
         if (setter_exists) {
           if (val != null) {
             if (view.attributeMap[attribName].dtoType == "AttributeDateDTO") {
@@ -457,7 +457,7 @@ MojoGrid.createDataTable = function(table_data) {
         }
         else{
            // enum setters start with "add" instead of "set"
-          var setter_exists = Mojo.util.isFunction(view['add' + attrib.key]);
+          var setter_exists = Mojo.Util.isFunction(view['add' + attrib.key]);
           if (setter_exists) {
             view['add' + attrib.key](val);
           }
@@ -468,7 +468,7 @@ MojoGrid.createDataTable = function(table_data) {
 
       for ( var r = 0; r < table_data.rows.length; r++) {
         var row = table_data.rows[r];
-        var view_contructor = Mojo.util.getType(table_data.data_type);
+        var view_contructor = Mojo.Meta.findClass(table_data.data_type);
         var view = new view_contructor();
 
         for ( var i = 0; i < table_data.fields.length; i++) {
@@ -521,7 +521,7 @@ MojoGrid.createDataTable = function(table_data) {
   var addRow = function() {
 	  
 	// Execute before row add
-    if(typeof beforeRowAdd !== 'undefined' && Mojo.util.isFunction(beforeRowAdd))
+    if(typeof beforeRowAdd !== 'undefined' && Mojo.Util.isFunction(beforeRowAdd))
     {
     	beforeRowAdd();
     }    
@@ -549,7 +549,7 @@ MojoGrid.createDataTable = function(table_data) {
     btnSaveRows.set("disabled", false);    
     
 	// Execute after row add
-    if(typeof afterRowAdd !== 'undefined' && Mojo.util.isFunction(afterRowAdd))
+    if(typeof afterRowAdd !== 'undefined' && Mojo.Util.isFunction(afterRowAdd))
     {    	
     	var index = myDataTable.getRecordSet().getLength() - 1;
     	afterRowAdd(myDataTable.getRecord(index), index);

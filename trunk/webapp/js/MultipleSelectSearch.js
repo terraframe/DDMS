@@ -1,283 +1,288 @@
 /**
  * Class that represents multiple select search functionality for GeoEntities.
  */
-MDSS.MultipleSelectSearch = Mojo.Class.create();
-MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearch, {
+Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
 
-  /**
-   * Constructor.
-   */
-  initialize : function()
-  {
-    MDSS.AbstractSelectSearch.prototype.initialize.call(this);
+  Extends : MDSS.AbstractSelectSearch,
+  
+  Instance : {
 
-    // map of currently selected objects
-    this._criteriaMap = {};
-    this._CURRENT_SELECTIONS = 'currentSelections';
-    
-    this._initSelectedUniversals = [];
-  },
-  
-  _notifyTreeSelectHandler : function(geoEntityView)
-  {
-    this._updateSelection(geoEntityView, true);
-  },
-  
-  setSelectedUniversals : function(selected)
-  {
-    if(this._rendered)
+    /**
+     * Constructor.
+     */
+    initialize : function()
     {
-      var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
-      for(var i=0; i<checkboxes.length; i++)
-      {
-        var check = checkboxes[i];
-        if(check.checked)
-        {
-          check.checked = false;
-        }
-      }
-    }
-    else
-    {
+      this.$initialize();
+  
+      // map of currently selected objects
+      this._criteriaMap = {};
+      this._CURRENT_SELECTIONS = 'currentSelections';
+      
       this._initSelectedUniversals = [];
-    }
-  
-    for(var i=0; i<selected.length; i++)
+    },
+    
+    _notifyTreeSelectHandler : function(geoEntityView)
+    {
+      this._updateSelection(geoEntityView, true);
+    },
+    
+    setSelectedUniversals : function(selected)
     {
       if(this._rendered)
       {
-        document.getElementById(selected[i]+'_selectUniversalType').checked = true;
+        var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
+        for(var i=0; i<checkboxes.length; i++)
+        {
+          var check = checkboxes[i];
+          if(check.checked)
+          {
+            check.checked = false;
+          }
+        }
       }
       else
       {
-        this._initSelectedUniversals.push(selected[i]);
+        this._initSelectedUniversals = [];
       }
-    }
-  },
-
-  /**
-   * Override to handle shift+click.
-   */
-  _getChildren : function(e)
-  {
-    if(e.shiftKey)
+    
+      for(var i=0; i<selected.length; i++)
+      {
+        if(this._rendered)
+        {
+          document.getElementById(selected[i]+'_selectUniversalType').checked = true;
+        }
+        else
+        {
+          this._initSelectedUniversals.push(selected[i]);
+        }
+      }
+    },
+  
+    /**
+     * Override to handle shift+click.
+     */
+    _getChildren : function(e)
     {
-      var currentOption = e.target;
-      var select = currentOption.parentNode;
-      var geoEntityView = this._geoEntityViewCache[currentOption.id];
-
-      // don't allow Earth
-      if(geoEntityView.getEntityType() === "dss.vector.solutions.geo.generated.Earth")
+      if(e.shiftKey)
+      {
+        var currentOption = e.target;
+        var select = currentOption.parentNode;
+        var geoEntityView = this._geoEntityViewCache[currentOption.id];
+  
+        // don't allow Earth
+        if(geoEntityView.getEntityType() === "dss.vector.solutions.geo.generated.Earth")
+        {
+          return;
+        }
+  
+        this._updateSelection(geoEntityView, true);
+      }
+      else
+      {
+        this.$_getChildren(e);
+      }
+    },
+    
+    /**
+     * Sets the query criteria on this search. The criteria
+     * are the geo entities by which the user is restricting the
+     * query. This will clear any prior selected options.
+     */
+    setCriteria : function(criteria)
+    {
+      this._criteriaMap = {};
+      
+      if(this._rendered)
+      {
+        var selections = document.getElementById(this._CURRENT_SELECTIONS);
+        selections.innerHTML = '';
+      }
+    
+      for(var i=0; i<criteria.length; i++)
+      {
+        this._updateSelection(criteria[i], this._rendered);
+      }
+    },
+  
+    /**
+     * Adds the given GeoEntity to the list of current selections.
+     */
+    _updateSelection : function(geoEntityView, updateList)
+    {
+      var id = geoEntityView.getGeoEntityId();
+  
+      // check the geo entity hasn't already been selected
+      if(Mojo.Util.isObject(this._criteriaMap[id]))
       {
         return;
       }
-
-      this._updateSelection(geoEntityView, true);
-    }
-    else
-    {
-      MDSS.AbstractSelectSearch.prototype._getChildren.call(this, e);
-    }
-  },
-  
-  /**
-   * Sets the query criteria on this search. The criteria
-   * are the geo entities by which the user is restricting the
-   * query. This will clear any prior selected options.
-   */
-  setCriteria : function(criteria)
-  {
-    this._criteriaMap = {};
-    
-    if(this._rendered)
-    {
-      var selections = document.getElementById(this._CURRENT_SELECTIONS);
-      selections.innerHTML = '';
-    }
-  
-    for(var i=0; i<criteria.length; i++)
-    {
-      this._updateSelection(criteria[i], this._rendered);
-    }
-  },
-
-  /**
-   * Adds the given GeoEntity to the list of current selections.
-   */
-  _updateSelection : function(geoEntityView, updateList)
-  {
-    var id = geoEntityView.getGeoEntityId();
-
-    // check the geo entity hasn't already been selected
-    if(Mojo.util.isObject(this._criteriaMap[id]))
-    {
-      return;
-    }
-    else
-    {
-      this._criteriaMap[id] = geoEntityView;
-    }
-
-    if(updateList)
-    {
-      this._updateSelectionList(geoEntityView);
-    }
-  },
-  
-  /**
-   * 
-   */
-  _updateSelectionList : function(geoEntityView)
-  {
-    var liId = geoEntityView.getGeoEntityId()+"_selected";
-
-    var li = document.createElement('li');
-    li.id = liId;
-
-    var del = document.createElement('img');
-    YAHOO.util.Dom.setAttribute(del, 'src', 'imgs/icons/delete.png');
-    YAHOO.util.Event.on(del, 'click', this._deleteSelection, liId, this);
-
-    var span = document.createElement('span');
-    span.innerHTML = geoEntityView.getEntityName() + ' ('+geoEntityView.getGeoId()+')';
-
-    var div = document.createElement('div');
-    div.appendChild(del);
-    div.appendChild(span);
-
-    li.appendChild(div);
-
-    var selections = document.getElementById(this._CURRENT_SELECTIONS);
-    selections.appendChild(li);
-  },
-  
-  /**
-   * Deletes the li element from the current selection list.
-   * The GeoEntity associated with that selection will no longer
-   * be passed to the calling process.
-   */
-  _deleteSelection : function(e, liId)
-  {
-  	var id = liId.replace(/_selected/, '');
-    delete this._criteriaMap[id];
-
-    var li = document.getElementById(liId);
-    var ul = li.parentNode;
-    ul.removeChild(li);
-  },
-
-  _notifyHideHandler : function()
-  {
-    if(Mojo.util.isFunction(this._hideHandler))
-    {
-      var entities = Mojo.util.getValues(this._criteriaMap);
-      var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
-      var selected = [];
-      for(var i=0; i<checkboxes.length; i++)
+      else
       {
-      	var check = checkboxes[i];
-      	if(check.checked)
-      	{
-          var type = check.value;
-          selected.push(type);
+        this._criteriaMap[id] = geoEntityView;
+      }
+  
+      if(updateList)
+      {
+        this._updateSelectionList(geoEntityView);
+      }
+    },
+    
+    /**
+     * 
+     */
+    _updateSelectionList : function(geoEntityView)
+    {
+      var liId = geoEntityView.getGeoEntityId()+"_selected";
+  
+      var li = document.createElement('li');
+      li.id = liId;
+  
+      var del = document.createElement('img');
+      YAHOO.util.Dom.setAttribute(del, 'src', 'imgs/icons/delete.png');
+      YAHOO.util.Event.on(del, 'click', this._deleteSelection, liId, this);
+  
+      var span = document.createElement('span');
+      span.innerHTML = geoEntityView.getEntityName() + ' ('+geoEntityView.getGeoId()+')';
+  
+      var div = document.createElement('div');
+      div.appendChild(del);
+      div.appendChild(span);
+  
+      li.appendChild(div);
+  
+      var selections = document.getElementById(this._CURRENT_SELECTIONS);
+      selections.appendChild(li);
+    },
+    
+    /**
+     * Deletes the li element from the current selection list.
+     * The GeoEntity associated with that selection will no longer
+     * be passed to the calling process.
+     */
+    _deleteSelection : function(e, liId)
+    {
+      var id = liId.replace(/_selected/, '');
+      delete this._criteriaMap[id];
+  
+      var li = document.getElementById(liId);
+      var ul = li.parentNode;
+      ul.removeChild(li);
+    },
+  
+    _notifyHideHandler : function()
+    {
+      if(Mojo.Util.isFunction(this._hideHandler))
+      {
+        var entities = Mojo.Util.getValues(this._criteriaMap);
+        var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
+        var selected = [];
+        for(var i=0; i<checkboxes.length; i++)
+        {
+          var check = checkboxes[i];
+          if(check.checked)
+          {
+            var type = check.value;
+            selected.push(type);
+          }
         }
+  
+        this._hideHandler(entities, selected);
       }
-
-      this._hideHandler(entities, selected);
-    }
-  },
-
-  /**
-   * Changes the type of query/map geo entity type to that of the current
-   * value in the select list.
-   */
-  _restrictType : function(e)
-  {
-    var select = e.target;
-    var option = select.options[select.selectedIndex];
-    var type = option.value;
-
-    if(select.selectedIndex === 0)
+    },
+  
+    /**
+     * Changes the type of query/map geo entity type to that of the current
+     * value in the select list.
+     */
+    _restrictType : function(e)
     {
-      // don't do anything for the first "Select One" entry
-      return;
-    }
-
-    // clear all prior information if the user is selecting
-    // a new restricting type
-    if(this._restrictingType != null)
-    {
-      var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
-      for(var i=0; i<checkboxes.length; i++)
+      var select = e.target;
+      var option = select.options[select.selectedIndex];
+      var type = option.value;
+  
+      if(select.selectedIndex === 0)
       {
-        checkboxes[i].checked = false;
+        // don't do anything for the first "Select One" entry
+        return;
       }
-
-      var selections = document.getElementById(this._CURRENT_SELECTIONS);
-      selections.innerHTML = '';
-      this._criteriaMap = {};
-
-      this._createRoot();
-    }
-
-    document.getElementById(type+"_selectUniversalType").checked = true;
-
-    this._restrictingType = type;
-
-    // check the universal associated with the restricted type
-  	var construct = Mojo.util.getType(type);
-  	var geoEntity = new construct();
-    var geoEntityView = this._copyEntityToView(geoEntity);
-
-    this._notifySelectHandler(geoEntityView);
-  },
-
-  /**
-   * Adds click handlers to the
-   * Select All options.
-   */
-  _postRender : function()
-  {
-    // create toggle events to display selectable types
-    var toggles = YAHOO.util.Selector.query('input.selectUniversalType', this._SELECT_CONTAINER_ID);
-    for(var i=0; i<toggles.length; i++)
+  
+      // clear all prior information if the user is selecting
+      // a new restricting type
+      if(this._restrictingType != null)
+      {
+        var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
+        for(var i=0; i<checkboxes.length; i++)
+        {
+          checkboxes[i].checked = false;
+        }
+  
+        var selections = document.getElementById(this._CURRENT_SELECTIONS);
+        selections.innerHTML = '';
+        this._criteriaMap = {};
+  
+        this._createRoot();
+      }
+  
+      document.getElementById(type+"_selectUniversalType").checked = true;
+  
+      this._restrictingType = type;
+  
+      // check the universal associated with the restricted type
+      var construct = Mojo.Meta.findClass(type);
+      var geoEntity = new construct();
+      var geoEntityView = this._copyEntityToView(geoEntity);
+  
+      this._notifySelectHandler(geoEntityView);
+    },
+  
+    /**
+     * Adds click handlers to the
+     * Select All options.
+     */
+    _postRender : function()
     {
-      var toggle = toggles[i];
-      YAHOO.util.Event.on(toggle, 'click', this._notifySelectUniversalTypeHandler, toggle.value, this);
-    }
-    
-    var views = Mojo.util.getValues(this._criteriaMap);
-    for(var i=0; i<views.length; i++)
+      // create toggle events to display selectable types
+      var toggles = YAHOO.util.Selector.query('input.selectUniversalType', this._SELECT_CONTAINER_ID);
+      for(var i=0; i<toggles.length; i++)
+      {
+        var toggle = toggles[i];
+        YAHOO.util.Event.on(toggle, 'click', this._notifySelectUniversalTypeHandler, toggle.value, this);
+      }
+      
+      var views = Mojo.Util.getValues(this._criteriaMap);
+      for(var i=0; i<views.length; i++)
+      {
+        this._updateSelectionList(views[i]);
+      }
+      
+      for(var i=0; i<this._initSelectedUniversals.length; i++)
+      {
+        document.getElementById(this._initSelectedUniversals[i]+"_selectUniversalType").checked = true;
+      }
+    },
+  
+    /**
+     * Returns 2 as the start index. One option for a blank field,
+     * and another for Select All.
+     */
+    _getStartIndex : function()
     {
-      this._updateSelectionList(views[i]);
-    }
-    
-    for(var i=0; i<this._initSelectedUniversals.length; i++)
+      return 1;
+    },
+  
+    /**
+     * Gets the appropriate controller action to
+     * render the select search component.
+     */
+    _getControllerAction : function()
     {
-      document.getElementById(this._initSelectedUniversals[i]+"_selectUniversalType").checked = true;
+      return Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displayMultipleSelectSearch;
+    },
+  
+    _disableAllowed : function()
+    {
+      return true;
     }
-  },
-
-  /**
-   * Returns 2 as the start index. One option for a blank field,
-   * and another for Select All.
-   */
-  _getStartIndex : function()
-  {
-    return 1;
-  },
-
-  /**
-   * Gets the appropriate controller action to
-   * render the select search component.
-   */
-  _getControllerAction : function()
-  {
-    return Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displayMultipleSelectSearch;
-  },
-
-  _disableAllowed : function()
-  {
-  	return true;
+  
   }
 });

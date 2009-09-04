@@ -402,8 +402,8 @@ MDSS.QueryPanel.prototype = {
     this._dateGroupBy.id = this.DATE_GROUP_ID;
     var options = [''];
     var keys = [''];
-    options = options.concat(Mojo.util.getValues(MDSS.QueryXML.DateGroupOpts));
-    keys = keys.concat(Mojo.util.getKeys(MDSS.QueryXML.DateGroupOpts));
+    options = options.concat(Mojo.Util.getValues(MDSS.QueryXML.DateGroupOpts));
+    keys = keys.concat(Mojo.Util.getKeys(MDSS.QueryXML.DateGroupOpts));
 
     for(var j=0; j<options.length; j++)
     {
@@ -470,7 +470,7 @@ MDSS.QueryPanel.prototype = {
       var li = document.createElement('li');
       var liE = new YAHOO.util.Element(li);
 
-      if(Mojo.util.isString(queryItem.html))
+      if(Mojo.Util.isString(queryItem.html))
       {
         li.innerHTML = queryItem.html;
       }
@@ -480,7 +480,7 @@ MDSS.QueryPanel.prototype = {
       }
 
       // add click event handler
-      if(Mojo.util.isObject(queryItem.onclick))
+      if(Mojo.Util.isObject(queryItem.onclick))
       {
         liE.on('click', queryItem.onclick.handler, queryItem.onclick.obj);
       }
@@ -491,7 +491,7 @@ MDSS.QueryPanel.prototype = {
 
       // add the builder function to create an entry
       // specific context menu
-      if(Mojo.util.isFunction(queryItem.menuBuilder))
+      if(Mojo.Util.isFunction(queryItem.menuBuilder))
       {
         this._queryMenuBuilders[queryItem.id] = queryItem.menuBuilder;
         liE.addClass('contextMenuContainer');
@@ -558,7 +558,7 @@ MDSS.QueryPanel.prototype = {
     this._buildUniversalList();
 
     // let the query panels perform their own post-render logic
-    if(Mojo.util.isFunction(this._config.postRender))
+    if(Mojo.Util.isFunction(this._config.postRender))
     {
       this._config.postRender.call(this._queryClass);
     }
@@ -635,7 +635,7 @@ MDSS.QueryPanel.prototype = {
 
   _thematicLayerSelected : function(e)
   {
-    if(Mojo.util.isFunction(this._config.thematicLayerSelected))
+    if(Mojo.Util.isFunction(this._config.thematicLayerSelected))
     {
       var select = e.target;
       var option = select.options[select.selectedIndex];
@@ -708,7 +708,7 @@ MDSS.QueryPanel.prototype = {
     // the GeoEntity tree for use case 111.
     // (We're just stealing it for our own use here.)
     var types = MDSS.GeoTreeSelectables.types;
-    var typeNames = Mojo.util.getKeys(types);
+    var typeNames = Mojo.Util.getKeys(types);
     typeNames.sort();
 
     var universalListDiv = new YAHOO.util.Element(document.createElement('div'));
@@ -778,7 +778,7 @@ MDSS.QueryPanel.prototype = {
    */
   _editVariableStyles : function(e)
   {
-    if(Mojo.util.isFunction(this._config.editVariableStyles))
+    if(Mojo.Util.isFunction(this._config.editVariableStyles))
     {
       this._config.editVariableStyles.call(this._queryClass);
     }
@@ -789,7 +789,7 @@ MDSS.QueryPanel.prototype = {
    */
   _editDefinedLayer : function(e, obj)
   {
-    if(Mojo.util.isFunction(this._config.editLayer))
+    if(Mojo.Util.isFunction(this._config.editLayer))
     {
       this._config.editLayer.call(this._queryClass, obj.layerId);
     }
@@ -797,7 +797,7 @@ MDSS.QueryPanel.prototype = {
 
   _deleteDefinedLayer : function(e, obj)
   {
-    if(Mojo.util.isFunction(this._config.deleteLayer))
+    if(Mojo.Util.isFunction(this._config.deleteLayer))
     {
       this._config.deleteLayer.call(this._queryClass, obj.layerId, obj.type);
     }
@@ -900,7 +900,7 @@ MDSS.QueryPanel.prototype = {
    */
   _addLayer : function()
   {
-    if(Mojo.util.isFunction(this._config.addLayer))
+    if(Mojo.Util.isFunction(this._config.addLayer))
     {
       var layersList = document.getElementById(this.AVAILABLE_LAYERS_LIST);
       var options = layersList.options;
@@ -916,31 +916,31 @@ MDSS.QueryPanel.prototype = {
 
   _exportXLS : function(e, obj)
   {
-    if(Mojo.util.isFunction(this._config.exportXLS))
+    if(Mojo.Util.isFunction(this._config.exportXLS))
     {
       // pass in the form element so the calling process
       // can modify its action.
-      this._config.exportXLS.apply(this._queryClass, Mojo.util.getValues(obj));
+      this._config.exportXLS.apply(this._queryClass, Mojo.Util.getValues(obj));
     }
   },
 
   _exportCSV : function(e, obj)
   {
-    if(Mojo.util.isFunction(this._config.exportCSV))
+    if(Mojo.Util.isFunction(this._config.exportCSV))
     {
       // pass in the form element so the calling process
       // can modify its action.
-      this._config.exportCSV.apply(this._queryClass, Mojo.util.getValues(obj));
+      this._config.exportCSV.apply(this._queryClass, Mojo.Util.getValues(obj));
     }
   },
 
   _exportReport : function(e, obj)
   {
-    if(Mojo.util.isFunction(this._config.exportReport))
+    if(Mojo.Util.isFunction(this._config.exportReport))
     {
       // pass in the form element so the calling process
       // can modify its action.
-      this._config.exportReport.apply(this._queryClass, Mojo.util.getValues(obj));
+      this._config.exportReport.apply(this._queryClass, Mojo.Util.getValues(obj));
     }
   },
 
@@ -1450,7 +1450,7 @@ MDSS.QueryPanel.prototype = {
   	column = this._dataTable.insertColumn(column);
   	column.attribute = attrib;
 
-    if(Mojo.util.isFunction(menuBuilder))
+    if(Mojo.Util.isFunction(menuBuilder))
     {
       // add mapping between column and menuItems
       this._headerMenuBuilders[column.getKey()] = menuBuilder;
@@ -1486,7 +1486,7 @@ MDSS.QueryPanel.prototype = {
 
   getThematicVariables : function()
   {
-  	return Mojo.util.getValues(this._thematicVariables);
+  	return Mojo.Util.getValues(this._thematicVariables);
   },
 
   /**
@@ -1507,7 +1507,7 @@ MDSS.QueryPanel.prototype = {
       var type = inputs[0].value;
       var thematicColor = inputs[1].value;
 
-      var construct = Mojo.util.getType(type);
+      var construct = Mojo.Meta.findClass(type);
       var category = new construct();
       category.setThematicColor(thematicColor);
 
@@ -1676,7 +1676,7 @@ MDSS.QueryPanel.prototype = {
    */
   _loadQuery : function()
   {
-    if(Mojo.util.isFunction(this._config.loadQuery))
+    if(Mojo.Util.isFunction(this._config.loadQuery))
     {
       var queries = document.getElementById(this.AVAILABLE_QUERY_LIST);
 
@@ -1691,7 +1691,7 @@ MDSS.QueryPanel.prototype = {
    */
   _saveQuery : function()
   {
-    if(Mojo.util.isFunction(this._config.saveQuery))
+    if(Mojo.Util.isFunction(this._config.saveQuery))
     {
       this._config.saveQuery.call(this._queryClass);
     }
@@ -1702,7 +1702,7 @@ MDSS.QueryPanel.prototype = {
    */
   _saveQueryAs : function()
   {
-    if(Mojo.util.isFunction(this._config.saveQueryAs))
+    if(Mojo.Util.isFunction(this._config.saveQueryAs))
     {
       this._config.saveQueryAs.call(this._queryClass);
     }
@@ -1713,7 +1713,7 @@ MDSS.QueryPanel.prototype = {
    */
   _mapQuery : function()
   {
-    if(Mojo.util.isFunction(this._config.mapQuery))
+    if(Mojo.Util.isFunction(this._config.mapQuery))
     {
       this._config.mapQuery.call(this._queryClass);
 
@@ -1727,7 +1727,7 @@ MDSS.QueryPanel.prototype = {
    */
   _executeQuery : function()
   {
-    if(Mojo.util.isFunction(this._config.executeQuery))
+    if(Mojo.Util.isFunction(this._config.executeQuery))
     {
       this._config.executeQuery.call(this._queryClass);
     }
@@ -1781,7 +1781,7 @@ MDSS.QueryPanel.prototype = {
 
   _paginationHandler : function(e)
   {
-    if(e.target.nodeName === 'SPAN' && Mojo.util.isFunction(this._config.paginationHandler))
+    if(e.target.nodeName === 'SPAN' && Mojo.Util.isFunction(this._config.paginationHandler))
     {
       var pageNumber = e.target.innerHTML;
       this._config.paginationHandler.call(this._queryClass, pageNumber);
@@ -1891,8 +1891,8 @@ MDSS.ColorPicker.prototype = {
 
     if(this._dialog == null)
     {
-      var sBound = MDSS.util.bind(this, this._handleSubmit);
-      var cBound = MDSS.util.bind(this, this._handleCancel);
+      var sBound = Mojo.Util.bind(this, this._handleSubmit);
+      var cBound = Mojo.Util.bind(this, this._handleCancel);
 
       this._dialog = new YAHOO.widget.Dialog("singleton_pickerPanel", {
         width : "400px",
@@ -1996,8 +1996,8 @@ MDSS.Pagination.prototype = {
 
 MDSS.Pagination.Page = function(isCurrent, pageNumber)
 {
-  this._isCurrent = Mojo.util.isBoolean(isCurrent) ? isCurrent : false;
-  this._pageNumber = Mojo.util.isNumber(pageNumber) ? pageNumber : 0;
+  this._isCurrent = Mojo.Util.isBoolean(isCurrent) ? isCurrent : false;
+  this._pageNumber = Mojo.Util.isNumber(pageNumber) ? pageNumber : 0;
   this._isLeft = false;
   this._isRight = false;
 };
@@ -2330,7 +2330,7 @@ MDSS.Annotation.prototype = {
 
         var table = '<table>';
 
-        var legend = Mojo.util.getObject(legendJSON);
+        var legend = Mojo.Util.getObject(legendJSON);
         table += '<tr><td colspan="2">'+legend.thematicVariable+'</td></tr>';
 
         var categories = legend.categories;

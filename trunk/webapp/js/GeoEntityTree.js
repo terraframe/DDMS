@@ -141,7 +141,7 @@ MDSS.GeoEntityTree = (function(){
 
     // map the entity id to the node id
     var nodeIds = _geoEntityIdToNodeIdMap[geId];
-    if(Mojo.util.isArray(nodeIds))
+    if(Mojo.Util.isArray(nodeIds))
     {
       var match = false;
       for(var i=0; i<nodeIds.length; i++)
@@ -262,7 +262,7 @@ MDSS.GeoEntityTree = (function(){
    */
   function _createNode(type, params, action)
   {
-    var geConstructor = Mojo.util.getType(type);
+    var geConstructor = Mojo.Meta.findClass(type);
     var geoEntity = new geConstructor();
 
     _setGeoEntityAttributes(params, geoEntity);
@@ -407,8 +407,8 @@ MDSS.GeoEntityTree = (function(){
       }
     });
 
-    var controller = Mojo.util.getType(type+"Controller");
-    controller.setCreateListener(MDSS.util.curry(_createNode, type));
+    var controller = Mojo.Meta.findClass(type+"Controller");
+    controller.setCreateListener(Mojo.Util.curry(_createNode, type));
     controller.newInstance(request);
   }
 
@@ -865,7 +865,7 @@ MDSS.GeoEntityTree = (function(){
       }
     });
 
-    var controller = Mojo.util.getType(typeToEdit+"Controller");
+    var controller = Mojo.Meta.findClass(typeToEdit+"Controller");
     controller.setDeleteListener(_deleteNode);
     controller.setUpdateListener(_updateNode);
     controller.setCancelListener(_cancelNode);
@@ -1163,7 +1163,7 @@ MDSS.GeoEntityTree = (function(){
     var itemData = [];
 
     // the select callback is optional
-    if(Mojo.util.isFunction(selectCallback))
+    if(Mojo.Util.isFunction(selectCallback))
     {
       _selectCallback = selectCallback;
       var selectMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Select);

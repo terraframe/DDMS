@@ -68,7 +68,7 @@ MDSS.GeoHierarchyTree = (function(){
 
     // map the entity id to the node id
     var nodeIds = _geoHierarchyIdToNodeIdMap[geId];
-    if(Mojo.util.isArray(nodeIds))
+    if(Mojo.Util.isArray(nodeIds))
     {
       var match = false;
       for(var i=0; i<nodeIds.length; i++)

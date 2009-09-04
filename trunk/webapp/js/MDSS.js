@@ -1,11 +1,32 @@
+// Alias all AttributeDTOs to the window
+Mojo.Meta.shorthand('com.terraframe.mojo.transport.attributes.*', window);
+
 /**
  * Root MDSS namespace.
  */
 var MDSS = {
 
   wait_for_ajax : null,
+  
+  getDisplayLabel : function(type)
+  {
+    var display = MDSS._displayLabelCache[type];
+    if(display == null)
+    {
+      var klass = Mojo.Meta.findClass(type);
+      var temp = new klass();
+      display = temp.getMd().getDisplayLabel();
+      
+      MDSS._displayLabelCache[type] = display;
+    }
+    
+    return display;
+  },
+  
+  _displayLabelCache : {},
 
   util : {
+  
     /**
      * Extracts all script tag contents and returns
      * a string of executable code that can be evaluated.
@@ -30,25 +51,6 @@ var MDSS = {
     removeScripts : function(html)
     {
       return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/img, '');
-    },
-
-    /**
-     * Curries the given function with any given arguments.
-     */
-    curry : function(func)
-    {
-      var args = [].splice.call(arguments, 1);
-      return function(){
-        return func.apply(this, args.concat([].splice.call(arguments, 0)))
-      }
-    },
-
-    bind : function(thisRef, func)
-    {
-      var args = [].splice.call(arguments, 2);
-      return function(){
-        return func.apply(thisRef, args.concat([].splice.call(arguments, 0)))
-      }
     },
 
     /**
@@ -182,7 +184,7 @@ var MDSS = {
       window.location = '/';
     };
 
-    Mojo.util.copy(new Mojo.ClientRequest(handler), this);
+    Mojo.Util.copy(new Mojo.ClientRequest(handler), this);
   }
 };
 
@@ -225,11 +227,11 @@ MDSS.Set.prototype = {
 
   size : function()
   {
-    return Mojo.util.getKeys(this._set).length;
+    return Mojo.Util.getKeys(this._set).length;
   },
 
   values : function()
   {
-    return Mojo.util.getKeys(this._set);
+    return Mojo.Util.getKeys(this._set);
   }
 };

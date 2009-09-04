@@ -1,154 +1,222 @@
 // geometry
-Mojo.dto.AttributeGeometryDTO = Mojo.Class.create();
-Mojo.dto.AttributeGeometryDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeDTO, {
-  initialize : function(obj)
-  {
-    Mojo.dto.AttributeDTO.prototype.initialize.call(this,obj);    
-    
-    if(obj)
+Mojo.Meta.newClass('com.terraframe.mojo.gis.transport.attributes.AttributeGeometryDTO', {
+
+  Extends : Mojo.$.com.terraframe.mojo.transport.attributes.AttributeDTO,
+
+  Abstract : true,
+  
+  Alias: Mojo.$,
+  
+  Instance : {
+  
+    initialize : function(obj)
     {
-      this.attributeMdDTO = new Mojo.dto.AttributeGeometryMdDTO(obj.attributeMdDTO);
+      this.$initialize(obj);
     }
   }
 });
 
-Mojo.dto.AttributeGeometryMdDTO = Mojo.Class.create();
-Mojo.dto.AttributeGeometryMdDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeMdDTO, {
-  initialize : function(obj)
-  {
-    Mojo.dto.AttributeMdDTO.prototype.initialize.call(this,obj);
+
+Mojo.Meta.newClass('com.terraframe.mojo.gis.transport.metadata.AttributeGeometryMdDTO', {
+
+  Extends : Mojo.$.com.terraframe.mojo.transport.metadata.AttributeMdDTO,
+
+  Abstract : true,
+  
+  Alias: Mojo.$,
+  
+  Instance : {
+  
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    }
   }
 });
 
 // lineString
-Mojo.dto.AttributeLineStringDTO = Mojo.Class.create();
-Mojo.dto.AttributeLineStringDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryDTO, {
-  initialize : function(obj)
-  {
-    Mojo.dto.AttributeGeometryDTO.prototype.initialize.call(this,obj);    
-    
-    if(obj)
+Mojo.Meta.newClass('com.terraframe.mojo.gis.transport.attributes.AttributeLineStringDTO', {
+
+  Extends: Mojo.$.com.terraframe.mojo.gis.transport.attributes.AttributeGeometryDTO,
+  
+  Alias: Mojo.$,
+  
+  Instance : {
+  
+    initialize : function(obj)
     {
-      this.attributeMdDTO = new Mojo.dto.AttributeLineStringMdDTO(obj.attributeMdDTO);
+      this.$initialize(obj);
     }
   }
 });
 
-Mojo.dto.AttributeLineStringMdDTO = Mojo.Class.create();
-Mojo.dto.AttributeLineStringMdDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryMdDTO, {
-  initialize : function(obj)
-  {
-    Mojo.dto.AttributeGeometryMdDTO.prototype.initialize.call(this,obj);
+Mojo.Meta.newClass('com.terraframe.mojo.gis.transport.metadata.AttributeLineStringMdDTO', {
+
+  Extends: Mojo.$.com.terraframe.mojo.gis.transport.metadata.AttributeGeometryMdDTO,
+
+  Alias: Mojo.$,
+  
+  Instance : {
+  
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    }
   }
 });
 
 // point
-Mojo.dto.AttributePointDTO = Mojo.Class.create();
-Mojo.dto.AttributePointDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryDTO, {
-  initialize : function(obj)
-  {
-    Mojo.dto.AttributeGeometryDTO.prototype.initialize.call(this,obj);    
-    
-    if(obj)
+Mojo.Meta.newClass('com.terraframe.mojo.gis.transport.attributes.AttributePointDTO', {
+
+  Extends: Mojo.$.com.terraframe.mojo.gis.transport.attributes.AttributeGeometryDTO,
+  
+  Alias: Mojo.$,
+  
+  Instance : {
+  
+    initialize : function(obj)
     {
-      this.attributeMdDTO = new Mojo.dto.AttributePointMdDTO(obj.attributeMdDTO);
+      this.$initialize(obj);
     }
   }
 });
 
-Mojo.dto.AttributePointMdDTO = Mojo.Class.create();
-Mojo.dto.AttributePointMdDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryMdDTO, {
-  initialize : function(obj)
-  {
-    Mojo.dto.AttributeGeometryMdDTO.prototype.initialize.call(this,obj);
+Mojo.Meta.newClass('com.terraframe.mojo.gis.transport.metadata.AttributePointMdDTO', {
+
+  Extends: Mojo.$.com.terraframe.mojo.gis.transport.metadata.AttributeGeometryMdDTO,
+
+  Alias: Mojo.$,
+  
+  Instance : {
+  
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    }
   }
 });
 
 // polygon
-Mojo.dto.AttributePolygonDTO = Mojo.Class.create();
-Mojo.dto.AttributePolygonDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryDTO, {
-  initialize : function(obj)
-  {
-    Mojo.dto.AttributeGeometryDTO.prototype.initialize.call(this,obj);    
-    
-    if(obj)
+Mojo.Meta.newClass('com.terraframe.mojo.gis.transport.attributes.AttributePolygonDTO', {
+
+  Extends: Mojo.$.com.terraframe.mojo.gis.transport.attributes.AttributeGeometryDTO,
+  
+  Alias: Mojo.$,
+  
+  Instance : {
+  
+    initialize : function(obj)
     {
-      this.attributeMdDTO = new Mojo.dto.AttributePolygonMdDTO(obj.attributeMdDTO);
+      this.$initialize(obj);
     }
   }
 });
 
-Mojo.dto.AttributePolygonMdDTO = Mojo.Class.create();
-Mojo.dto.AttributePolygonMdDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryMdDTO, {
-  initialize : function(obj)
-  {
-    Mojo.dto.AttributeGeometryMdDTO.prototype.initialize.call(this,obj);
+Mojo.Meta.newClass('com.terraframe.mojo.gis.transport.metadata.AttributePolygonMdDTO', {
+
+  Extends: Mojo.$.com.terraframe.mojo.gis.transport.metadata.AttributeGeometryMdDTO,
+
+  Alias: Mojo.$,
+  
+  Instance : {
+  
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    }
   }
 });
 
 
 // multiLine
-Mojo.dto.AttributeMultiLineStringDTO = Mojo.Class.create();
-Mojo.dto.AttributeMultiLineStringDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryDTO, {
-  initialize : function(obj)
-  {
-    Mojo.dto.AttributeGeometryDTO.prototype.initialize.call(this,obj);    
-    
-    if(obj)
+Mojo.Meta.newClass('com.terraframe.mojo.gis.transport.attributes.AttributeMultiLineStringDTO', {
+
+  Extends: Mojo.$.com.terraframe.mojo.gis.transport.attributes.AttributeGeometryDTO,
+  
+  Alias: Mojo.$,
+  
+  Instance : {
+  
+    initialize : function(obj)
     {
-      this.attributeMdDTO = new Mojo.dto.AttributeMultiLineStringMdDTO(obj.attributeMdDTO);
+      this.$initialize(obj);
     }
   }
 });
 
-Mojo.dto.AttributeMultiLineStringMdDTO = Mojo.Class.create();
-Mojo.dto.AttributeMultiLineStringMdDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryMdDTO, {
-  initialize : function(obj)
-  {
-    Mojo.dto.AttributeGeometryMdDTO.prototype.initialize.call(this,obj);
+Mojo.Meta.newClass('com.terraframe.mojo.gis.transport.metadata.AttributeMultiLineStringMdDTO', {
+
+  Extends: Mojo.$.com.terraframe.mojo.gis.transport.metadata.AttributeGeometryMdDTO,
+
+  Alias: Mojo.$,
+  
+  Instance : {
+  
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    }
   }
 });
 
 // multiPoint
-Mojo.dto.AttributeMultiPointDTO = Mojo.Class.create();
-Mojo.dto.AttributeMultiPointDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryDTO, {
-  initialize : function(obj)
-  {
-    Mojo.dto.AttributeGeometryDTO.prototype.initialize.call(this,obj);    
-    
-    if(obj)
+Mojo.Meta.newClass('com.terraframe.mojo.gis.transport.attributes.AttributeMultiPointDTO', {
+
+  Extends: Mojo.$.com.terraframe.mojo.gis.transport.attributes.AttributeGeometryDTO,
+  
+  Alias: Mojo.$,
+  
+  Instance : {
+  
+    initialize : function(obj)
     {
-      this.attributeMdDTO = new Mojo.dto.AttributeMultiPointMdDTO(obj.attributeMdDTO);
+      this.$initialize(obj);
     }
   }
 });
 
-Mojo.dto.AttributeMultiPointMdDTO = Mojo.Class.create();
-Mojo.dto.AttributeMultiPointMdDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryMdDTO, {
-  initialize : function(obj)
-  {
-    Mojo.dto.AttributeGeometryMdDTO.prototype.initialize.call(this,obj);
+Mojo.Meta.newClass('com.terraframe.mojo.gis.transport.metadata.AttributeMultiPointMdDTO', {
+
+  Extends: Mojo.$.com.terraframe.mojo.gis.transport.metadata.AttributeGeometryMdDTO,
+
+  Alias: Mojo.$,
+  
+  Instance : {
+  
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    }
   }
 });
 
 // multiPolygon
-Mojo.dto.AttributeMultiPolygonDTO = Mojo.Class.create();
-Mojo.dto.AttributeMultiPolygonDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryDTO, {
-  initialize : function(obj)
-  {
-    Mojo.dto.AttributeGeometryDTO.prototype.initialize.call(this,obj);    
-    
-    if(obj)
+Mojo.Meta.newClass('com.terraframe.mojo.gis.transport.attributes.AttributeMultiPolygonDTO', {
+
+  Extends: Mojo.$.com.terraframe.mojo.gis.transport.attributes.AttributeGeometryDTO,
+  
+  Alias: Mojo.$,
+  
+  Instance : {
+  
+    initialize : function(obj)
     {
-      this.attributeMdDTO = new Mojo.dto.AttributeMultiPolygonMdDTO(obj.attributeMdDTO);
+      this.$initialize(obj);
     }
   }
 });
 
-Mojo.dto.AttributeMultiPolygonMdDTO = Mojo.Class.create();
-Mojo.dto.AttributeMultiPolygonMdDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryMdDTO, {
-  initialize : function(obj)
-  {
-    Mojo.dto.AttributeGeometryMdDTO.prototype.initialize.call(this,obj);
+Mojo.Meta.newClass('com.terraframe.mojo.gis.transport.metadata.AttributeMultiPolygonMdDTO', {
+
+  Extends: Mojo.$.com.terraframe.mojo.gis.transport.metadata.AttributeGeometryMdDTO,
+
+  Alias: Mojo.$,
+  
+  Instance : {
+  
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    }
   }
 });

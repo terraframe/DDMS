@@ -1,90 +1,95 @@
 /**
  * Class that implements single select searching for GeoEntities
  */
-MDSS.SingleSelectSearch = Mojo.Class.create();
-MDSS.SingleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearch, {
+Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
 
-  /**
-   * Constructor.
-   */
-  initialize : function()
-  {
-    MDSS.AbstractSelectSearch.prototype.initialize.call(this);
-
-    this._currentSelection = null;
-    this._CURRENT_SELECTION = 'currentSelection';
-  },
-
-  /**
-   * Replaces the current selection with the given GeoEntityView.
-   */
-  _updateSelection : function(geoEntityView)
-  {
-    var div = document.getElementById(this._CURRENT_SELECTION);
-    div.innerHTML = geoEntityView.getEntityName() + ' ('+geoEntityView.getGeoId()+')';
-
-    this._currentSelection = geoEntityView;
-  },
-
-  /**
-   * Notifies the select handler that a GeoEntity
-   * has been selected. The GeoEntityView is passed
-   * to the handler.
-   */
-  _notifySelectHandler : function(geoEntityView, updateSelection)
-  {
-  	if(updateSelection)
-  	{
-  	  this._updateSelection(geoEntityView);
-  	}
-
-  	if(Mojo.util.isFunction(this._selectHandler))
-  	{
-  	  this._selectHandler(geoEntityView);
-  	}
-  },
+  Extends : MDSS.AbstractSelectSearch,
   
-  /**
-   * Notifies the select handler that a GeoEntity
-   * has been selected via the tree. The GeoEntityView is passed
-   * to the handler.
-   */
-  _notifyTreeSelectHandler : function(geoEntityView)
-  {
-  	this._updateSelection(geoEntityView);
+  Instance : {
 
-  	if(Mojo.util.isFunction(this._treeSelectHandler))
-  	{
-  	  this._treeSelectHandler(geoEntityView);
-  	}
-  },
-
-  getSelectHandler : function()
-  {
-    return(this._selectHandler);
-  },
-
-  /**
-   * Returns 1 as the start index. One option is for the
-   * Select One field.
-   */
-  _getStartIndex : function()
-  {
-    return 1;
-  },
-
-  /**
-   * Returns the appropriate controller action to
-   * render the select search component.
-   */
-  _getControllerAction : function()
-  {
-    return Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displaySingleSelectSearch;
-  },
-
-  _disableAllowed : function()
-  {
-  	return true;
+    /**
+     * Constructor.
+     */
+    initialize : function()
+    {
+      this.$initialize();
+  
+      this._currentSelection = null;
+      this._CURRENT_SELECTION = 'currentSelection';
+    },
+  
+    /**
+     * Replaces the current selection with the given GeoEntityView.
+     */
+    _updateSelection : function(geoEntityView)
+    {
+      var div = document.getElementById(this._CURRENT_SELECTION);
+      div.innerHTML = geoEntityView.getEntityName() + ' ('+geoEntityView.getGeoId()+')';
+  
+      this._currentSelection = geoEntityView;
+    },
+  
+    /**
+     * Notifies the select handler that a GeoEntity
+     * has been selected. The GeoEntityView is passed
+     * to the handler.
+     */
+    _notifySelectHandler : function(geoEntityView, updateSelection)
+    {
+      if(updateSelection)
+      {
+        this._updateSelection(geoEntityView);
+      }
+  
+      if(Mojo.Util.isFunction(this._selectHandler))
+      {
+        this._selectHandler(geoEntityView);
+      }
+    },
+    
+    /**
+     * Notifies the select handler that a GeoEntity
+     * has been selected via the tree. The GeoEntityView is passed
+     * to the handler.
+     */
+    _notifyTreeSelectHandler : function(geoEntityView)
+    {
+      this._updateSelection(geoEntityView);
+  
+      if(Mojo.Util.isFunction(this._treeSelectHandler))
+      {
+        this._treeSelectHandler(geoEntityView);
+      }
+    },
+  
+    getSelectHandler : function()
+    {
+      return(this._selectHandler);
+    },
+  
+    /**
+     * Returns 1 as the start index. One option is for the
+     * Select One field.
+     */
+    _getStartIndex : function()
+    {
+      return 1;
+    },
+  
+    /**
+     * Returns the appropriate controller action to
+     * render the select search component.
+     */
+    _getControllerAction : function()
+    {
+      return Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displaySingleSelectSearch;
+    },
+  
+    _disableAllowed : function()
+    {
+      return true;
+    }
+  
   }
 });
 
@@ -94,7 +99,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
   for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput")){
 
-  	var opener = document.createElement('img');
+    var opener = document.createElement('img');
     opener.src = "./imgs/icons/world.png";
     opener.id = geoInput.id +'Go';
     opener = new YAHOO.util.Element(opener);
@@ -123,7 +128,7 @@ YAHOO.util.Event.onDOMReady(function(){
       if(selected != null)
       {
 
-    	if(typeof selected == 'string'){
+      if(typeof selected == 'string'){
           var request = new MDSS.Request({
               selectHandler: this,
               onSend: function(){},
@@ -146,8 +151,8 @@ YAHOO.util.Event.onDOMReady(function(){
         else
         {
           var currentFilter = selectSearch.getFilter();
-          var expectedType = Mojo.util.getType(currentFilter);
-          var tempC = Mojo.util.getType(geoEntity.getEntityType());
+          var expectedType = Mojo.Meta.findClass(currentFilter);
+          var tempC = Mojo.Meta.findClass(geoEntity.getEntityType());
           var tempGeo = new tempC();
           
           valid = tempGeo instanceof expectedType;
@@ -158,7 +163,7 @@ YAHOO.util.Event.onDOMReady(function(){
             YAHOO.util.Dom.removeClass(geoInfo,'alert');
             geoId.value = selected.getGeoId();
             if(geoEntityId) {
-            	geoEntityId.value = selected.getGeoEntityId();
+              geoEntityId.value = selected.getGeoEntityId();
             }
             geoInfo.innerHTML = selected.getEntityName() + ' (' + selected.getTypeDisplayLabel()+ ')';
         }
@@ -168,7 +173,7 @@ YAHOO.util.Event.onDOMReady(function(){
             geoId.value = '';
             geoInfo.innerHTML = selected.getEntityName() + ' (' + selected.getTypeDisplayLabel()+ ') is not a valid Geo Entity Type for this Field';
             if(geoEntityId) {
-            	geoEntityId.value = selected.getGeoEntityId();
+              geoEntityId.value = selected.getGeoEntityId();
             }
         }
       }
@@ -180,9 +185,9 @@ YAHOO.util.Event.onDOMReady(function(){
         if(geoEntityId) geoEntityId.value ='';
       }
 
-      if(typeof onValidGeoEntitySelected !== 'undefined' && Mojo.util.isFunction(onValidGeoEntitySelected))
+      if(typeof onValidGeoEntitySelected !== 'undefined' && Mojo.Util.isFunction(onValidGeoEntitySelected))
       {
-    	  onValidGeoEntitySelected();
+        onValidGeoEntitySelected();
       }      
     }
 
@@ -365,7 +370,7 @@ YAHOO.util.Event.onDOMReady(function(){
             var li = document.createElement('li');
             li.id = valueObj.getValue(idAttr);
 
-            var construct = Mojo.util.getType(valueObj.getValue(typeAttr));
+            var construct = Mojo.Mojo.findClass(valueObj.getValue(typeAttr));
             var type = new construct(); // use new instance as a template
             var localizedType = type.getTypeMd().getDisplayLabel();
 
