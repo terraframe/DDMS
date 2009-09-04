@@ -10,6 +10,12 @@ public class LarvaeTestInterval extends LarvaeTestIntervalBase implements com.te
   }
   
   @Override
+  protected String buildKey()
+  {
+    return this.getAssay().buildKey() + "-" + this.getPeriod();
+  }
+  
+  @Override
   public void validatePeriod()
   {
     super.validatePeriod();
