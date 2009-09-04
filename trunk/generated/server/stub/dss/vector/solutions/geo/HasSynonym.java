@@ -13,5 +13,13 @@ public class HasSynonym extends HasSynonymBase implements com.terraframe.mojo.ge
   {
     this(parent.getId(), child.getId());
   }
+ 
   
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Nathan needs to define this key
+    return this.getId();
+  }
+
 }

@@ -17,4 +17,11 @@ public class GeoSynonym extends GeoSynonymBase implements com.terraframe.mojo.ge
      GeoEntity.searchByGeoId(geoId).addSynonym(entityName);
   }
 
+  
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Naifeh needs to define this key
+    return this.getId();
+  }
 }

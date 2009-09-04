@@ -18,6 +18,14 @@ public class LocatedIn extends LocatedInBase implements com.terraframe.mojo.gene
   {
     this(parent.getId(), child.getId());
   }
+  
+  
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Naifeh needs to define this key
+    return this.getId();
+  }
 
   @Override
   @Transaction
