@@ -99,6 +99,7 @@
     <mjl:input type="hidden" param="personId" value="${newPerson.personId}" />
     <mjl:input type="hidden" param="firstName" value="${newPerson.firstName}"/>
     <mjl:input type="hidden" param="lastName" value="${newPerson.lastName}"/>
+    <mjl:input type="hidden" param="residentialGeoId" value="${newPerson.residentialGeoId}"/>
     <mjl:input type="hidden" param="dateOfBirth" value="${formatedBirthday}"/>
     <mjl:input type="hidden" param="sex" value="${sexEnumName}"/>
     <mjl:input type="hidden" param="isMDSSUser" value="${newPerson.isMDSSUser}"/>
@@ -108,7 +109,9 @@
     <mjl:input type="hidden" param="isITNRecipient" value="${newPerson.isITNRecipient}"/>
     <mjl:input type="hidden" param="isPatient" value="${newPerson.isPatient}"/>
     <mjl:input type="hidden" param="isSprayLeader" value="${newPerson.isSprayLeader}"/>
+    <mjl:input type="hidden" param="leaderId" value="${newPerson.leaderId}"/>
     <mjl:input type="hidden" param="isSprayOperator" value="${newPerson.isSprayOperator}"/>
+    <mjl:input type="hidden" param="operatorId" value="${newPerson.operatorId}"/>
   </mjl:component>
   <mjl:command value="No_Matches__continue_with_new_Person" action="dss.vector.solutions.PersonController.continueNewInstance.mojo" name="dss.vector.solutions.PersonController.continueNewInstance.button" />
 </mjl:form>
