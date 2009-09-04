@@ -37,10 +37,10 @@ public abstract class AggregatedIPTCRUDPermissions extends TestCase
     IPTPatientsDTO[] patients = view.getIPTPatients();
     IPTTreatmentDTO[] treatments = view.getIPTTreatments();
 
+    view.applyAll(patients, visits, doses, treatments);
+
     try
     {
-      view.applyAll(patients, visits, doses, treatments);
-
       AggregatedIPTViewDTO c = AggregatedIPTDTO.lockView(request, view.getConcreteId());
       c.setNumberNatalCare(20);
       c.apply();

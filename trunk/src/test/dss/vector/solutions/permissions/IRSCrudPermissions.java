@@ -62,45 +62,63 @@ public abstract class IRSCrudPermissions extends TestCase
     SprayLeaderDTO leader = person.getSprayLeaderDelegate();
     SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
-    SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
-
-    InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName(TestConstants.BRAND_NAME);
-    view.setAmount(44);
-    view.setActiveIngredient(ingredients[0]);
-    view.setWeight(new BigDecimal(3.3));
-    view.setSachetsPerRefill(2);
-    view.setEnabled(true);
-    view.apply();
-
-    InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
-
-    OperatorSprayViewDTO spray = OperatorSprayViewDTO.searchBySprayData(request, geoId, new Date(), method, brand, operator.getId());
-    spray.setOperatorSprayWeek(33);
-    spray.apply();
-
     try
     {
-      OperatorSprayViewDTO update = OperatorSprayDTO.lockView(request, spray.getSprayId());
-      update.setTeamSprayWeek(32);
-      update.apply();
+      SprayTeamDTO team = new SprayTeamDTO(systemRequest);
+      team.setTeamId(TestConstants.TEAM_ID);
+      team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
-      OperatorSprayViewDTO test = OperatorSprayDTO.getView(request, spray.getSprayId());
+      try
+      {
+        InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
+        view.setBrandName(TestConstants.BRAND_NAME);
+        view.setAmount(44);
+        view.setActiveIngredient(ingredients[0]);
+        view.setWeight(new BigDecimal(3.3));
+        view.setSachetsPerRefill(2);
+        view.setEnabled(true);
+        view.apply();
 
-      assertEquals(update.getOperatorSprayWeek(), test.getOperatorSprayWeek());
-      assertEquals(update.getTeamSprayWeek(), test.getTeamSprayWeek());
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
+        try
+        {
+          InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
+
+          OperatorSprayViewDTO spray = OperatorSprayViewDTO.searchBySprayData(request, geoId, new Date(), method, brand, operator.getId());
+          spray.setOperatorSprayWeek(33);
+          spray.apply();
+
+          try
+          {
+            OperatorSprayViewDTO update = OperatorSprayDTO.lockView(request, spray.getSprayId());
+            update.setTeamSprayWeek(32);
+            update.apply();
+
+            OperatorSprayViewDTO test = OperatorSprayDTO.getView(request, spray.getSprayId());
+
+            assertEquals(update.getOperatorSprayWeek(), test.getOperatorSprayWeek());
+            assertEquals(update.getTeamSprayWeek(), test.getTeamSprayWeek());
+          }
+          catch (Exception e)
+          {
+            e.printStackTrace();
+          }
+          finally
+          {
+            spray.deleteConcrete();
+          }
+        }
+        finally
+        {
+          view.deleteConcrete();
+        }
+      }
+      finally
+      {
+        team.delete();
+      }
     }
     finally
     {
-      spray.deleteConcrete();
-      view.deleteConcrete();
-      team.delete();
       try
       {
         PersonDTO.lock(systemRequest, dto.getPersonId()).delete();
@@ -127,56 +145,77 @@ public abstract class IRSCrudPermissions extends TestCase
     dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
-    PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
-    SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-    SprayOperatorDTO operator = person.getSprayOperatorDelegate();
-
-    SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
-
-    InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName(TestConstants.BRAND_NAME);
-    view.setAmount(44);
-    view.setActiveIngredient(ingredients[0]);
-    view.setWeight(new BigDecimal(3.3));
-    view.setSachetsPerRefill(2);
-    view.setEnabled(true);
-    view.apply();
-
-    InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
-
-    OperatorSprayViewDTO spray = OperatorSprayViewDTO.searchBySprayData(request, geoId, new Date(),
-        method, brand, operator.getId());
-    spray.setOperatorSprayWeek(33);
-    spray.apply();
-
-    HouseholdSprayStatusViewDTO status = new HouseholdSprayStatusViewDTO(request);
-    status.setSpray(AbstractSprayDTO.get(request, spray.getSprayId()));
-    status.setHouseholdId("232");
-    status.setStructureId("2321");
-    status.apply();
-
     try
     {
-      HouseholdSprayStatusViewDTO update = (HouseholdSprayStatusViewDTO) HouseholdSprayStatusDTO
-          .lockView(request, status.getStatusId());
-      update.setHouseholdId("22");
-      update.setStructureId("221");
-      update.apply();
+      PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
+      SprayLeaderDTO leader = person.getSprayLeaderDelegate();
+      SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
-      HouseholdSprayStatusViewDTO test = (HouseholdSprayStatusViewDTO) HouseholdSprayStatusDTO.getView(
-          request, status.getStatusId());
+      SprayTeamDTO team = new SprayTeamDTO(systemRequest);
+      team.setTeamId(TestConstants.TEAM_ID);
+      team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
-      assertEquals(update.getHouseholdId(), test.getHouseholdId());
-      assertEquals(update.getStructureId(), test.getStructureId());
+      try
+      {
+        InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
+        view.setBrandName(TestConstants.BRAND_NAME);
+        view.setAmount(44);
+        view.setActiveIngredient(ingredients[0]);
+        view.setWeight(new BigDecimal(3.3));
+        view.setSachetsPerRefill(2);
+        view.setEnabled(true);
+        view.apply();
+
+        try
+        {
+          InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
+
+          OperatorSprayViewDTO spray = OperatorSprayViewDTO.searchBySprayData(request, geoId, new Date(), method, brand, operator.getId());
+          spray.setOperatorSprayWeek(33);
+          spray.apply();
+
+          try
+          {
+            HouseholdSprayStatusViewDTO status = new HouseholdSprayStatusViewDTO(request);
+            status.setSpray(AbstractSprayDTO.get(request, spray.getSprayId()));
+            status.setHouseholdId("232");
+            status.setStructureId("2321");
+            status.apply();
+
+            try
+            {
+              HouseholdSprayStatusViewDTO update = (HouseholdSprayStatusViewDTO) HouseholdSprayStatusDTO.lockView(request, status.getStatusId());
+              update.setHouseholdId("22");
+              update.setStructureId("221");
+              update.apply();
+
+              HouseholdSprayStatusViewDTO test = (HouseholdSprayStatusViewDTO) HouseholdSprayStatusDTO.getView(request, status.getStatusId());
+
+              assertEquals(update.getHouseholdId(), test.getHouseholdId());
+              assertEquals(update.getStructureId(), test.getStructureId());
+            }
+            finally
+            {
+              status.deleteConcrete();
+            }
+          }
+          finally
+          {
+            spray.deleteConcrete();
+          }
+        }
+        finally
+        {
+          view.deleteConcrete();
+        }
+      }
+      finally
+      {
+        team.delete();
+      }
     }
     finally
     {
-      status.deleteConcrete();
-      spray.deleteConcrete();
-      view.deleteConcrete();
-      team.delete();
       PersonDTO.lock(systemRequest, dto.getPersonId()).delete();
     }
   }
@@ -196,45 +235,62 @@ public abstract class IRSCrudPermissions extends TestCase
     dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
-    PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
-    SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-    SprayOperatorDTO operator = person.getSprayOperatorDelegate();
-
-    SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
-
-    InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName(TestConstants.BRAND_NAME);
-    view.setAmount(44);
-    view.setActiveIngredient(ingredients[0]);
-    view.setWeight(new BigDecimal(3.3));
-    view.setSachetsPerRefill(2);
-    view.setEnabled(true);
-    view.apply();
-
-    InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
-
-    TeamSprayViewDTO spray = TeamSprayViewDTO.searchBySprayData(request, geoId, new Date(), method,
-        brand, team.getId());
-    spray.setTeamSprayWeek(31);
-    spray.apply();
-
     try
     {
-      TeamSprayViewDTO update = TeamSprayDTO.lockView(request, spray.getSprayId());
-      update.setTeamSprayWeek(32);
-      update.apply();
+      PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
+      SprayLeaderDTO leader = person.getSprayLeaderDelegate();
+      SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
-      TeamSprayViewDTO test = TeamSprayDTO.getView(request, spray.getSprayId());
+      SprayTeamDTO team = new SprayTeamDTO(systemRequest);
+      team.setTeamId(TestConstants.TEAM_ID);
+      team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
-      assertEquals(update.getTeamSprayWeek(), test.getTeamSprayWeek());
+      try
+      {
+        InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
+        view.setBrandName(TestConstants.BRAND_NAME);
+        view.setAmount(44);
+        view.setActiveIngredient(ingredients[0]);
+        view.setWeight(new BigDecimal(3.3));
+        view.setSachetsPerRefill(2);
+        view.setEnabled(true);
+        view.apply();
+
+        try
+        {
+          InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
+
+          TeamSprayViewDTO spray = TeamSprayViewDTO.searchBySprayData(request, geoId, new Date(), method, brand, team.getId());
+          spray.setTeamSprayWeek(31);
+          spray.apply();
+
+          try
+          {
+            TeamSprayViewDTO update = TeamSprayDTO.lockView(request, spray.getSprayId());
+            update.setTeamSprayWeek(32);
+            update.apply();
+
+            TeamSprayViewDTO test = TeamSprayDTO.getView(request, spray.getSprayId());
+
+            assertEquals(update.getTeamSprayWeek(), test.getTeamSprayWeek());
+          }
+          finally
+          {
+            spray.deleteConcrete();
+          }
+        }
+        finally
+        {
+          view.deleteConcrete();
+        }
+      }
+      finally
+      {
+        team.delete();
+      }
     }
     finally
     {
-      spray.deleteConcrete();
-      view.deleteConcrete();
-      team.delete();
       PersonDTO.lock(systemRequest, dto.getPersonId()).delete();
     }
   }
@@ -254,60 +310,81 @@ public abstract class IRSCrudPermissions extends TestCase
     dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
-    PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
-    SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-    SprayOperatorDTO operator = person.getSprayOperatorDelegate();
-
-    SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
-
-    InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName(TestConstants.BRAND_NAME);
-    view.setAmount(44);
-    view.setActiveIngredient(ingredients[0]);
-    view.setWeight(new BigDecimal(3.3));
-    view.setSachetsPerRefill(2);
-    view.setEnabled(true);
-    view.apply();
-
-    InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
-
-    TeamSprayViewDTO spray = TeamSprayViewDTO.searchBySprayData(request, geoId, new Date(), method,
-        brand, team.getId());
-    spray.setTeamSprayWeek(33);
-    spray.apply();
-
-    OperatorSprayStatusViewDTO status = new OperatorSprayStatusViewDTO(request);
-    status.setSprayOperator(operator);
-    status.setSprayData(TeamSprayDTO.get(request, spray.getSprayId()).getSprayData());
-    status.setHouseholds(32);
-    status.setStructures(232);
-    status.apply();
-
     try
     {
-      OperatorSprayStatusViewDTO update = (OperatorSprayStatusViewDTO) SprayStatusDTO.lockView(request,
-          status.getStatusId());
-      update.setHouseholds(22);
-      update.setStructures(221);
-      update.apply();
+      PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
+      SprayLeaderDTO leader = person.getSprayLeaderDelegate();
+      SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
-      OperatorSprayStatusViewDTO test = (OperatorSprayStatusViewDTO) HouseholdSprayStatusDTO.getView(
-          request, status.getStatusId());
+      SprayTeamDTO team = new SprayTeamDTO(systemRequest);
+      team.setTeamId(TestConstants.TEAM_ID);
+      team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
-      assertEquals(update.getHouseholds(), test.getHouseholds());
-      assertEquals(update.getStructures(), test.getStructures());
+      try
+      {
+        InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
+        view.setBrandName(TestConstants.BRAND_NAME);
+        view.setAmount(44);
+        view.setActiveIngredient(ingredients[0]);
+        view.setWeight(new BigDecimal(3.3));
+        view.setSachetsPerRefill(2);
+        view.setEnabled(true);
+        view.apply();
+
+        InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
+
+        try
+        {
+          TeamSprayViewDTO spray = TeamSprayViewDTO.searchBySprayData(request, geoId, new Date(), method, brand, team.getId());
+          spray.setTeamSprayWeek(33);
+          spray.apply();
+
+          try
+          {
+            OperatorSprayStatusViewDTO status = new OperatorSprayStatusViewDTO(request);
+            status.setSprayOperator(operator);
+            status.setSprayData(TeamSprayDTO.get(request, spray.getSprayId()).getSprayData());
+            status.setHouseholds(32);
+            status.setStructures(232);
+            status.apply();
+
+            try
+            {
+              OperatorSprayStatusViewDTO update = (OperatorSprayStatusViewDTO) SprayStatusDTO.lockView(request, status.getStatusId());
+              update.setHouseholds(22);
+              update.setStructures(221);
+              update.apply();
+
+              OperatorSprayStatusViewDTO test = (OperatorSprayStatusViewDTO) HouseholdSprayStatusDTO.getView(request, status.getStatusId());
+
+              assertEquals(update.getHouseholds(), test.getHouseholds());
+              assertEquals(update.getStructures(), test.getStructures());
+            }
+            finally
+            {
+              AbstractSprayDTO s = status.getSpray();
+
+              status.deleteConcrete();
+              s.delete();
+            }
+          }
+          finally
+          {
+            spray.deleteConcrete();
+          }
+        }
+        finally
+        {
+          view.deleteConcrete();
+        }
+      }
+      finally
+      {
+        team.delete();
+      }
     }
     finally
     {
-      AbstractSprayDTO s = status.getSpray();
-
-      status.deleteConcrete();
-      s.delete();
-      spray.deleteConcrete();
-      view.deleteConcrete();
-      team.delete();
       PersonDTO.lock(systemRequest, dto.getPersonId()).delete();
     }
   }
@@ -327,43 +404,60 @@ public abstract class IRSCrudPermissions extends TestCase
     dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
-    PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
-    SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-    SprayOperatorDTO operator = person.getSprayOperatorDelegate();
-
-    SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
-
-    InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName(TestConstants.BRAND_NAME);
-    view.setAmount(44);
-    view.setActiveIngredient(ingredients[0]);
-    view.setWeight(new BigDecimal(3.3));
-    view.setSachetsPerRefill(2);
-    view.setEnabled(true);
-    view.apply();
-
-    InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
-
-    ZoneSprayViewDTO spray = ZoneSprayViewDTO.searchBySprayData(request, geoId, new Date(), method,
-        brand);
-    spray.apply();
-
     try
     {
-      ZoneSprayViewDTO update = ZoneSprayDTO.lockView(request, spray.getSprayId());
-      update.apply();
+      PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
+      SprayLeaderDTO leader = person.getSprayLeaderDelegate();
+      SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
-      ZoneSprayViewDTO test = ZoneSprayDTO.getView(request, spray.getSprayId());
+      SprayTeamDTO team = new SprayTeamDTO(systemRequest);
+      team.setTeamId(TestConstants.TEAM_ID);
+      team.create(geoId, leader.getId(), new String[] { operator.getId() });
+      try
+      {
 
-      assertEquals(update.getSprayDate(), test.getSprayDate());
+        InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
+        view.setBrandName(TestConstants.BRAND_NAME);
+        view.setAmount(44);
+        view.setActiveIngredient(ingredients[0]);
+        view.setWeight(new BigDecimal(3.3));
+        view.setSachetsPerRefill(2);
+        view.setEnabled(true);
+        view.apply();
+
+        try
+        {
+          InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
+
+          ZoneSprayViewDTO spray = ZoneSprayViewDTO.searchBySprayData(request, geoId, new Date(), method, brand);
+          spray.apply();
+
+          try
+          {
+            ZoneSprayViewDTO update = ZoneSprayDTO.lockView(request, spray.getSprayId());
+            update.apply();
+
+            ZoneSprayViewDTO test = ZoneSprayDTO.getView(request, spray.getSprayId());
+
+            assertEquals(update.getSprayDate(), test.getSprayDate());
+          }
+          finally
+          {
+            spray.deleteConcrete();
+          }
+        }
+        finally
+        {
+          view.deleteConcrete();
+        }
+      }
+      finally
+      {
+        team.delete();
+      }
     }
     finally
     {
-      spray.deleteConcrete();
-      view.deleteConcrete();
-      team.delete();
       PersonDTO.lock(systemRequest, dto.getPersonId()).delete();
     }
   }
@@ -383,59 +477,80 @@ public abstract class IRSCrudPermissions extends TestCase
     dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
-    PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
-    SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-    SprayOperatorDTO operator = person.getSprayOperatorDelegate();
-
-    SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
-
-    InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName(TestConstants.BRAND_NAME);
-    view.setAmount(44);
-    view.setActiveIngredient(ingredients[0]);
-    view.setWeight(new BigDecimal(3.3));
-    view.setSachetsPerRefill(2);
-    view.setEnabled(true);
-    view.apply();
-
-    InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
-
-    ZoneSprayViewDTO spray = ZoneSprayViewDTO.searchBySprayData(request, geoId, new Date(), method,
-        brand);
-    spray.apply();
-
-    TeamSprayStatusViewDTO status = new TeamSprayStatusViewDTO(request);
-    status.setSprayData(ZoneSprayDTO.get(request, spray.getSprayId()).getSprayData());
-    status.setSprayTeam(team);
-    status.setHouseholds(32);
-    status.setStructures(232);
-    status.apply();
-
     try
     {
-      TeamSprayStatusViewDTO update = (TeamSprayStatusViewDTO) SprayStatusDTO.lockView(request, status
-          .getStatusId());
-      update.setHouseholds(22);
-      update.setStructures(221);
-      update.apply();
+      PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
+      SprayLeaderDTO leader = person.getSprayLeaderDelegate();
+      SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
-      TeamSprayStatusViewDTO test = (TeamSprayStatusViewDTO) HouseholdSprayStatusDTO.getView(request,
-          status.getStatusId());
+      SprayTeamDTO team = new SprayTeamDTO(systemRequest);
+      team.setTeamId(TestConstants.TEAM_ID);
+      team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
-      assertEquals(update.getHouseholds(), test.getHouseholds());
-      assertEquals(update.getStructures(), test.getStructures());
+      try
+      {
+        InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
+        view.setBrandName(TestConstants.BRAND_NAME);
+        view.setAmount(44);
+        view.setActiveIngredient(ingredients[0]);
+        view.setWeight(new BigDecimal(3.3));
+        view.setSachetsPerRefill(2);
+        view.setEnabled(true);
+        view.apply();
+
+        try
+        {
+          InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
+
+          ZoneSprayViewDTO spray = ZoneSprayViewDTO.searchBySprayData(request, geoId, new Date(), method, brand);
+          spray.apply();
+
+          try
+          {
+            TeamSprayStatusViewDTO status = new TeamSprayStatusViewDTO(request);
+            status.setSprayData(ZoneSprayDTO.get(request, spray.getSprayId()).getSprayData());
+            status.setSprayTeam(team);
+            status.setHouseholds(32);
+            status.setStructures(232);
+            status.apply();
+
+            try
+            {
+              TeamSprayStatusViewDTO update = (TeamSprayStatusViewDTO) SprayStatusDTO.lockView(request, status.getStatusId());
+              update.setHouseholds(22);
+              update.setStructures(221);
+              update.apply();
+
+              TeamSprayStatusViewDTO test = (TeamSprayStatusViewDTO) HouseholdSprayStatusDTO.getView(request, status.getStatusId());
+
+              assertEquals(update.getHouseholds(), test.getHouseholds());
+              assertEquals(update.getStructures(), test.getStructures());
+            }
+            finally
+            {
+              AbstractSprayDTO s = status.getSpray();
+
+              status.deleteConcrete();
+              s.delete();
+            }
+          }
+          finally
+          {
+            spray.deleteConcrete();
+          }
+        }
+        finally
+        {
+          view.deleteConcrete();
+        }
+      }
+      finally
+      {
+        team.delete();
+      }
     }
     finally
     {
-      AbstractSprayDTO s = status.getSpray();
-
-      status.deleteConcrete();
-      s.delete();
-      spray.deleteConcrete();
-      view.deleteConcrete();
-      team.delete();
       PersonDTO.lock(systemRequest, dto.getPersonId()).delete();
     }
   }

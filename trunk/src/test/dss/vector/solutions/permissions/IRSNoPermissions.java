@@ -56,43 +56,53 @@ public abstract class IRSNoPermissions extends TestCase
     dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
-    PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
-    SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-    SprayOperatorDTO operator = person.getSprayOperatorDelegate();
-
-    SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
-
-    InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName(TestConstants.BRAND_NAME);
-    view.setAmount(44);
-    view.setActiveIngredient(ingredients[0]);
-    view.setWeight(new BigDecimal(3.3));
-    view.setSachetsPerRefill(2);
-    view.setEnabled(true);
-    view.apply();
-
-    InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
-
     try
     {
+      PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
+      SprayLeaderDTO leader = person.getSprayLeaderDelegate();
+      SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
-      OperatorSprayViewDTO spray = OperatorSprayViewDTO.searchBySprayData(request, geoId, new Date(),
-          method, brand, operator.getId());
-      spray.setOperatorSprayWeek(33);
-      spray.apply();
-      fail("Able to create a object without permissions");
+      SprayTeamDTO team = new SprayTeamDTO(systemRequest);
+      team.setTeamId(TestConstants.TEAM_ID);
+      team.create(geoId, leader.getId(), new String[] { operator.getId() });
 
-    }
-    catch (CreatePermissionExceptionDTO e)
-    {
-      // This is expected
+      try
+      {
+        InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
+        view.setBrandName(TestConstants.BRAND_NAME);
+        view.setAmount(44);
+        view.setActiveIngredient(ingredients[0]);
+        view.setWeight(new BigDecimal(3.3));
+        view.setSachetsPerRefill(2);
+        view.setEnabled(true);
+        view.apply();
+
+        try
+        {
+          InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
+
+          OperatorSprayViewDTO spray = OperatorSprayViewDTO.searchBySprayData(request, geoId, new Date(), method, brand, operator.getId());
+          spray.setOperatorSprayWeek(33);
+          spray.apply();
+          fail("Able to create a object without permissions");
+
+        }
+        catch (CreatePermissionExceptionDTO e)
+        {
+          // This is expected
+        }
+        finally
+        {
+          view.deleteConcrete();
+        }
+      }
+      finally
+      {
+        team.delete();
+      }
     }
     finally
     {
-      view.deleteConcrete();
-      team.delete();
       PersonDTO.lock(systemRequest, dto.getPersonId()).delete();
     }
   }
@@ -112,49 +122,66 @@ public abstract class IRSNoPermissions extends TestCase
     dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
-    PersonDTO person = PersonDTO.get(request, dto.getPersonId());
-    SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-    SprayOperatorDTO operator = person.getSprayOperatorDelegate();
-
-    SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
-
-    InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName(TestConstants.BRAND_NAME);
-    view.setAmount(44);
-    view.setActiveIngredient(ingredients[0]);
-    view.setWeight(new BigDecimal(3.3));
-    view.setSachetsPerRefill(2);
-    view.setEnabled(true);
-    view.apply();
-
-    InsecticideBrandDTO brand = InsecticideBrandDTO.get(request, view.getInsecticdeId());
-
-    OperatorSprayViewDTO spray = OperatorSprayViewDTO.searchBySprayData(systemRequest, geoId,
-        new Date(), method, brand, operator.getId());
-    spray.setOperatorSprayWeek(33);
-    spray.apply();
-
     try
     {
-      HouseholdSprayStatusViewDTO status = new HouseholdSprayStatusViewDTO(request);
-      status.setSpray(AbstractSprayDTO.get(request, spray.getSprayId()));
-      status.setHouseholdId("232");
-      status.setStructureId("2321");
-      status.apply();
+      PersonDTO person = PersonDTO.get(request, dto.getPersonId());
+      SprayLeaderDTO leader = person.getSprayLeaderDelegate();
+      SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
-      fail("Able to create a object without permissions");
-    }
-    catch (CreatePermissionExceptionDTO e)
-    {
-      // This is expected
+      SprayTeamDTO team = new SprayTeamDTO(systemRequest);
+      team.setTeamId(TestConstants.TEAM_ID);
+      team.create(geoId, leader.getId(), new String[] { operator.getId() });
+
+      try
+      {
+        InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
+        view.setBrandName(TestConstants.BRAND_NAME);
+        view.setAmount(44);
+        view.setActiveIngredient(ingredients[0]);
+        view.setWeight(new BigDecimal(3.3));
+        view.setSachetsPerRefill(2);
+        view.setEnabled(true);
+        view.apply();
+
+        try
+        {
+          InsecticideBrandDTO brand = InsecticideBrandDTO.get(request, view.getInsecticdeId());
+
+          OperatorSprayViewDTO spray = OperatorSprayViewDTO.searchBySprayData(systemRequest, geoId, new Date(), method, brand, operator.getId());
+          spray.setOperatorSprayWeek(33);
+          spray.apply();
+
+          try
+          {
+            HouseholdSprayStatusViewDTO status = new HouseholdSprayStatusViewDTO(request);
+            status.setSpray(AbstractSprayDTO.get(request, spray.getSprayId()));
+            status.setHouseholdId("232");
+            status.setStructureId("2321");
+            status.apply();
+
+            fail("Able to create a object without permissions");
+          }
+          catch (CreatePermissionExceptionDTO e)
+          {
+            // This is expected
+          }
+          finally
+          {
+            spray.deleteConcrete();
+          }
+        }
+        finally
+        {
+          view.deleteConcrete();
+        }
+      }
+      finally
+      {
+        team.delete();
+      }
     }
     finally
     {
-      spray.deleteConcrete();
-      view.deleteConcrete();
-      team.delete();
       PersonDTO.lock(systemRequest, dto.getPersonId()).delete();
     }
   }
@@ -174,42 +201,52 @@ public abstract class IRSNoPermissions extends TestCase
     dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
-    PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
-    SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-    SprayOperatorDTO operator = person.getSprayOperatorDelegate();
-
-    SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
-
-    InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName(TestConstants.BRAND_NAME);
-    view.setAmount(44);
-    view.setActiveIngredient(ingredients[0]);
-    view.setWeight(new BigDecimal(3.3));
-    view.setSachetsPerRefill(2);
-    view.setEnabled(true);
-    view.apply();
-
-    InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
-
     try
     {
-      TeamSprayViewDTO spray = TeamSprayViewDTO.searchBySprayData(request, geoId, new Date(), method,
-          brand, team.getId());
-      spray.setTeamSprayWeek(31);
-      spray.apply();
+      PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
+      SprayLeaderDTO leader = person.getSprayLeaderDelegate();
+      SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
-      fail("Able to create a object without permissions");
-    }
-    catch (CreatePermissionExceptionDTO e)
-    {
-      // This is expected
+      SprayTeamDTO team = new SprayTeamDTO(systemRequest);
+      team.setTeamId(TestConstants.TEAM_ID);
+      team.create(geoId, leader.getId(), new String[] { operator.getId() });
+
+      try
+      {
+        InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
+        view.setBrandName(TestConstants.BRAND_NAME);
+        view.setAmount(44);
+        view.setActiveIngredient(ingredients[0]);
+        view.setWeight(new BigDecimal(3.3));
+        view.setSachetsPerRefill(2);
+        view.setEnabled(true);
+        view.apply();
+
+        try
+        {
+          InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
+          TeamSprayViewDTO spray = TeamSprayViewDTO.searchBySprayData(request, geoId, new Date(), method, brand, team.getId());
+          spray.setTeamSprayWeek(31);
+          spray.apply();
+
+          fail("Able to create a object without permissions");
+        }
+        catch (CreatePermissionExceptionDTO e)
+        {
+          // This is expected
+        }
+        finally
+        {
+          view.deleteConcrete();
+        }
+      }
+      finally
+      {
+        team.delete();
+      }
     }
     finally
     {
-      view.deleteConcrete();
-      team.delete();
       PersonDTO.lock(systemRequest, dto.getPersonId()).delete();
     }
   }
@@ -229,50 +266,67 @@ public abstract class IRSNoPermissions extends TestCase
     dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
-    PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
-    SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-    SprayOperatorDTO operator = person.getSprayOperatorDelegate();
-
-    SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
-
-    InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName(TestConstants.BRAND_NAME);
-    view.setAmount(44);
-    view.setActiveIngredient(ingredients[0]);
-    view.setWeight(new BigDecimal(3.3));
-    view.setSachetsPerRefill(2);
-    view.setEnabled(true);
-    view.apply();
-
-    InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
-
-    TeamSprayViewDTO spray = TeamSprayViewDTO.searchBySprayData(systemRequest, geoId, new Date(),
-        method, brand, team.getId());
-    spray.setTeamSprayWeek(33);
-    spray.apply();
-
     try
     {
-      OperatorSprayStatusViewDTO status = new OperatorSprayStatusViewDTO(request);
-      status.setSprayOperator(operator);
-      status.setSprayData(TeamSprayDTO.get(request, spray.getSprayId()).getSprayData());
-      status.setHouseholds(32);
-      status.setStructures(232);
-      status.apply();
+      PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
+      SprayLeaderDTO leader = person.getSprayLeaderDelegate();
+      SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
-      fail("Able to create a object without permissions");
-    }
-    catch (CreatePermissionExceptionDTO e)
-    {
-      // This is expected
+      SprayTeamDTO team = new SprayTeamDTO(systemRequest);
+      team.setTeamId(TestConstants.TEAM_ID);
+      team.create(geoId, leader.getId(), new String[] { operator.getId() });
+
+      try
+      {
+        InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
+        view.setBrandName(TestConstants.BRAND_NAME);
+        view.setAmount(44);
+        view.setActiveIngredient(ingredients[0]);
+        view.setWeight(new BigDecimal(3.3));
+        view.setSachetsPerRefill(2);
+        view.setEnabled(true);
+        view.apply();
+
+        try
+        {
+          InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
+
+          TeamSprayViewDTO spray = TeamSprayViewDTO.searchBySprayData(systemRequest, geoId, new Date(), method, brand, team.getId());
+          spray.setTeamSprayWeek(33);
+          spray.apply();
+
+          try
+          {
+            OperatorSprayStatusViewDTO status = new OperatorSprayStatusViewDTO(request);
+            status.setSprayOperator(operator);
+            status.setSprayData(TeamSprayDTO.get(request, spray.getSprayId()).getSprayData());
+            status.setHouseholds(32);
+            status.setStructures(232);
+            status.apply();
+
+            fail("Able to create a object without permissions");
+          }
+          catch (CreatePermissionExceptionDTO e)
+          {
+            // This is expected
+          }
+          finally
+          {
+            spray.deleteConcrete();
+          }
+        }
+        finally
+        {
+          view.deleteConcrete();
+        }
+      }
+      finally
+      {
+        team.delete();
+      }
     }
     finally
     {
-      spray.deleteConcrete();
-      view.deleteConcrete();
-      team.delete();
       PersonDTO.lock(systemRequest, dto.getPersonId()).delete();
     }
   }
@@ -292,41 +346,51 @@ public abstract class IRSNoPermissions extends TestCase
     dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
-    PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
-    SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-    SprayOperatorDTO operator = person.getSprayOperatorDelegate();
-
-    SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
-
-    InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName(TestConstants.BRAND_NAME);
-    view.setAmount(44);
-    view.setActiveIngredient(ingredients[0]);
-    view.setWeight(new BigDecimal(3.3));
-    view.setSachetsPerRefill(2);
-    view.setEnabled(true);
-    view.apply();
-
-    InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
-
     try
     {
-      ZoneSprayViewDTO spray = ZoneSprayViewDTO.searchBySprayData(request, geoId, new Date(), method,
-          brand);
-      spray.apply();
+      PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
+      SprayLeaderDTO leader = person.getSprayLeaderDelegate();
+      SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
-      fail("Able to create a object without permissions");
-    }
-    catch (CreatePermissionExceptionDTO e)
-    {
-      // This is expected
+      SprayTeamDTO team = new SprayTeamDTO(systemRequest);
+      team.setTeamId(TestConstants.TEAM_ID);
+      team.create(geoId, leader.getId(), new String[] { operator.getId() });
+
+      try
+      {
+        InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
+        view.setBrandName(TestConstants.BRAND_NAME);
+        view.setAmount(44);
+        view.setActiveIngredient(ingredients[0]);
+        view.setWeight(new BigDecimal(3.3));
+        view.setSachetsPerRefill(2);
+        view.setEnabled(true);
+        view.apply();
+
+        try
+        {
+          InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
+          ZoneSprayViewDTO spray = ZoneSprayViewDTO.searchBySprayData(request, geoId, new Date(), method, brand);
+          spray.apply();
+
+          fail("Able to create a object without permissions");
+        }
+        catch (CreatePermissionExceptionDTO e)
+        {
+          // This is expected
+        }
+        finally
+        {
+          view.deleteConcrete();
+        }
+      }
+      finally
+      {
+        team.delete();
+      }
     }
     finally
     {
-      view.deleteConcrete();
-      team.delete();
       PersonDTO.lock(systemRequest, dto.getPersonId()).delete();
     }
   }
@@ -346,49 +410,66 @@ public abstract class IRSNoPermissions extends TestCase
     dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
-    PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
-    SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-    SprayOperatorDTO operator = person.getSprayOperatorDelegate();
-
-    SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
-
-    InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-    view.setBrandName(TestConstants.BRAND_NAME);
-    view.setAmount(44);
-    view.setActiveIngredient(ingredients[0]);
-    view.setWeight(new BigDecimal(3.3));
-    view.setSachetsPerRefill(2);
-    view.setEnabled(true);
-    view.apply();
-
-    InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
-
-    ZoneSprayViewDTO spray = ZoneSprayViewDTO.searchBySprayData(systemRequest, geoId, new Date(),
-        method, brand);
-    spray.apply();
-
     try
     {
-      TeamSprayStatusViewDTO status = new TeamSprayStatusViewDTO(request);
-      status.setSprayData(ZoneSprayDTO.get(request, spray.getSprayId()).getSprayData());
-      status.setSprayTeam(team);
-      status.setHouseholds(32);
-      status.setStructures(232);
-      status.apply();
+      PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
+      SprayLeaderDTO leader = person.getSprayLeaderDelegate();
+      SprayOperatorDTO operator = person.getSprayOperatorDelegate();
 
-      fail("Able to create a object without permissions");
-    }
-    catch (CreatePermissionExceptionDTO e)
-    {
-      // This is expected
+      SprayTeamDTO team = new SprayTeamDTO(systemRequest);
+      team.setTeamId(TestConstants.TEAM_ID);
+      team.create(geoId, leader.getId(), new String[] { operator.getId() });
+
+      try
+      {
+        InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
+        view.setBrandName(TestConstants.BRAND_NAME);
+        view.setAmount(44);
+        view.setActiveIngredient(ingredients[0]);
+        view.setWeight(new BigDecimal(3.3));
+        view.setSachetsPerRefill(2);
+        view.setEnabled(true);
+        view.apply();
+
+        try
+        {
+          InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
+
+          ZoneSprayViewDTO spray = ZoneSprayViewDTO.searchBySprayData(systemRequest, geoId, new Date(), method, brand);
+          spray.apply();
+
+          try
+          {
+            TeamSprayStatusViewDTO status = new TeamSprayStatusViewDTO(request);
+            status.setSprayData(ZoneSprayDTO.get(request, spray.getSprayId()).getSprayData());
+            status.setSprayTeam(team);
+            status.setHouseholds(32);
+            status.setStructures(232);
+            status.apply();
+
+            fail("Able to create a object without permissions");
+          }
+          catch (CreatePermissionExceptionDTO e)
+          {
+            // This is expected
+          }
+          finally
+          {
+            spray.deleteConcrete();
+          }
+        }
+        finally
+        {
+          view.deleteConcrete();
+        }
+      }
+      finally
+      {
+        team.delete();
+      }
     }
     finally
     {
-      spray.deleteConcrete();
-      view.deleteConcrete();
-      team.delete();
       PersonDTO.lock(systemRequest, dto.getPersonId()).delete();
     }
   }

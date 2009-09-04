@@ -59,6 +59,8 @@ public abstract class EntomologyNoPermissions extends TestCase implements DoNotW
       dto.apply();
 
       dto.delete();
+      
+      fail("Able to create a mosquito collection without permissions");
     }
     catch (CreatePermissionExceptionDTO e)
     {
@@ -90,6 +92,8 @@ public abstract class EntomologyNoPermissions extends TestCase implements DoNotW
       view.setQuantityMale(3);
       view.setCollection(dto);
       view.apply();
+      
+      fail("Able to create a morphological group without permissions");
     }
     catch (CreatePermissionExceptionDTO e)
     {
@@ -119,6 +123,8 @@ public abstract class EntomologyNoPermissions extends TestCase implements DoNotW
       dto.setSpecie(species[0]);
       dto.setQuantity(24);
       dto.apply();
+      
+      fail("Able to create a mosquito collection point without permissions");
     }
     catch (CreatePermissionExceptionDTO e)
     {
@@ -162,6 +168,8 @@ public abstract class EntomologyNoPermissions extends TestCase implements DoNotW
       view.setPMalariae(true);
       view.setPMalariaeMethod(infectivity[0]);
       view.apply();
+      
+      fail("Able to create a mosquito without permissions");
     }
     catch (CreatePermissionExceptionDTO e)
     {
@@ -189,40 +197,49 @@ public abstract class EntomologyNoPermissions extends TestCase implements DoNotW
     dto.setDateCollected(new Date());
     dto.apply();
 
-    InsecticideDTO insecticide = new InsecticideDTO(systemRequest);
-    insecticide.setActiveIngredient(ingredients[0]);
-    insecticide.setAmount(new Double(30.0));
-    insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
-    insecticide.apply();
-
     try
     {
-      AdultDiscriminatingDoseAssayDTO assay = new AdultDiscriminatingDoseAssayDTO(request);
-      assay.addSex(AssaySexDTO.MIXED);
-      assay.setCollection(dto);
-      assay.setControlTestMortality(2.5F);
-      assay.setFed(30);
-      assay.setGravid(30);
-      assay.setExposureTime(60);
-      assay.setIntervalTime(10);
-      assay.setGeneration(generations[0]);
-      assay.setIdentificationMethod(identification[0]);
-      assay.setIsofemale(false);
-      assay.setQuantityDead(30);
-      assay.setQuantityTested(60);
-      assay.setQuantityLive(30);
-      assay.setSpecie(species[0]);
-      assay.setTestDate(date);
-      assay.setInsecticide(insecticide);
-      assay.apply();
-    }
-    catch (CreatePermissionExceptionDTO e)
-    {
 
+      InsecticideDTO insecticide = new InsecticideDTO(systemRequest);
+      insecticide.setActiveIngredient(ingredients[0]);
+      insecticide.setAmount(new Double(30.0));
+      insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
+      insecticide.apply();
+
+      try
+      {
+        AdultDiscriminatingDoseAssayDTO assay = new AdultDiscriminatingDoseAssayDTO(request);
+        assay.addSex(AssaySexDTO.MIXED);
+        assay.setCollection(dto);
+        assay.setControlTestMortality(2.5F);
+        assay.setFed(30);
+        assay.setGravid(30);
+        assay.setExposureTime(60);
+        assay.setIntervalTime(10);
+        assay.setGeneration(generations[0]);
+        assay.setIdentificationMethod(identification[0]);
+        assay.setIsofemale(false);
+        assay.setQuantityDead(30);
+        assay.setQuantityTested(60);
+        assay.setQuantityLive(30);
+        assay.setSpecie(species[0]);
+        assay.setTestDate(date);
+        assay.setInsecticide(insecticide);
+        assay.apply();
+        
+        fail("Able to create an adda without permissions");
+      }
+      catch (CreatePermissionExceptionDTO e)
+      {
+
+      }
+      finally
+      {
+        insecticide.delete();
+      }
     }
     finally
     {
-      insecticide.delete();
       dto.delete();
     }
   }
@@ -243,37 +260,45 @@ public abstract class EntomologyNoPermissions extends TestCase implements DoNotW
     dto.setDateCollected(new Date());
     dto.apply();
 
-    InsecticideDTO insecticide = new InsecticideDTO(systemRequest);
-    insecticide.setActiveIngredient(ingredients[0]);
-    insecticide.setAmount(new Double(30.0));
-    insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
-    insecticide.apply();
-
     try
     {
-      LarvaeDiscriminatingDoseAssayDTO assay = new LarvaeDiscriminatingDoseAssayDTO(request);
-      assay.setCollection(dto);
-      assay.setControlTestMortality(2.5F);
-      assay.setExposureTime(60);
-      assay.setIntervalTime(10);
-      assay.setGeneration(generations[0]);
-      assay.setIdentificationMethod(identification[0]);
-      assay.setIsofemale(false);
-      assay.setQuantityDead(30);
-      assay.setQuantityTested(60);
-      assay.setQuantityLive(30);
-      assay.setSpecie(species[0]);
-      assay.setTestDate(date);
-      assay.setInsecticide(insecticide);
-      assay.apply();
-    }
-    catch (CreatePermissionExceptionDTO e)
-    {
+      InsecticideDTO insecticide = new InsecticideDTO(systemRequest);
+      insecticide.setActiveIngredient(ingredients[0]);
+      insecticide.setAmount(new Double(30.0));
+      insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
+      insecticide.apply();
 
+      try
+      {
+        LarvaeDiscriminatingDoseAssayDTO assay = new LarvaeDiscriminatingDoseAssayDTO(request);
+        assay.setCollection(dto);
+        assay.setControlTestMortality(2.5F);
+        assay.setExposureTime(60);
+        assay.setIntervalTime(10);
+        assay.setGeneration(generations[0]);
+        assay.setIdentificationMethod(identification[0]);
+        assay.setIsofemale(false);
+        assay.setQuantityDead(30);
+        assay.setQuantityTested(60);
+        assay.setQuantityLive(30);
+        assay.setSpecie(species[0]);
+        assay.setTestDate(date);
+        assay.setInsecticide(insecticide);
+        assay.apply();
+        
+        fail("Able to create a ldda without permissions");
+      }
+      catch (CreatePermissionExceptionDTO e)
+      {
+
+      }
+      finally
+      {
+        insecticide.delete();
+      }
     }
     finally
     {
-      insecticide.delete();
       dto.delete();
     }
   }
@@ -294,37 +319,45 @@ public abstract class EntomologyNoPermissions extends TestCase implements DoNotW
     dto.setDateCollected(new Date());
     dto.apply();
 
-    InsecticideDTO insecticide = new InsecticideDTO(systemRequest);
-    insecticide.setActiveIngredient(ingredients[0]);
-    insecticide.setAmount(new Double(30.0));
-    insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
-    insecticide.apply();
-
     try
     {
-      KnockDownAssayDTO assay = new KnockDownAssayDTO(request);
-      assay.addSex(AssaySexDTO.MIXED);
-      assay.setCollection(dto);
-      assay.setFed(30);
-      assay.setGravid(30);
-      assay.setExposureTime(60);
-      assay.setIntervalTime(10);
-      assay.setGeneration(generations[0]);
-      assay.setIdentificationMethod(identification[0]);
-      assay.setIsofemale(false);
-      assay.setQuantityTested(60);
-      assay.setSpecie(species[0]);
-      assay.setTestDate(date);
-      assay.setInsecticide(insecticide);
-      assay.apply();
-    }
-    catch (CreatePermissionExceptionDTO e)
-    {
+      InsecticideDTO insecticide = new InsecticideDTO(systemRequest);
+      insecticide.setActiveIngredient(ingredients[0]);
+      insecticide.setAmount(new Double(30.0));
+      insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
+      insecticide.apply();
 
+      try
+      {
+        KnockDownAssayDTO assay = new KnockDownAssayDTO(request);
+        assay.addSex(AssaySexDTO.MIXED);
+        assay.setCollection(dto);
+        assay.setFed(30);
+        assay.setGravid(30);
+        assay.setExposureTime(60);
+        assay.setIntervalTime(10);
+        assay.setGeneration(generations[0]);
+        assay.setIdentificationMethod(identification[0]);
+        assay.setIsofemale(false);
+        assay.setQuantityTested(60);
+        assay.setSpecie(species[0]);
+        assay.setTestDate(date);
+        assay.setInsecticide(insecticide);
+        assay.apply();
+        
+        fail("Able to create a kda without permissions");
+      }
+      catch (CreatePermissionExceptionDTO e)
+      {
+
+      }
+      finally
+      {
+        insecticide.delete();
+      }
     }
     finally
     {
-      insecticide.delete();
       dto.delete();
     }
   }
@@ -348,6 +381,8 @@ public abstract class EntomologyNoPermissions extends TestCase implements DoNotW
       dto.setUpperPercent(95);
       dto.setUpperTime(50);
       dto.apply();
+      
+      fail("Able to create a ltp without permissions");
     }
     catch (CreatePermissionExceptionDTO e)
     {
@@ -377,10 +412,12 @@ public abstract class EntomologyNoPermissions extends TestCase implements DoNotW
       dto.setUpperPercent(95);
       dto.setUpperTime(50);
       dto.apply();
-    }
-    catch(CreatePermissionExceptionDTO e)
-    {
       
+      fail("Able to create a kdtp without permissions");
+    }
+    catch (CreatePermissionExceptionDTO e)
+    {
+
     }
     finally
     {

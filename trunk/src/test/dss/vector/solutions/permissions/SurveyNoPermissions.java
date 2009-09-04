@@ -63,11 +63,11 @@ public abstract class SurveyNoPermissions extends TestCase
     view.setSurveyDate(new Date());
     view.apply();
 
-    WallViewDTO[] walls = WallViewDTO.getAll(request);
-    RoofViewDTO[] roofs = RoofViewDTO.getAll(request);
-
     try
     {
+      WallViewDTO[] walls = WallViewDTO.getAll(request);
+      RoofViewDTO[] roofs = RoofViewDTO.getAll(request);
+      
       HouseholdDTO household = new HouseholdDTO(request);
       household.setSurveyPoint(SurveyPointDTO.get(request, view.getConcreteId()));
       household.setHasWindows(true);

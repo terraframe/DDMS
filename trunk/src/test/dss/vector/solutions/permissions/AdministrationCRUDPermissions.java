@@ -56,8 +56,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
 
   public void testUpdateProperty()
   {
-    PropertyDTO property = PropertyDTO.getByPackageAndName(request, PropertyInfo.RESISTANCE_PACKAGE,
-        PropertyInfo.ADULT_DDA_RESISTANCE);
+    PropertyDTO property = PropertyDTO.getByPackageAndName(request, PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.ADULT_DDA_RESISTANCE);
     property.lock();
 
     String value = property.getPropertyValue();
@@ -535,7 +534,7 @@ public abstract class AdministrationCRUDPermissions extends TestCase
       }
       finally
       {
-        if(!child.isNewInstance())
+        if (!child.isNewInstance())
         {
           child.delete();
         }
@@ -574,13 +573,13 @@ public abstract class AdministrationCRUDPermissions extends TestCase
         child.setParentRoof(dto);
         child.apply();
       }
-      catch(Exception e)
+      catch (Exception e)
       {
         fail(e.getLocalizedMessage());
       }
       finally
       {
-        if(!child.isNewInstance())
+        if (!child.isNewInstance())
         {
           child.delete();
         }
@@ -620,13 +619,13 @@ public abstract class AdministrationCRUDPermissions extends TestCase
         child.setParentWall(dto);
         child.apply();
       }
-      catch(Exception e)
+      catch (Exception e)
       {
         fail(e.getLocalizedMessage());
       }
       finally
       {
-        if(!child.isNewInstance())
+        if (!child.isNewInstance())
         {
           child.delete();
         }
@@ -761,17 +760,20 @@ public abstract class AdministrationCRUDPermissions extends TestCase
     view.setReadPermission(false);
     view.setAttributeDescription("Desc");
 
-    ReadableAttributeViewDTO.setActorAttributes(request, MosquitoCollectionDTO.CLASS,
-        MDSSRoleInfo.GUI_VISIBILITY, new ReadableAttributeViewDTO[] { view });
+    try
+    {
+      ReadableAttributeViewDTO.setActorAttributes(request, MosquitoCollectionDTO.CLASS, MDSSRoleInfo.GUI_VISIBILITY, new ReadableAttributeViewDTO[] { view });
+    }
+    finally
+    {
+      view = new ReadableAttributeViewDTO(request);
+      view.setAttributeName(attributeMd.getName());
+      view.setDisplayLabel(attributeMd.getDisplayLabel());
+      view.setReadPermission(true);
+      view.setAttributeDescription(attributeMd.getDescription());
 
-    view = new ReadableAttributeViewDTO(request);
-    view.setAttributeName(attributeMd.getName());
-    view.setDisplayLabel(attributeMd.getDisplayLabel());
-    view.setReadPermission(true);
-    view.setAttributeDescription(attributeMd.getDescription());
-
-    ReadableAttributeViewDTO.setActorAttributes(request, MosquitoCollectionDTO.CLASS,
-        MDSSRoleInfo.GUI_VISIBILITY, new ReadableAttributeViewDTO[] { view });
+      ReadableAttributeViewDTO.setActorAttributes(request, MosquitoCollectionDTO.CLASS, MDSSRoleInfo.GUI_VISIBILITY, new ReadableAttributeViewDTO[] { view });
+    }
   }
 
   public void testRoleAssignment()

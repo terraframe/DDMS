@@ -49,10 +49,10 @@ public abstract class AggregatedCasesCRUDPermissions extends TestCase
       }
 
 
+      view.applyAll(treatments, methods, stocks, diagnostic, referrals);
+
       try
       {
-        view.applyAll(treatments, methods, stocks, diagnostic, referrals);
-
         AggregatedCaseViewDTO c = AggregatedCaseDTO.lockView(request, view.getCaseId());
         c.setCases(23);
         c.apply();

@@ -63,37 +63,43 @@ public abstract class SurveyCRUDPermissions extends TestCase
     view.setSurveyDate(new Date());
     view.apply();
 
-    WallViewDTO[] walls = WallViewDTO.getAll(request);
-    RoofViewDTO[] roofs = RoofViewDTO.getAll(request);
-
-    HouseholdDTO household = new HouseholdDTO(request);
-    household.setSurveyPoint(SurveyPointDTO.get(request, view.getConcreteId()));
-    household.setHasWindows(true);
-    household.setWall(WallDTO.get(request, walls[0].getWallId()));
-    household.setRoof(RoofDTO.get(request, roofs[0].getRoofId()));
-    household.setHouseholdName("232");
-    household.setNets(40);
-
-    HouseholdNetDTO[] nets = household.getHouseholdNets();
-    nets[0].setAmount(40);
-
-    household.applyAll(nets);
-
     try
     {
-      household.lock();
-      household.setNetsUsed(20);
-      HouseholdNetDTO[] lockedNets = household.getHouseholdNets();
+      WallViewDTO[] walls = WallViewDTO.getAll(request);
+      RoofViewDTO[] roofs = RoofViewDTO.getAll(request);
 
-      household.applyAll(lockedNets);
+      HouseholdDTO household = new HouseholdDTO(request);
+      household.setSurveyPoint(SurveyPointDTO.get(request, view.getConcreteId()));
+      household.setHasWindows(true);
+      household.setWall(WallDTO.get(request, walls[0].getWallId()));
+      household.setRoof(RoofDTO.get(request, roofs[0].getRoofId()));
+      household.setHouseholdName("232");
+      household.setNets(40);
 
-      HouseholdDTO test = HouseholdDTO.get(request, household.getId());
+      HouseholdNetDTO[] nets = household.getHouseholdNets();
+      nets[0].setAmount(40);
 
-      assertEquals(household.getId(), test.getId());
+      household.applyAll(nets);
+
+      try
+      {
+        household.lock();
+        household.setNetsUsed(20);
+        HouseholdNetDTO[] lockedNets = household.getHouseholdNets();
+
+        household.applyAll(lockedNets);
+
+        HouseholdDTO test = HouseholdDTO.get(request, household.getId());
+
+        assertEquals(household.getId(), test.getId());
+      }
+      finally
+      {
+        household.delete();
+      }
     }
     finally
     {
-      household.delete();
       view.deleteConcrete();
     }
   }

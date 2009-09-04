@@ -31,7 +31,7 @@ import dss.vector.solutions.mo.ActiveIngredientDTO;
 
 public abstract class PlanningNoPermissions extends TestCase
 {
-  
+
   protected static ClientSession   systemSession;
 
   protected static ClientSession   clientSession;
@@ -54,12 +54,12 @@ public abstract class PlanningNoPermissions extends TestCase
     dto.setOperatorId(TestConstants.OPERATOR_ID);
     dto.apply();
 
-    PersonDTO person = PersonDTO.get(request, dto.getPersonId());
-    SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-    SprayOperatorDTO operator = person.getSprayOperatorDelegate();
-
     try
     {
+      PersonDTO person = PersonDTO.get(request, dto.getPersonId());
+      SprayLeaderDTO leader = person.getSprayLeaderDelegate();
+      SprayOperatorDTO operator = person.getSprayOperatorDelegate();
+
       SprayTeamDTO team = new SprayTeamDTO(request);
       team.setTeamId(TestConstants.TEAM_ID);
       team.create(geoId, leader.getId(), new String[] { operator.getId() });
@@ -132,32 +132,38 @@ public abstract class PlanningNoPermissions extends TestCase
     brand.setEnabled(true);
     brand.apply();
 
-    NozzleViewDTO nozzle = new NozzleViewDTO(systemRequest);
-    nozzle.setDisplayLabel(TestConstants.NOZZLE_NAME);
-    nozzle.setRatio(new BigDecimal(3.4));
-    nozzle.setEnabled(true);
-    nozzle.apply();
-
     try
     {
-      InsecticideNozzleViewDTO config = new InsecticideNozzleViewDTO(request);
-      InsecticideBrandDTO concreteBrand = InsecticideBrandDTO.get(request, brand.getInsecticdeId());
-      NozzleDTO concreteNozzle = NozzleDTO.get(request, nozzle.getNozzleId());
+      NozzleViewDTO nozzle = new NozzleViewDTO(systemRequest);
+      nozzle.setDisplayLabel(TestConstants.NOZZLE_NAME);
+      nozzle.setRatio(new BigDecimal(3.4));
+      nozzle.setEnabled(true);
+      nozzle.apply();
 
-      config.setBrand(concreteBrand);
-      config.setNozzle(concreteNozzle);
-      config.apply();
+      try
+      {
+        InsecticideNozzleViewDTO config = new InsecticideNozzleViewDTO(request);
+        InsecticideBrandDTO concreteBrand = InsecticideBrandDTO.get(request, brand.getInsecticdeId());
+        NozzleDTO concreteNozzle = NozzleDTO.get(request, nozzle.getNozzleId());
 
-      fail("Able to create a object without permissions");
-    }
-    catch (CreatePermissionExceptionDTO e)
-    {
-      // This is expected
+        config.setBrand(concreteBrand);
+        config.setNozzle(concreteNozzle);
+        config.apply();
+
+        fail("Able to create a object without permissions");
+      }
+      catch (CreatePermissionExceptionDTO e)
+      {
+        // This is expected
+      }
+      finally
+      {
+        nozzle.deleteConcrete();
+      }
     }
     finally
     {
       brand.deleteConcrete();
-      nozzle.deleteConcrete();
     }
   }
 
@@ -240,43 +246,55 @@ public abstract class PlanningNoPermissions extends TestCase
     season.setEndDate(endDate);
     season.apply();
 
-    PersonViewDTO dto = new PersonViewDTO(systemRequest);
-    dto.setFirstName("Test");
-    dto.setLastName("Test");
-    dto.setDateOfBirth(new Date());
-    dto.setIsSprayLeader(true);
-    dto.setIsSprayOperator(true);
-    dto.setLeaderId(TestConstants.LEADER_ID);
-    dto.setOperatorId(TestConstants.OPERATOR_ID);
-    dto.apply();
-
-    PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
-    SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-    SprayOperatorDTO operator = person.getSprayOperatorDelegate();
-
-    SprayTeamDTO team = new SprayTeamDTO(systemRequest);
-    team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
-
     try
     {
-      ResourceTargetViewDTO view = new ResourceTargetViewDTO(request);
-      view.setTargeter(team);
-      view.setSeason(season);
-      view.setTarget_0(4);
-      view.apply();
+      PersonViewDTO dto = new PersonViewDTO(systemRequest);
+      dto.setFirstName("Test");
+      dto.setLastName("Test");
+      dto.setDateOfBirth(new Date());
+      dto.setIsSprayLeader(true);
+      dto.setIsSprayOperator(true);
+      dto.setLeaderId(TestConstants.LEADER_ID);
+      dto.setOperatorId(TestConstants.OPERATOR_ID);
+      dto.apply();
 
-      fail("Able to create a object without permissions");
-    }
-    catch (CreatePermissionExceptionDTO e)
-    {
-      // This is expected
+      try
+      {
+        PersonDTO person = PersonDTO.get(systemRequest, dto.getPersonId());
+        SprayLeaderDTO leader = person.getSprayLeaderDelegate();
+        SprayOperatorDTO operator = person.getSprayOperatorDelegate();
+
+        SprayTeamDTO team = new SprayTeamDTO(systemRequest);
+        team.setTeamId(TestConstants.TEAM_ID);
+        team.create(geoId, leader.getId(), new String[] { operator.getId() });
+
+        try
+        {
+          ResourceTargetViewDTO view = new ResourceTargetViewDTO(request);
+          view.setTargeter(team);
+          view.setSeason(season);
+          view.setTarget_0(4);
+          view.apply();
+
+          fail("Able to create a object without permissions");
+        }
+        catch (CreatePermissionExceptionDTO e)
+        {
+          // This is expected
+        }
+        finally
+        {
+          team.delete();
+        }
+      }
+      finally
+      {
+        PersonDTO.lock(systemRequest, dto.getPersonId()).delete();
+      }
     }
     finally
     {
       season.delete();
-      team.delete();
-      PersonDTO.lock(systemRequest, dto.getPersonId()).delete();
     }
 
   }
