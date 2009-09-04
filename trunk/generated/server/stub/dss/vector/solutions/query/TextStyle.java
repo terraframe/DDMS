@@ -9,4 +9,11 @@ public class TextStyle extends TextStyleBase implements com.terraframe.mojo.gene
     super();
   }
   
+  
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Naifeh needs to define this key
+    return this.getId();
+  }
 }

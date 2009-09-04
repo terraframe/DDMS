@@ -17,6 +17,14 @@ public abstract class Layer extends LayerBase implements com.terraframe.mojo.gen
   {
     super();
   }
+  
+  
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Naifeh needs to define this key
+    return this.getId();
+  }
 
   @Override
   @Transaction

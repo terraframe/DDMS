@@ -18,4 +18,12 @@ public abstract class AbstractCategory extends AbstractCategoryBase implements c
    */
   public abstract NumberRange getAsNumberRange();
 
+  
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Naifeh needs to define this key
+    return this.getId();
+  }
+
 }

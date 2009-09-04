@@ -14,6 +14,13 @@ public class UniversalLayer extends UniversalLayerBase implements com.terraframe
   {
     super();
   }
+  
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Naifeh needs to define this key
+    return this.getId();
+  }
 
   /**
    * Creates a new layer with default styles.

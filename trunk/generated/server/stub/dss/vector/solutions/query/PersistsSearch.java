@@ -14,4 +14,11 @@ public class PersistsSearch extends PersistsSearchBase implements com.terraframe
     this(parent.getId(), child.getId());
   }
   
+  
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Naifeh needs to define this key
+    return this.getId();
+  }
 }

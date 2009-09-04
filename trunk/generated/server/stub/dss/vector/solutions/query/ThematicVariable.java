@@ -9,4 +9,10 @@ public class ThematicVariable extends ThematicVariableBase implements com.terraf
     super();
   }
   
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Naifeh needs to define this key
+    return this.getId();
+  }
 }

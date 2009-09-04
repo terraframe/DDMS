@@ -25,7 +25,12 @@ public class NonRangeCategory extends NonRangeCategoryBase implements com.terraf
   {
     return new NumberRange(this.getExactValue());
   }
-
-
-
+  
+  
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Naifeh needs to define this key
+    return this.getId();
+  }
 }

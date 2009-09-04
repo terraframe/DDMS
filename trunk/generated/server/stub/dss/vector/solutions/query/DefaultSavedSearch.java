@@ -19,4 +19,13 @@ public class DefaultSavedSearch extends DefaultSavedSearchBase implements com.te
     
     super.apply();
   }
+  
+  
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Naifeh needs to define this key
+    return this.getId();
+  }
+
 }

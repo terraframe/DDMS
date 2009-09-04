@@ -9,4 +9,11 @@ public abstract class StyleRule extends StyleRuleBase implements com.terraframe.
     super();
   }
   
+  
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Naifeh needs to define this key
+    return this.getId();
+  }
 }

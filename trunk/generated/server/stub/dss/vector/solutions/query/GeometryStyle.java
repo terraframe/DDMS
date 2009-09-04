@@ -21,6 +21,14 @@ public abstract class GeometryStyle extends GeometryStyleBase implements com.ter
   {
     super();
   }
+  
+  
+  @Override
+  protected String buildKey()
+  {
+    //TODO: Naifeh needs to define this key
+    return this.getId();
+  }
 
   /**
    * Converts an MdAttributeGeometry to the propery GeometryStyle subclass.
