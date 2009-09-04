@@ -21,9 +21,11 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.SystemExceptionDTO;
 import com.terraframe.mojo.business.ViewDTO;
 import com.terraframe.mojo.constants.ClientConstants;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.dataaccess.database.DatabaseExceptionDTO;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.util.FileIO;
 
@@ -83,6 +85,15 @@ public class ExcelImportServlet extends HttpServlet
           sourceStream = item.getInputStream();
         }
       }
+      
+      // No file was uploaded
+      if (size==0)
+      {
+        req.setAttribute(ErrorUtility.ERROR_MESSAGE, localized.getString("File_Upload_Blank"));
+        req.setAttribute(TYPE, fields.get(TYPE));
+        req.getRequestDispatcher("/WEB-INF/excelImport.jsp").forward(req, res);
+        return;
+      }
 
       int available = sourceStream.available();
       byte[] bytes = new byte[available];
@@ -133,6 +144,10 @@ public class ExcelImportServlet extends HttpServlet
     catch (ProblemExceptionDTO p)
     {
       ErrorUtility.prepareProblems(p, req);
+    }
+    catch (InvocationTargetException e)
+    {
+      ErrorUtility.prepareThrowable(e.getTargetException(), req);
     }
     catch (Exception e)
     {

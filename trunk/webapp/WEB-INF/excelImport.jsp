@@ -4,6 +4,7 @@
 
 <div class="pageContent">
 <div class="pageTitle"><fmt:message key="Excel_Import_Header" /></div>
+<jsp:include page="/WEB-INF/inlineError.jsp" />
 <div class="fldContainer">
     <div class="fcTop">
     
