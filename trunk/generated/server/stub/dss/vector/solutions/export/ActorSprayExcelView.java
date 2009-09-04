@@ -1,12 +1,16 @@
 package dss.vector.solutions.export;
 
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
+import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
+
 import dss.vector.solutions.irs.ActorSprayView;
 import dss.vector.solutions.irs.SprayOperator;
 
-public abstract class ActorSprayExcelView extends ActorSprayExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class ActorSprayExcelView extends ActorSprayExcelViewBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1246598143569L;
-  
+
   public ActorSprayExcelView()
   {
     super();
@@ -16,9 +20,21 @@ public abstract class ActorSprayExcelView extends ActorSprayExcelViewBase implem
   {
     super.populate(actorSprayView);
 
-    SprayOperator leader = SprayOperator.getByOperatorId(this.getLeaderId());
-    
-    actorSprayView.setTeamLeader(leader);
+    String leaderID = this.getLeaderId();
+    if (leaderID != null && !leaderID.equals(""))
+    {
+      SprayOperator leader = SprayOperator.getByOperatorId(leaderID);
+
+      if(leader != null)
+      {
+        actorSprayView.setTeamLeader(leader);
+      }
+      else
+      {
+        String msg = "Unknown spray operator [" + leaderID + "]";
+        throw new DataNotFoundException(msg, MdTypeDAO.getMdTypeDAO(SprayOperator.CLASS));
+      }
+    }
     actorSprayView.setTeamSprayWeek(this.getTeamSprayWeek());
     actorSprayView.setTarget(this.getTarget());
     actorSprayView.setReceived(this.getReceived());
@@ -26,5 +42,5 @@ public abstract class ActorSprayExcelView extends ActorSprayExcelViewBase implem
     actorSprayView.setReturned(this.getReturned());
     actorSprayView.setUsed(this.getUsed());
   }
-  
+
 }
