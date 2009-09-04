@@ -4213,6 +4213,11 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO', {
       // instantiate the MdDTO version of this attribute
       var mdDtoType = this.$class.getName().replace('DTO', 'MdDTO');
       var mdKlass = Mojo.Meta.findClass(Mojo.MD_DTO_PACKAGE+ mdDtoType);
+
+      if(!mdKlass)
+      {
+    	  mdKlass = Mojo.Meta.findClass("com.terraframe.mojo.gis.transport.metadata."+ mdDtoType);
+      }
       this.attributeMdDTO = new mdKlass(obj.attributeMdDTO);
     },
   
