@@ -370,7 +370,7 @@ YAHOO.util.Event.onDOMReady(function(){
             var li = document.createElement('li');
             li.id = valueObj.getValue(idAttr);
 
-            var construct = Mojo.Mojo.findClass(valueObj.getValue(typeAttr));
+            var construct = Mojo.Meta.findClass(valueObj.getValue(typeAttr));
             var type = new construct(); // use new instance as a template
             var localizedType = type.getTypeMd().getDisplayLabel();
 
