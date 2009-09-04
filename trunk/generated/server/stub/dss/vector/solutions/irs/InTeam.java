@@ -13,5 +13,10 @@ public class InTeam extends InTeamBase implements com.terraframe.mojo.generation
   {
     this(parent.getId(), child.getId());
   }
-  
+
+  @Override
+  protected String buildKey()
+  {
+    return this.getParent().buildKey() + "-" + this.getChild().buildKey();
+  }
 }
