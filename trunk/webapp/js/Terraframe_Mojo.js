@@ -450,21 +450,6 @@ Mojo.Meta.newClass('Mojo.Util', {
       return o != null && Object.prototype.toString.call(o) === Mojo.IS_BOOLEAN_TO_STRING;
     },
     
-    hasMethod : function(obj, method)
-    {
-      return method in obj && Mojo.Util.isFunction(obj[method]);
-    },
-
-    hasNativeMethod : function (obj, method)
-    {
-      return method in obj && obj.hasOwnProperty(method) && Mojo.Util.isFunction(obj[method]);
-    },
-
-    hasInheritedMethod : function(obj, method)
-    {
-      return method in obj && !obj.hasOwnProperty(method) && Mojo.Util.isFunction(obj[method]);
-    },
-    
     bind : function(thisRef, func)
     {
       var args = [].splice.call(arguments, 2);

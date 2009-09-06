@@ -169,11 +169,18 @@ var MDSS = {
 
     this.onProblemExceptionDTO = function(e)
     {
-      var problems = e.getProblems();
-      var content = '';
-      for(var i=0; i<problems.length; i++)
+      var content;
+      if(e instanceof Mojo.$.com.terraframe.mojo.ProblemExceptionDTO)
       {
-        content += problems[i].getLocalizedMessage()+"<br />";
+        var problems = e.getProblems();
+        for(var i=0; i<problems.length; i++)
+        {
+          content += problems[i].getLocalizedMessage()+"<br />";
+        }
+      }
+      else
+      {
+        content = e.getLocalizedMessage();
       }
 
       this.createModal(content);
