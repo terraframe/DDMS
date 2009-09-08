@@ -107,12 +107,12 @@ function showCol(key,checked)
   var methodKey = key +'Method';
 
   if(checked)
-  {        
+  {
       table_data.myDataTable.showColumn(key);
       table_data.myDataTable.showColumn(methodKey);
   }
   else
-  {        
+  {
       table_data.myDataTable.hideColumn(key);
       table_data.myDataTable.hideColumn(methodKey);
   }
@@ -121,7 +121,7 @@ function showCol(key,checked)
 <%String[] types_to_load = {MosquitoViewDTO.CLASS, UninterestingSpecieGroupViewDTO.CLASS}; %>
 <%=Halp.getDropdownSetup(mdView, attribs, delete_row,clientRequest)%>
 
-var editors = Mojo.util.getObject(<%=request.getAttribute("editors")%>);
+var editors = Mojo.Util.getObject(<%=request.getAttribute("editors")%>);
 
 MDSS.Calendar.init()
 table_data = {rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
@@ -131,7 +131,7 @@ table_data = {rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
           div_id: "Mosquitos",
           data_type: "Mojo.$.dss.vector.solutions.entomology.MosquitoView",
           width:"65em",
-          excelButtons:false          
+          excelButtons:false
       };
 YAHOO.util.Event.addListener(window, 'load', MojoGrid.createDataTable(table_data));
 </script></div>
@@ -170,11 +170,11 @@ YAHOO.util.Event.addListener(window, 'load', MojoGrid.createDataTable(Uninterest
 var reloadColumns = function()
 {
   var checkboxes = YAHOO.util.Selector.query(".results");
-    
+
   for (var i = 0; i < checkboxes.length; i++)
   {
-    showCol(checkboxes[i].id,checkboxes[i].checked);  
-  }  
+    showCol(checkboxes[i].id,checkboxes[i].checked);
+  }
 }
 
 reloadColumns();

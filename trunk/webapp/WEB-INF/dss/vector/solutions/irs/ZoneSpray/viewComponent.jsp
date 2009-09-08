@@ -223,8 +223,8 @@ data = {
          var column = data.myDataTable.getColumn('TeamLeader');
          var cell = e.editor.getTdEl();
          
-         TeamLeaderLabels=Mojo.util.getValues(operators[teamId]);   
-         TeamLeaderIds=Mojo.util.getKeys(operators[teamId]);   
+         TeamLeaderLabels=Mojo.Util.getValues(operators[teamId]);   
+         TeamLeaderIds=Mojo.Util.getKeys(operators[teamId]);   
 
          e.editor.dropdownOptions = TeamLeaderLabels;
 
@@ -285,8 +285,8 @@ data = {
     }    	
      
      
-     SprayTeamLabels=Mojo.util.getValues(teams);   
-     SprayTeamIds=Mojo.util.getKeys(teams);   
+     SprayTeamLabels=Mojo.Util.getValues(teams);   
+     SprayTeamIds=Mojo.Util.getKeys(teams);   
  
      data.columnDefs[2].editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:SprayTeamLabels,disableBtns:true,validator:validateSprayTeam});
      data.columnDefs[2].save_as_id = true;

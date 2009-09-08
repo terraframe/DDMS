@@ -227,8 +227,8 @@
     	delete data.columnDefs[indexOther].editor;    	
     }    	
     
-    SprayOperatorLabels=Mojo.util.getValues(operators);   
-    SprayOperatorIds=Mojo.util.getKeys(operators);   
+    SprayOperatorLabels=Mojo.Util.getValues(operators);   
+    SprayOperatorIds=Mojo.Util.getKeys(operators);   
      
     data.columnDefs[2].editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:SprayOperatorLabels,disableBtns:true,validator:validateSprayOperator});
     data.columnDefs[2].save_as_id = true;
