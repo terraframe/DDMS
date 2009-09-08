@@ -15,8 +15,20 @@
     <mjl:attributeColumn attributeName="lastName">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="sex">
+      <mjl:row>
+        <ul>
+          <c:forEach var="enumName" items="${item.sexEnumNames}">
+            <li>
+              ${item.sexMd.enumItems[enumName]}
+            </li>
+          </c:forEach>
+        </ul>      
+      </mjl:row>          
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="dateOfBirth">
+      <mjl:row>
+        <span class="formatDate"> ${item.dateOfBirth} </span>
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header><fmt:message key="User"/></mjl:header>
@@ -79,7 +91,8 @@
 
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="Use This Person" action="dss.vector.solutions.PersonController.edit.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.PersonController.edit.mojo" name="view.link">
+          <fmt:message key="Use_This_Person"/>
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>

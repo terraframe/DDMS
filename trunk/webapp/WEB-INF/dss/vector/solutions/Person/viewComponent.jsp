@@ -8,36 +8,17 @@
 <mjl:form name="dss.vector.solutions.Person.form.name" id="dss.vector.solutions.Person.form.id" method="POST">
   <mjl:input value="${item.personId}" type="hidden" param="id" />
   <dl>
-    <dt>
-      <label>
-        ${item.firstNameMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    <mjl:component item="${item}" param="item">
+    <mjl:dt attribute="firstName">
       ${item.firstName}
-    </dd>
-    <dt>
-      <label>
-        ${item.lastNameMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    </mjl:dt>
+    <mjl:dt attribute="lastName">
       ${item.lastName}
-    </dd>
-    <dt>
-      <label>
-        ${item.residentialGeoIdMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    </mjl:dt>
+    <mjl:dt attribute="residentialGeoId">
       ${item.residentialGeoId}
-    </dd>
-    <dt>
-      <label>
-        ${item.sexMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    </mjl:dt>
+    <mjl:dt attribute="sex">
       <ul>
         <c:forEach var="enumName" items="${item.sexEnumNames}">
           <li>
@@ -45,15 +26,10 @@
           </li>
         </c:forEach>
       </ul>
-    </dd>
-    <dt>
-      <label>
-        ${item.dateOfBirthMd.displayLabel}
-      </label>
-    </dt>
-    <dd class="formatDate">
-      ${item.dateOfBirth}
-    </dd>
+    </mjl:dt>
+    <mjl:dt attribute="dateOfBirth">
+      <span class="formatDate">${item.dateOfBirth}</span>
+    </mjl:dt>
     <c:if test="${item.isMDSSUser}">
       <dt>
         <label>
@@ -137,6 +113,7 @@
       </dd>
     </c:if>
     <mjl:command value="Edit" action="dss.vector.solutions.PersonController.edit.mojo" name="dss.vector.solutions.Person.form.edit.button" />
+    </mjl:component>    
   </dl>
 </mjl:form>
 <mjl:commandLink display="View All" action="dss.vector.solutions.PersonController.viewAll.mojo" name="dss.vector.solutions.Person.viewAll.link" />

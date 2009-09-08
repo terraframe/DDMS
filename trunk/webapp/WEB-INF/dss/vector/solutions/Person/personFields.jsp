@@ -13,65 +13,21 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
   </mjl:messages>
   <mjl:component item="${item}" param="person">
     <mjl:input type="hidden" param="personId" value="${item.personId}" />
-      <dt>
-        <label>
-          ${item.firstNameMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="firstName" />
-        <mjl:messages attribute="firstName">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.lastNameMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="lastName" />
-        <mjl:messages attribute="lastName">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          <fmt:message key="Geo_Id"/>
-        </label>
-      </dt>
-      <dd>
+      <mjl:dt attribute="firstName" type="text" />
+      <mjl:dt attribute="lastName" type="text"/>      
+      <mjl:dt attribute="residentialGeoId" >
         <mjl:input id="geoIdEl" param="residentialGeoId" type="text" value="${item.residentialGeoId}" maxlength="16" classes="geoInput"/>
-        <mjl:messages attribute="residentialGeoId">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.dateOfBirthMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+      </mjl:dt>
+      <mjl:dt attribute="dateOfBirth" >
         <mjl:input type="text" param="dateOfBirth" id="dateOfBirth" classes="DatePick NoFuture"/>
-        <mjl:messages attribute="dateOfBirth">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.sexMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+      </mjl:dt>
+      <mjl:dt attribute="sex">
         <mjl:select var="current" valueAttribute="enumName" items="${sexes}" param="sex">
           <mjl:option selected="${mjl:contains(item.sexEnumNames, current.enumName) ? 'selected' : 'false'}">
             ${item.sexMd.enumItems[current.enumName]}
           </mjl:option>
         </mjl:select>
-        <mjl:messages attribute="sex">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+      </mjl:dt>      
       <dt>
         <label>
           ${item.isMDSSUserMd.displayLabel}?

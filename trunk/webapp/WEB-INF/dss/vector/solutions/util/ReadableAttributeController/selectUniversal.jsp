@@ -34,7 +34,7 @@
   <dl>
     <dt><label><f:message key="Person_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.Person" class="roleLink"><f:message key="Person"/></span>
+      <span id="dss.vector.solutions.PersonView" class="roleLink"><f:message key="Person"/></span>
     </dd>
   </dl>
   <dl>
