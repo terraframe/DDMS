@@ -39,27 +39,6 @@ MojoGrid.createDataTable = function(table_data) {
 
   table_data.dirty = false;
 
-/*
-  if(table_data.compressHeaders)
-  {
-    table_data.columnDefs.map(function(col){
-      var maxLength = 0;
-      var words = col.label.split(' ');
-      words.map(function(w){if(w.length>maxLength)maxLength=w.length;})
-      var buff = '';
-      var lineLength = 0;
-      words.map(function(w){
-        if(lineLength + w.length > maxLength){
-         buff += '<br>';
-         lineLength = 0;
-        }
-         buff += w + ' ';
-         lineLength += w.length;
-        });
-      col.label = buff;
-    });
-  }
-*/
 
   // load the data
   myDataSource = new YAHOO.util.DataSource(table_data.rows);
@@ -142,22 +121,21 @@ MojoGrid.createDataTable = function(table_data) {
 
   myDataTable.set("selectionMode","singlecell");
 
-/*
+
   myDataTable.subscribe("tbodyFocusEvent", function() {
   var selectedCells = this.getSelectedCells();
     if(selectedCells.length === 0) {
       this.selectCell(this.getFirstTdEl());
     }
   });
-*/
-/*  myDataTable.subscribe("editorSaveEvent", function(o) {
+
+  myDataTable.subscribe("editorSaveEvent", function(o) {
   this.focusTbodyEl();
   });
 
   myDataTable.subscribe("editorCancelEvent", function(o) {
   this.focusTbodyEl();
   });
-*/
 
   var onCellClick = function(oArgs) {
     var target = oArgs.target;
@@ -165,13 +143,13 @@ MojoGrid.createDataTable = function(table_data) {
     myDataTable.unselectAllCells();
     myDataTable.selectCell(target);
     var column = myDataTable.getColumn(target);
-    
+
     // don't allow editing if column is hidden
     if(column.hidden)
     {
       return;
     }
-    
+
     switch (column.action) {
       case 'delete':
         var record = myDataTable.getRecord(target);
@@ -202,30 +180,6 @@ MojoGrid.createDataTable = function(table_data) {
   };
 
   myDataTable.subscribe("cellClickEvent", onCellClick);
-//  myDataTable.subscribe("cellSelectEvent", myDataTable.clearTextSelection);
-  //myDataTable.subscribe("cellSelectEvent", onCellClick);
-  /*
-  myDataTable.subscribe("cellSelectEvent", function(o) {
-	  this.showCellEditor(o.el);
-	  });
-
-	  myDataTable.subscribe("editorSaveEvent", function(o) {
-	  this.focusTbodyEl();
-	  });
-
-	  myDataTable.subscribe("editorCancelEvent", function(o) {
-	  this.focusTbodyEl();
-	  });
-	  */
-
-
-  //myDT.subscribe("cellSelectEvent", function(o) {
-    //this.showCellEditor(o.el);
-  //});
-//  myDataTable.subscribe("cellClickEvent", myDT.onEventSelectCell);
-
-
-
 
 
   /***************************************************************************
@@ -235,12 +189,12 @@ MojoGrid.createDataTable = function(table_data) {
    * new cell editor on the newly focused cell */
 
   var editorKeyEvent = function(obj) {
-  
+
     // 9 = tab, 13 = enter
     var e = obj.event;
-    
+
     if (e.keyCode === 9) {
-    
+
       e.preventDefault();
       YAHOO.util.Event.stopEvent(e);
 
@@ -252,8 +206,8 @@ MojoGrid.createDataTable = function(table_data) {
       else
       {
         MojoGrid.cellLock = true;
-      }    
-    
+      }
+
       function findNext(cell) {
         var newCell = null;
         if (e.shiftKey) {
@@ -274,54 +228,32 @@ MojoGrid.createDataTable = function(table_data) {
       try
       {
         //YAHOO.log("Tabbed Key Press on Cell:" + cell.headers, "warn", "Widget");
-  
+
         var cell = myDataTable.getCellEditor().getTdEl();
         var nextCell = findNext(cell);
-        var nextRow = null;  
-  
+        var nextRow = null;
+
         // No editable cell found on this row, go to the next row and search for
         // editable cell
         if (nextCell === null)
         {
           nextCell = cell;
-//          if (e.shiftKey)
-//          {
-//            nextRow = myDataTable.getPreviousTrEl(cell);
-//          }
-//          else
-//          {
-//            nextRow = myDataTable.getNextTrEl(cell);
-//          }
-  
-          // No next cell, make a new row and open the editor for that one
-//          if (nextRow === null) {
-//            if (table_data.addButton !== false) {
-//              //addRow();
-//              //nextRow = myDataTable.getLastTrEl();
-//            } else {
-//              // wrap around
-//              // nextRow = myDataTable.getFirstTrEl();
-//            }
-//          }
-//          if (e.shiftKey) {
-//            nextCell = findNext(myDataTable.getLastTdEl(nextRow));
-//          } else {
-//            nextCell = findNext(myDataTable.getFirstTdEl(nextRow));
-//          }
+
         }
-  
+
 
         myDataTable.saveCellEditor();
         //YAHOO.log("Saved Cell Editor:" + cell.headers, "warn", "Widget");
-        
+
         if (nextCell) {
           //YAHOO.log("Selecting Cell Editor:" + nextCell.headers, "warn", "Widget");
-          
+
           myDataTable.unselectAllCells();
-          
+
           myDataTable.selectCell(nextCell);
           myDataTable.showCellEditor(nextCell);
-          
+          myDataTable.selectCell(nextCell);
+
           //YAHOO.log("Showing Cell Editor:" + nextCell.headers, "warn", "Widget");
         }
       }
@@ -338,7 +270,7 @@ MojoGrid.createDataTable = function(table_data) {
 
   // Save edits back to the original data array
   var saveSomeData = function(oArgs) {
-  
+
     var record = oArgs.editor.getRecord();
     var editor = oArgs.editor;
     var index = myDataTable.getRecordIndex(record);
@@ -406,11 +338,11 @@ MojoGrid.createDataTable = function(table_data) {
       }
 
     }
-    
+
     //myDataTable.unselectCell(editor.getTdEl());
     YAHOO.log("Saved Cell:" + editor._oColumn.label, "warn", "Widget");
   };
-  
+
   var persistData = function() {
       // save any open editors before we send the ajax request
       myDataTable.saveCellEditor();
@@ -482,8 +414,8 @@ MojoGrid.createDataTable = function(table_data) {
       eval(table_data.data_type + "." + table_data.saveFunction + '(request,view_arr)');
       btnSaveRows.set("disabled", true);
     };
-	  
-  
+
+
 
   MojoGrid.saveHandler = saveSomeData;
   myDataTable.subscribe("editorSaveEvent", saveSomeData);
@@ -519,13 +451,13 @@ MojoGrid.createDataTable = function(table_data) {
 
   // Add one row to the bottom
   var addRow = function() {
-	  
+
 	// Execute before row add
     if(typeof beforeRowAdd !== 'undefined' && Mojo.Util.isFunction(beforeRowAdd))
     {
     	beforeRowAdd();
-    }    
-	  
+    }
+
     // Clear sort when necessary
     if (bReverseSorted) {
       myDataTable.set("sortedBy", null);
@@ -546,15 +478,15 @@ MojoGrid.createDataTable = function(table_data) {
     table_data.rows.push(new_data_row);
     myDataTable.addRow(new_label_row);
     table_data.dirty = true;
-    btnSaveRows.set("disabled", false);    
-    
+    btnSaveRows.set("disabled", false);
+
 	// Execute after row add
     if(typeof afterRowAdd !== 'undefined' && Mojo.Util.isFunction(afterRowAdd))
-    {    	
+    {
     	var index = myDataTable.getRecordSet().getLength() - 1;
     	afterRowAdd(myDataTable.getRecord(index), index);
-    }        
-  }
+    }
+  };
 
   if (YAHOO.util.Dom.get(table_data.div_id + 'Addrow')) {
     var btnAddRow = new YAHOO.widget.Button(table_data.div_id + "Addrow");

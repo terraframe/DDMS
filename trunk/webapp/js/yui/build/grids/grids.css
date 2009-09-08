@@ -1,9 +1,3 @@
-/*
-Copyright (c) 2009, Yahoo! Inc. All rights reserved.
-Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-version: 2.7.0
-*/
 /**
  * YUI Grids
  * @module grids
@@ -311,7 +305,7 @@ body {
 	width: 48.1%;
 }
 
-/*SF 1927599 from 1.14 to 2.6.0*/
+/*YUILibrary bug #1927599 from 1.14 to 2.6.0*/
 .yui-g .yui-gb div.first,
 	.yui-gb .yui-gb div.first {
 	*margin-right: 0;
