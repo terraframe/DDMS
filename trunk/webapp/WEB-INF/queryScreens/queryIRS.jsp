@@ -171,7 +171,6 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var sprayStatus = new Mojo.$.dss.vector.solutions.irs.TeamSprayStatusView();
     var sprayData = new Mojo.$.dss.vector.solutions.irs.SprayData();
-    var actorSpray = new Mojo.$.dss.vector.solutions.irs.ActorSpray();
     var insectcide = new Mojo.$.dss.vector.solutions.irs.InsecticideBrandView();
 
 
