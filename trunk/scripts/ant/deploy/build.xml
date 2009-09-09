@@ -388,25 +388,9 @@
 	</target>
 
 
-
-	<!-- =================================================================== -->
-	<!-- Commands to restart postgres -->
-	<!-- sudo su postgres -c "./pg_ctl stop -m i -D ../data" -->
-	<!-- sudo su postgres -c "./pg_ctl start -D ../data" -->
-	<!-- =================================================================== -->
-
-
-	<!-- =================================================================== -->
-	<!-- CAUTION: THESE TASKS UPDATE THE LIVE TEST SERVER!                   -->
-	<!-- =================================================================== -->
-
-	<!-- FIXME: upgrad jars to svn 1.6 when they come out-->
-	<target name="write_revision" if="write_rev" description="Writes the current svn revision info to an html file">
-		<antcall target="get_svn_user" />
-		<antcall target="get_svn_password" />
-
-		<svn username="${svn.user}" password="${svn.password}">
-			<info target="https://my-svn.assembla.com/svn/mdss/trunk" verbose="true" />
+	<target name="write_revision"  description="Writes the current svn revision info to an html file">
+		<svn>
+			<info target="../../../" verbose="true" />
 		</svn>
 		<echo file="../../../webapp/revision.html" append="false">
 		Last Changed Author: ${svn.info.author}
@@ -415,14 +399,6 @@
 	    </echo>
 		<echo message="Last Changed Revision: ${svn.info.lastRev}">
 		</echo>
-	</target>
-
-	<target name="get_svn_user" description="Checks for root password and prompts for it if not found." unless="svn.user">
-		<input message="Svn User:" addproperty="svn.user" />
-	</target>
-
-	<target name="get_svn_password" description="Checks for root password and prompts for it if not found." unless="svn.password">
-		<input message="Svn Password:" addproperty="svn.password" />
 	</target>
 
 
