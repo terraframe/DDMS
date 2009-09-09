@@ -222,6 +222,11 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
     
     _hookEvents : function()
     {
+      function alertClose()
+      {
+        alert("This cannot be closed, only minimized or maximized.\n This is why it's super ultra mega alpha edition.");
+      }
+    
       var manager = com.terraframe.mojo.inspector.EventManager.getInstance();
       var IEvent = com.terraframe.mojo.inspector.IEvent;
 
@@ -229,11 +234,11 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
       
       // main window exit/minimize
       manager.addEvent(new IEvent(this._mainMinId, 'click', this.hide, this));
-      manager.addEvent(new IEvent(this._mainExitId, 'click', this.destroy, this));
+      manager.addEvent(new IEvent(this._mainExitId, 'click', alertClose, this));
       
       // secondary window exit/maximize
       manager.addEvent(new IEvent(this._secMaxId, 'click', this.show, this));
-      manager.addEvent(new IEvent(this._secExitId, 'click', this.destroy, this));
+      manager.addEvent(new IEvent(this._secExitId, 'click', alertClose, this));
       
       // dragging
       manager.addEvent(new IEvent(this._mainDrag, 'mousedown', this.startDrag, this));
