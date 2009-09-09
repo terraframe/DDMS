@@ -1,3 +1,11 @@
+// Turn on Inspector
+if(/^(127\.0\.0\.1)|(localhost)$/.test(window.location.hostname))
+{
+  YAHOO.util.Event.onDOMReady(function(){
+    com.terraframe.mojo.inspector.Inspector.launch();
+  });
+}
+
 // Alias all AttributeDTOs to the window
 Mojo.Meta.shorthand('com.terraframe.mojo.transport.attributes.*', window);
 

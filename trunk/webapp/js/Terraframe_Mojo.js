@@ -21,11 +21,16 @@ var Mojo = {
     
     _isInitialized : false,
     
+    _pseudoConstructor : function(){},
+    
     newInstance : function(type)
     {
-      // FIXME pass in variable args
       var klass = Mojo.Meta._classes[type];
-      var obj = arguments.length > 1 ? new klass(arguments[1]) : new klass();
+      var args = [].splice.call(arguments, 1);
+      
+      var obj = new klass(Mojo.Meta._pseudoConstructor);
+      klass.prototype.initialize.apply(obj, args);
+      
       return obj;
     },
     
@@ -122,10 +127,9 @@ var Mojo = {
       klass.prototype.initialize = function(){
      
         throw Error("Cannot instantiate the singleton class ["+this.$class.getQualifiedName()+"]. " +
-          "Use [getInstance()] instead.");
+          "Use the static [getInstance()] method instead.");
       };
       
-      // FIXME add getInstance as Method obj
       klass.getInstance = (function(sInit){
         
         var instance = null;
@@ -201,14 +205,30 @@ var Mojo = {
         className = qualifiedName;
       }
 
-      // initialize is the constructor function
+      // make sure a constructor exists
+      if(!instances.initialize)
+      {
+        instances.initialize = function(){};
+      }
+      
+      // wrap the constructor function
       var klass = function(){
       
         if(Mojo.Meta._isInitialized && this.$class.isAbstract())
         {
-          throw Error("Cannot instantiate the abstract class ["+this.$class.getQualifiedName()+"]");
+          var msg = "Cannot instantiate the abstract class ["+this.$class.getQualifiedName()+"]";
+          var error = new Error(msg);
+          Mojo.log.LogManager.writeError(msg, error);
+          throw error;
         }
-        return this.initialize.apply(this, [].splice.call(arguments, 0));
+        else if(arguments.length === 1 && arguments[0] === Mojo.Meta._pseudoConstructor)
+        {
+          Mojo.Meta._pseudoConstructor(); // for "reflective" newInstance() calls.
+        }
+        else
+        {
+          this.initialize.apply(this, [].splice.call(arguments, 0));
+        }
       };
       
       // always add the namespace to the window
@@ -232,7 +252,6 @@ var Mojo = {
       // reset constructor to point to the class, such that
       // a.constructor === A === true
       klass.prototype.constructor = klass;
-      
 
       // config obj for Class constructor
       var config = {
@@ -245,6 +264,7 @@ var Mojo = {
         isAbstract : isAbstract,
         alias : alias,
         qualifiedName : qualifiedName,
+        isSingleton : isSingleton,
         constants : []
       };
 
@@ -257,7 +277,7 @@ var Mojo = {
         if(superClass !== Object
           && Mojo.IS_FUNCTION_TO_STRING == Object.prototype.toString.call(superClass.prototype[m]))
         {
-          // override method by keeping track of parent context
+          // keep track of parent context
           klass.prototype['$'+m] = (function(toExec){
           
             var pStack = []; 
@@ -285,7 +305,8 @@ var Mojo = {
           })(m);
         }
             
-        config.methods.push({name : m, isStatic : false, isConstructor : (m === 'initialize'), method : instances[m]});
+        config.methods.push({name : m, isStatic : false, 
+          isConstructor : (m === 'initialize'), method : instances[m]});
       }
       
       if(isSingleton)
@@ -311,7 +332,8 @@ var Mojo = {
         }
         else
         {
-          config.methods.push({name : m, isStatic : true, isConstructor : false, method : statics[m]});
+          config.methods.push({name : m, isStatic : true, 
+            isConstructor : false, method : statics[m]});
         }
       }
       
@@ -325,19 +347,10 @@ var Mojo = {
       }
       else
       {
-        // access Class instance by $class or getClass()
         var cKlass = Mojo.$.com.terraframe.mojo.Class;
         
         klass.$class = new cKlass(config);
         klass.prototype.$class = klass.$class;
-        
-        klass.getClass = (function($class){
-          return function(){
-            return $class;
-          };
-        })(klass.$class);
-        
-        klass.prototype.getClass = klass.getClass;
       }
       
       return klass;
@@ -391,8 +404,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Base', {
   
     clone : function()
     {
-      var cloned = Mojo.Meta.newInstance(this.$class.getQualifiedName(), [].splice.call(arguments, 0));
-      return cloned;
+      return Mojo.Meta.newInstance(this.$class.getQualifiedName(), [].splice.call(arguments, 0));
     },
     
     toString : function()
@@ -402,11 +414,528 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Base', {
   }
 });
 
+Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
+
+  Alias: Mojo.$,
+  
+  Native : true,
+  
+  Instance : {
+  
+    initialize : function(config)
+    {
+      this._packageName = config.packageName;
+      this._className = config.className;
+      this._isNative = config.isNative;
+      this._isAbstract = config.isAbstract;
+      this._isSingleton = config.isSingleton;
+      this._klass = config.klass;
+      this._superClass = config.superClass;
+      this._alias = config.alias;
+      this._qualifiedName = config.qualifiedName;
+      this._subclasses = {};
+
+      var notRoot = this._superClass !== Object;  
+      
+      // get parents instance/static methods
+      var mKlass = Mojo.$.com.terraframe.mojo.Method;
+      this._instanceMethods = {};
+      this._staticMethods = {};
+      if(notRoot)
+      {
+        // instance methods will be copied via prototype
+        var pInstances = this._superClass.$class.getInstanceMethods(true);
+        for(var i in pInstances)
+        {
+          this._instanceMethods[i] = pInstances[i].clone();
+        }
+        
+        // static methods must be explicitly copied
+        var pStatics = this._superClass.$class.getStaticMethods();
+        for(var i=0; i<pStatics.length; i++)
+        {
+          var mStatic = pStatics[i];
+          this._staticMethods[mStatic.getName()] = mStatic.clone();
+          
+          this._klass[mStatic.getName()] = mStatic.getMethod();
+        }
+      }
+      
+      for(var i=0; i<config.methods.length; i++)
+      {
+        var method = new mKlass(config.methods[i]);
+        
+        var methodMap = method.isStatic() ? this._staticMethods : this._instanceMethods;
+        
+        if(notRoot && methodMap[method.getName()])
+        {
+          method._setDefiningClass(methodMap[method.getName()].getDefiningClass());
+          method._setOverrideClass(this._klass);
+        }
+        else
+        {
+          method._setDefiningClass(this._klass);
+        }
+        
+        methodMap[method.getName()] = method;
+        
+        if(method.isStatic())
+        {
+          this._klass[method.getName()] = method.getMethod();
+        }
+      }
+      
+      // set constants
+      this._constants = {};
+      var cKlass = Mojo.Meta.findClass(Mojo.ROOT_PACKAGE+'Constant');
+      if(notRoot)
+      {
+        var pConstants = this._superClass.$class.getConstants(true);
+        for(var i in pConstants)
+        {
+          if(pConstants.hasOwnProperty(i))
+          {
+            this._constants[i] = pConstants[i];
+          }
+        }
+      }
+      
+      for(var i=0; i<config.constants.length; i++)
+      {
+        var constObj = new cKlass(config.constants[i]);
+        
+        if(notRoot && this._constants[constObj.getName()])
+        {
+          constObj._setDefiningClass(this._constants[constObj.getName()].getDefiningClass());
+          constObj._setOverrideClass(this._klass);
+        }
+        else
+        {
+          constObj._setDefiningClass(this._klass);
+        }
+        
+        this._constants[constObj.getName()] = constObj;
+        this._klass[constObj.getName()] = constObj.getValue();
+      }
+      
+      if(notRoot)
+      {
+        this._superClass.$class._addSubClass(this._qualifiedName, this._klass);
+      }
+    },
+    
+    _addSubClass : function(qualifiedName, klass)
+    {
+      this._subclasses[qualifiedName] = klass;
+    },
+    
+    isSingleton : function()
+    {
+      return this._isSingleton;
+    },
+    
+    getSubClasses : function(asMap)
+    {
+      if(asMap)
+      {
+        return this._subclasses;
+      }
+      else
+      {
+        var values = [];
+        for(var i in this._subclasses)
+        {
+          values.push(this._subclasses[i]);
+        }
+        return values;
+      }
+    },
+    
+    getConstants : function(asMap)
+    {
+      if(asMap)
+      {
+        return this._constants;
+      }
+      else
+      {
+        var values = [];
+        for(var i in this._constants)
+        {
+          values.push(this._constants[i]);
+        }
+        return values;
+      }
+    },
+    
+    hasConstant : function(name)
+    {
+      return this._constants[name] != null;
+    },
+    
+    getConstant: function(name)
+    {
+      return this._constants[name];
+    },
+
+    getMethod : function(name)
+    {
+      // FIXME will not work with instance/static method of same name
+      return this._instanceMethods[name] || this._staticMethods[name];
+    },
+    
+    hasInstanceMethod : function(name)
+    {
+      return this._instanceMethods[name] != null;
+    },
+    
+    getInstanceMethod : function(name)
+    {
+      return this._instanceMethods[name];
+    },
+    
+    hasStaticMethod : function(name)
+    {
+      return this._staticMethods[name] != null;
+    },
+    
+    getStaticMethod : function(name)
+    {
+      return this._staticMethods[name];
+    },
+    
+    getInstanceMethods : function(asMap)
+    {
+      if(asMap)
+      {
+        return this._instanceMethods;
+      }
+      else
+      {
+        var arr = [];
+        for(var i in this._instanceMethods)
+        {
+          if(true || this._instanceMethods.hasOwnProperty(i))
+          {
+            arr.push(this._instanceMethods[i]);
+          } 
+        }
+        
+        return arr;
+      }
+    },
+    
+    getStaticMethods : function(asMap)
+    {
+      if(asMap)
+      {
+        return this._staticMethods;
+      }
+      else
+      {
+        var arr = [];
+        for(var i in this._staticMethods)
+        {
+          if(true || this._staticMethods.hasOwnProperty(i))
+          {
+            arr.push(this._staticMethods[i]);
+          }
+        }
+        
+        return arr;
+      }
+    },
+    
+    isAbstract : function()
+    {
+      return this._isAbstract;
+    },
+    
+    getMethods : function()
+    {
+      var methods = []
+      return methods.concat(this.getInstanceMethods(false), this.getStaticMethods(false));
+    },
+  
+    getPackage : function()
+    {
+      return this._packageName;
+    },
+    
+    getName : function()
+    {
+      return this._className;
+    },
+    
+    getQualifiedName : function()
+    {
+      return this._qualifiedName;
+    },
+    
+    isSuperClassOf : function(klass)
+    {
+      // FIXME allow string, func constructor, and Class instance
+      var superClass = klass.getSuperClass();
+      while(superClass !== Object)
+      {
+        if(superClass === this)
+        {
+          return true;
+        }
+        
+        superClass = superClass.getSuperClass();
+      }
+      
+      return false;
+    },
+    
+    isSubClassOf : function(klass)
+    {
+      // FIXME allow string, func constructor, and Class instance
+      return klass.isSuperClassOf(this);
+    },
+    
+    getSuperClass : function()
+    {
+      return this._superClass;
+    },
+    
+    isNative : function()
+    {
+      return this._isNative;
+    },
+    
+    getAlias : function()
+    {
+      return this._alias;
+    },
+    
+    newInstance : function()
+    {
+      var args = [this.getQualifiedName()].concat([].splice.call(arguments, 0));
+      return Mojo.Meta.newInstance.apply(this, args);
+    },
+    
+    toString : function()
+    {
+      return '[Class] ' + this.getQualifiedName();
+    }
+  
+  }
+});
+
+Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+"Constant", {
+  
+  Alias: Mojo.$,
+  
+  Native : true,
+  
+  Instance : {
+  
+    initialize : function(config)
+    {
+      this._name = config.name;
+      this._value = config.value;
+      this._klass = null;
+      this._overrideKlass = null;
+    },
+    
+    _setDefiningClass : function(klass)
+    {
+      this._klass = klass;
+    },
+    
+    _setOverrideClass : function(klass)
+    {
+      this._overrideKlass = klass;
+    },
+    
+    getName : function()
+    {
+      return this._name;
+    },
+    
+    getValue : function()
+    {
+      return this._value;
+    },
+    
+    getDefiningClass : function()
+    {
+      return this._klass;
+    },
+    
+    isOverride : function()
+    {
+      return this._overrideKlass !== null;
+    },
+    
+    getOverrideClass : function()
+    {
+      return this._overrideKlass;
+    }
+  }
+  
+});
+
+Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
+
+  Alias: Mojo.$,
+  
+  Native : true,
+  
+  Constants : {
+
+    ABSTRACT_METHOD : function(){} 
+  },
+
+  Instance : {
+  
+    initialize : function(config)
+    {
+      this._name = config.name;
+      this._isStatic = config.isStatic;
+      this._isConstructor = config.isConstructor;
+      this._method = config.method;
+      this._klass = config.klass || null;
+      this._overrideKlass = config.overrideKlass || null;
+      this._isAbstract = this._method === this.constructor.ABSTRACT_METHOD;
+      
+      this._aspects = [];
+    },
+    
+    clone : function()
+    {
+      var cloned = new this.constructor({
+        name : this.getName(),
+        isStatic : this.isStatic(),
+        isConstructor : this.isConstructor(),
+        method : this.getMethod(),
+        klass : this.getDefiningClass(),
+        overrideKlass : this.getOverrideClass()
+      });
+      
+      return cloned;
+    },
+    
+    isAbstract : function()
+    {
+      return this._isAbstract;
+    },
+    
+    _setDefiningClass : function(klass)
+    {
+      this._klass = klass;
+    },
+    
+    addAspect : function(aspect)
+    {
+      this._aspects.push(aspect);
+    },
+    
+    getAspects : function()
+    {
+      return this._aspects;
+    },
+    
+    _setOverrideClass : function(klass)
+    {
+      this._overrideKlass = klass;
+    },
+    
+    isConstructor : function()
+    {
+      return this._isConstructor;
+    },
+    
+    getArity : function()
+    {
+      return this._method.length;
+    },
+    
+    isOverride : function()
+    {
+      return !this._isStatic && this._overrideKlass !== null;
+    },
+    
+    isHiding : function()
+    {
+      return this._isStatic && this._overrideKlass !== null;
+    },
+    
+    getOverrideClass : function()
+    {
+      return this._overrideKlass;
+    },
+    
+    getMethod : function()
+    {
+      return this._method;
+    },
+  
+    getName : function()
+    {
+      return this._name;
+    },
+    
+    isStatic : function()
+    {
+      return this._isStatic;
+    },
+    
+    getDefiningClass : function()
+    {
+      return this._klass;
+    },
+    
+    toString : function()
+    {
+      return '[Method] ' + this.getName();
+    }
+  },
+  
+});
+
+// Finish bootstrapping the class system
+(function(){
+
+  var klass = Mojo.Meta.findClass(Mojo.ROOT_PACKAGE+'Class');
+  
+  for(var i=0; i<Mojo.Meta._native.length; i++)
+  {
+    var bootstrapped = Mojo.Meta._native[i];
+    
+    // Convert the JSON config $class into a Class instance
+    // and re-attach the metadata to the class definition.
+    var cClass = new klass(bootstrapped.$class);
+    bootstrapped.$class = cClass
+    bootstrapped.prototype.$class = cClass;
+  }
+  
+  // convert the Meta object to a class
+  var metaProps = {};
+  for(var i in Mojo.Meta)
+  {
+    if(Mojo.Meta.hasOwnProperty(i))
+    {
+      metaProps[i] = Mojo.Meta[i];
+    }
+  }
+
+  delete Mojo.Meta;
+  
+  metaProps.newClass('Mojo.Meta', {
+    
+    Static : metaProps  
+  });
+  
+  Mojo.Meta._isInitialized = true;
+  
+})();
+
 Mojo.Meta.newClass('Mojo.Util', {
 
   IsAbstract : true,
-  
-  Native : true,
   
   Instance : {
   
@@ -448,6 +977,11 @@ Mojo.Meta.newClass('Mojo.Util', {
     isBoolean : function(o)
     {
       return o != null && Object.prototype.toString.call(o) === Mojo.IS_BOOLEAN_TO_STRING;
+    },
+    
+    isUndefined : function(o)
+    {
+      return typeof o === 'undefined';
     },
     
     bind : function(thisRef, func)
@@ -1046,477 +1580,113 @@ Mojo.Meta.newClass('Mojo.Util', {
   
 });
 
-Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
+Mojo.Meta.newClass("Mojo.log.LogManager", {
 
-  Alias: Mojo.$,
-  
-  Native : true,
+  IsSingleton : true,
   
   Instance : {
   
-    initialize : function(config)
+    initialize : function()
     {
-      this._packageName = config.packageName;
-      this._className = config.className;
-      this._isNative = config.isNative;
-      this._isAbstract = config.isAbstract;
-      this._klass = config.klass;
-      this._superClass = config.superClass;
-      this._alias = config.alias;
-      this._qualifiedName = config.qualifiedName;
-      this._subclasses = {};
-
-      var notRoot = this._superClass !== Object;  
-      
-      // get parents instance/static methods
-      var mKlass = Mojo.$.com.terraframe.mojo.Method;
-      this._instanceMethods = {};
-      this._staticMethods = {};
-      if(notRoot)
-      {
-        // instance methods will be copied via prototype
-        var pInstances = this._superClass.$class.getInstanceMethods(true);
-        for(var i in pInstances)
-        {
-          this._instanceMethods[i] = pInstances[i].clone();
-        }
-        
-        // static methods must be explicitly copied
-        var pStatics = this._superClass.$class.getStaticMethods();
-        for(var i=0; i<pStatics.length; i++)
-        {
-          var mStatic = pStatics[i];
-          this._staticMethods[mStatic.getName()] = mStatic.clone();
-          
-          this._klass[mStatic.getName()] = mStatic.getMethod();
-        }
-      }
-      
-      for(var i=0; i<config.methods.length; i++)
-      {
-        var method = new mKlass(config.methods[i]);
-        
-        var methodMap = method.isStatic() ? this._staticMethods : this._instanceMethods;
-        
-        if(notRoot && methodMap[method.getName()])
-        {
-          method._setDefiningClass(methodMap[method.getName()].getDefiningClass());
-          method._setOverrideClass(this._klass);
-        }
-        else
-        {
-          method._setDefiningClass(this._klass);
-        }
-        
-        methodMap[method.getName()] = method;
-        
-        if(method.isStatic())
-        {
-          this._klass[method.getName()] = method.getMethod();
-        }
-      }
-      
-      // set constants
-      this._constants = {};
-      var cKlass = Mojo.Meta.findClass(Mojo.ROOT_PACKAGE+'Constant');
-      if(notRoot)
-      {
-        var pConstants = this._superClass.$class.getConstants(true);
-        Mojo.Util.copy(pConstants, this._constants, true);
-      }
-      
-      for(var i=0; i<config.constants.length; i++)
-      {
-        var constObj = new cKlass(config.constants[i]);
-        
-        if(notRoot && this._constants[constObj.getName()])
-        {
-          constObj._setDefiningClass(this._constants[constObj.getName()].getDefiningClass());
-          constObj._setOverrideClass(this._klass);
-        }
-        else
-        {
-          constObj._setDefiningClass(this._klass);
-        }
-        
-        this._constants[constObj.getName()] = constObj;
-        this._klass[constObj.getName()] = constObj.getValue();
-      }
-      
-      if(notRoot)
-      {
-        this._superClass.$class._addSubClass(this._qualifiedName, this._klass);
-      }
+      this._loggers = [];
     },
     
-    _addSubClass : function(qualifiedName, klass)
+    _addLogger : function(logger)
     {
-      this._subclasses[qualifiedName] = klass;
+      this._loggers.push(logger);
     },
     
-    getSubClasses : function(asMap)
+    _getLoggers : function()
     {
-      if(asMap)
-      {
-        return this._subclasses;
-      }
-      else
-      {
-        return Mojo.Util.getValues(this._subclasses);
-      }
+      return this._loggers;
     },
     
-    getConstants : function(asMap)
+    _removeLogger : function(logger)
     {
-      return (asMap ? this._constants : Mojo.Util.getValues(this._constants));
-    },
-    
-    hasConstant : function(name)
-    {
-      return this._constants[name] != null;
-    },
-    
-    getConstant: function(name)
-    {
-      return this._constants[name];
-    },
-
-    getMethod : function(name)
-    {
-      // FIXME will not work with instance/static method of same name
-      return this._instanceMethods[name] || this._staticMethods[name];
-    },
-    
-    hasInstanceMethod : function(name)
-    {
-      return this._instanceMethods[name] != null;
-    },
-    
-    getInstanceMethod : function(name)
-    {
-      return this._instanceMethods[name];
-    },
-    
-    hasStaticMethod : function(name)
-    {
-      return this._staticMethods[name] != null;
-    },
-    
-    getStaticMethod : function(name)
-    {
-      return this._staticMethods[name];
-    },
-    
-    getInstanceMethods : function(asMap)
-    {
-      if(asMap)
-      {
-        return this._instanceMethods;
-      }
-      else
-      {
-        var arr = [];
-        for(var i in this._instanceMethods)
-        {
-          if(true || this._instanceMethods.hasOwnProperty(i))
-          {
-            arr.push(this._instanceMethods[i]);
-          } 
-        }
-        
-        return arr;
-      }
-    },
-    
-    getStaticMethods : function(asMap)
-    {
-      if(asMap)
-      {
-        return this._staticMethods;
-      }
-      else
-      {
-        var arr = [];
-        for(var i in this._staticMethods)
-        {
-          if(true || this._staticMethods.hasOwnProperty(i))
-          {
-            arr.push(this._staticMethods[i]);
-          }
-        }
-        
-        return arr;
-      }
-    },
-    
-    isAbstract : function()
-    {
-      return this._isAbstract;
-    },
-    
-    getMethods : function()
-    {
-      var methods = []
-      return methods.concat(this.getInstanceMethods(false), this.getStaticMethods(false));
-    },
-  
-    getPackage : function()
-    {
-      return this._packageName;
-    },
-    
-    getName : function()
-    {
-      return this._className;
-    },
-    
-    getQualifiedName : function()
-    {
-      return this._qualifiedName;
-    },
-    
-    isSuperClassOf : function(klass)
-    {
-      // FIXME allow string, func constructor, and Class instance
-      var superClass = klass.getSuperClass();
-      while(superClass !== Object)
-      {
-        if(superClass === this)
-        {
-          return true;
-        }
-        
-        superClass = superClass.getSuperClass();
-      }
-      
-      return false;
-    },
-    
-    isSubClassOf : function(klass)
-    {
-      // FIXME allow string, func constructor, and Class instance
-      return klass.isSuperClassOf(this);
-    },
-    
-    getSuperClass : function()
-    {
-      return this._superClass;
-    },
-    
-    isNative : function()
-    {
-      return this._isNative;
-    },
-    
-    getAlias : function()
-    {
-      return this._alias;
-    },
-    
-    newInstance : function()
-    {
-      // FIXME pass in variable args
-      return new this._klass([].splice.call(arguments, 0));
-    },
-    
-    toString : function()
-    {
-      return '[Class] ' + this.getQualifiedName();
+      // FIXME impl
     }
-  
-  }
-});
-
-Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+"Constant", {
-  
-  Alias: Mojo.$,
-  
-  Native : true,
-  
-  Instance : {
-  
-    initialize : function(config)
-    {
-      this._name = config.name;
-      this._value = config.value;
-      this._klass = null;
-      this._overrideKlass = null;
-    },
-    
-    _setDefiningClass : function(klass)
-    {
-      this._klass = klass;
-    },
-    
-    _setOverrideClass : function(klass)
-    {
-      this._overrideKlass = klass;
-    },
-    
-    getName : function()
-    {
-      return this._name;
-    },
-    
-    getValue : function()
-    {
-      return this._value;
-    },
-    
-    getDefiningClass : function()
-    {
-      return this._klass;
-    },
-    
-    isOverride : function()
-    {
-      return this._overrideKlass !== null;
-    },
-    
-    getOverrideClass : function()
-    {
-      return this._overrideKlass;
-    }
-  }
-  
-});
-
-Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
-
-  Alias: Mojo.$,
-  
-  Native : true,
-
-  Instance : {
-  
-    initialize : function(config)
-    {
-      this._name = config.name;
-      this._isStatic = config.isStatic;
-      this._isConstructor = config.isConstructor;
-      this._method = config.method;
-      this._klass = config.klass || null;
-      this._overrideKlass = config.overrideKlass || null;
-      
-      this._aspects = [];
-    },
-    
-    clone : function()
-    {
-      var cloned = new this.constructor({
-        name : this.getName(),
-        isStatic : this.isStatic(),
-        isConstructor : this.isConstructor(),
-        method : this.getMethod(),
-        klass : this.getDefiningClass(),
-        overrideKlass : this.getOverrideClass()
-      });
-      
-      return cloned;
-    },
-    
-    _setDefiningClass : function(klass)
-    {
-      this._klass = klass;
-    },
-    
-    addAspect : function(aspect)
-    {
-      this._aspects.push(aspect);
-    },
-    
-    getAspects : function()
-    {
-      return this._aspects;
-    },
-    
-    _setOverrideClass : function(klass)
-    {
-      this._overrideKlass = klass;
-    },
-    
-    isConstructor : function()
-    {
-      return this._isConstructor;
-    },
-    
-    getArity : function()
-    {
-      return this._method.length;
-    },
-    
-    isOverride : function()
-    {
-      return !this._isStatic && this._overrideKlass !== null;
-    },
-    
-    isHiding : function()
-    {
-      return this._isStatic && this._overrideKlass !== null;
-    },
-    
-    getOverrideClass : function()
-    {
-      return this._overrideKlass;
-    },
-    
-    getMethod : function()
-    {
-      return this._method;
-    },
-  
-    getName : function()
-    {
-      return this._name;
-    },
-    
-    isStatic : function()
-    {
-      return this._isStatic;
-    },
-    
-    getDefiningClass : function()
-    {
-      return this._klass;
-    },
-    
-    toString : function()
-    {
-      return '[Method] ' + this.getName();
-    }
+   
   },
   
+  Static : {
+  
+    addLogger : function(logger)
+    {
+      Mojo.log.LogManager.getInstance()._addLogger(logger);
+    }, 
+    
+    getLoggers : function()
+    {
+      return Mojo.log.LogManager.getInstance()._getLoggers();
+    },
+    
+    removeLogger : function(logger)
+    {
+      Mojo.log.LogManager.getInstance()._removeLogger(logger);
+    },
+    
+    writeInfo : function(msg)
+    {
+      var loggers = Mojo.log.LogManager.getLoggers();
+      Mojo.Iter.forEach(loggers, function(logger){
+        logger.writeInfo(msg);
+      });
+    },
+    
+    writeWarning : function(msg)
+    {
+      var loggers = Mojo.log.LogManager.getLoggers();
+      Mojo.Iter.forEach(loggers, function(logger){
+        logger.writeWarning(msg);
+      });
+    },
+    
+    writeError : function(msg, error)
+    {
+      var loggers = Mojo.log.LogManager.getLoggers();
+      Mojo.Iter.forEach(loggers, function(logger){
+        logger.writeError(msg, error);
+      });
+    },
+    
+  }
+
 });
 
-// Finish bootstrapping the class system
-(function(){
+Mojo.Meta.newClass("Mojo.log.Logger", {
 
-  var klass = Mojo.Meta.findClass(Mojo.ROOT_PACKAGE+'Class');
+  IsAbstract : true,
   
-  for(var i=0; i<Mojo.Meta._native.length; i++)
-  {
-    var bootstrapped = Mojo.Meta._native[i];
-    
-    // Convert the JSON config $class into a Class instance
-    // and re-attach the metadata to the class definition.
-    var cClass = new klass(bootstrapped.$class);
-    bootstrapped.$class = cClass
-    bootstrapped.prototype.$class = cClass;
-  }
+  Constants : {
   
-  // convert the Meta object to a class
-  var metaProps = Mojo.Util.copy(Mojo.Meta, {}, true);
+    INFO : "INFO",
+    WARNING : "WARNING", 
+    ERROR : "ERROR"
+  },
 
-  delete Mojo.Meta;
+  Instance : {
   
-  metaProps.newClass('Mojo.Meta', {
+    initialize : function()
+    {
+    },
     
-    Static : metaProps  
-  });
+    writeInfo : function(msg)
+    {
+     // FIXME make abstract
+    },
+    
+    writeWarning : function(msg)
+    {
+     // FIXME make abstract
+    },
+    
+    writeError : function(msg, error)
+    {
+     // FIXME make abstract
+    },
   
-  Mojo.Meta._isInitialized = true;
-  
-})();
+  },
+});
 
 // FIXME iterate over different object types
 Mojo.Meta.newClass('Mojo.Iter', {
@@ -1566,8 +1736,7 @@ Mojo.Meta.newClass('Mojo.Iter', {
       });
       
       return mapped;
-    },
-  
+    }
   }
 });
 
