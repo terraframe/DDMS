@@ -3,6 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.irs.ValueProblem">
   <!--
+    - {householdId} householdId
+    - {structureId} structureId
     -->
   <locale language="en">Value may only be 0 or 1</locale>
 </exception>

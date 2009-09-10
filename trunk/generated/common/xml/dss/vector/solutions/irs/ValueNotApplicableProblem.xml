@@ -3,6 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.irs.ValueNotApplicableProblem">
   <!--
+    - {householdId} householdId
+    - {structureId} structureId
     -->
   <locale language="en">{attributeDisplayLabel} is not applicable on a mop-up spray</locale>
 </exception>
