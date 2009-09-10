@@ -2,7 +2,7 @@
 if(/^(127\.0\.0\.1)|(localhost)$/.test(window.location.hostname))
 {
   YAHOO.util.Event.onDOMReady(function(){
-    com.terraframe.mojo.inspector.Inspector.launch();
+//    com.terraframe.mojo.inspector.Inspector.launch();
   });
 }
 
