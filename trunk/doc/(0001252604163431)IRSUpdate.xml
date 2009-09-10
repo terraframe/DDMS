@@ -1,0 +1,169 @@
+<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.irs.AbstractSprayView.dataId"
+        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter" />
+    </delete>
+    <update>
+      <mdView
+        name="dss.vector.solutions.irs.AbstractSprayView">
+        <attributes>
+          <char
+            name="sprayId"
+            label="Spray Id"
+            size="255"
+            required="true" />
+        </attributes>
+        <create>
+          <attributes>
+            <virtual
+              name="sprayData"
+              concrete="sprayData"
+              type="dss.vector.solutions.irs.AbstractSpray"
+              required="true" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdProblem
+        name="dss.vector.solutions.irs.ValueNotApplicableProblem"
+        label="Value not Applicable Problem"
+        extends="dss.vector.solutions.NotificationProblem"
+        description="Value is not applicable on a mop-up spray"
+        isAbstract="false" >
+      </mdProblem>    
+    </update>
+    <create>
+      <mdException
+        name="dss.vector.solutions.irs.UniqueSprayException"
+        label="Unique Spray Exception"
+        description="A spray with the same spray date, spray location, spray method, insecticide brand already exists"
+        isAbstract="true"
+        extendable="true">
+        <attributes>
+          <char
+            name="geoEntity"
+            label="Geo Entity"
+            size="255"
+            required="true" />
+          <date
+            name="sprayDate"
+            label="Spray Date"
+            required="true" />
+          <char
+            name="sprayMethod"
+            label="Spray Method"
+            size="255"
+            required="true" />
+          <char
+            name="brand"
+            label="Insecticide Brand"
+            size="255"
+            required="true" />
+        </attributes>
+      </mdException>
+      <mdException
+        name="dss.vector.solutions.irs.UniqueOperatorSprayException"
+        label="Unique Operator Spray Exception"
+        description="An operator spray with the same spray date, spray location, spray method, insecticide brand, and spray operator already exists"
+        extends="dss.vector.solutions.irs.UniqueSprayException">
+        <attributes>
+          <char
+            name="sprayOperator"
+            label="Spray Operator"
+            size="255"
+            required="true" />
+        </attributes>
+      </mdException>
+      <mdException
+        name="dss.vector.solutions.irs.UniqueTeamSprayException"
+        label="Unique Team Spray Exception"
+        description="A team spray with the same spray date, spray location, spray method, insecticide brand, and spray team already exists"
+        extends="dss.vector.solutions.irs.UniqueSprayException">
+        <attributes>
+          <char
+            name="sprayTeam"
+            label="Spray Team"
+            size="255"
+            required="true" />
+        </attributes>
+      </mdException>
+      <mdException
+        name="dss.vector.solutions.irs.UniqueZoneSprayException"
+        label="Unique Zone Spray Exception"
+        description="A zone spray with the same spray date, spray location, spray method, and insecticide brand already exists"
+        extends="dss.vector.solutions.irs.UniqueSprayException">
+      </mdException>
+      <mdException
+        name="dss.vector.solutions.irs.ModifiedSprayMethodException"
+        label="Modified Spray Method Exception"
+        description="Spray Method cannot be modified when there are existing rows, because it may invalidiate some row data.">
+      </mdException>
+      <mdException
+        name="dss.vector.solutions.irs.ModifiedSprayTeamException"
+        label="Modified Spray Team Exception"
+        description="Spray Team cannot be modified when there are existing rows, because it will invalidate all row data.">
+      </mdException>
+      <mdException
+        name="dss.vector.solutions.irs.ModifiedSprayZoneException"
+        label="Modified Spray Zone Exception"
+        description="Spray Method cannot be modified when there are existing rows, because it will invalidiate all row data.">
+      </mdException>
+    </create>    
+  </doIt>
+  <undoIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.irs.AbstractSprayView">
+        <attributes>
+          <char
+            name="sprayId"
+            label="Spray Id"
+            size="255"
+            required="false" />
+        </attributes>
+        <create>
+          <attributes>
+            <char
+              name="dataId"
+              label="Data Id"
+              size="255" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdProblem
+        name="dss.vector.solutions.irs.ValueNotApplicableProblem"
+        label="Value not Applicable Problem"
+        extends="dss.vector.solutions.NotificationProblem"
+        description="Value is not applicable on a mop-up spray"
+        isAbstract="true" >
+      </mdProblem>    
+    </update>
+    <delete>
+      <object
+        key="dss.vector.solutions.irs.AbstractSprayView.sprayData"
+        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual" />
+      <object
+        key="dss.vector.solutions.irs.UniqueSprayException"
+        type="com.terraframe.mojo.system.metadata.MdException" />
+      <object
+        key="dss.vector.solutions.irs.UniqueOperatorSprayException"
+        type="com.terraframe.mojo.system.metadata.MdException" />
+      <object
+        key="dss.vector.solutions.irs.UniqueTeamSprayException"
+        type="com.terraframe.mojo.system.metadata.MdException" />
+      <object
+        key="dss.vector.solutions.irs.UniqueZoneSprayException"
+        type="com.terraframe.mojo.system.metadata.MdException" />
+      <object
+        key="dss.vector.solutions.irs.ModifiedSprayMethodException"
+        type="com.terraframe.mojo.system.metadata.MdException" />
+      <object
+        key="dss.vector.solutions.irs.ModifiedSprayTeamException"
+        type="com.terraframe.mojo.system.metadata.MdException" />
+      <object
+        key="dss.vector.solutions.irs.ModifiedSprayZoneException"
+        type="com.terraframe.mojo.system.metadata.MdException" />
+    </delete>
+  </undoIt>
+</version>

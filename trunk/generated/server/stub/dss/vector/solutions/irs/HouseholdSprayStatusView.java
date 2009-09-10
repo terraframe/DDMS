@@ -24,7 +24,7 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
 
   protected void populateConcrete(HouseholdSprayStatus status, AbstractSpray spray)
   {
-    super.populateConcrete(status, spray);
+    super.populateConcrete(status);
 
     status.setHouseholdId(this.getHouseholdId());
     status.setStructureId(this.getStructureId());

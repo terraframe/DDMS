@@ -30,9 +30,9 @@ public abstract class SprayStatusView extends SprayStatusViewBase implements com
     this.setRefused(status.getRefused());
   }
 
-  protected void populateConcrete(SprayStatus status, AbstractSpray spray)
+  protected void populateConcrete(SprayStatus status)
   {
-    status.setSpray(spray);
+    status.setSpray(this.getSpray());
     status.setHouseholds(this.getHouseholds());
     status.setStructures(this.getStructures());
     status.setSprayedHouseholds(this.getSprayedHouseholds());

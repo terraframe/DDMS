@@ -20,43 +20,47 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.terr
     super();
   }
 
-
   @Override
   @Transaction
   public void apply()
   {
-    List<SprayMethod> method = this.getSprayMethod();
+    // This method requires a lock because it performs a check then create on
+    // SprayData. Thus is must lock before it checks for an existing SprayData.
 
-    SprayData data = SprayData.get(this.getBrand(), this.getGeoEntity(), this.getSprayDate(), method.toArray(new SprayMethod[method.size()]));
-    
     OperatorSpray spray = new OperatorSpray();
-
-    if(this.hasConcrete())
+    
+    if (this.hasConcrete())
     {
       spray = OperatorSpray.get(this.getSprayId());
+
+      validateSprayMethod(spray.getSprayData().getSprayMethod());
+      
+      this.setSprayData(spray.getSprayData());      
     }
+        
+    this.lockSprayData();        
+        
+    this.populateMapping(spray);
+
+    this.populateConcrete(spray);
+        
+    this.getSprayData().apply();
     
-    this.populateMapping(spray, data);
-
-    this.applySprayData(data);
-
-    this.populateConcrete(spray, data);
-
     spray.apply();
     spray.populateView(this);
   }
 
-  protected void populateMapping(OperatorSpray spray, SprayData data)
+  protected void populateMapping(OperatorSpray spray)
   {
-    super.populateMapping(spray, data);
-    
+    super.populateMapping(spray);
+
     new AttributeNotificationMap(spray, OperatorSpray.OPERATORSPRAYWEEK, this, OperatorSprayView.OPERATORSPRAYWEEK);
     new AttributeNotificationMap(spray, OperatorSpray.SPRAYOPERATOR, this, OperatorSprayView.SPRAYOPERATOR);
   }
 
-  protected void populateConcrete(OperatorSpray spray, SprayData data)
+  protected void populateConcrete(OperatorSpray spray)
   {
-    super.populateConcrete(spray, data);
+    super.populateConcrete(spray);
 
     spray.setOperatorSprayWeek(this.getOperatorSprayWeek());
     spray.setSprayOperator(this.getSprayOperator());
@@ -64,10 +68,15 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.terr
 
   public void deleteConcrete()
   {
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       OperatorSpray.get(this.getSprayId()).delete();
     }
+  }
+  
+  public boolean hasStatus()
+  {
+    return this.getStatus().length > 0;
   }
 
   public HouseholdSprayStatusView[] getStatus()
@@ -87,14 +96,12 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.terr
         list.add((HouseholdSprayStatusView) it.next().getView());
       }
 
-      spray.populateView(this);
-
       return list.toArray(new HouseholdSprayStatusView[list.size()]);
     }
     finally
     {
       it.close();
-    }    
+    }
   }
 
   public static OperatorSprayView searchBySprayData(String geoId, Date sprayDate, SprayMethod sprayMethod, InsecticideBrand brand, String operatorId)
@@ -111,11 +118,11 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.terr
 
     try
     {
-      if(it.hasNext())
+      if (it.hasNext())
       {
         return it.next().getView();
       }
-      
+
       GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
       OperatorSprayView view = new OperatorSprayView();
       view.setGeoEntity(geoEntity);

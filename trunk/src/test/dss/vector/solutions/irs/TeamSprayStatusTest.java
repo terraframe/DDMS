@@ -34,15 +34,9 @@ public class TeamSprayStatusTest extends TestCase
 
   private static GeoEntity        geoEntity = null;
 
-  private static SprayData        data      = null;
-
   private static SprayTeam        team      = null;
 
-  private static SprayTeam        team2      = null;
-
-  private static TeamSpray        spray     = null;
-
-  private static TeamSpray        spray2     = null;
+  private static SprayTeam        team2     = null;
 
   public static Test suite()
   {
@@ -68,14 +62,9 @@ public class TeamSprayStatusTest extends TestCase
 
   protected static void classTearDown()
   {
-    TeamSpray.get(spray.getId()).delete();
-    TeamSpray.get(spray2.getId()).delete();
-
     team.delete();
     team2.delete();
-    
-    SprayData.get(data.getId()).delete();
-    
+
     geoEntity.delete();
     brand.delete();
   }
@@ -99,14 +88,6 @@ public class TeamSprayStatusTest extends TestCase
     geoEntity.setEntityName("Sentinel Site");
     geoEntity.apply();
 
-    data = new SprayData();
-    data.setBrand(brand);
-    data.setGeoEntity(geoEntity);
-    data.setSprayDate(new Date());
-    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
-    data.apply();
-
     team = new SprayTeam();
     team.setTeamId(TestConstants.TEAM_ID);
     team.apply();
@@ -114,320 +95,441 @@ public class TeamSprayStatusTest extends TestCase
     team2 = new SprayTeam();
     team2.setTeamId(TestConstants.TEAM_ID_2);
     team2.apply();
-    
-    spray = new TeamSpray();
-    spray.setSprayData(data);
-    spray.setSprayTeam(team);
-    spray.setTarget(232);
-    spray.setTeamSprayWeek(24);
-    spray.apply();
-    
-    spray2 = new TeamSpray();
-    spray2.setSprayData(data);
-    spray2.setSprayTeam(team2);
-    spray2.setTarget(232);
-    spray2.setTeamSprayWeek(24);
-    spray2.apply();
   }
 
   public void testCreateView()
   {
-    TeamSprayStatusView status = new TeamSprayStatusView();
-    status.setSpray(spray);
-    status.setSprayData(data);
-    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
-    status.setStructures(TestConstants.NUM_STRUCTURES);
-    status.setSprayedHouseholds(5);
-    status.setSprayedStructures(2);
-    status.setPrevSprayedHouseholds(1);
-    status.setPrevSprayedStructures(3);
-    status.setRooms(TestConstants.NUM_ROOMS);
-    status.setSprayedRooms(3);
-    status.setPeople(3);
-    status.setBedNets(1);
-    status.setRoomsWithBedNets(4);
-    status.setLocked(4);
-    status.setOther(1);
-    status.setRefused(3);
-    status.setTeamSprayWeek(2);
-    status.setSprayTeam(team);
-    status.apply();
+    SprayData data = new SprayData();
+    data.setBrand(brand);
+    data.setGeoEntity(geoEntity);
+    data.setSprayDate(new Date());
+    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
+    data.addSurfaceType(SurfaceType.POROUS);
+    data.apply();
 
     try
     {
-      TeamSprayStatusView test = (TeamSprayStatusView) SprayStatus.getView(status.getStatusId());
+      TeamSprayStatusView status = new TeamSprayStatusView();
+      status.setSprayData(data);
+      status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+      status.setStructures(TestConstants.NUM_STRUCTURES);
+      status.setSprayedHouseholds(5);
+      status.setSprayedStructures(2);
+      status.setPrevSprayedHouseholds(1);
+      status.setPrevSprayedStructures(3);
+      status.setRooms(TestConstants.NUM_ROOMS);
+      status.setSprayedRooms(3);
+      status.setPeople(3);
+      status.setBedNets(1);
+      status.setRoomsWithBedNets(4);
+      status.setLocked(4);
+      status.setOther(1);
+      status.setRefused(3);
+      status.setTeamSprayWeek(2);
+      status.setSprayTeam(team);
+      status.apply();
 
-      assertNotNull(test);
-      assertEquals(spray.getId(), test.getSpray().getId());
-      assertEquals(data.getId(), test.getSprayData().getId());
-      assertEquals(status.getHouseholds(), test.getHouseholds());
-      assertEquals(status.getStructures(), test.getStructures());
-      assertEquals(status.getSprayedHouseholds(), test.getSprayedHouseholds());
-      assertEquals(status.getSprayedStructures(), test.getSprayedStructures());
-      assertEquals(status.getPrevSprayedHouseholds(), test.getPrevSprayedHouseholds());
-      assertEquals(status.getPrevSprayedStructures(), test.getPrevSprayedStructures());
-      assertEquals(status.getRooms(), test.getRooms());
-      assertEquals(status.getSprayedRooms(), test.getSprayedRooms());
-      assertEquals(status.getPeople(), test.getPeople());
-      assertEquals(status.getBedNets(), test.getBedNets());
-      assertEquals(status.getRoomsWithBedNets(), test.getRoomsWithBedNets());
-      assertEquals(status.getLocked(), test.getLocked());
-      assertEquals(status.getOther(), test.getOther());
-      assertEquals(status.getRefused(), test.getRefused());
-      assertEquals(team.getId(), test.getSprayTeam().getId());
-      assertEquals(status.getTeamSprayWeek(), test.getTeamSprayWeek());
+      try
+      {
+        TeamSprayStatusView test = (TeamSprayStatusView) SprayStatus.getView(status.getStatusId());
+
+        assertNotNull(test);
+        assertEquals(data.getId(), test.getSprayData().getId());
+        assertEquals(status.getHouseholds(), test.getHouseholds());
+        assertEquals(status.getStructures(), test.getStructures());
+        assertEquals(status.getSprayedHouseholds(), test.getSprayedHouseholds());
+        assertEquals(status.getSprayedStructures(), test.getSprayedStructures());
+        assertEquals(status.getPrevSprayedHouseholds(), test.getPrevSprayedHouseholds());
+        assertEquals(status.getPrevSprayedStructures(), test.getPrevSprayedStructures());
+        assertEquals(status.getRooms(), test.getRooms());
+        assertEquals(status.getSprayedRooms(), test.getSprayedRooms());
+        assertEquals(status.getPeople(), test.getPeople());
+        assertEquals(status.getBedNets(), test.getBedNets());
+        assertEquals(status.getRoomsWithBedNets(), test.getRoomsWithBedNets());
+        assertEquals(status.getLocked(), test.getLocked());
+        assertEquals(status.getOther(), test.getOther());
+        assertEquals(status.getRefused(), test.getRefused());
+        assertEquals(team.getId(), test.getSprayTeam().getId());
+        assertEquals(status.getTeamSprayWeek(), test.getTeamSprayWeek());
+      }
+      finally
+      {
+        AbstractSpray spray = status.getSpray();
+        status.deleteConcrete();
+        spray.delete();
+      }
     }
     finally
     {
-      status.deleteConcrete();
+      try
+      {
+        data.delete();
+      }
+      catch (Exception e)
+      {
+
+      }
     }
   }
 
   public void testEditView()
   {
-    TeamSprayStatusView status = new TeamSprayStatusView();
-    status.setSpray(spray);
-    status.setSprayData(data);
-    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
-    status.setStructures(TestConstants.NUM_STRUCTURES);
-    status.setSprayedHouseholds(5);
-    status.setSprayedStructures(2);
-    status.setPrevSprayedHouseholds(1);
-    status.setPrevSprayedStructures(3);
-    status.setRooms(TestConstants.NUM_ROOMS);
-    status.setSprayedRooms(3);
-    status.setPeople(3);
-    status.setBedNets(1);
-    status.setRoomsWithBedNets(4);
-    status.setLocked(4);
-    status.setOther(1);
-    status.setRefused(3);
-    status.setSprayTeam(team);
-    status.setTeamSprayWeek(2);
-    status.apply();
-
-    TeamSprayStatusView edit = (TeamSprayStatusView) SprayStatus.lockView(status.getStatusId());
-    edit.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
-    edit.setStructures(TestConstants.NUM_STRUCTURES);
-    edit.setSprayedHouseholds(7);
-    edit.setSprayedStructures(8);
-    edit.setPrevSprayedHouseholds(11);
-    edit.setPrevSprayedStructures(33);
-    edit.setRooms(24);
-    edit.setSprayedRooms(13);
-    edit.setPeople(34);
-    edit.setBedNets(11);
-    edit.setRoomsWithBedNets(40);
-    edit.setLocked(41);
-    edit.setOther(12);
-    edit.setRefused(33);
-    edit.setTeamSprayWeek(1);
-    edit.apply();
+    SprayData data = new SprayData();
+    data.setBrand(brand);
+    data.setGeoEntity(geoEntity);
+    data.setSprayDate(new Date());
+    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
+    data.addSurfaceType(SurfaceType.POROUS);
+    data.apply();
 
     try
     {
-      TeamSprayStatusView test = (TeamSprayStatusView) SprayStatus.getView(status.getStatusId());
 
-      assertNotNull(test);
-      assertEquals(spray.getId(), test.getSpray().getId());
-      assertEquals(data.getId(), test.getSprayData().getId());
-      assertEquals(edit.getHouseholds(), test.getHouseholds());
-      assertEquals(edit.getStructures(), test.getStructures());
-      assertEquals(edit.getSprayedHouseholds(), test.getSprayedHouseholds());
-      assertEquals(edit.getSprayedStructures(), test.getSprayedStructures());
-      assertEquals(edit.getPrevSprayedHouseholds(), test.getPrevSprayedHouseholds());
-      assertEquals(edit.getPrevSprayedStructures(), test.getPrevSprayedStructures());
-      assertEquals(edit.getRooms(), test.getRooms());
-      assertEquals(edit.getSprayedRooms(), test.getSprayedRooms());
-      assertEquals(edit.getPeople(), test.getPeople());
-      assertEquals(edit.getBedNets(), test.getBedNets());
-      assertEquals(edit.getRoomsWithBedNets(), test.getRoomsWithBedNets());
-      assertEquals(edit.getLocked(), test.getLocked());
-      assertEquals(edit.getOther(), test.getOther());
-      assertEquals(edit.getRefused(), test.getRefused());
-      assertEquals(team.getId(), test.getSprayTeam().getId());
-      assertEquals(edit.getTeamSprayWeek(), test.getTeamSprayWeek());
+      TeamSprayStatusView status = new TeamSprayStatusView();
+      status.setSprayData(data);
+      status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+      status.setStructures(TestConstants.NUM_STRUCTURES);
+      status.setSprayedHouseholds(5);
+      status.setSprayedStructures(2);
+      status.setPrevSprayedHouseholds(1);
+      status.setPrevSprayedStructures(3);
+      status.setRooms(TestConstants.NUM_ROOMS);
+      status.setSprayedRooms(3);
+      status.setPeople(3);
+      status.setBedNets(1);
+      status.setRoomsWithBedNets(4);
+      status.setLocked(4);
+      status.setOther(1);
+      status.setRefused(3);
+      status.setSprayTeam(team);
+      status.setTeamSprayWeek(2);
+      status.apply();
+
+      TeamSprayStatusView edit = (TeamSprayStatusView) SprayStatus.lockView(status.getStatusId());
+      edit.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+      edit.setStructures(TestConstants.NUM_STRUCTURES);
+      edit.setSprayedHouseholds(7);
+      edit.setSprayedStructures(8);
+      edit.setPrevSprayedHouseholds(11);
+      edit.setPrevSprayedStructures(33);
+      edit.setRooms(24);
+      edit.setSprayedRooms(13);
+      edit.setPeople(34);
+      edit.setBedNets(11);
+      edit.setRoomsWithBedNets(40);
+      edit.setLocked(41);
+      edit.setOther(12);
+      edit.setRefused(33);
+      edit.setTeamSprayWeek(1);
+      edit.apply();
+
+      try
+      {
+        TeamSprayStatusView test = (TeamSprayStatusView) SprayStatus.getView(status.getStatusId());
+
+        assertNotNull(test);
+        assertEquals(data.getId(), test.getSprayData().getId());
+        assertEquals(edit.getHouseholds(), test.getHouseholds());
+        assertEquals(edit.getStructures(), test.getStructures());
+        assertEquals(edit.getSprayedHouseholds(), test.getSprayedHouseholds());
+        assertEquals(edit.getSprayedStructures(), test.getSprayedStructures());
+        assertEquals(edit.getPrevSprayedHouseholds(), test.getPrevSprayedHouseholds());
+        assertEquals(edit.getPrevSprayedStructures(), test.getPrevSprayedStructures());
+        assertEquals(edit.getRooms(), test.getRooms());
+        assertEquals(edit.getSprayedRooms(), test.getSprayedRooms());
+        assertEquals(edit.getPeople(), test.getPeople());
+        assertEquals(edit.getBedNets(), test.getBedNets());
+        assertEquals(edit.getRoomsWithBedNets(), test.getRoomsWithBedNets());
+        assertEquals(edit.getLocked(), test.getLocked());
+        assertEquals(edit.getOther(), test.getOther());
+        assertEquals(edit.getRefused(), test.getRefused());
+        assertEquals(team.getId(), test.getSprayTeam().getId());
+        assertEquals(edit.getTeamSprayWeek(), test.getTeamSprayWeek());
+      }
+      finally
+      {
+        AbstractSpray spray = status.getSpray();
+        status.deleteConcrete();
+        spray.delete();
+      }
     }
     finally
     {
-      edit.deleteConcrete();
+      try
+      {
+        data.delete();
+      }
+      catch (Exception e)
+      {
+
+      }
     }
   }
 
   public void testDeleteView()
   {
-    TeamSprayStatusView status = new TeamSprayStatusView();
-    status.setSpray(spray);
-    status.setSprayData(data);
-    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
-    status.setStructures(TestConstants.NUM_STRUCTURES);
-    status.setSprayedHouseholds(5);
-    status.setSprayedStructures(2);
-    status.setPrevSprayedHouseholds(1);
-    status.setPrevSprayedStructures(3);
-    status.setRooms(TestConstants.NUM_ROOMS);
-    status.setSprayedRooms(3);
-    status.setPeople(3);
-    status.setBedNets(1);
-    status.setRoomsWithBedNets(4);
-    status.setLocked(4);
-    status.setOther(1);
-    status.setRefused(3);
-    status.setSprayTeam(team);
-    status.setTeamSprayWeek(2);
-    status.apply();
-
-    String id = status.getStatusId();
-
-    status.deleteConcrete();
+    SprayData data = new SprayData();
+    data.setBrand(brand);
+    data.setGeoEntity(geoEntity);
+    data.setSprayDate(new Date());
+    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
+    data.addSurfaceType(SurfaceType.POROUS);
+    data.apply();
 
     try
     {
-      SprayStatus.getView(id);
+      TeamSprayStatusView status = new TeamSprayStatusView();
+      status.setSprayData(data);
+      status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+      status.setStructures(TestConstants.NUM_STRUCTURES);
+      status.setSprayedHouseholds(5);
+      status.setSprayedStructures(2);
+      status.setPrevSprayedHouseholds(1);
+      status.setPrevSprayedStructures(3);
+      status.setRooms(TestConstants.NUM_ROOMS);
+      status.setSprayedRooms(3);
+      status.setPeople(3);
+      status.setBedNets(1);
+      status.setRoomsWithBedNets(4);
+      status.setLocked(4);
+      status.setOther(1);
+      status.setRefused(3);
+      status.setSprayTeam(team);
+      status.setTeamSprayWeek(2);
+      status.apply();
 
-      fail("Unabled to delete the concrete spray operator");
+      String id = status.getStatusId();
+
+      AbstractSpray spray = status.getSpray();
+      status.deleteConcrete();
+      spray.delete();
+
+      try
+      {
+        SprayStatus.getView(id);
+
+        fail("Unabled to delete the concrete spray operator");
+      }
+      catch (DataNotFoundException e)
+      {
+        // This is expected
+      }
     }
-    catch (DataNotFoundException e)
+    finally
     {
-      // This is expected
+      try
+      {
+        data.delete();
+      }
+      catch (Exception e)
+      {
+
+      }
     }
   }
 
   public void testApplyAll()
   {
-    TeamSprayStatusView status = new TeamSprayStatusView();
-    status.setSpray(spray);
-    status.setSprayData(data);
-    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
-    status.setStructures(TestConstants.NUM_STRUCTURES);
-    status.setSprayedHouseholds(5);
-    status.setSprayedStructures(2);
-    status.setPrevSprayedHouseholds(1);
-    status.setPrevSprayedStructures(3);
-    status.setRooms(TestConstants.NUM_ROOMS);
-    status.setSprayedRooms(3);
-    status.setPeople(3);
-    status.setBedNets(1);
-    status.setRoomsWithBedNets(4);
-    status.setLocked(4);
-    status.setOther(1);
-    status.setRefused(3);
-    status.setSprayTeam(team);
-    status.setTeamSprayWeek(2);
-
-    TeamSprayStatusView status2 = new TeamSprayStatusView();
-    status2.setSpray(spray2);
-    status2.setSprayData(data);
-    status2.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
-    status2.setStructures(TestConstants.NUM_STRUCTURES);
-    status2.setSprayedHouseholds(7);
-    status2.setSprayedStructures(8);
-    status2.setPrevSprayedHouseholds(11);
-    status2.setPrevSprayedStructures(33);
-    status2.setRooms(24);
-    status2.setSprayedRooms(13);
-    status2.setPeople(34);
-    status2.setBedNets(11);
-    status2.setRoomsWithBedNets(40);
-    status2.setLocked(41);
-    status2.setOther(12);
-    status2.setRefused(33);
-    status2.setSprayTeam(team2);
-    status2.setTeamSprayWeek(1);
-
-    TeamSprayStatusView[] array = new TeamSprayStatusView[] { status, status2 };
-    TeamSprayStatusView[] test = TeamSprayStatusView.applyAll(array);
+    SprayData data = new SprayData();
+    data.setBrand(brand);
+    data.setGeoEntity(geoEntity);
+    data.setSprayDate(new Date());
+    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
+    data.addSurfaceType(SurfaceType.POROUS);
+    data.apply();
 
     try
     {
-      assertEquals(array.length, test.length);
 
-      for (int i = 0; i < array.length; i++)
+      TeamSprayStatusView status = new TeamSprayStatusView();
+      status.setSprayData(data);
+      status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+      status.setStructures(TestConstants.NUM_STRUCTURES);
+      status.setSprayedHouseholds(5);
+      status.setSprayedStructures(2);
+      status.setPrevSprayedHouseholds(1);
+      status.setPrevSprayedStructures(3);
+      status.setRooms(TestConstants.NUM_ROOMS);
+      status.setSprayedRooms(3);
+      status.setPeople(3);
+      status.setBedNets(1);
+      status.setRoomsWithBedNets(4);
+      status.setLocked(4);
+      status.setOther(1);
+      status.setRefused(3);
+      status.setSprayTeam(team);
+      status.setTeamSprayWeek(2);
+
+      TeamSprayStatusView status2 = new TeamSprayStatusView();
+      status2.setSprayData(data);
+      status2.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+      status2.setStructures(TestConstants.NUM_STRUCTURES);
+      status2.setSprayedHouseholds(7);
+      status2.setSprayedStructures(8);
+      status2.setPrevSprayedHouseholds(11);
+      status2.setPrevSprayedStructures(33);
+      status2.setRooms(24);
+      status2.setSprayedRooms(13);
+      status2.setPeople(34);
+      status2.setBedNets(11);
+      status2.setRoomsWithBedNets(40);
+      status2.setLocked(41);
+      status2.setOther(12);
+      status2.setRefused(33);
+      status2.setSprayTeam(team2);
+      status2.setTeamSprayWeek(1);
+
+      TeamSprayStatusView[] array = new TeamSprayStatusView[] { status, status2 };
+      TeamSprayStatusView[] test = TeamSprayStatusView.applyAll(array);
+
+      try
       {
-        assertEquals(array[i].getSpray().getId(), test[i].getSpray().getId());
-        assertEquals(data.getId(), test[i].getSprayData().getId());
-        assertEquals(array[i].getHouseholds(), test[i].getHouseholds());
-        assertEquals(array[i].getStructures(), test[i].getStructures());
-        assertEquals(array[i].getSprayedHouseholds(), test[i].getSprayedHouseholds());
-        assertEquals(array[i].getSprayedStructures(), test[i].getSprayedStructures());
-        assertEquals(array[i].getPrevSprayedHouseholds(), test[i].getPrevSprayedHouseholds());
-        assertEquals(array[i].getPrevSprayedStructures(), test[i].getPrevSprayedStructures());
-        assertEquals(array[i].getRooms(), test[i].getRooms());
-        assertEquals(array[i].getSprayedRooms(), test[i].getSprayedRooms());
-        assertEquals(array[i].getPeople(), test[i].getPeople());
-        assertEquals(array[i].getBedNets(), test[i].getBedNets());
-        assertEquals(array[i].getRoomsWithBedNets(), test[i].getRoomsWithBedNets());
-        assertEquals(array[i].getLocked(), test[i].getLocked());
-        assertEquals(array[i].getOther(), test[i].getOther());
-        assertEquals(array[i].getRefused(), test[i].getRefused());
-        assertEquals(array[i].getSprayTeam().getId(), test[i].getSprayTeam().getId());
-        assertEquals(array[i].getTeamSprayWeek(), test[i].getTeamSprayWeek());
+        assertEquals(array.length, test.length);
+
+        for (int i = 0; i < array.length; i++)
+        {
+          assertEquals(array[i].getSpray().getId(), test[i].getSpray().getId());
+          assertEquals(data.getId(), test[i].getSprayData().getId());
+          assertEquals(array[i].getHouseholds(), test[i].getHouseholds());
+          assertEquals(array[i].getStructures(), test[i].getStructures());
+          assertEquals(array[i].getSprayedHouseholds(), test[i].getSprayedHouseholds());
+          assertEquals(array[i].getSprayedStructures(), test[i].getSprayedStructures());
+          assertEquals(array[i].getPrevSprayedHouseholds(), test[i].getPrevSprayedHouseholds());
+          assertEquals(array[i].getPrevSprayedStructures(), test[i].getPrevSprayedStructures());
+          assertEquals(array[i].getRooms(), test[i].getRooms());
+          assertEquals(array[i].getSprayedRooms(), test[i].getSprayedRooms());
+          assertEquals(array[i].getPeople(), test[i].getPeople());
+          assertEquals(array[i].getBedNets(), test[i].getBedNets());
+          assertEquals(array[i].getRoomsWithBedNets(), test[i].getRoomsWithBedNets());
+          assertEquals(array[i].getLocked(), test[i].getLocked());
+          assertEquals(array[i].getOther(), test[i].getOther());
+          assertEquals(array[i].getRefused(), test[i].getRefused());
+          assertEquals(array[i].getSprayTeam().getId(), test[i].getSprayTeam().getId());
+          assertEquals(array[i].getTeamSprayWeek(), test[i].getTeamSprayWeek());
+        }
+      }
+      finally
+      {
+        for (TeamSprayStatusView view : test)
+        {
+          AbstractSpray spray = view.getSpray();
+          view.deleteConcrete();
+          spray.delete();
+        }
       }
     }
     finally
     {
-      for (TeamSprayStatusView view : test)
+      try
       {
-        view.deleteConcrete();
+        data.delete();
+      }
+      catch (Exception e)
+      {
+
       }
     }
   }
 
   public void testSearch()
   {
-    TeamSprayStatusView status = new TeamSprayStatusView();
-    status.setSpray(spray);
-    status.setSprayData(data);
-    status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
-    status.setStructures(TestConstants.NUM_STRUCTURES);
-    status.setSprayedHouseholds(5);
-    status.setSprayedStructures(2);
-    status.setPrevSprayedHouseholds(1);
-    status.setPrevSprayedStructures(3);
-    status.setRooms(TestConstants.NUM_ROOMS);
-    status.setSprayedRooms(3);
-    status.setPeople(3);
-    status.setBedNets(1);
-    status.setRoomsWithBedNets(4);
-    status.setLocked(4);
-    status.setOther(1);
-    status.setRefused(3);
-    status.setTeamSprayWeek(2);
-    status.setSprayTeam(team);
-    status.apply();
+    SprayData data = new SprayData();
+    data.setBrand(brand);
+    data.setGeoEntity(geoEntity);
+    data.setSprayDate(new Date());
+    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
+    data.addSurfaceType(SurfaceType.POROUS);
+    data.apply();
 
     try
     {
-      TeamSprayStatusView test = TeamSprayStatusView.search(data, team);
+      TeamSprayStatusView status = new TeamSprayStatusView();
+      status.setSprayData(data);
+      status.setHouseholds(TestConstants.NUM_HOUSEHOLDS);
+      status.setStructures(TestConstants.NUM_STRUCTURES);
+      status.setSprayedHouseholds(5);
+      status.setSprayedStructures(2);
+      status.setPrevSprayedHouseholds(1);
+      status.setPrevSprayedStructures(3);
+      status.setRooms(TestConstants.NUM_ROOMS);
+      status.setSprayedRooms(3);
+      status.setPeople(3);
+      status.setBedNets(1);
+      status.setRoomsWithBedNets(4);
+      status.setLocked(4);
+      status.setOther(1);
+      status.setRefused(3);
+      status.setTeamSprayWeek(2);
+      status.setSprayTeam(team);
+      status.apply();
 
-      assertNotNull(test);
-      assertEquals(spray.getId(), test.getSpray().getId());
-      assertEquals(data.getId(), test.getSprayData().getId());
-      assertEquals(status.getHouseholds(), test.getHouseholds());
-      assertEquals(status.getStructures(), test.getStructures());
-      assertEquals(status.getSprayedHouseholds(), test.getSprayedHouseholds());
-      assertEquals(status.getSprayedStructures(), test.getSprayedStructures());
-      assertEquals(status.getPrevSprayedHouseholds(), test.getPrevSprayedHouseholds());
-      assertEquals(status.getPrevSprayedStructures(), test.getPrevSprayedStructures());
-      assertEquals(status.getRooms(), test.getRooms());
-      assertEquals(status.getSprayedRooms(), test.getSprayedRooms());
-      assertEquals(status.getPeople(), test.getPeople());
-      assertEquals(status.getBedNets(), test.getBedNets());
-      assertEquals(status.getRoomsWithBedNets(), test.getRoomsWithBedNets());
-      assertEquals(status.getLocked(), test.getLocked());
-      assertEquals(status.getOther(), test.getOther());
-      assertEquals(status.getRefused(), test.getRefused());
-      assertEquals(team.getId(), test.getSprayTeam().getId());
-      assertEquals(status.getTeamSprayWeek(), test.getTeamSprayWeek());
+      try
+      {
+        TeamSprayStatusView[] array = TeamSprayStatusView.search(data, team);
+
+        assertNotNull(array);
+        assertEquals(1, array.length);
+
+        TeamSprayStatusView test = array[0];
+
+        assertEquals(data.getId(), test.getSprayData().getId());
+        assertEquals(status.getHouseholds(), test.getHouseholds());
+        assertEquals(status.getStructures(), test.getStructures());
+        assertEquals(status.getSprayedHouseholds(), test.getSprayedHouseholds());
+        assertEquals(status.getSprayedStructures(), test.getSprayedStructures());
+        assertEquals(status.getPrevSprayedHouseholds(), test.getPrevSprayedHouseholds());
+        assertEquals(status.getPrevSprayedStructures(), test.getPrevSprayedStructures());
+        assertEquals(status.getRooms(), test.getRooms());
+        assertEquals(status.getSprayedRooms(), test.getSprayedRooms());
+        assertEquals(status.getPeople(), test.getPeople());
+        assertEquals(status.getBedNets(), test.getBedNets());
+        assertEquals(status.getRoomsWithBedNets(), test.getRoomsWithBedNets());
+        assertEquals(status.getLocked(), test.getLocked());
+        assertEquals(status.getOther(), test.getOther());
+        assertEquals(status.getRefused(), test.getRefused());
+        assertEquals(team.getId(), test.getSprayTeam().getId());
+        assertEquals(status.getTeamSprayWeek(), test.getTeamSprayWeek());
+      }
+      finally
+      {
+        AbstractSpray spray = status.getSpray();
+        status.deleteConcrete();
+        spray.delete();
+      }
     }
     finally
     {
-      status.deleteConcrete();
+      try
+      {
+        data.delete();
+      }
+      catch (Exception e)
+      {
+
+      }
     }
   }
 
   public void testEmptySearch()
   {
-    assertNull(TeamSprayStatusView.search(data, team));
+    SprayData data = new SprayData();
+    data.setBrand(brand);
+    data.setGeoEntity(geoEntity);
+    data.setSprayDate(new Date());
+    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
+    data.addSurfaceType(SurfaceType.POROUS);
+    data.apply();
+
+    try
+    {
+      TeamSprayStatusView[] array = TeamSprayStatusView.search(data, team);
+
+      assertNotNull(array);
+      assertEquals(0, array.length);
+    }
+    finally
+    {
+      data.delete();
+    }
   }
 }

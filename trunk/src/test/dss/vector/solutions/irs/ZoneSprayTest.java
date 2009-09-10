@@ -12,37 +12,36 @@ import junit.framework.TestSuite;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SprayZone;
 import dss.vector.solutions.mo.ActiveIngredient;
 
 public class ZoneSprayTest extends TestCase
 {
-	  @Override
-	  public TestResult run()
-	  {
-	    return super.run();
-	  }
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
 
-	  @Override
-	  public void run(TestResult testResult)
-	  {
-	    super.run(testResult);
-	  }
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
-  private static InsecticideBrand brand = null;
+  private static InsecticideBrand brand     = null;
 
-  private static GeoEntity geoEntity = null;
+  private static GeoEntity        geoEntity = null;
 
-  private static SprayData data = null;
-  
-  private static SprayTeam team = null;
-  
-  private static Person person = null;
-  
-  private static SprayOperator operator = null;
-  
-  private static SprayLeader leader = null;
+  private static SprayTeam        team      = null;
+
+  private static Person           person    = null;
+
+  private static SprayOperator    operator  = null;
+
+  private static SprayLeader      leader    = null;
 
   public static Test suite()
   {
@@ -68,13 +67,11 @@ public class ZoneSprayTest extends TestCase
 
   protected static void classTearDown()
   {
-    SprayData.get(data.getId()).delete();
-    
     leader.delete();
     operator.delete();
-    person.delete();
+    Person.get(person.getId()).delete();
     SprayTeam.get(team.getId()).delete();
-    
+
     geoEntity.delete();
     brand.delete();
   }
@@ -90,15 +87,44 @@ public class ZoneSprayTest extends TestCase
     brand.setAmount(57);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
-    brand.setBrandName("Test Brand");    
+    brand.setBrandName(TestConstants.BRAND_NAME);
     brand.apply();
 
     geoEntity = new SprayZone();
-    geoEntity.setGeoId("0");
-    geoEntity.setEntityName("Spray Zone");
+    geoEntity.setGeoId(TestConstants.GEO_ID);
+    geoEntity.setEntityName(TestConstants.GEO_ID);
     geoEntity.apply();
 
-    data = new SprayData();
+    person = new Person();
+    person.setFirstName("Justin");
+    person.setLastName("Smethie");
+    person.setDateOfBirth(new Date());
+    person.apply();
+
+    operator = new SprayOperator();
+    operator.setPerson(person);
+    operator.setOperatorId(TestConstants.OPERATOR_ID);
+    operator.apply();
+
+    leader = new SprayLeader();
+    leader.setPerson(person);
+    leader.setLeaderId(TestConstants.LEADER_ID);
+    leader.apply();
+
+    person.setSprayLeaderDelegate(leader);
+    person.setSprayOperatorDelegate(operator);
+    person.apply();
+
+    team = new SprayTeam();
+    team.setTeamId(TestConstants.TEAM_ID);
+    team.apply();
+
+    team.create(geoEntity.getGeoId(), leader.getId(), new String[] { operator.getId() });
+  }
+
+  public void testCreate()
+  {
+    SprayData data = new SprayData();
     data.setBrand(brand);
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
@@ -106,33 +132,6 @@ public class ZoneSprayTest extends TestCase
     data.addSurfaceType(SurfaceType.POROUS);
     data.apply();
     
-    person = new Person();
-    person.setFirstName("Justin");
-    person.setLastName("Smethie");
-    person.setDateOfBirth(new Date());
-    person.apply();
-    
-    operator = new SprayOperator();
-    operator.setPerson(person);
-    operator.setOperatorId("0012");
-    operator.apply();
-    
-    leader = new SprayLeader();
-    leader.setPerson(person);
-    leader.apply();
-        
-    person.setSprayLeaderDelegate(leader);
-    person.setSprayOperatorDelegate(operator);
-
-    team = new SprayTeam();
-    team.setTeamId("322");
-    team.apply(); 
-    
-    team.create(geoEntity.getGeoId(), leader.getId(), new String[]{operator.getId()});
-  }
-
-  public void testCreate()
-  {
     ZoneSpray spray = new ZoneSpray();
     spray.setSprayData(data);
     spray.apply();
@@ -152,13 +151,20 @@ public class ZoneSprayTest extends TestCase
 
   public void testUpdate()
   {
+    SprayData data = new SprayData();
+    data.setBrand(brand);
+    data.setGeoEntity(geoEntity);
+    data.setSprayDate(new Date());
+    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
+    data.addSurfaceType(SurfaceType.POROUS);
+    data.apply();
+
     ZoneSpray spray = new ZoneSpray();
     spray.setSprayData(data);
     spray.apply();
 
     ZoneSpray edit = ZoneSpray.get(spray.getId());
     edit.apply();
-
 
     try
     {
@@ -191,9 +197,9 @@ public class ZoneSprayTest extends TestCase
       ZoneSprayView test = ZoneSpray.getView(spray.getSprayId());
 
       assertNotNull(test);
-      assertEquals(data.getBrand().getId(), test.getBrand().getId());
-      assertEquals(data.getGeoEntity().getId(), test.getGeoEntity().getId());
-      assertEquals(data.getSprayDate(), test.getSprayDate());
+      assertEquals(spray.getBrand().getId(), test.getBrand().getId());
+      assertEquals(spray.getGeoEntity().getId(), test.getGeoEntity().getId());
+      assertEquals(spray.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(SprayMethod.MAIN_SPRAY, test.getSprayMethod().get(0));
       assertEquals(1, test.getSurfaceType().size());
@@ -220,9 +226,9 @@ public class ZoneSprayTest extends TestCase
       ZoneSprayView test = ZoneSpray.getView(spray.getSprayId());
 
       assertNotNull(test);
-      assertEquals(data.getBrand().getId(), test.getBrand().getId());
-      assertEquals(data.getGeoEntity().getId(), test.getGeoEntity().getId());
-      assertEquals(data.getSprayDate(), test.getSprayDate());
+      assertEquals(spray.getBrand().getId(), test.getBrand().getId());
+      assertEquals(spray.getGeoEntity().getId(), test.getGeoEntity().getId());
+      assertEquals(spray.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(SprayMethod.MAIN_SPRAY, test.getSprayMethod().get(0));
       assertEquals(1, test.getSurfaceType().size());
@@ -254,9 +260,9 @@ public class ZoneSprayTest extends TestCase
 
       fail("Unabled to delete the concrete spray operator");
     }
-    catch(DataNotFoundException e)
+    catch (DataNotFoundException e)
     {
-      //This is expected
+      // This is expected
     }
   }
 
@@ -279,9 +285,9 @@ public class ZoneSprayTest extends TestCase
       ZoneSprayView test = ZoneSprayView.searchBySprayData(geoId, date, method, brand);
 
       assertNotNull(test);
-      assertEquals(data.getBrand().getId(), test.getBrand().getId());
-      assertEquals(data.getGeoEntity().getId(), test.getGeoEntity().getId());
-      assertEquals(data.getSprayDate(), test.getSprayDate());
+      assertEquals(spray.getBrand().getId(), test.getBrand().getId());
+      assertEquals(spray.getGeoEntity().getId(), test.getGeoEntity().getId());
+      assertEquals(spray.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(method, test.getSprayMethod().get(0));
       assertEquals(1, test.getSurfaceType().size());
@@ -304,8 +310,9 @@ public class ZoneSprayTest extends TestCase
     assertFalse(spray.hasConcrete());
   }
 
-  public void testGetStatus()
-  {   
+
+  public void testDuplicate()
+  {
     Date date = new Date();
     SprayMethod method = SprayMethod.MAIN_SPRAY;
 
@@ -316,17 +323,29 @@ public class ZoneSprayTest extends TestCase
     spray.addSprayMethod(method);
     spray.addSurfaceType(SurfaceType.POROUS);
     spray.apply();
-    
+
     try
     {
-      TeamSprayStatusView[] status = spray.getStatus();
-      
-      assertEquals(1, status.length);
+      ZoneSprayView duplicate = new ZoneSprayView();
+      duplicate.setBrand(brand);
+      duplicate.setGeoEntity(geoEntity);
+      duplicate.setSprayDate(date);
+      duplicate.addSprayMethod(method);
+      duplicate.addSurfaceType(SurfaceType.POROUS);
+      duplicate.apply();
+
+      duplicate.deleteConcrete();
+
+      fail("Able to create a duplicate Operator Spray View");
+    }
+    catch (Exception e)
+    {
+      // This is excepted
     }
     finally
     {
       spray.deleteConcrete();
     }
-  }
 
+  }
 }

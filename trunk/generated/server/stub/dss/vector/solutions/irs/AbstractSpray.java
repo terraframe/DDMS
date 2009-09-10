@@ -73,7 +73,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
       view.addSurfaceType(type);
     }
 
-    view.setDataId(data.getId());
+    view.setSprayData(data);
     view.setSprayId(this.getId());
   }
 

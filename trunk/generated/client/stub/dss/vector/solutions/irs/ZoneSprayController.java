@@ -98,6 +98,8 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
 
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(request));
+    req.setAttribute("methods", SprayMethodDTO.allItems(request));
+    req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getAll(request)));
   }
 
   public void view(String id) throws IOException, ServletException

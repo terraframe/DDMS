@@ -6,7 +6,7 @@ package dss.vector.solutions.irs;
  */
 public class AbstractSprayViewQuery extends dss.vector.solutions.irs.AbstractSprayViewQueryBase  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1240860693813L;
+private static final long serialVersionUID = 1252435466675L;
 
   public AbstractSprayViewQuery(com.terraframe.mojo.query.QueryFactory queryFactory)
   {

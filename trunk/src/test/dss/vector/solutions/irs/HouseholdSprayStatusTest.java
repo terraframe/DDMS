@@ -516,12 +516,6 @@ public class HouseholdSprayStatusTest extends TestCase
       HouseholdSprayStatus status = new HouseholdSprayStatus();
       status.setSpray(mopupSpray);
       status.setHouseholds(1);
-      status.setPeople(3);
-      status.setBedNets(3);
-      status.setRoomsWithBedNets(5);
-      status.setLocked(2);
-      status.setOther(3);
-      status.setRefused(3);
       status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
       status.setStructureId(TestConstants.STRUCTURE_ID);
       status.apply();
@@ -545,13 +539,7 @@ public class HouseholdSprayStatusTest extends TestCase
     {
       HouseholdSprayStatus status = new HouseholdSprayStatus();
       status.setSpray(mopupSpray);
-      status.setStructures(1);
-      status.setPeople(3);
-      status.setBedNets(3);
-      status.setRoomsWithBedNets(5);
-      status.setLocked(2);
-      status.setOther(3);
-      status.setRefused(3);
+      status.setPrevSprayedHouseholds(1);
       status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
       status.setStructureId(TestConstants.STRUCTURE_ID);
       status.apply();
@@ -578,12 +566,6 @@ public class HouseholdSprayStatusTest extends TestCase
       status.setSpray(mopupSpray);
       status.setRooms(TestConstants.NUM_ROOMS);
       status.setSprayedRooms(2);
-      status.setPeople(3);
-      status.setBedNets(3);
-      status.setRoomsWithBedNets(5);
-      status.setLocked(2);
-      status.setOther(3);
-      status.setRefused(3);
       status.setHouseholdId(TestConstants.HOUSEHOLD_ID);
       status.setStructureId(TestConstants.STRUCTURE_ID);
       status.apply();

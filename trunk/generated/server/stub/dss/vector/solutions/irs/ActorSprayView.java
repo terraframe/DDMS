@@ -11,9 +11,9 @@ public abstract class ActorSprayView extends ActorSprayViewBase implements com.t
     super();
   }
 
-  protected void populateConcrete(ActorSpray spray, SprayData data)
+  protected void populateConcrete(ActorSpray spray)
   {
-    super.populateConcrete(spray, data);
+    super.populateConcrete(spray);
     
     spray.setTarget(this.getTarget());
     spray.setTeamSprayWeek(this.getTeamSprayWeek());    
@@ -24,9 +24,9 @@ public abstract class ActorSprayView extends ActorSprayViewBase implements com.t
     spray.setTeamLeader(this.getTeamLeader());
   }
 
-  protected void populateMapping(ActorSpray spray, SprayData data)
+  protected void populateMapping(ActorSpray spray)
   {
-    super.populateMapping(spray, data);
+    super.populateMapping(spray);
     
     new AttributeNotificationMap(spray, ActorSpray.TEAMLEADER, this, ActorSprayView.TEAMLEADER);
     new AttributeNotificationMap(spray, ActorSpray.TARGET, this, ActorSprayView.TARGET);

@@ -136,7 +136,7 @@ operators = <%=request.getAttribute("operators")%>;
 data = {
          rows:<%=Halp.getDataMap(rows, attributes, view)%>,
          columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-         defaults: {"SprayData":'<%= spray.getDataId()%>'},
+         defaults: {"SprayData":'<%= spray.getSprayData().getId()%>'},
          div_id: "Status",
          data_type: "Mojo.$.<%=TeamSprayStatusViewDTO.CLASS%>",
          saveFunction:"applyAll",

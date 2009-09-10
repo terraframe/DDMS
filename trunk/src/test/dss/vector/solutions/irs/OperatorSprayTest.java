@@ -20,29 +20,29 @@ import dss.vector.solutions.mo.ActiveIngredient;
 
 public class OperatorSprayTest extends TestCase
 {
-	  @Override
-	  public TestResult run()
-	  {
-	    return super.run();
-	  }
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
 
-	  @Override
-	  public void run(TestResult testResult)
-	  {
-	    super.run(testResult);
-	  }
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
-  private static InsecticideBrand brand = null;
+  private static InsecticideBrand brand     = null;
 
-  private static GeoEntity geoEntity = null;
+  private static GeoEntity        geoEntity = null;
 
-  private static SprayOperator operator = null;
+  private static SprayOperator    operator  = null;
 
-  private static Person person = null;
-  
-  private static SprayTeam team = null;
-    
-  private static SprayLeader leader = null;
+  private static Person           person    = null;
+
+  private static SprayTeam        team      = null;
+
+  private static SprayLeader      leader    = null;
 
   public static Test suite()
   {
@@ -70,7 +70,7 @@ public class OperatorSprayTest extends TestCase
   {
     leader.delete();
     operator.delete();
-    person.delete();
+    Person.get(person.getId()).delete();
     SprayTeam.get(team.getId()).delete();
 
     geoEntity.delete();
@@ -88,7 +88,7 @@ public class OperatorSprayTest extends TestCase
     brand.setAmount(57);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
-    brand.setBrandName(TestConstants.BRAND_NAME);    
+    brand.setBrandName(TestConstants.BRAND_NAME);
     brand.apply();
 
     geoEntity = new SentinelSite();
@@ -107,19 +107,19 @@ public class OperatorSprayTest extends TestCase
     operator.setOperatorId(TestConstants.OPERATOR_ID);
     operator.setPerson(person);
     operator.apply();
-    
+
     leader = new SprayLeader();
     leader.setLeaderId(TestConstants.LEADER_ID);
     leader.setPerson(person);
     leader.apply();
-        
+
     person.setSprayLeaderDelegate(leader);
     person.setSprayOperatorDelegate(operator);
+    person.apply();
 
     team = new SprayTeam();
     team.setTeamId(TestConstants.TEAM_ID);
-    team.apply(); 
-
+    team.apply();
   }
 
   public void testCreate()
@@ -200,7 +200,6 @@ public class OperatorSprayTest extends TestCase
     edit.setUsed(3);
     edit.apply();
 
-
     try
     {
       OperatorSpray test = OperatorSpray.get(spray.getId());
@@ -225,14 +224,6 @@ public class OperatorSprayTest extends TestCase
 
   public void testEditView()
   {
-    SprayData data = new SprayData();
-    data.setBrand(brand);
-    data.setGeoEntity(geoEntity);
-    data.setSprayDate(new Date());
-    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
-    data.apply();
-
     OperatorSprayView spray = new OperatorSprayView();
     spray.setBrand(brand);
     spray.setGeoEntity(geoEntity);
@@ -265,9 +256,9 @@ public class OperatorSprayTest extends TestCase
       OperatorSprayView test = OperatorSpray.getView(spray.getSprayId());
 
       assertNotNull(test);
-      assertEquals(data.getBrand().getId(), test.getBrand().getId());
-      assertEquals(data.getGeoEntity().getId(), test.getGeoEntity().getId());
-      assertEquals(data.getSprayDate(), test.getSprayDate());
+      assertEquals(edit.getBrand().getId(), test.getBrand().getId());
+      assertEquals(edit.getGeoEntity().getId(), test.getGeoEntity().getId());
+      assertEquals(edit.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(SprayMethod.MAIN_SPRAY, test.getSprayMethod().get(0));
       assertEquals(1, test.getSurfaceType().size());
@@ -290,14 +281,6 @@ public class OperatorSprayTest extends TestCase
 
   public void testCreateView()
   {
-    SprayData data = new SprayData();
-    data.setBrand(brand);
-    data.setGeoEntity(geoEntity);
-    data.setSprayDate(new Date());
-    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
-    data.apply();
-
     OperatorSprayView spray = new OperatorSprayView();
     spray.setBrand(brand);
     spray.setGeoEntity(geoEntity);
@@ -320,9 +303,9 @@ public class OperatorSprayTest extends TestCase
       OperatorSprayView test = OperatorSpray.getView(spray.getSprayId());
 
       assertNotNull(test);
-      assertEquals(data.getBrand().getId(), test.getBrand().getId());
-      assertEquals(data.getGeoEntity().getId(), test.getGeoEntity().getId());
-      assertEquals(data.getSprayDate(), test.getSprayDate());
+      assertEquals(spray.getBrand().getId(), test.getBrand().getId());
+      assertEquals(spray.getGeoEntity().getId(), test.getGeoEntity().getId());
+      assertEquals(spray.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(SprayMethod.MAIN_SPRAY, test.getSprayMethod().get(0));
       assertEquals(1, test.getSurfaceType().size());
@@ -372,22 +355,14 @@ public class OperatorSprayTest extends TestCase
 
       fail("Unabled to delete the concrete spray operator");
     }
-    catch(DataNotFoundException e)
+    catch (DataNotFoundException e)
     {
-      //This is expected
+      // This is expected
     }
   }
 
   public void testSearch()
   {
-    SprayData data = new SprayData();
-    data.setBrand(brand);
-    data.setGeoEntity(geoEntity);
-    data.setSprayDate(new Date());
-    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
-    data.apply();
-
     Date date = new Date();
     SprayMethod method = SprayMethod.MAIN_SPRAY;
 
@@ -414,9 +389,9 @@ public class OperatorSprayTest extends TestCase
       OperatorSprayView test = OperatorSprayView.searchBySprayData(geoId, date, method, brand, operator.getId());
 
       assertNotNull(test);
-      assertEquals(data.getBrand().getId(), test.getBrand().getId());
-      assertEquals(data.getGeoEntity().getId(), test.getGeoEntity().getId());
-      assertEquals(data.getSprayDate(), test.getSprayDate());
+      assertEquals(spray.getBrand().getId(), test.getBrand().getId());
+      assertEquals(spray.getGeoEntity().getId(), test.getGeoEntity().getId());
+      assertEquals(spray.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(method, test.getSprayMethod().get(0));
       assertEquals(1, test.getSurfaceType().size());
@@ -446,5 +421,58 @@ public class OperatorSprayTest extends TestCase
 
     OperatorSprayView spray = OperatorSprayView.searchBySprayData(geoId, date, method, brand, operator.getId());
     assertFalse(spray.hasConcrete());
+  }
+
+  public void testDuplicate()
+  {
+    OperatorSprayView spray = new OperatorSprayView();
+    spray.setBrand(brand);
+    spray.setGeoEntity(geoEntity);
+    spray.setSprayDate(new Date());
+    spray.addSprayMethod(SprayMethod.MAIN_SPRAY);
+    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setOperatorSprayWeek(2);
+    spray.setReceived(2);
+    spray.setRefills(3);
+    spray.setReturned(2);
+    spray.setSprayOperator(operator);
+    spray.setTeamLeader(operator);
+    spray.setTarget(232);
+    spray.setTeamSprayWeek(24);
+    spray.setUsed(3);
+    spray.apply();
+
+    try
+    {
+      OperatorSprayView duplicate = new OperatorSprayView();
+      duplicate.setBrand(brand);
+      duplicate.setGeoEntity(geoEntity);
+      duplicate.setSprayDate(new Date());
+      duplicate.addSprayMethod(SprayMethod.MAIN_SPRAY);
+      duplicate.addSurfaceType(SurfaceType.POROUS);
+      duplicate.setOperatorSprayWeek(2);
+      duplicate.setReceived(2);
+      duplicate.setRefills(3);
+      duplicate.setReturned(2);
+      duplicate.setSprayOperator(operator);
+      duplicate.setTeamLeader(operator);
+      duplicate.setTarget(232);
+      duplicate.setTeamSprayWeek(24);
+      duplicate.setUsed(3);
+      duplicate.apply();
+
+      duplicate.deleteConcrete();
+
+      fail("Able to create a duplicate Operator Spray View");
+    }
+    catch (Exception e)
+    {
+      // This is excepted
+    }
+    finally
+    {
+      spray.deleteConcrete();
+    }
+
   }
 }

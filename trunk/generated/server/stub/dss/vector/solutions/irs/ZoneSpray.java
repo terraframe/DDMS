@@ -1,14 +1,29 @@
 package dss.vector.solutions.irs;
 
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
+
 import com.terraframe.mojo.dataaccess.database.Database;
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.general.MalariaSeason;
+import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1240860676906L;
+  private static final long          serialVersionUID = 1240860676906L;
+
+  /**
+   * Lock used when applying a ZoneSpray. An ZoneSpray has a uniqueness
+   * constraint on (Spray Date,Geo Entity, Insecticide Brand, Spray Method).
+   * However these fields are not on the same database table, so a manual
+   * runtime check and lock are required.
+   */
+  private static final ReentrantLock lock             = new ReentrantLock();
 
   public ZoneSpray()
   {
@@ -16,15 +31,65 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
   }
 
   @Override
+  public void apply()
+  {
+    // IMPORTANT: Lock before performing the uniqueness constraint check
+    lock.lock();
+
+    try
+    {
+      validateUniqueness();
+
+      super.apply();
+    }
+    finally
+    {
+      lock.unlock();
+    }
+  }
+
+  private void validateUniqueness()
+  {
+    if (this.getSprayData() != null)
+    {
+      Date sprayDate = this.getSprayData().getSprayDate();
+      GeoEntity geoEntity = this.getSprayData().getGeoEntity();
+      InsecticideBrand brand = this.getSprayData().getBrand();
+      List<SprayMethod> sprayMethod = this.getSprayData().getSprayMethod();
+
+      ZoneSpray duplicate = ZoneSpray.get(sprayDate, geoEntity, brand, sprayMethod.toArray(new SprayMethod[sprayMethod.size()]));
+
+      if (duplicate != null && !this.getId().equals(duplicate.getId()))
+      {
+        String msg = "Team Spray must be unique with respect to Spray Date, Geo Entity, Insecticide Brand, and Spray Method";
+
+        UniqueZoneSprayException e = new UniqueZoneSprayException(msg);
+        e.setBrand(brand.getBrandName());
+        e.setSprayDate(sprayDate);
+        e.setGeoEntity(geoEntity.getGeoId());
+
+        for (SprayMethod method : sprayMethod)
+        {
+          e.setSprayMethod(method.getDisplayLabel());
+        }
+
+        e.apply();
+
+        throw e;
+      }
+    }
+  }
+
+  @Override
   protected String buildKey()
   {
-    if(this.getSprayData() != null)
+    if (this.getSprayData() != null)
     {
       return this.getSprayData().getKey();
     }
     return this.getId();
   }
-  
+
   public ZoneSprayView unlockView()
   {
     this.unlock();
@@ -65,6 +130,31 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
     return null;
   }
 
+  private static ZoneSpray get(Date sprayDate, GeoEntity geoEntity, InsecticideBrand brand, SprayMethod[] method)
+  {
+    ZoneSprayQuery query = new ZoneSprayQuery(new QueryFactory());
+    query.WHERE(query.getSprayData().getSprayDate().EQ(sprayDate));
+    query.WHERE(query.getSprayData().getGeoEntity().EQ(geoEntity));
+    query.WHERE(query.getSprayData().getBrand().EQ(brand));
+    query.WHERE(query.getSprayData().getSprayMethod().containsAll(method));
+
+    OIterator<? extends ZoneSpray> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next();
+      }
+
+      return null;
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+
   public static ZoneSprayView getView(String id)
   {
     return ZoneSpray.get(id).getView();
@@ -79,43 +169,37 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
     Database.parseAndExecute(sql);
   }
 
-
   public static String getTempTableSQL(String viewName)
   {
     String select = "SELECT spraystatus.id,\n";
 
     select += "'3' AS aggregation_level,\n";
-    //operator stuff
+    // operator stuff
     select += "'' AS household_id,\n";
     select += "'' AS structure_id,\n";
     select += "'' AS sprayoperator,\n";
     select += "'' AS sprayoperator_defaultLocale,\n";
     select += "NULL AS operator_week,\n";
     select += "NULL AS operator_target,\n";
-    //team stuff
-    select += "sprayteam."+SprayTeam.ID+" AS sprayteam,\n";
-    select += "sprayteam."+SprayTeam.TEAMID+" AS sprayteam_defaultLocale,\n";
-    select += "actorspray."+ActorSpray.TEAMLEADER+" AS sprayleader,\n";
+    // team stuff
+    select += "sprayteam." + SprayTeam.ID + " AS sprayteam,\n";
+    select += "sprayteam." + SprayTeam.TEAMID + " AS sprayteam_defaultLocale,\n";
+    select += "actorspray." + ActorSpray.TEAMLEADER + " AS sprayleader,\n";
     select += "sprayleader.operatorid || ' - ' || person.firstname || ' ' || person.lastname AS sprayleader_defaultLocale,\n";
-    select += "actorspray."+ActorSpray.TEAMSPRAYWEEK+" AS team_week,\n";
-    select += "actorspray."+ActorSpray.TARGET+" AS team_target,\n";
+    select += "actorspray." + ActorSpray.TEAMSPRAYWEEK + " AS team_week,\n";
+    select += "actorspray." + ActorSpray.TARGET + " AS team_target,\n";
 
-    //zone stuff
-    select += "zonespray."+ZoneSpray.SUPERVISORNAME+" || ' '|| zonespray."+ZoneSpray.SUPERVISORSURNAME+" AS zone_supervisor,\n";
-    select += "zonespray."+ZoneSpray.SPRAYWEEK+" AS zone_week,\n";
-    select += "zonespray."+ZoneSpray.TARGET+" AS zone_target,\n";
-    //target stuff
-    //select += "sprayseason.id  AS spray_season,\n";
+    // zone stuff
+    select += "zonespray." + ZoneSpray.SUPERVISORNAME + " || ' '|| zonespray." + ZoneSpray.SUPERVISORSURNAME + " AS zone_supervisor,\n";
+    select += "zonespray." + ZoneSpray.SPRAYWEEK + " AS zone_week,\n";
+    select += "zonespray." + ZoneSpray.TARGET + " AS zone_target,\n";
+    // target stuff
+    // select += "sprayseason.id  AS spray_season,\n";
     select += "NULL  AS planed_operator_target,\n";
-    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE "+
-           "spray_target_view.target_id = sprayteam.id \n"+
-           "AND spray_target_view.season_id = sprayseason.id \n" +
-           "AND spray_target_view.target_week = actorspray."+ActorSpray.TEAMSPRAYWEEK+") AS planed_team_target,\n";
-    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE "+
-           "spray_target_view.target_id = spraydata.geoentity  \n"+
-           "AND spray_target_view.season_id = sprayseason.id \n" +
-           "AND spray_target_view.target_week = EXTRACT(WEEK FROM spraydata.spraydate)"+") AS planed_area_target,\n";
-
+    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = sprayteam.id \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = actorspray." + ActorSpray.TEAMSPRAYWEEK
+        + ") AS planed_team_target,\n";
+    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = spraydata.geoentity  \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = EXTRACT(WEEK FROM spraydata.spraydate)"
+        + ") AS planed_area_target,\n";
 
     String from = " FROM ";
     from += MdBusiness.getMdBusiness(ZoneSpray.CLASS).getTableName() + " AS zonespray,\n";
@@ -129,12 +213,12 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
     from += MdBusiness.getMdBusiness(SprayOperator.CLASS).getTableName() + " AS sprayleader,\n";
     from += MdBusiness.getMdBusiness(Person.CLASS).getTableName() + " AS person,\n";
     from += MdBusiness.getMdBusiness(SprayData.CLASS).getTableName() + " AS spraydata \n";
-    from += " LEFT JOIN " ;
+    from += " LEFT JOIN ";
     from += MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName() + " AS sprayseason ";
     from += "ON spraydata.spraydate BETWEEN sprayseason.startdate AND sprayseason.enddate,\n";
 
     String where = "";
-    //join the team spray to the operator spray
+    // join the team spray to the operator spray
     where += "AND abstractspray_team.spraydata = abstractspray_zone.spraydata \n";
 
     // join the teamspray to the team
@@ -143,16 +227,16 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
     where += "AND sprayteam.id = inteam.parent_id  \n";
     where += "AND sprayleader.id = inteam.child_id \n";
 
-    //join abstractspray_team to the team spray
+    // join abstractspray_team to the team spray
     where += "AND teamspray.id = abstractspray_team.id \n";
     where += "AND teamspray.id = actorspray.id \n";
     where += "AND spraydata.id = abstractspray_team.spraydata \n";
 
-    //join abstractspray_zone
+    // join abstractspray_zone
     where += "AND abstractspray_zone.id = zonespray.id \n";
     where += "AND spraystatus.spray = teamspray.id \n";
 
-    //join the people
+    // join the people
     where += "AND actorspray.teamleader = sprayleader.id \n";
     where += "AND person.id = sprayleader.person \n";
 

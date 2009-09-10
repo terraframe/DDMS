@@ -1,8 +1,6 @@
 package dss.vector.solutions.irs;
 
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
@@ -23,38 +21,60 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.terraframe.m
   @Transaction
   public void apply()
   {
-    List<SprayMethod> method = this.getSprayMethod();
-    SprayData data = SprayData.get(this.getBrand(), this.getGeoEntity(), this.getSprayDate(), method.toArray(new SprayMethod[method.size()]));
     ZoneSpray spray = new ZoneSpray();
 
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       spray = ZoneSpray.get(this.getSprayId());
+            
+      validateSprayMethod(spray.getSprayData().getSprayMethod());
+      validateGeoEntity(spray.getSprayData().getGeoEntity()); 
+      
+      this.setSprayData(spray.getSprayData());                  
     }
     
-    this.populateMapping(spray, data);
+    this.lockSprayData();
 
-    this.applySprayData(data);
+    this.populateMapping(spray);
 
-    this.populateConcrete(spray, data);
+    this.populateConcrete(spray);
+    
+    this.getSprayData().apply();
 
     spray.apply();
     spray.populateView(this);
   }
-  
-  protected void populateConcrete(ZoneSpray spray, SprayData data)
+
+  private void validateGeoEntity(GeoEntity geoEntity)
   {
-    super.populateConcrete(spray, data);
+    GeoEntity newGeoEntity = this.getGeoEntity();
     
+    if (geoEntity != null && newGeoEntity != null)
+    {
+      if (!geoEntity.getId().equals(newGeoEntity.getId()) && this.hasStatus())
+      {
+        String msg = "The geo entity cannot be altered if team status rows already exist";
+        ModifiedSprayZoneException e = new ModifiedSprayZoneException(msg);
+        e.apply();
+
+        throw e;
+      }
+    }
+  }
+
+  protected void populateConcrete(ZoneSpray spray)
+  {
+    super.populateConcrete(spray);
+
     spray.setSupervisorName(this.getSupervisorName());
     spray.setSupervisorSurname(this.getSupervisorSurname());
     spray.setTarget(this.getTarget());
-    spray.setSprayWeek(this.getSprayWeek());    
+    spray.setSprayWeek(this.getSprayWeek());
   }
 
   public void deleteConcrete()
   {
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       ZoneSpray.get(this.getSprayId()).delete();
     }
@@ -67,27 +87,19 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.terraframe.m
       return new TeamSprayStatusView[0];
     }
 
-    List<TeamSprayStatusView> list = new LinkedList<TeamSprayStatusView>();
-
     ZoneSpray spray = ZoneSpray.get(this.getSprayId());
     SprayData data = spray.getSprayData();
     SprayTeam[] teams = SprayTeam.findByLocation(data.getGeoEntity().getGeoId());
 
-    for (SprayTeam team : teams)
-    {
-      TeamSprayStatusView view = TeamSprayStatusView.search(data, team);
+//    spray.populateView(this);
 
-      if (view != null)
-      {
-        list.add(view);
-      }
-    }
-    
-    spray.populateView(this);
-
-    return list.toArray(new TeamSprayStatusView[list.size()]);
+    return TeamSprayStatusView.search(data, teams);
   }
 
+  public boolean hasStatus()
+  {
+    return this.getStatus().length > 0;
+  }
 
   public static ZoneSprayView searchBySprayData(String geoId, Date sprayDate, SprayMethod sprayMethod, InsecticideBrand brand)
   {
@@ -102,13 +114,13 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.terraframe.m
 
     try
     {
-      if(it.hasNext())
+      if (it.hasNext())
       {
         return it.next().getView();
       }
 
       GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
-      
+
       ZoneSprayView view = new ZoneSprayView();
       view.setGeoEntity(geoEntity);
       view.setSprayDate(sprayDate);

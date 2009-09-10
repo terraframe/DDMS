@@ -51,7 +51,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
     </dd>
     <dt> <fmt:message key="Spray_Team"/> </dt>
     <dd>
-      <mjl:select var="current" valueAttribute="id" items="${teams}" id="teamSelect" disabled="true" param="team.componentId" >
+      <mjl:select var="current" valueAttribute="id" items="${teams}" id="teamSelect" param="team.componentId" >
        <mjl:option selected="${team != null && current.id == team.id ? 'selected' : 'false'}">
           ${current.teamId}
        </mjl:option>
@@ -60,6 +60,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
     <mjl:command classes="submitButton" action="dss.vector.solutions.irs.TeamSprayController.searchByParameters.mojo" name="search.button" value="Search" />
   </dl>
 </mjl:form>
+
 <jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.TeamSprayExcelView" name="excelType"/>
 </jsp:include>
@@ -69,63 +70,15 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
 
 <script type="text/javascript" defer="defer">
 
+var teamSelect = document.getElementById('teamSelect');
+var geoId = document.getElementById('geoIdEl');
+
+var search = new MDSS.TeamSearch(geoId, teamSelect, null, null);
+
 onValidGeoEntitySelected = function(){
-    var geoId = document.getElementById('geoIdEl');
-    var teamSelect = document.getElementById('teamSelect');    
+  search.populateSprayTeams();
+}
 
-    if(geoId.value != '')
-    {
-      var request = new MDSS.Request({
-          onSend: function(){},
-          onComplete: function(){},
-          onFailure : function(){
-          	teamSelect.disabled=true;            
-          },
-          onProblemExceptionDTO : function(){
-            teamSelect.disabled=true;
-          },          
-          onSuccess : function(teams){
-        	// Remove all of the current options in the select list
-            Selectbox.removeAllOptions(teamSelect);
-
-            Selectbox.addOption(teamSelect, 'Select Team', '', false);
-        	
-            // Add the new options retrieved from the AJAX call
-        	for(var i=0; i< teams.length; i++) {
-              Selectbox.addOption(teamSelect, teams[i].getTeamId(), teams[i].getId(), false);
-        	}        	
-
-        	// Enable the select list
-        	teamSelect.disabled=false;
-        	populatedSprayTeams = true;
-        	
-          }
-  		});
-
-      Mojo.$.dss.vector.solutions.irs.SprayTeam.findByLocation(request, geoId.value);
-    }
-    else {
-      Selectbox.removeAllOptions(teamSelect);        
-   	  teamSelect.disabled=true;
-    }
-  }
-
-onSprayTeamLoaded = function(){
-	if(populatedSprayTeams) {		
-	  document.getElementById('teamSelect').value = '${team}';	
-	}
-	else {
-		setTimeout('onSprayTeamLoaded();',200);
-	}
-  }
-
-populatedSprayTeams = false;
-
-//On page load if a valid GeoId is supplied then load the teams for that geo Id
-onValidGeoEntitySelected();
-
-onSprayTeamLoaded();
 </script>
-
 
 <div id="cal1Container" class="yui-skin-sam"></div>

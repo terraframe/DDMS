@@ -1,5 +1,9 @@
 package dss.vector.solutions.irs;
 
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
+
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -7,14 +11,75 @@ import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.general.MalariaSeason;
+import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class TeamSpray extends TeamSprayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240860702014L;
+  
+
+  /**
+   * Lock used when applying a TeamSpray. An TeamSpray has a uniqueness
+   * constraint on (Spray Date,Geo Entity, Insecticide Brand, Spray Method, Spray Team). However
+   * these fields are not on the same database table, so a manual runtime check
+   * and lock are required.
+   */
+  private static final ReentrantLock lock             = new ReentrantLock();
 
   public TeamSpray()
   {
     super();
+  }
+  
+  @Override
+  public void apply()
+  {
+    // IMPORTANT: Lock before performing the uniqueness constraint check
+    lock.lock();
+
+    try
+    {
+      validateUniqueness();
+
+      super.apply();
+    }
+    finally
+    {
+      lock.unlock();
+    }
+  }
+  
+  private void validateUniqueness()
+  {
+    if(this.getSprayData() != null)
+    {
+      Date sprayDate = this.getSprayData().getSprayDate();
+      GeoEntity geoEntity = this.getSprayData().getGeoEntity();
+      InsecticideBrand brand = this.getSprayData().getBrand();
+      List<SprayMethod> sprayMethod = this.getSprayData().getSprayMethod();
+      
+      TeamSpray duplicate = TeamSpray.get(sprayDate, geoEntity, brand, this.getSprayTeam(), sprayMethod.toArray(new SprayMethod[sprayMethod.size()]));
+      
+      if(duplicate != null && !this.getId().equals(duplicate.getId()))
+      {
+        String msg = "Team Spray must be unique with respect to Spray Date, Geo Entity, Insecticide Brand, Spray Method, and Spray Team";
+
+        UniqueTeamSprayException e = new UniqueTeamSprayException(msg);
+        e.setBrand(brand.getBrandName());
+        e.setSprayDate(sprayDate);
+        e.setGeoEntity(geoEntity.getGeoId());
+        e.setSprayTeam(this.getSprayTeam().getTeamId());
+        
+        for(SprayMethod method : sprayMethod)
+        {
+          e.setSprayMethod(method.getDisplayLabel());
+        }
+        
+        e.apply();
+        
+        throw e;
+      }
+    }
   }
   
   @Override
@@ -69,12 +134,15 @@ public class TeamSpray extends TeamSprayBase implements com.terraframe.mojo.gene
   {
     return TeamSpray.get(id).getView();
   }
-
-  public static TeamSpray find(SprayData data, SprayTeam team)
+  
+  private static TeamSpray get(Date sprayDate, GeoEntity geoEntity, InsecticideBrand brand, SprayTeam sprayTeam, SprayMethod[] sprayMethod)
   {
     TeamSprayQuery query = new TeamSprayQuery(new QueryFactory());
-    query.WHERE(query.getSprayData().EQ(data));
-    query.AND(query.getSprayTeam().EQ(team));
+    query.WHERE(query.getSprayData().getSprayDate().EQ(sprayDate));
+    query.WHERE(query.getSprayData().getGeoEntity().EQ(geoEntity));
+    query.WHERE(query.getSprayData().getBrand().EQ(brand));
+    query.WHERE(query.getSprayData().getSprayMethod().containsAll(sprayMethod));
+    query.AND(query.getSprayTeam().EQ(sprayTeam));
 
     OIterator<? extends TeamSpray> it = query.getIterator();
 
@@ -90,19 +158,7 @@ public class TeamSpray extends TeamSprayBase implements com.terraframe.mojo.gene
     finally
     {
       it.close();
-    }
-  }
-
-  public static TeamSpray findOrCreate(SprayData data, SprayTeam team)
-  {
-    TeamSpray spray = TeamSpray.find(data, team);
-
-    if(spray == null)
-    {
-      spray = new TeamSpray();
-    }
-
-    return spray;
+    }    
   }
 
   public static void createTempTable(String tableName)

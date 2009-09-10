@@ -2,7 +2,7 @@ package dss.vector.solutions.irs;
 
 public class ValueNotApplicableProblemDTO extends ValueNotApplicableProblemDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1241039476645L;
+  private static final long serialVersionUID = 1252447602438L;
   
   public ValueNotApplicableProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

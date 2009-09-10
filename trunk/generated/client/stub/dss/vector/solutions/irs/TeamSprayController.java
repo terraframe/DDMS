@@ -70,10 +70,14 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
   {
     ClientRequestIF request = this.getClientSession().getRequest();
     InsecticideBrandDTO brand = dto.getBrand();
+    String geoId = dto.getGeoEntity().getGeoId();
     
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(request));
-    req.setAttribute("operators", getTeamMembers(dto.getSprayTeam()));
+    req.setAttribute("operators", Arrays.asList(dto.getSprayTeam().getTeamMemberViews()));
+    req.setAttribute("methods", SprayMethodDTO.allItems(request));
+    req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getAll(request)));
+    req.setAttribute("teams", Arrays.asList(SprayTeamDTO.findByLocation(request, geoId)));    
   }
 
   public void update(TeamSprayViewDTO dto) throws IOException, ServletException
@@ -271,15 +275,6 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     }
   }
 
-  private List<SprayOperatorDTO> getTeamMembers(SprayTeamDTO team)
-  {
-    List<SprayOperatorDTO> operators = new LinkedList<SprayOperatorDTO>();
-
-    operators.addAll(team.getAllSprayTeamMembers());
-
-    return operators;
-  }
-
   private void validateParameters(InsecticideBrandDTO brand, String geoId, Date date,
       String sprayMethod, SprayTeamDTO team)
   {
@@ -331,17 +326,22 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
     req.setAttribute("methods", methods);
     req.setAttribute("brands", Arrays.asList(brands));
-    req.setAttribute("teams", new LinkedList<SprayTeamDTO>());
-
     req.setAttribute("brand", brand);
     req.setAttribute("date", date);
-    req.setAttribute("geoId", geoId);
     req.setAttribute("method", method);
-
-    if (team != null)
+    req.setAttribute("team", team);
+    
+    if(geoId != null)
     {
-      req.setAttribute("team", team.getId());
+      req.setAttribute("teams", Arrays.asList(SprayTeamDTO.findByLocation(clientRequest, geoId)));            
+      req.setAttribute("geoId", geoId);
     }
+    else
+    {
+      req.setAttribute("teams", new LinkedList<SprayTeamDTO>());      
+    }
+
+
 
     render("searchComponent.jsp");
   }
