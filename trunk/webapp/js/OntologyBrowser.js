@@ -26,6 +26,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       this._breadcrumbId = this._id+'_breadcrumb';
       this._contentId = this._id+'_contentId';
       this._selectionId = this._id+'_selection';
+      this._backButton = this._id+'_back';
       
       // selected terms
       this._selection = {};
@@ -107,15 +108,18 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       }
     },
     
-    _doTermSelect : function(termId)
+    _doTermSelect : function(termId, dontAdd)
     {
       var term = MDSS.MO.terms[termId]; // span id == term id
       var nodes = this._getChildren(term);
       var content = document.getElementById(this._contentId);
       content.innerHTML = nodes;
 
-      // push selected node onto breadcrumbs 
-      this._breadcrumbs.push({id: term.getId(), display: term.getTerm()});
+      // push selected node onto breadcrumbs
+      if(!dontAdd)
+      { 
+        this._breadcrumbs.push({id: term.getId(), display: term.getTerm()});
+      }
       this._resetBreadcrumbs();
     },
     
@@ -208,6 +212,9 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       
       var html = '';
       html += '<div class="browserWrapper">';
+      html += '  <div class="browserBack">';
+      html += '     <button id="'+this._backButton+'">&larr;</button>';
+      html += '  </div>';
       html += '  <div class="browserBreadcrumbs">';
       html += '    <ul class="breadcrumbsNav" id="'+this._breadcrumbId+'">';
       html += this._getBreadcrumbs();
@@ -240,6 +247,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       Event.on(this._breadcrumbId, 'click', this._doNavigate, null, this);
       Event.on(this._contentId, 'click', this._doTermSelectHandler, null, this);
       Event.on(this._selectionId, 'click', this._doSelectionAction, null, this);
+      Event.on(this._backButton, 'click', this._goBack, null, this);
     },
     
     _createTermEntry : function(term)
@@ -256,6 +264,29 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       }
       
       return li+this.newSpan(term.getTerm(), term.getId()+this.constructor.ENTRY_SUFFIX)+'</li>'
+    },
+    
+    _goBack : function(e)
+    {
+      var size = this._breadcrumbs.length;
+      if(size === 1)
+      {
+        // can't go back beyond root
+        return;
+      }
+      
+      // remove last entry and use next to last as new endpoint
+      this._breadcrumbs.pop();
+      size = this._breadcrumbs.length;
+      if(size === 1)
+      {
+        this._resetToDefault();
+      }
+      else
+      {
+        var termId = this._breadcrumbs[size-1].id;
+        this._doTermSelect(termId, true);
+      }
     },
     
     _doNavigate : function(e)
