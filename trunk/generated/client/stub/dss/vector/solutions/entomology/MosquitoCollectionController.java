@@ -469,8 +469,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       }
       else
       {
-        req.setAttribute("item", collection);
-        render("viewComponent.jsp");
+        this.view(collection);
       }
     }
     catch (ProblemExceptionDTO e)
