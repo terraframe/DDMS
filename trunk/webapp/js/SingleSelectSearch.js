@@ -210,7 +210,7 @@ YAHOO.util.Event.onDOMReady(function(){
      * Performs an ajax search based on the entity
      * name and type.
      */
-    var ajaxSearch =  function(e)
+    var ajaxSearch =  function(e, panel)
     {
       var input = e.target;
       
@@ -219,7 +219,6 @@ YAHOO.util.Event.onDOMReady(function(){
       
       var value = input.value;
       var type = selectSearch._filterType;
-      var resultPanel = panel; //document.getElementById('geoIdEl'+'_results');
 
       // must have at least 2 characters ready
       if(value.length < 2)
@@ -228,7 +227,7 @@ YAHOO.util.Event.onDOMReady(function(){
       }
 
       var request = new MDSS.Request({
-        resultPanel: resultPanel,
+        resultPanel: panel,
         searchValue: value,
         selectHandler: selectHandler,
         input: input,
@@ -278,7 +277,7 @@ YAHOO.util.Event.onDOMReady(function(){
             YAHOO.util.Dom.addClass(li, 'currentSelection');
           });
 
-          YAHOO.util.Event.on(ul, 'click', function(e, obj){
+          YAHOO.util.Event.on(ul, 'click', function(e, panel){
 
             var li = e.target;
             var ul = e.currentTarget;
@@ -293,10 +292,10 @@ YAHOO.util.Event.onDOMReady(function(){
             }
 
             var geoEntityId = li.id;
-            resultPanel.hide();
+            panel.hide();
             selectHandler(geoEntityId);
 
-          }, {input: this.input, panel: this.resultPanel}, this.searchRef);
+          }, this.resultPanel);
 
           var idAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ID;
           var entityNameAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME;
@@ -402,11 +401,7 @@ YAHOO.util.Event.onDOMReady(function(){
     geoSearchResults.className = "yui-panel-container show-scrollbars shadow";
     YAHOO.util.Dom.insertAfter(geoSearchResults,geoInfo);
 
-    // swap out the geo input context per click
-    opener.on("click", openPicker, geoInput, null);
-    YAHOO.util.Event.on(geoInput, 'blur', checkManualEntry, null, null);
-    YAHOO.util.Event.on(geoInput, 'keyup', ajaxSearch, null, null);
-    
+    // each input gets its own panel
     var panel = new YAHOO.widget.Panel(geoSearchResults.id, {
       width:'400px',
       height:'200px',
@@ -414,5 +409,10 @@ YAHOO.util.Event.onDOMReady(function(){
       draggable: false,
       close: true
     });
+
+    // swap out the geo input context per click
+    opener.on("click", openPicker, geoInput, null);
+    YAHOO.util.Event.on(geoInput, 'blur', checkManualEntry, null, null);
+    YAHOO.util.Event.on(geoInput, 'keyup', ajaxSearch, panel, null);
   }
 },null,null);
