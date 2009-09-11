@@ -672,18 +672,54 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       return this._qualifiedName;
     },
     
+    _getClass : function(klass)
+    {
+      var classObj = null;
+      if(klass instanceof this.constructor)
+      {
+        return klass;
+      }
+      else if(Mojo.Util.isFunction(klass) || klass instanceof Mojo.$.com.terraframe.mojo.Base)
+      {
+        return klass.$class;
+      }
+      else if(Mojo.Util.isString(klass))
+      {
+        var foundClass = Mojo.Meta.findClass(klass);
+        if(foundClass)
+        {
+          return foundClass.$class;
+        }
+        else
+        {
+          return null;
+        }
+      }
+      else
+      {
+        return null;
+      }
+    },
+    
     isSuperClassOf : function(klass)
     {
+      var classObj = this._getClass(klass); 
+      
+      if(this === classObj)
+      {
+        return true;
+      }
+    
       // FIXME allow string, func constructor, and Class instance
-      var superClass = klass.getSuperClass();
+      var superClass = classObj.getSuperClass();
       while(superClass !== Object)
       {
-        if(superClass === this)
+        if(superClass.$class === this)
         {
           return true;
         }
         
-        superClass = superClass.getSuperClass();
+        superClass = superClass.$class.getSuperClass();
       }
       
       return false;
@@ -691,8 +727,8 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
     
     isSubClassOf : function(klass)
     {
-      // FIXME allow string, func constructor, and Class instance
-      return klass.isSuperClassOf(this);
+      var classObj = this._getClass(klass); 
+      return classObj.isSuperClassOf(this);
     },
     
     getSuperClass : function()

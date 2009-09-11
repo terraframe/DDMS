@@ -118,6 +118,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
        
         var valid;
+        var currentFilter = selectSearch.getFilter();
         if(currentFilter == null || currentFilter == '')
         {
           valid = true;
@@ -125,12 +126,10 @@ YAHOO.util.Event.onDOMReady(function(){
         else
         {
           // FIXME use Class metadata
-          var currentFilter = selectSearch.getFilter();
-          var expectedType = Mojo.Meta.findClass(currentFilter);
-          var tempC = Mojo.Meta.findClass(geoEntity.getEntityType());
-          var tempGeo = new tempC();
+          var expectedKlass = Mojo.Meta.findClass(currentFilter);
+          var givenKlass = Mojo.Meta.findClass(selected.getEntityType());
           
-          valid = tempGeo instanceof expectedType;
+          valid = givenKlass.$class.isSubClassOf(expectedKlass);
         }
 
         // Some pages also have a field that takes the geoentity id.
