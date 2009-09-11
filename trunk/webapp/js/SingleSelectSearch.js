@@ -93,38 +93,12 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
   }
 });
 
-
-
 YAHOO.util.Event.onDOMReady(function(){
 
-  for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput")){
-
-    var opener = document.createElement('img');
-    opener.src = "./imgs/icons/world.png";
-    opener.id = geoInput.id +'Go';
-    opener = new YAHOO.util.Element(opener);
-    YAHOO.util.Dom.addClass(opener,'geoOpener');
-    YAHOO.util.Dom.insertAfter(opener,geoInput);
-
-    var geoInfo = document.createElement('div');
-    geoInfo.id = geoInput.id +'Info';
-    geoInfo.innerHTML = '()';
-    YAHOO.util.Dom.insertAfter(geoInfo,opener);
-
-    var geoSearchResults = document.createElement('div');
-    geoSearchResults.id = geoInput.id +'_results';
-    geoSearchResults.className = "yui-panel-container show-scrollbars shadow";
-    //geoSearchResults.setStyle('visibility','hidden');
-    YAHOO.util.Dom.insertAfter(geoSearchResults,geoInfo);
-
-    var radios = YAHOO.util.Dom.getElementsByClassName("filterType");
-    var validTypes = radios.map(function(c){return c.value}).filter(function(c){return c != ''});
+    var currentGeoIdInput = null;
 
     function selectHandler(selected)
     {
-      var geoId = document.getElementById('geoIdEl');
-      var geoEntityId = document.getElementById('geoEntityId');
-
       if(selected != null)
       {
 
@@ -142,7 +116,7 @@ YAHOO.util.Event.onDOMReady(function(){
           return;
         }
 
-
+       
         var valid;
         if(currentFilter == null || currentFilter == '')
         {
@@ -150,6 +124,7 @@ YAHOO.util.Event.onDOMReady(function(){
         }
         else
         {
+          // FIXME use Class metadata
           var currentFilter = selectSearch.getFilter();
           var expectedType = Mojo.Meta.findClass(currentFilter);
           var tempC = Mojo.Meta.findClass(geoEntity.getEntityType());
@@ -158,22 +133,29 @@ YAHOO.util.Event.onDOMReady(function(){
           valid = tempGeo instanceof expectedType;
         }
 
+        // Some pages also have a field that takes the geoentity id.
+        // Those fields are namespaced as the geo id field+"_geoEntityId",
+        // so a geo input with an id of "geoIdEl" may have another field
+        // called "geoIdEl_geoEntityId".
+        var currentgeoEntityIdInput = document.getElementById(currentGeoIdInput.id+'_geoEntityId');
+        
+        var geoInfo = document.getElementById(currentGeoIdInput.id+'Info');
         if (valid)
         {
             YAHOO.util.Dom.removeClass(geoInfo,'alert');
-            geoId.value = selected.getGeoId();
-            if(geoEntityId) {
-              geoEntityId.value = selected.getGeoEntityId();
+            currentGeoIdInput.value = selected.getGeoId();
+            if(currentgeoEntityIdInput) {
+              currentgeoEntityIdInput.value = selected.getGeoEntityId();
             }
             geoInfo.innerHTML = selected.getEntityName() + ' (' + selected.getTypeDisplayLabel()+ ')';
         }
         else
         {
             YAHOO.util.Dom.addClass(geoInfo,'alert');
-            geoId.value = '';
-            geoInfo.innerHTML = selected.getEntityName() + ' (' + selected.getTypeDisplayLabel()+ ') is not a valid Geo Entity Type for this Field';
-            if(geoEntityId) {
-              geoEntityId.value = selected.getGeoEntityId();
+            currentGeoIdInput.value = '';
+            geoInfo.innerHTML = selected.getEntityName() + ' (' + selected.getTypeDisplayLabel()+ ') '+MDSS.Localized.InvalidGeoType;
+            if(currentgeoEntityIdInput) {
+              currentgeoEntityIdInput.value = selected.getGeoEntityId();
             }
         }
       }
@@ -182,7 +164,7 @@ YAHOO.util.Event.onDOMReady(function(){
         YAHOO.util.Dom.removeClass(geoInfo,'alert');
         geoInput.value = '';
         geoInfo.innerHTML = '';
-        if(geoEntityId) geoEntityId.value ='';
+        if(currentgeoEntityIdInput) currentgeoEntityIdInput.value ='';
       }
 
       if(typeof onValidGeoEntitySelected !== 'undefined' && Mojo.Util.isFunction(onValidGeoEntitySelected))
@@ -191,10 +173,10 @@ YAHOO.util.Event.onDOMReady(function(){
       }      
     }
 
-    function checkManualEntry(selected)
+    function checkManualEntry(e)
     {
-
-      var geoId = document.getElementById('geoIdEl');
+      // reset context
+      currentGeoIdInput = e.target;
 
       var request = new MDSS.Request({
           selectHandler: this,
@@ -206,48 +188,15 @@ YAHOO.util.Event.onDOMReady(function(){
         }
       });
 
-      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getViewByGeoId(request, geoId.value);
+      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getViewByGeoId(request, currentGeoIdInput.value);
 
     }
-
-    YAHOO.util.Event.on(geoInput, 'blur', checkManualEntry, null, null);
-
-    var selectSearch = new MDSS.SingleSelectSearch();
-    selectSearch.setSelectHandler(selectHandler);
-    selectSearch.setTreeSelectHandler(selectHandler);
-
-    var defaultFilter = '';
-    // Allow either filtering via radio button or through
-    // a predictable element whose value is a type.
-    for each (radio in radios)
-    {
-      if(radio.checked)
-      {
-        defaultFilter = radio.value;
-      }
     
-      YAHOO.util.Event.on(radio, 'click', function(e, obj){
-        var radio = e.target;
-        if(radio.checked)
-        {
-          var filter = e.target.value;
-          this.setFilter(filter);
-        }
-
-      }, null, selectSearch);
+    var openPicker = function(e, geoInput)
+    {
+      // reset context
+      currentGeoIdInput = geoInput;
       
-    }
-    
-    var typeSearchFilter = document.getElementById('typeSearchFilter');
-    if(typeSearchFilter)
-    {
-      defaultFilter = typeSearchFilter.value;
-    }
-    
-    selectSearch.setFilter(defaultFilter);   
-
-    opener.on("click", function(){
-
       if(selectSearch.isInitialized())
       {
         selectSearch.show();
@@ -255,29 +204,20 @@ YAHOO.util.Event.onDOMReady(function(){
       else
       {
         selectSearch.render();
-
       }
-    });
-
-    //selectSearch.initialize();
-
-    var div = document.getElementById('geoIdEl'+'_results');
-    var panel = new YAHOO.widget.Panel(div, {
-      width:'400px',
-      height:'200px',
-      zindex:15,
-      draggable: false,
-      close: true
-    });
-
+    }
 
     /**
      * Performs an ajax search based on the entity
      * name and type.
      */
-    ajaxSearch =  function(e)
+    var ajaxSearch =  function(e)
     {
-      var input = document.getElementById('geoIdEl');
+      var input = e.target;
+      
+      // reset context
+      currentGeoIdInput = input;
+      
       var value = input.value;
       var type = selectSearch._filterType;
       var resultPanel = panel; //document.getElementById('geoIdEl'+'_results');
@@ -397,6 +337,83 @@ YAHOO.util.Event.onDOMReady(function(){
       Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, type, value);
     }
 
+  var geoInputs = YAHOO.util.Dom.getElementsByClassName("geoInput");
+  // use a single picker for all geo inputs
+  var selectSearch = null;  
+  if(geoInputs.length > 0)
+  {
+    selectSearch = new MDSS.SingleSelectSearch(); 
+    selectSearch.setSelectHandler(selectHandler);
+    selectSearch.setTreeSelectHandler(selectHandler);
+
+    // set up the filter if it exists
+    var radios = YAHOO.util.Dom.getElementsByClassName("filterType");
+    
+    var defaultFilter = '';
+    // Allow either filtering via radio button or through
+    // a predictable element whose value is a type.
+    for(var i=0; i<radios.length; i++)
+    {
+      var radio = radios[i];
+      if(radio.checked)
+      {
+        defaultFilter = radio.value;
+      }
+    
+      YAHOO.util.Event.on(radio, 'click', function(e, obj){
+        var radio = e.target;
+        if(radio.checked)
+        {
+          var filter = e.target.value;
+          this.setFilter(filter);
+        }
+
+      }, null, selectSearch);
+    }
+    
+    // look for any other filter (this will override any radio input filter)
+    var typeSearchFilter = document.getElementById('typeSearchFilter');
+    if(typeSearchFilter)
+    {
+      defaultFilter = typeSearchFilter.value;
+    }
+    
+    selectSearch.setFilter(defaultFilter);
+  }
+
+  for(var i=0; i<geoInputs.length; i++)
+  {
+    var geoInput = geoInputs[i];
+    
+    // Append the globe img to open the geo picker
+    var opener = document.createElement('img');
+    opener.src = "./imgs/icons/world.png";
+    opener.id = geoInput.id +'Go';
+    opener = new YAHOO.util.Element(opener);
+    YAHOO.util.Dom.addClass(opener,'geoOpener');
+    YAHOO.util.Dom.insertAfter(opener,geoInput);
+
+    var geoInfo = document.createElement('div');
+    geoInfo.id = geoInput.id +'Info';
+    geoInfo.innerHTML = '()';
+    YAHOO.util.Dom.insertAfter(geoInfo,opener);
+
+    var geoSearchResults = document.createElement('div');
+    geoSearchResults.id = geoInput.id +'_results';
+    geoSearchResults.className = "yui-panel-container show-scrollbars shadow";
+    YAHOO.util.Dom.insertAfter(geoSearchResults,geoInfo);
+
+    // swap out the geo input context per click
+    opener.on("click", openPicker, geoInput, null);
+    YAHOO.util.Event.on(geoInput, 'blur', checkManualEntry, null, null);
     YAHOO.util.Event.on(geoInput, 'keyup', ajaxSearch, null, null);
+    
+    var panel = new YAHOO.widget.Panel(geoSearchResults.id, {
+      width:'400px',
+      height:'200px',
+      zindex:15,
+      draggable: false,
+      close: true
+    });
   }
 },null,null);
