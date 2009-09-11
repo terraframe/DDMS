@@ -18,7 +18,7 @@
     </dt>
     <dd>
       <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput"/>
-      <mjl:input id="geoEntityId" param="geoEntity.componentId" type="hidden" />
+      <mjl:input id="geoIdEl_geoEntityId" param="geoEntity.componentId" type="hidden" />
     </dd>
     <dt>
       <label> <fmt:message key="Season"/></label>
