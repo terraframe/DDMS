@@ -176,11 +176,17 @@ data = {
      var loadUnusedTeams = function(e){
          var column = data.myDataTable.getColumn('SprayTeam');
          var cell = e.editor.getTdEl();
+         var currentTeam = e.editor.getRecord().getColumn('SprayTeam').getData();
 
          // Get a list of operators which already have data set for them
  	    var usedTeams = data.myDataTable.getRecordSet().getRecords().map( function(record) {
  		    return record.getData('SprayTeam');
  	    });
+
+
+        usedTeams.filter(function(team){
+          return team != currentTeam;
+        });
 
          // Filter the list of possible operators by operators which have already been used
  	    var filteredLabels = SprayTeamLabels.filter(function(operator){
@@ -293,11 +299,11 @@ data = {
      data.columnDefs[2].editor.subscribe('showEvent', loadUnusedTeams);     
 
      MojoGrid.createDataTable(data);
+
+     data.columnDefs[3].editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:[],disableBtns:true});
+     data.columnDefs[3].save_as_id = true;
+     data.columnDefs[3].editor.subscribe('showEvent', swap);
      
      var column = data.myDataTable.getColumn('TeamLeader');
-
-     column.editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:[],disableBtns:true});
-     column.editor.subscribe('showEvent', swap);     
-     column.editor.subscribe('saveEvent', MojoGrid.saveHandler);
 
 </script>
