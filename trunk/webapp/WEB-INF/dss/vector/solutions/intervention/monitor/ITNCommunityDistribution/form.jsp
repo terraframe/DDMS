@@ -65,7 +65,7 @@
   </mjl:dt>
 </mjl:component>
 
-<c:if test="${view.isDisplayTargetGroupsReadable}">
+<c:if test="${item.isDisplayTargetGroupsReadable}">
   <dt>    
   </dt>
   <dd>
@@ -91,7 +91,7 @@
   </dd>
 </c:if>
 
-<c:if test="${view.isDisplayNetsReadable}">
+<c:if test="${item.isDisplayNetsReadable}">
   <dt>
   </dt>
   <dd>
