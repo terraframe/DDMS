@@ -165,7 +165,7 @@ MojoGrid.createDataTable = function(table_data) {
                 request.dataTable.deleteRow(target);
               }
             });
-            Mojo.deleteEntity(request, row_id);
+            Mojo.Facade.deleteEntity(request, row_id);
           } else {
             myDataTable.deleteRow(target);
             table_data.rows.splice(row_index, 1);
