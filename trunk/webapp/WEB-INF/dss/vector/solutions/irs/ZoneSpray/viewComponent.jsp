@@ -298,12 +298,11 @@ data = {
      data.columnDefs[2].save_as_id = true;
      data.columnDefs[2].editor.subscribe('showEvent', loadUnusedTeams);     
 
-     MojoGrid.createDataTable(data);
-
      data.columnDefs[3].editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:[],disableBtns:true});
-     data.columnDefs[3].save_as_id = true;
      data.columnDefs[3].editor.subscribe('showEvent', swap);
      
-     var column = data.myDataTable.getColumn('TeamLeader');
+     MojoGrid.createDataTable(data);
+
+
 
 </script>
