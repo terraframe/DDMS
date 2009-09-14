@@ -54,7 +54,7 @@ var aSubmenuData = [
                             id: "User_Administration",
                             itemdata: [
                                        { text: "Manage_People(114)", url: "dss.vector.solutions.PersonController.viewAll.mojo" , visibleTo:'Administrator'},
-                                       { text: "Edit_Visibility(117)", url: "dss.vector.solutions.util.ReadableAttributeController.getUniversal.mojo?actor=GUIVisibility", visibleTo:'Administrator' },
+                                       { text: "Edit_Visibility(117)", url: "dss.vector.solutions.util.ReadableAttributeController.getUniversal.mojo", visibleTo:'Administrator' },
                                        { text: "Manage_Roles(144)", url: "dss.vector.solutions.RoleController.viewAll.mojo", visibleTo:'Administrator' }
                             ]
                         }
@@ -189,7 +189,7 @@ var aSubmenuData = [
             	           { text: "Query_Aggregated_ITN_Data_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
             	           { text: "ITN_Facility_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
             	           { text: "Query_ITN_Facility_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
-            	           { text: "ITN_Community_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
+            	           { text: "ITN_Community_Distribution", url: "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.viewAll.mojo", visibileTo:'Administrator'},
             	           { text: "Query_ITN_Community_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
             	           { text: "ITN_Household_Use", disabled: true, url: "#", visibileTo:'Administrator'},
             	           { text: "Query_ITN_Household_Use", disabled: true, url: "#", visibileTo:'Administrator'}

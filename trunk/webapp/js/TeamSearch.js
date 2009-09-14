@@ -132,3 +132,126 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
     }      
   }   
 });
+
+Mojo.Meta.newClass('MDSS.ElementCondition', {
+  IsAbstract : true,
+
+  Instance: {
+    initialize: function(option, condition) {
+	  this.option = option;
+	  this.condition = condition;
+    },
+
+    getOption : function () {
+    	return this.option;
+    },
+
+    getCondition : function () {
+    	return this.condition;
+    },	
+
+    evaluate : function () {} //AbstractMethod
+  }
+});
+
+// Extends ElementCondition
+Mojo.Meta.newClass('MDSS.RadioElementCondition', {
+  Extends : MDSS.ElementCondition,
+  Instance: {
+    initialize: function(option, condition) {
+      this.$initialize(option, condition);
+    },
+
+    evaluate : function () {
+    	return (this.getOption().checked == this.getCondition());
+    }    
+  }
+});
+
+Mojo.Meta.newClass('MDSS.BooleanElementHandler', {
+  Instance: {
+    initialize: function(condition, elements) {
+      // Constructor code
+	  this.condition = condition;
+      this.elements = elements;       // When option set to some condition these elements are set to element.display = '', otherwise it is set to element.display = 'none'
+          
+      // Finally we need to set the initial state of the elements
+      this.optionHandler();
+    },
+    
+    // Public getter functions    
+    getElements : function () {
+      return this.elements;
+    },
+      
+    getCondition : function () {
+      return this.condition;
+    },
+                      
+    optionHandler : function () {
+      if(this.getCondition())
+      {
+        if(this.getCondition().evaluate())
+        {
+          this.constructor.toggleElements(this.getElements(), this.constructor.showElement);
+        }
+        else
+        {
+          this.constructor.toggleElements(this.getElements(), this.constructor.hideElement);
+        }
+      }
+    }    
+  },
+  
+  Static:
+  {
+	hideElement : function (obj) {
+      // When hiding an element clear out the existing value so that when the form
+      // submits occurs hidden elements do not have values assigned to them
+      if(obj.value) {
+    	  obj.value = '';
+      }
+      
+      obj.style.display = "none";
+    },
+      
+    showElement : function (obj) {
+      if(obj.tagName && obj.tagName == 'div') {
+    	  obj.style.display = "block";
+      }
+      
+      obj.style.display = "inline";
+    },
+    
+    toggleElements : function (list, func) {
+      if(list && func)
+      {
+        for(i in list) {
+          func(list[i]);
+        }
+      }
+    },
+    
+    setupHandler : function (positive, negative, elements) {
+    	if(typeof(positive) == 'string') {
+    		positive = document.getElementById(positive);
+    	}
+    	
+    	if(typeof(negative) == 'string') {
+    		negative = document.getElementById(negative);
+    	}
+    	
+    	if(typeof(elements) == 'string') {
+    		elements = YAHOO.util.Selector.query('.' + elements);
+    	}
+    		
+    	var handler = new MDSS.BooleanElementHandler(new MDSS.RadioElementCondition(positive, true), elements);
+
+    	YAHOO.util.Event.addListener(positive, "change", handler.optionHandler, handler, true);
+    	YAHOO.util.Event.addListener(negative, "change", handler.optionHandler, handler, true);
+    	
+    	return handler;
+    }
+  }
+});
+

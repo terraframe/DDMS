@@ -1,5 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="page_title" value="Assign_Attribute_Permissions" scope="request" />
+
 <mjl:form name="dss.vector.solutions.util.ReadableAttributeController.form.name" id="dss.vector.solutions.util.ReadableAttributeController.form.id" method="POST">
   <mjl:input type="hidden" param="universal" value="${universal}" />
   <mjl:input type="hidden" param="actor" value="${actor}" />

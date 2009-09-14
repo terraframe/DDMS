@@ -1,6 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@page import="dss.vector.solutions.MDSSRoleInfo"%>
+
+<c:set var="page_title" value="Select_Class" scope="request" />
 
 <script type="text/javascript">
 (function(){
@@ -207,6 +210,17 @@
         name="ITNData"
         action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNDataView">
         <f:message key="ITN_Data_Distribution"/>
+      </mjl:commandLink>
+    </dd>
+    
+  </dl>
+  <dl>
+    <dt><label><f:message key="ITN_Community_Distribution"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="ITNCommunityDistribution"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView">
+        <f:message key="ITN_Community_Distribution"/>
       </mjl:commandLink>
     </dd>
     
