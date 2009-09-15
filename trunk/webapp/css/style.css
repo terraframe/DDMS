@@ -151,7 +151,6 @@ h2 {
 	text-shadow: 0 0 0 #000;
 }
 
-/* Added by Darrell */
 .yui-skin-sam .yuimenubar {
 	font-size: 93%;
 	line-height: 2; *
@@ -170,6 +169,10 @@ h2 {
 	margin: -1px 0;
 	padding: 0 10px;
 	text-decoration: none;
+}
+
+.yui-skin-sam .yuimenubaritemlabel:visited {
+	color:#FFF;
 }
 
 .yui-skin-sam .yuimenubaritemlabel-disabled {
