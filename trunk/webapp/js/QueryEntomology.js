@@ -336,7 +336,7 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
       this._visibleSelectables[attribute.getKey()] = selectable;
 
       // ADD THEMATIC VARIABLE
-      if(attribute._dtoType === 'AttributeIntegerDTO')
+      if(attribute._dtoType.contains( 'AttributeIntegerDTO'))
       {
         this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
       }
@@ -714,7 +714,7 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
         check.id = attribute.getKey();
         li.appendChild(check);
         this._defaults.push({element:check, checked:false});
-        if(visibleObj.dtoType === 'AttributeIntegerDTO')
+        if(visibleObj.dtoType.contains('AttributeIntegerDTO'))
         {
           var select = document.createElement('select');
 

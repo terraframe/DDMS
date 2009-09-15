@@ -227,7 +227,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
            var attr = column.getKey();
            var dto = result.getAttributeDTO(attr);
            var value = dto.getValue();
-           if(dto.dtoType === 'AttributeDateDTO'){
+           if(dto.dtoType.contains('AttributeDateDTO')){
              value = MDSS.Calendar.getLocalizedString(value);
            }
            if(dto instanceof AttributeDecDTO){
@@ -235,7 +235,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
                value = value.toFixed(2);
              }
            }
-           if(dto.dtoType === 'AttributeBooleanDTO'){
+           if(dto.dtoType.contains('AttributeBooleanDTO')){
   
              var displayValue = null;
              if(value === true)

@@ -377,7 +377,7 @@ MojoGrid.createDataTable = function(table_data) {
         var setter_exists = Mojo.Util.isFunction(view['set' + attrib.key]);
         if (setter_exists) {
           if (val != null) {
-            if (view.attributeMap[attribName].dtoType == "AttributeDateDTO") {
+            if (view.attributeMap[attribName].dtoType.contains("AttributeDateDTO")) {
               view['set' + attrib.key](MDSS.Calendar.parseDate(val));
             } else {
               view['set' + attrib.key](val);
