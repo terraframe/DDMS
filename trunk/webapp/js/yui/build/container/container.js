@@ -1413,6 +1413,9 @@
                     oIFrame.style.left = "0";
                     oIFrame.style.top = (-1 * (oIFrame.offsetHeight + Module.RESIZE_MONITOR_BUFFER)) + "px";
                     oIFrame.style.visibility = "visible";
+                    // DARRELL TAYLOR
+                    // FIX TAB INDEX
+                    oIFrame.tabIndex = -1;
 
                     /*
                        Don't open/close the document for Gecko like we used to, since it
