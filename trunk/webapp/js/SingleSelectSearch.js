@@ -126,12 +126,15 @@ YAHOO.util.Event.onDOMReady(function(){
 
           valid = givenKlass.$class.isSubClassOf(expectedKlass);
         }
-        if(valid && typeof onValidGeoEntitySelected !== 'undefined' && Mojo.Util.isFunction(onValidGeoEntitySelected))
-        {
-          onValidGeoEntitySelected();
-        }
-      }
+
+      }    
+      
       showGeoInfo(selected,currentGeoIdInput,valid);
+      
+      if(valid && typeof onValidGeoEntitySelected !== 'undefined' && Mojo.Util.isFunction(onValidGeoEntitySelected))
+      {
+        onValidGeoEntitySelected();
+      }
     }
 
     function checkManualEntry(e)
