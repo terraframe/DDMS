@@ -109,6 +109,11 @@
       <fmt:message key="Service_Grid_Label"/>
     </mjl:commandLink><br />
     <mjl:commandLink
+      name="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+      action="dss.vector.solutions.intervention.monitor.NonUseReasonGridController.viewAll.mojo">
+      <fmt:message key="Non_Use_Reasons_Grid_Label"/>
+    </mjl:commandLink><br />
+    <mjl:commandLink
       name="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
       action="dss.vector.solutions.intervention.monitor.TargetGroupGridController.viewAll.mojo">
       <fmt:message key="Target_Group_Grid_Label"/>
@@ -161,6 +166,21 @@
       name="dss.vector.solutions.intervention.FeverTreatment"
       action="dss.vector.solutions.intervention.FeverTreatmentController.viewAll.mojo" >
       <fmt:message key="Fever_Treatment"/>
+    </mjl:commandLink><br />
+    <mjl:commandLink
+      name="dss.vector.solutions.intervention.monitor.CommercialITNProviderController"
+      action="dss.vector.solutions.intervention.monitor.CommercialITNProviderController.viewAll.mojo" >
+      <fmt:message key="Commercial_ITN_Provider"/>
+    </mjl:commandLink><br />
+    <mjl:commandLink
+      name="dss.vector.solutions.intervention.monitor.FreeITNProviderController"
+      action="dss.vector.solutions.intervention.monitor.FreeITNProviderController.viewAll.mojo" >
+      <fmt:message key="Free_ITN_Provider"/>
+    </mjl:commandLink><br />
+    <mjl:commandLink
+      name="dss.vector.solutions.intervention.monitor.ITNRetreatmentPeriodController"
+      action="dss.vector.solutions.intervention.monitor.ITNRetreatmentPeriodController.viewAll.mojo" >
+      <fmt:message key="ITN_Retreatment_Period"/>
     </mjl:commandLink><br />
   </dd>
 </dl>

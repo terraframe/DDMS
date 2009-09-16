@@ -150,7 +150,9 @@ Mojo.Meta.newClass('MDSS.ElementCondition', {
     	return this.condition;
     },	
 
-    evaluate : function () {} //AbstractMethod
+    evaluate : function () { //AbstractMethod
+    	throw new Error('Unsupported operationon an abstract class.');    	
+    } 
   }
 });
 
@@ -168,7 +170,21 @@ Mojo.Meta.newClass('MDSS.RadioElementCondition', {
   }
 });
 
-Mojo.Meta.newClass('MDSS.BooleanElementHandler', {
+// Extends ElementCondition
+Mojo.Meta.newClass('MDSS.SelectElementCondition', {
+  Extends : MDSS.ElementCondition,
+  Instance: {
+    initialize: function(option, condition) {
+	  this.$initialize(option, condition);
+    },
+  
+    evaluate : function () {
+	  return (this.getOption().selected == this.getCondition());
+    }    
+  }
+});
+
+Mojo.Meta.newClass('MDSS.ElementHandler', {
   Instance: {
     initialize: function(condition, elements) {
       // Constructor code
@@ -232,25 +248,57 @@ Mojo.Meta.newClass('MDSS.BooleanElementHandler', {
       }
     },
     
-    setupHandler : function (positive, negative, elements) {
-    	if(typeof(positive) == 'string') {
-    		positive = document.getElementById(positive);
-    	}
+    setupBooleanHandler : function (conditionElement, trigger, elements) {
+    	conditionElement = MDSS.ElementHandler.getElement(conditionElement);
     	
-    	if(typeof(negative) == 'string') {
-    		negative = document.getElementById(negative);
-    	}
-    	
-    	if(typeof(elements) == 'string') {
+    	if(Mojo.Util.isString(elements)) {
     		elements = YAHOO.util.Selector.query('.' + elements);
     	}
     		
-    	var handler = new MDSS.BooleanElementHandler(new MDSS.RadioElementCondition(positive, true), elements);
+    	var handler = new MDSS.ElementHandler(new MDSS.RadioElementCondition(conditionElement, true), elements);
 
-    	YAHOO.util.Event.addListener(positive, "change", handler.optionHandler, handler, true);
-    	YAHOO.util.Event.addListener(negative, "change", handler.optionHandler, handler, true);
+    	MDSS.ElementHandler.addEventListener(conditionElement, handler);
+    	MDSS.ElementHandler.addEventListener(trigger, handler);
     	
     	return handler;
+    },
+    
+    setupSelectHandler : function (conditionElement, trigger, elements) {
+    	conditionElement = MDSS.ElementHandler.getElement(conditionElement);
+    	    	
+    	if(Mojo.Util.isString(elements)) {
+    		elements = YAHOO.util.Selector.query('.' + elements);
+    	}
+    	
+    	var handler = new MDSS.ElementHandler(new MDSS.SelectElementCondition(conditionElement, true), elements);
+    	
+    	MDSS.ElementHandler.addEventListener(conditionElement, handler);
+    	MDSS.ElementHandler.addEventListener(trigger, handler);
+    	
+    	return handler;
+    },
+    
+    addEventListener : function (obj, handler) {
+    	if(Mojo.Util.isArray(obj)) {
+    		for(key in obj) {
+    			var element = obj[key];
+    			element = MDSS.ElementHandler.getElement(element);
+    			
+    			YAHOO.util.Event.addListener(element, "change", handler.optionHandler, handler, true);    			
+    		}
+    	}
+    	else {    		
+    		var element = MDSS.ElementHandler.getElement(obj);
+    		YAHOO.util.Event.addListener(element, "change", handler.optionHandler, handler, true);
+    	}    	
+    },
+    
+    getElement : function(obj) {
+    	if(Mojo.Util.isString(obj)) {
+    		return document.getElementById(obj);
+    	}
+    	
+    	return obj;
     }
   }
 });

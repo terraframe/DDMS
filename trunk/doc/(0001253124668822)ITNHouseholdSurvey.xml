@@ -1,0 +1,1169 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.CommercialITNProvider"
+        label="Commerical ITN Provider">
+        <attributes>
+          <char
+            name="providerName"
+            label="Name"
+            required="true"
+            size="255"
+            indexType="unique index" />
+          <localChar
+            name="displayLabel"
+            label="Display Label"
+            required="true"
+            size="255" />
+          <boolean
+            name="enabled"
+            label="Enabled"
+            required="true"
+            defaultValue="true"
+            positiveLabel="Yes"
+            negativeLabel="No" />
+        </attributes>
+        <mdMethod
+          name="getAllActive"
+          label="Get All Active"
+          returnType="dss.vector.solutions.intervention.monitor.CommercialITNProvider[]"
+          static="true" />
+      </mdBusiness>
+
+      <object
+        key="retailer"
+        type="dss.vector.solutions.intervention.monitor.CommercialITNProvider">
+        <attribute
+          name="providerName"
+          value="retailer" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="bought at retailer" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="health facility"
+        type="dss.vector.solutions.intervention.monitor.CommercialITNProvider">
+        <attribute
+          name="providerName"
+          value="health facility" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="bought at health facility/other ministry location" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="community distribution"
+        type="dss.vector.solutions.intervention.monitor.CommercialITNProvider">
+        <attribute
+          name="providerName"
+          value="community distribution" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="bought from community distribution campaign" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="other"
+        type="dss.vector.solutions.intervention.monitor.CommercialITNProvider">
+        <attribute
+          name="providerName"
+          value="other" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="other" />
+        </attributeStruct>
+      </object>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.FreeITNProvider"
+        label="Free ITN Provider">
+        <attributes>
+          <char
+            name="providerName"
+            label="Name"
+            required="true"
+            size="255"
+            indexType="unique index" />
+          <localChar
+            name="displayLabel"
+            label="Display Label"
+            required="true"
+            size="255" />
+          <boolean
+            name="enabled"
+            label="Enabled"
+            required="true"
+            defaultValue="true"
+            positiveLabel="Yes"
+            negativeLabel="No" />
+        </attributes>
+        <mdMethod
+          name="getAllActive"
+          label="Get All Active"
+          returnType="dss.vector.solutions.intervention.monitor.FreeITNProvider[]"
+          static="true" />
+      </mdBusiness>
+
+      <object
+        key="health facility"
+        type="dss.vector.solutions.intervention.monitor.FreeITNProvider">
+        <attribute
+          name="providerName"
+          value="health facility" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="free from health facility/other ministry location" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="mass community distribution campaign"
+        type="dss.vector.solutions.intervention.monitor.FreeITNProvider">
+        <attribute
+          name="providerName"
+          value="mass community distribution campaign" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="free from mass community distribution campaign" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="community health worker"
+        type="dss.vector.solutions.intervention.monitor.FreeITNProvider">
+        <attribute
+          name="providerName"
+          value="community health worker" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="free from community health worker" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="other"
+        type="dss.vector.solutions.intervention.monitor.FreeITNProvider">
+        <attribute
+          name="providerName"
+          value="other" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="other" />
+        </attributeStruct>
+      </object>
+
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.ITNRetreatmentPeriod"
+        label="ITN Retreatment Period">
+        <attributes>
+          <char
+            name="periodName"
+            label="Name"
+            required="true"
+            size="255"
+            indexType="unique index" />
+          <localChar
+            name="displayLabel"
+            label="Display Label"
+            required="true"
+            size="255" />
+          <boolean
+            name="enabled"
+            label="Enabled"
+            required="true"
+            defaultValue="true"
+            positiveLabel="Yes"
+            negativeLabel="No" />
+        </attributes>
+        <mdMethod
+          name="getAllActive"
+          label="Get All Active"
+          returnType="dss.vector.solutions.intervention.monitor.ITNRetreatmentPeriod[]"
+          static="true" />
+      </mdBusiness>
+
+      <object
+        key="last week"
+        type="dss.vector.solutions.intervention.monitor.ITNRetreatmentPeriod">
+        <attribute
+          name="periodName"
+          value="last week" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="last week" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="last month"
+        type="dss.vector.solutions.intervention.monitor.ITNRetreatmentPeriod">
+        <attribute
+          name="periodName"
+          value="last month" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="last month" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="within the last year"
+        type="dss.vector.solutions.intervention.monitor.ITNRetreatmentPeriod">
+        <attribute
+          name="periodName"
+          value="within the last year" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="within the last year" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="longer than a year ago"
+        type="dss.vector.solutions.intervention.monitor.ITNRetreatmentPeriod">
+        <attribute
+          name="periodName"
+          value="longer than a year ago" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="longer than a year ago" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="don’t know"
+        type="dss.vector.solutions.intervention.monitor.ITNRetreatmentPeriod">
+        <attribute
+          name="periodName"
+          value="don’t know" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="don’t know" />
+        </attributeStruct>
+      </object>
+
+      <enumerationMaster
+        name="dss.vector.solutions.intervention.TimeIntervalMaster"
+        label="Time Interval Master"
+        generateController="false" />
+
+      <object
+        key="dss.vector.solutions.intervention.TimeIntervalMaster.PER_WEEK"
+        type="dss.vector.solutions.intervention.TimeIntervalMaster">
+        <attribute
+          name="enumName"
+          value="PER_WEEK" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Per week" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.intervention.TimeIntervalMaster.PER_MONTH"
+        type="dss.vector.solutions.intervention.TimeIntervalMaster">
+        <attribute
+          name="enumName"
+          value="PER_MONTH" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Per month" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.intervention.TimeIntervalMaster.PER_YEAR"
+        type="dss.vector.solutions.intervention.TimeIntervalMaster">
+        <attribute
+          name="enumName"
+          value="PER_YEAR" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Per year" />
+        </attributeStruct>
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.intervention.TimeInterval"
+        type="dss.vector.solutions.intervention.TimeIntervalMaster"
+        label="Time Interval">
+        <includeAll />
+      </mdEnumeration>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+        label="ITN Reason of Non-use Grid"
+        extends="dss.vector.solutions.surveillance.AbstractGrid"
+        generateController="true">
+        <mdMethod
+          name="getAll"
+          returnType="dss.vector.solutions.intervention.monitor.NonUseReasonGrid[]"
+          static="true"
+          label="Get All"
+          description="Returns all of the target group grid options" />
+        <mdMethod
+          name="getAllActive"
+          returnType="dss.vector.solutions.intervention.monitor.NonUseReasonGrid[]"
+          static="true"
+          label="Get All Active"
+          description="Returns all of the target group grid options" />
+      </mdBusiness>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.forget">
+        <attribute
+          name="optionName"
+          value="forget" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="forget" />
+        </attributeStruct>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.damaged">
+        <attribute
+          name="optionName"
+          value="damaged" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="damaged" />
+        </attributeStruct>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.otherPurpose">
+        <attribute
+          name="optionName"
+          value="otherPurpose" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="other purpose" />
+        </attributeStruct>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.colour">
+        <attribute
+          name="optionName"
+          value="colour" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="don’t like colour" />
+        </attributeStruct>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.shape">
+        <attribute
+          name="optionName"
+          value="shape" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="don’t like shape" />
+        </attributeStruct>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.smell">
+        <attribute
+          name="optionName"
+          value="smell" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="smell" />
+        </attributeStruct>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.irritation">
+        <attribute
+          name="optionName"
+          value="irritation" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="irritation" />
+        </attributeStruct>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.tooHot">
+        <attribute
+          name="optionName"
+          value="tooHot" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="too hot" />
+        </attributeStruct>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.hang">
+        <attribute
+          name="optionName"
+          value="hang" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="can’t hang" />
+        </attributeStruct>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.fit">
+        <attribute
+          name="optionName"
+          value="fit" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="don’t fit" />
+        </attributeStruct>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.other">
+        <attribute
+          name="optionName"
+          value="other" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="other" />
+        </attributeStruct>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+        key="dss.vector.solutions.intervention.monitor.TargetGroupGrid.dontKnow">
+        <attribute
+          name="optionName"
+          value="dontKnow" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="don’t know" />
+        </attributeStruct>
+      </object>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey"
+        label="ITN household survey"
+        generateController="true">
+        <attributes>
+          <date
+            name="startDate"
+            label="Start Date"
+            required="true" />
+          <date
+            name="endDate"
+            label="End Date"
+            required="true" />
+          <reference
+            name="surveyLocation"
+            label="Survey Location"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <char
+            name="agentFirstName"
+            label="Agent/Interviewer name"
+            size="255" />
+          <char
+            name="agentSurname"
+            label="Agent/Interviewer surname"
+            size="255" />
+          <char
+            name="questionnaireNumber"
+            label="Questionnaire number"
+            size="255" />
+          <integer
+            name="residents"
+            label="Number of people residing in household"
+            rejectNegative="true" />
+          <integer
+            name="pregnantResidents"
+            label="Number of pregnant women residing in household"
+            rejectNegative="true" />
+          <integer
+            name="childResidents"
+            label="Number of children less than 5 years old residing in household"
+            rejectNegative="true" />
+          <integer
+            name="itns"
+            label="Number of ITNs found in household"
+            rejectNegative="true" />
+          <integer
+            name="damagedItns"
+            label="Number of ITNs damaged to a point where they are no longer effective to prevent vector contact"
+            rejectNegative="true" />
+          <integer
+            name="hangingItns"
+            label="Number of ITNs hanging for purpose of preventing mosquito bites"
+            rejectNegative="true" />
+          <integer
+            name="otherItns"
+            label="Number of ITNs used for purpose other than preventing mosquito bites"
+            rejectNegative="true" />
+          <integer
+            name="monthReceived"
+            label="When were the ITNs received (month and/or year)"
+            rejectNegative="true" />
+          <integer
+            name="yearReceived"
+            label="Year"
+            rejectNegative="true" />
+          <integer
+            name="usedItns"
+            label="The number of ITNs used by household head"
+            rejectNegative="true" />
+          <boolean
+            name="usedEveryNight"
+            label="Are the ITNs used every night"
+            positiveLabel="Yes"
+            negativeLabel="No" />
+          <boolean
+            name="netsObtained"
+            label="The method how ITNs were obtained"
+            positiveLabel="Free"
+            negativeLabel="Bought" />
+          <reference
+            name="freeProvider"
+            label="Free Net Provider"
+            type="dss.vector.solutions.intervention.monitor.FreeITNProvider" />
+          <reference
+            name="boughtProvider"
+            label="Bought Net Provider"
+            type="dss.vector.solutions.intervention.monitor.CommercialITNProvider" />
+          <enumeration
+            name="washed"
+            label="ITNs have ever been washed"
+            type="dss.vector.solutions.intervention.FeverResponse"
+            selectMultiple="false" />
+          <integer
+            name="washFrequency"
+            label="ITNs wash frequency per interval"
+            rejectNegative="true" />
+          <enumeration
+            name="washInterval"
+            label="ITNs wash interval"
+            type="dss.vector.solutions.intervention.TimeInterval"
+            selectMultiple="false" />
+          <boolean
+            name="retreated"
+            label="ITNs have ever been re-treated"
+            positiveLabel="Yes"
+            negativeLabel="No" />
+          <reference
+            name="retreatmentPeriod"
+            label="Last time of re-treatment"
+            type="dss.vector.solutions.intervention.monitor.ITNRetreatmentPeriod" />
+        </attributes>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView"
+          static="true">
+          <mdParameter
+            name="id"
+            label="id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
+        <mdMethod
+          name="lockView"
+          label="lock View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView"
+          static="false" />
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView"
+          static="false" />
+      </mdBusiness>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason"
+        label="ITN Community Non Use Reason Grid"
+        generateController="false">
+        <attributes>
+          <integer
+            name="amount"
+            label="Reason for not using ITN"
+            defaultValue="0"
+            rejectNegative="true" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey"
+          method="ITNHouseholdSurveys" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+          method="NonUseReasons" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup"
+        label="ITN Community Target Group"
+        generateController="false">
+        <attributes>
+          <integer
+            name="amount"
+            label="Use by target group last night"
+            defaultValue="0"
+            required="true"
+            rejectNegative="true" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey"
+          method="ITNHouseholdSurveys" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
+          method="TargetGroups" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet"
+        label="ITN Community Net"
+        generateController="false">
+        <attributes>
+          <integer
+            name="amount"
+            label="The ITN type used"
+            required="true"
+            rejectNegative="true"
+            defaultValue="0" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey"
+          method="ITNHouseholdSurveys" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Net"
+          method="Nets" />
+      </mdTree>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView"
+        label="ITN community distribution data">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            required="true"
+            size="255" />
+          <virtual
+            name="startDate"
+            concrete="startDate"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="endDate"
+            concrete="endDate"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <char
+            name="surveyLocation"
+            label="Survey Location"
+            size="255" />
+          <virtual
+            name="agentFirstName"
+            concrete="agentFirstName"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="agentSurname"
+            concrete="agentSurname"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="questionnaireNumber"
+            concrete="questionnaireNumber"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="residents"
+            concrete="residents"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="pregnantResidents"
+            concrete="pregnantResidents"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="childResidents"
+            concrete="childResidents"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="itns"
+            concrete="itns"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="damagedItns"
+            concrete="damagedItns"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="hangingItns"
+            concrete="hangingItns"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="otherItns"
+            concrete="otherItns"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="monthReceived"
+            concrete="monthReceived"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="yearReceived"
+            concrete="yearReceived"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="usedItns"
+            concrete="usedItns"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="usedEveryNight"
+            concrete="usedEveryNight"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="netsObtained"
+            concrete="netsObtained"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="freeProvider"
+            concrete="freeProvider"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="boughtProvider"
+            concrete="boughtProvider"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="washed"
+            concrete="washed"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <boolean
+            name="knowWashFrequency"
+            label="Known wash frequency"
+            positiveLabel="Yes"
+            negativeLabel="No" />
+          <virtual
+            name="washFrequency"
+            concrete="washFrequency"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="washInterval"
+            concrete="washInterval"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="retreated"
+            concrete="retreated"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <virtual
+            name="retreatmentPeriod"
+            concrete="retreatmentPeriod"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
+          <integer
+            name="displayTargetGroups"
+            label="Use by target group last night"
+            description="Marker for displaying ITN Target Group grid" />
+          <integer
+            name="displayNets"
+            label="The ITN type used"
+            description="Marker for displaying ITN Net grid" />            
+          <integer
+            name="displayNonUseReasons"
+            label="Reason for not using ITN"
+            description="Marker for displaying ITN Household Survey - Non Use Reason grid" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="getITNHouseholdSurveyNets"
+          label="Get ITN Community Nets"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet[]" />
+        <mdMethod
+          name="getITNHouseholdSurveyNonUseReason"
+          label="Get ITN Household Survey Non Use Reason"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason[]" />
+        <mdMethod
+          name="getITNHouseholdSurveyTargetGroups"
+          label="Get ITN Community Target Groups"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup[]" />
+        <mdMethod
+          name="applyAll"
+          static="false"
+          returnType="void"
+          label="Apply All"
+          description="Apply ITN distributed data and all of its grids">
+          <mdParameter
+            name="nets"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet[]"
+            order="1"
+            label="ITN Nets" />
+          <mdParameter
+            name="targetGroups"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup[]"
+            order="2"
+            label="ITN target groups" />
+          <mdParameter
+            name="reasons"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason[]"
+            order="3"
+            label="ITN Household Survey Non-use Reason" />
+        </mdMethod>
+        <mdMethod
+          name="getPage"
+          label="Get Page"
+          description="Gets a page of Views"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyViewQuery">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3" />
+        </mdMethod>
+      </mdView>
+    </create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyController">
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView"
+            order="0" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView"
+            order="0" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView" />
+          <create>
+            <mdParameter
+              name="nets"
+              type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet[]"
+              order="1"
+              label="ITN Nets" />
+            <mdParameter
+              name="targetGroups"
+              type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup[]"
+              order="2"
+              label="ITN target groups" />
+            <mdParameter
+              name="reasons"
+              type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason[]"
+              order="3"
+              label="ITN Household Survey Non-use Reason" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="update"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView" />
+          <create>
+            <mdParameter
+              name="nets"
+              type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet[]"
+              order="1"
+              label="ITN Nets" />
+            <mdParameter
+              name="targetGroups"
+              type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup[]"
+              order="2"
+              label="ITN target groups" />
+            <mdParameter
+              name="reasons"
+              type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason[]"
+              order="3"
+              label="ITN Household Survey Non-use Reason" />
+          </create>
+        </mdAction>
+      </mdController>
+    </update>
+    <permissions>
+      <role
+        roleName="mdss.GUIVisibility">
+        <grant>
+          <mdViewPermission
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView">
+            <operation
+              name="CREATE" />
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+          </mdViewPermission>
+          <mdRelationshipPermission
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet">
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+          </mdRelationshipPermission>
+          <mdRelationshipPermission
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup">
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+          </mdRelationshipPermission>
+          <mdRelationshipPermission
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason">
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+          </mdRelationshipPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.TimeIntervalMaster">
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.CommercialITNProvider">
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.FreeITNProvider">
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.ITNRetreatmentPeriod">
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.NonUseReasonGrid">
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+          </mdBusinessPermission>
+        </grant>
+      </role>
+      <role
+        roleName="mdss.coordinator">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.CommercialITNProvider">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.FreeITNProvider">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.ITNRetreatmentPeriod">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.NonUseReasonGrid">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdBusinessPermission>
+        </grant>
+      </role>
+      <role
+        roleName="mdss.coordinator, mdss.operationalManager, mdss.dataCapturer">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdBusinessPermission>
+          <mdRelationshipPermission
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdRelationshipPermission>
+          <mdRelationshipPermission
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdRelationshipPermission>
+          <mdRelationshipPermission
+            type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdRelationshipPermission>
+        </grant>
+      </role>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+    </delete>
+  </undoIt>
+</version>

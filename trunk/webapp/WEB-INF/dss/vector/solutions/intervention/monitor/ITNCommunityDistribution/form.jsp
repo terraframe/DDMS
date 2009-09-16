@@ -125,10 +125,10 @@
 <script type="text/javascript" defer="defer">
 <!--
 // Setup the option fields for batch number
-MDSS.BooleanElementHandler.setupHandler('hasBatchNumber.positive', 'hasBatchNumber.negative', 'batchNumber');
-MDSS.BooleanElementHandler.setupHandler('entryType.positive', 'entryType.negative', 'household');
-MDSS.BooleanElementHandler.setupHandler('entryType.negative', 'entryType.positive', 'distributionLocation');
-MDSS.BooleanElementHandler.setupHandler('sold.positive', 'sold.negative', 'currencyReceived');
-MDSS.BooleanElementHandler.setupHandler('retrieved.positive', 'retrieved.negative', 'numberRetrieved');
+MDSS.ElementHandler.setupBooleanHandler('hasBatchNumber.positive', 'hasBatchNumber.negative', 'batchNumber');
+MDSS.ElementHandler.setupBooleanHandler('entryType.positive', 'entryType.negative', 'household');
+MDSS.ElementHandler.setupBooleanHandler('entryType.negative', 'entryType.positive', 'distributionLocation');
+MDSS.ElementHandler.setupBooleanHandler('sold.positive', 'sold.negative', 'currencyReceived');
+MDSS.ElementHandler.setupBooleanHandler('retrieved.positive', 'retrieved.negative', 'numberRetrieved');
 //-->
 </script>

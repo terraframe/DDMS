@@ -191,7 +191,7 @@ var aSubmenuData = [
             	           { text: "Query_ITN_Facility_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
             	           { text: "ITN_Community_Distribution", url: "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.viewAll.mojo", visibileTo:'Administrator'},
             	           { text: "Query_ITN_Community_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
-            	           { text: "ITN_Household_Use", disabled: true, url: "#", visibileTo:'Administrator'},
+            	           { text: "ITN_Household_Use", url: "dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyController.viewAll.mojo", visibileTo:'Administrator'},
             	           { text: "Query_ITN_Household_Use", disabled: true, url: "#", visibileTo:'Administrator'}
            	           ]
                }
