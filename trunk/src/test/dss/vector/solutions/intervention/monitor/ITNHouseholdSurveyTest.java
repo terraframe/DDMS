@@ -14,6 +14,7 @@ import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.RangeValueProblem;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
@@ -1315,6 +1316,153 @@ public class ITNHouseholdSurveyTest extends TestCase
     }
   }
 
+  public void testMonthRangeProblem()
+  {
+    Integer netAmount = new Integer(50);
+    Integer targetGroupAmount = new Integer(10);
+    Integer reasonAmount = new Integer(20);
+
+    ITNHouseholdSurveyView view = new ITNHouseholdSurveyView();
+    view.setStartDate(new Date());
+    view.setEndDate(new Date());
+    view.setSurveyLocation(surveyLocation.getGeoId());
+    view.setAgentFirstName("Justin");
+    view.setAgentSurname("Smethie");
+    view.setQuestionnaireNumber("30");
+    view.setResidents(34);
+    view.setPregnantResidents(12);
+    view.setChildResidents(2);
+    view.setItns(10);
+    view.setDamagedItns(2);
+    view.setHangingItns(3);
+    view.setOtherItns(4);
+    view.setMonthReceived(14);
+    view.setYearReceived(2007);
+    view.setUsedItns(5);
+    view.setUsedEveryNight(false);
+    view.setNetsObtained(false);
+    view.setBoughtProvider(CommercialITNProvider.getAllActive()[0]);
+    view.addWashed(FeverResponse.YES);
+    view.setWashFrequency(34);
+    view.addWashInterval(TimeInterval.PER_YEAR);
+    view.setRetreated(true);
+    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+
+    ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
+    ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
+    ITNHouseholdSurveyNonUseReason[] reasons = view.getITNHouseholdSurveyNonUseReason();
+
+    for (ITNHouseholdSurveyNet rel : nets)
+    {
+      rel.setAmount(netAmount);
+    }
+
+    for (ITNHouseholdSurveyTargetGroup rel : targetGroups)
+    {
+      rel.setAmount(targetGroupAmount);
+    }
+
+    for (ITNHouseholdSurveyNonUseReason rel : reasons)
+    {
+      rel.setAmount(reasonAmount);
+    }
+
+    try
+    {
+      view.applyAll(nets, targetGroups, reasons);
+
+      view.deleteConcrete();
+
+      fail("Able to create ITN household survey an invalid month value");
+    }
+    catch (ProblemException e)
+    {
+      // This is expected: Ensure that the correct problem was thrown
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+
+      for (ProblemIF p : problems)
+      {
+        assertTrue(p instanceof RangeValueProblem);
+      }
+    }
+  }
+
+  public void testYearRangeProblem()
+  {
+    Integer netAmount = new Integer(50);
+    Integer targetGroupAmount = new Integer(10);
+    Integer reasonAmount = new Integer(20);
+
+    ITNHouseholdSurveyView view = new ITNHouseholdSurveyView();
+    view.setStartDate(new Date());
+    view.setEndDate(new Date());
+    view.setSurveyLocation(surveyLocation.getGeoId());
+    view.setAgentFirstName("Justin");
+    view.setAgentSurname("Smethie");
+    view.setQuestionnaireNumber("30");
+    view.setResidents(34);
+    view.setPregnantResidents(12);
+    view.setChildResidents(2);
+    view.setItns(10);
+    view.setDamagedItns(2);
+    view.setHangingItns(3);
+    view.setOtherItns(4);
+    view.setMonthReceived(11);
+    view.setYearReceived(Calendar.getInstance().get(Calendar.YEAR) + 20);
+    view.setUsedItns(5);
+    view.setUsedEveryNight(false);
+    view.setNetsObtained(false);
+    view.setBoughtProvider(CommercialITNProvider.getAllActive()[0]);
+    view.addWashed(FeverResponse.YES);
+    view.setWashFrequency(34);
+    view.addWashInterval(TimeInterval.PER_YEAR);
+    view.setRetreated(true);
+    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+
+    ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
+    ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
+    ITNHouseholdSurveyNonUseReason[] reasons = view.getITNHouseholdSurveyNonUseReason();
+
+    for (ITNHouseholdSurveyNet rel : nets)
+    {
+      rel.setAmount(netAmount);
+    }
+
+    for (ITNHouseholdSurveyTargetGroup rel : targetGroups)
+    {
+      rel.setAmount(targetGroupAmount);
+    }
+
+    for (ITNHouseholdSurveyNonUseReason rel : reasons)
+    {
+      rel.setAmount(reasonAmount);
+    }
+
+    try
+    {
+      view.applyAll(nets, targetGroups, reasons);
+
+      view.deleteConcrete();
+
+      fail("Able to create ITN household survey with a free net when the net provider is 'commercial'");
+    }
+    catch (ProblemException e)
+    {
+      // This is expected: Ensure that the correct problem was thrown
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+
+      for (ProblemIF p : problems)
+      {
+        assertTrue(p instanceof RangeValueProblem);
+      }
+    }
+  }
+
+  
   public void testQueryView()
   {
     Integer netAmount = new Integer(50);

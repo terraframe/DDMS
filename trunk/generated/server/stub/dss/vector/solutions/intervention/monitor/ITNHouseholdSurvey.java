@@ -1,5 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -8,6 +9,7 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.RangeValueProblem;
 import dss.vector.solutions.intervention.FeverResponse;
 
 public class ITNHouseholdSurvey extends ITNHouseholdSurveyBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -22,7 +24,7 @@ public class ITNHouseholdSurvey extends ITNHouseholdSurveyBase implements com.te
   @Override
   protected String buildKey()
   {
-    // ITN Community Distribution class has no attributes that can form a unique
+    // ITN Household Survey class has no attributes that can form a unique
     // identifier
     return this.getId();
   }
@@ -113,8 +115,57 @@ public class ITNHouseholdSurvey extends ITNHouseholdSurveyBase implements com.te
     this.validateWashFrequency();
     this.validateWashInterval();
     this.validateRetreatmentPeriod();
+    this.validateMonthReceived();
+    this.validateYearReceived();
 
     super.apply();
+  }
+  
+  @Override
+  public void validateMonthReceived()
+  {
+    int lowerLimit = 1;
+    int upperLimit = 12;
+    
+    if(this.getMonthReceived() != null && !(this.getMonthReceived() <= upperLimit && this.getMonthReceived() >= lowerLimit))
+    {
+      String msg = "Month must be between [" + lowerLimit + "] and [" + upperLimit + "]";
+      RangeValueProblem p = new RangeValueProblem(msg);
+      p.setNotification(this, MONTHRECEIVED);
+      p.setInvalidValue(this.getMonthReceived());
+      p.setLowerLimit(lowerLimit);
+      p.setUpperLimit(upperLimit);
+      p.apply();
+      
+      p.throwIt();
+    }
+  }
+  
+  @Override
+  public void validateYearReceived()
+  {
+    if(this.getYearReceived() != null)
+    {
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(new Date());
+
+      int lowerLimit = 1900;
+      int upperLimit = cal.get(Calendar.YEAR);
+      
+      if(! (this.getYearReceived() > lowerLimit && this.getYearReceived() <= upperLimit))
+      {
+        String msg = "Year must be between [" + lowerLimit + "] and [" + upperLimit + "]";
+
+        RangeValueProblem p = new RangeValueProblem(msg);
+        p.setNotification(this, YEARRECEIVED);
+        p.setInvalidValue(this.getYearReceived());
+        p.setLowerLimit(lowerLimit);
+        p.setUpperLimit(upperLimit);
+        p.apply();
+        
+        p.throwIt();
+      }
+    }
   }
 
   @Override
