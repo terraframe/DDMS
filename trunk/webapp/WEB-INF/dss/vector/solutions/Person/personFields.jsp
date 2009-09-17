@@ -60,8 +60,19 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
               </label>
             </dt>
             <dd>
-              <mjl:input type="password" param="password" />
+              <mjl:input type="password" param="password" id="password" />
               <mjl:messages attribute="password">
+                <mjl:message />
+              </mjl:messages>
+            </dd>
+            <dt>
+              <label>
+                <fmt:message key="password_confirmation"/>                
+              </label>
+            </dt>
+            <dd>
+              <mjl:input type="password" param="repassword" id="repassword" />
+              <mjl:messages attribute="repassword">
                 <mjl:message />
               </mjl:messages>
             </dd>
@@ -182,3 +193,34 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
         </div>
       </dd>
   </mjl:component>
+  
+<script type="text/javascript" defer="defer">
+<!--
+(function(){
+var password = document.getElementById('password');
+var repassword = document.getElementById('repassword');
+var button = document.getElementById('submit.button');
+
+var validatePassword = function () {
+  button.disabled = true;
+  MDSS.Calendar.removeError(password);
+  
+  if(password.value !== '' && repassword.value !== '') {
+    if(password.value !== repassword.value) {
+      MDSS.Calendar.addError(password,MDSS.localize("Password_Mismatch"));
+
+      // Empty the values of password and repassword to ensure that they re
+      password.value = '';
+      repassword.value = '';
+    }
+    else {
+      button.disabled = false;        
+    }
+  }    
+}
+
+YAHOO.util.Event.on(password, 'blur', validatePassword);
+YAHOO.util.Event.on(repassword, 'blur', validatePassword);
+})();
+//-->
+</script>

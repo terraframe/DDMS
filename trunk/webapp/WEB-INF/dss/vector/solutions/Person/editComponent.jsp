@@ -29,7 +29,9 @@
     <jsp:include page="personFields.jsp" />
 
     <mjl:input type="hidden" param="dto.componentId" value="${item.personId}"/>
-    <mjl:command value="Update" action="dss.vector.solutions.PersonController.updateFromView.mojo" name="dss.vector.solutions.Person.form.updateFromView.button" />
+    
+    <%-- IMPORTANT: Do not change the id of the Update button because it is used javascript defined on personFields.jsp --%>
+    <mjl:command value="Update" action="dss.vector.solutions.PersonController.updateFromView.mojo" name="dss.vector.solutions.Person.form.updateFromView.button" id="submit.button" />
     <mjl:command value="Delete" action="dss.vector.solutions.PersonController.deleteFromView.mojo" name="dss.vector.solutions.Person.form.deleteFromView.button" />
     <mjl:command value="Cancel" action="dss.vector.solutions.PersonController.cancel.mojo" name="dss.vector.solutions.Person.form.cancel.button" />
   </dl>
