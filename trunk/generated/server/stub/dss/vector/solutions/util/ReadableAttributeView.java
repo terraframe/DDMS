@@ -49,7 +49,7 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       view.setAttributeRequired(mdAttribute.isRequired());
       view.setAttributeDescription(mdAttribute.getDescription(Session.getCurrentLocale()));
 
-      Set<Operation> permissions = actor.getPermissions(mdAttribute);
+      Set<Operation> permissions = actor.getAssignedPermissions(mdAttribute);
       if (permissions.contains(Operation.READ))
         view.setReadPermission(true);
       else
