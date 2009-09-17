@@ -113,6 +113,7 @@
       </dd>
     </c:if>
     <mjl:command value="Edit" action="dss.vector.solutions.PersonController.edit.mojo" name="dss.vector.solutions.Person.form.edit.button" />
+    <mjl:command value="Create_new_person" action="dss.vector.solutions.PersonController.newInstance.mojo" name="newInstance.button" />
     </mjl:component>    
   </dl>
 </mjl:form>
