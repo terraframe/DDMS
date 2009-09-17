@@ -44,6 +44,64 @@
       <mjl:input id="distributionLocation" param="distributionLocation" type="text" classes="geoInput distributionLocation" />
     </mjl:dt>
   </div>
+  
+  <c:if test="${item.isDisplayTargetGroupsReadable}">
+    <dt>    
+    </dt>
+    <dd>
+      <table class="displayTable">
+        <tr> 
+          <th>${item.displayTargetGroupsMd.displayLabel}</th>
+          <th><fmt:message key="Amount"/></th>
+        </tr>      
+        <mjl:components items="${targetGroups}" param="targetGroups" var="current" varStatus="status">
+          <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
+            <td>
+              ${current.child.displayLabel}
+            </td>
+            <td>
+              <mjl:input type="text" param="amount" />
+              <mjl:messages attribute="amount">
+                <mjl:message />
+              </mjl:messages>
+            </td>
+          </tr>
+        </mjl:components>
+      </table>
+    </dd>
+  </c:if>
+
+  <c:if test="${item.isDisplayNetsReadable}">
+    <dt>
+    </dt>
+    <dd>
+      <table class="displayTable">
+        <tr>
+          <th>${item.displayNetsMd.displayLabel}</th>
+          <th><fmt:message key="Amount" /></th>
+        </tr>
+        <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
+          <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
+            <c:choose>
+              <c:when test="${current.child.isAbstract}">
+                <td colspan="2">${current.child.displayLabel}</td>
+              </c:when>
+              <c:otherwise>
+                <td style="padding-left:2em">${current.child.displayLabel}</td>
+                <td>
+                  <mjl:input type="text" param="amount" />
+                  <mjl:messages attribute="amount">
+                   <mjl:message />
+                  </mjl:messages>
+                </td>
+              </c:otherwise>
+            </c:choose>
+          </tr>
+        </mjl:components>
+      </table>
+    </dd>  
+  </c:if> 
+  
   <mjl:dt attribute="sold">
     <mjl:boolean param="sold" id="sold"/>
   </mjl:dt>
@@ -65,62 +123,6 @@
   </mjl:dt>
 </mjl:component>
 
-<c:if test="${item.isDisplayTargetGroupsReadable}">
-  <dt>    
-  </dt>
-  <dd>
-    <table class="displayTable">
-      <tr> 
-        <th><fmt:message key="target_groups"/></th>
-        <th><fmt:message key="Amount"/></th>
-      </tr>      
-      <mjl:components items="${targetGroups}" param="targetGroups" var="current" varStatus="status">
-        <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-          <td>
-            ${current.child.displayLabel}
-          </td>
-          <td>
-            <mjl:input type="text" param="amount" />
-            <mjl:messages attribute="amount">
-              <mjl:message />
-            </mjl:messages>
-          </td>
-        </tr>
-      </mjl:components>
-    </table>
-  </dd>
-</c:if>
-
-<c:if test="${item.isDisplayNetsReadable}">
-  <dt>
-  </dt>
-  <dd>
-    <table class="displayTable">
-      <tr>
-        <th><fmt:message key="total_itn_distributed" /></th>
-        <th><fmt:message key="Amount" /></th>
-      </tr>
-      <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
-        <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-          <c:choose>
-            <c:when test="${current.child.isAbstract}">
-              <td colspan="2">${current.child.displayLabel}</td>
-            </c:when>
-            <c:otherwise>
-              <td style="padding-left:2em">${current.child.displayLabel}</td>
-              <td>
-                <mjl:input type="text" param="amount" />
-                <mjl:messages attribute="amount">
-                 <mjl:message />
-                </mjl:messages>
-              </td>
-            </c:otherwise>
-          </c:choose>
-        </tr>
-      </mjl:components>
-    </table>
-  </dd>  
-</c:if>
 
 <script type="text/javascript" defer="defer">
 <!--
