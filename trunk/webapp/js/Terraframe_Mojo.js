@@ -150,7 +150,8 @@ var Mojo = {
         };
       })(sInitialize);
         
-      return {name : 'getInstance', isStatic : true, isConstructor : false, method : klass.getInstance};  
+      return {name : 'getInstance', isStatic : true, isConstructor : false,
+        method : klass.getInstance, klass: klass};  
     },
     
     newClass : function(qualifiedName, definition)
@@ -250,7 +251,7 @@ var Mojo = {
       klass.prototype = new temp();
 
       // reset constructor to point to the class, such that
-      // a.constructor === A === true
+      // a.constructor === A
       klass.prototype.constructor = klass;
 
       // config obj for Class constructor
@@ -260,7 +261,8 @@ var Mojo = {
         klass : klass,
         superClass : superClass,
         isNative : isNative,
-        methods : [],
+        instanceMethods : {},
+        staticMethods : {},
         isAbstract : isAbstract,
         alias : alias,
         qualifiedName : qualifiedName,
@@ -305,14 +307,14 @@ var Mojo = {
           })(m);
         }
             
-        config.methods.push({name : m, isStatic : false, 
-          isConstructor : (m === 'initialize'), method : instances[m]});
+        config.instanceMethods[m] = {name : m, isStatic : false, 
+          isConstructor : (m === 'initialize'), method : instances[m], klass: klass};
       }
       
       if(isSingleton)
       {
         var methodDef = this._makeSingleton(klass);
-        config.methods.push(methodDef);
+        config.staticMethods['getInstance'] = methodDef;
       }
       
       // add constants
@@ -332,8 +334,8 @@ var Mojo = {
         }
         else
         {
-          config.methods.push({name : m, isStatic : true, 
-            isConstructor : false, method : statics[m]});
+          config.staticMethods[m] = {name : m, isStatic : true, 
+            isConstructor : false, method : statics[m], klass: klass};
         }
       }
       
@@ -447,12 +449,34 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
         var pInstances = this._superClass.$class.getInstanceMethods(true);
         for(var i in pInstances)
         {
-          this._instanceMethods[i] = pInstances[i].clone();
+          this._instanceMethods[i] = pInstances[i];
+        }
+      }
+        
+      var tInstances = config.instanceMethods;
+      for(var i in tInstances)
+      {
+        var method;
+        if(this._instanceMethods[i] && this._instanceMethods.hasOwnProperty(i))
+        {
+          // overridden method (this class gets a clone of the original method)
+          method = this._instanceMethods[i].clone();
+          method._setOverrideClass(this._klass);
+        }
+        else
+        {
+          // new method defined by this class
+          method = new mKlass(tInstances[i]);
         }
         
+        this._instanceMethods[i] = method;
+      }
+      
+      if(notRoot)
+      {
         // static methods must be explicitly copied
-        var pStatics = this._superClass.$class.getStaticMethods();
-        for(var i=0; i<pStatics.length; i++)
+        var pStatics = this._superClass.$class.getStaticMethods(true);
+        for(var i in pStatics)
         {
           var mStatic = pStatics[i];
           this._staticMethods[mStatic.getName()] = mStatic.clone();
@@ -460,34 +484,30 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
           this._klass[mStatic.getName()] = mStatic.getMethod();
         }
       }
-      
-      for(var i=0; i<config.methods.length; i++)
+        
+      var tStatics = config.staticMethods;
+      for(var i in tStatics)
       {
-        var method = new mKlass(config.methods[i]);
-        
-        var methodMap = method.isStatic() ? this._staticMethods : this._instanceMethods;
-        
-        if(notRoot && methodMap[method.getName()])
+        var method;
+        if(this._staticMethods[i] && this._staticMethods.hasOwnProperty(i))
         {
-          method._setDefiningClass(methodMap[method.getName()].getDefiningClass());
+          // overridden method (this class gets a clone of the original method)
+          method = this._staticMethods[i].clone();
           method._setOverrideClass(this._klass);
         }
         else
         {
-          method._setDefiningClass(this._klass);
+          // new method defined by this class
+          method = new mKlass(tStatics[i]);
         }
-        
-        methodMap[method.getName()] = method;
-        
-        if(method.isStatic())
-        {
-          this._klass[method.getName()] = method.getMethod();
-        }
+          
+        this._staticMethods[i] = method;
+        this._klass[i] = method.getMethod();
       }
-      
+
       // set constants
       this._constants = {};
-      var cKlass = Mojo.Meta.findClass(Mojo.ROOT_PACKAGE+'Constant');
+      var cKlass = Mojo.$.com.terraframe.mojo.Constant;
       if(notRoot)
       {
         var pConstants = this._superClass.$class.getConstants(true);

@@ -706,6 +706,97 @@ input.queryNumberCriteria {
    text-align: center;
 }
 
+div.browserWrapper {
+
+  border: 1px solid black;
+  width: 100%;
+  height: 360px;
+  margin-top: 15px;
+}
+
+div.browserBreadcrumbs {
+  height: 30px;
+  width: 345px;
+  overflow-x: scroll;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+div.browserBack {
+  width: 35px;
+  height: 25px;
+  float: left;
+  padding-top: 5px;
+  cursor: pointer;
+}
+
+div.browserBreadcrumbs ul.breadcrumbsNav {
+  margin: 0px;
+}
+
+div.browserBreadcrumbs ul.breadcrumbsNav li {
+
+  display: inline;
+  list-style-type: none;
+  margin: 3px;
+}
+
+div.browserBreadcrumbs ul.breadcrumbsNav li.currentBreadcrumbsNav {
+  background-color: #E0FFFF;
+}
+
+div.browserBreadcrumbs ul.breadcrumbsNav li.breadcrumbNavItem {
+
+  cursor: pointer;
+}
+
+div.browserContent {
+  
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  overflow: auto;
+  height: 240px;
+  padding-left: 15px;
+}
+
+div.browserContent ul {
+
+}
+
+div.browserContent ul li {
+
+  cursor: pointer;
+}
+
+div.browserSelection {
+  height: 85px;
+  padding-left: 15px;
+  overflow: auto;
+}
+
+div.browserSelection ul li img {
+  cursor: pointer;
+}
+
+.addRootBtn {
+  margin-right: 10px;
+}
+
+table.ontologyFields {
+  margin-top: 5px;
+  margin-bottom: 15px;
+  white-space: nowrap;
+  border-collapse: collapse
+}
+
+table.ontologyFields th {
+  padding: 3px;
+  font-weight: bold;
+}
+
+table.ontologyFields td {
+  padding: 3px;
+}
 
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */

@@ -12,12 +12,21 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
 
   Instance : {
     
-    initialize : function(ontology, instance, relationship, multipleSelect)
+    initialize : function(multipleSelect, className, attributeName)
     {
-      this._ontology = ontology;
-      this._instance = instance;
-      this._relationship = relationship;
+      // map of termId, termName
+      this._cache = {};
+    
+//      this._ontology = ontology;
+//      this._instance = instance;
+//      this._relationship = relationship;
       this._multipleSelect = multipleSelect || false;
+      
+      // is this browser to render all terms (for field admin) or
+      // is it to render specific roots for a class attribute?
+      this._defaultRoot = arguments.length === 1;
+      this._className = className;
+      this._attributeName = attributeName;
       
       this._rendered = false;
       
@@ -35,30 +44,70 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       this._breadcrumbs = [];
       this._breadcrumbs.push({id: 'ROOT', display: MDSS.Localized.ROOT});
       
-      this._rootNodes = []; // used to regenerate default state
+      this._customHandler = null;
     },
     
     show : function()
     {
-      this.panel.show();
-      this.panel.bringToTop();
+      this._panel.show();
+      this._panel.bringToTop();
     },
     
     hide : function()
     {
-      this.panel.hide();
+      this._panel.hide();
     },
 
     _getRootContent : function()
     {
-      // will be an ajax call
-      var roots = MDSS.MO.roots;
-      var rootEntries = Mojo.Iter.map(roots, function(root){
-        return this._createTermEntry(root);
-      }, this);
+    
+      if(this._defaultRoot)
+      {
+        var request = new MDSS.Request({
+          that : this, 
+          onSuccess : function(roots)
+          {
+          
+            var nodes = Mojo.Iter.map(roots, function(browserRootView){
+              return this.that._createTermEntry(browserRootView); 
+            }, this);
+          
+            var content = document.getElementById(this.that._contentId);
+            content.innerHTML = nodes.join('');
+          }
+        });
       
-      return rootEntries.join('');
+        Mojo.$.dss.vector.solutions.ontology.BrowserRoot.getDefaultRoot(request);
+      }
+      else
+      {
+        // FIXME fetch roots based on class/attribute
+      }
+      
     },
+    
+    _cacheSet: function(termId, view)
+    {
+      if(view instanceof Mojo.$.dss.vector.solutions.ontology.BrowserRootView)
+      {
+        // convert a BrowserRootView into a TermView
+        var nView = new Mojo.$.dss.vector.solutions.ontology.TermView();
+        nView.setTermName(view.getTermName());
+        nView.setTermId(view.getTermId());
+        
+        this._cache[termId] = nView;
+      }
+      else
+      {
+        this._cache[termId] = view;
+      }
+    },
+    
+    _cacheGet : function(termId)
+    {
+      return this._cache[termId];
+    },
+    
     
     _doTermSelectHandler : function(e)
     {
@@ -83,9 +132,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         return;
       }
       
-      
       var selection = document.getElementById(this._selectionId);
-      var term = MDSS.MO.terms[termId];
       
       if(!this._multipleSelect)
       {
@@ -94,8 +141,9 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         selection.innerHTML = '';
       }
 
-      this._selection[termId] = term;
-      var li = this._getSelectionLi(term);
+      this._selection[termId] = this._cacheGet(termId);
+      
+      var li = this._getSelectionLi(termId);
       selection.appendChild(li);
       
       // move y scrollbar down to last selection
@@ -110,57 +158,51 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     
     _doTermSelect : function(termId, dontAdd)
     {
-      var term = MDSS.MO.terms[termId]; // span id == term id
-      var nodes = this._getChildren(term);
-      var content = document.getElementById(this._contentId);
-      content.innerHTML = nodes;
-
-      // push selected node onto breadcrumbs
-      if(!dontAdd)
-      { 
-        this._breadcrumbs.push({id: term.getId(), display: term.getTerm()});
-      }
-      this._resetBreadcrumbs();
+      var request = new MDSS.Request({
+        that: this,
+        termId : termId,
+        dontAdd : dontAdd,
+        onSuccess : function(query)
+        {
+          var results = query.getResultSet();
+          
+          var nodes = Mojo.Iter.map(results, function(termView){
+            return this.that._createTermEntry(termView); 
+          }, this);
+          
+          var content = document.getElementById(this.that._contentId);
+          content.innerHTML = nodes.join('');
+      
+          // push selected node onto breadcrumbs
+          if(!this.dontAdd)
+          { 
+            var termName = this.that._cacheGet(this.termId).getTermName();
+            this.that._breadcrumbs.push({id: this.termId, display: termName});
+          }
+          this.that._resetBreadcrumbs();
+        }
+      });
+    
+      Mojo.$.dss.vector.solutions.ontology.Term.getOntologyChildren(request, termId);
     },
     
     /**
      * Adds an individual Term as the last child
      * of the selection list.
      */
-    _getSelectionLi : function(term)
+    _getSelectionLi : function(termId)
     {
-      var imgId = term.getId()+this.constructor.DELETE_SUFFIX;
-      var liId = term.getId()+this.constructor.SELECTION_SUFFIX;
+      var termName = this._cacheGet(termId).getTermName();
+    
+      var imgId = termId+this.constructor.DELETE_SUFFIX;
+      var liId = termId+this.constructor.SELECTION_SUFFIX;
       var img = '<img src="imgs/icons/delete.png" style="margin-right: 5px" id="'+imgId+'" />';
       
       var li = document.createElement('li');
       li.id = liId;
-      li.innerHTML = img+term.getTerm();
+      li.innerHTML = img+termName;
       
       return li;
-    },
-    
-    /**
-     * Returns the HTML to represent all selections. Used
-     * for prepopulating the widget.
-     */
-    _getSelection : function()
-    {
-      /*
-      var terms = Mojo.Util.getValues(this._selection);
-      terms.sort(function(t1, t2){
-        return t1.getTerm() < t2.getTerm();
-      });
-      
-      var selected = Mojo.Iter.map(terms, function(term){
-     
-        var li = this._getSelectionLi(term);
-      }, this);
-      
-      return selected.join('');
-      */
-      
-      return ''; 
     },
     
     newSpan : function(content, id)
@@ -222,15 +264,16 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       html += '  </div>';
       html += '  <div class="browserContent">';
       html += '    <ul class="currentNodes" id="'+this._contentId+'">';
-      html += this._getRootContent();     
       html += '    </ul>';
       html += '  </div>';
       html += '  <div class="browserSelection">';
       html += '    <ul class="selectedNodes" id="'+this._selectionId+'">';
-      html += this._getSelection();
       html += '    </ul>';
       html += '  </div>';
       html += '</div>';
+      
+      var hideHandlerB = Mojo.Util.bind(this, this._hideHandler);
+      this._panel.subscribe('beforeHide', hideHandlerB);
       
       this._panel.setBody(html);
       this._panel.render(document.body);
@@ -239,6 +282,22 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       this._hookEvents();
       
       this._rendered = true;
+      
+      this._getRootContent();
+    },
+    
+    setHandler : function(handler, context)
+    {
+      this._customHandler = Mojo.Util.bind(context || this, handler);
+    },
+    
+    _hideHandler : function()
+    {
+      if(Mojo.Util.isFunction(this._customHandler));
+      {
+        var selected = Mojo.Util.getValues(this._selection);
+        this._customHandler(selected);
+      }
     },
     
     _hookEvents : function()
@@ -250,12 +309,14 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       Event.on(this._backButton, 'click', this._goBack, null, this);
     },
     
-    _createTermEntry : function(term)
+    _createTermEntry : function(view)
     {
+      this._cacheSet(view.getTermId(), view);
+    
       var li;
-      if(term.getSelectable())
+      if(view instanceof Mojo.$.dss.vector.solutions.ontology.TermView || view.getSelectable())
       {
-        var imgId = term.getId()+this.constructor.SELECT_SUFFIX;
+        var imgId = view.getTermId()+this.constructor.SELECT_SUFFIX;
         li = '<li><img src="imgs/icons/accept.png" style="margin-right: 5px" id="'+imgId+'" />';
       }
       else
@@ -263,7 +324,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         li = '<li style="padding-left: 21px">';
       }
       
-      return li+this.newSpan(term.getTerm(), term.getId()+this.constructor.ENTRY_SUFFIX)+'</li>'
+      return li+this.newSpan(view.getTermName(), view.getTermId()+this.constructor.ENTRY_SUFFIX)+'</li>'
     },
     
     _goBack : function(e)
@@ -333,25 +394,8 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     _resetToDefault : function()
     {
       // reset with the root nodes
-      var html = this._getRootContent();
-      document.getElementById(this._contentId).innerHTML = html;
+      this._getRootContent();
       this._resetBreadcrumbs();
-    },
-    
-    _getChildren : function(term)
-    {
-      // FIXME fetch based on relationship    
-      var children = term.getChildren();
-      if(children == null)
-      {
-        return '<li>NO MORE CHILDREN</li>';
-      }
-       
-      var lis = Mojo.Iter.map(children, function(child){
-        return this._createTermEntry(child); 
-      }, this);
-      
-      return lis.join('');
     },
     
     _doSelectionAction : function(e)
@@ -374,81 +418,4 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       return this._rendered;
     }
   }
-});
-
-Mojo.Meta.newClass('MDSS.MO', {
-
-  Instance : {
- 
-     initialize : function(term, id, selectable)
-     {
-       this._term = term;
-       this._id = id; 
-       this._selectable = selectable;
-     },
-     
-     getTerm : function(){ return this._term; },
-     getId : function(){ return this._id; },
-     getSelectable : function() { return this._selectable; },
-     
-     getChildren : function()
-     {
-       return this.constructor.mapping[this.getId()];
-     },
-  },
-
-  Static : {
-    roots : [],
-    mapping : {},
-    terms : {}
-  }
-});
-
-(function(){
-
-  function genTerm(level, selectable)
-  {
-    var id = new String(Math.random()).substring(2);
-    var mo = new MDSS.MO('T'+level.toString()+'_'+id, id, selectable);
-    MDSS.MO.terms[id] = mo;
-    return mo; 
-  }
-
-  function addChildren(mo, level)
-  {
-    level++;
-  
-    if(level === 5)
-    {
-      return;
-    }
-    else
-    {
-      var numChildren = Math.round(Math.random() * 9+1);
-      var children = [];
-      for(var i=0; i<numChildren; i++)
-      {
-        var child = genTerm(level, Boolean(Math.round(Math.random())));
-        children.push(child);
-        addChildren(child, level);
-      }
-      
-      MDSS.MO.mapping[mo.getId()] = children;
-      
-      level--;
-    }
-  }
-
-  // create roots
-  var level = 0;
-  var numRoots = Math.round(Math.random() * 9+1);
-  for(var i=0; i<numRoots; i++)
-  {
-    var mo = genTerm(level, true);
-    MDSS.MO.roots.push(mo);
-    
-    addChildren(mo, level);
-  }
-
-})();
-                                                                                                                                                                                            
+});                                                                                                                                                                                        

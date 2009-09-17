@@ -1,4 +1,7 @@
-
+// refactor so that it's not dependent on the dom having loaded (I reference the body element directly)
+// add record/stop auto-record+buffer for Tracer (and logger?)
+// add settings tab for above
+// Fix bug where method with same name for static/instance shows only instance (I think it executes this way too)
 Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
 
   Alias : Mojo.$,
@@ -46,17 +49,9 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
       
       this._explorer = new com.terraframe.mojo.inspector.Explorer(this, this._explorerTab, this._explorerContent);
       this._logger = new com.terraframe.mojo.inspector.Logger(this, this._loggerTab, this._loggerContent);
-      this._tracer = new com.terraframe.mojo.inspector.Tracer(this, this._tracerTab, this._tracerContent);
+      this._tracer = new com.terraframe.mojo.inspector.Tracer(this, this._tracerTab, this._tracerContent, this._logger);
 
       this._currentContent = this._explorer;
-      
-      this.addAroundAdvice(this._classRE);
-
-      // Capture new classes
-      var addNew = Mojo.Util.curry(this.addNewClass, this);
-      var capture = new Mojo.aspect.AfterAdvice(/Mojo\.Meta/, /newClass/, addNew, Mojo.aspect.Advice.MATCH_STATIC);
-      capture.weave();
-      
       
       this._rendered = false;
     },
@@ -115,6 +110,13 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
       this._explorer.render();
       this._logger.render();
       this._tracer.render();
+      
+      this.addAroundAdvice(this._classRE);
+
+      // Capture new classes
+      var addNew = Mojo.Util.curry(this.addNewClass, this);
+      var capture = new Mojo.aspect.AfterAdvice(/Mojo\.Meta/, /newClass/, addNew, Mojo.aspect.Advice.MATCH_STATIC);
+      capture.weave();      
       
       this._rendered = true;
     },
@@ -369,6 +371,9 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
       
       this._mainWindow = null;
       this._secWindow = null;
+      
+      this._logger.stopRowBuffer();
+      this._tracer.stopRowBuffer();
       
       this._explorer = null;
       this._logger = null;
@@ -933,6 +938,12 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Logger', {
       
       this._logTable = this.$class.getQualifiedName()+'_logTable';
       this._table = null;
+      this._errorBuffer = [];
+    },
+    
+    stopRowBuffer : function()
+    {
+      this._table.stopRowBuffer();
     },
     
     _render : function()
@@ -947,11 +958,14 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Logger', {
       
       // definition
       html += 'Last 500 Log Entries:<br />';
+      html  += '<div>';
       html += this._table.getHTML();
-      
+      html += '</div>'; 
       html += '</div>';
       
       el.innerHTML = html;
+      
+      this._table.startRowBuffer();
     },
     
     logWarning : function(msg)
@@ -966,17 +980,24 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Logger', {
       if(id)
       {
         var traceA = this.constructor.viewTracerAction(id);
-        document.getElementById(id+'_row').style.backgroundColor = 'red';
+        this._errorBuffer.push(id);
       }
       else
       {
         traceA = '';
       }
     
-      this._table.insertRow(id, ['<span style="color: red; font-weight: bold">Error</span>',
-      Mojo.Util.toISO8601(new Date()), traceA, error, '<pre>'+error.stack+'</pre>', error.fileName, error.lineNumber]);
+      this._table.insertRow(['<span style="color: red; font-weight: bold">Error</span>',
+      Mojo.Util.toISO8601(new Date()), traceA, error, '<pre>'+error.stack+'</pre>', error.fileName, error.lineNumber], id);
         
       this._mainWin.startBeacon();
+    },
+    
+    purgeErrorBuffer : function()
+    {
+      var refCopy = this._errorBuffer;
+      this._errorBuffer = [];
+      return refCopy;
     }
   }
   
@@ -993,12 +1014,18 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
 
   Instance : {
   
-    initialize : function(mainWin, tabId, contentId)
+    initialize : function(mainWin, tabId, contentId, logger)
     {
       this.$initialize(mainWin, tabId, contentId);
       
+      this._logger = logger;
       this._tracerTable = this.$class.getQualifiedName()+'_tracerTable';
       this._table = null;
+    },
+    
+    stopRowBuffer : function()
+    {
+      this._table.stopRowBuffer();
     },
     
     _render : function()
@@ -1014,10 +1041,14 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
       
       // definition
       html += 'Last 500 Traces:<br />';
+      html += '<div>';
       html += this._table.getHTML();
+      html += '</div>'
       html += '</div>';
       
       el.innerHTML = html;
+      
+      this._table.startRowBuffer();
     },
     
     beforeTrace : function(context, args, klass, method)
@@ -1043,7 +1074,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
         {
           argCell += '<span style="font-weight: bold">'+i.toString()+':</span> ';
           
-          var arg = args[0];
+          var arg = args[i];
           if(arg == null)
           {
             argCell += '[null] null<br />';
@@ -1059,9 +1090,9 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
           else
           {
             var value;
-            if(Mojo.Util.isString(arg) && arg.length > 25)
+            if(Mojo.Util.isString(arg) && arg.length > 50)
             {
-              value = arg.substring(0, 25) + ' ...';
+              value = arg.substring(0, 50) + ' ...';
             }
             else
             {
@@ -1073,9 +1104,9 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
         }
       }
       
-      this._table.insertRow(id, [Mojo.Util.toISO8601(new Date()), traceA, 
+      this._table.insertRow([Mojo.Util.toISO8601(new Date()), traceA, 
         this.constructor.viewClassAction(klass), this.constructor.viewMethodAction(klass, method), toStr,
-        argCell, 'n/a']);
+        argCell, 'n/a'], id);
         
       return id;
     },
@@ -1107,9 +1138,9 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
       else
       {
         var value;
-        if(Mojo.Util.isString(retObj) && retObj.length > 25)
+        if(Mojo.Util.isString(retObj) && retObj.length > 50)
         {
-          value = retObj.substring(0, 25) + ' ...';
+          value = retObj.substring(0, 50) + ' ...';
         }
         else
         {
@@ -1119,9 +1150,9 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
         retCell += '['+(typeof retObj)+'] '+value+'<br />';
       }
       
-      this._table.insertRow(null, [Mojo.Util.toISO8601(new Date()), 'AFTER', 
+      this._table.insertRow([Mojo.Util.toISO8601(new Date()), 'AFTER', 
         this.constructor.viewClassAction(klass), this.constructor.viewMethodAction(klass, method), toStr,
-        'n/a', retCell]);
+        'n/a', retCell], null);
     }
     
   }
@@ -1133,7 +1164,8 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Table', {
   Constants : {
     
     TABLE_STYLE : 'cellpadding="3" cellspacing="0" border="1" style="margin-left: 2px; font-size: 10pt; margin-bottom: 15px; white-space: nowrap; border-collapse: collapse;"',
-    CELL_STYLE : 'padding: 3px;'
+    CELL_STYLE : 'padding: 3px;',
+    BUFFER_TIMEOUT : 1000, // milliseconds until the table is updated
   },
 
   Instance : {
@@ -1146,60 +1178,92 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Table', {
       this._rows = [];
       this._table = null;
       this._rowCount = 0;
+      
+      this._rowBuffer = [];
+      this._intervalId = null; 
+    },
+    
+    stopRowBuffer : function()
+    {
+      clearInterval(this._intervalId);
+    },
+    
+    startRowBuffer : function()
+    {
+      var bound = Mojo.Util.bind(this, this._clearBuffer);
+      setInterval(bound, 1000);
+    },
+    
+    _clearBuffer : function()
+    {
+      if(this._rowBuffer.length === 0)
+      {
+        return;
+      }
+      
+      // insert the last buffered rows
+      //FIXME this is showing more than 500 rows
+      [].splice.apply(this._rows, [0, this._rowBuffer.length].concat(this._rowBuffer));
+      this._rowBuffer = [];
+      
+      if(this._rows.length > this._maxRows)
+      {
+        this._rows = this._rows.slice(0, this._maxRows);
+      }
+      
+      var html = this.getHTML(false);
+      this._table.parentNode.innerHTML = html;
+      this._table = null;
     },
     
     setHeaders : function(headers)
     {
-      this._headers = Mojo.Util.isArray(headers) ? headers : [].splice.call(arguments, 0);
+      var data = Mojo.Util.isArray(headers) ? headers : [].splice.call(arguments, 0);
+      var id = id || new String(Math.random()).substring(2);
+    
+      this._headers = {data: data, id: id};
     },
     
-    insertRow : function(id, data)
+    // Uses the buffer
+    insertRow : function(data, id)
     {
-      if(this._maxRows != null && this._rowCount > this._maxRows)
-      {
-        this._removeOldest();
-      }
-      
       if(this._table == null)
       {
         this._table = document.getElementById(this._id);
       }
+
+      data = Mojo.Util.isArray(data) ? data : [].splice.call(arguments, 0);
+      id = id || new String(Math.random()).substring(2);
+    
+      // add row count since we're using the buffer
+      data.splice(0, 0, this._rowCount++);
+    
+      var row = {data: data, id: id};
       
-      if(this._maxRows != null)
-      {
-        data.splice(0, 0, this._rowCount);
-      }
-      
-      var html = '';
-      Mojo.Iter.forEach(data, function(cell){
-      
-        html += '<td style="'+this.constructor.CELL_STYLE+'">'+cell+'</td>';
-      }, this);
-      
-      var tr = this._table.insertRow(1);
-      if(id)
-      {
-        tr.id = id+'_row';
-      }
-      tr.innerHTML = html;
-      
-      this._rowCount++;
+      this._rowBuffer.splice(0, 0, row);
     },
     
-    _removeOldest : function()
+    // Does not use buffer
+    addRow : function(data, id)
     {
-      this._table.deleteRow(this._maxRows+1);
-    },
+      if(this._table == null)
+      {
+        this._table = document.getElementById(this._id);
+      }
+
+      data = Mojo.Util.isArray(data) ? data : [].splice.call(arguments, 0);
+      id = id || new String(Math.random()).substring(2);
     
-    addRow : function(data)
-    {
-      this._rows.push(Mojo.Util.isArray(data) ? data : [].splice.call(arguments, 0));
+      var row = {data: data, id: id};
+      
+      this._rows.splice(0, 0, row);
     },
 
-    _addRow : function(isHeader, data)
+    _addRow : function(isHeader, row)
     {
       var html = '';
-      html += '<tr style="">';
+      html += '<tr id="'+row.id+'">';
+      var data = row.data;
       Mojo.Iter.forEach(data, function(cell){
         if(isHeader)
         {
@@ -1214,14 +1278,23 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Table', {
       return html;
     },
     
-    getHTML : function()
+    getHTML : function(rowsOnly)
     {
       var html = '';
-      html += '<table '+this.constructor.TABLE_STYLE+' id="'+this._id+'">';
+      
+      if(!rowsOnly)
+      {
+        html += '<table '+this.constructor.TABLE_STYLE+' id="'+this._id+'">';
+      }
       html += this._addRow(true, this._headers);
       var rowsHTML = Mojo.Iter.map(this._rows, Mojo.Util.curry(this._addRow, false), this);
       html += rowsHTML.join('');
-      html += '</table>';
+      
+      if(!rowsOnly)
+      {
+        html += '</table>';
+      }
+      
       return html;
     }
   }

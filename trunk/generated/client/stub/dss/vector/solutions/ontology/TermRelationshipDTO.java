@@ -2,7 +2,7 @@ package dss.vector.solutions.ontology;
 
 public abstract class TermRelationshipDTO extends TermRelationshipDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1253040252665L;
+  private static final long serialVersionUID = 1253040116589L;
   
   public TermRelationshipDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String parentId, String childId)
   {

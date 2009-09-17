@@ -1,11 +1,11 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set scope="request" var="page_title" value="View_All_Term" />
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:set var="page_title" value="View_All_Term" scope="request" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table classes="displayTable" var="item" query="${query}" even="evenRow" odd="oddRow">
+<mjl:table var="item" query="${query}" odd="oddRow" classes="displayTable" even="evenRow">
   <mjl:context action="dss.vector.solutions.ontology.TermController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="description">
@@ -28,9 +28,9 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink name="view.link" action="dss.vector.solutions.ontology.TermController.view.mojo">
+        <mjl:commandLink action="dss.vector.solutions.ontology.TermController.view.mojo" name="view.link">
           <fmt:message key="View" />
-          <mjl:property name="id" value="${item.id}" />
+          <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
@@ -43,6 +43,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink name="TermController.newInstance" action="dss.vector.solutions.ontology.TermController.newInstance.mojo">
+<mjl:commandLink action="dss.vector.solutions.ontology.TermController.newInstance.mojo" name="TermController.newInstance">
   <fmt:message key="Create_a_new_Term" />
 </mjl:commandLink>

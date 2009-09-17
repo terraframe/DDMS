@@ -2,7 +2,7 @@ package dss.vector.solutions.ontology;
 
 public class OntologyDefinitionDTO extends OntologyDefinitionDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1253040235445L;
+  private static final long serialVersionUID = 1253040066848L;
   
   public OntologyDefinitionDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

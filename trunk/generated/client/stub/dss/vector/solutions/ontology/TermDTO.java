@@ -2,7 +2,7 @@ package dss.vector.solutions.ontology;
 
 public abstract class TermDTO extends TermDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1253040225880L;
+  private static final long serialVersionUID = 1253040032600L;
   
   public TermDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

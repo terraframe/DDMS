@@ -1,14 +1,14 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set scope="request" var="page_title" value="View_MO" />
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:set var="page_title" value="View_MO" scope="request" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 <dl>
-  <mjl:form id="dss.vector.solutions.ontology.MO.form.id" name="dss.vector.solutions.ontology.MO.form.name" method="POST">
-    <mjl:input param="id" value="${item.id}" type="hidden" />
-    <mjl:component param="dto" item="${item}">
+  <mjl:form name="dss.vector.solutions.ontology.MO.form.name" id="dss.vector.solutions.ontology.MO.form.id" method="POST">
+    <mjl:input value="${item.id}" type="hidden" param="id" />
+    <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="description">
         ${item.description}
       </mjl:dt>
@@ -28,9 +28,9 @@
         ${item.termName}
       </mjl:dt>
     </mjl:component>
-    <mjl:command name="dss.vector.solutions.ontology.MO.form.edit.button" value="Edit" action="dss.vector.solutions.ontology.MOController.edit.mojo" />
+    <mjl:command value="Edit" action="dss.vector.solutions.ontology.MOController.edit.mojo" name="dss.vector.solutions.ontology.MO.form.edit.button" />
   </mjl:form>
 </dl>
-<mjl:commandLink name="dss.vector.solutions.ontology.MO.viewAll.link" action="dss.vector.solutions.ontology.MOController.viewAll.mojo">
+<mjl:commandLink action="dss.vector.solutions.ontology.MOController.viewAll.mojo" name="dss.vector.solutions.ontology.MO.viewAll.link">
   <fmt:message key="View_All" />
 </mjl:commandLink>

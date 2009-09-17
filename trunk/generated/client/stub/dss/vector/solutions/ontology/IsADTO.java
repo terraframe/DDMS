@@ -2,7 +2,7 @@ package dss.vector.solutions.ontology;
 
 public class IsADTO extends IsADTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1253040213121L;
+  private static final long serialVersionUID = 1253039996685L;
   
   public IsADTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String parentId, String childId)
   {

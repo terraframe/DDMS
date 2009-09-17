@@ -2,7 +2,7 @@ package dss.vector.solutions.ontology;
 
 public class GeoUniversalDTO extends GeoUniversalDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1253040310153L;
+  private static final long serialVersionUID = 1253040282899L;
   
   public GeoUniversalDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

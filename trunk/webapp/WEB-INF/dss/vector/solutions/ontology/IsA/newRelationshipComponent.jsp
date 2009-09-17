@@ -1,6 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<mjl:form id="dss.vector.solutions.ontology.IsA.form.id" name="dss.vector.solutions.ontology.IsA.form.name" method="POST">
+<mjl:form name="dss.vector.solutions.ontology.IsA.form.name" id="dss.vector.solutions.ontology.IsA.form.id" method="POST">
   <dl>
     <dt>
       <label>
@@ -8,7 +8,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:select param="parentId" items="${parentList}" var="current" valueAttribute="id">
+      <mjl:select var="current" valueAttribute="id" items="${parentList}" param="parentId">
         <mjl:option>
           ${current.keyName}
         </mjl:option>
@@ -20,12 +20,12 @@
       </label>
     </dt>
     <dd>
-      <mjl:select param="childId" items="${childList}" var="current" valueAttribute="id">
+      <mjl:select var="current" valueAttribute="id" items="${childList}" param="childId">
         <mjl:option>
           ${current.keyName}
         </mjl:option>
       </mjl:select>
     </dd>
-    <mjl:command name="dss.vector.solutions.ontology.IsA.form.newInstance.button" value="New Instance" action="dss.vector.solutions.ontology.IsAController.newInstance.mojo" />
+    <mjl:command value="New Instance" action="dss.vector.solutions.ontology.IsAController.newInstance.mojo" name="dss.vector.solutions.ontology.IsA.form.newInstance.button" />
   </dl>
 </mjl:form>

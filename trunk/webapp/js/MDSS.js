@@ -177,7 +177,7 @@ var MDSS = {
 
     this.onProblemExceptionDTO = function(e)
     {
-      var content;
+      var content = '';
       if(e instanceof Mojo.$.com.terraframe.mojo.ProblemExceptionDTO)
       {
         var problems = e.getProblems();
