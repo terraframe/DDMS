@@ -165,7 +165,10 @@ Mojo.Meta.newClass('MDSS.RadioElementCondition', {
     },
 
     evaluate : function () {
-    	return (this.getOption().checked == this.getCondition());
+    	if(this.getOption() && this.getCondition()) {
+    		return (this.getOption().checked == this.getCondition());
+    	}
+    	return true;
     }    
   }
 });
@@ -179,7 +182,11 @@ Mojo.Meta.newClass('MDSS.SelectElementCondition', {
     },
   
     evaluate : function () {
-	  return (this.getOption().selected == this.getCondition());
+      if(this.getOption() && this.getCondition()) {
+    	  return (this.getOption().selected == this.getCondition());
+      }
+      
+      return true;
     }    
   }
 });
