@@ -27,6 +27,9 @@ public class MDSSUser extends MDSSUserBase implements com.terraframe.mojo.genera
   @Override
   public void apply()
   {
+    // Change for ticket #664
+    this.setSessionLimit(5);
+    
     super.apply();
 
     // Assign this user to the GUIVisibility role
