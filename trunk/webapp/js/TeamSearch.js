@@ -287,7 +287,7 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
     
     addEventListener : function (obj, handler) {
     	if(Mojo.Util.isArray(obj)) {
-    		for(key in obj) {
+    		for(var key in obj) {
     			var element = obj[key];
     			element = MDSS.ElementHandler.getElement(element);
     			
