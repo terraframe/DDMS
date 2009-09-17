@@ -41,7 +41,7 @@
             label="Name"
             required="true"
             indexType="non-unique index"
-            size="64" />
+            size="256" />
           <text
             name="description"
             label="Description"
