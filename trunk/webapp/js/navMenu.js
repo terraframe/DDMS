@@ -187,7 +187,7 @@ var aSubmenuData = [
             	itemdata: [
             	           { text: "Aggregated_ITN_Data_Distribution", url: "dss.vector.solutions.intervention.monitor.ITNDataController.search.mojo", visibileTo:'Administrator'},
             	           { text: "Query_Aggregated_ITN_Data_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
-            	           { text: "ITN_Facility_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
+            	           { text: "ITN_Facility_Distribution", url: "dss.vector.solutions.intervention.monitor.ITNDistributionController.viewAll.mojo", visibileTo:'Administrator'},
             	           { text: "Query_ITN_Facility_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
             	           { text: "ITN_Community_Distribution", url: "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.viewAll.mojo", visibileTo:'Administrator'},
             	           { text: "Query_ITN_Community_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
