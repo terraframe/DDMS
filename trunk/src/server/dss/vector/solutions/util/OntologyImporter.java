@@ -1,4 +1,4 @@
-package dss.vector.solutions;
+package dss.vector.solutions.util;
 
 import java.util.List;
 import java.io.BufferedReader;
