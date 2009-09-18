@@ -798,6 +798,11 @@ table.ontologyFields td {
   padding: 3px;
 }
 
+input.browserOpenBtn {
+  float: left;
+  margin-right: 5px;
+}
+
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
 /*---------------------------------------------------------------*/

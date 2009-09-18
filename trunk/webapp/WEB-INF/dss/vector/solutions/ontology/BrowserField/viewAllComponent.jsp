@@ -37,14 +37,14 @@
  </dt> 
  <dd>
    <table id="${field.browserFieldId}_table" cellpadding="3" cellspacing="0" border="1" class="ontologyFields">
-     <tr><th>Term</th><th>Selectable</th><th>Edit</th><th>Delete</th></tr>
+     <tr><th>Term</th><th>Selectable</th><th><fmt:message key="Edit" /></th><th><fmt:message key="Delete" /></th></tr>
      
      <c:forEach items="${rootMap[field.mdAttributeId]}" var="root">
        <tr id="${root.browserRootId}_row">
          <td>${root.termName}</td>
          <td>${root.selectable}</td>
-         <td><button class="editRootBtn" value="${root.browserRootId}">Edit</button></td>
-         <td><button class="deleteRootBtn" value="${root.browserRootId}">Delete</button></td>
+         <td><button class="editRootBtn" value="${root.browserRootId}"><fmt:message key="Edit" /></button></td>
+         <td><button class="deleteRootBtn" value="${root.browserRootId}"><fmt:message key="Delete" /></button></td>
        </tr>
      </c:forEach>
    </table>

@@ -779,7 +779,7 @@ MDSS.GeoEntityTree = (function(){
         }
   	  	var delEntity = document.createElement('input');
   	  	YAHOO.util.Dom.setAttribute(delEntity, 'type', 'button');
-  	  	YAHOO.util.Dom.setAttribute(delEntity, 'value', MDSS.Localized.Delete.Entity);
+  	  	YAHOO.util.Dom.setAttribute(delEntity, 'value', MDSS.Localized.Delete_Entity);
   	  	YAHOO.util.Event.on(delEntity, 'click', _deleteAfterConfirmation, delEntityObj);
         lowerDiv.appendChild(delEntity);
 
@@ -791,7 +791,7 @@ MDSS.GeoEntityTree = (function(){
         }
   	  	var delRel = document.createElement('input');
   	  	YAHOO.util.Dom.setAttribute(delRel, 'type', 'button');
-  	  	YAHOO.util.Dom.setAttribute(delRel, 'value', MDSS.Localized.Delete.Relationship);
+  	  	YAHOO.util.Dom.setAttribute(delRel, 'value', MDSS.Localized.Delete_Relationship);
   	  	YAHOO.util.Event.on(delRel, 'click', _deleteAfterConfirmation, delRelObj);
   	  	lowerDiv.appendChild(delRel);
 

@@ -231,8 +231,8 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       var html = '';
       html += '<td>'+rootView.getTermName()+'</td>';
       html += '<td>'+rootView.getSelectable()+'</td>';
-      html += '<td><button class="editRootBtn" value="'+rootView.getBrowserRootId()+'">Edit</button></td>';
-      html += '<td><button class="deleteRootBtn" value="'+rootView.getBrowserRootId()+'">Delete</button></td>';
+      html += '<td><button class="editRootBtn" value="'+rootView.getBrowserRootId()+'">'+MDSS.Localized.Edit+'</button></td>';
+      html += '<td><button class="deleteRootBtn" value="'+rootView.getBrowserRootId()+'">'+MDSS.Localized.Delete+'</button></td>';
       
       tr.innerHTML = html;
     },

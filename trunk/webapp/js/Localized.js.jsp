@@ -97,13 +97,6 @@ MDSS.Localized = {
     No: '<fmt:message key="Choice_No"/>'
   },
 
-  // Delete GeoEntity/GeoHierarchy choices
-  Delete: {
-    Entity: '<fmt:message key="Delete_Entity" />',
-    Universal: '<fmt:message key="Delete_Universal" />',
-    Relationship: '<fmt:message key="Delete_Relationship" />'
-  },
-
   Query:
   {
     Start_Date: '<fmt:message key="Query_Start_Date" />',
