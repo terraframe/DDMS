@@ -426,6 +426,21 @@
 			<arg value="import_geodata" />
 		</java>
 	</target>
+		
+		<target name="import_ontolgoy" depends="kill_tomcat" description="imports ontology into the develop db">
+			<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import ontology">
+				<jvmarg value="-Xmx${max_memory_use}" />
+				<classpath>
+					<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+				</classpath>
+				<arg value="-buildfile" />
+				<arg file="deploy.xml" />
+				<arg value="-Droot.user=${root.user}" />
+				<arg value="-Droot.pass=${root.pass}" />
+				<arg value="-Dgeodata.db=${geodata.db}" />
+				<arg value="import_ontology" />
+			</java>
+		</target>
 
 	<target name="develop_build_all_paths_geodata" depends="kill_tomcat" description="builds the all paths geo entity table for development">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="develop_build_all_paths_geodata">
