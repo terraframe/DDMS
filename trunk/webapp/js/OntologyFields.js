@@ -261,9 +261,3 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
   }
 
 });
-
-YAHOO.util.Event.onDOMReady(function() { 
-
-  new MDSS.OntologyFields();
-
-}); 

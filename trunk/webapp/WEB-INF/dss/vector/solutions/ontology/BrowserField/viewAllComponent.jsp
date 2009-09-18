@@ -23,6 +23,11 @@
   String js = JSONController.importTypes(clientRequest.getSessionId(), types, true);
   out.write(js);
 %>
+YAHOO.util.Event.onDOMReady(function() { 
+
+	  new MDSS.OntologyFields();
+
+	}); 
 </script>
 
 <div id="ontologyFields">
