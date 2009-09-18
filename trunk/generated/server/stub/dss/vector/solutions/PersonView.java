@@ -2,6 +2,7 @@ package dss.vector.solutions;
 
 import java.util.Date;
 
+import com.terraframe.mojo.business.Entity;
 import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.QueryFactory;
@@ -222,6 +223,12 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
   @Override
   public PersonQuery searchForDuplicates()
   {
+    return getDuplicatesPage(Person.LASTNAME, true, 20, 0);
+  }
+  
+  @Override
+  public PersonQuery getDuplicatesPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+  {
     PersonQuery query = new PersonQuery(new QueryFactory());
 
     String firstName = this.getFirstName();
@@ -240,13 +247,9 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     Sex sex = this.getSex().get(0);
     if (!sex.equals(Sex.UNKNOWN))
       query.WHERE(query.getSex().containsExactly(sex));
-
-    // SprayOperator sprayDelegate = this.getSprayOperatorDelegate();
-    // if (sprayDelegate==null)
-    // query.WHERE(query.getSprayOperatorDelegate().EQ(""));
-    // else
-    // query.WHERE(query.getSprayOperatorDelegate().NE(""));
-
+    
+    Entity.getAllInstances(query, sortAttribute, isAscending, pageSize, pageNumber);
+    
     return query;
   }
 }

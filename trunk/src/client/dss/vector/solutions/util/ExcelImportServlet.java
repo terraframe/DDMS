@@ -21,11 +21,9 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.SystemExceptionDTO;
 import com.terraframe.mojo.business.ViewDTO;
 import com.terraframe.mojo.constants.ClientConstants;
 import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.dataaccess.database.DatabaseExceptionDTO;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.util.FileIO;
 

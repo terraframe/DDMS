@@ -1,0 +1,63 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.export.MorphologicalSpecieGroupExcelView"
+        label="Morphological Specie Group Excel View"
+        description="Excel View for Morphological Specie Groups in the context of a Mosquito Collection Point"/>
+      <mdView
+        name="dss.vector.solutions.export.entomology.MosquitoCollectionView"
+        label="Mosquito Collection View"
+        description="View for importing/exporting human readable mosquito collections">
+        <create>
+          <attributes>
+            <!-- MorphologicalSpecieGroup -->
+            <char
+              name="specie"
+              label="Species"
+              size="255"/>
+            <char
+              name="identificationMethod"
+              label="Identification Method"
+              size="255"/>
+            <virtual
+              name="quantity"
+              concrete="quantity"
+              type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"/>
+            <virtual
+              name="quantityMale"
+              concrete="quantityMale"
+              type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"/>
+            <virtual
+              name="quantityFemale"
+              concrete="quantityFemale"
+              type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"/>
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+    <create>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.entomology.MosquitoCollectionView.quantity"
+        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.entomology.MosquitoCollectionView.quantityMale"
+        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.entomology.MosquitoCollectionView.quantityFemale"
+        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.entomology.MosquitoCollectionView.specie"
+        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.entomology.MosquitoCollectionView.identificationMethod"
+        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+    </delete>
+  </undoIt>
+</version>

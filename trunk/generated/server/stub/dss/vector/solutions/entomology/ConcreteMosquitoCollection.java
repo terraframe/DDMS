@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
+import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.OrderBy.SortOrder;
@@ -126,8 +128,9 @@ public abstract class ConcreteMosquitoCollection extends ConcreteMosquitoCollect
       {
         return it.next();
       }
-      
-      return null;      
+
+      String message = "[" + collectionId + "] is not a valid collection Id label for [" + ConcreteMosquitoCollection.CLASS + "]";
+      throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(ConcreteMosquitoCollection.CLASS));
     }
     finally
     {

@@ -1,0 +1,68 @@
+<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:set var="page_title" value="View_All_ITNDistribution" scope="request" />
+<mjl:messages>
+  <mjl:message />
+</mjl:messages>
+<mjl:table var="item" query="${query}" odd="oddRow" classes="displayTable" even="evenRow">
+  <mjl:context action="dss.vector.solutions.intervention.monitor.ITNDistributionController.viewPage.mojo" />
+  <mjl:columns>
+    <mjl:attributeColumn attributeName="distributionDate">
+      <mjl:row>
+        <fmt:formatDate value="${item.distributionDate}" pattern="${dateFormatPattern}" />
+      </mjl:row>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="facility">
+      <mjl:row>
+        ${item.facility.geoId}
+      </mjl:row>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="recipient">
+      <mjl:row>
+        ${item.recipient.person}
+      </mjl:row>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="batchNumber">
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="service">
+      <mjl:row>
+        ${item.service.displayLabel}
+      </mjl:row>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="net">
+      <mjl:row>
+        ${item.net.displayLabel}
+      </mjl:row>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="numberSold">
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="currencyReceived">
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="distributorName">
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="distributorSurname">
+    </mjl:attributeColumn>
+    <mjl:freeColumn>
+      <mjl:header>
+        
+      </mjl:header>
+      <mjl:row>
+        <mjl:commandLink action="dss.vector.solutions.intervention.monitor.ITNDistributionController.view.mojo" name="view.link">
+          <fmt:message key="View" />
+          <mjl:property value="${item.id}" name="id" />
+        </mjl:commandLink>
+      </mjl:row>
+      <mjl:footer>
+        
+      </mjl:footer>
+    </mjl:freeColumn>
+  </mjl:columns>
+  <mjl:pagination>
+    <mjl:page />
+  </mjl:pagination>
+</mjl:table>
+<br />
+<mjl:commandLink action="dss.vector.solutions.intervention.monitor.ITNDistributionController.newInstance.mojo" name="ITNDistributionController.newInstance">
+  <fmt:message key="Create_a_new_ITN_Distribution" />
+</mjl:commandLink>

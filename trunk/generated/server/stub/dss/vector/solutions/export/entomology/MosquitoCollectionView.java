@@ -1,5 +1,6 @@
 package dss.vector.solutions.export.entomology;
 
+import java.util.Date;
 import java.util.Locale;
 
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
@@ -12,6 +13,7 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.RequiredAttributeException;
+import dss.vector.solutions.entomology.MorphologicalSpecieGroup;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
@@ -20,6 +22,8 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.NonSentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.mo.CollectionMethod;
+import dss.vector.solutions.mo.IdentificationMethod;
+import dss.vector.solutions.mo.Specie;
 
 public class MosquitoCollectionView extends MosquitoCollectionViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -38,18 +42,40 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
   public void apply()
   {
     CollectionMethod method = null;
+    MosquitoCollection collection = null;
     GeoEntity entity = getGeoEntity();
+    Date collectionDate = this.getDateCollected();
 
     if (this.hasCollectionMethod())
     {
       method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this.getCollectionMethod(), MosquitoCollection.getCollectionMethodMd());
+      collection = MosquitoCollection.searchByGeoEntityAndDateAndCollectionMethod(entity, collectionDate, method);
+    }
+    else
+    {
+      collection = MosquitoCollection.searchByGeoEntityAndDate(entity, collectionDate);
     }
 
-    MosquitoCollection collection = new MosquitoCollection();
-    collection.setGeoEntity(entity);
-    collection.setCollectionMethod(method);
-    collection.setDateCollected(this.getDateCollected());
-    collection.apply();
+    if (collection == null)
+    {
+      collection = new MosquitoCollection();
+      collection.setGeoEntity(entity);
+      collection.setCollectionMethod(method);
+      collection.setDateCollected(collectionDate);
+      collection.apply();
+    }
+    
+    if (this.hasMorphologicalSpecieGroup())
+    {
+      MorphologicalSpecieGroup msg = new MorphologicalSpecieGroup();
+      msg.setCollection(collection);
+      msg.setSpecie(Specie.validateByDisplayLabel(this.getSpecie(), MorphologicalSpecieGroup.getSpecieMd()));
+      msg.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod(), MorphologicalSpecieGroup.getIdentificationMethodMd()));
+      msg.setQuantity(this.getQuantity());
+      msg.setQuantityMale(this.getQuantityMale());
+      msg.setQuantityFemale(this.getQuantityFemale());
+      msg.apply();
+    }
 
     this.populateView(collection);
   }
@@ -121,6 +147,11 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
   private boolean hasCollectionMethod()
   {
     return this.getCollectionMethod() != null && !this.getCollectionMethod().equals("");
+  }
+
+  private boolean hasMorphologicalSpecieGroup()
+  {
+    return this.getSpecie() != null && !this.getSpecie().equals("") && this.getIdentificationMethod() != null && !this.getIdentificationMethod().equals("") && this.getQuantity() != null;
   }
 
   private void populateView(MosquitoCollection collection)

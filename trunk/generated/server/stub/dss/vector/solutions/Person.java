@@ -340,4 +340,15 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   {
     super.unlock();
   }
+  
+  @Override
+  public String toString()
+  {
+    String value = this.getFirstName() + " " + this.getLastName();
+    if (value.length()>1)
+    {
+      return value;
+    }
+    return this.getKey();
+  }
 }
