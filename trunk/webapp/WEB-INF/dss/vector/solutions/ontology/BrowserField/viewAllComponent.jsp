@@ -16,8 +16,6 @@
   <mjl:message />
 </mjl:messages>
 
-<script type="text/javascript" src="js/OntologyFields.js"></script>
-
 <script type="text/javascript">
 <% 
   String[] types = new String[]{BrowserFieldDTO.CLASS, BrowserRootDTO.CLASS, BrowserRootViewDTO.CLASS, BrowserRootController.CLASS, TermViewDTO.CLASS, TermDTO.CLASS};
