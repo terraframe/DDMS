@@ -10,9 +10,8 @@ public class OntologyDefinition extends OntologyDefinitionBase implements com.te
   }
   
   @Override
-  protected String buildKey()
-  {
-    return this.getNamespace()+"."+this.getOntologyName();
+  protected String buildKey() {
+    return this.getOntologyName();
   }
   
 }
