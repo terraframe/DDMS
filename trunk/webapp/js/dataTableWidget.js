@@ -301,6 +301,17 @@ MojoGrid.createDataTable = function(table_data) {
       table_data.after_row_edit(record);
     }
 
+    //sumColumn(oArgs);
+
+    //myDataTable.unselectCell(editor.getTdEl());
+    YAHOO.log("Saved Cell:" + editor._oColumn.label, "warn", "Widget");
+  };
+  
+  
+//Save edits back to the original data array
+  var sumColumn = function(oArgs) {
+
+   
     if (oArgs.editor.getColumn().sum && oArgs.newData && table_data.rows.length > 1) {
       var lastIndex = table_data.rows.length - 1;
       var lastRecord = myDataTable.getRecord(lastIndex);
@@ -339,8 +350,7 @@ MojoGrid.createDataTable = function(table_data) {
 
     }
 
-    //myDataTable.unselectCell(editor.getTdEl());
-    YAHOO.log("Saved Cell:" + editor._oColumn.label, "warn", "Widget");
+    
   };
 
   var persistData = function() {
@@ -373,11 +383,11 @@ MojoGrid.createDataTable = function(table_data) {
         }
       });
 
-      function setValue(){
+      function setValue(view){
         var setter_exists = Mojo.Util.isFunction(view['set' + attrib.key]);
         if (setter_exists) {
           if (val != null) {
-            if (view.attributeMap[attribName].dtoType.contains("AttributeDateDTO")) {
+            if (view.attributeMap[attribName] instanceof com.terraframe.mojo.transport.attributes.AttributeDateDTO) {
               view['set' + attrib.key](MDSS.Calendar.parseDate(val));
             } else {
               view['set' + attrib.key](val);
@@ -407,7 +417,7 @@ MojoGrid.createDataTable = function(table_data) {
           var attrib = table_data.fields[i];
           var val = row[attrib.key];
           var attribName = attrib.key.substring(0, 1).toLowerCase() + attrib.key.substring(1);
-          setValue();
+          setValue(view);
         }
         view_arr.push(view);
       }
