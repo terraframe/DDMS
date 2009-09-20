@@ -105,9 +105,9 @@ map.put("Collection", new ColumnSetup(false, false, null, null, null));
            onSuccess : function(result){
              var str = '<a href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo?id='+record.getData('Collection')+'">'+result.getCollectionId()+'</a> ('+record.getData('Total')+')';
              table_data.myDataTable.updateCell(record, 'Collection', str);
-           },
+           }
          });
-       Mojo.get(request,record.getData('Collection'));
+       Mojo.Util.getObject(request,record.getData('Collection'));
        }
      };
     MojoGrid.createDataTable(table_data);
