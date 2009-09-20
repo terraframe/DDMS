@@ -301,36 +301,55 @@ MojoGrid.createDataTable = function(table_data) {
       table_data.after_row_edit(record);
     }
 
-    //sumColumn(oArgs);
+    sumColumn(oArgs);
 
     //myDataTable.unselectCell(editor.getTdEl());
     YAHOO.log("Saved Cell:" + editor._oColumn.label, "warn", "Widget");
   };
   
   
-//Save edits back to the original data array
+//calculate totals
   var sumColumn = function(oArgs) {
 
-   
-    if (oArgs.editor.getColumn().sum && oArgs.newData && table_data.rows.length > 1) {
+    if (oArgs.editor.getColumn().sum  && table_data.rows.length > 1) {
+    	var record = oArgs.editor.getRecord();
       var lastIndex = table_data.rows.length - 1;
       var lastRecord = myDataTable.getRecord(lastIndex);
+      var editor = oArgs.editor;
+      var index = myDataTable.getRecordIndex(record);
       var lastTd = myDataTable.getTdEl( {
         record : lastRecord,
         column : editor.getColumn()
       });
 
+      //no calculation is done if number is entered manualy
+      if(table_data.rows[lastIndex][editor.getColumn().key])
+      {
+      	return;
+      }
+      
+      //no calculation is done if cell was tabbed past
+      if(!(oArgs.newData || oArgs.oldData ))
+      {
+      	return;
+      }
+      
+      
+      var newData = parseInt(oArgs.newData,10);
+      newData = newData || 0;
+      
       var oldData = parseInt(oArgs.oldData,10);
       oldData = oldData || 0;
 
       var oldTotal = parseInt(lastRecord.getData(editor.getColumn().key),10);
       oldTotal = oldTotal || 0;
 
-      var newTotal = oldTotal + parseInt(oArgs.newData,10) - oldData;
+      var newTotal = oldTotal + newData - oldData;
 
-      if (index !== lastIndex && newTotal) {
+      if (index !== lastIndex) {
         myDataTable.updateCell(lastRecord, editor.getColumn(), newTotal);
-        table_data.rows[lastIndex][editor.getColumn().key] = newTotal;
+        //we do not save autocalculated values
+        //table_data.rows[lastIndex][editor.getColumn().key] = newTotal;
       }
 
       var sum = 0;
