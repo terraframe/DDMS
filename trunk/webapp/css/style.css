@@ -803,6 +803,11 @@ input.browserOpenBtn {
   margin-right: 5px;
 }
 
+.calculated
+{
+	text-decoration: overline;	
+}
+
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
 /*---------------------------------------------------------------*/
