@@ -119,7 +119,8 @@
       notOnTeam = document.getElementById('notOnTeam');   
       onOtherTeam = document.getElementById('onOtherTeam');   
 
-      leaderInput = document.getElementById('leaderInput');   
+      leaderInput = document.getElementById('leaderInput');
+      leaderInput.setAttribute("autocomplete","off");   
       leaderId = document.getElementById('leaderId');   
 
       availableButton = document.getElementById('available.button.id');
