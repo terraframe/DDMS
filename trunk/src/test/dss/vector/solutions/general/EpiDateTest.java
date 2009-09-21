@@ -136,7 +136,7 @@ public class EpiDateTest extends TestCase
     assertEquals(calendar.get(Calendar.YEAR), test.get(Calendar.YEAR));
     assertEquals(calendar.get(Calendar.MONTH), test.get(Calendar.MONTH));
 
-    // System.out.println("\n\nP" + period + " Start=" + full.format(startDate)
+    // System.out.println("\n\nP" + period + " Start=" + full.format(startDate,true)
     // + " End=" + full.format(endDate));
     EpiDate epiDate2 = EpiDate.getInstanceByDate(startDate, endDate);
     // System.out.println("Type=" + epiDate2.getType().toString() + " Period = "
@@ -179,7 +179,7 @@ public class EpiDateTest extends TestCase
     assertEquals(calendar.get(Calendar.MONTH), test.get(Calendar.MONTH));
 
     // System.out.println("\n\nP" + period + " Start =  " +
-    // full.format(startDate) + " End=" + full.format(endDate));
+    // full.format(startDate,true) + " End=" + full.format(endDate));
 
     EpiDate epiDate2 = EpiDate.getInstanceByDate(startDate, endDate);
 
@@ -200,13 +200,13 @@ public class EpiDateTest extends TestCase
 
       Calendar calendar = new GregorianCalendar(2009, month, day);
       Date startDate = calendar.getTime();
-      Date snappedDate = EpiDate.snapToEpiWeek(startDate);
+      Date snappedDate = EpiDate.snapToEpiWeek(startDate,true);
 
       System.out.print("\n\nStartDate = " + full.format(startDate));
-      System.out.print("\n epiWeekSnap=" + full.format(EpiDate.snapToEpiWeek(startDate)));
-      System.out.print("\n monthSnap=" + full.format(EpiDate.snapToMonth(startDate)));
-      System.out.print("\n quarterSnap=" + full.format(EpiDate.snapToQuarter(startDate)));
-      System.out.print("\n seasonSnap=" + full.format(EpiDate.snapToSeason(startDate)));
+      System.out.print("\n epiWeekSnap=" + full.format(EpiDate.snapToEpiWeek(startDate,true)));
+      System.out.print("\n monthSnap=" + full.format(EpiDate.snapToMonth(startDate,true)));
+      System.out.print("\n quarterSnap=" + full.format(EpiDate.snapToQuarter(startDate,true)));
+      System.out.print("\n seasonSnap=" + full.format(EpiDate.snapToSeason(startDate,true)));
     }
   }
 
