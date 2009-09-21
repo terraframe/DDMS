@@ -51,10 +51,33 @@ ResourceTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
           };
          MojoGrid.createDataTable(ResourceTargetData);
 
-         var numRows = ResourceTargetData.rows.length();
-         //if (<%=sum%>){
-         //  for(var i=0; i<numRows-1, )
-         //}
+        
+
+         var dt = ResourceTargetData.myDataTable;
+
+         var numRows = dt.getRecordSet().getLength();
+
+         var lastRow =  dt.getRecordSet().getRecord(numRows-1);
+
+         for (var i =0; i<53 ;i++)
+         {        
+           if(! lastRow.getData('Target_'+i))
+           {
+             var sum = 0;
+             for(var j=0; j < numRows - 1 ;j++)
+             {
+               var value = dt.getRecordSet().getRecord(j).getData('Target_'+i);          
+               if(value)
+               {
+                 sum += parseInt(value,10);
+               }
+             }
+             if(sum > 0)
+             {
+                dt.updateCell(lastRow, 'Target_'+i,'<span class="calculated">' + sum + '</span>');
+             }
+           }
+         }
          
 </script>
 <mjl:commandLink action="dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo" name="dss.vector.solutions.irs.ResourceTarget.viewAll.link" >
