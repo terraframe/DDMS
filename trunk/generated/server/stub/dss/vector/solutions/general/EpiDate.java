@@ -207,7 +207,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     }
   }
 
-  public static Date snapToEpiWeek(Date startDate)
+  public static Date snapToEpiWeek(Date startDate, Boolean snapToFirstDay)
   {
     int period = Calendar.DAY_OF_WEEK;
 
@@ -235,7 +235,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     return cal.getTime();
   }
 
-  public static Date snapToMonth(Date startDate)
+  public static Date snapToMonth(Date startDate, Boolean snapToFirstDay)
   {
     int period = Calendar.DAY_OF_MONTH;
 
@@ -262,7 +262,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     return cal.getTime();
   }
 
-  public static Date snapToQuarter(Date startDate)
+  public static Date snapToQuarter(Date startDate, Boolean snapToFirstDay)
   {
     int period = Calendar.DAY_OF_YEAR;
 
@@ -298,7 +298,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     }
   }
 
-  public static Date snapToYear(Date startDate)
+  public static Date snapToYear(Date startDate, Boolean snapToFirstDay)
   {
     int period = Calendar.DAY_OF_YEAR;
 
@@ -325,7 +325,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     return cal.getTime();
   }
 
-  public static Date snapToSeason(Date snapable)
+  public static Date snapToSeason(Date snapable, Boolean snapToFirstDay)
   {
     Boolean snapToStart = true;
 
