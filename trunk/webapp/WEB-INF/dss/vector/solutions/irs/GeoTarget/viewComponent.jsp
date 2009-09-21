@@ -138,7 +138,18 @@ GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
               saveFunction: "applyAll",
               width:"75em",
               addButton:false,
-              excelButtons:false
+              excelButtons:false,
+              after_row_load:function(record){
+                var str = '<form target="dss.vector.solutions.irs.GeoTargetController.view.mojo"';
+                str += ' method = "post"';
+                str += ' id="'+record.getData('GeoEntity')+'">';
+                str += '<input type="hidden" name="geoEntity.componentId" value="'+record.getData('GeoEntity')+'"/>';
+                str += '<input type="hidden" name="season.componentId" value="'+record.getData('Season')+'"/>';
+                str += '<input type="hidden" name="season.componentId" value="true"/>';
+                str += " <a href=\"javascript: document.getElementById('"+record.getData('GeoEntity')+"').submit();\">";
+                str += record.getData('EntityName')+'</a></form>';
+                GeoTargetData.myDataTable.updateCell(record, 'EntityName', str);
+              }
           };
     MojoGrid.createDataTable(GeoTargetData);
 
@@ -154,7 +165,7 @@ GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
           {
             if(calulated[i])
             {
-          	dt.updateCell(row, 'Target_'+i, calulated[i]);
+          	dt.updateCell(row, 'Target_'+i,'<span class="calculated">' + calulated[i]  + '</span>');
             }
           }
         }
