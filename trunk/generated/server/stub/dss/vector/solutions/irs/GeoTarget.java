@@ -1,7 +1,10 @@
 package dss.vector.solutions.irs;
 
+import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQLInteger;
+import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -96,6 +99,54 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
     {
       it.close();
     }
+  }
+  
+ 
+  
+  public static Integer[] getCalculatedTargets(String geoid, String malariaSeasonId)
+  {
+    QueryFactory queryFactory = new QueryFactory();
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+    SelectableSQLInteger[] selectables = new SelectableSQLInteger[53];
+    String sql = "(SELECT " ;
+    
+    for(int i=0; i<selectables.length; i++)
+    {
+      selectables[i] = valueQuery.aSQLInteger("target_" + i,"t" + i, "target_" + i);
+      sql += "SUM(target_" + i + ") AS t" + i + ", ";
+    }
+    
+    valueQuery.SELECT(selectables);
+    
+    sql = sql.substring(0, sql.length()-2);
+    sql += " FROM geotarget, allpaths ";
+    sql += " WHERE season = '" + malariaSeasonId + "'";
+    sql += " AND geotarget.geoentity != '" + geoid + "'";
+    sql += " AND allpaths.parentgeoentity = '" + geoid + "'";
+    sql += " AND geotarget.geoentity = allpaths.childgeoentity)";
+
+    valueQuery.FROM(sql, "caluations");
+    
+   
+    System.out.println(valueQuery.getSQL());
+    
+    
+    Integer[] results = new Integer[53];
+    
+    
+    
+    for(int i=0; i<results.length; i++)
+    { 
+      for (ValueObject v : valueQuery.getIterator())
+      {
+        String value = v.getValue("target_"+i);
+        if(value != null && value.length()>0)
+        {
+          results[i] = Integer.parseInt(value);
+        }
+      }
+    }
+    return results;
   }
 
 }

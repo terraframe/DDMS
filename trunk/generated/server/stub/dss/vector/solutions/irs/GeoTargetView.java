@@ -172,6 +172,7 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
 
   @Transaction
   public static GeoTargetView[] getGeoTargets(String[] geoEntityIds, MalariaSeason season)
+
   {
     GeoTargetView[] views = new GeoTargetView[geoEntityIds.length];
 
@@ -182,5 +183,11 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
 
     return views;
   }
-
+  
+  @Override
+  public Integer[] getCalculatedTargets()
+  {
+    return GeoTarget.getCalculatedTargets(this.getGeoEntity().getId(), this.getSeason().getId());
+  }
+  
 }
