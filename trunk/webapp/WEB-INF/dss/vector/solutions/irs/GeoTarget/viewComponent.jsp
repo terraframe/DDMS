@@ -19,7 +19,12 @@
 
 <%@page import="dss.vector.solutions.surveillance.PeriodTypeDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
-<c:set var="page_title" value="Edit_GeoTarget"  scope="request"/>
+
+<%@page import="dss.vector.solutions.general.MalariaSeasonDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="org.json.JSONObject"%>
+<%@page import="org.json.JSONArray"%>
+<%@page import="java.util.Arrays"%><c:set var="page_title" value="Edit_GeoTarget"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -69,32 +74,59 @@ colConfig += "\n,{key:'GeoEntity',label:'" + item.getGeoEntityMd().getDisplayLab
 colConfig += "\n,{key:'EntityName',label:'" + item.getGeoEntityMd().getDisplayLabel() + "',resizeable:true}";
 colConfig += "\n,{key:'Season',label:'Season',hidden:true}";
 
-Date epiStart = PropertyDTO.getDate(clientRequest,PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START);
-long seasonStart = item.getSeason().getStartDate().getTime();
-long seasonEnd =item.getSeason().getEndDate().getTime();
-GregorianCalendar cal = new GregorianCalendar();
-cal.setTime(item.getSeason().getStartDate());
-int seasonStartYear = cal.get(Calendar.YEAR);
-for(int i = 0;i<=106;i++)
-{
-  EpiDateDTO epiWeek = EpiDateDTO.getInstanceByPeriod(clientRequest,PeriodTypeDTO.WEEK, i, seasonStartYear);
-  long weekStart = epiWeek.getStartDate().getTime();
+MalariaSeasonDTO season = item.getSeason();
 
-  if(weekStart > seasonStart && weekStart < seasonEnd )
-  {
-    String startDate = Halp.getFormatedDate(request,epiWeek.getStartDate());
-    String endDate = Halp.getFormatedDate(request,epiWeek.getEndDate());
 
-    colConfig += ",\n{sum:true, key:'Target_" + i + "',label:'" + ((i%53)+1) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
-  }
-  else
+//FIXME : this is a hack because mojo's dto layer cant handle an array of epidates
+
+  long seasonStart = season.getStartDate().getTime();
+  long seasonEnd = season.getEndDate().getTime();
+  GregorianCalendar cal = new GregorianCalendar();
+  cal.setTime(season.getStartDate());
+  Integer seasonStartYear = cal.get(Calendar.YEAR);
+
+  ArrayList<EpiDateDTO> weeks = new ArrayList<EpiDateDTO>();
+
+  for (Integer i = 0; i <= 106; i++)
   {
-    colConfig += "\n,{key:'Target_" + i + "',hidden:true}";
+    EpiDateDTO epiWeek = EpiDateDTO.getInstanceByPeriod(clientRequest, PeriodTypeDTO.WEEK, i, seasonStartYear);
+    long weekStart = epiWeek.getStartDate().getTime();
+
+    if (weekStart > seasonStart && weekStart < seasonEnd)
+    {
+      weeks.add(epiWeek);
+
+    }
   }
+  
+  EpiDateDTO ed =  EpiDateDTO.getInstanceByPeriod(clientRequest, PeriodTypeDTO.WEEK, 1, seasonStartYear);
+  int numWeeks =  ed.getNumberOfEpiWeeks();
+  
+
+int i = 0;
+
+for (EpiDateDTO epiWeek : weeks){
+  String startDate = Halp.getFormatedDate(request,epiWeek.getStartDate());
+  String endDate = Halp.getFormatedDate(request,epiWeek.getEndDate());
+  colConfig += ",\n{sum:true, key:'Target_" + i + "',label:'" + (epiWeek.getPeriod()%numWeeks) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
+  i++;
 }
-
+while(i<54)
+{
+  colConfig += "\n,{key:'Target_" + i + "',hidden:true}";
+  i++;
+}
 %>
-<script type="text/javascript">
+<script type="text/javascript" defer ="defer">
+
+<%
+   JSONObject calcuatedTargets = new JSONObject();
+   for(GeoTargetViewDTO geoTarget :rows)
+   {
+     calcuatedTargets.put(geoTarget.getGeoEntity().getId(),new JSONArray(Arrays.asList(geoTarget.getCalculatedTargets()))); 
+   }
+   out.println("var calculatedTargets = "+calcuatedTargets+";");
+%>
 
 <%=com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true)%>
 
@@ -108,5 +140,27 @@ GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
               addButton:false,
               excelButtons:false
           };
-    YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(GeoTargetData));
+    MojoGrid.createDataTable(GeoTargetData);
+
+    var dt = GeoTargetData.myDataTable;
+
+    dt.getRecordSet().getRecords().map( function(row) {
+      var calulated = calculatedTargets[row.getData('GeoEntity')];
+      if(calulated)
+      {  
+        for (var i =0; i<53 ;i++)
+        {
+          if(! row.getData('Target_'+i))
+          {
+            if(calulated[i])
+            {
+          	dt.updateCell(row, 'Target_'+i, calulated[i]);
+            }
+          }
+        }
+      }
+    });
+    
+
+    
 </script>
