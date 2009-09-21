@@ -11,6 +11,12 @@
 
 <c:set var="page_title" value="Search_Spray_Team_Targets" scope="request" />
 
+<jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
+<script type="text/javascript">
+MDSS.AbstractSelectSearch.Political = false;
+MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
+</script>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -92,11 +98,7 @@ onValidGeoEntitySelected = function(){
     else {
    	  teamSelect.disabled=true;
     }
-  }
+  };
 </script>
 
-<jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
-<script type="text/javascript">
-MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
-</script>
+

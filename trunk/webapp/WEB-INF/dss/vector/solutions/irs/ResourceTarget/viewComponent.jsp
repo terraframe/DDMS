@@ -37,7 +37,7 @@ for(int i = 0;i<=52;i++)
 
 %>
 
-<script type="text/javascript">
+<script type="text/javascript" defer="defer">
 
 ResourceTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
        columnDefs: [<%=colConfig%>],
@@ -49,9 +49,13 @@ ResourceTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
               addButton:false,
               excelButtons:false
           };
-    //YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(ResourceTargetData));
-    window.addEventListener('load', MojoGrid.createDataTable(ResourceTargetData) , false);
-   //document.addEventListener('load', MojoGrid.createDataTable(ResourceTargetData), false);
+         MojoGrid.createDataTable(ResourceTargetData);
+
+         var numRows = ResourceTargetData.rows.length();
+         //if (<%=sum%>){
+         //  for(var i=0; i<numRows-1, )
+         //}
+         
 </script>
 <mjl:commandLink action="dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo" name="dss.vector.solutions.irs.ResourceTarget.viewAll.link" >
   <fmt:message key="Back_To_Search"/>
