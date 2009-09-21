@@ -53,7 +53,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
 
     ArrayList<EpiDate> weeks = new ArrayList<EpiDate>();
 
-    for (Integer i = 0; i <= 800; i++)
+    for (Integer i = 0; i <= 106; i++)
     {
       EpiDate epiWeek = EpiDate.getInstanceByPeriod(PeriodType.WEEK, i, seasonStartYear);
       long weekStart = epiWeek.getStartDate().getTime();
@@ -64,7 +64,8 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
 
       }
     }
-    return (EpiDate[]) weeks.toArray();
+    EpiDate weeksArr[] = (EpiDate[]) weeks.toArray();
+     return  weeksArr;
   }
 
   public void validateStartEndDates()
