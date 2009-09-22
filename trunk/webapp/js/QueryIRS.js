@@ -743,7 +743,7 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
         check.id = attribute.getKey();
         li.appendChild(check);
         this._defaults.push({element:check, checked:false});
-        if(visibleObj.dtoType === 'AttributeIntegerDTO')
+        if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeIntegerDTO'))
         {
           var select = document.createElement('select');
 

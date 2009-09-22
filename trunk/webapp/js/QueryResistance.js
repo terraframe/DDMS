@@ -31,7 +31,10 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS;
 
       this._commonQueryClasses = [Mojo.$.dss.vector.solutions.entomology.MosquitoCollection.CLASS,
-                                  Mojo.$.dss.vector.solutions.general.Insecticide.CLASS];
+                                  Mojo.$.dss.vector.solutions.general.Insecticide.CLASS,
+                                  Mojo.$.dss.vector.solutions.entomology.assay.AbstractAssay.CLASS,
+                                  Mojo.$.dss.vector.solutions.mo.ActiveIngredient.CLASS
+                                 ];
 
       this._exclusionClasses = [];
 
@@ -110,8 +113,8 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       });
 
 
-//      $('debug_xml').value = xml;
-//      xml = $('debug_xml').value;
+     $('debug_xml').value = xml;
+      xml = $('debug_xml').value;
       var page = this.getCurrentPage();
 
         // FIXME json conversion below is temporary
@@ -336,7 +339,7 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       this._visibleSelectables[attribute.getKey()] = selectable;
 
       // ADD THEMATIC VARIABLE
-      if(attribute._dtoType === 'AttributeIntegerDTO')
+      if(attribute._dtoType.contains('AttributeIntegerDTO'))
       {
         this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
       }
@@ -718,10 +721,9 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
         check.id = attribute.getKey();
         li.appendChild(check);
         this._defaults.push({element:check, checked:false});
-        if(visibleObj.dtoType === 'AttributeIntegerDTO')
+        if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeIntegerDTO'))
         {
           var select = document.createElement('select');
-
 
           var options = [''];
           options = options.concat(Mojo.Util.getValues(MDSS.QueryXML.Functions));
