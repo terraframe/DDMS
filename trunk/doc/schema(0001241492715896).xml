@@ -9,10 +9,13 @@
         key="dss.vector.solutions.MDSSPersonAdmin">
         <attribute
           name="firstName"
-          value="MDSS"/>
+          value="MDSS" />
         <attribute
           name="lastName"
-          value="User"/>
+          value="User" />
+        <attribute
+          name="dateOfBirth"
+          value="2009-01-01" />
       </object>
 
       <object
@@ -52,8 +55,10 @@
     </update>
 
     <permissions>
-      <user userName="MDSS">
-        <assignedRole roleName="Administrator"/>
+      <user
+        userName="MDSS">
+        <assignedRole
+          roleName="Administrator" />
       </user>
     </permissions>
 
