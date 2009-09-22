@@ -1,0 +1,24 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.export.ExcelReadException"
+        label="Excel Read Exception"
+        description="Thrown when there is a internal problem reading an excel file">
+      </mdException>
+    </create>
+    <update>
+    </update>
+    <permissions>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.ExcelReadException"
+        type="com.terraframe.mojo.system.metadata.MdException"/>
+    </delete>
+  </undoIt>
+</version>

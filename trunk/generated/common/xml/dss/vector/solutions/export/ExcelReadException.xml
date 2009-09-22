@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
+  name="dss.vector.solutions.export.ExcelReadException">
+  <!--
+    - {id} id
+    -->
+  <locale language="en">Error reading excel file.  Please ensure that the file type is correct and try again.</locale>
+</exception>

@@ -17,7 +17,6 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
-import com.terraframe.mojo.SystemException;
 import com.terraframe.mojo.business.Business;
 import com.terraframe.mojo.business.BusinessQuery;
 import com.terraframe.mojo.generation.loader.Reloadable;
@@ -31,6 +30,7 @@ import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.AmbigiousGeoEntityException;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
+import dss.vector.solutions.export.ExcelReadException;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoSynonymQuery;
 import dss.vector.solutions.geo.UnknownGeoEntity;
@@ -109,7 +109,7 @@ public class GeoEntitySearcher implements Reloadable
     catch (IOException e)
     {
       // If we've encountered an exception already, there's no point in proceeding
-      throw new SystemException(e);
+      throw new ExcelReadException(e);
     }
 
     // list of potential synonym matches, if any
