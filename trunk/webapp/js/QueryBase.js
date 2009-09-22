@@ -114,17 +114,17 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       if(group !== '')
       {
         var dateEl = this._queryPanel.getStartDate();
-        this._snapDate(dateEl.value, dateEl,group);
+        this._snapDate(dateEl.value, dateEl,group,true);
   
         dateEl = this._queryPanel.getEndDate();
-        this._snapDate(dateEl.value, dateEl,group);
+        this._snapDate(dateEl.value, dateEl,group,false);
       }
   
       option.parentNode.selectedIndex = 0;
   
     },
   
-    _snapDate : function(date,targetEl,dateGroupPeriod){
+    _snapDate : function(date,targetEl,dateGroupPeriod,snapToFirstDay){
   
       date = MDSS.util.stripWhitespace(date);
   
@@ -144,19 +144,19 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       switch(dateGroupPeriod)
       {
       case 'DATEGROUP_EPIWEEK':
-        Mojo.$.dss.vector.solutions.general.EpiDate.snapToEpiWeek(request,date);
+        Mojo.$.dss.vector.solutions.general.EpiDate.snapToEpiWeek(request,date,snapToFirstDay);
           break;
       case 'DATEGROUP_MONTH':
-        Mojo.$.dss.vector.solutions.general.EpiDate.snapToMonth(request,date);
+        Mojo.$.dss.vector.solutions.general.EpiDate.snapToMonth(request,date,snapToFirstDay);
           break;
       case 'DATEGROUP_QUARTER':
-        Mojo.$.dss.vector.solutions.general.EpiDate.snapToQuarter(request,date);
+        Mojo.$.dss.vector.solutions.general.EpiDate.snapToQuarter(request,date,snapToFirstDay);
         break;
       case 'DATEGROUP_YEAR':
-        Mojo.$.dss.vector.solutions.general.EpiDate.snapToYear(request,date);
+        Mojo.$.dss.vector.solutions.general.EpiDate.snapToYear(request,date,snapToFirstDay);
           break;
       case 'DATEGROUP_SEASON':
-        Mojo.$.dss.vector.solutions.general.EpiDate.snapToSeason(request,date);
+        Mojo.$.dss.vector.solutions.general.EpiDate.snapToSeason(request,date,snapToFirstDay);
           break;
       default:
         targetEl.set('value',MDSS.Calendar.getLocalizedString(result));
