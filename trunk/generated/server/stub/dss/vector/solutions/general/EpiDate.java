@@ -224,7 +224,13 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     int days_after_piviot = max - piviot;
 
     // beginning of week wins in case of tie
-    if (days_before_piviot < days_after_piviot)
+    
+    if(snapToFirstDay == null)
+    {
+      snapToFirstDay =  (days_before_piviot < days_after_piviot);
+    }
+    
+    if (snapToFirstDay)
     {
       cal.set(period, min);
     }
@@ -250,8 +256,14 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
     int days_before_piviot = piviot - min;
     int days_after_piviot = max - piviot;
+    
     // beginning of month wins in case of tie
-    if (days_before_piviot < days_after_piviot)
+    if(snapToFirstDay == null)
+    {
+      snapToFirstDay =  (days_before_piviot < days_after_piviot);
+    }
+    
+    if (snapToFirstDay)
     {
       cal.set(period, min);
     }
@@ -288,7 +300,12 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     int days_after_piviot = max - piviot;
 
     // begining of month wins in case of tie
-    if (days_before_piviot < days_after_piviot)
+    if(snapToFirstDay == null)
+    {
+      snapToFirstDay =  (days_before_piviot < days_after_piviot);
+    }
+    
+    if (snapToFirstDay)
     {
       return quarterStartDate;
     }
@@ -313,8 +330,14 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
     int days_before_piviot = piviot - min;
     int days_after_piviot = max - piviot;
+    
     // beginning of year wins in case of tie
-    if (days_before_piviot < days_after_piviot)
+    if(snapToFirstDay == null)
+    {
+      snapToFirstDay =  (days_before_piviot < days_after_piviot);
+    }
+    
+    if (snapToFirstDay)
     {
       cal.set(period, min);
     }
@@ -327,7 +350,10 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
   public static Date snapToSeason(Date snapable, Boolean snapToFirstDay)
   {
-    Boolean snapToStart = true;
+    if(snapToFirstDay == null)
+    {
+      snapToFirstDay =  true;
+    }
 
     SimpleDateFormat formatter = new SimpleDateFormat(Constants.DATE_FORMAT);
 
@@ -339,7 +365,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
     String startOrEnd = null;
 
-    if (snapToStart)
+    if (snapToFirstDay)
     {
       startOrEnd = MalariaSeason.STARTDATE;
       valueQuery.SELECT(seasonQuery.getStartDate(MalariaSeason.STARTDATE));
