@@ -53,6 +53,7 @@
 <%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayDTO"%>
 <%@page import="dss.vector.solutions.entomology.assay.KnockDownAssayDTO"%>
 <%@page import="dss.vector.solutions.general.InsecticideDTO"%>
+<%@page import="dss.vector.solutions.mo.ActiveIngredientDTO"%>
 
 
 
@@ -65,7 +66,7 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ MosquitoCollectionDTO.CLASS, AdultDiscriminatingDoseAssayDTO.CLASS, SpecieDTO.CLASS, LarvaeDiscriminatingDoseAssayDTO.CLASS, EfficacyAssayDTO.CLASS, KnockDownAssayDTO.CLASS, InsecticideDTO.CLASS};
+    String[] mosquitoTypes = new String[]{ MosquitoCollectionDTO.CLASS, AdultDiscriminatingDoseAssayDTO.CLASS, SpecieDTO.CLASS, LarvaeDiscriminatingDoseAssayDTO.CLASS, EfficacyAssayDTO.CLASS, KnockDownAssayDTO.CLASS, InsecticideDTO.CLASS, ActiveIngredientDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
 
     MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
@@ -116,11 +117,11 @@ YAHOO.util.Event.onDOMReady(function(){
       var row = {};
       if(attrib){
         row.attributeName = attrib.attributeName;
-        if(attrib.dtoType === 'AttributeReferenceDTO')
+        if(attrib.dtoType.contains('AttributeReferenceDTO'))
         {
           row.attributeName += '.displayLabel.currentValue';
         }
-        if(attrib.dtoType === 'AttributeEnumerationDTO')
+        if(attrib.dtoType.contains('AttributeEnumerationDTO'))
         {
           row.attributeName += '.displayLabel.currentValue';
         }
@@ -232,5 +233,6 @@ YAHOO.util.Event.onDOMReady(function(){
 <div style="display: none" id="ReportFormContainer"></div>
 <iframe id="messageFrame" name="messageFrame" style="display: none; width: 1px; height: 1px;"></iframe>
 
+<textarea id="debug_xml" cols="40" rows="40" style="width:1280px"> </textarea>
 
 <jsp:include page="../templates/footer.jsp"></jsp:include>
