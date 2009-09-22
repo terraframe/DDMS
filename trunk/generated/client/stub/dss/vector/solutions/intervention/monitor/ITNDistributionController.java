@@ -2,7 +2,6 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -159,6 +158,11 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     }
   }
 
+  public void failSearchRecipient(ITNDistributionDTO itn, PersonViewDTO recipient) throws IOException, ServletException
+  {
+    renderSearch(itn, recipient);
+  }
+  
   private void renderConfirm(ITNDistributionDTO itn, PersonViewDTO recipient) throws IOException, ServletException
   {
     req.setAttribute("itn", itn);
@@ -166,16 +170,16 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     render("confirmRecipient.jsp");
   }
 
-  public void failSearchRecipient(ITNDistributionDTO itn, PersonViewDTO recipient) throws IOException, ServletException
-  {
-    resp.sendError(500);
-  }
-
   public void newInstance() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("recipient", new PersonViewDTO(clientRequest));
-    req.setAttribute("item", new ITNDistributionDTO(clientRequest));
+    renderSearch(new ITNDistributionDTO(clientRequest), new PersonViewDTO(clientRequest));
+  }
+
+  private void renderSearch(ITNDistributionDTO itn, PersonViewDTO personView) throws IOException, ServletException
+  {
+    req.setAttribute("recipient", personView);
+    req.setAttribute("item", itn);
     render("search.jsp");
   }
 
