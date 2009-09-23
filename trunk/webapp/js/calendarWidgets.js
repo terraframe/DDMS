@@ -45,21 +45,22 @@ MDSS.Calendar = {};
             fireOnblur(cur_field);
     }
 
-    var parseISO8601 = function (string){
+    var parseISO8601 = function (date_string){
     	
-      if(!Mojo.Util.isString(string) || string === '')
+      if(!Mojo.Util.isString(date_string) || date_string === '')
       {
-        return;
+        return null;
       }
       
-      var regexp = "([0-9]{4})(-([0-9]{2})(-([0-9]{2})" +
+      var regexp = new RegExp("^([0-9]{4})(-([0-9]{2})(-([0-9]{2})" +
           "(T([0-9]{2}):([0-9]{2})(:([0-9]{2})(\.([0-9]+))?)?" +
-          "(Z|(([-+])([0-9]{2}):([0-9]{2})))?)?)?)?";
-      var d = string.match(new RegExp(regexp));
+          "(Z|(([-+])([0-9]{2}):([0-9]{2})))?)?)?)?$");
       
-      if(d === null){
+      if(! regexp.test(date_string)){
       	return null;
 			}
+      
+      var d = date_string.match(regexp);
 
       var offset = 0;
       var tempDate = new Date(d[1], 0, 1);
