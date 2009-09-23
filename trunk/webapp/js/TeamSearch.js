@@ -310,3 +310,207 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
   }
 });
 
+Mojo.Meta.newClass('MDSS.GenericSearch', {
+  Instance: {
+    initialize: function(displayElement, concreteElement, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler) {
+	
+      // Constructor code
+	  this.displayElement = displayElement;          // DOM element where the search is inputed and the selected result is displayed
+      this.concreteElement = concreteElement;        // DOM element where the id of the selected result is stored
+      
+      this.listFunction = listFunction;              // Function which accepts a valueObject and returns a formatted string for a single result 
+      this.displayFunction = displayFunction;        // Function which accepts a valueObject and returns the value for 'displayElement'
+      this.idFunction = idFunction;                  // Function which accepts a valueObject and returns the value for 'concreteElement' 
+      this.selectEventHandler = selectEventHandler;  // Optional function which is called after an option has been selected
+
+      this.searchFunction = searchFunction;          // AJAX function which calls a static method on the server
+      
+      this.panel = MDSS.GenericSearch.initializePanel(displayElement);  // Result panel
+    },
+    
+    getDisplayElement : function() {
+      return this.displayElement;
+    },
+    
+    getConcreteElement : function() {
+      return this.concreteElement;
+    },
+    
+    getPanel : function() {
+      return this.panel;
+    },
+
+    getDisplay : function(valueObject) {
+      return this.displayFunction(valueObject);
+    },
+    
+    getListDisplay : function(valueObject) {
+      return this.listFunction(valueObject);
+    },
+    
+    getId : function(valueObject) {
+      return this.idFunction(valueObject);
+    },
+    
+    selectHandler : function(selected) {
+      if(selected) {
+        MDSS.GenericSearch.setElementValue(this.getDisplayElement(), selected.label);
+        MDSS.GenericSearch.setElementValue(this.getConcreteElement(), selected.id);
+        
+        if(typeof selectEventHandler !== 'undefined' && Mojo.Util.isFunction(selectEventHandler)) {
+        	selectEventHandler();
+        }
+      }
+    },
+    
+    performSearch : function() {
+      MDSS.GenericSearch.setElementValue(this.getConcreteElement(), '');
+      
+      var value = this.getDisplayElement().value;
+        
+      // must have at least 2 characters ready
+      if(value.length < 2)
+      {
+        return;
+      }
+
+      var request = MDSS.GenericSearch.createSearchRequest(this);
+
+      searchFunction(request, value);  
+    }
+  },
+  
+  Static: {
+    initializePanel : function(element) {
+      var resultsDiv = document.createElement('div');
+      resultsDiv.id = element.id + '_results';
+      resultsDiv.className = "yui-panel-container show-scrollbars shadow";
+    
+      YAHOO.util.Dom.insertAfter(resultsDiv,element);
+
+      var panel = new YAHOO.widget.Panel(resultsDiv, {
+        width:'400px',
+        height:'200px',
+        zindex:15,
+        draggable: false,
+        close: true
+      });    
+      
+      return panel;
+    },
+    
+    createResultList : function (searchObject, outer, inner, ul) {
+
+      var header = document.createElement('div');
+      header.innerHTML = '<h3>'+MDSS.Localized.Search_Results+'</h3><hr />';
+      outer.appendChild(header);
+
+      YAHOO.util.Dom.addClass(inner, 'entitySearchResults');
+      outer.appendChild(inner);
+
+      YAHOO.util.Dom.addClass(ul, 'selectableList')
+
+      YAHOO.util.Event.on(ul, 'mouseover', function(e, obj){
+        var li = e.target; 
+        var ul = e.currentTarget;
+      
+        if(li.nodeName === 'SPAN') {
+          li = li.parentNode;
+        }
+
+        if(li.nodeName !== 'LI') {
+          return;
+        }
+
+        // clear all lis of their current class
+        var lis = YAHOO.util.Selector.query('li.currentSelection', ul);
+
+        for(var i=0; i<lis.length; i++)
+        {
+          YAHOO.util.Dom.removeClass(lis[i], 'currentSelection');
+        }
+
+        YAHOO.util.Dom.addClass(li, 'currentSelection');
+      });
+
+      YAHOO.util.Event.on(ul, 'click', function(e, obj){
+        var li = e.target;
+        var ul = e.currentTarget;
+        
+        if(li.nodeName === 'SPAN')
+        {
+          li = li.parentNode;
+        }
+
+        if(li.nodeName !== 'LI')
+        {
+          return;
+        }
+
+        this.getPanel().hide();
+        this.selectHandler(li);
+
+      }, searchObject, searchObject);
+    },
+    
+    createSearchRequest : function(searchObject) {
+        var request = new MDSS.Request({
+          searchObject : searchObject,
+          
+          // don't paint a loading bar. It's too slow for this type of call
+          onSend: function(){},
+          onComplete: function(){},
+          onSuccess: function(query) {
+                var resultSet = query.getResultSet();
+                
+                var outer = document.createElement('div');
+                var inner = document.createElement('div');
+                var ul = document.createElement('ul');
+
+                MDSS.GenericSearch.createResultList(this.searchObject, outer, inner, ul);
+                
+                var searchValue = this.searchObject.getDisplayElement().value;
+
+                for(var i=0; i<resultSet.length; i++)
+                {
+                  var valueObj = resultSet[i];
+                  var displayStr = this.searchObject.getListDisplay(valueObj);
+                  var matched = displayStr.replace(new RegExp("(.*?)(" + searchValue + ")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
+
+                  var li = document.createElement('li');              
+                  li.id = this.searchObject.getId(valueObj);              
+                  li.label = this.searchObject.getDisplay(valueObj);
+                  li.innerHTML = matched;              
+                  
+                  ul.appendChild(li);
+                }
+
+                inner.appendChild(ul);
+
+                var panel = this.searchObject.getPanel();
+                
+                panel.setBody(outer);
+                panel.render();
+                panel.show();
+                panel.bringToTop();
+
+                // refocus the input field
+                this.searchObject.getDisplayElement().focus();
+              }
+            });
+        
+        return request;
+    },
+    
+    setElementValue : function(element, value) {
+      if(element) {
+        if(value) {
+          element.value = value;
+        }
+        else {
+           element.value = '';
+        }
+      }  
+    }
+  }  
+});
