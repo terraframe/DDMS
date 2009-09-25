@@ -457,10 +457,16 @@ public abstract class GeoEntity extends GeoEntityBase implements
     view.setGeoEntityId(this.getId());
     view.setGeoId(this.getGeoId());
 
-    MdClass mdClass = MdClass.getMdClass(this.getType());
-    view.setTypeDisplayLabel(mdClass.getDisplayLabel().getValue());
+    getTypeDisplayLabel();
 
     return view;
+  }
+  
+  @Override
+  public String getTypeDisplayLabel()
+  {
+    MdClass mdClass = MdClass.getMdClass(this.getType());
+    return(mdClass.getDisplayLabel().getValue());
   }
 
   /**
