@@ -36,7 +36,7 @@
       </label>
     </dt>
     <dd>
-      ${item.geoEntity.geoId } (${item.geoEntity.entityName})
+       ${item.geoEntity.displayString} 
     </dd>
     <dt>
       <label>

@@ -18,7 +18,7 @@
     <mjl:input value="${item.caseId}" type="hidden" param="id" />
     <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="geoEntity">
-        ${item.geoEntity.geoId}
+        ${item.geoEntity.displayString} 
       </mjl:dt>
       <mjl:dt attribute="periodType">
         <ul>

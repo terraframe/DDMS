@@ -30,7 +30,7 @@
       ${item.collectionId}
     </mjl:dt>
     <mjl:dt attribute="geoEntity">
-      ${item.geoEntity.geoId}
+      ${item.geoEntity.displayString} 
     </mjl:dt>
     <mjl:dt attribute="dateCollected">
       <span class="formatDate">${item.dateCollected}</span>

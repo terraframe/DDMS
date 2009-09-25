@@ -73,7 +73,7 @@
     <dt><label> ${item.collectionIdMd.displayLabel} </label></dt>
     <dd>${item.collectionId}</dd>
     <dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
-    <dd>${item.geoEntity.geoId}</dd>
+    <dd>${item.geoEntity.displayString} </dd>
     <dt><label> ${item.dateCollectedMd.displayLabel} </label></dt>
     <dd class="formatDate">${item.dateCollected}</dd>
 

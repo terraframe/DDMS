@@ -34,7 +34,7 @@
         Geo Entity
       </mjl:header>
       <mjl:row>
-        ${item.geoEntity.entityName}
+        ${item.geoEntity.displayString} 
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>

@@ -66,7 +66,7 @@ background:none;
     <mjl:input value="${item.sprayId}" type="hidden" param="id" />
 
     <mjl:component item="${item}" param="dto">
-      <mjl:dt attribute="geoEntity"> ${item.geoEntity.geoId} </mjl:dt>
+      <mjl:dt attribute="geoEntity"> ${item.geoEntity.displayString}  </mjl:dt>
       <mjl:dt attribute="brand"> ${brand.brandName} </mjl:dt>
       <mjl:dt attribute="sprayDate">
         <span id="testDateSpan" class="formatDate">${item.sprayDate}</span>
