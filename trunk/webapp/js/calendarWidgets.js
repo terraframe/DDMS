@@ -272,6 +272,15 @@ MDSS.Calendar = {};
 
 	MDSS.Calendar.addError = addError;
 	MDSS.Calendar.removeError = removeError;
+	
+	function addCalendarListeners(el)
+	{
+	  Event.addListener(el.id, 'focus', showCal);
+	  Event.addListener(el.id, 'blur', hideCal);
+	  el.value = var_to_localized_string(el.value);
+	}
+	
+	MDSS.Calendar.addCalendarListeners = addCalendarListeners;
 
     var init = function() {
       var el;
