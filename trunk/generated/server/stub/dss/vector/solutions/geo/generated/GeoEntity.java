@@ -456,8 +456,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
     view.setEntityType(this.getType());
     view.setGeoEntityId(this.getId());
     view.setGeoId(this.getGeoId());
-
-    getTypeDisplayLabel();
+    view.setTypeDisplayLabel(this.getTypeDisplayLabel());
 
     return view;
   }
