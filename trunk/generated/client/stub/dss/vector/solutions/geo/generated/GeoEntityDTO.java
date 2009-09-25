@@ -1,6 +1,5 @@
 package dss.vector.solutions.geo.generated;
 
-import dss.vector.solutions.geo.generated.GeoEntityDTOBase;
 
 public abstract class GeoEntityDTO extends GeoEntityDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
@@ -20,6 +19,12 @@ public abstract class GeoEntityDTO extends GeoEntityDTOBase
   protected GeoEntityDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
+  }
+  
+  public String getDisplayString()
+  {
+    //${item.geoEntity.geoId} <br/> ${item.geoEntity.entityName} (${item.geoEntity.typeDisplayLabel})
+    return this.getEntityName() + "(" + this.getTypeDisplayLabel() + ") - " +this.getGeoId();
   }
   
 }
