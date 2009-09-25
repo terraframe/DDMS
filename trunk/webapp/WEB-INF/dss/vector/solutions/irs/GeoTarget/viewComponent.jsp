@@ -85,22 +85,8 @@ MalariaSeasonDTO season = item.getSeason();
   cal.setTime(season.getStartDate());
   Integer seasonStartYear = cal.get(Calendar.YEAR);
 
-  ArrayList<EpiDateDTO> weeks = new ArrayList<EpiDateDTO>();
-
-  for (Integer i = 0; i <= 106; i++)
-  {
-    EpiDateDTO epiWeek = EpiDateDTO.getInstanceByPeriod(clientRequest, PeriodTypeDTO.WEEK, i, seasonStartYear);
-    long weekStart = epiWeek.getStartDate().getTime();
-
-    if (weekStart > seasonStart && weekStart < seasonEnd)
-    {
-      weeks.add(epiWeek);
-
-    }
-  }
-  
-  EpiDateDTO ed =  EpiDateDTO.getInstanceByPeriod(clientRequest, PeriodTypeDTO.WEEK, 1, seasonStartYear);
-  int numWeeks =  ed.getNumberOfEpiWeeks();
+  EpiDateDTO[] weeks = season.getEpiWeeks(); 
+  int numWeeks =  weeks.length;
   
 
 int i = 0;

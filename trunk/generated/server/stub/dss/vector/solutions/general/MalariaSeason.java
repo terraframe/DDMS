@@ -64,8 +64,8 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
 
       }
     }
-    EpiDate weeksArr[] = (EpiDate[]) weeks.toArray();
-     return  weeksArr;
+    EpiDate weeksArr[] = weeks.toArray(new EpiDate[weeks.size()]);
+    return  weeksArr;
   }
 
   public void validateStartEndDates()
