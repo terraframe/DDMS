@@ -142,6 +142,7 @@ var aSubmenuData = [
                             id: "IRS_INV",
                             itemdata: [
                                        { text: "IRS_Planning(077)", disabled: true, url: "#", visibleTo:'Administrator' },
+                                       { text: "Configure_Application_Rate(106)", url: "dss.vector.solutions.irs.ApplicationRateController.view.mojo" , visibleTo:'Administrator'},
                                        { text: "Manage_IRS_Teams(141)", url: "dss.vector.solutions.irs.SprayTeamController.viewAll.mojo", visibleTo:'Administrator' },
                                        { text: "Area_Targets(028)", url: "dss.vector.solutions.irs.GeoTargetController.viewAll.mojo" , visibleTo:'Administrator'},
                                        { text: "Operator_and_Team_Targets(028)", url: "dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo" , visibleTo:'Administrator'},
@@ -155,7 +156,6 @@ var aSubmenuData = [
     {
         id: "Intervention_Monitoring",
         itemdata: [
-           	{ text: "Configure_Application_Rate(106)", url: "dss.vector.solutions.irs.ApplicationRateController.view.mojo" , visibleTo:'Administrator'},
             {
                 text: "IRS",
                 submenu: {
