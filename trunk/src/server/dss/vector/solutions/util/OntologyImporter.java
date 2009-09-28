@@ -69,7 +69,7 @@ public class OntologyImporter {
 				System.out.println("End");
 				break;
 			default:
-				System.out.println("Incorrect args!  Takes two arguments, filename & ontology name (optional, defaults to MO");
+				System.out.println("Incorrect args!  Takes two arguments, filename & ontology name (optional, defaults to MO)");
 		}
 	}
 
@@ -136,6 +136,13 @@ public class OntologyImporter {
 	}
 
 	private void purgeOldOntology() {
+		/*
+delete from ontologydefinition;
+delete from term;
+delete from mo;
+delete from termrelationship;
+delete from isa;
+		 */
 		System.out.print("Deleting old ontology...");
 		OntologyDefinition oldOntology = null;
 		QueryFactory qf = new QueryFactory();
