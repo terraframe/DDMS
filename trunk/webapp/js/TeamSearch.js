@@ -359,8 +359,8 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
         MDSS.GenericSearch.setElementValue(this.getDisplayElement(), selected.label);
         MDSS.GenericSearch.setElementValue(this.getConcreteElement(), selected.id);
         
-        if(typeof selectEventHandler !== 'undefined' && Mojo.Util.isFunction(selectEventHandler)) {
-        	selectEventHandler();
+        if(Mojo.Util.isFunction(this.selectEventHandler)) {
+        	this.selectEventHandler(selected);
         }
       }
     },
@@ -378,7 +378,7 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
 
       var request = MDSS.GenericSearch.createSearchRequest(this);
 
-      searchFunction(request, value);  
+      this.searchFunction(request, value);  
     }
   },
   
