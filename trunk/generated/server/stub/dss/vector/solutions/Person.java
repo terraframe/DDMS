@@ -220,18 +220,36 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   @Override
   public PersonView getView()
   {
+    // Set the person's base attributes    
     PersonView view = new PersonView();
     view.setPersonId(this.getId());
     view.setFirstName(this.getFirstName());
     view.setLastName(this.getLastName());
-    view.setDateOfBirth(this.getDateOfBirth());
     view.addSex(this.getSex().get(0));
+
+    view.setDateOfBirth(this.getDateOfBirth());
+
+    if(this.getDateOfBirth() != null)
+    {        
+      view.setAge(new AgeConverter(this.getDateOfBirth()).getAge());
+    }
 
     if(this.getResidentialGeoEntity() != null)
     {
       view.setResidentialGeoId(this.getResidentialGeoEntity().getGeoId());
     }
-
+    
+    view.setResidentialInformation(this.getResidentialInformation());
+    
+    if(this.getWorkGeoEntity() != null)
+    {
+      view.setWorkGeoId(this.getWorkGeoEntity().getGeoId());
+    }
+    
+    view.setWorkInformation(this.getWorkInformation());
+    
+    // Set the person's delegate attributes
+    
     MDSSUser user = this.getUserDelegate();
     if (user == null)
     {

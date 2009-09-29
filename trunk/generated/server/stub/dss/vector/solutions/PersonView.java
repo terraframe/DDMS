@@ -205,18 +205,39 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     }
 
     this.populateAttributeMapping(person);
-
+    
     person.setFirstName(this.getFirstName());
     person.setLastName(this.getLastName());
-    person.setDateOfBirth(this.getDateOfBirth());
     person.addSex(this.getSex().get(0));
 
-    String geoId = this.getResidentialGeoId();
-
-    if (geoId != null && !geoId.equals(""))
+    // Set the persons age
+    if (this.getDateOfBirth() != null)
     {
-      person.setResidentialGeoEntity(GeoEntity.searchByGeoId(geoId));
+      person.setDateOfBirth(this.getDateOfBirth());
     }
+    else if (this.getAge() != null)
+    {      
+      // Must calculate the date of birth from the age
+      person.setDateOfBirth(new AgeConverter(this.getAge()).getDateOfBirth());
+    }
+    
+    String residentialId = this.getResidentialGeoId();
+
+    if (residentialId != null && !residentialId.equals(""))
+    {
+      person.setResidentialGeoEntity(GeoEntity.searchByGeoId(residentialId));
+    }
+    
+    person.setResidentialInformation(this.getResidentialInformation());
+    
+    String workId = this.getWorkGeoId();
+    
+    if (workId != null && !workId.equals(""))
+    {
+      person.setWorkGeoEntity(GeoEntity.searchByGeoId(workId));
+    }
+    
+    person.setResidentialInformation(this.getResidentialInformation());
 
     // Applying the person with validate it's attributes
     person.apply();

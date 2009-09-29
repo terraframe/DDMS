@@ -207,7 +207,7 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
       {
         IndividualIPTCaseView view = iterator.next().getView();
         
-        if(view.getServiceDate().after(time))
+        if(view.getServiceDate() == null || view.getServiceDate().after(time))
         {
           list.add(view);
         }

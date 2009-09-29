@@ -70,7 +70,7 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
     createModal : function (html) {
         var panel = new YAHOO.widget.Panel(this._id,  {
             width: '400px',
-            height: '400px',
+            height: '550px',
             fixedcenter:true,
             close:false,
             draggable:false,
