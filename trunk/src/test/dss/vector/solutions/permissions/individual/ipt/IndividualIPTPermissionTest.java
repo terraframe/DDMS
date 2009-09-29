@@ -1,4 +1,4 @@
-package dss.vector.solutions.permissions.itn.household;
+package dss.vector.solutions.permissions.individual.ipt;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -18,13 +18,17 @@ import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.Sex;
-import dss.vector.solutions.geo.generated.SentinelSite;
+import dss.vector.solutions.geo.generated.HealthFacility;
 
-public abstract class ITNHouseholdSurveyPermissionTest extends TestCase implements DoNotWeave
+public abstract class IndividualIPTPermissionTest extends TestCase implements DoNotWeave
 {
   protected static ClientSession   clientSession;
 
   protected static ClientRequestIF request;
+
+  protected static ClientSession   systemSession;
+  
+  protected static ClientRequestIF systemRequest;
 
   protected static String          geoId;
 
@@ -35,8 +39,8 @@ public abstract class ITNHouseholdSurveyPermissionTest extends TestCase implemen
   private static String            username;
 
   private static String            password = "test";
-
-  private static SentinelSite      site;
+  
+  private static HealthFacility    facility;
 
   protected static void classSetUp()
   {
@@ -45,6 +49,9 @@ public abstract class ITNHouseholdSurveyPermissionTest extends TestCase implemen
 
     clientSession = WebClientSession.createUserSession(username, password, Locale.US);
     request = clientSession.getRequest();
+    
+    systemSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
+    systemRequest = systemSession.getRequest();    
   }
 
   @StartSession
@@ -78,17 +85,19 @@ public abstract class ITNHouseholdSurveyPermissionTest extends TestCase implemen
     person.setUserDelegate(user);
     person.apply();
 
-    site = new SentinelSite();
-    site.setGeoId(TestConstants.GEO_ID);
-    site.setEntityName("Test Site");
-    site.apply();
+    facility = new HealthFacility();
+    facility.setGeoId(TestConstants.GEO_ID);
+    facility.setEntityName("Test Site");
+    facility.apply();
 
-    geoId = site.getGeoId();
+    geoId = facility.getGeoId();
   }
 
   protected static void classTearDown()
   {
     clientSession.logout();
+    
+    systemSession.logout();
 
     tearDownVars();
   }
@@ -96,8 +105,9 @@ public abstract class ITNHouseholdSurveyPermissionTest extends TestCase implemen
   @StartSession
   protected static void tearDownVars()
   {
-    site.delete();
+    facility.delete();
     person.deleteDelegates();
     Person.get(person.getId()).delete();
   }
+
 }

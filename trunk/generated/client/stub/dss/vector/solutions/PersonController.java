@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
+import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.entomology.SexDTO;
 import dss.vector.solutions.intervention.monitor.IPTRecipientDTO;
@@ -15,8 +17,7 @@ import dss.vector.solutions.irs.SprayOperatorDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class PersonController extends PersonControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class PersonController extends PersonControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/Person/";
 
@@ -24,8 +25,7 @@ public class PersonController extends PersonControllerBase implements
 
   private static final long  serialVersionUID = 1240792904565L;
 
-  public PersonController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public PersonController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
@@ -36,7 +36,7 @@ public class PersonController extends PersonControllerBase implements
     PersonQueryDTO query = person.searchForDuplicates();
     req.setAttribute("query", query);
     req.setAttribute("newPerson", person);
-    
+
     // Saving the sex is a pain. This is a shortcut.
     req.setAttribute("sexEnumName", person.getSex().get(0).getName());
     render("searchResults.jsp");
@@ -167,9 +167,9 @@ public class PersonController extends PersonControllerBase implements
       ErrorUtility.prepareThrowable(t, req);
 
       this.failDeleteFromView(person);
-    }    
+    }
   }
-  
+
   @Override
   public void failDeleteFromView(PersonViewDTO person) throws IOException, ServletException
   {
@@ -187,31 +187,30 @@ public class PersonController extends PersonControllerBase implements
     render("viewComponent.jsp");
   }
 
-  public void viewPage(String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize,
-      java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  public void viewPage(String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.PersonQueryDTO query = PersonDTO.getAllInstances(clientRequest, sortAttribute,
-        isAscending, pageSize, pageNumber);
+    dss.vector.solutions.PersonQueryDTO query = PersonDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber)
-      throws java.io.IOException, javax.servlet.ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
 
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
+    if (!this.isAsynchronous())
+    {
+      new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
-    ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.PersonQueryDTO query = PersonDTO.getAllInstances(clientRequest, null, true, 20,
-        1);
-    req.setAttribute("query", query);
-    render("viewAllComponent.jsp");
+      ClientRequestIF clientRequest = super.getClientRequest();
+      dss.vector.solutions.PersonQueryDTO query = PersonDTO.getAllInstances(clientRequest, null, true, 20, 1);
+      req.setAttribute("query", query);
+      render("viewAllComponent.jsp");
+    }
   }
 
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -317,31 +316,118 @@ public class PersonController extends PersonControllerBase implements
   public void failDelete(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     this.setupRequest();
-    
+
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
 
   private void setupRequest()
   {
-    req.setAttribute("dss_vector_solutions_Person_iptRecipientDelegate", IPTRecipientDTO
-        .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_itnRecipientDelegate", ITNRecipientDTO
-        .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_patientDelegate", PatientDTO.getAllInstances(
-        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_sex", SexDTO.allItems(super.getClientSession()
-        .getRequest()));
-    req.setAttribute("dss_vector_solutions_Person_sprayLeaderDelegate", SprayLeaderDTO.getAllInstances(
-        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_sprayOperatorDelegate", SprayOperatorDTO
-        .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_userDelegate", dss.vector.solutions.MDSSUserDTO
-        .getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_Person_iptRecipientDelegate", IPTRecipientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_Person_itnRecipientDelegate", ITNRecipientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_Person_patientDelegate", PatientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_Person_sex", SexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("dss_vector_solutions_Person_sprayLeaderDelegate", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_Person_sprayOperatorDelegate", SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_Person_userDelegate", dss.vector.solutions.MDSSUserDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
   }
 
   public void failSearch(PersonDTO person) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
+
+  @Override
+  public void editRecipient(String id) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF request = this.getClientRequest();
+
+      PersonViewDTO dto = new PersonViewDTO(request);
+
+      if (id != null && !id.equals(""))
+      {
+        dto = PersonDTO.getView(request, id);
+      }
+
+      req.setAttribute("sex", SexDTO.allItems(request));
+      req.setAttribute("item", dto);
+
+      render("editRecipientComponent.jsp");
+    }
+    catch (Throwable t)
+    {
+      if (this.isAsynchronous())
+      {
+        JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+        resp.setStatus(500);
+        resp.getWriter().print(jsonE.getJSON());
+      }
+      else
+      {
+        this.viewAll();
+      }
+    }
+  }
+
+  @Override
+  public void failEditRecipient(String id) throws IOException, ServletException
+  {
+    this.viewAll();
+  }
+
+  @Override
+  public void updateRecipient(PersonViewDTO patient) throws IOException, ServletException
+  {
+    try
+    {
+      patient.applyNonDelegates();
+
+      if (!this.isAsynchronous())
+      {
+        this.viewAll();
+      }
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      if (this.isAsynchronous())
+      {
+        JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+        resp.setStatus(500);
+        resp.getWriter().print(jsonE.getJSON());
+      }
+      else
+      {
+        ErrorUtility.prepareProblems(e, req);
+        this.failUpdateRecipient(patient);
+      }
+    }
+    catch (Throwable t)
+    {
+      if (this.isAsynchronous())
+      {
+        JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+        resp.setStatus(500);
+        resp.getWriter().print(jsonE.getJSON());
+      }
+      else
+      {
+        ErrorUtility.prepareThrowable(t, req);
+        this.failUpdateRecipient(patient);
+      }
+    }
+  }
+
+  @Override
+  public void failUpdateRecipient(PersonViewDTO patient) throws IOException, ServletException
+  {
+    ClientRequestIF request = this.getClientRequest();
+
+    req.setAttribute("sex", SexDTO.allItems(request));
+    req.setAttribute("item", patient);
+
+    render("editRecipientComponent.jsp");
+  }
+
 }

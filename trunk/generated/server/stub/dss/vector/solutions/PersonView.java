@@ -42,34 +42,7 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
   {
     validateOperatorId();
 
-    // Update the person data
-    Person person = Person.get(this.getPersonId());
-
-    if (person == null)
-    {
-      person = new Person();
-    }
-    else
-    {
-      person.lock();
-    }
-
-    this.populateAttributeMapping(person);
-
-    person.setFirstName(this.getFirstName());
-    person.setLastName(this.getLastName());
-    person.setDateOfBirth(this.getDateOfBirth());
-    person.addSex(this.getSex().get(0));
-
-    String geoId = this.getResidentialGeoId();
-
-    if (geoId != null && !geoId.equals(""))
-    {
-      person.setResidentialGeoEntity(GeoEntity.searchByGeoId(geoId));
-    }
-
-    // Applying the person with validate it's attributes
-    person.apply();
+    Person person = applyPerson();
 
     // Update the delegates
     MDSSUser user = person.getUserDelegate();
@@ -210,7 +183,46 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
 
     this.setPersonId(person.getId());
   }
+  
+  @Override
+  public void applyNonDelegates()
+  {
+    this.applyPerson();
+  }
+  
+  private Person applyPerson()
+  {
+    // Update the person data
+    Person person = Person.get(this.getPersonId());
 
+    if (person == null)
+    {
+      person = new Person();
+    }
+    else
+    {
+      person.lock();
+    }
+
+    this.populateAttributeMapping(person);
+
+    person.setFirstName(this.getFirstName());
+    person.setLastName(this.getLastName());
+    person.setDateOfBirth(this.getDateOfBirth());
+    person.addSex(this.getSex().get(0));
+
+    String geoId = this.getResidentialGeoId();
+
+    if (geoId != null && !geoId.equals(""))
+    {
+      person.setResidentialGeoEntity(GeoEntity.searchByGeoId(geoId));
+    }
+
+    // Applying the person with validate it's attributes
+    person.apply();
+    return person;
+  }
+  
   private void populateAttributeMapping(Person person)
   {
     new AttributeNotificationMap(person, Person.DATEOFBIRTH, this, PersonView.DATEOFBIRTH);

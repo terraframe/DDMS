@@ -17,6 +17,11 @@ public class DefaultConverter extends StandardConverter
   @Override
   public String format(Object object, Locale locale)
   {
+    if(object == null)
+    {
+      return null;
+    }
+    
     if (object instanceof Date)
     {
       DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT, locale);
@@ -29,6 +34,11 @@ public class DefaultConverter extends StandardConverter
   @Override
   public Object parse(String value, Locale locale)
   {
+    if(value == null || value.equals(""))
+    {
+      return null;
+    }
+    
     if (c.equals(Date.class))
     {
       DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT, locale);

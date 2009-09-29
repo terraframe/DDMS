@@ -34,9 +34,9 @@ public class TestConstants
 
   public static String       TERM_NAME_3    = "3-4221";
 
-  public static String       GEO_ID         = "9-2";
+  public static String       GEO_ID         = "9-21";
 
-  public static String       GEO_ID_2       = "1-93";
+  public static String       GEO_ID_2       = "1-931";
 
   public static String       HOUSEHOLD_ID   = "19484";
 

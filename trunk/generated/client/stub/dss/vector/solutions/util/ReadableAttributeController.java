@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import javax.servlet.ServletException;
 
+import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.MDSSRoleInfo;
@@ -37,7 +38,7 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
     // I commented the follow lines out because they are not used in
     // selectUniversal.jsp and they were causing exceptions to be thrown
     // -Justin Smethie
-    
+
     // MdClassQueryDTO classes = FacadeDTO.getMDSSClasses(clientRequest);
     // req.setAttribute("query", classes);
     // req.setAttribute("universals", classes.getResultSet());
@@ -51,11 +52,30 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
   @Override
   public void getAttributes(String universal, String actor) throws IOException, ServletException
   {
-    ReadableAttributeViewDTO[] attributeViews = ReadableAttributeViewDTO.getActorAttributes(super.getClientRequest(), universal, actor);
-    req.setAttribute("views", Arrays.asList(attributeViews));
-    req.setAttribute("universal", universal);
-    req.setAttribute("actor", actor);
-    render("view.jsp");
+    try
+    {
+      ReadableAttributeViewDTO[] attributeViews = ReadableAttributeViewDTO.getActorAttributes(super.getClientRequest(), universal, actor);
+      req.setAttribute("views", Arrays.asList(attributeViews));
+      req.setAttribute("universal", universal);
+      req.setAttribute("actor", actor);
+      render("view.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.forceProblems(e, req);
+      this.failGetAttributes(universal, actor);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failGetAttributes(universal, actor);
+    }
+  }
+  
+  @Override
+  public void failGetAttributes(String universal, String actor) throws IOException, ServletException
+  {
+    this.getUniversal(actor);
   }
 
   @Override

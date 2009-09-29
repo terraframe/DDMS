@@ -233,6 +233,22 @@
         action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView">
         <f:message key="ITN_Household_Survey"/>
       </mjl:commandLink>
-    </dd>
-    
+    </dd>    
+  </dl>
+  <dl>
+    <dt><label><f:message key="Individual_IPT"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="IndividualIPTCase"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualIPTCaseView">
+        <f:message key="Individual_IPT_Case"/>
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mjl:commandLink
+        name="IndividualIPT"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualIPTView">
+        <f:message key="Individual_IPT"/>
+      </mjl:commandLink>
+    </dd>    
   </dl>

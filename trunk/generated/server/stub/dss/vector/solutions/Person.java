@@ -1,9 +1,14 @@
 package dss.vector.solutions;
 
 import java.util.Date;
+import java.util.StringTokenizer;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.Condition;
+import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
@@ -351,4 +356,39 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     }
     return this.getKey();
   }
+  
+  public static ValueQuery searchForPerson(String value)
+  {
+    QueryFactory f = new QueryFactory();
+
+    PersonQuery personQuery = new PersonQuery(f);
+    ValueQuery valueQuery = new ValueQuery(f);
+
+    Selectable[] selectables = new Selectable[] { personQuery.getId(Person.ID), personQuery.getFirstName(Person.FIRSTNAME), personQuery.getLastName(Person.LASTNAME), personQuery.getDateOfBirth(Person.DATEOFBIRTH),
+        personQuery.getResidentialGeoEntity(Person.RESIDENTIALGEOENTITY), personQuery.getSex().getDisplayLabel().currentLocale(Person.SEX) };
+
+    valueQuery.SELECT(selectables);
+
+    String statement = "%" + value + "%";
+
+    // Search conditions
+    Condition or = OR.get(personQuery.getFirstName().LIKEi(statement), personQuery.getLastName().LIKEi(statement));
+
+    StringTokenizer toke = new StringTokenizer(value, ", ");
+
+    while (toke.hasMoreTokens())
+    {
+      String string = "%" + toke.nextToken() + "%";
+
+      or = OR.get(or, personQuery.getFirstName().LIKEi(string), personQuery.getLastName().LIKEi(string));
+    }
+
+    // The person must be a IPT Recipient
+    valueQuery.WHERE(or);
+
+    valueQuery.restrictRows(20, 1);
+
+    return valueQuery;
+  }
+
 }

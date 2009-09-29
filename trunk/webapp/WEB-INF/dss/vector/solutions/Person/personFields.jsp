@@ -13,6 +13,11 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
   </mjl:messages>
   <mjl:component item="${item}" param="person">
     <mjl:input type="hidden" param="personId" value="${item.personId}" />
+    
+    <mjl:input type="hidden" param="isIPTRecipient" value="${item.isIPTRecipient}" />
+    <mjl:input type="hidden" param="isITNRecipient" value="${item.isITNRecipient}" />
+    <mjl:input type="hidden" param="isPatient" value="${item.isPatient}" />
+    
       <mjl:dt attribute="firstName" type="text" />
       <mjl:dt attribute="lastName" type="text"/>      
       <mjl:dt attribute="residentialGeoId" >
