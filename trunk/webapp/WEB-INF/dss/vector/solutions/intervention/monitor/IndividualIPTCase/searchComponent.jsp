@@ -48,68 +48,16 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%=HealthFacilityDTO.CLASS%>*');
 	</mjl:form>
 </dl>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{PersonDTO.CLASS, PersonController.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{PersonDTO.CLASS, PersonController.CLASS, PersonViewDTO.CLASS}))%>
 
 <script type="text/javascript" >
-
 (function(){
 	  YAHOO.util.Event.onDOMReady(function(){
 		  
-   var patientDisplay = document.getElementById('patientDisplay');
-   var patient = document.getElementById('patient');
-
-   var createPatient = document.getElementById('createPatient');
-   var editPatient = document.getElementById('editPatient');
-   var button = document.getElementById('button.id');
-
-   var listFunction = function(valueObject) {
-	    var firstName = '<%=PersonViewDTO.FIRSTNAME%>';
-	    var lastName = '<%=PersonViewDTO.LASTNAME%>';
-	    var dateOfBirth = '<%=PersonViewDTO.DATEOFBIRTH%>';
-	    var location = '<%=PersonViewDTO.RESIDENTIALGEOID%>';
-    	var sex = '<%=PersonViewDTO.SEX%>';
-
-      var formattedDateOfBirth = MDSS.Calendar.getLocalizedString(valueObject.getValue(dateOfBirth));
-
-	    return valueObject.getValue(firstName) + ' ' + valueObject.getValue(lastName) + ' (' + valueObject.getValue(sex) + '), DOB: ' + formattedDateOfBirth;
-    };
-
-    var idFunction = function(valueObject) {
-	    var id = '<%=PersonViewDTO.ID%>';
-
-	    return valueObject.getValue(id);
-    };
-
-    var displayFunction = function(valueObject) {
-	    var firstName = '<%=PersonViewDTO.FIRSTNAME%>';
-	    var lastName = '<%=PersonViewDTO.LASTNAME%>';
-
-	    return valueObject.getValue(firstName) + ' ' + valueObject.getValue(lastName);
-    };
-
-    var searchFunction = Mojo.$.dss.vector.solutions.Person.searchForPerson;
-
-    var selectEventHandler = function() {
-	    MDSS.ElementHandler.hideElement(createPatient);
-	    MDSS.ElementHandler.showElement(editPatient);
-	    button.disabled=false;
-    };
-
-    var showCreatePatient = function() {
-    	MDSS.ElementHandler.hideElement(editPatient);
-    	MDSS.ElementHandler.showElement(createPatient);
-    	button.disabled=true;
-    }
-
- 
-    var search = new MDSS.GenericSearch(patientDisplay, patient, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler);
-
-    YAHOO.util.Event.on(patientDisplay, 'keyup', search.performSearch, search, search);
-    YAHOO.util.Event.on(patientDisplay, 'keyup', showCreatePatient, null, null);
-
-    var modal = new MDSS.PersonModal('recipient.span', patient, 'dateOfBirth');
-
-    showCreatePatient();
+    MDSS.PersonModal.setUpPersonModal(
+    	    { searchEl : 'patientDisplay', idEl : 'patient'},
+    	    { createLink : 'createPatient', editLink : 'editPatient', modalEl : 'recipient.span', calendarEl : 'dateOfBirth'},
+    	    { button : 'button.id'} );
   });
 })();
 </script>

@@ -85,5 +85,66 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
         
         return panel;
     }
+  },
+  
+  Static : {
+	 setUpPersonModal : function(searchConfig, modalConfig, formConfig) {
+	   searchConfig.searchEl = (Mojo.Util.isString(searchConfig.searchEl) ? document.getElementById(searchConfig.searchEl) : searchConfig.searchEl);
+	   searchConfig.idEl = (Mojo.Util.isString(searchConfig.idEl) ? document.getElementById(searchConfig.idEl) : searchConfig.idEl);
+
+	   modalConfig.createLink = (Mojo.Util.isString(modalConfig.createLink) ? document.getElementById(modalConfig.createLink) : modalConfig.createLink);
+	   modalConfig.editLink = (Mojo.Util.isString(modalConfig.editLink) ? document.getElementById(modalConfig.editLink) : modalConfig.editLink);
+
+	   formConfig.button = (Mojo.Util.isString(formConfig.button) ? document.getElementById(formConfig.button) : formConfig.button);
+
+	   var listFunction = function(valueObject) {
+		    var firstName = Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME;
+		    var lastName = Mojo.$.dss.vector.solutions.PersonView.LASTNAME;
+		    var dateOfBirth = Mojo.$.dss.vector.solutions.PersonView.DATEOFBIRTH;
+		    var location = Mojo.$.dss.vector.solutions.PersonView.RESIDENTIALGEOID;
+	    	var sex = Mojo.$.dss.vector.solutions.PersonView.SEX;
+
+	        var formattedDateOfBirth = MDSS.Calendar.getLocalizedString(valueObject.getValue(dateOfBirth));
+
+		    return valueObject.getValue(firstName) + ' ' + valueObject.getValue(lastName) + ' (' + valueObject.getValue(sex) + '), DOB: ' + formattedDateOfBirth;
+	    };
+
+	    var idFunction = function(valueObject) {
+	    	var id = Mojo.$.dss.vector.solutions.PersonView.ID;
+
+		    return valueObject.getValue(id);
+	    };
+
+	    var displayFunction = function(valueObject) {
+		    var firstName = Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME;
+		    var lastName = Mojo.$.dss.vector.solutions.PersonView.LASTNAME;
+
+		    return valueObject.getValue(firstName) + ' ' + valueObject.getValue(lastName);
+	    };
+
+	    var searchFunction = Mojo.$.dss.vector.solutions.Person.searchForPerson;
+
+	    var selectEventHandler = function() {
+		    MDSS.ElementHandler.hideElement(modalConfig.createLink);
+		    MDSS.ElementHandler.showElement(modalConfig.editLink);
+		    formConfig.button.disabled=false;
+	    };
+
+	    var showCreatePatient = function() {
+	    	MDSS.ElementHandler.hideElement(modalConfig.editLink);
+	    	MDSS.ElementHandler.showElement(modalConfig.createLink);
+	    	formConfig.button.disabled=true;
+	    }
+
+	 
+	    var search = new MDSS.GenericSearch(searchConfig.searchEl, searchConfig.idEl, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler);
+
+	    YAHOO.util.Event.on(searchConfig.searchEl, 'keyup', search.performSearch, search, search);
+	    YAHOO.util.Event.on(searchConfig.searchEl, 'keyup', showCreatePatient, null, null);
+
+	    var modal = new MDSS.PersonModal(modalConfig.modalEl, searchConfig.idEl, modalConfig.calendarEl);
+
+	    showCreatePatient();	  
+      }
   }
 });
