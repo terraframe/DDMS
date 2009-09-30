@@ -50,7 +50,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
       this._explorer = new com.terraframe.mojo.inspector.Explorer(this, this._explorerTab, this._explorerContent);
       this._logger = new com.terraframe.mojo.inspector.Logger(this, this._loggerTab, this._loggerContent);
       this._tracer = new com.terraframe.mojo.inspector.Tracer(this, this._tracerTab, this._tracerContent, this._logger);
-
+      
       this._currentContent = this._explorer;
       
       this._rendered = false;
@@ -111,12 +111,14 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
       this._logger.render();
       this._tracer.render();
       
+      /*
       this.addAroundAdvice(this._classRE);
 
       // Capture new classes
       var addNew = Mojo.Util.curry(this.addNewClass, this);
       var capture = new Mojo.aspect.AfterAdvice(/Mojo\.Meta/, /newClass/, addNew, Mojo.aspect.Advice.MATCH_STATIC);
       capture.weave();      
+      */
       
       this._rendered = true;
     },
@@ -734,12 +736,12 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
       // definition
       table = new com.terraframe.mojo.inspector.Table();
       table.setHeaders('Property', 'Value');
-      table.addRow('Package', pckName);
-      table.addRow('Class Name', $class.getName());
-      table.addRow('Abstract', $class.isAbstract());
-      table.addRow('Singleton', $class.isSingleton());
-      table.addRow('Extends', extendsName);
-      table.addRow('Sub Classes', (sublinks.length > 0 ? sublinks.join('<br />') : '&nbsp;'));
+      table.addRow(['Package', pckName]);
+      table.addRow(['Class Name', $class.getName()]);
+      table.addRow(['Abstract', $class.isAbstract()]);
+      table.addRow(['Singleton', $class.isSingleton()]);
+      table.addRow(['Extends', extendsName]);
+      table.addRow(['Sub Classes', (sublinks.length > 0 ? sublinks.join('<br />') : '&nbsp;')]);
       
       html += 'Class Definition:<br />';
       html += table.getHTML();
@@ -1280,6 +1282,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Table', {
     
     getHTML : function(rowsOnly)
     {
+      this._rows.reverse(); // FIXME
       var html = '';
       
       if(!rowsOnly)
