@@ -660,15 +660,29 @@ public abstract class GeoEntity extends GeoEntityBase implements
     return this.getPrunedChildren(Arrays.asList(types));
   }
 
+  public GeoEntityQuery getPrunedChildren(QueryFactory factory, String... types)
+  {
+    return this.getPrunedChildren(Arrays.asList(types), factory);
+  }
+
   /**
    * Gets all children of a GeoEntity, but stops its breadth-first decent when
    * it finds a child which belongs to the given fully qualified types.
    */
   public List<GeoEntity> getPrunedChildren(List<String> types)
   {
-    List<Condition> conditions = new LinkedList<Condition>();
-
     QueryFactory factory = new QueryFactory();
+    
+    GeoEntityQuery geoEntityQuery = getPrunedChildren(types, factory);
+
+    List<GeoEntity> list = new LinkedList<GeoEntity>(geoEntityQuery.getIterator().getAll());
+
+    return list;
+  }
+
+  public GeoEntityQuery getPrunedChildren(List<String> types, QueryFactory factory)
+  {
+    List<Condition> conditions = new LinkedList<Condition>();
     GeoEntityQuery geoEntityQuery = new GeoEntityQuery(factory);
     AllPathsQuery query = new AllPathsQuery(factory);
 
@@ -683,22 +697,33 @@ public abstract class GeoEntity extends GeoEntityBase implements
     query.WHERE(and);
 
     geoEntityQuery.WHERE(geoEntityQuery.getId().EQ(query.getChildGeoEntity().getId()));
-
-    List<GeoEntity> list = new LinkedList<GeoEntity>(geoEntityQuery.getIterator().getAll());
-
-    return list;
+    return geoEntityQuery;
   }
 
   public List<GeoEntity> getPrunedParents(String... types)
   {
     return this.getPrunedParents(Arrays.asList(types));
   }
+  
+  public GeoEntityQuery getPrunedParents(QueryFactory factory, String... types)
+  {
+    return this.getPrunedParents(Arrays.asList(types), factory);
+  }
 
   public List<GeoEntity> getPrunedParents(List<String> types)
   {
-    List<Condition> conditions = new LinkedList<Condition>();
-
     QueryFactory factory = new QueryFactory();
+    
+    GeoEntityQuery geoEntityQuery = getPrunedParents(types, factory);
+
+    List<GeoEntity> list = new LinkedList<GeoEntity>(geoEntityQuery.getIterator().getAll());
+
+    return list;
+  }
+
+  private GeoEntityQuery getPrunedParents(List<String> types, QueryFactory factory)
+  {
+    List<Condition> conditions = new LinkedList<Condition>();
     GeoEntityQuery geoEntityQuery = new GeoEntityQuery(factory);
     AllPathsQuery query = new AllPathsQuery(factory);
 
@@ -713,10 +738,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
     query.WHERE(and);
 
     geoEntityQuery.WHERE(geoEntityQuery.getId().EQ(query.getParentGeoEntity().getId()));
-
-    List<GeoEntity> list = new LinkedList<GeoEntity>(geoEntityQuery.getIterator().getAll());
-
-    return list;
+    return geoEntityQuery;
   }
 
   /**

@@ -58,18 +58,18 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
   {
     return this.getTargetId() != null && !this.getTargetId().equals("");
   }
-  
+
   public void setEntityName(GeoEntity entity)
   {
     String universal = entity.getMdClass().getDisplayLabel(Session.getCurrentLocale());
     String geoEntityName = entity.getEntityName();
-    
-    this.setEntityName(geoEntityName + " (" + universal + ")");    
+
+    this.setEntityName(geoEntityName + " (" + universal + ")");
   }
-  
+
   public void populateView(GeoTarget target)
   {
-    this.setTargetId(target.getId());    
+    this.setTargetId(target.getId());
     this.setGeoEntity(target.getGeoEntity());
     this.setEntityName(target.getGeoEntity());
     this.setSeason(target.getSeason());
@@ -91,6 +91,34 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
         throw new ApplicationException(e);
       }
     }
+  }
+
+  public int getTotal()
+  {
+    int total = 0;
+
+    for (int i = 0; i < 53; i++)
+    {
+      String getterName = "getTarget_" + i;
+
+      try
+      {
+        Method getter = GeoTargetView.class.getMethod(getterName);
+
+        Integer weekTarget = (Integer) getter.invoke(this);
+        
+        if(weekTarget != null)
+        {
+          total += weekTarget;
+        }
+      }
+      catch (Exception e)
+      {
+        throw new ApplicationException(e);
+      }
+    }
+    
+    return total;
   }
 
   @Override
@@ -164,8 +192,8 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
   @Transaction
   public static GeoTargetView[] saveAll(GeoTargetView[] array)
   {
-      GeoTargetView.lockAll(array);
-      GeoTargetView.applyAll(array);
+    GeoTargetView.lockAll(array);
+    GeoTargetView.applyAll(array);
 
     return array;
   }
@@ -176,18 +204,17 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
   {
     GeoTargetView[] views = new GeoTargetView[geoEntityIds.length];
 
-    for(int i = 0; i < geoEntityIds.length; i++)
+    for (int i = 0; i < geoEntityIds.length; i++)
     {
-      views[i] = GeoTarget.findByGeoEntityIdAndSeason(geoEntityIds[i],season);
+      views[i] = GeoTarget.findByGeoEntityIdAndSeason(geoEntityIds[i], season);
     }
 
     return views;
   }
-  
+
   @Override
   public Integer[] getCalculatedTargets()
   {
     return GeoTarget.getCalculatedTargets(this.getGeoEntity().getId(), this.getSeason().getId());
   }
-  
 }

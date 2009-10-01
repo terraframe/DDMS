@@ -39,6 +39,25 @@ MojoGrid.createDataTable = function(table_data) {
 
   table_data.dirty = false;
 
+  // set the save handler
+  if(!table_data.saveHandler) {
+	table_data.saveHandler = function (request, view_array) {
+	  // Get the class which defines the save function
+	  var klass = Mojo.Meta.findClass(table_data.data_type.substring(7));
+	      
+	   // Get the save function
+	  var saveMethod = klass[table_data.saveFunction];
+	      
+	  // Invoke the save method
+	  saveMethod(request, view_array);
+    }
+  }
+
+  // set the default value for disable button
+  if(!Mojo.Util.isBoolean(table_data.cleanDisable)) {
+	  table_data.cleanDisable = true;
+  }
+
 
   // load the data
   myDataSource = new YAHOO.util.DataSource(table_data.rows);
@@ -371,9 +390,21 @@ MojoGrid.createDataTable = function(table_data) {
 
     
   };
+  
+//  // The default handler to use when saving a table
+//  var defaultSaveHandler = function (request, view_array) {
+//	  // Get the class which defines the save function
+//      var klass = Mojo.Meta.findClass(table_data.data_type.substring(7));
+//      
+//      // Get the save function
+//      var saveMethod = klass[table_data.saveFunction];
+//      
+//      // Invoke the save method
+//      saveMethod(request, view_array);      
+//  }
 
   var persistData = function() {
-      // save any open editors before we send the ajax request
+	  // save any open editors before we send the ajax request
       myDataTable.saveCellEditor();
       var request = new MDSS.Request( {
         // success handler for saved rows
@@ -382,16 +413,33 @@ MojoGrid.createDataTable = function(table_data) {
         btnSaveRows : btnSaveRows,
         onSuccess : function(savedRows) {
           if (!table_data.dont_update_on_save) {
-            var id_key = table_data.fields[0].key;
+        	  
+        	// Get the keys of the columns which need to be reloaded
+        	if(!table_data.reloadKeys) {
+        	  table_data.reloadKeys = [table_data.fields[0].key];
+        	}
+        	else {
+        		table_data.reloadKeys.push(table_data.fields[0].key);
+        	}
 
+        	// Refresh the displayed values of the columns specified in 'reloadKeys'
             for( var i = 0; i < savedRows.length; i++) {
-              var id = savedRows[i]["get" + id_key]();
-              this.dataTable.getRecord(i).setData(id_key, id);
-              this.table_data.rows[i][id_key] = id;
+            	var record = this.dataTable.getRecord(i);
+            	var row = this.table_data.rows[i];
+
+            	for(var j = 0; j < table_data.reloadKeys.length; j++) {
+            	  var reloadKey = table_data.reloadKeys[j];
+                  var reloadValue = savedRows[i]["get" + reloadKey]();              
+                  
+                  record.setData(reloadKey, reloadValue);                  
+                  row[reloadKey] = reloadValue;
+            	}
             }
 
             table_data.dirty = false;
-            btnSaveRows.set("disabled", true);
+            
+            btnSaveRows.set("disabled", table_data.cleanDisable);
+            
             this.dataTable.render();
 
             if (table_data.after_save) {
@@ -440,7 +488,16 @@ MojoGrid.createDataTable = function(table_data) {
         }
         view_arr.push(view);
       }
-      eval(table_data.data_type + "." + table_data.saveFunction + '(request,view_arr)');
+
+      // Save the table
+      table_data.saveHandler(request, view_arr);
+      
+//      if(!table_data.saveHandler) {
+//    	  defaultSaveHandler(request, view_arr);
+//      }
+//      else {
+//    	  table_data.saveHandler(request, view_arr);
+//      }
       btnSaveRows.set("disabled", true);
     };
 
@@ -450,8 +507,14 @@ MojoGrid.createDataTable = function(table_data) {
   myDataTable.subscribe("editorSaveEvent", saveSomeData);
 
   if (YAHOO.util.Dom.get('buttons') === null) {
-    var tableDiv = YAHOO.util.Dom.get(table_data.div_id);
+
+	var tableDiv = YAHOO.util.Dom.get(table_data.div_id);
     var buttons = document.createElement('span');
+    
+    if(!table_data.saveLabelKey){
+    	table_data.saveLabelKey = 'Save_Rows_To_DB';
+    }
+    
     buttons.id = table_data.div_id + 'Buttons';
     YAHOO.util.Dom.addClass(buttons, 'noprint');
     YAHOO.util.Dom.addClass(buttons, 'dataTableButtons');
@@ -461,7 +524,7 @@ MojoGrid.createDataTable = function(table_data) {
       buttons.innerHTML += '<button type="button" id="' + table_data.div_id + 'Addrow">' + MDSS.localize('New_Row') + '</button>';
     }
 
-    buttons.innerHTML += '<button type="button" id="' + table_data.div_id + 'Saverows">' + MDSS.localize('Save_Rows_To_DB') + '</button>';
+    buttons.innerHTML += '<button type="button" id="' + table_data.div_id + 'Saverows">' + MDSS.localize(table_data.saveLabelKey) + '</button>';
 
     if (table_data.excelButtons !== false) {
       buttons.innerHTML += '<form method="get" action="excelimport" style="display: inline;"><input type="hidden" name="excelType" value="' + table_data.excelType + '" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Import_Header') + '</button></span></span></form>';

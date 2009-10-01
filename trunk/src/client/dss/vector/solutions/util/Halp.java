@@ -565,7 +565,11 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       {
         buff.add(Halp.generateFormatter(md));
         buff.add(Halp.generateSaveFlag(md));
-        buff.add(Halp.generateEditor(view, attrib, md, setup));
+        
+        if(setup.isEditable())
+        {
+          buff.add(Halp.generateEditor(view, attrib, md, setup));
+        }
       }
 
       return Halp.join(buff);

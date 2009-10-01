@@ -15,14 +15,15 @@
   InsecticideBrandViewDTO brandDTO = new InsecticideBrandViewDTO(clientRequest);
   InsecticideBrandViewDTO[] brandRows = InsecticideBrandViewDTO.getAllActive(clientRequest);
   String[] brandAttributes = {"InsecticdeId", "BrandName", "ActiveIngredient", "Amount", "Weight", "SachetsPerRefill", "Enabled"};
+
   Map<String, ColumnSetup> brandMap = new HashMap<String, ColumnSetup>();
   brandMap.put("InsecticdeId", new ColumnSetup(true, false));
-  brandMap.put("BrandName", new ColumnSetup(false, false, null, null, null));
-  brandMap.put("ActiveIngredient", new ColumnSetup(false, false, null, null, null));
+  brandMap.put("BrandName", new ColumnSetup(false, true, null, null, null));
+  brandMap.put("ActiveIngredient", new ColumnSetup(false, true, null, null, null));
   brandMap.put("Amount", new ColumnSetup(false, true, "validateAmount", null, null));    
-  brandMap.put("Weight", new ColumnSetup(false, false, null, null, null));
-  brandMap.put("SachetsPerRefill", new ColumnSetup(false, false, null, null, null));   
-  brandMap.put("Enabled", new ColumnSetup(false, false, null, null, null));
+  brandMap.put("Weight", new ColumnSetup(false, true, null, null, null));
+  brandMap.put("SachetsPerRefill", new ColumnSetup(false, true, null, null, null));   
+  brandMap.put("Enabled", new ColumnSetup(false, true, null, null, null));
   
   NozzleViewDTO nozzleDTO = new NozzleViewDTO(clientRequest);
   NozzleViewDTO[] nozzleRows = NozzleViewDTO.getAll(clientRequest);
@@ -31,6 +32,11 @@
   InsecticideNozzleViewDTO insecticideNozzleDTO = new InsecticideNozzleViewDTO(clientRequest);
   InsecticideNozzleViewDTO[] insecticideNozzleRows = InsecticideNozzleViewDTO.getAll(clientRequest);
   String[] insecticideNozzleAttributes = {"InsecticideNozzleId", "Brand", "Nozzle", "Enabled"};
+
+  Map<String, ColumnSetup> configurationMap = new HashMap<String, ColumnSetup>();
+  configurationMap.put("InsecticideNozzleId", new ColumnSetup(true, false));
+  configurationMap.put("BrandLabel", new ColumnSetup(true, false));
+  configurationMap.put("NozzleLabel", new ColumnSetup(true, false));
   
   Map<String, String> map = new HashMap<String, String>();
   map.put("Brand", InsecticideBrandViewDTO.class.getName());
@@ -141,7 +147,7 @@
 
     insecticideNozzleData = {
               rows:<%=Halp.getDataMap(insecticideNozzleRows, insecticideNozzleAttributes, insecticideNozzleDTO)%>,
-              columnDefs:<%=Halp.getColumnSetup(insecticideNozzleDTO, insecticideNozzleAttributes, deleteColumn, true)%>,
+              columnDefs:<%=Halp.getColumnSetup(insecticideNozzleDTO, insecticideNozzleAttributes, deleteColumn, true, configurationMap)%>,
               defaults: {"Enabled":"true"},
               copy_from_above: [],
               div_id: "InsecticideNozzle",

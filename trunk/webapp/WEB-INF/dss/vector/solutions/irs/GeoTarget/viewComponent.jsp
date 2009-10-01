@@ -62,7 +62,7 @@ ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientCon
 GeoTargetViewDTO[] rows = (GeoTargetViewDTO[]) request.getAttribute("geoTargetViews");
 String[] attribs = {"TargetId","GeoEntity","EntityName","Season"};
 GeoTargetViewDTO mdView = new GeoTargetViewDTO(clientRequest);
-GeoTargetDTO item = (GeoTargetDTO) request.getAttribute("item");
+GeoTargetViewDTO item = (GeoTargetViewDTO) request.getAttribute("item");
 
 
 String delete_row = "";

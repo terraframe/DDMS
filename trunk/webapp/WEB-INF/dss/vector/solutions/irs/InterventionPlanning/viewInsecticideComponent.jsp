@@ -1,0 +1,122 @@
+<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
+<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
+<%@page import="dss.vector.solutions.util.Halp"%>
+
+<%@page import="dss.vector.solutions.general.MalariaSeasonDTO"%>
+<%@page import="dss.vector.solutions.irs.TimeInterventionPlanningViewDTO"%>
+<%@page import="dss.vector.solutions.irs.InterventionPlanningController"%>
+<%@page import="java.util.Map"%>
+<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="dss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO"%>
+
+
+<%@page import="dss.vector.solutions.irs.InterventionPlanningViewDTO"%><c:set var="page_title" value="Insecticide_Intervention_Planning"  scope="request"/>
+
+<mjl:messages>
+  <mjl:message />
+</mjl:messages>
+
+<%
+ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+
+InsecticideInterventionPlanningViewDTO view = (InsecticideInterventionPlanningViewDTO) request.getAttribute(InterventionPlanningController.ITEM);
+InsecticideInterventionPlanningViewDTO[] rows = (InsecticideInterventionPlanningViewDTO[]) request.getAttribute(InterventionPlanningController.VIEWS);
+
+String[] attributes = {"Id", "GeoEntity", "EntityLabel", "Season", "Targets", "RequiredInsecticide"};
+
+String deleteColumn = "";
+%>
+
+<dl>
+  <dt>
+    <label>
+      ${item.geoEntityMd.displayLabel}
+    </label>
+  </dt>
+  <dd>
+     ${item.geoEntity.displayString} 
+  </dd>
+  <dt>
+    <label>
+      ${item.seasonMd.displayLabel}
+      <span class="formatDate"> ${item.season.startDate} </span>
+      -
+      <span class="formatDate"> ${item.season.endDate} </span>
+    </label>
+  </dt>
+  <dd>
+    ${item.season.seasonName}
+  </dd>
+  <dt></dt>
+  <dd>
+    <mjl:form name="InterventionPlanning.setUnits.mojo" method="POST">
+      <fmt:message key="Configurations"/>
+      <mjl:select valueAttribute="insecticideNozzleId" param="configuration" var="current" items="${configurations}" id="configuration.id">
+        <mjl:option>
+          ${current.brandLabel} - ${current.nozzleLabel}
+        </mjl:option>
+      </mjl:select>
+    </mjl:form>
+  </dd>
+</dl>
+<div id="InterventionPlanning"></div>
+
+<br />
+<mjl:commandLink  action="dss.vector.solutions.irs.InterventionPlanningController.search.mojo" name="search.link" >
+  <fmt:message key="Back_To_Search"/>
+</mjl:commandLink>
+
+<%=Halp.loadTypes(Arrays.asList(new String[]{InterventionPlanningViewDTO.CLASS, InsecticideInterventionPlanningViewDTO.CLASS, InterventionPlanningController.CLASS}))%>
+<%
+Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+map.put("Id", new ColumnSetup(true, false));
+map.put("GeoEntity", new ColumnSetup(true, false));
+map.put("EntityLabel", new ColumnSetup(false, false));
+map.put("Season", new ColumnSetup(true, false));
+map.put("SeasonLabel", new ColumnSetup(true, false));
+map.put("RequiredInsecticide", new ColumnSetup(false, false));
+%>
+
+<script type="text/javascript">
+
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){ 
+    <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
+    
+    var configuration = document.getElementById('configuration.id');    
+
+    var saveHandler = function(request, view_array) {
+      // Invoke the save method
+      var configurationId = configuration.value;
+        
+      if(Mojo.Util.isString(configurationId)) {
+        Mojo.$.<%=InsecticideInterventionPlanningViewDTO.CLASS%>.calculate(request, view_array, configurationId);          
+      }
+    };
+    
+    var data = {
+      rows:<%=Halp.getDataMap(rows, attributes, view)%>,
+      columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
+      defaults: {},
+      div_id: "InterventionPlanning",
+      data_type: "Mojo.$.<%=InsecticideInterventionPlanningViewDTO.CLASS%>",
+      saveFunction:"calculate",
+      excelButtons:false,
+      addButton:false,
+      reloadKeys : ["RequiredInsecticide"],
+      saveLabelKey : 'Calculate',
+      saveHandler : saveHandler,
+      cleanDisable : false
+    };        
+
+    document.addEventListener('load', MojoGrid.createDataTable(data), false);
+  });
+})();
+        
+</script>

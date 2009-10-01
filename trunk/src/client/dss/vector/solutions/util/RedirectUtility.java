@@ -55,6 +55,9 @@ public class RedirectUtility implements Reloadable
     URLUtility utility = new URLUtility(url, map);      
     ErrorUtility.addErrorMessages(req, utility);
     
-    resp.sendRedirect(utility.getURL());    
+    if(!resp.isCommitted())
+    {
+      resp.sendRedirect(utility.getURL());    
+    }    
   }
 }

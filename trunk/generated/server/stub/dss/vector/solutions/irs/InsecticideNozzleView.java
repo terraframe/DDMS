@@ -18,10 +18,15 @@ public class InsecticideNozzleView extends InsecticideNozzleViewBase implements 
 
   public void populateView(InsecticideNozzle insecticideNozzle)
   {
-    this.setBrand(insecticideNozzle.getParent());
-    this.setNozzle(insecticideNozzle.getChild());
+    InsecticideBrand brand = insecticideNozzle.getParent();
+    Nozzle nozzle = insecticideNozzle.getChild();
+
+    this.setBrand(brand);
+    this.setNozzle(nozzle);
     this.setEnabled(insecticideNozzle.getEnabled());
     this.setInsecticideNozzleId(insecticideNozzle.getId());
+    this.setBrandLabel(brand.getBrandName());
+    this.setNozzleLabel(nozzle.getDisplayLabel());
   }
 
   public void populateConcrete(InsecticideNozzle insecticideNozzle)

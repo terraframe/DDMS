@@ -54,7 +54,7 @@ public class GeoTargetController extends GeoTargetControllerBase implements
 
       String[] array = geoEntityIds.toArray(new String[geoEntityIds.size()]);
 
-      GeoTargetDTO item = new GeoTargetDTO(clientRequest);
+      GeoTargetViewDTO item = new GeoTargetViewDTO(clientRequest);
       item.setSeason(season);
       item.setGeoEntity(geoEntity);
 

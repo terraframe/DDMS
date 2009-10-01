@@ -4,17 +4,17 @@ public interface PropertyInfo
 {
   public static final String GENERAL_PACKAGE         = "dss.vector.solutions";
 
-  public static final String SYSTEM_PACKAGE          = GENERAL_PACKAGE+".system";
+  public static final String SYSTEM_PACKAGE          = GENERAL_PACKAGE + ".system";
 
-  public static final String INSTALL_PACKAGE         = SYSTEM_PACKAGE+".install";
+  public static final String INSTALL_PACKAGE         = SYSTEM_PACKAGE + ".install";
 
-  public static final String EPI_WEEK_PACKAGE        = GENERAL_PACKAGE+".surveillance.EpiWeek";
+  public static final String EPI_WEEK_PACKAGE        = GENERAL_PACKAGE + ".surveillance.EpiWeek";
 
-  public static final String STANDARDS_PACKAGE       = GENERAL_PACKAGE+".irs.Standards";
+  public static final String STANDARDS_PACKAGE       = GENERAL_PACKAGE + ".irs.Standards";
 
-  public static final String RESISTANCE_PACKAGE      = GENERAL_PACKAGE+".entomology.ResistantanceCutOff";
+  public static final String RESISTANCE_PACKAGE      = GENERAL_PACKAGE + ".entomology.ResistantanceCutOff";
 
-  public static final String GEO_PACKAGE             = GENERAL_PACKAGE+".geo";
+  public static final String GEO_PACKAGE             = GENERAL_PACKAGE + ".geo";
 
   public static final String ADULT_DDA_RESISTANCE    = "aDDAR";
 
@@ -36,12 +36,14 @@ public interface PropertyInfo
 
   public static final String DATE_FORMAT             = "dateFormat";
 
-  public static final String SYSTEM_DATE_FORMAT       = "systemDateFormat";
+  public static final String SYSTEM_DATE_FORMAT      = "systemDateFormat";
 
   public static final String SHORT_ID_COUNTER        = "SHORT_ID_COUNTER";
 
   public static final String SHORT_ID_OFFSET         = "SHORT_ID_OFFSET";
 
   public static final String SHORT_ID_SEGMENTS       = "SHORT_ID_SEGMENTS";
+
+  public static final String DEFAULT_UNITS           = "sprayedUnitsPerDay";
 
 }

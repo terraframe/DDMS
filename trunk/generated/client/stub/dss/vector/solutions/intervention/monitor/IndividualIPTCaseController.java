@@ -3,17 +3,21 @@ package dss.vector.solutions.intervention.monitor;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
+import dss.vector.solutions.RequiredAttributeProblemDTO;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -67,14 +71,14 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", view.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    
+
     String sortAttribute = IndividualIPTViewDTO.ADMINISTRATORNAME;
     Boolean isAscending = false;
     Integer pageSize = 20;
     Integer pageNumber = 1;
 
     ClientRequestIF request = this.getClientRequest();
-    
+
     req.setAttribute("query", IndividualIPTViewDTO.getCaseInstances(request, sortAttribute, isAscending, pageSize, pageNumber, view.getConcreteId()));
     req.setAttribute("item", view);
     render("viewComponent.jsp");
@@ -84,22 +88,22 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   {
     this.viewAll();
   }
-  
+
   @Override
   public void newInstance(String patientId) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
 
     PersonViewDTO view = PersonDTO.getView(clientRequest, patientId);
-    
+
     IndividualIPTCaseViewDTO dto = new IndividualIPTCaseViewDTO(clientRequest);
     dto.setValue(IndividualIPTCaseViewDTO.PATIENT, view.getPersonId());
     dto.setResidentialLocation(view.getResidentialGeoId());
-    
+
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
-  
+
   @Override
   public void failNewInstance(String patientId) throws IOException, ServletException
   {
@@ -134,7 +138,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   public void edit(String id) throws IOException, ServletException
   {
     IndividualIPTCaseDTO dto = IndividualIPTCaseDTO.lock(super.getClientRequest(), id);
-    
+
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -222,10 +226,14 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   {
     resp.sendError(500);
   }
-  
+
   @Override
   public void viewCasePage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, Date serviceDate, String patientId) throws IOException, ServletException
   {
+    try
+    {
+    validateParameters(serviceDate, patientId);
+    
     ClientRequestIF request = this.getClientRequest();
 
     IndividualIPTCaseViewDTO[] cases = IndividualIPTCaseViewDTO.searchCases(request, serviceDate, patientId);
@@ -237,11 +245,52 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     req.setAttribute("cases", Arrays.asList(cases));
 
     render("viewAllComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      String date = (serviceDate == null) ? null : new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
+      
+      this.failViewCasePage(null, null, null, null, date, patientId);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      
+      String date = (serviceDate == null) ? null : new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
+      
+      this.failViewCasePage(null, null, null, null, date, patientId);
+    }
+  }
+  
+  @Override
+  public void failViewCasePage(String sortAttribute, String isAscending, String pageSize, String pageNumber, String serviceDate, String patientId) throws IOException, ServletException
+  {
+    this.search();
   }
 
-  public void failViewCasePage(String sortAttribute, String isAscending, String pageSize, String pageNumber, String facility, String serviceDate, String age, String patientId) throws IOException,
-      ServletException
+  private void validateParameters(Date serviceDate, String patientId)
   {
-    resp.sendError(500);
+    List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
+
+    if (serviceDate == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredServiceDateProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if (patientId == null || patientId.equals(""))
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+
+      problems.add(new RequiredAttributeProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if (problems.size() > 0)
+    {
+      throw new ProblemExceptionDTO("", problems);
+    }
   }
+
 }

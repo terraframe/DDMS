@@ -193,10 +193,15 @@ Mojo.Meta.newClass('MDSS.SelectElementCondition', {
 
 Mojo.Meta.newClass('MDSS.ElementHandler', {
   Instance: {
-    initialize: function(condition, elements) {
+    initialize: function(condition, elements, clearValue) {
       // Constructor code
-	  this.condition = condition;
-      this.elements = elements;       // When option set to some condition these elements are set to element.display = '', otherwise it is set to element.display = 'none'
+      this.condition = condition;
+      
+      // elements: When option set to some condition these elements are set to element.display = '', otherwise it is set to element.display = 'none'
+      this.elements = elements;       
+
+      // clearValue: Optional flag denoting if the element.value should be cleared when the element is hidden
+      this.clearValue = (Mojo.Util.isBoolean(clearValue)) ? clearValue : true;
           
       // Finally we need to set the initial state of the elements
       this.optionHandler();
@@ -210,6 +215,10 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
     getCondition : function () {
       return this.condition;
     },
+    
+    getClearValue : function () {
+      return this.clearValue;
+    },
                       
     optionHandler : function () {
       if(this.getCondition())
@@ -220,7 +229,7 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
         }
         else
         {
-          this.constructor.toggleElements(this.getElements(), this.constructor.hideElement);
+          this.constructor.toggleElements(this.getElements(), this.constructor.hideElement, this.getClearValue());
         }
       }
     }    
@@ -228,10 +237,10 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
   
   Static:
   {
-	hideElement : function (obj) {
+	hideElement : function (obj, clearValue) {
       // When hiding an element clear out the existing value so that when the form
       // submits occurs hidden elements do not have values assigned to them
-      if(obj.value) {
+      if(obj.value && clearValue) {
     	  obj.value = '';
       }
       
@@ -246,23 +255,23 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
       obj.style.display = "inline";
     },
     
-    toggleElements : function (list, func) {
+    toggleElements : function (list, func, param) {
       if(list && func)
       {
         for(i in list) {
-          func(list[i]);
+          func(list[i], param);
         }
       }
     },
     
-    setupBooleanHandler : function (conditionElement, trigger, elements) {
+    setupBooleanHandler : function (conditionElement, trigger, elements, clearValue) {
     	conditionElement = MDSS.ElementHandler.getElement(conditionElement);
     	
     	if(Mojo.Util.isString(elements)) {
     		elements = YAHOO.util.Selector.query('.' + elements);
     	}
     		
-    	var handler = new MDSS.ElementHandler(new MDSS.RadioElementCondition(conditionElement, true), elements);
+    	var handler = new MDSS.ElementHandler(new MDSS.RadioElementCondition(conditionElement, true), elements, clearValue);
 
     	MDSS.ElementHandler.addEventListener(conditionElement, handler);
     	MDSS.ElementHandler.addEventListener(trigger, handler);
@@ -326,6 +335,9 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
       this.searchFunction = searchFunction;          // AJAX function which calls a static method on the server
       
       this.panel = MDSS.GenericSearch.initializePanel(displayElement);  // Result panel
+
+      // Disable the browser autocomplete function for the element we provide an auto-complete
+      this.displayElement.setAttribute("autocomplete", "off");
     },
     
     getDisplayElement : function() {

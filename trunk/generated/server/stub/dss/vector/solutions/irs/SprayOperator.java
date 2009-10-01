@@ -13,6 +13,9 @@ import com.terraframe.mojo.query.ValueQuery;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.UniqueOperatorIdException;
+import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.geo.generated.SprayZone;
 
 public class SprayOperator extends SprayOperatorBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -166,6 +169,24 @@ public class SprayOperator extends SprayOperatorBase implements
     {
       iterator.close();
     }
+  }
+
+  public static int getAvailableOperators(GeoEntity location)
+  {
+    QueryFactory factory = new QueryFactory();
+    
+    GeoEntityQuery parentSprayZones = location.getPrunedParents(factory, SprayZone.CLASS);
+    GeoEntityQuery childSprayZones = location.getPrunedChildren(factory, SprayZone.CLASS);
+
+    SprayTeamQuery teamQuery = new SprayTeamQuery(factory);
+    teamQuery.WHERE(teamQuery.getSprayZone().EQ(location));
+    teamQuery.OR(teamQuery.getSprayZone().EQ(parentSprayZones));
+    teamQuery.OR(teamQuery.getSprayZone().EQ(childSprayZones));
+
+    SprayOperatorQuery operatorQuery = new SprayOperatorQuery(factory);
+    operatorQuery.WHERE(operatorQuery.sprayTeam(teamQuery));
+    
+    return (int) operatorQuery.getCount();
   }
   
 }
