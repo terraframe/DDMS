@@ -170,13 +170,16 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       term.applyWithParent(request, parentId, false);
     },
     
+    /**
+     * Sets the values on a new instance of Term
+     * based on the scraped parameter values from a form.
+     */
     _getTermFromParams : function(params)
     {
       var term = new this._Term();
       term.setTermName(params['dto.termName']);
       term.setTermId(params['dto.termId']);
       term.setTermComment(params['dto.termComment']);
-      term.setOntology(params['dto.ontology'][0]); // FIXME might not be needed
       term.setDescription(params['dto.description']);
       term.setObsolete(params['dto.obsolete']);
       
@@ -390,7 +393,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
           width: (useSmall ? '300px' : '400px'),
           height: (useSmall ? '200px' : '400px'),
           fixedcenter:true,
-          close: false,
+          close: useSmall || false,
           draggable:false,
           zindex:4,
           modal:true,

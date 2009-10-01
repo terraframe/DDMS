@@ -129,7 +129,8 @@ public class BrowserRootController extends BrowserRootControllerBase implements
       String termId = term.getTermId();
       
       req.setAttribute("termName", name);
-      req.setAttribute("termId", termId);
+      req.setAttribute("termOntologyId", termId);
+      req.setAttribute("termId", term.getId());
       
       render("editComponent.jsp");
     }

@@ -7,11 +7,11 @@
     <div id="${item.id}_termName" class="autosize" style="height:15px; margin-left:70px; padding:3px; width:280px; background-color: white; border:1px solid black">
       <div>
       <c:if test="${termName != null}">
-        ${termName} (${termId})
+        ${termName} (${termOntologyId})
       </c:if>
       </div>
     </div>
-    <mjl:input type="hidden" param="term" id="${item.id}_term" />
+    <mjl:input type="hidden" param="term" id="${item.id}_term" value="${termId}" />
   </mjl:dt>
   <mjl:dt attribute="selectable">
     <mjl:boolean param="selectable" />

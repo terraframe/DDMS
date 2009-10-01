@@ -104,6 +104,8 @@ public abstract class Term extends TermBase implements com.terraframe.mojo.gener
   @Override
   public TermView applyWithParent(String parentTermId, Boolean cloneOperation)
   {
+    Term parent = Term.get(parentTermId);
+
     boolean isNew = this.isNew();
     if (isNew)
     {
@@ -160,13 +162,12 @@ public abstract class Term extends TermBase implements com.terraframe.mojo.gener
             + "].";
         DuplicateParentException e = new DuplicateParentException(error);
         e.setChildTerm(this.toString());
-        e.setParentTerm(this.toString());
+        e.setParentTerm(parent.toString());
 
         throw e;
       }
     }    
     
-    Term parent = Term.get(parentTermId);
     this.addIsA(parent).apply();
 
     TermViewQuery query = getByIds(new String[]{this.getId()});

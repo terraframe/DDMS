@@ -91,16 +91,6 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       this._currentBrowserInput = params['dto.componentId']+this.constructor.TERM_SUFFIX;
       this._currentBrowserDisplay = params['dto.componentId']+this.constructor.TERMNAME_SUFFIX;
 
-      if(this._sharedBrowser.isRendered())
-      {
-        this._sharedBrowser.reset();
-        this._sharedBrowser.show();
-      }
-      else
-      {
-        this._sharedBrowser.render();
-      }
-      
       // set the default selection (if it exists)
       var termId = document.getElementById(this._currentBrowserInput).value;
       var selected = [];
@@ -108,7 +98,20 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       {
         selected.push(termId); 
       }
-      this._sharedBrowser.setSelection(selected); 
+
+      if(this._sharedBrowser.isRendered())
+      {
+        this._sharedBrowser.reset();
+        this._sharedBrowser.show();
+        this._sharedBrowser.setSelection(selected); 
+      }
+      else
+      {
+        this._sharedBrowser.render();
+        this._sharedBrowser.setSelection(selected); 
+      }
+      
+      
     },
     
     _setField : function(selected)

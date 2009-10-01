@@ -7,13 +7,6 @@
   <mjl:dt attribute="obsolete">
     <mjl:boolean param="obsolete" />
   </mjl:dt>
-  <mjl:dt attribute="ontology">
-    <mjl:select var="current" valueAttribute="id" items="${ontology}" param="ontology">
-      <mjl:option>
-        ${current.id}
-      </mjl:option>
-    </mjl:select>
-  </mjl:dt>
   <mjl:dt attribute="termComment">
     <mjl:input type="text" param="termComment" />
   </mjl:dt>
