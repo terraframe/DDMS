@@ -101,11 +101,11 @@ YAHOO.util.Event.onDOMReady(function(){
        var row = {};
        if(attrib){
          row.attributeName = attrib.attributeName;
-         if(attrib.dtoType === 'AttributeReferenceDTO')
+         if(attrib.dtoType.contains('AttributeReferenceDTO'))
          {
            row.attributeName += '.displayLabel.currentValue';
          }
-         if(attrib.dtoType === 'AttributeEnumerationDTO')
+         if(attrib.dtoType.contains('AttributeEnumerationDTO'))
          {
            row.attributeName += '.displayLabel.currentValue';
          }
