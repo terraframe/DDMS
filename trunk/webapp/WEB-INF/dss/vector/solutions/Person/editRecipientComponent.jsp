@@ -32,13 +32,13 @@
         </mjl:select>
       </mjl:dt>            
       <mjl:dt attribute="residentialGeoId" >
-        <mjl:input id="geoIdEl" param="residentialGeoId" type="text" value="${item.residentialGeoId}" maxlength="16" classes="geoInput"/>
+        <mjl:input id="residentialGeoId" param="residentialGeoId" type="text" value="${item.residentialGeoId}" maxlength="16" classes="geoInput"/>
       </mjl:dt>
       <mjl:dt attribute="residentialInformation">
         <mjl:input type="text" param="residentialInformation" />
       </mjl:dt>
       <mjl:dt attribute="workGeoId" >
-        <mjl:input id="geoIdEl" param="residentialGeoId" type="text" value="${item.residentialGeoId}" maxlength="16" classes="geoInput"/>
+        <mjl:input id="workGeoId" param="workGeoId" type="text" value="${item.residentialGeoId}" maxlength="16" classes="geoInput"/>
       </mjl:dt>
       <mjl:dt attribute="workInformation">
         <mjl:input type="text" param="workInformation" />
