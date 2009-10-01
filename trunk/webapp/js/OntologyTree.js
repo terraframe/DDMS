@@ -371,7 +371,9 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       });
     
       var termId = this._selectedNode.data.termId;
-      Mojo.Facade.deleteEntity(request, termId);
+      var parentId = this._selectedNode.parent.data.termId;
+      
+      this._Term.confirmDeleteTerm(request, termId, parentId);
     },
     
     /**

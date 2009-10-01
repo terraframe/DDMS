@@ -13,6 +13,7 @@ import java.util.Set;
 
 import com.terraframe.mojo.business.Business;
 import com.terraframe.mojo.business.BusinessFacade;
+import com.terraframe.mojo.constants.MdBusinessInfo;
 import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.dataaccess.InvalidIdException;
 import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
@@ -164,6 +165,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
   {
     QueryFactory f = new QueryFactory();
 
+    MdBusinessQuery mdQ = new MdBusinessQuery(f);
     GeoEntityQuery q;
     if (type == null || type.trim().length() == 0)
     {
@@ -186,11 +188,13 @@ public abstract class GeoEntity extends GeoEntityBase implements
     ValueQuery valueQuery = new ValueQuery(f);
 
     Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID),
-        q.getEntityName(GeoEntity.ENTITYNAME) };
+        q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), 
+        mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL) };
     valueQuery.SELECT(selectables);
 
     String searchable = name + "%";
     valueQuery.WHERE(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable));
+    valueQuery.AND(mdQ.getId().EQ(q.getMdClassIF().getId()));
 
     valueQuery.restrictRows(20, 1);
 
@@ -207,6 +211,8 @@ public abstract class GeoEntity extends GeoEntityBase implements
   public static ValueQuery searchByEntityNameOrGeoId(String type, String name)
   {
     QueryFactory f = new QueryFactory();
+    
+    MdBusinessQuery mdQ = new MdBusinessQuery(f);
     GeoEntityQuery q;
 
     if (type == null || type.trim().length() == 0)
@@ -230,7 +236,9 @@ public abstract class GeoEntity extends GeoEntityBase implements
     ValueQuery valueQuery = new ValueQuery(f);
 
     Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID),
-        q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE) };
+        q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE),
+        mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL)};
+    
     valueQuery.SELECT(selectables);
 
     String searchable = name + "%";
@@ -239,6 +247,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
         searchable));
 
     valueQuery.WHERE(or);
+    valueQuery.AND(mdQ.getId().EQ(q.getMdClassIF().getId()));
 
     valueQuery.restrictRows(20, 1);
 
@@ -262,7 +271,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Throws an exception to alert the user before they try to delete an entity
-   * with more than on parent. If the entity only has one parent, then entity is
+   * with more than one parent. If the entity only has one parent, then entity is
    * deleted as normal.
    */
   @Override

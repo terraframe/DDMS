@@ -77,7 +77,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
 	      if(currentgeoEntityIdInput) {
 	        currentgeoEntityIdInput.value = selected.getGeoEntityId();
 	      }
-	      geoInfo.innerHTML = selected.getEntityName() + ' (' + selected.getTypeDisplayLabel()+ ')';
+	      geoInfo.innerHTML = this.constructor.formatDisplay(selected);
 	    }
 
       if(valid)
@@ -102,7 +102,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
     _updateSelection : function(geoEntityView)
     {
       var div = document.getElementById(this._CURRENT_SELECTION);
-      div.innerHTML = geoEntityView.getEntityName() + ' ('+geoEntityView.getGeoId()+')';
+      div.innerHTML = this.constructor.formatDisplay(geoEntityView);
 
       this._currentSelection = geoEntityView;
     },
@@ -281,7 +281,8 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
     
     _listFunction : function(valueObj)
     {
-      return valueObj.getValue(this._entityNameAttr) + ' - ' + valueObj.getValue(this._geoIdAttr);
+      return MDSS.AbstractSelectSearch.formatDisplay2(valueObj.getValue(this._entityNameAttr),
+        valueObj.getValue('displayLabel'), valueObj.getValue(this._geoIdAttr));
     },
     
     _idFunction : function(valueObj)
@@ -325,7 +326,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
 	      if(currentgeoEntityIdInput) {
 	        currentgeoEntityIdInput.value = selected.getGeoEntityId();
 	      }
-	      geoInfo.innerHTML = selected.getEntityName() + ' (' + selected.getTypeDisplayLabel()+ ')';
+	      geoInfo.innerHTML = MDSS.AbstractSelectSearch.formatDisplay(selected);
 	    }
 
       if(valid)

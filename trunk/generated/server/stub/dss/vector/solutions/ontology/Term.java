@@ -1,5 +1,6 @@
 package dss.vector.solutions.ontology;
 
+import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
@@ -7,11 +8,7 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
-import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.geo.DuplicateParentException;
-import dss.vector.solutions.geo.LocatedInException;
-import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.query.ActionNotAllowedException;
 
 public abstract class Term extends TermBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -47,6 +44,28 @@ public abstract class Term extends TermBase implements com.terraframe.mojo.gener
     ex.setParentTerm(parent.toString());
     
     throw ex;
+  }
+  
+  /**
+   * Throws an exception to alert the user before they try to delete a Term.
+   *
+   * @throws ConfirmDeleteTermException If the Term has more than one parent.
+   * @throws 
+   */
+  @Override
+  public void confirmDeleteTerm(String parentId)
+  {
+    // V1 Restriction
+    throw new ActionNotAllowedException();
+
+    /*
+     * List<GeoEntity> parents = this.getImmediateParents(); if (parents.size()
+     * > 1) { GeoEntity parent = GeoEntity.get(parentId);
+     * ConfirmDeleteEntityException ex = new ConfirmDeleteEntityException();
+     * ex.setEntityName(parent.getEntityName());
+     *
+     * throw ex; } else { this.delete(); }
+     */
   }
   
   public String toString()
@@ -94,12 +113,11 @@ public abstract class Term extends TermBase implements com.terraframe.mojo.gener
     // make sure a child cannot be applied to itself
     if (this.getId().equals(parentTermId))
     {
-//      String error = "The child [" + this.getEntityName() + "] cannot be its own parent.";
-//
-//      LocatedInException e = new LocatedInException(error);
-//      e.setEntityName(this.getEntityName());
-//      e.setParentDisplayLabel(this.getEntityName());
-//      throw e;
+      String error = "The Term [" + this + "] cannot be its own parent.";
+
+      SameChildParentTermException e = new SameChildParentTermException(error);
+      e.setTerm(this.toString());
+      throw e;
     }
 
     if (!cloneOperation)
@@ -141,8 +159,8 @@ public abstract class Term extends TermBase implements com.terraframe.mojo.gener
         String error = "The child [" + childDL + "] already has a direct relationship with parent [" + parentDL
             + "].";
         DuplicateParentException e = new DuplicateParentException(error);
-        e.setChildEntityName(childDL);
-        e.setParentEntityName(parentDL);
+        e.setChildTerm(this.toString());
+        e.setParentTerm(this.toString());
 
         throw e;
       }

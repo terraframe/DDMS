@@ -579,17 +579,23 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
   
           }, {input: this.input, panel: this.resultPanel}, this.searchRef);
   
-          var idAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ID;
-          var entityNameAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME;
+          var GeoEntity = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity;
+          var idAttr = GeoEntity.ID;
+          var entityNameAttr = GeoEntity.ENTITYNAME;
+          var geoIdAttr = GeoEntity.GEOID;
           for(var i=0; i<resultSet.length; i++)
           {
             var valueObj = resultSet[i];
   
             var li = document.createElement('li');
             li.id = valueObj.getValue(idAttr);
-            var entityName = valueObj.getValue(entityNameAttr);
-            var matched = entityName.replace(new RegExp("(.*?)("+this.searchValue+")(.*?)", "gi"),
+            var display = MDSS.AbstractSelectSearch.formatDisplay2(valueObj.getValue(entityNameAttr),
+              valueObj.getValue('displayLabel'), valueObj.getValue(geoIdAttr));
+        
+            var matched = display.replace(new RegExp("(.*?)("+this.searchValue+")(.*?)", "gi"),
               "$1<span class='searchMatch'>$2</span>$3");
+              
+              
             li.innerHTML = matched;
   
             ul.appendChild(li);
@@ -830,6 +836,19 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     SelectSearchRootId : null, // must be set before instantiating a subclass.
     ExtraUniversals : [], // must be set before instantiating a subclass.
     Political : true,
-    SprayTargetAllowed : false 
+    SprayTargetAllowed : false,
+    
+    /**
+     * Formats the given GeoEntityView to a standardized string.
+     */
+    formatDisplay : function(geoEntity)
+    {
+      return MDSS.AbstractSelectSearch.formatDisplay2(geoEntity.getEntityName(), geoEntity.getTypeDisplayLabel(), geoEntity.getGeoId());
+    },
+    
+    formatDisplay2 : function(entityName, typeDisplayLabel, geoId)
+    {
+      return entityName + ' ('+typeDisplayLabel+') - ' + geoId;
+    }
   }
 });

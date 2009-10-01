@@ -142,7 +142,7 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       YAHOO.util.Event.on(del, 'click', this._deleteSelection, liId, this);
   
       var span = document.createElement('span');
-      span.innerHTML = geoEntityView.getEntityName() + ' ('+geoEntityView.getGeoId()+')';
+      span.innerHTML = this.constructor.formatDisplay(geoEntityView);
   
       var div = document.createElement('div');
       div.appendChild(del);
