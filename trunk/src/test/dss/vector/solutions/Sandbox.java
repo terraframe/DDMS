@@ -5,7 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
+import com.terraframe.mojo.ClientSession;
+import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.BusinessQuery;
 import com.terraframe.mojo.constants.ComponentInfo;
 import com.terraframe.mojo.constants.RelationshipInfo;
@@ -15,6 +18,8 @@ import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.system.metadata.MdBusiness;
@@ -23,6 +28,9 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.ontology.BrowserRoot;
+import dss.vector.solutions.ontology.TermQuery;
+import dss.vector.solutions.ontology.TermRelationshipQuery;
 import dss.vector.solutions.util.GeoEntitySearcher;
 
 public class Sandbox
@@ -33,9 +41,30 @@ public class Sandbox
 
   public static void main(String[] args) throws Exception
   {
-    testNoLogin();
+    
+    
+//    testNoLogin();
+try
+{
+    ClientSession session = ClientSession.createUserSession("MDSS", "mdsstest2", Locale.ENGLISH);
+    gogo(session.getSessionId(), session);
+//    OntologyDefinitionDTO od = new OntologyDefinitionDTO(session.getRequest());
+//    od.setOntologyName("MO");
+//    od.setNamespace("dss.vector.solutions.ontology");
+//    od.apply();
+    
 
-    // test(ClientSession.createUserSession("MDSS", "mdsstest2", Locale.ENGLISH).getSessionId());
+    
+    
+}
+catch(ProblemExceptionDTO e)
+{
+  for(String m : e.getProblemMessages())
+  {
+    System.out.println(m);
+  }
+}
+    
     //
     // String temp = "CaseTreatmentStock_SP_TreatmentGrid";
     //
@@ -80,6 +109,20 @@ public class Sandbox
     // queryAggregatedCases();
 
     // testAllPaths();
+  }
+  
+  @StartSession
+  private static void gogo(String sessionId, ClientSession session)
+  {
+    
+    try
+    {
+
+    }
+    catch(Throwable t)
+    {
+      t.printStackTrace();
+    }
   }
 
   @StartSession

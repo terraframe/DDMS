@@ -36,15 +36,15 @@ YAHOO.util.Event.onDOMReady(function() {
 <c:forEach items="${fields}" var="field">
 
  <dt>
-    <button value="${field.browserFieldId}" class="addRootBtn">Add Root</button>  ${field.mdClassLabel} : ${field.mdAttributeLabel}
+    <button value="${field.browserFieldId}" class="addRootBtn"><fmt:message key="Add_Root" /></button>  ${field.mdClassLabel} : ${field.mdAttributeLabel}
  </dt> 
  <dd>
    <table id="${field.browserFieldId}_table" cellpadding="3" cellspacing="0" border="1" class="ontologyFields">
-     <tr><th>Term</th><th>Selectable</th><th><fmt:message key="Edit" /></th><th><fmt:message key="Delete" /></th></tr>
+     <tr><th><fmt:message key="Term" /></th><th><fmt:message key="Selectable" /></th><th><fmt:message key="Edit" /></th><th><fmt:message key="Delete" /></th></tr>
      
      <c:forEach items="${rootMap[field.mdAttributeId]}" var="root">
        <tr id="${root.browserRootId}_row">
-         <td>${root.termName}</td>
+         <td>${root.termName} (${root.termOntologyId})</td>
          <td>${root.selectable}</td>
          <td><button class="editRootBtn" value="${root.browserRootId}"><fmt:message key="Edit" /></button></td>
          <td><button class="deleteRootBtn" value="${root.browserRootId}"><fmt:message key="Delete" /></button></td>

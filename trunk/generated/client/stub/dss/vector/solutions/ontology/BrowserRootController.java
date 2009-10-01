@@ -123,9 +123,14 @@ public class BrowserRootController extends BrowserRootControllerBase implements
           .lock(super.getClientRequest(), id);
       req.setAttribute("item", dto);
       
-      // get the term name // FIXME use BrowserRootView
-      String name = dto.getTerm().getTermName();
+      // get the term name/id // FIXME use BrowserRootView
+      TermDTO term = dto.getTerm();
+      String name = term.getTermName();
+      String termId = term.getTermId();
+      
       req.setAttribute("termName", name);
+      req.setAttribute("termId", termId);
+      
       render("editComponent.jsp");
     }
     catch (Throwable t)

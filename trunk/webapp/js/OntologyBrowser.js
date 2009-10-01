@@ -6,8 +6,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     BREADCRUMB_SUFFIX : '_breadcrumb',
     SELECT_SUFFIX : '_select',
     DELETE_SUFFIX : '_select',
-    SELECTION_SUFFIX : '_selection',
-    
+    SELECTION_SUFFIX : '_selection'
   },
 
   Instance : {
@@ -16,6 +15,12 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     {
       // map of termId, termName
       this._cache = {};
+      
+      // map of termId to its children 
+      this._childCache = {};
+      
+      // temporary cache of TermViews while a search is being performed
+      this._searchCache = {};
     
 //      this._ontology = ontology;
 //      this._instance = instance;
@@ -36,15 +41,29 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       this._contentId = this._id+'_contentId';
       this._selectionId = this._id+'_selection';
       this._backButton = this._id+'_back';
+      this._saveButton = this._id+'_save';
+      this._cancelButton = this._id+'_cancel';
+      this._searchInput = this._id+'_search';
+      
+      this._ROOT = "ROOT";
       
       // selected terms
       this._selection = {};
       
-      // breadcrumb stack
+      // breadcrumb stack (with artificial TermView root)
       this._breadcrumbs = [];
-      this._breadcrumbs.push({id: 'ROOT', display: MDSS.Localized.ROOT});
       
+      var rootView = new Mojo.$.dss.vector.solutions.ontology.TermView();
+      rootView.setTermId(this._ROOT);
+      rootView.setTermName(MDSS.Localized.ROOT);
+      rootView.setTermOntologyId(this._ROOT);
+      
+      this._breadcrumbs.push(rootView);
+      
+      // handler invoked during a save action.
       this._customHandler = null;
+      
+      this._searchPanel = null;
     },
     
     show : function()
@@ -57,57 +76,97 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     {
       this._panel.hide();
     },
+    
+    /**
+     * Sets the content of the main pane with a list of items
+     * that map to the given TermView objects.
+     */
+    _setContent : function(views)
+    {
+      var nodes = Mojo.Iter.map(views, function(view){
+            
+         return this._createTermEntry(view); 
+      }, this);
+          
+      var content = document.getElementById(this._contentId);
+      content.innerHTML = nodes.join('');
+    },
 
+    /**
+     * Fetches and populates the root nodes for the ontology browser.
+     * If no restricting class and attribute are specified then the
+     * system-wide default roots are returned (terms that are never
+     * children in a relationship).
+     */
     _getRootContent : function()
     {
-    
-      if(this._defaultRoot)
+      var cached = this._getCachedChildren(this._ROOT);
+      if(cached)
+      {
+        this._setContent(cached);
+      }
+      else
       {
         var request = new MDSS.Request({
           that : this, 
           onSuccess : function(roots)
           {
-          
-            var nodes = Mojo.Iter.map(roots, function(browserRootView){
-              return this.that._createTermEntry(browserRootView); 
-            }, this);
-          
-            var content = document.getElementById(this.that._contentId);
-            content.innerHTML = nodes.join('');
+            this.that._setCachedChildren(this.that._ROOT, roots);
+            this.that._setContent(roots);
           }
         });
-      
-        Mojo.$.dss.vector.solutions.ontology.BrowserRoot.getDefaultRoot(request);
+     
+        if(this._defaultRoot)
+        {
+          Mojo.$.dss.vector.solutions.ontology.BrowserRoot.getDefaultRoot(request);
+        }
+        else
+        {
+          Mojo.$.dss.vector.solutions.ontology.BrowserRoot.getAttributeRoots(request, this._className, this._attributeName);
+        }
       }
-      else
-      {
-        // FIXME fetch roots based on class/attribute
-      }
-      
     },
     
-    _cacheSet: function(termId, view)
+    _setCachedChildren : function(parentId, childViews)
     {
-      if(view instanceof Mojo.$.dss.vector.solutions.ontology.BrowserRootView)
-      {
-        // convert a BrowserRootView into a TermView
-        var nView = new Mojo.$.dss.vector.solutions.ontology.TermView();
-        nView.setTermName(view.getTermName());
-        nView.setTermId(view.getTermId());
+      var children = Mojo.Iter.map(childViews, function(view){
+     
+        var toCache = view;
+        if(view instanceof Mojo.$.dss.vector.solutions.ontology.BrowserRootView)
+        {
+          // convert a BrowserRootView into a TermView
+          var nView = new Mojo.$.dss.vector.solutions.ontology.TermView();
+          nView.setTermName(view.getTermName());
+          nView.setTermId(view.getTermId());
+          nView.setTermOntologyId(view.getTermOntologyId());
+          
+          toCache = nView;
+        }
         
-        this._cache[termId] = nView;
-      }
-      else
-      {
-        this._cache[termId] = view;
-      }
+        // add each child to the cache
+        this._cacheSet(view.getTermId(), toCache);
+        return view;
+        
+      }, this); 
+      
+      
+      this._childCache[parentId] = children; 
+    },
+    
+    _getCachedChildren : function(parentId)
+    {
+      return this._childCache[parentId];
+    },
+    
+    _cacheSet : function(termId, view)
+    {
+      this._cache[termId] = view;
     },
     
     _cacheGet : function(termId)
     {
       return this._cache[termId];
     },
-    
     
     _doTermSelectHandler : function(e)
     {
@@ -158,32 +217,36 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     
     _doTermSelect : function(termId, dontAdd)
     {
-      var request = new MDSS.Request({
-        that: this,
-        termId : termId,
-        dontAdd : dontAdd,
-        onSuccess : function(query)
-        {
-          var results = query.getResultSet();
-          
-          var nodes = Mojo.Iter.map(results, function(termView){
-            return this.that._createTermEntry(termView); 
-          }, this);
-          
-          var content = document.getElementById(this.that._contentId);
-          content.innerHTML = nodes.join('');
-      
-          // push selected node onto breadcrumbs
-          if(!this.dontAdd)
-          { 
-            var termName = this.that._cacheGet(this.termId).getTermName();
-            this.that._breadcrumbs.push({id: this.termId, display: termName});
+      var cached = this._getCachedChildren(termId);
+      if(cached)
+      {
+        this._setContent(cached);
+      }
+      else
+      {
+        var request = new MDSS.Request({
+          that: this,
+          termId : termId,
+          dontAdd : dontAdd,
+          onSuccess : function(query)
+          {
+            var results = query.getResultSet();
+            this.that._setCachedChildren(this.termId, results);
+            this.that._setContent(results);
           }
-          this.that._resetBreadcrumbs();
-        }
-      });
+        });
     
-      Mojo.$.dss.vector.solutions.ontology.Term.getOntologyChildren(request, termId);
+        Mojo.$.dss.vector.solutions.ontology.Term.getOntologyChildren(request, termId);
+      }
+      
+      // push selected node onto breadcrumbs
+      if(!dontAdd)
+      { 
+        var term = this._cacheGet(termId);
+        this._breadcrumbs.push(term);
+      }
+      
+      this._resetBreadcrumbs();
     },
     
     /**
@@ -192,7 +255,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
      */
     _getSelectionLi : function(termId)
     {
-      var termName = this._cacheGet(termId).getTermName();
+      var term = this._cacheGet(termId);
     
       var imgId = termId+this.constructor.DELETE_SUFFIX;
       var liId = termId+this.constructor.SELECTION_SUFFIX;
@@ -200,15 +263,14 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       
       var li = document.createElement('li');
       li.id = liId;
-      li.innerHTML = img+termName;
+      li.innerHTML = img+term.getTermName()+ ' ('+term.getTermOntologyId()+')';
       
       return li;
     },
     
     newSpan : function(content, id)
     {
-      return '<span id="'+id+'" onmouseover="this.style.color=\'#0000ff\'"'+
-       ' onmouseout="this.style.color=\'#000000\'">'+content+'</span>';
+      return '<span id="'+id+'" class="linkify">'+content+'</span>';
     },
     
     _resetBreadcrumbs : function()
@@ -217,13 +279,13 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       var breadcrumbs = this._getBreadcrumbs();
       el.innerHTML = breadcrumbs;
       
-      // move scroll bar as needed to show right-most breadcrumb
+      // move scroll bar down as needed
       var divParent = el.parentNode;
-      var sWidth = divParent.scrollWidth;
-      var oWidth = divParent.offsetWidth;
-      if(sWidth > oWidth)
+      var sHeight = divParent.scrollHeight;
+      var oHeight = divParent.offsetHeight;
+      if(sHeight > oHeight)
       {
-        divParent.scrollLeft = sWidth - oWidth;
+        divParent.scrollTop = sHeight - oHeight;
       }
     },
     
@@ -232,11 +294,12 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       var last = this._breadcrumbs.length-1;
       var breadcrumbs = Mojo.Iter.map(this._breadcrumbs, function(breadcrumb, ind){
         
-        var span = this.newSpan(breadcrumb.display, breadcrumb.id+this.constructor.BREADCRUMB_SUFFIX);
+        var span = this.newSpan(breadcrumb.getTermName(), 
+          breadcrumb.getTermId()+this.constructor.BREADCRUMB_SUFFIX);
         return '<li class="breadcrumbNavItem'+(ind === last ? ' currentBreadcrumbsNav' : '')+'">'+span+'</li>'; 
       }, this); 
       
-      return breadcrumbs.join('<li>/</li>');
+      return breadcrumbs.join('<li class="termDelimeter">/</li>');
     },
     
     render : function()
@@ -245,7 +308,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         width: '400px',
         height: '400px',
         fixedcenter:true,
-        close:true,
+        close:false,
         draggable:false,
         zindex:4,
         modal:true,
@@ -257,10 +320,18 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       html += '  <div class="browserBack">';
       html += '     <button id="'+this._backButton+'">&larr;</button>';
       html += '  </div>';
-      html += '  <div class="browserBreadcrumbs">';
+      html += '  <div class="browserBreadcrumbs autosize">';
+      html += '    <div>'; // wrapper div for auto-sizing
+      html += '    <div class="browserResizeRestrict">'; // restricts auto-sizing
       html += '    <ul class="breadcrumbsNav" id="'+this._breadcrumbId+'">';
       html += this._getBreadcrumbs();
       html += '    </ul>';
+      html += '    </div>';
+      html += '    </div>';
+      html += '  </div>';
+      html += '  <div class="browserSearch">';
+      html += '    <span>'+MDSS.Localized.Search+':</span>';
+      html += '    <input type="text" id="'+this._searchInput+'" class="browserSearchInput" />';
       html += '  </div>';
       html += '  <div class="browserContent">';
       html += '    <ul class="currentNodes" id="'+this._contentId+'">';
@@ -270,10 +341,11 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       html += '    <ul class="selectedNodes" id="'+this._selectionId+'">';
       html += '    </ul>';
       html += '  </div>';
+      html += '  <div class="browserButtons">';
+      html += '    <input type="button" id="'+this._cancelButton+'" class="browserCancelButton" value="'+MDSS.Localized.Cancel+'" />';
+      html += '    <input type="button" id="'+this._saveButton+'" class="browserSaveButton" value="'+MDSS.Localized.save+'" />';
+      html += '  </div>';
       html += '</div>';
-      
-      var hideHandlerB = Mojo.Util.bind(this, this._hideHandler);
-      this._panel.subscribe('beforeHide', hideHandlerB);
       
       this._panel.setBody(html);
       this._panel.render(document.body);
@@ -281,9 +353,164 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
      
       this._hookEvents();
       
-      this._rendered = true;
-      
+      this._attachSearch();      
       this._getRootContent();
+      
+      this._rendered = true;
+    },
+    
+    _displayFunction : function(view)
+    {
+      return view.getTermName() + ' ('+view.getTermOntologyId()+')';
+    },
+    
+    _listFunction : function(view)
+    {
+      this._searchCache[view.getTermId()] = view;
+    
+      return view.getTermName() + ' ('+view.getTermOntologyId()+')';
+    },
+    
+    _idFunction : function(view)
+    {
+      return view.getTermId();
+    },
+    
+    _selectEventHandler : function(selected)
+    {
+      var termId = selected.id;
+      
+      // move the selected TermView from the search cache into the main cache
+      // and reset the search cache to free memory
+      this._cache[termId] = this._searchCache[termId];
+      this._searchCache = {};
+
+      document.getElementById(this._searchInput).value = '';
+
+      this._addToSelection(termId);
+    },
+    
+    _searchFunction : function(request, value)
+    {
+      Mojo.$.dss.vector.solutions.ontology.Term.searchTerms(request, value, "");
+    },
+    
+    _attachSearch : function()
+    {
+      var displayElement = document.getElementById(this._searchInput);
+      var dF = Mojo.Util.bind(this, this._displayFunction);
+      var iF = Mojo.Util.bind(this, this._idFunction);
+      var lF = Mojo.Util.bind(this, this._listFunction);
+      var sF = Mojo.Util.bind(this, this._searchFunction);
+      var sEH = Mojo.Util.bind(this, this._selectEventHandler);
+      
+      this._searchPanel = new MDSS.GenericSearch(displayElement, null, lF, dF, iF, sF, sEH);
+      
+      YAHOO.util.Event.on(this._searchInput, 'keyup', this._searchPanel.performSearch, null, this._searchPanel); 
+    },
+    
+    isRendered : function()
+    {
+      return this._rendered;
+    },
+    
+    /**
+     * Resets the browser to its default state, meaning
+     * the breadcrumbs will go back to root, the default
+     * roots will be displayed, and no terms will be shown
+     * as selected.
+     */
+    reset : function()
+    {
+      this._breadcrumbs = this._breadcrumbs.slice(0, 1);
+    
+      this._resetToDefault();
+      this._resetSelection();
+    },
+    
+    /**
+     * Sets the currently selected Term(s) by providing
+     * an array of term ids.
+     */
+    setSelection : function(termIds)
+    {
+      var toFetch = [];
+      var cached = [];
+      
+      Mojo.Iter.forEach(termIds, function(termId){
+      
+        var term = this._cacheGet(termId);
+        if(term)
+        {
+          cached.push(term);
+        }
+        else
+        {
+          toFetch.push(termId);
+        }
+        
+        
+      }, this);
+      
+      // there items to fetch, so hit the server
+      if(toFetch.length > 0)
+      {
+        var request = new MDSS.Request({
+          that: this,
+          cached : cached,
+          onSuccess : function(query)
+          {
+            var views = query.getResultSet();
+            
+            // combine the cached and fetched views and sort
+            // them by term name.
+            var total = this.cached.concat(views);
+            total.sort(function(term1, term2){
+              var t1 = term1.getTermName();
+              var t2 = term2.getTermName();
+              if(t1 > t2)
+              {
+                return 1;
+              }
+              else if(t1 < t2)
+              {
+                return -1;
+              }
+              else
+              {
+                return 0;
+              }
+            });
+            
+            // Now reset the selection
+            Mojo.Iter.forEach(total, function(view){
+              
+              // must add term to the cache first
+              var termId = view.getTermId();
+              this._cacheSet(termId, view);
+              
+              this._addToSelection(termId); 
+            }, this.that);
+          }
+        });
+        
+        Mojo.$.dss.vector.solutions.ontology.Term.getByIds(request, toFetch);
+      }
+      else
+      {
+        // no items to fetch, so refresh the selection with the
+        // cached items
+        Mojo.Iter.forEach(cached, function(view){
+          this._addToSelection(view.getTermId()); 
+        }, this);
+      }
+    },
+    
+    _resetSelection : function()
+    {
+      this._selection = {};
+      var selection = document.getElementById(this._selectionId);
+      selection.innerHTML = '';
     },
     
     setHandler : function(handler, context)
@@ -291,13 +518,15 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       this._customHandler = Mojo.Util.bind(context || this, handler);
     },
     
-    _hideHandler : function()
+    _save: function()
     {
       if(Mojo.Util.isFunction(this._customHandler));
       {
         var selected = Mojo.Util.getValues(this._selection);
         this._customHandler(selected);
       }
+      
+      this.hide();
     },
     
     _hookEvents : function()
@@ -307,24 +536,25 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       Event.on(this._contentId, 'click', this._doTermSelectHandler, null, this);
       Event.on(this._selectionId, 'click', this._doSelectionAction, null, this);
       Event.on(this._backButton, 'click', this._goBack, null, this);
+      Event.on(this._saveButton, 'click', this._save, null, this);
+      Event.on(this._cancelButton, 'click', this.hide, null, this);
     },
     
     _createTermEntry : function(view)
     {
-      this._cacheSet(view.getTermId(), view);
-    
       var li;
       if(view instanceof Mojo.$.dss.vector.solutions.ontology.TermView || view.getSelectable())
       {
         var imgId = view.getTermId()+this.constructor.SELECT_SUFFIX;
-        li = '<li><img src="imgs/icons/accept.png" style="margin-right: 5px" id="'+imgId+'" />';
+        li = '<li><img src="imgs/icons/add.png" style="margin-right: 5px" id="'+imgId+'" />';
       }
       else
       {
         li = '<li style="padding-left: 21px">';
       }
       
-      return li+this.newSpan(view.getTermName(), view.getTermId()+this.constructor.ENTRY_SUFFIX)+'</li>'
+      var content = view.getTermName() + ' ('+view.getTermOntologyId()+')';
+      return li+this.newSpan(content, view.getTermId()+this.constructor.ENTRY_SUFFIX)+'</li>';
     },
     
     _goBack : function(e)
@@ -362,7 +592,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       
       var isRoot = false;
       var newEndInd;
-      if(termId === 'ROOT')
+      if(termId === this._ROOT)
       {
         newEndInd = 1;
         isRoot = true;
@@ -371,7 +601,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       {
         Mojo.Iter.forEach(this._breadcrumbs, function(breadcrumb, ind){
           
-          if(breadcrumb.id === termId)
+          if(breadcrumb.getTermId() === termId)
           {
             newEndInd = ind;
           }
@@ -379,7 +609,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       }
       
       // cut back the breadcrumbs to the last selection
-      this._breadcrumbs = this._breadcrumbs.splice(0, newEndInd);
+      this._breadcrumbs = this._breadcrumbs.slice(0, newEndInd);
 
       if(isRoot)
       {

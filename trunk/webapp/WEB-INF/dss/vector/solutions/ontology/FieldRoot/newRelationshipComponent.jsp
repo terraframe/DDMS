@@ -26,6 +26,6 @@
         </mjl:option>
       </mjl:select>
     </dd>
-    <mjl:command value="New Instance" action="dss.vector.solutions.ontology.FieldRootController.newInstance.mojo" name="dss.vector.solutions.ontology.FieldRoot.form.newInstance.button" />
+    <mjl:command value="New_Instance" action="dss.vector.solutions.ontology.FieldRootController.newInstance.mojo" name="dss.vector.solutions.ontology.FieldRoot.form.newInstance.button" />
   </dl>
 </mjl:form>

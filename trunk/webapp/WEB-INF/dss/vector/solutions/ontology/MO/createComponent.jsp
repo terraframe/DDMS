@@ -9,5 +9,6 @@
   <mjl:form name="dss.vector.solutions.ontology.MO.form.name" id="dss.vector.solutions.ontology.MO.form.id" method="POST">
     <%@include file="form.jsp" %>
     <mjl:command value="Create" action="dss.vector.solutions.ontology.MOController.create.mojo" name="dss.vector.solutions.ontology.MO.form.create.button" />
+    <mjl:command value="Cancel" action="dss.vector.solutions.ontology.MOController.cancel.mojo" name="dss.vector.solutions.ontology.MO.form.cancel.button" />
   </mjl:form>
 </dl>

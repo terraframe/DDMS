@@ -1,153 +1,221 @@
 package dss.vector.solutions.ontology;
 
-public class MOController extends MOControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
+import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
+
+public class MOController extends MOControllerBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/ontology/MO/";
-  public static final String LAYOUT = "/layout.jsp";
-  
-  private static final long serialVersionUID = 1253040008989L;
-  
-  public MOController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/ontology/MO/";
+
+  public static final String LAYOUT           = "/layout.jsp";
+
+  private static final long  serialVersionUID = 1253040008989L;
+
+  public MOController(javax.servlet.http.HttpServletRequest req,
+      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
-  public void delete(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void delete(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
     try
     {
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.terraframe.mojo.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failDelete(dto);
     }
-    catch(java.lang.Throwable t)
+    catch (java.lang.Throwable t)
     {
       dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
       this.failDelete(dto);
     }
   }
-  public void failDelete(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failDelete(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(
+        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
-  public void cancel(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  /**
+   * Cancel action used by both new and existing instances. This is called via
+   * Ajax only.
+   */
+  public void cancel(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    try
+    {
+      if (!dto.isNewInstance())
+      {
+        dto.unlock();
+      }
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
-  public void failCancel(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failCancel(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
     this.edit(dto.getId());
   }
-  public void update(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void update(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
     try
     {
       dto.apply();
-      this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
-      this.failUpdate(dto);
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
     }
-    catch(java.lang.Throwable t)
+    catch (Throwable t)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
-      this.failUpdate(dto);
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
     }
   }
-  public void failUpdate(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failUpdate(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(
+        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
+
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.ontology.MOQueryDTO query = dss.vector.solutions.ontology.MODTO.getAllInstances(clientRequest, null, true, 20, 1);
+    dss.vector.solutions.ontology.MOQueryDTO query = dss.vector.solutions.ontology.MODTO
+        .getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
+
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
+
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.ontology.MODTO dto = new dss.vector.solutions.ontology.MODTO(clientRequest);
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(
+        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
+
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
   }
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+
+  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending,
+      java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException,
+      javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.ontology.MOQueryDTO query = dss.vector.solutions.ontology.MODTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    dss.vector.solutions.ontology.MOQueryDTO query = dss.vector.solutions.ontology.MODTO
+        .getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending,
+      java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException,
+      javax.servlet.ServletException
   {
     resp.sendError(500);
   }
+
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.ontology.MODTO dto = dss.vector.solutions.ontology.MODTO.lock(super.getClientRequest(), id);
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    dss.vector.solutions.ontology.MODTO dto = dss.vector.solutions.ontology.MODTO.lock(super
+        .getClientRequest(), id);
+    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(
+        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
+
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.view(id);
   }
-  public void create(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void create(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
     try
     {
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.terraframe.mojo.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failCreate(dto);
     }
-    catch(java.lang.Throwable t)
+    catch (java.lang.Throwable t)
     {
       dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
       this.failCreate(dto);
     }
   }
-  public void failCreate(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failCreate(dss.vector.solutions.ontology.MODTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(
+        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
+
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.util.RedirectUtility utility = new dss.vector.solutions.util.RedirectUtility(req, resp);
+    dss.vector.solutions.util.RedirectUtility utility = new dss.vector.solutions.util.RedirectUtility(
+        req, resp);
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(
+        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.ontology.MODTO.get(clientRequest, id));
     render("viewComponent.jsp");
   }
+
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();

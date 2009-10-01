@@ -103,6 +103,11 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     {
       this._selectHandler = handler;
     },
+    
+    getSelectHandler : function()
+    {
+      return this._selectHandler;
+    },
   
     /**
      * Sets the handler function to be called when

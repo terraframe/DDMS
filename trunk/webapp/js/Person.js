@@ -20,13 +20,19 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
 	  
 	  // Setup the element events
 	  YAHOO.util.Event.on(this.element, 'click', this.handleClick, null, this);	  
+	  
+	  // the SingleSelectSearch used by all geo input fields
+	  this._selectSearch = new MDSS.SingleSelectSearch();
+      
+      this._residentialGeoSearch = null;
+      this._workGeoSearch = null;
     },
     
     updateListener : function(params) {
         var request = new MDSS.Request({
         	that : this,
             onSuccess: function() {
-        	  this.that.currentModal.destroy();
+        	  this.that.destroyModal();
             }
         });
 
@@ -37,7 +43,7 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
         var request = new MDSS.Request({
         	that : this,
             onSuccess: function() {
-        	  this.that.currentModal.destroy();
+        	  this.that.destroyModal();
             }
         });
 
@@ -48,17 +54,8 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
         var request = new MDSS.Request({
         	that : this,
             onSuccess: function(html) {        	
-        	  var executable = MDSS.util.extractScripts(html);
-        	  
-        	  html = MDSS.util.removeScripts(html);
         	
-        	  this.that.currentModal = this.that.createModal(html);
-        	
-        	  var calendar = document.getElementById(this.that.calendarIdEl);
-
-        	  MDSS.Calendar.addCalendarListeners(calendar);
-        	  
-        	  eval(executable);
+        	  this.that.createModal(html);
         	}
         });
         
@@ -68,22 +65,47 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
     },
     
     createModal : function (html) {
-        var panel = new YAHOO.widget.Panel(this._id,  {
-            width: '400px',
-            height: '550px',
-            fixedcenter:true,
-            close:false,
-            draggable:false,
-            zindex:4,
-            modal:true,
-            visible:true
-          });
+    
+      var executable = MDSS.util.extractScripts(html);
+        	  
+      html = MDSS.util.removeScripts(html);    
+    
+      this.currentModal = new YAHOO.widget.Panel(this._id,  {
+         width: '400px',
+         height: '550px',
+         fixedcenter:true,
+         close:false,
+         draggable:false,
+         zindex:4,
+         modal:true,
+         visible:true
+       });
 
-        panel.setBody(html);
-        panel.render(document.body);
-        panel.bringToTop();
-        
-        return panel;
+      this.currentModal.setBody(html);
+      this.currentModal.render(document.body);
+      this.currentModal.bringToTop();
+      
+      var calendar = document.getElementById(this.calendarIdEl);
+
+      MDSS.Calendar.addCalendarListeners(calendar);
+        	  
+      eval(executable);
+        	  
+      // now attach geo searching to each geo input
+      this._residentialGeoSearch = new MDSS.GeoSearch('residentialGeoId', this._selectSearch);
+      this._workGeoSearch = new MDSS.GeoSearch('workGeoId', this._selectSearch);
+    },
+    
+    destroyModal : function()
+    {
+      this.currentModal.destroy();
+      this.currentModal = null;
+      
+      this._residentialGeoSearch.destroy();
+      this._workGeoSearch.destroy();
+      
+      this._residentialGeoSearch = null;
+      this._workGeoSearch = null;
     }
   },
   

@@ -250,3 +250,16 @@ MDSS.Set.prototype = {
     return Mojo.Util.getKeys(this._set);
   }
 };
+
+// preload images used in 101, 061, and ontology browser
+(function(){
+  if(document.images)
+  {
+    var imgs = ['imgs/icons/add.png', 'imgs/icons/delete.png'];
+    Mojo.Iter.forEach(imgs, function(img){
+      
+      var image = new Image();
+      image.src=img;
+    });
+  }
+})()

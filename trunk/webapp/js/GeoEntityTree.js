@@ -702,6 +702,7 @@ MDSS.GeoEntityTree = (function(){
   	var geoEntity = obj.childEntity;
 
   	var request = new MDSS.Request({
+  	
   	  // deleting the GeoEntity means all parent nodes containing
   	  // the child must delete the child node.
   	  deleteAll: obj.deleteEntity,
@@ -1179,12 +1180,6 @@ MDSS.GeoEntityTree = (function(){
     createMenuItem.subscribe("click", _addNodeHandler);
     itemData.push(createMenuItem);
 
-    /*
-    var changeRootItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Set_As_Root);
-    changeRootItem.subscribe("click", _changeRootGeoEntity);
-    itemData.push(changeRootItem);
-    */
-    
     var changeTypeMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Change_Type);
     changeTypeMenuItem.subscribe("click", _changeTypeHandler);
     itemData.push(changeTypeMenuItem);

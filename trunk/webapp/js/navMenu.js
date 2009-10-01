@@ -60,7 +60,8 @@ var aSubmenuData = [
                         }
                 },
                 { text: "Synchronise", disabled: true, url: "#" , visibleTo:'Administrator'},
-				{ text: "Ontology_Fields", url: "dss.vector.solutions.ontology.BrowserFieldController.viewAll.mojo", visibleTo: 'Administrator' }
+				{ text: "Ontology_Fields", url: "dss.vector.solutions.ontology.BrowserFieldController.viewAll.mojo", visibleTo: 'Administrator' },
+				{ text: "Ontology_Admin", url: "dss.vector.solutions.ontology.TermController.viewTree.mojo", visibleTo: 'Administrator' }
         ]
     },
     {

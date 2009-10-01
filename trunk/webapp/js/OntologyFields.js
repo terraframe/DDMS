@@ -16,8 +16,15 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       // listen for all click events on main div.
       YAHOO.util.Event.on(this.constructor.DIV_ID, 'click', this._handleClick, null, this);
       
+      // Create the one instance of the OntologyBrowser that will
+      // be shared by all BrowserRoots. This is done because only one
+      // BrowserRoot can be edited at a time.
+      this._sharedBrowser = new MDSS.OntologyBrowser(false);
+      this._sharedBrowser.setHandler(this._setField, this);
+      
+      // These fields point to the edit window/fields for the
+      // BrowserRoot that is currently being edited.
       this._currentModal = null;
-      this._currentBrowser = null;
       this._currentBrowserInput = null;
       this._currentBrowserDisplay = null;
 
@@ -80,30 +87,44 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
     
     _openBrowser : function(params)
     {
-      if(this._currentBrowser == null)
+      // set the current input fields
+      this._currentBrowserInput = params['dto.componentId']+this.constructor.TERM_SUFFIX;
+      this._currentBrowserDisplay = params['dto.componentId']+this.constructor.TERMNAME_SUFFIX;
+
+      if(this._sharedBrowser.isRendered())
       {
-        this._currentBrowser = new MDSS.OntologyBrowser(false);
-        this._currentBrowser.setHandler(this._setField, this);
-        this._currentBrowser.render();
+        this._sharedBrowser.reset();
+        this._sharedBrowser.show();
       }
       else
       {
-        this._currentBrowser.show();
+        this._sharedBrowser.render();
       }
       
-      this._currentBrowserInput = params['dto.componentId']+this.constructor.TERM_SUFFIX;
-      this._currentBrowserDisplay = params['dto.componentId']+this.constructor.TERMNAME_SUFFIX;
+      // set the default selection (if it exists)
+      var termId = document.getElementById(this._currentBrowserInput).value;
+      var selected = [];
+      if(termId !== '')
+      {
+        selected.push(termId); 
+      }
+      this._sharedBrowser.setSelection(selected); 
     },
     
     _setField : function(selected)
     {
       var el = document.getElementById(this._currentBrowserInput);
       var dEl = document.getElementById(this._currentBrowserDisplay);
-      if(el && selected.length > 0)
+      if(selected.length > 0)
       {
         var sel = selected[0];
         el.value = sel.getTermId();
-        dEl.innerHTML = sel.getTermName(); 
+        dEl.innerHTML = sel.getTermName() + '('+sel.getTermOntologyId()+')'; 
+      }
+      else
+      {
+        el.value = '';
+        dEl.innerHTML = '';
       }
     },
     
@@ -229,7 +250,7 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       tr.id = rootView.getBrowserRootId()+MDSS.OntologyFields.ROW_SUFFIX;
       
       var html = '';
-      html += '<td>'+rootView.getTermName()+'</td>';
+      html += '<td>'+rootView.getTermName()+' ('+rootView.getTermOntologyId()+')</td>';
       html += '<td>'+rootView.getSelectable()+'</td>';
       html += '<td><button class="editRootBtn" value="'+rootView.getBrowserRootId()+'">'+MDSS.Localized.Edit+'</button></td>';
       html += '<td><button class="deleteRootBtn" value="'+rootView.getBrowserRootId()+'">'+MDSS.Localized.Delete+'</button></td>';

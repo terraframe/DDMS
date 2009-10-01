@@ -326,8 +326,6 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
       this.searchFunction = searchFunction;          // AJAX function which calls a static method on the server
       
       this.panel = MDSS.GenericSearch.initializePanel(displayElement);  // Result panel
-      
-      this.displayElement.setAttribute("autocomplete", "off");
     },
     
     getDisplayElement : function() {

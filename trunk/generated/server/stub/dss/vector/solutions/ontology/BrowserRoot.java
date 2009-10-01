@@ -11,6 +11,8 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
+import com.terraframe.mojo.system.metadata.MdAttributeConcreteQuery;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 
 public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -59,19 +61,7 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
    */
   public static BrowserRootView[] getDefaultRoot()
   {
-    QueryFactory f = new QueryFactory(); 
-
-    // FIXME pass in the ontology and rel and switch on that
-    TermQuery termQuery;
-    TermRelationshipQuery termRelQuery;
-    if(true /* || Ontology === MO */)
-    {
-      termQuery = new MOQuery(f);
-      termRelQuery = new IsAQuery(f);
-    }
-    
-    DefaultRootQueryBuilder builder = new DefaultRootQueryBuilder(f, termQuery, termRelQuery);
-    TermViewQuery query = new TermViewQuery(f, builder);
+    TermViewQuery query = Term.getDefaultRoots();
 
     OIterator<? extends TermView> iter = query.getIterator();
     
@@ -92,12 +82,29 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     return views.toArray(new BrowserRootView[views.size()]);
   }
   
+  // FIXME finish
+  public static BrowserRootView[] getAttributeRoots(String className, String attributeName)
+  {
+    QueryFactory f = new QueryFactory();
+    BrowserFieldQuery q = new BrowserFieldQuery(f);
+    MdAttributeConcreteQuery a = new MdAttributeConcreteQuery(f);
+    
+    MdBusiness md = MdBusiness.getMdBusiness(className);
+    
+    a.WHERE(a.getDefiningMdClass().EQ(md));
+    a.WHERE(a.getAttributeName().EQ(attributeName));
+    q.AND(q.getMdAttribute().EQ(a));
+    
+    return null;
+  }
+  
   private static BrowserRootView toView(TermView termView)
   {
     BrowserRootView view = new BrowserRootView();
     view.setTermId(termView.getTermId());
     view.setTermName(termView.getTermName());
     view.setSelectable(true);
+    view.setTermOntologyId(termView.getTermOntologyId());
     
     return view;
   }
@@ -110,51 +117,14 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
   @AbortIfProblem
   public BrowserRootView toView()
   {
+    Term term = this.getTerm();
+    
     BrowserRootView view = new BrowserRootView();
-    view.setTermName(this.getTerm().getTermName());
+    view.setTermName(term.getTermName());
     view.setSelectable(this.getSelectable());
     view.setBrowserRootId(this.getId());
+    view.setTermOntologyId(term.getTermId());
     return view;
-  }
-  
-  /**
-   * Queries for the root Term of a given ontology.
-   */
-  public static class DefaultRootQueryBuilder extends ViewQueryBuilder implements Reloadable
-  {
-    private TermQuery termQuery;
-    private ValueQuery valueQuery;
-    private TermRelationshipQuery termRelQuery;
-    
-    protected DefaultRootQueryBuilder(QueryFactory queryFactory, TermQuery termQuery, TermRelationshipQuery termRelQuery)
-    {
-      super(queryFactory);
-      
-      this.termQuery = termQuery;
-      this.valueQuery = queryFactory.valueQuery();
-      this.termRelQuery = termRelQuery;
-    }
-    
-    @Override
-    protected void buildSelectClause()
-    {
-      GeneratedViewQuery query = this.getViewQuery();  
-      
-      query.map(TermView.TERMID, this.termQuery.getId());
-      query.map(TermView.TERMNAME, this.termQuery.getTermName());
-    }
-    
-    @Override
-    protected void buildWhereClause()
-    {
-      GeneratedViewQuery query = this.getViewQuery();  
-      
-      // the root is not a child of any other term
-      Selectable childId = this.termRelQuery.childId();
-      this.valueQuery.SELECT(childId);
-      
-      query.WHERE(this.termQuery.NOT_IN(this.termQuery.getId(), this.valueQuery));
-    }
   }
   
 }

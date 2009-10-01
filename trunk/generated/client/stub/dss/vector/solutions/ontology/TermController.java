@@ -1,5 +1,11 @@
 package dss.vector.solutions.ontology;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
+import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
+
 public class TermController extends TermControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/ontology/Term/";
@@ -10,6 +16,37 @@ public class TermController extends TermControllerBase implements com.terraframe
   public TermController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
+  }
+  
+  @Override
+  public void viewTree() throws IOException, ServletException
+  {
+    // Views the ontology as a tree structure (default to MO/is_a for now)
+    req.getRequestDispatcher(JSP_DIR+"tree.jsp").forward(req, resp);
+  }
+  
+  @Override
+  public void confirmChangeParent(String childId, String parentId) throws IOException, ServletException
+  {
+    try
+    {
+      // This will force a ConfirmParentChangeException
+      TermDTO.confirmChangeParent(this.getClientRequest(), childId, parentId);
+    }
+    catch(ConfirmParentChangeExceptionDTO e)
+    {
+      req.setAttribute("message", e.getLocalizedMessage());
+      req.setAttribute("childId", childId);
+      req.setAttribute("parentId", parentId);
+      
+      req.getRequestDispatcher(JSP_DIR+"confirmChangeParent.jsp").forward(req, resp);
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
   
   public void delete(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
