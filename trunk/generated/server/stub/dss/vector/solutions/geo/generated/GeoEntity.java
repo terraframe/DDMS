@@ -194,7 +194,8 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     String searchable = name + "%";
     valueQuery.WHERE(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable));
-    valueQuery.AND(mdQ.getId().EQ(q.getMdClassIF().getId()));
+    valueQuery.AND(F.CONCAT(mdQ.getPackageName(),
+        F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));    
 
     valueQuery.restrictRows(20, 1);
 
@@ -247,7 +248,10 @@ public abstract class GeoEntity extends GeoEntityBase implements
         searchable));
 
     valueQuery.WHERE(or);
-    valueQuery.AND(mdQ.getId().EQ(q.getMdClassIF().getId()));
+    valueQuery.AND(F.CONCAT(mdQ.getPackageName(),
+        F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));    
+    
+//    valueQuery.AND(mdQ.getId().EQ(q.getMdClassIF().getId()));
 
     valueQuery.restrictRows(20, 1);
 
