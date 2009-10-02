@@ -63,7 +63,8 @@ String deleteColumn = "";
   </mjl:commandLink>
 </span>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{InterventionPlanningViewDTO.CLASS, OperatorInterventionPlanningViewDTO.CLASS, InterventionPlanningController.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{InterventionPlanningViewDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{OperatorInterventionPlanningViewDTO.CLASS, InterventionPlanningController.CLASS}))%>
 <%
 Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
 map.put("Id", new ColumnSetup(true, false));
