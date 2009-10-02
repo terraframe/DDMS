@@ -1398,4 +1398,12 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     this.addSynonyms(geoSynonym).apply();
   }
+  
+  @Override
+  public String toString()
+  {
+    String toString = this.getEntityName();
+    toString += "(" + this.getTypeDisplayLabel() + ")";
+    return toString;
+  }
 }
