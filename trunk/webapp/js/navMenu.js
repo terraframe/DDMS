@@ -126,7 +126,7 @@ var aSubmenuData = [
         	submenu: {
         	  id: "Individual_Cases",
         	  itemdata: [               
-        	    { text: "Enter_For_Individual_Cases", disabled: true, url: "#" , visibleTo:'Administrator'},
+        	    { text: "Enter_For_Individual_Cases", disabled: false, url: "dss.vector.solutions.intervention.monitor.IndividualCaseController.newInstance.mojo" , visibleTo:'Administrator'},
         	    { text: "Query_Individual_Cases", disabled: true, url: "#" , visibleTo:'Administrator'}
         	  ]
             }
