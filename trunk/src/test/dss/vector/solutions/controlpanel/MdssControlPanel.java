@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +14,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.MessageFormat;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.swing.AbstractButton;
@@ -41,22 +42,18 @@ public class MdssControlPanel extends JFrame {
 	private static final String STOP = "stop";
 	private static final String BACKUP = "backup";
 	private static final String RESTORE = "restore";
-
-	private static final String MOZAMBIQUE = "mozambique";
-	private static final String MALAWI = "malawi";
-	private static final String ZAMBIA = "zambia";
+	
+	private static final String COUNTRY = "country.";
 
 	private ResourceBundle bundle;
+	private Map<String, String> countries = new HashMap<String, String>();
 
 	private JButton startButton;
 	private JButton stopButton;
 	private JButton backupButton;
 	private JButton restoreButton;
 
-	private ButtonGroup group;
-	private JRadioButton mozambiqueButton;
-	private JRadioButton malawiButton;
-	private JRadioButton zambiaButton;
+	private ButtonGroup group = new ButtonGroup();
 
 	private JTextArea outputTextArea;
 
@@ -68,6 +65,16 @@ public class MdssControlPanel extends JFrame {
 
 	public MdssControlPanel(Locale locale) {
 		bundle = ResourceBundle.getBundle("MdssControlPanel", locale);
+		
+		Enumeration<String> e = bundle.getKeys();
+		while (e.hasMoreElements()) {
+			String key = e.nextElement();
+			if (key.startsWith(COUNTRY)) {
+				String countryName = key.substring(COUNTRY.length()).toLowerCase();
+				String countryText = bundle.getString(key);
+				countries.put(countryName, countryText);
+			}
+		}
 	}
 
 	public static void main(String[] args) {
@@ -177,9 +184,11 @@ public class MdssControlPanel extends JFrame {
 		backupButton.setEnabled(!started);
 		restoreButton.setEnabled(!started);
 
-		mozambiqueButton.setEnabled(!started);
-		malawiButton.setEnabled(!started);
-		zambiaButton.setEnabled(!started);
+		Enumeration<AbstractButton> e = group.getElements();
+		while (e.hasMoreElements()) {
+			AbstractButton button = e.nextElement();
+			button.setEnabled(!started);
+		}
 	}
 
 	private void disableButtons() {
@@ -193,29 +202,18 @@ public class MdssControlPanel extends JFrame {
 		JPanel countryPanel = new JPanel();
 		countryPanel.setLayout(new GridLayout(0, 1));
 
-		// Create the radio buttons.
-		mozambiqueButton = new JRadioButton(this.getText(MOZAMBIQUE));
-		mozambiqueButton.setMnemonic(KeyEvent.VK_Z);
-		mozambiqueButton.setActionCommand(MOZAMBIQUE);
-		mozambiqueButton.setSelected(true);
-
-		malawiButton = new JRadioButton(this.getText(MALAWI));
-		malawiButton.setMnemonic(KeyEvent.VK_W);
-		malawiButton.setActionCommand(MALAWI);
-
-		zambiaButton = new JRadioButton(this.getText(ZAMBIA));
-		zambiaButton.setMnemonic(KeyEvent.VK_Z);
-		zambiaButton.setActionCommand(ZAMBIA);
-
-		// Group the radio buttons.
-		group = new ButtonGroup();
-		group.add(mozambiqueButton);
-		group.add(malawiButton);
-		group.add(zambiaButton);
-
-		countryPanel.add(mozambiqueButton);
-		countryPanel.add(malawiButton);
-		countryPanel.add(zambiaButton);
+		boolean isFirst = true;
+		for (String country: countries.keySet()) {
+			JRadioButton countryButton = new JRadioButton(countries.get(country));
+			//countryButton.setMnemonic(KeyEvent.VK_Z);
+			countryButton.setActionCommand(country);
+			if (isFirst) {
+				countryButton.setSelected(true);
+				isFirst = false;
+			}
+			group.add(countryButton);
+			countryPanel.add(countryButton);
+		}
 
 		return countryPanel;
 	}
