@@ -939,25 +939,31 @@ input.browserOpenBtn {
   }
 
   div.yui-dt-bd > table > tbody > tr > td {
-    border: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
     text-align: center;
     padding-left: 1em;
     padding-right: 1em;
   }
 
   div.yui-dt-hd > table > thead > tr > th {
-    border: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
     text-align: center;
     padding-left: 1em;
     padding-right: 1em;
   }
 
   div.yui-dt-bd {
-    width: 90%;
+    width: 55em;
   }
 
   div.yui-dt-hd {
-    width: 90%;
+    width: 55em;
   }
 
   div.yui-dt-bd > table {
