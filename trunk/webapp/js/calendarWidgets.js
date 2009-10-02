@@ -214,7 +214,7 @@ MDSS.Calendar = {};
         	addError(tar, MDSS.localize('Invalid_Year'));
         }
 
-        if(parseInt(date_str) > parseInt(today.getFullYear()))
+        if(parseInt(date_str,10) > parseInt(today.getFullYear(),10))
         {
         	addError(tar, MDSS.localize('Future_Dates_Not_Allowed'));
         }

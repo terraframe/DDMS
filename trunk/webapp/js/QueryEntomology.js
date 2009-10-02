@@ -336,7 +336,7 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
       this._visibleSelectables[attribute.getKey()] = selectable;
 
       // ADD THEMATIC VARIABLE
-      if(attribute.getDtoType.contains( 'AttributeIntegerDTO'))
+      if(attribute._dtoType.contains( 'AttributeIntegerDTO'))
       {
         this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
       }
