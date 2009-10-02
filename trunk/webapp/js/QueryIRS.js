@@ -353,7 +353,7 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       this._visibleSelectables[attribute.getKey()] = selectable;
 
       // ADD THEMATIC VARIABLE
-      if(attribute._dtoType.contains('AttributeIntegerDTO'))
+      if(attribute.getDtoType.contains('AttributeIntegerDTO'))
       {
         this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
       }

@@ -1169,12 +1169,12 @@ MDSS.QueryPanel.prototype = {
     saveAsButton.addClass('queryButton');
     saveAsButton.on('click', this._saveQueryAs, {}, this);
 
-    var loadButton = new YAHOO.util.Element(document.createElement('input'));
-    loadButton.set('type', 'button');
-    loadButton.set('value', MDSS.Localized.Query.Load);
-    loadButton.set('id', this.LOAD_QUERY_BUTTON);
-    loadButton.addClass('queryButton');
-    loadButton.on('click', this._loadQuery, {}, this);
+    var deleteButton = new YAHOO.util.Element(document.createElement('input'));
+    deleteButton.set('type', 'button');
+    deleteButton.set('value', MDSS.localize("Delete Query"));
+    deleteButton.set('id', this.LOAD_QUERY_BUTTON);
+    deleteButton.addClass('queryButton');
+    //deleteButton.on('click', this._loadQuery, {}, this);
 
     this._queryList = new YAHOO.util.Element(document.createElement('select'));
     this._queryList.set('id', this.AVAILABLE_QUERY_LIST);
@@ -1191,7 +1191,8 @@ MDSS.QueryPanel.prototype = {
 
       this._queryList.appendChild(option);
     }
-
+    this._queryList.on('change', this._loadQuery, {}, this);
+    
     var exportReportButton = this._buildReportForm();
 
     var exportCSVButton = this._buildCSVForm();
@@ -1216,9 +1217,10 @@ MDSS.QueryPanel.prototype = {
     var leftDiv = new YAHOO.util.Element(document.createElement('div'));
     leftDiv.setStyle('float', 'left');
     leftDiv.appendChild(this._queryList);
-    leftDiv.appendChild(loadButton);
+    
     leftDiv.appendChild(saveButton);
     leftDiv.appendChild(saveAsButton);
+    leftDiv.appendChild(deleteButton);
 
     var qBottom = new YAHOO.util.Element(this._qBottomUnit.body);
     qBottom.appendChild(leftDiv);
@@ -1682,10 +1684,26 @@ MDSS.QueryPanel.prototype = {
 
       // ignore the default, empty option
       var savedSearchId = queries.options[queries.selectedIndex].value;
-      this._config.loadQuery.call(this._queryClass, savedSearchId);
+      if(savedSearchId)
+      {
+      	this._config.loadQuery.call(this._queryClass, savedSearchId);
+      }
     }
   },
 
+  /**
+   * Deletes a query.
+   */
+  _deleteQuery : function()
+  {
+  	
+    if(Mojo.Util.isFunction(this._config.saveQuery))
+    {
+      this._config.saveQuery.call(this._queryClass);
+    }
+  },
+  
+  
   /**
    * Saves a query.
    */
