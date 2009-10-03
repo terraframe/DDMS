@@ -1,5 +1,6 @@
 package dss.vector.solutions.util;
 
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,8 @@ import com.terraframe.mojo.query.ValueQueryParser;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
@@ -263,7 +266,9 @@ public class QueryUtil implements Reloadable
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_EPIWEEK);
-      dateGroup.setSQL("to_char(" + da + ",'IW')");
+      int startDay = 6 + Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+      GregorianCalendar cal = new GregorianCalendar();
+      dateGroup.setSQL("to_char(" + da + " - interval '" + startDay + " days','IW')");
     }
 
     if (xml.indexOf(DATEGROUP_MONTH) > 0)
