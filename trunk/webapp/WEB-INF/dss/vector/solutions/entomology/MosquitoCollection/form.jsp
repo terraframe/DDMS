@@ -13,7 +13,7 @@
       <mjl:dt attribute="dateCollected" type="text" classes="DatePick" />
       <dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
       <dd>${item.geoEntity.displayString} 
-       <mjl:input type="hidden" param="geoEntity" id="dto.geoEntity.id" /> <mjl:messages attribute="geoEntity">
+       <mjl:input type="hidden" param="geoEntity" id="dto.geoEntity.id" value="${item.geoEntity.id}" /> <mjl:messages attribute="geoEntity">
         <mjl:message />
       </mjl:messages></dd>
     </mjl:component>
