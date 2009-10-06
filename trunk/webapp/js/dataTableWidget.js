@@ -402,6 +402,53 @@ MojoGrid.createDataTable = function(table_data) {
 //      // Invoke the save method
 //      saveMethod(request, view_array);      
 //  }
+  var setValue = function(view, attribute, value){
+      var attributeName = attribute.key.substring(0, 1).toLowerCase() + attribute.key.substring(1);
+
+      var setter_exists = Mojo.Util.isFunction(view['set' + attribute.key]);
+      
+      if (setter_exists) {
+        if (value != null) {
+          if (view.attributeMap[attributeName] instanceof com.terraframe.mojo.transport.attributes.AttributeDateDTO) {
+            view['set' + attribute.key](MDSS.Calendar.parseDate(value));
+          }
+          else {
+            view['set' + attribute.key](value);
+          }
+        } 
+        else {
+          //FIXME: this is a workaround for a bug in mojo
+          view['set' + attribute.key]("");
+        }
+      }
+      else{
+         // enum setters start with "add" instead of "set"
+        var setter_exists = Mojo.Util.isFunction(view['add' + attribute.key]);
+        if (setter_exists) {
+          view['add' + attribute.key](value);
+        }
+      }
+    }  
+  
+  var createObjectRepresentation = function() {
+      var view_arr = new Array();
+
+      for ( var r = 0; r < table_data.rows.length; r++) {
+        var row = table_data.rows[r];
+        var view_contructor = Mojo.Meta.findClass(table_data.data_type.substring(7));
+        var view = new view_contructor();
+
+        for ( var i = 0; i < table_data.fields.length; i++) {
+          var attrib = table_data.fields[i];
+          var val = row[attrib.key];
+
+          setValue(view, attrib, val);
+        }
+        view_arr.push(view);
+      }
+      
+      return view_arr;
+  }
 
   var persistData = function() {
 	  // save any open editors before we send the ajax request
@@ -461,54 +508,12 @@ MojoGrid.createDataTable = function(table_data) {
         }
       });
 
-      function setValue(view){
-        var setter_exists = Mojo.Util.isFunction(view['set' + attrib.key]);
-        if (setter_exists) {
-          if (val != null) {
-            if (view.attributeMap[attribName] instanceof com.terraframe.mojo.transport.attributes.AttributeDateDTO) {
-              view['set' + attrib.key](MDSS.Calendar.parseDate(val));
-            } else {
-              view['set' + attrib.key](val);
-            }
-          } else {
-            //FIXME: this is a workaround for a bug in mojo
-            view['set' + attrib.key]("");
-          }
-        }
-        else{
-           // enum setters start with "add" instead of "set"
-          var setter_exists = Mojo.Util.isFunction(view['add' + attrib.key]);
-          if (setter_exists) {
-            view['add' + attrib.key](val);
-          }
-        }
-      }
 
-      var view_arr = new Array();
-
-      for ( var r = 0; r < table_data.rows.length; r++) {
-        var row = table_data.rows[r];
-        var view_contructor = Mojo.Meta.findClass(table_data.data_type.substring(7));
-        var view = new view_contructor();
-
-        for ( var i = 0; i < table_data.fields.length; i++) {
-          var attrib = table_data.fields[i];
-          var val = row[attrib.key];
-          var attribName = attrib.key.substring(0, 1).toLowerCase() + attrib.key.substring(1);
-          setValue(view);
-        }
-        view_arr.push(view);
-      }
-
+      var view_arr = createObjectRepresentation();
+    	  
       // Save the table
       table_data.saveHandler(request, view_arr);
       
-//      if(!table_data.saveHandler) {
-//    	  defaultSaveHandler(request, view_arr);
-//      }
-//      else {
-//    	  table_data.saveHandler(request, view_arr);
-//      }
       btnSaveRows.set("disabled", true);
     };
 
@@ -542,6 +547,16 @@ MojoGrid.createDataTable = function(table_data) {
       buttons.innerHTML += '<form method="post" action="excelexport" style="display: inline;"><input type="hidden" name="excelType" value="' + table_data.excelType + '" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Export_Header') + '</button></span></span></form>';
     }
 
+    // Setup the custom buttons
+    if(Mojo.Util.isArray(table_data.customButtons)) {
+  	  for(var i = 0; i < table_data.customButtons.length; i++) {
+  		  var config = table_data.customButtons[i];
+  		  
+  		  // Create the button and add it next to the previous button 
+  		  buttons.innerHTML += '<button type="button" id="' + table_data.div_id + '.' + config.id + '">' + config.label + '</button>';
+  	  }
+    }
+
     YAHOO.util.Dom.insertAfter(buttons, tableDiv);
   }
 
@@ -551,6 +566,16 @@ MojoGrid.createDataTable = function(table_data) {
     btnSaveRows.on("click", persistData);
   }
 
+  // Setup the custom button actions
+  if(Mojo.Util.isArray(table_data.customButtons)) {
+    for(var i = 0; i < table_data.customButtons.length; i++) {
+      var config = table_data.customButtons[i];
+  		  
+  	  // set up the button that saves the rows to the db
+  	  var customButton = new YAHOO.widget.Button(table_data.div_id + "." + config.id);
+	  customButton.on("click", config.action);
+    }
+  }
 
   // Add one row to the bottom
   var addRow = function() {
@@ -599,6 +624,7 @@ MojoGrid.createDataTable = function(table_data) {
   //myLogReader = new YAHOO.widget.LogReader();
   return {
     oDS : myDataSource,
-    oDT : myDataTable
+    oDT : myDataTable,
+    getObjects : createObjectRepresentation
   };
 };

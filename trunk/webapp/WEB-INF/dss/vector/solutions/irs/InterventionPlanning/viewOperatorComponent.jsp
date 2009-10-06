@@ -56,6 +56,12 @@ String deleteColumn = "";
 </dl>
 <div id="InterventionPlanning"></div>
 
+<div style="display:none;">
+  <form method="POST" action="dss.vector.solutions.irs.InterventionPlanningController.exportOperatorPlanning.mojo" name="planning.export" id="planning.export" >
+  </form>
+</div>
+
+
 <br />
 <span class="noprint">
   <mjl:commandLink  action="dss.vector.solutions.irs.InterventionPlanningController.search.mojo" name="search.link" >
@@ -117,10 +123,39 @@ map.put("UnitsPerDay",  new ColumnSetup(false, true, "validateUnitsPerDay", null
       addButton:false,
       reloadKeys : ["RequiredOperators"],
       saveLabelKey : 'Calculate',
-      cleanDisable : false
+      cleanDisable : false,
+      customButtons : [{
+          id : 'Export',
+          label : MDSS.localize('Export'),
+          action : function() {
+            var objects = grid.getObjects();
+            var form = document.getElementById('planning.export');
+            var innerHTML = '';
+
+            if(Mojo.Util.isArray(objects)) {
+                for(var i = 0; i < objects.length; i++) {
+                    // Decompose the objects for the action parameters
+                    var object = objects[i];
+                                        
+                    innerHTML += '<input type="hidden" name="views_' + i + '.componentId" value="' + object.getId() + '" />\n';
+                    innerHTML += '<input type="hidden" name="views_' + i + '.isNew" value="true" />\n';
+                    innerHTML += '<input type="hidden" name="#views_' + i + '.actualType" value="dss.vector.solutions.irs.OperatorInterventionPlanningView" />\n';
+                    innerHTML += '<input type="hidden" name="views_' + i + '.entityLabel" value="' + object.getEntityLabel() + '"/>\n';
+                    innerHTML += '<input type="hidden" name="views_' + i + '.targets" value="' + object.getTargets() + '"/>\n';
+                    innerHTML += '<input type="hidden" name="views_' + i + '.numberofDays" value="' + object.getNumberofDays() + '"/>\n';
+                    innerHTML += '<input type="hidden" name="views_' + i + '.unitsPerDay" value="' + object.getUnitsPerDay() + '"/>\n';
+                    innerHTML += '<input type="hidden" name="views_' + i + '.requiredOperators" value="' + object.getRequiredOperators() + '"/>\n';                    
+                }                     
+            }
+
+            form.innerHTML = innerHTML;
+            form.submit();
+          }
+      }]
+      
     };        
 
-    document.addEventListener('load', MojoGrid.createDataTable(data), false);
+    var grid = MojoGrid.createDataTable(data);
   });
 })();
         

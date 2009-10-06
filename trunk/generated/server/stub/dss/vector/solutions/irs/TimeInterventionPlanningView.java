@@ -1,9 +1,14 @@
 package dss.vector.solutions.irs;
 
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdViewDAOIF;
+import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.ViewArrayExcelExporter;
+import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
@@ -124,5 +129,21 @@ public class TimeInterventionPlanningView extends TimeInterventionPlanningViewBa
 
     return returnViews;
   }
+  
+  public static InputStream exportToExcel(TimeInterventionPlanningView[] views)
+  {
+    List<String> attributes = new LinkedList<String>();
+    attributes.add(ENTITYLABEL);
+    attributes.add(TARGETS);
+    attributes.add(OPERATORS);
+    attributes.add(REQUIREDDAYS);
+    
+    MdViewDAOIF mdView = MdViewDAO.getMdViewDAO(CLASS);
+    
+    ViewArrayExcelExporter exporter = new ViewArrayExcelExporter(views, attributes, mdView, mdView.getDisplayLabel(Session.getCurrentLocale()));
+    
+    return exporter.exportStream();
+  }
+
 
 }

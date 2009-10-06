@@ -1,9 +1,14 @@
 package dss.vector.solutions.irs;
 
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdViewDAOIF;
+import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.ViewArrayExcelExporter;
+import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -108,5 +113,21 @@ public class OperatorInterventionPlanningView extends OperatorInterventionPlanni
     }
 
     return views;
+  }
+  
+  public static InputStream exportToExcel(OperatorInterventionPlanningView[] views)
+  {
+    List<String> attributes = new LinkedList<String>();
+    attributes.add(ENTITYLABEL);
+    attributes.add(TARGETS);
+    attributes.add(NUMBEROFDAYS);
+    attributes.add(UNITSPERDAY);    
+    attributes.add(REQUIREDOPERATORS);
+    
+    MdViewDAOIF mdView = MdViewDAO.getMdViewDAO(CLASS);
+    
+    ViewArrayExcelExporter exporter = new ViewArrayExcelExporter(views, attributes, mdView, mdView.getDisplayLabel(Session.getCurrentLocale()));
+    
+    return exporter.exportStream();    
   }
 }

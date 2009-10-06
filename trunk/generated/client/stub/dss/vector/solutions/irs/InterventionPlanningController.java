@@ -1,6 +1,7 @@
 package dss.vector.solutions.irs;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +20,7 @@ import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.RedirectUtility;
 
 public class InterventionPlanningController extends InterventionPlanningControllerBase implements Reloadable
@@ -102,11 +104,40 @@ public class InterventionPlanningController extends InterventionPlanningControll
     }
   }
   
-
   @Override
   public void failSearchForTimePlanning(String geoId, MalariaSeasonDTO season) throws IOException, ServletException
   {
     search("time");
+  }
+  
+  @Override
+  public void exportTimePlanning(TimeInterventionPlanningViewDTO[] views) throws IOException, ServletException
+  {
+    ClientRequestIF clientRequest = this.getClientRequest();
+    
+    InputStream stream = TimeInterventionPlanningViewDTO.exportToExcel(clientRequest, views);
+    
+    FileDownloadUtil.writeXLS(resp, "planning", stream);
+  }
+  
+  @Override
+  public void exportInsecticidePlanning(InsecticideInterventionPlanningViewDTO[] views) throws IOException, ServletException
+  {
+    ClientRequestIF clientRequest = this.getClientRequest();
+    
+    InputStream stream = InsecticideInterventionPlanningViewDTO.exportToExcel(clientRequest, views);
+    
+    FileDownloadUtil.writeXLS(resp, "planning", stream);
+  }
+  
+  @Override
+  public void exportOperatorPlanning(OperatorInterventionPlanningViewDTO[] views) throws IOException, ServletException
+  {
+    ClientRequestIF clientRequest = this.getClientRequest();
+    
+    InputStream stream = OperatorInterventionPlanningViewDTO.exportToExcel(clientRequest, views);
+    
+    FileDownloadUtil.writeXLS(resp, "planning", stream);
   }
   
   @Override

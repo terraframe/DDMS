@@ -1,10 +1,15 @@
 package dss.vector.solutions.irs;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdViewDAOIF;
+import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.ViewArrayExcelExporter;
+import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -101,6 +106,20 @@ public class InsecticideInterventionPlanningView extends InsecticideIntervention
       
       throw e;
     }
+  }
+  
+  public static InputStream exportToExcel(InsecticideInterventionPlanningView[] views)
+  {
+    List<String> attributes = new LinkedList<String>();
+    attributes.add(ENTITYLABEL);
+    attributes.add(TARGETS);
+    attributes.add(REQUIREDINSECTICIDE);
+    
+    MdViewDAOIF mdView = MdViewDAO.getMdViewDAO(CLASS);
+    
+    ViewArrayExcelExporter exporter = new ViewArrayExcelExporter(views, attributes, mdView, mdView.getDisplayLabel(Session.getCurrentLocale()));
+    
+    return exporter.exportStream();    
   }
 
 }

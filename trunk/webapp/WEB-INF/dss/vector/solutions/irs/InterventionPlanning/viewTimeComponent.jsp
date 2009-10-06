@@ -62,6 +62,11 @@ String deleteColumn = "";
 </dl>
 <div id="InterventionPlanning"></div>
 
+<div style="display:none;">
+  <form method="POST" action="dss.vector.solutions.irs.InterventionPlanningController.exportTimePlanning.mojo" name="planning.export" id="planning.export" >
+  </form>
+</div>
+
 <br />
 
 <span class="noprint">
@@ -139,10 +144,37 @@ map.put("RequiredDays", new ColumnSetup(false, false));
       reloadKeys : ["RequiredDays"],
       saveLabelKey : 'Calculate',
       saveHandler : saveHandler,
-      cleanDisable : false
+      cleanDisable : false,
+      customButtons : [{
+          id : 'Export',
+          label : MDSS.localize('Export'),
+          action : function() {
+            var objects = grid.getObjects();
+            var form = document.getElementById('planning.export');
+            var innerHTML = '';
+
+            if(Mojo.Util.isArray(objects)) {
+                for(var i = 0; i < objects.length; i++) {
+                    // Decompose the objects for the action parameters
+                    var object = objects[i];
+                                        
+                    innerHTML += '<input type="hidden" name="views_' + i + '.componentId" value="' + object.getId() + '" />\n';
+                    innerHTML += '<input type="hidden" name="views_' + i + '.isNew" value="true" />\n';
+                    innerHTML += '<input type="hidden" name="#views_' + i + '.actualType" value="dss.vector.solutions.irs.TimeInterventionPlanningView" />\n';
+                    innerHTML += '<input type="hidden" name="views_' + i + '.entityLabel" value="' + object.getEntityLabel() + '"/>\n';
+                    innerHTML += '<input type="hidden" name="views_' + i + '.targets" value="' + object.getTargets() + '"/>\n';
+                    innerHTML += '<input type="hidden" name="views_' + i + '.operators" value="' + object.getOperators() + '"/>\n';
+                    innerHTML += '<input type="hidden" name="views_' + i + '.requiredDays" value="' + object.getRequiredDays() + '"/>\n'                    
+                }                     
+            }
+
+            form.innerHTML = innerHTML;
+            form.submit();
+          }
+      }]
     };        
 
-    document.addEventListener('load', MojoGrid.createDataTable(data), false);
+    var grid = MojoGrid.createDataTable(data);
 
     YAHOO.util.Event.on(button, 'click', saveUnits);    
     YAHOO.util.Event.on(unitsPerDay, 'blur', validateUnits);    
