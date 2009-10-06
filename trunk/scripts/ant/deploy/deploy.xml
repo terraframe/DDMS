@@ -27,9 +27,10 @@
 
 	<property name="domain.location" value="${local.root}/doc/entomology.xml" />
 	<property name="xsd.location" value="${local.root}/profiles/datatype_gis.xsd" />
-	<property name="version.dir" value="${local.root}/doc/" />
+	<property name="version.dir" value="${local.root}/doc/individual/" />
+	<property name="working.dir" value="${local.root}/doc/working/" />
 	<property name="version.xsd" value="/version_gis.xsd" />
-	<property name="geodata.db" value="mozambique" />
+	<property name="geodata.db" value="mrc_mozambique" />
 
 	<!-- =================================================================== -->
 	<!-- Define the tomcat tasks                                                 -->
@@ -554,13 +555,36 @@
 					<path refid="framework.classpath" />
 				</classpath>
 			</java>
-		</target>
+	</target>
 
+	<target name="import_working_set" description="Performs the doIt command on all of the files in the working directory">
+			<echo message="Import working set" />
+			<java classname="com.terraframe.mojo.dataaccess.io.Versioning" failonerror="true">
+				<arg value="${working.dir}/" />
+				<arg value="${version.xsd}"/>
+				<arg value="false"/>
+				<classpath>
+					<path refid="framework.classpath" />
+				</classpath>
+			</java>
+	</target>
+
+	<target name="unimport_working_set" description="Performs the undoIt command on all of the files in the working directory">
+			<echo message="Unimport working set" />
+			<java classname="com.terraframe.mojo.dataaccess.io.UndoAll" failonerror="true">
+				<arg value="${working.dir}/" />
+				<arg value="${version.xsd}"/>
+				<arg value="false"/>
+				<classpath>
+					<path refid="framework.classpath" />
+				</classpath>
+			</java>
+	</target>
 
 	<target name="create_new_domain_model" description="Creates a new time stamped domain model">
 		<echo message="Create a time stamped schema" />
 		<java classname="com.terraframe.mojo.dataaccess.io.CreateDomainModel" failonerror="true">
-			<arg value="${version.dir}/" />
+			<arg value="${working.dir}/" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
