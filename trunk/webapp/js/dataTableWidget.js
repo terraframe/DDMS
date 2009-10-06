@@ -429,7 +429,18 @@ MojoGrid.createDataTable = function(table_data) {
 
             	for(var j = 0; j < table_data.reloadKeys.length; j++) {
             	  var reloadKey = table_data.reloadKeys[j];
-                  var reloadValue = savedRows[i]["get" + reloadKey]();              
+            	  var attributeName = reloadKey.substr(0, 1).toLowerCase() + reloadKey.substr(1);
+            	  
+            	  var reloadValue = "";              
+            	  
+            	  if(savedRows[i].getAttributeDTO(attributeName) instanceof AttributeReferenceDTO) {
+
+            		  reloadValue = savedRows[i]["getValue"](attributeName);              
+            	  }
+            	  else {
+            		  reloadValue = savedRows[i]["get" + reloadKey]();              
+            	  }
+            		  
                   
                   record.setData(reloadKey, reloadValue);                  
                   row[reloadKey] = reloadValue;
