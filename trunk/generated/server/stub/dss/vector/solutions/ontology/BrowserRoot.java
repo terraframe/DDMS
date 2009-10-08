@@ -4,15 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.dataaccess.transaction.AbortIfProblem;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.query.ViewQueryBuilder;
-import com.terraframe.mojo.system.metadata.MdAttributeConcreteQuery;
-import com.terraframe.mojo.system.metadata.MdBusiness;
 
 public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -82,20 +75,34 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     return views.toArray(new BrowserRootView[views.size()]);
   }
   
-  // FIXME finish
+  /**
+   * Gets all roots for the given class name and attribute name.
+   * 
+   * @param className
+   * @param attributeName
+   * @return
+   */
   public static BrowserRootView[] getAttributeRoots(String className, String attributeName)
   {
-    QueryFactory f = new QueryFactory();
-    BrowserFieldQuery q = new BrowserFieldQuery(f);
-    MdAttributeConcreteQuery a = new MdAttributeConcreteQuery(f);
+    BrowserField field = BrowserField.getFieldForAttribute(className, attributeName);
     
-    MdBusiness md = MdBusiness.getMdBusiness(className);
+    List<BrowserRootView> views = new LinkedList<BrowserRootView>();
     
-    a.WHERE(a.getDefiningMdClass().EQ(md));
-    a.WHERE(a.getAttributeName().EQ(attributeName));
-    q.AND(q.getMdAttribute().EQ(a));
+    OIterator<? extends BrowserRoot> iter = field.getAllroot();
+    try
+    {
+      while(iter.hasNext())
+      {
+        views.add(iter.next().toView());
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
     
-    return null;
+    
+    return views.toArray(new BrowserRootView[views.size()]);
   }
   
   private static BrowserRootView toView(TermView termView)
@@ -120,10 +127,12 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     Term term = this.getTerm();
     
     BrowserRootView view = new BrowserRootView();
+    view.setTermId(term.getId());
     view.setTermName(term.getTermName());
     view.setSelectable(this.getSelectable());
     view.setBrowserRootId(this.getId());
     view.setTermOntologyId(term.getTermId());
+    
     return view;
   }
   

@@ -319,6 +319,7 @@ MDSS.GeoEntityTree = (function(){
     view.setActivated(geoEntity.getActivated());
     view.setEntityName(geoEntity.getEntityName());
     view.setEntityType(geoEntity.getType());
+    view.setTypeDisplayLabel(geoEntity.getTypeMd().getDisplayLabel());
 
     return view;
   }

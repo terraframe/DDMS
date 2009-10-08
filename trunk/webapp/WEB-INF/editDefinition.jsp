@@ -50,6 +50,21 @@
         ${parentLabel}
       </dd>
       <dt>
+        ${definition.termMd.displayLabel}
+      </dt>
+      <dd>
+        <mjl:command name="dss.vector.solutions.ontology.BrowserRoot.form.openBrowser" 
+          action="dss.vector.solutions.ontology.BrowserRootController.openBrowser.mojo" value="Browser" classes="browserOpenBtn"></mjl:command>
+        <div id="termName" class="autosize" style="height:15px; margin-left:70px; padding:3px; width:280px; background-color: white; border:1px solid black">
+          <div>
+          <c:if test="${termName != null}">
+            ${termName} (${termOntologyId})
+          </c:if>
+          </div>
+        </div>
+        <mjl:input type="hidden" param="term" id="term" value="${termId}" />
+      </dd>
+      <dt>
         <label>
           ${definition.politicalMd.displayLabel}
         </label>

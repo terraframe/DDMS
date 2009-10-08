@@ -125,6 +125,7 @@ public class BrowserRootController extends BrowserRootControllerBase implements
       
       // get the term name/id // FIXME use BrowserRootView
       TermDTO term = dto.getTerm();
+        
       String name = term.getTermName();
       String termId = term.getTermId();
       

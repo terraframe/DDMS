@@ -684,6 +684,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     geoHierarchy.setPolitical(definition.getPolitical());
     geoHierarchy.setSprayTargetAllowed(definition.getPolitical());
     geoHierarchy.setGeoEntityClass(mdGeoEntity);
+    geoHierarchy.setTerm(definition.getTerm());
     geoHierarchy.apply();
 
     GeoHierarchy allowedIn = GeoHierarchy.get(definition.getParentGeoHierarchyId());
@@ -844,6 +845,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     definition.setTypeName(mdBusiness.getTypeName());
     definition.setDisplayLabel(mdBusiness.getDisplayLabel().getValue());
     definition.setDescription(mdBusiness.getDescription().getValue());
+    definition.setTerm(this.getTerm());
     definition.setPolitical(this.getPolitical());
     definition.setSprayTargetAllowed(this.getSprayTargetAllowed());
 
@@ -940,6 +942,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     GeoHierarchy geoHierarchy = GeoHierarchy.get(view.getGeoHierarchyId());
     geoHierarchy.setPolitical(view.getPolitical());
     geoHierarchy.setSprayTargetAllowed(view.getSprayTargetAllowed());
+    geoHierarchy.setTerm(view.getTerm());
     geoHierarchy.apply();
 
     MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();

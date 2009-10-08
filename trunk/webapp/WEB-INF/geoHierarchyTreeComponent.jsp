@@ -10,13 +10,23 @@
 
 <%@page import="dss.vector.solutions.geo.GeoEntityTypeController"%>
 <%@page import="dss.vector.solutions.geo.GeoHierarchyViewDTO"%>
-<script type="text/javascript">
+
+<%@page import="dss.vector.solutions.ontology.TermViewDTO"%>
+<%@page import="dss.vector.solutions.ontology.MODTO"%>
+<%@page import="dss.vector.solutions.ontology.TermController"%>
+<%@page import="dss.vector.solutions.ontology.MOController"%>
+<%@page import="dss.vector.solutions.ontology.BrowserFieldDTO"%>
+<%@page import="dss.vector.solutions.ontology.BrowserRootDTO"%>
+<%@page import="dss.vector.solutions.ontology.BrowserRootViewDTO"%>
+<%@page import="dss.vector.solutions.ontology.BrowserRootController"%>
+<%@page import="dss.vector.solutions.ontology.TermDTO"%><script type="text/javascript">
 
   <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
     String rootId = (String) request.getAttribute(GeoEntityTypeController.ROOT_GEO_HIERARCHY_ID);
   
-    String[] types = {GeoHierarchyDTO.CLASS, GeoHierarchyViewDTO.CLASS, GeoEntityTypeController.CLASS};
+    String[] types = {GeoHierarchyDTO.CLASS, GeoHierarchyViewDTO.CLASS, GeoEntityTypeController.CLASS,
+        BrowserRootDTO.CLASS, BrowserRootViewDTO.CLASS, BrowserRootController.CLASS, TermViewDTO.CLASS, TermDTO.CLASS};
     
     String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
     out.print(js);

@@ -1,5 +1,6 @@
 package dss.vector.solutions.ontology;
 
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -10,6 +11,8 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
 {
   private static final long serialVersionUID = 1252959713570L;
   
+  private static final String KEY_PREFIX = "Ontology__";
+  
   public BrowserField()
   {
     super();
@@ -19,7 +22,42 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
   protected String buildKey()
   {
     MdAttribute mdAttr = this.getMdAttribute();
-    return "Ontology__"+mdAttr.getKeyName();
+    return KEY_PREFIX+mdAttr.getKeyName();
+  }
+
+  /**
+   * Returns the BrowserField associated with the given class name and attribute. This
+   * method should only be called if a BrowserField exists that matches the criteria. Otherwise,
+   * this method will error out with a generic exception.
+   * 
+   * @param className
+   * @param attribute
+   * @return
+   */
+  public static BrowserField getFieldForAttribute(String className, String attribute)
+  {
+    QueryFactory f = new QueryFactory();
+    BrowserFieldQuery q = new BrowserFieldQuery(f);
+    
+    // reconstruct the keyname (assumes MdAttribute keyname is preserved).
+    String keyName = KEY_PREFIX+className+"."+attribute;
+    
+    q.WHERE(q.getKeyName().EQ(keyName));
+    OIterator<? extends BrowserField> iter = q.getIterator();
+    
+    try
+    {
+      return iter.next();  
+    }
+    catch(Throwable t)
+    {
+      String msg = "A BrowserField does not exist with key name ["+keyName+"].";
+      throw new ProgrammingErrorException(msg, t);
+    }
+    finally
+    {
+      iter.close(); 
+    }
   }
   
   public static BrowserFieldViewQuery getAsViews()

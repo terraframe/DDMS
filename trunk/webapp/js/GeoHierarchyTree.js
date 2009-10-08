@@ -24,7 +24,11 @@ MDSS.GeoHierarchyTree = (function(){
 
   // reference to modal for node create/edit
   var _modal = null;
-
+  
+  // reference to the Ontology browser used to select the proper
+  // term for a univeral
+  var _sharedBrowser = null
+  
   /**
    * Removes everything from the current Tree
    */
@@ -225,7 +229,7 @@ MDSS.GeoHierarchyTree = (function(){
   {
     _modal = new YAHOO.widget.Panel("select",
       { width:"400px",
-        height: "450px",
+        height: "500px",
         fixedcenter:true,
         close: arguments.length > 1 ? closeWin : true,
         draggable:false,
@@ -730,6 +734,46 @@ MDSS.GeoHierarchyTree = (function(){
     // map node to GeoEntity
     _setMapping(_hierarchyTree.getRoot().children[0], geoHierarchyView);
   }
+  
+  
+  function _openBrowser(params)
+  {
+    var termId = document.getElementById('term').value;
+    var selected = [];
+    if(termId !== '')
+    {
+      selected.push(termId); 
+    }
+ 
+    if(_sharedBrowser.isRendered())
+    {
+      _sharedBrowser.reset();
+      _sharedBrowser.show();
+      _sharedBrowser.setSelection(selected); 
+    }
+    else
+    {
+      _sharedBrowser.render();
+      _sharedBrowser.setSelection(selected); 
+    }
+  }
+  
+  function _setField(selected)
+  {
+    var el = document.getElementById('term');
+    var dEl = document.getElementById('termName');
+    if(selected.length > 0)
+    {
+      var sel = selected[0];
+      el.value = sel.getTermId();
+      dEl.innerHTML = sel.getTermName() + '('+sel.getTermOntologyId()+')'; 
+    }
+    else
+    {
+      el.value = '';
+      dEl.innerHTML = '';
+    }
+  }
 
   /**
    * Initializes the tree by setting the GeoEntity with the
@@ -743,6 +787,16 @@ MDSS.GeoHierarchyTree = (function(){
       }
     });
 
+      // Create the one instance of the OntologyBrowser that will
+      // be shared by all BrowserRoots. This is done because only one
+      // BrowserRoot can be edited at a time.
+      _sharedBrowser = new MDSS.OntologyBrowser(false, 'dss.vector.solutions.geo.GeoHierarchy', 'term');
+      _sharedBrowser.setHandler(_setField);
+    
+      // set the handlers for the BrowserRootController
+      var rootController = Mojo.$.dss.vector.solutions.ontology.BrowserRootController;
+      rootController.setOpenBrowserListener(_openBrowser);
+      
     // Fetch the root node
     Mojo.$.dss.vector.solutions.geo.GeoHierarchy.getViewForGeoHierarchy(request, MDSS.GeoHierarchyTreeRootId);
   }

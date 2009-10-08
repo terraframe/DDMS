@@ -86,11 +86,21 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
       this.currentModal.bringToTop();
       
       var calendar = document.getElementById(this.calendarIdEl);
-
       MDSS.Calendar.addCalendarListeners(calendar);
         	  
       eval(executable);
-        	  
+      
+      /*
+       * BUG FIX: Any focus event on the YUI calendar is transfered
+       * to the underlying Panel such that the first element in the Panel
+       * is set to focus. This keeps the calendar from working correctly.
+       * Regardless if the bug is in MDSS or YUI, removing the focus handlers
+       * directly from the panel instance seems to fix the issue.
+       * 
+       * TODO unregister the focus handlers in a more official way.
+       */
+      this.currentModal._removeFocusHandlers();
+      
       // now attach geo searching to each geo input
       this._residentialGeoSearch = new MDSS.GeoSearch('residentialGeoId', this._selectSearch);
       this._workGeoSearch = new MDSS.GeoSearch('workGeoId', this._selectSearch);

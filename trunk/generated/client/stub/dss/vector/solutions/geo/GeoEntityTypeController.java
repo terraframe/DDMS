@@ -12,6 +12,8 @@ import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 import com.terraframe.mojo.web.json.JSONSmartExceptionDTO;
 
+import dss.vector.solutions.ontology.TermDTO;
+
 public class GeoEntityTypeController extends GeoEntityTypeControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -121,6 +123,18 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
       
       GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(clientRequest, geoHierarchyId);
       GeoEntityDefinitionDTO definition = GeoHierarchyDTO.getGeoEntityDefinition(clientRequest, geoHierarchyId);
+      
+      TermDTO term = definition.getTerm();
+      if(term != null)
+      {
+        String name = term.getTermName();
+        String termId = term.getTermId();
+        
+        req.setAttribute("termName", name);
+        req.setAttribute("termOntologyId", termId);
+        req.setAttribute("termId", term.getId());
+        
+      }
       
       req.setAttribute("parentLabel", view.getIsADisplayLabel());            
       req.setAttribute("geoHierarchyId", geoHierarchyId);

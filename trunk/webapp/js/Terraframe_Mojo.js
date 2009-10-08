@@ -154,20 +154,63 @@ var Mojo = {
         method : klass.getInstance, klass: klass};  
     },
     
+    _createConstructor : function()
+    {
+      return function(){
+      
+        if(Mojo.Meta._isInitialized && this.$class.isAbstract())
+        {
+          var msg = "Cannot instantiate the abstract class ["+this.$class.getQualifiedName()+"]";
+          var error = new Error(msg);
+          Mojo.log.LogManager.writeError(msg, error);
+          throw error;
+        }
+        
+        this.__context__ = {}; // super context
+        
+        if(arguments.length === 1 && arguments[0] === Mojo.Meta._pseudoConstructor)
+        {
+          Mojo.Meta._pseudoConstructor(); // for "reflective" newInstance() calls.
+        }
+        else
+        {
+          this.initialize.apply(this, [].splice.call(arguments, 0));
+        }
+      };      
+    },
+    
+    _addOverride : function(klass, methodName)
+    {
+      // keep track of parent context
+      klass.prototype['$'+methodName] = (function(m){
+      
+        return function(){
+        
+          // FIXME clean this (use __context__?)
+          var execStack = this.__context__[m];
+          if(!execStack)
+          {
+            execStack = [];
+            this.__context__[m] = execStack;
+          }
+          
+          var currentKlass = execStack.length === 0 ? this.$class.getSuperClass()
+            : execStack[execStack.length-1].$class.getSuperClass();            
+          
+          execStack.push(currentKlass);
+          
+          var retObj = currentKlass.prototype[m].apply(this, arguments);
+          
+          execStack.pop();
+          
+          return retObj;
+        };
+      })(methodName);
+    },
+    
     newClass : function(qualifiedName, definition)
     {
-      var classes;
-      var buildPackage; 
-      if(qualifiedName === 'Mojo.Meta')
-      {
-        classes = this._classes;
-        buildPackage = this._buildPackage;
-      }
-      else
-      {
-        classes = Mojo.Meta._classes;
-        buildPackage = Mojo.Meta._buildPackage;
-      }
+      var metaRef = qualifiedName === 'Mojo.Meta' ? this : Mojo.Meta;
 
       var superClass;
       if(Mojo.IS_FUNCTION_TO_STRING === Object.prototype.toString.call(definition.Extends))
@@ -176,11 +219,11 @@ var Mojo = {
       }
       else if(Mojo.IS_STRING_TO_STRING === Object.prototype.toString.call(definition.Extends))
       {
-        superClass = classes[definition.Extends];
+        superClass = metaRef._classes[definition.Extends];
       }
       else
       {
-        superClass = classes[Mojo.ROOT_PACKAGE+'Base'];
+        superClass = metaRef._classes[Mojo.ROOT_PACKAGE+'Base'];
       }
       
       var alias = definition.Alias || null;
@@ -213,36 +256,19 @@ var Mojo = {
       }
       
       // wrap the constructor function
-      var klass = function(){
-      
-        if(Mojo.Meta._isInitialized && this.$class.isAbstract())
-        {
-          var msg = "Cannot instantiate the abstract class ["+this.$class.getQualifiedName()+"]";
-          var error = new Error(msg);
-          Mojo.log.LogManager.writeError(msg, error);
-          throw error;
-        }
-        else if(arguments.length === 1 && arguments[0] === Mojo.Meta._pseudoConstructor)
-        {
-          Mojo.Meta._pseudoConstructor(); // for "reflective" newInstance() calls.
-        }
-        else
-        {
-          this.initialize.apply(this, [].splice.call(arguments, 0));
-        }
-      };
+      var klass = metaRef._createConstructor();
       
       // always add the namespace to the window
-      var namespace = buildPackage(packageName, window);
+      var namespace = metaRef._buildPackage(packageName, window);
       namespace[className] = klass;
        
       if(alias !== null)
       {
-        var namespace = buildPackage(packageName, alias);
+        var namespace = metaRef._buildPackage(packageName, alias);
         namespace[className] = klass;
       }
       
-      classes[qualifiedName] = klass; // used for quick lookup
+      metaRef._classes[qualifiedName] = klass;
       
       // temp function is used for inheritance instantiation, to
       // avoid calling actual class constructor
@@ -251,7 +277,7 @@ var Mojo = {
       klass.prototype = new temp();
 
       // reset constructor to point to the class, such that
-      // a.constructor === A
+      // new A().constructor === A
       klass.prototype.constructor = klass;
 
       // config obj for Class constructor
@@ -279,32 +305,7 @@ var Mojo = {
         if(superClass !== Object
           && Mojo.IS_FUNCTION_TO_STRING == Object.prototype.toString.call(superClass.prototype[m]))
         {
-          // keep track of parent context
-          klass.prototype['$'+m] = (function(toExec){
-          
-            var pStack = []; 
-          
-            return function(){
-            
-              if(pStack.length == 0)
-              {
-                pStack.push(this.$class.getSuperClass());
-              }  
-              else
-              {
-                var lastKlass = pStack[pStack.length-1];
-                var nextKlass = lastKlass.$class.getSuperClass();
-                pStack.push(nextKlass);
-              }
- 
-              var currentKlass = pStack[pStack.length-1];
-              var retObj = currentKlass.prototype[toExec].apply(this, [].splice.call(arguments, 0));
- 
-              pStack.pop();
-              
-              return retObj;
-            };
-          })(m);
+          metaRef._addOverride(klass, m);
         }
             
         config.instanceMethods[m] = {name : m, isStatic : false, 
@@ -359,7 +360,7 @@ var Mojo = {
     }
   },
   
-  // FIXME add as static vars
+  // TODO add as static variables
   JSON_ENDPOINT : 'Mojo/JSONControllerServlet',
   
   ATTRIBUTE_DTO_PACKAGE : 'com.terraframe.mojo.transport.attributes.',
@@ -542,6 +543,17 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       {
         this._superClass.$class._addSubClass(this._qualifiedName, this._klass);
       }
+      
+      // Each class constructor function and instance gets
+      // a method to return this Class instance.
+      // FIXME add method metadata for getMetaClass
+      this._klass.getMetaClass = (function(metaClass){
+        return function() {
+          return metaClass;
+        };
+      })(this);
+      
+      this._klass.prototype.getMetaClass = this._klass.getMetaClass;
     },
     
     _addSubClass : function(qualifiedName, klass)
