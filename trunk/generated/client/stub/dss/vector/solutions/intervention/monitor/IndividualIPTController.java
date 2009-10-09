@@ -1,7 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,10 +10,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.AgeConverter;
-import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.geo.generated.HealthFacilityDTO;
-import dss.vector.solutions.surveillance.TreatmentGridDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -70,6 +66,7 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
     utility.put("id", dto.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
+    this.setupRequest(dto);
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }
@@ -90,14 +87,7 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
       IndividualIPTViewDTO dto = new IndividualIPTViewDTO(request);      
       dto.setValue(IndividualIPTViewDTO.IPTCASE, view.getConcreteId());
 
-      if (dto.getAge() == null)
-      {
-        PersonViewDTO person = view.getPatientView();
-
-        dto.setAge(new AgeConverter(person.getDateOfBirth()).getAge());
-      }
-
-      this.setupRequest();
+      this.setupRequest(dto);
 
       req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
       req.setAttribute("item", dto);
@@ -144,7 +134,7 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
 
   public void failCreate(IndividualIPTViewDTO dto) throws IOException, ServletException
   {
-    this.setupRequest();
+    this.setupRequest(dto);
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
@@ -153,7 +143,7 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
   {
     IndividualIPTViewDTO dto = IndividualIPTDTO.lockView(super.getClientRequest(), id);
 
-    this.setupRequest();
+    this.setupRequest(dto);
 
     req.setAttribute("item", dto);
     render("editComponent.jsp");
@@ -185,7 +175,7 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
 
   public void failUpdate(IndividualIPTViewDTO dto) throws IOException, ServletException
   {
-    this.setupRequest();
+    this.setupRequest(dto);
 
     req.setAttribute("item", dto);
     render("editComponent.jsp");
@@ -227,18 +217,16 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
 
   public void failDelete(IndividualIPTViewDTO dto) throws IOException, ServletException
   {
-    this.setupRequest();
+    this.setupRequest(dto);
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
 
-  private void setupRequest()
+  private void setupRequest(IndividualIPTViewDTO dto)
   {
-    ClientRequestIF request = super.getClientSession().getRequest();
-
-    req.setAttribute("patientType", Arrays.asList(PatientGridDTO.getAll(request)));
-    req.setAttribute("doseNumber", Arrays.asList(DoseGridDTO.getAll(request)));
-    req.setAttribute("doseType", Arrays.asList(TreatmentGridDTO.getAll(request)));
-    req.setAttribute("visitNumber", Arrays.asList(VisitGridDTO.getAll(request)));
+    req.setAttribute("patientType", dto.getPatientType());
+    req.setAttribute("doseNumber", dto.getDoseNumber());
+    req.setAttribute("doseType", dto.getDoseType());
+    req.setAttribute("visitNumber", dto.getVisitNumber());
   }
 }

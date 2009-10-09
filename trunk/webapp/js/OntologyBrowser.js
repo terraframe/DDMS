@@ -647,5 +647,69 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     {
       return this._rendered;
     }
+  },
+  Static : {
+  formatLabel : function(term) {
+    return term.getTermName() + '('+term.getTermOntologyId()+')';
+    }
   }
-});                                                                                                                                                                                        
+});
+
+Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
+  Instance : {
+    initialize : function(className, configs) {
+      configs = Mojo.Util.isArray(configs) ? configs : [configs];
+    
+      Mojo.Iter.forEach(configs, function(config){
+        var attributeName = config.attributeName;
+        var multipleSelect = Mojo.Util.isBoolean(config.multipleSelect) ? config.multipleSelect : false;
+        
+        var browser = new MDSS.OntologyBrowser(multipleSelect, className, attributeName);
+            
+        browser.setHandler(Mojo.Util.curry(this.setField, attributeName));
+     
+        YAHOO.util.Event.on(attributeName + 'Btn', "click", this.openBrowser, {browser:browser, attributeName:attributeName});
+      }, this);    
+    },
+
+    setField : function(attribute, selected) {
+      var attributeEl = document.getElementById(attribute);        
+      var displayEl = document.getElementById(attribute + 'Display');        
+
+      if(selected.length > 0)
+      {
+        var sel = selected[0];
+        attributeEl.value = sel.getTermId();
+        displayEl.innerHTML = MDSS.OntologyBrowser.formatLabel(sel);
+      }
+      else
+      {
+        attributeEl.value = '';
+        displayEl.innerHTML = '';
+      }
+    },
+    
+    openBrowser : function(e, config) {
+      // set the default selection (if it exists)
+      var browser = config.browser;
+      var termId = document.getElementById(config.attributeName).value;
+      var selected = [];
+
+      if(termId !== '')
+      {
+        selected.push(termId); 
+      }
+      
+      if(browser.isRendered()) {
+        browser.show();
+        browser.reset();
+      }
+      else {
+        browser.render();
+      }
+      
+      browser.setSelection(selected); 
+    }
+  }
+});
+

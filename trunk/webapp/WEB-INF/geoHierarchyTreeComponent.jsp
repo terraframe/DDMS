@@ -19,7 +19,9 @@
 <%@page import="dss.vector.solutions.ontology.BrowserRootDTO"%>
 <%@page import="dss.vector.solutions.ontology.BrowserRootViewDTO"%>
 <%@page import="dss.vector.solutions.ontology.BrowserRootController"%>
-<%@page import="dss.vector.solutions.ontology.TermDTO"%><script type="text/javascript">
+<%@page import="dss.vector.solutions.ontology.TermDTO"%>
+
+<script type="text/javascript">
 
   <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);

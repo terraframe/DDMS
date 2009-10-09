@@ -7,8 +7,8 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 
-import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
+import dss.vector.solutions.PersonView;
 import dss.vector.solutions.UniqueLeaderIdException;
 
 public class SprayLeader extends SprayLeaderBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -65,10 +65,10 @@ public class SprayLeader extends SprayLeaderBase implements com.terraframe.mojo.
     ValueQuery valueQuery = new ValueQuery(f);
 
     Selectable[] selectables = new Selectable[] {
-        leaderQuery.getId(SprayLeader.ID),
-        leaderQuery.getLeaderId(SprayLeader.LEADERID),
-        personQuery.getFirstName(Person.FIRSTNAME),
-        personQuery.getLastName(Person.LASTNAME),
+        leaderQuery.getId(PersonView.ID),
+        leaderQuery.getLeaderId(PersonView.LEADERID),
+        personQuery.getFirstName(PersonView.FIRSTNAME),
+        personQuery.getLastName(PersonView.LASTNAME),
     };
     
     valueQuery.SELECT(selectables);

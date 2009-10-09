@@ -16,22 +16,27 @@
         <span class="formatDate">${item.serviceDate}</span>
       </mjl:dt>
       <mjl:dt attribute="patientType">
-        ${item.patientType.displayLabel}      
-      </mjl:dt>
-      <mjl:dt attribute="age">
-        ${item.age}
+        <c:if test="${patientType != null}">
+          ${patientType.displayLabel}
+        </c:if>      
       </mjl:dt>
       <mjl:dt attribute="isANCVisit">
         ${item.isANCVisit ? item.isANCVisitMd.positiveDisplayLabel : item.isANCVisitMd.negativeDisplayLabel}
       </mjl:dt>
       <mjl:dt attribute="visitNumber">
-        ${item.visitNumber.displayLabel}
+        <c:if test="${item.visitNumber != null}">
+          ${item.visitNumber.displayLabel}
+        </c:if>      
       </mjl:dt>
       <mjl:dt attribute="doseNumber">
-        ${item.doseNumber.displayLabel}
+        <c:if test="${doseNumber != null}">
+          ${doseNumber.displayLabel}
+        </c:if>      
       </mjl:dt>
       <mjl:dt attribute="doseType">
-        ${item.doseType.displayLabel}
+        <c:if test="${doseType != null}">
+          ${doseType.displayLabel}
+        </c:if>      
       </mjl:dt>
       <mjl:dt attribute="recievedSupplement">
         ${item.recievedSupplement ? item.recievedSupplementMd.positiveDisplayLabel : item.recievedSupplementMd.negativeDisplayLabel}

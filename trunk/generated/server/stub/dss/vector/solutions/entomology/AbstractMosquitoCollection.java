@@ -13,7 +13,7 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.OrderBy.SortOrder;
 
-import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.GeoEntityView;
 
 public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollectionBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -108,10 +108,10 @@ public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollect
     ValueQuery valueQuery = new ValueQuery(f);
 
     Selectable[] selectables = new Selectable[] {
-        q.getId(ConcreteMosquitoCollection.ID),
+        q.getId(GeoEntityView.ID),
         q.getCollectionId(ConcreteMosquitoCollection.COLLECTIONID),
-        q.getGeoEntity().getGeoId(GeoEntity.GEOID),
-        q.getGeoEntity().getEntityName(GeoEntity.ENTITYNAME),
+        q.getGeoEntity().getGeoId(GeoEntityView.GEOID),
+        q.getGeoEntity().getEntityName(GeoEntityView.ENTITYNAME),
         q.getDateCollected(ConcreteMosquitoCollection.DATECOLLECTED),
         q.getType(ConcreteMosquitoCollection.TYPE)
     };

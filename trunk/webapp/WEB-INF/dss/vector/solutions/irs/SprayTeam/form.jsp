@@ -12,7 +12,8 @@
 <%@page import="dss.vector.solutions.irs.SprayOperatorViewDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayLeaderDTO"%>
 
-<dt><label> ${item.teamIdMd.displayLabel} </label></dt>
+
+<%@page import="dss.vector.solutions.PersonViewDTO"%><dt><label> ${item.teamIdMd.displayLabel} </label></dt>
     <dd>
     <mjl:component item="${item}" param="team">
       <mjl:input type="text" param="teamId" id="teamId" />
@@ -111,17 +112,12 @@
     </table>
     </dd>
     
-    <%=Halp.loadTypes(Arrays.asList(new String[]{SprayOperatorViewDTO.CLASS}))%>
-    <%=Halp.loadTypes(Arrays.asList(new String[]{SprayLeaderDTO.CLASS}))%>
+    <%=Halp.loadTypes(Arrays.asList(new String[]{SprayOperatorViewDTO.CLASS, SprayLeaderDTO.CLASS, PersonViewDTO.CLASS}))%>
 
     <script type="text/javascript" defer="defer">  
       onTeam = document.getElementById('onTeam');      
       notOnTeam = document.getElementById('notOnTeam');   
       onOtherTeam = document.getElementById('onOtherTeam');   
-
-      leaderInput = document.getElementById('leaderInput');
-      leaderInput.setAttribute("autocomplete","off");   
-      leaderId = document.getElementById('leaderId');   
 
       availableButton = document.getElementById('available.button.id');
       availableInput = document.getElementById('availableInput');   
@@ -134,8 +130,9 @@
       var teamId = document.getElementById('teamId').value;   
 
       MDSS.operatorSearch(onTeam, notOnTeam, availableButton, availableInput, availableId);       
-      MDSS.operatorSearch(onTeam, onOtherTeam, assignButton, assignInput, assignId);       
-      MDSS.leaderSearch(leaderInput, leaderId);       
+      MDSS.operatorSearch(onTeam, onOtherTeam, assignButton, assignInput, assignId);
+      
+      MDSS.leaderSearch({search:'leaderInput', concrete:'leaderId'});       
 
       var loadAssignedOperators = function(geoId)
       {

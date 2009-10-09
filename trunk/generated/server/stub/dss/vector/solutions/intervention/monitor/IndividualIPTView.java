@@ -34,7 +34,6 @@ public class IndividualIPTView extends IndividualIPTViewBase implements com.terr
     this.setIptCase(concrete.getIptCase());
     this.setServiceDate(concrete.getServiceDate());
     this.setPatientType(concrete.getPatientType());
-    this.setAge(concrete.getAge());
     this.setIsANCVisit(concrete.getIsANCVisit());
     this.setVisitNumber(concrete.getVisitNumber());
     this.setDoseNumber(concrete.getDoseNumber());
@@ -65,14 +64,11 @@ public class IndividualIPTView extends IndividualIPTViewBase implements com.terr
       }
     }
 
-    VisitGrid visit = this.getVisitNumber();
-
     concrete.setIptCase(this.getIptCase());
     concrete.setServiceDate(this.getServiceDate());
     concrete.setPatientType(this.getPatientType());
-    concrete.setAge(this.getAge());
     concrete.setIsANCVisit(this.getIsANCVisit());
-    concrete.setVisitNumber(visit);
+    concrete.setVisitNumber(this.getVisitNumber());
     concrete.setDoseNumber(this.getDoseNumber());
     concrete.setDoseType(this.getDoseType());
     concrete.setRecievedSupplement(this.getRecievedSupplement());
@@ -88,7 +84,6 @@ public class IndividualIPTView extends IndividualIPTViewBase implements com.terr
     new AttributeNotificationMap(concrete, IndividualIPT.SERVICEDATE, this, IndividualIPTView.SERVICEDATE);
     new AttributeNotificationMap(concrete, IndividualIPT.IPTCASE, this, IndividualIPTView.IPTCASE);
     new AttributeNotificationMap(concrete, IndividualIPT.PATIENTTYPE, this, IndividualIPTView.PATIENTTYPE);
-    new AttributeNotificationMap(concrete, IndividualIPT.AGE, this, IndividualIPTView.AGE);
     new AttributeNotificationMap(concrete, IndividualIPT.ISANCVISIT, this, IndividualIPTView.ISANCVISIT);
     new AttributeNotificationMap(concrete, IndividualIPT.VISITNUMBER, this, IndividualIPTView.VISITNUMBER);
     new AttributeNotificationMap(concrete, IndividualIPT.DOSENUMBER, this, IndividualIPTView.DOSENUMBER);

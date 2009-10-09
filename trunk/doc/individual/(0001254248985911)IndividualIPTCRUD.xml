@@ -148,10 +148,6 @@
             label="IPT administrator surname"
             size="255" />
           <integer
-            name="age"
-            label="Age"
-            rejectNegative="true" />
-          <integer
             name="numberOfRecievedITNs"
             label="Number of recieved ITNs"
             rejectNegative="true" />
@@ -167,19 +163,19 @@
           <reference
             name="patientType"
             label="Person category"
-            type="dss.vector.solutions.intervention.monitor.PatientGrid" />
+            type="dss.vector.solutions.ontology.Term" />
           <reference
             name="visitNumber"
             label="Visit number"
-            type="dss.vector.solutions.intervention.monitor.VisitGrid" />
+            type="dss.vector.solutions.ontology.Term" />
           <reference
             name="doseNumber"
             label="Indicate IPT dose number"
-            type="dss.vector.solutions.intervention.monitor.DoseGrid" />
+            type="dss.vector.solutions.ontology.Term" />
           <reference
             name="doseType"
             label="Indicate IPT dose type"
-            type="dss.vector.solutions.surveillance.TreatmentGrid"/>
+            type="dss.vector.solutions.ontology.Term" />
           <boolean
             name="isANCVisit"
             label="Is this an ANC visit?"
@@ -253,10 +249,6 @@
           <virtual
             name="patientType"
             concrete="patientType"
-            type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
-          <virtual
-            name="age"
-            concrete="age"
             type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
           <virtual
             name="isANCVisit"

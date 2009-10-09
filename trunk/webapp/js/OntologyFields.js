@@ -122,7 +122,7 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       {
         var sel = selected[0];
         el.value = sel.getTermId();
-        dEl.innerHTML = sel.getTermName() + '('+sel.getTermOntologyId()+')'; 
+        dEl.innerHTML = MDSS.OntologyBrowser.formatLabel(sel);
       }
       else
       {

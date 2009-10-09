@@ -19,6 +19,8 @@ import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.HealthFacility;
+import dss.vector.solutions.ontology.MO;
+import dss.vector.solutions.ontology.Term;
 
 public abstract class IndividualIPTPermissionTest extends TestCase implements DoNotWeave
 {
@@ -27,7 +29,7 @@ public abstract class IndividualIPTPermissionTest extends TestCase implements Do
   protected static ClientRequestIF request;
 
   protected static ClientSession   systemSession;
-  
+
   protected static ClientRequestIF systemRequest;
 
   protected static String          geoId;
@@ -39,8 +41,12 @@ public abstract class IndividualIPTPermissionTest extends TestCase implements Do
   private static String            username;
 
   private static String            password = "test";
-  
+
   private static HealthFacility    facility;
+
+  private static Term              term;
+
+  protected static String          termId;
 
   protected static void classSetUp()
   {
@@ -49,9 +55,9 @@ public abstract class IndividualIPTPermissionTest extends TestCase implements Do
 
     clientSession = WebClientSession.createUserSession(username, password, Locale.US);
     request = clientSession.getRequest();
-    
+
     systemSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
-    systemRequest = systemSession.getRequest();    
+    systemRequest = systemSession.getRequest();
   }
 
   @StartSession
@@ -89,14 +95,23 @@ public abstract class IndividualIPTPermissionTest extends TestCase implements Do
     facility.setGeoId(TestConstants.GEO_ID);
     facility.setEntityName("Test Site");
     facility.apply();
+    
+    term = new MO();
+    term.setTermId("test term");
+    term.setTermName("Test Term");
+    term.setTermComment("Test Comment");
+    term.setObsolete(false);
+    term.apply();
+    
 
     geoId = facility.getGeoId();
+    termId = term.getId();
   }
 
   protected static void classTearDown()
   {
     clientSession.logout();
-    
+
     systemSession.logout();
 
     tearDownVars();

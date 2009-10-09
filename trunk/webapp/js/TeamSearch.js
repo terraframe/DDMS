@@ -37,20 +37,20 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
     // Clear a select list of all options and disables it
     clearSelect : function(select) {
       if(select) {
-    	Selectbox.removeAllOptions(select);                
+      Selectbox.removeAllOptions(select);                
         select.disabled=true;   
       }      
     },
     
     clearTeamMembers : function() {
       this.clearSelect(this.getOperatorSelect());
-      this.clearSelect(this.getLeaderSelect());    	
+      this.clearSelect(this.getLeaderSelect());      
     },
     
     clearAll : function() {
-      this.clearSelect(this.getTeamSelect());    	
+      this.clearSelect(this.getTeamSelect());      
       this.clearSelect(this.getOperatorSelect());
-      this.clearSelect(this.getLeaderSelect());    	
+      this.clearSelect(this.getLeaderSelect());      
     },
         
     // Private methods
@@ -73,7 +73,7 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
     
     populateTeamMembers : function (){
       this.clearTeamMembers();
-    	
+      
       if(this.getTeamSelect().value != '')
       {
         var request = new MDSS.Request({
@@ -81,14 +81,14 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
           onSend: function(){},
           onComplete: function(){},
           onFailure : function(){
-        	this.obj.clearTeamMembers();
+          this.obj.clearTeamMembers();
           },
           onProblemExceptionDTO : function(){
-        	this.obj.clearTeamMembers();
+          this.obj.clearTeamMembers();
           },          
           onSuccess : function(operators){
-        	this.obj._populateOperatorList(this.obj.getOperatorSelect(), operators);
-        	this.obj._populateOperatorList(this.obj.getLeaderSelect(), operators);
+          this.obj._populateOperatorList(this.obj.getOperatorSelect(), operators);
+          this.obj._populateOperatorList(this.obj.getLeaderSelect(), operators);
           }
         });
 
@@ -98,18 +98,18 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
     
     populateSprayTeams : function(){ 
       this.clearAll();
-    	
+      
       if(this.getGeoId().value != '')
       {
-    	var request = new MDSS.Request({
-          obj : this,    		
+      var request = new MDSS.Request({
+          obj : this,        
           onSend: function(){},
           onComplete: function(){},
           onFailure : function(){
-        	this.obj.clearAll();
+          this.obj.clearAll();
           },
           onProblemExceptionDTO : function(){
-        	this.obj.clearAll();
+          this.obj.clearAll();
           },          
           onSuccess : function(teams){
             // Remove all of the current options in the select list
@@ -138,20 +138,20 @@ Mojo.Meta.newClass('MDSS.ElementCondition', {
 
   Instance: {
     initialize: function(option, condition) {
-	  this.option = option;
-	  this.condition = condition;
+    this.option = option;
+    this.condition = condition;
     },
 
     getOption : function () {
-    	return this.option;
+      return this.option;
     },
 
     getCondition : function () {
-    	return this.condition;
-    },	
+      return this.condition;
+    },  
 
     evaluate : function () { //AbstractMethod
-    	throw new Error('Unsupported operationon an abstract class.');    	
+      throw new Error('Unsupported operationon an abstract class.');      
     } 
   }
 });
@@ -165,10 +165,10 @@ Mojo.Meta.newClass('MDSS.RadioElementCondition', {
     },
 
     evaluate : function () {
-    	if(this.getOption() && this.getCondition()) {
-    		return (this.getOption().checked == this.getCondition());
-    	}
-    	return true;
+      if(this.getOption() && this.getCondition()) {
+        return (this.getOption().checked == this.getCondition());
+      }
+      return true;
     }    
   }
 });
@@ -178,12 +178,12 @@ Mojo.Meta.newClass('MDSS.SelectElementCondition', {
   Extends : MDSS.ElementCondition,
   Instance: {
     initialize: function(option, condition) {
-	  this.$initialize(option, condition);
+    this.$initialize(option, condition);
     },
   
     evaluate : function () {
       if(this.getOption() && this.getCondition()) {
-    	  return (this.getOption().selected == this.getCondition());
+        return (this.getOption().selected == this.getCondition());
       }
       
       return true;
@@ -237,11 +237,11 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
   
   Static:
   {
-	hideElement : function (obj, clearValue) {
+    hideElement : function (obj, clearValue) {
       // When hiding an element clear out the existing value so that when the form
       // submits occurs hidden elements do not have values assigned to them
       if(obj.value && clearValue) {
-    	  obj.value = '';
+        obj.value = '';
       }
       
       obj.style.display = "none";
@@ -249,7 +249,7 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
       
     showElement : function (obj) {
       if(obj.tagName && obj.tagName == 'div') {
-    	  obj.style.display = "block";
+        obj.style.display = "block";
       }
       
       obj.style.display = "inline";
@@ -265,56 +265,56 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
     },
     
     setupBooleanHandler : function (conditionElement, trigger, elements, clearValue) {
-    	conditionElement = MDSS.ElementHandler.getElement(conditionElement);
-    	
-    	if(Mojo.Util.isString(elements)) {
-    		elements = YAHOO.util.Selector.query('.' + elements);
-    	}
-    		
-    	var handler = new MDSS.ElementHandler(new MDSS.RadioElementCondition(conditionElement, true), elements, clearValue);
+      conditionElement = MDSS.ElementHandler.getElement(conditionElement);
+      
+      if(Mojo.Util.isString(elements)) {
+        elements = YAHOO.util.Selector.query('.' + elements);
+      }
+        
+      var handler = new MDSS.ElementHandler(new MDSS.RadioElementCondition(conditionElement, true), elements, clearValue);
 
-    	MDSS.ElementHandler.addEventListener(conditionElement, handler);
-    	MDSS.ElementHandler.addEventListener(trigger, handler);
-    	
-    	return handler;
+      MDSS.ElementHandler.addEventListener(conditionElement, handler);
+      MDSS.ElementHandler.addEventListener(trigger, handler);
+      
+      return handler;
     },
     
     setupSelectHandler : function (conditionElement, trigger, elements) {
-    	conditionElement = MDSS.ElementHandler.getElement(conditionElement);
-    	    	
-    	if(Mojo.Util.isString(elements)) {
-    		elements = YAHOO.util.Selector.query('.' + elements);
-    	}
-    	
-    	var handler = new MDSS.ElementHandler(new MDSS.SelectElementCondition(conditionElement, true), elements);
-    	
-    	MDSS.ElementHandler.addEventListener(conditionElement, handler);
-    	MDSS.ElementHandler.addEventListener(trigger, handler);
-    	
-    	return handler;
+      conditionElement = MDSS.ElementHandler.getElement(conditionElement);
+            
+      if(Mojo.Util.isString(elements)) {
+        elements = YAHOO.util.Selector.query('.' + elements);
+      }
+      
+      var handler = new MDSS.ElementHandler(new MDSS.SelectElementCondition(conditionElement, true), elements);
+      
+      MDSS.ElementHandler.addEventListener(conditionElement, handler);
+      MDSS.ElementHandler.addEventListener(trigger, handler);
+      
+      return handler;
     },
     
     addEventListener : function (obj, handler) {
-    	if(Mojo.Util.isArray(obj)) {
-    		for(var key in obj) {
-    			var element = obj[key];
-    			element = MDSS.ElementHandler.getElement(element);
-    			
-    			YAHOO.util.Event.addListener(element, "change", handler.optionHandler, handler, true);    			
-    		}
-    	}
-    	else {    		
-    		var element = MDSS.ElementHandler.getElement(obj);
-    		YAHOO.util.Event.addListener(element, "change", handler.optionHandler, handler, true);
-    	}    	
+      if(Mojo.Util.isArray(obj)) {
+        for(var key in obj) {
+          var element = obj[key];
+          element = MDSS.ElementHandler.getElement(element);
+          
+          YAHOO.util.Event.addListener(element, "change", handler.optionHandler, handler, true);          
+        }
+      }
+      else {        
+        var element = MDSS.ElementHandler.getElement(obj);
+        YAHOO.util.Event.addListener(element, "change", handler.optionHandler, handler, true);
+      }      
     },
     
     getElement : function(obj) {
-    	if(Mojo.Util.isString(obj)) {
-    		return document.getElementById(obj);
-    	}
-    	
-    	return obj;
+      if(Mojo.Util.isString(obj)) {
+        return document.getElementById(obj);
+      }
+      
+      return obj;
     }
   }
 });
@@ -322,9 +322,9 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
 Mojo.Meta.newClass('MDSS.GenericSearch', {
   Instance: {
     initialize: function(displayElement, concreteElement, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler) {
-	
+  
       // Constructor code
-	  this.displayElement = displayElement;          // DOM element where the search is inputed and the selected result is displayed
+    this.displayElement = displayElement;          // DOM element where the search is inputed and the selected result is displayed
       this.concreteElement = concreteElement;        // DOM element where the id of the selected result is stored
       
       this.listFunction = listFunction;              // Function which accepts a valueObject and returns a formatted string for a single result 
@@ -334,8 +334,10 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
 
       this.searchFunction = searchFunction;          // AJAX function which calls a static method on the server
       
+      this.parameters = null;
+      
       this.panel = MDSS.GenericSearch.initializePanel(displayElement);  // Result panel
-
+      
       // Disable the browser autocomplete function for the element we provide an auto-complete
       this.displayElement.setAttribute("autocomplete", "off");
     },
@@ -352,6 +354,14 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
       return this.panel;
     },
 
+    getParameters : function() {
+      return this.parameters;
+    },
+    
+    addParameter : function(parameter) {
+      this.parameters = parameter;
+    },
+
     getDisplay : function(valueObject) {
       return this.displayFunction(valueObject);
     },
@@ -363,14 +373,14 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
     getId : function(valueObject) {
       return this.idFunction(valueObject);
     },
-    
+        
     selectHandler : function(selected) {
       if(selected) {
         MDSS.GenericSearch.setElementValue(this.getDisplayElement(), selected.label);
         MDSS.GenericSearch.setElementValue(this.getConcreteElement(), selected.id);
         
         if(Mojo.Util.isFunction(this.selectEventHandler)) {
-        	this.selectEventHandler(selected);
+          this.selectEventHandler(selected);
         }
       }
     },
@@ -388,7 +398,12 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
 
       var request = MDSS.GenericSearch.createSearchRequest(this);
 
-      this.searchFunction(request, value);  
+      if(this.getParameters()) {
+        this.searchFunction(request, value, this.getParameters());  
+      }
+      else {
+        this.searchFunction(request, value);  
+      }
     }
   },
   

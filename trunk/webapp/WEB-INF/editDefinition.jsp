@@ -55,7 +55,7 @@
       <dd>
         <mjl:command name="dss.vector.solutions.ontology.BrowserRoot.form.openBrowser" 
           action="dss.vector.solutions.ontology.BrowserRootController.openBrowser.mojo" value="Browser" classes="browserOpenBtn"></mjl:command>
-        <div id="termName" class="autosize" style="height:15px; margin-left:70px; padding:3px; width:280px; background-color: white; border:1px solid black">
+        <div id="termName" class="autosize ontologyDisplay" >
           <div>
           <c:if test="${termName != null}">
             ${termName} (${termOntologyId})

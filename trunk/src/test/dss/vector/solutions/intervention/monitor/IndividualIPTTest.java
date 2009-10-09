@@ -18,7 +18,7 @@ import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.surveillance.TreatmentGrid;
+import dss.vector.solutions.ontology.MO;
 
 public class IndividualIPTTest extends TestCase
 {
@@ -43,6 +43,8 @@ public class IndividualIPTTest extends TestCase
   private static IPTRecipient      patient  = null;
 
   private static IndividualIPTCase iptCase  = null;
+
+  private static MO                term     = null;
 
   public static Test suite()
   {
@@ -77,6 +79,8 @@ public class IndividualIPTTest extends TestCase
     patient.delete();
 
     Person.get(person.getId()).delete();
+
+    term.delete();
   }
 
   protected static void classSetUp()
@@ -104,24 +108,30 @@ public class IndividualIPTTest extends TestCase
 
     person.setIptRecipientDelegate(patient);
     person.apply();
-    
+
     iptCase = new IndividualIPTCase();
     iptCase.setPatient(patient);
     iptCase.setResidentialLocation(site);
     iptCase.apply();
+
+    term = new MO();
+    term.setTermId("test term");
+    term.setTermName("Test Term");
+    term.setTermComment("Test Comment");
+    term.setObsolete(false);
+    term.apply();
   }
 
   public void testCreateIndividualIPT()
   {
     IndividualIPT concrete = new IndividualIPT();
-    concrete.setFacility(facility);    
+    concrete.setFacility(facility);
     concrete.setIptCase(iptCase);
-    concrete.setAge(26);
-    concrete.setPatientType(PatientGrid.getAllActive()[0]);
+    concrete.setPatientType(term);
     concrete.setIsANCVisit(true);
-    concrete.setVisitNumber(VisitGrid.getAllActive()[0]);
-    concrete.setDoseNumber(DoseGrid.getAllActive()[0]);
-    concrete.setDoseType(TreatmentGrid.getAllActive()[0]);
+    concrete.setVisitNumber(term);
+    concrete.setDoseNumber(term);
+    concrete.setDoseType(term);
     concrete.setRecievedSupplement(true);
     concrete.setRecievedITN(true);
     concrete.setNumberOfRecievedITNs(5);
@@ -135,7 +145,7 @@ public class IndividualIPTTest extends TestCase
 
       assertEquals(concrete.getFacility().getId(), test.getFacility().getId());
       assertEquals(concrete.getIptCase().getId(), test.getIptCase().getId());
-      assertEquals(concrete.getAge(), test.getAge());
+
       assertEquals(concrete.getPatientType().getId(), test.getPatientType().getId());
       assertEquals(concrete.getIsANCVisit(), test.getIsANCVisit());
       assertEquals(concrete.getVisitNumber().getId(), test.getVisitNumber().getId());
@@ -157,14 +167,13 @@ public class IndividualIPTTest extends TestCase
   {
     IndividualIPTView view = new IndividualIPTView();
     view.setFacility(facility.getGeoId());
-    
+
     view.setIptCase(iptCase);
-    view.setAge(26);
-    view.setPatientType(PatientGrid.getAllActive()[0]);
+    view.setPatientType(term);
     view.setIsANCVisit(true);
-    view.setVisitNumber(VisitGrid.getAllActive()[0]);
-    view.setDoseNumber(DoseGrid.getAllActive()[0]);
-    view.setDoseType(TreatmentGrid.getAllActive()[0]);
+    view.setVisitNumber(term);
+    view.setDoseNumber(term);
+    view.setDoseType(term);
     view.setRecievedSupplement(true);
     view.setRecievedITN(true);
     view.setNumberOfRecievedITNs(5);
@@ -177,9 +186,9 @@ public class IndividualIPTTest extends TestCase
       IndividualIPTView test = IndividualIPT.getView(view.getConcreteId());
 
       assertEquals(view.getFacility(), test.getFacility());
-      
+
       assertEquals(view.getIptCase().getId(), test.getIptCase().getId());
-      assertEquals(view.getAge(), test.getAge());
+      
       assertEquals(view.getPatientType().getId(), test.getPatientType().getId());
       assertEquals(view.getIsANCVisit(), test.getIsANCVisit());
       assertEquals(view.getVisitNumber().getId(), test.getVisitNumber().getId());
@@ -201,14 +210,14 @@ public class IndividualIPTTest extends TestCase
   {
     IndividualIPTView view = new IndividualIPTView();
     view.setFacility(facility.getGeoId());
-    
+
     view.setIptCase(iptCase);
-    view.setAge(26);
-    view.setPatientType(PatientGrid.getAllActive()[0]);
+    
+    view.setPatientType(term);
     view.setIsANCVisit(true);
-    view.setVisitNumber(VisitGrid.getAllActive()[0]);
-    view.setDoseNumber(DoseGrid.getAllActive()[0]);
-    view.setDoseType(TreatmentGrid.getAllActive()[0]);
+    view.setVisitNumber(term);
+    view.setDoseNumber(term);
+    view.setDoseType(term);
     view.setRecievedSupplement(true);
     view.setRecievedITN(true);
     view.setNumberOfRecievedITNs(5);
@@ -221,12 +230,11 @@ public class IndividualIPTTest extends TestCase
       IndividualIPTView edit = IndividualIPT.lockView(view.getConcreteId());
       edit.setFacility(facility.getGeoId());
       edit.setIptCase(iptCase);
-      edit.setAge(22);
-      edit.setPatientType(PatientGrid.getAllActive()[1]);
+      edit.setPatientType(term);
       edit.setIsANCVisit(true);
-      edit.setVisitNumber(VisitGrid.getAllActive()[1]);
-      edit.setDoseNumber(DoseGrid.getAllActive()[1]);
-      edit.setDoseType(TreatmentGrid.getAllActive()[1]);
+      edit.setVisitNumber(term);
+      edit.setDoseNumber(term);
+      edit.setDoseType(term);
       edit.setRecievedSupplement(true);
       edit.setRecievedITN(true);
       edit.setNumberOfRecievedITNs(2);
@@ -236,9 +244,8 @@ public class IndividualIPTTest extends TestCase
 
       IndividualIPTView test = IndividualIPT.getView(view.getConcreteId());
 
-      assertEquals(edit.getFacility(), test.getFacility());      
+      assertEquals(edit.getFacility(), test.getFacility());
       assertEquals(edit.getIptCase().getId(), test.getIptCase().getId());
-      assertEquals(edit.getAge(), test.getAge());
       assertEquals(edit.getPatientType().getId(), test.getPatientType().getId());
       assertEquals(edit.getIsANCVisit(), test.getIsANCVisit());
       assertEquals(edit.getVisitNumber().getId(), test.getVisitNumber().getId());
@@ -260,14 +267,14 @@ public class IndividualIPTTest extends TestCase
   {
     IndividualIPTView view = new IndividualIPTView();
     view.setFacility(facility.getGeoId());
-    
+
     view.setIptCase(iptCase);
-    view.setAge(26);
-    view.setPatientType(PatientGrid.getAllActive()[0]);
+    
+    view.setPatientType(term);
     view.setIsANCVisit(true);
-    view.setVisitNumber(VisitGrid.getAllActive()[0]);
-    view.setDoseNumber(DoseGrid.getAllActive()[0]);
-    view.setDoseType(TreatmentGrid.getAllActive()[0]);
+    view.setVisitNumber(term);
+    view.setDoseNumber(term);
+    view.setDoseType(term);
     view.setRecievedSupplement(true);
     view.setRecievedITN(true);
     view.setNumberOfRecievedITNs(5);
@@ -284,9 +291,8 @@ public class IndividualIPTTest extends TestCase
 
       IndividualIPTView test = list.get(0);
 
-      assertEquals(view.getFacility(), test.getFacility());      
-      assertEquals(view.getIptCase().getId(), test.getIptCase().getId());
-      assertEquals(view.getAge(), test.getAge());
+      assertEquals(view.getFacility(), test.getFacility());
+      assertEquals(view.getIptCase().getId(), test.getIptCase().getId());      
       assertEquals(view.getPatientType().getId(), test.getPatientType().getId());
       assertEquals(view.getIsANCVisit(), test.getIsANCVisit());
       assertEquals(view.getVisitNumber().getId(), test.getVisitNumber().getId());
@@ -312,12 +318,12 @@ public class IndividualIPTTest extends TestCase
       IndividualIPTView view = new IndividualIPTView();
       view.setFacility(facility.getGeoId());
       view.setIptCase(iptCase);
-      view.setAge(26);
-      view.setPatientType(PatientGrid.getAllActive()[0]);
+      
+      view.setPatientType(term);
       view.setIsANCVisit(true);
-      view.setVisitNumber(VisitGrid.getAllActive()[0]);
-      view.setDoseNumber(DoseGrid.getAllActive()[0]);
-      view.setDoseType(TreatmentGrid.getAllActive()[0]);
+      view.setVisitNumber(term);
+      view.setDoseNumber(term);
+      view.setDoseType(term);
       view.setRecievedSupplement(true);
       view.setRecievedITN(false);
       view.setNumberOfRecievedITNs(5);
@@ -348,14 +354,14 @@ public class IndividualIPTTest extends TestCase
     try
     {
       IndividualIPTView view = new IndividualIPTView();
-      view.setFacility(site.getGeoId());      
+      view.setFacility(site.getGeoId());
       view.setIptCase(iptCase);
-      view.setAge(26);
-      view.setPatientType(PatientGrid.getAllActive()[0]);
+      
+      view.setPatientType(term);
       view.setIsANCVisit(true);
-      view.setVisitNumber(VisitGrid.getAllActive()[0]);
-      view.setDoseNumber(DoseGrid.getAllActive()[0]);
-      view.setDoseType(TreatmentGrid.getAllActive()[0]);
+      view.setVisitNumber(term);
+      view.setDoseNumber(term);
+      view.setDoseType(term);
       view.setRecievedSupplement(true);
       view.setRecievedITN(true);
       view.setNumberOfRecievedITNs(5);

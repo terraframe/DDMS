@@ -1,157 +1,34 @@
 
-  MDSS.leaderSearch = function(input, id){
-    
-    var leaderResults = document.createElement('div');
-    leaderResults.id = input.id + '_results';
-    leaderResults.className = "yui-panel-container show-scrollbars shadow";
-    
-    YAHOO.util.Dom.insertAfter(leaderResults,input);
+MDSS.leaderSearch = function(config) {
+  var searchEl = Mojo.Util.isString(config.search) ? document.getElementById(config.search) : config.search;
+  var concreteEl = Mojo.Util.isString(config.concrete) ? document.getElementById(config.concrete) : config.concrete;
 
-    var panel = new YAHOO.widget.Panel(leaderResults, {
-      width:'400px',
-      height:'200px',
-      zindex:15,
-      draggable: false,
-      close: true
-    });
+  var listFunction = function(valueObject) {
+    var firstName = Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME;
+    var lastName = Mojo.$.dss.vector.solutions.PersonView.LASTNAME;
+    var leaderId = Mojo.$.dss.vector.solutions.PersonView.LEADERID;
 
-    var selectHandler = function(selected) {
-      if(selected != null) {
-         input.value = selected.label;
-         
-         if(id) {
-           id.value = selected.id;
-         }
-      }
-      else {
-        if(id)
-        {
-            id.value = '';
-        }
-      }
-    }    
+    return valueObject.getValue(firstName) + ' ' + valueObject.getValue(lastName) + ' - ' + valueObject.getValue(leaderId);
+  };
 
-     /**
-     * Performs an ajax search based on the entity
-     * name and type.
-     */
-    var ajaxSearch = function(e)
-    {
-      id.value = '';
-      
-      var value = input.value;
-      var resultPanel = panel; 
+  var idFunction = function(valueObject) {
+    var id = Mojo.$.dss.vector.solutions.PersonView.ID;
 
-      // must have at least 2 characters ready
-      if(value.length < 2)
-      {
-        return;
-      }
+    return valueObject.getValue(id);
+  };
 
-      var request = new MDSS.Request({
-        resultPanel: resultPanel,
-        searchValue: value,
-        selectHandler: selectHandler,
-        input: input,
-        searchRef: this,
-        
-        // don't paint a loading bar. It's too slow for this type of call
-        onSend: function(){},
-        onComplete: function(){},
-        onSuccess: function(query)
-        {
-          var resultSet = query.getResultSet();
+  var displayFunction = function(valueObject) {
+    var firstName = Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME;
+    var lastName = Mojo.$.dss.vector.solutions.PersonView.LASTNAME;
 
-          var outer = document.createElement('div');
+    return valueObject.getValue(firstName) + ' ' + valueObject.getValue(lastName);
+  };
 
-          var header = document.createElement('div');
-          header.innerHTML = '<h3>'+MDSS.Localized.Search_Results+'</h3><hr />';
-          outer.appendChild(header);
+  var searchFunction = Mojo.$.dss.vector.solutions.irs.SprayLeader.searchForLeader;
 
-          var inner = document.createElement('div');
-          YAHOO.util.Dom.addClass(inner, 'entitySearchResults');
-          outer.appendChild(inner);
+  var selectEventHandler = function() {};
+   
+  var search = new MDSS.GenericSearch(searchEl, concreteEl, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler);
 
-          var ul = document.createElement('ul');
-          YAHOO.util.Dom.addClass(ul, 'selectableList')
-          YAHOO.util.Event.on(ul, 'mouseover', function(e, obj){
-
-            var li = e.target;
-            var ul = e.currentTarget;
-            if(li.nodeName === 'SPAN')
-            {
-              li = li.parentNode;
-            }
-
-            if(li.nodeName !== 'LI')
-            {
-              return;
-            }
-
-            // clear all lis of their current class
-            var lis = YAHOO.util.Selector.query('li.currentSelection', ul);
-            for(var i=0; i<lis.length; i++)
-            {
-              YAHOO.util.Dom.removeClass(lis[i], 'currentSelection');
-            }
-
-            YAHOO.util.Dom.addClass(li, 'currentSelection');
-          });
-
-          YAHOO.util.Event.on(ul, 'click', function(e, obj){
-
-            var li = e.target;
-            var ul = e.currentTarget;
-            if(li.nodeName === 'SPAN')
-            {
-              li = li.parentNode;
-            }
-
-            if(li.nodeName !== 'LI')
-            {
-              return;
-            }
-
-            resultPanel.hide();
-            selectHandler(li);
-
-          }, {input: this.input, panel: this.resultPanel}, this.searchRef);
-
-          var idAttr = "id";
-          var firstName = "firstName";
-          var lastName = "lastName";
-          var leaderId = "leaderId";
-          
-          for(var i=0; i<resultSet.length; i++)
-          {
-            var valueObj = resultSet[i];
-
-            var li = document.createElement('li');
-
-            li.id = valueObj.getValue(idAttr);
-            li.label = valueObj.getValue(firstName) + ' '+ valueObj.getValue(lastName) + ' - ' + valueObj.getValue(leaderId);
-
-            var displayStr = valueObj.getValue(firstName) + ' '+ valueObj.getValue(lastName) + ' - ' + valueObj.getValue(leaderId);
-            var matched = displayStr.replace(new RegExp("(.*?)("+this.searchValue+")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
-            li.innerHTML = matched;
-            
-            ul.appendChild(li);
-          }
-
-          inner.appendChild(ul);
-
-          this.resultPanel.setBody(outer);
-          this.resultPanel.render();
-          this.resultPanel.show();
-          this.resultPanel.bringToTop();
-
-          // refocus the input field
-          this.input.focus();
-        }
-      });
-
-      Mojo.$.dss.vector.solutions.irs.SprayLeader.searchForLeader(request, value);
-    }
-    
-     YAHOO.util.Event.on(input, 'keyup', ajaxSearch, null, null);    
-  }
+  YAHOO.util.Event.on(searchEl, 'keyup', search.performSearch, search, search);
+}

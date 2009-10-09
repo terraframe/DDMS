@@ -7,13 +7,10 @@ import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.entomology.SexDTO;
-import dss.vector.solutions.intervention.monitor.DoseGridDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTCaseDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO;
-import dss.vector.solutions.intervention.monitor.PatientGridDTO;
-import dss.vector.solutions.intervention.monitor.VisitGridDTO;
-import dss.vector.solutions.surveillance.TreatmentGridDTO;
+import dss.vector.solutions.ontology.MODTO;
 
 public abstract class IndividualIPTNoPermissions extends IndividualIPTPermissionTest
 {
@@ -92,12 +89,11 @@ public abstract class IndividualIPTNoPermissions extends IndividualIPTPermission
           IndividualIPTViewDTO view = new IndividualIPTViewDTO(request);
           view.setFacility(geoId);
           view.setIptCase(iptCase);
-          view.setAge(26);
-          view.setPatientType(PatientGridDTO.getAll(request)[0]);
+          view.setPatientType(MODTO.get(request, termId));
           view.setIsANCVisit(true);
-          view.setVisitNumber(VisitGridDTO.getAll(request)[0]);
-          view.setDoseNumber(DoseGridDTO.getAll(request)[0]);
-          view.setDoseType(TreatmentGridDTO.getAll(request)[0]);
+          view.setVisitNumber(MODTO.get(request, termId));
+          view.setDoseNumber(MODTO.get(request, termId));
+          view.setDoseType(MODTO.get(request, termId));
           view.setRecievedSupplement(true);
           view.setRecievedITN(true);
           view.setNumberOfRecievedITNs(5);
