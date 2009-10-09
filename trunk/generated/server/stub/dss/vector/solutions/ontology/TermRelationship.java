@@ -14,4 +14,10 @@ public abstract class TermRelationship extends TermRelationshipBase implements c
     this(parent.getId(), child.getId());
   }
   
+  @Override
+  protected String buildKey()
+  {
+    return this.getId();
+  }
+  
 }
