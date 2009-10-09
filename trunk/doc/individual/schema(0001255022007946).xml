@@ -42,29 +42,42 @@
           </create>
         </mdView>
         
-          <mdBusiness
-            name="dss.vector.solutions.geo.generated.GeoEntity">
-            <create>
-              <attributes>
-                <point
-                  name="geoPoint"
-                  label="Geo Point"
-                  description="Geo Point"
-                  required="false"
-                  srid="4326"
-                  dimension="2" />
-                <multipolygon
-                  name="geoMultiPolygon"
-                  label="Geo MultiPolygon"
-                  description="Geo MultiPolygon"
-                  required="false"
-                  srid="4326"
-                  dimension="2" />
-              </attributes>
-            </create>
-          </mdBusiness>
+        <mdBusiness
+          name="dss.vector.solutions.geo.generated.GeoEntity">
+          <create>
+            <attributes>
+              <point
+                name="geoPoint"
+                label="Geo Point"
+                description="Geo Point"
+                required="false"
+                srid="4326"
+                dimension="2" />
+              <multipolygon
+                name="geoMultiPolygon"
+                label="Geo MultiPolygon"
+                description="Geo MultiPolygon"
+                required="false"
+                srid="4326"
+                dimension="2" />
+            </attributes>
+          </create>
+        </mdBusiness>
         
-        
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.GeoEntity">
+        <create>
+          <attributes>
+            <reference
+              name="term"
+              label="Term"
+              description="Reference to the ontology Term that describes the GeoEntity sub-type."
+              required="false"
+              type="dss.vector.solutions.ontology.Term" />
+          </attributes>
+        </create> 
+      </mdBusiness>
+      
     </update>
     
     <create>
