@@ -445,7 +445,8 @@ public class GeoEntitySearcher implements Reloadable
     }
 
     BusinessQuery resultQuery = qf.businessQuery(childGeoEntityType);
-    resultQuery.WHERE(resultQuery.IN(resultQuery.id(), geoEntityIdQuery));
+//    resultQuery.WHERE(resultQuery.IN(resultQuery.id(), geoEntityIdQuery));
+    resultQuery.WHERE(resultQuery.id().SUBSELECT_IN(geoEntityIdQuery));
     resultQuery.ORDER_BY_ASC(F.UPPER(resultQuery.aCharacter(GeoEntity.ENTITYNAME)));
 
     OIterator<Business> iterator = resultQuery.getIterator();
@@ -532,7 +533,8 @@ public class GeoEntitySearcher implements Reloadable
 
 
     BusinessQuery resultQuery = qf.businessQuery(childGeoEntityType);
-    resultQuery.WHERE(resultQuery.IN(resultQuery.id(), geoEntityIdQuery));
+//    resultQuery.WHERE(resultQuery.IN(resultQuery.id(), geoEntityIdQuery));
+    resultQuery.WHERE(resultQuery.id().SUBSELECT_IN(geoEntityIdQuery));
     resultQuery.ORDER_BY_ASC(F.UPPER(resultQuery.aCharacter(GeoEntity.ENTITYNAME)));
 
     OIterator<Business> iterator = resultQuery.getIterator();
