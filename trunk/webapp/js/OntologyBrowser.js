@@ -714,3 +714,89 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
   }
 });
 
+/**
+ * Custom BaseCellEditor subclass to spawn an ontology browser instance
+ * when a user clicks on a cell that needs to select terms.
+ */
+YAHOO.widget.OntologyTermEditor = function(oConfigs) {
+    this._sId = Mojo.Util.generateId();
+    
+    this._klass = oConfigs.klass;
+    this._attribute = oConfigs.attribute;
+    
+    this._browser = new MDSS.OntologyBrowser(false); // FIXME pass in klass + attribute
+    this._browser.setHandler(this._setField, this);
+
+    YAHOO.widget.OntologyTermEditor.superclass.constructor.call(this, "ontology", oConfigs);
+};
+
+// DropdownCellEditor extends BaseCellEditor
+YAHOO.lang.extend(YAHOO.widget.OntologyTermEditor, YAHOO.widget.BaseCellEditor, {
+
+_setField : function(selected)
+{
+  // TODO handle
+},
+
+/**
+ * Render a form with select element.
+ *
+ * @method renderForm
+ */
+renderForm : function() {
+
+    // FIXME handle existing values and pass them into this._browser.setSelected()
+
+    if(this._browser.isRendered())
+    {
+      this._browser.reset();
+      this._browser.show();
+    }
+    else
+    {
+      this._browser.render();
+    }
+},
+
+/**
+ * After rendering form, if disabledBtns is set to true, then sets up a mechanism
+ * to save input without them. 
+ *
+ * @method handleDisabledBtns
+ */
+handleDisabledBtns : function() {
+    // TODO does this require anything?
+},
+
+/**
+ * Resets DropdownCellEditor UI to initial state.
+ *
+ * @method resetForm
+ */
+resetForm : function() {
+    // TODO set id of selected term?
+},
+
+/**
+ * Sets focus in DropdownCellEditor.
+ *
+ * @method focus
+ */
+focus : function() {
+    this.getDataTable()._focusEl(this.dropdown);
+},
+
+/**
+ * Retrieves input value from DropdownCellEditor.
+ *
+ * @method getInputValue
+ */
+getInputValue : function() {
+   alert('foo');
+   return 'blah';
+}
+
+});
+
+// Copy static members to DropdownCellEditor class
+YAHOO.lang.augmentObject(YAHOO.widget.OntologyTermEditor, YAHOO.widget.BaseCellEditor);
