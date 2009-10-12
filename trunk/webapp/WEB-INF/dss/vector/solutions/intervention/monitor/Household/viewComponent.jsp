@@ -23,7 +23,9 @@
     </mjl:dt>
 
     <mjl:dt attribute="wall">
-      ${item.wall.displayLabel}
+      <c:if test="${wall != null}">
+        ${wall.displayLabel}
+      </c:if>
     </mjl:dt>
 
     <mjl:dt attribute="wallInfo">
@@ -31,7 +33,9 @@
     </mjl:dt>
 
     <mjl:dt attribute="roof">
-      ${item.roof.displayLabel}
+      <c:if test="${roof != null}">
+        ${roof.displayLabel}
+      </c:if>
     </mjl:dt>
 
     <mjl:dt attribute="roofInfo">
@@ -43,13 +47,9 @@
     </mjl:dt>
 
     <mjl:dt attribute="windowType">
-      <ul>
-        <c:forEach var="enumName" items="${item.windowTypeEnumNames}">
-          <li>
-            ${item.windowTypeMd.enumItems[enumName]}
-          </li>
-        </c:forEach>
-      </ul>
+      <c:if test="${windowType != null}">
+        ${windowType.displayLabel}
+      </c:if>
     </mjl:dt>
 
     <mjl:dt attribute="rooms">

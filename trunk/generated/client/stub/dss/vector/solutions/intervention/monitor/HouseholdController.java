@@ -6,15 +6,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class HouseholdController extends HouseholdControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class HouseholdController extends HouseholdControllerBase implements Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/intervention/monitor/Household/";
 
@@ -22,14 +24,12 @@ public class HouseholdController extends HouseholdControllerBase implements
 
   private static final long  serialVersionUID = 1239641309417L;
 
-  public HouseholdController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public HouseholdController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  public void create(HouseholdDTO dto, HouseholdNetDTO[] nets) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void create(HouseholdDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
   {
     try
     {
@@ -50,20 +50,12 @@ public class HouseholdController extends HouseholdControllerBase implements
     }
   }
 
-  public void failCreate(HouseholdDTO dto, HouseholdNetDTO[] nets) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failCreate(HouseholdDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientSession().getRequest();
-
-    req.setAttribute("windowType", WindowTypeDTO.allItems(clientRequest));
-    req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
-    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
-    req.setAttribute("item", dto);
-    req.setAttribute("nets", Arrays.asList(nets));
-    render("createComponent.jsp");
+    this.newInstance(dto, nets);
   }
 
-  public void delete(HouseholdDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(HouseholdDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -87,23 +79,17 @@ public class HouseholdController extends HouseholdControllerBase implements
     }
   }
 
-  public void failDelete(HouseholdDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(HouseholdDTO dto) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientSession().getRequest();
-    req.setAttribute("windowType", WindowTypeDTO.allItems(clientRequest));
-    req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
-    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
-    req.setAttribute("item", dto);
-    req.setAttribute("nets", Arrays.asList(dto.getHouseholdNets()));
-    render("editComponent.jsp");
+    this.edit(dto, dto.getHouseholdNets());
   }
 
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void view(String id) throws IOException, ServletException
   {
     this.view(HouseholdDTO.get(super.getClientRequest(), id));
   }
 
-  public void view(HouseholdDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void view(HouseholdDTO dto) throws IOException, ServletException
   {
     // go back to household view after entering person
     RedirectUtility utility = new RedirectUtility(req, resp);
@@ -112,77 +98,75 @@ public class HouseholdController extends HouseholdControllerBase implements
 
     ClientRequestIF request = this.getClientSession().getRequest();
     List<PersonViewDTO> people = new LinkedList<PersonViewDTO>();
-    
-    for(PersonDTO person : dto.getAllPersons())
+
+    for (PersonDTO person : dto.getAllPersons())
     {
       people.add(PersonDTO.getView(request, person.getId()));
     }
 
-    req.setAttribute("item", dto);
+    this.setupReferences(dto);
+
     req.setAttribute("people", people);
     req.setAttribute("nets", Arrays.asList(dto.getHouseholdNets()));
+    req.setAttribute("item", dto);
+    
     render("viewComponent.jsp");
   }
 
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
   }
 
-  public void cancel(HouseholdDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(HouseholdDTO dto) throws IOException, ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
 
-  public void failCancel(HouseholdDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(HouseholdDTO dto) throws IOException, ServletException
   {
     this.edit(dto.getId());
   }
 
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending,
-      java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    HouseholdQueryDTO query = HouseholdDTO.getAllInstances(clientRequest, sortAttribute, isAscending,
-        pageSize, pageNumber);
+    HouseholdQueryDTO query = HouseholdDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending,
-      java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
-  public void newInstance(String surveyId) throws java.io.IOException, javax.servlet.ServletException
+  public void newInstance(String surveyId) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
 
     HouseholdDTO dto = new HouseholdDTO(clientRequest);
     dto.setSurveyPoint(SurveyPointDTO.get(clientRequest, surveyId));
 
-    HouseholdNetDTO[] nets = dto.getHouseholdNets();
+    this.newInstance(dto, dto.getHouseholdNets());
+  }
 
-    req.setAttribute("windowType", WindowTypeDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("nets", Arrays.asList(nets));
-    req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
-    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
+  private void newInstance(HouseholdDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
+  {
+    this.setupRequest(nets);
+    this.setupReferences(dto);
+
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
 
-  public void failNewInstance(String surveyId) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failNewInstance(String surveyId) throws IOException, ServletException
   {
     this.viewAll();
   }
 
-  public void update(HouseholdDTO dto, HouseholdNetDTO[] nets) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void update(HouseholdDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
   {
     try
     {
@@ -203,24 +187,19 @@ public class HouseholdController extends HouseholdControllerBase implements
     }
   }
 
-  public void failUpdate(HouseholdDTO dto, HouseholdNetDTO[] nets) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failUpdate(HouseholdDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientSession().getRequest();
-    req.setAttribute("windowType", WindowTypeDTO.allItems(clientRequest));
-    req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
-    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
-    req.setAttribute("item", dto);
-    req.setAttribute("nets", Arrays.asList(nets));
-
-    render("editComponent.jsp");
+    this.edit(dto, nets);
   }
 
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void edit(String id) throws IOException, ServletException
   {
     try
     {
-      edit(HouseholdDTO.lock(super.getClientRequest(), id));
+      HouseholdDTO dto = HouseholdDTO.lock(super.getClientRequest(), id);
+      HouseholdNetDTO[] nets = dto.getHouseholdNets();
+      
+      this.edit(dto, nets);
     }
     catch (ProblemExceptionDTO e)
     {
@@ -236,23 +215,21 @@ public class HouseholdController extends HouseholdControllerBase implements
     }
   }
 
-  private void edit(HouseholdDTO dto) throws IOException, ServletException
+  private void edit(HouseholdDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientSession().getRequest();
-    req.setAttribute("windowType", WindowTypeDTO.allItems(clientRequest));
-    req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
-    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
-    req.setAttribute("nets", Arrays.asList(HouseholdDTO.getHouseholdNets(clientRequest, dto.getId())));
+    this.setupRequest(nets);
+    this.setupReferences(dto);
     req.setAttribute("item", dto);
+    
     render("editComponent.jsp");
   }
 
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failEdit(String id) throws IOException, ServletException
   {
     this.view(id);
   }
 
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void viewAll() throws IOException, ServletException
   {
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
@@ -262,8 +239,21 @@ public class HouseholdController extends HouseholdControllerBase implements
     render("viewAllComponent.jsp");
   }
 
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void failViewAll() throws IOException, ServletException
   {
     resp.sendError(500);
   }
+  
+  private void setupRequest(HouseholdNetDTO[] nets)
+  {
+    req.setAttribute("nets", Arrays.asList(nets));
+  }
+  
+  private void setupReferences(HouseholdDTO dto)
+  {
+    req.setAttribute("windowType", dto.getWindowType());
+    req.setAttribute("wall", dto.getWall());
+    req.setAttribute("roof", dto.getRoof());
+  }
+
 }
