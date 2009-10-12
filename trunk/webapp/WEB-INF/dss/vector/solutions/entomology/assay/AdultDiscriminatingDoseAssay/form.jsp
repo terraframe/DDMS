@@ -16,7 +16,9 @@
 <%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay"%>
 <%@page import="dss.vector.solutions.entomology.assay.CollectionAssayDTO"%>
 <%@page import="dss.vector.solutions.entomology.assay.AdultAssayDTO"%>
-<%@page import="dss.vector.solutions.entomology.assay.AbstractAssayDTO"%><jsp:include page="/WEB-INF/MOSearch.jsp" />
+<%@page import="dss.vector.solutions.entomology.assay.AbstractAssayDTO"%>
+
+<jsp:include page="/WEB-INF/MOSearch.jsp" />
 
 
 <mjl:component item="${item}" param="dto">
@@ -73,13 +75,13 @@
         </div>
         <mjl:input type="hidden" param="identificationMethod" id="identificationMethod" value="${identificationMethod != null ? identificationMethod.id : ''}" />
       </mjl:dt>      
-     <mjl:dt attribute="ageRange">
-      <dl>
-        <mjl:struct param="ageRange">
-          <mjl:dt attribute="startPoint" type="text"  />
-          <mjl:dt attribute="endPoint" type="text"  />
-        </mjl:struct>
-      </dl>
+      <mjl:dt attribute="ageRange">
+        <dl>
+          <mjl:struct param="ageRange">
+            <mjl:dt attribute="startPoint" type="text"  />
+            <mjl:dt attribute="endPoint" type="text"  />
+          </mjl:struct>
+        </dl>
       </mjl:dt>
       <mjl:dt attribute="fed">
         <mjl:input type="text" param="fed" />

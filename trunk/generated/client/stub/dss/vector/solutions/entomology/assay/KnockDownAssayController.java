@@ -1,7 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,13 +10,8 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.entomology.AssaySexDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.InsecticideDTO;
-import dss.vector.solutions.mo.GenerationDTO;
-import dss.vector.solutions.mo.IdentificationMethodDTO;
-import dss.vector.solutions.mo.ResistanceMethodologyDTO;
-import dss.vector.solutions.mo.SpecieDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -29,8 +23,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
   private static final long  serialVersionUID = 1237230661615L;
 
-  public KnockDownAssayController(HttpServletRequest req, HttpServletResponse resp,
-      Boolean isAsynchronous)
+  public KnockDownAssayController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
@@ -42,18 +35,23 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
       dto.apply();
       this.view(dto);
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failCreate(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failCreate(dto);
     }
   }
 
   public void failCreate(KnockDownAssayDTO dto) throws IOException, ServletException
   {
-    this.setupRequest();
-    req.setAttribute("item", dto);
-
-    render("createComponent.jsp");
+    this.newInstance(dto);
   }
 
   public void viewAll() throws IOException, ServletException
@@ -89,10 +87,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     {
       KnockDownAssayDTO dto = KnockDownAssayDTO.lock(super.getClientRequest(), id);
 
-      this.setupRequest();
-      req.setAttribute("item", dto);
-
-      render("editComponent.jsp");
+      this.edit(dto);
     }
     catch (ProblemExceptionDTO e)
     {
@@ -109,6 +104,15 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
   }
 
+  private void edit(KnockDownAssayDTO dto) throws IOException, ServletException
+  {
+    this.setupRequest();
+    this.setupMO(dto);
+    req.setAttribute("item", dto);
+
+    render("editComponent.jsp");
+  }
+
   public void failEdit(String id) throws IOException, ServletException
   {
     this.view(id);
@@ -121,7 +125,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
       dto.delete();
       this.viewAll();
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       this.failDelete(dto);
     }
@@ -135,19 +139,16 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     render("editComponent.jsp");
   }
 
-  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
-      throws IOException, ServletException
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    KnockDownAssayQueryDTO query = KnockDownAssayDTO.getAllInstances(clientRequest, sortAttribute,
-        isAscending, pageSize, pageNumber);
+    KnockDownAssayQueryDTO query = KnockDownAssayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber)
-      throws IOException, ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
   {
     resp.sendError(500);
   }
@@ -162,7 +163,13 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
       dto.setCollection(MosquitoCollectionDTO.get(clientRequest, req.getParameter("collection_id")));
     }
 
+    this.newInstance(dto);
+  }
+
+  private void newInstance(KnockDownAssayDTO dto) throws IOException, ServletException
+  {
     this.setupRequest();
+    this.setupMO(dto);
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
@@ -184,6 +191,8 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
+    this.setupMO(dto);
+    
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }
@@ -198,33 +207,41 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.view(dto);
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failUpdate(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failUpdate(dto);
     }
   }
 
   public void failUpdate(KnockDownAssayDTO dto) throws IOException, ServletException
   {
-    this.setupRequest();
-    req.setAttribute("item", dto);
+    this.edit(dto);
+  }
 
-    render("updateComponent.jsp");
+  private void setupMO(KnockDownAssayDTO dto)
+  {
+    req.setAttribute("sex", dto.getSex());
+    req.setAttribute("generation", dto.getGeneration());
+    req.setAttribute("identificationMethod", dto.getIdentificationMethod());
+    req.setAttribute("testMethod", dto.getTestMethod());
+    req.setAttribute("specie", dto.getSpecie());
   }
 
   private void setupRequest()
   {
     ClientRequestIF request = super.getClientSession().getRequest();
 
-    req.setAttribute("sex", AssaySexDTO.allItems(request));
-    req.setAttribute("generation", Arrays.asList(GenerationDTO.getAllActive(request)));
-    req.setAttribute("identificationMethod", Arrays
-        .asList(IdentificationMethodDTO.getAllActive(request)));
-    req.setAttribute("testMethod", Arrays.asList(ResistanceMethodologyDTO.getAllActive(request)));
     req.setAttribute("insecticide", InsecticideDTO.getAll(request));
-    req.setAttribute("specie", Arrays.asList(SpecieDTO.getAllActive(request)));
   }
 
 }
