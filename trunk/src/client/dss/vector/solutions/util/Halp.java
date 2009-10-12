@@ -625,7 +625,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     String DROPDOWN_EDITOR = "new YAHOO.widget.DropdownCellEditor";
     String TEXTBOX_EDITOR = "new YAHOO.widget.TextboxCellEditor";
     String DATE_EDITOR = "new YAHOO.widget.DateCellEditor";
-    String MO_TERM_EDITOR = "new YAHOO.widget.MoTermEditor";
+    String TERM_EDITOR = "new YAHOO.widget.OntologyTermEditor";
 
     // Default to a text box editor
     String editor = TEXTBOX_EDITOR;
@@ -682,7 +682,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         {        
           options.add("klass:'" + view.getType() + "'");
           options.add("attribute:'" + attrib + "'");                   
-          editor = MO_TERM_EDITOR;
+          editor = TERM_EDITOR;
         }
       }
     }
