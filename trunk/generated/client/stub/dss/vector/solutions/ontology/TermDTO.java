@@ -20,4 +20,8 @@ public abstract class TermDTO extends TermDTOBase
     super(businessDTO, clientRequest);
   }
   
+  public String getDisplayLabel()
+  {
+    return this.getTermName() + "(" + this.getTermId() + ")";
+  }
 }
