@@ -46,6 +46,7 @@ import com.terraframe.mojo.transport.metadata.AttributeMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO;
 
 import dss.vector.solutions.LabeledDTO;
+import dss.vector.solutions.ontology.TermDTO;
 
 public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -624,6 +625,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     String DROPDOWN_EDITOR = "new YAHOO.widget.DropdownCellEditor";
     String TEXTBOX_EDITOR = "new YAHOO.widget.TextboxCellEditor";
     String DATE_EDITOR = "new YAHOO.widget.DateCellEditor";
+    String MO_TERM_EDITOR = "new YAHOO.widget.MoTermEditor";
 
     // Default to a text box editor
     String editor = TEXTBOX_EDITOR;
@@ -675,6 +677,12 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
           options.add("dropdownOptions:" + attrib + "Labels");
 
           editor = DROPDOWN_EDITOR;
+        }
+        if (TermDTO.class.isAssignableFrom(refrenced_class))
+        {        
+          options.add("klass:'" + view.getType() + "'");
+          options.add("attribute:'" + attrib + "'");                   
+          editor = MO_TERM_EDITOR;
         }
       }
     }
