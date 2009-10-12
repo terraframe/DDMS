@@ -2,6 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+
+<%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO"%><jsp:include page="/WEB-INF/MOSearch.jsp" />
+
     <mjl:component item="${item}" param="dto">
       <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
       <mjl:dt attribute="geoId">
@@ -11,19 +14,23 @@
         <mjl:input type="text" param="testDate" classes="DatePick NoFuture" id="testDate" />
       </mjl:dt>
       <mjl:dt attribute="testMethod">
-        <mjl:select var="current" valueAttribute="id" items="${testMethod}" param="testMethod">
-          <mjl:option>
-            ${current.termName}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
+        <span class="clickable" id="testMethodBtn"> <fmt:message key="Browser"/></span>
+        <div id="testMethodDisplay" class="ontologyDisplay">
+          <c:if test="${testMethod != null}">
+            ${testMethod.displayLabel}
+          </c:if>
+        </div>
+        <mjl:input type="hidden" param="testMethod" id="testMethod" value="${testMethod != null ? testMethod.id : ''}" />
+      </mjl:dt>      
       <mjl:dt attribute="specie">
-        <mjl:select var="current" valueAttribute="id" items="${specie}" param="specie" includeBlank="true">
-          <mjl:option>
-            ${current.termName}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
+        <span class="clickable" id="specieBtn"> <fmt:message key="Browser"/></span>
+        <div id="specieDisplay" class="ontologyDisplay">
+          <c:if test="${specie != null}">
+            ${specie.displayLabel}
+          </c:if>
+        </div>
+        <mjl:input type="hidden" param="specie" id="specie" value="${specie != null ? specie.id : ''}" />
+      </mjl:dt>      
       <mjl:dt attribute="colonyName">
         <mjl:input type="text" param="colonyName" />
       </mjl:dt>
@@ -36,12 +43,14 @@
         </dl>
       </mjl:dt>
       <mjl:dt attribute="sex">
-        <mjl:select var="current" valueAttribute="enumName" items="${sex}" param="sex">
-          <mjl:option>
-            ${item.sexMd.enumItems[current.enumName]}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
+        <span class="clickable" id="sexBtn"> <fmt:message key="Browser"/></span>
+        <div id="sexDisplay" class="ontologyDisplay">
+          <c:if test="${sex != null}">
+            ${sex.displayLabel}
+          </c:if>
+        </div>
+        <mjl:input type="hidden" param="sex" id="sex" value="${sex != null ? sex.id : ''}" />
+      </mjl:dt>      
       <mjl:dt attribute="gravid">
         <mjl:input type="text" param="gravid" />
       </mjl:dt>
@@ -60,12 +69,14 @@
         <mjl:input type="text" param="timeOnSurface" />
       </mjl:dt>
       <mjl:dt attribute="surfacePostion">
-        <mjl:select var="current" valueAttribute="enumName" items="${surfacePostion}" param="surfacePostion">
-          <mjl:option>
-            ${item.surfacePostionMd.enumItems[current.enumName]}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
+        <span class="clickable" id="surfacePostionBtn"> <fmt:message key="Browser"/></span>
+        <div id="surfacePostionDisplay" class="ontologyDisplay">
+          <c:if test="${surfacePostion != null}">
+            ${surfacePostion.displayLabel}
+          </c:if>
+        </div>
+        <mjl:input type="hidden" param="surfacePostion" id="surfacePostion" value="${surfacePostion != null ? surfacePostion.id : ''}" />
+      </mjl:dt>      
       <mjl:dt attribute="exposureTime">
         <mjl:input type="text" param="exposureTime" />
       </mjl:dt>
@@ -79,3 +90,19 @@
         <mjl:input type="text" param="quantityDead" />
       </mjl:dt>
     </mjl:component>
+
+    <script type="text/javascript">  
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){   
+    var attributes = [
+         {attributeName:'testMethod'},
+         {attributeName:'specie'},
+         {attributeName:'sex'},
+         {attributeName:'surfacePostion'}
+    ];
+    
+    new MDSS.GenericOntologyBrowser("<%=EfficacyAssayViewDTO.CLASS%>", attributes);
+  })
+})();
+
+</script>    

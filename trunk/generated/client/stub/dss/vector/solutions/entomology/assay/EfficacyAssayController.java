@@ -1,25 +1,20 @@
 package dss.vector.solutions.entomology.assay;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.SurfacePositionDTO;
-import dss.vector.solutions.entomology.AssaySexDTO;
 import dss.vector.solutions.general.InsecticideDTO;
-import dss.vector.solutions.mo.GenerationDTO;
-import dss.vector.solutions.mo.IdentificationMethodDTO;
-import dss.vector.solutions.mo.ResistanceMethodologyDTO;
-import dss.vector.solutions.mo.SpecieDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class EfficacyAssayController extends EfficacyAssayControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class EfficacyAssayController extends EfficacyAssayControllerBase implements Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/entomology/assay/EfficacyAssay/";
 
@@ -27,14 +22,12 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
 
   private static final long  serialVersionUID = 1236363373105L;
 
-  public EfficacyAssayController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public EfficacyAssayController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  public void create(EfficacyAssayViewDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void create(EfficacyAssayViewDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -55,16 +48,12 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     }
   }
 
-  public void failCreate(EfficacyAssayViewDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failCreate(EfficacyAssayViewDTO dto) throws IOException, ServletException
   {
-    this.loadRequestParameters();
-    req.setAttribute("item", dto);
-
-    render("createComponent.jsp");
+    this.newInstance(dto);
   }
 
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void viewAll() throws IOException, ServletException
   {
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
@@ -75,33 +64,28 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     render("viewAllComponent.jsp");
   }
 
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void failViewAll() throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
-  public void cancel(EfficacyAssayViewDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void cancel(EfficacyAssayViewDTO dto) throws IOException, ServletException
   {
     this.view(EfficacyAssayDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
   }
 
-  public void failCancel(EfficacyAssayViewDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failCancel(EfficacyAssayViewDTO dto) throws IOException, ServletException
   {
     this.edit(dto.getId());
   }
 
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void edit(String id) throws IOException, ServletException
   {
     try
     {
       EfficacyAssayViewDTO dto = EfficacyAssayDTO.lockView(super.getClientRequest(), id);
 
-      this.loadRequestParameters();
-      req.setAttribute("item", dto);
-
-      render("editComponent.jsp");
+      this.edit(dto);
     }
     catch (ProblemExceptionDTO e)
     {
@@ -118,13 +102,21 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
 
   }
 
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  private void edit(EfficacyAssayViewDTO dto) throws IOException, ServletException
+  {
+    this.setupReferences(dto);
+    this.setupRequest();
+    req.setAttribute("item", dto);
+
+    render("editComponent.jsp");
+  }
+
+  public void failEdit(String id) throws IOException, ServletException
   {
     this.view(id);
   }
 
-  public void update(EfficacyAssayViewDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void update(EfficacyAssayViewDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -145,37 +137,33 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     }
   }
 
-  public void failUpdate(EfficacyAssayViewDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failUpdate(EfficacyAssayViewDTO dto) throws IOException, ServletException
   {
-    this.loadRequestParameters();
-    req.setAttribute("item", dto);
-
-    render("editComponent.jsp");
+    this.edit(dto);
   }
 
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void view(String id) throws IOException, ServletException
   {
     this.view(EfficacyAssayDTO.getView(super.getClientRequest(), id));
   }
 
-  public void view(EfficacyAssayViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void view(EfficacyAssayViewDTO dto) throws IOException, ServletException
   {
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", dto.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
+    this.setupReferences(dto);
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }
 
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
   }
 
-  public void delete(EfficacyAssayViewDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void delete(EfficacyAssayViewDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -196,46 +184,41 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     }
   }
 
-  public void failDelete(EfficacyAssayViewDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failDelete(EfficacyAssayViewDTO dto) throws IOException, ServletException
   {
-    this.loadRequestParameters();
-    req.setAttribute("item", dto);
-
-    render("editComponent.jsp");
+    this.edit(dto);
   }
 
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending,
-      java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
 
-    EfficacyAssayViewQueryDTO query = EfficacyAssayViewDTO.getPage(clientRequest, sortAttribute,
-        isAscending, pageSize, pageNumber);
+    EfficacyAssayViewQueryDTO query = EfficacyAssayViewDTO.getPage(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending,
-      java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void newInstance() throws IOException, ServletException
   {
-    EfficacyAssayViewDTO dto = new EfficacyAssayViewDTO(super.getClientRequest());
+    this.newInstance(new EfficacyAssayViewDTO(super.getClientRequest()));
+  }
 
-    this.loadRequestParameters();
+  private void newInstance(EfficacyAssayViewDTO dto) throws IOException, ServletException
+  {
+    this.setupReferences(dto);
+    this.setupRequest();
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
   }
 
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void failNewInstance() throws IOException, ServletException
   {
     this.viewAll();
   }
@@ -264,26 +247,20 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     clone.getAgeRange().setEndPoint(dto.getAgeRange().getEndPoint());
     clone.setSex(dto.getSex());
 
-    this.loadRequestParameters();
-    req.setAttribute("item", clone);
-
-    render("createComponent.jsp");
+    this.newInstance(clone);
+  }
+  
+  private void setupReferences(EfficacyAssayViewDTO dto)
+  {
+    req.setAttribute("surfacePostion", dto.getSurfacePostion());
+    req.setAttribute("sex", dto.getSex());
+    req.setAttribute("specie", dto.getSpecie());
+    req.setAttribute("testMethod", dto.getTestMethod());    
   }
 
-  private void loadRequestParameters()
+  private void setupRequest()
   {
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("surfacePostion", SurfacePositionDTO
-        .allItems(super.getClientSession().getRequest()));
-    req.setAttribute("generation", Arrays.asList(GenerationDTO.getAllActive(super.getClientSession()
-        .getRequest())));
-    req.setAttribute("identificationMethod", Arrays.asList(IdentificationMethodDTO.getAllActive(super
-        .getClientSession().getRequest())));
-    req.setAttribute("sex", AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("specie", Arrays.asList(SpecieDTO.getAllActive(super.getClientSession()
-        .getRequest())));
-    req.setAttribute("testMethod", Arrays.asList(ResistanceMethodologyDTO.getAll(super
-        .getClientSession().getRequest())));
   }
 
 }

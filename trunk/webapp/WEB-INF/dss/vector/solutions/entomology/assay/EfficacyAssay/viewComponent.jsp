@@ -17,10 +17,14 @@
         <span id="testDateSpan" class="formatDate">${item.testDate}</span>
       </mjl:dt>
       <mjl:dt attribute="testMethod">
-        ${item.testMethod.displayLabel}
+        <c:if test="${testMethod != null}">
+          ${testMethod.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="specie">
-        ${item.specie.displayLabel}
+        <c:if test="${specie != null}">
+          ${specie.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="colonyName">
         ${item.colonyName}
@@ -38,11 +42,9 @@
         </mjl:struct>
       </mjl:dt>
       <mjl:dt attribute="sex">
-        <ul>
-          <c:forEach var="enumName" items="${item.sexEnumNames}">
-            <li>${item.sexMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>
+        <c:if test="${sex != null}">
+          ${sex.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="gravid">
         ${item.gravid}
@@ -57,11 +59,9 @@
         ${item.timeOnSurface}
       </mjl:dt>
       <mjl:dt attribute="surfacePostion">      
-        <ul>
-          <c:forEach var="enumName" items="${item.surfacePostionEnumNames}">
-            <li>${item.surfacePostionMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>
+        <c:if test="${surfacePostion != null}">
+          ${surfacePostion.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="exposureTime">
         ${item.exposureTime}

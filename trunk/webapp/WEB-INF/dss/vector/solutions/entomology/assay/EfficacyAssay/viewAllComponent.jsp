@@ -51,11 +51,7 @@
 
     <mjl:attributeColumn attributeName="sex">
       <mjl:row>
-         <ul>
-          <c:forEach var="enumName" items="${item.sexEnumNames}">
-            <li>${item.sexMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>      
+        ${item.sex.displayLabel}
       </mjl:row>         
     </mjl:attributeColumn>
 
@@ -76,11 +72,7 @@
 
     <mjl:attributeColumn attributeName="surfacePostion">
       <mjl:row>
-         <ul>
-          <c:forEach var="enumName" items="${item.surfacePostionEnumNames}">
-            <li>${item.surfacePostionMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>      
+        ${item.surfacePostion.displayLabel}
       </mjl:row>    
     </mjl:attributeColumn>
 

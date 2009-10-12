@@ -51,9 +51,7 @@
 
     <mjl:attributeColumn attributeName="sex">
       <mjl:row>
-        <c:forEach var="enumName" items="${item.sexEnumNames}">
-          ${item.sexMd.enumItems[enumName]}
-        </c:forEach>
+        ${item.sex.displayLabel}
       </mjl:row>        
     </mjl:attributeColumn>
 
