@@ -81,11 +81,11 @@ public class PermissionsTest extends TestCase
   protected static void classSetUp()
   {
     mdssAdmin = new Roles();
-    mdssAdmin.setRoleName("MdssAdmin");
+    mdssAdmin.setRoleName("mdss.MdssAdmin");
     mdssAdmin.apply();
 
     mdssUser = new Roles();
-    mdssUser.setRoleName("MdssUser");
+    mdssUser.setRoleName("mdss.MdssUser");
     mdssUser.apply();
 
     mdssType = new MdBusiness();

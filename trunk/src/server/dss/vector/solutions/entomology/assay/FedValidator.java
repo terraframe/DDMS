@@ -1,14 +1,12 @@
 package dss.vector.solutions.entomology.assay;
 
-import java.util.List;
-
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.entomology.AssaySex;
+import dss.vector.solutions.ontology.Term;
 
 public class FedValidator implements Reloadable
 {
-  private List<AssaySex> sex;
+  private Term sex;
 
   private Integer fed;
 
@@ -26,7 +24,7 @@ public class FedValidator implements Reloadable
     this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay);
   }
 
-  public FedValidator(List<AssaySex> sex, Integer fed, Integer quantityTested, AbstractAssay assay)
+  public FedValidator(Term sex, Integer fed, Integer quantityTested, AbstractAssay assay)
   {
     super();
     this.sex = sex;
@@ -39,8 +37,12 @@ public class FedValidator implements Reloadable
   {
     //null is allowed
     if(fed == null)return;
+    
+    //TODO get the real id for the Male/unknown MO ontology
+    String maleId = "";
+    String unknownId = "";
 
-    if (fed != 0 && sex.size() > 0 && ( sex.get(0).equals(AssaySex.MALE) || sex.get(0).equals(AssaySex.UNKNOWN) ))
+    if (fed != 0 && sex != null && ( sex.getTermId().equals(maleId) || sex.getTermId().equals(unknownId) ))
     {
       String msg = "It is impossible to have fed values on male or unknown sex assays";
 

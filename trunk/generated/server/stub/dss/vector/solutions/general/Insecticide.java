@@ -6,7 +6,7 @@ import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.entomology.assay.Unit;
-import dss.vector.solutions.mo.ActiveIngredient;
+import dss.vector.solutions.ontology.Term;
 
 public class Insecticide extends InsecticideBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -17,7 +17,7 @@ public class Insecticide extends InsecticideBase implements
   {
     super();
   }
-
+  
   @Override
   protected String buildKey()
   {
@@ -34,7 +34,7 @@ public class Insecticide extends InsecticideBase implements
   
   public static Insecticide get(String activeIngredient, String unit, Double amount)
   {
-    ActiveIngredient ingredient = ActiveIngredient.validateByDisplayLabel(activeIngredient, Insecticide.getActiveIngredientMd());
+    Term ingredient = Term.validateByDisplayLabel(activeIngredient, Insecticide.getActiveIngredientMd());
     Unit u = getUnitByLabel(unit);
     
     if(u == null)

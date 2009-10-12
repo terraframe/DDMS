@@ -2,37 +2,17 @@ package dss.vector.solutions.permissions.indicator;
 
 import java.util.Date;
 
-import junit.framework.TestCase;
-
-import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.constants.ClientRequestIF;
-
-import dss.vector.solutions.intervention.BloodslideResponseDTO;
-import dss.vector.solutions.intervention.FeverResponseDTO;
-import dss.vector.solutions.intervention.FeverTreatmentDTO;
-import dss.vector.solutions.intervention.HumanSexDTO;
-import dss.vector.solutions.intervention.RDTResponseDTO;
 import dss.vector.solutions.intervention.RDTResultDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdNetDTO;
 import dss.vector.solutions.intervention.monitor.PersonDTO;
 import dss.vector.solutions.intervention.monitor.PersonViewDTO;
-import dss.vector.solutions.intervention.monitor.RoofDTO;
-import dss.vector.solutions.intervention.monitor.RoofViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointViewDTO;
-import dss.vector.solutions.intervention.monitor.WallDTO;
-import dss.vector.solutions.intervention.monitor.WallViewDTO;
-import dss.vector.solutions.surveillance.TreatmentGridDTO;
+import dss.vector.solutions.ontology.TermDTO;
 
-public abstract class SurveyCRUDPermissions extends TestCase
+public abstract class SurveyCRUDPermissions extends IndicatorSuveyPermissionTest
 {
-  protected static ClientSession   clientSession;
-
-  protected static ClientRequestIF request;
-
-  protected static String          geoId;
-
   public void testSurveyPoint()
   {
     SurveyPointViewDTO view = new SurveyPointViewDTO(request);
@@ -58,6 +38,8 @@ public abstract class SurveyCRUDPermissions extends TestCase
 
   public void testHousehold()
   {
+    TermDTO term = TermDTO.get(request, termId);
+
     SurveyPointViewDTO view = new SurveyPointViewDTO(request);
     view.setGeoId(geoId);
     view.setSurveyDate(new Date());
@@ -65,14 +47,11 @@ public abstract class SurveyCRUDPermissions extends TestCase
 
     try
     {
-      WallViewDTO[] walls = WallViewDTO.getAll(request);
-      RoofViewDTO[] roofs = RoofViewDTO.getAll(request);
-
       HouseholdDTO household = new HouseholdDTO(request);
       household.setSurveyPoint(SurveyPointDTO.get(request, view.getConcreteId()));
       household.setHasWindows(true);
-      household.setWall(WallDTO.get(request, walls[0].getWallId()));
-      household.setRoof(RoofDTO.get(request, roofs[0].getRoofId()));
+      household.setWall(term);
+      household.setRoof(term);
       household.setHouseholdName("232");
       household.setNets(40);
 
@@ -106,10 +85,7 @@ public abstract class SurveyCRUDPermissions extends TestCase
 
   public void testPerson()
   {
-    WallViewDTO[] walls = WallViewDTO.getAll(request);
-    RoofViewDTO[] roofs = RoofViewDTO.getAll(request);
-    TreatmentGridDTO[] treatments = TreatmentGridDTO.getAll(request);
-    FeverTreatmentDTO[] fever = FeverTreatmentDTO.getAllActive(request);
+    TermDTO term = TermDTO.get(request, termId);
 
     SurveyPointViewDTO view = new SurveyPointViewDTO(request);
     view.setGeoId(geoId);
@@ -122,8 +98,8 @@ public abstract class SurveyCRUDPermissions extends TestCase
       HouseholdDTO household = new HouseholdDTO(request);
       household.setSurveyPoint(SurveyPointDTO.get(request, view.getConcreteId()));
       household.setHasWindows(true);
-      household.setWall(WallDTO.get(request, walls[0].getWallId()));
-      household.setRoof(RoofDTO.get(request, roofs[0].getRoofId()));
+      household.setWall(term);
+      household.setRoof(term);
       household.setHouseholdName("232");
       household.setNets(40);
 
@@ -135,15 +111,15 @@ public abstract class SurveyCRUDPermissions extends TestCase
       try
       {
         PersonViewDTO person = new PersonViewDTO(request);
-        person.addBloodslide(BloodslideResponseDTO.DONE);
-        person.addFever(FeverResponseDTO.DONT_KNOW);
-        person.addMalaria(FeverResponseDTO.DONT_KNOW);
-        person.addPayment(FeverResponseDTO.DONT_KNOW);
-        person.addPerformedRDT(RDTResponseDTO.NO);
+        person.setBloodslide(term);
+        person.setFever(term);
+        person.setMalaria(term);
+        person.setPayment(term);
+        person.setPerformedRDT(term);
         person.addRDTResult(RDTResultDTO.MALARIAE_POSITIVE);
-        person.addSex(HumanSexDTO.FEMALE);
-        person.setAnaemiaTreatment(treatments[0]);
-        person.setFeverTreatment(fever[0]);
+        person.setSex(term);
+        person.setAnaemiaTreatment(term);
+        person.setFeverTreatment(term);
         person.setHousehold(household);
         person.setPersonId("teste3243");
         person.apply();

@@ -1,4 +1,6 @@
-<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <create>
 
@@ -45,21 +47,21 @@
           <text
             name="description"
             label="Description"
-            required="false"/>
+            required="false" />
           <text
             name="termComment"
             label="Comment"
-            required="false"/>
+            required="false" />
           <boolean
             name="obsolete"
             label="Obsolete"
             required="true"
-            defaultValue="false"/>
+            defaultValue="false" />
           <reference
             name="ontology"
             required="true"
             label="Ontology"
-            type="dss.vector.solutions.ontology.OntologyDefinition"/>
+            type="dss.vector.solutions.ontology.OntologyDefinition" />
         </attributes>
       </mdBusiness>
 
@@ -129,7 +131,7 @@
             unique="false"
             type="dss.vector.solutions.ontology.Term"
             description="The parent term that has a relationship (possibily recursive) with the child term"
-            indexType="non-unique index"/>
+            indexType="non-unique index" />
           <reference
             name="parentOntologyMdBusiness"
             label="Parent Ontology MdBusiness"
@@ -137,7 +139,7 @@
             unique="false"
             type="com.terraframe.mojo.system.metadata.MdBusiness"
             description="The MdBusiness that defines the Parent"
-            indexType="non-unique index"/>
+            indexType="non-unique index" />
           <reference
             name="childTerm"
             label="Child Term"
@@ -145,7 +147,7 @@
             unique="false"
             type="dss.vector.solutions.ontology.Term"
             description="The parent term that has a relationship (possibily recursive) with the child term"
-            indexType="non-unique index"/>
+            indexType="non-unique index" />
           <reference
             name="childOntologyMdBusiness"
             label="Child Ontology MdBusiness"
@@ -153,7 +155,7 @@
             unique="false"
             type="com.terraframe.mojo.system.metadata.MdBusiness"
             description="The MdBusiness that defines the Child"
-            indexType="non-unique index"/>
+            indexType="non-unique index" />
           <reference
             name="ontologyRelationship"
             label="Ontology Relationship"
@@ -161,7 +163,7 @@
             unique="false"
             type="com.terraframe.mojo.system.metadata.MdGraph"
             description="The MdGraph that defines the ontology relationship"
-            indexType="non-unique index"/>
+            indexType="non-unique index" />
         </attributes>
       </mdBusiness>
 
@@ -180,7 +182,131 @@
       </mdIndex>
 
     </create>
-    <update></update>
+
+    <create>
+      <object
+        type="com.terraframe.mojo.system.Roles"
+        key="Roles.mdss.coordinator">
+        <attribute
+          name="roleName"
+          value="mdss.coordinator" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="MDSS Coordinator" />
+        </attributeStruct>
+      </object>
+      <object
+        type="com.terraframe.mojo.system.Roles"
+        key="Roles.mdss.entomologist">
+        <attribute
+          name="roleName"
+          value="mdss.entomologist" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Entomologist" />
+        </attributeStruct>
+      </object>
+      <object
+        type="com.terraframe.mojo.system.Roles"
+        key="Roles.mdss.operationalManager">
+        <attribute
+          name="roleName"
+          value="mdss.operationalManager" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Operational Manager" />
+        </attributeStruct>
+      </object>
+      <object
+        type="com.terraframe.mojo.system.Roles"
+        key="Roles.mdss.MDSS">
+        <attribute
+          name="roleName"
+          value="mdss.MDSS" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="MDSS" />
+        </attributeStruct>
+      </object>
+      <object
+        type="com.terraframe.mojo.system.Roles"
+        key="Roles.mdss.GUIVisibility">
+        <attribute
+          name="roleName"
+          value="mdss.GUIVisibility" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="GUIVisibility" />
+        </attributeStruct>
+      </object>
+      <object
+        type="com.terraframe.mojo.system.Roles"
+        key="Roles.mdss.dataCapturer">
+        <attribute
+          name="roleName"
+          value="mdss.dataCapturer" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Data Capturer" />
+        </attributeStruct>
+      </object>
+      <object
+        type="com.terraframe.mojo.system.Roles"
+        key="Roles.mdss.manager">
+        <attribute
+          name="roleName"
+          value="mdss.manager" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Manager" />
+        </attributeStruct>
+      </object>
+    </create>
+    <permissions>
+      <role
+        roleName="mdss.GUIVisibility">
+        <grant>
+          <mdBusinessPermission type="dss.vector.solutions.ontology.OntologyDefinition">
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+          </mdBusinessPermission>
+          <mdBusinessPermission type="dss.vector.solutions.ontology.Term">
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+          </mdBusinessPermission>
+          <mdBusinessPermission type="dss.vector.solutions.ontology.GeoUniversal">
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+          </mdBusinessPermission>
+          <mdRelationshipPermission type="dss.vector.solutions.ontology.TermRelationship">
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+          </mdRelationshipPermission>
+          <mdRelationshipPermission type="dss.vector.solutions.ontology.IsA">
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+          </mdRelationshipPermission>
+          <mdBusinessPermission type="dss.vector.solutions.ontology.AllPaths">
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+          </mdBusinessPermission>
+        </grant>
+      </role>
+    </permissions>
   </doIt>
   <undoIt>
     <delete>

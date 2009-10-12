@@ -10,8 +10,6 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectablePrimitive;
 
-import dss.vector.solutions.SurfacePosition;
-import dss.vector.solutions.entomology.AssaySex;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class EfficacyAssayView extends EfficacyAssayViewBase implements
@@ -43,19 +41,8 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
     concrete.setTestDate(this.getTestDate());
     concrete.setTestMethod(this.getTestMethod());
     concrete.setTimeOnSurface(this.getTimeOnSurface());
-
-    concrete.clearSex();
-    concrete.clearSurfacePostion();
-
-    for (AssaySex sex : this.getSex())
-    {
-      concrete.addSex(sex);
-    }
-
-    for (SurfacePosition position : this.getSurfacePostion())
-    {
-      concrete.addSurfacePostion(position);
-    }
+    concrete.setSex(this.getSex());
+    concrete.setSurfacePostion(this.getSurfacePostion());
   }
 
   public void populateView(EfficacyAssay assay)
@@ -78,19 +65,8 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
     this.setTestDate(assay.getTestDate());
     this.setTestMethod(assay.getTestMethod());
     this.setTimeOnSurface(assay.getTimeOnSurface());
-
-    this.clearSex();
-    this.clearSurfacePostion();
-
-    for (AssaySex sex : assay.getSex())
-    {
-      this.addSex(sex);
-    }
-
-    for (SurfacePosition position : assay.getSurfacePostion())
-    {
-      this.addSurfacePostion(position);
-    }
+    this.setSex(assay.getSex());
+    this.setSurfacePostion(assay.getSurfacePostion());
   }
 
   @Override

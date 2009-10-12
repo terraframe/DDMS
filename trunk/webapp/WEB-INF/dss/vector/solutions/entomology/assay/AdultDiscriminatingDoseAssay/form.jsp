@@ -9,59 +9,70 @@
 <%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%>
   
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoCollectionPointDTO"%><mjl:component item="${item}" param="dto">
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionPointDTO"%>
+<%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
+
+
+<%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay"%>
+<%@page import="dss.vector.solutions.entomology.assay.CollectionAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.assay.AdultAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.assay.AbstractAssayDTO"%><jsp:include page="/WEB-INF/MOSearch.jsp" />
+
+
+<mjl:component item="${item}" param="dto">
       <mjl:dt attribute="collection">
         <mjl:input id="collectionInput" param="collectionInput" type="text" value="${item.collection != null ? item.collection.collectionId : ''}"/>
         <mjl:input id="collectionId" param="collection" type="hidden" value="${item.collection != null ? item.collection.id : ''}" />        
       </mjl:dt>
       <mjl:dt attribute="testDate" type="text" classes="DatePick NoFuture" />
       <mjl:dt attribute="testMethod">
-        <mjl:select var="current" valueAttribute="id" items="${testMethod}" param="testMethod">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
+        <span class="clickable" id="testMethodBtn"> <fmt:message key="Browser"/></span>
+        <div id="testMethodDisplay" class="ontologyDisplay">
+          <c:if test="${testMethod != null}">
+            ${testMethod.displayLabel}
+          </c:if>
+        </div>
+        <mjl:input type="hidden" param="testMethod" id="testMethod" value="${testMethod != null ? testMethod.id : ''}" />
+      </mjl:dt>      
       <mjl:dt attribute="generation">
-        <mjl:select var="current" valueAttribute="id" items="${generation}" param="generation">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
+        <span class="clickable" id="generationBtn"> <fmt:message key="Browser"/></span>
+        <div id="generationDisplay" class="ontologyDisplay">
+          <c:if test="${generation != null}">
+            ${generation.displayLabel}
+          </c:if>
+        </div>
+        <mjl:input type="hidden" param="generation" id="generation" value="${generation != null ? generation.id : ''}" />
+      </mjl:dt>      
       <mjl:dt attribute="isofemale">
         <mjl:boolean param="isofemale"  />
       </mjl:dt>
       <mjl:dt attribute="sex">
-        <mjl:select var="current" valueAttribute="enumName" items="${sex}" param="sex">
-          <c:choose>
-            <c:when test="${mjl:contains(item.sexEnumNames, current.enumName)}">
-              <mjl:option selected="selected">
-                ${item.sexMd.enumItems[current.enumName]}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
-              <mjl:option>
-                ${item.sexMd.enumItems[current.enumName]}
-              </mjl:option>
-            </c:otherwise>
-          </c:choose>
-        </mjl:select>
-      </mjl:dt>
+        <span class="clickable" id="sexBtn"> <fmt:message key="Browser"/></span>
+        <div id="sexDisplay" class="ontologyDisplay">
+          <c:if test="${sex != null}">
+            ${sex.displayLabel}
+          </c:if>
+        </div>
+        <mjl:input type="hidden" param="sex" id="sex" value="${sex != null ? sex.id : ''}" />
+      </mjl:dt>      
       <mjl:dt attribute="specie">
-        <mjl:select var="current" valueAttribute="id" items="${specie}" param="specie" includeBlank="true">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
+        <span class="clickable" id="specieBtn"> <fmt:message key="Browser"/></span>
+        <div id="specieDisplay" class="ontologyDisplay">
+          <c:if test="${specie != null}">
+            ${specie.displayLabel}
+          </c:if>
+        </div>
+        <mjl:input type="hidden" param="specie" id="specie" value="${specie != null ? specie.id : ''}" />
+      </mjl:dt>      
       <mjl:dt attribute="identificationMethod">
-        <mjl:select var="current" valueAttribute="id" items="${identificationMethod}" param="identificationMethod">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
+        <span class="clickable" id="identificationMethodBtn"> <fmt:message key="Browser"/></span>
+        <div id="identificationMethodDisplay" class="ontologyDisplay">
+          <c:if test="${identificationMethod != null}">
+            ${identificationMethod.displayLabel}
+          </c:if>
+        </div>
+        <mjl:input type="hidden" param="identificationMethod" id="identificationMethod" value="${identificationMethod != null ? identificationMethod.id : ''}" />
+      </mjl:dt>      
      <mjl:dt attribute="ageRange">
       <dl>
         <mjl:struct param="ageRange">
@@ -117,10 +128,24 @@
 <%=Halp.loadTypes(Arrays.asList(new String[]{AbstractMosquitoCollectionDTO.CLASS}))%>
 <%=Halp.loadTypes(Arrays.asList(new String[]{ConcreteMosquitoCollectionDTO.CLASS}))%>
 <%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{GeoEntityViewDTO.CLASS}))%>
 
-<script type="text/javascript" defer="defer">  
-  var collectionInput = document.getElementById('collectionInput');                
-  var collectionId = document.getElementById('collectionId');
 
-  MDSS.collectionSearch('<%=MosquitoCollectionDTO.CLASS%>', collectionInput, collectionId);
+<script type="text/javascript">  
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){	  
+	  var attributes = [
+	       {attributeName:'testMethod', className:'<%=CollectionAssayDTO.CLASS%>'},
+	       {attributeName:'generation', className:'<%=CollectionAssayDTO.CLASS%>'},
+	       {attributeName:'sex', className:'<%=AdultAssayDTO.CLASS%>'},
+	       {attributeName:'specie', className:'<%=AbstractAssayDTO.CLASS%>'},
+	       {attributeName:'identificationMethod', className:'<%=CollectionAssayDTO.CLASS%>'}
+	  ];
+	  
+	  new MDSS.GenericOntologyBrowser("<%=AdultDiscriminatingDoseAssay.CLASS%>", attributes);
+
+	  MDSS.collectionSearch({search:'collectionInput', concrete:'collectionId', type:'<%=MosquitoCollectionDTO.CLASS%>'});
+	})
+})();
+
 </script>    

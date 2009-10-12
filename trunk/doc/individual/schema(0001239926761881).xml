@@ -1,5 +1,5 @@
 <version
-  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <create>
@@ -496,7 +496,7 @@
             name="wall"
             label="Wall Surface"
             description="The wall surface"
-            type="dss.vector.solutions.geo.generated.Wall" />
+            type="dss.vector.solutions.ontology.Term" />
           <char
             name="wallInfo"
             label="Wall Information"
@@ -506,7 +506,7 @@
             name="roof"
             label="Roof Surface"
             description="The roof surface"
-            type="dss.vector.solutions.geo.generated.Roof" />
+            type="dss.vector.solutions.ontology.Term" />
           <char
             name="roofInfo"
             label="Roof Information"
@@ -518,11 +518,10 @@
             description="Does this house have any windows?"
             negativeLabel="No"
             positiveLabel="Yes" />
-          <enumeration
+          <reference
             name="windowType"
             label="WindowType"
-            selectMultiple="false"
-            type="dss.vector.solutions.intervention.monitor.WindowType" />
+            type="dss.vector.solutions.ontology.Term" />
           <integer
             name="rooms"
             label="Number of rooms in household"
@@ -1001,11 +1000,10 @@
             name="dob"
             label="Date of Birth"
             description="Persons date of birth" />
-          <enumeration
+          <reference
             name="sex"
             label="Sex"
-            selectMultiple="false"
-            type="dss.vector.solutions.intervention.HumanSex" />
+            type="dss.vector.solutions.ontology.Term" />
           <boolean
             name="pregnant"
             label="Pregnant"
@@ -1033,18 +1031,17 @@
           <reference
             name="anaemiaTreatment"
             label="Anaemia Treatment"
-            type="dss.vector.solutions.surveillance.TreatmentGrid" />
+            type="dss.vector.solutions.ontology.Term" />
           <boolean
             name="iron"
             label="Was iron given"
             description="Flag indicating if iron was given"
             negativeLabel="No"
             positiveLabel="Yes" />
-          <enumeration
+          <reference
             name="performedRDT"
             label="Was RDT done"
-            selectMultiple="false"
-            type="dss.vector.solutions.intervention.RDTResponse" />
+            type="dss.vector.solutions.ontology.Term" />
           <enumeration
             name="rDTResult"
             label="Result"
@@ -1053,35 +1050,31 @@
           <reference
             name="rdtTreatment"
             label="Treatment given"
-            type="dss.vector.solutions.surveillance.TreatmentGrid" />
-          <enumeration
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
             name="bloodslide"
             label="Bloodslide detail"
-            selectMultiple="false"
-            type="dss.vector.solutions.intervention.BloodslideResponse" />
-          <enumeration
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
             name="fever"
             label="Has person had fever in last week?"
-            selectMultiple="false"
-            type="dss.vector.solutions.intervention.FeverResponse" />
+            type="dss.vector.solutions.ontology.Term" />
           <reference
             name="feverTreatment"
             label="What treatment was sought for fever?"
-            type="dss.vector.solutions.intervention.FeverTreatment" />
-          <enumeration
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
             name="malaria"
             label="Was this episode confirmed malaria?"
-            selectMultiple="false"
-            type="dss.vector.solutions.intervention.FeverResponse" />
+            type="dss.vector.solutions.ontology.Term" />
           <reference
             name="malariaTreatment"
             label="Was Treatment taken for this episode"
-            type="dss.vector.solutions.surveillance.TreatmentGrid" />
-          <enumeration
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
             name="payment"
             label="Payment for treatment"
-            selectMultiple="false"
-            type="dss.vector.solutions.intervention.FeverResponse" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
       </mdBusiness>
 

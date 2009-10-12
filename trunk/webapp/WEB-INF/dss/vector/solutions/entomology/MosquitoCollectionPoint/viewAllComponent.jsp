@@ -107,7 +107,8 @@ map.put("Collection", new ColumnSetup(false, false, null, null, null));
              table_data.myDataTable.updateCell(record, 'Collection', str);
            }
          });
-       Mojo.Util.getObject(request,record.getData('Collection'));
+         
+         Mojo.Util.getObject(request,record.getData('Collection'));
        }
      };
     MojoGrid.createDataTable(table_data);

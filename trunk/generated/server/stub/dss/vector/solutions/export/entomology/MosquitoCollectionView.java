@@ -22,8 +22,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.NonSentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.mo.CollectionMethod;
-import dss.vector.solutions.mo.IdentificationMethod;
-import dss.vector.solutions.mo.Specie;
+import dss.vector.solutions.ontology.Term;
 
 public class MosquitoCollectionView extends MosquitoCollectionViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -41,14 +40,14 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
   @Transaction
   public void apply()
   {
-    CollectionMethod method = null;
     MosquitoCollection collection = null;
     GeoEntity entity = getGeoEntity();
     Date collectionDate = this.getDateCollected();
+    Term method = null;
 
     if (this.hasCollectionMethod())
     {
-      method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this.getCollectionMethod(), MosquitoCollection.getCollectionMethodMd());
+      method = Term.validateByDisplayLabel(this.getCollectionMethod(), MosquitoCollection.getCollectionMethodMd());
       collection = MosquitoCollection.searchByGeoEntityAndDateAndCollectionMethod(entity, collectionDate, method);
     }
     else
@@ -69,8 +68,8 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     {
       MorphologicalSpecieGroup msg = new MorphologicalSpecieGroup();
       msg.setCollection(collection);
-      msg.setSpecie(Specie.validateByDisplayLabel(this.getSpecie(), MorphologicalSpecieGroup.getSpecieMd()));
-      msg.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod(), MorphologicalSpecieGroup.getIdentificationMethodMd()));
+      msg.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), MorphologicalSpecieGroup.getSpecieMd()));
+      msg.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(), MorphologicalSpecieGroup.getIdentificationMethodMd()));
       msg.setQuantity(this.getQuantity());
       msg.setQuantityMale(this.getQuantityMale());
       msg.setQuantityFemale(this.getQuantityFemale());

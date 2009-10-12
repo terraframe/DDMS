@@ -13,7 +13,7 @@ import dss.vector.solutions.entomology.assay.KnockDownAssayQuery;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQuery;
 import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.mo.CollectionMethod;
+import dss.vector.solutions.ontology.Term;
 
 public class MosquitoCollection extends MosquitoCollectionBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -135,8 +135,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements
     return query;
   }
 
-  public static dss.vector.solutions.entomology.MosquitoCollection searchByGeoEntityAndDate(
-      dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate)
+  public static dss.vector.solutions.entomology.MosquitoCollection searchByGeoEntityAndDate(GeoEntity geoEntity, Date collectionDate)
   {
     QueryFactory factory = new QueryFactory();
     MosquitoCollectionQuery query = new MosquitoCollectionQuery(factory);
@@ -160,8 +159,8 @@ public class MosquitoCollection extends MosquitoCollectionBase implements
       iterator.close();
     }
   }
-
-  public static MosquitoCollection searchByGeoEntityAndDateAndCollectionMethod(GeoEntity geoEntity, Date collectionDate, CollectionMethod collectionMethod)
+  
+  public static MosquitoCollection searchByGeoEntityAndDateAndCollectionMethod(GeoEntity geoEntity, Date collectionDate, Term collectionMethod)
   {
     QueryFactory factory = new QueryFactory();
     MosquitoCollectionQuery query = new MosquitoCollectionQuery(factory);

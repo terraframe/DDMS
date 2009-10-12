@@ -20,6 +20,7 @@ import dss.vector.solutions.PeriodMonthProblemDTO;
 import dss.vector.solutions.PeriodQuarterProblemDTO;
 import dss.vector.solutions.PeriodWeekProblemDTO;
 import dss.vector.solutions.TestConstants;
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.geo.generated.SentinelSiteDTO;
 
@@ -79,10 +80,7 @@ public class AggregatedCaseTestDTO extends TestCase implements DoNotWeave
     clientRequest = clientSession.getRequest();
     clientRequest.setKeepMessages(false);
 
-    geoEntity = new SentinelSiteDTO(clientRequest);
-    geoEntity.setGeoId("0");
-    geoEntity.setEntityName("GeoEntity");
-    geoEntity.apply();
+    geoEntity = TestFixture.createRandomSite(clientRequest);
     
     ageGroup = AggregatedAgeGroupDTO.getAll(clientRequest)[0];
   }

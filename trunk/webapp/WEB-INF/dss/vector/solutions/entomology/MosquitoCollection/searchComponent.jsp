@@ -15,6 +15,8 @@
 <%@page import="dss.vector.solutions.export.entomology.MosquitoCollectionViewDTO"%><c:set var="page_title" value="Search_Mosquito_Collections"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
+<jsp:include page="/WEB-INF/MOSearch.jsp" />
+
 
 <%
   request.setAttribute("CollectionSiteClass", CollectionSiteDTO.CLASS);
@@ -41,11 +43,13 @@
     <dd> <mjl:input param="collectionDate" type="text" classes="DatePick NoFuture" id="collectionDate"/></dd>
     <dt> <label> <fmt:message key="Collection_Method"/> </label> </dt>
     <dd>
-      <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod.componentId" >
-        <mjl:option>
-          ${current.displayLabel}
-        </mjl:option>
-      </mjl:select>
+      <span class="clickable" id="collectionMethodBtn"> <fmt:message key="Browser"/></span>
+      <div id="collectionMethodDisplay" class="ontologyDisplay">
+        <c:if test="${collectionMethod != null}">
+          ${collectionMethod.displayLabel}
+        </c:if>
+      </div>
+      <mjl:input type="hidden" param="collectionMethod.componentId" id="collectionMethod" value="${collectionMethod != null ? collectionMethod.id : ''}" />
     </dd>
     <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionController.searchByGeoIdAndDate.mojo" name="search.button" value="Search"/>
   </dl>
@@ -101,3 +105,11 @@
   </mjl:columns>
 </mjl:table>
 <br />
+
+<script type="text/javascript">
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){
+    new MDSS.GenericOntologyBrowser("<%=MosquitoCollectionDTO.CLASS%>", [{attributeName:'collectionMethod'}]);
+  })
+})();
+</script>

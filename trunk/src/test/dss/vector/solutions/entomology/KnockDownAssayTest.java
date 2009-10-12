@@ -25,6 +25,7 @@ import com.terraframe.mojo.web.WebClientSession;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.TestConstants;
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.AdultTestInterval;
 import dss.vector.solutions.entomology.assay.AdultTestIntervalView;
@@ -43,44 +44,39 @@ import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
 import dss.vector.solutions.entomology.assay.PotentiallyResistantCollectionDTO;
 import dss.vector.solutions.entomology.assay.ResistantCollectionDTO;
 import dss.vector.solutions.entomology.assay.SusceptibleCollectionDTO;
-import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.mo.ActiveIngredient;
-import dss.vector.solutions.mo.CollectionMethod;
-import dss.vector.solutions.mo.Generation;
-import dss.vector.solutions.mo.GenerationDTO;
-import dss.vector.solutions.mo.IdentificationMethod;
-import dss.vector.solutions.mo.IdentificationMethodDTO;
-import dss.vector.solutions.mo.ResistanceMethodology;
-import dss.vector.solutions.mo.ResistanceMethodologyDTO;
-import dss.vector.solutions.mo.Specie;
+import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermDTO;
 
 public class KnockDownAssayTest extends TestCase
 {
-  private static GeoEntity             geoEntity            = null;
+  private static GeoEntity          geoEntity            = null;
 
-  private static MosquitoCollection    collection           = null;
+  private static MosquitoCollection collection           = null;
 
-  private static CollectionMethod      collectionMethod     = null;
+  private static Term               collectionMethod     = null;
 
-  private static Specie                specie               = null;
+  private static Term               specie               = null;
 
-  private static IdentificationMethod  identificationMethod = null;
+  private static Term               identificationMethod = null;
 
-  private static ResistanceMethodology assayMethod          = null;
+  private static Term               assayMethod          = null;
 
-  private static Insecticide           insecticide          = null;
+  private static Insecticide        insecticide          = null;
 
-  private static Generation            F0                   = null;
+  private static Term               F0                   = null;
 
-  private static Generation            F1                   = null;
+  private static Term               F1                   = null;
 
-  private static ClientSession         clientSession;
+  private static Term               activeIngredient     = null;
 
-  private static ClientRequestIF       clientRequest;
+  private static Term               sex                  = null;
+
+  private static ClientSession      clientSession;
+
+  private static ClientRequestIF    clientRequest;
 
   @Override
   public TestResult run()
@@ -121,40 +117,18 @@ public class KnockDownAssayTest extends TestCase
     clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
     clientRequest = clientSession.getRequest();
 
-    collectionMethod = CollectionMethod.getAll()[0];
-    specie = Specie.getAll()[0];
-    identificationMethod = IdentificationMethod.getAll()[0];
-    assayMethod = ResistanceMethodology.getAll()[0];
-    F0 = Generation.getAll()[0];
-    F1 = Generation.getAll()[1];
+    collectionMethod = TestFixture.createRandomTerm();
+    specie = TestFixture.createRandomTerm();
+    identificationMethod = TestFixture.createRandomTerm();
+    assayMethod = TestFixture.createRandomTerm();
+    F0 = TestFixture.createRandomTerm();
+    F1 = TestFixture.createRandomTerm();
+    activeIngredient = TestFixture.createRandomTerm();
+    sex = TestFixture.createRandomTerm();
 
-    try
-    {
-      ActiveIngredient activeIngredient = ActiveIngredient.getAll()[0];
-      SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
-      Date date = dateTime.parse("2006-01-01");
-
-      geoEntity = new SentinelSite();
-      geoEntity.setGeoId("0");
-      geoEntity.setEntityName("GeoEntity");
-      geoEntity.apply();
-
-      collection = new MosquitoCollection();
-      collection.setGeoEntity(geoEntity);
-      collection.setCollectionMethod(collectionMethod);
-      collection.setDateCollected(date);
-      collection.apply();
-
-      insecticide = new Insecticide();
-      insecticide.setActiveIngredient(activeIngredient);
-      insecticide.setAmount(new Double(40.0));
-      insecticide.addUnits(Unit.PERCENT);
-      insecticide.apply();
-    }
-    catch (ParseException e)
-    {
-      throw new RuntimeException(e);
-    }
+    geoEntity = TestFixture.createRandomSite();
+    collection = TestFixture.createMosquitoCollection(geoEntity, collectionMethod);
+    insecticide = TestFixture.createInsecticide(activeIngredient);
   }
 
   protected static void classTearDown()
@@ -298,14 +272,13 @@ public class KnockDownAssayTest extends TestCase
     assay.setSpecie(specie);
     assay.setCollection(collection);
     assay.setTestDate(date);
-    assay.addSex(AssaySex.FEMALE);
+    assay.setSex(sex);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setFed(10);
     assay.setGravid(10);
     assay.setExposureTime(60);
     assay.setIntervalTime(10);
-
 
     assay.setIsofemale(false);
     assay.setGeneration(F0);
@@ -314,7 +287,6 @@ public class KnockDownAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-
 
     assay.apply();
 
@@ -326,7 +298,7 @@ public class KnockDownAssayTest extends TestCase
       assertEquals(collection.getId(), assay2.getCollection().getId());
       assertEquals(specie.getId(), assay2.getSpecie().getId());
       assertEquals(date, assay2.getTestDate());
-      assertEquals(AssaySex.FEMALE, assay2.getSex().get(0));
+      assertEquals(sex, assay2.getSex());
       assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(10), assay2.getFed());
@@ -334,12 +306,10 @@ public class KnockDownAssayTest extends TestCase
       assertEquals(new Integer(60), assay2.getExposureTime());
       assertEquals(new Integer(10), assay2.getIntervalTime());
 
-
       assertEquals(new Integer(30), assay2.getQuantityTested());
 
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-
 
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
@@ -358,7 +328,7 @@ public class KnockDownAssayTest extends TestCase
     KnockDownAssay assay = new KnockDownAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-    assay.addSex(AssaySex.FEMALE);
+    assay.setSex(sex);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setGeneration(F1);
@@ -367,12 +337,10 @@ public class KnockDownAssayTest extends TestCase
     assay.setExposureTime(60);
     assay.setIntervalTime(10);
 
-
     assay.setIsofemale(false);
 
     assay.setQuantityTested(30);
     assay.setInsecticide(insecticide);
-
 
     assay.apply();
 
@@ -383,7 +351,7 @@ public class KnockDownAssayTest extends TestCase
 
       assertEquals(collection.getId(), assay2.getCollection().getId());
       assertEquals(date, assay2.getTestDate());
-      assertEquals(AssaySex.FEMALE, assay2.getSex().get(0));
+      assertEquals(sex, assay2.getSex());
       assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(10), assay2.getFed());
@@ -391,12 +359,10 @@ public class KnockDownAssayTest extends TestCase
       assertEquals(new Integer(60), assay2.getExposureTime());
       assertEquals(new Integer(10), assay2.getIntervalTime());
 
-
       assertEquals(new Integer(30), assay2.getQuantityTested());
 
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-
 
     }
     finally
@@ -415,7 +381,7 @@ public class KnockDownAssayTest extends TestCase
     {
       assay.setCollection(collection);
       assay.setTestDate(date);
-      assay.addSex(AssaySex.FEMALE);
+      assay.setSex(sex);
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
       assay.setFed(10);
@@ -423,14 +389,12 @@ public class KnockDownAssayTest extends TestCase
       assay.setExposureTime(60);
       assay.setIntervalTime(10);
 
-
       assay.setIsofemale(false);
 
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(24);
       assay.getAgeRange().setEndPoint(25);
       assay.setInsecticide(insecticide);
-
 
       assay.apply();
 
@@ -460,7 +424,7 @@ public class KnockDownAssayTest extends TestCase
     {
       assay.setCollection(collection);
       assay.setTestDate(date);
-      assay.addSex(AssaySex.FEMALE);
+      assay.setSex(sex);
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
       assay.setFed(10);
@@ -469,14 +433,12 @@ public class KnockDownAssayTest extends TestCase
       assay.setIntervalTime(10);
       assay.setGeneration(F1);
 
-
       assay.setIsofemale(false);
 
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(3);
       assay.getAgeRange().setEndPoint(15);
       assay.setInsecticide(insecticide);
-
 
       assay.apply();
 
@@ -504,20 +466,20 @@ public class KnockDownAssayTest extends TestCase
       }
     }
   }
-  
+
   public void testCurrentDateProblem() throws ParseException
   {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.DAY_OF_YEAR, 99);
     Date date = calendar.getTime();
-    
+
     KnockDownAssay assay = new KnockDownAssay();
-    
+
     try
     {
       assay.setCollection(collection);
       assay.setTestDate(date);
-      assay.addSex(AssaySex.FEMALE);
+      assay.setSex(sex);
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
       assay.setFed(10);
@@ -529,16 +491,16 @@ public class KnockDownAssayTest extends TestCase
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(3);
       assay.getAgeRange().setEndPoint(15);
-      assay.setInsecticide(insecticide);            
+      assay.setInsecticide(insecticide);
       assay.apply();
-      
+
       fail("Able to create an assay with an test date after the current date");
     }
     catch (ProblemException e)
     {
       // This is expected
       List<ProblemIF> problems = e.getProblems();
-      
+
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof CurrentDateProblem);
     }
@@ -554,13 +516,12 @@ public class KnockDownAssayTest extends TestCase
   public void testGravidAndFedWithMixed() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
-    Date date = dateTime.parse("2008-01-01");
-    AssaySex sex = AssaySex.MIXED;
+    Date date = dateTime.parse("2008-01-01");    
 
     KnockDownAssay assay = new KnockDownAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-    assay.addSex(sex);
+    assay.setSex(sex);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setFed(10);
@@ -568,14 +529,12 @@ public class KnockDownAssayTest extends TestCase
     assay.setExposureTime(60);
     assay.setIntervalTime(10);
 
-
     assay.setIsofemale(false);
 
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-
 
     assay.setGeneration(F1);
     assay.apply();
@@ -587,7 +546,7 @@ public class KnockDownAssayTest extends TestCase
 
       assertEquals(collection.getId(), assay2.getCollection().getId());
       assertEquals(date, assay2.getTestDate());
-      assertEquals(sex, assay2.getSex().get(0));
+      assertEquals(sex, assay2.getSex());
       assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(10), assay2.getFed());
@@ -595,12 +554,10 @@ public class KnockDownAssayTest extends TestCase
       assertEquals(new Integer(60), assay2.getExposureTime());
       assertEquals(new Integer(10), assay2.getIntervalTime());
 
-
       assertEquals(new Integer(30), assay2.getQuantityTested());
 
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-
 
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
@@ -615,17 +572,16 @@ public class KnockDownAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    AssaySex sex = AssaySex.UNKNOWN;
+    
 
     KnockDownAssay assay = new KnockDownAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-    assay.addSex(sex);
+    assay.setSex(sex);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
     assay.setIntervalTime(10);
-
 
     assay.setIsofemale(false);
 
@@ -633,7 +589,6 @@ public class KnockDownAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-
 
     assay.setGeneration(F1);
     assay.apply();
@@ -645,18 +600,16 @@ public class KnockDownAssayTest extends TestCase
 
       assertEquals(collection.getId(), assay2.getCollection().getId());
       assertEquals(date, assay2.getTestDate());
-      assertEquals(sex, assay2.getSex().get(0));
+      assertEquals(sex, assay2.getSex());
       assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(60), assay2.getExposureTime());
       assertEquals(new Integer(10), assay2.getIntervalTime());
 
-
       assertEquals(new Integer(30), assay2.getQuantityTested());
 
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-
 
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
@@ -671,17 +624,16 @@ public class KnockDownAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    AssaySex sex = AssaySex.MALE;
+    
 
     KnockDownAssay assay = new KnockDownAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-    assay.addSex(sex);
+    assay.setSex(sex);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
     assay.setIntervalTime(10);
-
 
     assay.setIsofemale(false);
 
@@ -689,7 +641,6 @@ public class KnockDownAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-
 
     assay.setGeneration(F1);
     assay.apply();
@@ -701,18 +652,16 @@ public class KnockDownAssayTest extends TestCase
 
       assertEquals(collection.getId(), assay2.getCollection().getId());
       assertEquals(date, assay2.getTestDate());
-      assertEquals(sex, assay2.getSex().get(0));
+      assertEquals(sex, assay2.getSex());
       assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(60), assay2.getExposureTime());
       assertEquals(new Integer(10), assay2.getIntervalTime());
 
-
       assertEquals(new Integer(30), assay2.getQuantityTested());
 
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-
 
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
@@ -726,15 +675,14 @@ public class KnockDownAssayTest extends TestCase
   public void testInvalidGravidAndFedWithUnknown() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
-    Date date = dateTime.parse("2008-01-01");
-    AssaySex sex = AssaySex.UNKNOWN;
+    Date date = dateTime.parse("2008-01-01");    
     KnockDownAssay assay = new KnockDownAssay();
 
     try
     {
       assay.setCollection(collection);
       assay.setTestDate(date);
-      assay.addSex(sex);
+      assay.setSex(sex);
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
       assay.setFed(10);
@@ -757,10 +705,8 @@ public class KnockDownAssayTest extends TestCase
       List<ProblemIF> problems = e.getProblems();
 
       assertEquals(2, problems.size());
-      assertTrue(problems.get(0) instanceof InvalidGravidSexProblem
-          || problems.get(1) instanceof InvalidGravidSexProblem);
-      assertTrue(problems.get(0) instanceof InvalidFedSexProblem
-          || problems.get(1) instanceof InvalidFedSexProblem);
+      assertTrue(problems.get(0) instanceof InvalidGravidSexProblem || problems.get(1) instanceof InvalidGravidSexProblem);
+      assertTrue(problems.get(0) instanceof InvalidFedSexProblem || problems.get(1) instanceof InvalidFedSexProblem);
     }
     finally
     {
@@ -775,14 +721,14 @@ public class KnockDownAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    AssaySex sex = AssaySex.MALE;
+    
     KnockDownAssay assay = new KnockDownAssay();
 
     try
     {
       assay.setCollection(collection);
       assay.setTestDate(date);
-      assay.addSex(sex);
+      assay.setSex(sex);
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
       assay.setFed(10);
@@ -791,14 +737,12 @@ public class KnockDownAssayTest extends TestCase
       assay.setGeneration(F1);
       assay.setIntervalTime(10);
 
-
       assay.setIsofemale(false);
 
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
-
 
       assay.apply();
 
@@ -810,10 +754,8 @@ public class KnockDownAssayTest extends TestCase
       List<ProblemIF> problems = e.getProblems();
 
       assertEquals(2, problems.size());
-      assertTrue(problems.get(0) instanceof InvalidGravidSexProblem
-          || problems.get(1) instanceof InvalidGravidSexProblem);
-      assertTrue(problems.get(0) instanceof InvalidFedSexProblem
-          || problems.get(1) instanceof InvalidFedSexProblem);
+      assertTrue(problems.get(0) instanceof InvalidGravidSexProblem || problems.get(1) instanceof InvalidGravidSexProblem);
+      assertTrue(problems.get(0) instanceof InvalidFedSexProblem || problems.get(1) instanceof InvalidFedSexProblem);
     }
     finally
     {
@@ -828,7 +770,7 @@ public class KnockDownAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    AssaySex sex = AssaySex.FEMALE;
+    
     KnockDownAssay assay = new KnockDownAssay();
     int fed = 40;
 
@@ -836,7 +778,7 @@ public class KnockDownAssayTest extends TestCase
     {
       assay.setCollection(collection);
       assay.setTestDate(date);
-      assay.addSex(sex);
+      assay.setSex(sex);
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
       assay.setFed(fed);
@@ -845,14 +787,12 @@ public class KnockDownAssayTest extends TestCase
       assay.setGeneration(F1);
       assay.setIntervalTime(10);
 
-
       assay.setIsofemale(false);
 
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
-
 
       assay.apply();
 
@@ -884,7 +824,7 @@ public class KnockDownAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    AssaySex sex = AssaySex.FEMALE;
+    
     KnockDownAssay assay = new KnockDownAssay();
     int gravid = 40;
 
@@ -892,7 +832,7 @@ public class KnockDownAssayTest extends TestCase
     {
       assay.setCollection(collection);
       assay.setTestDate(date);
-      assay.addSex(sex);
+      assay.setSex(sex);
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
       assay.setFed(10);
@@ -901,14 +841,12 @@ public class KnockDownAssayTest extends TestCase
       assay.setExposureTime(60);
       assay.setIntervalTime(10);
 
-
       assay.setIsofemale(false);
 
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
-
 
       assay.apply();
 
@@ -941,11 +879,11 @@ public class KnockDownAssayTest extends TestCase
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
 
-    AssaySex sex = AssaySex.MALE;
+    
     KnockDownAssay assay = new KnockDownAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-    assay.addSex(sex);
+    assay.setSex(sex);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
@@ -964,7 +902,7 @@ public class KnockDownAssayTest extends TestCase
       KnockDownAssay assay2 = KnockDownAssay.get(assay.getId());
       assertEquals(collection.getId(), assay2.getCollection().getId());
       assertEquals(date, assay2.getTestDate());
-      assertEquals(sex, assay2.getSex().get(0));
+      assertEquals(sex, assay2.getSex());
       assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(60), assay2.getExposureTime());
@@ -981,12 +919,11 @@ public class KnockDownAssayTest extends TestCase
     }
   }
 
-
   public void testInvalidExposureTime() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    AssaySex sex = AssaySex.FEMALE;
+    
     KnockDownAssay assay = new KnockDownAssay();
     int exposureTime = 60;
     int intervalTime = 80;
@@ -995,7 +932,7 @@ public class KnockDownAssayTest extends TestCase
     {
       assay.setCollection(collection);
       assay.setTestDate(date);
-      assay.addSex(sex);
+      assay.setSex(sex);
       assay.setGeneration(F1);
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
@@ -1004,14 +941,12 @@ public class KnockDownAssayTest extends TestCase
       assay.setExposureTime(exposureTime);
       assay.setIntervalTime(intervalTime);
 
-
       assay.setIsofemale(false);
 
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
-
 
       assay.apply();
 
@@ -1045,18 +980,17 @@ public class KnockDownAssayTest extends TestCase
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
 
-    AssaySex sex = AssaySex.MALE;
+    
 
     KnockDownAssay assay = new KnockDownAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-    assay.addSex(sex);
+    assay.setSex(sex);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
     assay.setGeneration(F1);
     assay.setIntervalTime(10);
-
 
     assay.setIsofemale(false);
 
@@ -1065,8 +999,6 @@ public class KnockDownAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-
-
 
     assay.apply();
 
@@ -1095,17 +1027,16 @@ public class KnockDownAssayTest extends TestCase
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
 
-    AssaySex sex = AssaySex.MALE;
+    
 
     KnockDownAssay assay = new KnockDownAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-    assay.addSex(sex);
+    assay.setSex(sex);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
     assay.setIntervalTime(7);
-
 
     assay.setIsofemale(false);
 
@@ -1113,7 +1044,6 @@ public class KnockDownAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-
 
     assay.setGeneration(F1);
 
@@ -1151,17 +1081,16 @@ public class KnockDownAssayTest extends TestCase
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
 
-    AssaySex sex = AssaySex.MALE;
+    
 
     KnockDownAssay assay = new KnockDownAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-    assay.addSex(sex);
+    assay.setSex(sex);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
     assay.setIntervalTime(7);
-
 
     assay.setIsofemale(false);
 
@@ -1169,7 +1098,6 @@ public class KnockDownAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-
 
     assay.setGeneration(F1);
 
@@ -1208,20 +1136,19 @@ public class KnockDownAssayTest extends TestCase
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
 
-    AssaySex sex = AssaySex.MALE;
+    
     AdultTestInterval interval = new AdultTestInterval();
     int period = 20;
 
     KnockDownAssay assay = new KnockDownAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-    assay.addSex(sex);
+    assay.setSex(sex);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
     assay.setIntervalTime(30);
     assay.setGeneration(F1);
-
 
     assay.setIsofemale(false);
     assay.setGeneration(F1);
@@ -1230,8 +1157,6 @@ public class KnockDownAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(period);
     assay.setInsecticide(insecticide);
-
-
 
     assay.apply();
 
@@ -1268,19 +1193,18 @@ public class KnockDownAssayTest extends TestCase
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
 
-    AssaySex sex = AssaySex.MALE;
+    
     int period = 20;
 
     KnockDownAssay assay = new KnockDownAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-    assay.addSex(sex);
+    assay.setSex(sex);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
     assay.setIntervalTime(30);
     assay.setGeneration(F1);
-
 
     assay.setIsofemale(false);
     assay.setGeneration(F1);
@@ -1289,8 +1213,6 @@ public class KnockDownAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(period);
     assay.setInsecticide(insecticide);
-
-
 
     assay.apply();
 
@@ -1319,18 +1241,17 @@ public class KnockDownAssayTest extends TestCase
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
 
-    AssaySex sex = AssaySex.MALE;
+    
 
     KnockDownAssay assay = new KnockDownAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-    assay.addSex(sex);
+    assay.setSex(sex);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
     assay.setIntervalTime(7);
     assay.setGeneration(F1);
-
 
     assay.setIsofemale(false);
 
@@ -1338,8 +1259,6 @@ public class KnockDownAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-
-
 
     assay.apply();
 
@@ -1374,14 +1293,14 @@ public class KnockDownAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    AssaySex sex = AssaySex.FEMALE;
+    
     KnockDownAssay assay = new KnockDownAssay();
 
     try
     {
       assay.setCollection(collection);
       assay.setTestDate(date);
-      assay.addSex(sex);
+      assay.setSex(sex);
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
       assay.setFed(10);
@@ -1394,7 +1313,6 @@ public class KnockDownAssayTest extends TestCase
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
       assay.setGeneration(F0);
-
 
       assay.apply();
 
@@ -1426,18 +1344,17 @@ public class KnockDownAssayTest extends TestCase
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
 
-    AssaySex sex = AssaySex.MALE;
+    
 
     KnockDownAssay assay = new KnockDownAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-    assay.addSex(sex);
+    assay.setSex(sex);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
     assay.setIntervalTime(10);
     assay.setGeneration(F1);
-
 
     assay.setIsofemale(false);
 
@@ -1445,8 +1362,6 @@ public class KnockDownAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-
-
 
     assay.apply();
 
@@ -1472,20 +1387,17 @@ public class KnockDownAssayTest extends TestCase
   public void testGetKD95() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
-    Date date = dateTime.parse("2008-01-01");
-
-    AssaySex sex = AssaySex.MALE;
+    Date date = dateTime.parse("2008-01-01");   
 
     KnockDownAssay assay = new KnockDownAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-    assay.addSex(sex);
+    assay.setSex(sex);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
     assay.setIntervalTime(10);
     assay.setGeneration(F1);
-
 
     assay.setIsofemale(false);
 
@@ -1493,8 +1405,6 @@ public class KnockDownAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-
-
 
     assay.apply();
 
@@ -1520,21 +1430,17 @@ public class KnockDownAssayTest extends TestCase
   public void ignoreResistant() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
-    Date date = dateTime.parse("2008-01-01");
-
-    AssaySexDTO sex = AssaySexDTO.MALE;
+    Date date = dateTime.parse("2008-01-01");    
 
     KnockDownAssayDTO assay = new KnockDownAssayDTO(clientRequest);
     assay.setCollection(MosquitoCollectionDTO.get(clientRequest, collection.getId()));
     assay.setTestDate(date);
-    assay.addSex(sex);
-    assay.setIdentificationMethod(IdentificationMethodDTO.get(clientRequest, identificationMethod
-        .getId()));
-    assay.setTestMethod(ResistanceMethodologyDTO.get(clientRequest, assayMethod.getId()));
+    assay.setSex(TermDTO.get(clientRequest, sex.getId()));
+    assay.setIdentificationMethod(TermDTO.get(clientRequest, identificationMethod.getId()));
+    assay.setTestMethod(TermDTO.get(clientRequest, assayMethod.getId()));
     assay.setExposureTime(60);
     assay.setIntervalTime(10);
-    assay.setGeneration(GenerationDTO.get(clientRequest, F1.getId()));
-
+    assay.setGeneration(TermDTO.get(clientRequest, F1.getId()));
 
     assay.setIsofemale(false);
 
@@ -1542,8 +1448,6 @@ public class KnockDownAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(InsecticideDTO.get(clientRequest, insecticide.getId()));
-
-
 
     assay.apply();
 
@@ -1565,19 +1469,17 @@ public class KnockDownAssayTest extends TestCase
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
 
-    AssaySexDTO sex = AssaySexDTO.MALE;
+    
 
     KnockDownAssayDTO assay = new KnockDownAssayDTO(clientRequest);
     assay.setCollection(MosquitoCollectionDTO.get(clientRequest, collection.getId()));
     assay.setTestDate(date);
-    assay.addSex(sex);
-    assay.setIdentificationMethod(IdentificationMethodDTO.get(clientRequest, identificationMethod
-        .getId()));
-    assay.setTestMethod(ResistanceMethodologyDTO.get(clientRequest, assayMethod.getId()));
+    assay.setSex(TermDTO.get(clientRequest, sex.getId()));
+    assay.setIdentificationMethod(TermDTO.get(clientRequest, identificationMethod.getId()));
+    assay.setTestMethod(TermDTO.get(clientRequest, assayMethod.getId()));
     assay.setExposureTime(60);
     assay.setIntervalTime(10);
-    assay.setGeneration(GenerationDTO.get(clientRequest, F1.getId()));
-
+    assay.setGeneration(TermDTO.get(clientRequest, F1.getId()));
 
     assay.setIsofemale(false);
 
@@ -1585,8 +1487,6 @@ public class KnockDownAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(InsecticideDTO.get(clientRequest, insecticide.getId()));
-
-
 
     assay.apply();
 
@@ -1609,24 +1509,20 @@ public class KnockDownAssayTest extends TestCase
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
 
-    AssaySexDTO sex = AssaySexDTO.MALE;
-
     KnockDownAssayDTO assay = new KnockDownAssayDTO(clientRequest);
     assay.setCollection(MosquitoCollectionDTO.get(clientRequest, collection.getId()));
     assay.setTestDate(date);
-    assay.addSex(sex);
-    assay.setIdentificationMethod(IdentificationMethodDTO.get(clientRequest, identificationMethod.getId()));
-    assay.setTestMethod(ResistanceMethodologyDTO.get(clientRequest, assayMethod.getId()));
+    assay.setSex(TermDTO.get(clientRequest, sex.getId()));
+    assay.setIdentificationMethod(TermDTO.get(clientRequest, identificationMethod.getId()));
+    assay.setTestMethod(TermDTO.get(clientRequest, assayMethod.getId()));
     assay.setExposureTime(60);
     assay.setIntervalTime(10);
-    assay.setGeneration(GenerationDTO.get(clientRequest, F1.getId()));
+    assay.setGeneration(TermDTO.get(clientRequest, F1.getId()));
     assay.setIsofemale(false);
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(InsecticideDTO.get(clientRequest, insecticide.getId()));
-
-
 
     assay.apply();
 

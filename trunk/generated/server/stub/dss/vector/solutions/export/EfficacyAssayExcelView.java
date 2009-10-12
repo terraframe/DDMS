@@ -9,12 +9,10 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import dss.vector.solutions.SurfacePosition;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.EfficacyAssayView;
-import dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Surface;
-import dss.vector.solutions.mo.ResistanceMethodology;
-import dss.vector.solutions.mo.Specie;
+import dss.vector.solutions.ontology.Term;
 
 public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -33,8 +31,8 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
     
     eav.setGeoId(getGeoEntity().getGeoId());
 
-    eav.setTestMethod(ResistanceMethodology.validateByDisplayLabel(this.getTestMethod(), EfficacyAssayView.getTestMethodMd()));
-    eav.setSpecie(Specie.validateByDisplayLabel(this.getSpecie(), EfficacyAssayView.getSpecieMd()));
+    eav.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(), EfficacyAssayView.getTestMethodMd()));
+    eav.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), EfficacyAssayView.getSpecieMd()));
     eav.setTestDate(this.getTestDate());
     eav.setColonyName(this.getColonyName());
     
@@ -43,11 +41,11 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
     newAgeRange.setStartPoint(excelAgeRange.getStartPoint());
     newAgeRange.setEndPoint(excelAgeRange.getEndPoint());
     
-    eav.addSex(AdultDiscriminatingDoseAssayExcelView.getAssaySexByLabel(this.getSex()));
+    eav.setSex(Term.validateByDisplayLabel(this.getSex(), EfficacyAssayView.getSexMd()));
     eav.setGravid(this.getGravid());
     eav.setFed(this.getFed());
     eav.setTimeOnSurface(this.getTimeOnSurface());
-    eav.addSurfacePostion(getSurfacePositionByLabel(this.getSurfacePosition()));
+    eav.setSurfacePostion(Term.validateByDisplayLabel(this.getSurfacePosition(), EfficacyAssayView.getSurfacePostionMd()));
     eav.setExposureTime(this.getExposureTime());
     eav.setHoldingTime(this.getHoldingTime());
     eav.setQuantityTested(this.getQuantityTested());

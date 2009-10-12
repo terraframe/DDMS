@@ -231,7 +231,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
 
     if(this.getDateOfBirth() != null)
     {        
-      view.setAge(new AgeConverter(this.getDateOfBirth()).getAge());
+      view.setAge(Math.max(0, new AgeConverter(this.getDateOfBirth()).getAge()));
     }
 
     if(this.getResidentialGeoEntity() != null)

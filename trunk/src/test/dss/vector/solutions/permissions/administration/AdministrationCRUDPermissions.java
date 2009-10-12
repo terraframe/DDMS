@@ -1,5 +1,6 @@
 package dss.vector.solutions.permissions.administration;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
@@ -900,10 +901,17 @@ public abstract class AdministrationCRUDPermissions extends AdministrationPermis
 
   public void testUpdateUser()
   {
+    Calendar calendar = Calendar.getInstance();
+    calendar.clear();
+    calendar.set(Calendar.YEAR, 1983);
+    calendar.set(Calendar.MONTH, 5);
+    calendar.set(Calendar.DAY_OF_YEAR, 11);
+    
+
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
     dto.setFirstName("Test");
     dto.setLastName("Test");
-    dto.setDateOfBirth(new Date());
+    dto.setDateOfBirth(calendar.getTime());
     dto.setIsMDSSUser(true);
     dto.setUsername("Test2");
     dto.setPassword("test2");

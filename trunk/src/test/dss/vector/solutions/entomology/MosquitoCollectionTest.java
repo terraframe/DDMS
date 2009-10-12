@@ -17,27 +17,26 @@ import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.CannotDeleteReferencedObject;
 import com.terraframe.mojo.session.StartSession;
 
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.NonSentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.geo.generated.Trap;
-import dss.vector.solutions.mo.CollectionMethod;
-import dss.vector.solutions.mo.IdentificationMethod;
-import dss.vector.solutions.mo.Specie;
+import dss.vector.solutions.ontology.Term;
 
 public class MosquitoCollectionTest extends TestCase
 {
-  private static GeoEntity            sentinelSite         = null;
+  private static GeoEntity sentinelSite         = null;
 
-  private static GeoEntity            nonSentinelSite      = null;
+  private static GeoEntity nonSentinelSite      = null;
 
-  private static GeoEntity            fixedTrap            = null;
+  private static GeoEntity fixedTrap            = null;
 
-  private static CollectionMethod     collectionMethod     = null;
+  private static Term      collectionMethod     = null;
 
-  private static Specie               specie               = null;
+  private static Term      specie               = null;
 
-  private static IdentificationMethod identificationMethod = null;
+  private static Term      identificationMethod = null;
 
   @Override
   public TestResult run()
@@ -75,9 +74,9 @@ public class MosquitoCollectionTest extends TestCase
 
   protected static void classSetUp()
   {
-    collectionMethod = CollectionMethod.getAll()[0];
-    specie = Specie.getAll()[0];
-    identificationMethod = IdentificationMethod.getAll()[0];
+    collectionMethod = TestFixture.createRandomTerm();
+    specie = TestFixture.createRandomTerm();
+    identificationMethod = TestFixture.createRandomTerm();
 
     sentinelSite = new SentinelSite();
     sentinelSite.setGeoId("0");
@@ -100,6 +99,10 @@ public class MosquitoCollectionTest extends TestCase
     sentinelSite.delete();
     nonSentinelSite.delete();
     fixedTrap.delete();
+    
+    collectionMethod.delete();
+    specie.delete();
+    identificationMethod.delete();
   }
 
   public void testSentinelSiteCollection()
@@ -566,8 +569,7 @@ public class MosquitoCollectionTest extends TestCase
 
     try
     {
-      assertNull(MosquitoCollection.searchByGeoEntityAndDate(nonSentinelSite, dateTime
-          .parse("2009-01-01")));
+      assertNull(MosquitoCollection.searchByGeoEntityAndDate(nonSentinelSite, dateTime.parse("2009-01-01")));
     }
     finally
     {

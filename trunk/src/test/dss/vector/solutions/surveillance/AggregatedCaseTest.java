@@ -21,10 +21,10 @@ import com.terraframe.mojo.web.WebClientSession;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.TestConstants;
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
-import dss.vector.solutions.geo.generated.SentinelSite;
 
 public class AggregatedCaseTest extends TestCase
 {
@@ -84,10 +84,7 @@ public class AggregatedCaseTest extends TestCase
     clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
     clientRequest = clientSession.getRequest();
 
-    geoEntity = new SentinelSite();
-    geoEntity.setGeoId("0");
-    geoEntity.setEntityName("Sentinel Site");
-    geoEntity.apply();
+    geoEntity = TestFixture.createRandomSite();
 
     ageGroup = AggregatedAgeGroup.getAll()[0];
     ageGroupDTO = AggregatedAgeGroupDTO.getAll(clientRequest)[0];

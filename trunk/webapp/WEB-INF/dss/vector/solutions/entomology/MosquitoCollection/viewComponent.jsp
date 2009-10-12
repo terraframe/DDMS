@@ -36,7 +36,9 @@
       <span class="formatDate">${item.dateCollected}</span>
     </mjl:dt>
     <mjl:dt attribute="collectionMethod">
-      ${item.collectionMethod.displayLabel}
+      <c:if test="${collectionMethod != null}">
+        ${collectionMethod.displayLabel}
+      </c:if>
     </mjl:dt>
   </mjl:component>
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.MosquitoCollectionController.edit.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.edit.button" classes="submitButton" />

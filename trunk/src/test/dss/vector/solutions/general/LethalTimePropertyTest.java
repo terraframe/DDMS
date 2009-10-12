@@ -12,25 +12,27 @@ import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 
-import dss.vector.solutions.entomology.assay.Unit;
-import dss.vector.solutions.mo.ActiveIngredient;
+import dss.vector.solutions.TestFixture;
+import dss.vector.solutions.ontology.Term;
 
 public class LethalTimePropertyTest extends TestCase
 {
-	  @Override
-	  public TestResult run()
-	  {
-	    return super.run();
-	  }
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
 
-	  @Override
-	  public void run(TestResult testResult)
-	  {
-	    super.run(testResult);
-	  }
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
   private static Insecticide insecticide;
-  
+
+  private static Term        activeIngredient;
+
   public static Test suite()
   {
     TestSuite suite = new TestSuite();
@@ -55,20 +57,16 @@ public class LethalTimePropertyTest extends TestCase
 
   protected static void classTearDown()
   {
-    insecticide.delete();
+    insecticide.delete();    
+    activeIngredient.delete();
   }
 
   protected static void classSetUp()
   {
-    ActiveIngredient[] ingredients = ActiveIngredient.getAll();
-    
-    insecticide = new Insecticide();
-    insecticide.setActiveIngredient(ingredients[0]);
-    insecticide.setAmount(new Double(40.0));
-    insecticide.addUnits(Unit.PERCENT);
-    insecticide.apply();
+    activeIngredient = TestFixture.createRandomTerm();
+    insecticide = TestFixture.createInsecticide(activeIngredient);
   }
-  
+
   public void testCreateWithDefaultProperty()
   {
     LethalTimeProperty property = new LethalTimeProperty();
@@ -76,11 +74,11 @@ public class LethalTimePropertyTest extends TestCase
     property.setUpperTime(40);
     property.setLowerTime(20);
     property.apply();
-    
+
     try
     {
       LethalTimeProperty test = LethalTimeProperty.get(property.getId());
-      
+
       assertEquals(property.getInsecticide().getId(), test.getInsecticide().getId());
       assertEquals(property.getUpperPercent(), test.getUpperPercent());
       assertEquals(property.getLowerPercent(), test.getLowerPercent());
@@ -92,7 +90,7 @@ public class LethalTimePropertyTest extends TestCase
       property.delete();
     }
   }
-  
+
   public void testCreateProperty()
   {
     LethalTimeProperty property = new LethalTimeProperty();
@@ -102,11 +100,11 @@ public class LethalTimePropertyTest extends TestCase
     property.setLowerTime(20);
     property.setLowerPercent(30);
     property.apply();
-    
+
     try
     {
       LethalTimeProperty test = LethalTimeProperty.get(property.getId());
-      
+
       assertEquals(property.getInsecticide().getId(), test.getInsecticide().getId());
       assertEquals(property.getUpperPercent(), test.getUpperPercent());
       assertEquals(property.getLowerPercent(), test.getLowerPercent());
@@ -119,7 +117,6 @@ public class LethalTimePropertyTest extends TestCase
     }
   }
 
-  
   public void testSearchProperty()
   {
     LethalTimeProperty property = new LethalTimeProperty();
@@ -127,7 +124,7 @@ public class LethalTimePropertyTest extends TestCase
     property.setUpperTime(40);
     property.setLowerTime(20);
     property.apply();
-    
+
     try
     {
       LethalTimeProperty test = LethalTimeProperty.searchByInsecticide(insecticide);
@@ -143,21 +140,21 @@ public class LethalTimePropertyTest extends TestCase
       property.delete();
     }
   }
-  
+
   public void testUnknownProperty()
   {
     try
     {
       LethalTimeProperty.searchByInsecticide(insecticide);
-      
+
       fail("Able to find a knock down time property with an unknown insecticide");
     }
-    catch(UndefinedLethalTimePropertyException e)
+    catch (UndefinedLethalTimePropertyException e)
     {
-      //This is excpected
+      // This is excpected
     }
   }
-  
+
   public void testDuplicateProperty()
   {
     LethalTimeProperty property = new LethalTimeProperty();
@@ -167,7 +164,7 @@ public class LethalTimePropertyTest extends TestCase
     property.setLowerTime(20);
     property.setLowerPercent(30);
     property.apply();
-    
+
     try
     {
       LethalTimeProperty property2 = new LethalTimeProperty();
@@ -175,19 +172,19 @@ public class LethalTimePropertyTest extends TestCase
       property2.setUpperTime(50);
       property2.setLowerTime(30);
       property2.apply();
-      
+
       fail("Able to create a duplicate property");
     }
-    catch(DuplicateDataDatabaseException e)
+    catch (DuplicateDataDatabaseException e)
     {
-      //This is excepted
+      // This is excepted
     }
     finally
     {
       property.delete();
-    }    
+    }
   }
-  
+
   public void testBounds()
   {
     LethalTimeProperty property = new LethalTimeProperty();
@@ -197,11 +194,11 @@ public class LethalTimePropertyTest extends TestCase
     property.setLowerTime(20);
     property.setLowerPercent(1);
     property.apply();
-    
+
     try
     {
       LethalTimeProperty test = LethalTimeProperty.get(property.getId());
-      
+
       assertEquals(property.getInsecticide().getId(), test.getInsecticide().getId());
       assertEquals(property.getUpperPercent(), test.getUpperPercent());
       assertEquals(property.getLowerPercent(), test.getLowerPercent());
@@ -211,9 +208,9 @@ public class LethalTimePropertyTest extends TestCase
     finally
     {
       property.delete();
-    }    
+    }
   }
-  
+
   public void testMaximumPercentage()
   {
     LethalTimeProperty property = new LethalTimeProperty();
@@ -223,11 +220,11 @@ public class LethalTimePropertyTest extends TestCase
     property.setLowerTime(20);
     property.setLowerPercent(1);
     property.apply();
-    
+
     try
     {
       LethalTimeProperty test = LethalTimeProperty.get(property.getId());
-      
+
       assertEquals(property.getInsecticide().getId(), test.getInsecticide().getId());
       assertEquals(property.getUpperPercent(), test.getUpperPercent());
       assertEquals(property.getLowerPercent(), test.getLowerPercent());
@@ -237,13 +234,13 @@ public class LethalTimePropertyTest extends TestCase
     finally
     {
       property.delete();
-    }        
+    }
   }
-  
+
   public void testInvalidUpperPercentage()
   {
     LethalTimeProperty property = new LethalTimeProperty();
-    
+
     try
     {
       property.setInsecticide(insecticide);
@@ -253,27 +250,27 @@ public class LethalTimePropertyTest extends TestCase
       property.setLowerPercent(1);
       property.apply();
     }
-    catch(ProblemException e)
+    catch (ProblemException e)
     {
       List<ProblemIF> problems = e.getProblems();
-      
+
       assertNotNull(problems);
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof InvalidPercentageProblem);
     }
     finally
     {
-      if(property != null && property.isAppliedToDB())
+      if (property != null && property.isAppliedToDB())
       {
         property.delete();
       }
-    }    
+    }
   }
-  
+
   public void testInvalidLowerPercentage()
   {
     LethalTimeProperty property = new LethalTimeProperty();
-    
+
     try
     {
       property.setInsecticide(insecticide);
@@ -283,20 +280,20 @@ public class LethalTimePropertyTest extends TestCase
       property.setLowerPercent(106);
       property.apply();
     }
-    catch(ProblemException e)
+    catch (ProblemException e)
     {
       List<ProblemIF> problems = e.getProblems();
-      
+
       assertNotNull(problems);
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof InvalidPercentageProblem);
     }
     finally
     {
-      if(property != null && property.isAppliedToDB())
+      if (property != null && property.isAppliedToDB())
       {
         property.delete();
       }
-    }    
+    }
   }
 }

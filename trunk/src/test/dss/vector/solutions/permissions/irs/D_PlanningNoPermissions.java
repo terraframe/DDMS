@@ -1,4 +1,4 @@
-package dss.vector.solutions.permissions.indicator;
+package dss.vector.solutions.permissions.irs;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -18,7 +18,6 @@ import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.SprayZone;
-import dss.vector.solutions.permissions.irs.PlanningNoPermissions;
 
 public class D_PlanningNoPermissions extends PlanningNoPermissions
 {

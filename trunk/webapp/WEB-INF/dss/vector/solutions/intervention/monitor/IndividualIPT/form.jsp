@@ -20,16 +20,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
 </script>
 
-<script type="text/javascript">
-  <%
-    ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-  
-    String[] types = {BrowserRootDTO.CLASS, BrowserRootViewDTO.CLASS, BrowserRootController.CLASS, TermViewDTO.CLASS, TermDTO.CLASS};
-    
-    String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
-    out.print(js);
-  %>    
-</script>
+<jsp:include page="/WEB-INF/MOSearch.jsp" />
 
 <mjl:component param="dto" item="${item}">
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>

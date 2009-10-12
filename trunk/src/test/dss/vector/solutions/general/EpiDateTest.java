@@ -202,11 +202,11 @@ public class EpiDateTest extends TestCase
       Date startDate = calendar.getTime();
       Date snappedDate = EpiDate.snapToEpiWeek(startDate,true);
 
-      System.out.print("\n\nStartDate = " + full.format(startDate));
-      System.out.print("\n epiWeekSnap=" + full.format(EpiDate.snapToEpiWeek(startDate,true)));
-      System.out.print("\n monthSnap=" + full.format(EpiDate.snapToMonth(startDate,true)));
-      System.out.print("\n quarterSnap=" + full.format(EpiDate.snapToQuarter(startDate,true)));
-      System.out.print("\n seasonSnap=" + full.format(EpiDate.snapToSeason(startDate,true)));
+//      System.out.print("\n\nStartDate = " + full.format(startDate));
+//      System.out.print("\n epiWeekSnap=" + full.format(EpiDate.snapToEpiWeek(startDate,true)));
+//      System.out.print("\n monthSnap=" + full.format(EpiDate.snapToMonth(startDate,true)));
+//      System.out.print("\n quarterSnap=" + full.format(EpiDate.snapToQuarter(startDate,true)));
+//      System.out.print("\n seasonSnap=" + full.format(EpiDate.snapToSeason(startDate,true)));
     }
   }
 

@@ -15,10 +15,7 @@ import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.NonSentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.mo.Generation;
-import dss.vector.solutions.mo.IdentificationMethod;
-import dss.vector.solutions.mo.ResistanceMethodology;
-import dss.vector.solutions.mo.Specie;
+import dss.vector.solutions.ontology.Term;
 
 public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDoseAssayExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -42,17 +39,17 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
     adda.setCollection(mosquitoCollectionView.findMatch());
     
     adda.setTestDate(this.getTestDate());
-    adda.setTestMethod(ResistanceMethodology.validateByDisplayLabel(this.getTestMethod(), AdultDiscriminatingDoseAssay.getTestMethodMd()));
-    adda.setGeneration(Generation.validateByDisplayLabel(this.getGeneration(), AdultDiscriminatingDoseAssay.getGenerationMd()));
+    adda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(), AdultDiscriminatingDoseAssay.getTestMethodMd()));
+    adda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(), AdultDiscriminatingDoseAssay.getGenerationMd()));
     adda.setIsofemale(this.getIsofemale());
-    adda.addSex(getAssaySexByLabel(this.getSex()));    
-    adda.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod(), AdultDiscriminatingDoseAssay.getIdentificationMethodMd()));
+    adda.setSex(Term.validateByDisplayLabel(this.getSex(), AdultDiscriminatingDoseAssay.getSexMd()));    
+    adda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(), AdultDiscriminatingDoseAssay.getIdentificationMethodMd()));
 
     // Specie is optional so don't validate the input if
     // the value is null or empty
     if(this.hasSpecie())
     {
-      adda.setSpecie(Specie.validateByDisplayLabel(this.getSpecie(), AdultDiscriminatingDoseAssay.getSpecieMd()));
+      adda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), AdultDiscriminatingDoseAssay.getSpecieMd()));
     }
     
     AdultAgeRange excelAgeRange = this.getAgeRange();

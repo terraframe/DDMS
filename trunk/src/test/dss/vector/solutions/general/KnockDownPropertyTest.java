@@ -2,34 +2,37 @@ package dss.vector.solutions.general;
 
 import java.util.List;
 
-import com.terraframe.mojo.ProblemException;
-import com.terraframe.mojo.ProblemIF;
-import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
-
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
-import dss.vector.solutions.entomology.assay.Unit;
-import dss.vector.solutions.mo.ActiveIngredient;
+
+import com.terraframe.mojo.ProblemException;
+import com.terraframe.mojo.ProblemIF;
+import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
+
+import dss.vector.solutions.TestFixture;
+import dss.vector.solutions.ontology.Term;
 
 public class KnockDownPropertyTest extends TestCase
 {
-	  @Override
-	  public TestResult run()
-	  {
-	    return super.run();
-	  }
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
 
-	  @Override
-	  public void run(TestResult testResult)
-	  {
-	    super.run(testResult);
-	  }
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
   private static Insecticide insecticide;
   
+  private static Term        activeIngredient;
+
   public static Test suite()
   {
     TestSuite suite = new TestSuite();
@@ -55,19 +58,15 @@ public class KnockDownPropertyTest extends TestCase
   protected static void classTearDown()
   {
     insecticide.delete();
+    activeIngredient.delete();    
   }
 
   protected static void classSetUp()
   {
-    ActiveIngredient[] ingredients = ActiveIngredient.getAll();
-    
-    insecticide = new Insecticide();
-    insecticide.setActiveIngredient(ingredients[0]);
-    insecticide.setAmount(new Double(40.0));
-    insecticide.addUnits(Unit.PERCENT);
-    insecticide.apply();
+    activeIngredient = TestFixture.createRandomTerm();
+    insecticide = TestFixture.createInsecticide(activeIngredient);
   }
-  
+
   public void testCreateWithDefaultProperty()
   {
     KnockDownTimeProperty property = new KnockDownTimeProperty();
@@ -75,11 +74,11 @@ public class KnockDownPropertyTest extends TestCase
     property.setUpperTime(40);
     property.setLowerTime(20);
     property.apply();
-    
+
     try
     {
       KnockDownTimeProperty test = KnockDownTimeProperty.get(property.getId());
-      
+
       assertEquals(property.getInsecticide().getId(), test.getInsecticide().getId());
       assertEquals(property.getUpperPercent(), test.getUpperPercent());
       assertEquals(property.getLowerPercent(), test.getLowerPercent());
@@ -91,7 +90,7 @@ public class KnockDownPropertyTest extends TestCase
       property.delete();
     }
   }
-  
+
   public void testCreateProperty()
   {
     KnockDownTimeProperty property = new KnockDownTimeProperty();
@@ -101,11 +100,11 @@ public class KnockDownPropertyTest extends TestCase
     property.setLowerTime(20);
     property.setLowerPercent(30);
     property.apply();
-    
+
     try
     {
       KnockDownTimeProperty test = KnockDownTimeProperty.get(property.getId());
-      
+
       assertEquals(property.getInsecticide().getId(), test.getInsecticide().getId());
       assertEquals(property.getUpperPercent(), test.getUpperPercent());
       assertEquals(property.getLowerPercent(), test.getLowerPercent());
@@ -118,7 +117,6 @@ public class KnockDownPropertyTest extends TestCase
     }
   }
 
-  
   public void testSearchProperty()
   {
     KnockDownTimeProperty property = new KnockDownTimeProperty();
@@ -126,7 +124,7 @@ public class KnockDownPropertyTest extends TestCase
     property.setUpperTime(40);
     property.setLowerTime(20);
     property.apply();
-    
+
     try
     {
       KnockDownTimeProperty test = KnockDownTimeProperty.searchByInsecticide(insecticide);
@@ -142,21 +140,21 @@ public class KnockDownPropertyTest extends TestCase
       property.delete();
     }
   }
-  
+
   public void testUnknownProperty()
   {
     try
     {
       KnockDownTimeProperty.searchByInsecticide(insecticide);
-      
+
       fail("Able to find a knock down time property with an unknown insecticide");
     }
-    catch(UndefinedKnockDownPropertyException e)
+    catch (UndefinedKnockDownPropertyException e)
     {
-      //This is excpected
+      // This is excpected
     }
   }
-  
+
   public void testDuplicateProperty()
   {
     KnockDownTimeProperty property = new KnockDownTimeProperty();
@@ -166,7 +164,7 @@ public class KnockDownPropertyTest extends TestCase
     property.setLowerTime(20);
     property.setLowerPercent(30);
     property.apply();
-    
+
     try
     {
       KnockDownTimeProperty property2 = new KnockDownTimeProperty();
@@ -174,19 +172,19 @@ public class KnockDownPropertyTest extends TestCase
       property2.setUpperTime(50);
       property2.setLowerTime(30);
       property2.apply();
-      
+
       fail("Able to create a duplicate property");
     }
-    catch(DuplicateDataDatabaseException e)
+    catch (DuplicateDataDatabaseException e)
     {
-      //This is excepted
+      // This is excepted
     }
     finally
     {
       property.delete();
-    }    
+    }
   }
-  
+
   public void testBounds()
   {
     KnockDownTimeProperty property = new KnockDownTimeProperty();
@@ -196,11 +194,11 @@ public class KnockDownPropertyTest extends TestCase
     property.setLowerTime(20);
     property.setLowerPercent(1);
     property.apply();
-    
+
     try
     {
       KnockDownTimeProperty test = KnockDownTimeProperty.get(property.getId());
-      
+
       assertEquals(property.getInsecticide().getId(), test.getInsecticide().getId());
       assertEquals(property.getUpperPercent(), test.getUpperPercent());
       assertEquals(property.getLowerPercent(), test.getLowerPercent());
@@ -210,9 +208,9 @@ public class KnockDownPropertyTest extends TestCase
     finally
     {
       property.delete();
-    }    
+    }
   }
-  
+
   public void testMaximumPercentage()
   {
     KnockDownTimeProperty property = new KnockDownTimeProperty();
@@ -222,11 +220,11 @@ public class KnockDownPropertyTest extends TestCase
     property.setLowerTime(20);
     property.setLowerPercent(1);
     property.apply();
-    
+
     try
     {
       KnockDownTimeProperty test = KnockDownTimeProperty.get(property.getId());
-      
+
       assertEquals(property.getInsecticide().getId(), test.getInsecticide().getId());
       assertEquals(property.getUpperPercent(), test.getUpperPercent());
       assertEquals(property.getLowerPercent(), test.getLowerPercent());
@@ -236,13 +234,13 @@ public class KnockDownPropertyTest extends TestCase
     finally
     {
       property.delete();
-    }        
+    }
   }
-  
+
   public void testInvalidUpperPercentage()
   {
     KnockDownTimeProperty property = new KnockDownTimeProperty();
-    
+
     try
     {
       property.setInsecticide(insecticide);
@@ -252,27 +250,27 @@ public class KnockDownPropertyTest extends TestCase
       property.setLowerPercent(1);
       property.apply();
     }
-    catch(ProblemException e)
+    catch (ProblemException e)
     {
       List<ProblemIF> problems = e.getProblems();
-      
+
       assertNotNull(problems);
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof InvalidPercentageProblem);
     }
     finally
     {
-      if(property != null && property.isAppliedToDB())
+      if (property != null && property.isAppliedToDB())
       {
         property.delete();
       }
-    }    
+    }
   }
-  
+
   public void testInvalidLowerPercentage()
   {
     KnockDownTimeProperty property = new KnockDownTimeProperty();
-    
+
     try
     {
       property.setInsecticide(insecticide);
@@ -282,20 +280,20 @@ public class KnockDownPropertyTest extends TestCase
       property.setLowerPercent(106);
       property.apply();
     }
-    catch(ProblemException e)
+    catch (ProblemException e)
     {
       List<ProblemIF> problems = e.getProblems();
-      
+
       assertNotNull(problems);
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof InvalidPercentageProblem);
     }
     finally
     {
-      if(property != null && property.isAppliedToDB())
+      if (property != null && property.isAppliedToDB())
       {
         property.delete();
       }
-    }    
+    }
   }
 }

@@ -2,22 +2,16 @@ package dss.vector.solutions.permissions.entomology;
 
 import java.util.Date;
 
-import junit.framework.TestCase;
-
-import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.DoNotWeave;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
-import com.terraframe.mojo.constants.ClientRequestIF;
 
-import dss.vector.solutions.entomology.AssaySexDTO;
 import dss.vector.solutions.entomology.MorphologicalSpecieGroupDTO;
 import dss.vector.solutions.entomology.MorphologicalSpecieGroupViewDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionPointViewDTO;
 import dss.vector.solutions.entomology.MosquitoDTO;
 import dss.vector.solutions.entomology.MosquitoViewDTO;
-import dss.vector.solutions.entomology.SexDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
@@ -26,33 +20,16 @@ import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.general.KnockDownTimePropertyDTO;
 import dss.vector.solutions.general.LethalTimePropertyDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
-import dss.vector.solutions.mo.ActiveIngredientDTO;
-import dss.vector.solutions.mo.CollectionMethodDTO;
-import dss.vector.solutions.mo.GenerationDTO;
-import dss.vector.solutions.mo.IdentificationMethodDTO;
-import dss.vector.solutions.mo.InfectivityMethodologyDTO;
-import dss.vector.solutions.mo.InsecticideMethodologyDTO;
-import dss.vector.solutions.mo.MolecularAssayResultDTO;
-import dss.vector.solutions.mo.SpecieDTO;
+import dss.vector.solutions.ontology.TermDTO;
 
-public abstract class EntomologyCRUDPermissions extends TestCase implements DoNotWeave
+public abstract class EntomologyCRUDPermissions extends EntomologyPermissionTest implements DoNotWeave
 {
-  protected static ClientSession   clientSession;
-
-  protected static ClientRequestIF request;
-
-  protected static String          siteId;
-
-  protected static String          waterId;
-
   public void testMosqutioCollection()
   {
-    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(request);
-
     // Create the mosquito collection
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
-    dto.setCollectionMethod(methods[0]);
-    dto.setGeoEntity(GeoEntityDTO.get(request, siteId));
+    dto.setCollectionMethod(TermDTO.get(request, termId));
+    dto.setGeoEntity(GeoEntityDTO.get(request, geoId));
     dto.setDateCollected(new Date());
     dto.apply();
 
@@ -61,7 +38,7 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
       // Update the mosquito collection
       dto.lock();
 
-      dto.setCollectionMethod(methods[1]);
+      dto.setCollectionMethod(TermDTO.get(request, termId));
       dto.apply();
 
       // Read the mosquito collection
@@ -88,14 +65,10 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
 
   public void testMorphologicalSpecieGroup()
   {
-    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(request);
-    IdentificationMethodDTO[] identifications = IdentificationMethodDTO.getAll(request);
-    SpecieDTO[] species = SpecieDTO.getAll(request);
-
     // Create the mosquito collection
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
-    dto.setCollectionMethod(methods[0]);
-    dto.setGeoEntity(GeoEntityDTO.get(request, siteId));
+    dto.setCollectionMethod(TermDTO.get(request, termId));
+    dto.setGeoEntity(GeoEntityDTO.get(request, geoId));
     dto.setDateCollected(new Date());
     dto.apply();
 
@@ -103,8 +76,8 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
     {
       // Create the specie group
       MorphologicalSpecieGroupViewDTO view = new MorphologicalSpecieGroupViewDTO(request);
-      view.setSpecie(species[0]);
-      view.setIdentificationMethod(identifications[0]);
+      view.setSpecie(TermDTO.get(request, termId));
+      view.setIdentificationMethod(TermDTO.get(request, termId));
       view.setQuantity(5);
       view.setQuantityFemale(2);
       view.setQuantityMale(3);
@@ -145,15 +118,13 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
   {
     Date date = new Date();
     GeoEntityDTO geoEntity = GeoEntityDTO.get(request, waterId);
-    IdentificationMethodDTO[] methods = IdentificationMethodDTO.getAll(request);
-    SpecieDTO[] species = SpecieDTO.getAll(request);
 
     // Create the mosquito collection
     MosquitoCollectionPointViewDTO dto = new MosquitoCollectionPointViewDTO(request);
     dto.setGeoEntity(geoEntity);
     dto.setDateCollected(date);
-    dto.setIdentificationMethod(methods[0]);
-    dto.setSpecie(species[0]);
+    dto.setIdentificationMethod(TermDTO.get(request, termId));
+    dto.setSpecie(TermDTO.get(request, termId));
     dto.setQuantity(24);
     dto.apply();
 
@@ -195,18 +166,11 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
   public void testMosquito()
   {
     Date date = new Date();
-    IdentificationMethodDTO[] identification = IdentificationMethodDTO.getAll(request);
-    SpecieDTO[] species = SpecieDTO.getAll(request);
-    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(request);
-    GenerationDTO[] generations = GenerationDTO.getAll(request);
-    MolecularAssayResultDTO[] resutls = MolecularAssayResultDTO.getAll(request);
-    InsecticideMethodologyDTO[] insecticide = InsecticideMethodologyDTO.getAll(request);
-    InfectivityMethodologyDTO[] infectivity = InfectivityMethodologyDTO.getAll(request);
 
     // Create the mosquito collection
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
-    dto.setCollectionMethod(methods[0]);
-    dto.setGeoEntity(GeoEntityDTO.get(request, siteId));
+    dto.setCollectionMethod(TermDTO.get(request, termId));
+    dto.setGeoEntity(GeoEntityDTO.get(request, geoId));
     dto.setDateCollected(new Date());
     dto.apply();
 
@@ -214,38 +178,38 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
     {
 
       MosquitoViewDTO view = new MosquitoViewDTO(request);
-      view.setSpecie(species[0]);
+      view.setSpecie(TermDTO.get(request, termId));
       view.setCollection(dto);
-      view.setGeneration(generations[0]);
+      view.setGeneration(TermDTO.get(request, termId));
       view.setIsofemale(false);
       view.setSampleId("0");
-      view.setIdentificationMethod(identification[0]);
-      view.addSex(SexDTO.FEMALE);
+      view.setIdentificationMethod(TermDTO.get(request, termId));
+      view.setSex(TermDTO.get(request, termId));
       view.setTestDate(date);
       view.setP450(true);
-      view.setIAcHE(resutls[0]);
-      view.setIAcHEMethod(insecticide[0]);
+      view.setIAcHE(TermDTO.get(request, termId));
+      view.setIAcHEMethod(TermDTO.get(request, termId));
       view.setAAcetate(false);
       view.setPMalariae(true);
-      view.setPMalariaeMethod(infectivity[0]);
+      view.setPMalariaeMethod(TermDTO.get(request, termId));
       view.setMixed(true);
-      view.setMixedMethod(infectivity[0]);
+      view.setMixedMethod(TermDTO.get(request, termId));
       view.apply();
 
       try
       {
         MosquitoViewDTO update = MosquitoDTO.lockView(request, view.getMosquitoId());
-        update.setSpecie(species[1]);
-        update.setGeneration(generations[1]);
-        update.setIdentificationMethod(identification[1]);
+        update.setSpecie(TermDTO.get(request, termId));
+        update.setGeneration(TermDTO.get(request, termId));
+        update.setIdentificationMethod(TermDTO.get(request, termId));
         update.setP450(false);
-        update.setIAcHE(resutls[1]);
-        update.setIAcHEMethod(insecticide[1]);
+        update.setIAcHE(TermDTO.get(request, termId));
+        update.setIAcHEMethod(TermDTO.get(request, termId));
         update.setAAcetate(true);
         update.setPMalariae(false);
-        update.setPMalariaeMethod(infectivity[1]);
+        update.setPMalariaeMethod(TermDTO.get(request, termId));
         update.setMixed(false);
-        update.setMixedMethod(infectivity[1]);
+        update.setMixedMethod(TermDTO.get(request, termId));
         update.apply();
 
         MosquitoViewDTO test = MosquitoDTO.getView(request, view.getMosquitoId());
@@ -253,7 +217,7 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
         assertEquals(update.getSpecie().getId(), test.getSpecie().getId());
         assertEquals(update.getGeneration().getId(), test.getGeneration().getId());
         assertEquals(update.getIdentificationMethod().getId(), test.getIdentificationMethod().getId());
-        assertEquals(update.getSex().get(0), test.getSex().get(0));
+        assertEquals(update.getSex(), test.getSex());
         assertEquals(update.getTestDate(), test.getTestDate());
         assertEquals(update.getIsofemale(), test.getIsofemale());
         assertEquals(update.getP450(), test.getP450());
@@ -281,23 +245,18 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
   public void testADA()
   {
     Date date = new Date();
-    IdentificationMethodDTO[] identification = IdentificationMethodDTO.getAll(request);
-    SpecieDTO[] species = SpecieDTO.getAll(request);
-    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(request);
-    GenerationDTO[] generations = GenerationDTO.getAll(request);
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(request);
 
     // Create the mosquito collection
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
-    dto.setCollectionMethod(methods[0]);
-    dto.setGeoEntity(GeoEntityDTO.get(request, siteId));
+    dto.setCollectionMethod(TermDTO.get(request, termId));
+    dto.setGeoEntity(GeoEntityDTO.get(request, geoId));
     dto.setDateCollected(new Date());
     dto.apply();
 
     try
     {
       InsecticideDTO insecticide = new InsecticideDTO(request);
-      insecticide.setActiveIngredient(ingredients[0]);
+      insecticide.setActiveIngredient(TermDTO.get(request, termId));
       insecticide.setAmount(new Double(30.0));
       insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
       insecticide.apply();
@@ -305,20 +264,20 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
       {
 
         AdultDiscriminatingDoseAssayDTO assay = new AdultDiscriminatingDoseAssayDTO(request);
-        assay.addSex(AssaySexDTO.MIXED);
+        assay.setSex(TermDTO.get(request, termId));
         assay.setCollection(dto);
         assay.setControlTestMortality(2.5F);
         assay.setFed(30);
         assay.setGravid(30);
         assay.setExposureTime(60);
         assay.setIntervalTime(10);
-        assay.setGeneration(generations[0]);
-        assay.setIdentificationMethod(identification[0]);
+        assay.setGeneration(TermDTO.get(request, termId));
+        assay.setIdentificationMethod(TermDTO.get(request, termId));
         assay.setIsofemale(false);
         assay.setQuantityDead(30);
         assay.setQuantityTested(60);
         assay.setQuantityLive(30);
-        assay.setSpecie(species[0]);
+        assay.setSpecie(TermDTO.get(request, termId));
         assay.setTestDate(date);
         assay.setInsecticide(insecticide);
         assay.setKd50(77.7);
@@ -332,7 +291,7 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
           assay.setQuantityDead(300);
           assay.setQuantityTested(600);
           assay.setQuantityLive(300);
-          assay.setSpecie(species[1]);
+          assay.setSpecie(TermDTO.get(request, termId));
           assay.setTestDate(date);
           assay.setInsecticide(insecticide);
           assay.apply();
@@ -342,7 +301,7 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
           assertEquals(assay.getSpecie().getId(), test.getSpecie().getId());
           assertEquals(assay.getGeneration().getId(), test.getGeneration().getId());
           assertEquals(assay.getIdentificationMethod().getId(), test.getIdentificationMethod().getId());
-          assertEquals(assay.getSex().get(0), test.getSex().get(0));
+          assertEquals(assay.getSex(), test.getSex());
           assertEquals(assay.getTestDate(), test.getTestDate());
           assertEquals(assay.getKd50(), test.getKd50());
           assertEquals(assay.getKd95(), test.getKd95());
@@ -365,24 +324,19 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
 
   public void testLDA()
   {
-    Date date = new Date();
-    IdentificationMethodDTO[] identification = IdentificationMethodDTO.getAll(request);
-    SpecieDTO[] species = SpecieDTO.getAll(request);
-    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(request);
-    GenerationDTO[] generations = GenerationDTO.getAll(request);
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(request);
+    Date date = new Date();   
 
     // Create the mosquito collection
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
-    dto.setCollectionMethod(methods[0]);
-    dto.setGeoEntity(GeoEntityDTO.get(request, siteId));
+    dto.setCollectionMethod(TermDTO.get(request, termId));
+    dto.setGeoEntity(GeoEntityDTO.get(request, geoId));
     dto.setDateCollected(new Date());
     dto.apply();
 
     try
     {
       InsecticideDTO insecticide = new InsecticideDTO(request);
-      insecticide.setActiveIngredient(ingredients[0]);
+      insecticide.setActiveIngredient(TermDTO.get(request, termId));
       insecticide.setAmount(new Double(30.0));
       insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
       insecticide.apply();
@@ -394,13 +348,13 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
         assay.setControlTestMortality(2.5F);
         assay.setExposureTime(60);
         assay.setIntervalTime(10);
-        assay.setGeneration(generations[0]);
-        assay.setIdentificationMethod(identification[0]);
+        assay.setGeneration(TermDTO.get(request, termId));
+        assay.setIdentificationMethod(TermDTO.get(request, termId));
         assay.setIsofemale(false);
         assay.setQuantityDead(30);
         assay.setQuantityTested(60);
         assay.setQuantityLive(30);
-        assay.setSpecie(species[0]);
+        assay.setSpecie(TermDTO.get(request, termId));
         assay.setTestDate(date);
         assay.setInsecticide(insecticide);
         assay.setLt50(77.7);
@@ -414,7 +368,7 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
           assay.setQuantityDead(300);
           assay.setQuantityTested(600);
           assay.setQuantityLive(300);
-          assay.setSpecie(species[1]);
+          assay.setSpecie(TermDTO.get(request, termId));
           assay.setTestDate(date);
           assay.setInsecticide(insecticide);
           assay.apply();
@@ -447,23 +401,18 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
   public void testKDA()
   {
     Date date = new Date();
-    IdentificationMethodDTO[] identification = IdentificationMethodDTO.getAll(request);
-    SpecieDTO[] species = SpecieDTO.getAll(request);
-    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(request);
-    GenerationDTO[] generations = GenerationDTO.getAll(request);
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(request);
 
     // Create the mosquito collection
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
-    dto.setCollectionMethod(methods[0]);
-    dto.setGeoEntity(GeoEntityDTO.get(request, siteId));
+    dto.setCollectionMethod(TermDTO.get(request, termId));
+    dto.setGeoEntity(GeoEntityDTO.get(request, geoId));
     dto.setDateCollected(new Date());
     dto.apply();
 
     try
     {
       InsecticideDTO insecticide = new InsecticideDTO(request);
-      insecticide.setActiveIngredient(ingredients[0]);
+      insecticide.setActiveIngredient(TermDTO.get(request, termId));
       insecticide.setAmount(new Double(30.0));
       insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
       insecticide.apply();
@@ -471,17 +420,17 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
       try
       {
         KnockDownAssayDTO assay = new KnockDownAssayDTO(request);
-        assay.addSex(AssaySexDTO.MIXED);
+        assay.setSex(TermDTO.get(request, termId));
         assay.setCollection(dto);
         assay.setFed(30);
         assay.setGravid(30);
         assay.setExposureTime(60);
         assay.setIntervalTime(10);
-        assay.setGeneration(generations[0]);
-        assay.setIdentificationMethod(identification[0]);
+        assay.setGeneration(TermDTO.get(request, termId));
+        assay.setIdentificationMethod(TermDTO.get(request, termId));
         assay.setIsofemale(false);
         assay.setQuantityTested(60);
-        assay.setSpecie(species[0]);
+        assay.setSpecie(TermDTO.get(request, termId));
         assay.setTestDate(date);
         assay.setInsecticide(insecticide);
         assay.setKd50(77.7);
@@ -493,7 +442,7 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
           assay.lock();
           assay.setIsofemale(false);
           assay.setQuantityTested(600);
-          assay.setSpecie(species[1]);
+          assay.setSpecie(TermDTO.get(request, termId));
           assay.setTestDate(date);
           assay.setInsecticide(insecticide);
           assay.apply();
@@ -503,7 +452,7 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
           assertEquals(assay.getSpecie().getId(), test.getSpecie().getId());
           assertEquals(assay.getGeneration().getId(), test.getGeneration().getId());
           assertEquals(assay.getIdentificationMethod().getId(), test.getIdentificationMethod().getId());
-          assertEquals(assay.getSex().get(0), test.getSex().get(0));
+          assertEquals(assay.getSex(), test.getSex());
           assertEquals(assay.getTestDate(), test.getTestDate());
           assertEquals(assay.getKd50(), test.getKd50());
           assertEquals(assay.getKd95(), test.getKd95());
@@ -526,10 +475,10 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
 
   public void testLTP()
   {
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(request);
+    
 
     InsecticideDTO insecticide = new InsecticideDTO(request);
-    insecticide.setActiveIngredient(ingredients[0]);
+    insecticide.setActiveIngredient(TermDTO.get(request, termId));
     insecticide.setAmount(new Double(30.0));
     insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
     insecticide.apply();
@@ -572,10 +521,8 @@ public abstract class EntomologyCRUDPermissions extends TestCase implements DoNo
 
   public void testKDTP()
   {
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(request);
-
     InsecticideDTO insecticide = new InsecticideDTO(request);
-    insecticide.setActiveIngredient(ingredients[0]);
+    insecticide.setActiveIngredient(TermDTO.get(request, termId));
     insecticide.setAmount(new Double(30.0));
     insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
     insecticide.apply();

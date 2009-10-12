@@ -7,15 +7,11 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.KnockDownAssay;
 import dss.vector.solutions.export.entomology.MosquitoCollectionView;
-import dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.NonSentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.mo.Generation;
-import dss.vector.solutions.mo.IdentificationMethod;
-import dss.vector.solutions.mo.ResistanceMethodology;
-import dss.vector.solutions.mo.Specie;
+import dss.vector.solutions.ontology.Term;
 
 public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -39,12 +35,12 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
     kda.setCollection(mosquitoCollectionView.findMatch());
     
     kda.setTestDate(this.getTestDate());
-    kda.setTestMethod(ResistanceMethodology.validateByDisplayLabel(this.getTestMethod(), KnockDownAssay.getTestMethodMd()));
-    kda.setGeneration(Generation.validateByDisplayLabel(this.getGeneration(), KnockDownAssay.getGenerationMd()));
+    kda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(), KnockDownAssay.getTestMethodMd()));
+    kda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(), KnockDownAssay.getGenerationMd()));
     kda.setIsofemale(this.getIsofemale());
-    kda.addSex(AdultDiscriminatingDoseAssayExcelView.getAssaySexByLabel(this.getSex()));
-    kda.setSpecie(Specie.validateByDisplayLabel(this.getSpecie(), KnockDownAssay.getSpecieMd()));
-    kda.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod(), KnockDownAssay.getIdentificationMethodMd()));
+    kda.setSex(Term.validateByDisplayLabel(this.getSex(), KnockDownAssay.getSexMd()));
+    kda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), KnockDownAssay.getSpecieMd()));
+    kda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(), KnockDownAssay.getIdentificationMethodMd()));
     
     AdultAgeRange excelAgeRange = this.getAgeRange();
     AdultAgeRange newAgeRange = kda.getAgeRange();

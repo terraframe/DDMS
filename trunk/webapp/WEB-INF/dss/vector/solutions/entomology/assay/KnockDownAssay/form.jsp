@@ -8,7 +8,8 @@
 <%@page import="dss.vector.solutions.entomology.AbstractMosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
-    <mjl:component item="${item}" param="dto">
+    
+<%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%><mjl:component item="${item}" param="dto">
       <mjl:dt attribute="collection">
         <mjl:input id="collectionInput" param="collectionInput" type="text" value="${item.collection != null ? item.collection.collectionId : ''}"/>
         <mjl:input id="collectionId" param="collection" type="hidden" value="${item.collection != null ? item.collection.id : ''}" />        
@@ -100,10 +101,13 @@
 <%=Halp.loadTypes(Arrays.asList(new String[]{AbstractMosquitoCollectionDTO.CLASS}))%>
 <%=Halp.loadTypes(Arrays.asList(new String[]{ConcreteMosquitoCollectionDTO.CLASS}))%>
 <%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{GeoEntityViewDTO.CLASS}))%>
 
-<script type="text/javascript" defer="defer">  
-var collectionInput = document.getElementById('collectionInput');                
-var collectionId = document.getElementById('collectionId');
-
-MDSS.collectionSearch('<%=MosquitoCollectionDTO.CLASS%>', collectionInput, collectionId);
-</script>        
+<script type="text/javascript" defer="defer"> 
+  MDSS.collectionSearch(
+      {
+        search:'collectionInput',
+        concrete:'collectionId',
+        type:'<%=MosquitoCollectionDTO.CLASS%>'
+      });
+</script>

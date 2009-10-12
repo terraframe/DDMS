@@ -17,24 +17,21 @@ import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.query.OIterator;
 
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.PermanentWaterBody;
-import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.geo.generated.Trap;
-import dss.vector.solutions.mo.IdentificationMethod;
-import dss.vector.solutions.mo.Specie;
+import dss.vector.solutions.ontology.Term;
 
 public class MosquitoCollectionPointTest extends TestCase
 {
-  private static GeoEntity            sentinelSite         = null;
+  private static GeoEntity sentinelSite         = null;
 
-  private static GeoEntity            waterBody            = null;
+  private static GeoEntity waterBody            = null;
 
-  private static GeoEntity            fixedTrap            = null;
+  private static GeoEntity fixedTrap            = null;
 
-  private static Specie               specie               = null;
+  private static Term      specie               = null;
 
-  private static IdentificationMethod identificationMethod = null;
+  private static Term      identificationMethod = null;
 
   @Override
   public TestResult run()
@@ -72,23 +69,12 @@ public class MosquitoCollectionPointTest extends TestCase
 
   protected static void classSetUp()
   {
-    specie = Specie.getAll()[0];
-    identificationMethod = IdentificationMethod.getAll()[0];
+    specie = TestFixture.createRandomTerm();
+    identificationMethod = TestFixture.createRandomTerm();
 
-    sentinelSite = new SentinelSite();
-    sentinelSite.setGeoId("0");
-    sentinelSite.setEntityName("Sentinel Site");
-    sentinelSite.apply();
-
-    waterBody = new PermanentWaterBody();
-    waterBody.setGeoId("1");
-    waterBody.setEntityName("Water Body");
-    waterBody.apply();
-
-    fixedTrap = new Trap();
-    fixedTrap.setGeoId("2");
-    fixedTrap.setEntityName("Fixed Trap");
-    fixedTrap.apply();
+    sentinelSite = TestFixture.createRandomSite();
+    waterBody = TestFixture.createRandomPermanentWaterBody();
+    fixedTrap = TestFixture.createRandomFixedTrap();
   }
 
   protected static void classTearDown()
@@ -111,6 +97,9 @@ public class MosquitoCollectionPointTest extends TestCase
     sentinelSite.delete();
     waterBody.delete();
     fixedTrap.delete();
+    
+    specie.delete();
+    identificationMethod.delete();
   }
 
   public void testFixedTrapCollection()
@@ -446,8 +435,7 @@ public class MosquitoCollectionPointTest extends TestCase
 
     try
     {
-      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPointView.searchByGeoEntityAndDate(
-          fixedTrap.getGeoId(), startDate, endDate);
+      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPointView.searchByGeoEntityAndDate(fixedTrap.getGeoId(), startDate, endDate);
 
       assertNotNull(groups);
       assertEquals(3, groups.length);
@@ -467,8 +455,7 @@ public class MosquitoCollectionPointTest extends TestCase
 
   public void testEmptySearchByGeoEntityAndDate()
   {
-    MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(fixedTrap,
-        new Date(), new Date());
+    MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(fixedTrap, new Date(), new Date());
 
     assertNotNull(groups);
     assertEquals(0, groups.length);
@@ -490,8 +477,7 @@ public class MosquitoCollectionPointTest extends TestCase
 
     try
     {
-      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(
-          waterBody, new Date(), new Date());
+      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(waterBody, new Date(), new Date());
 
       assertNotNull(groups);
       assertEquals(0, groups.length);
@@ -516,8 +502,7 @@ public class MosquitoCollectionPointTest extends TestCase
 
     try
     {
-      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(
-          waterBody, searchDate, searchDate);
+      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(waterBody, searchDate, searchDate);
 
       assertNotNull(groups);
       assertEquals(0, groups.length);

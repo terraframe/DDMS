@@ -17,6 +17,12 @@ public class AdultAgeRange extends AdultAgeRangeBase implements com.terraframe.m
   }
   
   @Override
+  protected String buildKey()
+  {
+    return this.getId();
+  }
+  
+  @Override
   public void validateStartPoint()
   {
     super.validateStartPoint();

@@ -1,10 +1,10 @@
 package dss.vector.solutions.permissions.individual.ipt;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
-import com.terraframe.mojo.dataaccess.ProgrammingErrorExceptionDTO;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
@@ -19,27 +19,24 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
 {
   public void testCreatePatient()
   {
-    PersonViewDTO dto = new PersonViewDTO(request);
+    Calendar calendar = Calendar.getInstance();
+    calendar.clear();
+    calendar.set(Calendar.YEAR, 1983);
+    calendar.set(Calendar.MONTH, 5);
+    calendar.set(Calendar.DAY_OF_YEAR, 11);
 
-    try
-    {
-      dto.setFirstName("Test");
-      dto.setLastName("Test");
-      dto.setDateOfBirth(new Date());
-      dto.addSex(SexDTO.MALE);
-      dto.setIsIPTRecipient(true);
-      dto.setIsPatient(false);
-      dto.setIsMDSSUser(false);
-      dto.setIsITNRecipient(false);
-      dto.setIsSprayLeader(false);
-      dto.setIsSprayOperator(false);
-      dto.apply();
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      for (ProblemDTOIF message : e.getProblems())
-        fail(message.getMessage());
-    }
+    PersonViewDTO dto = new PersonViewDTO(request);
+    dto.setFirstName("Test");
+    dto.setLastName("Test");
+    dto.setDateOfBirth(calendar.getTime());
+    dto.addSex(SexDTO.MALE);
+    dto.setIsIPTRecipient(true);
+    dto.setIsPatient(false);
+    dto.setIsMDSSUser(false);
+    dto.setIsITNRecipient(false);
+    dto.setIsSprayLeader(false);
+    dto.setIsSprayOperator(false);
+    dto.apply();
 
     try
     {
@@ -56,11 +53,9 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
     catch (ProblemExceptionDTO e)
     {
       for (ProblemDTOIF message : e.getProblems())
+      {
         fail(message.getMessage());
-    }
-    catch (ProgrammingErrorExceptionDTO e)
-    {
-      fail(e.getLocalizedMessage());
+      }
     }
     finally
     {
@@ -70,10 +65,16 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
 
   public void testIptCase()
   {
+    Calendar calendar = Calendar.getInstance();
+    calendar.clear();
+    calendar.set(Calendar.YEAR, 1983);
+    calendar.set(Calendar.MONTH, 5);
+    calendar.set(Calendar.DAY_OF_YEAR, 11);
+
     PersonViewDTO dto = new PersonViewDTO(request);
     dto.setFirstName("Test");
     dto.setLastName("Test");
-    dto.setDateOfBirth(new Date());
+    dto.setDateOfBirth(calendar.getTime());
     dto.addSex(SexDTO.MALE);
     dto.setIsIPTRecipient(true);
     dto.setIsPatient(false);
@@ -89,7 +90,6 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
 
       IndividualIPTCaseViewDTO view = new IndividualIPTCaseViewDTO(request);
       view.setPatient(patient);
-      view.setServiceDate(new Date());
       view.apply();
 
       try
@@ -97,7 +97,6 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
         IndividualIPTCaseViewDTO test = IndividualIPTCaseDTO.getView(request, view.getConcreteId());
 
         assertEquals(view.getPatient().getId(), test.getPatient().getId());
-        assertEquals(view.getServiceDate(), test.getServiceDate());
       }
       finally
       {
@@ -106,7 +105,7 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
     }
     catch (ProblemExceptionDTO e)
     {
-      for(ProblemDTOIF p : e.getProblems())
+      for (ProblemDTOIF p : e.getProblems())
       {
         fail(p.getMessage());
       }
@@ -120,10 +119,16 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
 
   public void testIndividualIPT()
   {
+    Calendar calendar = Calendar.getInstance();
+    calendar.clear();
+    calendar.set(Calendar.YEAR, 1983);
+    calendar.set(Calendar.MONTH, 5);
+    calendar.set(Calendar.DAY_OF_YEAR, 11);
+
     PersonViewDTO dto = new PersonViewDTO(request);
     dto.setFirstName("Test");
     dto.setLastName("Test");
-    dto.setDateOfBirth(new Date());
+    dto.setDateOfBirth(calendar.getTime());
     dto.addSex(SexDTO.MALE);
     dto.setIsIPTRecipient(true);
     dto.setIsPatient(false);
@@ -139,7 +144,6 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
 
       IndividualIPTCaseViewDTO caseView = new IndividualIPTCaseViewDTO(request);
       caseView.setPatient(patient);
-      caseView.setServiceDate(new Date());
       caseView.apply();
 
       try
@@ -159,6 +163,7 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
         view.setNumberOfRecievedITNs(5);
         view.setAdministratorName("Justin");
         view.setAdministratorSurname("Smethie");
+        view.setServiceDate(new Date());
         view.apply();
 
         try
@@ -181,6 +186,7 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
           IndividualIPTViewDTO test = IndividualIPTDTO.getView(request, view.getConcreteId());
 
           assertEquals(edit.getFacility(), test.getFacility());
+          assertEquals(edit.getServiceDate(), test.getServiceDate());
           assertEquals(edit.getIptCase().getId(), test.getIptCase().getId());
           assertEquals(edit.getPatientType().getId(), test.getPatientType().getId());
           assertEquals(edit.getIsANCVisit(), test.getIsANCVisit());

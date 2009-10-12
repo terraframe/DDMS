@@ -1,7 +1,6 @@
 package dss.vector.solutions.general;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,6 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.entomology.assay.UnitDTO;
-import dss.vector.solutions.mo.ActiveIngredientDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -95,7 +93,10 @@ public class InsecticideController extends InsecticideControllerBase implements 
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     InsecticideDTO dto = new InsecticideDTO(clientRequest);
+
     this.setupRequest();
+    this.setupMO(dto);
+    
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
@@ -105,9 +106,14 @@ public class InsecticideController extends InsecticideControllerBase implements 
   {
     ClientRequestIF request = super.getClientSession().getRequest();
 
-    req.setAttribute("ingredients", Arrays.asList(ActiveIngredientDTO.getAllActive(request)));
     req.setAttribute("units", UnitDTO.allItems(request));
   }
+  
+  private void setupMO(InsecticideDTO dto)
+  {
+    req.setAttribute("activeIngredient", dto.getActiveIngredient());
+  }
+
 
   public void failNewInstance() throws IOException, ServletException
   {
@@ -181,8 +187,9 @@ public class InsecticideController extends InsecticideControllerBase implements 
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    this.setupRequest();
-    req.setAttribute("item", InsecticideDTO.get(super.getClientRequest(), id));
+    InsecticideDTO dto = InsecticideDTO.get(super.getClientRequest(), id);
+    this.setupMO(dto);
+    req.setAttribute("item", dto);
 
     render("viewComponent.jsp");
   }
@@ -196,9 +203,12 @@ public class InsecticideController extends InsecticideControllerBase implements 
   {
     try
     {
-      this.setupRequest();
+      InsecticideDTO dto = InsecticideDTO.lock(super.getClientRequest(), id);
 
-      req.setAttribute("item", InsecticideDTO.lock(super.getClientRequest(), id));
+      this.setupRequest();
+      this.setupMO(dto);
+
+      req.setAttribute("item", dto);
 
       render("editComponent.jsp");
     }

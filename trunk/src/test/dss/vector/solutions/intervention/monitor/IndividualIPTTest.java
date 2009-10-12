@@ -15,10 +15,11 @@ import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.ontology.MO;
+import dss.vector.solutions.ontology.Term;
 
 public class IndividualIPTTest extends TestCase
 {
@@ -44,7 +45,7 @@ public class IndividualIPTTest extends TestCase
 
   private static IndividualIPTCase iptCase  = null;
 
-  private static MO                term     = null;
+  private static Term                term     = null;
 
   public static Test suite()
   {
@@ -114,12 +115,7 @@ public class IndividualIPTTest extends TestCase
     iptCase.setResidentialLocation(site);
     iptCase.apply();
 
-    term = new MO();
-    term.setTermId("test term");
-    term.setTermName("Test Term");
-    term.setTermComment("Test Comment");
-    term.setObsolete(false);
-    term.apply();
+    term = TestFixture.createRandomTerm();
   }
 
   public void testCreateIndividualIPT()

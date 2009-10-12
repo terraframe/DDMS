@@ -262,11 +262,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     clone.setInsecticide(dto.getInsecticide());
     clone.getAgeRange().setStartPoint(dto.getAgeRange().getStartPoint());
     clone.getAgeRange().setEndPoint(dto.getAgeRange().getEndPoint());
-
-    for (AssaySexDTO sex : dto.getSex())
-    {
-      clone.addSex(sex);
-    }
+    clone.setSex(dto.getSex());
 
     this.loadRequestParameters();
     req.setAttribute("item", clone);

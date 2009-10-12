@@ -9,8 +9,7 @@ import dss.vector.solutions.entomology.MosquitoCollectionPoint;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.PermanentWaterBody;
 import dss.vector.solutions.geo.generated.Trap;
-import dss.vector.solutions.mo.IdentificationMethod;
-import dss.vector.solutions.mo.Specie;
+import dss.vector.solutions.ontology.Term;
 
 public class MorphologicalSpecieGroupExcelView extends MorphologicalSpecieGroupExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -29,8 +28,8 @@ public class MorphologicalSpecieGroupExcelView extends MorphologicalSpecieGroupE
     
     MosquitoCollectionPoint mcp = MosquitoCollectionPoint.findOrCreate(this.getGeoEntity(), this.getDateCollected());
     msg.setCollection(mcp);
-    msg.setSpecie(Specie.validateByDisplayLabel(this.getSpecie(), MorphologicalSpecieGroup.getSpecieMd()));
-    msg.setIdentificationMethod(IdentificationMethod.validateByDisplayLabel(this.getIdentificationMethod(), MorphologicalSpecieGroup.getIdentificationMethodMd()));
+    msg.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), MorphologicalSpecieGroup.getSpecieMd()));
+    msg.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(), MorphologicalSpecieGroup.getIdentificationMethodMd()));
     msg.setQuantity(this.getQuantity());
     msg.setQuantityMale(this.getQuantityMale());
     msg.setQuantityFemale(this.getQuantityFemale());

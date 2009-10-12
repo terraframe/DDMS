@@ -4,10 +4,6 @@ import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.AgeConverter;
-import dss.vector.solutions.intervention.BloodslideResponse;
-import dss.vector.solutions.intervention.FeverResponse;
-import dss.vector.solutions.intervention.HumanSex;
-import dss.vector.solutions.intervention.RDTResponse;
 import dss.vector.solutions.intervention.RDTResult;
 
 public class PersonView extends PersonViewBase implements
@@ -95,21 +91,19 @@ public class PersonView extends PersonViewBase implements
     person.setPregnant(this.getPregnant());
     person.setRdtTreatment(this.getRdtTreatment());
     person.setSleptUnderNet(this.getSleptUnderNet());
+    person.setBloodslide(this.getBloodslide());
+    person.setFever(this.getFever());
+    person.setMalaria(this.getMalaria());
+    person.setPayment(this.getPayment());
+    person.setPerformedRDT(this.getPerformedRDT());
+    person.setSex(this.getSex());
 
-    for (BloodslideResponse r : this.getBloodslide())
-      person.addBloodslide(r);
-    for (FeverResponse r : this.getFever())
-      person.addFever(r);
-    for (FeverResponse r : this.getMalaria())
-      person.addMalaria(r);
-    for (FeverResponse r : this.getPayment())
-      person.addPayment(r);
-    for (RDTResponse r : this.getPerformedRDT())
-      person.addPerformedRDT(r);
+    person.clearRDTResult();
+    
     for (RDTResult r : this.getRDTResult())
+    {
       person.addRDTResult(r);
-    for (HumanSex r : this.getSex())
-      person.addSex(r);
+    }
   }
 
   private boolean hasConcrete()

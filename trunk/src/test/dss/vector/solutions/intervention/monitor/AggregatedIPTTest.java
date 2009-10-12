@@ -12,6 +12,7 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.surveillance.PeriodType;
@@ -62,10 +63,7 @@ public class AggregatedIPTTest extends TestCase
 
   protected static void classSetUp()
   {
-    geoEntity = new HealthFacility();
-    geoEntity.setGeoId("9");
-    geoEntity.setEntityName("Facility");
-    geoEntity.apply();
+    geoEntity = TestFixture.createRandomFacility();
   }
 
   public void testCreateAggregatedIPT()

@@ -19,6 +19,7 @@ import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.web.WebClientSession;
 
 import dss.vector.solutions.TestConstants;
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.entomology.assay.AssayTestResultDTO;
 import dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResultDTO;
 import dss.vector.solutions.entomology.assay.biochemical.P450TestResultDTO;
@@ -26,44 +27,36 @@ import dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResultDTO;
 import dss.vector.solutions.entomology.assay.molecular.IAcHETestResultDTO;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.mo.CollectionMethod;
-import dss.vector.solutions.mo.Generation;
-import dss.vector.solutions.mo.GenerationDTO;
-import dss.vector.solutions.mo.IdentificationMethod;
-import dss.vector.solutions.mo.IdentificationMethodDTO;
-import dss.vector.solutions.mo.InfectivityMethodology;
-import dss.vector.solutions.mo.InfectivityMethodologyDTO;
-import dss.vector.solutions.mo.InsecticideMethodology;
-import dss.vector.solutions.mo.InsecticideMethodologyDTO;
-import dss.vector.solutions.mo.MolecularAssayResult;
 import dss.vector.solutions.mo.MolecularAssayResultDTO;
-import dss.vector.solutions.mo.Specie;
-import dss.vector.solutions.mo.SpecieDTO;
+import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermDTO;
 
 public class MosquitoTestDTO extends TestCase implements DoNotWeave
 {
 
-  private static GeoEntity              geoEntity              = null;
+  private static GeoEntity          geoEntity              = null;
 
-  private static MosquitoCollection     collection             = null;
+  private static MosquitoCollection collection             = null;
 
-  private static CollectionMethod       collectionMethod       = null;
+  private static Term               collectionMethod       = null;
 
-  private static Specie                 specie                 = null;
+  private static Term               specie                 = null;
 
-  private static IdentificationMethod   identificationMethod   = null;
+  private static Term               identificationMethod   = null;
 
-  private static MolecularAssayResult   result                 = null;
+  private static Term               result                 = null;
 
-  private static Generation             F0                     = null;
+  private static Term               F0                     = null;
 
-  private static InfectivityMethodology infectivityMethodology = null;
+  private static Term               infectivityMethodology = null;
 
-  private static InsecticideMethodology insecticideMethodology = null;
+  private static Term               insecticideMethodology = null;
 
-  private static ClientSession          clientSession;
+  private static Term               sex                    = null;
 
-  private static ClientRequestIF        clientRequest;
+  private static ClientSession      clientSession;
+
+  private static ClientRequestIF    clientRequest;
 
   @Override
   public TestResult run()
@@ -110,6 +103,15 @@ public class MosquitoTestDTO extends TestCase implements DoNotWeave
   {
     collection.delete();
     geoEntity.delete();
+
+    collectionMethod.delete();
+    specie.delete();
+    identificationMethod.delete();
+    F0.delete();
+    result.delete();
+    infectivityMethodology.delete();
+    insecticideMethodology.delete();
+    sex.delete();
   }
 
   protected static void classSetUp()
@@ -123,34 +125,17 @@ public class MosquitoTestDTO extends TestCase implements DoNotWeave
   @StartSession
   protected static void setupVars()
   {
-    collectionMethod = CollectionMethod.getAll()[0];
-    specie = Specie.getAll()[0];
-    identificationMethod = IdentificationMethod.getAll()[0];
-    F0 = Generation.getAll()[0];
-    result = MolecularAssayResult.getAll()[0];
-    infectivityMethodology = InfectivityMethodology.getAll()[0];
-    insecticideMethodology = InsecticideMethodology.getAll()[0];
+    collectionMethod = TestFixture.createRandomTerm();
+    specie = TestFixture.createRandomTerm();
+    identificationMethod = TestFixture.createRandomTerm();
+    F0 = TestFixture.createRandomTerm();
+    result = TestFixture.createRandomTerm();
+    infectivityMethodology = TestFixture.createRandomTerm();
+    insecticideMethodology = TestFixture.createRandomTerm();
+    sex = TestFixture.createRandomTerm();
 
-    try
-    {
-      SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
-      Date date = dateTime.parse("2006-01-01");
-
-      geoEntity = new SentinelSite();
-      geoEntity.setGeoId("0");
-      geoEntity.setEntityName("GeoEntity");
-      geoEntity.apply();
-
-      collection = new MosquitoCollection();
-      collection.setGeoEntity(geoEntity);
-      collection.setCollectionMethod(collectionMethod);
-      collection.setDateCollected(date);
-      collection.apply();
-    }
-    catch (ParseException e)
-    {
-      throw new RuntimeException(e);
-    }
+    geoEntity = TestFixture.createRandomSite();
+    collection = TestFixture.createMosquitoCollection(geoEntity, collectionMethod);
   }
 
   public void testCreateMosquitoDTO() throws ParseException
@@ -159,20 +144,20 @@ public class MosquitoTestDTO extends TestCase implements DoNotWeave
     Date date = dateTime.parse("2007-01-01");
 
     MosquitoViewDTO view = new MosquitoViewDTO(clientRequest);
-    view.setSpecie(SpecieDTO.get(clientRequest, specie.getId()));
+    view.setSpecie(TermDTO.get(clientRequest, specie.getId()));
     view.setCollection(MosquitoCollectionDTO.get(clientRequest, collection.getId()));
-    view.setGeneration(GenerationDTO.get(clientRequest, F0.getId()));
+    view.setGeneration(TermDTO.get(clientRequest, F0.getId()));
     view.setIsofemale(false);
     view.setSampleId("0");
-    view.setIdentificationMethod(IdentificationMethodDTO.get(clientRequest, identificationMethod.getId()));
-    view.addSex(SexDTO.FEMALE);
+    view.setIdentificationMethod(TermDTO.get(clientRequest, identificationMethod.getId()));
+    view.setSex(TermDTO.get(clientRequest, sex.getId()));
     view.setTestDate(date);
     view.setP450(true);
-    view.setIAcHE(MolecularAssayResultDTO.get(clientRequest, result.getId()));
-    view.setIAcHEMethod(InsecticideMethodologyDTO.get(clientRequest, insecticideMethodology.getId()));
+    view.setIAcHE(TermDTO.get(clientRequest, result.getId()));
+    view.setIAcHEMethod(TermDTO.get(clientRequest, insecticideMethodology.getId()));
     view.setAAcetate(false);
     view.setPMalariae(true);
-    view.setPMalariaeMethod(InfectivityMethodologyDTO.get(clientRequest, infectivityMethodology.getId()));
+    view.setPMalariaeMethod(TermDTO.get(clientRequest, infectivityMethodology.getId()));
     view.apply();
 
     try
@@ -183,7 +168,7 @@ public class MosquitoTestDTO extends TestCase implements DoNotWeave
       assertEquals(F0.getId(), mosquito.getGeneration().getId());
       assertEquals(view.getMosquitoId(), mosquito.getId());
       assertEquals(identificationMethod.getId(), mosquito.getIdentificationMethod().getId());
-      assertEquals(SexDTO.FEMALE, mosquito.getSex().get(0));
+      assertEquals(SexDTO.FEMALE, mosquito.getSex());
       assertEquals(date, mosquito.getTestDate());
       assertEquals(new Boolean(false), mosquito.getIsofemale());
 

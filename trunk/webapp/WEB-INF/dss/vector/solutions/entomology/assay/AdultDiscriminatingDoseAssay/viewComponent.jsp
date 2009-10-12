@@ -39,24 +39,32 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
         ${item.controlTestMortality}
       </mjl:dt>
       <mjl:dt attribute="testMethod">
-        ${item.testMethod.displayLabel}
+        <c:if test="${testMethod != null}">
+          ${testMethod.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="generation">
-        ${item.generation.displayLabel}
+        <c:if test="${generation != null}">
+          ${generation.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="isofemale">
         ${item.isofemale}
       </mjl:dt>
       <mjl:dt attribute="sex">
-        <c:forEach var="enumName" items="${item.sexEnumNames}">
-          ${item.sexMd.enumItems[enumName]}
-        </c:forEach>
+        <c:if test="${sex != null}">
+          ${sex.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="specie">
-        ${item.specie.displayLabel}
+        <c:if test="${specie != null}">
+          ${specie.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="identificationMethod">
-        ${item.identificationMethod.displayLabel}
+        <c:if test="${identificationMethod != null}">
+          ${identificationMethod.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="ageRange">
         <mjl:struct param="ageRange">

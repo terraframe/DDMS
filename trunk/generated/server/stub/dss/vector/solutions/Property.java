@@ -9,7 +9,6 @@ import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.session.StartSession;
 
 public class Property extends PropertyBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -221,7 +220,6 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     }
   }
 
-  @StartSession
   @Transaction
   @Authenticate
   public static String getNextId()

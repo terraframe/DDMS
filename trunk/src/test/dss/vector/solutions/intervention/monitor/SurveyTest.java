@@ -26,39 +26,42 @@ import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.intervention.BloodslideResponse;
-import dss.vector.solutions.intervention.FeverResponse;
-import dss.vector.solutions.intervention.FeverTreatment;
-import dss.vector.solutions.intervention.HumanSex;
-import dss.vector.solutions.intervention.RDTResponse;
 import dss.vector.solutions.intervention.RDTResult;
-import dss.vector.solutions.surveillance.TreatmentGrid;
+import dss.vector.solutions.ontology.Term;
 
 public class SurveyTest extends TestCase
 {
-	  @Override
-	  public TestResult run()
-	  {
-	    return super.run();
-	  }
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
 
-	  @Override
-	  public void run(TestResult testResult)
-	  {
-	    super.run(testResult);
-	  }
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
-  private static GeoEntity      geoEntity = null;
+  private static GeoEntity geoEntity  = null;
 
-  private static Wall           wall      = null;
+  private static Term      wall       = null;
 
-  private static Roof           roof      = null;
+  private static Term      roof       = null;
 
-  private static TreatmentGrid  drug      = null;
+  private static Term      drug       = null;
 
-  private static FeverTreatment treatment = null;
+  private static Term      treatment  = null;
+
+  private static Term      windowType = null;
+
+  private static Term      bloodSlide = null;
+
+  private static Term      response   = null;
+
+  private static Term      sex   = null;
 
   public static Test suite()
   {
@@ -88,31 +91,24 @@ public class SurveyTest extends TestCase
     wall.delete();
     roof.delete();
     treatment.delete();
+    windowType.delete();
+    bloodSlide.delete();
+    response.delete();
+    sex.delete();
   }
 
   protected static void classSetUp()
   {
-    geoEntity = new SentinelSite();
-    geoEntity.setGeoId("9");
-    geoEntity.setEntityName("Sentinel Site");
-    geoEntity.apply();
+    geoEntity = TestFixture.createRandomSite();
 
-    wall = new Wall();
-    wall.setWallName("testWall");
-    wall.getDisplayLabel().setDefaultLocale("Test Wall");
-    wall.apply();
-
-    roof = new Roof();
-    roof.setRoofName("testRoof");
-    roof.getDisplayLabel().setDefaultLocale("Test Roof");
-    roof.apply();
-
-    drug = TreatmentGrid.getAll()[0];
-    
-    treatment = new FeverTreatment();
-    treatment.getDisplayLabel().setDefaultLocale("Test FeverTreatment");
-    treatment.setTreatmentName("testFeverTreatment");
-    treatment.apply();
+    wall = TestFixture.createRandomTerm();
+    roof = TestFixture.createRandomTerm();
+    drug = TestFixture.createRandomTerm();
+    treatment = TestFixture.createRandomTerm();
+    windowType = TestFixture.createRandomTerm();
+    bloodSlide = TestFixture.createRandomTerm();
+    response = TestFixture.createRandomTerm();    
+    sex = TestFixture.createRandomTerm();    
   }
 
   public void testCreateSurveyPoint()
@@ -245,7 +241,7 @@ public class SurveyTest extends TestCase
     household.setWallInfo("Some generic info");
     household.setRoof(roof);
     household.setRoofInfo("Some roof info");
-    household.addWindowType(WindowType.ANY_WINDOW);
+    household.setWindowType(windowType);
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
@@ -265,8 +261,7 @@ public class SurveyTest extends TestCase
       assertEquals(test.getWallInfo(), household.getWallInfo());
       assertEquals(test.getRoof().getId(), household.getRoof().getId());
       assertEquals(test.getRoofInfo(), household.getRoofInfo());
-      assertEquals(1, test.getWindowType().size());
-      assertEquals(WindowType.ANY_WINDOW, test.getWindowType().get(0));
+      assertEquals(test.getWindowType().getId(), test.getWindowType());
       assertEquals(test.getRooms(), household.getRooms());
       assertEquals(test.getLastSprayed(), household.getLastSprayed());
       assertEquals(test.getNets(), household.getNets());
@@ -308,7 +303,7 @@ public class SurveyTest extends TestCase
     household.setWallInfo("Some generic info");
     household.setRoof(roof);
     household.setRoofInfo("Some roof info");
-    household.addWindowType(WindowType.ANY_WINDOW);
+    household.setWindowType(windowType);
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
@@ -350,8 +345,8 @@ public class SurveyTest extends TestCase
       assertEquals(test.getWallInfo(), household.getWallInfo());
       assertEquals(test.getRoof().getId(), household.getRoof().getId());
       assertEquals(test.getRoofInfo(), household.getRoofInfo());
-      assertEquals(1, test.getWindowType().size());
-      assertEquals(WindowType.ANY_WINDOW, test.getWindowType().get(0));
+
+      assertEquals(windowType.getId(), test.getWindowType().getId());
       assertEquals(test.getRooms(), household.getRooms());
       assertEquals(test.getLastSprayed(), household.getLastSprayed());
       assertEquals(test.getNets(), household.getNets());
@@ -391,7 +386,7 @@ public class SurveyTest extends TestCase
     household.setWallInfo("Some generic info");
     household.setRoof(roof);
     household.setRoofInfo("Some roof info");
-    household.addWindowType(WindowType.ANY_WINDOW);
+    household.setWindowType(windowType);
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
@@ -425,8 +420,8 @@ public class SurveyTest extends TestCase
       assertEquals(test.getWallInfo(), household.getWallInfo());
       assertEquals(test.getRoof().getId(), household.getRoof().getId());
       assertEquals(test.getRoofInfo(), household.getRoofInfo());
-      assertEquals(1, test.getWindowType().size());
-      assertEquals(WindowType.ANY_WINDOW, test.getWindowType().get(0));
+
+      assertEquals(windowType.getId(), test.getWindowType().getId());
       assertEquals(test.getRooms(), household.getRooms());
       assertEquals(test.getLastSprayed(), household.getLastSprayed());
       assertEquals(test.getNets(), household.getNets());
@@ -466,7 +461,7 @@ public class SurveyTest extends TestCase
     household.setWallInfo("Some generic info");
     household.setRoof(roof);
     household.setRoofInfo("Some roof info");
-    household.addWindowType(WindowType.ANY_WINDOW);
+    household.setWindowType(windowType);
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
@@ -512,8 +507,7 @@ public class SurveyTest extends TestCase
       assertEquals(test.getWallInfo(), edit.getWallInfo());
       assertEquals(test.getRoof().getId(), edit.getRoof().getId());
       assertEquals(test.getRoofInfo(), edit.getRoofInfo());
-      assertEquals(1, test.getWindowType().size());
-      assertEquals(WindowType.ANY_WINDOW, test.getWindowType().get(0));
+      assertEquals(windowType.getId(), test.getWindowType().getId());
       assertEquals(test.getRooms(), edit.getRooms());
       assertEquals(test.getLastSprayed(), edit.getLastSprayed());
       assertEquals(test.getNets(), edit.getNets());
@@ -553,7 +547,7 @@ public class SurveyTest extends TestCase
     household.setWallInfo("Some generic info");
     household.setRoof(roof);
     household.setRoofInfo("Some roof info");
-    household.addWindowType(WindowType.ANY_WINDOW);
+    household.setWindowType(windowType);
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
@@ -570,7 +564,7 @@ public class SurveyTest extends TestCase
     household2.setWallInfo("Some generic info");
     household2.setRoof(roof);
     household2.setRoofInfo("Some roof info");
-    household2.addWindowType(WindowType.ANY_WINDOW);
+    household2.setWindowType(windowType);
     household2.setRooms(30);
     household2.setLastSprayed(7);
     household2.setNets(24);
@@ -627,7 +621,7 @@ public class SurveyTest extends TestCase
       household.setWallInfo("Some generic info");
       household.setRoof(roof);
       household.setRoofInfo("Some roof info");
-      household.addWindowType(WindowType.ANY_WINDOW);
+      household.setWindowType(windowType);
       household.setRooms(30);
       household.setLastSprayed(15);
       household.setNets(24);
@@ -669,7 +663,7 @@ public class SurveyTest extends TestCase
     household.setWallInfo("Some generic info");
     household.setRoof(roof);
     household.setRoofInfo("Some roof info");
-    household.addWindowType(WindowType.ANY_WINDOW);
+    household.setWindowType(windowType);
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
@@ -689,14 +683,14 @@ public class SurveyTest extends TestCase
     person.setPersonId("000");
     person.setPregnant(true);
     person.setRdtTreatment(drug);
-    person.addBloodslide(BloodslideResponse.NOT_AVAILABLE);
-    person.addFever(FeverResponse.DONT_KNOW);
-    person.addMalaria(FeverResponse.YES);
-    person.addPayment(FeverResponse.NO);
-    person.addPerformedRDT(RDTResponse.REFUSED);
+    person.setBloodslide(bloodSlide);
+    person.setFever(response);
+    person.setMalaria(response);
+    person.setPayment(response);
+    person.setPerformedRDT(response);
     person.addRDTResult(RDTResult.VIVAX_POSITIVE);
     person.addRDTResult(RDTResult.OVALE_POSITIVE);
-    person.addSex(HumanSex.FEMALE);
+    person.setSex(sex);
     person.apply();
 
     try
@@ -715,21 +709,21 @@ public class SurveyTest extends TestCase
       assertEquals("000", test.getPersonId());
       assertEquals(new Boolean(true), test.getPregnant());
       assertEquals(drug.getId(), test.getRdtTreatment().getId());
-      assertEquals(1, test.getBloodslide().size());
-      assertEquals(BloodslideResponse.NOT_AVAILABLE, test.getBloodslide().get(0));
-      assertEquals(1, test.getFever().size());
-      assertEquals(FeverResponse.DONT_KNOW, test.getFever().get(0));
-      assertEquals(1, test.getMalaria().size());
-      assertEquals(FeverResponse.YES, test.getMalaria().get(0));
-      assertEquals(1, test.getPayment().size());
-      assertEquals(FeverResponse.NO, test.getPayment().get(0));
-      assertEquals(1, test.getPerformedRDT().size());
-      assertEquals(RDTResponse.REFUSED, test.getPerformedRDT().get(0));
+      
+      assertEquals(bloodSlide.getId(), test.getBloodslide().getId());
+      
+      assertEquals(response.getId(), test.getFever().getId());
+      
+      assertEquals(response.getId(), test.getMalaria().getId());
+      
+      assertEquals(response.getId(), test.getPayment().getId());
+      
+      assertEquals(response.getId(), test.getPerformedRDT().getId());
       assertEquals(2, test.getRDTResult().size());
       assertTrue(test.getRDTResult().contains(RDTResult.VIVAX_POSITIVE));
       assertTrue(test.getRDTResult().contains(RDTResult.OVALE_POSITIVE));
-      assertEquals(1, test.getSex().size());
-      assertEquals(HumanSex.FEMALE, test.getSex().get(0));
+      
+      assertEquals(sex.getId(), test.getSex().getId());
     }
     finally
     {
@@ -746,12 +740,12 @@ public class SurveyTest extends TestCase
     Boolean b = new Boolean(false);
     BigDecimal haemoglobin = new BigDecimal("99.2");
     haemoglobin = haemoglobin.stripTrailingZeros();
-    
+
     SurveyPoint point = new SurveyPoint();
     point.setSurveyDate(date);
     point.setGeoEntity(geoEntity);
     point.apply();
-    
+
     Household household = new Household();
     household.setSurveyPoint(point);
     household.setHouseholdName("Some name 4");
@@ -761,14 +755,14 @@ public class SurveyTest extends TestCase
     household.setWallInfo("Some generic info");
     household.setRoof(roof);
     household.setRoofInfo("Some roof info");
-    household.addWindowType(WindowType.ANY_WINDOW);
+    household.setWindowType(windowType);
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
     household.setNetsUsed(2);
     household.setSleptUnderNets(14);
     household.apply();
-    
+
     PersonView person = new PersonView();
     person.setHousehold(household);
     person.setDob(date);
@@ -781,20 +775,20 @@ public class SurveyTest extends TestCase
     person.setPersonId("000");
     person.setPregnant(true);
     person.setRdtTreatment(drug);
-    person.addBloodslide(BloodslideResponse.NOT_AVAILABLE);
-    person.addFever(FeverResponse.DONT_KNOW);
-    person.addMalaria(FeverResponse.YES);
-    person.addPayment(FeverResponse.NO);
-    person.addPerformedRDT(RDTResponse.REFUSED);
+    person.setBloodslide(bloodSlide);
+    person.setFever(response);
+    person.setMalaria(response);
+    person.setPayment(response);
+    person.setPerformedRDT(response);
     person.addRDTResult(RDTResult.VIVAX_POSITIVE);
     person.addRDTResult(RDTResult.OVALE_POSITIVE);
-    person.addSex(HumanSex.FEMALE);
+    person.setSex(sex);
     person.apply();
-    
+
     try
     {
       PersonView test = Person.getView(person.getConcreteId());
-      
+
       assertNotNull(test);
       assertEquals(household.getId(), test.getHousehold().getId());
       assertEquals(date, test.getDob());
@@ -806,22 +800,17 @@ public class SurveyTest extends TestCase
       assertEquals(drug.getId(), test.getMalariaTreatment().getId());
       assertEquals("000", test.getPersonId());
       assertEquals(new Boolean(true), test.getPregnant());
-      assertEquals(drug.getId(), test.getRdtTreatment().getId());
-      assertEquals(1, test.getBloodslide().size());
-      assertEquals(BloodslideResponse.NOT_AVAILABLE, test.getBloodslide().get(0));
-      assertEquals(1, test.getFever().size());
-      assertEquals(FeverResponse.DONT_KNOW, test.getFever().get(0));
-      assertEquals(1, test.getMalaria().size());
-      assertEquals(FeverResponse.YES, test.getMalaria().get(0));
-      assertEquals(1, test.getPayment().size());
-      assertEquals(FeverResponse.NO, test.getPayment().get(0));
-      assertEquals(1, test.getPerformedRDT().size());
-      assertEquals(RDTResponse.REFUSED, test.getPerformedRDT().get(0));
+      assertEquals(drug.getId(), test.getRdtTreatment().getId());      
+      assertEquals(bloodSlide.getId(), test.getBloodslide().getId());      
+      assertEquals(response.getId(), test.getFever().getId());      
+      assertEquals(response.getId(), test.getMalaria().getId());      
+      assertEquals(response.getId(), test.getPayment().getId());      
+      assertEquals(response.getId(), test.getPerformedRDT().getId());
       assertEquals(2, test.getRDTResult().size());
       assertTrue(test.getRDTResult().contains(RDTResult.VIVAX_POSITIVE));
       assertTrue(test.getRDTResult().contains(RDTResult.OVALE_POSITIVE));
-      assertEquals(1, test.getSex().size());
-      assertEquals(HumanSex.FEMALE, test.getSex().get(0));
+      assertEquals(sex.getId(), test.getSex().getId());
+      
     }
     finally
     {
@@ -830,7 +819,7 @@ public class SurveyTest extends TestCase
       point.delete();
     }
   }
-  
+
   public void testUniquePersonId() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
@@ -853,7 +842,7 @@ public class SurveyTest extends TestCase
     household.setWallInfo("Some generic info");
     household.setRoof(roof);
     household.setRoofInfo("Some roof info");
-    household.addWindowType(WindowType.ANY_WINDOW);
+    household.setWindowType(windowType);
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
@@ -873,14 +862,14 @@ public class SurveyTest extends TestCase
     person.setPersonId("000");
     person.setPregnant(true);
     person.setRdtTreatment(drug);
-    person.addBloodslide(BloodslideResponse.NOT_AVAILABLE);
-    person.addFever(FeverResponse.DONT_KNOW);
-    person.addMalaria(FeverResponse.YES);
-    person.addPayment(FeverResponse.NO);
-    person.addPerformedRDT(RDTResponse.REFUSED);
+    person.setBloodslide(bloodSlide);
+    person.setFever(response);
+    person.setMalaria(response);
+    person.setPayment(response);
+    person.setPerformedRDT(response);
     person.addRDTResult(RDTResult.VIVAX_POSITIVE);
     person.addRDTResult(RDTResult.OVALE_POSITIVE);
-    person.addSex(HumanSex.FEMALE);
+    person.setSex(sex);
     person.apply();
 
     try
@@ -897,14 +886,14 @@ public class SurveyTest extends TestCase
       duplicate.setPersonId("000");
       duplicate.setPregnant(true);
       duplicate.setRdtTreatment(drug);
-      duplicate.addBloodslide(BloodslideResponse.NOT_AVAILABLE);
-      duplicate.addFever(FeverResponse.DONT_KNOW);
-      duplicate.addMalaria(FeverResponse.YES);
-      duplicate.addPayment(FeverResponse.NO);
-      duplicate.addPerformedRDT(RDTResponse.REFUSED);
+      duplicate.setBloodslide(bloodSlide);
+      duplicate.setFever(response);
+      duplicate.setMalaria(response);
+      duplicate.setPayment(response);
+      duplicate.setPerformedRDT(response);
       duplicate.addRDTResult(RDTResult.VIVAX_POSITIVE);
       duplicate.addRDTResult(RDTResult.OVALE_POSITIVE);
-      duplicate.addSex(HumanSex.FEMALE);
+      duplicate.setSex(sex);
       duplicate.apply();
 
       duplicate.delete();
@@ -945,7 +934,7 @@ public class SurveyTest extends TestCase
     household.setWallInfo("Some generic info");
     household.setRoof(roof);
     household.setRoofInfo("Some roof info");
-    household.addWindowType(WindowType.ANY_WINDOW);
+    household.setWindowType(windowType);
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
@@ -967,14 +956,14 @@ public class SurveyTest extends TestCase
       person.setPersonId("000");
       person.setPregnant(true);
       person.setRdtTreatment(drug);
-      person.addBloodslide(BloodslideResponse.NOT_AVAILABLE);
-      person.addFever(FeverResponse.DONT_KNOW);
-      person.addMalaria(FeverResponse.YES);
-      person.addPayment(FeverResponse.NO);
-      person.addPerformedRDT(RDTResponse.REFUSED);
+      person.setBloodslide(bloodSlide);
+      person.setFever(response);
+      person.setMalaria(response);
+      person.setPayment(response);
+      person.setPerformedRDT(response);
       person.addRDTResult(RDTResult.VIVAX_POSITIVE);
       person.addRDTResult(RDTResult.OVALE_POSITIVE);
-      person.addSex(HumanSex.MALE);
+      person.setSex(sex);
       person.apply();
 
       person.delete();
@@ -1017,7 +1006,7 @@ public class SurveyTest extends TestCase
     household.setWallInfo("Some generic info");
     household.setRoof(roof);
     household.setRoofInfo("Some roof info");
-    household.addWindowType(WindowType.ANY_WINDOW);
+    household.setWindowType(windowType);
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
@@ -1037,14 +1026,14 @@ public class SurveyTest extends TestCase
     person.setPersonId("000");
     person.setPregnant(true);
     person.setRdtTreatment(drug);
-    person.addBloodslide(BloodslideResponse.NOT_AVAILABLE);
-    person.addFever(FeverResponse.DONT_KNOW);
-    person.addMalaria(FeverResponse.YES);
-    person.addPayment(FeverResponse.NO);
-    person.addPerformedRDT(RDTResponse.REFUSED);
+    person.setBloodslide(bloodSlide);
+    person.setFever(response);
+    person.setMalaria(response);
+    person.setPayment(response);
+    person.setPerformedRDT(response);
     person.addRDTResult(RDTResult.VIVAX_POSITIVE);
     person.addRDTResult(RDTResult.OVALE_POSITIVE);
-    person.addSex(HumanSex.FEMALE);
+    person.setSex(sex);
     person.apply();
 
     Person person2 = new Person();
@@ -1059,14 +1048,14 @@ public class SurveyTest extends TestCase
     person2.setPersonId("001");
     person2.setPregnant(true);
     person2.setRdtTreatment(drug);
-    person2.addBloodslide(BloodslideResponse.NOT_AVAILABLE);
-    person2.addFever(FeverResponse.DONT_KNOW);
-    person2.addMalaria(FeverResponse.YES);
-    person2.addPayment(FeverResponse.NO);
-    person2.addPerformedRDT(RDTResponse.REFUSED);
+    person2.setBloodslide(bloodSlide);
+    person2.setFever(response);
+    person2.setMalaria(response);
+    person2.setPayment(response);
+    person2.setPerformedRDT(response);
     person2.addRDTResult(RDTResult.VIVAX_POSITIVE);
     person2.addRDTResult(RDTResult.OVALE_POSITIVE);
-    person2.addSex(HumanSex.FEMALE);
+    person2.setSex(sex);
     person2.apply();
 
     try
@@ -1142,7 +1131,7 @@ public class SurveyTest extends TestCase
       household.setWallInfo("Some generic info");
       household.setRoof(roof);
       household.setRoofInfo("Some roof info");
-      household.addWindowType(WindowType.ANY_WINDOW);
+      household.setWindowType(windowType);
       household.setRooms(30);
       household.setLastSprayed(7);
       household.setNets(24);
@@ -1191,7 +1180,7 @@ public class SurveyTest extends TestCase
       household.setWallInfo("Some generic info");
       household.setRoof(roof);
       household.setRoofInfo("Some roof info");
-      household.addWindowType(WindowType.ANY_WINDOW);
+      household.setWindowType(windowType);
       household.setRooms(30);
       household.setLastSprayed(7);
       household.setNets(24);
@@ -1239,7 +1228,7 @@ public class SurveyTest extends TestCase
       household.setWallInfo("Some generic info");
       household.setRoof(roof);
       household.setRoofInfo("Some roof info");
-      household.addWindowType(WindowType.ANY_WINDOW);
+      household.setWindowType(windowType);
       household.setRooms(30);
       household.setLastSprayed(7);
       household.setNetsUsed(4);
@@ -1288,7 +1277,7 @@ public class SurveyTest extends TestCase
     household.setWallInfo("Some generic info");
     household.setRoof(roof);
     household.setRoofInfo("Some roof info");
-    household.addWindowType(WindowType.ANY_WINDOW);
+    household.setWindowType(windowType);
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(0);
@@ -1354,7 +1343,7 @@ public class SurveyTest extends TestCase
       household.setRoof(roof);
       household.setRoofInfo("Some roof info");
       household.setHasWindows(false);
-      household.addWindowType(WindowType.ANY_WINDOW);
+      household.setWindowType(windowType);
       household.setRooms(30);
       household.setLastSprayed(7);
       household.setNets(50);

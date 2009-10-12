@@ -663,8 +663,9 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       Mojo.Iter.forEach(configs, function(config){
         var attributeName = config.attributeName;
         var multipleSelect = Mojo.Util.isBoolean(config.multipleSelect) ? config.multipleSelect : false;
+        var attributeClass = Mojo.Util.isString(config.className) ? config.className : className;
         
-        var browser = new MDSS.OntologyBrowser(multipleSelect, className, attributeName);
+        var browser = new MDSS.OntologyBrowser(multipleSelect, attributeClass, attributeName);
             
         browser.setHandler(Mojo.Util.curry(this.setField, attributeName));
      

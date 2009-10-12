@@ -11,7 +11,7 @@ import com.gregdennis.drej.PolynomialKernel;
 import com.gregdennis.drej.Regression;
 import com.gregdennis.drej.Representer;
 
-import dss.vector.solutions.mo.Generation;
+import dss.vector.solutions.ontology.Term;
 
 public abstract class CollectionAssay extends CollectionAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -40,7 +40,8 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
 
   private boolean isGenerationF0()
   {
-    Generation gen = this.getGeneration();
+    Term gen = this.getGeneration();
+    
     List<String> ids = new LinkedList<String>();
     ids.add("MIRO_343458349");
 

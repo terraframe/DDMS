@@ -1,5 +1,6 @@
 package dss.vector.solutions.ontology;
 
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
@@ -8,7 +9,9 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
+import com.terraframe.mojo.session.Session;
 
+import dss.vector.solutions.UnknownTermException;
 import dss.vector.solutions.query.ActionNotAllowedException;
 
 public abstract class Term extends TermBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -369,6 +372,38 @@ public abstract class Term extends TermBase implements com.terraframe.mojo.gener
       query.WHERE(this.termQuery.getId().SUBSELECT_NOT_IN(this.valueQuery));
 
       query.ORDER_BY_ASC(this.termQuery.getTermName());
+    }
+  }
+  
+  public static Term validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
+  {
+    QueryFactory factory = new QueryFactory();
+    TermQuery query = new TermQuery(factory);
+
+    query.WHERE(query.getTermName().EQ(displayLabel));
+
+    OIterator<? extends Term> iterator = query.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+
+      String attributeLabel = mdAttribute.getDisplayLabel(Session.getCurrentLocale());
+      String msg = "Unknown " + attributeLabel + " with the given name [" + displayLabel + "]";
+
+      UnknownTermException e = new UnknownTermException(msg);
+      e.setTermName(displayLabel);
+      e.setAttributeLabel(attributeLabel);
+      e.apply();
+
+      throw e;
+    }
+    finally
+    {
+      iterator.close();
     }
   }
 }

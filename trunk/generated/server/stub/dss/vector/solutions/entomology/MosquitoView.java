@@ -1,6 +1,7 @@
 package dss.vector.solutions.entomology;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,12 +39,12 @@ import dss.vector.solutions.mo.AbstractTerm;
 import dss.vector.solutions.mo.InfectivityMethodology;
 import dss.vector.solutions.mo.InsecticideMethodology;
 import dss.vector.solutions.mo.MolecularAssayResult;
+import dss.vector.solutions.ontology.MO;
+import dss.vector.solutions.ontology.Term;
 
 public class MosquitoView extends MosquitoViewBase implements Reloadable
 {
   private static final long serialVersionUID = 1235599942174L;
-
-//  private static boolean    viewGenerated    = false;
 
   public MosquitoView()
   {
@@ -81,26 +82,21 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     return this.getMosquitoId() != null && !this.getMosquitoId().equals("");
   }
 
-  public void populateView(Mosquito mosquito)
+  public void populateView(Mosquito concrete)
   {
-    this.setSpecie(mosquito.getSpecie());
-    this.setCollection(mosquito.getCollection());
-    this.setGeneration(mosquito.getGeneration());
-    this.setIsofemale(mosquito.getIsofemale());
-    this.setIdentificationMethod(mosquito.getIdentificationMethod());
-    this.setTestDate(mosquito.getTestDate());
-    this.setMosquitoId(mosquito.getId());
-    this.setSampleId(mosquito.getSampleId());
-    this.clearSex();
-
-    for (Sex sex : mosquito.getSex())
-    {
-      this.addSex(sex);
-    }
+    this.setSpecie(concrete.getSpecie());
+    this.setCollection(concrete.getCollection());
+    this.setGeneration(concrete.getGeneration());
+    this.setIsofemale(concrete.getIsofemale());
+    this.setIdentificationMethod(concrete.getIdentificationMethod());
+    this.setTestDate(concrete.getTestDate());
+    this.setMosquitoId(concrete.getId());
+    this.setSampleId(concrete.getSampleId());
+    this.setSex(concrete.getSex());
 
     try
     {
-      this.setAssays(mosquito.getTestResults());
+      this.setAssays(concrete.getTestResults());
     }
     catch (Exception e)
     {
@@ -108,21 +104,16 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     }
   }
 
-  private void populateConcrete(Mosquito mosquito)
+  private void populateConcrete(Mosquito concrete)
   {
-    mosquito.setIdentificationMethod(this.getIdentificationMethod());
-    mosquito.setIsofemale(this.getIsofemale());
-    mosquito.setGeneration(this.getGeneration());
-    mosquito.setSpecie(this.getSpecie());
-    mosquito.setTestDate(this.getTestDate());
-    mosquito.setCollection(this.getCollection());
-    mosquito.setSampleId(this.getSampleId());
-    mosquito.clearSex();
-
-    for (Sex sex : this.getSex())
-    {
-      mosquito.addSex(sex);
-    }
+    concrete.setIdentificationMethod(this.getIdentificationMethod());
+    concrete.setIsofemale(this.getIsofemale());
+    concrete.setGeneration(this.getGeneration());
+    concrete.setSpecie(this.getSpecie());
+    concrete.setTestDate(this.getTestDate());
+    concrete.setCollection(this.getCollection());
+    concrete.setSampleId(this.getSampleId());
+    concrete.setSex(this.getSex());
   }
 
   public void delete()
@@ -218,12 +209,21 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       if (testResult != null)
       {
 
-        c.getMethod("setTestResult", testResult.getClass()).invoke(result, testResult);
+        Class<? extends Object> klass = testResult.getClass();
+        
+        if(klass.equals(MO.class))
+        {
+          klass = Term.class;
+        }
+        
+        c.getMethod("setTestResult", klass).invoke(result, testResult);
       }
 
       if (testMethod != null)
       {
-        c.getMethod("setTestMethod", testMethod.getClass()).invoke(result, testMethod);
+        Method method = c.getMethod("setTestMethod", Term.class);
+
+        method.invoke(result, testMethod);
       }
 
       c.getMethod("apply").invoke(result);
@@ -245,7 +245,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
         String attributeName = GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
 
         Object testResult = result.getTestResult();
-        AbstractTerm testMethod = result.getTestMethod();
+        Term testMethod = result.getTestMethod();
 
         String resultName = "set" + attributeName;
         try

@@ -905,7 +905,7 @@
           <reference
             name="collectionMethod"
             label="Collection Method"
-            type="dss.vector.solutions.mo.CollectionMethod"
+            type="dss.vector.solutions.ontology.Term"
             required="true" />
         </attributes>
         <mdMethod
@@ -946,7 +946,7 @@
           <mdParameter
             name="collectionMethod"
             label="Colllection Method"
-            type="dss.vector.solutions.mo.CollectionMethod"
+            type="dss.vector.solutions.ontology.Term"
             order="2" />
         </mdMethod>
       </mdBusiness>
@@ -968,7 +968,7 @@
           <reference
             name="geoEntity"
             label="Geo Entity"
-            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
         </attributes>
       </mdView>
 
@@ -1040,7 +1040,7 @@
           <mdParameter
             name="collectionMethod"
             label="Colllection Method"
-            type="dss.vector.solutions.mo.CollectionMethod"
+            type="dss.vector.solutions.ontology.Term"
             order="2" />
         </mdMethod>
       </mdBusiness>
@@ -1183,12 +1183,12 @@
           <reference
             name="specie"
             label="Species"
-            type="dss.vector.solutions.mo.Specie"
+            type="dss.vector.solutions.ontology.Term"
             required="false" />
           <reference
             name="identificationMethod"
             label="Identification Method"
-            type="dss.vector.solutions.mo.IdentificationMethod"
+            type="dss.vector.solutions.ontology.Term"
             required="false" />
           <reference
             name="collection"
@@ -1377,13 +1377,13 @@
           <reference
             name="specie"
             label="Species"
-            type="dss.vector.solutions.mo.Specie"
+            type="dss.vector.solutions.ontology.Term"
             required="false"
             description="The true specie of the collection" />
           <reference
             name="identificationMethod"
             label="Identification Method"
-            type="dss.vector.solutions.mo.IdentificationMethod"
+            type="dss.vector.solutions.ontology.Term"
             description="Method used to indentify the true specie collection" />
           <reference
             name="collection"
@@ -1499,19 +1499,18 @@
             description="Flag denoting if this mosquito is from the iso-female line"
             positiveLabel="Yes"
             negativeLabel="No" />
-          <enumeration
+          <reference
             name="sex"
             label="Sex"
             required="true"
             description="The sex of the mosquito"
-            selectMultiple="false"
-            type="dss.vector.solutions.entomology.Sex" />
+            type="dss.vector.solutions.ontology.Term" />
           <reference
             name="generation"
             label="Generation"
             required="true"
             description="The generation of the mosquito"
-            type="dss.vector.solutions.mo.Generation" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
         <mdMethod
           name="queryEntomology"
@@ -1920,7 +1919,7 @@
               name="collectionMethod"
               label="Colllection Method"
               description="The method used to collect these mosquitos"
-              type="dss.vector.solutions.mo.CollectionMethod"
+              type="dss.vector.solutions.ontology.Term"
               order="2" />
           </mdAction>
           <mdAction
@@ -1943,7 +1942,7 @@
             <mdParameter
               name="collectionMethod"
               label="Colllection Method"
-              type="dss.vector.solutions.mo.CollectionMethod"
+              type="dss.vector.solutions.ontology.Term"
               description="The method used to collect these mosquitos"
               order="2" />
           </mdAction>
@@ -1958,7 +1957,7 @@
             label="Search Assays"
             isPost="false"
             isQuery="false"
-            description="Action which forwards the user to a page where they enter in a collection id to use for view mosquito assays"/>
+            description="Action which forwards the user to a page where they enter in a collection id to use for view mosquito assays" />
           <mdAction
             name="viewAssays"
             description="Shows all the assays for this Mosquito collection"
@@ -2210,7 +2209,7 @@
           <reference
             name="activeIngredient"
             label="Active Ingredient"
-            type="dss.vector.solutions.mo.ActiveIngredient"
+            type="dss.vector.solutions.ontology.Term"
             required="true" />
           <double
             name="amount"
@@ -2245,7 +2244,7 @@
           <reference
             name="specie"
             label="Species"
-            type="dss.vector.solutions.mo.Specie"
+            type="dss.vector.solutions.ontology.Term"
             description="The Specie of mosqito being tested."
             required="false" />
           <reference
@@ -2280,11 +2279,11 @@
           <reference
             name="testMethod"
             label="Test Method"
-            type="dss.vector.solutions.mo.ResistanceMethodology" />
+            type="dss.vector.solutions.ontology.Term" />
           <reference
             name="identificationMethod"
             label="Identification Method"
-            type="dss.vector.solutions.mo.IdentificationMethod"
+            type="dss.vector.solutions.ontology.Term"
             required="false" />
           <boolean
             name="isofemale"
@@ -2299,7 +2298,7 @@
             label="Generation"
             required="true"
             description="The generation of the mosquito"
-            type="dss.vector.solutions.mo.Generation" />
+            type="dss.vector.solutions.ontology.Term" />
           <integer
             name="exposureTime"
             label="Exposure Time (minutes)"
@@ -2364,13 +2363,12 @@
             description="Gravid value (Only applicable when females are present)"
             rejectNegative="true"
             required="false" />
-          <enumeration
+          <reference
             name="sex"
             label="Sex"
             required="true"
             description="The sex of the tested mosquitos"
-            selectMultiple="false"
-            type="dss.vector.solutions.entomology.AssaySex" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
         <mdMethod
           name="getTestIntervals"
@@ -2442,13 +2440,13 @@
             label="Beginning Age"
             required="false"
             description="Starting age of the age range"
-            type="dss.vector.solutions.mo.LarvaeAge" />
+            type="dss.vector.solutions.ontology.Term" />
           <reference
             name="endPoint"
             label="End Age"
             required="false"
             description="End age of the age range"
-            type="dss.vector.solutions.mo.LarvaeAge" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
         <mdMethod
           name="getTestIntervals"
@@ -2510,7 +2508,7 @@
           <reference
             name="testMethod"
             label="Test Method"
-            type="dss.vector.solutions.mo.ResistanceMethodology" />
+            type="dss.vector.solutions.ontology.Term" />
           <integer
             name="holdingTime"
             label="Holding Time (hr)"
@@ -2557,12 +2555,11 @@
             rejectZero="true"
             required="true"
             description="The total number mosquitos tested" />
-          <enumeration
+          <reference
             name="surfacePostion"
             label="Position on surface"
-            type="dss.vector.solutions.SurfacePosition"
-            selectMultiple="false"
-            description="The surface position of the insecticide" />
+            description="The surface position of the insecticide"
+            type="dss.vector.solutions.ontology.Term" />
           <integer
             name="timeOnSurface"
             label="Time on Surface (weeks)"
@@ -2591,13 +2588,12 @@
             description="Gravid value (Only applicable when females are present)"
             rejectNegative="true"
             required="false" />
-          <enumeration
+          <reference
             name="sex"
             label="Sex"
             required="true"
             description="The sex of the tested mosquitos"
-            selectMultiple="false"
-            type="dss.vector.solutions.entomology.AssaySex" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
         <mdMethod
           name="getOverallMortalityRate"
@@ -3284,7 +3280,7 @@
             required="true"
             defaultValue="true"
             negativeLabel="Not Editable"
-            positiveLabel="Editable"/>
+            positiveLabel="Editable" />
         </attributes>
         <mdMethod
           name="getStr"
@@ -3631,35 +3627,31 @@
       </object>
       <!--
         <object type="dss.vector.solutions.Property" id="dateFormat">
-        <attribute name="propertyName" value="dateFormat" />
-        <attribute name="displayLabel" value="Date Format" />
-        <attribute name="propertyPackage"
-        value="dss.vector.solutions" /> <attribute
-        name="propertyValue" value="mm/dd/yyyy" /> <attribute
+        <attribute name="propertyName" value="dateFormat" /> <attribute
+        name="displayLabel" value="Date Format" /> <attribute
+        name="propertyPackage" value="dss.vector.solutions" />
+        <attribute name="propertyValue" value="mm/dd/yyyy" /> <attribute
         name="propertyType" value="String" /> <attribute
-        name="propertyValidator" value="^[MmDdYy/- ]+$" />
-        <attribute name="description" value="Date Format For
-        Display" /> <attribute name="validValues"
-        value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" /> </object> <object
-        type="dss.vector.solutions.Property" id="systemDateFormat">
-        <attribute name="propertyName" value="systemDateFormat" />
-        <attribute name="displayLabel" value="Date Format" />
-        <attribute name="propertyPackage"
-        value="dss.vector.solutions" /> <attribute
-        name="propertyValue" value="yyyy-mm-dd" /> <attribute
-        name="propertyType" value="String" /> <attribute
-        name="propertyValidator" value="^yyyy-mm-dd$" /> <attribute
-        name="description" value="Date Format for system date
-        Properties, NOT EDITABLE" /> <attribute name="validValues"
-        value="yyyy-mm-dd" /> </object> <object
-        type="dss.vector.solutions.Property" id="dateFormatShort">
-        <attribute name="propertyName" value="dateFormatShort" />
-        <attribute name="displayLabel" value="Short Date Format" />
-        <attribute name="propertyPackage"
-        value="dss.vector.solutions" /> <attribute
-        name="propertyValue" value="mm/yy" /> <attribute
-        name="propertyType" value="String" /> <attribute
-        name="propertyValidator" value="^[MmDdYy/- ]+$" />
+        name="propertyValidator" value="^[MmDdYy/- ]+$" /> <attribute
+        name="description" value="Date Format For Display" /> <attribute
+        name="validValues" value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" />
+        </object> <object type="dss.vector.solutions.Property"
+        id="systemDateFormat"> <attribute name="propertyName"
+        value="systemDateFormat" /> <attribute name="displayLabel"
+        value="Date Format" /> <attribute name="propertyPackage"
+        value="dss.vector.solutions" /> <attribute name="propertyValue"
+        value="yyyy-mm-dd" /> <attribute name="propertyType"
+        value="String" /> <attribute name="propertyValidator"
+        value="^yyyy-mm-dd$" /> <attribute name="description"
+        value="Date Format for system date Properties, NOT EDITABLE" />
+        <attribute name="validValues" value="yyyy-mm-dd" /> </object>
+        <object type="dss.vector.solutions.Property"
+        id="dateFormatShort"> <attribute name="propertyName"
+        value="dateFormatShort" /> <attribute name="displayLabel"
+        value="Short Date Format" /> <attribute name="propertyPackage"
+        value="dss.vector.solutions" /> <attribute name="propertyValue"
+        value="mm/yy" /> <attribute name="propertyType" value="String"
+        /> <attribute name="propertyValidator" value="^[MmDdYy/- ]+$" />
         <attribute name="validValues"
         value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" /> <attribute
         name="description" value="Short Date Format, should not include
@@ -3851,7 +3843,7 @@
         extends="dss.vector.solutions.entomology.assay.AssayTestResult">
         <attributes>
           <reference
-            type="dss.vector.solutions.mo.InsecticideMethodology"
+            type="dss.vector.solutions.ontology.Term"
             name="testMethod"
             label="Test Methodology"
             required="false"
@@ -3871,7 +3863,7 @@
             label="Kdr L104F (west)"
             required="false"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
       </mdBusiness>
 
@@ -3887,7 +3879,7 @@
             label="Kdr L104S (east)"
             required="false"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
       </mdBusiness>
 
@@ -3903,7 +3895,7 @@
             label="Insensitive AChE"
             required="false"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
       </mdBusiness>
 
@@ -3919,7 +3911,7 @@
             label="AChE F290V"
             required="false"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
       </mdBusiness>
 
@@ -3935,7 +3927,7 @@
             label="AChE F331W"
             required="false"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
       </mdBusiness>
 
@@ -3951,7 +3943,7 @@
             label="AChE G119S"
             required="false"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
       </mdBusiness>
 
@@ -3967,7 +3959,7 @@
             label="GABA Rdl A296G"
             required="false"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
       </mdBusiness>
 
@@ -3983,7 +3975,7 @@
             label="GABA Rdl A296S"
             required="false"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
       </mdBusiness>
 
@@ -4124,7 +4116,7 @@
         generateController="false">
         <attributes>
           <reference
-            type="dss.vector.solutions.mo.InfectivityMethodology"
+            type="dss.vector.solutions.ontology.Term"
             name="testMethod"
             label="Test Methodology"
             required="false"
@@ -4205,6 +4197,86 @@
             negativeLabel="Negative" />
         </attributes>
       </mdBusiness>
+
+      <mdTree
+        name="dss.vector.solutions.entomology.assay.TargetSiteTestResult"
+        label="Target Site Test Result"
+        generateController="false">
+        <attributes>
+          <reference
+            type="dss.vector.solutions.ontology.Term"
+            name="testMethod"
+            label="Test Methodology"
+            required="false"
+            description="The test methodology use for the target site assay" />
+          <reference
+            name="testResult"
+            label="Test Result"
+            required="false"
+            description="Target Site assay result"
+            type="dss.vector.solutions.ontology.Term" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.entomology.Mosquito"
+          method="MosquitosWithTargetSiteResults" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="TargetSiteResults" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.entomology.assay.InfectivityTestResult"
+        label="Infectivity Test Result"
+        generateController="false">
+        <attributes>
+          <reference
+            type="dss.vector.solutions.ontology.Term"
+            name="testMethod"
+            label="Test Methodology"
+            required="false"
+            description="The test methodology use for the infectivity assay" />
+          <boolean
+            name="testResult"
+            label="Test Result"
+            required="false"
+            description="Infectivity test result"
+            negativeLabel="Not Elevated"
+            positiveLabel="Elevated" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.entomology.Mosquito"
+          method="MosquitosWithInfectivityResults" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="InfectivityResults" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.entomology.assay.BiochemicalTestResult"
+        label="Biochemical Test Result"
+        generateController="false">
+        <attributes>
+          <boolean
+            name="testResult"
+            label="Test Result"
+            required="false"
+            description="Biochemical test result"
+            negativeLabel="Not Elevated"
+            positiveLabel="Elevated" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.entomology.Mosquito"
+          method="MosquitosWithBiochemicalResults" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="BiochemicalResults" />
+      </mdTree>
 
       <mdView
         name="dss.vector.solutions.entomology.MosquitoView"
@@ -5510,29 +5582,29 @@
       <object
         type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.GeoEntity">
-      <attribute
-        name="political"
-        value="false" />
-      <attribute
-        name="sprayTargetAllowed"
-        value="false" />
-      <attributeReference
-        name="geoEntityClass"
-        key="dss.vector.solutions.geo.generated.GeoEntity" />
+        <attribute
+          name="political"
+          value="false" />
+        <attribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <attributeReference
+          name="geoEntityClass"
+          key="dss.vector.solutions.geo.generated.GeoEntity" />
       </object>
 
       <object
         type="dss.vector.solutions.geo.GeoHierarchy"
         key="dss.vector.solutions.geo.generated.Earth">
-      <attribute
-        name="political"
-        value="true" />
-      <attribute
-        name="sprayTargetAllowed"
-        value="true" />
-      <attributeReference
-        name="geoEntityClass"
-        key="dss.vector.solutions.geo.generated.Earth" />
+        <attribute
+          name="political"
+          value="true" />
+        <attribute
+          name="sprayTargetAllowed"
+          value="true" />
+        <attributeReference
+          name="geoEntityClass"
+          key="dss.vector.solutions.geo.generated.Earth" />
       </object>
 
       <object
@@ -5549,100 +5621,6 @@
           value="000000" />
       </object>
     </create>
-
-	<create>
-      <object
-        type="com.terraframe.mojo.system.Roles"
-        key="Roles.mdss.coordinator">
-        <attribute
-          name="roleName"
-          value="mdss.coordinator" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="MDSS Coordinator" />
-        </attributeStruct>
-      </object>
-      <object
-        type="com.terraframe.mojo.system.Roles"
-        key="Roles.mdss.entomologist">
-        <attribute
-          name="roleName"
-          value="mdss.entomologist" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="Entomologist" />
-        </attributeStruct>
-      </object>
-      <object
-        type="com.terraframe.mojo.system.Roles"
-        key="Roles.mdss.operationalManager">
-        <attribute
-          name="roleName"
-          value="mdss.operationalManager" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="Operational Manager" />
-        </attributeStruct>
-      </object>
-      <object
-        type="com.terraframe.mojo.system.Roles"
-        key="Roles.mdss.MDSS">
-        <attribute
-          name="roleName"
-          value="mdss.MDSS" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="MDSS" />
-        </attributeStruct>
-      </object>
-      <object
-        type="com.terraframe.mojo.system.Roles"
-        key="Roles.mdss.GUIVisibility">
-        <attribute
-          name="roleName"
-          value="mdss.GUIVisibility" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="GUIVisibility" />
-        </attributeStruct>
-      </object>
-      <object
-        type="com.terraframe.mojo.system.Roles"
-        key="Roles.mdss.dataCapturer">
-        <attribute
-          name="roleName"
-          value="mdss.dataCapturer" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="Data Capturer" />
-        </attributeStruct>
-      </object>
-      <object
-        type="com.terraframe.mojo.system.Roles"
-        key="Roles.mdss.manager">
-        <attribute
-          name="roleName"
-          value="mdss.manager" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="Manager" />
-        </attributeStruct>
-      </object>
-	</create>
 
     <update>
       <object

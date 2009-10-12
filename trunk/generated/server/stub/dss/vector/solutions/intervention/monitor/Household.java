@@ -97,7 +97,7 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
   {
     if(this.getHasWindows() != null && !this.getHasWindows())
     {
-      if(this.getWindowType().size() > 0)
+      if(this.getWindowType() != null)
       {
         String msg = "A window type is not allowed to be set when has windows is false";
         WindowTypeProblem p = new WindowTypeProblem(msg);

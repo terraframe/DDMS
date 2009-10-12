@@ -1,7 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.AssayTestResultBase;
-import dss.vector.solutions.mo.AbstractTerm;
+import dss.vector.solutions.ontology.Term;
 
 public abstract class AssayTestResult extends AssayTestResultBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -28,7 +27,7 @@ public abstract class AssayTestResult extends AssayTestResultBase implements com
    */
   public abstract Object getTestResult();
   
-  public AbstractTerm getTestMethod()
+  public Term getTestMethod()
   {
     return null;
   }

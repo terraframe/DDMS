@@ -1,5 +1,5 @@
 <version
-  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <delete>
@@ -807,12 +807,12 @@
               name="roof"
               label="Roof Surface"
               description="The roof surface"
-              type="dss.vector.solutions.intervention.monitor.Roof" />
+              type="dss.vector.solutions.ontology.Term" />
             <reference
               name="wall"
               label="Wall Surface"
               description="The wall surface"
-              type="dss.vector.solutions.intervention.monitor.Wall" />
+              type="dss.vector.solutions.ontology.Term" />
           </attributes>
         </create>
       </mdBusiness>

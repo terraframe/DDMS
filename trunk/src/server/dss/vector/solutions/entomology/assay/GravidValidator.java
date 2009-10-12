@@ -1,14 +1,12 @@
 package dss.vector.solutions.entomology.assay;
 
-import java.util.List;
-
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.entomology.AssaySex;
+import dss.vector.solutions.ontology.Term;
 
 public class GravidValidator implements Reloadable
 {
-  private List<AssaySex> sex;
+  private Term sex;
 
   private Integer gravid;
 
@@ -26,7 +24,7 @@ public class GravidValidator implements Reloadable
     this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay);
   }
 
-  public GravidValidator(List<AssaySex> sex, Integer gravid, Integer quantityTested, AbstractAssay assay)
+  public GravidValidator(Term sex, Integer gravid, Integer quantityTested, AbstractAssay assay)
   {
     this.sex = sex;
     this.gravid = gravid;
@@ -40,7 +38,10 @@ public class GravidValidator implements Reloadable
     //null is allowed
     if(gravid == null)return;
 
-    if (gravid != 0 && sex.size() > 0 && ( sex.get(0).equals(AssaySex.MALE) || sex.get(0).equals(AssaySex.UNKNOWN)))
+    String maleId = "";
+    String unknownId = "";
+
+    if (gravid != 0 && sex != null && ( sex.getTermId().equals(maleId) || sex.getTermId().equals(unknownId) ))
     {
       String msg = "It is impossible to have gravid values on male or unknown sex assays";
 

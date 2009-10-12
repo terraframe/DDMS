@@ -15,8 +15,6 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.intervention.BloodslideResponse;
 import dss.vector.solutions.intervention.FeverResponse;
-import dss.vector.solutions.intervention.FeverTreatment;
-import dss.vector.solutions.intervention.FeverTreatmentQuery;
 import dss.vector.solutions.intervention.HumanSex;
 import dss.vector.solutions.intervention.RDTResponse;
 import dss.vector.solutions.intervention.RDTResult;
@@ -26,11 +24,8 @@ import dss.vector.solutions.intervention.monitor.HouseholdQuery;
 import dss.vector.solutions.intervention.monitor.Net;
 import dss.vector.solutions.intervention.monitor.Person;
 import dss.vector.solutions.intervention.monitor.SurveyPoint;
-import dss.vector.solutions.intervention.monitor.Wall;
-import dss.vector.solutions.intervention.monitor.WallQuery;
 import dss.vector.solutions.intervention.monitor.WindowType;
-import dss.vector.solutions.surveillance.TreatmentGrid;
-import dss.vector.solutions.surveillance.TreatmentGridQuery;
+import dss.vector.solutions.ontology.Term;
 
 public class SurveyExcelView extends SurveyExcelViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -71,12 +66,12 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     person.setSleptUnderNet(this.getSleptUnderNet());
     person.setHaemoglobinMeasured(this.getHaemoglobinMeasured());
     person.setHaemoglobin(this.getHaemoglobin());
-    person.setAnaemiaTreatment(getTreatment(this.getAnaemiaTreatment()));
+    person.setAnaemiaTreatment(Term.validateByDisplayLabel(this.getAnaemiaTreatment(), getAnaemiaTreatmentMd()));
     person.setIron(this.getIron());
     
-    person.addSex(getHumanSexByLabel(this.getSex()));
-    person.addPerformedRDT(getRDTResponseByLabel(this.getPerformedRDT()));
-    person.addBloodslide(getBloodsideByLabel(this.getBloodslide()));
+    person.setSex(Term.validateByDisplayLabel(this.getSex(), getSexMd()));
+    person.setPerformedRDT(Term.validateByDisplayLabel(this.getPerformedRDT(), getPerformedRDTMd()));
+    person.setBloodslide(Term.validateByDisplayLabel(this.getBloodslide(), getBloodslideMd()));
     
     // This block mirrors the check boxes for RDT Results
     if (this.getMalariaePositive() != null && this.getMalariaePositive())
@@ -94,38 +89,14 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     if (this.getVivaxPositive() != null && this.getVivaxPositive())
       person.addRDTResult(RDTResult.VIVAX_POSITIVE);
     
-    person.setRdtTreatment(getTreatment(this.getRdtTreatment()));    
-    person.addFever(getFeverByLabel(this.getFever()));
+    person.setRdtTreatment(Term.validateByDisplayLabel(this.getRdtTreatment(), getRdtTreatmentMd()));    
+    person.setFever(Term.validateByDisplayLabel(this.getFever(), getFeverMd()));
+    person.setFeverTreatment(Term.validateByDisplayLabel(this.getFeverTreatement(), getFeverTreatementMd()));
     
-    FeverTreatmentQuery ftq = new FeverTreatmentQuery(new QueryFactory());
-    ftq.WHERE(ftq.getDisplayLabel().currentLocale().EQ(this.getFeverTreatement()));
-    OIterator<? extends FeverTreatment> iterator = ftq.getIterator();
-    if (iterator.hasNext())
-    {
-      person.setFeverTreatment(iterator.next());
-    }
-    iterator.close();
-    
-    person.addMalaria(getFeverByLabel(this.getMalaria()));
-    person.setMalariaTreatment(getTreatment(this.getMalariaTreatment()));
-    person.addPayment(getFeverByLabel(this.getPayment()));
+    person.setMalaria(Term.validateByDisplayLabel(this.getMalaria(), getMalariaMd()));
+    person.setMalariaTreatment(Term.validateByDisplayLabel(this.getMalariaTreatment(), getMalariaTreatmentMd()));
+    person.setPayment(Term.validateByDisplayLabel(this.getPayment(), getPaymentMd()));
     person.apply();
-  }
-
-  private TreatmentGrid getTreatment(String label)
-  {
-    TreatmentGrid treatmentGrid = null;
-    TreatmentGridQuery tgq = new TreatmentGridQuery(new QueryFactory());
-    tgq.WHERE(tgq.getDisplayLabel().currentLocale().EQ(label));
-    
-    OIterator<? extends TreatmentGrid> iterator = tgq.getIterator();
-    if (iterator.hasNext())
-    {
-      treatmentGrid = iterator.next();
-    }
-    iterator.close();
-    
-    return treatmentGrid;
   }
 
   public static void setupImportListener(ExcelImporter importer, String... params)
@@ -200,26 +171,10 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     house.setRooms(this.getRooms());
     house.setSleptUnderNets(this.getSleptUnderNets());
     house.setUrban(this.getUrban());
-
-    WindowType windowType = getWindowTypeByLabel(this.getWindowType());
-    
-    if(windowType != null)
-    {
-      house.addWindowType(windowType);
-    }
-    
-    WallQuery wallQuery = new WallQuery(new QueryFactory());
-    wallQuery.WHERE(wallQuery.getDisplayLabel().currentLocale().EQ(this.getWallName()));
-    OIterator<? extends Wall> wallIterator = wallQuery.getIterator();
-    Wall wall = null;
-    if (wallIterator.hasNext())
-    {
-      wall = wallIterator.next();
-    }
-    wallIterator.close();
-    
-    house.setWall(wall);
+    house.setWindowType(Term.validateByDisplayLabel(this.getWindowType(), getWindowTypeMd()));
+    house.setWall(Term.validateByDisplayLabel(this.getWallName(), getWallNameMd()));
     house.setWallInfo(this.getWallInfo());
+    
     return house;
   }
   

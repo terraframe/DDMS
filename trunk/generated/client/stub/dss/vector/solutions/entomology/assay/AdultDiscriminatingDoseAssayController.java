@@ -1,7 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,13 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
-import dss.vector.solutions.entomology.AssaySexDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.InsecticideDTO;
-import dss.vector.solutions.mo.GenerationDTO;
-import dss.vector.solutions.mo.IdentificationMethodDTO;
-import dss.vector.solutions.mo.ResistanceMethodologyDTO;
-import dss.vector.solutions.mo.SpecieDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -80,8 +74,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    this.setupRequest();
-
+    this.setupMO(dto);
     req.setAttribute("item", dto);
 
     render("viewComponent.jsp");
@@ -178,6 +171,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     }
 
     this.setupRequest();
+    this.setupMO(dto);
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
@@ -221,9 +215,11 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   {
     try
     {
-      AdultDiscriminatingDoseAssayDTO dto = AdultDiscriminatingDoseAssayDTO.lock(super
-          .getClientRequest(), id);
+      AdultDiscriminatingDoseAssayDTO dto = AdultDiscriminatingDoseAssayDTO.lock(super.getClientRequest(), id);
+
       this.setupRequest();
+      this.setupMO(dto);
+      
       req.setAttribute("item", dto);
 
       render("editComponent.jsp");
@@ -247,18 +243,22 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   {
     this.view(id);
   }
+  
+  private void setupMO(AdultDiscriminatingDoseAssayDTO dto)
+  {
+    req.setAttribute("sex", dto.getSex());
+    req.setAttribute("generation", dto.getGeneration());
+    req.setAttribute("identificationMethod", dto.getIdentificationMethod());
+    req.setAttribute("testMethod", dto.getTestMethod());
+    req.setAttribute("specie", dto.getSpecie());
+  }
+
 
   private void setupRequest()
   {
     ClientRequestIF request = super.getClientSession().getRequest();
 
-    req.setAttribute("sex", AssaySexDTO.allItems(request));
-    req.setAttribute("generation", Arrays.asList(GenerationDTO.getAllActive(request)));
-    req.setAttribute("identificationMethod", Arrays
-        .asList(IdentificationMethodDTO.getAllActive(request)));
-    req.setAttribute("testMethod", Arrays.asList(ResistanceMethodologyDTO.getAllActive(request)));
     req.setAttribute("insecticide", InsecticideDTO.getAll(request));
-    req.setAttribute("specie", Arrays.asList(SpecieDTO.getAllActive(request)));
   }
 
 }
