@@ -5,9 +5,10 @@
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
+<%@page import="dss.vector.solutions.intervention.monitor.HouseholdDTO"%>
 
 
-<%@page import="dss.vector.solutions.intervention.monitor.HouseholdDTO"%><jsp:include page="/WEB-INF/MOSearch.jsp" />
+<jsp:include page="/WEB-INF/MOSearch.jsp" />
 
     <mjl:component item="${item}" param="dto">
       <mjl:input type="hidden" param="surveyPoint" value="${item.surveyPoint.id}" />

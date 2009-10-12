@@ -1,24 +1,20 @@
 package dss.vector.solutions.intervention.monitor;
 
-import java.util.Arrays;
-import java.util.List;
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.intervention.BloodslideResponseDTO;
-import dss.vector.solutions.intervention.FeverResponseDTO;
-import dss.vector.solutions.intervention.FeverTreatmentDTO;
-import dss.vector.solutions.intervention.HumanSexDTO;
-import dss.vector.solutions.intervention.RDTResponseDTO;
 import dss.vector.solutions.intervention.RDTResultDTO;
-import dss.vector.solutions.intervention.ResponseMasterDTO;
-import dss.vector.solutions.surveillance.TreatmentGridDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class PersonController extends PersonControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class PersonController extends PersonControllerBase implements Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/intervention/monitor/Person/";
 
@@ -26,58 +22,55 @@ public class PersonController extends PersonControllerBase implements
 
   private static final long  serialVersionUID = 1239641308081L;
 
-  public PersonController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public PersonController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  public void cancel(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(PersonViewDTO dto) throws IOException, ServletException
   {
     dto = PersonDTO.unlockView(super.getClientRequest(), dto.getConcreteId());
 
     this.view(dto);
   }
 
-  public void failCancel(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(PersonViewDTO dto) throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void view(String id) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
 
     this.view(PersonDTO.getView(clientRequest, id));
   }
 
-  public void view(PersonViewDTO person) throws java.io.IOException, javax.servlet.ServletException
+  public void view(PersonViewDTO dto) throws IOException, ServletException
   {
     RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("id", person.getConcreteId());
+    utility.put("id", dto.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    req.setAttribute("item", person);
-    req.setAttribute("page_title", "View Person");
+    this.setupReferences(dto);
+    
+    req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }
 
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failView(String id) throws IOException, ServletException
   {
     // This should never happen
     this.viewAll();
   }
 
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void edit(String id) throws IOException, ServletException
   {
     try
     {
       PersonViewDTO dto = PersonDTO.lockView(super.getClientRequest(), id);
 
-      this.setupRequest();
-      req.setAttribute("item", dto);
-      req.setAttribute("page_title", "Edit Person");
-      render("editComponent.jsp");
+      this.edit(dto);
     }
     catch (ProblemExceptionDTO e)
     {
@@ -94,12 +87,21 @@ public class PersonController extends PersonControllerBase implements
 
   }
 
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  private void edit(PersonViewDTO dto) throws IOException, ServletException
+  {
+    this.setupReferences(dto);
+    this.setupRequest();
+    
+    req.setAttribute("item", dto);
+    render("editComponent.jsp");
+  }
+
+  public void failEdit(String id) throws IOException, ServletException
   {
     this.view(id);
   }
 
-  public void update(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(PersonViewDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -120,15 +122,12 @@ public class PersonController extends PersonControllerBase implements
     }
   }
 
-  public void failUpdate(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(PersonViewDTO dto) throws IOException, ServletException
   {
-    this.setupRequest();
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update Person");
-    render("editComponent.jsp");
+    this.edit(dto);
   }
 
-  public void delete(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(PersonViewDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -152,16 +151,12 @@ public class PersonController extends PersonControllerBase implements
     }
   }
 
-  public void failDelete(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(PersonViewDTO dto) throws IOException, ServletException
   {
-    this.setupRequest();
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Person");
-
-    render("editComponent.jsp");
+    this.edit(dto);
   }
 
-  public void create(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(PersonViewDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -183,49 +178,52 @@ public class PersonController extends PersonControllerBase implements
     }
   }
 
-  public void failCreate(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(PersonViewDTO dto) throws IOException, ServletException
   {
-    this.setupRequest();
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Person");
-    render("createComponent.jsp");
+    this.newInstance(dto);
   }
 
-  public void newInstance(String householdId) throws java.io.IOException, javax.servlet.ServletException
+  public void newInstance(String householdId) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     PersonViewDTO dto = new PersonViewDTO(clientRequest);
     dto.setHousehold(HouseholdDTO.get(clientRequest, householdId));
 
+    this.newInstance(dto);
+  }
+
+  private void newInstance(PersonViewDTO dto) throws IOException, ServletException
+  {
+    this.setupReferences(dto);
     this.setupRequest();
+    
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Person");
     render("createComponent.jsp");
   }
 
-  public void failNewInstance(String householdId) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failNewInstance(String householdId) throws IOException, ServletException
   {
     new HouseholdController(req, resp, isAsynchronous).view(householdId);
+  }
+  
+  private void setupReferences(PersonViewDTO dto)
+  {
+    req.setAttribute("anaemiaTreatment", dto.getAnaemiaTreatment());
+    req.setAttribute("bloodslide", dto.getBloodslide());
+    req.setAttribute("fever", dto.getFever());
+    req.setAttribute("feverTreatment", dto.getFeverTreatment());
+    req.setAttribute("malaria", dto.getMalaria());
+    req.setAttribute("malariaTreatment", dto.getMalariaTreatment());
+    req.setAttribute("payment", dto.getPayment());
+    req.setAttribute("performedRDT", dto.getPerformedRDT());
+    req.setAttribute("rdtTreatment", dto.getRdtTreatment());
+    req.setAttribute("sex", dto.getSex());    
   }
 
   private void setupRequest()
   {
     ClientRequestIF request = super.getClientSession().getRequest();
-    List<TreatmentGridDTO> drugs = Arrays.asList(TreatmentGridDTO.getAll(request));
-    List<FeverTreatmentDTO> treatments = Arrays.asList(FeverTreatmentDTO.getAllActive(request));
-    List<ResponseMasterDTO> response = FeverResponseDTO.allItems(request);
 
-    req.setAttribute("anaemiaTreatment", drugs);
-    req.setAttribute("bloodslide", BloodslideResponseDTO.allItems(request));
-    req.setAttribute("fever", response);
-    req.setAttribute("feverTreatment", treatments);
-    req.setAttribute("malaria", response);
-    req.setAttribute("malariaTreatment", drugs);
-    req.setAttribute("payment", response);
-    req.setAttribute("performedRDT", RDTResponseDTO.allItems(request));
     req.setAttribute("rDTResult", RDTResultDTO.allItems(request));
-    req.setAttribute("rdtTreatment", drugs);
-    req.setAttribute("sex", HumanSexDTO.allItems(request));
   }
 }

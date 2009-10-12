@@ -20,11 +20,9 @@
         ${item.age}
       </mjl:dt>
       <mjl:dt attribute="sex">
-        <ul>
-          <c:forEach var="enumName" items="${item.sexEnumNames}">
-            <li>${item.sexMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>
+        <c:if test="${sex != null}">
+          ${sex.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="pregnant">
         ${item.pregnant}
@@ -39,24 +37,22 @@
         ${item.haemoglobin}
       </mjl:dt>
       <mjl:dt attribute="anaemiaTreatment">
-        ${item.anaemiaTreatment.displayLabel}
+        <c:if test="${anaemiaTreatment != null}">
+          ${anaemiaTreatment.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="iron">
         ${item.iron}
       </mjl:dt>
       <mjl:dt attribute="performedRDT">
-        <ul>
-          <c:forEach var="enumName" items="${item.performedRDTEnumNames}">
-            <li>${item.performedRDTMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>
+        <c:if test="${performedRDT != null}">
+          ${performedRDT.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="bloodslide">
-        <ul>
-          <c:forEach var="enumName" items="${item.bloodslideEnumNames}">
-            <li>${item.bloodslideMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>
+        <c:if test="${bloodslide != null}">
+          ${bloodslide.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="rDTResult">
         <ul>
@@ -66,34 +62,34 @@
         </ul>
       </mjl:dt>
       <mjl:dt attribute="rdtTreatment">
-        ${item.rdtTreatment.displayLabel}
+        <c:if test="${rdtTreatment != null}">
+          ${rdtTreatment.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="fever">
-        <ul>
-          <c:forEach var="enumName" items="${item.feverEnumNames}">
-            <li>${item.feverMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>
+        <c:if test="${fever != null}">
+          ${fever.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="feverTreatment">
-        ${item.feverTreatment.displayLabel}
+        <c:if test="${feverTreatment != null}">
+          ${feverTreatment.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="malaria">
-        <ul>
-          <c:forEach var="enumName" items="${item.malariaEnumNames}">
-            <li>${item.malariaMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>
+        <c:if test="${malaria != null}">
+          ${malaria.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="malariaTreatment">
-        ${item.malariaTreatment.displayLabel}
+        <c:if test="${malariaTreatment != null}">
+          ${malariaTreatment.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="payment">
-        <ul>
-          <c:forEach var="enumName" items="${item.paymentEnumNames}">
-            <li>${item.paymentMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>
+        <c:if test="${payment != null}">
+          ${payment.displayLabel}
+        </c:if>
       </mjl:dt>
     </mjl:component>
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.PersonController.edit.mojo" name="dss.vector.solutions.intervention.monitor.Person.form.edit.button" />
