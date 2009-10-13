@@ -13,11 +13,10 @@ import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
-import dss.vector.solutions.geo.generated.PermanentWaterBody;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSiteDTO;
 import dss.vector.solutions.geo.generated.Surface;
-import dss.vector.solutions.geo.generated.Trap;
+import dss.vector.solutions.geo.generated.WaterBody;
 import dss.vector.solutions.ontology.MO;
 import dss.vector.solutions.ontology.MODTO;
 import dss.vector.solutions.ontology.Term;
@@ -81,9 +80,9 @@ public class TestFixture
     return site;
   }
 
-  public static PermanentWaterBody createRandomPermanentWaterBody()
+  public static WaterBody createRandomPermanentWaterBody()
   {
-    PermanentWaterBody body = new PermanentWaterBody();
+    WaterBody body = new WaterBody();
     body.setGeoId(TestFixture.getRandomGeoId());
     body.setEntityName("Test Site");
     body.apply();
@@ -91,15 +90,6 @@ public class TestFixture
     return body;
   }
 
-  public static Trap createRandomFixedTrap()
-  {
-    Trap fixedTrap = new Trap();
-    fixedTrap.setGeoId(TestFixture.getRandomGeoId());
-    fixedTrap.setEntityName("Fixed Trap");
-    fixedTrap.apply();
-    
-    return fixedTrap;
-  }
 
   public static HealthFacility createRandomFacility()
   {

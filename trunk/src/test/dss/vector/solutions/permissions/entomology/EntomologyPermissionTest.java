@@ -13,8 +13,8 @@ import com.terraframe.mojo.web.WebClientSession;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.TestFixture;
-import dss.vector.solutions.geo.generated.PermanentWaterBody;
 import dss.vector.solutions.geo.generated.SentinelSite;
+import dss.vector.solutions.geo.generated.WaterBody;
 import dss.vector.solutions.ontology.Term;
 
 public abstract class EntomologyPermissionTest extends TestCase
@@ -41,7 +41,7 @@ public abstract class EntomologyPermissionTest extends TestCase
 
   private static SentinelSite       site;
 
-  private static PermanentWaterBody waterBody;
+  private static WaterBody waterBody;
 
   private static Term               term;
 

@@ -1,6 +1,5 @@
 package dss.vector.solutions;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,35 +65,28 @@ public class Universal {
 		return part;
 	}
 
-	private final String[] geometryXML = {
-	        "<"+XMLTags.MULTIPOLYGON_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\"multiPolygon\" "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"Multi Polygon\" "+XMLTags.DESCRIPTION_ATTRIBUTE+"=\"Multi Polygon\" "+XMLTags.REMOVE_ATTRIBUTE+"=\"false\" "+XMLTags.REQUIRED_ATTRIBUTE+"=\"false\" "+XMLTags.SRID_ATTRIBUTE+"=\"4326\" "+XMLTags.DIMENSION_ATTRIBUTE+"=\"2\" />",
-	        "<"+XMLTags.POINT_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\"point\" "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"Point\" "+XMLTags.DESCRIPTION_ATTRIBUTE+"=\"Point\" "+XMLTags.REMOVE_ATTRIBUTE+"=\"false\" "+XMLTags.REQUIRED_ATTRIBUTE+"=\"false\" "+XMLTags.SRID_ATTRIBUTE+"=\"4326\" "+XMLTags.DIMENSION_ATTRIBUTE+"=\"2\" />",
-	        "<"+XMLTags.MULTILINESTRING_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\"multiLineString\" "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"Multi LineString\" "+XMLTags.DESCRIPTION_ATTRIBUTE+"=\"Multi LineString\" "+XMLTags.REMOVE_ATTRIBUTE+"=\"false\" "+XMLTags.REQUIRED_ATTRIBUTE+"=\"false\" "+XMLTags.SRID_ATTRIBUTE+"=\"4326\" "+XMLTags.DIMENSION_ATTRIBUTE+"=\"2\" />"
-//	        "<"+XMLTags.LINESTRING_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\"lineString\" "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"LineString\" "+XMLTags.DESCRIPTION_ATTRIBUTE+"=\"LineString\" "+XMLTags.REMOVE_ATTRIBUTE+"=\"false\" "+XMLTags.REQUIRED_ATTRIBUTE+"=\"false\" "+XMLTags.SRID_ATTRIBUTE+"=\"4326\" "+XMLTags.DIMENSION_ATTRIBUTE+"=\"2\" />"
-	};
-
+	private static String geometryXML = "<"+XMLTags.MULTIPOLYGON_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\"multiPolygon\" "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"Multi Polygon\" "+XMLTags.DESCRIPTION_ATTRIBUTE+"=\"Multi Polygon\" "+XMLTags.REMOVE_ATTRIBUTE+"=\"false\" "+XMLTags.REQUIRED_ATTRIBUTE+"=\"false\" "+XMLTags.SRID_ATTRIBUTE+"=\"4326\" "+XMLTags.DIMENSION_ATTRIBUTE+"=\"2\" />";
+	
 	private String description;
 	private String type;
     private String typeName;
-	private Universal parent = null;
-	private List<Universal> children = new ArrayList<Universal>();
 	private Universal allowedIn = null;
 	private boolean political = false;
 	private boolean sprayTarget = false;
 	private int geometry = ERROR;
+	private String moRoot;
 
-	public Universal(String description) {
+	private Universal(String description) {
 		super();
 		this.description = description;
 		this.type = getSystemType(description);
 		this.typeName = getSystemName(description);
 	}
 
-	public Universal(String description, String geometryName, boolean political, boolean sprayTarget) {
+	public Universal(String description, boolean political, boolean sprayTargetm, String moRoot) {
 		this(description);
 		this.political = political;
 		this.sprayTarget = sprayTarget;
-		this.setGeometry(geometryName);
 	}
 
     public String getTypeName()
@@ -130,77 +122,8 @@ public class Universal {
 		this.sprayTarget = sprayTarget;
 	}
 
-	public int getGeometry() {
-		int geometry = this.geometry;
-		Universal currentAncestor = this.getParent();
-		while (currentAncestor != null) {
-			// If any ancestor returns a geometry, we cannot
-			if (currentAncestor.geometry != ERROR) {
-				return ERROR;
-			}
-			currentAncestor = currentAncestor.getParent();
-		}
-
-		return geometry;
-	}
-
-	public void setGeometry(int geometry) {
-		if (this.parent != null) {
-			throw new InvalidParameterException();
-		}
-		this.geometry = geometry;
-	}
-
-	public void setGeometry(String geometryName) {
-		int geometry = ERROR;
-		String upperName = geometryName.trim().toUpperCase();
-		if (upperName.equals("POINT")) {
-			geometry = POINT;
-		} else if (upperName.equals("MULTIPOLYGON")) {
-			geometry = MULTIPOLYGON;
-		} else if (upperName.equals("MULTILINESTRING")) {
-			geometry = MULTILINESTRING;
-		}
-		this.setGeometry(geometry);
-	}
-
-	public Universal getParent() {
-		return parent;
-	}
-
-	public void setParent(Universal parent) {
-		if (this.geometry != ERROR) {
-			throw new InvalidParameterException();
-		}
-		// Remove me from my current parent's children
-		if (this.parent != null) {
-			this.parent.getChildren().remove(this);
-		}
-
-		if (parent != null) {
-			this.parent = parent;
-
-			// Add me to my new parent's children
-			parent.getChildren().add(this);
-		}
-	}
-
-	public List<Universal> getChildren() {
-		return children;
-	}
-
-	private void setChildren(List<Universal> children) {
-		this.children = children;
-	}
-
 	public Universal getAllowedIn() {
-		// My allowedIn is always my ultimate ia_a parent's allowedIn
-		// (regardless of whether I have an allowedIn myself)
-		Universal currentAncestor = this;
-		while (currentAncestor.getParent() != null) {
-			currentAncestor = currentAncestor.getParent();
-		}
-		return currentAncestor.allowedIn;
+		return this.allowedIn;
 	}
 
 	public void setAllowedIn(Universal allowedIn) {
@@ -213,10 +136,6 @@ public class Universal {
 		sb.append(" (");
 		sb.append(this.getDescription());
 		sb.append(")");
-		sb.append("/");
-		if (this.getParent() != null) {
-			sb.append(this.getParent().getType());
-		}
 		sb.append("/");
 		if (this.getAllowedIn() != null) {
 			sb.append(this.getAllowedIn().getType());
@@ -231,12 +150,12 @@ public class Universal {
 		sb.append("   "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"" + this.getDescription() + "\"\n");
 		sb.append("   "+XMLTags.DESCRIPTION_ATTRIBUTE+"=\"" + this.getDescription() + "\"\n");
 		sb.append("   "+XMLTags.REMOVE_ATTRIBUTE+"=\"true\"\n");
-        sb.append("   "+XMLTags.EXTENDS_ATTRIBUTE+"=\"" + (this.getParent()==null ? "dss.vector.solutions.geo.generated.GeoEntity" : this.getParent().getType()) + "\">\n");
-        if (this.getGeometry() >= 0 && this.getGeometry() < geometryXML.length) {
-        	sb.append("   <"+XMLTags.ATTRIBUTES_TAG+">\n");
-        	sb.append("      " + geometryXML[this.getGeometry()] + "\n");
-        	sb.append("   </"+XMLTags.ATTRIBUTES_TAG+">\n");
-        }
+		// TODO - Remove the next line once GeoEntities have no is_a
+        sb.append("   "+XMLTags.EXTENDS_ATTRIBUTE+"=\"" + "dss.vector.solutions.geo.generated.GeoEntity" + "\">\n");
+        // TODO - Remove the next three lines once the geotype and associated attribute are removed!
+       	sb.append("   <"+XMLTags.ATTRIBUTES_TAG+">\n");
+       	sb.append("      " + geometryXML + "\n");
+       	sb.append("   </"+XMLTags.ATTRIBUTES_TAG+">\n");
 		sb.append("</"+XMLTags.MD_BUSINESS_TAG+">\n");
 		return sb.toString();
 	}
@@ -293,7 +212,7 @@ public class Universal {
 		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"" + (this.isSprayTarget() ? "true" : "false") + "\" />\n");
 		sb.append("   <"+XMLTags.ATTRIBUTE_REFERENCE_TAG+"\n");
 		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"geoEntityClass\"\n");
-        sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"" + this.getType() + "\"/>\n");
+        sb.append("      "+XMLTags.KEY_ATTRIBUTE+"=\"" + this.getType() + "\"/>\n");
 		sb.append("</"+XMLTags.OBJECT_TAG+">\n");
 		return sb.toString();
 	}
@@ -307,14 +226,4 @@ public class Universal {
 		}
 		return ancestors;
 	}
-
-	public List<Universal> getIsADescendants() {
-		ArrayList<Universal> descendants = new ArrayList<Universal>();
-		for (Universal currentChild: children) {
-			descendants.add(currentChild);
-			descendants.addAll(currentChild.getIsADescendants());
-		}
-		return descendants;
-	}
-
 }

@@ -98,11 +98,10 @@ public class UniversalImporter {
 			String universalName = this.getCellValue(row, 0);
 			if (universalName != null && universalName.length() > 0) {
 				String universalAllowedIn = this.getCellValue(row, 1);
-				String universalIsA = this.getCellValue(row, 2);
-				String geoType = this.getCellValue(row,3).toUpperCase();
-				boolean political = this.getCellValue(row,4).toUpperCase().equals("Y");
-				boolean sprayTarget = this.getCellValue(row,5).toUpperCase().equals("Y");
-				this.processUniversal(universalName, universalIsA, universalAllowedIn, geoType, political, sprayTarget);
+				boolean political = this.getCellValue(row,2).toUpperCase().equals("Y");
+				boolean sprayTarget = this.getCellValue(row,3).toUpperCase().equals("Y");
+				String moRoot = this.getCellValue(row, 4);
+				this.processUniversal(universalName, universalAllowedIn, political, sprayTarget, moRoot);
 			}
 			row = sheet.getRow(rowCount++);
 		}
@@ -125,24 +124,15 @@ public class UniversalImporter {
 		return value;
 	}
 
-	private void processUniversal(String description, String isA,
-			String allowedIn, String geotype, boolean political, boolean sprayTarget) {
+	private void processUniversal(String description, String allowedIn, boolean political, boolean sprayTarget, String moRoot) {
 
-		Universal u = new Universal(description, geotype, political, sprayTarget);
+		Universal u = new Universal(description, political, sprayTarget, moRoot);
 		// System.out.println(u);
 
 		if (this.getUniversal(description) != null) {
 			System.out.println("*** ERROR:  " + description
 					+ " is already defined ***");
 			errorCount++;
-		}
-		if (isA != "") {
-			u.setParent(this.getUniversal(isA));
-			if (u.getParent() == null) {
-				System.out.println("*** ERROR: is_a (" + isA
-						+ ") is not defined ***");
-				errorCount++;
-			}
 		}
 		if (allowedIn != "") {
 			u.setAllowedIn(this.getUniversal(allowedIn));
@@ -188,23 +178,13 @@ public class UniversalImporter {
 		}
 		System.out.println("</"+XMLTags.CREATE_TAG+">\n");
 
-		//3) create instancees of the dss.vector.solutions.geo.AllowedIn relationship as necessary for the GeoHierarchy instance you just created
+		//3) create instances of the dss.vector.solutions.geo.AllowedIn relationship as necessary for the GeoHierarchy instance you just created
 		System.out.println("<"+XMLTags.CREATE_TAG+">");
 		for (Universal u : universals.values()) {
 			if (u != Universal.EARTH) {
 				if (u.getAllowedIn() != null) {
 					Universal allowedIn = u.getAllowedIn();
 					System.out.println(u.getRelationshipTag(allowedIn.getType(), allowedIn.getTypeName()));
-					for (Universal allowedInDescendant: allowedIn.getIsADescendants()) {
-						System.out.println(u.getRelationshipTag(allowedInDescendant.getType(), allowedInDescendant.getTypeName()));
-					}
-
-
-					for (Universal allowedInAncestor: allowedIn.getAllowedInAncestors()) {
-						for (Universal allowedInDescendant: allowedInAncestor.getIsADescendants()) {
-							System.out.println(u.getRelationshipTag(allowedInDescendant.getType(), allowedInDescendant.getTypeName()));
-						}
-					}
 				}
 			}
 		}

@@ -19,9 +19,7 @@ import com.terraframe.mojo.session.StartSession;
 
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.NonSentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.geo.generated.Trap;
 import dss.vector.solutions.ontology.Term;
 
 public class MosquitoCollectionTest extends TestCase
@@ -83,12 +81,12 @@ public class MosquitoCollectionTest extends TestCase
     sentinelSite.setEntityName("Sentinel Site");
     sentinelSite.apply();
 
-    nonSentinelSite = new NonSentinelSite();
+    nonSentinelSite = new SentinelSite();
     nonSentinelSite.setGeoId("1");
     nonSentinelSite.setEntityName("Non Sentinel Site");
     nonSentinelSite.apply();
 
-    fixedTrap = new Trap();
+    fixedTrap = new SentinelSite();
     fixedTrap.setGeoId("2");
     fixedTrap.setEntityName("Fixed Trap");
     fixedTrap.apply();

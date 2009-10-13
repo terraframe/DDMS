@@ -74,7 +74,7 @@ public class MosquitoCollectionPointTest extends TestCase
 
     sentinelSite = TestFixture.createRandomSite();
     waterBody = TestFixture.createRandomPermanentWaterBody();
-    fixedTrap = TestFixture.createRandomFixedTrap();
+    fixedTrap = TestFixture.createRandomSite();
   }
 
   protected static void classTearDown()

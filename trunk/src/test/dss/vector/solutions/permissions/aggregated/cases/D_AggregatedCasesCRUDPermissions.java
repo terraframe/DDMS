@@ -17,7 +17,7 @@ import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.Sex;
-import dss.vector.solutions.geo.generated.Hospital;
+import dss.vector.solutions.geo.generated.HealthFacility;
 
 public class D_AggregatedCasesCRUDPermissions extends AggregatedCasesCRUDPermissions
 {
@@ -27,7 +27,7 @@ public class D_AggregatedCasesCRUDPermissions extends AggregatedCasesCRUDPermiss
 
   private static String          password = "test";
 
-  private static Hospital site;
+  private static HealthFacility site;
 
   public static Test suite()
   {
@@ -89,7 +89,7 @@ public class D_AggregatedCasesCRUDPermissions extends AggregatedCasesCRUDPermiss
     person.setUserDelegate(user);
     person.apply();
 
-    site = new Hospital();
+    site = new HealthFacility();
     site.setGeoId(TestConstants.GEO_ID);
     site.setEntityName("Test Site");
     site.apply();
