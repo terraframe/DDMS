@@ -1,5 +1,5 @@
 format-version: 1.2
-date: 18:09:2009 16:30
+date: 07:10:2009 09:44
 saved-by: Saul
 auto-generated-by: OBO-Edit 2.0
 default-namespace: mdss_namespace
@@ -1512,7 +1512,7 @@ creation_date: 2008-08-06T12:02:45Z
 id: IDOMAL:0001031
 name: protective clothing
 def: "Clothes worn in order to prevent mosquitoes from biting." [KL:KL]
-is_a: MDSS:0000015 ! personal protective material
+is_obsolete: true
 created_by: louis
 creation_date: 2008-08-06T12:03:44Z
 
@@ -1680,7 +1680,7 @@ creation_date: 2009-06-03T12:28:02Z
 id: IDOMAL:0001190
 name: rock hole
 def: "A depression in a rock in which water could accumulate." [KL:KL]
-is_a: IDOMAL:0001179 ! container habitat
+is_a: MDSS:0000057 ! water body
 created_by: louis
 creation_date: 2009-06-03T12:29:38Z
 
@@ -1689,6 +1689,7 @@ id: IDOMAL:0001191
 name: tree hole
 def: "A natural cavity in a tree." [KL:KL]
 is_a: IDOMAL:0001179 ! container habitat
+is_a: MDSS:0000057 ! water body
 created_by: louis
 creation_date: 2009-06-03T12:29:38Z
 
@@ -1697,7 +1698,7 @@ id: IDOMAL:0001192
 name: plant axil
 def: "The angle between the upper side of the stem and a leaf, branch, or petiole." [KL:KL]
 is_a: IDOMAL:0001179 ! container habitat
-is_a: MDSS:0000099 ! natural water-holding feature
+is_a: MDSS:0000057 ! water body
 created_by: louis
 creation_date: 2009-06-03T12:29:38Z
 
@@ -1730,7 +1731,7 @@ id: IDOMAL:0001196
 name: mud crack
 def: "A crack in dried mud." [KL:KL]
 is_a: IDOMAL:0001179 ! container habitat
-is_a: MDSS:0000099 ! natural water-holding feature
+is_a: MDSS:0000057 ! water body
 created_by: louis
 creation_date: 2009-06-03T12:29:38Z
 
@@ -2286,7 +2287,7 @@ creation_date: 2009-08-12T02:20:24Z
 id: MDSS:0000015
 name: personal protective material
 def: "Needs definition." [SLF:SLF]
-is_a: IDOMAL:0001034 ! abiotic
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-12T02:23:52Z
 
@@ -2294,7 +2295,7 @@ creation_date: 2009-08-12T02:23:52Z
 id: MDSS:0000016
 name: protective footwear
 def: "Needs definition." [SLF:SLF]
-is_a: MDSS:0000015 ! personal protective material
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-12T02:33:30Z
 
@@ -2302,7 +2303,7 @@ creation_date: 2009-08-12T02:33:30Z
 id: MDSS:0000017
 name: protective respiratory mask
 def: "Needs definition." [SLF:SLF]
-is_a: MDSS:0000015 ! personal protective material
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-12T02:36:40Z
 
@@ -2310,7 +2311,7 @@ creation_date: 2009-08-12T02:36:40Z
 id: MDSS:0000018
 name: protective eyewear
 def: "Needs definition." [SLF:SLF]
-is_a: MDSS:0000015 ! personal protective material
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-12T02:38:07Z
 
@@ -2318,7 +2319,7 @@ creation_date: 2009-08-12T02:38:07Z
 id: MDSS:0000019
 name: protective gloves
 def: "Needs definition." [SLF:SLF]
-is_a: MDSS:0000015 ! personal protective material
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-12T02:39:00Z
 
@@ -2574,7 +2575,7 @@ creation_date: 2009-08-14T03:46:11Z
 id: MDSS:0000053
 name: natural feature
 def: "Needs feature." [SLF:SLF]
-is_a: MDSS:0000052 ! physical feature
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-14T03:47:04Z
 
@@ -2582,28 +2583,28 @@ creation_date: 2009-08-14T03:47:04Z
 id: MDSS:0000054
 name: man made structure
 def: "Needs definition." [SLF:SLF]
-is_a: MDSS:0000052 ! physical feature
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-14T03:48:49Z
 
 [Term]
 id: MDSS:0000055
 name: building or building complex
-is_a: MDSS:0000054 ! man made structure
+is_a: MDSS:0000052 ! physical feature
 created_by: Saul
 creation_date: 2009-08-14T03:52:11Z
 
 [Term]
 id: MDSS:0000056
 name: transportation structure
-is_a: MDSS:0000054 ! man made structure
+is_a: MDSS:0000052 ! physical feature
 created_by: Saul
 creation_date: 2009-08-14T03:52:11Z
 
 [Term]
 id: MDSS:0000057
-name: water-holding structure
-is_a: MDSS:0000054 ! man made structure
+name: water body
+is_a: MDSS:0000052 ! physical feature
 created_by: Saul
 creation_date: 2009-08-14T03:52:11Z
 
@@ -2827,14 +2828,14 @@ creation_date: 2009-08-14T04:07:17Z
 
 [Term]
 id: MDSS:0000089
-name: Road
+name: road
 is_a: MDSS:0000056 ! transportation structure
 created_by: Saul
 creation_date: 2009-08-14T04:08:09Z
 
 [Term]
 id: MDSS:0000090
-name: Railway
+name: railway
 is_a: MDSS:0000056 ! transportation structure
 created_by: Saul
 creation_date: 2009-08-14T04:08:09Z
@@ -2842,77 +2843,77 @@ creation_date: 2009-08-14T04:08:09Z
 [Term]
 id: MDSS:0000091
 name: artificial lake
-is_a: MDSS:0000057 ! water-holding structure
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-14T04:17:06Z
 
 [Term]
 id: MDSS:0000092
 name: artificial pond
-is_a: MDSS:0000057 ! water-holding structure
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-14T04:17:06Z
 
 [Term]
 id: MDSS:0000093
 name: canal
-is_a: MDSS:0000057 ! water-holding structure
+is_a: MDSS:0000057 ! water body
 created_by: Saul
 creation_date: 2009-08-14T04:17:06Z
 
 [Term]
 id: MDSS:0000094
 name: dam
-is_a: MDSS:0000057 ! water-holding structure
+is_a: MDSS:0000057 ! water body
 created_by: Saul
 creation_date: 2009-08-14T04:17:06Z
 
 [Term]
 id: MDSS:0000095
 name: ditch
-is_a: MDSS:0000057 ! water-holding structure
+is_a: MDSS:0000057 ! water body
 created_by: Saul
 creation_date: 2009-08-14T04:17:06Z
 
 [Term]
 id: MDSS:0000096
 name: pit
-is_a: MDSS:0000057 ! water-holding structure
+is_a: MDSS:0000057 ! water body
 created_by: Saul
 creation_date: 2009-08-14T04:17:06Z
 
 [Term]
 id: MDSS:0000097
 name: well
-is_a: MDSS:0000057 ! water-holding structure
+is_a: MDSS:0000057 ! water body
 created_by: Saul
 creation_date: 2009-08-14T04:17:06Z
 
 [Term]
 id: MDSS:0000098
 name: water holding container
-is_a: MDSS:0000057 ! water-holding structure
+is_a: MDSS:0000057 ! water body
 created_by: Saul
 creation_date: 2009-08-14T04:17:06Z
 
 [Term]
 id: MDSS:0000099
 name: natural water-holding feature
-is_a: MDSS:0000053 ! natural feature
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-14T04:18:25Z
 
 [Term]
 id: MDSS:0000100
 name: lake
-is_a: MDSS:0000099 ! natural water-holding feature
+is_a: MDSS:0000057 ! water body
 created_by: Saul
 creation_date: 2009-08-14T04:19:18Z
 
 [Term]
 id: MDSS:0000101
 name: marsh
-is_a: MDSS:0000099 ! natural water-holding feature
+is_a: MDSS:0000057 ! water body
 created_by: Saul
 creation_date: 2009-08-14T04:19:18Z
 
@@ -2933,48 +2934,48 @@ creation_date: 2009-09-16T10:00:30Z
 [Term]
 id: MDSS:0000104
 name: pond
-is_a: MDSS:0000099 ! natural water-holding feature
+is_a: MDSS:0000057 ! water body
 created_by: Saul
 creation_date: 2009-08-14T04:19:18Z
 
 [Term]
 id: MDSS:0000105
 name: river
-is_a: MDSS:0000099 ! natural water-holding feature
+is_a: MDSS:0000057 ! water body
 created_by: Saul
 creation_date: 2009-08-14T04:19:18Z
 
 [Term]
 id: MDSS:0000106
 name: rock hole
-is_a: MDSS:0000099 ! natural water-holding feature
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-14T04:19:18Z
 
 [Term]
 id: MDSS:0000107
 name: stream
-is_a: MDSS:0000099 ! natural water-holding feature
+is_a: MDSS:0000057 ! water body
 created_by: Saul
 creation_date: 2009-08-14T04:19:18Z
 
 [Term]
 id: MDSS:0000108
 name: swamp
-is_a: MDSS:0000099 ! natural water-holding feature
+is_a: MDSS:0000057 ! water body
 created_by: Saul
 creation_date: 2009-08-14T04:19:18Z
 
 [Term]
 id: MDSS:0000109
 name: tree hole
-is_a: MDSS:0000099 ! natural water-holding feature
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-14T04:19:18Z
 
 [Term]
 id: MDSS:0000110
-name: region
+name: area
 def: "Needs definition." [SLF:SLF]
 is_a: snap:Site ! site
 created_by: Saul
@@ -2982,22 +2983,22 @@ creation_date: 2009-08-14T04:19:53Z
 
 [Term]
 id: MDSS:0000111
-name: administrative region
-is_a: MDSS:0000110 ! region
+name: administrative area
+is_a: MDSS:0000110 ! area
 created_by: Saul
 creation_date: 2009-08-14T04:21:08Z
 
 [Term]
 id: MDSS:0000112
-name: functional region
-is_a: MDSS:0000110 ! region
+name: functional area
+is_a: MDSS:0000110 ! area
 created_by: Saul
 creation_date: 2009-08-14T04:21:08Z
 
 [Term]
 id: MDSS:0000113
 name: block
-is_a: MDSS:0000111 ! administrative region
+is_a: MDSS:0000391 ! settlement subdivision
 created_by: Saul
 creation_date: 2009-08-14T04:22:11Z
 
@@ -3011,42 +3012,42 @@ creation_date: 2009-09-16T10:39:27Z
 [Term]
 id: MDSS:0000115
 name: country
-is_a: MDSS:0000111 ! administrative region
+is_a: MDSS:0000111 ! administrative area
 created_by: Saul
 creation_date: 2009-08-14T04:22:11Z
 
 [Term]
 id: MDSS:0000116
 name: district
-is_a: MDSS:0000111 ! administrative region
+is_a: MDSS:0000111 ! administrative area
 created_by: Saul
 creation_date: 2009-08-14T04:22:11Z
 
 [Term]
 id: MDSS:0000117
-name: locality
-is_a: MDSS:0000111 ! administrative region
+name: settlement
+is_a: MDSS:0000111 ! administrative area
 created_by: Saul
 creation_date: 2009-08-14T04:22:11Z
 
 [Term]
 id: MDSS:0000118
 name: neighborhood
-is_a: MDSS:0000111 ! administrative region
+is_a: MDSS:0000391 ! settlement subdivision
 created_by: Saul
 creation_date: 2009-08-14T04:22:11Z
 
 [Term]
 id: MDSS:0000119
 name: premises
-is_a: MDSS:0000111 ! administrative region
+is_a: MDSS:0000391 ! settlement subdivision
 created_by: Saul
 creation_date: 2009-08-14T04:22:11Z
 
 [Term]
 id: MDSS:0000120
 name: province
-is_a: MDSS:0000111 ! administrative region
+is_a: MDSS:0000111 ! administrative area
 created_by: Saul
 creation_date: 2009-08-14T04:22:11Z
 
@@ -3059,98 +3060,98 @@ creation_date: 2009-09-16T10:43:28Z
 
 [Term]
 id: MDSS:0000122
-name: urban locality
-is_a: MDSS:0000117 ! locality
+name: urban settlement
+is_a: MDSS:0000117 ! settlement
 created_by: Saul
 creation_date: 2009-08-14T04:22:35Z
 
 [Term]
 id: MDSS:0000123
-name: rural locality
-is_a: MDSS:0000117 ! locality
+name: rural settlement
+is_a: MDSS:0000117 ! settlement
 created_by: Saul
 creation_date: 2009-08-14T04:22:35Z
 
 [Term]
 id: MDSS:0000124
 name: city
-is_a: MDSS:0000122 ! urban locality
+is_a: MDSS:0000122 ! urban settlement
 created_by: Saul
 creation_date: 2009-08-14T04:22:49Z
 
 [Term]
 id: MDSS:0000125
 name: town
-is_a: MDSS:0000122 ! urban locality
+is_a: MDSS:0000122 ! urban settlement
 created_by: Saul
 creation_date: 2009-08-14T04:22:49Z
 
 [Term]
 id: MDSS:0000126
 name: village
-is_a: MDSS:0000123 ! rural locality
+is_a: MDSS:0000123 ! rural settlement
 created_by: Saul
 creation_date: 2009-08-14T04:23:17Z
 
 [Term]
 id: MDSS:0000127
 name: farm
-is_a: MDSS:0000123 ! rural locality
+is_a: MDSS:0000123 ! rural settlement
 created_by: Saul
 creation_date: 2009-08-14T04:23:17Z
 
 [Term]
 id: MDSS:0000128
-name: commercial
+name: commercial premises
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
 
 [Term]
 id: MDSS:0000129
-name: educational
+name: educational premises
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
 
 [Term]
 id: MDSS:0000130
-name: health facility
+name: health facility premises
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
 
 [Term]
 id: MDSS:0000131
-name: farm
+name: farm premises
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
 
 [Term]
 id: MDSS:0000132
-name: industrial
+name: industrial premises
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
 
 [Term]
 id: MDSS:0000133
-name: lodge or resort
+name: lodge or resort premises
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
 
 [Term]
 id: MDSS:0000134
-name: reserve
+name: reserve premises
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
 
 [Term]
 id: MDSS:0000135
-name: residential
+name: residential premises
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
@@ -3158,14 +3159,14 @@ creation_date: 2009-08-14T04:24:42Z
 [Term]
 id: MDSS:0000136
 name: rural residential premises
-is_a: MDSS:0000135 ! residential
+is_a: MDSS:0000135 ! residential premises
 created_by: Saul
 creation_date: 2009-08-14T04:25:06Z
 
 [Term]
 id: MDSS:0000137
 name: urban residential premises
-is_a: MDSS:0000135 ! residential
+is_a: MDSS:0000135 ! residential premises
 created_by: Saul
 creation_date: 2009-08-14T04:25:06Z
 
@@ -3200,21 +3201,21 @@ creation_date: 2009-08-14T04:25:52Z
 [Term]
 id: MDSS:0000142
 name: health facility catchment area
-is_a: MDSS:0000112 ! functional region
+is_a: MDSS:0000112 ! functional area
 created_by: Saul
 creation_date: 2009-08-14T04:29:24Z
 
 [Term]
 id: MDSS:0000143
 name: spray area
-is_a: MDSS:0000112 ! functional region
+is_a: MDSS:0000112 ! functional area
 created_by: Saul
 creation_date: 2009-08-14T04:29:24Z
 
 [Term]
 id: MDSS:0000144
 name: spray zone
-is_a: MDSS:0000112 ! functional region
+is_a: MDSS:0000112 ! functional area
 created_by: Saul
 creation_date: 2009-08-14T04:29:24Z
 
@@ -4532,7 +4533,7 @@ creation_date: 2009-09-16T10:52:32Z
 [Term]
 id: MDSS:0000328
 name: IRS target unit
-is_a: MDSS:0000001 ! building component part
+is_a: IDOMAL:0000001 ! role
 created_by: Saul
 creation_date: 2009-09-18T02:53:05Z
 
@@ -4580,7 +4581,7 @@ creation_date: 2009-09-18T02:58:09Z
 
 [Term]
 id: MDSS:0000335
-name: global positioning receiver
+name: global positioning system receiver
 synonym: "global positioning system" RELATED []
 is_a: MDSS:0000332 ! electronic mobile equipment
 created_by: Saul
@@ -4770,8 +4771,9 @@ creation_date: 2009-09-18T03:43:22Z
 
 [Term]
 id: MDSS:0000362
-name: don't know
+name: do not know
 is_a: MDSS:0000357 ! answer type 1
+is_a: MDSS:0000397 ! answer type 4
 created_by: Saul
 creation_date: 2009-09-18T03:43:57Z
 
@@ -4964,6 +4966,146 @@ def: "The property of being porous." [wordnetweb.princeton.edu:porosity]
 is_a: MDSS:0000371 ! quality of surface
 created_by: Saul
 creation_date: 2009-09-18T03:58:50Z
+
+[Term]
+id: MDSS:0000390
+name: national road
+is_a: MDSS:0000089 ! road
+created_by: Saul
+creation_date: 2009-10-05T12:53:30Z
+
+[Term]
+id: MDSS:0000391
+name: settlement subdivision
+is_a: MDSS:0000111 ! administrative area
+created_by: Saul
+creation_date: 2009-10-05T01:35:10Z
+
+[Term]
+id: MDSS:0000392
+name: ITN source
+is_a: IDOMAL:0000001 ! role
+created_by: Saul
+creation_date: 2009-10-07T09:26:32Z
+
+[Term]
+id: MDSS:0000393
+name: community distribution campaign
+is_a: MDSS:0000392 ! ITN source
+created_by: Saul
+creation_date: 2009-10-07T09:27:34Z
+
+[Term]
+id: MDSS:0000394
+name: other source
+is_a: MDSS:0000392 ! ITN source
+created_by: Saul
+creation_date: 2009-10-07T09:27:34Z
+
+[Term]
+id: MDSS:0000395
+name: NGO
+is_a: MDSS:0000392 ! ITN source
+created_by: Saul
+creation_date: 2009-10-07T09:27:34Z
+
+[Term]
+id: MDSS:0000396
+name: retailer
+is_a: MDSS:0000392 ! ITN source
+created_by: Saul
+creation_date: 2009-10-07T09:27:34Z
+
+[Term]
+id: MDSS:0000397
+name: answer type 4
+is_a: MDSS:0000355 ! quality of survey answer
+created_by: Saul
+creation_date: 2009-10-07T09:30:40Z
+
+[Term]
+id: MDSS:0000398
+name: cannot hang net
+is_a: MDSS:0000397 ! answer type 4
+created_by: Saul
+creation_date: 2009-10-07T09:33:51Z
+
+[Term]
+id: MDSS:0000399
+name: damaged
+is_a: MDSS:0000397 ! answer type 4
+created_by: Saul
+creation_date: 2009-10-07T09:33:51Z
+
+[Term]
+id: MDSS:0000400
+name: do not like colour
+is_a: MDSS:0000397 ! answer type 4
+created_by: Saul
+creation_date: 2009-10-07T09:33:51Z
+
+[Term]
+id: MDSS:0000401
+name: do not like shape
+is_a: MDSS:0000397 ! answer type 4
+created_by: Saul
+creation_date: 2009-10-07T09:33:51Z
+
+[Term]
+id: MDSS:0000402
+name: do not like smell
+is_a: MDSS:0000397 ! answer type 4
+created_by: Saul
+creation_date: 2009-10-07T09:33:51Z
+
+[Term]
+id: MDSS:0000403
+name: forgot
+is_a: MDSS:0000397 ! answer type 4
+created_by: Saul
+creation_date: 2009-10-07T09:33:51Z
+
+[Term]
+id: MDSS:0000404
+name: irritation
+is_a: MDSS:0000397 ! answer type 4
+created_by: Saul
+creation_date: 2009-10-07T09:33:51Z
+
+[Term]
+id: MDSS:0000405
+name: net does not fit
+is_a: MDSS:0000397 ! answer type 4
+created_by: Saul
+creation_date: 2009-10-07T09:33:51Z
+
+[Term]
+id: MDSS:0000406
+name: other reason
+is_a: MDSS:0000397 ! answer type 4
+created_by: Saul
+creation_date: 2009-10-07T09:33:51Z
+
+[Term]
+id: MDSS:0000407
+name: too hot
+is_a: MDSS:0000397 ! answer type 4
+created_by: Saul
+creation_date: 2009-10-07T09:33:51Z
+
+[Term]
+id: MDSS:0000408
+name: net used for other purpose
+is_a: MDSS:0000397 ! answer type 4
+created_by: Saul
+creation_date: 2009-10-07T09:33:51Z
+
+[Term]
+id: MDSS:0000409
+name: health services facility
+is_a: MDSS:0000392 ! ITN source
+created_by: Saul
+creation_date: 2009-10-07T09:44:03Z
 
 [Term]
 id: MIRO:00000001

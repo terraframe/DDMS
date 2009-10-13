@@ -11,3 +11,9 @@ group by child_id having count(*) > 1
 select termname from term where id not in (select child_id from isa);
 
 select count(*) from mo;
+
+delete from ontologydefinition;
+delete from term;
+delete from mo;
+delete from termrelationship;
+delete from isa;
