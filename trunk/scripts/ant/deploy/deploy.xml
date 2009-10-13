@@ -611,13 +611,13 @@
 		</echoproperties>
 		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
 			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:${local.lib}/server/aspectjweaver.jar" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
 			<arg value="${root.user}" />
 			<arg value="${root.pass}" />
 			<arg value="${geodata.db}" />
+			<arg value="../../../doc/country/${geodata.db}-universals.xls" />
 		</java>
 	</target>
 	
@@ -633,7 +633,6 @@
 		-->
 		<java classname="dss.vector.solutions.util.OntologyImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:${local.lib}/server/aspectjweaver.jar" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -653,7 +652,6 @@
 		-->
 		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:${local.lib}/server/aspectjweaver.jar" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
