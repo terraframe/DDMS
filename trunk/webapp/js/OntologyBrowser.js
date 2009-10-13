@@ -50,15 +50,8 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       // selected terms
       this._selection = {};
       
-      // breadcrumb stack (with artificial TermView root)
+      // breadcrumb stack
       this._breadcrumbs = [];
-      
-      var rootView = new Mojo.$.dss.vector.solutions.ontology.TermView();
-      rootView.setTermId(this._ROOT);
-      rootView.setTermName(MDSS.Localized.ROOT);
-      rootView.setTermOntologyId(this._ROOT);
-      
-      this._breadcrumbs.push(rootView);
       
       // handler invoked during a save action.
       this._customHandler = null;
@@ -304,6 +297,30 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     
     render : function()
     {
+      if(!this.constructor.typesImported)
+      {
+        var request = new MDSS.Request({
+          that: this,
+          onSuccess : function(){
+            this.that.constructor.typesImported = true;
+            this.that.render(); // now we can safely render the browser
+          }
+        });
+  
+        var pck = 'dss.vector.solutions.ontology.';
+        var types = [pck+'BrowserRoot', pck+'BrowserRootView', pck+'TermView', pck+'Term'];
+        Mojo.Facade.importTypes(request, types, {autoEval:true});
+        return;
+      }
+      
+      // add an artificial TermView as the root
+      var rootView = new Mojo.$.dss.vector.solutions.ontology.TermView();
+      rootView.setTermId(this._ROOT);
+      rootView.setTermName(MDSS.Localized.ROOT);
+      rootView.setTermOntologyId(this._ROOT);
+      
+      this._breadcrumbs.push(rootView);    
+    
       this._panel = new YAHOO.widget.Panel(this._id,  {
         width: '400px',
         height: '400px',
@@ -649,8 +666,11 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     }
   },
   Static : {
-  formatLabel : function(term) {
-    return term.getTermName() + '('+term.getTermOntologyId()+')';
+  
+    typesImported : false, 
+    formatLabel : function(term)
+    {
+      return term.getTermName() + ' ('+term.getTermOntologyId()+')';
     }
   }
 });
@@ -722,20 +742,23 @@ YAHOO.widget.OntologyTermEditor = function(oConfigs) {
     this._sId = Mojo.Util.generateId();
     
     this._klass = oConfigs.klass;
-    this._attribute = oConfigs.attribute;
+    this._attribute= oConfigs.attribute;
+    this._browser = new MDSS.OntologyBrowser(false /*, this._klass, this._attribute */); // FIXME pass in klass + attribute
+    this._browser.setHandler(this._setSelected, this);
+    this._lastSelected = null;
     
-    this._browser = new MDSS.OntologyBrowser(false); // FIXME pass in klass + attribute
-    this._browser.setHandler(this._setField, this);
+    oConfigs.disableBtns = false;
 
     YAHOO.widget.OntologyTermEditor.superclass.constructor.call(this, "ontology", oConfigs);
 };
 
-// DropdownCellEditor extends BaseCellEditor
+// OntologyTermEditor extends BaseCellEditor
 YAHOO.lang.extend(YAHOO.widget.OntologyTermEditor, YAHOO.widget.BaseCellEditor, {
 
-_setField : function(selected)
+_setSelected : function(views)
 {
-  // TODO handle
+  this._lastSelected = views.length > 0 ? views[0] : null;
+  this.save();
 },
 
 /**
@@ -745,17 +768,7 @@ _setField : function(selected)
  */
 renderForm : function() {
 
-    // FIXME handle existing values and pass them into this._browser.setSelected()
-
-    if(this._browser.isRendered())
-    {
-      this._browser.reset();
-      this._browser.show();
-    }
-    else
-    {
-      this._browser.render();
-    }
+  this.getContainerEl().innerHTML = '';
 },
 
 /**
@@ -765,38 +778,47 @@ renderForm : function() {
  * @method handleDisabledBtns
  */
 handleDisabledBtns : function() {
-    // TODO does this require anything?
 },
 
 /**
- * Resets DropdownCellEditor UI to initial state.
+ * Resets OntologyTermEditor UI to initial state.
  *
  * @method resetForm
  */
 resetForm : function() {
-    // TODO set id of selected term?
+  this._lastSelected = null;
+  this.getContainerEl().innerHTML = '';
 },
 
 /**
- * Sets focus in DropdownCellEditor.
+ * Sets focus in OntologyTermEditor.
  *
  * @method focus
  */
 focus : function() {
-    this.getDataTable()._focusEl(this.dropdown);
+
+  if(this._browser.isRendered())
+  {
+    this._browser.reset();
+    this._browser.show();
+  }
+  else
+  {
+    this._browser.render();
+  }
 },
 
 /**
- * Retrieves input value from DropdownCellEditor.
+ * Retrieves input value from OntologyTermEditor.
  *
  * @method getInputValue
  */
 getInputValue : function() {
-   alert('foo');
-   return 'blah';
+//  return this._lastSelected != null ? MDSS.OntologyBrowser.formatLabel(this._lastSelected) : '';
+  return this._lastSelected != null ? this._lastSelected.getTermId() : '';
 }
 
 });
 
-// Copy static members to DropdownCellEditor class
+// Copy static members to OntologyTermEditor class
 YAHOO.lang.augmentObject(YAHOO.widget.OntologyTermEditor, YAHOO.widget.BaseCellEditor);
