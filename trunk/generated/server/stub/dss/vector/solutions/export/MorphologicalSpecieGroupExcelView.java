@@ -6,9 +6,6 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.entomology.MorphologicalSpecieGroup;
 import dss.vector.solutions.entomology.MosquitoCollectionPoint;
-import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.generated.PermanentWaterBody;
-import dss.vector.solutions.geo.generated.Trap;
 import dss.vector.solutions.ontology.Term;
 
 public class MorphologicalSpecieGroupExcelView extends MorphologicalSpecieGroupExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -48,8 +45,9 @@ public class MorphologicalSpecieGroupExcelView extends MorphologicalSpecieGroupE
 
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
-    GeoHierarchy trap = GeoHierarchy.getGeoHierarchyFromType(Trap.CLASS);
-    GeoHierarchy pwb = GeoHierarchy.getGeoHierarchyFromType(PermanentWaterBody.CLASS);
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, trap, pwb);
+	  // FIXME: MO UPGRADE
+//    GeoHierarchy trap = GeoHierarchy.getGeoHierarchyFromType(Trap.CLASS);
+//    GeoHierarchy pwb = GeoHierarchy.getGeoHierarchyFromType(PermanentWaterBody.CLASS);
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY);
   }
 }

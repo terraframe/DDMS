@@ -10,8 +10,6 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.PermanentWaterBody;
-import dss.vector.solutions.geo.generated.Trap;
 
 public class MosquitoCollectionPoint extends MosquitoCollectionPointBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -81,17 +79,18 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
 
     GeoEntity geoEntity = this.getGeoEntity();
 
-    if (! ( geoEntity instanceof Trap || geoEntity instanceof PermanentWaterBody ))
-    {
-      String msg = "The geoEntity of a mosquito collection must be a fixed trap or a permenent water body";
-
-      InvalidMosquitoCollectionPointGeoEntityException e = new InvalidMosquitoCollectionPointGeoEntityException(
-          msg);
-      e.setGeoId(this.getGeoEntity().getGeoId());
-      e.apply();
-
-      throw e;
-    }
+    //FIXME MO UPGRADE
+//    if (! ( geoEntity instanceof Trap || geoEntity instanceof PermanentWaterBody ))
+//    {
+//      String msg = "The geoEntity of a mosquito collection must be a fixed trap or a permenent water body";
+//
+//      InvalidMosquitoCollectionPointGeoEntityException e = new InvalidMosquitoCollectionPointGeoEntityException(
+//          msg);
+//      e.setGeoId(this.getGeoEntity().getGeoId());
+//      e.apply();
+//
+//      throw e;
+//    }
   }
 
   public static MorphologicalSpecieGroupView[] searchByGeoEntityAndDate(GeoEntity geoEntity,

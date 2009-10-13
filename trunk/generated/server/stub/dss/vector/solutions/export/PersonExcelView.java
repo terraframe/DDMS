@@ -8,9 +8,7 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.entomology.Sex;
-import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.SubPopulatedArea;
 
 public class PersonExcelView extends PersonExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -68,8 +66,9 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
   
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
-    GeoHierarchy subPopulatedArea = GeoHierarchy.getGeoHierarchyFromType(SubPopulatedArea.CLASS);
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, subPopulatedArea);
+	  //TODO MO UPGRADE
+//    GeoHierarchy subPopulatedArea = GeoHierarchy.getGeoHierarchyFromType(SubPopulatedArea.CLASS);
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY);//, subPopulatedArea);
   }
 
   public static Sex getSexByLabel(String label)

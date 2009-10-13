@@ -3,6 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
   name="dss.vector.solutions.UnknownGeoEntityException">
   <!--
+    - {entityName} entityName
     - {id} id
     -->
   <locale language="en">The given geo entity is unknown.</locale>

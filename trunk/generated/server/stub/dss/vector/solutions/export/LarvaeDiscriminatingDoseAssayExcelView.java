@@ -8,7 +8,6 @@ import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay;
 import dss.vector.solutions.export.entomology.MosquitoCollectionView;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.generated.NonSentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.ontology.Term;
 
@@ -78,8 +77,9 @@ public class LarvaeDiscriminatingDoseAssayExcelView extends LarvaeDiscriminating
 
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
+	  //FIXME: MO UPGRADE
     GeoHierarchy sentinelSite = GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS);
-    GeoHierarchy nonSentinelSite = GeoHierarchy.getGeoHierarchyFromType(NonSentinelSite.CLASS);
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, sentinelSite, nonSentinelSite);
+//    GeoHierarchy nonSentinelSite = GeoHierarchy.getGeoHierarchyFromType(NonSentinelSite.CLASS);
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, sentinelSite);//, nonSentinelSite);
   }
 }

@@ -3,6 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
   name="dss.vector.solutions.AmbigiousGeoEntityException">
   <!--
+    - {entityName} entityName
     - {id} id
     -->
   <locale language="en">The given Geo Entity is ambiguous (It has more than one possible solution)"</locale>

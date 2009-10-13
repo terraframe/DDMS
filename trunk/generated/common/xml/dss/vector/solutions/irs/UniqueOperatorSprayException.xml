@@ -3,11 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.irs.UniqueOperatorSprayException">
   <!--
-    - {brand} brand
-    - {geoEntity} geoEntity
-    - {sprayDate} sprayDate
-    - {sprayMethod} sprayMethod
     - {sprayOperator} sprayOperator
     -->
-    <locale language="en">A level 1 IRS record already exists with ([{geoEntity}], [{sprayDate}], [{brand}], [{sprayMethod}], [{sprayOperator}]) values.</locale>
+  <locale language="en">A level 1 IRS record already exists with ([{geoEntity}], [{sprayDate}], [{brand}], [{sprayMethod}], [{sprayOperator}]) values.</locale>
 </exception>

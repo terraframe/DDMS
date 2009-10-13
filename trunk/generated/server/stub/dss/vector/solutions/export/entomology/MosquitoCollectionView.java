@@ -19,7 +19,6 @@ import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.NonSentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.mo.CollectionMethod;
 import dss.vector.solutions.ontology.Term;
@@ -200,8 +199,9 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
+	  // FIXME MO Upgrade
     GeoHierarchy sentinelSite = GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS);
-    GeoHierarchy nonSentinelSite = GeoHierarchy.getGeoHierarchyFromType(NonSentinelSite.CLASS);
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, sentinelSite, nonSentinelSite);
+//    GeoHierarchy nonSentinelSite = GeoHierarchy.getGeoHierarchyFromType(NonSentinelSite.CLASS);
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, sentinelSite);//, nonSentinelSite);
   }
 }
