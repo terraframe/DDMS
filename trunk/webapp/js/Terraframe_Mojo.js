@@ -438,13 +438,13 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       this._qualifiedName = config.qualifiedName;
       this._subclasses = {};
 
-      var notRoot = this._superClass !== Object;  
+      var notBase = this._superClass !== Object;  
       
       // get parents instance/static methods
       var mKlass = Mojo.$.com.terraframe.mojo.Method;
       this._instanceMethods = {};
       this._staticMethods = {};
-      if(notRoot)
+      if(notBase)
       {
         // instance methods will be copied via prototype
         var pInstances = this._superClass.$class.getInstanceMethods(true);
@@ -473,7 +473,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
         this._instanceMethods[i] = method;
       }
       
-      if(notRoot)
+      if(notBase)
       {
         // static methods must be explicitly copied
         var pStatics = this._superClass.$class.getStaticMethods(true);
@@ -509,7 +509,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       // set constants
       this._constants = {};
       var cKlass = Mojo.$.com.terraframe.mojo.Constant;
-      if(notRoot)
+      if(notBase)
       {
         var pConstants = this._superClass.$class.getConstants(true);
         for(var i in pConstants)
@@ -525,7 +525,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       {
         var constObj = new cKlass(config.constants[i]);
         
-        if(notRoot && this._constants[constObj.getName()])
+        if(notBase && this._constants[constObj.getName()])
         {
           constObj._setDefiningClass(this._constants[constObj.getName()].getDefiningClass());
           constObj._setOverrideClass(this._klass);
@@ -539,7 +539,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
         this._klass[constObj.getName()] = constObj.getValue();
       }
       
-      if(notRoot)
+      if(notBase)
       {
         this._superClass.$class._addSubClass(this._qualifiedName, this._klass);
       }
@@ -685,8 +685,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
     
     getMethods : function()
     {
-      var methods = []
-      return methods.concat(this.getInstanceMethods(false), this.getStaticMethods(false));
+      return [].concat(this.getInstanceMethods(false), this.getStaticMethods(false));
     },
   
     getPackage : function()
@@ -1066,6 +1065,71 @@ Mojo.Meta.newClass('Mojo.Util', {
       return function(){
         return func.apply(this, args.concat([].splice.call(arguments, 0)))
       }
+    },
+    
+    // TODO give credit to
+    // http://blog.stevenlevithan.com/archives/faster-trim-javascript
+    // and replace all MDSS.util.stripWhitespace
+    trim : function(str)
+    {
+      var str = str.replace(/^\s\s*/, '');
+      var ws = /\s/;
+      var i = str.length;
+      while (ws.test(str.charAt(--i)));
+      return str.slice(0, i + 1);
+    },
+    
+    memoize : function(func, context)
+    {
+      func.memoCache = {};
+    
+      return function() {
+        
+        var args = Array.prototype.splice.call(arguments, 0);
+        if(func.memoCache[args])
+        {
+          return func.memoCache[args];
+        }
+        else
+        {
+          func.memoCache[args] = func.apply(context || this, args); 
+          return func.memoCache[args];
+        }
+      }
+    },
+    
+    generateId : function(customLength)
+    {
+      var result = '';
+      var totalLength = customLength || 32;
+      for(var i=0; i<totalLength; i++)
+      {
+        result += Math.floor(Math.random()*16).toString(16);
+      } 
+      return result;
+    },
+    
+    debounce : function(func, threshold, context, enforceWait)
+    {
+      var timeout = null;
+      var isExec = null;
+
+      return function(){
+
+        if(timeout !== null || enforceWait && isExec)
+        {
+          return;
+        }
+      
+        timeout = setTimeout(function(){
+          clearTimeout(timeout);
+          timeout = null;          
+        }, threshold || 500);
+
+        isExec = true;
+        func.apply(context || this, arguments);
+        isExec = false;
+      };
     },
     
     setISO8601 : function (date, string)
@@ -3535,7 +3599,11 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentDTO', {
     initialize : function(obj)
     {
       this.dto_type = obj.dto_type;
-      this.id = obj.id;
+      
+      // Generate a new id per instance instead of using the id
+      // of the cached JSON (to avoid all new instances having the same id),
+      // and preserve the id of the metadata type.
+      this.id = Mojo.Util.generateId()+obj.id.substring(32);
       this._type = obj._type;
       
       if(Mojo.Util.isObject(obj._typeMd))
@@ -4438,7 +4506,7 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO', {
 
       if(!mdKlass)
       {
-    	  mdKlass = Mojo.Meta.findClass("com.terraframe.mojo.gis.transport.metadata."+ mdDtoType);
+        mdKlass = Mojo.Meta.findClass("com.terraframe.mojo.gis.transport.metadata."+ mdDtoType);
       }
       this.attributeMdDTO = new mdKlass(obj.attributeMdDTO);
     },
