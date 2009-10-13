@@ -23,7 +23,7 @@
 
 	<property name="deploy.db" value="mdssdeploy" />
 	<property name="develop.db" value="mdssdevelop" />
-	<property name="geodata.db" value="mrc_mozambique" />
+	<property name="geodata.db" value="mrc_zambia" />
 	<!--<property name="write_rev" value="false" />-->
 
 	<!-- Rebuild Deploy -->
@@ -427,7 +427,7 @@
 		</java>
 	</target>
 		
-		<target name="import_ontolgoy" depends="kill_tomcat" description="imports ontology into the develop db">
+		<target name="import_ontology" depends="kill_tomcat" description="imports ontology into the develop db">
 			<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import ontology">
 				<jvmarg value="-Xmx${max_memory_use}" />
 				<classpath>
@@ -700,6 +700,6 @@
 
 	<target name="copy_country_schema" depends="" description="Copy the appropriate country schema file">
 		<echo message="Switching to country: ${geodata.db}" />
-		<copy file="../../../doc/country/${geodata.db}-schema(0001238646707001).xml" tofile="../../../doc/schema(0001238646707001).xml" overwrite="true" />
+		<copy file="../../../doc/country/${geodata.db}-schema(0001238646707001).xml" tofile="../../../doc/individual/schema(0001238646707001).xml" overwrite="true" />
 	</target>
 </project>
