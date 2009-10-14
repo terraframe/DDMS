@@ -41,8 +41,6 @@ import dss.vector.solutions.intervention.BloodslideResponseMasterDTO;
 import dss.vector.solutions.intervention.FeverResponseDTO;
 import dss.vector.solutions.intervention.FeverTreatmentDTO;
 import dss.vector.solutions.intervention.HumanSexDTO;
-import dss.vector.solutions.intervention.RDTResultDTO;
-import dss.vector.solutions.intervention.RDTResultMasterDTO;
 import dss.vector.solutions.intervention.ResponseMasterDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdNetDTO;
@@ -250,25 +248,26 @@ public class QueryController extends QueryControllerBase implements
       personMenuItems.put(PersonDTO.IRON, createBooleanItems(person.getIronMd()));
 
       // 24. RDT Result
-      items = new JSONArray();
-      JSONArray positives = new JSONArray();
-      List<RDTResultMasterDTO> results = RDTResultDTO.allItems(request);
-      for (RDTResultMasterDTO result : results)
-      {
-        JSONObject item = new JSONObject();
-        item.put("displayLabel", result.getDisplayLabel());
-        item.put("value", result.getId());
-
-        if(!result.getEnumName().equals(RDTResultDTO.NOT_VALID.getName()) &&
-            !result.getEnumName().equals(RDTResultDTO.NEGATIVE.getName()))
-        {
-          positives.put(result.getId());
-        }
-
-        items.put(item);
-      }
-      personMenuItems.put(PersonDTO.RDTRESULT, items);
-      req.setAttribute("positives", positives.toString());
+      //FIXME: MO UPGRADE
+//      items = new JSONArray();
+//      JSONArray positives = new JSONArray();
+//      List<RDTResultMasterDTO> results = RDTResultDTO.allItems(request);
+//      for (RDTResultMasterDTO result : results)
+//      {
+//        JSONObject item = new JSONObject();
+//        item.put("displayLabel", result.getDisplayLabel());
+//        item.put("value", result.getId());
+//
+//        if(!result.getEnumName().equals(RDTResultDTO.NOT_VALID.getName()) &&
+//            !result.getEnumName().equals(RDTResultDTO.NEGATIVE.getName()))
+//        {
+//          positives.put(result.getId());
+//        }
+//
+//        items.put(item);
+//      }
+//      personMenuItems.put(PersonDTO.RDTRESULT, items);
+//      req.setAttribute("positives", positives.toString());
 
       // 27. Bloodslide
       items = new JSONArray();

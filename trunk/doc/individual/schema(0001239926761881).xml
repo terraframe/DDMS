@@ -596,10 +596,10 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.Household"
-          method="Households" />
+          method="NetHouseholds" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.Net"
+          name="dss.vector.solutions.ontology.Term"
           method="Nets" />
       </mdTree>
 
@@ -1042,11 +1042,6 @@
             name="performedRDT"
             label="Was RDT done"
             type="dss.vector.solutions.ontology.Term" />
-          <enumeration
-            name="rDTResult"
-            label="Result"
-            selectMultiple="true"
-            type="dss.vector.solutions.intervention.RDTResult" />
           <reference
             name="rdtTreatment"
             label="Treatment given"
@@ -1077,6 +1072,20 @@
             type="dss.vector.solutions.ontology.Term" />
         </attributes>
       </mdBusiness>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.PersonRDTResult"
+        label="Person RDT Result"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Person"
+          method="Persons" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="RDTResults" />
+      </mdTree>
 
       <mdTree
         name="dss.vector.solutions.intervention.monitor.HouseholdPerson"

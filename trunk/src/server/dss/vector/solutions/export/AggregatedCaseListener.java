@@ -14,7 +14,9 @@ import com.terraframe.mojo.dataaccess.io.excel.ImportListener;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.system.metadata.MdAttribute;
 
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.CaseDiagnostic;
+import dss.vector.solutions.surveillance.ChildCaseView;
 import dss.vector.solutions.surveillance.DiagnosticGrid;
 import dss.vector.solutions.surveillance.ReferralGrid;
 import dss.vector.solutions.surveillance.TreatmentGrid;
@@ -75,39 +77,46 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
   {
     AggregatedCaseExcelView aggregatedCase = (AggregatedCaseExcelView) instance;
     
-    for (TreatmentGrid grid : TreatmentGrid.getAll())
+    for (Term term : Term.getRootChildren(ChildCaseView.getCaseStocksMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
-        if (column.getAttributeName().equals(STOCK + grid.getOptionName()))
+        if (column.getAttributeName().equals(STOCK + term.getOptionName()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
           Boolean inStock = cell.getBooleanCellValue();
-          aggregatedCase.addStock(grid, inStock);
-        }
-        if (column.getAttributeName().equals(TREATMENT + grid.getOptionName()))
-        {
-          HSSFCell cell = row.getCell(column.getIndex());
-          int count = new Double(cell.getNumericCellValue()).intValue();
-          aggregatedCase.addTreatment(grid, count);
+          aggregatedCase.addStock(term, inStock);
         }
       }
     }
     
-    for (TreatmentMethodGrid grid : TreatmentMethodGrid.getAll())
+    for (Term term : Term.getRootChildren(ChildCaseView.getCaseTreatmentsMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
-        if (column.getAttributeName().equals(METHOD + grid.getOptionName()))
+        if (column.getAttributeName().equals(TREATMENT + term.getOptionName()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
           int count = new Double(cell.getNumericCellValue()).intValue();
-          aggregatedCase.addMethod(grid, count);
+          aggregatedCase.addTreatment(term, count);
         }
       }
     }
     
-    for (DiagnosticGrid grid : DiagnosticGrid.getAll())
+    for (Term term : Term.getRootChildren(ChildCaseView.getCaseTreatmentMethodMd()))
+    {
+      for (ExcelColumn column : extraColumns)
+      {
+        if (column.getAttributeName().equals(METHOD + term.getOptionName()))
+        {
+          HSSFCell cell = row.getCell(column.getIndex());
+          int count = new Double(cell.getNumericCellValue()).intValue();
+          aggregatedCase.addMethod(term, count);
+        }
+      }
+    }
+    
+    for (Term term : Term.getRootChildren(ChildCaseView.getCaseDiagnosticMd()))
     {
       Integer amount = null;
       Integer amountPositive = null;
@@ -115,7 +124,7 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
       // Iterate over all extra columns, looking for matches to this DiagnosticGrid
       for (ExcelColumn column : extraColumns)
       {
-        String diagnosticName = DIAGNOSTIC + grid.getOptionName();
+        String diagnosticName = DIAGNOSTIC + term.getOptionName();
         if (column.getAttributeName().equals(diagnosticName))
         {
           HSSFCell cell = row.getCell(column.getIndex());
@@ -131,19 +140,19 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
       // Don't add any associations if either attribute is unspecified
       if (amount!=null && amountPositive!=null)
       {
-        aggregatedCase.addDiagnostic(grid, amount, amountPositive);
+        aggregatedCase.addDiagnostic(term, amount, amountPositive);
       }
     }
     
-    for (ReferralGrid grid : ReferralGrid.getAll())
+    for (Term term : Term.getRootChildren(ChildCaseView.getCaseReferralsMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
-        if (column.getAttributeName().equals(REFERRAL + grid.getOptionName()))
+        if (column.getAttributeName().equals(REFERRAL + term.getOptionName()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
           int count = new Double(cell.getNumericCellValue()).intValue();
-          aggregatedCase.addReferral(grid, count);
+          aggregatedCase.addReferral(term, count);
         }
       }
     }

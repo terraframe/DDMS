@@ -3,20 +3,20 @@ package dss.vector.solutions.intervention.monitor;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.terraframe.mojo.ProblemException;
-import com.terraframe.mojo.ProblemIF;
-
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
+
+import com.terraframe.mojo.ProblemException;
+import com.terraframe.mojo.ProblemIF;
+
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.TestFixture;
-import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.PeriodType;
-import dss.vector.solutions.surveillance.TreatmentGrid;
 
 public class AggregatedIPTTest extends TestCase
 {
@@ -85,28 +85,28 @@ public class AggregatedIPTTest extends TestCase
     concrete.setTotalITN(totalItn);
     concrete.apply();
 
-    for (PatientGrid d : PatientGrid.getAll())
+    for (Term d : Term.getRootChildren(AggregatedIPTView.getDisplayPatientsMd()))
     {
       IPTPatients rel = concrete.addPatients(d);
       rel.setAmount(new Integer(50));
       rel.apply();
     }
 
-    for (VisitGrid d : VisitGrid.getAll())
+    for (Term d : Term.getRootChildren(AggregatedIPTView.getDisplayVisitsMd()))
     {
       IPTANCVisit rel = concrete.addANCVisits(d);
       rel.setAmount(new Integer(10));
       rel.apply();
     }
 
-    for (DoseGrid d : DoseGrid.getAll())
+    for (Term d : Term.getRootChildren(AggregatedIPTView.getDisplayDoseMd()))
     {
       IPTDose rel = concrete.addDoses(d);
       rel.setAmount(new Integer(25));
       rel.apply();
     }
 
-    for (TreatmentGrid d : TreatmentGrid.getAll())
+    for (Term d : Term.getRootChildren(AggregatedIPTView.getDisplayDoseMd()))
     {
       IPTTreatment rel = concrete.addTreatments(d);
       rel.setAmount(new Integer(15));

@@ -19,6 +19,7 @@ import dss.vector.solutions.RequiredAttributeProblem;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
+import dss.vector.solutions.ontology.Term;
 
 public class ITNCommunityDistributionTest extends TestCase
 {
@@ -105,14 +106,14 @@ public class ITNCommunityDistributionTest extends TestCase
 
     try
     {
-      for (Net d : Net.getAll())
+      for (Term d : Term.getRootChildren(ITNCommunityDistributionView.getDisplayNetsMd()))
       {
         ITNCommunityNet rel = concrete.addNets(d);
         rel.setAmount(new Integer(50));
         rel.apply();
       }
 
-      for (TargetGroupGrid d : TargetGroupGrid.getAll())
+      for (Term d : Term.getRootChildren(ITNCommunityDistributionView.getDisplayTargetGroupsMd()))
       {
         ITNCommunityTargetGroup rel = concrete.addTargetGroups(d);
         rel.setAmount(new Integer(10));

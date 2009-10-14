@@ -1,11 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 import java.util.TreeSet;
 
 import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
@@ -14,10 +9,8 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectablePrimitive;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.intervention.FeverResponse;
-import dss.vector.solutions.intervention.TimeInterval;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.GridComparator;
-import dss.vector.solutions.surveillance.OptionComparator;
 
 public class ITNHouseholdSurveyView extends ITNHouseholdSurveyViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -55,19 +48,9 @@ public class ITNHouseholdSurveyView extends ITNHouseholdSurveyViewBase implement
     this.setWashFrequency(concrete.getWashFrequency());
     this.setRetreated(concrete.getRetreated());
     this.setRetreatmentPeriod(concrete.getRetreatmentPeriod());
-    
-    this.clearWashed();
-    this.clearWashInterval();
-    
-    for(FeverResponse washed : concrete.getWashed())
-    {
-      this.addWashed(washed);
-    }
-    
-    for(TimeInterval interval : concrete.getWashInterval())
-    {
-      this.addWashInterval(interval);
-    }
+
+    this.setWashed(concrete.getWashed());
+    this.setWashInterval(concrete.getWashInterval());
     
     GeoEntity location = concrete.getSurveyLocation();
     
@@ -101,20 +84,9 @@ public class ITNHouseholdSurveyView extends ITNHouseholdSurveyViewBase implement
     concrete.setWashFrequency(this.getWashFrequency());
     concrete.setRetreated(this.getRetreated());
     concrete.setRetreatmentPeriod(this.getRetreatmentPeriod());
-    
-    concrete.clearWashed();
-    concrete.clearWashInterval();
-    
-    for(FeverResponse washed : this.getWashed())
-    {
-      concrete.addWashed(washed);
-    }
-    
-    for(TimeInterval interval : this.getWashInterval())
-    {
-      concrete.addWashInterval(interval);
-    }
-    
+    concrete.setWashed(this.getWashed());
+    concrete.setWashInterval(this.getWashInterval());
+        
     String location = this.getSurveyLocation();
     
     if (location != null && !location.equals(""))
@@ -241,68 +213,42 @@ public class ITNHouseholdSurveyView extends ITNHouseholdSurveyViewBase implement
   @Override
   public ITNHouseholdSurveyNet[] getITNHouseholdSurveyNets()
   {
-    // A list of all this household nets plus nets that it doesn't have
-    Map<String, ITNHouseholdSurveyNet> nets = loadNets();
-    List<ITNHouseholdSurveyNet> list = new LinkedList<ITNHouseholdSurveyNet>();
-    Stack<Net> stack = new Stack<Net>();
+    Set<ITNHouseholdSurveyNet> set = new TreeSet<ITNHouseholdSurveyNet>(new GridComparator());
 
-    for (Net root : Net.getRoots())
+    for (Term d : Term.getRootChildren(ITNHouseholdSurveyView.getDisplayNetsMd()))
     {
-      stack.push(root);
+      set.add(new ITNHouseholdSurveyNet(this.getConcreteId(), d.getId()));
     }
-
-    while (!stack.empty())
-    {
-      // Create a stack to provide sorting on the nets
-      // Sort by the net name
-      Set<Net> set = new TreeSet<Net>(new OptionComparator());
-
-      Net net = stack.pop();
-
-      set.addAll(net.getAllChildNets().getAll());
-
-      for (Net child : set)
-      {
-        stack.push(child);
-      }
-
-      list.add(nets.get(net.getId()));
-    }
-
-    return list.toArray(new ITNHouseholdSurveyNet[list.size()]);
-  }
-
-  private Map<String, ITNHouseholdSurveyNet> loadNets()
-  {
-    Map<String, ITNHouseholdSurveyNet> map = new HashMap<String, ITNHouseholdSurveyNet>();
 
     if (this.hasConcrete())
     {
       ITNHouseholdSurvey concrete = ITNHouseholdSurvey.get(this.getConcreteId());
 
-      for (ITNHouseholdSurveyNet householdNet : concrete.getAllNetsRel())
+      for (ITNHouseholdSurveyNet d : concrete.getAllNetsRel())
       {
-        map.put(householdNet.getChildId(), householdNet);
+        // We will only want grid options methods which are active
+        // All active methods are already in the set. Thus, if
+        // the set already contains an entry for the Grid Option
+        // replace the default relationship with the actaul
+        // relationship
+        if (set.contains(d))
+        {
+          set.remove(d);
+          set.add(d);
+        }
       }
     }
 
-    for (Net net : Net.getAll())
-    {
-      if (!map.containsKey(net.getId()))
-      {
-        map.put(net.getId(), new ITNHouseholdSurveyNet(this.getConcreteId(), net.getId()));
-      }
-    }
-
-    return map;
+    return set.toArray(new ITNHouseholdSurveyNet[set.size()]);
   }
+
 
   @Override
   public ITNHouseholdSurveyTargetGroup[] getITNHouseholdSurveyTargetGroups()
   {
     Set<ITNHouseholdSurveyTargetGroup> set = new TreeSet<ITNHouseholdSurveyTargetGroup>(new GridComparator());
 
-    for (TargetGroupGrid d : TargetGroupGrid.getAll())
+    for (Term d : Term.getRootChildren(ITNHouseholdSurveyView.getDisplayTargetGroupsMd()))
     {
       set.add(new ITNHouseholdSurveyTargetGroup(this.getConcreteId(), d.getId()));
     }
@@ -334,7 +280,7 @@ public class ITNHouseholdSurveyView extends ITNHouseholdSurveyViewBase implement
   {
     Set<ITNHouseholdSurveyNonUseReason> set = new TreeSet<ITNHouseholdSurveyNonUseReason>(new GridComparator());
 
-    for (NonUseReasonGrid d : NonUseReasonGrid.getAll())
+    for (Term d : Term.getRootChildren(ITNHouseholdSurveyView.getDisplayNonUseReasonsMd()))
     {
       set.add(new ITNHouseholdSurveyNonUseReason(this.getConcreteId(), d.getId()));
     }

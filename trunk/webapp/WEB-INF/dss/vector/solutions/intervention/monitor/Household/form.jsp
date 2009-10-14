@@ -89,40 +89,33 @@
 
     </mjl:component>
 
-    <dt></dt>
-    <dd>
-      <table class="displayTable">
-        <tr>
-          <th><fmt:message key="Nets" /></th>
-          <th><fmt:message key="Amount" /></th>
-        </tr>
-        <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
-          <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-            <c:choose>
-              <c:when test="${current.child.isAbstract}">
-                <td colspan="2">${current.child.displayLabel}</td>
-              </c:when>
-              <c:otherwise>
-                <td style="padding-left:2em">${current.child.displayLabel}</td>
-                <td>
-                  <mjl:input type="text" param="amount" />
-                  <mjl:messages attribute="amount">
-                   <mjl:message />
-                  </mjl:messages>
-                </td>
-              </c:otherwise>
-            </c:choose>
-          </tr>
-        </mjl:components>
-      </table>
-    </dd>
-
+    <c:if test="${true}">
+      <dt></dt>
+      <dd>
+        <table class="displayTable">
+          <tr> 
+            <th>Nets</th>
+            <th><fmt:message key="Amount"/></th>
+          </tr>      
+          <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
+            <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
+              <td>
+                ${current.child.displayLabel}
+              </td>
+              <td>
+                <mjl:input type="text" param="amount" />
+                <mjl:messages attribute="amount">
+                  <mjl:message />
+                </mjl:messages>
+              </td>
+            </tr>
+          </mjl:components>
+        </table>
+      </dd>
+    </c:if>
+  
 <%String[] types_to_load = {PropertyDTO.CLASS};%>
 <%=Halp.loadTypes((List<String>) Arrays.asList(types_to_load))%>
-
-<script type="text/javascript">
-
-</script>
 
 <script type="text/javascript">
 (function(){

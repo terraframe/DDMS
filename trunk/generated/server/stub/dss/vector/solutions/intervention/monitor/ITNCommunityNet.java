@@ -2,6 +2,7 @@ package dss.vector.solutions.intervention.monitor;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.ChildOption;
 
 public class ITNCommunityNet extends ITNCommunityNetBase implements Reloadable, ChildOption
@@ -13,7 +14,7 @@ public class ITNCommunityNet extends ITNCommunityNetBase implements Reloadable, 
     super(parentId, childId);
   }
   
-  public ITNCommunityNet(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution parent, dss.vector.solutions.intervention.monitor.Net child)
+  public ITNCommunityNet(ITNCommunityDistribution parent, Term child)
   {
     this(parent.getId(), child.getId());
   }

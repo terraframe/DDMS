@@ -69,35 +69,31 @@
     <mjl:dt attribute="sleptUnderNets">
       ${item.sleptUnderNets}
     </mjl:dt>
-    <dt>
-    </dt>
-    <dd>
-      <table class="displayTable">
-        <tr>
-          <th><fmt:message key="Nets" /></th>
-          <th><fmt:message key="Amount" /></th>
-        </tr>
-        <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
-          <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-            <c:choose>
-              <c:when test="${current.child.isAbstract}">
-                <td colspan="2">
-                  ${current.child.displayLabel}
-                </td>
-              </c:when>
-              <c:otherwise>
-                <td style="padding-left:2em">
-                  ${current.child.displayLabel}
-                </td>
-                <td style="text-align:right;">
-                  ${current.amount}
-                </td>
-              </c:otherwise>
-            </c:choose>
-          </tr>
-        </mjl:components>
-      </table>
-    </dd>
+    
+    <c:if test="${true}">
+      <dt></dt>
+      <dd>
+        <table class="displayTable">
+          <tr> 
+            <th>Nets</th>
+            <th><fmt:message key="Amount"/></th>
+          </tr>      
+          <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
+            <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
+              <td>
+                ${current.child.displayLabel}
+              </td>
+              <td>
+                ${current.amount}
+                <mjl:messages attribute="amount">
+                  <mjl:message />
+                </mjl:messages>
+              </td>
+            </tr>
+          </mjl:components>
+        </table>
+      </dd>
+    </c:if>
     </mjl:component>
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.HouseholdController.edit.mojo" name="dss.vector.solutions.intervention.monitor.Household.form.edit.button" />
   </dl>

@@ -1,7 +1,12 @@
 package dss.vector.solutions.intervention.monitor;
 
+import com.terraframe.mojo.generation.loader.Reloadable;
 
-public class HouseholdNet extends HouseholdNetBase implements com.terraframe.mojo.generation.loader.Reloadable
+import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.surveillance.ChildOption;
+
+
+public class HouseholdNet extends HouseholdNetBase implements ChildOption, Reloadable
 {
   private static final long serialVersionUID = 1239641285868L;
 
@@ -10,7 +15,7 @@ public class HouseholdNet extends HouseholdNetBase implements com.terraframe.moj
     super(parentId, childId);
   }
 
-  public HouseholdNet(dss.vector.solutions.intervention.monitor.Household parent, dss.vector.solutions.intervention.monitor.Net child)
+  public HouseholdNet(Household parent, Term child)
   {
     this(parent.getId(), child.getId());
   }
@@ -39,10 +44,10 @@ public class HouseholdNet extends HouseholdNetBase implements com.terraframe.moj
       if(nets != null && nets == 0 && this.getAmount() != 0)
       {
         String msg = "The individual household net amount may not be set when the total number of nets is 0";
-        Net net = this.getChild();
+        Term term = this.getChild();
         
         NetProblem p = new NetProblem(msg);
-        p.setNetName(net.getDisplayLabel().getValue());
+        p.setNetName(term.getTermName());
         p.apply();
         p.throwIt();
       }

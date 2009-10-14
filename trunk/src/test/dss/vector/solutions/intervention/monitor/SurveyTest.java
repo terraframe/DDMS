@@ -28,7 +28,6 @@ import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.intervention.RDTResult;
 import dss.vector.solutions.ontology.Term;
 
 public class SurveyTest extends TestCase
@@ -61,7 +60,9 @@ public class SurveyTest extends TestCase
 
   private static Term      response   = null;
 
-  private static Term      sex   = null;
+  private static Term      sex        = null;
+
+  private static Term      result     = null;  
 
   public static Test suite()
   {
@@ -95,6 +96,7 @@ public class SurveyTest extends TestCase
     bloodSlide.delete();
     response.delete();
     sex.delete();
+    result.delete();
   }
 
   protected static void classSetUp()
@@ -107,8 +109,9 @@ public class SurveyTest extends TestCase
     treatment = TestFixture.createRandomTerm();
     windowType = TestFixture.createRandomTerm();
     bloodSlide = TestFixture.createRandomTerm();
-    response = TestFixture.createRandomTerm();    
-    sex = TestFixture.createRandomTerm();    
+    response = TestFixture.createRandomTerm();
+    sex = TestFixture.createRandomTerm();
+    result = TestFixture.createRandomTerm();
   }
 
   public void testCreateSurveyPoint()
@@ -312,7 +315,7 @@ public class SurveyTest extends TestCase
 
     Map<String, HouseholdNet> map = new HashMap<String, HouseholdNet>();
 
-    for (Net net : Net.getAllLeafs())
+    for (Term net : Term.getRootChildren(Household.getHasWindowsMd()))
     {
       map.put(net.getId(), new HouseholdNet(household, net));
     }
@@ -688,8 +691,6 @@ public class SurveyTest extends TestCase
     person.setMalaria(response);
     person.setPayment(response);
     person.setPerformedRDT(response);
-    person.addRDTResult(RDTResult.VIVAX_POSITIVE);
-    person.addRDTResult(RDTResult.OVALE_POSITIVE);
     person.setSex(sex);
     person.apply();
 
@@ -709,20 +710,17 @@ public class SurveyTest extends TestCase
       assertEquals("000", test.getPersonId());
       assertEquals(new Boolean(true), test.getPregnant());
       assertEquals(drug.getId(), test.getRdtTreatment().getId());
-      
+
       assertEquals(bloodSlide.getId(), test.getBloodslide().getId());
-      
+
       assertEquals(response.getId(), test.getFever().getId());
-      
+
       assertEquals(response.getId(), test.getMalaria().getId());
-      
+
       assertEquals(response.getId(), test.getPayment().getId());
-      
+
       assertEquals(response.getId(), test.getPerformedRDT().getId());
-      assertEquals(2, test.getRDTResult().size());
-      assertTrue(test.getRDTResult().contains(RDTResult.VIVAX_POSITIVE));
-      assertTrue(test.getRDTResult().contains(RDTResult.OVALE_POSITIVE));
-      
+
       assertEquals(sex.getId(), test.getSex().getId());
     }
     finally
@@ -780,14 +778,13 @@ public class SurveyTest extends TestCase
     person.setMalaria(response);
     person.setPayment(response);
     person.setPerformedRDT(response);
-    person.addRDTResult(RDTResult.VIVAX_POSITIVE);
-    person.addRDTResult(RDTResult.OVALE_POSITIVE);
     person.setSex(sex);
-    person.apply();
+    person.applyAll(new Term[]{result});
 
     try
     {
       PersonView test = Person.getView(person.getConcreteId());
+      Term[] results = test.getRDTResults();
 
       assertNotNull(test);
       assertEquals(household.getId(), test.getHousehold().getId());
@@ -800,17 +797,16 @@ public class SurveyTest extends TestCase
       assertEquals(drug.getId(), test.getMalariaTreatment().getId());
       assertEquals("000", test.getPersonId());
       assertEquals(new Boolean(true), test.getPregnant());
-      assertEquals(drug.getId(), test.getRdtTreatment().getId());      
-      assertEquals(bloodSlide.getId(), test.getBloodslide().getId());      
-      assertEquals(response.getId(), test.getFever().getId());      
-      assertEquals(response.getId(), test.getMalaria().getId());      
-      assertEquals(response.getId(), test.getPayment().getId());      
+      assertEquals(drug.getId(), test.getRdtTreatment().getId());
+      assertEquals(bloodSlide.getId(), test.getBloodslide().getId());
+      assertEquals(response.getId(), test.getFever().getId());
+      assertEquals(response.getId(), test.getMalaria().getId());
+      assertEquals(response.getId(), test.getPayment().getId());
       assertEquals(response.getId(), test.getPerformedRDT().getId());
-      assertEquals(2, test.getRDTResult().size());
-      assertTrue(test.getRDTResult().contains(RDTResult.VIVAX_POSITIVE));
-      assertTrue(test.getRDTResult().contains(RDTResult.OVALE_POSITIVE));
+      assertEquals(1, results.length);
+      assertEquals(result.getId(), results[0].getId());
       assertEquals(sex.getId(), test.getSex().getId());
-      
+
     }
     finally
     {
@@ -867,8 +863,6 @@ public class SurveyTest extends TestCase
     person.setMalaria(response);
     person.setPayment(response);
     person.setPerformedRDT(response);
-    person.addRDTResult(RDTResult.VIVAX_POSITIVE);
-    person.addRDTResult(RDTResult.OVALE_POSITIVE);
     person.setSex(sex);
     person.apply();
 
@@ -891,8 +885,6 @@ public class SurveyTest extends TestCase
       duplicate.setMalaria(response);
       duplicate.setPayment(response);
       duplicate.setPerformedRDT(response);
-      duplicate.addRDTResult(RDTResult.VIVAX_POSITIVE);
-      duplicate.addRDTResult(RDTResult.OVALE_POSITIVE);
       duplicate.setSex(sex);
       duplicate.apply();
 
@@ -961,8 +953,6 @@ public class SurveyTest extends TestCase
       person.setMalaria(response);
       person.setPayment(response);
       person.setPerformedRDT(response);
-      person.addRDTResult(RDTResult.VIVAX_POSITIVE);
-      person.addRDTResult(RDTResult.OVALE_POSITIVE);
       person.setSex(sex);
       person.apply();
 
@@ -1031,8 +1021,6 @@ public class SurveyTest extends TestCase
     person.setMalaria(response);
     person.setPayment(response);
     person.setPerformedRDT(response);
-    person.addRDTResult(RDTResult.VIVAX_POSITIVE);
-    person.addRDTResult(RDTResult.OVALE_POSITIVE);
     person.setSex(sex);
     person.apply();
 
@@ -1053,8 +1041,6 @@ public class SurveyTest extends TestCase
     person2.setMalaria(response);
     person2.setPayment(response);
     person2.setPerformedRDT(response);
-    person2.addRDTResult(RDTResult.VIVAX_POSITIVE);
-    person2.addRDTResult(RDTResult.OVALE_POSITIVE);
     person2.setSex(sex);
     person2.apply();
 
@@ -1286,7 +1272,7 @@ public class SurveyTest extends TestCase
 
     Collection<HouseholdNet> values = new LinkedList<HouseholdNet>();
 
-    for (Net net : Net.getAllLeafs())
+    for (Term net : Term.getRootChildren(Household.getHasWindowsMd()))
     {
       HouseholdNet value = new HouseholdNet(household, net);
       value.setAmount(30);

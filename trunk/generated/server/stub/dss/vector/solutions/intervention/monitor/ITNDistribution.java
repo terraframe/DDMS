@@ -2,13 +2,10 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Set;
-import java.util.TreeSet;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.Person;
-import dss.vector.solutions.surveillance.GridComparator;
 
 public class ITNDistribution extends ITNDistributionBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -19,56 +16,36 @@ public class ITNDistribution extends ITNDistributionBase implements com.terrafra
     super();
   }
   
-  @Override
-  @Transaction
-  public void applyAll(ITNDistributionTargetGroup[] targetGroups)
+  public static ITNDistributionView getView(String id)
   {
-    if (this.isNew())
-    {
-      for (int i = 0; i < targetGroups.length; i++)
-      {
-        targetGroups[i] = targetGroups[i].clone(this);
-      }
-    }
-    
-    this.apply();
-    
-    for (ITNDistributionTargetGroup dtg : targetGroups)
-    {
-      dtg.apply();
-    }
+    return ITNDistribution.get(id).getView();
   }
-  
-  @Override
-  public ITNDistributionTargetGroup[] getDistributionTargetGroups()
+
+  public ITNDistributionView getView()
   {
-    Set<ITNDistributionTargetGroup> set = new TreeSet<ITNDistributionTargetGroup>(new GridComparator());
+    ITNDistributionView view = new ITNDistributionView();
+    view.populateView(this);
 
-    for (TargetGroupGrid d : TargetGroupGrid.getAll())
-    {
-      set.add(new ITNDistributionTargetGroup(this.getId(), d.getId()));
-    }
-
-    if (!this.isNew())
-    {
-      for (ITNDistributionTargetGroup d : this.getAllTargetGroupsRel())
-      {
-        // We will only want grid options methods which are active
-        // All active methods are already in the set. Thus, if
-        // the set already contains an entry for the Grid Option
-        // replace the default relationship with the actual
-        // relationship
-        if (set.contains(d))
-        {
-          set.remove(d);
-          set.add(d);
-        }
-      }
-    }
-
-    return set.toArray(new ITNDistributionTargetGroup[set.size()]);
+    return view;
   }
-  
+
+  @Override
+  public ITNDistributionView unlockView()
+  {
+    this.unlock();
+
+    return this.getView();
+  }
+
+  @Override
+  public ITNDistributionView lockView()
+  {
+    this.lock();
+
+    return this.getView();
+  }
+
+    
   @Override
   @Transaction
   public void lock()

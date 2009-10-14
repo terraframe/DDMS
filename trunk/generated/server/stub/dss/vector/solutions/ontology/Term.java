@@ -1,5 +1,9 @@
 package dss.vector.solutions.ontology;
 
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.GeneratedViewQuery;
@@ -13,8 +17,9 @@ import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.UnknownTermException;
 import dss.vector.solutions.query.ActionNotAllowedException;
+import dss.vector.solutions.surveillance.OptionIF;
 
-public abstract class Term extends TermBase implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class Term extends TermBase implements Reloadable, OptionIF
 {
   private static final long serialVersionUID = 1253040031928L;
 
@@ -405,5 +410,56 @@ public abstract class Term extends TermBase implements com.terraframe.mojo.gener
     {
       iterator.close();
     }
+  }
+  
+  /**
+   * @param mdAttribute
+   * @return Returns selectable roots and every roots direct descendants for a given MdAttribute
+   */
+  public static Term[] getRootChildren(MdAttributeDAOIF mdAttribute)
+  {
+    Set<Term> children = new TreeSet<Term>(new TermComparator());
+    
+    String className = mdAttribute.definedByClass().definesType();
+    BrowserRootView[] roots = BrowserRoot.getAttributeRoots(className, mdAttribute.definesAttribute());
+    
+    if(roots.length > 0)
+    {
+      for(BrowserRootView view : roots)
+      {
+        Term term = Term.get(view.getTermId());
+
+        if(view.getSelectable())
+        {
+          children.add(term);
+        }
+        
+        for(Term child : term.getAllChildTerm())
+        {
+          children.add(child);
+        }
+      }
+    }
+    else
+    {
+      List<? extends TermView> defaultRoots = Term.getDefaultRoots().getIterator().getAll();
+      
+      for(TermView view : defaultRoots)
+      {
+        Term term = Term.get(view.getTermId());
+
+        for(Term child : term.getAllChildTerm())
+        {
+          children.add(child);
+        }
+      }      
+    }
+    
+    return children.toArray(new Term[children.size()]);
+  }
+  
+  public String getOptionName()
+  {
+    return this.getTermName();
   }
 }

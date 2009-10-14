@@ -298,10 +298,10 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.ITNData"
-          method="ITNs" />
+          method="AggregatedITNsWithService" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.ServiceGrid"
+          name="dss.vector.solutions.ontology.Term"
           method="Services" />
       </mdTree>
 
@@ -320,10 +320,10 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.ITNData"
-          method="ITNs" />
+          method="AggregatedITNsWithTargetGroups" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
+          name="dss.vector.solutions.ontology.Term"
           method="TargetGroups" />
       </mdTree>
 
@@ -342,10 +342,10 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.ITNData"
-          method="ITNs" />
+          method="AggregatedITNsWithNets" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.Net"
+          name="dss.vector.solutions.ontology.Term"
           method="Nets" />
       </mdTree>
 
@@ -407,15 +407,15 @@
             type="dss.vector.solutions.intervention.monitor.ITNData" />
           <integer
             name="displayServices"
-            label="ITN Services"
+            label="Total per type of service received"
             description="Marker for displaying ITN Service grid" />
           <integer
             name="displayTargetGroups"
-            label="ITN Target Groups"
+            label="Total ITNs distributed per target group/s"
             description="Marker for displaying ITN Target Group grid" />
           <integer
             name="displayNets"
-            label="ITN Nets"
+            label="Total ITN distributed by type"
             description="Marker for displaying ITN Net grid" />
         </attributes>
         <mdMethod

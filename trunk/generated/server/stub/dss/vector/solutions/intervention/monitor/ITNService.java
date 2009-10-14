@@ -2,6 +2,7 @@ package dss.vector.solutions.intervention.monitor;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.ChildOption;
 
 public class ITNService extends ITNServiceBase implements Reloadable, ChildOption
@@ -13,7 +14,7 @@ public class ITNService extends ITNServiceBase implements Reloadable, ChildOptio
     super(parentId, childId);
   }
   
-  public ITNService(dss.vector.solutions.intervention.monitor.ITNData parent, dss.vector.solutions.intervention.monitor.ServiceGrid child)
+  public ITNService(ITNData parent, Term child)
   {
     this(parent.getId(), child.getId());
   }

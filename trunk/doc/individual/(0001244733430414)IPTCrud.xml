@@ -262,10 +262,10 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.AggregatedIPT"
-          method="AggregatedIPTs" />
+          method="PatientAggregatedIPTs" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.PatientGrid"
+          name="dss.vector.solutions.ontology.Term"
           method="Patients" />
       </mdTree>
 
@@ -284,10 +284,10 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.AggregatedIPT"
-          method="AggregatedIPTs" />
+          method="ANCVisitAggregatedIPTs" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.VisitGrid"
+          name="dss.vector.solutions.ontology.Term"
           method="ANCVisits" />
       </mdTree>
 
@@ -306,10 +306,10 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.AggregatedIPT"
-          method="AggregatedIPTs" />
+          method="DoseAggregatedIPTs" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.DoseGrid"
+          name="dss.vector.solutions.ontology.Term"
           method="Doses" />
       </mdTree>
 
@@ -328,10 +328,10 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.AggregatedIPT"
-          method="AggregatedIPTs" />
+          method="TreatmentAggregatedIPTs" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.surveillance.TreatmentGrid"
+          name="dss.vector.solutions.ontology.Term"
           method="Treatments" />
       </mdTree>
 
@@ -390,19 +390,19 @@
             type="dss.vector.solutions.intervention.monitor.AggregatedIPT" />
           <integer
             name="displayPatients"
-            label="IPT Patients"
+            label="Number per person category"
             description="Marker for displaying IPT Patients grid" />
           <integer
             name="displayVisits"
-            label="IPT ANC Visits"
+            label="Number of pregnant females who received IPT per ANC visit"
             description="Marker for displaying IPT Visits grid" />
           <integer
             name="displayDose"
-            label="IPT Doses"
+            label="Number of pregnant females who received IPT per IPT dose number"
             description="Marker for displaying IPT Dose grid" />
           <integer
             name="displayTreatments"
-            label="IPT Treatments"
+            label="Number of pregnant females who received IPT per type"
             description="Marker for displaying IPT Treatments grid" />
         </attributes>
         <mdMethod

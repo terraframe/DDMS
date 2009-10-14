@@ -15,6 +15,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.AggregatedAgeGroup;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupQuery;
 import dss.vector.solutions.surveillance.AggregatedCase;
@@ -24,52 +25,47 @@ import dss.vector.solutions.surveillance.CaseReferral;
 import dss.vector.solutions.surveillance.CaseTreatment;
 import dss.vector.solutions.surveillance.CaseTreatmentMethod;
 import dss.vector.solutions.surveillance.CaseTreatmentStock;
-import dss.vector.solutions.surveillance.DiagnosticGrid;
 import dss.vector.solutions.surveillance.PeriodType;
-import dss.vector.solutions.surveillance.ReferralGrid;
-import dss.vector.solutions.surveillance.TreatmentGrid;
-import dss.vector.solutions.surveillance.TreatmentMethodGrid;
 
-public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long         serialVersionUID = 1246505362370L;
+  private static final long serialVersionUID = 1246505362370L;
 
-  private List<TreatmentGrid>       stock;
+  private List<Term>        stock;
 
-  private List<Boolean>             stockValues;
+  private List<Boolean>     stockValues;
 
-  private List<TreatmentGrid>       treatments;
+  private List<Term>        treatments;
 
-  private List<Integer>             treatmentAmounts;
+  private List<Integer>     treatmentAmounts;
 
-  private List<TreatmentMethodGrid> methods;
+  private List<Term>        methods;
 
-  private List<Integer>             methodAmounts;
+  private List<Integer>     methodAmounts;
 
-  private List<DiagnosticGrid>      diagnostics;
+  private List<Term>        diagnostics;
 
-  private List<Integer>             diagnosticAmounts;
+  private List<Integer>     diagnosticAmounts;
 
-  private List<Integer>             diagnosticPositives;
+  private List<Integer>     diagnosticPositives;
 
-  private List<ReferralGrid>        referrals;
+  private List<Term>        referrals;
 
-  private List<Integer>             referralAmounts;
+  private List<Integer>     referralAmounts;
 
   public AggregatedCaseExcelView()
   {
     super();
-    stock = new LinkedList<TreatmentGrid>();
+    stock = new LinkedList<Term>();
     stockValues = new LinkedList<Boolean>();
-    treatments = new LinkedList<TreatmentGrid>();
+    treatments = new LinkedList<Term>();
     treatmentAmounts = new LinkedList<Integer>();
-    methods = new LinkedList<TreatmentMethodGrid>();
+    methods = new LinkedList<Term>();
     methodAmounts = new LinkedList<Integer>();
-    diagnostics = new LinkedList<DiagnosticGrid>();
+    diagnostics = new LinkedList<Term>();
     diagnosticAmounts = new LinkedList<Integer>();
     diagnosticPositives = new LinkedList<Integer>();
-    referrals = new LinkedList<ReferralGrid>();
+    referrals = new LinkedList<Term>();
     referralAmounts = new LinkedList<Integer>();
   }
 
@@ -86,8 +82,7 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     OIterator<? extends AggregatedAgeGroup> iterator = query.getIterator();
     AggregatedAgeGroup ageGroup = iterator.next();
 
-    AggregatedCaseView acv = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, periodType, this
-        .getPeriod(), this.getEpiYear(), ageGroup);
+    AggregatedCaseView acv = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, periodType, this.getPeriod(), this.getEpiYear(), ageGroup);
     acv.setCases(this.getCases());
     acv.setCasesFemale(this.getCasesFemale());
     acv.setCasesMale(this.getCasesMale());
@@ -202,11 +197,11 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
 
   private PeriodType getPeriodTypeByLabel(String label)
   {
-    if(label == null || label.equals(""))
+    if (label == null || label.equals(""))
     {
       return null;
     }
-    
+
     for (PeriodType e : PeriodType.values())
     {
       if (e.getDisplayLabel().equals(label))
@@ -218,32 +213,32 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(PeriodType.CLASS));
   }
 
-  public void addStock(TreatmentGrid grid, boolean inStock)
+  public void addStock(Term grid, boolean inStock)
   {
     stock.add(grid);
     stockValues.add(inStock);
   }
 
-  public void addTreatment(TreatmentGrid grid, int count)
+  public void addTreatment(Term grid, int count)
   {
     treatments.add(grid);
     treatmentAmounts.add(count);
   }
 
-  public void addMethod(TreatmentMethodGrid grid, int count)
+  public void addMethod(Term grid, int count)
   {
     methods.add(grid);
     methodAmounts.add(count);
   }
 
-  public void addDiagnostic(DiagnosticGrid grid, int amount, int positive)
+  public void addDiagnostic(Term grid, int amount, int positive)
   {
     diagnostics.add(grid);
     diagnosticAmounts.add(amount);
     diagnosticPositives.add(positive);
   }
 
-  public void addReferral(ReferralGrid grid, int count)
+  public void addReferral(Term grid, int count)
   {
     referrals.add(grid);
     referralAmounts.add(count);

@@ -2,6 +2,7 @@ package dss.vector.solutions.intervention.monitor;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.ChildOption;
 
 public class ITNCommunityTargetGroup extends ITNCommunityTargetGroupBase implements Reloadable, ChildOption
@@ -13,7 +14,7 @@ public class ITNCommunityTargetGroup extends ITNCommunityTargetGroupBase impleme
     super(parentId, childId);
   }
   
-  public ITNCommunityTargetGroup(ITNCommunityDistribution parent, TargetGroupGrid child)
+  public ITNCommunityTargetGroup(ITNCommunityDistribution parent, Term child)
   {
     this(parent.getId(), child.getId());
   }

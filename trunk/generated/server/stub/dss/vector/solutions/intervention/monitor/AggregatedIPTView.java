@@ -7,8 +7,8 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.GridComparator;
-import dss.vector.solutions.surveillance.TreatmentGrid;
 
 public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -144,7 +144,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
   {
     Set<IPTANCVisit> set = new TreeSet<IPTANCVisit>(new GridComparator());
 
-    for (VisitGrid d : VisitGrid.getAll())
+    for (Term d : Term.getRootChildren(AggregatedIPTView.getDisplayVisitsMd()))
     {
       set.add(new IPTANCVisit(this.getConcreteId(), d.getId()));
     }
@@ -176,7 +176,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
   {
     Set<IPTDose> set = new TreeSet<IPTDose>(new GridComparator());
 
-    for (DoseGrid d : DoseGrid.getAll())
+    for (Term d : Term.getRootChildren(AggregatedIPTView.getDisplayDoseMd()))
     {
       set.add(new IPTDose(this.getConcreteId(), d.getId()));
     }
@@ -208,7 +208,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
   {
     Set<IPTPatients> set = new TreeSet<IPTPatients>(new GridComparator());
 
-    for (PatientGrid d : PatientGrid.getAll())
+    for (Term d : Term.getRootChildren(AggregatedIPTView.getDisplayPatientsMd()))
     {
       set.add(new IPTPatients(this.getConcreteId(), d.getId()));
     }
@@ -240,7 +240,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
   {
     Set<IPTTreatment> set = new TreeSet<IPTTreatment>(new GridComparator());
 
-    for (TreatmentGrid d : TreatmentGrid.getAll())
+    for (Term d : Term.getRootChildren(AggregatedIPTView.getDisplayTreatmentsMd()))
     {
       set.add(new IPTTreatment(this.getConcreteId(), d.getId()));
     }

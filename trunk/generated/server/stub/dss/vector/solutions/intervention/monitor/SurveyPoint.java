@@ -23,6 +23,7 @@ import com.terraframe.mojo.query.ValueQueryExcelExporter;
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.RDTResult;
+import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.MapUtil;
 import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.SavedSearch;
@@ -262,7 +263,8 @@ public class SurveyPoint extends SurveyPointBase implements
           valueQuery.FROM(householdQuery);
         }
         
-        NetQuery netQuery = new NetQuery(queryFactory);
+        // FIXME MO UPGRADE
+        TermQuery netQuery = new TermQuery(queryFactory);
         
         String netName = entityAlias.substring(entityAlias.indexOf("_")+1);
         
@@ -270,7 +272,8 @@ public class SurveyPoint extends SurveyPointBase implements
         
         valueQuery.AND(householdQuery.nets(householdNetQuery));
         valueQuery.AND(householdNetQuery.hasChild(netQuery));
-        valueQuery.AND(netQuery.getNetName().EQ(netName));
+        valueQuery.AND(netQuery.getTermName().EQ(netName));
+        
       }
     }
     

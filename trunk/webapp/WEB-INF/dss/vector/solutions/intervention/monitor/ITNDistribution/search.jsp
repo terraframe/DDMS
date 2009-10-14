@@ -22,8 +22,7 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
     <input type="hidden" id="typeSearchFilter" value="${healthFacility}" />
     <mjl:component item="${item}" param="itn">
       <mjl:dt attribute="facility">
-        <mjl:input value="${item.facility != null ? item.facility.geoId : ''}" type="text" param="facilityId" classes="geoInput" id="geoIdEl" />
-        <mjl:input type="hidden" param="facility" id="geoIdEl_geoEntityId" />
+        <mjl:input value="${item.facility}" type="text" param="facility" classes="geoInput" id="geoIdEl" />
       </mjl:dt>
       <mjl:dt attribute="distributionDate" >
         <mjl:input type="text" param="distributionDate" id="distributionDate" classes="DatePick NoFuture"/>

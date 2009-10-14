@@ -121,67 +121,60 @@
         </dt>
         <dd>
           <table class="displayTable">
-            <tr>
+            <tr> 
               <th>${item.displayNetsMd.displayLabel}</th>
-              <th><fmt:message key="Amount" /></th>
-            </tr>
+              <th><fmt:message key="Amount"/></th>
+            </tr>      
             <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
               <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-                <c:choose>
-                  <c:when test="${current.child.isAbstract}">
-                    <td colspan="2">${current.child.displayLabel}</td>
-                  </c:when>
-                  <c:otherwise>
-                    <td style="padding-left:2em">${current.child.displayLabel}</td>
-                    <td>
-                      ${current.amount}
-                      <mjl:messages attribute="amount">
-                        <mjl:message />
-                      </mjl:messages>
-                    </td>
-                  </c:otherwise>
-                </c:choose>
+                <td>
+                  ${current.child.displayLabel}
+                </td>
+                <td>
+                  ${current.amount}
+                  <mjl:messages attribute="amount">
+                    <mjl:message />
+                  </mjl:messages>
+                </td>
               </tr>
             </mjl:components>
           </table>
-        </dd>  
+        </dd>
       </c:if>    
             
       <mjl:dt attribute="netsObtained">
         ${item.netsObtained ? item.netsObtainedMd.positiveDisplayLabel : item.netsObtainedMd.negativeDisplayLabel}
       </mjl:dt>      
       <mjl:dt attribute="freeProvider">
-        ${item.freeProvider.displayLabel}
+        <c:if test="${freeProvider != null}">
+          ${freeProvider.displayLabel}
+        </c:if>
       </mjl:dt>      
       <mjl:dt attribute="boughtProvider">
-        ${item.boughtProvider.displayLabel}
+        <c:if test="${boughtProvider != null}">
+          ${boughtProvider.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="washed">
-        <ul>
-          <c:forEach items="${item.washedEnumNames}" var="enumName">
-            <li>
-              ${item.washedMd.enumItems[enumName]}
-            </li>
-          </c:forEach>
-        </ul>
+        <c:if test="${washed != null}">
+          ${washed.displayLabel}
+        </c:if>
       </mjl:dt>      
       <mjl:dt attribute="washFrequency">
         ${item.washFrequency}
       </mjl:dt>      
       <mjl:dt attribute="washInterval">
-        <ul>
-          <c:forEach items="${item.washIntervalEnumNames}" var="enumName">
-            <li>
-              ${item.washIntervalMd.enumItems[enumName]}
-            </li>
-          </c:forEach>
-        </ul>
+        <c:if test="${washInterval != null}">
+          ${washInterval.displayLabel}
+        </c:if>
       </mjl:dt>      
       <mjl:dt attribute="retreated">
         ${item.retreated ? item.retreatedMd.positiveDisplayLabel : item.retreatedMd.negativeDisplayLabel}
       </mjl:dt>
       <mjl:dt attribute="retreatmentPeriod">
-        ${item.retreatmentPeriod.displayLabel}
+        <c:if test="${retreatmentPeriod != null}">
+          ${retreatmentPeriod.displayLabel}
+        </c:if>
       </mjl:dt>
     </mjl:component>
     <mjl:command name="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey.form.edit.button" value="Edit" action="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyController.edit.mojo" />

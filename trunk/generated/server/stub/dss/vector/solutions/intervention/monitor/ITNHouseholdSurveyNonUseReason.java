@@ -7,6 +7,7 @@ import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.session.Session;
 
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.ChildOption;
 
 public class ITNHouseholdSurveyNonUseReason extends ITNHouseholdSurveyNonUseReasonBase implements Reloadable, ChildOption
@@ -18,7 +19,7 @@ public class ITNHouseholdSurveyNonUseReason extends ITNHouseholdSurveyNonUseReas
     super(parentId, childId);
   }
   
-  public ITNHouseholdSurveyNonUseReason(ITNHouseholdSurvey parent, NonUseReasonGrid child)
+  public ITNHouseholdSurveyNonUseReason(ITNHouseholdSurvey parent, Term child)
   {
     this(parent.getId(), child.getId());
   }

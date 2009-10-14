@@ -27,17 +27,18 @@
     </mjl:component>
     
     <mjl:component item="${itn}" param="itn">
+      <mjl:input type="hidden" param="concreteId" value="${itn.concreteId}" />  
       <mjl:input type="hidden" param="batchNumber"/>
-        <mjl:input type="hidden" param="currencyReceived" value="${itn.currencyReceived}"/>
-        <fmt:formatDate value="${itn.distributionDate}" pattern="${dateFormatPattern}" var="formattedDistributionDate"/>
-        <mjl:input type="hidden" param="distributionDate" value="${formattedDistributionDate}"/>
-        <mjl:input type="hidden" param="distributorName" value="${itn.distributorName}"/>
-        <mjl:input type="hidden" param="distributorSurname" value="${itn.distributorSurname}"/>
-        <mjl:input type="hidden" param="facility" value="${itn.facility != null ? itn.facility.id : ''}"/>
-        <mjl:input type="hidden" param="net" value="${itn.net != null ? itn.net.id : ''}"/>
-        <mjl:input type="hidden" param="numberSold" value="${itn.numberSold}"/>
-        <mjl:input type="hidden" param="recipient" value="${itn.recipient != null ? itn.recipient.id : ''}"/>
-        <mjl:input type="hidden" param="service" value="${itn.service != null ? itn.service.id : ''}"/>
+      <mjl:input type="hidden" param="currencyReceived" value="${itn.currencyReceived}"/>
+      <fmt:formatDate value="${itn.distributionDate}" pattern="${dateFormatPattern}" var="formattedDistributionDate"/>
+      <mjl:input type="hidden" param="distributionDate" value="${formattedDistributionDate}"/>
+      <mjl:input type="hidden" param="distributorName" value="${itn.distributorName}"/>
+      <mjl:input type="hidden" param="distributorSurname" value="${itn.distributorSurname}"/>
+      <mjl:input type="hidden" param="facility" value="${itn.facility}"/>
+      <mjl:input type="hidden" param="net" value="${itn.net != null ? itn.net.id : ''}"/>
+      <mjl:input type="hidden" param="numberSold" value="${itn.numberSold}"/>
+      <mjl:input type="hidden" param="recipient" value="${itn.recipient != null ? itn.recipient.id : ''}"/>
+      <mjl:input type="hidden" param="service" value="${itn.service != null ? itn.service.id : ''}"/>
     </mjl:component>
     
     <mjl:command value="Confirm" action="dss.vector.solutions.intervention.monitor.ITNDistributionController.updateRecipient.mojo" name="confirm" />

@@ -7,7 +7,7 @@
 </mjl:messages>
 <dl>
   <mjl:form name="dss.vector.solutions.intervention.monitor.ITNDistribution.form.name" id="dss.vector.solutions.intervention.monitor.ITNDistribution.form.id" method="POST">
-    <mjl:input value="${item.id}" type="hidden" param="id" />
+    <mjl:input value="${item.concreteId}" type="hidden" param="id" />
     <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="recipient">
         ${item.recipient.person}
@@ -18,16 +18,20 @@
         </span>
       </mjl:dt>
       <mjl:dt attribute="facility">
-        ${item.facility.geoId}
+        ${item.facility}
       </mjl:dt>
       <mjl:dt attribute="service">
-        ${item.service.displayLabel}
+        <c:if test="${service != null}">
+          ${service.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="batchNumber">
         ${item.batchNumber}
       </mjl:dt>
       <mjl:dt attribute="net">
-        ${item.net.displayLabel}
+        <c:if test="${net != null}">
+          ${net.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="numberSold">
         ${item.numberSold}
@@ -42,31 +46,33 @@
         ${item.distributorSurname}
       </mjl:dt>
     </mjl:component>
+
+    <c:if test="${item.isTargetGroupsReadable}">    
+      <dt>
     
-    <dt>
-    
-    </dt>
-    <dd>
-      <table class="displayTable">
-        <tr> 
-          <th><fmt:message key="target_groups"/></th>
-          <th><fmt:message key="Amount"/></th>
-        </tr>      
-        <mjl:components items="${targetGroups}" param="targetGroups" var="current" varStatus="status">
-          <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-            <td>
-              ${current.child.displayLabel}
-            </td>
-            <td>
-              ${current.amount}
-              <mjl:messages attribute="amount">
-                <mjl:message />
-              </mjl:messages>
-            </td>
-          </tr>
-        </mjl:components>
-      </table>
-    </dd>
+      </dt>
+      <dd>
+        <table class="displayTable">
+          <tr> 
+            <th>${item.targetGroupsMd.displayLabel}</th>
+            <th><fmt:message key="Amount"/></th>
+          </tr>      
+          <mjl:components items="${targetGroups}" param="targetGroups" var="current" varStatus="status">
+            <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
+              <td>
+                ${current.child.displayLabel}
+              </td>
+              <td>
+                ${current.amount}
+                <mjl:messages attribute="amount">
+                  <mjl:message />
+                </mjl:messages>
+              </td>
+            </tr>
+          </mjl:components>
+        </table>
+      </dd>
+    </c:if>
       
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.ITNDistributionController.edit.mojo" name="dss.vector.solutions.intervention.monitor.ITNDistribution.form.edit.button" />
   </mjl:form>

@@ -1,5 +1,7 @@
 package dss.vector.solutions.surveillance;
 
+import dss.vector.solutions.ontology.Term;
+
 public class CaseTreatmentStock extends CaseTreatmentStockBase implements ChildOption, com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1238693145662L;
@@ -9,7 +11,7 @@ public class CaseTreatmentStock extends CaseTreatmentStockBase implements ChildO
     super(parentId, childId);
   }
   
-  public CaseTreatmentStock(dss.vector.solutions.surveillance.AggregatedCase parent, dss.vector.solutions.surveillance.TreatmentGrid child)
+  public CaseTreatmentStock(AggregatedCase parent, Term child)
   {
     this(parent.getId(), child.getId());
   }

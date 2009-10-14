@@ -39,7 +39,7 @@
     <dd>
       <table class="displayTable">
         <tr> 
-          <th><fmt:message key="service_received"/></th>
+          <th>${item.displayServicesMd.displayLabel}</th>
           <th><fmt:message key="Amount"/></th>
         </tr>      
         <mjl:components items="${services}" param="services" var="current" varStatus="status">
@@ -66,7 +66,7 @@
     <dd>
       <table class="displayTable">
         <tr> 
-          <th><fmt:message key="target_groups"/></th>
+          <th>${item.displayTargetGroupsMd.displayLabel}</th>
           <th><fmt:message key="Amount"/></th>
         </tr>      
         <mjl:components items="${targetGroups}" param="targetGroups" var="current" varStatus="status">
@@ -86,35 +86,30 @@
     </dd>
   </c:if>
 
-  <c:if test="${item.isDisplayTargetGroupsReadable}">
+  <c:if test="${item.isDisplayNetsReadable}">
     <dt>
-    
+      
     </dt>
     <dd>
       <table class="displayTable">
-        <tr>
-          <th><fmt:message key="total_itn_distributed" /></th>
-          <th><fmt:message key="Amount" /></th>
-        </tr>
+        <tr> 
+          <th>${item.displayNetsMd.displayLabel}</th>
+          <th><fmt:message key="Amount"/></th>
+        </tr>      
         <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-            <c:choose>
-              <c:when test="${current.child.isAbstract}">
-                <td colspan="2">${current.child.displayLabel}</td>
-              </c:when>
-              <c:otherwise>
-                <td style="padding-left:2em">${current.child.displayLabel}</td>
-                <td>
-                  <mjl:input type="text" param="amount" />
-                  <mjl:messages attribute="amount">
-                   <mjl:message />
-                  </mjl:messages>
-                </td>
-              </c:otherwise>
-            </c:choose>
+            <td>
+              ${current.child.displayLabel}
+            </td>
+            <td>
+              <mjl:input type="text" param="amount" />
+              <mjl:messages attribute="amount">
+                <mjl:message />
+              </mjl:messages>
+            </td>
           </tr>
         </mjl:components>
       </table>
-    </dd>  
+    </dd>
   </c:if>
   

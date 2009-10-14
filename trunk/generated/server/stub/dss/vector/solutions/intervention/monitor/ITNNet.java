@@ -2,6 +2,7 @@ package dss.vector.solutions.intervention.monitor;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.ChildOption;
 
 public class ITNNet extends ITNNetBase implements Reloadable, ChildOption
@@ -13,7 +14,7 @@ public class ITNNet extends ITNNetBase implements Reloadable, ChildOption
     super(parentId, childId);
   }
   
-  public ITNNet(dss.vector.solutions.intervention.monitor.ITNData parent, dss.vector.solutions.intervention.monitor.Net child)
+  public ITNNet(ITNData parent, Term child)
   {
     this(parent.getId(), child.getId());
   }

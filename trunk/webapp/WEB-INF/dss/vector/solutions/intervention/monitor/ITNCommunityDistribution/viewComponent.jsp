@@ -80,30 +80,25 @@
         </dt>
         <dd>
           <table class="displayTable">
-            <tr>
+            <tr> 
               <th>${item.displayNetsMd.displayLabel}</th>
-              <th><fmt:message key="Amount" /></th>
-            </tr>
+              <th><fmt:message key="Amount"/></th>
+            </tr>      
             <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
               <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-                <c:choose>
-                  <c:when test="${current.child.isAbstract}">
-                    <td colspan="2">${current.child.displayLabel}</td>
-                  </c:when>
-                  <c:otherwise>
-                    <td style="padding-left:2em">${current.child.displayLabel}</td>
-                    <td>
-                      ${current.amount}
-                      <mjl:messages attribute="amount">
-                        <mjl:message />
-                      </mjl:messages>
-                    </td>
-                  </c:otherwise>
-                </c:choose>
+                <td>
+                  ${current.child.displayLabel}
+                </td>
+                <td>
+                  ${current.amount}
+                  <mjl:messages attribute="amount">
+                    <mjl:message />
+                  </mjl:messages>
+                </td>
               </tr>
             </mjl:components>
           </table>
-        </dd>  
+        </dd>
       </c:if>
             
       <mjl:dt attribute="sold">

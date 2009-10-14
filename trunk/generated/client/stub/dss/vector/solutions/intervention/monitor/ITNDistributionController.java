@@ -38,9 +38,13 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
       utility.checkURL(this.getClass().getSimpleName(), "view");
       ClientRequestIF clientRequest = super.getClientRequest();
 
-      ITNDistributionDTO itn = ITNDistributionDTO.get(clientRequest, id);
-      req.setAttribute("targetGroups", Arrays.asList(itn.getDistributionTargetGroups()));
-      req.setAttribute("item", itn);
+      ITNDistributionViewDTO dto = ITNDistributionDTO.getView(clientRequest, id);
+      
+      this.setupReferences(dto);
+      
+      req.setAttribute("targetGroups", Arrays.asList(dto.getDistributionTargetGroups()));
+      req.setAttribute("item", dto);
+      
       render("viewComponent.jsp");
     }
     catch (com.terraframe.mojo.ProblemExceptionDTO e)
@@ -59,8 +63,9 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   {
     this.viewAll();
   }
-
-  public void create(ITNDistributionDTO dto, ITNDistributionTargetGroupDTO[] targetGroups) throws IOException, ServletException
+  
+  @Override
+  public void create(ITNDistributionViewDTO dto, ITNDistributionTargetGroupDTO[] targetGroups) throws IOException, ServletException
   {
     try
     {
@@ -78,17 +83,19 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
       this.failCreate(dto, targetGroups);
     }
   }
-
-  public void failCreate(ITNDistributionDTO dto, ITNDistributionTargetGroupDTO[] targetGroups) throws IOException, ServletException
+  
+  @Override
+  public void failCreate(ITNDistributionViewDTO dto, ITNDistributionTargetGroupDTO[] targetGroups) throws IOException, ServletException
   {
     renderCreate(dto, targetGroups);
   }
-
-  public void delete(ITNDistributionDTO dto) throws IOException, ServletException
+  
+  @Override
+  public void delete(ITNDistributionViewDTO dto) throws IOException, ServletException
   {
     try
     {
-      dto.delete();
+      dto.deleteConcrete();
       this.viewAll();
     }
     catch (com.terraframe.mojo.ProblemExceptionDTO e)
@@ -102,12 +109,13 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
       this.failDelete(dto);
     }
   }
-
-  public void failDelete(ITNDistributionDTO dto) throws IOException, ServletException
+  
+  @Override
+  public void failDelete(ITNDistributionViewDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("net", Arrays.asList(NetDTO.getAll(super.getClientSession().getRequest())));
+    this.setupReferences(dto);
+
     req.setAttribute("recipient", ITNRecipientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("service", Arrays.asList(ServiceGridDTO.getAllActive(super.getClientSession().getRequest())));
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -124,8 +132,9 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   {
     resp.sendError(500);
   }
-
-  public void searchRecipient(ITNDistributionDTO itn, PersonViewDTO recipient) throws IOException, ServletException
+  
+  @Override
+  public void searchRecipient(ITNDistributionViewDTO itn, PersonViewDTO recipient) throws IOException, ServletException
   {
     try
     {
@@ -157,13 +166,14 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
       this.failSearchRecipient(itn, recipient);
     }
   }
-
-  public void failSearchRecipient(ITNDistributionDTO itn, PersonViewDTO recipient) throws IOException, ServletException
+  
+  @Override
+  public void failSearchRecipient(ITNDistributionViewDTO itn, PersonViewDTO recipient) throws IOException, ServletException
   {
     renderSearch(itn, recipient);
   }
   
-  private void renderConfirm(ITNDistributionDTO itn, PersonViewDTO recipient) throws IOException, ServletException
+  private void renderConfirm(ITNDistributionViewDTO itn, PersonViewDTO recipient) throws IOException, ServletException
   {
     req.setAttribute("itn", itn);
     req.setAttribute("recipient", recipient);
@@ -173,10 +183,11 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   public void newInstance() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    renderSearch(new ITNDistributionDTO(clientRequest), new PersonViewDTO(clientRequest));
+    
+    renderSearch(new ITNDistributionViewDTO(clientRequest), new PersonViewDTO(clientRequest));
   }
 
-  private void renderSearch(ITNDistributionDTO itn, PersonViewDTO personView) throws IOException, ServletException
+  private void renderSearch(ITNDistributionViewDTO itn, PersonViewDTO personView) throws IOException, ServletException
   {
     req.setAttribute("recipient", personView);
     req.setAttribute("item", itn);
@@ -190,9 +201,10 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
 
   public void edit(String id) throws IOException, ServletException
   {
-    ITNDistributionDTO itn = ITNDistributionDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("net", Arrays.asList(NetDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("service", Arrays.asList(ServiceGridDTO.getAllActive(super.getClientSession().getRequest())));
+    ITNDistributionViewDTO itn = ITNDistributionDTO.lockView(super.getClientRequest(), id);
+
+    this.setupReferences(itn);
+    
     req.setAttribute("targetGroups", Arrays.asList(itn.getDistributionTargetGroups()));
     req.setAttribute("item", itn);
     render("editComponent.jsp");
@@ -203,23 +215,28 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     this.view(id);
   }
 
-  public void selectRecipient(ITNDistributionDTO itn, String recipientId) throws IOException, ServletException
+  public void selectRecipient(ITNDistributionViewDTO itn, String recipientId) throws IOException, ServletException
   {
     renderConfirm(itn, PersonDTO.getView(super.getClientRequest(), recipientId));
   }
-
-  public void failSelectRecipient(ITNDistributionDTO itn, String recipientId) throws IOException, ServletException
+  
+  @Override
+  public void failSelectRecipient(ITNDistributionViewDTO itn, String recipientId) throws IOException, ServletException
   {
     resp.sendError(500);
   }
-
-  public void cancel(ITNDistributionDTO dto) throws IOException, ServletException
+  
+  @Override
+  public void cancel(ITNDistributionViewDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
+    ClientRequestIF request = this.getClientRequest();
+    ITNDistributionDTO.lockView(request, dto.getConcreteId());
+
     this.view(dto.getId());
   }
-
-  public void failCancel(ITNDistributionDTO dto) throws IOException, ServletException
+  
+  @Override
+  public void failCancel(ITNDistributionViewDTO dto) throws IOException, ServletException
   {
     this.edit(dto.getId());
   }
@@ -236,13 +253,14 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   {
     resp.sendError(500);
   }
-
-  public void update(ITNDistributionDTO dto, ITNDistributionTargetGroupDTO[] targetGroups) throws IOException, ServletException
+  
+  @Override
+  public void update(ITNDistributionViewDTO dto, ITNDistributionTargetGroupDTO[] targetGroups) throws IOException, ServletException
   {
     try
     {
       dto.applyAll(targetGroups);
-      this.view(dto.getId());
+      this.view(dto.getConcreteId());
     }
     catch (com.terraframe.mojo.ProblemExceptionDTO e)
     {
@@ -255,17 +273,18 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
       this.failUpdate(dto, targetGroups);
     }
   }
-
-  public void failUpdate(ITNDistributionDTO dto, ITNDistributionTargetGroupDTO[] targetGroups) throws IOException, ServletException
+  
+  @Override
+  public void failUpdate(ITNDistributionViewDTO dto, ITNDistributionTargetGroupDTO[] targetGroups) throws IOException, ServletException
   {
-    req.setAttribute("net", Arrays.asList(NetDTO.getAll(super.getClientSession().getRequest())));
+    setupReferences(dto);
     req.setAttribute("recipient", ITNRecipientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("service", Arrays.asList(ServiceGridDTO.getAllActive(super.getClientSession().getRequest())));
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
-
-  public void updateRecipient(ITNDistributionDTO itn, PersonViewDTO recipient) throws IOException, ServletException
+  
+  @Override
+  public void updateRecipient(ITNDistributionViewDTO itn, PersonViewDTO recipient) throws IOException, ServletException
   {
     try
     {
@@ -287,16 +306,23 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     }
   }
 
-  private void renderCreate(ITNDistributionDTO itn, ITNDistributionTargetGroupDTO[] distributionTargetGroups) throws IOException, ServletException
+  private void renderCreate(ITNDistributionViewDTO itn, ITNDistributionTargetGroupDTO[] distributionTargetGroups) throws IOException, ServletException
   {
-    req.setAttribute("net", Arrays.asList(NetDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("service", Arrays.asList(ServiceGridDTO.getAllActive(super.getClientSession().getRequest())));
+    this.setupReferences(itn);
+    
     req.setAttribute("targetGroups", Arrays.asList(distributionTargetGroups));
     req.setAttribute("item", itn);
     render("createComponent.jsp");
   }
 
-  public void failUpdateRecipient(ITNDistributionDTO itn, PersonViewDTO recipient) throws IOException, ServletException
+  private void setupReferences(ITNDistributionViewDTO itn)
+  {
+    req.setAttribute("net", itn.getNet());
+    req.setAttribute("service", itn.getService());
+  }
+  
+  @Override
+  public void failUpdateRecipient(ITNDistributionViewDTO itn, PersonViewDTO recipient) throws IOException, ServletException
   {
     renderConfirm(itn, recipient);
   }

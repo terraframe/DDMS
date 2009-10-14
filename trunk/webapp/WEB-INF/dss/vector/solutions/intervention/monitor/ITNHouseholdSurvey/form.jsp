@@ -2,7 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<jsp:include page="/WEB-INF/selectSearch.jsp" />
+
+<%@page import="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyViewDTO"%><jsp:include page="/WEB-INF/selectSearch.jsp" />
+<jsp:include page="/WEB-INF/MOSearch.jsp" />
+
+
 <mjl:component param="dto" item="${item}">
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}" /> 
   <mjl:dt classes="DatePick" attribute="startDate" type="text" />
@@ -106,62 +110,63 @@
   </c:if>
 
   <c:if test="${item.isDisplayNetsReadable}">
-    <dt>
+    <dt>    
     </dt>
     <dd>
       <table class="displayTable">
-        <tr>
+        <tr> 
           <th>${item.displayNetsMd.displayLabel}</th>
-          <th><fmt:message key="Amount" /></th>
-        </tr>
+          <th><fmt:message key="Amount"/></th>
+        </tr>      
         <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-            <c:choose>
-              <c:when test="${current.child.isAbstract}">
-                <td colspan="2">${current.child.displayLabel}</td>
-              </c:when>
-              <c:otherwise>
-                <td style="padding-left:2em">${current.child.displayLabel}</td>
-                <td>
-                  <mjl:input type="text" param="amount" />
-                  <mjl:messages attribute="amount">
-                    <mjl:message />
-                  </mjl:messages>
-                </td>
-              </c:otherwise>
-            </c:choose>
+            <td>
+              ${current.child.displayLabel}
+            </td>
+            <td>
+              <mjl:input type="text" param="amount" />
+              <mjl:messages attribute="amount">
+                <mjl:message />
+              </mjl:messages>
+            </td>
           </tr>
         </mjl:components>
       </table>
-    </dd>  
+    </dd>
   </c:if>  
   <mjl:dt attribute="netsObtained">
     <mjl:boolean param="netsObtained" id="netsObtained" />
   </mjl:dt>
   <div class="freeProvider">
     <mjl:dt attribute="freeProvider">
-      <mjl:select param="freeProvider" items="${freeProvider}" var="current" valueAttribute="id" classes="freeProvider" includeBlank="true">
-        <mjl:option>
-          ${current.displayLabel}
-        </mjl:option>
-      </mjl:select>
+      <span class="clickable" id="freeProviderBtn"> <fmt:message key="Browser"/></span>
+      <div id="freeProviderDisplay" class="ontologyDisplay freeProvider">
+        <c:if test="${freeProvider != null}">
+          ${freeProvider.displayLabel}
+        </c:if>
+      </div>
+      <mjl:input type="hidden" param="freeProvider" id="freeProvider" value="${freeProvider != null ? freeProvider.id : ''}" classes="freeProvider" />
     </mjl:dt>
   </div>
   <div class="boughtProvider">
     <mjl:dt attribute="boughtProvider">
-      <mjl:select param="boughtProvider" items="${boughtProvider}" var="current" valueAttribute="id" classes="boughtProvider" includeBlank="true">
-        <mjl:option>
-          ${current.displayLabel}
-        </mjl:option>
-      </mjl:select>
+      <span class="clickable" id="boughtProviderBtn"> <fmt:message key="Browser"/></span>
+      <div id="boughtProviderDisplay" class="ontologyDisplay">
+        <c:if test="${boughtProvider != null}">
+          ${boughtProvider.displayLabel}
+        </c:if>
+      </div>
+      <mjl:input type="hidden" param="boughtProvider" id="boughtProvider" value="${boughtProvider != null ? boughtProvider.id : ''}" classes="boughtProvider" />
     </mjl:dt>
   </div>
   <mjl:dt attribute="washed">
-    <mjl:select param="washed" items="${washed}" var="current" valueAttribute="enumName" id="washed">
-      <mjl:option selected="${mjl:contains(item.washedEnumNames, current.enumName) ? 'selected' : 'false'}" id="washed.${current.enumName}">
-        ${item.washedMd.enumItems[current.enumName]}
-      </mjl:option>
-    </mjl:select>
+    <span class="clickable" id="washedBtn"> <fmt:message key="Browser"/></span>
+    <div id="washedDisplay" class="ontologyDisplay">
+      <c:if test="${washed != null}">
+        ${washed.displayLabel}
+      </c:if>
+    </div>
+    <mjl:input type="hidden" param="washed" id="washed" value="${washed != null ? washed.id : ''}" />
   </mjl:dt>
   <div class="washFrequency">
     <mjl:dt attribute="knowWashFrequency">
@@ -169,12 +174,15 @@
     </mjl:dt>
     <div class="knownFrequency">
       <mjl:dt attribute="washInterval">
-        <mjl:select param="washInterval" items="${washInterval}" var="current" valueAttribute="enumName" includeBlank="true" classes="washFrequency knownFrequency">
-          <mjl:option selected="${mjl:contains(item.washIntervalEnumNames, current.enumName) ? 'selected' : 'false'}">
-            ${item.washIntervalMd.enumItems[current.enumName]}
-          </mjl:option>
-        </mjl:select>
+        <span class="clickable" id="washIntervalBtn"> <fmt:message key="Browser"/></span>
+        <div id="washIntervalDisplay" class="ontologyDisplay washFrequency knownFrequency">
+          <c:if test="${washInterval != null}">
+            ${washInterval.displayLabel}
+          </c:if>
+        </div>
+        <mjl:input type="hidden" param="washInterval" id="washInterval" value="${washInterval != null ? washInterval.id : ''}" classes="washFrequency knownFrequency"  />
       </mjl:dt>
+   
       <mjl:dt attribute="washFrequency">
         <mjl:input param="washFrequency" type="text" classes="washFrequency knownFrequency"/>
       </mjl:dt>
@@ -185,24 +193,37 @@
   </mjl:dt>
   <div class="retreatmentPeriod">
     <mjl:dt attribute="retreatmentPeriod">
-      <mjl:select param="retreatmentPeriod" items="${retreatmentPeriod}" var="current" valueAttribute="id" classes="retreatmentPeriod" includeBlank="true">
-        <mjl:option>
-          ${current.displayLabel}
-        </mjl:option>
-      </mjl:select>
+      <span class="clickable" id="retreatmentPeriodBtn"> <fmt:message key="Browser"/></span>
+      <div id="retreatmentPeriodDisplay" class="ontologyDisplay retreatmentPeriod">
+        <c:if test="${retreatmentPeriod != null}">
+          ${retreatmentPeriod.displayLabel}
+        </c:if>
+      </div>
+      <mjl:input type="hidden" param="retreatmentPeriod" id="retreatmentPeriod" value="${retreatmentPeriod != null ? retreatmentPeriod.id : ''}" classes="retreatmentPeriod" />
     </mjl:dt>
   </div>
 </mjl:component>
 
-<script type="text/javascript" defer="defer">
-<!--
-// Setup the option fields for batch number
-MDSS.ElementHandler.setupBooleanHandler('netsObtained.positive', 'netsObtained.negative', 'freeProvider');
-MDSS.ElementHandler.setupBooleanHandler('netsObtained.negative', 'netsObtained.positive', 'boughtProvider');
-MDSS.ElementHandler.setupBooleanHandler('retreated.positive', 'retreated.negative', 'retreatmentPeriod');
-MDSS.ElementHandler.setupBooleanHandler('usedEveryNight.negative', 'usedEveryNight.positive', 'nonUse');
-MDSS.ElementHandler.setupSelectHandler('washed.YES', new Array('washed', 'washed.NO', 'washed.DONT_KNOW'), 'washFrequency');
-MDSS.ElementHandler.setupBooleanHandler('knowWashFrequency.positive', 'knowWashFrequency.negative', 'knownFrequency');
-//-->
-</script>
+<script type="text/javascript">
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){
+    var attrs = [
+      {attributeName:'freeProvider'},
+      {attributeName:'boughtProvider'},
+      {attributeName:'washed'},
+      {attributeName:'washInterval'},
+      {attributeName:'retreatmentPeriod'}
+    ];
 
+    new MDSS.GenericOntologyBrowser("<%=ITNHouseholdSurveyViewDTO.CLASS%>", attrs);
+
+    // Setup the option fields for batch number
+    MDSS.ElementHandler.setupBooleanHandler('netsObtained.positive', 'netsObtained.negative', 'freeProvider');
+    MDSS.ElementHandler.setupBooleanHandler('netsObtained.negative', 'netsObtained.positive', 'boughtProvider');
+    MDSS.ElementHandler.setupBooleanHandler('retreated.positive', 'retreated.negative', 'retreatmentPeriod');
+    MDSS.ElementHandler.setupBooleanHandler('usedEveryNight.negative', 'usedEveryNight.positive', 'nonUse');
+    MDSS.ElementHandler.setupSelectHandler('washed.YES', new Array('washed', 'washed.NO', 'washed.DONT_KNOW'), 'washFrequency');
+    MDSS.ElementHandler.setupBooleanHandler('knowWashFrequency.positive', 'knowWashFrequency.negative', 'knownFrequency');
+  })
+})();
+</script>

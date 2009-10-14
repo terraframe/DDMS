@@ -1,13 +1,15 @@
 package dss.vector.solutions.intervention.monitor;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Stack;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
+
+import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.surveillance.GridComparator;
 
 public class Household extends HouseholdBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -112,7 +114,9 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
   {
     int sum = 0;
     
-    for(HouseholdNet net : this.getHouseholdNets())
+    HouseholdNet[] nets = this.getHouseholdNets();
+
+    for(HouseholdNet net : nets)
     {
       sum += net.getAmount();
     }
@@ -191,53 +195,35 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
       net.unlock();
     }
   }
-
-
+  
+  @Override
   public HouseholdNet[] getHouseholdNets()
   {
-    //A list of all this household nets plus nets that it doesn't have
-    Map<String, HouseholdNet> nets = loadNets();
-    List<HouseholdNet> list = new LinkedList<HouseholdNet>();
-    Stack<Net> stack = new Stack<Net>();
+    Set<HouseholdNet> set = new TreeSet<HouseholdNet>(new GridComparator());
 
-    for(Net root : Net.getRoots())
+    for (Term d : Term.getRootChildren(Household.getHasWindowsMd()))
     {
-      stack.push(root);
+      set.add(new HouseholdNet(this.getId(), d.getId()));
     }
 
-    while(!stack.empty())
+    if (!this.isNew() || this.isAppliedToDB())
     {
-      Net net = stack.pop();
-
-      for(Net child : net.getAllChildNets())
+      for (HouseholdNet net : this.getAllNetsRel())
       {
-        stack.push(child);
-      }
-
-      list.add(nets.get(net.getId()));
-    }
-
-    return list.toArray(new HouseholdNet[list.size()]);
-  }
-
-  private Map<String, HouseholdNet> loadNets()
-  {
-    Map<String, HouseholdNet> map = new HashMap<String, HouseholdNet>();
-
-    for(HouseholdNet householdNet : this.getAllNetsRel())
-    {
-      map.put(householdNet.getChildId(), householdNet);
-    }
-
-    for(Net net : Net.getAll())
-    {
-      if(!map.containsKey(net.getId()))
-      {
-       map.put(net.getId(), new HouseholdNet(this, net));
+        // We will only want grid options methods which are active
+        // All active methods are already in the set.  Thus, if
+        // the set already contains an entry for the Grid Option
+        // replace the default relationship with the actaul
+        // relationship
+        if(set.contains(net))
+        {
+          set.remove(net);
+          set.add(net);
+        }
       }
     }
 
-    return map;
+    return set.toArray(new HouseholdNet[set.size()]);
   }
 
   @Transaction
@@ -261,10 +247,7 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
 
     for(HouseholdNet net : nets)
     {
-      if(!net.getChild().getIsAbstract())
-      {
-        net.apply();
-      }
+      net.apply();
     }
     
     //  Validate the sum of all the nets

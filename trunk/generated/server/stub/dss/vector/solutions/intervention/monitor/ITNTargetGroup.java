@@ -2,6 +2,7 @@ package dss.vector.solutions.intervention.monitor;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.ChildOption;
 
 public class ITNTargetGroup extends ITNTargetGroupBase implements Reloadable, ChildOption
@@ -13,7 +14,7 @@ public class ITNTargetGroup extends ITNTargetGroupBase implements Reloadable, Ch
     super(parentId, childId);
   }
   
-  public ITNTargetGroup(dss.vector.solutions.intervention.monitor.ITNData parent, dss.vector.solutions.intervention.monitor.TargetGroupGrid child)
+  public ITNTargetGroup(ITNData parent, Term child)
   {
     this(parent.getId(), child.getId());
   }
@@ -22,7 +23,7 @@ public class ITNTargetGroup extends ITNTargetGroupBase implements Reloadable, Ch
   {
     ITNTargetGroup clone = new ITNTargetGroup(parent.getConcreteId(), this.getChildId());
     clone.setAmount(this.getAmount());
-
+    
     return clone;
   }  
   

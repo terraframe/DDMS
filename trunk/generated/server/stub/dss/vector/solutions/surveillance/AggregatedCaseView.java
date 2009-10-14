@@ -10,6 +10,7 @@ import com.terraframe.mojo.session.Session;
 import dss.vector.solutions.FuturePeriodProblem;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.Term;
 
 public abstract class AggregatedCaseView extends AggregatedCaseViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -282,7 +283,7 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   {
     Set<CaseDiagnostic> set = new TreeSet<CaseDiagnostic>(new GridComparator());
 
-    for (DiagnosticGrid d : DiagnosticGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseDiagnosticMd()))
     {
       set.add(new CaseDiagnostic(this.getId(), d.getId()));
     }
@@ -313,7 +314,7 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   {
     Set<CaseReferral> set = new TreeSet<CaseReferral>(new GridComparator());
 
-    for (ReferralGrid d : ReferralGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseReferralsMd()))
     {
       set.add(new CaseReferral(this.getId(), d.getId()));
     }
@@ -344,7 +345,7 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   {
     Set<CaseTreatmentMethod> set = new TreeSet<CaseTreatmentMethod>(new GridComparator());
 
-    for (TreatmentMethodGrid d : TreatmentMethodGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseTreatmentMethodMd()))
     {
       set.add(new CaseTreatmentMethod(this.getId(), d.getId()));
     }
@@ -375,7 +376,7 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   {
     Set<CaseTreatment> set = new TreeSet<CaseTreatment>(new GridComparator());
 
-    for (TreatmentGrid d : TreatmentGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseTreatmentsMd()))
     {
       set.add(new CaseTreatment(this.getId(), d.getId()));
     }
@@ -406,7 +407,7 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   {
     Set<CaseTreatmentStock> set = new TreeSet<CaseTreatmentStock>(new GridComparator());
 
-    for (TreatmentGrid d : TreatmentGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseStocksMd()))
     {
       set.add(new CaseTreatmentStock(this.getId(), d.getId()));
     }

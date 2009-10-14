@@ -12,67 +12,75 @@
             name="distributionDate"
             label="Distribution Date"
             description="Distribution Date"
-            required="true"/>
+            required="true" />
           <reference
             name="facility"
             label="ITN Distribution Facility"
             type="dss.vector.solutions.geo.generated.HealthFacility"
-            required="true"/>
+            required="true" />
           <reference
             name="service"
             label="Service Type"
-            type="dss.vector.solutions.intervention.monitor.ServiceGrid"
-            required="true"/>
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
           <char
             name="batchNumber"
             label="ITN Batch Number"
             size="255"
-            required="true"/>
+            required="true" />
           <reference
             name="recipient"
             label="ITN Recipient"
             type="dss.vector.solutions.intervention.monitor.ITNRecipient"
-            required="true"/>
+            required="true" />
           <reference
             name="net"
             label="Net Type"
-            type="dss.vector.solutions.intervention.monitor.Net"/>
+            type="dss.vector.solutions.ontology.Term" />
           <integer
             name="numberSold"
             label="Number Sold"
-            description="Number of ITNs sold"/>
+            description="Number of ITNs sold" />
           <double
             name="currencyReceived"
             label="Currency Received"
             description="Monetary currency received"
             length="12"
-            decimal="2"/>
+            decimal="2" />
           <char
             name="distributorName"
             label="Distributor First Name"
-            size="255"/>
+            size="255" />
           <char
             name="distributorSurname"
             label="Distributor Surname"
-            size="255"/>
+            size="255" />
         </attributes>
         <mdMethod
-          name="applyAll"
-          label="Apply All"
-          description="Apply this distribution and related relationships"
-          returnType="void">
-          <mdParameter
-            name="targetGroups"
-            type="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup[]"
-            order="1"
-            label="ITN distribution target groups" />
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+          static="false">
         </mdMethod>
         <mdMethod
-          name="getDistributionTargetGroups"
-          label="Get ITN Distribution Target Groups"
-          static="false"
-          returnType="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup[]" />
+          name="lockView"
+          label="lock View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+          static="false">
+        </mdMethod>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+          static="true">
+          <mdParameter
+            name="id"
+            label="id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
       </mdBusiness>
+
       <mdTree
         name="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup"
         label="ITN Distribution Target Group"
@@ -88,24 +96,120 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.ITNDistribution"
-          method="ITNDistributions" />
+          method="ITNFacilityDistributionsWithNets" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
+          name="dss.vector.solutions.ontology.Term"
           method="TargetGroups" />
       </mdTree>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+        label="ITN Facility Distribution">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255" />
+          <integer
+            name="targetGroups"
+            label="ITNs distributed to the target groups" />
+          <virtual
+            name="distributionDate"
+            concrete="distributionDate"
+            type="dss.vector.solutions.intervention.monitor.ITNDistribution" />
+          <char
+            name="facility"
+            label="ITN Distribution Facility"
+            size="255"
+            required="true" />
+          <virtual
+            name="service"
+            concrete="service"
+            type="dss.vector.solutions.intervention.monitor.ITNDistribution" />
+          <virtual
+            name="batchNumber"
+            concrete="batchNumber"
+            type="dss.vector.solutions.intervention.monitor.ITNDistribution" />
+          <virtual
+            name="recipient"
+            concrete="recipient"
+            type="dss.vector.solutions.intervention.monitor.ITNDistribution" />
+          <virtual
+            name="net"
+            concrete="net"
+            type="dss.vector.solutions.intervention.monitor.ITNDistribution" />
+          <virtual
+            name="numberSold"
+            concrete="numberSold"
+            type="dss.vector.solutions.intervention.monitor.ITNDistribution" />
+          <virtual
+            name="currencyReceived"
+            concrete="currencyReceived"
+            type="dss.vector.solutions.intervention.monitor.ITNDistribution" />
+          <virtual
+            name="distributorName"
+            concrete="distributorName"
+            type="dss.vector.solutions.intervention.monitor.ITNDistribution" />
+          <virtual
+            name="distributorSurname"
+            concrete="distributorSurname"
+            type="dss.vector.solutions.intervention.monitor.ITNDistribution" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false">
+        </mdMethod>
+        <mdMethod
+          name="getDistributionTargetGroups"
+          label="Get ITN Distribution Target Groups"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup[]" />
+        <mdMethod
+          name="applyAll"
+          label="Apply All"
+          description="Apply this distribution and related relationships"
+          returnType="void">
+          <mdParameter
+            name="targetGroups"
+            type="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup[]"
+            order="1"
+            label="ITN distribution target groups" />
+        </mdMethod>
+      </mdView>
+
     </create>
     <update>
       <mdController
         name="dss.vector.solutions.intervention.monitor.ITNDistributionController">
+        <mdAction
+          name="cancel"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+            order="0" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+            order="0" />
+        </mdAction>        
         <mdAction
           name="create"
           label="Create ITN"
           isPost="true">
           <mdParameter
             name="dto"
-            type="dss.vector.solutions.intervention.monitor.ITNDistribution"
-            order="0"/>
+            type="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+            order="0" />
           <create>
             <mdParameter
               name="targetGroups"
@@ -120,8 +224,8 @@
           isPost="true">
           <mdParameter
             name="dto"
-            type="dss.vector.solutions.intervention.monitor.ITNDistribution"
-            order="0"/>
+            type="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+            order="0" />
           <create>
             <mdParameter
               name="targetGroups"
@@ -138,13 +242,13 @@
             <mdParameter
               name="itn"
               label="ITN Distribution"
-              type="dss.vector.solutions.intervention.monitor.ITNDistribution"
-              order="0"/>
+              type="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+              order="0" />
             <mdParameter
               name="recipient"
               label="ITN Recipient"
               type="dss.vector.solutions.PersonView"
-              order="1"/>
+              order="1" />
           </mdAction>
           <mdAction
             name="selectRecipient"
@@ -153,13 +257,13 @@
             <mdParameter
               name="itn"
               label="ITN Distribution"
-              type="dss.vector.solutions.intervention.monitor.ITNDistribution"
-              order="0"/>
+              type="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+              order="0" />
             <mdParameter
               name="recipientId"
               label="ITN Recipient"
               type="java.lang.String"
-              order="1"/>
+              order="1" />
           </mdAction>
           <mdAction
             name="updateRecipient"
@@ -168,13 +272,13 @@
             <mdParameter
               name="itn"
               label="ITN Distribution"
-              type="dss.vector.solutions.intervention.monitor.ITNDistribution"
-              order="0"/>
+              type="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+              order="0" />
             <mdParameter
               name="recipient"
               label="ITN Recipient"
               type="dss.vector.solutions.PersonView"
-              order="1"/>
+              order="1" />
           </mdAction>
           <mdAction
             name="viewRecipientPage"
@@ -184,37 +288,38 @@
             <mdParameter
               name="itn"
               label="ITN Distribution"
-              type="dss.vector.solutions.intervention.monitor.ITNDistribution"
-              order="0"/>
+              type="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+              order="0" />
             <mdParameter
               name="recipient"
               label="ITN Recipient"
               type="dss.vector.solutions.PersonView"
-              order="1"/>
+              order="1" />
             <mdParameter
               name="sortAttribute"
               label="Sort Attribute"
               type="java.lang.String"
-              order="2"/>
+              order="2" />
             <mdParameter
               name="isAscending"
               label="Is Ascending"
               type="java.lang.Boolean"
-              order="3"/>
+              order="3" />
             <mdParameter
               name="pageSize"
               label="Page Size"
               type="java.lang.Integer"
-              order="4"/>
+              order="4" />
             <mdParameter
               name="pageNumber"
               label="Page Number"
               type="java.lang.Integer"
-              order="5"/>
+              order="5" />
           </mdAction>
         </create>
       </mdController>
-      <mdView name="dss.vector.solutions.PersonView">
+      <mdView
+        name="dss.vector.solutions.PersonView">
         <create>
           <mdMethod
             name="getDuplicatesPage"
@@ -224,56 +329,85 @@
               name="sortAttribute"
               label="Sort Attribute"
               type="java.lang.String"
-              order="2"/>
+              order="2" />
             <mdParameter
               name="isAscending"
               label="Is Ascending"
               type="java.lang.Boolean"
-              order="3"/>
+              order="3" />
             <mdParameter
               name="pageSize"
               label="Page Size"
               type="java.lang.Integer"
-              order="4"/>
+              order="4" />
             <mdParameter
               name="pageNumber"
               label="Page Number"
               type="java.lang.Integer"
-              order="5"/>
+              order="5" />
           </mdMethod>
         </create>
       </mdView>
     </update>
     <permissions>
-      <role roleName="mdss.GUIVisibility">
+      <role
+        roleName="mdss.GUIVisibility">
         <grant>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.ITNDistribution">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
+          <mdViewPermission
+            type="dss.vector.solutions.intervention.monitor.ITNDistributionView">
+            <operation
+              name="CREATE" />
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdViewPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
         </grant>
       </role>
-      <role roleName="mdss.coordinator, mdss.dataCapturer, mdss.operationalManager">
+      <role
+        roleName="mdss.coordinator, mdss.dataCapturer, mdss.operationalManager">
         <grant>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.ITNDistribution">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
           </mdRelationshipPermission>
         </grant>
       </role>
@@ -282,14 +416,17 @@
   <undoIt>
     <delete>
       <object
+        key="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
         key="dss.vector.solutions.intervention.monitor.ITNDistribution"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup"
-        type="com.terraframe.mojo.system.metadata.MdTree"/>
+        type="com.terraframe.mojo.system.metadata.MdTree" />
       <object
         key="dss.vector.solutions.PersonView.getDuplicatesPage"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+        type="com.terraframe.mojo.system.metadata.MdMethod" />
     </delete>
   </undoIt>
 </version>

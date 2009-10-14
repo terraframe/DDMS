@@ -61,10 +61,10 @@
             name="performedRDT"
             concrete="performedRDT"
             type="dss.vector.solutions.intervention.monitor.Person" />
-          <virtual
+          <integer
             name="rDTResult"
-            concrete="rDTResult"
-            type="dss.vector.solutions.intervention.monitor.Person" />
+            label="Result"
+            description="Place holder for permissions and ontology root binding" />
           <virtual
             name="rdtTreatment"
             concrete="rdtTreatment"
@@ -94,6 +94,27 @@
             concrete="payment"
             type="dss.vector.solutions.intervention.monitor.Person" />
         </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="applyAll"
+          label="Apply all"
+          returnType="void"
+          static="false">
+          <mdParameter
+            name="results"
+            label="results"
+            order="0"
+            type="dss.vector.solutions.ontology.Term[]" />
+        </mdMethod>
+        <mdMethod
+          name="getRDTResults"
+          static="false"
+          label="Get RDT Results"
+          returnType="dss.vector.solutions.ontology.Term[]" />
       </mdView>
     </create>
     <update>
@@ -106,6 +127,13 @@
           <mdParameter
             name="dto"
             type="dss.vector.solutions.intervention.monitor.PersonView" />
+          <create>
+            <mdParameter
+              name="results"
+              label="results"
+              order="1"
+              type="dss.vector.solutions.ontology.Term[]" />
+          </create>
         </mdAction>
         <mdAction
           name="delete"
@@ -120,6 +148,13 @@
           <mdParameter
             name="dto"
             type="dss.vector.solutions.intervention.monitor.PersonView" />
+          <create>
+            <mdParameter
+              name="results"
+              label="results"
+              order="1"
+              type="dss.vector.solutions.ontology.Term[]" />
+          </create>
         </mdAction>
         <mdAction
           name="cancel"

@@ -17,11 +17,9 @@ import dss.vector.solutions.intervention.BloodslideResponse;
 import dss.vector.solutions.intervention.FeverResponse;
 import dss.vector.solutions.intervention.HumanSex;
 import dss.vector.solutions.intervention.RDTResponse;
-import dss.vector.solutions.intervention.RDTResult;
 import dss.vector.solutions.intervention.monitor.Household;
 import dss.vector.solutions.intervention.monitor.HouseholdNet;
 import dss.vector.solutions.intervention.monitor.HouseholdQuery;
-import dss.vector.solutions.intervention.monitor.Net;
 import dss.vector.solutions.intervention.monitor.Person;
 import dss.vector.solutions.intervention.monitor.SurveyPoint;
 import dss.vector.solutions.intervention.monitor.WindowType;
@@ -32,13 +30,13 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
 {
   private static final long serialVersionUID = 1245785160306L;
   
-  private List<Net> nets;
+  private List<Term> nets;
   private List<Integer> amounts;
   
   public SurveyExcelView()
   {
     super();
-    nets = new LinkedList<Net>();
+    nets = new LinkedList<Term>();
     amounts = new LinkedList<Integer>();
   }
   
@@ -74,20 +72,21 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     person.setBloodslide(Term.validateByDisplayLabel(this.getBloodslide(), getBloodslideMd()));
     
     // This block mirrors the check boxes for RDT Results
-    if (this.getMalariaePositive() != null && this.getMalariaePositive())
-      person.addRDTResult(RDTResult.MALARIAE_POSITIVE);
-    if (this.getMixedPositive() != null && this.getMixedPositive())
-      person.addRDTResult(RDTResult.MIXED_POSITIVE);
-    if (this.getNegative() != null && this.getNegative())
-      person.addRDTResult(RDTResult.NEGATIVE);
-    if (this.getNotValid() != null && this.getNotValid())
-      person.addRDTResult(RDTResult.NOT_VALID);
-    if (this.getOvalePositive() != null && this.getOvalePositive())
-      person.addRDTResult(RDTResult.OVALE_POSITIVE);
-    if (this.getPfPositive() != null && this.getPfPositive())
-      person.addRDTResult(RDTResult.PF_POSITIVE);
-    if (this.getVivaxPositive() != null && this.getVivaxPositive())
-      person.addRDTResult(RDTResult.VIVAX_POSITIVE);
+    // FIXME: MO UPGRADE
+//    if (this.getMalariaePositive() != null && this.getMalariaePositive())
+//      person.addRDTResult(RDTResult.MALARIAE_POSITIVE);
+//    if (this.getMixedPositive() != null && this.getMixedPositive())
+//      person.addRDTResult(RDTResult.MIXED_POSITIVE);
+//    if (this.getNegative() != null && this.getNegative())
+//      person.addRDTResult(RDTResult.NEGATIVE);
+//    if (this.getNotValid() != null && this.getNotValid())
+//      person.addRDTResult(RDTResult.NOT_VALID);
+//    if (this.getOvalePositive() != null && this.getOvalePositive())
+//      person.addRDTResult(RDTResult.OVALE_POSITIVE);
+//    if (this.getPfPositive() != null && this.getPfPositive())
+//      person.addRDTResult(RDTResult.PF_POSITIVE);
+//    if (this.getVivaxPositive() != null && this.getVivaxPositive())
+//      person.addRDTResult(RDTResult.VIVAX_POSITIVE);
     
     person.setRdtTreatment(Term.validateByDisplayLabel(this.getRdtTreatment(), getRdtTreatmentMd()));    
     person.setFever(Term.validateByDisplayLabel(this.getFever(), getFeverMd()));
@@ -178,7 +177,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     return house;
   }
   
-  public void addNets(Net net, int count)
+  public void addNets(Term net, int count)
   {
     nets.add(net);
     amounts.add(count);

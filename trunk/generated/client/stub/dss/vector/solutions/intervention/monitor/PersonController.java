@@ -1,6 +1,7 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.intervention.RDTResultDTO;
+import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -53,7 +54,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     this.setupReferences(dto);
-    
+    req.setAttribute("results", Arrays.asList(dto.getRDTResults()));
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }
@@ -70,7 +71,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
     {
       PersonViewDTO dto = PersonDTO.lockView(super.getClientRequest(), id);
 
-      this.edit(dto);
+      this.edit(dto, dto.getRDTResults());
     }
     catch (ProblemExceptionDTO e)
     {
@@ -87,11 +88,11 @@ public class PersonController extends PersonControllerBase implements Reloadable
 
   }
 
-  private void edit(PersonViewDTO dto) throws IOException, ServletException
+  private void edit(PersonViewDTO dto, TermDTO[] results) throws IOException, ServletException
   {
     this.setupReferences(dto);
-    this.setupRequest();
     
+    req.setAttribute("results", Arrays.asList(results));
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -100,31 +101,34 @@ public class PersonController extends PersonControllerBase implements Reloadable
   {
     this.view(id);
   }
-
-  public void update(PersonViewDTO dto) throws IOException, ServletException
+  
+  @Override
+  public void update(PersonViewDTO dto, TermDTO[] results) throws IOException, ServletException
   {
     try
     {
-      dto.apply();
+      dto.applyAll(results);
+      
       this.view(dto);
     }
     catch (ProblemExceptionDTO e)
     {
       ErrorUtility.forceProblems(e, req);
 
-      this.failUpdate(dto);
+      this.failUpdate(dto, results);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
 
-      this.failUpdate(dto);
+      this.failUpdate(dto, results);
     }
   }
-
-  public void failUpdate(PersonViewDTO dto) throws IOException, ServletException
+  
+  @Override
+  public void failUpdate(PersonViewDTO dto, TermDTO[] results) throws IOException, ServletException
   {
-    this.edit(dto);
+    this.edit(dto, results);
   }
 
   public void delete(PersonViewDTO dto) throws IOException, ServletException
@@ -153,14 +157,15 @@ public class PersonController extends PersonControllerBase implements Reloadable
 
   public void failDelete(PersonViewDTO dto) throws IOException, ServletException
   {
-    this.edit(dto);
+    this.edit(dto, dto.getRDTResults());
   }
-
-  public void create(PersonViewDTO dto) throws IOException, ServletException
+  
+  @Override
+  public void create(PersonViewDTO dto, TermDTO[] results) throws IOException, ServletException
   {
     try
     {
-      dto.apply();
+      dto.applyAll(results);
 
       this.view(dto);
     }
@@ -168,19 +173,20 @@ public class PersonController extends PersonControllerBase implements Reloadable
     {
       ErrorUtility.forceProblems(e, req);
 
-      this.failCreate(dto);
+      this.failCreate(dto, results);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
 
-      this.failCreate(dto);
+      this.failCreate(dto, results);
     }
   }
-
-  public void failCreate(PersonViewDTO dto) throws IOException, ServletException
+  
+  @Override
+  public void failCreate(PersonViewDTO dto, TermDTO[] results) throws IOException, ServletException
   {
-    this.newInstance(dto);
+    this.newInstance(dto, results);
   }
 
   public void newInstance(String householdId) throws IOException, ServletException
@@ -189,14 +195,14 @@ public class PersonController extends PersonControllerBase implements Reloadable
     PersonViewDTO dto = new PersonViewDTO(clientRequest);
     dto.setHousehold(HouseholdDTO.get(clientRequest, householdId));
 
-    this.newInstance(dto);
+    this.newInstance(dto, dto.getRDTResults());
   }
 
-  private void newInstance(PersonViewDTO dto) throws IOException, ServletException
+  private void newInstance(PersonViewDTO dto, TermDTO[] results) throws IOException, ServletException
   {
     this.setupReferences(dto);
-    this.setupRequest();
     
+    req.setAttribute("results", Arrays.asList(results));
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
@@ -218,12 +224,5 @@ public class PersonController extends PersonControllerBase implements Reloadable
     req.setAttribute("performedRDT", dto.getPerformedRDT());
     req.setAttribute("rdtTreatment", dto.getRdtTreatment());
     req.setAttribute("sex", dto.getSex());    
-  }
-
-  private void setupRequest()
-  {
-    ClientRequestIF request = super.getClientSession().getRequest();
-
-    req.setAttribute("rDTResult", RDTResultDTO.allItems(request));
   }
 }

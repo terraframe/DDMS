@@ -599,25 +599,23 @@
           <reference
             name="freeProvider"
             label="Free Net Provider"
-            type="dss.vector.solutions.intervention.monitor.FreeITNProvider" />
+            type="dss.vector.solutions.ontology.Term" />
           <reference
             name="boughtProvider"
             label="Bought Net Provider"
-            type="dss.vector.solutions.intervention.monitor.CommercialITNProvider" />
-          <enumeration
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
             name="washed"
             label="ITNs have ever been washed"
-            type="dss.vector.solutions.intervention.FeverResponse"
-            selectMultiple="false" />
+            type="dss.vector.solutions.ontology.Term" />
           <integer
             name="washFrequency"
             label="ITNs wash frequency per interval"
             rejectNegative="true" />
-          <enumeration
+          <reference
             name="washInterval"
             label="ITNs wash interval"
-            type="dss.vector.solutions.intervention.TimeInterval"
-            selectMultiple="false" />
+            type="dss.vector.solutions.ontology.Term" />
           <boolean
             name="retreated"
             label="ITNs have ever been re-treated"
@@ -626,7 +624,7 @@
           <reference
             name="retreatmentPeriod"
             label="Last time of re-treatment"
-            type="dss.vector.solutions.intervention.monitor.ITNRetreatmentPeriod" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
         <mdMethod
           name="getView"
@@ -665,10 +663,10 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey"
-          method="ITNHouseholdSurveys" />
+          method="ITNHouseholdSurveysWithNonUseReasons" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.NonUseReasonGrid"
+          name="dss.vector.solutions.ontology.Term"
           method="NonUseReasons" />
       </mdTree>
 
@@ -687,10 +685,10 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey"
-          method="ITNHouseholdSurveys" />
+          method="ITNHouseholdSurveysWithTargetGroups" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
+          name="dss.vector.solutions.ontology.Term"
           method="TargetGroups" />
       </mdTree>
 
@@ -709,10 +707,10 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey"
-          method="ITNHouseholdSurveys" />
+          method="ITNHouseholdSurveysWithNets" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.Net"
+          name="dss.vector.solutions.ontology.Term"
           method="Nets" />
       </mdTree>
 

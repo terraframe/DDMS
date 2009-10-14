@@ -39,7 +39,7 @@
     <dd>
       <table class="displayTable">
         <tr> 
-          <th><fmt:message key="Number_per_person_category"/></th>
+          <th>${item.displayPatientsMd.displayLabel}</th>
           <th><fmt:message key="Amount"/></th>
         </tr>      
         <mjl:components items="${patients}" param="patients" var="current" varStatus="status">

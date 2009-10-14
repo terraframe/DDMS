@@ -2,7 +2,6 @@ package dss.vector.solutions.permissions.indicator;
 
 import java.util.Date;
 
-import dss.vector.solutions.intervention.RDTResultDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdNetDTO;
 import dss.vector.solutions.intervention.monitor.PersonDTO;
@@ -116,18 +115,17 @@ public abstract class SurveyCRUDPermissions extends IndicatorSuveyPermissionTest
         person.setMalaria(term);
         person.setPayment(term);
         person.setPerformedRDT(term);
-        person.addRDTResult(RDTResultDTO.MALARIAE_POSITIVE);
         person.setSex(term);
         person.setAnaemiaTreatment(term);
         person.setFeverTreatment(term);
         person.setHousehold(household);
         person.setPersonId("teste3243");
-        person.apply();
+        person.applyAll(new TermDTO[]{term});
 
         try
         {
           PersonViewDTO update = PersonDTO.lockView(request, person.getConcreteId());
-          update.apply();
+          update.applyAll(new TermDTO[]{});
 
           PersonViewDTO test = PersonDTO.getView(request, person.getConcreteId());
 

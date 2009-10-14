@@ -3,7 +3,6 @@ package dss.vector.solutions.intervention.monitor;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.AgeConverter;
-import dss.vector.solutions.intervention.RDTResult;
 
 public class Person extends PersonBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -58,7 +57,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
       householdPerson.apply();
     }
   }
-
+  
   @Override
   @Transaction
   public PersonView lockView()
@@ -113,10 +112,6 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     view.setPayment(this.getPayment());
     view.setPerformedRDT(this.getPerformedRDT());
     view.setSex(this.getSex());
-        
-    view.clearRDTResult();
-
-    for(RDTResult r : this.getRDTResult()) view.addRDTResult(r);
   }
 
   public static PersonView getView(String id)

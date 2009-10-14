@@ -6,7 +6,6 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 
-import dss.vector.solutions.intervention.RDTResultDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdNetDTO;
 import dss.vector.solutions.intervention.monitor.PersonViewDTO;
@@ -100,13 +99,12 @@ public abstract class SurveyNoPermissions extends IndicatorSuveyPermissionTest
         person.setMalaria(term);
         person.setPayment(term);
         person.setPerformedRDT(term);
-        person.addRDTResult(RDTResultDTO.MALARIAE_POSITIVE);
         person.setSex(term);
         person.setAnaemiaTreatment(term);
         person.setFeverTreatment(term);
         person.setHousehold(household);
         person.setPersonId("teste3243");
-        person.apply();
+        person.applyAll(new TermDTO[]{term});
 
         fail("Able to create a person without permissions");
       }

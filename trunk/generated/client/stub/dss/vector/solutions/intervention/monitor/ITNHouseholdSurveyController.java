@@ -11,8 +11,6 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.intervention.FeverResponseDTO;
-import dss.vector.solutions.intervention.TimeIntervalDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -74,7 +72,7 @@ public class ITNHouseholdSurveyController extends ITNHouseholdSurveyControllerBa
 
   public void failUpdate(ITNHouseholdSurveyViewDTO dto, ITNHouseholdSurveyNetDTO[] nets, ITNHouseholdSurveyTargetGroupDTO[] targetGroups, ITNHouseholdSurveyNonUseReasonDTO[] reasons) throws IOException, ServletException
   {
-    this.setupRequest();
+    this.setupReferences(dto);
     this.prepareRelationships(nets, targetGroups, reasons);
     
     req.setAttribute("item", dto);
@@ -106,7 +104,9 @@ public class ITNHouseholdSurveyController extends ITNHouseholdSurveyControllerBa
     utility.put("id", dto.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
+    this.setupReferences(dto);
     this.prepareRelationships(dto);
+    
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }
@@ -121,7 +121,7 @@ public class ITNHouseholdSurveyController extends ITNHouseholdSurveyControllerBa
     ClientRequestIF clientRequest = super.getClientRequest();
     ITNHouseholdSurveyViewDTO dto = new ITNHouseholdSurveyViewDTO(clientRequest);
     
-    this.setupRequest();
+    this.setupReferences(dto);
     this.prepareRelationships(dto);
     
     req.setAttribute("item", dto);
@@ -154,7 +154,7 @@ public class ITNHouseholdSurveyController extends ITNHouseholdSurveyControllerBa
 
   public void failDelete(ITNHouseholdSurveyViewDTO dto) throws IOException, ServletException
   {
-    this.setupRequest();
+    this.setupReferences(dto);
     this.prepareRelationships(dto);
     
     req.setAttribute("item", dto);
@@ -182,7 +182,7 @@ public class ITNHouseholdSurveyController extends ITNHouseholdSurveyControllerBa
 
   public void failCreate(ITNHouseholdSurveyViewDTO dto, ITNHouseholdSurveyNetDTO[] nets, ITNHouseholdSurveyTargetGroupDTO[] targetGroups, ITNHouseholdSurveyNonUseReasonDTO[] reasons) throws IOException, ServletException
   {
-    this.setupRequest();
+    this.setupReferences(dto);
     this.prepareRelationships(nets, targetGroups, reasons);
     
     req.setAttribute("item", dto);
@@ -193,7 +193,7 @@ public class ITNHouseholdSurveyController extends ITNHouseholdSurveyControllerBa
   {
     ITNHouseholdSurveyViewDTO dto = ITNHouseholdSurveyDTO.lockView(super.getClientRequest(), id);
 
-    this.setupRequest();
+    this.setupReferences(dto);
     this.prepareRelationships(dto);
     
     req.setAttribute("item", dto);
@@ -205,15 +205,13 @@ public class ITNHouseholdSurveyController extends ITNHouseholdSurveyControllerBa
     this.view(id);
   }
   
-  private void setupRequest()
+  private void setupReferences(ITNHouseholdSurveyViewDTO dto)
   {
-    ClientRequestIF request = super.getClientSession().getRequest();
-
-    req.setAttribute("boughtProvider", Arrays.asList(CommercialITNProviderDTO.getAllActive(request)));
-    req.setAttribute("freeProvider", Arrays.asList(FreeITNProviderDTO.getAllActive(request)));
-    req.setAttribute("retreatmentPeriod", Arrays.asList(ITNRetreatmentPeriodDTO.getAllActive(request)));
-    req.setAttribute("washInterval", TimeIntervalDTO.allItems(request));
-    req.setAttribute("washed", FeverResponseDTO.allItems(request));
+    req.setAttribute("boughtProvider", dto.getBoughtProvider());
+    req.setAttribute("freeProvider", dto.getFreeProvider());
+    req.setAttribute("retreatmentPeriod", dto.getRetreatmentPeriod());
+    req.setAttribute("washInterval", dto.getWashInterval());
+    req.setAttribute("washed", dto.getWashed());
   }
   
   private void prepareRelationships(ITNHouseholdSurveyViewDTO dto)

@@ -118,10 +118,10 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"
-          method="ITNCommunityDistributions" />
+          method="ITNCommunityDistributionsWithTargetGroups" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
+          name="dss.vector.solutions.ontology.Term"
           method="TargetGroups" />
       </mdTree>
 
@@ -140,10 +140,10 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"
-          method="ITNCommunityDistributions" />
+          method="ITNCommunityDistributionsWithNets" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.intervention.monitor.Net"
+          name="dss.vector.solutions.ontology.Term"
           method="Nets" />
       </mdTree>
 

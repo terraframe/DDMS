@@ -530,6 +530,10 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       selection.innerHTML = '';
     },
     
+    isMultiSelect : function() {
+      return this._multipleSelect;
+    },
+    
     setHandler : function(handler, context)
     {
       this._customHandler = Mojo.Util.bind(context || this, handler);
@@ -684,8 +688,9 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
         var attributeName = config.attributeName;
         var multipleSelect = Mojo.Util.isBoolean(config.multipleSelect) ? config.multipleSelect : false;
         var attributeClass = Mojo.Util.isString(config.className) ? config.className : className;
+        var browserField = Mojo.Util.isString(config.browserField) ? config.browserField : config.attributeName;        
         
-        var browser = new MDSS.OntologyBrowser(multipleSelect, attributeClass, attributeName);
+        var browser = new MDSS.OntologyBrowser(multipleSelect, attributeClass, browserField);
             
         browser.setHandler(Mojo.Util.curry(this.setField, attributeName));
      
@@ -694,31 +699,75 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
     },
 
     setField : function(attribute, selected) {
+      // this: the browser instances
+    	
       var attributeEl = document.getElementById(attribute);        
       var displayEl = document.getElementById(attribute + 'Display');        
 
-      if(selected.length > 0)
-      {
-        var sel = selected[0];
-        attributeEl.value = sel.getTermId();
-        displayEl.innerHTML = MDSS.OntologyBrowser.formatLabel(sel);
+      if(this.isMultiSelect()) {
+          if(selected.length > 0) {
+            var innerHTML = '';
+            var displayHTML = '';
+
+        	for(var i = 0; i < selected.length; i++) {
+        	  var sel = selected[i];
+        	  var component = attribute + '_' + i;
+        		
+        	  innerHTML += '<input type="hidden" class="' + attribute + '" name="' + component + '.componentId" value="' + sel.getTermId() + '" />\n';
+        	  innerHTML += '<input type="hidden" name="' + component + '.isNew" value="false" />\n';
+        	  
+        	  displayHTML += MDSS.OntologyBrowser.formatLabel(sel) + '\n';
+        	}
+        	
+        	attributeEl.innerHTML = innerHTML;
+        	displayEl.innerHTML = displayHTML;
+          }
+          else
+          {
+            attributeEl.innerHTML = '';
+            displayEl.innerHTML = '';
+          }    	  
       }
-      else
-      {
-        attributeEl.value = '';
-        displayEl.innerHTML = '';
+      else {
+    	  if(selected.length > 0)
+    	  {
+    		  var sel = selected[0];
+    		  attributeEl.value = sel.getTermId();
+    		  displayEl.innerHTML = MDSS.OntologyBrowser.formatLabel(sel);
+    	  }
+    	  else
+    	  {
+    		  attributeEl.value = '';
+    		  displayEl.innerHTML = '';
+    	  }
       }
     },
     
     openBrowser : function(e, config) {
       // set the default selection (if it exists)
       var browser = config.browser;
-      var termId = document.getElementById(config.attributeName).value;
       var selected = [];
+      var attributeName = config.attributeName;
+      
+      if(browser.isMultiSelect()) {
+        var terms = YAHOO.util.Selector.query('.' + attributeName);
+        
+        for(var i = 0; i < terms.length; i++) {
+          var termId = terms[i].value;
+        	
+          if(termId !== '')
+          {
+            selected.push(termId); 
+          }
+        }
+      }
+      else {
+        var termId = document.getElementById(attributeName).value;
 
-      if(termId !== '')
-      {
-        selected.push(termId); 
+        if(termId !== '')
+        {
+          selected.push(termId); 
+        }
       }
       
       if(browser.isRendered()) {

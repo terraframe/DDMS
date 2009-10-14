@@ -1,11 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 import java.util.TreeSet;
 
 import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
@@ -14,8 +9,8 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectablePrimitive;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.GridComparator;
-import dss.vector.solutions.surveillance.OptionComparator;
 
 public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -49,7 +44,7 @@ public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBa
     {
       this.setHouseholdAddress(concrete.getHouseholdAddress().getGeoId());
     }
-    
+
     if (concrete.getDistributionLocation() != null)
     {
       this.setDistributionLocation(concrete.getDistributionLocation().getGeoId());
@@ -187,68 +182,42 @@ public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBa
   @Override
   public ITNCommunityNet[] getITNCommunityNets()
   {
-    // A list of all this household nets plus nets that it doesn't have
-    Map<String, ITNCommunityNet> nets = loadNets();
-    List<ITNCommunityNet> list = new LinkedList<ITNCommunityNet>();
-    Stack<Net> stack = new Stack<Net>();
+    Set<ITNCommunityNet> set = new TreeSet<ITNCommunityNet>(new GridComparator());
 
-    for (Net root : Net.getRoots())
+    for (Term d : Term.getRootChildren(ITNCommunityDistributionView.getDisplayNetsMd()))
     {
-      stack.push(root);
+      set.add(new ITNCommunityNet(this.getConcreteId(), d.getId()));
     }
-
-    while (!stack.empty())
-    {
-      // Create a stack to provide sorting on the nets
-      // Sort by the net name
-      Set<Net> set = new TreeSet<Net>(new OptionComparator());
-
-      Net net = stack.pop();
-
-      set.addAll(net.getAllChildNets().getAll());
-
-      for (Net child : set)
-      {
-        stack.push(child);
-      }
-
-      list.add(nets.get(net.getId()));
-    }
-
-    return list.toArray(new ITNCommunityNet[list.size()]);
-  }
-
-  private Map<String, ITNCommunityNet> loadNets()
-  {
-    Map<String, ITNCommunityNet> map = new HashMap<String, ITNCommunityNet>();
 
     if (this.hasConcrete())
     {
       ITNCommunityDistribution concrete = ITNCommunityDistribution.get(this.getConcreteId());
 
-      for (ITNCommunityNet householdNet : concrete.getAllNetsRel())
+      for (ITNCommunityNet d : concrete.getAllNetsRel())
       {
-        map.put(householdNet.getChildId(), householdNet);
+        // We will only want grid options methods which are active
+        // All active methods are already in the set. Thus, if
+        // the set already contains an entry for the Grid Option
+        // replace the default relationship with the actaul
+        // relationship
+        if (set.contains(d))
+        {
+          set.remove(d);
+          set.add(d);
+        }
       }
     }
 
-    for (Net net : Net.getAll())
-    {
-      if (!map.containsKey(net.getId()))
-      {
-        map.put(net.getId(), new ITNCommunityNet(this.getConcreteId(), net.getId()));
-      }
-    }
-
-    return map;
+    return set.toArray(new ITNCommunityNet[set.size()]);
   }
+
 
   @Override
   public ITNCommunityTargetGroup[] getITNCommunityTargetGroups()
   {
     Set<ITNCommunityTargetGroup> set = new TreeSet<ITNCommunityTargetGroup>(new GridComparator());
 
-    for (TargetGroupGrid d : TargetGroupGrid.getAll())
+    for (Term d : Term.getRootChildren(ITNCommunityDistributionView.getDisplayTargetGroupsMd()))
     {
       set.add(new ITNCommunityTargetGroup(this.getConcreteId(), d.getId()));
     }

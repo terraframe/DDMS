@@ -1,11 +1,8 @@
 package dss.vector.solutions.ontology;
 
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.SelectableChar;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.metadata.MdAttributeConcreteQuery;
-import com.terraframe.mojo.system.metadata.MdAttributeQuery;
 import com.terraframe.mojo.system.metadata.MdAttributeVirtualQuery;
 import com.terraframe.mojo.system.metadata.MdClassQuery;
 

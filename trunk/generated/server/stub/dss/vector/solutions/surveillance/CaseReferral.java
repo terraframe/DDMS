@@ -1,5 +1,7 @@
 package dss.vector.solutions.surveillance;
 
+import dss.vector.solutions.ontology.Term;
+
 public class CaseReferral extends CaseReferralBase implements ChildOption, com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1238693142838L;
@@ -9,7 +11,7 @@ public class CaseReferral extends CaseReferralBase implements ChildOption, com.t
     super(parentId, childId);
   }
 
-  public CaseReferral(dss.vector.solutions.surveillance.AggregatedCase parent, dss.vector.solutions.surveillance.ReferralGrid child)
+  public CaseReferral(AggregatedCase parent, Term child)
   {
     this(parent.getId(), child.getId());
   }

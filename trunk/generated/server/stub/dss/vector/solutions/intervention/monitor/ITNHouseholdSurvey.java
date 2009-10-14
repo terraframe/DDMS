@@ -10,7 +10,6 @@ import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.RangeValueProblem;
-import dss.vector.solutions.intervention.FeverResponse;
 
 public class ITNHouseholdSurvey extends ITNHouseholdSurveyBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -253,37 +252,39 @@ public class ITNHouseholdSurvey extends ITNHouseholdSurveyBase implements com.te
   @Override
   public void validateWashFrequency()
   {
-    if (this.getWashed() != null && this.getWashFrequency() != null && !this.getWashed().contains(FeverResponse.YES))
-    {
-      String msg = "Net wash frequency is not applicable when the nets are not washed";
-      Locale locale = Session.getCurrentLocale();
-
-      NotApplicableProblem p = new NotApplicableProblem(msg);
-      p.setNotification(this, WASHFREQUENCY);
-      p.setInputAttribute(getWashedMd().getDisplayLabel(locale));
-      p.setInputValue( FeverResponse.NO.getDisplayLabel() + "/" + FeverResponse.DONT_KNOW.getDisplayLabel());
-      p.apply();
-
-      p.throwIt();
-    }    
+    //FIXME MO UPGRADE
+//    if (this.getWashed() != null && this.getWashFrequency() != null && !this.getWashed().contains(FeverResponse.YES))
+//    {
+//      String msg = "Net wash frequency is not applicable when the nets are not washed";
+//      Locale locale = Session.getCurrentLocale();
+//
+//      NotApplicableProblem p = new NotApplicableProblem(msg);
+//      p.setNotification(this, WASHFREQUENCY);
+//      p.setInputAttribute(getWashedMd().getDisplayLabel(locale));
+//      p.setInputValue( FeverResponse.NO.getDisplayLabel() + "/" + FeverResponse.DONT_KNOW.getDisplayLabel());
+//      p.apply();
+//
+//      p.throwIt();
+//    }    
   }
   
   @Override
   public void validateWashInterval()
   {
-    if (this.getWashed() != null && this.getWashInterval().size() > 0 && !this.getWashed().contains(FeverResponse.YES))
-    {
-      String msg = "Net wash interval is not applicable when the nets are not washed";
-      Locale locale = Session.getCurrentLocale();
-
-      NotApplicableProblem p = new NotApplicableProblem(msg);
-      p.setNotification(this, WASHINTERVAL);
-      p.setInputAttribute(getWashedMd().getDisplayLabel(locale));
-      p.setInputValue( FeverResponse.NO.getDisplayLabel() + "/" + FeverResponse.DONT_KNOW.getDisplayLabel());
-      p.apply();
-
-      p.throwIt();
-    }        
+    // FIXME MO UPGRADE
+//    if (this.getWashed() != null && this.getWashInterval().size() > 0 && !this.getWashed().contains(FeverResponse.YES))
+//    {
+//      String msg = "Net wash interval is not applicable when the nets are not washed";
+//      Locale locale = Session.getCurrentLocale();
+//
+//      NotApplicableProblem p = new NotApplicableProblem(msg);
+//      p.setNotification(this, WASHINTERVAL);
+//      p.setInputAttribute(getWashedMd().getDisplayLabel(locale));
+//      p.setInputValue( FeverResponse.NO.getDisplayLabel() + "/" + FeverResponse.DONT_KNOW.getDisplayLabel());
+//      p.apply();
+//
+//      p.throwIt();
+//    }        
   }
   
   @Override

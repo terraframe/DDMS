@@ -2,21 +2,20 @@ package dss.vector.solutions.permissions.itn.household;
 
 import java.util.Date;
 
-import dss.vector.solutions.intervention.FeverResponseDTO;
-import dss.vector.solutions.intervention.TimeIntervalDTO;
-import dss.vector.solutions.intervention.monitor.FreeITNProviderDTO;
 import dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyDTO;
 import dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNetDTO;
 import dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReasonDTO;
 import dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroupDTO;
 import dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyViewDTO;
-import dss.vector.solutions.intervention.monitor.ITNRetreatmentPeriodDTO;
+import dss.vector.solutions.ontology.TermDTO;
 
 public abstract class ITNHouseholdSurveyCRUDPermissions extends ITNHouseholdSurveyPermissionTest
 {
 
   public void testITNCommunityDistribution()
   {
+    TermDTO term = TermDTO.get(request, termId);
+    
     Integer different = new Integer(99);
     Integer netAmount = new Integer(50);
     Integer targetGroupAmount = new Integer(10);
@@ -41,12 +40,12 @@ public abstract class ITNHouseholdSurveyCRUDPermissions extends ITNHouseholdSurv
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(true);
-    view.setFreeProvider(FreeITNProviderDTO.getAllActive(request)[0]);
-    view.addWashed(FeverResponseDTO.YES);
+    view.setFreeProvider(term);
+    view.setWashed(term);
     view.setWashFrequency(34);
-    view.addWashInterval(TimeIntervalDTO.PER_YEAR);
+    view.setWashInterval(term);
     view.setRetreated(true);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriodDTO.getAllActive(request)[0]);
+    view.setRetreatmentPeriod(term);
 
     ITNHouseholdSurveyNetDTO[] nets = view.getITNHouseholdSurveyNets();
     ITNHouseholdSurveyTargetGroupDTO[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
@@ -90,12 +89,12 @@ public abstract class ITNHouseholdSurveyCRUDPermissions extends ITNHouseholdSurv
       edit.setUsedItns(5);
       edit.setUsedEveryNight(false);
       edit.setNetsObtained(true);
-      edit.setFreeProvider(FreeITNProviderDTO.getAllActive(request)[0]);
-      edit.addWashed(FeverResponseDTO.YES);
+      edit.setFreeProvider(term);
+      edit.setWashed(term);
       edit.setWashFrequency(34);
-      edit.addWashInterval(TimeIntervalDTO.PER_YEAR);
+      edit.setWashInterval(term);
       edit.setRetreated(true);
-      edit.setRetreatmentPeriod(ITNRetreatmentPeriodDTO.getAllActive(request)[0]);
+      edit.setRetreatmentPeriod(term);
 
       ITNHouseholdSurveyNetDTO[] lockedNets = edit.getITNHouseholdSurveyNets();
       ITNHouseholdSurveyTargetGroupDTO[] lockedGroups = edit.getITNHouseholdSurveyTargetGroups();
@@ -140,21 +139,11 @@ public abstract class ITNHouseholdSurveyCRUDPermissions extends ITNHouseholdSurv
       assertEquals(edit.getNetsObtained(), test.getNetsObtained());
       assertEquals(edit.getFreeProvider().getId(), test.getFreeProvider().getId());
       assertEquals(null, test.getBoughtProvider());
-      assertEquals(edit.getWashed().size(), test.getWashed().size());
+      assertEquals(edit.getWashed().getId(), test.getWashed().getId());
       assertEquals(edit.getWashFrequency(), test.getWashFrequency());
-      assertEquals(edit.getWashInterval().size(), test.getWashInterval().size());
+      assertEquals(edit.getWashInterval().getId(), test.getWashInterval().getId());
       assertEquals(edit.getRetreated(), test.getRetreated());
       assertEquals(edit.getRetreatmentPeriod().getId(), test.getRetreatmentPeriod().getId());
-
-      for (int i = 0; i < edit.getWashed().size(); i++)
-      {
-        assertEquals(edit.getWashed().get(i), test.getWashed().get(i));
-      }
-
-      for (int i = 0; i < edit.getWashInterval().size(); i++)
-      {
-        assertEquals(edit.getWashInterval().get(i), test.getWashInterval().get(i));
-      }
 
       for (ITNHouseholdSurveyNetDTO s : test.getITNHouseholdSurveyNets())
         assertEquals(netAmount, s.getAmount());

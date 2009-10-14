@@ -16,6 +16,7 @@ import com.terraframe.mojo.ProblemIF;
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.PeriodType;
 
 public class ITNTest extends TestCase
@@ -95,21 +96,21 @@ public class ITNTest extends TestCase
     concrete.setCurrencyReceived(CURRENCY);
     concrete.apply();
 
-    for (Net d : Net.getAll())
+    for (Term d : Term.getRootChildren(ITNDataView.getDisplayNetsMd()))
     {
       ITNNet rel = concrete.addNets(d);
       rel.setAmount(new Integer(50));
       rel.apply();
     }
 
-    for (TargetGroupGrid d : TargetGroupGrid.getAll())
+    for (Term d : Term.getRootChildren(ITNDataView.getDisplayTargetGroupsMd()))
     {
       ITNTargetGroup rel = concrete.addTargetGroups(d);
       rel.setAmount(new Integer(10));
       rel.apply();
     }
 
-    for (ServiceGrid d : ServiceGrid.getAll())
+    for (Term d : Term.getRootChildren(ITNDataView.getDisplayServicesMd()))
     {
       ITNService rel = concrete.addServices(d);
       rel.setAmount(new Integer(25));

@@ -73,11 +73,17 @@
         <mjl:input type="hidden" param="bloodslide" id="bloodslide" value="${bloodslide != null ? bloodslide.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="rDTResult">
-        <mjl:checkboxGroup var="current" valueAttribute="enumName" items="${rDTResult}" param="rDTResult">
-          <mjl:checkboxOption checked="${mjl:contains(item.RDTResultEnumNames, current.enumName) ? 'checked' : 'false'}">
-            ${item.RDTResultMd.enumItems[current.enumName]}
-          </mjl:checkboxOption>
-        </mjl:checkboxGroup>
+        <span class="clickable" id="resultsBtn"> <fmt:message key="Browser"/></span>
+        <div id="resultsDisplay" class="ontologyDisplay">
+          <c:forEach items="${results}" var="current"> 
+            ${current.displayLabel}
+          </c:forEach>
+        </div>
+        <div style="display:none;" id="results">
+          <mjl:components items="${results}" param="results" var="current" varStatus="status">
+            <mjl:input type="hidden" param="componentId" classes="results" value="${current.id}"/>
+          </mjl:components>
+        </div>
       </mjl:dt>
       <mjl:dt attribute="rdtTreatment">
         <span class="clickable" id="rdtTreatmentBtn"> <fmt:message key="Browser"/></span>
@@ -201,7 +207,8 @@
       {attributeName:'payment'},
       {attributeName:'performedRDT'},
       {attributeName:'rdtTreatment'},
-      {attributeName:'sex'}
+      {attributeName:'sex'},
+      {attributeName:'results', browserField:'rDTResult', multipleSelect:true}
     ];
     
     new MDSS.GenericOntologyBrowser("<%=PersonViewDTO.CLASS%>", attributes);

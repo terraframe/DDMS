@@ -25,6 +25,7 @@ import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.ontology.Term;
 
 public class AggregatedCaseTest extends TestCase
 {
@@ -112,34 +113,37 @@ public class AggregatedCaseTest extends TestCase
     c.setDeaths(deaths);
     c.apply();
 
-    for (DiagnosticGrid d : DiagnosticGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseDiagnosticMd()))
     {
       CaseDiagnostic method = c.addDiagnosticMethod(d);
       method.setAmount(new Integer(50));
       method.apply();
     }
 
-    for (TreatmentGrid g : TreatmentGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseTreatmentsMd()))
     {
-      CaseTreatment t = c.addTreatment(g);
+      CaseTreatment t = c.addTreatment(d);
       t.setAmount(new Integer(30));
       t.apply();
+    }
 
-      CaseTreatmentStock s = c.addTreatmentStock(g);
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseStocksMd()))
+    {
+      CaseTreatmentStock s = c.addTreatmentStock(d);
       s.setOutOfStock(true);
       s.apply();
     }
 
-    for (TreatmentMethodGrid g : TreatmentMethodGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseTreatmentMethodMd()))
     {
-      CaseTreatmentMethod t = c.addTreatmentMethod(g);
+      CaseTreatmentMethod t = c.addTreatmentMethod(d);
       t.setAmount(new Integer(40));
       t.apply();
     }
 
-    for (ReferralGrid g : ReferralGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseReferralsMd()))
     {
-      CaseReferral r = c.addReferral(g);
+      CaseReferral r = c.addReferral(d);
       r.setAmount(new Integer(70));
       r.apply();
     }
@@ -199,7 +203,8 @@ public class AggregatedCaseTest extends TestCase
     c.setDeaths(deaths);
 
     List<CaseDiagnostic> diagnostics = new LinkedList<CaseDiagnostic>();
-    for (DiagnosticGrid d : DiagnosticGrid.getAll())
+    
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseDiagnosticMd()))
     {
       CaseDiagnostic method = c.addDiagnosticMethod(d);
       method.setAmount(new Integer(50));
@@ -207,30 +212,35 @@ public class AggregatedCaseTest extends TestCase
     }
 
     List<CaseTreatment> treatments = new LinkedList<CaseTreatment>();
-    List<CaseTreatmentStock> stocks = new LinkedList<CaseTreatmentStock>();
-    for (TreatmentGrid g : TreatmentGrid.getAll())
+    
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseDiagnosticMd()))
     {
-      CaseTreatment t = c.addTreatment(g);
+      CaseTreatment t = c.addTreatment(d);
       t.setAmount(new Integer(30));
       treatments.add(t);
 
-      CaseTreatmentStock s = c.addTreatmentStock(g);
+    }
+
+    List<CaseTreatmentStock> stocks = new LinkedList<CaseTreatmentStock>();
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseStocksMd()))
+    {
+      CaseTreatmentStock s = c.addTreatmentStock(d);
       s.setOutOfStock(true);
       stocks.add(s);
     }
 
     List<CaseTreatmentMethod> methods = new LinkedList<CaseTreatmentMethod>();
-    for (TreatmentMethodGrid g : TreatmentMethodGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseTreatmentMethodMd()))
     {
-      CaseTreatmentMethod t = c.addTreatmentMethod(g);
+      CaseTreatmentMethod t = c.addTreatmentMethod(d);
       t.setAmount(new Integer(40));
       methods.add(t);
     }
 
     List<CaseReferral> referrals = new LinkedList<CaseReferral>();
-    for (ReferralGrid g : ReferralGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseReferralsMd()))
     {
-      CaseReferral r = c.addReferral(g);
+      CaseReferral r = c.addReferral(d);
       r.setAmount(new Integer(70));
       referrals.add(r);
     }
@@ -304,7 +314,8 @@ public class AggregatedCaseTest extends TestCase
     c.setDeaths(deaths);
 
     List<CaseDiagnostic> diagnostics = new LinkedList<CaseDiagnostic>();
-    for (DiagnosticGrid d : DiagnosticGrid.getAll())
+    
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseDiagnosticMd()))
     {
       CaseDiagnostic method = c.addDiagnosticMethod(d);
       method.setAmount(new Integer(50));
@@ -312,30 +323,35 @@ public class AggregatedCaseTest extends TestCase
     }
 
     List<CaseTreatment> treatments = new LinkedList<CaseTreatment>();
-    List<CaseTreatmentStock> stocks = new LinkedList<CaseTreatmentStock>();
-    for (TreatmentGrid g : TreatmentGrid.getAll())
+    
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseDiagnosticMd()))
     {
-      CaseTreatment t = c.addTreatment(g);
+      CaseTreatment t = c.addTreatment(d);
       t.setAmount(new Integer(30));
       treatments.add(t);
 
-      CaseTreatmentStock s = c.addTreatmentStock(g);
+    }
+
+    List<CaseTreatmentStock> stocks = new LinkedList<CaseTreatmentStock>();
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseStocksMd()))
+    {
+      CaseTreatmentStock s = c.addTreatmentStock(d);
       s.setOutOfStock(true);
       stocks.add(s);
     }
 
     List<CaseTreatmentMethod> methods = new LinkedList<CaseTreatmentMethod>();
-    for (TreatmentMethodGrid g : TreatmentMethodGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseTreatmentMethodMd()))
     {
-      CaseTreatmentMethod t = c.addTreatmentMethod(g);
+      CaseTreatmentMethod t = c.addTreatmentMethod(d);
       t.setAmount(new Integer(40));
       methods.add(t);
     }
 
     List<CaseReferral> referrals = new LinkedList<CaseReferral>();
-    for (ReferralGrid g : ReferralGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseReferralsMd()))
     {
-      CaseReferral r = c.addReferral(g);
+      CaseReferral r = c.addReferral(d);
       r.setAmount(new Integer(70));
       referrals.add(r);
     }
@@ -395,8 +411,10 @@ public class AggregatedCaseTest extends TestCase
     c.setClinicallyDiagnosed(clinicallyDiagnosed);
     c.setDeaths(deaths);
 
+
     List<CaseDiagnostic> diagnostics = new LinkedList<CaseDiagnostic>();
-    for (DiagnosticGrid d : DiagnosticGrid.getAll())
+    
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseDiagnosticMd()))
     {
       CaseDiagnostic method = c.addDiagnosticMethod(d);
       method.setAmount(new Integer(50));
@@ -404,30 +422,35 @@ public class AggregatedCaseTest extends TestCase
     }
 
     List<CaseTreatment> treatments = new LinkedList<CaseTreatment>();
-    List<CaseTreatmentStock> stocks = new LinkedList<CaseTreatmentStock>();
-    for (TreatmentGrid g : TreatmentGrid.getAll())
+    
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseDiagnosticMd()))
     {
-      CaseTreatment t = c.addTreatment(g);
+      CaseTreatment t = c.addTreatment(d);
       t.setAmount(new Integer(30));
       treatments.add(t);
 
-      CaseTreatmentStock s = c.addTreatmentStock(g);
+    }
+
+    List<CaseTreatmentStock> stocks = new LinkedList<CaseTreatmentStock>();
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseStocksMd()))
+    {
+      CaseTreatmentStock s = c.addTreatmentStock(d);
       s.setOutOfStock(true);
       stocks.add(s);
     }
 
     List<CaseTreatmentMethod> methods = new LinkedList<CaseTreatmentMethod>();
-    for (TreatmentMethodGrid g : TreatmentMethodGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseTreatmentMethodMd()))
     {
-      CaseTreatmentMethod t = c.addTreatmentMethod(g);
+      CaseTreatmentMethod t = c.addTreatmentMethod(d);
       t.setAmount(new Integer(40));
       methods.add(t);
     }
 
     List<CaseReferral> referrals = new LinkedList<CaseReferral>();
-    for (ReferralGrid g : ReferralGrid.getAll())
+    for (Term d : Term.getRootChildren(ChildCaseView.getCaseReferralsMd()))
     {
-      CaseReferral r = c.addReferral(g);
+      CaseReferral r = c.addReferral(d);
       r.setAmount(new Integer(70));
       referrals.add(r);
     }
@@ -932,8 +955,7 @@ public class AggregatedCaseTest extends TestCase
 
     try
     {
-      AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity,
-          PeriodType.QUARTER, 1, 2007, ageGroup);
+      AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER, 1, 2007, ageGroup);
 
       assertNotNull(test);
       assertEquals(c.getCases(), test.getCases());
@@ -966,8 +988,7 @@ public class AggregatedCaseTest extends TestCase
 
   public void testUnknownCase()
   {
-    AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER,
-        1, 2009, ageGroup);
+    AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER, 1, 2009, ageGroup);
 
     assertEquals("", test.getCaseId());
   }

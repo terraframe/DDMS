@@ -15,11 +15,9 @@ import com.terraframe.mojo.ProblemIF;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.RangeValueProblem;
-import dss.vector.solutions.TestConstants;
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.HealthFacility;
-import dss.vector.solutions.intervention.FeverResponse;
-import dss.vector.solutions.intervention.TimeInterval;
+import dss.vector.solutions.ontology.Term;
 
 public class ITNHouseholdSurveyTest extends TestCase
 {
@@ -36,6 +34,8 @@ public class ITNHouseholdSurveyTest extends TestCase
   }
 
   private static GeoEntity surveyLocation = null;
+  
+  private static Term      term = null;
 
   public static Test suite()
   {
@@ -62,14 +62,13 @@ public class ITNHouseholdSurveyTest extends TestCase
   protected static void classTearDown()
   {
     surveyLocation.delete();
+    term.delete();
   }
 
   protected static void classSetUp()
   {
-    surveyLocation = new HealthFacility();
-    surveyLocation.setGeoId(TestConstants.GEO_ID);
-    surveyLocation.setEntityName("Facility");
-    surveyLocation.apply();
+    surveyLocation = TestFixture.createRandomFacility();
+    term = TestFixture.createRandomTerm();
   }
 
   public void testCreateITNHouseholdSurveyByFreeProvider()
@@ -97,31 +96,31 @@ public class ITNHouseholdSurveyTest extends TestCase
     concrete.setUsedItns(5);
     concrete.setUsedEveryNight(false);
     concrete.setNetsObtained(true);
-    concrete.setFreeProvider(FreeITNProvider.getAllActive()[0]);
-    concrete.addWashed(FeverResponse.YES);
+    concrete.setFreeProvider(term);
+    concrete.setWashed(term);
     concrete.setWashFrequency(34);
-    concrete.addWashInterval(TimeInterval.PER_YEAR);
+    concrete.setWashInterval(term);
     concrete.setRetreated(true);
-    concrete.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    concrete.setRetreatmentPeriod(term);
     concrete.apply();
 
     try
     {
-      for (Net d : Net.getAll())
+      for (Term d : Term.getRootChildren(ITNHouseholdSurveyView.getDisplayNetsMd()))
       {
         ITNHouseholdSurveyNet rel = concrete.addNets(d);
         rel.setAmount(netAmount);
         rel.apply();
       }
 
-      for (TargetGroupGrid d : TargetGroupGrid.getAll())
+      for (Term d : Term.getRootChildren(ITNHouseholdSurveyView.getDisplayTargetGroupsMd()))
       {
         ITNHouseholdSurveyTargetGroup rel = concrete.addTargetGroups(d);
         rel.setAmount(targetGroupAmount);
         rel.apply();
       }
 
-      for (NonUseReasonGrid d : NonUseReasonGrid.getAll())
+      for (Term d : Term.getRootChildren(ITNHouseholdSurveyView.getDisplayNonUseReasonsMd()))
       {
         ITNHouseholdSurveyNonUseReason rel = concrete.addNonUseReasons(d);
         rel.setAmount(reasonAmount);
@@ -150,21 +149,11 @@ public class ITNHouseholdSurveyTest extends TestCase
       assertEquals(concrete.getNetsObtained(), test.getNetsObtained());
       assertEquals(concrete.getFreeProvider().getId(), test.getFreeProvider().getId());
       assertEquals(null, test.getBoughtProvider());
-      assertEquals(concrete.getWashed().size(), test.getWashed().size());
+      assertEquals(concrete.getWashed().getId(), test.getWashed().getId());
       assertEquals(concrete.getWashFrequency(), test.getWashFrequency());
-      assertEquals(concrete.getWashInterval().size(), test.getWashInterval().size());
+      assertEquals(concrete.getWashInterval().getId(), test.getWashInterval().getId());
       assertEquals(concrete.getRetreated(), test.getRetreated());
       assertEquals(concrete.getRetreatmentPeriod().getId(), test.getRetreatmentPeriod().getId());
-
-      for (int i = 0; i < concrete.getWashed().size(); i++)
-      {
-        assertEquals(concrete.getWashed().get(i), test.getWashed().get(i));
-      }
-
-      for (int i = 0; i < concrete.getWashInterval().size(); i++)
-      {
-        assertEquals(concrete.getWashInterval().get(i), test.getWashInterval().get(i));
-      }
 
       for (ITNHouseholdSurveyNet s : test.getAllNetsRel())
         assertEquals(netAmount, s.getAmount());
@@ -206,31 +195,31 @@ public class ITNHouseholdSurveyTest extends TestCase
     concrete.setUsedItns(5);
     concrete.setUsedEveryNight(false);
     concrete.setNetsObtained(false);
-    concrete.setBoughtProvider(CommercialITNProvider.getAllActive()[0]);
-    concrete.addWashed(FeverResponse.YES);
+    concrete.setBoughtProvider(term);
+    concrete.setWashed(term);
     concrete.setWashFrequency(34);
-    concrete.addWashInterval(TimeInterval.PER_YEAR);
+    concrete.setWashInterval(term);
     concrete.setRetreated(true);
-    concrete.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    concrete.setRetreatmentPeriod(term);
     concrete.apply();
 
     try
     {
-      for (Net d : Net.getAll())
+      for (Term d : Term.getRootChildren(ITNHouseholdSurveyView.getDisplayNetsMd()))
       {
         ITNHouseholdSurveyNet rel = concrete.addNets(d);
         rel.setAmount(netAmount);
         rel.apply();
       }
 
-      for (TargetGroupGrid d : TargetGroupGrid.getAll())
+      for (Term d : Term.getRootChildren(ITNHouseholdSurveyView.getDisplayTargetGroupsMd()))
       {
         ITNHouseholdSurveyTargetGroup rel = concrete.addTargetGroups(d);
         rel.setAmount(targetGroupAmount);
         rel.apply();
       }
 
-      for (NonUseReasonGrid d : NonUseReasonGrid.getAll())
+      for (Term d : Term.getRootChildren(ITNHouseholdSurveyView.getDisplayNonUseReasonsMd()))
       {
         ITNHouseholdSurveyNonUseReason rel = concrete.addNonUseReasons(d);
         rel.setAmount(reasonAmount);
@@ -259,21 +248,11 @@ public class ITNHouseholdSurveyTest extends TestCase
       assertEquals(concrete.getNetsObtained(), test.getNetsObtained());
       assertEquals(null, test.getFreeProvider());
       assertEquals(concrete.getBoughtProvider().getId(), test.getBoughtProvider().getId());
-      assertEquals(concrete.getWashed().size(), test.getWashed().size());
+      assertEquals(concrete.getWashed().getId(), test.getWashed().getId());
       assertEquals(concrete.getWashFrequency(), test.getWashFrequency());
-      assertEquals(concrete.getWashInterval().size(), test.getWashInterval().size());
+      assertEquals(concrete.getWashInterval().getId(), test.getWashInterval().getId());
       assertEquals(concrete.getRetreated(), test.getRetreated());
       assertEquals(concrete.getRetreatmentPeriod().getId(), test.getRetreatmentPeriod().getId());
-
-      for (int i = 0; i < concrete.getWashed().size(); i++)
-      {
-        assertEquals(concrete.getWashed().get(i), test.getWashed().get(i));
-      }
-
-      for (int i = 0; i < concrete.getWashInterval().size(); i++)
-      {
-        assertEquals(concrete.getWashInterval().get(i), test.getWashInterval().get(i));
-      }
 
       for (ITNHouseholdSurveyNet s : test.getAllNetsRel())
         assertEquals(netAmount, s.getAmount());
@@ -315,12 +294,12 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(true);
-    view.setFreeProvider(FreeITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.YES);
+    view.setFreeProvider(term);
+    view.setWashed(term);
     view.setWashFrequency(34);
-    view.addWashInterval(TimeInterval.PER_YEAR);
+    view.setWashInterval(term);
     view.setRetreated(true);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    view.setRetreatmentPeriod(term);
     view.apply();
 
     try
@@ -369,21 +348,11 @@ public class ITNHouseholdSurveyTest extends TestCase
       assertEquals(view.getNetsObtained(), test.getNetsObtained());
       assertEquals(view.getFreeProvider().getId(), test.getFreeProvider().getId());
       assertEquals(null, test.getBoughtProvider());
-      assertEquals(view.getWashed().size(), test.getWashed().size());
+      assertEquals(view.getWashed().getId(), test.getWashed().getId());
       assertEquals(view.getWashFrequency(), test.getWashFrequency());
-      assertEquals(view.getWashInterval().size(), test.getWashInterval().size());
+      assertEquals(view.getWashInterval().getId(), test.getWashInterval().getId());
       assertEquals(view.getRetreated(), test.getRetreated());
       assertEquals(view.getRetreatmentPeriod().getId(), test.getRetreatmentPeriod().getId());
-
-      for (int i = 0; i < view.getWashed().size(); i++)
-      {
-        assertEquals(view.getWashed().get(i), test.getWashed().get(i));
-      }
-
-      for (int i = 0; i < view.getWashInterval().size(); i++)
-      {
-        assertEquals(view.getWashInterval().get(i), test.getWashInterval().get(i));
-      }
 
       for (ITNHouseholdSurveyNet s : test.getITNHouseholdSurveyNets())
         assertEquals(netAmount, s.getAmount());
@@ -425,12 +394,12 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(true);
-    view.setFreeProvider(FreeITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.YES);
+    view.setFreeProvider(term);
+    view.setWashed(term);
     view.setWashFrequency(34);
-    view.addWashInterval(TimeInterval.PER_YEAR);
+    view.setWashInterval(term);
     view.setRetreated(true);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    view.setRetreatmentPeriod(term);
 
     ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
     ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
@@ -477,21 +446,11 @@ public class ITNHouseholdSurveyTest extends TestCase
       assertEquals(view.getNetsObtained(), test.getNetsObtained());
       assertEquals(view.getFreeProvider().getId(), test.getFreeProvider().getId());
       assertEquals(null, test.getBoughtProvider());
-      assertEquals(view.getWashed().size(), test.getWashed().size());
+      assertEquals(view.getWashed().getId(), test.getWashed().getId());
       assertEquals(view.getWashFrequency(), test.getWashFrequency());
-      assertEquals(view.getWashInterval().size(), test.getWashInterval().size());
+      assertEquals(view.getWashInterval().getId(), test.getWashInterval().getId());
       assertEquals(view.getRetreated(), test.getRetreated());
       assertEquals(view.getRetreatmentPeriod().getId(), test.getRetreatmentPeriod().getId());
-
-      for (int i = 0; i < view.getWashed().size(); i++)
-      {
-        assertEquals(view.getWashed().get(i), test.getWashed().get(i));
-      }
-
-      for (int i = 0; i < view.getWashInterval().size(); i++)
-      {
-        assertEquals(view.getWashInterval().get(i), test.getWashInterval().get(i));
-      }
 
       for (ITNHouseholdSurveyNet s : test.getITNHouseholdSurveyNets())
         assertEquals(netAmount, s.getAmount());
@@ -534,12 +493,12 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(true);
-    view.setFreeProvider(FreeITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.YES);
+    view.setFreeProvider(term);
+    view.setWashed(term);
     view.setWashFrequency(34);
-    view.addWashInterval(TimeInterval.PER_YEAR);
+    view.setWashInterval(term);
     view.setRetreated(true);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    view.setRetreatmentPeriod(term);
 
     ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
     ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
@@ -583,12 +542,12 @@ public class ITNHouseholdSurveyTest extends TestCase
       edit.setUsedItns(5);
       edit.setUsedEveryNight(false);
       edit.setNetsObtained(true);
-      edit.setFreeProvider(FreeITNProvider.getAllActive()[0]);
-      edit.addWashed(FeverResponse.YES);
+      edit.setFreeProvider(term);
+      edit.setWashed(term);
       edit.setWashFrequency(34);
-      edit.addWashInterval(TimeInterval.PER_YEAR);
+      edit.setWashInterval(term);
       edit.setRetreated(true);
-      edit.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+      edit.setRetreatmentPeriod(term);
 
       ITNHouseholdSurveyNet[] lockedNets = edit.getITNHouseholdSurveyNets();
       ITNHouseholdSurveyTargetGroup[] lockedGroups = edit.getITNHouseholdSurveyTargetGroups();
@@ -633,21 +592,11 @@ public class ITNHouseholdSurveyTest extends TestCase
       assertEquals(edit.getNetsObtained(), test.getNetsObtained());
       assertEquals(edit.getFreeProvider().getId(), test.getFreeProvider().getId());
       assertEquals(null, test.getBoughtProvider());
-      assertEquals(edit.getWashed().size(), test.getWashed().size());
+      assertEquals(edit.getWashed().getId(), test.getWashed().getId());
       assertEquals(edit.getWashFrequency(), test.getWashFrequency());
-      assertEquals(edit.getWashInterval().size(), test.getWashInterval().size());
+      assertEquals(edit.getWashInterval().getId(), test.getWashInterval().getId());
       assertEquals(edit.getRetreated(), test.getRetreated());
       assertEquals(edit.getRetreatmentPeriod().getId(), test.getRetreatmentPeriod().getId());
-
-      for (int i = 0; i < edit.getWashed().size(); i++)
-      {
-        assertEquals(edit.getWashed().get(i), test.getWashed().get(i));
-      }
-
-      for (int i = 0; i < edit.getWashInterval().size(); i++)
-      {
-        assertEquals(edit.getWashInterval().get(i), test.getWashInterval().get(i));
-      }
 
       for (ITNHouseholdSurveyNet s : test.getITNHouseholdSurveyNets())
         assertEquals(netAmount, s.getAmount());
@@ -693,12 +642,12 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(true);
-    view.setFreeProvider(FreeITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.YES);
+    view.setFreeProvider(term);
+    view.setWashed(term);
     view.setWashFrequency(34);
-    view.addWashInterval(TimeInterval.PER_YEAR);
+    view.setWashInterval(term);
     view.setRetreated(true);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    view.setRetreatmentPeriod(term);
 
     ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
     ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
@@ -766,12 +715,12 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(false);
-    view.setFreeProvider(FreeITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.YES);
+    view.setFreeProvider(term);
+    view.setWashed(term);
     view.setWashFrequency(34);
-    view.addWashInterval(TimeInterval.PER_YEAR);
+    view.setWashInterval(term);
     view.setRetreated(true);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    view.setRetreatmentPeriod(term);
 
     ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
     ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
@@ -839,12 +788,12 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(true);
-    view.setBoughtProvider(CommercialITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.YES);
+    view.setBoughtProvider(term);
+    view.setWashed(term);
     view.setWashFrequency(34);
-    view.addWashInterval(TimeInterval.PER_YEAR);
+    view.setWashInterval(term);
     view.setRetreated(true);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    view.setRetreatmentPeriod(term);
 
     ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
     ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
@@ -912,11 +861,11 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(true);
-    view.setFreeProvider(FreeITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.DONT_KNOW);
+    view.setFreeProvider(term);
+    view.setWashed(term);
     view.setWashFrequency(34);
     view.setRetreated(true);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    view.setRetreatmentPeriod(term);
 
     ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
     ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
@@ -984,11 +933,11 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(true);
-    view.setFreeProvider(FreeITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.NO);
+    view.setFreeProvider(term);
+    view.setWashed(term);
     view.setWashFrequency(34);
     view.setRetreated(true);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    view.setRetreatmentPeriod(term);
 
     ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
     ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
@@ -1056,11 +1005,11 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(true);
-    view.setFreeProvider(FreeITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.DONT_KNOW);
-    view.addWashInterval(TimeInterval.PER_YEAR);
+    view.setFreeProvider(term);
+    view.setWashed(term);
+    view.setWashInterval(term);
     view.setRetreated(true);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    view.setRetreatmentPeriod(term);
 
     ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
     ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
@@ -1128,11 +1077,11 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(true);
-    view.setFreeProvider(FreeITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.NO);
-    view.addWashInterval(TimeInterval.PER_YEAR);
+    view.setFreeProvider(term);
+    view.setWashed(term);
+    view.setWashInterval(term);
     view.setRetreated(true);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    view.setRetreatmentPeriod(term);
 
     ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
     ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
@@ -1200,10 +1149,10 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(true);
-    view.setFreeProvider(FreeITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.NO);
+    view.setFreeProvider(term);
+    view.setWashed(term);
     view.setRetreated(false);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    view.setRetreatmentPeriod(term);
 
     ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
     ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
@@ -1271,8 +1220,8 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(true);
     view.setNetsObtained(true);
-    view.setFreeProvider(FreeITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.NO);
+    view.setFreeProvider(term);
+    view.setWashed(term);
     view.setRetreated(false);
 
     ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
@@ -1341,12 +1290,12 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(false);
-    view.setBoughtProvider(CommercialITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.YES);
+    view.setBoughtProvider(term);
+    view.setWashed(term);
     view.setWashFrequency(34);
-    view.addWashInterval(TimeInterval.PER_YEAR);
+    view.setWashInterval(term);
     view.setRetreated(true);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    view.setRetreatmentPeriod(term);
 
     ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
     ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
@@ -1414,12 +1363,12 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(false);
-    view.setBoughtProvider(CommercialITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.YES);
+    view.setBoughtProvider(term);
+    view.setWashed(term);
     view.setWashFrequency(34);
-    view.addWashInterval(TimeInterval.PER_YEAR);
+    view.setWashInterval(term);
     view.setRetreated(true);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    view.setRetreatmentPeriod(term);
 
     ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
     ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
@@ -1488,12 +1437,12 @@ public class ITNHouseholdSurveyTest extends TestCase
     view.setUsedItns(5);
     view.setUsedEveryNight(false);
     view.setNetsObtained(true);
-    view.setFreeProvider(FreeITNProvider.getAllActive()[0]);
-    view.addWashed(FeverResponse.YES);
+    view.setFreeProvider(term);
+    view.setWashed(term);
     view.setWashFrequency(34);
-    view.addWashInterval(TimeInterval.PER_YEAR);
+    view.setWashInterval(term);
     view.setRetreated(true);
-    view.setRetreatmentPeriod(ITNRetreatmentPeriod.getAllActive()[0]);
+    view.setRetreatmentPeriod(term);
 
     ITNHouseholdSurveyNet[] nets = view.getITNHouseholdSurveyNets();
     ITNHouseholdSurveyTargetGroup[] targetGroups = view.getITNHouseholdSurveyTargetGroups();
@@ -1546,21 +1495,11 @@ public class ITNHouseholdSurveyTest extends TestCase
         assertEquals(view.getNetsObtained(), test.getNetsObtained());
         assertEquals(view.getFreeProvider().getId(), test.getFreeProvider().getId());
         assertEquals(null, test.getBoughtProvider());
-        assertEquals(view.getWashed().size(), test.getWashed().size());
+        assertEquals(view.getWashed().getId(), test.getWashed().getId());
         assertEquals(view.getWashFrequency(), test.getWashFrequency());
-        assertEquals(view.getWashInterval().size(), test.getWashInterval().size());
+        assertEquals(view.getWashInterval().getId(), test.getWashInterval().getId());
         assertEquals(view.getRetreated(), test.getRetreated());
         assertEquals(view.getRetreatmentPeriod().getId(), test.getRetreatmentPeriod().getId());
-
-        for (int i = 0; i < view.getWashed().size(); i++)
-        {
-          assertEquals(view.getWashed().get(i), test.getWashed().get(i));
-        }
-
-        for (int i = 0; i < view.getWashInterval().size(); i++)
-        {
-          assertEquals(view.getWashInterval().get(i), test.getWashInterval().get(i));
-        }
 
         for (ITNHouseholdSurveyNet s : test.getITNHouseholdSurveyNets())
           assertEquals(netAmount, s.getAmount());

@@ -56,10 +56,10 @@
       </mjl:dt>
       <mjl:dt attribute="rDTResult">
         <ul>
-          <c:forEach var="enumName" items="${item.RDTResultEnumNames}">
-            <li>${item.RDTResultMd.enumItems[enumName]}</li>
+          <c:forEach items="${results}" var="current"> 
+            <li> ${current.displayLabel} </li> 
           </c:forEach>
-        </ul>
+        </ul>      
       </mjl:dt>
       <mjl:dt attribute="rdtTreatment">
         <c:if test="${rdtTreatment != null}">
