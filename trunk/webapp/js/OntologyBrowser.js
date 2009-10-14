@@ -818,9 +818,13 @@ focus : function() {
  * @method getInputValue
  */
 getInputValue : function() {
-//  return this._lastSelected != null ? MDSS.OntologyBrowser.formatLabel(this._lastSelected) : '';
   return this._lastSelected != null ? this._lastSelected.getTermId() : '';
+},
+
+getInputDisplayLabel : function() {
+  return this._lastSelected != null ? MDSS.OntologyBrowser.formatLabel(this._lastSelected) : '';
 }
+
 
 });
 
