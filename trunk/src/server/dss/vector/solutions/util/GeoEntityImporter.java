@@ -6,7 +6,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -21,6 +23,7 @@ import org.postgresql.PGConnection;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.postgresql.ds.common.BaseDataSource;
 
+import com.terraframe.mojo.business.Business;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.InvalidIdException;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
@@ -79,6 +82,8 @@ public class GeoEntityImporter {
 	private static String GEO_NAME = "geo_name";
 
 	private static double DELTA = 0.01d;
+	
+	private static int BATCH_SIZE = 1000;
 
 	private String dbUser;
 	private String dbPassword;
@@ -191,6 +196,7 @@ public class GeoEntityImporter {
 	}
 
 	private void importGeoEntities() throws Exception {
+		this.updateUniversalRoots();
 		this.buildUniversalMap();
 		this.createGeoEntities();
 		this.createLocatedInRelationships();
@@ -294,7 +300,6 @@ public class GeoEntityImporter {
 	 * 
 	 * GEOGRAPHIC_ENTITIES_GEOMETRY+" geom, "
 	 */
-	@Transaction
 	private void createGeoEntities() throws Exception {
 		System.out.println("Creating GeoEntities ");
 
@@ -305,6 +310,8 @@ public class GeoEntityImporter {
 		System.out.println(sql);
 		Statement statement = null;
 		ResultSet resultSet = null;
+		
+		ArrayList<GeoEntity> batch = new ArrayList<GeoEntity>(BATCH_SIZE);
 
 		try {
 			statement = this.conn.createStatement();
@@ -361,7 +368,12 @@ public class GeoEntityImporter {
 					System.out.println();
 				}
 
-				geoEntity.apply();
+				//geoEntity.apply();
+				batch.add(geoEntity);
+				if (batch.size() == BATCH_SIZE) {
+					this.applyBatch(batch);
+					batch = new ArrayList<GeoEntity>(BATCH_SIZE);
+				}
 			}
 		} finally {
 			if (resultSet != null) {
@@ -373,9 +385,17 @@ public class GeoEntityImporter {
 			}
 		}
 
+		this.applyBatch(batch);
 		System.out.println("\nFINISHED\n");
 	}
 
+	@Transaction
+	private void applyBatch(List<? extends Business> batch) {
+		for (Business businessObject: batch) {
+			businessObject.apply();
+		}
+	}
+	
 	private String getCellValue(HSSFRow row, int col) {
 		String value = null;
 		HSSFCell cell = row.getCell(col);
@@ -401,43 +421,12 @@ public class GeoEntityImporter {
 			String newUniversalName = this.getCellValue(row, 2);
 			String moTermId = this.getCellValue(row, 3);
 			Term moTerm = null;
-			if (moTermId != null && moTermId.length()>=0) {
+			if (moTermId != null && moTermId.length()>0) {
 				moTerm = this.lookupTerm(moTermId);
 			}
 			this.universalMap.put(oldUniversalId, new UniversalSubtype(lookupGeoHierarchy(newUniversalName), moTerm));
 			row = sheet.getRow(rowCount++);
 		}
-/*
-		String sql = "SELECT " + UNIVERSAL_ID + ", " + UNIVERSAL_NAME + " FROM " + UNIVERSAL_TABLE;
-
-		Statement statement = null;
-		ResultSet resultSet = null;
-		try {
-			statement = this.conn.createStatement();
-
-			statement.execute(sql);
-			resultSet = statement.getResultSet();
-
-			while (resultSet.next()) {
-				int universalId = resultSet.getInt(UNIVERSAL_ID);
-				String universalName = resultSet.getString(UNIVERSAL_NAME);
-
-				GeoHierarchy geoHierarchy = lookupGeoHierarchy(universalName);
-
-				if (geoHierarchy != null) {
-					this.geoHierarchyMap.put(universalId, geoHierarchy);
-				}
-			}
-		} finally {
-			if (resultSet != null) {
-				resultSet.close();
-			}
-
-			if (statement != null) {
-				statement.close();
-			}
-		}
-*/
 	}
 
 	private GeoHierarchy lookupGeoHierarchy(String universalName) {
@@ -575,4 +564,27 @@ public class GeoEntityImporter {
 		Polygon polygon = factory.createPolygon(ring, null);
 		return polygon;
 	}
+	
+	@Transaction
+	private void updateUniversalRoots() throws Exception {
+		InputStream is = new FileInputStream(this.universalSpreadsheet);
+		HSSFWorkbook wb = new HSSFWorkbook(is);
+		HSSFSheet sheet = wb.getSheetAt(0); // Use first sheet
+		int rowCount = 1; // Start at second row
+		HSSFRow row = sheet.getRow(rowCount++);
+		while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK) {
+			String universalName = this.getCellValue(row, 0);
+			String moRootId = this.getCellValue(row, 4);
+			Term moRoot = null;
+			if (moRootId != null && moRootId.length()>0) {
+				moRoot = this.lookupTerm(moRootId);
+				GeoHierarchy geoHierarchy = this.lookupGeoHierarchy(universalName);
+				geoHierarchy.setTerm(moRoot);
+				geoHierarchy.apply();
+			}
+			row = sheet.getRow(rowCount++);
+		}
+	}
 }
+
+
