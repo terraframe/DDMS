@@ -623,79 +623,42 @@
 
 	<target name="remove_generated_universals" depends="" description="Remove all java files for selected (old) generated universals">
 		<patternset id="generated.artifacts">
-			<include name="AdministrativePost*.java" />
-			<include name="AdminPost*.java" />
-			<include name="BambooWoodWithMudWall*.java" />
-			<include name="CalamineCementFibreRoof*.java" />
-			<include name="CementConcreteRoof*.java" />
-			<include name="CentralHospital*.java" />
-			<include name="ChamHealthCentre*.java" />
-			<include name="ChamHospital*.java" />
-			<include name="Clinic*.java" />
-			<include name="CommunityHealthCenter*.java" />
-			<include name="CommunityHealthWorker*.java" />
-			<include name="Constituency*.java" />
-			<include name="CoveredAbode*.java" />
-			<include name="CoveredAdobe*.java" />
-			<include name="ExitTrap*.java" />
-			<include name="GeneralHospital*.java" />
-			<include name="HealthClinic*.java" />
-			<include name="HealthFacilityCatchment*.java" />
-			<include name="LargeRuralHealthCentre*.java" />
-			<include name="Locality*.java" />
-			<include name="LocalGvtDispensary*.java" />
-			<include name="LocalGvtMaternity*.java" />
-			<include name="Lodge*.java" />
-			<include name="MobileClinic*.java" />
-			<include name="OtherRoof*.java" />
-			<include name="PointCollection*.java" />
-			<include name="PrivateClinic*.java" />
-			<include name="PrivateHospital*.java" />
-			<include name="PrivatePractice*.java" />
-			<include name="Province*.java" />
-			<include name="ProvincialHospital*.java" />
-			<include name="PublicClinic*.java" />
-			<include name="PublicHospital*.java" />
-			<include name="ReedBambooRoof*.java" />
-			<include name="Region*.java" />
-			<include name="RegionalHospital*.java" />
-			<include name="Reserve*.java" />
-			<include name="RuralHealthCentre*.java" />
-			<include name="RuralHealthCentre1*.java" />
-			<include name="RuralHealthCentre2*.java" />
-			<include name="RuralHospital*.java" />
-			<include name="RusticMatPlasticSheetRoof*.java" />
-			<include name="SmallRuralHealthCentre*.java" />
-			<include name="SprayBase*.java" />
-			<include name="StickAndMudRoof*.java" />
-			<include name="ThatchLeafRoof*.java" />
-			<include name="TraditionalAuthority*.java" />
-			<include name="UncoveredAbode*.java" />
-			<include name="UncoveredAdobe*.java" />
-			<include name="UrbanHealthCentre*.java" />
-			<include name="UrbanHealthHospital*.java" />
-			<include name="Ward*.java" />
-			<include name="WoodPlansShingles*.java" />
+			<include name="**/*" />
+			<exclude name="Earth*" />
+			<exclude name="GeoEntity*" />
+			<exclude name=".svn*" />
 		</patternset>
 
-		<delete>
+		<delete failonerror="false">
 			<fileset dir="../../../generated/client/stub/dss/vector/solutions/geo/generated/">
 				<patternset refid="generated.artifacts" />
 			</fileset>
 		</delete>
 
-		<delete>
+		<delete failonerror="false">
+			<fileset dir="../../../generated/client/base/dss/vector/solutions/geo/generated/">
+				<patternset refid="generated.artifacts" />
+			</fileset>
+		</delete>
+
+		<delete failonerror="false">
 			<fileset dir="../../../generated/server/stub/dss/vector/solutions/geo/generated/">
+				<patternset refid="generated.artifacts" />
+			</fileset>
+		</delete>
+		
+		<delete failonerror="false">
+			<fileset dir="../../../generated/server/base/dss/vector/solutions/geo/generated/">
 				<patternset refid="generated.artifacts" />
 			</fileset>
 		</delete>
 
 		<delete includeemptydirs="true" failonerror="false">
 			<fileset dir="../../../webapp/WEB-INF/dss/vector/solutions/geo/generated" defaultexcludes="false">
-				<include name="**/*" />
-				<exclude name=".svn*" />
+				<patternset refid="generated.artifacts" />
 			</fileset>
 		</delete>
+		
 	</target>
 
 	<target name="copy_country_schema" depends="" description="Copy the appropriate country schema file">
