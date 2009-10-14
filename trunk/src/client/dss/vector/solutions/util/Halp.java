@@ -197,6 +197,13 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
               break;
             case REFERENCE:
               value = (String) ( (ComponentDTO) c.getMethod("get" + attrib).invoke(row) ).getId();
+              
+              Class<?> returnType = c.getMethod("get" + attrib).getReturnType();
+              if (returnType.isAssignableFrom(TermDTO.class))
+              {
+                TermDTO term = (TermDTO) c.getMethod("get" + attrib).invoke(row);
+                value = term.getDisplayLabel()+"^^^^"+value;
+              }
               break;
           }
           element.put(attrib, value);
