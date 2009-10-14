@@ -806,6 +806,10 @@ focus : function() {
   {
     this._browser.render();
   }
+  
+  // TODO get existing term id from cell and put it into the selected array
+  var selected = [];
+  this._browser.setSelection(selected);
 },
 
 /**
