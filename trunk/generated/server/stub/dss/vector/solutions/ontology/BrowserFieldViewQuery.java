@@ -1,6 +1,12 @@
 package dss.vector.solutions.ontology;
 
+import com.terraframe.mojo.query.Condition;
+import com.terraframe.mojo.query.OR;
+import com.terraframe.mojo.query.SelectableChar;
+import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.metadata.MdAttributeConcreteQuery;
+import com.terraframe.mojo.system.metadata.MdAttributeQuery;
+import com.terraframe.mojo.system.metadata.MdAttributeVirtualQuery;
 import com.terraframe.mojo.system.metadata.MdClassQuery;
 
 /**
@@ -25,17 +31,31 @@ private static final long serialVersionUID = 1252959713156L;
   class DefaultBrowserFieldViewBuilder extends com.terraframe.mojo.query.ViewQueryBuilder implements com.terraframe.mojo.generation.loader.Reloadable
   {
     
-    private MdAttributeConcreteQuery mdAttributeQuery;
+//    private MdAttributeQuery mdAttributeQuery;
+    private MdAttributeConcreteQuery mdConcreteQuery;
+    private MdAttributeVirtualQuery mdVirtualQuery;
+    
     private MdClassQuery mdClassQuery;
     private BrowserFieldQuery fieldQuery;
+    private ValueQuery unioned;
+    
+    private ValueQuery concreteQuery;
+    private ValueQuery virtualQuery;
     
     public DefaultBrowserFieldViewBuilder(com.terraframe.mojo.query.QueryFactory queryFactory)
     {
       super(queryFactory);
       
-      this.mdAttributeQuery = new MdAttributeConcreteQuery(queryFactory);
-      this.mdClassQuery = new MdClassQuery(queryFactory); 
+      this.mdConcreteQuery = new MdAttributeConcreteQuery(queryFactory);
+      this.mdVirtualQuery = new MdAttributeVirtualQuery(queryFactory);
+      
+      this.mdClassQuery = new MdClassQuery(queryFactory);
       this.fieldQuery = new BrowserFieldQuery(queryFactory);
+      
+      this.concreteQuery = new ValueQuery(queryFactory);
+      this.virtualQuery = new ValueQuery(queryFactory);
+      
+      this.unioned = new ValueQuery(queryFactory);
     }
 
     protected BrowserFieldViewQuery getViewQuery()
@@ -47,11 +67,32 @@ private static final long serialVersionUID = 1252959713156L;
     {
       BrowserFieldViewQuery query = this.getViewQuery();
       
+      // join concrete attribute with display labels
+      this.concreteQuery.SELECT(this.mdClassQuery.getId("classId"),
+          this.mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
+          this.mdConcreteQuery.getId("attributeId"),
+          this.mdConcreteQuery.getDisplayLabel().currentLocale("attributeLabel"),
+          this.mdConcreteQuery.getDefiningMdClass().getId("definingMdClass"));
+      
+      
+      // join virtual attribute with display labels
+      this.virtualQuery.SELECT(this.mdClassQuery.getId("classId"),
+          this.mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
+          this.mdVirtualQuery.getId("attributeId"),
+          this.mdVirtualQuery.getDisplayLabel().currentLocale("attributeLabel"),
+          this.mdVirtualQuery.getDefiningMdView().getId("definingMdClass"));
+      
+      
+      // union the attribute queries
+      this.unioned.UNION(this.concreteQuery, this.virtualQuery);
+      
       query.map(BrowserFieldView.BROWSERFIELDID, this.fieldQuery.getId());
-      query.map(BrowserFieldView.MDATTRIBUTEID, this.mdAttributeQuery.getId());
-      query.map(BrowserFieldView.MDATTRIBUTELABEL, this.mdAttributeQuery.getDisplayLabel().currentLocale());
-      query.map(BrowserFieldView.MDCLASSID, this.mdClassQuery.getId());
-      query.map(BrowserFieldView.MDCLASSLABEL, this.mdClassQuery.getDisplayLabel().currentLocale());
+
+      query.map(BrowserFieldView.MDCLASSID, this.unioned.aAttribute("classId"));
+      query.map(BrowserFieldView.MDCLASSLABEL, this.unioned.aAttribute("classLabel"));
+
+      query.map(BrowserFieldView.MDATTRIBUTEID, this.unioned.aAttribute("attributeId"));
+      query.map(BrowserFieldView.MDATTRIBUTELABEL, this.unioned.aAttribute("attributeLabel"));
     }
 
     /**
@@ -60,10 +101,11 @@ private static final long serialVersionUID = 1252959713156L;
     protected void buildWhereClause()
     {
       BrowserFieldViewQuery query = this.getViewQuery();
+      this.concreteQuery.WHERE(this.mdConcreteQuery.getDefiningMdClass().EQ(this.mdClassQuery));
+      this.virtualQuery.WHERE(this.mdVirtualQuery.getDefiningMdView().EQ(this.mdClassQuery));
       
       // join the MOField to the MdAttribute
-      query.WHERE(this.mdAttributeQuery.getDefiningMdClass().EQ(this.mdClassQuery));
-      query.AND(this.fieldQuery.getMdAttribute().EQ(this.mdAttributeQuery));
+      query.WHERE(this.fieldQuery.getMdAttribute().getId().EQ((SelectableChar) this.unioned.aAttribute("attributeId")));
     }
 
   }
