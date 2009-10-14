@@ -3603,7 +3603,10 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentDTO', {
       // Generate a new id per instance instead of using the id
       // of the cached JSON (to avoid all new instances having the same id),
       // and preserve the id of the metadata type.
-      this.id = Mojo.Util.generateId()+obj.id.substring(32);
+      //FIXME line below to check for new instance before reseting id
+//      this.id = Mojo.Util.generateId()+obj.id.substring(32);
+      this.id = obj.id;
+
       this._type = obj._type;
       
       if(Mojo.Util.isObject(obj._typeMd))
