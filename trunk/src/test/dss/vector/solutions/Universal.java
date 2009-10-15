@@ -73,6 +73,8 @@ public class Universal {
 	private Universal allowedIn = null;
 	private boolean political = false;
 	private boolean sprayTarget = false;
+	private boolean populationAllowed = false;
+
 	private int geometry = ERROR;
 	private String moRoot;
 
@@ -83,10 +85,11 @@ public class Universal {
 		this.typeName = getSystemName(description);
 	}
 
-	public Universal(String description, boolean political, boolean sprayTargetm, String moRoot) {
+	public Universal(String description, boolean political, boolean sprayTarget, boolean populationAllowed, String moRoot) {
 		this(description);
 		this.political = political;
 		this.sprayTarget = sprayTarget;
+		this.populationAllowed = populationAllowed;
 	}
 
     public String getTypeName()
@@ -120,6 +123,14 @@ public class Universal {
 
 	public void setSprayTarget(boolean sprayTarget) {
 		this.sprayTarget = sprayTarget;
+	}
+
+	public boolean isPopulationAllowed() {
+		return populationAllowed;
+	}
+
+	public void setPopulationAllowed(boolean populationAllowed) {
+		this.populationAllowed = populationAllowed;
 	}
 
 	public Universal getAllowedIn() {
@@ -210,6 +221,9 @@ public class Universal {
 		sb.append("   <"+XMLTags.ATTRIBUTE_TAG+"\n");
 		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"sprayTargetAllowed\"\n");
 		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"" + (this.isSprayTarget() ? "true" : "false") + "\" />\n");
+		sb.append("   <"+XMLTags.ATTRIBUTE_TAG+"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"populationAllowed\"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"" + (this.isPopulationAllowed() ? "true" : "false") + "\" />\n");
 		sb.append("   <"+XMLTags.ATTRIBUTE_REFERENCE_TAG+"\n");
 		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"geoEntityClass\"\n");
         sb.append("      "+XMLTags.KEY_ATTRIBUTE+"=\"" + this.getType() + "\"/>\n");

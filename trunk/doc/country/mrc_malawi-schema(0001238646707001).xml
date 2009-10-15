@@ -1,7 +1,7 @@
 <version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<!--
-		Created on Tue Oct 13 21:29:42 MDT 2009 from
+		Created on Wed Oct 14 22:00:13 MDT 2009 from
 		/home/chris/TerraFrame/MDSS/doc/country/mrc_malawi-universals.xls
 	-->
 	<doIt>
@@ -213,21 +213,24 @@
 		<create>
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Country">
 				<attribute name="political" value="true" />
-				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="sprayTargetAllowed" value="true" />
+				<attribute name="populationAllowed" value="true" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.Country" />
 			</object>
 
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Region">
 				<attribute name="political" value="true" />
-				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="sprayTargetAllowed" value="true" />
+				<attribute name="populationAllowed" value="true" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.Region" />
 			</object>
 
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.District">
 				<attribute name="political" value="true" />
-				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="sprayTargetAllowed" value="true" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.District" />
 			</object>
@@ -236,6 +239,7 @@
 				key="dss.vector.solutions.geo.generated.TraditionalAuthority">
 				<attribute name="political" value="true" />
 				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.TraditionalAuthority" />
 			</object>
@@ -243,6 +247,7 @@
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.WaterBody">
 				<attribute name="political" value="false" />
 				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.WaterBody" />
 			</object>
@@ -250,6 +255,7 @@
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.River">
 				<attribute name="political" value="false" />
 				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.River" />
 			</object>
@@ -257,6 +263,7 @@
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Reserve">
 				<attribute name="political" value="false" />
 				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.Reserve" />
 			</object>
@@ -264,6 +271,7 @@
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Railway">
 				<attribute name="political" value="false" />
 				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.Railway" />
 			</object>
@@ -271,27 +279,31 @@
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Road">
 				<attribute name="political" value="false" />
 				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.Road" />
 			</object>
 
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.SprayZone">
 				<attribute name="political" value="false" />
-				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="sprayTargetAllowed" value="true" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.SprayZone" />
 			</object>
 
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.SprayArea">
 				<attribute name="political" value="false" />
-				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="sprayTargetAllowed" value="true" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.SprayArea" />
 			</object>
 
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Settlement">
 				<attribute name="political" value="true" />
-				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="sprayTargetAllowed" value="true" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.Settlement" />
 			</object>
@@ -300,6 +312,7 @@
 				key="dss.vector.solutions.geo.generated.SettlementSubdivision">
 				<attribute name="political" value="false" />
 				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.SettlementSubdivision" />
 			</object>
@@ -307,6 +320,7 @@
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Premises">
 				<attribute name="political" value="false" />
 				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.Premises" />
 			</object>
@@ -315,6 +329,7 @@
 				key="dss.vector.solutions.geo.generated.HealthFacility">
 				<attribute name="political" value="false" />
 				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.HealthFacility" />
 			</object>
@@ -322,6 +337,7 @@
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.SentinelSite">
 				<attribute name="political" value="false" />
 				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.SentinelSite" />
 			</object>
@@ -330,6 +346,7 @@
 				key="dss.vector.solutions.geo.generated.CollectionSite">
 				<attribute name="political" value="false" />
 				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.CollectionSite" />
 			</object>
@@ -337,6 +354,7 @@
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Building">
 				<attribute name="political" value="false" />
 				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.Building" />
 			</object>
@@ -344,6 +362,7 @@
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Surface">
 				<attribute name="political" value="false" />
 				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.Surface" />
 			</object>
@@ -352,6 +371,7 @@
 				key="dss.vector.solutions.geo.generated.HealthFacilityCatchmentArea">
 				<attribute name="political" value="false" />
 				<attribute name="sprayTargetAllowed" value="false" />
+				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.HealthFacilityCatchmentArea" />
 			</object>

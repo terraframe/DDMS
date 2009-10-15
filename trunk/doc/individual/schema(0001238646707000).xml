@@ -135,6 +135,13 @@
             required="true"
             negativeLabel="No"
             positiveLabel="Yes" />
+          <boolean
+            name="populationAllowed"
+            label="Population Allowed"
+            description="Population Allowed"
+            required="true"
+            negativeLabel="No"
+            positiveLabel="Yes" />
           <reference
             name="geoEntityClass"
             label="Geo Entity Class"
@@ -359,6 +366,11 @@
             required="true"
             concrete="sprayTargetAllowed"
             type="dss.vector.solutions.geo.GeoHierarchy" />
+          <virtual
+            name="populationAllowed"
+            required="false"
+            concrete="populationAllowed"
+            type="dss.vector.solutions.geo.GeoHierarchy" />
         </attributes>
       </mdView>
 
@@ -406,6 +418,11 @@
             name="sprayTargetAllowed"
             required="true"
             concrete="sprayTargetAllowed"
+            type="dss.vector.solutions.geo.GeoHierarchy" />
+          <virtual
+            name="populationAllowed"
+            required="false"
+            concrete="populationAllowed"
             type="dss.vector.solutions.geo.GeoHierarchy" />
           <char
             name="parentGeoHierarchyId"
@@ -5588,6 +5605,9 @@
         <attribute
           name="sprayTargetAllowed"
           value="false" />
+        <attribute
+          name="populationAllowed"
+          value="false" />
         <attributeReference
           name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.GeoEntity" />
@@ -5602,6 +5622,9 @@
         <attribute
           name="sprayTargetAllowed"
           value="true" />
+        <attribute
+          name="populationAllowed"
+          value="false" />
         <attributeReference
           name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Earth" />

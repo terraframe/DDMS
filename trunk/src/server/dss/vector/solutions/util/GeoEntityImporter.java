@@ -574,7 +574,7 @@ public class GeoEntityImporter {
 		HSSFRow row = sheet.getRow(rowCount++);
 		while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK) {
 			String universalName = this.getCellValue(row, 0);
-			String moRootId = this.getCellValue(row, 4);
+			String moRootId = this.getCellValue(row, 5);
 			Term moRoot = null;
 			if (moRootId != null && moRootId.length()>0) {
 				moRoot = this.lookupTerm(moRootId);
