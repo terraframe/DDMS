@@ -1,5 +1,8 @@
 package dss.vector.solutions.ontology;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.terraframe.mojo.dataaccess.MdClassDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
@@ -9,6 +12,7 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.system.metadata.MdAttribute;
+import com.terraframe.mojo.system.metadata.MdAttributeVirtual;
 
 
 public class BrowserField extends BrowserFieldBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -81,12 +85,34 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
     return KEY_PREFIX+className+"."+attribute;
   }
   
-  public static BrowserFieldViewQuery getAsViews()
+  public static BrowserFieldView[] getAsViews()
   {
     QueryFactory f = new QueryFactory();
     BrowserFieldViewQuery q = new BrowserFieldViewQuery(f);
     
-    return q;
+    List<BrowserFieldView> views = new LinkedList<BrowserFieldView>();
+    OIterator<? extends BrowserFieldView> iter = q.getIterator();
+    
+    try
+    {
+      while(iter.hasNext())
+      {
+        BrowserFieldView view = iter.next();
+        if(view.getMdAttributeLabel().length() == 0)
+        {
+          MdAttributeVirtual mdAttr = (MdAttributeVirtual) MdAttribute.get(view.getMdAttributeId());
+          view.setMdAttributeLabel(mdAttr.getMdAttributeConcrete().getDisplayLabel().getDefaultLocale());
+          
+          views.add(view);
+        }
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
+    
+    return views.toArray(new BrowserFieldView[views.size()]);
   }
   
   @Transaction

@@ -103,6 +103,9 @@ private static final long serialVersionUID = 1252959713156L;
       
       // join the MOField to the MdAttribute
       query.WHERE(this.fieldQuery.getMdAttribute().getId().EQ((SelectableChar) this.unioned.aAttribute("attributeId")));
+      
+      String sql = query.getSQL();
+      System.out.println(sql);
     }
 
   }

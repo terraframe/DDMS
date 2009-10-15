@@ -24,7 +24,7 @@ public abstract class GeoEntityDTO extends GeoEntityDTOBase
   public String getDisplayString()
   {
     //${item.geoEntity.geoId} <br/> ${item.geoEntity.entityName} (${item.geoEntity.typeDisplayLabel})
-    return this.getEntityName() + "(" + this.getTypeDisplayLabel() + ") - " +this.getGeoId();
+    return this.getEntityName() + " (" + this.getTypeDisplayLabel() + ") - " +this.getGeoId();
   }
   
 }

@@ -1,10 +1,8 @@
 package dss.vector.solutions.geo.generated;
 
-import dss.vector.solutions.geo.generated.CountryDTOBase;
-
 public class CountryDTO extends CountryDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1236384562583L;
+  private static final long serialVersionUID = 1255627102789L;
   
   public CountryDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

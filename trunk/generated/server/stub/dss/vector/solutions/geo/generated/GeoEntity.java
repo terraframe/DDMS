@@ -477,6 +477,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
   @Override
   public String getTypeDisplayLabel()
   {
+    // FIXME point to MO term or if null use MdClass display label
     MdClass mdClass = MdClass.getMdClass(this.getType());
     return(mdClass.getDisplayLabel().getValue());
   }

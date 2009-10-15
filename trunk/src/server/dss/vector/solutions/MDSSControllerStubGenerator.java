@@ -2,10 +2,10 @@ package dss.vector.solutions;
 
 import java.util.Arrays;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.generation.GenerationUtil;
 import com.terraframe.mojo.business.generation.facade.ControllerStubGenerator;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.constants.ProblemExceptionDTOInfo;
 import com.terraframe.mojo.constants.MdAttributeReferenceInfo;
 import com.terraframe.mojo.constants.TypeGeneratorInfo;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
@@ -17,8 +17,8 @@ import com.terraframe.mojo.dataaccess.MdMethodDAOIF;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.util.ErrorUtility;
-import dss.vector.solutions.util.RedirectUtility;
+import dss.vector.solutions.util.ErrorUtilityInfo;
+import dss.vector.solutions.util.RedirectUtilityInfo;
 
 public class MDSSControllerStubGenerator extends ControllerStubGenerator implements Reloadable
 {
@@ -36,14 +36,14 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
     getWriter().writeLine("dto.apply();");
     getWriter().writeLine("this.view(dto.getId());");
     getWriter().closeBracket();
-    getWriter().writeLine("catch(" + ProblemExceptionDTO.class.getName() + " e)");
+    getWriter().writeLine("catch(" + ProblemExceptionDTOInfo.CLASS + " e)");
     getWriter().openBracket();
-    getWriter().writeLine(ErrorUtility.class.getName() + ".prepareProblems(e, req);");
+    getWriter().writeLine(ErrorUtilityInfo.CLASS + ".prepareProblems(e, req);");
     getWriter().writeLine("this.failUpdate(" + args + ");");
     getWriter().closeBracket();
     getWriter().writeLine("catch(" + Throwable.class.getName() + " t)");
     getWriter().openBracket();
-    getWriter().writeLine(ErrorUtility.class.getName() + ".prepareThrowable(t, req);");
+    getWriter().writeLine(ErrorUtilityInfo.CLASS + ".prepareThrowable(t, req);");
     getWriter().writeLine("this.failUpdate(" + args + ");");
     getWriter().closeBracket();
   }
@@ -56,14 +56,14 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
     getWriter().writeLine("dto.delete();");
     getWriter().writeLine("this.viewAll();");
     getWriter().closeBracket();
-    getWriter().writeLine("catch(" + ProblemExceptionDTO.class.getName() + " e)");
+    getWriter().writeLine("catch(" + ProblemExceptionDTOInfo.CLASS + " e)");
     getWriter().openBracket();
-    getWriter().writeLine(ErrorUtility.class.getName() + ".prepareProblems(e, req);");
+    getWriter().writeLine(ErrorUtilityInfo.CLASS + ".prepareProblems(e, req);");
     getWriter().writeLine("this.failDelete(" + args + ");");
     getWriter().closeBracket();
     getWriter().writeLine("catch(" + Throwable.class.getName() + " t)");
     getWriter().openBracket();
-    getWriter().writeLine(ErrorUtility.class.getName() + ".prepareThrowable(t, req);");
+    getWriter().writeLine(ErrorUtilityInfo.CLASS + ".prepareThrowable(t, req);");
     getWriter().writeLine("this.failDelete(" + args + ");");
     getWriter().closeBracket();
   }
@@ -76,14 +76,14 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
     getWriter().writeLine("dto.apply();");
     getWriter().writeLine("this.view(dto.getId());");
     getWriter().closeBracket();
-    getWriter().writeLine("catch(" + ProblemExceptionDTO.class.getName() + " e)");
+    getWriter().writeLine("catch(" + ProblemExceptionDTOInfo.CLASS + " e)");
     getWriter().openBracket();
-    getWriter().writeLine(ErrorUtility.class.getName() + ".prepareProblems(e, req);");
+    getWriter().writeLine(ErrorUtilityInfo.CLASS + ".prepareProblems(e, req);");
     getWriter().writeLine("this.failCreate(" + args + ");");
     getWriter().closeBracket();
     getWriter().writeLine("catch(" + Throwable.class.getName() + " t)");
     getWriter().openBracket();
-    getWriter().writeLine(ErrorUtility.class.getName() + ".prepareThrowable(t, req);");
+    getWriter().writeLine(ErrorUtilityInfo.CLASS + ".prepareThrowable(t, req);");
     getWriter().writeLine("this.failCreate(" + args + ");");
     getWriter().closeBracket();
   }
@@ -91,7 +91,7 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
   @Override
   protected void writeViewAction(MdEntityDAOIF mdEntity)
   {
-    getWriter().writeLine(RedirectUtility.class.getName() + " utility = new " + RedirectUtility.class.getName() + "(req, resp);");
+    getWriter().writeLine(RedirectUtilityInfo.CLASS + " utility = new " + RedirectUtilityInfo.CLASS + "(req, resp);");
     getWriter().writeLine("utility.put(\"id\", id);");
     getWriter().writeLine("utility.checkURL(this.getClass().getSimpleName(), \"view\");");
 

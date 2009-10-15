@@ -37,7 +37,7 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
     {
       com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
 
-      BrowserFieldViewQueryDTO query = BrowserFieldDTO.getAsViews(clientRequest);
+      BrowserFieldViewDTO[] results = BrowserFieldDTO.getAsViews(clientRequest);
       BrowserRootViewQueryDTO rootQuery = BrowserRootDTO.getAsViews(clientRequest);
 
       // Build a map whose values are lists that contain BrowserRootViewDTOs
@@ -55,7 +55,7 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
         rootMap.get(attrId).add(view);
       }
 
-      req.setAttribute("fields", query.getResultSet());
+      req.setAttribute("fields", results);
       req.setAttribute("rootMap", rootMap);
 
       render("viewAllComponent.jsp");

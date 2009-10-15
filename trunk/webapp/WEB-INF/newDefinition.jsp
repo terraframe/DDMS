@@ -1,5 +1,6 @@
 <jsp:include page="/WEB-INF/inlineError.jsp" />
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <mjl:messages>
@@ -53,6 +54,20 @@
             ${current.displayLabel}
           </mjl:option>
         </mjl:select>
+      </dd>
+      <dt>
+        <label>
+        ${definition.termMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <span class="clickable" id="termBtn">
+          <fmt:message key="Browser" />
+        </span>
+        <div class="ontologyDisplay" id="termDisplay">
+          ${term != null ? term.displayLabel : ''}
+        </div>
+        <mjl:input value="${term != null ? term.id : ''}" type="hidden" param="term" id="term" />
       </dd>
       <dt>
         <label>

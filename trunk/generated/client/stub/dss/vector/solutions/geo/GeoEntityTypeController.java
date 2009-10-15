@@ -124,18 +124,7 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
       GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(clientRequest, geoHierarchyId);
       GeoEntityDefinitionDTO definition = GeoHierarchyDTO.getGeoEntityDefinition(clientRequest, geoHierarchyId);
       
-      TermDTO term = definition.getTerm();
-      if(term != null)
-      {
-        String name = term.getTermName();
-        String termId = term.getTermId();
-        
-        req.setAttribute("termName", name);
-        req.setAttribute("termOntologyId", termId);
-        req.setAttribute("termId", term.getId());
-        
-      }
-      
+      req.setAttribute("term", definition.getTerm());
       req.setAttribute("parentLabel", view.getIsADisplayLabel());            
       req.setAttribute("geoHierarchyId", geoHierarchyId);
       req.setAttribute("definition", definition);

@@ -262,6 +262,8 @@ MDSS.GeoHierarchyTree = (function(){
         var labelEl = "<h3>"+header+"</h3><hr />";
         html = labelEl + html;
        _createModal(html);
+       
+        YAHOO.util.Event.on('openBrowser', 'click', _openBrowser);
 
         eval(executable);
       }
@@ -488,6 +490,8 @@ MDSS.GeoHierarchyTree = (function(){
         var labelEl = "<h3>"+this.displayLabel+"</h3><hr />";
         html = labelEl + html;
         _createModal(html, false);
+        
+        YAHOO.util.Event.on('openBrowser', 'click', _openBrowser);
 
         eval(executable);
       }
@@ -736,7 +740,7 @@ MDSS.GeoHierarchyTree = (function(){
   }
   
   
-  function _openBrowser(params)
+  function _openBrowser(e)
   {
     var termId = document.getElementById('term').value;
     var selected = [];
@@ -761,12 +765,12 @@ MDSS.GeoHierarchyTree = (function(){
   function _setField(selected)
   {
     var el = document.getElementById('term');
-    var dEl = document.getElementById('termName');
+    var dEl = document.getElementById('termDisplay');
     if(selected.length > 0)
     {
       var sel = selected[0];
       el.value = sel.getTermId();
-      dEl.innerHTML = sel.getTermName() + '('+sel.getTermOntologyId()+')'; 
+      dEl.innerHTML = MDSS.OntologyBrowser.formatLabel(sel);
     }
     else
     {
@@ -793,10 +797,6 @@ MDSS.GeoHierarchyTree = (function(){
       _sharedBrowser = new MDSS.OntologyBrowser(false, 'dss.vector.solutions.geo.GeoHierarchy', 'term');
       _sharedBrowser.setHandler(_setField);
     
-      // set the handlers for the BrowserRootController
-      var rootController = Mojo.$.dss.vector.solutions.ontology.BrowserRootController;
-      rootController.setOpenBrowserListener(_openBrowser);
-      
     // Fetch the root node
     Mojo.$.dss.vector.solutions.geo.GeoHierarchy.getViewForGeoHierarchy(request, MDSS.GeoHierarchyTreeRootId);
   }

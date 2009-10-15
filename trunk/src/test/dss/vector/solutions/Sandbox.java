@@ -18,8 +18,6 @@ import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.system.metadata.MdBusiness;
@@ -28,9 +26,9 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.ontology.BrowserRoot;
-import dss.vector.solutions.ontology.TermQuery;
-import dss.vector.solutions.ontology.TermRelationshipQuery;
+import dss.vector.solutions.ontology.BrowserField;
+import dss.vector.solutions.ontology.BrowserFieldView;
+import dss.vector.solutions.ontology.BrowserFieldViewQuery;
 import dss.vector.solutions.util.GeoEntitySearcher;
 
 public class Sandbox
@@ -59,10 +57,6 @@ try
 }
 catch(ProblemExceptionDTO e)
 {
-  for(String m : e.getProblemMessages())
-  {
-    System.out.println(m);
-  }
 }
     
     //
@@ -114,10 +108,44 @@ catch(ProblemExceptionDTO e)
   @StartSession
   private static void gogo(String sessionId, ClientSession session)
   {
+//    QueryFactory queryFactory = new QueryFactory();
+//    
+//    MdClassQuery mdClassQuery;
+//    mdClassQuery = new MdClassQuery(queryFactory);
+//    
+//    MdAttributeConcreteQuery mdConcreteQuery = new MdAttributeConcreteQuery(queryFactory);
+//    
+//    ValueQuery concreteQuery = new ValueQuery(queryFactory);
+//    ValueQuery virtualQuery = new ValueQuery(queryFactory);
+//    
+//    ValueQuery unioned = new ValueQuery(queryFactory);
+//    
+//    MdAttributeVirtualQuery mdVirtualQuery = new MdAttributeVirtualQuery(queryFactory);
+//    
+//    // join concrete attribute with display labels
+//    concreteQuery.SELECT(mdClassQuery.getId("classId"),
+//        mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
+//        mdConcreteQuery.getId("attributeId"),
+//        mdConcreteQuery.getDisplayLabel().currentLocale("attributeLabel"),
+//        mdConcreteQuery.getDefiningMdClass().getId("definingMdClass"));
+//    concreteQuery.WHERE(mdConcreteQuery.getDefiningMdClass().EQ(mdClassQuery));
+//    
+//    virtualQuery.SELECT(mdClassQuery.getId("classId"),
+//        mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
+//        mdVirtualQuery.getId("attributeId"),
+//        mdVirtualQuery.getDisplayLabel().currentLocale("attributeLabel"),
+//        mdVirtualQuery.getDefiningMdView().getId("definingMdClass"));
+//    virtualQuery.WHERE(mdVirtualQuery.getDefiningMdView().EQ(mdClassQuery));
+//    
+//    unioned.UNION(concreteQuery, virtualQuery);
+//    
+//  for(ValueObject valueObject : unioned.getIterator())
+//  {
+//    valueObject.printAttributes();
+//  }
     
     try
     {
-
     }
     catch(Throwable t)
     {

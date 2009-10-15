@@ -3600,11 +3600,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentDTO', {
     {
       this.dto_type = obj.dto_type;
       
-      // Generate a new id per instance instead of using the id
-      // of the cached JSON (to avoid all new instances having the same id),
-      // and preserve the id of the metadata type.
-      //FIXME line below to check for new instance before reseting id
-//      this.id = Mojo.Util.generateId()+obj.id.substring(32);
       this.id = obj.id;
 
       this._type = obj._type;
@@ -3668,11 +3663,19 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'MutableDTO', {
 
     initialize : function(obj)
     {
+      // Generate a new id per instance instead of using the id
+      // of the cached JSON (to avoid all new instances having the same id),
+      // and preserve the id of the metadata type.
+      //FIXME line below to check for new instance before reseting id (mutabledto only)
+//      this.id = Mojo.Util.generateId()+obj.id.substring(32);    
       this.$initialize(obj);
+    
   
       this.writable = obj.writable;
       this.modified = obj.modified;
       this.newInstance = obj.newInstance;
+
+
     },
   
     isWritable : function() {return this.writable; },

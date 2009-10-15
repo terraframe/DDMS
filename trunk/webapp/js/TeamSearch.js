@@ -342,6 +342,11 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
       this.displayElement.setAttribute("autocomplete", "off");
     },
     
+    hide : function()
+    {
+      this.panel.hide();
+    },
+    
     getDisplayElement : function() {
       return this.displayElement;
     },

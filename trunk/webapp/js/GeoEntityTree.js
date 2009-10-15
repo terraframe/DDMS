@@ -30,6 +30,10 @@ MDSS.GeoEntityTree = (function(){
   
   var _uploadModal = null;
   
+  // reference to the Ontology browser used to select the proper
+  // term for a univeral
+  var _sharedBrowser = null
+  
   /**
    * Action to upload a template file.
    */
@@ -210,6 +214,7 @@ MDSS.GeoEntityTree = (function(){
     var gazId = params['dto.gazId'];
     var geoId = params['dto.geoId'];
     var activatedVal = params['dto.activated'];
+    var term = document.getElementById('term').value;
     var activated = (activatedVal === "true") ? true : false;
 
     var geoSetter = null;
@@ -249,6 +254,7 @@ MDSS.GeoEntityTree = (function(){
     geoEntity.setGazId(gazId);
     geoEntity.setGeoId(geoId);
     geoEntity.setActivated(activated);
+    geoEntity.setTerm(term);
 
     // Earth doesn't have a geoSetter
     if(geoSetter != null)
@@ -403,6 +409,8 @@ MDSS.GeoEntityTree = (function(){
         outer.appendChild(contentDiv);
 
         _modal.setBody(outer);
+        
+        YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
 
         eval(executable);
       }
@@ -411,6 +419,49 @@ MDSS.GeoEntityTree = (function(){
     var controller = Mojo.Meta.findClass(type+"Controller");
     controller.setCreateListener(Mojo.Util.curry(_createNode, type));
     controller.newInstance(request);
+  }
+  
+  function _setField(selected)
+  {
+    var el = document.getElementById('term');
+    var dEl = document.getElementById('termDisplay');
+    if(selected.length > 0)
+    {
+      var sel = selected[0];
+      el.value = sel.getTermId();
+      dEl.innerHTML = MDSS.OntologyBrowser.formatLabel(sel);
+    }
+    else
+    {
+      el.value = '';
+      dEl.innerHTML = '';
+    }
+  }
+  
+  /**
+   * Opens the ontology browser to set the value of the
+   * term attribute on the geo entity.
+   */
+  function _openBrowser(e)
+  {
+    var termId = document.getElementById('term').value;
+    var selected = [];
+    if(termId !== '')
+    {
+      selected.push(termId); 
+    }
+ 
+    if(_sharedBrowser.isRendered())
+    {
+      _sharedBrowser.reset();
+      _sharedBrowser.show();
+      _sharedBrowser.setSelection(selected); 
+    }
+    else
+    {
+      _sharedBrowser.render();
+      _sharedBrowser.setSelection(selected); 
+    }
   }
 
   /**
@@ -862,6 +913,8 @@ MDSS.GeoEntityTree = (function(){
         outer.appendChild(contentDiv);
 
         _createModal(outer, false);
+        
+        YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
 
         eval(executable);
       }
@@ -1218,6 +1271,12 @@ MDSS.GeoEntityTree = (function(){
         _renderTree(treeId, geoEntity, selectCallback);
       }
     });
+    
+      // Create the one instance of the OntologyBrowser that will
+      // be shared by all BrowserRoots. This is done because only one
+      // BrowserRoot can be edited at a time.
+      _sharedBrowser = new MDSS.OntologyBrowser(false, 'dss.vector.solutions.geo.generated.GeoEntity', 'term');
+      _sharedBrowser.setHandler(_setField);
 
     // Fetch the root node
     Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.get(request, MDSS.GeoEntityTreeRootId);

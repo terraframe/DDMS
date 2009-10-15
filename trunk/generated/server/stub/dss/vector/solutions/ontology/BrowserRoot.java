@@ -101,8 +101,15 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
       iter.close();
     }
     
-    
-    return views.toArray(new BrowserRootView[views.size()]);
+    if(views.size() > 0)
+    {
+      return views.toArray(new BrowserRootView[views.size()]);
+    }
+    else
+    {
+      // FIXME normal usage will return empty root list
+      return getDefaultRoot();
+    }
   }
   
   private static BrowserRootView toView(TermView termView)

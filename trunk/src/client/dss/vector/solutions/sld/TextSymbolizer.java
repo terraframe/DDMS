@@ -122,7 +122,9 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
       writer.writeln("</Displacement>");
       writer.writeln("</PointPlacement>");
       writer.writeln("</LabelPlacement>");
-      writer.writeln("<VendorOption name=\"conflictResolution\">true</VendorOption>");
+//      writer.writeln("<VendorOption name=\"conflictResolution\">true</VendorOption>");
+//      writer.writeln("<VendorOption name=\"group\">true</VendorOption>");
+      writer.writeln("<VendorOption name=\"spaceAround\">-100</VendorOption>");
       writer.writeln("</TextSymbolizer>");
       writer.writeln("</Rule>");
 

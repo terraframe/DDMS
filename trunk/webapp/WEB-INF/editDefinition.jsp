@@ -1,5 +1,6 @@
 <jsp:include page="/WEB-INF/inlineError.jsp" />
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <mjl:messages>
@@ -50,19 +51,18 @@
         ${parentLabel}
       </dd>
       <dt>
+        <label>
         ${definition.termMd.displayLabel}
+        </label>
       </dt>
       <dd>
-        <mjl:command name="dss.vector.solutions.ontology.BrowserRoot.form.openBrowser" 
-          action="dss.vector.solutions.ontology.BrowserRootController.openBrowser.mojo" value="Browser" classes="browserOpenBtn"></mjl:command>
-        <div id="termName" class="autosize ontologyDisplay" >
-          <div>
-          <c:if test="${termName != null}">
-            ${termName} (${termOntologyId})
-          </c:if>
-          </div>
+        <span class="clickable" id="termBtn">
+          <fmt:message key="Browser" />
+        </span>
+        <div class="ontologyDisplay" id="termDisplay">
+          ${term != null ? term.displayLabel : ''}
         </div>
-        <mjl:input type="hidden" param="term" id="term" value="${termId}" />
+        <mjl:input value="${term != null ? term.id : ''}" type="hidden" param="term" id="term" />
       </dd>
       <dt>
         <label>

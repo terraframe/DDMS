@@ -1,3 +1,6 @@
+// FIXME put focus on search text when browser opens
+// FIXME have enter keypress fire save event on browser
+
 Mojo.Meta.newClass("MDSS.OntologyBrowser", {
 
   Constants : {
@@ -63,8 +66,20 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     {
       this._panel.show();
       this._panel.bringToTop();
+      
+      this._focusSearch();
     },
     
+    /**
+     * Puts focus on the search input and clears any previous value.
+     */
+    _focusSearch : function()
+    {
+      var search = document.getElementById(this._searchInput);
+      search.value = '';
+      search.focus();
+    },
+      
     hide : function()
     {
       this._panel.hide();
@@ -97,6 +112,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       if(cached)
       {
         this._setContent(cached);
+        this._focusSearch();
       }
       else
       {
@@ -106,6 +122,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
           {
             this.that._setCachedChildren(this.that._ROOT, roots);
             this.that._setContent(roots);
+            this.that._focusSearch();
           }
         });
      
@@ -424,6 +441,12 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       this._searchPanel = new MDSS.GenericSearch(displayElement, null, lF, dF, iF, sF, sEH);
       
       YAHOO.util.Event.on(this._searchInput, 'keyup', this._searchPanel.performSearch, null, this._searchPanel); 
+      
+      // hide the search panel when the main panel is hidden.
+      var that = this;
+      this._panel.subscribe('beforeHide', function(){
+        that._searchPanel.hide();
+      });
     },
     
     isRendered : function()
