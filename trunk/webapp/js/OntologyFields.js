@@ -35,10 +35,6 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       var cancelB = Mojo.Util.bind(this, this._cancelRoot);
       this._rootController.setCancelListener(cancelB);
       
-      // action to open the OntologyBrowser
-      var openB = Mojo.Util.bind(this, this._openBrowser);
-      this._rootController.setOpenBrowserListener(openB);
-      
       var updateB = Mojo.Util.bind(this, this._updateRoot);
       this._rootController.setUpdateListener(updateB); 
     },
@@ -59,6 +55,9 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       modal.setBody(html);
       modal.render(document.body);
       modal.bringToTop();
+      
+      // add event to open the browser
+      YAHOO.util.Event.on('termBtn', 'click', this._openBrowser, null, this);
       
       return modal;
     },
@@ -88,8 +87,8 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
     _openBrowser : function(params)
     {
       // set the current input fields
-      this._currentBrowserInput = params['dto.componentId']+this.constructor.TERM_SUFFIX;
-      this._currentBrowserDisplay = params['dto.componentId']+this.constructor.TERMNAME_SUFFIX;
+      this._currentBrowserInput = 'term';
+      this._currentBrowserDisplay = 'termDisplay';
 
       // set the default selection (if it exists)
       var termId = document.getElementById(this._currentBrowserInput).value;

@@ -121,17 +121,9 @@ public class BrowserRootController extends BrowserRootControllerBase implements
     {
       dss.vector.solutions.ontology.BrowserRootDTO dto = dss.vector.solutions.ontology.BrowserRootDTO
           .lock(super.getClientRequest(), id);
+      
       req.setAttribute("item", dto);
-      
-      // get the term name/id // FIXME use BrowserRootView
-      TermDTO term = dto.getTerm();
-        
-      String name = term.getTermName();
-      String termId = term.getTermId();
-      
-      req.setAttribute("termName", name);
-      req.setAttribute("termOntologyId", termId);
-      req.setAttribute("termId", term.getId());
+      req.setAttribute("term", dto.getTerm());
       
       render("editComponent.jsp");
     }
