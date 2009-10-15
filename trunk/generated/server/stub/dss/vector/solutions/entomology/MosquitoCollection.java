@@ -11,8 +11,8 @@ import com.terraframe.mojo.query.QueryFactory;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQuery;
 import dss.vector.solutions.entomology.assay.KnockDownAssayQuery;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQuery;
-import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.ontology.Term;
 
 public class MosquitoCollection extends MosquitoCollectionBase implements
@@ -52,7 +52,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements
   {
     super.validateGeoEntity();
 
-    if (! ( this.getGeoEntity() instanceof CollectionSite ))
+    if (! ( this.getGeoEntity() instanceof SentinelSite ))
     {
       String msg = "The geoEntity of a mosquito collection must be a (non)sentinel site";
 

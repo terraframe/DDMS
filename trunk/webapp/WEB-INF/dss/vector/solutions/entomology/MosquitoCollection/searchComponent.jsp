@@ -8,7 +8,6 @@
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.NonSentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 
 
@@ -19,13 +18,11 @@
 
 
 <%
-  request.setAttribute("CollectionSiteClass", CollectionSiteDTO.CLASS);
   request.setAttribute("SentinelSiteClass", SentinelSiteDTO.CLASS);
-  request.setAttribute("NonSentinelSiteClass", NonSentinelSiteDTO.CLASS);
 %>
 
 <script type="text/javascript">
-  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= CollectionSiteDTO.CLASS %>*');
+  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= SentinelSiteDTO.CLASS %>*');
 </script>
 
 <mjl:form name="dss.vector.solutions.entomology.MosquitoCollection.search" method="POST" id ="searchMosquitoCollections">
@@ -33,9 +30,11 @@
   <dl>
     <dt><fmt:message key="Filter"/></dt>
     <dd>
+<%--
       <input type="radio" name="filterType" class="filterType" value="${CollectionSiteClass}" checked="checked" />&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
-      <input type="radio" name="filterType" value="${SentinelSiteClass}" class="filterType"/>&nbsp;<fmt:message key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp;
       <input type="radio" name="filterType" value="${NonSentinelSiteClass}" class="filterType" />&nbsp;<fmt:message key="Non_Sentinel_Site"/>
+--%>
+      <input type="radio" name="filterType" value="${SentinelSiteClass}" class="filterType" checked="checked"/>&nbsp;<fmt:message key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp;
     </dd>
     <dt> <label> <fmt:message key="Geo_Entity"/> </label></dt>
     <dd> <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput"/></dd>

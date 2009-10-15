@@ -1,8 +1,12 @@
 package dss.vector.solutions.ontology;
 
+import com.terraframe.mojo.dataaccess.MdClassDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
+import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.system.metadata.MdAttribute;
 
@@ -40,9 +44,21 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
     BrowserFieldQuery q = new BrowserFieldQuery(f);
     
     // reconstruct the keyname (assumes MdAttribute keyname is preserved).
-    String keyName = KEY_PREFIX+className+"."+attribute;
+    String keyName = BrowserField.buildKey(className, attribute);
     
-    q.WHERE(q.getKeyName().EQ(keyName));
+    Condition or = OR.get(q.getKeyName().EQ(keyName));
+
+    MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(className);
+    
+    for(MdClassDAOIF superClass : mdClass.getSuperClasses())
+    {
+      String key = buildKey(superClass.definesType(), attribute);
+
+      or = OR.get(or, q.getKeyName().EQ(key));
+    }
+    
+    
+    q.WHERE(or);
     OIterator<? extends BrowserField> iter = q.getIterator();
     
     try
@@ -58,6 +74,11 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
     {
       iter.close(); 
     }
+  }
+
+  private static String buildKey(String className, String attribute)
+  {
+    return KEY_PREFIX+className+"."+attribute;
   }
   
   public static BrowserFieldViewQuery getAsViews()

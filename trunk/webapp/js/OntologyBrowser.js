@@ -792,7 +792,10 @@ YAHOO.widget.OntologyTermEditor = function(oConfigs) {
     
     this._klass = oConfigs.klass;
     this._attribute= oConfigs.attribute;
-    this._browser = new MDSS.OntologyBrowser(false /*, this._klass, this._attribute */); // FIXME pass in klass + attribute
+    
+    var attributeName = this._attribute.substring(0,1).toLowerCase() + this._attribute.substring(1);
+    
+    this._browser = new MDSS.OntologyBrowser(false , this._klass, attributeName ); // FIXME pass in klass + attribute
     this._browser.setHandler(this._setSelected, this);
     this._lastSelected = null;
     
