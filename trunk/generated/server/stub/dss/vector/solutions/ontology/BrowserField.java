@@ -103,8 +103,9 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
           MdAttributeVirtual mdAttr = (MdAttributeVirtual) MdAttribute.get(view.getMdAttributeId());
           view.setMdAttributeLabel(mdAttr.getMdAttributeConcrete().getDisplayLabel().getDefaultLocale());
           
-          views.add(view);
         }
+        
+        views.add(view);
       }
     }
     finally

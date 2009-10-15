@@ -1,6 +1,7 @@
 package dss.vector.solutions.ontology;
 
 import com.terraframe.mojo.query.SelectableChar;
+import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.metadata.MdAttributeConcreteQuery;
 import com.terraframe.mojo.system.metadata.MdAttributeVirtualQuery;
@@ -104,8 +105,7 @@ private static final long serialVersionUID = 1252959713156L;
       // join the MOField to the MdAttribute
       query.WHERE(this.fieldQuery.getMdAttribute().getId().EQ((SelectableChar) this.unioned.aAttribute("attributeId")));
       
-      String sql = query.getSQL();
-      System.out.println(sql);
+      query.ORDER_BY_ASC((SelectablePrimitive) this.unioned.aAttribute("classLabel"));
     }
 
   }
