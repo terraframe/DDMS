@@ -534,7 +534,22 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
           }
         });
         
-        Mojo.$.dss.vector.solutions.ontology.Term.getByIds(request, toFetch);
+        // wait for the types to be imported
+        if(!this.constructor.typesImported)
+        {
+          var that = this;
+          var intervalId = setInterval(function(){
+            if(that.constructor.typesImported)
+            {
+              clearInterval(intervalId);
+              Mojo.$.dss.vector.solutions.ontology.Term.getByIds(request, toFetch);
+            }
+          }, 200);
+        }
+        else
+        {
+          Mojo.$.dss.vector.solutions.ontology.Term.getByIds(request, toFetch);
+        }
       }
       else
       {
