@@ -3,8 +3,10 @@ package dss.vector.solutions;
 import java.util.Arrays;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.generation.GenerationUtil;
 import com.terraframe.mojo.business.generation.facade.ControllerStubGenerator;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.constants.MdAttributeReferenceInfo;
 import com.terraframe.mojo.constants.TypeGeneratorInfo;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
@@ -96,11 +98,15 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
     String clientRequest = ClientRequestIF.class.getName();
 
     getWriter().writeLine(clientRequest + " clientRequest = super.getClientRequest();");
+    
+    String typeName = mdEntity.definesType() + "DTO";
+    
+    getWriter().writeLine(typeName + " dto = " + typeName  + ".get(clientRequest, id);");
 
     // Load options for Enumeration and Reference attributes
     this.generateRequestsForReferencesAndEnumerations(mdEntity);
 
-    getWriter().writeLine("req.setAttribute(\"item\", " + mdEntity.definesType() + "DTO.get(clientRequest, id));");
+    getWriter().writeLine("req.setAttribute(\"item\", dto);");
 
     writeRender("View " + mdEntity.getTypeName(), "viewComponent.jsp");
   }
@@ -111,7 +117,26 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
     MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) mdAttribute;
     MdBusinessDAOIF mdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
 
-    if (mdBusiness.isPublished() && !MDSSGenerationUtility.isAGeoEntity(mdBusiness))
+    boolean published = mdBusiness.isPublished();
+    boolean isGeoEntity = MDSSGenerationUtility.isAGeoEntity(mdBusiness);
+    boolean isTerm = MDSSGenerationUtility.isATerm(mdBusiness);
+    
+    String definesAttribute = mdAttribute.definesAttribute();
+
+    if(isTerm)
+    {
+      String accessor = mdAttribute.getValue(MdAttributeReferenceInfo.ACCESSOR);
+      
+      if(accessor == null || accessor.equals(""))
+      {
+        accessor = definesAttribute;
+      }
+      
+      String getter = GenerationUtil.upperFirstCharacter(accessor);
+      
+      getWriter().writeLine("req.setAttribute(\"" + definesAttribute + "\", dto.get" + getter + "());");      
+    }
+    else if (published && !isGeoEntity)
     {
       String request = "super.getClientSession().getRequest()";
       String dtoType = mdBusiness.definesType() + TypeGeneratorInfo.DTO_SUFFIX;
@@ -139,7 +164,7 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
       }
       // If the referenced MdBusinessDAO is not published it is impossible to
       // populate
-      getWriter().writeLine("req.setAttribute(\"" + mdAttribute.definesAttribute() + "\", " + command + ");");
+      getWriter().writeLine("req.setAttribute(\"" + definesAttribute + "\", " + command + ");");
     }
   }
 }

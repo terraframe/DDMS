@@ -2,8 +2,10 @@ package dss.vector.solutions;
 
 import java.util.HashMap;
 
+import com.terraframe.mojo.business.generation.view.AttributeEventIF;
 import com.terraframe.mojo.business.generation.view.ContentListener;
 import com.terraframe.mojo.business.generation.view.ViewComponentListener;
+import com.terraframe.mojo.constants.ElementInfo;
 import com.terraframe.mojo.constants.GeneratedActions;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
@@ -29,6 +31,19 @@ public class MDSSViewComponentListener extends ViewComponentListener implements 
     // Display all Warnings at the top of the page
     writeMessages();
   }
+  
+  @Override
+  public void attribute(AttributeEventIF event)
+  {
+    MdAttributeDAOIF mdAttribute = event.getMdAttribute();
+    String attributeName = mdAttribute.definesAttribute();
+
+    if (!attributeName.equals(ElementInfo.KEY))
+    {
+      super.attribute(event);
+    }
+  }
+
 
   @Override
   protected void writeIncludes()
@@ -69,7 +84,7 @@ public class MDSSViewComponentListener extends ViewComponentListener implements 
       getWriter().writeValue("${" + componentName + "." + attributeName + ".geoId}");
       getWriter().closeTag();
     }
-    else if (MDSSGenerationUtility.definesAttribute(mdBusiness, "displayLabel"))
+    else if (MDSSGenerationUtility.definesAttribute(mdBusiness, "displayLabel") || MDSSGenerationUtility.isATerm(mdBusiness))
     {
       writeDT(attributeName);
       getWriter().writeValue("${" + componentName + "." + attributeName + ".displayLabel}");
