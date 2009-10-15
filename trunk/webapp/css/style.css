@@ -795,7 +795,8 @@ div.browserContent ul {
 }
 
 div.autosize {
-  display: table; width: 1px;
+  display: table;
+  width: 1px;
 }
 div.autosize > div {
   display: table-cell;
@@ -862,6 +863,17 @@ input.browserOpenBtn {
 	text-decoration: overline;	
 }
 
+.ontologyDisplay
+{
+	height:11px;
+	margin-left:15px;
+	padding:1px;
+	width:280px;
+	background-color: white;
+	border:1px solid black;
+	display:inline;
+}
+	
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
 /*---------------------------------------------------------------*/
