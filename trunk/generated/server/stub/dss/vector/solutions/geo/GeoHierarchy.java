@@ -685,6 +685,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     geoHierarchy.setSprayTargetAllowed(definition.getPolitical());
     geoHierarchy.setGeoEntityClass(mdGeoEntity);
     geoHierarchy.setTerm(definition.getTerm());
+    geoHierarchy.setPopulationAllowed(definition.getPopulationAllowed());
     geoHierarchy.apply();
 
     GeoHierarchy allowedIn = GeoHierarchy.get(definition.getParentGeoHierarchyId());
@@ -848,6 +849,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     definition.setTerm(this.getTerm());
     definition.setPolitical(this.getPolitical());
     definition.setSprayTargetAllowed(this.getSprayTargetAllowed());
+    definition.setPopulationAllowed(this.getPopulationAllowed());
+    
 
     if (spatialType != null)
     {
@@ -943,6 +946,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     geoHierarchy.setPolitical(view.getPolitical());
     geoHierarchy.setSprayTargetAllowed(view.getSprayTargetAllowed());
     geoHierarchy.setTerm(view.getTerm());
+    geoHierarchy.setPopulationAllowed(view.getPopulationAllowed());
     geoHierarchy.apply();
 
     MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();
@@ -1145,6 +1149,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     view.setDisplayLabel(md.getDisplayLabel().getValue());
     view.setReferenceId(md.getId());
     view.setGeoHierarchyId(this.getId());
+    view.setTerm(this.getTerm());
+    view.setPopulationAllowed(this.getPopulationAllowed());
 
     MdBusiness superMd = this.getGeoEntityClass().getSuperMdBusiness();
     String isADisplayLabel = ( superMd != null ) ? superMd.getDisplayLabel().getValue() : "";

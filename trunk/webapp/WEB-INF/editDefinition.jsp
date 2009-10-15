@@ -77,6 +77,14 @@
       </dd>
       <dt>
         <label>
+          ${definition.populationAllowedMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:boolean param="populationAllowed" />
+      </dd>
+      <dt>
+        <label>
           ${definition.sprayTargetAllowedMd.displayLabel}
         </label>
       </dt>

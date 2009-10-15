@@ -263,7 +263,7 @@ MDSS.GeoHierarchyTree = (function(){
         html = labelEl + html;
        _createModal(html);
        
-        YAHOO.util.Event.on('openBrowser', 'click', _openBrowser);
+        YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
 
         eval(executable);
       }
@@ -491,7 +491,7 @@ MDSS.GeoHierarchyTree = (function(){
         html = labelEl + html;
         _createModal(html, false);
         
-        YAHOO.util.Event.on('openBrowser', 'click', _openBrowser);
+        YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
 
         eval(executable);
       }

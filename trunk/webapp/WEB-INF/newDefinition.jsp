@@ -45,18 +45,6 @@
       </dd>
       <dt>
         <label>
-          ${definition.parentTypeGeoHierarchyIdMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="geoHierarchyId" param="parentTypeGeoHierarchyId" includeBlank="true" items="${availableParents}">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-      </dd>
-      <dt>
-        <label>
         ${definition.termMd.displayLabel}
         </label>
       </dt>
@@ -84,6 +72,14 @@
       </dt>
       <dd>
         <mjl:boolean param="sprayTargetAllowed" />
+      </dd>
+      <dt>
+        <label>
+          ${definition.populationAllowedMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:boolean param="populationAllowed" />
       </dd>
       <dt>
         <label>
