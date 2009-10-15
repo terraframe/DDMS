@@ -1,13 +1,13 @@
 package dss.vector.solutions.entomology;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.terraframe.mojo.SystemException;
 import com.terraframe.mojo.business.generation.GenerationUtil;
 import com.terraframe.mojo.business.rbac.Operation;
 import com.terraframe.mojo.constants.MdAttributeConcreteInfo;
@@ -39,7 +39,6 @@ import dss.vector.solutions.mo.AbstractTerm;
 import dss.vector.solutions.mo.InfectivityMethodology;
 import dss.vector.solutions.mo.InsecticideMethodology;
 import dss.vector.solutions.mo.MolecularAssayResult;
-import dss.vector.solutions.ontology.MO;
 import dss.vector.solutions.ontology.Term;
 
 public class MosquitoView extends MosquitoViewBase implements Reloadable
@@ -123,15 +122,10 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
 
   public void deleteConcrete()
   {
-    if (this.hasConcrete())
+    if (this.hasConcreteId())
     {
       Mosquito.get(this.getMosquitoId()).delete();
     }
-  }
-
-  private boolean hasConcrete()
-  {
-    return hasConcreteId();
   }
 
   /**
@@ -169,7 +163,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     return map;
   }
 
-  private void applyAssays(Mosquito mosquito) throws InstantiationException, IllegalAccessException, IllegalArgumentException, SecurityException, InvocationTargetException, NoSuchMethodException
+  private void applyAssays(Mosquito mosquito) throws IllegalAccessException, InvocationTargetException, InstantiationException
   {
     Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> assayMap = MosquitoView.getAssayMap();
 
@@ -179,56 +173,56 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       MdAttributeVirtualDAOIF mdAttribute = assayMap.get(c);
       String attributeName = GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
 
-      String resultName = "get" + attributeName;
-      String methodName = "get" + attributeName + "Method";
+      String methodName = attributeName + "Method";
 
-      Object testResult = MosquitoView.class.getMethod(resultName).invoke(this);
-      Object testMethod = null;
-      Object result = mosquito.getTestResult(c);
+      Object result = this.getObject(attributeName);
+      Term testMethod = (Term) this.getObject(methodName);
 
-      try
+      if (result != null)
       {
-        testMethod = MosquitoView.class.getMethod(methodName).invoke(this);
-      }
-      catch (NoSuchMethodException e)
-      {
-        testMethod = null;
-      }
+        AssayTestResult test = this.getResult(mosquito, c);
 
-      if (result == null)
-      {
-        result = c.newInstance();
-      }
-      else
-      {
-        c.getMethod("lock").invoke(result);
-      }
-
-      c.getMethod("setMosquito", Mosquito.class).invoke(result, mosquito);
-
-      if (testResult != null)
-      {
-
-        Class<? extends Object> klass = testResult.getClass();
+        test.setMosquito(mosquito);
+        test.setTestResult(result);
         
-        if(klass.equals(MO.class))
+        if(test.hasTestMethod())
         {
-          klass = Term.class;
+          test.setTestMethod(testMethod);
         }
-        
-        c.getMethod("setTestResult", klass).invoke(result, testResult);
+
+        test.apply();
       }
-
-      if (testMethod != null)
-      {
-        Method method = c.getMethod("setTestMethod", Term.class);
-
-        method.invoke(result, testMethod);
-      }
-
-      c.getMethod("apply").invoke(result);
-
     }
+  }
+    
+  private Object getObject(String attributeName) throws IllegalAccessException, InvocationTargetException
+  {
+    try
+    {
+      String methodName = "get" + attributeName;
+      
+      return MosquitoView.class.getMethod(methodName).invoke(this);
+    }
+    catch (NoSuchMethodException e)
+    {
+      return null;
+    }
+  }
+
+  private AssayTestResult getResult(Mosquito mosquito, Class<AssayTestResult> c) throws InstantiationException, IllegalAccessException
+  {
+    AssayTestResult result = mosquito.getTestResult(c);
+
+    if (result == null)
+    {
+      result = c.newInstance();
+    }
+    else
+    {
+      result.lock();
+    }
+    
+    return result;
   }
 
   public void setAssays(AssayTestResult[] results) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, NoSuchMethodException
@@ -247,23 +241,34 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
         Object testResult = result.getTestResult();
         Term testMethod = result.getTestMethod();
 
-        String resultName = "set" + attributeName;
         try
         {
-          MosquitoView.class.getMethod(resultName, testResult.getClass()).invoke(this, testResult);
+          this.setAttribute(attributeName, testResult);
 
           if (result.hasTestMethod())
           {
-            String methodName = "set" + attributeName + "Method";
-            MosquitoView.class.getMethod(methodName, testMethod.getClass()).invoke(this, testMethod);
+            String methodName = attributeName + "Method";
+            this.setAttribute(methodName, testMethod);
           }
         }
         catch (Exception e)
         {
-          // TODO: handle exception
+          throw new SystemException(e);
         }
       }
     }
+  }
+
+  private void setAttribute(String attributeName, Object value) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+  {
+    Class<? extends Object> klass = value.getClass();
+
+    if(Term.class.isAssignableFrom(klass))
+    {
+      klass = Term.class;
+    }
+    
+    MosquitoView.class.getMethod("set" + attributeName, klass).invoke(this, value);
   }
 
   @Transaction
@@ -287,12 +292,12 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     {
       if (assayClass.isAssignableFrom(key))
       {
-        //Ensure that an assay attribute has read permissions
-        
+        // Ensure that an assay attribute has read permissions
+
         SessionIF session = Session.getCurrentSession();
         String attributeId = map.get(key).getId();
 
-        if(SessionFacade.checkAttributeAccess(session.getId(), Operation.READ, (MdAttributeDAO) MdAttributeDAO.get(attributeId)))
+        if (SessionFacade.checkAttributeAccess(session.getId(), Operation.READ, (MdAttributeDAO) MdAttributeDAO.get(attributeId)))
         {
           list.add(MdAttributeVirtual.get(attributeId));
         }
@@ -307,7 +312,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
 
     // MosquitoView.createDatabaseView();
 
-//    MosquitoView view = new MosquitoView();
+    // MosquitoView view = new MosquitoView();
     String s = "[";
     MdAttributeVirtual[] mdArray = MosquitoView.getAccessors(superAssayClass);
     for (MdAttributeVirtual md : mdArray)
@@ -318,15 +323,18 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       String method = acc.toLowerCase() + "testmethod_defualtLocale";
       String type = "sqlcharacter";
 
-//      String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
-//      MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
+      // String concreteId =
+      // md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
+      // MdAttributeConcreteDAOIF concrete =
+      // MdAttributeConcreteDAO.get(concreteId);
 
-//      MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
+      // MdBusinessDAOIF mdClass =
+      // MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
 
       s += "{";
       s += "viewAccessor:'" + acc + "',";
       s += "attributeName:'" + result + "',";
-      s += "type:'"+type+"',";
+      s += "type:'" + type + "',";
       // s += "dtoType:'" + md.getMdAttributeConcrete().getType() + "',";
       s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + "'";
       s += "},\n";
@@ -334,7 +342,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       try
       {
         String testMdGetter = acc + "Method";
-//        String testMethodID = view.getMdAttributeDAO(testMdGetter).getId();
+        // String testMethodID = view.getMdAttributeDAO(testMdGetter).getId();
 
         s += "{";
         s += "viewAccessor:'" + testMdGetter + "',";
@@ -360,11 +368,11 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
    * public static void createDatabaseView() { if(!MosquitoView.viewGenerated) {
    * Database.parseAndExecute(getAssayViewSQL()); MosquitoView.viewGenerated =
    * true; } }
-   *
+   * 
    * public static void createAssaySnapshot() { String sql =
    * "CREATE OR REPLACE TABLE MOSQUITO_ASSAY_SNAPSHOT AS SELECT * FROM MOSQUITO_ASSAY_VIEW"
    * ; Database.query(sql); }
-   *
+   * 
    * public static String getAssayViewSQL() { String sql =
    * "CREATE OR REPLACE VIEW MOSQUITO_ASSAY_VIEW AS SELECT A.*, B.*, C.* FROM\n"
    * ; sql += "(" + MosquitoView.getInfectivityAssayViewSQL() + ")AS A,\n"; sql
@@ -372,21 +380,24 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
    * + MosquitoView.getMetabolicAssayViewSQL() + ")AS C\n"; sql +=
    * "WHERE infectivity_mosquito_id = targetsite_mosquito_id AND targetsite_mosquito_id = metabolic_mosquito_id"
    * ;
-   *
+   * 
    * return sql; }
    */
   public static String getTempTableSQL(String klass, String tableName)
   {
-    String sql = "DROP TABLE IF EXISTS "+tableName+";\n";
-    sql += "CREATE TEMP TABLE "+tableName+" AS " + MosquitoView.getAssayViewSQL(klass) + ";\n";
+    String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
+    sql += "CREATE TEMP TABLE " + tableName + " AS " + MosquitoView.getAssayViewSQL(klass) + ";\n";
     return sql;
   }
 
   public static String getAssayViewSQL(String klass)
   {
-    if(klass.equals(InfectivityAssayTestResult.CLASS)) return MosquitoView.getInfectivityAssayViewSQL();
-    if(klass.equals(TargetSiteAssayTestResult.CLASS)) return MosquitoView.getTargetSiteAssayViewSQL();
-    if(klass.equals(MetabolicAssayTestResult.CLASS)) return MosquitoView.getMetabolicAssayViewSQL();
+    if (klass.equals(InfectivityAssayTestResult.CLASS))
+      return MosquitoView.getInfectivityAssayViewSQL();
+    if (klass.equals(TargetSiteAssayTestResult.CLASS))
+      return MosquitoView.getTargetSiteAssayViewSQL();
+    if (klass.equals(MetabolicAssayTestResult.CLASS))
+      return MosquitoView.getMetabolicAssayViewSQL();
     return "";
   }
 
@@ -418,17 +429,17 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       String positveLabel = ( (MdAttributeBoolean) md.getMdAttributeConcrete() ).getPositiveDisplayLabel().getDefaultLocale();
       String negativeLabel = ( (MdAttributeBoolean) md.getMdAttributeConcrete() ).getNegativeDisplayLabel().getDefaultLocale();
 
-      select +=  "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN 'true'\n";
-      select +=  "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN 'false'\n";
-      select +=  "ELSE '' END) AS " + result + ",\n";
+      select += "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN 'true'\n";
+      select += "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN 'false'\n";
+      select += "ELSE '' END) AS " + result + ",\n";
 
       select += "(SELECT tr.testmethod  \n";
       select += "FROM " + testResultTable + "  tr LEFT JOIN " + testMethodTable + " tm on tr.testmethod = tm.id\n";
-      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + method +" ,\n";
+      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + method + " ,\n";
 
-      select +=  "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN '" + positveLabel + "'\n";
-      select +=  "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN '" + negativeLabel + "'\n";
-      select +=  "ELSE '' END) AS " + resultLocalized + ",\n";
+      select += "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN '" + positveLabel + "'\n";
+      select += "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN '" + negativeLabel + "'\n";
+      select += "ELSE '' END) AS " + resultLocalized + ",\n";
 
       select += "(SELECT label.defaultLocale \n";
       select += "FROM " + testResultTable + "  tr LEFT JOIN " + testMethodTable + " tm on tr.testmethod = tm.id\n";
@@ -456,7 +467,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     String select = "SELECT mosquito.id AS mosquito_id,";
     String from = "FROM  " + MdBusiness.getMdBusiness(Mosquito.CLASS).getTableName() + " mosquito, ";
     String where = "";
-    MdAttributeVirtual[] mdArray =  MosquitoView.getAccessors(TargetSiteAssayTestResult.CLASS);
+    MdAttributeVirtual[] mdArray = MosquitoView.getAccessors(TargetSiteAssayTestResult.CLASS);
     int i = 0;
 
     for (MdAttributeVirtual md : mdArray)
@@ -478,11 +489,11 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
 
       select += "(SELECT " + mdClass.getTableName() + ".testresult  \n";
       select += "FROM " + targetSiteTestResultTable + "   tr LEFT JOIN " + molecularAssayResultTable + " mt on " + mdClass.getTableName() + ".testresult = mt.id\n";
-      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + result +" ,\n";
+      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + result + " ,\n";
 
       select += "(SELECT tr.testmethod  \n";
       select += "FROM " + targetSiteTestResultTable + "  tr LEFT JOIN " + testMethodTable + " tm on tr.testmethod = tm.id\n";
-      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + method +" ,\n";
+      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + method + " ,\n";
 
       select += "(SELECT label.defaultLocale \n";
       select += "FROM " + targetSiteTestResultTable + "   tr LEFT JOIN " + molecularAssayResultTable + " mt on " + mdClass.getTableName() + ".testresult = mt.id\n";
@@ -532,13 +543,13 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       String positveLabel = ( (MdAttributeBoolean) md.getMdAttributeConcrete() ).getPositiveDisplayLabel().getDefaultLocale();
       String negativeLabel = ( (MdAttributeBoolean) md.getMdAttributeConcrete() ).getNegativeDisplayLabel().getDefaultLocale();
 
-      select +=  "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN 'true'\n";
-      select +=  "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN 'false'\n";
-      select +=  "ELSE '' END) AS " + result + ",\n";
+      select += "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN 'true'\n";
+      select += "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN 'false'\n";
+      select += "ELSE '' END) AS " + result + ",\n";
 
-      select +=  "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN '" + positveLabel + "'\n";
-      select +=  "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN '" + negativeLabel + "'\n";
-      select +=  "ELSE '' END) AS " + resultLocalized + ",\n";
+      select += "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN '" + positveLabel + "'\n";
+      select += "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN '" + negativeLabel + "'\n";
+      select += "ELSE '' END) AS " + resultLocalized + ",\n";
 
       from += mdClass.getTableName() + ", \n";
       from += "assaytestresult  assaytestresult_" + i + ",\n";

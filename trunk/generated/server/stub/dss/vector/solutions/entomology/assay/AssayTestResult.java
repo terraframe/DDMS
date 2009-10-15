@@ -1,5 +1,7 @@
 package dss.vector.solutions.entomology.assay;
 
+import com.terraframe.mojo.SystemException;
+
 import dss.vector.solutions.ontology.Term;
 
 public abstract class AssayTestResult extends AssayTestResultBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -36,4 +38,25 @@ public abstract class AssayTestResult extends AssayTestResultBase implements com
   {
     return false;
   }
+  
+  public void setTestResult(Object result)
+  {
+    Class<? extends Object> klass = result.getClass();
+
+    if (Term.class.isAssignableFrom(klass))
+    {
+      klass = Term.class;
+    }
+
+    try
+    {
+      this.getClass().getMethod("setTestResult", klass).invoke(this, result);
+    }
+    catch (Exception e)
+    {
+      throw new SystemException(e);
+    }
+  }
+    
+  public abstract void setTestMethod(Term testMethod);
 }

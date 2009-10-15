@@ -19,7 +19,6 @@ import dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult;
 import dss.vector.solutions.entomology.assay.biochemical.P450TestResult;
 import dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResult;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.mo.MolecularAssayResult;
 import dss.vector.solutions.ontology.Term;
 
 public class MosquitoTest extends TestCase
@@ -154,7 +153,7 @@ public class MosquitoTest extends TestCase
         }
         else if (r instanceof dss.vector.solutions.entomology.assay.molecular.IAcHETestResult)
         {
-          assertEquals(result.getId(), ( (MolecularAssayResult) r.getTestResult() ).getId());
+          assertEquals(result.getId(), ( (Term) r.getTestResult() ).getId());
           assertEquals(insecticideMethodology.getId(), r.getTestMethod().getId());
         }
         else if (r instanceof AAcetateTestResult)
@@ -221,7 +220,7 @@ public class MosquitoTest extends TestCase
         }
         else if (r instanceof dss.vector.solutions.entomology.assay.molecular.IAcHETestResult)
         {
-          assertEquals(result.getId(), ( (MolecularAssayResult) r.getTestResult() ).getId());
+          assertEquals(result.getId(), ( (Term) r.getTestResult() ).getId());
           assertEquals(insecticideMethodology.getId(), r.getTestMethod().getId());
         }
         else if (r instanceof AAcetateTestResult)
@@ -291,7 +290,7 @@ public class MosquitoTest extends TestCase
         }
         else if (r instanceof dss.vector.solutions.entomology.assay.molecular.IAcHETestResult)
         {
-          assertEquals(result.getId(), ( (MolecularAssayResult) r.getTestResult() ).getId());
+          assertEquals(result.getId(), ((Term) r.getTestResult() ).getId());
           assertEquals(insecticideMethodology.getId(), r.getTestMethod().getId());
         }
         else if (r instanceof AAcetateTestResult)
