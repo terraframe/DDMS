@@ -11,7 +11,7 @@
 	<tfproperties root="${profile.root}" />
 
 	<echo message="${java.ext.dirs}" />
-	
+
 	<!-- execution path -->
 	<path id="framework.classpath">
 		<fileset dir="${local.lib}">
@@ -27,8 +27,10 @@
 
 	<property name="domain.location" value="${local.root}/doc/entomology.xml" />
 	<property name="xsd.location" value="${local.root}/profiles/datatype_gis.xsd" />
+
 	<property name="version.dir" value="${local.root}/doc/individual/" />
 	<property name="working.dir" value="${local.root}/doc/working/" />
+
 	<property name="version.xsd" value="/version_gis.xsd" />
 	<property name="geodata.db" value="mrc_mozambique" />
 
@@ -620,7 +622,7 @@
 			<arg value="../../../doc/country/${geodata.db}-universals.xls" />
 		</java>
 	</target>
-	
+
 
 	<!-- =================================================================== -->
 	<!-- Import the ontology                             -->
@@ -642,7 +644,7 @@
 	</target>
 
 	<!-- =================================================================== -->
-	<!-- Import the geo data into the db                                     -->
+	<!-- Rebuild the all paths table                                         -->
 	<!-- =================================================================== -->
 	<target name="build_all_paths_geodata" depends="" description="imports a db of geodata into the db">
 		<!--
@@ -660,6 +662,24 @@
 			<arg value="${geodata.db}" />
 		</java>
 	</target>
+
+	<!-- =================================================================== -->
+	<!-- Rebuild the all paths table                                         -->
+	<!-- =================================================================== -->
+	<target name="build_all_paths_ontology" depends="" description="imports a db of geodata into the db">
+		<!--
+		<diagnostics/>
+		<echoproperties>
+		</echoproperties>
+		-->
+		<java classname="dss.vector.solutions.ontology.AllPaths" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
+			<jvmarg value="-Xmx1024m" />
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+		</java>
+	</target>
+
 
 	<!-- =================================================================== -->
 	<!-- Backup the application                                              -->

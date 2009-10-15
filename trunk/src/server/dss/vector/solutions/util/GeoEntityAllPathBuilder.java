@@ -18,7 +18,7 @@ import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
 public class GeoEntityAllPathBuilder
 {
-	public static int BATCH_SIZE = 1000;
+  public static int BATCH_SIZE = 1000;
 
   /**
    * @param args

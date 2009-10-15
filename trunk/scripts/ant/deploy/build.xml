@@ -24,10 +24,11 @@
 	<property name="deploy.db" value="mdssdeploy" />
 	<property name="develop.db" value="mdssdevelop" />
 	<property name="geodata.db" value="mrc_zambia" />
+
 	<!--<property name="write_rev" value="false" />-->
 
 	<!-- Rebuild Deploy -->
-	<target name="deploy_rebuild_all" depends="deploy_cleanup_files_rebuild_db, deploy_all_files, deploy_import_schema, import_geodata_deploy" description="Deploy - Everything">
+	<target name="deploy_rebuild_all" depends="deploy_cleanup_files_rebuild_db, deploy_all_files, deploy_incremental_schema_update, import_geodata_deploy" description="Deploy - Everything">
 	</target>
 
 	<!-- depends="deploy_cleanup_files_rebuild_db, deploy_all_files, deploy_import_schema, deploy_update_db_source_and_classes, import_geodata_deploy" -->
@@ -72,8 +73,8 @@
 			<arg value="deploy_all_application_files" />
 		</java>
 	</target>
-
-	<target name="deploy_import_schema" depends="" description="Deploy Step 3 - Import Most Recent Schema">
+<!--
+	<target name="deploy_incremental_schema_update" depends="" description="Deploy Step 3 - Import Most Recent Schema">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy - Import Most Recent Schema">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
@@ -83,6 +84,20 @@
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
 			<arg value="-Dprofile.name=deploy" />
+			<arg value="import_most_recent" />
+		</java>
+	</target>
+-->
+	<target name="deploy_incremental_schema_update" depends="" description="Deploy Step 3 - Import Most Recent Schema">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy - Import Most Recent Schema">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-Dmojo.keepSource=true" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+    		<arg value="-Dprofile.name=deploy" />
 			<arg value="import_most_recent" />
 		</java>
 	</target>
@@ -115,7 +130,7 @@
 
 
 	<!-- Deploy Incremental Schema Update -->
-	<target name="deploy_incremental_schema_update" depends="deploy_all_application_files, deploy_import_schema, deploy_update_db_source_and_classes" description="Deploy - Incremental Schema Update">
+	<target name="deploy_incremental_schema_update_and_files" depends="deploy_all_application_files, deploy_incremental_schema_update, deploy_update_db_source_and_classes" description="Deploy - Incremental Schema Update">
 		<antcall target="call_reload_jsp">
 		</antcall>
 	</target>
@@ -426,7 +441,7 @@
 			<arg value="import_geodata" />
 		</java>
 	</target>
-		
+
 		<target name="import_ontology" depends="kill_tomcat" description="imports ontology into the develop db">
 			<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import ontology">
 				<jvmarg value="-Xmx${max_memory_use}" />
@@ -454,6 +469,18 @@
 			<arg value="-Droot.pass=${root.pass}" />
 			<arg value="-Dgeodata.db=${geodata.db}" />
 			<arg value="build_all_paths_geodata" />
+		</java>
+	</target>
+
+	<target name="develop_build_all_paths_ontology" description="builds the all paths ontology table for development">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="develop_build_all_paths_geodata">
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+
+			<arg value="build_all_paths_ontology" />
 		</java>
 	</target>
 
@@ -512,6 +539,7 @@
 			</classpath>
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
+			<arg value="-Dprofile.name=deploy" />
 
 			<arg value="-Droot.user=${root.user}" />
 			<arg value="-Droot.pass=${root.pass}" />
@@ -646,7 +674,7 @@
 				<patternset refid="generated.artifacts" />
 			</fileset>
 		</delete>
-		
+
 		<delete failonerror="false">
 			<fileset dir="../../../generated/server/base/dss/vector/solutions/geo/generated/">
 				<patternset refid="generated.artifacts" />
@@ -658,7 +686,7 @@
 				<patternset refid="generated.artifacts" />
 			</fileset>
 		</delete>
-		
+
 	</target>
 
 	<target name="copy_country_schema" depends="" description="Copy the appropriate country schema file">

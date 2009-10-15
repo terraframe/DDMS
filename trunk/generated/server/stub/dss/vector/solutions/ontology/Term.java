@@ -1,10 +1,16 @@
 package dss.vector.solutions.ontology;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import com.terraframe.mojo.business.RelationshipQuery;
+import com.terraframe.mojo.constants.RelationshipInfo;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
@@ -14,8 +20,10 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.session.Session;
+import com.terraframe.mojo.system.metadata.MdRelationship;
 
 import dss.vector.solutions.UnknownTermException;
+import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.query.ActionNotAllowedException;
 import dss.vector.solutions.surveillance.OptionIF;
 
@@ -379,7 +387,7 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
       query.ORDER_BY_ASC(this.termQuery.getTermName());
     }
   }
-  
+
   public static Term validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
     QueryFactory factory = new QueryFactory();
@@ -411,7 +419,60 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
       iterator.close();
     }
   }
-  
+
+  protected static List<String> getRecursiveParentIds(String childId, String ontologyMdRelationshipId)
+  {
+    QueryFactory queryFactory = new QueryFactory();
+
+    MdRelationship ontologyMdRelationship = MdRelationship.get(ontologyMdRelationshipId);
+    RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(ontologyMdRelationship.definesType());
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    valueQuery.SELECT(relationshipQuery.parentId(RelationshipInfo.PARENT_ID, RelationshipInfo.PARENT_ID));
+    valueQuery.WHERE(relationshipQuery.childId().EQ(childId));
+
+    List<ValueObject> valueObjectList = valueQuery.getIterator().getAll();
+
+    List<String> parentIdList = new LinkedList<String>();
+
+    for (ValueObject valueObject : valueObjectList)
+    {
+      String parentId = valueObject.getValue(RelationshipInfo.PARENT_ID);
+      parentIdList.add(parentId);
+      parentIdList.addAll(getRecursiveParentIds(parentId, ontologyMdRelationshipId));
+    }
+
+    return parentIdList;
+  }
+
+  protected static List<String> getChildIds(String parentId, String ontologyMdRelationshipId)
+  {
+    QueryFactory queryFactory = new QueryFactory();
+
+    MdRelationship ontologyMdRelationship = MdRelationship.get(ontologyMdRelationshipId);
+    RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(ontologyMdRelationship.definesType());
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    valueQuery.SELECT(relationshipQuery.childId(RelationshipInfo.CHILD_ID, RelationshipInfo.CHILD_ID));
+    valueQuery.WHERE(relationshipQuery.parentId().EQ(parentId));
+
+    List<ValueObject> valueObjectList = valueQuery.getIterator().getAll();
+
+    List<String> childOfChildIdList = new LinkedList<String>();
+
+    for (ValueObject valueObject : valueObjectList)
+    {
+      String childId = valueObject.getValue(RelationshipInfo.CHILD_ID);
+      childOfChildIdList.add(childId);
+    }
+
+    return childOfChildIdList;
+  }
+
+
+
   /**
    * @param mdAttribute
    * @return Returns selectable roots and every roots direct descendants for a given MdAttribute
@@ -419,10 +480,10 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
   public static Term[] getRootChildren(MdAttributeDAOIF mdAttribute)
   {
     Set<Term> children = new TreeSet<Term>(new TermComparator());
-    
+
     String className = mdAttribute.definedByClass().definesType();
     BrowserRootView[] roots = BrowserRoot.getAttributeRoots(className, mdAttribute.definesAttribute());
-    
+
     if(roots.length > 0)
     {
       for(BrowserRootView view : roots)
@@ -433,7 +494,7 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
         {
           children.add(term);
         }
-        
+
         for(Term child : term.getAllChildTerm())
         {
           children.add(child);
@@ -443,7 +504,7 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     else
     {
       List<? extends TermView> defaultRoots = Term.getDefaultRoots().getIterator().getAll();
-      
+
       for(TermView view : defaultRoots)
       {
         Term term = Term.get(view.getTermId());
@@ -452,14 +513,15 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
         {
           children.add(child);
         }
-      }      
+      }
     }
-    
+
     return children.toArray(new Term[children.size()]);
   }
-  
+
   public String getOptionName()
   {
     return this.getTermName();
   }
+
 }

@@ -231,7 +231,7 @@ delete from isa;
 			List<String> children = relationships.get(parent);
 			for (String child : children) {
 				IsA relationship = new IsA(termIds.get(parent), child);
-				relationship.apply();
+				relationship.applyWithoutCreatingAllPaths();
 			}
 		}
 	}
