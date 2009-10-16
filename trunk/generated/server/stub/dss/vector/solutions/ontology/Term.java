@@ -2,13 +2,11 @@ package dss.vector.solutions.ontology;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import com.terraframe.mojo.business.RelationshipQuery;
-import com.terraframe.mojo.constants.RelationshipInfo;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.terraframe.mojo.business.RelationshipQuery;
+import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.generation.loader.Reloadable;
@@ -23,7 +21,6 @@ import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdRelationship;
 
 import dss.vector.solutions.UnknownTermException;
-import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.query.ActionNotAllowedException;
 import dss.vector.solutions.surveillance.OptionIF;
 
@@ -227,6 +224,25 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     TermViewQuery q = new TermViewQuery(f, builder);
 
     return q;
+  }
+  
+  public static Term getByTermId(String termId)
+  {
+    TermQuery query = new TermQuery(new QueryFactory());
+    query.WHERE(query.getTermId().EQ(termId));
+    
+    if (query.getCount()==0)
+    {
+      InvalidTermIdException invalidTermIdException = new InvalidTermIdException("No term found with id [" + termId + "]");
+      invalidTermIdException.setTermId(termId);
+      throw invalidTermIdException;
+    }
+    
+    OIterator<? extends Term> iterator = query.getIterator();
+    Term term = iterator.next();
+    iterator.close();
+    
+    return term;
   }
 
   private static class FetchQueryBuilder extends ViewQueryBuilder implements Reloadable

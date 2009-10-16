@@ -1,0 +1,30 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.ontology.InvalidTermIdException"
+        label="Invalid Term ID Exception">
+        <attributes>
+          <char
+            name="termId"
+            label="Term Id"
+            required="true"
+            size="64" />
+        </attributes>
+      </mdException>
+    </create>
+    <update>
+    </update>
+    <permissions>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.ontology.InvalidTermIdException"
+        type="com.terraframe.mojo.system.metadata.MdException"/>
+    </delete>
+  </undoIt>
+</version>
