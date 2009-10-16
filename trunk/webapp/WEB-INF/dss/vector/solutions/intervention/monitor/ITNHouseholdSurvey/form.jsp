@@ -243,12 +243,12 @@
     new MDSS.GenericOntologyBrowser("<%=ITNHouseholdSurveyViewDTO.CLASS%>", attrs);
 
     // Setup the option fields for batch number
-    MDSS.ElementHandler.setupBooleanHandler('netsObtained.positive', 'netsObtained.negative', 'freeProvider');
-    MDSS.ElementHandler.setupBooleanHandler('netsObtained.negative', 'netsObtained.positive', 'boughtProvider');
-    MDSS.ElementHandler.setupBooleanHandler('retreated.positive', 'retreated.negative', 'retreatmentPeriod');
-    MDSS.ElementHandler.setupBooleanHandler('usedEveryNight.negative', 'usedEveryNight.positive', 'nonUse');
-    MDSS.ElementHandler.setupSelectHandler('washed.YES', new Array('washed', 'washed.NO', 'washed.DONT_KNOW'), 'washFrequency');
-    MDSS.ElementHandler.setupBooleanHandler('knowWashFrequency.positive', 'knowWashFrequency.negative', 'knownFrequency');
+//    MDSS.ElementHandler.setupBooleanHandler('netsObtained.positive', 'netsObtained.negative', 'freeProvider');
+//    MDSS.ElementHandler.setupBooleanHandler('netsObtained.negative', 'netsObtained.positive', 'boughtProvider');
+//    MDSS.ElementHandler.setupBooleanHandler('retreated.positive', 'retreated.negative', 'retreatmentPeriod');
+//    MDSS.ElementHandler.setupBooleanHandler('usedEveryNight.negative', 'usedEveryNight.positive', 'nonUse');
+//    MDSS.ElementHandler.setupSelectHandler('washed.YES', new Array('washed', 'washed.NO', 'washed.DONT_KNOW'), 'washFrequency');
+//    MDSS.ElementHandler.setupBooleanHandler('knowWashFrequency.positive', 'knowWashFrequency.negative', 'knownFrequency');
   })
 })();
 </script>
