@@ -116,7 +116,7 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     TermViewQuery q = new TermViewQuery(f, builder);
 
     q.restrictRows(15, 1);
-    
+
     return q;
   }
 
@@ -221,23 +221,23 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
 
     return q;
   }
-  
+
   public static Term getByTermId(String termId)
   {
     TermQuery query = new TermQuery(new QueryFactory());
     query.WHERE(query.getTermId().EQ(termId));
-    
-    if (query.getCount()==0)
+
+    if (query.getCount() == 0)
     {
       InvalidTermIdException invalidTermIdException = new InvalidTermIdException("No term found with id [" + termId + "]");
       invalidTermIdException.setTermId(termId);
       throw invalidTermIdException;
     }
-    
+
     OIterator<? extends Term> iterator = query.getIterator();
     Term term = iterator.next();
     iterator.close();
-    
+
     return term;
   }
 
@@ -354,7 +354,7 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
 
       query.WHERE(this.termRelQuery.parentId().EQ(this.parent.getId()));
       query.AND(termQuery.parentTerm(this.termRelQuery)); // FIXME parent-child
-                                                          // label reversed
+      // label reversed
 
       query.ORDER_BY_ASC(this.termQuery.getTermName());
     }
@@ -491,13 +491,11 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     return childOfChildIdList;
   }
 
-  
   public static Term[] getAllTermsByAttribute(MdAttribute mdAttribute)
-  { 
+  {
     return Term.getRootChildren(MdAttributeDAO.getByKey(mdAttribute.getKey()), true);
   }
-  
-  
+
   public static Term[] getRootChildren(MdAttributeDAOIF mdAttribute)
   {
     return Term.getRootChildren(mdAttribute, true);
@@ -515,42 +513,25 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     String className = mdAttribute.definedByClass().definesType();
     BrowserRootView[] roots = BrowserRoot.getAttributeRoots(className, mdAttribute.definesAttribute());
 
-    if (roots.length > 0)
+    for (BrowserRootView view : roots)
     {
-      for (BrowserRootView view : roots)
-      {
-        Term term = Term.get(view.getTermId());
+      Term term = Term.get(view.getTermId());
 
-        if (returnOnlySelectable)
-        {
-          if (view.getSelectable())
-          {
-            children.add(term);
-          }
-        }
-        else
+      if (returnOnlySelectable)
+      {
+        if (view.getSelectable())
         {
           children.add(term);
         }
-
-        for (Term child : term.getAllChildTerm())
-        {
-          children.add(child);
-        }
       }
-    }
-    else
-    {
-      List<? extends TermView> defaultRoots = Term.getDefaultRoots().getIterator().getAll();
-
-      for (TermView view : defaultRoots)
+      else
       {
-        Term term = Term.get(view.getTermId());
+        children.add(term);
+      }
 
-        for (Term child : term.getAllChildTerm())
-        {
-          children.add(child);
-        }
+      for (Term child : term.getAllChildTerm())
+      {
+        children.add(child);
       }
     }
 
