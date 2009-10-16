@@ -58,6 +58,7 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       
       // add event to open the browser
       YAHOO.util.Event.on('termBtn', 'click', this._openBrowser, null, this);
+      YAHOO.util.Event.on('termDisplay', 'click', this._openBrowser, null, this);
       
       return modal;
     },
@@ -126,7 +127,7 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       else
       {
         el.value = '';
-        dEl.innerHTML = '';
+        dEl.innerHTML = MDSS.Localized.no_value;
       }
     },
     
