@@ -32,7 +32,7 @@
 	<property name="working.dir" value="${local.root}/doc/working/" />
 
 	<property name="version.xsd" value="/version_gis.xsd" />
-	<property name="geodata.db" value="mrc_mozambique" />
+	<property name="geodata.db" value="mrc_zambia" />
 
 	<!-- =================================================================== -->
 	<!-- Define the tomcat tasks                                                 -->
@@ -613,6 +613,7 @@
 		</echoproperties>
 		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
 			<jvmarg value="-Xmx1024m" />
+	    
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -635,10 +636,28 @@
 		-->
 		<java classname="dss.vector.solutions.util.OntologyImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx1024m" />
+			
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
 			<arg value="../../../doc/ontology/MO.obo" />
+			<arg value="MO" />
+		</java>
+	</target>
+
+	<target name="import_ontology_roots" depends="" description="imports the MO roots into the db">
+		<!--
+		<diagnostics/>
+		<echoproperties>
+		</echoproperties>
+		-->
+		<java classname="dss.vector.solutions.ontology.AttributeRootImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
+			<jvmarg value="-Xmx1024m" />
+			
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+			<arg value="../../../doc/ontology/MOroots.xls" />
 			<arg value="MO" />
 		</java>
 	</target>
@@ -654,6 +673,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
+	    
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -674,6 +694,7 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.AllPaths" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
+	    
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
