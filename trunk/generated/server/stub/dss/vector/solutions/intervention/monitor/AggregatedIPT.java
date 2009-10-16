@@ -2,16 +2,25 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Map;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectableSQL;
+import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.system.metadata.MdRelationship;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.surveillance.PeriodType;
+import dss.vector.solutions.util.QueryUtil;
 
 public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -221,4 +230,53 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.m
     return this.getView();
   }
 
+  /**
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
+   *
+   * @param xml
+   * @return
+   */
+  public static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals, Boolean includeGeometry, ThematicLayer thematicLayer)
+  {
+
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, AggregatedIPT.CLASS, AggregatedIPT.GEOENTITY);   
+   
+    AggregatedIPTQuery aggregatedIPTQuery = (AggregatedIPTQuery) queryMap.get(AggregatedIPT.CLASS);
+
+    for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
+    {
+      if (s instanceof SelectableSQL)
+      {       
+        ( (SelectableSQL) s ).setSQL(getGridSql(s.getUserDefinedAlias(), aggregatedIPTQuery.getTableAlias()));
+      }
+    }
+
+   
+    String sd = aggregatedIPTQuery.getStartDate().getQualifiedName();
+    String ed = aggregatedIPTQuery.getEndDate().getQualifiedName();
+
+    return QueryUtil.setQueryDates(xml, valueQuery, sd, ed);
+
+  }
+  
+  private static String getGridSql(String gridAlias,String parentAlias)
+  {
+    // int firstIndex = gridAlias.indexOf("_", 0);
+    int index1 = gridAlias.indexOf("__");
+    int index2 = gridAlias.lastIndexOf("__");
+    String attrib = gridAlias.substring(0, index1);
+    String klass = gridAlias.substring(index1+2, index2).replace("_", ".");
+    String term_id = gridAlias.substring(index2+2,gridAlias.length());
+    String table = MdRelationship.getMdEntity(klass).getTableName();
+    String sql = "SELECT " + attrib + " FROM " + table + " WHERE child_id = '"+term_id+"' " +
+                 "AND parent_id = " +parentAlias+ ".id";
+    return sql;
+  }
+  
 }
