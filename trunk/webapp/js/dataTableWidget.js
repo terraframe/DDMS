@@ -187,8 +187,9 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 			        }
 			      }
 		      }
-		      if (editor instanceof YAHOO.widget.OntologyTermEditor )
+		      if (editor instanceof YAHOO.widget.OntologyTermEditor )		      	
 		      {
+		      	  editor.tableData = this.tableData;
 		          var id = this.record.getData(feild.key).split('^^^^')[1];
 		          var displayLabel = this.record.getData(feild.key).split('^^^^')[0];
 		          this.tableData.rows[this.record.getCount()][feild.key] = id;
@@ -276,6 +277,23 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 		 
 	  },
 	  
+	  findNext : function(cell,e) {
+      var newCell = null;
+      if (e.shiftKey) {
+        newCell = this.myDataTable.getPreviousTdEl(cell);
+      } else {
+        newCell = this.myDataTable.getNextTdEl(cell);
+      }
+      while (newCell !== null && (this.myDataTable.getColumn(newCell).editor === null || this.myDataTable.getColumn(newCell).hidden === true)) {
+        if (e.shiftKey) {
+          newCell = this.myDataTable.getPreviousTdEl(newCell);
+        } else {
+          newCell = this.myDataTable.getNextTdEl(newCell);
+        }
+      }
+      return (newCell);
+    },
+	  
     /***************************************************************************
      * handleEditorKeyEvent ( obj ) Handle a keypress when the Cell Editor is
      * open Enter will close the editor and move down Tab will close the editor
@@ -302,29 +320,14 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
           MojoGrid.cellLock = true;
         }
 
-        function findNext(cell) {
-          var newCell = null;
-          if (e.shiftKey) {
-            newCell = this.myDataTable.getPreviousTdEl(cell);
-          } else {
-            newCell = this.myDataTable.getNextTdEl(cell);
-          }
-          while (newCell !== null && (this.myDataTable.getColumn(newCell).editor === null || this.myDataTable.getColumn(newCell).hidden === true)) {
-            if (e.shiftKey) {
-              newCell = this.myDataTable.getPreviousTdEl(newCell);
-            } else {
-              newCell = this.myDataTable.getNextTdEl(newCell);
-            }
-          }
-          return (newCell);
-        }
+
 
         try
         {
           //YAHOO.log("Tabbed Key Press on Cell:" + cell.headers, "warn", "Widget");
 
           var cell = this.myDataTable.getCellEditor().getTdEl();
-          var nextCell = findNext(cell);
+          var nextCell = this.findNext(cell,e);
           var nextRow = null;
 
           // No editable cell found on this row, go to the next row and search for
