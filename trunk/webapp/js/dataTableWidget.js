@@ -584,7 +584,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
         var view_arr = this.createObjectRepresentation();
       	  
         // Save the table
-        this._saveHandler(request, view_arr);
+        this.tableData.saveHandler(request, view_arr);
         
         this.btnSaveRows.set("disabled", true);
       },
