@@ -25,19 +25,22 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
   {
     
     Class<?> clazz = null;
+
+    Method xmlToValueQuery = null;
+
+    ValueQuery valueQuery = null;
     try
     {
       clazz = Class.forName(queryClass);
+      xmlToValueQuery = clazz.getMethod("xmlToValueQuery",String.class, String[].class, Boolean.class, ThematicLayer.class );
+      valueQuery = (ValueQuery) xmlToValueQuery.invoke(clazz, queryXML, selectedUniversals, includeGeometry, thematicLayer);
+      System.out.println(valueQuery.getSQL());
+      
     }
     catch (ClassNotFoundException e1)
     {
       // TODO Auto-generated catch block
       e1.printStackTrace();
-    }
-    Method xmlToValueQuery = null;
-    try
-    {
-      xmlToValueQuery = clazz.getMethod("xmlToValueQuery",String.class, String[].class, Boolean.class, ThematicLayer.class );
     }
     catch (SecurityException e1)
     {
@@ -48,12 +51,6 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     {
       // TODO Auto-generated catch block
       e1.printStackTrace();
-    }
-
-    ValueQuery valueQuery = null;
-    try
-    {
-      valueQuery = (ValueQuery) xmlToValueQuery.invoke(clazz, queryXML, selectedUniversals, includeGeometry, thematicLayer);
     }
     catch (IllegalArgumentException e)
     {
@@ -71,10 +68,8 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
       e.printStackTrace();
     }
 
-
-    System.out.println(valueQuery.getSQL());
-
     return valueQuery;
+    
   }
   
   
