@@ -86,7 +86,7 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
     writeDT(attributeName);
     
     HashMap<String, String> spanMap = new HashMap<String, String>();
-    spanMap.put("class", "clickable");
+    spanMap.put("class", "clickable browserLauncher");
     spanMap.put("id", attributeName + "Btn");
     
     //    <span class="clickable" id="generationBtn"> 
