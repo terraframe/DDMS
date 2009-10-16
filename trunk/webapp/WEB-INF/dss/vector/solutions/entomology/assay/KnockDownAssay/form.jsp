@@ -14,7 +14,7 @@
 <%@page import="dss.vector.solutions.entomology.assay.AbstractAssayDTO"%>
 <%@page import="dss.vector.solutions.entomology.assay.AdultAssayDTO"%>
 
-<jsp:include page="/WEB-INF/MOSearch.jsp" />
+
 
 
 <mjl:component item="${item}" param="dto">
@@ -28,18 +28,28 @@
       <mjl:dt attribute="testMethod">
         <span class="clickable" id="testMethodBtn"> <fmt:message key="Browser"/></span>
         <div id="testMethodDisplay" class="ontologyDisplay">
-          <c:if test="${testMethod != null}">
-            ${testMethod.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${testMethod != null}">
+              ${testMethod.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="testMethod" id="testMethod" value="${testMethod != null ? testMethod.id : ''}" />
       </mjl:dt>      
       <mjl:dt attribute="generation">
         <span class="clickable" id="generationBtn"> <fmt:message key="Browser"/></span>
         <div id="generationDisplay" class="ontologyDisplay">
-          <c:if test="${generation != null}">
-            ${generation.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${generation != null}">
+              ${generation.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="generation" id="generation" value="${generation != null ? generation.id : ''}" />
       </mjl:dt>      
@@ -49,27 +59,42 @@
       <mjl:dt attribute="sex">
         <span class="clickable" id="sexBtn"> <fmt:message key="Browser"/></span>
         <div id="sexDisplay" class="ontologyDisplay">
-          <c:if test="${sex != null}">
-            ${sex.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${sex != null}">
+              ${sex.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="sex" id="sex" value="${sex != null ? sex.id : ''}" />
       </mjl:dt>      
       <mjl:dt attribute="specie">
         <span class="clickable" id="specieBtn"> <fmt:message key="Browser"/></span>
         <div id="specieDisplay" class="ontologyDisplay">
-          <c:if test="${specie != null}">
-            ${specie.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${specie != null}">
+              ${specie.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="specie" id="specie" value="${specie != null ? specie.id : ''}" />
       </mjl:dt>      
       <mjl:dt attribute="identificationMethod">
         <span class="clickable" id="identificationMethodBtn"> <fmt:message key="Browser"/></span>
         <div id="identificationMethodDisplay" class="ontologyDisplay">
-          <c:if test="${identificationMethod != null}">
-            ${identificationMethod.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${identificationMethod != null}">
+              ${identificationMethod.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="identificationMethod" id="identificationMethod" value="${identificationMethod != null ? identificationMethod.id : ''}" />
       </mjl:dt>      

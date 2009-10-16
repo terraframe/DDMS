@@ -9,7 +9,7 @@
 
 
 
-<%@page import="dss.vector.solutions.intervention.monitor.HouseholdViewDTO"%><jsp:include page="/WEB-INF/MOSearch.jsp" />
+<%@page import="dss.vector.solutions.intervention.monitor.HouseholdViewDTO"%>
 
     <mjl:component item="${item}" param="dto">
       <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
@@ -30,9 +30,14 @@
       <mjl:dt attribute="wall">
         <span class="clickable" id="wallBtn"> <fmt:message key="Browser"/></span>
         <div id="wallDisplay" class="ontologyDisplay">
-          <c:if test="${wall != null}">
-            ${wall.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${wall != null}">
+              ${wall.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="wall" id="wall" value="${wall != null ? wall.id : ''}" />
       </mjl:dt>
@@ -44,9 +49,14 @@
       <mjl:dt attribute="roof">
         <span class="clickable" id="roofBtn"> <fmt:message key="Browser"/></span>
         <div id="roofDisplay" class="ontologyDisplay">
-          <c:if test="${roof != null}">
-            ${roof.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${roof != null}">
+              ${roof.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="roof" id="roof" value="${roof != null ? roof.id : ''}" />
       </mjl:dt>
@@ -62,9 +72,14 @@
       <mjl:dt attribute="windowType">
         <span class="clickable" id="windowTypeBtn"> <fmt:message key="Browser"/></span>
         <div id="windowTypeDisplay" class="ontologyDisplay">
-          <c:if test="${windowType != null}">
-            ${windowType.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${windowType != null}">
+              ${windowType.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="windowType" id="windowType" value="${windowType != null ? windowType.id : ''}" />
       </mjl:dt>

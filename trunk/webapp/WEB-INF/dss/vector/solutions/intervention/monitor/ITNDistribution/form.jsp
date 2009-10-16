@@ -5,7 +5,7 @@
 <%@page import="dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO"%>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
-<jsp:include page="/WEB-INF/MOSearch.jsp" />
+
 
 <mjl:component item="${item}" param="dto">
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}" />
@@ -19,9 +19,14 @@
   <mjl:dt attribute="service">
     <span class="clickable" id="serviceBtn"> <fmt:message key="Browser"/></span>
     <div id="serviceDisplay" class="ontologyDisplay">
-      <c:if test="${service != null}">
-        ${service.displayLabel}
-      </c:if>
+      <c:choose>
+        <c:when test="${service != null}">
+          ${service.displayLabel}
+        </c:when>
+        <c:otherwise>
+          <fmt:message key="no_value" />
+        </c:otherwise>
+      </c:choose>
     </div>
     <mjl:input type="hidden" param="service" id="service" value="${service != null ? service.id : ''}" />
   </mjl:dt>
@@ -59,9 +64,14 @@
   <mjl:dt attribute="net">
     <span class="clickable" id="netBtn"> <fmt:message key="Browser"/></span>
     <div id="netDisplay" class="ontologyDisplay">
-      <c:if test="${net != null}">
-        ${net.displayLabel}
-      </c:if>
+      <c:choose>
+        <c:when test="${net != null}">
+          ${net.displayLabel}
+        </c:when>
+        <c:otherwise>
+          <fmt:message key="no_value" />
+        </c:otherwise>
+      </c:choose>
     </div>
     <mjl:input type="hidden" param="net" id="net" value="${net != null ? net.id : ''}" />
   </mjl:dt>

@@ -4,7 +4,7 @@
 
 
 <%@page import="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyViewDTO"%><jsp:include page="/WEB-INF/selectSearch.jsp" />
-<jsp:include page="/WEB-INF/MOSearch.jsp" />
+
 
 
 <mjl:component param="dto" item="${item}">
@@ -141,9 +141,14 @@
     <mjl:dt attribute="freeProvider">
       <span class="clickable" id="freeProviderBtn"> <fmt:message key="Browser"/></span>
       <div id="freeProviderDisplay" class="ontologyDisplay freeProvider">
-        <c:if test="${freeProvider != null}">
-          ${freeProvider.displayLabel}
-        </c:if>
+        <c:choose>
+          <c:when test="${freeProvider != null}">
+            ${freeProvider.displayLabel}
+          </c:when>
+          <c:otherwise>
+            <fmt:message key="no_value" />
+          </c:otherwise>
+        </c:choose>
       </div>
       <mjl:input type="hidden" param="freeProvider" id="freeProvider" value="${freeProvider != null ? freeProvider.id : ''}" classes="freeProvider" />
     </mjl:dt>
@@ -152,9 +157,14 @@
     <mjl:dt attribute="boughtProvider">
       <span class="clickable" id="boughtProviderBtn"> <fmt:message key="Browser"/></span>
       <div id="boughtProviderDisplay" class="ontologyDisplay">
-        <c:if test="${boughtProvider != null}">
-          ${boughtProvider.displayLabel}
-        </c:if>
+        <c:choose>
+          <c:when test="${boughtProvider != null}">
+            ${boughtProvider.displayLabel}
+          </c:when>
+          <c:otherwise>
+            <fmt:message key="no_value" />
+          </c:otherwise>
+        </c:choose>
       </div>
       <mjl:input type="hidden" param="boughtProvider" id="boughtProvider" value="${boughtProvider != null ? boughtProvider.id : ''}" classes="boughtProvider" />
     </mjl:dt>
@@ -162,9 +172,14 @@
   <mjl:dt attribute="washed">
     <span class="clickable" id="washedBtn"> <fmt:message key="Browser"/></span>
     <div id="washedDisplay" class="ontologyDisplay">
-      <c:if test="${washed != null}">
-        ${washed.displayLabel}
-      </c:if>
+        <c:choose>
+          <c:when test="${washed != null}">
+            ${washed.displayLabel}
+          </c:when>
+          <c:otherwise>
+            <fmt:message key="no_value" />
+          </c:otherwise>
+        </c:choose>
     </div>
     <mjl:input type="hidden" param="washed" id="washed" value="${washed != null ? washed.id : ''}" />
   </mjl:dt>
@@ -176,9 +191,14 @@
       <mjl:dt attribute="washInterval">
         <span class="clickable" id="washIntervalBtn"> <fmt:message key="Browser"/></span>
         <div id="washIntervalDisplay" class="ontologyDisplay washFrequency knownFrequency">
-          <c:if test="${washInterval != null}">
+        <c:choose>
+          <c:when test="${washInterval != null}">
             ${washInterval.displayLabel}
-          </c:if>
+          </c:when>
+          <c:otherwise>
+            <fmt:message key="no_value" />
+          </c:otherwise>
+        </c:choose>
         </div>
         <mjl:input type="hidden" param="washInterval" id="washInterval" value="${washInterval != null ? washInterval.id : ''}" classes="washFrequency knownFrequency"  />
       </mjl:dt>
@@ -195,9 +215,14 @@
     <mjl:dt attribute="retreatmentPeriod">
       <span class="clickable" id="retreatmentPeriodBtn"> <fmt:message key="Browser"/></span>
       <div id="retreatmentPeriodDisplay" class="ontologyDisplay retreatmentPeriod">
-        <c:if test="${retreatmentPeriod != null}">
-          ${retreatmentPeriod.displayLabel}
-        </c:if>
+        <c:choose>
+          <c:when test="${retreatmentPeriod != null}">
+            ${retreatmentPeriod.displayLabel}
+          </c:when>
+          <c:otherwise>
+            <fmt:message key="no_value" />
+          </c:otherwise>
+        </c:choose>
       </div>
       <mjl:input type="hidden" param="retreatmentPeriod" id="retreatmentPeriod" value="${retreatmentPeriod != null ? retreatmentPeriod.id : ''}" classes="retreatmentPeriod" />
     </mjl:dt>

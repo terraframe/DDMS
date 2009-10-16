@@ -20,7 +20,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
 </script>
 
-<jsp:include page="/WEB-INF/MOSearch.jsp" />
+
 
 <mjl:component param="dto" item="${item}">
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
@@ -33,9 +33,14 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
   <mjl:dt attribute="patientType">
     <span class="clickable" id="patientTypeBtn"> <fmt:message key="Browser"/></span>
     <div id="patientTypeDisplay" class="ontologyDisplay">
-      <c:if test="${patientType != null}">
-        ${patientType.displayLabel}
-      </c:if>
+      <c:choose>
+        <c:when test="${patientType != null}">
+          ${patientType.displayLabel}
+        </c:when>
+        <c:otherwise>
+          <fmt:message key="no_value" />
+        </c:otherwise>
+      </c:choose>
     </div>
     <mjl:input type="hidden" param="patientType" id="patientType" value="${patientType != null ? patientType.id : ''}" />
   </mjl:dt>
@@ -45,27 +50,42 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
   <mjl:dt attribute="visitNumber" classes="visitNumber">
     <span class="clickable visitNumber" id="visitNumberBtn"> <fmt:message key="Browser"/></span>
     <div id="visitNumberDisplay" class="ontologyDisplay visitNumber">
-      <c:if test="${visitNumber != null}">
-        ${visitNumber.displayLabel}
-      </c:if>
+      <c:choose>
+        <c:when test="${visitNumber != null}">
+          ${visitNumber.displayLabel}
+        </c:when>
+        <c:otherwise>
+          <fmt:message key="no_value" />
+        </c:otherwise>
+      </c:choose>
     </div>
     <mjl:input type="hidden" param="visitNumber" id="visitNumber" classes="visitNumber" value="${visitNumber != null ? visitNumber.id : ''}" />
   </mjl:dt>
   <mjl:dt attribute="doseNumber">
     <span class="clickable" id="doseNumberBtn"> <fmt:message key="Browser"/></span>
     <div id="doseNumberDisplay" class="ontologyDisplay">
-      <c:if test="${doseNumber != null}">
-        ${doseNumber.displayLabel}
-      </c:if>
+      <c:choose>
+        <c:when test="${doseNumber != null}">
+          ${doseNumber.displayLabel}
+        </c:when>
+        <c:otherwise>
+          <fmt:message key="no_value" />
+        </c:otherwise>
+      </c:choose>
     </div>
     <mjl:input type="hidden" param="doseNumber" id="doseNumber" value="${doseNumber != null ? doseNumber.id : ''}" />
   </mjl:dt>
   <mjl:dt attribute="doseType">
     <span class="clickable" id="doseTypeBtn"> <fmt:message key="Browser"/></span>
     <div id="doseTypeDisplay" class="ontologyDisplay">
-      <c:if test="${doseType != null}">
-        ${doseType.displayLabel}
-      </c:if>
+      <c:choose>
+        <c:when test="${doseType != null}">
+          ${doseType.displayLabel}
+        </c:when>
+        <c:otherwise>
+          <fmt:message key="no_value" />
+        </c:otherwise>
+      </c:choose>
     </div>
     <mjl:input type="hidden" param="doseType" id="doseType" value="${doseType != null ? doseType.id : ''}" />
   </mjl:dt>

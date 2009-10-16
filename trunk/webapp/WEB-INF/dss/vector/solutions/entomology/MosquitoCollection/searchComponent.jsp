@@ -14,7 +14,7 @@
 <%@page import="dss.vector.solutions.export.entomology.MosquitoCollectionViewDTO"%><c:set var="page_title" value="Search_Mosquito_Collections"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
-<jsp:include page="/WEB-INF/MOSearch.jsp" />
+
 
 
 <%
@@ -44,9 +44,14 @@
     <dd>
       <span class="clickable" id="collectionMethodBtn"> <fmt:message key="Browser"/></span>
       <div id="collectionMethodDisplay" class="ontologyDisplay">
-        <c:if test="${collectionMethod != null}">
-          ${collectionMethod.displayLabel}
-        </c:if>
+          <c:choose>
+            <c:when test="${collectionMethod != null}">
+              ${collectionMethod.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
       </div>
       <mjl:input type="hidden" param="collectionMethod.componentId" id="collectionMethod" value="${collectionMethod != null ? collectionMethod.id : ''}" />
     </dd>

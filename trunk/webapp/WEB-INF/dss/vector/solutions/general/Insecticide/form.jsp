@@ -4,15 +4,20 @@
 
 <%@page import="dss.vector.solutions.general.InsecticideDTO"%>
 
-<jsp:include page="/WEB-INF/MOSearch.jsp" />
+
 
 <mjl:component param="dto" item="${item}">
   <mjl:dt attribute="activeIngredient">
     <span class="clickable" id="activeIngredientBtn"> <fmt:message key="Browser"/></span>
     <div id="activeIngredientDisplay" class="ontologyDisplay">
-      <c:if test="${activeIngredient != null}">
-        ${activeIngredient.displayLabel}
-      </c:if>
+      <c:choose>
+        <c:when test="${activeIngredient != null}">
+          ${activeIngredient.displayLabel}
+        </c:when>
+        <c:otherwise>
+          <fmt:message key="no_value" />
+        </c:otherwise>
+      </c:choose>
     </div>
     <mjl:input type="hidden" param="activeIngredient" id="activeIngredient" value="${activeIngredient != null ? activeIngredient.id : ''}" />
   </mjl:dt>

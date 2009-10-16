@@ -1,13 +1,15 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <%@page import="dss.vector.solutions.PropertyDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
 
 
-<%@page import="dss.vector.solutions.intervention.monitor.PersonViewDTO"%><jsp:include page="/WEB-INF/MOSearch.jsp" />
+
+<%@page import="dss.vector.solutions.intervention.monitor.PersonViewDTO"%>
 
     <mjl:component item="${item}" param="dto">
       <mjl:input param="concreteId" type="hidden" value="${item.concreteId}" />
@@ -24,9 +26,14 @@
       <mjl:dt attribute="sex">
         <span class="clickable" id="sexBtn"> <fmt:message key="Browser"/></span>
         <div id="sexDisplay" class="ontologyDisplay">
-          <c:if test="${sex != null}">
-            ${sex.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${sex != null}">
+              ${sex.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="sex" id="sex" value="${sex != null ? sex.id : ''}" />
       </mjl:dt>
@@ -45,9 +52,14 @@
       <mjl:dt attribute="anaemiaTreatment">
         <span class="clickable" id="anaemiaTreatmentBtn"> <fmt:message key="Browser"/></span>
         <div id="anaemiaTreatmentDisplay" class="ontologyDisplay">
-          <c:if test="${anaemiaTreatment != null}">
-            ${anaemiaTreatment.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${anaemiaTreatment != null}">
+              ${anaemiaTreatment.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="anaemiaTreatment" id="anaemiaTreatment" value="${anaemiaTreatment != null ? anaemiaTreatment.id : ''}" />
       </mjl:dt>
@@ -57,27 +69,44 @@
       <mjl:dt attribute="performedRDT">
         <span class="clickable" id="performedRDTBtn"> <fmt:message key="Browser"/></span>
         <div id="performedRDTDisplay" class="ontologyDisplay">
-          <c:if test="${performedRDT != null}">
-            ${performedRDT.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${performedRDT != null}">
+              ${performedRDT.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="performedRDT" id="performedRDT" value="${performedRDT != null ? performedRDT.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="bloodslide">
         <span class="clickable" id="bloodslideBtn"> <fmt:message key="Browser"/></span>
         <div id="bloodslideDisplay" class="ontologyDisplay">
-          <c:if test="${bloodslide != null}">
-            ${bloodslide.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${bloodslide != null}">
+              ${bloodslide.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="bloodslide" id="bloodslide" value="${bloodslide != null ? bloodslide.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="rDTResult">
         <span class="clickable" id="resultsBtn"> <fmt:message key="Browser"/></span>
         <div id="resultsDisplay" class="ontologyDisplay">
-          <c:forEach items="${results}" var="current"> 
-            ${current.displayLabel}
-          </c:forEach>
+          <c:choose>
+            <c:when test="${fn:length(yourList) > 0}">
+              <c:forEach items="${results}" var="current"> 
+                ${current.displayLabel}
+              </c:forEach>
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <div style="display:none;" id="results">
           <mjl:components items="${results}" param="results" var="current" varStatus="status">
@@ -88,54 +117,84 @@
       <mjl:dt attribute="rdtTreatment">
         <span class="clickable" id="rdtTreatmentBtn"> <fmt:message key="Browser"/></span>
         <div id="rdtTreatmentDisplay" class="ontologyDisplay">
-          <c:if test="${rdtTreatment != null}">
-            ${rdtTreatment.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${rdtTreatment != null}">
+              ${rdtTreatment.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="rdtTreatment" id="rdtTreatment" value="${rdtTreatment != null ? rdtTreatment.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="fever">
         <span class="clickable" id="feverBtn"> <fmt:message key="Browser"/></span>
         <div id="feverDisplay" class="ontologyDisplay">
-          <c:if test="${fever != null}">
-            ${fever.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${fever != null}">
+              ${fever.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="fever" id="fever" value="${fever != null ? fever.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="feverTreatment">
         <span class="clickable" id="feverTreatmentBtn"> <fmt:message key="Browser"/></span>
         <div id="feverTreatmentDisplay" class="ontologyDisplay">
-          <c:if test="${feverTreatment != null}">
-            ${feverTreatment.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${feverTreatment != null}">
+              ${feverTreatment.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="feverTreatment" id="feverTreatment" value="${feverTreatment != null ? feverTreatment.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="malaria">
         <span class="clickable" id="malariaBtn"> <fmt:message key="Browser"/></span>
         <div id="malariaDisplay" class="ontologyDisplay">
-          <c:if test="${malaria != null}">
-            ${malaria.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${malaria != null}">
+              ${malaria.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="malaria" id="malaria" value="${malaria != null ? malaria.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="malariaTreatment">
         <span class="clickable" id="malariaTreatmentBtn"> <fmt:message key="Browser"/></span>
         <div id="malariaTreatmentDisplay" class="ontologyDisplay">
-          <c:if test="${malariaTreatment != null}">
-            ${malariaTreatment.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${malariaTreatment != null}">
+              ${malariaTreatment.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="malariaTreatment" id="malariaTreatment" value="${malariaTreatment != null ? malariaTreatment.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="payment">
         <span class="clickable" id="paymentBtn"> <fmt:message key="Browser"/></span>
         <div id="paymentDisplay" class="ontologyDisplay">
-          <c:if test="${payment != null}">
-            ${payment.displayLabel}
-          </c:if>
+          <c:choose>
+            <c:when test="${payment != null}">
+              ${payment.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input type="hidden" param="payment" id="payment" value="${payment != null ? payment.id : ''}" />
       </mjl:dt>
