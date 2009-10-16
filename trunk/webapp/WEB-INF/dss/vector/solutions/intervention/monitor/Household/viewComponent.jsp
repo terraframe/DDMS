@@ -7,7 +7,7 @@
 </mjl:messages>
 
 <mjl:form name="dss.vector.solutions.intervention.monitor.Household.form.name" id="dss.vector.solutions.intervention.monitor.Household.form.id" method="POST">
-  <mjl:input value="${item.id}" type="hidden" param="id" />
+  <mjl:input value="${item.concreteId}" type="hidden" param="id" />
   <dl>
     <mjl:component item="${item}" param="dto">
     <mjl:dt attribute="householdName">
@@ -119,7 +119,7 @@
   </dd>
   <mjl:commandLink action="dss.vector.solutions.intervention.monitor.PersonController.newInstance.mojo" name="Person.newInstance.link">
     <fmt:message key="Add_Person"/>
-    <mjl:property name="householdId" value="${item.id}"/>
+    <mjl:property name="householdId" value="${item.concreteId}"/>
   </mjl:commandLink>
 </dl>
 <mjl:commandLink action="dss.vector.solutions.intervention.monitor.SurveyPointController.view.mojo" name="Household.view.link">

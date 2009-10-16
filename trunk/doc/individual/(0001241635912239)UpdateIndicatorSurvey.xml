@@ -3,12 +3,6 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <delete>
-      <object
-        key="dss.vector.solutions.intervention.monitor.Household.wall"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
-      <object
-        key="dss.vector.solutions.intervention.monitor.Household.roof"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
     </delete>
     <create>
       <mdBusiness
@@ -798,25 +792,6 @@
       </mdView>
 
     </create>
-    <update>
-      <mdBusiness
-        name="dss.vector.solutions.intervention.monitor.Household">
-        <create>
-          <attributes>
-            <reference
-              name="roof"
-              label="Roof Surface"
-              description="The roof surface"
-              type="dss.vector.solutions.ontology.Term" />
-            <reference
-              name="wall"
-              label="Wall Surface"
-              description="The wall surface"
-              type="dss.vector.solutions.ontology.Term" />
-          </attributes>
-        </create>
-      </mdBusiness>
-    </update>
   </doIt>
   <undoIt>
     <delete></delete>

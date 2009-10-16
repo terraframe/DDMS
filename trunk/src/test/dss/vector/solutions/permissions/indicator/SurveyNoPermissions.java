@@ -8,6 +8,7 @@ import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdNetDTO;
+import dss.vector.solutions.intervention.monitor.HouseholdViewDTO;
 import dss.vector.solutions.intervention.monitor.PersonViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointViewDTO;
@@ -43,7 +44,7 @@ public abstract class SurveyNoPermissions extends IndicatorSuveyPermissionTest
 
     try
     {
-      HouseholdDTO household = new HouseholdDTO(request);
+      HouseholdViewDTO household = new HouseholdViewDTO(request);
       household.setSurveyPoint(SurveyPointDTO.get(request, view.getConcreteId()));
       household.setHasWindows(true);
       household.setWall(term);
@@ -78,7 +79,7 @@ public abstract class SurveyNoPermissions extends IndicatorSuveyPermissionTest
 
     try
     {
-      HouseholdDTO household = new HouseholdDTO(systemRequest);
+      HouseholdViewDTO household = new HouseholdViewDTO(systemRequest);
       household.setSurveyPoint(SurveyPointDTO.get(request, view.getConcreteId()));
       household.setHasWindows(true);
       household.setWall(term);
@@ -102,7 +103,7 @@ public abstract class SurveyNoPermissions extends IndicatorSuveyPermissionTest
         person.setSex(term);
         person.setAnaemiaTreatment(term);
         person.setFeverTreatment(term);
-        person.setHousehold(household);
+        person.setHousehold(HouseholdDTO.get(request, household.getConcreteId()));
         person.setPersonId("teste3243");
         person.applyAll(new TermDTO[]{term});
 

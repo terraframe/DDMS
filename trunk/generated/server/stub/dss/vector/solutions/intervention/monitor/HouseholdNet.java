@@ -15,9 +15,9 @@ public class HouseholdNet extends HouseholdNetBase implements ChildOption, Reloa
     super(parentId, childId);
   }
 
-  public HouseholdNet(Household parent, Term child)
+  public HouseholdNet(HouseholdView parent, Term child)
   {
-    this(parent.getId(), child.getId());
+    this(parent.getConcreteId(), child.getId());
   }
   
   @Override
@@ -26,7 +26,7 @@ public class HouseholdNet extends HouseholdNetBase implements ChildOption, Reloa
     return this.getParent().getKey() + "." + this.getChild().getKey();
   }
 
-  public HouseholdNet clone(Household parent)
+  public HouseholdNet clone(HouseholdView parent)
   {
     HouseholdNet clone = new HouseholdNet(parent, this.getChild());
     clone.setAmount(this.getAmount());

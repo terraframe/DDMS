@@ -20,6 +20,7 @@ import dss.vector.solutions.intervention.RDTResponse;
 import dss.vector.solutions.intervention.monitor.Household;
 import dss.vector.solutions.intervention.monitor.HouseholdNet;
 import dss.vector.solutions.intervention.monitor.HouseholdQuery;
+import dss.vector.solutions.intervention.monitor.HouseholdView;
 import dss.vector.solutions.intervention.monitor.Person;
 import dss.vector.solutions.intervention.monitor.SurveyPoint;
 import dss.vector.solutions.intervention.monitor.WindowType;
@@ -44,7 +45,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   @Transaction
   public void apply()
   {
-    Household house = getHousehold();
+    HouseholdView house = getHousehold();
     
     HouseholdNet[] array = new HouseholdNet[nets.size()];
     for (int i=0; i<array.length; i++)
@@ -57,7 +58,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     
     // Person stuff
     Person person = new Person();
-    person.setHousehold(house);
+    person.setHousehold(Household.get(house.getConcreteId()));
     person.setPersonId(this.getPersonId());
     person.setDob(this.getDob());
     person.setPregnant(this.getPregnant());
@@ -139,22 +140,23 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
    * 
    * @return
    */
-  private Household getHousehold()
+  private HouseholdView getHousehold()
   {
-    Household house;
+    HouseholdView house;
     
     String name = this.getHouseholdName();
     HouseholdQuery query = new HouseholdQuery(new QueryFactory());
     query.WHERE(query.getHouseholdName().EQ(name));
     OIterator<? extends Household> iterator = query.getIterator();
+    
     if (iterator.hasNext())
     {
-      house = iterator.next();
-      house.lock();
+      Household concrete = iterator.next();
+      house = concrete.lockView();
     }
     else
     {
-      house = new Household();
+      house = new HouseholdView();
     }
     iterator.close();
     

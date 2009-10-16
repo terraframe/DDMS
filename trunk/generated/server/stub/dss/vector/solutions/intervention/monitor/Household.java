@@ -2,14 +2,9 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
-
-import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.surveillance.GridComparator;
 
 public class Household extends HouseholdBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -30,6 +25,37 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
     
     return this.getId();
   }
+  
+  public static HouseholdView getView(String id)
+  {
+    return Household.get(id).getView();
+  }
+
+  
+  public HouseholdView getView()
+  {
+    HouseholdView view = new HouseholdView();
+    view.populateView(this);
+
+    return view;
+  }
+  
+  @Override
+  public HouseholdView unlockView()
+  {
+    this.unlock();
+
+    return this.getView();
+  }
+
+  @Override
+  public HouseholdView lockView()
+  {
+    this.lock();
+
+    return this.getView();
+  }
+
   
   @Override
   public void validateLastSprayed()
@@ -114,7 +140,7 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
   {
     int sum = 0;
     
-    HouseholdNet[] nets = this.getHouseholdNets();
+    HouseholdNet[] nets = this.getView().getHouseholdNets();
 
     for(HouseholdNet net : nets)
     {
@@ -194,63 +220,5 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
     {
       net.unlock();
     }
-  }
-  
-  @Override
-  public HouseholdNet[] getHouseholdNets()
-  {
-    Set<HouseholdNet> set = new TreeSet<HouseholdNet>(new GridComparator());
-
-    for (Term d : Term.getRootChildren(Household.getHasWindowsMd()))
-    {
-      set.add(new HouseholdNet(this.getId(), d.getId()));
-    }
-
-    if (!this.isNew() || this.isAppliedToDB())
-    {
-      for (HouseholdNet net : this.getAllNetsRel())
-      {
-        // We will only want grid options methods which are active
-        // All active methods are already in the set.  Thus, if
-        // the set already contains an entry for the Grid Option
-        // replace the default relationship with the actaul
-        // relationship
-        if(set.contains(net))
-        {
-          set.remove(net);
-          set.add(net);
-        }
-      }
-    }
-
-    return set.toArray(new HouseholdNet[set.size()]);
-  }
-
-  @Transaction
-  public void applyAll(HouseholdNet[] nets)
-  {
-    boolean newCase = this.isNew();
-
-    this.apply();
-
-    // If this is a new household then all of the house hold
-    // nets to need be clone with the proper parent id
-    // because their existing parent id does not exist in the
-    // system
-    if (newCase)
-    {
-      for (int i = 0; i < nets.length; i++)
-      {
-        nets[i] = nets[i].clone(this);
-      }
-    }
-
-    for(HouseholdNet net : nets)
-    {
-      net.apply();
-    }
-    
-    //  Validate the sum of all the nets
-    this.validateNets();
-  }
+  }  
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdNetDTO;
+import dss.vector.solutions.intervention.monitor.HouseholdViewDTO;
 import dss.vector.solutions.intervention.monitor.PersonDTO;
 import dss.vector.solutions.intervention.monitor.PersonViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
@@ -46,7 +47,7 @@ public abstract class SurveyCRUDPermissions extends IndicatorSuveyPermissionTest
 
     try
     {
-      HouseholdDTO household = new HouseholdDTO(request);
+      HouseholdViewDTO household = new HouseholdViewDTO(request);
       household.setSurveyPoint(SurveyPointDTO.get(request, view.getConcreteId()));
       household.setHasWindows(true);
       household.setWall(term);
@@ -61,11 +62,11 @@ public abstract class SurveyCRUDPermissions extends IndicatorSuveyPermissionTest
 
       try
       {
-        household.lock();
-        household.setNetsUsed(20);
-        HouseholdNetDTO[] lockedNets = household.getHouseholdNets();
+        HouseholdViewDTO edit = HouseholdDTO.lockView(request, household.getConcreteId());
+        edit.setNetsUsed(20);
+        HouseholdNetDTO[] lockedNets = edit.getHouseholdNets();
 
-        household.applyAll(lockedNets);
+        edit.applyAll(lockedNets);
 
         HouseholdDTO test = HouseholdDTO.get(request, household.getId());
 
@@ -94,7 +95,7 @@ public abstract class SurveyCRUDPermissions extends IndicatorSuveyPermissionTest
     try
     {
 
-      HouseholdDTO household = new HouseholdDTO(request);
+      HouseholdViewDTO household = new HouseholdViewDTO(request);
       household.setSurveyPoint(SurveyPointDTO.get(request, view.getConcreteId()));
       household.setHasWindows(true);
       household.setWall(term);
@@ -118,7 +119,7 @@ public abstract class SurveyCRUDPermissions extends IndicatorSuveyPermissionTest
         person.setSex(term);
         person.setAnaemiaTreatment(term);
         person.setFeverTreatment(term);
-        person.setHousehold(household);
+        person.setHousehold(HouseholdDTO.get(request, household.getConcreteId()));
         person.setPersonId("teste3243");
         person.applyAll(new TermDTO[]{term});
 

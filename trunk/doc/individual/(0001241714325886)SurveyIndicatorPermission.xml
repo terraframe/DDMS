@@ -57,10 +57,17 @@
             <operation name="READ" />
             <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
+          <mdViewPermission
+            type="dss.vector.solutions.intervention.monitor.HouseholdView">
+            <operation name="READ" />
+            <operation name="READ_ALL_ATTRIBUTES" />
+            <operation name="CREATE" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
+          </mdViewPermission>          
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.Household">
             <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.SurveyHousehold">

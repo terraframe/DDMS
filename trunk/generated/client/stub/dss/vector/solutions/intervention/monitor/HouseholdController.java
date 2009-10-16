@@ -28,8 +28,8 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-
-  public void create(HouseholdDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
+  
+  public void create(HouseholdViewDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
   {
     try
     {
@@ -50,18 +50,18 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
     }
   }
 
-  public void failCreate(HouseholdDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
+  public void failCreate(HouseholdViewDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
   {
     this.newInstance(dto, nets);
   }
 
-  public void delete(HouseholdDTO dto) throws IOException, ServletException
+  public void delete(HouseholdViewDTO dto) throws IOException, ServletException
   {
     try
     {
       SurveyPointDTO surveyPoint = dto.getSurveyPoint();
 
-      dto.delete();
+      dto.deleteConcrete();
 
       new SurveyPointController(req, resp, false).view(surveyPoint.getId());
     }
@@ -79,27 +79,29 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
     }
   }
 
-  public void failDelete(HouseholdDTO dto) throws IOException, ServletException
+  public void failDelete(HouseholdViewDTO dto) throws IOException, ServletException
   {
     this.edit(dto, dto.getHouseholdNets());
   }
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(HouseholdDTO.get(super.getClientRequest(), id));
+    this.view(HouseholdDTO.getView(super.getClientRequest(), id));
   }
 
-  public void view(HouseholdDTO dto) throws IOException, ServletException
+  public void view(HouseholdViewDTO dto) throws IOException, ServletException
   {
     // go back to household view after entering person
     RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("id", dto.getId());
+    utility.put("id", dto.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     ClientRequestIF request = this.getClientSession().getRequest();
     List<PersonViewDTO> people = new LinkedList<PersonViewDTO>();
+    
+    HouseholdDTO household = HouseholdDTO.get(request, dto.getConcreteId());
 
-    for (PersonDTO person : dto.getAllPersons())
+    for (PersonDTO person : household.getAllPersons())
     {
       people.add(PersonDTO.getView(request, person.getId()));
     }
@@ -118,13 +120,15 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
     this.viewAll();
   }
 
-  public void cancel(HouseholdDTO dto) throws IOException, ServletException
+  public void cancel(HouseholdViewDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    ClientRequestIF request = this.getClientRequest();
+    HouseholdDTO.unlock(request, dto.getConcreteId());
+    
+    this.view(dto.getConcreteId());
   }
 
-  public void failCancel(HouseholdDTO dto) throws IOException, ServletException
+  public void failCancel(HouseholdViewDTO dto) throws IOException, ServletException
   {
     this.edit(dto.getId());
   }
@@ -146,13 +150,13 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
   {
     ClientRequestIF clientRequest = super.getClientRequest();
 
-    HouseholdDTO dto = new HouseholdDTO(clientRequest);
+    HouseholdViewDTO dto = new HouseholdViewDTO(clientRequest);
     dto.setSurveyPoint(SurveyPointDTO.get(clientRequest, surveyId));
 
     this.newInstance(dto, dto.getHouseholdNets());
   }
 
-  private void newInstance(HouseholdDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
+  private void newInstance(HouseholdViewDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
   {
     this.setupRequest(nets);
     this.setupReferences(dto);
@@ -166,7 +170,7 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
     this.viewAll();
   }
 
-  public void update(HouseholdDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
+  public void update(HouseholdViewDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
   {
     try
     {
@@ -187,7 +191,7 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
     }
   }
 
-  public void failUpdate(HouseholdDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
+  public void failUpdate(HouseholdViewDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
   {
     this.edit(dto, nets);
   }
@@ -196,7 +200,7 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
   {
     try
     {
-      HouseholdDTO dto = HouseholdDTO.lock(super.getClientRequest(), id);
+      HouseholdViewDTO dto = HouseholdDTO.lockView(super.getClientRequest(), id);
       HouseholdNetDTO[] nets = dto.getHouseholdNets();
       
       this.edit(dto, nets);
@@ -215,7 +219,7 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
     }
   }
 
-  private void edit(HouseholdDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
+  private void edit(HouseholdViewDTO dto, HouseholdNetDTO[] nets) throws IOException, ServletException
   {
     this.setupRequest(nets);
     this.setupReferences(dto);
@@ -249,7 +253,7 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
     req.setAttribute("nets", Arrays.asList(nets));
   }
   
-  private void setupReferences(HouseholdDTO dto)
+  private void setupReferences(HouseholdViewDTO dto)
   {
     req.setAttribute("windowType", dto.getWindowType());
     req.setAttribute("wall", dto.getWall());

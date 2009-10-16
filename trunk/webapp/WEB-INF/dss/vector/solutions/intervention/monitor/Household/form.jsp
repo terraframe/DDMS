@@ -8,9 +8,11 @@
 <%@page import="dss.vector.solutions.intervention.monitor.HouseholdDTO"%>
 
 
-<jsp:include page="/WEB-INF/MOSearch.jsp" />
+
+<%@page import="dss.vector.solutions.intervention.monitor.HouseholdViewDTO"%><jsp:include page="/WEB-INF/MOSearch.jsp" />
 
     <mjl:component item="${item}" param="dto">
+      <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
       <mjl:input type="hidden" param="surveyPoint" value="${item.surveyPoint.id}" />
 
       <mjl:dt attribute="householdName">
@@ -137,7 +139,7 @@
 	    {attributeName:'windowType'}
 	  ];
 	  
-	  new MDSS.GenericOntologyBrowser("<%=HouseholdDTO.CLASS%>", attributes);
+	  new MDSS.GenericOntologyBrowser("<%=HouseholdViewDTO.CLASS%>", attributes);
   })
 })();
 </script>

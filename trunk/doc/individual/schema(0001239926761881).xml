@@ -550,21 +550,26 @@
             defaultValue="0" />
         </attributes>
         <mdMethod
-          name="applyAll"
-          label="Apply All"
-          returnType="void"
-          static="false">
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.intervention.monitor.HouseholdView"
+          static="true">
           <mdParameter
-            name="nets"
+            name="id"
+            label="id"
             order="0"
-            label="Nets"
-            type="dss.vector.solutions.intervention.monitor.HouseholdNet[]" />
+            type="java.lang.String" />
         </mdMethod>
         <mdMethod
-          name="getHouseholdNets"
-          label="Get HouseholdNets"
-          static="false"
-          returnType="dss.vector.solutions.intervention.monitor.HouseholdNet[]" />
+          name="lockView"
+          label="lock View"
+          returnType="dss.vector.solutions.intervention.monitor.HouseholdView"
+          static="false" />
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.intervention.monitor.HouseholdView"
+          static="false" />
       </mdBusiness>
 
       <mdTree
@@ -602,6 +607,103 @@
           name="dss.vector.solutions.ontology.Term"
           method="Nets" />
       </mdTree>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.HouseholdView"
+        label="Household">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <integer
+            name="displayNets"
+            label="Number of nets against the brand" />
+          <virtual
+            name="surveyPoint"
+            concrete="surveyPoint"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+          <virtual
+            name="householdName"
+            concrete="householdName"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+          <virtual
+            name="urban"
+            concrete="urban"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+          <virtual
+            name="people"
+            concrete="people"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+          <virtual
+            name="wall"
+            concrete="wall"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+          <virtual
+            name="wallInfo"
+            concrete="wallInfo"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+          <virtual
+            name="roof"
+            concrete="roof"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+          <virtual
+            name="roofInfo"
+            concrete="roofInfo"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+          <virtual
+            name="hasWindows"
+            concrete="hasWindows"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+          <virtual
+            name="windowType"
+            concrete="windowType"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+          <virtual
+            name="rooms"
+            concrete="rooms"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+          <virtual
+            name="lastSprayed"
+            concrete="lastSprayed"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+          <virtual
+            name="nets"
+            concrete="nets"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+          <virtual
+            name="sleptUnderNets"
+            concrete="sleptUnderNets"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+          <virtual
+            name="netsUsed"
+            concrete="netsUsed"
+            type="dss.vector.solutions.intervention.monitor.Household" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="applyAll"
+          label="Apply All"
+          returnType="void"
+          static="false">
+          <mdParameter
+            name="nets"
+            order="0"
+            label="Nets"
+            type="dss.vector.solutions.intervention.monitor.HouseholdNet[]" />
+        </mdMethod>
+        <mdMethod
+          name="getHouseholdNets"
+          label="Get HouseholdNets"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.HouseholdNet[]" />
+      </mdView>
+
 
       <mdEnumeration
         name="dss.vector.solutions.intervention.HumanSex"
@@ -1145,6 +1247,10 @@
         <mdAction
           name="create"
           isPost="true">
+          <mdParameter
+            name="dto"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.HouseholdView" />          
           <create>
             <mdParameter
               name="nets"
@@ -1156,6 +1262,10 @@
         <mdAction
           name="update"
           isPost="true">
+          <mdParameter
+            name="dto"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.HouseholdView" />          
           <create>
             <mdParameter
               name="nets"
@@ -1175,6 +1285,23 @@
               type="java.lang.String" />
           </create>
         </mdAction>
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.HouseholdView"
+            order="0" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.HouseholdView"
+            order="0" />
+        </mdAction>
+
       </mdController>
       <mdController
         name="dss.vector.solutions.intervention.monitor.PersonController">

@@ -297,7 +297,7 @@ public class SurveyTest extends TestCase
     point.setGeoEntity(geoEntity);
     point.apply();
 
-    Household household = new Household();
+    HouseholdView household = new HouseholdView();
     household.setSurveyPoint(point);
     household.setHouseholdName("Some name");
     household.setUrban(b);
@@ -315,7 +315,7 @@ public class SurveyTest extends TestCase
 
     Map<String, HouseholdNet> map = new HashMap<String, HouseholdNet>();
 
-    for (Term net : Term.getRootChildren(Household.getHasWindowsMd()))
+    for (Term net : Term.getRootChildren(HouseholdView.getDisplayNetsMd()))
     {
       map.put(net.getId(), new HouseholdNet(household, net));
     }
@@ -364,7 +364,7 @@ public class SurveyTest extends TestCase
     }
     finally
     {
-      household.delete();
+      household.deleteConcrete();
       point.delete();
     }
   }
@@ -380,7 +380,7 @@ public class SurveyTest extends TestCase
     point.setGeoEntity(geoEntity);
     point.apply();
 
-    Household household = new Household();
+    HouseholdView household = new HouseholdView();
     household.setSurveyPoint(point);
     household.setHouseholdName("Some name");
     household.setUrban(b);
@@ -439,7 +439,7 @@ public class SurveyTest extends TestCase
     }
     finally
     {
-      household.delete();
+      household.deleteConcrete();
       point.delete();
     }
   }
@@ -455,7 +455,7 @@ public class SurveyTest extends TestCase
     point.setGeoEntity(geoEntity);
     point.apply();
 
-    Household household = new Household();
+    HouseholdView household = new HouseholdView();
     household.setSurveyPoint(point);
     household.setHouseholdName("Some name");
     household.setUrban(b);
@@ -480,7 +480,7 @@ public class SurveyTest extends TestCase
 
     household.applyAll(nets);
 
-    Household edit = Household.lock(household.getId());
+    HouseholdView edit = Household.lockView(household.getConcreteId());
     edit.setHouseholdName("Edit Name");
 
     nets = edit.getHouseholdNets();
@@ -1254,7 +1254,7 @@ public class SurveyTest extends TestCase
     point.setGeoEntity(geoEntity);
     point.apply();
 
-    Household household = new Household();
+    HouseholdView household = new HouseholdView();
     household.setSurveyPoint(point);
     household.setHouseholdName("Some name 13");
     household.setUrban(b);
@@ -1272,7 +1272,7 @@ public class SurveyTest extends TestCase
 
     Collection<HouseholdNet> values = new LinkedList<HouseholdNet>();
 
-    for (Term net : Term.getRootChildren(Household.getHasWindowsMd()))
+    for (Term net : Term.getRootChildren(HouseholdView.getDisplayNetsMd()))
     {
       HouseholdNet value = new HouseholdNet(household, net);
       value.setAmount(30);
@@ -1284,7 +1284,7 @@ public class SurveyTest extends TestCase
     {
       household.applyAll(values.toArray(new HouseholdNet[values.size()]));
 
-      household.delete();
+      household.deleteConcrete();
 
       fail("Able to apply household nets with invalid amount values");
     }

@@ -12,7 +12,7 @@ import com.terraframe.mojo.dataaccess.io.excel.ExcelColumn;
 import com.terraframe.mojo.dataaccess.io.excel.ImportListener;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.intervention.monitor.Household;
+import dss.vector.solutions.intervention.monitor.HouseholdView;
 import dss.vector.solutions.ontology.Term;
 
 public class DynamicNetListener implements ExcelExportListener, ImportListener, Reloadable
@@ -21,7 +21,7 @@ public class DynamicNetListener implements ExcelExportListener, ImportListener, 
 
   public DynamicNetListener()
   {
-    allNets = Term.getRootChildren(Household.getHasWindowsMd());
+    allNets = Term.getRootChildren(HouseholdView.getDisplayNetsMd());
   }
 
   public void addColumns(List<ExcelColumn> extraColumns)

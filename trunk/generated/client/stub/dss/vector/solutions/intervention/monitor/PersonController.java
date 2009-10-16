@@ -135,11 +135,12 @@ public class PersonController extends PersonControllerBase implements Reloadable
   {
     try
     {
-      HouseholdDTO household = dto.getHousehold();
+      ClientRequestIF request = this.getClientRequest();
+      HouseholdViewDTO view = HouseholdDTO.getView(request, dto.getValue(PersonViewDTO.HOUSEHOLD));
 
       dto.delete();
 
-      new HouseholdController(req, resp, isAsynchronous).view(household);
+      new HouseholdController(req, resp, isAsynchronous).view(view);
     }
     catch (ProblemExceptionDTO e)
     {
