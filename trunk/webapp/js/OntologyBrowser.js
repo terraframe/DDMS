@@ -897,10 +897,9 @@ focus : function() {
     this._browser.render();
   }
   
-  // TODO get existing term id from cell and put it into the selected array
+  // get existing term id from cell and put it into the selected array
   var termId = this.tableData.rows[this.getRecord().getCount()][this.getColumn().getField()];
-  //var selected = this.value;
-  this._browser.setSelection(termId);
+  this._browser.setSelection([termId]);
 },
 
 /**
