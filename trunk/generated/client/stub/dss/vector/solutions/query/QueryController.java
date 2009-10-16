@@ -21,6 +21,7 @@ import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.business.BusinessDTO;
 import com.terraframe.mojo.business.ClassQueryDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.system.metadata.MdAttributeDTO;
 import com.terraframe.mojo.transport.attributes.AttributeDTO;
 import com.terraframe.mojo.transport.attributes.AttributeReferenceDTO;
 import com.terraframe.mojo.transport.attributes.AttributeStructDTO;
@@ -42,8 +43,14 @@ import dss.vector.solutions.intervention.FeverResponseDTO;
 import dss.vector.solutions.intervention.FeverTreatmentDTO;
 import dss.vector.solutions.intervention.HumanSexDTO;
 import dss.vector.solutions.intervention.ResponseMasterDTO;
+import dss.vector.solutions.intervention.monitor.AggregatedIPTDTO;
+import dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdNetDTO;
+import dss.vector.solutions.intervention.monitor.IPTANCVisitDTO;
+import dss.vector.solutions.intervention.monitor.IPTDoseDTO;
+import dss.vector.solutions.intervention.monitor.IPTPatientsDTO;
+import dss.vector.solutions.intervention.monitor.IPTTreatmentDTO;
 import dss.vector.solutions.intervention.monitor.NetDTO;
 import dss.vector.solutions.intervention.monitor.PersonDTO;
 import dss.vector.solutions.intervention.monitor.PersonViewDTO;
@@ -53,6 +60,7 @@ import dss.vector.solutions.intervention.monitor.WallViewDTO;
 import dss.vector.solutions.intervention.monitor.WindowMasterDTO;
 import dss.vector.solutions.intervention.monitor.WindowTypeDTO;
 import dss.vector.solutions.irs.AbstractSprayDTO;
+import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.surveillance.AbstractGridDTO;
 import dss.vector.solutions.surveillance.AbstractGridQueryDTO;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
@@ -81,6 +89,8 @@ public class QueryController extends QueryControllerBase implements
   private static final String QUERY_IRS              = "/WEB-INF/queryScreens/queryIRS.jsp";
 
   private static final String QUERY_AGGREGATED_CASES = "/WEB-INF/queryScreens/queryAggregatedCases.jsp";
+  
+  private static final String QUERY_AGGREGATED_IPT   = "/WEB-INF/queryScreens/queryAggregatedIPT.jsp";
 
   private static final String QUERY_SURVEY           = "/WEB-INF/queryScreens/querySurvey.jsp";
 
@@ -570,6 +580,118 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
+  
+  /**
+   * Creates the screen to query for Entomology (mosquitos).
+   */
+  @Override
+  public void queryAggregatedIPT() throws IOException, ServletException
+  {
+    try
+    {
+      // The Earth is the root. FIXME use country's default root
+      ClientRequestIF request = this.getClientRequest();
+      
+      // The Earth is the root. FIXME use country's default root
+      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(),
+          QueryConstants.QUERY_AGGREGATED_IPT);
+      JSONArray queries = new JSONArray();
+      // Available queries
+      for (SavedSearchViewDTO view : query.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", view.getSavedQueryId());
+        idAndName.put("name", view.getQueryName());
+
+        queries.put(idAndName);
+      }
+      
+      // Load label map for Adult Discriminating Dose Assay
+      ClassQueryDTO aIPT = request.getQuery(AggregatedIPTDTO.CLASS);
+      String iptMap = Halp.getDropDownMaps(aIPT, request, ", ");
+      req.setAttribute("iptMap", iptMap);
+
+      req.setAttribute("queryList", queries.toString());
+      
+      ResourceBundle localized = ResourceBundle.getBundle("MDSS");
+      JSONObject ordered = new JSONObject();
+
+      Map<String, JSONObject> orderedMap = new HashMap<String, JSONObject>();
+
+
+      //IPTANCVisit[] getIPTANCVisits()
+      //IPTDose[] getIPTDoses()
+      //IPTPatients[] getIPTPatients()
+      //IPTTreatment[] getIPTTreatments()
+      AggregatedIPTViewDTO av = new AggregatedIPTViewDTO(request);
+
+      
+      // Patients
+      JSONObject patients = new JSONObject();
+      patients.put("type", TermDTO.CLASS);
+      patients.put("label", localized.getObject("Facility_referred"));
+      patients.put("relType", IPTPatientsDTO.CLASS);
+      patients.put("relAttribute", IPTPatientsDTO.AMOUNT);
+      patients.put("options", new JSONArray());
+      ordered.put("patients",patients);
+      //orderedMap.put("patients", patients);
+
+      // Doses
+      JSONObject doses = new JSONObject();
+      doses.put("type", TermDTO.CLASS);
+      doses.put("label", localized.getObject("Diagnostic_methods"));
+      doses.put("relType", IPTDoseDTO.CLASS);
+      doses.put("relAttribute", IPTDoseDTO.AMOUNT);
+      doses.put("options", new JSONArray());
+      for (TermDTO term : TermDTO.getAllTermsByAttribute(request,MdAttributeDTO.get(request, av.getDisplayDoseMd().getId())))
+      {
+        JSONObject option = new JSONObject();
+        option.put("id", term.getId());
+        option.put("displayLabel", term.getDisplayLabel());
+        option.put("MOID", term.getTermId());
+        option.put("optionName", term.getTermName());
+        option.put("type", TermDTO.CLASS);
+        doses.getJSONArray("options").put(option);
+      }
+      
+      ordered.put("doses",doses);
+      //orderedMap.put("doses", doses);
+
+      //Visits
+      JSONObject visits = new JSONObject();
+      visits.put("type", TermDTO.CLASS);
+      visits.put("label", localized.getObject("Treatment_methods"));
+      visits.put("relType", IPTANCVisitDTO.CLASS);
+      visits.put("relAttribute", IPTANCVisitDTO.AMOUNT);
+      visits.put("options", new JSONArray());
+      ordered.put("visits", visits);
+      //orderedMap.put("visits", visits);
+
+      // Treatment
+      JSONObject treatment = new JSONObject();
+      treatment.put("type", TermDTO.CLASS);
+      treatment.put("label", localized.getObject("Treatments"));
+      treatment.put("relType", IPTTreatmentDTO.CLASS);
+      treatment.put("relAttribute", IPTTreatmentDTO.AMOUNT);
+      treatment.put("options", new JSONArray());
+      ordered.put("treatments",treatment);
+      //orderedMap.put("treatments", treatment);
+
+      req.setAttribute("orderedGrids", ordered.toString());
+      
+
+      req.getRequestDispatcher(QUERY_AGGREGATED_IPT).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+  
   /**
    * Creates the screen to query for Entomology (mosquitos).
    */
@@ -755,6 +877,26 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
+  @Override
+  public void exportAggregatedIPTQueryToExcel(String queryXML, String config, String savedSearchId)
+      throws IOException, ServletException
+  {
+    try
+    {
+      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML,
+          config, savedSearchId);
+
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+
+      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
+  }
+
+  
   @Override
   public void exportSurveyQueryToCSV(String queryXML, String config, String savedSearchId)
       throws IOException, ServletException
