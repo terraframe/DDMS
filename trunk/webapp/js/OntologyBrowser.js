@@ -899,7 +899,12 @@ focus : function() {
   
   // get existing term id from cell and put it into the selected array
   var termId = this.tableData.rows[this.getRecord().getCount()][this.getColumn().getField()];
-  this._browser.setSelection([termId]);
+  var selected = [];
+  if(Mojo.Util.isString(termId) && termId !== '')
+  {
+  	selected.push(termId);
+  }
+  this._browser.setSelection(selected);
 },
 
 /**
