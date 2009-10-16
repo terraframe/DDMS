@@ -27,6 +27,24 @@
 
 	<!--<property name="write_rev" value="false" />-->
 
+	<!-- =================================================================== -->
+	<!--         CAUTION: THIS WILL OVERWRITE EXISTING DATABASES             -->
+	<!-- This the main task to run if you want to completely rebuild mdss.   -->
+	<!-- =================================================================== -->
+	<!-- PRECONDITIONS:                                                      -->
+	<!-- you must set the auth method for 127.0.0.1/32 to "trust" in pg_hba.conf -->
+	<!-- so that posgres does not require a password from localhost         -->
+	<!-- Also check that "postgres.bin" is set to the location of psql and pg_dump -->
+	<!-- =================================================================== -->
+	<target name="fast_build" depends="alert_status,kill_tomcat,remove_generated_universals,copy_country_schema,develop_rebuild_import" description="Rebuild Develop from scratch and then copy everything to deploy.">
+		<echo message="Build part 1 complete, please refresh and clean" />
+	</target>
+
+	<target name="fast_build_2" depends="alert_status,deploy_all,import_geodata,develop_build_all_paths_geodata,import_ontology,develop_build_all_paths_ontology,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
+		<echo message="The build is complete, please start tomcat" />
+	</target>
+		
+		
 	<!-- Rebuild Deploy -->
 	<target name="deploy_rebuild_all" depends="deploy_cleanup_files_rebuild_db, deploy_all_files, deploy_incremental_schema_update, import_geodata_deploy" description="Deploy - Everything">
 	</target>
@@ -257,24 +275,6 @@
 			<arg value="-Dprofile.name=deploy" />
 			<arg value="change_schema_version" />
 		</java>
-	</target>
-
-
-	<!-- =================================================================== -->
-	<!--         CAUTION: THIS WILL OVERWRITE EXISTING DATABASES             -->
-	<!-- This the main task to run if you want to completely rebuild mdss.   -->
-	<!-- =================================================================== -->
-	<!-- PRECONDITIONS:                                                      -->
-	<!-- you must set the auth method for 127.0.0.1/32 to "trust" in pg_hba.conf -->
-	<!-- so that posgres does not require a password from localhost         -->
-	<!-- Also check that "postgres.bin" is set to the location of psql and pg_dump -->
-	<!-- =================================================================== -->
-	<target name="fast_build" depends="alert_status,kill_tomcat,remove_generated_universals,copy_country_schema,develop_rebuild_import" description="Rebuild Develop from scratch and then copy everything to deploy.">
-		<echo message="Build part 1 complete, please refresh and clean" />
-	</target>
-
-	<target name="fast_build_2" depends="alert_status,deploy_all,import_geodata,develop_build_all_paths_geodata,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
-		<echo message="The build is complete, please start tomcat" />
 	</target>
 
 	<target name="copy_dev_to_deploy" depends="kill_tomcat" description="Rebuild Develop from scratch and then copy everything to deploy.">
