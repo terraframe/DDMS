@@ -12,6 +12,7 @@ import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.RequiredGeoIdProblem;
 import dss.vector.solutions.irs.SprayOperator;
+import dss.vector.solutions.util.HierarchyBuilder;
 
 public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -95,6 +96,11 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
 
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, GeoHierarchy.getAllSprayTargets());
+    HierarchyBuilder builder = new HierarchyBuilder();
+    for (GeoHierarchy hierarchy : GeoHierarchy.getAllSprayTargets())
+    {
+      builder.add(hierarchy);
+    }
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
 }

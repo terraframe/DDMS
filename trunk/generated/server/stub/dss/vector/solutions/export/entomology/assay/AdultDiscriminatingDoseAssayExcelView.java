@@ -15,6 +15,7 @@ import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.util.HierarchyBuilder;
 
 public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDoseAssayExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -101,9 +102,8 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
 
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
-	// FIXME: MO UPGRADE
-    GeoHierarchy sentinelSite = GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS);
-//    GeoHierarchy nonSentinelSite = GeoHierarchy.getGeoHierarchyFromType(NonSentinelSite.CLASS);
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, sentinelSite);//, nonSentinelSite);
+    HierarchyBuilder builder = new HierarchyBuilder();
+    builder.add(GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS));
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
 }

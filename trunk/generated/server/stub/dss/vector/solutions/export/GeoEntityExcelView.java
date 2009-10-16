@@ -41,8 +41,15 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.te
 
   private String getEntityType()
   {
+    String fullGeoType = this.getGeoType();
+    int lastDot = fullGeoType.lastIndexOf('.');
+    String geoPackage = fullGeoType.substring(0, lastDot);
+    String geoType = fullGeoType.substring(lastDot+1);
+    
     MdBusinessQuery query = new MdBusinessQuery(new QueryFactory());
-    query.WHERE(query.getDisplayLabel().currentLocale().EQ(this.getGeoType()));
+//    query.WHERE(query.getDisplayLabel().currentLocale().EQ(this.getGeoType()));
+    query.WHERE(query.getPackageName().EQ(geoPackage));
+    query.WHERE(query.getTypeName().EQ(geoType));
     OIterator<? extends MdBusiness> iterator = query.getIterator();
     try
     {

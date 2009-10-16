@@ -13,6 +13,7 @@ import dss.vector.solutions.irs.SprayOperator;
 import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.TeamSpray;
 import dss.vector.solutions.irs.TeamSprayView;
+import dss.vector.solutions.util.HierarchyBuilder;
 
 public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -98,7 +99,12 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
 
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, GeoHierarchy.getAllSprayTargets());
+    HierarchyBuilder builder = new HierarchyBuilder();
+    for (GeoHierarchy hierarchy : GeoHierarchy.getAllSprayTargets())
+    {
+      builder.add(hierarchy);
+    }
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
 
 }

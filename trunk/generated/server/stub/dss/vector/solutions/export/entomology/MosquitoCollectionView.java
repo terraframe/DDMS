@@ -22,6 +22,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.mo.CollectionMethod;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.util.HierarchyBuilder;
 
 public class MosquitoCollectionView extends MosquitoCollectionViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -199,9 +200,8 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
-	  // FIXME MO Upgrade
-    GeoHierarchy sentinelSite = GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS);
-//    GeoHierarchy nonSentinelSite = GeoHierarchy.getGeoHierarchyFromType(NonSentinelSite.CLASS);
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, sentinelSite);//, nonSentinelSite);
+    HierarchyBuilder builder = new HierarchyBuilder();
+    builder.add(GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS));
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
 }

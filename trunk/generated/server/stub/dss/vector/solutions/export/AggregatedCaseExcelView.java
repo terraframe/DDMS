@@ -26,6 +26,7 @@ import dss.vector.solutions.surveillance.CaseTreatment;
 import dss.vector.solutions.surveillance.CaseTreatmentMethod;
 import dss.vector.solutions.surveillance.CaseTreatmentStock;
 import dss.vector.solutions.surveillance.PeriodType;
+import dss.vector.solutions.util.HierarchyBuilder;
 
 public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -190,9 +191,10 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
 
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
-    GeoHierarchy collectionSite = GeoHierarchy.getGeoHierarchyFromType(CollectionSite.CLASS);
-    GeoHierarchy healthFacility = GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS);
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, collectionSite, healthFacility);
+    HierarchyBuilder builder = new HierarchyBuilder();
+    builder.add(GeoHierarchy.getGeoHierarchyFromType(CollectionSite.CLASS));
+    builder.add(GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS));
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
 
   private PeriodType getPeriodTypeByLabel(String label)

@@ -25,6 +25,7 @@ import dss.vector.solutions.intervention.monitor.Person;
 import dss.vector.solutions.intervention.monitor.SurveyPoint;
 import dss.vector.solutions.intervention.monitor.WindowType;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.util.HierarchyBuilder;
 
 public class SurveyExcelView extends SurveyExcelViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -113,8 +114,9 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
 
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
-    GeoHierarchy sentinelSite = GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS);
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, sentinelSite);
+    HierarchyBuilder builder = new HierarchyBuilder();
+    builder.add(GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS));
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
   
   public SurveyPoint getSurveyPoint()

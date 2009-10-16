@@ -13,6 +13,7 @@ import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Surface;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.util.HierarchyBuilder;
 
 public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -68,7 +69,10 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
 
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, GeoHierarchy.getGeoHierarchyFromType(Surface.CLASS));
+
+    HierarchyBuilder builder = new HierarchyBuilder();
+    builder.add(GeoHierarchy.getGeoHierarchyFromType(Surface.CLASS));
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
 
   public static SurfacePosition getSurfacePositionByLabel(String label)
