@@ -108,10 +108,37 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
 
     //    <div id="generationDisplay" class="ontologyDisplay">
     getWriter().openTag("div", divMap);
-
-    //    ${item.generation.displayLabel}
-    String display = "${" + attributeName + " != null ? " + attributeName + ".displayLabel : ''}";
+    
+//    <c:choose> 
+    getWriter().openTag("c:choose");
+    
+//    <c:when test="${bloodslide != null}">
+    HashMap<String, String> whenMap = new HashMap<String, String>();
+    whenMap.put("test", "${" + attributeName + " != null}");
+    
+    getWriter().openTag("c:when", whenMap);
+    
+//      ${bloodslide.displayLabel}
+    String display = "${" + attributeName + ".displayLabel}";
     getWriter().writeValue(display);
+
+//    </c:when>
+    getWriter().closeTag();
+    
+//    <c:otherwise>
+    getWriter().openTag("c:otherwise");
+    
+//      <fmt:message key="no_value" />
+    HashMap<String, String> noValueMap = new HashMap<String, String>();
+    noValueMap.put("key", "no_value");
+    
+    getWriter().writeEmptyTag("fmt:message", noValueMap);    
+    
+//    </c:otherwise>
+    getWriter().closeTag();
+    
+//  </c:choose>
+    getWriter().closeTag();
 
     //CLOSING DIV
     //    </div>
