@@ -36,16 +36,11 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
 
   public static final String PREFIX = "Geo ";
 
-  public DynamicGeoColumnListener(String excelType, String attributeName, GeoHierarchy... endPoints)
+  public DynamicGeoColumnListener(String excelType, String attributeName, HierarchyBuilder mainHierarchyBuilder)
   {
     this.attributeName = attributeName;
     this.excelType = excelType;
-    HierarchyBuilder mainHierarchyBuilder = new HierarchyBuilder();
-    for (GeoHierarchy endPoint : endPoints)
-    {
-      mainHierarchyBuilder.add(endPoint);
-    }
-    hierarchyList = mainHierarchyBuilder.getHierarchy();
+    geoColumnList = mainHierarchyBuilder.getHierarchy();
   }
 
   public void addColumns(List<ExcelColumn> extraColumns)
@@ -81,13 +76,7 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
       {
         HSSFCell cell = row.getCell(column.getIndex());
         String entityName;
-        if (cell == null)
-        {
-
-          entityList = GeoEntitySearcher.search(false, parentGeoEntityMap, endPointEntityType,
-              endPointEntityName);
-        }
-        else
+        if (cell != null)
         {
           if (column.getAttributeName().equals(excelAttribute))
           {
@@ -102,6 +91,7 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
         }
       }
     }
+    entityList = GeoEntitySearcher.search(false, parentGeoEntityMap, endPointEntityType, endPointEntityName);
 
     // The user may not specify a Geo Entity. If that is the case then the
     // endGeoEntityName will be "". If that is the case this should return
