@@ -115,6 +115,8 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     SearchQueryBuilder builder = new SearchQueryBuilder(f, searchValue, parent);
     TermViewQuery q = new TermViewQuery(f, builder);
 
+    q.restrictRows(15, 1);
+    
     return q;
   }
 
