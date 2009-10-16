@@ -370,104 +370,6 @@ public class GeoEntitySearcher implements Reloadable
     return geoHeaderInfoList;
   }
 
-// Heads up:
-//  /**
-//   * Finds a geo entity match.
-//   *
-//   * @param soundsLikeMatch if true then a sounds like match will be made with the given child entity name.
-//   *   if false, then an exact string match will be used.
-//   * @param parentGeoEntityMap Key is the geo type, value is the geo name.
-//   * @param childGeoEntityType geo entity type of the child.
-//   * @param childGeoEntityName geo entity name of the child.
-//   */
-//  public static List<GeoEntity> search(boolean soundsLikeMatch, Map<String, String> parentGeoEntityMap, String childGeoEntityType, String childGeoEntityName)
-//  {
-//    if(childGeoEntityType.equals("") && childGeoEntityName.equals(""))
-//    {
-//      return new LinkedList<GeoEntity>();
-//    }
-//
-//    MdBusiness childMdBusiness = MdBusiness.getMdBusiness(childGeoEntityType);
-//
-//    QueryFactory qf = new QueryFactory();
-//
-//    ValueQuery geoEntityIdQuery = new ValueQuery(qf);
-//
-//    GeoEntityQuery childGeoEntityQuery = new GeoEntityQuery(qf);
-//
-//    if (soundsLikeMatch)
-//    {
-//      geoEntityIdQuery.
-//      WHERE(geoEntityIdQuery.aSQLCharacter("entityMetaphone", "metaphone("+childGeoEntityQuery.getEntityName().getQualifiedName()+", 255)", "entityMetaphone").
-//          EQ(geoEntityIdQuery.aSQLCharacter("unknownMetaphone", "metaphone('"+childGeoEntityName+"', 255)", "unknownMetaphone")));
-//    }
-//    else
-//    {
-//      GeoSynonymQuery geoSynonymQuery = new GeoSynonymQuery(qf);
-//      geoSynonymQuery.WHERE(geoSynonymQuery.getEntityName().EQ(childGeoEntityName));
-//
-//      geoEntityIdQuery.
-//      WHERE(
-//          OR.get(childGeoEntityQuery.getEntityName().EQ(childGeoEntityName),
-//          childGeoEntityQuery.synonyms(geoSynonymQuery)));
-//
-//    }
-//
-//    // This select clause must be located here and not above the if block, otherwise the
-//    // joins above will not be proper subselects
-//    geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("child_id"));
-//
-//    for (String parentEntityType : parentGeoEntityMap.keySet())
-//    {
-//      if (parentEntityType.equals(childGeoEntityType))
-//      {
-//        continue;
-//      }
-//
-//      AllPathsQuery allPathsQuery = new AllPathsQuery(qf);
-//      MdBusiness parentMdBusiness = MdBusiness.getMdBusiness(parentEntityType);
-//
-//      String parentGeoEntityName = parentGeoEntityMap.get(parentEntityType);
-//
-//      GeoSynonymQuery geoSynonymQuery = new GeoSynonymQuery(qf);
-//      geoSynonymQuery.WHERE(geoSynonymQuery.getEntityName().EQ(parentGeoEntityName));
-//
-//      GeoEntityQuery parentGeoEntityQuery = new GeoEntityQuery(qf);
-//
-//      parentGeoEntityQuery.
-//      WHERE(
-//          OR.get(parentGeoEntityQuery.getEntityName().EQ(parentGeoEntityName),
-//              parentGeoEntityQuery.synonyms(geoSynonymQuery)));
-//
-//      geoEntityIdQuery.
-//        AND(allPathsQuery.getParentUniversal().EQ(parentMdBusiness).
-//        AND(allPathsQuery.getParentGeoEntity().EQ(parentGeoEntityQuery.getId())).
-//        AND(allPathsQuery.getChildUniversal().EQ(childMdBusiness)).
-//        AND(allPathsQuery.getChildGeoEntity().EQ(childGeoEntityQuery.getId())));
-//    }
-//
-//    BusinessQuery resultQuery = qf.businessQuery(childGeoEntityType);
-////    resultQuery.WHERE(resultQuery.IN(resultQuery.id(), geoEntityIdQuery));
-//    resultQuery.WHERE(resultQuery.id().SUBSELECT_IN(geoEntityIdQuery));
-//    resultQuery.ORDER_BY_ASC(F.UPPER(resultQuery.aCharacter(GeoEntity.ENTITYNAME)));
-//
-//    OIterator<Business> iterator = resultQuery.getIterator();
-//
-//    List<GeoEntity> returnGeoEntityList = new LinkedList<GeoEntity>();
-//
-//    try
-//    {
-//      for (Business business : iterator)
-//      {
-//        returnGeoEntityList.add((GeoEntity)business);
-//      }
-//    }
-//    finally
-//    {
-//      iterator.close();
-//    }
-//    return returnGeoEntityList;
-//  }
 
   /**
    * Finds a geo entity match.
@@ -478,22 +380,14 @@ public class GeoEntitySearcher implements Reloadable
    * @param childGeoEntityType geo entity type of the child.
    * @param childGeoEntityName geo entity name of the child.
    */
-  public static List<GeoEntity> search(boolean soundsLikeMatch, Map<String, String> parentGeoEntityMap, String childGeoEntity, String childGeoEntityName)
+  public static List<GeoEntity> search(boolean soundsLikeMatch, Map<String, String> parentGeoEntityMap, String childGeoEntityType, String childGeoEntityName)
   {
-    MdBusiness childMdBusiness = null;
-    String childGeoEntityType = null;
-    String childGeoEntityMOTermId = null;
+    if(childGeoEntityType.equals("") && childGeoEntityName.equals(""))
+    {
+      return new LinkedList<GeoEntity>();
+    }
 
-    if (childGeoEntityMOTermId != null)
-    {
-      childMdBusiness = GeoHierarchy.getGeoEntityClassMappedToMO(childGeoEntity);
-      childGeoEntityType = childMdBusiness.definesType();
-    }
-    else
-    {
-      childMdBusiness = MdBusiness.getMdBusiness(childGeoEntity);
-      childGeoEntityType = childGeoEntity;
-    }
+    MdBusiness childMdBusiness = MdBusiness.getMdBusiness(childGeoEntityType);
 
     QueryFactory qf = new QueryFactory();
 
@@ -518,46 +412,22 @@ public class GeoEntitySearcher implements Reloadable
           childGeoEntityQuery.synonyms(geoSynonymQuery)));
 
     }
-    if (childGeoEntityMOTermId != null)
-    {
-      childGeoEntityQuery.AND(childGeoEntityQuery.getTerm().getTermId().EQ(childGeoEntityMOTermId));
-    }
 
     // This select clause must be located here and not above the if block, otherwise the
     // joins above will not be proper subselects
     geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("child_id"));
 
-    for (String parentEntity : parentGeoEntityMap.keySet())
+    for (String parentEntityType : parentGeoEntityMap.keySet())
     {
-      MdBusiness parentMdBusiness = null;
-      String parentEntityType = null;
-      String parentGeoEntityMOTermId = null;
-
-      if (parentGeoEntityMOTermId != null)
+      if (parentEntityType.equals(childGeoEntityType))
       {
-        parentMdBusiness = GeoHierarchy.getGeoEntityClassMappedToMO(parentEntity);
-        parentEntityType = parentMdBusiness.definesType();
-
-        if (parentGeoEntityMOTermId.equals(childGeoEntityMOTermId))
-        {
-          continue;
-        }
+        continue;
       }
-      else
-      {
-        parentMdBusiness = MdBusiness.getMdBusiness(parentEntity);
-        parentEntityType = parentEntity;
-
-        if (parentEntityType.equals(childGeoEntityType))
-        {
-          continue;
-        }
-      }
-
 
       AllPathsQuery allPathsQuery = new AllPathsQuery(qf);
+      MdBusiness parentMdBusiness = MdBusiness.getMdBusiness(parentEntityType);
 
-      String parentGeoEntityName = parentGeoEntityMap.get(parentEntity);
+      String parentGeoEntityName = parentGeoEntityMap.get(parentEntityType);
 
       GeoSynonymQuery geoSynonymQuery = new GeoSynonymQuery(qf);
       geoSynonymQuery.WHERE(geoSynonymQuery.getEntityName().EQ(parentGeoEntityName));
@@ -568,11 +438,6 @@ public class GeoEntitySearcher implements Reloadable
       WHERE(
           OR.get(parentGeoEntityQuery.getEntityName().EQ(parentGeoEntityName),
               parentGeoEntityQuery.synonyms(geoSynonymQuery)));
-
-      if (parentGeoEntityMOTermId != null)
-      {
-        parentGeoEntityQuery.AND(parentGeoEntityQuery.getTerm().getTermId().EQ(parentGeoEntityMOTermId));
-      }
 
       geoEntityIdQuery.
         AND(allPathsQuery.getParentUniversal().EQ(parentMdBusiness).
@@ -609,28 +474,17 @@ public class GeoEntitySearcher implements Reloadable
    * @param soundsLikeMatch if true then a sounds like match will be made with the given child entity name.
    *   if false, then an exact string match will be used.
    * @param parentGeoEntityMap Key is the geo type, value is the geo name.
-   * @param childGeoEntity geo entity type of the child.
+   * @param childGeoEntityType geo entity type of the child.
    * @param excludeGeoEntityList geo entities to exclude from the result set.
    */
-  public static List<GeoEntity> searchChildren(Map<String, String> parentGeoEntityMap, String childGeoEntity, List<GeoEntity> excludeGeoEntityList)
+  public static List<GeoEntity> searchChildren(Map<String, String> parentGeoEntityMap, String childGeoEntityType, List<GeoEntity> excludeGeoEntityList)
   {
-    MdBusiness childMdBusiness = null;
-    String childGeoEntityType = null;
-    String childGeoEntityMOTermId = null;
-
-    if (childGeoEntityMOTermId != null)
-    {
-      childMdBusiness = GeoHierarchy.getGeoEntityClassMappedToMO(childGeoEntity);
-      childGeoEntityType = childMdBusiness.definesType();
-    }
-    else
-    {
-      childMdBusiness = MdBusiness.getMdBusiness(childGeoEntity);
-      childGeoEntityType = childGeoEntity;
-    }
+    MdBusiness childMdBusiness = MdBusiness.getMdBusiness(childGeoEntityType);
 
     QueryFactory qf = new QueryFactory();
+
     ValueQuery geoEntityIdQuery = new ValueQuery(qf);
+
     GeoEntityQuery childGeoEntityQuery = new GeoEntityQuery(qf);
 
     if (excludeGeoEntityList.size() > 0)
@@ -647,44 +501,19 @@ public class GeoEntitySearcher implements Reloadable
       childGeoEntityQuery.WHERE(childGeoEntityQuery.getId().NI(idArray));
     }
 
-    if (childGeoEntityMOTermId != null)
-    {
-      childGeoEntityQuery.AND(childGeoEntityQuery.getTerm().getTermId().EQ(childGeoEntityMOTermId));
-    }
-
     geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("child_id"));
 
-    for (String parentEntity : parentGeoEntityMap.keySet())
+    for (String parentEntityType : parentGeoEntityMap.keySet())
     {
-      MdBusiness parentMdBusiness = null;
-      String parentEntityType = null;
-      String parentGeoEntityMOTermId = null;
-
-      if (parentGeoEntityMOTermId != null)
+      if (parentEntityType.equals(childGeoEntityType))
       {
-        parentMdBusiness = GeoHierarchy.getGeoEntityClassMappedToMO(parentEntity);
-        parentEntityType = parentMdBusiness.definesType();
-
-        if (parentGeoEntityMOTermId.equals(childGeoEntityMOTermId))
-        {
-          continue;
-        }
+        continue;
       }
-      else
-      {
-        parentMdBusiness = MdBusiness.getMdBusiness(parentEntity);
-        parentEntityType = parentEntity;
-
-        if (parentEntityType.equals(childGeoEntityType))
-        {
-          continue;
-        }
-      }
-
 
       AllPathsQuery allPathsQuery = new AllPathsQuery(qf);
+      MdBusiness parentMdBusiness = MdBusiness.getMdBusiness(parentEntityType);
 
-      String parentGeoEntityName = parentGeoEntityMap.get(parentEntity);
+      String parentGeoEntityName = parentGeoEntityMap.get(parentEntityType);
 
       GeoSynonymQuery geoSynonymQuery = new GeoSynonymQuery(qf);
       geoSynonymQuery.WHERE(geoSynonymQuery.getEntityName().EQ(parentGeoEntityName));
@@ -696,11 +525,6 @@ public class GeoEntitySearcher implements Reloadable
           OR.get(parentGeoEntityQuery.getEntityName().EQ(parentGeoEntityName),
               parentGeoEntityQuery.synonyms(geoSynonymQuery)));
 
-      if (parentGeoEntityMOTermId != null)
-      {
-        parentGeoEntityQuery.AND(parentGeoEntityQuery.getTerm().getTermId().EQ(parentGeoEntityMOTermId));
-      }
-
       geoEntityIdQuery.
         AND(allPathsQuery.getParentUniversal().EQ(parentMdBusiness).
         AND(allPathsQuery.getParentGeoEntity().EQ(parentGeoEntityQuery.getId())).
@@ -709,8 +533,7 @@ public class GeoEntitySearcher implements Reloadable
     }
 
 
-    BusinessQuery resultQuery = qf.businessQuery(childGeoEntity);
-//    resultQuery.WHERE(resultQuery.IN(resultQuery.id(), geoEntityIdQuery));
+    BusinessQuery resultQuery = qf.businessQuery(childGeoEntityType);
     resultQuery.WHERE(resultQuery.id().SUBSELECT_IN(geoEntityIdQuery));
     resultQuery.ORDER_BY_ASC(F.UPPER(resultQuery.aCharacter(GeoEntity.ENTITYNAME)));
 
@@ -731,93 +554,5 @@ public class GeoEntitySearcher implements Reloadable
     }
     return returnGeoEntityList;
   }
-// Heads up: clean up
-//  /**
-//   * Finds a geo entity match for all children of the given type.
-//   *
-//   * @param soundsLikeMatch if true then a sounds like match will be made with the given child entity name.
-//   *   if false, then an exact string match will be used.
-//   * @param parentGeoEntityMap Key is the geo type, value is the geo name.
-//   * @param childGeoEntityType geo entity type of the child.
-//   * @param excludeGeoEntityList geo entities to exclude from the result set.
-//   */
-//  public static List<GeoEntity> searchChildren(Map<String, String> parentGeoEntityMap, String childGeoEntityType, List<GeoEntity> excludeGeoEntityList)
-//  {
-//    MdBusiness childMdBusiness = MdBusiness.getMdBusiness(childGeoEntityType);
-//
-//    QueryFactory qf = new QueryFactory();
-//
-//    ValueQuery geoEntityIdQuery = new ValueQuery(qf);
-//
-//    GeoEntityQuery childGeoEntityQuery = new GeoEntityQuery(qf);
-//
-//    if (excludeGeoEntityList.size() > 0)
-//    {
-//      String[] idArray = new String[excludeGeoEntityList.size()];
-//
-//      int i = 0;
-//      for (GeoEntity geoEntity : excludeGeoEntityList)
-//      {
-//        idArray[i] = geoEntity.getId();
-//        i++;
-//      }
-//
-//      childGeoEntityQuery.WHERE(childGeoEntityQuery.getId().NI(idArray));
-//    }
-//
-//    geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("child_id"));
-//
-//    for (String parentEntityType : parentGeoEntityMap.keySet())
-//    {
-//      if (parentEntityType.equals(childGeoEntityType))
-//      {
-//        continue;
-//      }
-//
-//      AllPathsQuery allPathsQuery = new AllPathsQuery(qf);
-//      MdBusiness parentMdBusiness = MdBusiness.getMdBusiness(parentEntityType);
-//
-//      String parentGeoEntityName = parentGeoEntityMap.get(parentEntityType);
-//
-//      GeoSynonymQuery geoSynonymQuery = new GeoSynonymQuery(qf);
-//      geoSynonymQuery.WHERE(geoSynonymQuery.getEntityName().EQ(parentGeoEntityName));
-//
-//      GeoEntityQuery parentGeoEntityQuery = new GeoEntityQuery(qf);
-//
-//      parentGeoEntityQuery.
-//      WHERE(
-//          OR.get(parentGeoEntityQuery.getEntityName().EQ(parentGeoEntityName),
-//              parentGeoEntityQuery.synonyms(geoSynonymQuery)));
-//
-//      geoEntityIdQuery.
-//        AND(allPathsQuery.getParentUniversal().EQ(parentMdBusiness).
-//        AND(allPathsQuery.getParentGeoEntity().EQ(parentGeoEntityQuery.getId())).
-//        AND(allPathsQuery.getChildUniversal().EQ(childMdBusiness)).
-//        AND(allPathsQuery.getChildGeoEntity().EQ(childGeoEntityQuery.getId())));
-//    }
-//
-//
-//    BusinessQuery resultQuery = qf.businessQuery(childGeoEntityType);
-////    resultQuery.WHERE(resultQuery.IN(resultQuery.id(), geoEntityIdQuery));
-//    resultQuery.WHERE(resultQuery.id().SUBSELECT_IN(geoEntityIdQuery));
-//    resultQuery.ORDER_BY_ASC(F.UPPER(resultQuery.aCharacter(GeoEntity.ENTITYNAME)));
-//
-//    OIterator<Business> iterator = resultQuery.getIterator();
-//
-//    List<GeoEntity> returnGeoEntityList = new LinkedList<GeoEntity>();
-//
-//    try
-//    {
-//      for (Business business : iterator)
-//      {
-//        returnGeoEntityList.add((GeoEntity)business);
-//      }
-//    }
-//    finally
-//    {
-//      iterator.close();
-//    }
-//    return returnGeoEntityList;
-//  }
 
 }
