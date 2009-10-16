@@ -264,6 +264,7 @@ MDSS.GeoHierarchyTree = (function(){
        _createModal(html);
        
         YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
+        YAHOO.util.Event.on('termDisplay', 'click', _openBrowser);
 
         eval(executable);
       }

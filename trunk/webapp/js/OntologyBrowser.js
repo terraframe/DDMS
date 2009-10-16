@@ -733,6 +733,7 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
         browser.setHandler(Mojo.Util.curry(this.setField, attributeName));
      
         YAHOO.util.Event.on(attributeName + 'Btn', "click", this.openBrowser, {browser:browser, attributeName:attributeName});
+        YAHOO.util.Event.on(attributeName + 'Display', "click", this.openBrowser, {browser:browser, attributeName:attributeName});
       }, this);    
     },
 
