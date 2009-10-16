@@ -60,7 +60,14 @@
           <fmt:message key="Browser" />
         </span>
         <div class="ontologyDisplay" id="termDisplay">
-          ${term != null ? term.displayLabel : ''}
+          <c:choose>
+            <c:when test="${term != null}">
+              ${term.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
         </div>
         <mjl:input value="${term != null ? term.id : ''}" type="hidden" param="term" id="term" />
       </dd>

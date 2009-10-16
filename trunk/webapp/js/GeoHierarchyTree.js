@@ -775,7 +775,7 @@ MDSS.GeoHierarchyTree = (function(){
     else
     {
       el.value = '';
-      dEl.innerHTML = '';
+      dEl.innerHTML = MDSS.Localized.no_value;
     }
   }
 
