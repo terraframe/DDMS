@@ -126,11 +126,16 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var mapMo = function(term,index){
     	var row = {};
-        row.attributeName = this.relType;
-        row.key = term.MOID ;
-        row.type = this.type;
-        row.dtoType = this.dtoType;
+        //row.attributeName = this.relAttribute;
+        //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
+        //row.type = this.relType;
+        //row.dtoType = "com.terraframe.mojo.AttributeasdfDTO";
         row.displayLabel = term.displayLabel;
+        
+        row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
+        row.type = 'sqlcharacter';
+        row.attributeName = 'term' + term.MOID.replace(':','');
+        
       return row;
     };
 
@@ -166,10 +171,10 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var selectableGroups = [
               {title:"Aggreated_IPT", values:aIPTColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS},
-              {title:"Doses", values:dosesColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS},
-              {title:"Patients", values:patientsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS},
-              {title:"Treatments", values:treatmentsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS},
-              {title:"Visits", values:visitsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS}
+              {title:"Doses", values:dosesColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTDose.CLASS},
+              {title:"Patients", values:patientsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTPatients.CLASS},
+              {title:"Treatments", values:treatmentsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTTreatment.CLASS},
+              {title:"Visits", values:visitsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTANCVisit.CLASS}
     ];
 
     var query = new MDSS.QueryAggreatedIPT(selectableGroups, queryList);
