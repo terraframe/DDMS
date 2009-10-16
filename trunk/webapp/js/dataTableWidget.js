@@ -46,6 +46,11 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
     {
 				 
   				this.tableData = data;
+  			  this.myDataSource = null;
+  			  this.myDataTable = null;
+  			  this.bReverseSorted = false;
+  			  this.btnSaveRows = false;
+  			  this.btnAddRow = false;
 
 				  // set the fields
 				  if (typeof this.tableData.fields === 'undefined') {
@@ -70,10 +75,6 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 				
 				  this.tableData.dirty = false;
 				
-				  // set the save handler
-				  if(!this.tableData.saveHandler) {
-					this.tableData.saveHandler = this._saveHandler;
-				  }
 				
 				  // set the default value for disable button
 				  if(!Mojo.Util.isBoolean(this.tableData.cleanDisable)) {
@@ -587,7 +588,14 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
         var view_arr = this.createObjectRepresentation();
       	  
         // Save the table
-        this.tableData.saveHandler(request, view_arr);
+        
+			  if(Mojo.Util.isFunction(this.tableData.saveHandler)) {
+			  	this.tableData.saveHandler(request, view_arr);
+			  }
+			  else
+			  {
+			  	this._saveHandler(request, view_arr);
+			  }
         
         this.btnSaveRows.set("disabled", true);
       },
@@ -705,4 +713,4 @@ MojoGrid.createDataTable = function(data){
 	return new MDSS.dataGrid(data);
 };
 
-MojoGrid.saveHandler = this.saveSomeData;
+//MojoGrid.saveHandler = this.saveSomeData;
