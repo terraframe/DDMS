@@ -241,6 +241,10 @@ MDSS.GeoHierarchyTree = (function(){
 
     _modal.setBody(html);
     _modal.render(document.body);
+    
+    // hook events to launch ontology browser
+    YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
+    YAHOO.util.Event.on('termDisplay', 'click', _openBrowser);    
   }
 
   /**
@@ -263,9 +267,6 @@ MDSS.GeoHierarchyTree = (function(){
         html = labelEl + html;
        _createModal(html);
        
-        YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
-        YAHOO.util.Event.on('termDisplay', 'click', _openBrowser);
-
         eval(executable);
       }
     });
@@ -492,8 +493,6 @@ MDSS.GeoHierarchyTree = (function(){
         html = labelEl + html;
         _createModal(html, false);
         
-        YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
-
         eval(executable);
       }
     });

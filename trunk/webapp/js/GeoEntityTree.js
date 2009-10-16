@@ -411,6 +411,7 @@ MDSS.GeoEntityTree = (function(){
         _modal.setBody(outer);
         
         YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
+        YAHOO.util.Event.on('termDisplay', 'click', _openBrowser);
 
         eval(executable);
       }
