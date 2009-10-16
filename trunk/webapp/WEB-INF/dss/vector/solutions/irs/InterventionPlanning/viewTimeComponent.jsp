@@ -149,7 +149,7 @@ map.put("RequiredDays", new ColumnSetup(false, false));
           id : 'Export',
           label : MDSS.localize('Export'),
           action : function() {
-            var objects = grid.getObjects();
+            var objects = grid.createObjectRepresentation();
             var form = document.getElementById('planning.export');
             var innerHTML = '';
 

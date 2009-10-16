@@ -13,10 +13,11 @@ import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.mo.ActiveIngredient;
+import dss.vector.solutions.ontology.Term;
 
 public class OperatorSprayTest extends TestCase
 {
@@ -43,6 +44,8 @@ public class OperatorSprayTest extends TestCase
   private static SprayTeam        team      = null;
 
   private static SprayLeader      leader    = null;
+  
+  private static Term             activeIngredient = null;
 
   public static Test suite()
   {
@@ -75,11 +78,12 @@ public class OperatorSprayTest extends TestCase
 
     geoEntity.delete();
     brand.delete();
+    activeIngredient.delete();
   }
 
   protected static void classSetUp()
   {
-    ActiveIngredient activeIngredient = ActiveIngredient.getAll()[0];
+    activeIngredient = TestFixture.createRandomTerm();
     BigDecimal weight = new BigDecimal("4.50");
     Integer refill = new Integer(20);
 

@@ -13,9 +13,10 @@ import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SprayZone;
-import dss.vector.solutions.mo.ActiveIngredient;
+import dss.vector.solutions.ontology.Term;
 
 public class ZoneSprayTest extends TestCase
 {
@@ -31,17 +32,19 @@ public class ZoneSprayTest extends TestCase
     super.run(testResult);
   }
 
-  private static InsecticideBrand brand     = null;
+  private static InsecticideBrand brand            = null;
 
-  private static GeoEntity        geoEntity = null;
+  private static GeoEntity        geoEntity        = null;
 
-  private static SprayTeam        team      = null;
+  private static SprayTeam        team             = null;
 
-  private static Person           person    = null;
+  private static Person           person           = null;
 
-  private static SprayOperator    operator  = null;
+  private static SprayOperator    operator         = null;
 
-  private static SprayLeader      leader    = null;
+  private static SprayLeader      leader           = null;
+
+  private static Term             activeIngredient = null;
 
   public static Test suite()
   {
@@ -74,11 +77,13 @@ public class ZoneSprayTest extends TestCase
 
     geoEntity.delete();
     brand.delete();
+    
+    activeIngredient.delete();
   }
 
   protected static void classSetUp()
   {
-    ActiveIngredient activeIngredient = ActiveIngredient.getAll()[0];
+    activeIngredient = TestFixture.createRandomTerm();
     BigDecimal weight = new BigDecimal("4.50");
     Integer refill = new Integer(20);
 
@@ -131,7 +136,7 @@ public class ZoneSprayTest extends TestCase
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
     data.addSurfaceType(SurfaceType.POROUS);
     data.apply();
-    
+
     ZoneSpray spray = new ZoneSpray();
     spray.setSprayData(data);
     spray.apply();
@@ -309,7 +314,6 @@ public class ZoneSprayTest extends TestCase
     ZoneSprayView spray = ZoneSprayView.searchBySprayData(geoId, date, method, brand);
     assertFalse(spray.hasConcrete());
   }
-
 
   public void testDuplicate()
   {

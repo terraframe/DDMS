@@ -4,10 +4,6 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
-import junit.framework.TestCase;
-
-import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 
 import dss.vector.solutions.PersonDTO;
@@ -27,21 +23,10 @@ import dss.vector.solutions.irs.SprayLeaderDTO;
 import dss.vector.solutions.irs.SprayOperatorDTO;
 import dss.vector.solutions.irs.SprayTeamDTO;
 import dss.vector.solutions.irs.TargetUnitDTO;
-import dss.vector.solutions.mo.ActiveIngredientDTO;
+import dss.vector.solutions.ontology.TermDTO;
 
-public abstract class PlanningNoPermissions extends TestCase
+public abstract class PlanningNoPermissions extends PlanningPermissionTest
 {
-
-  protected static ClientSession   systemSession;
-
-  protected static ClientSession   clientSession;
-
-  protected static ClientRequestIF request;
-
-  protected static ClientRequestIF systemRequest;
-
-  protected static String          geoId;
-
   public void testCreateSprayTeam()
   {
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
@@ -79,14 +64,14 @@ public abstract class PlanningNoPermissions extends TestCase
 
   public void testInsecticideBrand()
   {
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(request);
+    TermDTO term = TermDTO.get(request, termId);
 
     try
     {
       InsecticideBrandViewDTO brand = new InsecticideBrandViewDTO(request);
       brand.setBrandName(TestConstants.BRAND_NAME);
       brand.setAmount(44);
-      brand.setActiveIngredient(ingredients[0]);
+      brand.setActiveIngredient(term);
       brand.setWeight(new BigDecimal(3.3));
       brand.setSachetsPerRefill(2);
       brand.setEnabled(true);
@@ -121,12 +106,12 @@ public abstract class PlanningNoPermissions extends TestCase
 
   public void testBrandNozzle()
   {
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(request);
+    TermDTO term = TermDTO.get(request, termId);
 
     InsecticideBrandViewDTO brand = new InsecticideBrandViewDTO(systemRequest);
     brand.setBrandName(TestConstants.BRAND_NAME);
     brand.setAmount(44);
-    brand.setActiveIngredient(ingredients[0]);
+    brand.setActiveIngredient(term);
     brand.setWeight(new BigDecimal(3.3));
     brand.setSachetsPerRefill(2);
     brand.setEnabled(true);

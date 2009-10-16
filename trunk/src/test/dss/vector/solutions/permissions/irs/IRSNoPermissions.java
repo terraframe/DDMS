@@ -3,10 +3,6 @@ package dss.vector.solutions.permissions.irs;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import junit.framework.TestCase;
-
-import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 
 import dss.vector.solutions.PersonDTO;
@@ -27,24 +23,14 @@ import dss.vector.solutions.irs.TeamSprayStatusViewDTO;
 import dss.vector.solutions.irs.TeamSprayViewDTO;
 import dss.vector.solutions.irs.ZoneSprayDTO;
 import dss.vector.solutions.irs.ZoneSprayViewDTO;
-import dss.vector.solutions.mo.ActiveIngredientDTO;
+import dss.vector.solutions.ontology.TermDTO;
 
-public abstract class IRSNoPermissions extends TestCase
+public abstract class IRSNoPermissions extends IRSPermissionTest
 {
-  protected static ClientSession   systemSession;
-
-  protected static ClientSession   clientSession;
-
-  protected static ClientRequestIF request;
-
-  protected static ClientRequestIF systemRequest;
-
-  protected static String          geoId;
-
   public void testOperatorSpray()
   {
     SprayMethodDTO method = SprayMethodDTO.MAIN_SPRAY;
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(systemRequest);
+    TermDTO term = TermDTO.get(request, termId);    
 
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
     dto.setFirstName("Test");
@@ -71,7 +57,7 @@ public abstract class IRSNoPermissions extends TestCase
         InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
         view.setBrandName(TestConstants.BRAND_NAME);
         view.setAmount(44);
-        view.setActiveIngredient(ingredients[0]);
+        view.setActiveIngredient(term);
         view.setWeight(new BigDecimal(3.3));
         view.setSachetsPerRefill(2);
         view.setEnabled(true);
@@ -110,7 +96,7 @@ public abstract class IRSNoPermissions extends TestCase
   public void testHouseholdSprayStatus()
   {
     SprayMethodDTO method = SprayMethodDTO.MAIN_SPRAY;
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(request);
+    TermDTO term = TermDTO.get(request, termId);
 
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
     dto.setFirstName("Test");
@@ -137,7 +123,7 @@ public abstract class IRSNoPermissions extends TestCase
         InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
         view.setBrandName(TestConstants.BRAND_NAME);
         view.setAmount(44);
-        view.setActiveIngredient(ingredients[0]);
+        view.setActiveIngredient(term);
         view.setWeight(new BigDecimal(3.3));
         view.setSachetsPerRefill(2);
         view.setEnabled(true);
@@ -189,7 +175,7 @@ public abstract class IRSNoPermissions extends TestCase
   public void testTeamSpray()
   {
     SprayMethodDTO method = SprayMethodDTO.MAIN_SPRAY;
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(systemRequest);
+    TermDTO term = TermDTO.get(request, termId);
 
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
     dto.setFirstName("Test");
@@ -216,7 +202,7 @@ public abstract class IRSNoPermissions extends TestCase
         InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
         view.setBrandName(TestConstants.BRAND_NAME);
         view.setAmount(44);
-        view.setActiveIngredient(ingredients[0]);
+        view.setActiveIngredient(term);
         view.setWeight(new BigDecimal(3.3));
         view.setSachetsPerRefill(2);
         view.setEnabled(true);
@@ -254,7 +240,7 @@ public abstract class IRSNoPermissions extends TestCase
   public void testOperatorSprayStatus()
   {
     SprayMethodDTO method = SprayMethodDTO.MAIN_SPRAY;
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(systemRequest);
+    TermDTO term = TermDTO.get(request, termId);
 
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
     dto.setFirstName("Test");
@@ -281,7 +267,7 @@ public abstract class IRSNoPermissions extends TestCase
         InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
         view.setBrandName(TestConstants.BRAND_NAME);
         view.setAmount(44);
-        view.setActiveIngredient(ingredients[0]);
+        view.setActiveIngredient(term);
         view.setWeight(new BigDecimal(3.3));
         view.setSachetsPerRefill(2);
         view.setEnabled(true);
@@ -334,7 +320,7 @@ public abstract class IRSNoPermissions extends TestCase
   public void testZoneSpray()
   {
     SprayMethodDTO method = SprayMethodDTO.MAIN_SPRAY;
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(systemRequest);
+    TermDTO term = TermDTO.get(request, termId);  
 
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
     dto.setFirstName("Test");
@@ -361,7 +347,7 @@ public abstract class IRSNoPermissions extends TestCase
         InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
         view.setBrandName(TestConstants.BRAND_NAME);
         view.setAmount(44);
-        view.setActiveIngredient(ingredients[0]);
+        view.setActiveIngredient(term);
         view.setWeight(new BigDecimal(3.3));
         view.setSachetsPerRefill(2);
         view.setEnabled(true);
@@ -398,7 +384,7 @@ public abstract class IRSNoPermissions extends TestCase
   public void testTeamSprayStatus()
   {
     SprayMethodDTO method = SprayMethodDTO.MAIN_SPRAY;
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(systemRequest);
+    TermDTO term = TermDTO.get(request, termId);
 
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
     dto.setFirstName("Test");
@@ -425,7 +411,7 @@ public abstract class IRSNoPermissions extends TestCase
         InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
         view.setBrandName(TestConstants.BRAND_NAME);
         view.setAmount(44);
-        view.setActiveIngredient(ingredients[0]);
+        view.setActiveIngredient(term);
         view.setWeight(new BigDecimal(3.3));
         view.setSachetsPerRefill(2);
         view.setEnabled(true);

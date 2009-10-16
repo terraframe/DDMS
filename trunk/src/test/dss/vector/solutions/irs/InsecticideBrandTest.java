@@ -11,23 +11,24 @@ import junit.framework.TestSuite;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
 import dss.vector.solutions.TestConstants;
-import dss.vector.solutions.mo.ActiveIngredient;
+import dss.vector.solutions.TestFixture;
+import dss.vector.solutions.ontology.Term;
 
 public class InsecticideBrandTest extends TestCase
 {
-	  @Override
-	  public TestResult run()
-	  {
-	    return super.run();
-	  }
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
 
-	  @Override
-	  public void run(TestResult testResult)
-	  {
-	    super.run(testResult);
-	  }
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
-  private static ActiveIngredient activeIngredient = null;
+  private static Term activeIngredient = null;
 
   public static Test suite()
   {
@@ -53,11 +54,12 @@ public class InsecticideBrandTest extends TestCase
 
   protected static void classTearDown()
   {
+    activeIngredient.delete();
   }
 
   protected static void classSetUp()
   {
-    activeIngredient = ActiveIngredient.getAll()[0];
+    activeIngredient = TestFixture.createRandomTerm();
   }
 
   public void testCreate()
@@ -68,7 +70,7 @@ public class InsecticideBrandTest extends TestCase
     InsecticideBrand brand = new InsecticideBrand();
     brand.setActiveIngredient(activeIngredient);
     brand.setAmount(57);
-    
+
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
     brand.setBrandName(TestConstants.BRAND_NAME);
@@ -80,8 +82,7 @@ public class InsecticideBrandTest extends TestCase
 
       assertEquals(activeIngredient.getId(), test.getActiveIngredient().getId());
       assertEquals(brand.getAmount(), test.getAmount());
-      
-      
+
       assertEquals(weight, test.getWeight());
       assertEquals(refill, test.getSachetsPerRefill());
       assertEquals(brand.getBrandName(), test.getBrandName());
@@ -100,7 +101,7 @@ public class InsecticideBrandTest extends TestCase
     InsecticideBrand brand = new InsecticideBrand();
     brand.setActiveIngredient(activeIngredient);
     brand.setAmount(57);
-    
+
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
     brand.setBrandName(TestConstants.BRAND_NAME);
@@ -116,8 +117,7 @@ public class InsecticideBrandTest extends TestCase
 
       assertEquals(activeIngredient.getId(), test.getActiveIngredient().getId());
       assertEquals(edit.getAmount(), test.getAmount());
-      
-      
+
       assertEquals(weight, test.getWeight());
       assertEquals(refill, test.getSachetsPerRefill());
       assertEquals(brand.getBrandName(), test.getBrandName());
@@ -136,10 +136,10 @@ public class InsecticideBrandTest extends TestCase
     InsecticideBrandView brand = new InsecticideBrandView();
     brand.setActiveIngredient(activeIngredient);
     brand.setAmount(57);
-    
+
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
-    brand.setBrandName(TestConstants.BRAND_NAME);    
+    brand.setBrandName(TestConstants.BRAND_NAME);
     brand.apply();
 
     try
@@ -147,7 +147,7 @@ public class InsecticideBrandTest extends TestCase
       InsecticideBrandView test = InsecticideBrand.getView(brand.getInsecticdeId());
 
       assertEquals(activeIngredient.getId(), test.getActiveIngredient().getId());
-      assertEquals(brand.getAmount(), test.getAmount());      
+      assertEquals(brand.getAmount(), test.getAmount());
       assertEquals(weight, test.getWeight());
       assertEquals(refill, test.getSachetsPerRefill());
       assertEquals(brand.getBrandName(), test.getBrandName());
@@ -166,7 +166,7 @@ public class InsecticideBrandTest extends TestCase
     InsecticideBrandView brand = new InsecticideBrandView();
     brand.setActiveIngredient(activeIngredient);
     brand.setAmount(57);
-    
+
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
     brand.setBrandName(TestConstants.BRAND_NAME);
@@ -184,11 +184,10 @@ public class InsecticideBrandTest extends TestCase
       assertEquals(activeIngredient.getId(), test.getActiveIngredient().getId());
       assertEquals(edit.getAmount(), test.getAmount());
       assertEquals(new Boolean(false), test.getEnabled());
-      
-      
+
       assertEquals(weight, test.getWeight());
       assertEquals(refill, test.getSachetsPerRefill());
-      assertEquals(edit.getBrandName(), test.getBrandName());      
+      assertEquals(edit.getBrandName(), test.getBrandName());
     }
     finally
     {
@@ -204,7 +203,7 @@ public class InsecticideBrandTest extends TestCase
     InsecticideBrandView brand = new InsecticideBrandView();
     brand.setActiveIngredient(activeIngredient);
     brand.setAmount(57);
-    
+
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
     brand.setBrandName(TestConstants.BRAND_NAME);
@@ -234,20 +233,20 @@ public class InsecticideBrandTest extends TestCase
     InsecticideBrandView brand = new InsecticideBrandView();
     brand.setActiveIngredient(activeIngredient);
     brand.setAmount(57);
-    
+
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
-    brand.setBrandName(TestConstants.BRAND_NAME);    
+    brand.setBrandName(TestConstants.BRAND_NAME);
     brand.apply();
 
     InsecticideBrandView brand2 = new InsecticideBrandView();
     brand2.setActiveIngredient(activeIngredient);
     brand2.setAmount(57);
-    
+
     brand2.setWeight(weight);
     brand2.setSachetsPerRefill(refill);
     brand2.setBrandName(TestConstants.BRAND_NAME_2);
-    
+
     brand2.apply();
 
     try
@@ -262,35 +261,35 @@ public class InsecticideBrandTest extends TestCase
       brand2.deleteConcrete();
     }
   }
-  
+
   public void testInactiveGetAllActive()
   {
     BigDecimal weight = new BigDecimal("4.50");
     Integer refill = new Integer(20);
-    
+
     InsecticideBrandView brand = new InsecticideBrandView();
     brand.setActiveIngredient(activeIngredient);
     brand.setAmount(57);
-    
+
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
-    brand.setBrandName(TestConstants.BRAND_NAME);    
+    brand.setBrandName(TestConstants.BRAND_NAME);
     brand.apply();
-    
+
     InsecticideBrandView brand2 = new InsecticideBrandView();
     brand2.setActiveIngredient(activeIngredient);
     brand2.setAmount(57);
-    
+
     brand2.setWeight(weight);
     brand2.setSachetsPerRefill(refill);
     brand2.setEnabled(false);
-    brand2.setBrandName(TestConstants.BRAND_NAME_2);    
+    brand2.setBrandName(TestConstants.BRAND_NAME_2);
     brand2.apply();
-    
+
     try
     {
       InsecticideBrandView[] all = InsecticideBrandView.getAllActive();
-      
+
       assertEquals(1, all.length);
     }
     finally
@@ -308,20 +307,20 @@ public class InsecticideBrandTest extends TestCase
     InsecticideBrandView brand = new InsecticideBrandView();
     brand.setActiveIngredient(activeIngredient);
     brand.setAmount(57);
-    
+
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
-    brand.setBrandName(TestConstants.BRAND_NAME);    
+    brand.setBrandName(TestConstants.BRAND_NAME);
     brand.apply();
 
     InsecticideBrandView brand2 = new InsecticideBrandView();
     brand2.setActiveIngredient(activeIngredient);
     brand2.setAmount(57);
-    
+
     brand2.setWeight(weight);
     brand2.setSachetsPerRefill(refill);
     brand2.setEnabled(false);
-    brand2.setBrandName(TestConstants.BRAND_NAME_2);    
+    brand2.setBrandName(TestConstants.BRAND_NAME_2);
     brand2.apply();
 
     try
@@ -344,14 +343,14 @@ public class InsecticideBrandTest extends TestCase
 
     InsecticideBrandView brand = new InsecticideBrandView();
     brand.setActiveIngredient(activeIngredient);
-    brand.setAmount(57);    
+    brand.setAmount(57);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
     brand.setBrandName(TestConstants.BRAND_NAME);
 
     InsecticideBrandView brand2 = new InsecticideBrandView();
     brand2.setActiveIngredient(activeIngredient);
-    brand2.setAmount(23);    
+    brand2.setAmount(23);
     brand2.setWeight(weight);
     brand2.setSachetsPerRefill(refill);
     brand2.setBrandName(TestConstants.BRAND_NAME_2);
@@ -369,16 +368,15 @@ public class InsecticideBrandTest extends TestCase
 
         assertEquals(activeIngredient.getId(), test.getActiveIngredient().getId());
         assertEquals(applied[i].getAmount(), test.getAmount());
-        
-        
+
         assertEquals(weight, test.getWeight());
         assertEquals(refill, test.getSachetsPerRefill());
-        assertEquals(applied[i].getBrandName(), test.getBrandName());        
+        assertEquals(applied[i].getBrandName(), test.getBrandName());
       }
     }
     finally
     {
-      for(InsecticideBrandView view : applied)
+      for (InsecticideBrandView view : applied)
       {
         view.deleteConcrete();
       }

@@ -92,7 +92,7 @@
           <reference
             name="activeIngredient"
             label="Active Ingredient"
-            type="dss.vector.solutions.mo.ActiveIngredient"
+            type="dss.vector.solutions.ontology.Term"
             required="true" />
           <integer
             name="amount"

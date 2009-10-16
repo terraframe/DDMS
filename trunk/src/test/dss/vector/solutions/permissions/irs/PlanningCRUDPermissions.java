@@ -4,12 +4,8 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
-import junit.framework.TestCase;
-
-import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
-import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
@@ -32,20 +28,10 @@ import dss.vector.solutions.irs.SprayLeaderDTO;
 import dss.vector.solutions.irs.SprayOperatorDTO;
 import dss.vector.solutions.irs.SprayTeamDTO;
 import dss.vector.solutions.irs.TargetUnitDTO;
-import dss.vector.solutions.mo.ActiveIngredientDTO;
+import dss.vector.solutions.ontology.TermDTO;
 
-public abstract class PlanningCRUDPermissions extends TestCase
+public abstract class PlanningCRUDPermissions extends PlanningPermissionTest
 {
-  protected static ClientSession   systemSession;
-
-  protected static ClientSession   clientSession;
-
-  protected static ClientRequestIF request;
-
-  protected static ClientRequestIF systemRequest;
-
-  protected static String          geoId;
-
   public void testCreateSprayTeam()
   {
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
@@ -86,12 +72,12 @@ public abstract class PlanningCRUDPermissions extends TestCase
 
   public void testInsecticideBrand()
   {
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(request);
+    TermDTO term = TermDTO.get(request, termId);
 
     InsecticideBrandViewDTO brand = new InsecticideBrandViewDTO(request);
     brand.setBrandName(TestConstants.BRAND_NAME);
     brand.setAmount(44);
-    brand.setActiveIngredient(ingredients[0]);
+    brand.setActiveIngredient(term);
     brand.setWeight(new BigDecimal(3.3));
     brand.setSachetsPerRefill(2);
     brand.setEnabled(true);
@@ -103,7 +89,7 @@ public abstract class PlanningCRUDPermissions extends TestCase
       InsecticideBrandViewDTO update = InsecticideBrandDTO.lockView(request, brand.getInsecticdeId());
       update.setBrandName(TestConstants.BRAND_NAME_2);
       update.setAmount(42);
-      update.setActiveIngredient(ingredients[1]);
+      update.setActiveIngredient(term);
       update.setEnabled(true);
       update.apply();
 
@@ -163,12 +149,12 @@ public abstract class PlanningCRUDPermissions extends TestCase
 
   public void testBrandNozzle()
   {
-    ActiveIngredientDTO[] ingredients = ActiveIngredientDTO.getAll(request);
+    TermDTO term = TermDTO.get(request, termId);
 
     InsecticideBrandViewDTO brand = new InsecticideBrandViewDTO(request);
     brand.setBrandName(TestConstants.BRAND_NAME);
     brand.setAmount(44);
-    brand.setActiveIngredient(ingredients[0]);
+    brand.setActiveIngredient(term);
     brand.setWeight(new BigDecimal(3.3));
     brand.setSachetsPerRefill(2);
     brand.setEnabled(true);

@@ -13,9 +13,10 @@ import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SprayZone;
-import dss.vector.solutions.mo.ActiveIngredient;
+import dss.vector.solutions.ontology.Term;
 
 public class TeamSprayTest extends TestCase
 {
@@ -31,17 +32,19 @@ public class TeamSprayTest extends TestCase
     super.run(testResult);
   }
 
-  private static InsecticideBrand brand     = null;
+  private static InsecticideBrand brand            = null;
 
-  private static GeoEntity        geoEntity = null;
+  private static GeoEntity        geoEntity        = null;
 
-  private static SprayTeam        team      = null;
+  private static SprayTeam        team             = null;
 
-  private static Person           person    = null;
+  private static Person           person           = null;
 
-  private static SprayOperator    operator  = null;
+  private static SprayOperator    operator         = null;
 
-  private static SprayLeader      leader    = null;
+  private static SprayLeader      leader           = null;
+
+  private static Term             activeIngredient = null;
 
   public static Test suite()
   {
@@ -75,11 +78,12 @@ public class TeamSprayTest extends TestCase
     geoEntity.delete();
     brand.delete();
 
+    activeIngredient.delete();
   }
 
   protected static void classSetUp()
   {
-    ActiveIngredient activeIngredient = ActiveIngredient.getAll()[0];
+    activeIngredient = TestFixture.createRandomTerm();
     BigDecimal weight = new BigDecimal("4.50");
     Integer refill = new Integer(20);
 
@@ -372,7 +376,7 @@ public class TeamSprayTest extends TestCase
     TeamSprayView spray = TeamSprayView.searchBySprayData(geoId, date, method, brand, team.getId());
     assertFalse(spray.hasConcrete());
   }
-  
+
   public void testDuplicate()
   {
     TeamSprayView spray = new TeamSprayView();
@@ -402,7 +406,7 @@ public class TeamSprayTest extends TestCase
       duplicate.setTeamSprayWeek(24);
       duplicate.setTeamLeader(operator);
       duplicate.apply();
-      
+
       duplicate.deleteConcrete();
 
       fail("Able to create a duplicate Operator Spray View");

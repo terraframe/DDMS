@@ -9,27 +9,30 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 import dss.vector.solutions.TestConstants;
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.mo.ActiveIngredient;
+import dss.vector.solutions.ontology.Term;
 
 public class SprayDataTest extends TestCase
 {
-	  @Override
-	  public TestResult run()
-	  {
-	    return super.run();
-	  }
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
 
-	  @Override
-	  public void run(TestResult testResult)
-	  {
-	    super.run(testResult);
-	  }
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
-  private static InsecticideBrand brand = null;
+  private static InsecticideBrand brand            = null;
 
-  private static GeoEntity geoEntity = null;
+  private static GeoEntity        geoEntity        = null;
+
+  private static Term             activeIngredient = null;
 
   public static Test suite()
   {
@@ -57,11 +60,12 @@ public class SprayDataTest extends TestCase
   {
     brand.delete();
     geoEntity.delete();
+    activeIngredient.delete();
   }
 
   protected static void classSetUp()
   {
-    ActiveIngredient activeIngredient = ActiveIngredient.getAll()[0];
+    activeIngredient = TestFixture.createRandomTerm();
     BigDecimal weight = new BigDecimal("4.50");
     Integer refill = new Integer(20);
 
@@ -70,7 +74,7 @@ public class SprayDataTest extends TestCase
     brand.setAmount(57);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
-    brand.setBrandName(TestConstants.BRAND_NAME);    
+    brand.setBrandName(TestConstants.BRAND_NAME);
     brand.apply();
 
     geoEntity = new SentinelSite();

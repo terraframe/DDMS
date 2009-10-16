@@ -8,21 +8,22 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 import dss.vector.solutions.TestConstants;
-import dss.vector.solutions.mo.ActiveIngredient;
+import dss.vector.solutions.TestFixture;
+import dss.vector.solutions.ontology.Term;
 
 public class InsecticideNozzleTest extends TestCase
 {
-	  @Override
-	  public TestResult run()
-	  {
-	    return super.run();
-	  }
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
 
-	  @Override
-	  public void run(TestResult testResult)
-	  {
-	    super.run(testResult);
-	  }
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
   private static Nozzle           nozzle;
 
@@ -30,7 +31,7 @@ public class InsecticideNozzleTest extends TestCase
 
   private static InsecticideBrand brand2;
 
-  private static ActiveIngredient activeIngredient;
+  private static Term activeIngredient;
 
   public static Test suite()
   {
@@ -55,10 +56,11 @@ public class InsecticideNozzleTest extends TestCase
   }
 
   protected static void classTearDown()
-  {
+  {    
     brand.delete();
     brand2.delete();
     nozzle.delete();
+    activeIngredient.delete();
   }
 
   protected static void classSetUp()
@@ -67,7 +69,7 @@ public class InsecticideNozzleTest extends TestCase
     BigDecimal weight = new BigDecimal("4.50");
     Integer refill = new Integer(20);
 
-    activeIngredient = ActiveIngredient.getAll()[0];
+    activeIngredient = TestFixture.createRandomTerm();
 
     brand = new InsecticideBrand();
     brand.setActiveIngredient(activeIngredient);
@@ -82,7 +84,7 @@ public class InsecticideNozzleTest extends TestCase
     brand2.setAmount(13);
     brand2.setWeight(weight);
     brand2.setSachetsPerRefill(refill);
-    brand2.setBrandName(TestConstants.BRAND_NAME_2);    
+    brand2.setBrandName(TestConstants.BRAND_NAME_2);
     brand2.apply();
 
     nozzle = new Nozzle();
@@ -256,7 +258,6 @@ public class InsecticideNozzleTest extends TestCase
   {
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
     insecticideNozzle.setEnabled(true);
-
 
     InsecticideNozzle insecticideNozzle2 = new InsecticideNozzle(brand2, nozzle);
     insecticideNozzle2.setEnabled(true);

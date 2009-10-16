@@ -128,7 +128,7 @@ map.put("UnitsPerDay",  new ColumnSetup(false, true, "validateUnitsPerDay", null
           id : 'Export',
           label : MDSS.localize('Export'),
           action : function() {
-            var objects = grid.getObjects();
+            var objects = grid.createObjectRepresentation();
             var form = document.getElementById('planning.export');
             var innerHTML = '';
 

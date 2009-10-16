@@ -12,9 +12,10 @@ import junit.framework.TestSuite;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
 import dss.vector.solutions.TestConstants;
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.mo.ActiveIngredient;
+import dss.vector.solutions.ontology.Term;
 
 public class TeamSprayStatusTest extends TestCase
 {
@@ -30,13 +31,15 @@ public class TeamSprayStatusTest extends TestCase
     super.run(testResult);
   }
 
-  private static InsecticideBrand brand     = null;
+  private static InsecticideBrand brand            = null;
 
-  private static GeoEntity        geoEntity = null;
+  private static GeoEntity        geoEntity        = null;
 
-  private static SprayTeam        team      = null;
+  private static SprayTeam        team             = null;
 
-  private static SprayTeam        team2     = null;
+  private static SprayTeam        team2            = null;
+
+  private static Term             activeIngredient = null;
 
   public static Test suite()
   {
@@ -67,11 +70,13 @@ public class TeamSprayStatusTest extends TestCase
 
     geoEntity.delete();
     brand.delete();
+    
+    activeIngredient.delete();
   }
 
   protected static void classSetUp()
   {
-    ActiveIngredient activeIngredient = ActiveIngredient.getAll()[0];
+    activeIngredient = TestFixture.createRandomTerm();
     BigDecimal weight = new BigDecimal("4.50");
     Integer refill = new Integer(20);
 
