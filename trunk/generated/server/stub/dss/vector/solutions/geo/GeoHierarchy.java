@@ -58,6 +58,7 @@ import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.ontology.MissingMOtoGeoUniversalMapping;
 import dss.vector.solutions.query.MapUtil;
 import dss.vector.solutions.query.QueryConstants;
 
@@ -1626,6 +1627,33 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     return true;
   }
+
+  public static GeoHierarchy getGeoHierarchyMappedToMO(String termId)
+  {
+    QueryFactory qf = new QueryFactory();
+
+    dss.vector.solutions.ontology.AllPathsQuery apQ = new dss.vector.solutions.ontology.AllPathsQuery(qf);
+    apQ.WHERE(apQ.getChildTerm().getTermId().EQ(termId));
+
+    GeoHierarchyQuery ghQ = new GeoHierarchyQuery(qf);
+    ghQ.WHERE(ghQ.getTerm().EQ(apQ.getParentTerm()));
+
+    for (GeoHierarchy geoHierarchy : ghQ.getIterator())
+    {
+      return geoHierarchy;
+    }
+
+    MissingMOtoGeoUniversalMapping ex = new MissingMOtoGeoUniversalMapping();
+    ex.setTermId(termId);
+    ex.apply();
+    throw ex;
+  }
+
+  public static MdBusiness getGeoEntityClassMappedToMO(String termId)
+  {
+    return getGeoHierarchyMappedToMO(termId).getGeoEntityClass();
+  }
+
 
   public String toString()
   {
