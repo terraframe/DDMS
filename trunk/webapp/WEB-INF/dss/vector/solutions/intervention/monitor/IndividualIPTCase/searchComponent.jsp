@@ -34,7 +34,7 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%=HealthFacilityDTO.CLASS%>*');
 	  <dd>
         <mjl:input type="text" param="patientDisplay" id="patientDisplay" />
         <mjl:input type="hidden" param="patientId" id="patient"/>
-        <span class="clickable browserLauncher" id="recipient.span">
+        <span class="clickable" id="recipient.span">
           <span id="createPatient">
             <fmt:message key="Create_new_Patient"/>        
           </span>
