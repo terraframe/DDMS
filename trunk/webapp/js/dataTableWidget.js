@@ -33,13 +33,15 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
   
   Instance : {
 	  
+	  /*
 	  myDataSource : null,
 	  myDataTable : null,
 	  tableData: null,
 	  bReverseSorted : false,
 	  btnSaveRows : false,
 	  btnAddRow : false,
-	  
+	  */
+	   
     initialize : function(data)
     {
 				 
@@ -129,13 +131,14 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 				  
 				  this._setUpButtons();
 				  
+				  /*
 				  //myLogReader = new YAHOO.widget.LogReader();
 				  return {
 				    oDS : this.myDataSource,
 				    oDT : this.myDataTable,
 				    getObjects : this.createObjectRepresentation
 				  };
-				  
+				 */ 
 				  
     },
   
