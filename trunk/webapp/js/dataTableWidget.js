@@ -206,7 +206,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 
 		      },this);
 		    if (this.tableData.after_row_load) {
-		      this.TableData.after_row_load(this.record);
+		      this.tableData.after_row_load(this.record);
 		    }
 		  },this);
     	this.record = null;
