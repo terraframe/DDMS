@@ -40,7 +40,7 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
   {
     this.attributeName = attributeName;
     this.excelType = excelType;
-    geoColumnList = mainHierarchyBuilder.getHierarchy();
+    hierarchyList = mainHierarchyBuilder.getHierarchy();
   }
 
   public void addColumns(List<ExcelColumn> extraColumns)
