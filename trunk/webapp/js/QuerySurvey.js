@@ -1653,9 +1653,11 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       this._createPersonMenu(personUl, this._Person.BLOODSLIDE, personMenuItems);      
       
       // 24. RDT Result
+      /* FIXME broken from ontology refactor
       var rdtResultAttr = this._createPersonMenu(personUl, this._Person.RDTRESULT, personMenuItems);
       this._rdtResultKey = rdtResultAttr.getKey();
-      
+      */
+       
       // 25. Prevalence
       li = document.createElement('li');
       this._prevalenceCheck = document.createElement('input');
