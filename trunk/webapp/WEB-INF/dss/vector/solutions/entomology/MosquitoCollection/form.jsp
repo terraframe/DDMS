@@ -8,7 +8,7 @@
 
     <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="collectionMethod">
-        <span class="clickable" id="collectionMethodBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="collectionMethodBtn"> <fmt:message key="Browser"/></span>
         <div id="collectionMethodDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${collectionMethod != null}">

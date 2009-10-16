@@ -42,7 +42,7 @@
     <dd> <mjl:input param="collectionDate" type="text" classes="DatePick NoFuture" id="collectionDate"/></dd>
     <dt> <label> <fmt:message key="Collection_Method"/> </label> </dt>
     <dd>
-      <span class="clickable" id="collectionMethodBtn"> <fmt:message key="Browser"/></span>
+      <span class="clickable browserLauncher" id="collectionMethodBtn"> <fmt:message key="Browser"/></span>
       <div id="collectionMethodDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${collectionMethod != null}">

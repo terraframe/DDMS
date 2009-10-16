@@ -28,7 +28,7 @@
       </mjl:dt>
 
       <mjl:dt attribute="wall">
-        <span class="clickable" id="wallBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="wallBtn"> <fmt:message key="Browser"/></span>
         <div id="wallDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${wall != null}">
@@ -47,7 +47,7 @@
       </mjl:dt>
 
       <mjl:dt attribute="roof">
-        <span class="clickable" id="roofBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="roofBtn"> <fmt:message key="Browser"/></span>
         <div id="roofDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${roof != null}">
@@ -70,7 +70,7 @@
       </mjl:dt>
 
       <mjl:dt attribute="windowType">
-        <span class="clickable" id="windowTypeBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="windowTypeBtn"> <fmt:message key="Browser"/></span>
         <div id="windowTypeDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${windowType != null}">

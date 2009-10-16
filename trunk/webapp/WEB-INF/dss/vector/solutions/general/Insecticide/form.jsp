@@ -8,7 +8,7 @@
 
 <mjl:component param="dto" item="${item}">
   <mjl:dt attribute="activeIngredient">
-    <span class="clickable" id="activeIngredientBtn"> <fmt:message key="Browser"/></span>
+    <span class="clickable browserLauncher" id="activeIngredientBtn"> <fmt:message key="Browser"/></span>
     <div id="activeIngredientDisplay" class="ontologyDisplay">
       <c:choose>
         <c:when test="${activeIngredient != null}">

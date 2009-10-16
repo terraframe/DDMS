@@ -17,7 +17,7 @@
     <mjl:input type="text" param="distributionDate" id="distributionDate" classes="DatePick NoFuture"/>
   </mjl:dt>
   <mjl:dt attribute="service">
-    <span class="clickable" id="serviceBtn"> <fmt:message key="Browser"/></span>
+    <span class="clickable browserLauncher" id="serviceBtn"> <fmt:message key="Browser"/></span>
     <div id="serviceDisplay" class="ontologyDisplay">
       <c:choose>
         <c:when test="${service != null}">
@@ -62,7 +62,7 @@
   </c:if>
   
   <mjl:dt attribute="net">
-    <span class="clickable" id="netBtn"> <fmt:message key="Browser"/></span>
+    <span class="clickable browserLauncher" id="netBtn"> <fmt:message key="Browser"/></span>
     <div id="netDisplay" class="ontologyDisplay">
       <c:choose>
         <c:when test="${net != null}">

@@ -14,7 +14,7 @@
         <mjl:input type="text" param="testDate" classes="DatePick NoFuture" id="testDate" />
       </mjl:dt>
       <mjl:dt attribute="testMethod">
-        <span class="clickable" id="testMethodBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="testMethodBtn"> <fmt:message key="Browser"/></span>
         <div id="testMethodDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${testMethod != null}">
@@ -28,7 +28,7 @@
         <mjl:input type="hidden" param="testMethod" id="testMethod" value="${testMethod != null ? testMethod.id : ''}" />
       </mjl:dt>      
       <mjl:dt attribute="specie">
-        <span class="clickable" id="specieBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="specieBtn"> <fmt:message key="Browser"/></span>
         <div id="specieDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${specie != null}">
@@ -53,7 +53,7 @@
         </dl>
       </mjl:dt>
       <mjl:dt attribute="sex">
-        <span class="clickable" id="sexBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="sexBtn"> <fmt:message key="Browser"/></span>
         <div id="sexDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${sex != null}">
@@ -84,7 +84,7 @@
         <mjl:input type="text" param="timeOnSurface" />
       </mjl:dt>
       <mjl:dt attribute="surfacePostion">
-        <span class="clickable" id="surfacePostionBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="surfacePostionBtn"> <fmt:message key="Browser"/></span>
         <div id="surfacePostionDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${surfacePostion != null}">

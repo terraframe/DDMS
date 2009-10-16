@@ -139,7 +139,7 @@
   </mjl:dt>
   <div class="freeProvider">
     <mjl:dt attribute="freeProvider">
-      <span class="clickable" id="freeProviderBtn"> <fmt:message key="Browser"/></span>
+      <span class="clickable browserLauncher" id="freeProviderBtn"> <fmt:message key="Browser"/></span>
       <div id="freeProviderDisplay" class="ontologyDisplay freeProvider">
         <c:choose>
           <c:when test="${freeProvider != null}">
@@ -155,7 +155,7 @@
   </div>
   <div class="boughtProvider">
     <mjl:dt attribute="boughtProvider">
-      <span class="clickable" id="boughtProviderBtn"> <fmt:message key="Browser"/></span>
+      <span class="clickable browserLauncher" id="boughtProviderBtn"> <fmt:message key="Browser"/></span>
       <div id="boughtProviderDisplay" class="ontologyDisplay">
         <c:choose>
           <c:when test="${boughtProvider != null}">
@@ -170,7 +170,7 @@
     </mjl:dt>
   </div>
   <mjl:dt attribute="washed">
-    <span class="clickable" id="washedBtn"> <fmt:message key="Browser"/></span>
+    <span class="clickable browserLauncher" id="washedBtn"> <fmt:message key="Browser"/></span>
     <div id="washedDisplay" class="ontologyDisplay">
         <c:choose>
           <c:when test="${washed != null}">
@@ -189,7 +189,7 @@
     </mjl:dt>
     <div class="knownFrequency">
       <mjl:dt attribute="washInterval">
-        <span class="clickable" id="washIntervalBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="washIntervalBtn"> <fmt:message key="Browser"/></span>
         <div id="washIntervalDisplay" class="ontologyDisplay washFrequency knownFrequency">
         <c:choose>
           <c:when test="${washInterval != null}">
@@ -213,7 +213,7 @@
   </mjl:dt>
   <div class="retreatmentPeriod">
     <mjl:dt attribute="retreatmentPeriod">
-      <span class="clickable" id="retreatmentPeriodBtn"> <fmt:message key="Browser"/></span>
+      <span class="clickable browserLauncher" id="retreatmentPeriodBtn"> <fmt:message key="Browser"/></span>
       <div id="retreatmentPeriodDisplay" class="ontologyDisplay retreatmentPeriod">
         <c:choose>
           <c:when test="${retreatmentPeriod != null}">

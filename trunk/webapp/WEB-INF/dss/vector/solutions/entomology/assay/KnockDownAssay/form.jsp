@@ -26,7 +26,7 @@
         <mjl:input type="text" param="testDate" id="testDate" classes="DatePick NoFuture" />
       </mjl:dt>
       <mjl:dt attribute="testMethod">
-        <span class="clickable" id="testMethodBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="testMethodBtn"> <fmt:message key="Browser"/></span>
         <div id="testMethodDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${testMethod != null}">
@@ -40,7 +40,7 @@
         <mjl:input type="hidden" param="testMethod" id="testMethod" value="${testMethod != null ? testMethod.id : ''}" />
       </mjl:dt>      
       <mjl:dt attribute="generation">
-        <span class="clickable" id="generationBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="generationBtn"> <fmt:message key="Browser"/></span>
         <div id="generationDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${generation != null}">
@@ -57,7 +57,7 @@
         <mjl:boolean param="isofemale" />
       </mjl:dt>
       <mjl:dt attribute="sex">
-        <span class="clickable" id="sexBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="sexBtn"> <fmt:message key="Browser"/></span>
         <div id="sexDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${sex != null}">
@@ -71,7 +71,7 @@
         <mjl:input type="hidden" param="sex" id="sex" value="${sex != null ? sex.id : ''}" />
       </mjl:dt>      
       <mjl:dt attribute="specie">
-        <span class="clickable" id="specieBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="specieBtn"> <fmt:message key="Browser"/></span>
         <div id="specieDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${specie != null}">
@@ -85,7 +85,7 @@
         <mjl:input type="hidden" param="specie" id="specie" value="${specie != null ? specie.id : ''}" />
       </mjl:dt>      
       <mjl:dt attribute="identificationMethod">
-        <span class="clickable" id="identificationMethodBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="identificationMethodBtn"> <fmt:message key="Browser"/></span>
         <div id="identificationMethodDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${identificationMethod != null}">

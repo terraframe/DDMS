@@ -31,7 +31,7 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
   </mjl:dt>
   <mjl:dt attribute="serviceDate" classes="DatePick" id="serviceDate" type="text"/>  
   <mjl:dt attribute="patientType">
-    <span class="clickable" id="patientTypeBtn"> <fmt:message key="Browser"/></span>
+    <span class="clickable browserLauncher" id="patientTypeBtn"> <fmt:message key="Browser"/></span>
     <div id="patientTypeDisplay" class="ontologyDisplay">
       <c:choose>
         <c:when test="${patientType != null}">
@@ -62,7 +62,7 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
     <mjl:input type="hidden" param="visitNumber" id="visitNumber" classes="visitNumber" value="${visitNumber != null ? visitNumber.id : ''}" />
   </mjl:dt>
   <mjl:dt attribute="doseNumber">
-    <span class="clickable" id="doseNumberBtn"> <fmt:message key="Browser"/></span>
+    <span class="clickable browserLauncher" id="doseNumberBtn"> <fmt:message key="Browser"/></span>
     <div id="doseNumberDisplay" class="ontologyDisplay">
       <c:choose>
         <c:when test="${doseNumber != null}">
@@ -76,7 +76,7 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
     <mjl:input type="hidden" param="doseNumber" id="doseNumber" value="${doseNumber != null ? doseNumber.id : ''}" />
   </mjl:dt>
   <mjl:dt attribute="doseType">
-    <span class="clickable" id="doseTypeBtn"> <fmt:message key="Browser"/></span>
+    <span class="clickable browserLauncher" id="doseTypeBtn"> <fmt:message key="Browser"/></span>
     <div id="doseTypeDisplay" class="ontologyDisplay">
       <c:choose>
         <c:when test="${doseType != null}">

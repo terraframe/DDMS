@@ -24,7 +24,7 @@
         <mjl:input type="text" param="age" id="age" size="3" maxlength="3" value=""/>
       </mjl:dt>
       <mjl:dt attribute="sex">
-        <span class="clickable" id="sexBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="sexBtn"> <fmt:message key="Browser"/></span>
         <div id="sexDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${sex != null}">
@@ -50,7 +50,7 @@
         <mjl:input type="text" param="haemoglobin" />
       </mjl:dt>
       <mjl:dt attribute="anaemiaTreatment">
-        <span class="clickable" id="anaemiaTreatmentBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="anaemiaTreatmentBtn"> <fmt:message key="Browser"/></span>
         <div id="anaemiaTreatmentDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${anaemiaTreatment != null}">
@@ -67,7 +67,7 @@
         <mjl:boolean param="iron" />
       </mjl:dt>
       <mjl:dt attribute="performedRDT">
-        <span class="clickable" id="performedRDTBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="performedRDTBtn"> <fmt:message key="Browser"/></span>
         <div id="performedRDTDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${performedRDT != null}">
@@ -81,7 +81,7 @@
         <mjl:input type="hidden" param="performedRDT" id="performedRDT" value="${performedRDT != null ? performedRDT.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="bloodslide">
-        <span class="clickable" id="bloodslideBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="bloodslideBtn"> <fmt:message key="Browser"/></span>
         <div id="bloodslideDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${bloodslide != null}">
@@ -95,7 +95,7 @@
         <mjl:input type="hidden" param="bloodslide" id="bloodslide" value="${bloodslide != null ? bloodslide.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="rDTResult">
-        <span class="clickable" id="resultsBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="resultsBtn"> <fmt:message key="Browser"/></span>
         <div id="resultsDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${fn:length(yourList) > 0}">
@@ -115,7 +115,7 @@
         </div>
       </mjl:dt>
       <mjl:dt attribute="rdtTreatment">
-        <span class="clickable" id="rdtTreatmentBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="rdtTreatmentBtn"> <fmt:message key="Browser"/></span>
         <div id="rdtTreatmentDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${rdtTreatment != null}">
@@ -129,7 +129,7 @@
         <mjl:input type="hidden" param="rdtTreatment" id="rdtTreatment" value="${rdtTreatment != null ? rdtTreatment.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="fever">
-        <span class="clickable" id="feverBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="feverBtn"> <fmt:message key="Browser"/></span>
         <div id="feverDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${fever != null}">
@@ -143,7 +143,7 @@
         <mjl:input type="hidden" param="fever" id="fever" value="${fever != null ? fever.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="feverTreatment">
-        <span class="clickable" id="feverTreatmentBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="feverTreatmentBtn"> <fmt:message key="Browser"/></span>
         <div id="feverTreatmentDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${feverTreatment != null}">
@@ -157,7 +157,7 @@
         <mjl:input type="hidden" param="feverTreatment" id="feverTreatment" value="${feverTreatment != null ? feverTreatment.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="malaria">
-        <span class="clickable" id="malariaBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="malariaBtn"> <fmt:message key="Browser"/></span>
         <div id="malariaDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${malaria != null}">
@@ -171,7 +171,7 @@
         <mjl:input type="hidden" param="malaria" id="malaria" value="${malaria != null ? malaria.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="malariaTreatment">
-        <span class="clickable" id="malariaTreatmentBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="malariaTreatmentBtn"> <fmt:message key="Browser"/></span>
         <div id="malariaTreatmentDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${malariaTreatment != null}">
@@ -185,7 +185,7 @@
         <mjl:input type="hidden" param="malariaTreatment" id="malariaTreatment" value="${malariaTreatment != null ? malariaTreatment.id : ''}" />
       </mjl:dt>
       <mjl:dt attribute="payment">
-        <span class="clickable" id="paymentBtn"> <fmt:message key="Browser"/></span>
+        <span class="clickable browserLauncher" id="paymentBtn"> <fmt:message key="Browser"/></span>
         <div id="paymentDisplay" class="ontologyDisplay">
           <c:choose>
             <c:when test="${payment != null}">
