@@ -22,6 +22,6 @@ public abstract class TermDTO extends TermDTOBase
   
   public String getDisplayLabel()
   {
-    return this.getTermName() + "(" + this.getTermId() + ")";
+    return this.getTermName() + " (" + this.getTermId() + ")";
   }
 }
