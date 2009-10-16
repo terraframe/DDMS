@@ -178,7 +178,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 		      var editor = this.myDataTable.getColumn(feild.key).editor;
 
 		      if (feild.save_as_id) {
-		        var label = getLabelFromId(feild.key, this.record.getData(feild.key));
+		        var label = this._getLabelFromId(feild.key, this.record.getData(feild.key));
 		        this.record.setData(feild.key, label);
 		      }else{
 			      if (editor && editor instanceof YAHOO.widget.DropdownCellEditor){
