@@ -56,7 +56,7 @@
         </label>
       </dt>
       <dd>
-        <span class="clickable" id="termBtn">
+        <span class="clickable browserLauncher" id="termBtn">
           <fmt:message key="Browser" />
         </span>
         <div class="ontologyDisplay" id="termDisplay">
