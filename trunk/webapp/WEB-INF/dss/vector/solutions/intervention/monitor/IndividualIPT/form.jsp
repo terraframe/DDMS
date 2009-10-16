@@ -113,9 +113,9 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
 
     new MDSS.GenericOntologyBrowser("<%=IndividualIPTViewDTO.CLASS%>", attrs);
 
-    MDSS.ElementHandler.setupBooleanHandler('isANCVisit.positive', 'isANCVisit.negative', 'visitNumber');
-    MDSS.ElementHandler.setupBooleanHandler('isANCVisit.positive', 'isANCVisit.negative', 'visitNumberBtn', false);
-    MDSS.ElementHandler.setupBooleanHandler('recievedITN.positive', 'recievedITN.negative', 'numberOfRecievedITNs');
+//    MDSS.ElementHandler.setupBooleanHandler('isANCVisit.positive', 'isANCVisit.negative', 'visitNumber');
+//    MDSS.ElementHandler.setupBooleanHandler('isANCVisit.positive', 'isANCVisit.negative', 'visitNumberBtn', false);
+//    MDSS.ElementHandler.setupBooleanHandler('recievedITN.positive', 'recievedITN.negative', 'numberOfRecievedITNs');
   })
 })();
 </script>
