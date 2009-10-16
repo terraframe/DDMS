@@ -1012,7 +1012,7 @@
 
   <xs:complexType name="virtual">
     <!--name: The name of the attribute-->
-    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="name" type="xs:string" />
     <!--label:The display label of the attribute-->
     <xs:attribute name="label" type="xs:string" />
     <!--description: A description of the purpose of attribute-->
@@ -1025,10 +1025,10 @@
       accessor: The fully qualified name of the MdClassDAO which defines
       the concrete attribute
     -->
-    <xs:attribute name="type" type="xs:string" />
+    <xs:attribute name="type" type="xs:string" use="required" />
     <!--accessor: The name of the concrete attribute-->
-    <xs:attribute name="concrete" type="xs:string" />
-    <xs:anyAttribute processContents="skip" />
+    <xs:attribute name="concrete" type="xs:string" use="required"/>
+    <xs:anyAttribute processContents="skip"  />
   </xs:complexType>
 
 
