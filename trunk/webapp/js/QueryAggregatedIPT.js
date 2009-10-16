@@ -36,7 +36,7 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedIPT', {
       this._commonQueryClasses = [
                                   Mojo.$.dss.vector.solutions.intervention.monitor.IPTDose.CLASS,
                                   Mojo.$.dss.vector.solutions.intervention.monitor.IPTPatients.CLASS,
-                                  Mojo.$.dss.vector.solutions.intervention.monitor.IPTreatments.CLASS,
+                                  Mojo.$.dss.vector.solutions.intervention.monitor.IPTTreatment.CLASS,
                                   Mojo.$.dss.vector.solutions.intervention.monitor.IPTANCVisit.CLASS
                                   ];
 
@@ -321,11 +321,11 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedIPT', {
 
       if(attribute.mainQueryClass)
       {
-        this._mainQueryClass = attribute.mainQueryClass;
+        //this._mainQueryClass = attribute.mainQueryClass;
       }
 
       if(attribute.getType() == 'sqlcharacter'){
-        var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attributeName,attribute.getDisplayLabel(),attribute._isAggregate));
+        var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
         selectable.attribute = attribute;
         var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
          column.attribute = attribute;
@@ -343,10 +343,10 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedIPT', {
       this._visibleSelectables[attribute.getKey()] = selectable;
 
       // ADD THEMATIC VARIABLE
-      if(attribute.getDtoType().contains('AttributeIntegerDTO'))
-      {
-        this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
-      }
+     // if(attribute.getDtoType != 'undefined' && attribute.getDtoType().contains('AttributeIntegerDTO'))
+     // {
+       // this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
+      //}
     },
 
 
