@@ -777,7 +777,7 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
     	  else
     	  {
     		  attributeEl.value = '';
-    		  displayEl.innerHTML = '';
+    		  displayEl.innerHTML = MDSS.Localized.no_value;
     	  }
       }
     },
