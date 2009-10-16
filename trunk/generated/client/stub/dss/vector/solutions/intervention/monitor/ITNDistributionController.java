@@ -70,7 +70,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     try
     {
       dto.applyAll(targetGroups);
-      this.view(dto.getId());
+      this.view(dto.getConcreteId());
     }
     catch (com.terraframe.mojo.ProblemExceptionDTO e)
     {
