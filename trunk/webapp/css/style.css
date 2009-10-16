@@ -863,16 +863,21 @@ input.browserOpenBtn {
 	text-decoration: overline;	
 }
 
+.browserLauncher
+{
+	display:none;	
+}
+	
+
 .ontologyDisplay
 {
-	height:11px;
-	margin-left:15px;
-	padding:1px;
+	height:12px;
+	padding:1px 3px 1px 3px;
 	width:280px;
 	background-color: white;
 	border:1px solid black;
 	display:inline;
-	cursor: pointer:
+	cursor: pointer;
 }
 	
 /*---------------------------------------------------------------*/
