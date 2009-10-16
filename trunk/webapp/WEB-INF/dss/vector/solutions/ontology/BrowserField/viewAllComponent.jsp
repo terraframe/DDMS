@@ -18,7 +18,7 @@
 
 <script type="text/javascript">
 <% 
-  String[] types = new String[]{BrowserRootController.CLASS, BrowserFieldDTO.CLASS, BrowserRootDTO.CLASS};
+  String[] types = new String[]{BrowserRootController.CLASS, BrowserFieldDTO.CLASS, BrowserRootDTO.CLASS, BrowserRootViewDTO.CLASS};
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
   String js = JSONController.importTypes(clientRequest.getSessionId(), types, true);
   out.write(js);
