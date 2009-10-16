@@ -9,6 +9,7 @@ import com.terraframe.mojo.business.RelationshipQuery;
 import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.ValueObject;
+import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
@@ -18,6 +19,7 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.session.Session;
+import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdRelationship;
 
 import dss.vector.solutions.UnknownTermException;
@@ -37,21 +39,22 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
   protected String buildKey()
   {
     OntologyDefinition ontology = this.getOntology();
-    return ontology.getKeyName()+":"+this.getTermName();
+    return ontology.getKeyName() + ":" + this.getTermName();
   }
 
   /**
-   * Throws a localized Exception to alert the user
-   * that he is trying to modify the parent of a Term.
-   *
-   * @throws ConfirmParentChangeException always.
+   * Throws a localized Exception to alert the user that he is trying to modify
+   * the parent of a Term.
+   * 
+   * @throws ConfirmParentChangeException
+   *           always.
    */
   @Override
   public void confirmChangeParent(String parentId)
   {
     Term parent = Term.get(parentId);
 
-    String msg = "Attempting to change the parent of ["+this+"] to ["+parent+"].";
+    String msg = "Attempting to change the parent of [" + this + "] to [" + parent + "].";
 
     ConfirmParentChangeException ex = new ConfirmParentChangeException(msg);
     ex.setParentTerm(parent.toString());
@@ -61,8 +64,9 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * Throws an exception to alert the user before they try to delete a Term.
-   *
-   * @throws ConfirmDeleteTermException If the Term has more than one parent.
+   * 
+   * @throws ConfirmDeleteTermException
+   *           If the Term has more than one parent.
    * @throws
    */
   @Override
@@ -76,19 +80,19 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
      * > 1) { GeoEntity parent = GeoEntity.get(parentId);
      * ConfirmDeleteEntityException ex = new ConfirmDeleteEntityException();
      * ex.setEntityName(parent.getEntityName());
-     *
+     * 
      * throw ex; } else { this.delete(); }
      */
   }
 
   public String toString()
   {
-    return this.getTermName()+ " ("+this.getTermId()+")";
+    return this.getTermName() + " (" + this.getTermId() + ")";
   }
 
   /**
    * Gets all the TermRelationship children of this Term.
-   *
+   * 
    * FIXME parameterize to pass in the relationship type.
    */
   @Override
@@ -138,24 +142,15 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     if (!cloneOperation)
     {
       // V1 Restriction
-      if(!isNew)
+      if (!isNew)
       {
         throw new ActionNotAllowedException();
       }
       /*
-      OIterator<? extends LocatedIn> iter = this.getAllLocatedInGeoEntityRel();
-      try
-      {
-        while (iter.hasNext())
-        {
-          iter.next().delete();
-        }
-      }
-      finally
-      {
-        iter.close();
-      }
-      */
+       * OIterator<? extends LocatedIn> iter =
+       * this.getAllLocatedInGeoEntityRel(); try { while (iter.hasNext()) {
+       * iter.next().delete(); } } finally { iter.close(); }
+       */
     }
     else
     {
@@ -171,8 +166,7 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
         String childDL = this.toString();
         String parentDL = this.toString();
 
-        String error = "The child [" + childDL + "] already has a direct relationship with parent [" + parentDL
-            + "].";
+        String error = "The child [" + childDL + "] already has a direct relationship with parent [" + parentDL + "].";
         DuplicateParentException e = new DuplicateParentException(error);
         e.setChildTerm(this.toString());
         e.setParentTerm(parent.toString());
@@ -183,7 +177,7 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
 
     this.addIsA(parent).apply();
 
-    TermViewQuery query = getByIds(new String[]{this.getId()});
+    TermViewQuery query = getByIds(new String[] { this.getId() });
     OIterator<? extends TermView> iter = query.getIterator();
 
     try
@@ -203,7 +197,7 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     // FIXME pass in the ontology and rel and switch on that
     TermQuery termQuery;
     TermRelationshipQuery termRelQuery;
-    if(true /* || Ontology === MO */)
+    if (true /* || Ontology === MO */)
     {
       termQuery = new MOQuery(f);
       termRelQuery = new IsAQuery(f);
@@ -247,7 +241,8 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
 
   private static class FetchQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
-    private String[] termIds;
+    private String[]  termIds;
+
     private TermQuery termQuery;
 
     protected FetchQueryBuilder(QueryFactory queryFactory, String[] termIds)
@@ -283,9 +278,11 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
    */
   private static class SearchQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
-    private Term parent;
+    private Term      parent;
+
     private TermQuery termQuery;
-    private String searchValue;
+
+    private String    searchValue;
 
     protected SearchQueryBuilder(QueryFactory queryFactory, String searchValue, Term parent)
     {
@@ -311,9 +308,8 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     {
       GeneratedViewQuery query = this.getViewQuery();
 
-      String search = this.searchValue+"%";
-      query.WHERE(OR.get(termQuery.getTermName().LIKEi(search),
-          termQuery.getTermId().LIKEi(search)));
+      String search = this.searchValue + "%";
+      query.WHERE(OR.get(termQuery.getTermName().LIKEi(search), termQuery.getTermId().LIKEi(search)));
 
       query.ORDER_BY_ASC(this.termQuery.getTermName());
     }
@@ -324,8 +320,10 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
    */
   private static class GetChildrenQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
-    private Term parent;
-    private TermQuery termQuery;
+    private Term                  parent;
+
+    private TermQuery             termQuery;
+
     private TermRelationshipQuery termRelQuery;
 
     protected GetChildrenQueryBuilder(QueryFactory queryFactory, Term parent)
@@ -353,7 +351,8 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       query.WHERE(this.termRelQuery.parentId().EQ(this.parent.getId()));
-      query.AND(termQuery.parentTerm(this.termRelQuery)); // FIXME parent-child label reversed
+      query.AND(termQuery.parentTerm(this.termRelQuery)); // FIXME parent-child
+                                                          // label reversed
 
       query.ORDER_BY_ASC(this.termQuery.getTermName());
     }
@@ -365,8 +364,10 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
    */
   private static class DefaultRootQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
-    private TermQuery termQuery;
-    private ValueQuery valueQuery;
+    private TermQuery             termQuery;
+
+    private ValueQuery            valueQuery;
+
     private TermRelationshipQuery termRelQuery;
 
     protected DefaultRootQueryBuilder(QueryFactory queryFactory, TermQuery termQuery, TermRelationshipQuery termRelQuery)
@@ -397,7 +398,8 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
       Selectable childId = this.termRelQuery.childId();
       this.valueQuery.SELECT(childId);
 
-//      query.WHERE(this.termQuery.NOT_IN(this.termQuery.getId(), this.valueQuery));
+      // query.WHERE(this.termQuery.NOT_IN(this.termQuery.getId(),
+      // this.valueQuery));
       query.WHERE(this.termQuery.getId().SUBSELECT_NOT_IN(this.valueQuery));
 
       query.ORDER_BY_ASC(this.termQuery.getTermName());
@@ -487,31 +489,49 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     return childOfChildIdList;
   }
 
-
+  
+  public static Term[] getAllTermsByAttribute(MdAttribute mdAttribute)
+  { 
+    return Term.getRootChildren(MdAttributeDAO.getByKey(mdAttribute.getKey()), true);
+  }
+  
+  
+  public static Term[] getRootChildren(MdAttributeDAOIF mdAttribute)
+  {
+    return Term.getRootChildren(mdAttribute, true);
+  }
 
   /**
    * @param mdAttribute
-   * @return Returns selectable roots and every roots direct descendants for a given MdAttribute
+   * @return Returns selectable roots and every roots direct descendants for a
+   *         given MdAttribute
    */
-  public static Term[] getRootChildren(MdAttributeDAOIF mdAttribute)
+  public static Term[] getRootChildren(MdAttributeDAOIF mdAttribute, Boolean returnOnlySelectable)
   {
     Set<Term> children = new TreeSet<Term>(new TermComparator());
 
     String className = mdAttribute.definedByClass().definesType();
     BrowserRootView[] roots = BrowserRoot.getAttributeRoots(className, mdAttribute.definesAttribute());
 
-    if(roots.length > 0)
+    if (roots.length > 0)
     {
-      for(BrowserRootView view : roots)
+      for (BrowserRootView view : roots)
       {
         Term term = Term.get(view.getTermId());
 
-        if(view.getSelectable())
+        if (returnOnlySelectable)
+        {
+          if (view.getSelectable())
+          {
+            children.add(term);
+          }
+        }
+        else
         {
           children.add(term);
         }
 
-        for(Term child : term.getAllChildTerm())
+        for (Term child : term.getAllChildTerm())
         {
           children.add(child);
         }
@@ -521,11 +541,11 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     {
       List<? extends TermView> defaultRoots = Term.getDefaultRoots().getIterator().getAll();
 
-      for(TermView view : defaultRoots)
+      for (TermView view : defaultRoots)
       {
         Term term = Term.get(view.getTermId());
 
-        for(Term child : term.getAllChildTerm())
+        for (Term child : term.getAllChildTerm())
         {
           children.add(child);
         }
