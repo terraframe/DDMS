@@ -11,7 +11,6 @@
 
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.NonSentinelSiteDTO"%>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <script type="text/javascript">
