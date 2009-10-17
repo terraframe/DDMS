@@ -9,7 +9,6 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.NonSentinelSiteDTO"%>
 
 
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseViewDTO"%>
