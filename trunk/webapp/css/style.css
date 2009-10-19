@@ -633,14 +633,15 @@ div.scrollable {
 
 #queryDataTable
 {
-	height: 93%;
+	height: 505px;
 	width: 100%;
+	overflow: auto;
 }
 
 #paginationSection
 {
 	border-top: 1px solid black;
-	height: 5%;
+	height: 27px;
 	width: 100%;
 	background-color: white;
 	font-weight: bold;

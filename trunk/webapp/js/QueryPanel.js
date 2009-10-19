@@ -20,7 +20,7 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
         { position: 'top', height: 40, resize: false, body: '', gutter: '2' },
         { position: 'left', width: 220 , resize: true, body: '', gutter: '0 5 0 2', scroll: true },
         { position: 'bottom', height: 40, body: '', gutter: '2' },
-        { position: 'center', body: '<div id="'+this.QUERY_DATA_TABLE+'"></div><div id="'+this.PAGINATION_SECTION+'"></div>', gutter: '0 2 0 0', scroll: true },
+        { position: 'center', body: '<div id="'+this.QUERY_DATA_TABLE+'"></div><div id="'+this.PAGINATION_SECTION+'"></div>', gutter: '0 2 0 0', scroll: false},
         { position: 'right', width: 150, body: '<div style="margin-left: 10px" id="'+this.QUERY_SUMMARY+'"></div>', resize: true, scroll: true, gutter: '0 5 0 2'}
     ]
   });
