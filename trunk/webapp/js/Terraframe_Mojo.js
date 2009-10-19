@@ -454,13 +454,20 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       var mKlass = Mojo.$.com.terraframe.mojo.Method;
       this._instanceMethods = {};
       this._staticMethods = {};
+      var abstractMethods = {};
       if(notBase)
       {
         // instance methods will be copied via prototype
         var pInstances = this._superClass.$class.getInstanceMethods(true);
         for(var i in pInstances)
         {
-          this._instanceMethods[i] = pInstances[i];
+          var method = pInstances[i];
+          this._instanceMethods[i] = method;
+          
+          if(method.isAbstract())
+          {
+            abstractMethods[i] = method;
+          }
         }
       }
         
@@ -482,6 +489,33 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
         }
         
         this._instanceMethods[i] = method;
+        
+        if(i in abstractMethods)
+        {
+          delete abstractMethods[i]; // abstract method implemented!
+        }
+      }
+      
+      // Make sure all abstract methods were implemented
+      if(!this._isAbstract)
+      {
+        var unimplemented = [];
+        for(var i in abstractMethods)
+        {
+          if(abstractMethods.hasOwnProperty(i))
+          {
+            unimplemented.push(abstractMethods[i].getName());
+          }
+        }
+        
+        if(unimplemented.length > 0)
+        {
+          var msg = "The class ["+this._qualifiedName+"] must " + 
+            "implement the abstract method(s) ["+unimplemented.join(', ')+"].";
+          var error = new Error(msg);
+          Mojo.log.LogManager.writeError(msg, error);
+          throw error;
+        }
       }
       
       if(notBase)
@@ -3723,8 +3757,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'MutableDTO', {
       this.writable = obj.writable;
       this.modified = obj.modified;
       this.newInstance = obj.newInstance;
-
-
     },
   
     isWritable : function() {return this.writable; },
