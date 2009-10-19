@@ -633,7 +633,7 @@ div.scrollable {
 
 #queryDataTable
 {
-	height: 505px;
+	height: 95%;
 	width: 100%;
 	overflow: auto;
 }
@@ -641,10 +641,11 @@ div.scrollable {
 #paginationSection
 {
 	border-top: 1px solid black;
-	height: 27px;
+	height: 5%;
 	width: 100%;
 	background-color: white;
 	font-weight: bold;
+	padding-top: 3px;
 }
 
 #paginationSection .page
