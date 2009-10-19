@@ -8,29 +8,28 @@
 <%@page import="org.json.JSONArray"%>
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
-<%@page import="dss.vector.solutions.geo.generated.PermanentWaterBodyDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.TrapDTO"%>
 
-<c:set var="page_title" value="Mosquito_Collection_Points"  scope="request"/>
+
+<%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%><c:set var="page_title" value="Mosquito_Collection_Points"  scope="request"/>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <%
-  request.setAttribute("TrapClass", TrapDTO.CLASS);
-  request.setAttribute("PermanentWaterBodyClass", PermanentWaterBodyDTO.CLASS);
+  request.setAttribute("CollectionSite", CollectionSiteDTO.CLASS);
 %>
 
 <script type="text/javascript">
-  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= TrapDTO.CLASS %>*');
-  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= PermanentWaterBodyDTO.CLASS %>');
+  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= CollectionSiteDTO.CLASS %>*');
 </script>
 
 <mjl:form name="dss.vector.solutions.entomology.MosquitoCollectionPoint.search" method="GET" id ="searchMosquitoCollections">
   <dl>
     <dt> <fmt:message key="Filter" /> </dt>
     <dd>
-        <input type="radio" name="filterType" class="filterType" value="" checked="checked" /><fmt:message key="All" /> &nbsp;&nbsp;&nbsp;
-        <input type="radio"  class="filterType" name="filterType" value="${TrapClass}" /><fmt:message key="Trap" /> &nbsp;&nbsp;&nbsp;
-        <input type="radio"  class="filterType" name="filterType" value="${PermanentWaterBodyClass}" /><fmt:message key="Permanent_Water_Body" />
+        <input type="radio" name="filterType" class="filterType" value="${CollectionSite}" checked="checked" /><fmt:message key="All" /> &nbsp;&nbsp;&nbsp;
+<%--
+       <input type="radio"  class="filterType" name="filterType" value="${TrapClass}" /><fmt:message key="Trap" /> &nbsp;&nbsp;&nbsp;
+       <input type="radio"  class="filterType" name="filterType" value="${PermanentWaterBodyClass}" /><fmt:message key="Permanent_Water_Body" />
+ --%>        
     </dd>
     <dt> <fmt:message key="Geo_Entity" /> </dt>
     <dd>
