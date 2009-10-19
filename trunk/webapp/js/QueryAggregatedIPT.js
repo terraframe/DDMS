@@ -181,7 +181,6 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedIPT', {
 
         if(selectable.attribute)
         {
-
           var t =  selectable.attribute.getType();
           var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'');
           var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'');
@@ -195,8 +194,13 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedIPT', {
             //{
               //queryXML.addEntity(new MDSS.QueryXML.Entity(t,t));
             //}
-          }
-          else
+          }else if(t == 'sqldouble')
+          {
+            var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', n, k));
+          }else if(t == 'sqlinteger')
+          {
+            var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', n, k));
+          }else
           {
             var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(t,n,k));
           }
@@ -311,7 +315,6 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedIPT', {
 
 
 
-
     /**
      * Helper method to add Entomology attributes to selectables and as a column.
      */
@@ -326,6 +329,12 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedIPT', {
 
       if(attribute.getType() == 'sqlcharacter'){
         var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
+        selectable.attribute = attribute;
+        var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+         column.attribute = attribute;
+      }
+      if(attribute.getType() == 'sqlinteger'){
+        var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
         selectable.attribute = attribute;
         var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
          column.attribute = attribute;
@@ -507,8 +516,16 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedIPT', {
 
       var attributeName = attribute.getAttributeName();
       var key = attribute.getKey();
-
+      
       var selectable = attribute.getSelectable();
+      
+      if(attribute.getType() == 'sqlinteger'){
+        var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),true));
+        selectable.attribute = attribute;
+        var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+         column.attribute = attribute;
+      }
+      
 
       this._queryPanel.updateColumnLabel(key, func);
 
@@ -609,6 +626,10 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedIPT', {
 
           thisRef._checkBox(attributeName);
         },
+        sqlinteger: function(entityAlias, attributeName, userAlias){
+          
+          thisRef._checkBox(userAlias);
+        },
         sqldate : function(entityAlias, attributeName, userAlias){
 
           thisRef._checkBox(userAlias);
@@ -688,7 +709,8 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedIPT', {
 
       var labelDiv = document.createElement('div');
       YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
-      labelDiv.innerHTML = MDSS.localize(divName);
+      //labelDiv.innerHTML = MDSS.localize(divName);
+      labelDiv.innerHTML = divName;
 
       var toggleDiv = document.createElement('div');
       YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
