@@ -111,7 +111,6 @@
     %>
     <%=Halp.getDropdownSetup(brandDTO, brandAttributes, deleteColumn, clientRequest)%>
 
-    MDSS.Calendar.init()
 
     brandData = {
               rows:<%=Halp.getDataMap(brandRows, brandAttributes, brandDTO)%>,
@@ -127,7 +126,6 @@
 
     <%=Halp.getDropdownSetup(nozzleDTO, nozzleAttributes, deleteColumn, clientRequest)%>
 
-    MDSS.Calendar.init()
 
     nozzleData = {
               rows:<%=Halp.getDataMap(nozzleRows, nozzleAttributes, nozzleDTO)%>,
@@ -143,7 +141,6 @@
 
     <%=Halp.getDropdownSetup(insecticideNozzleDTO, insecticideNozzleAttributes, deleteColumn, clientRequest, map)%>
 
-    MDSS.Calendar.init()
 
     insecticideNozzleData = {
               rows:<%=Halp.getDataMap(insecticideNozzleRows, insecticideNozzleAttributes, insecticideNozzleDTO)%>,
