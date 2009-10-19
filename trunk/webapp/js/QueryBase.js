@@ -766,7 +766,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       Mojo.$.dss.vector.solutions.query.SavedSearch.loadSearch(request, savedSearchId);
     },
   
-    _loadQueryState: {
+    _loadQueryState : {
       IsAbstract : true
     },
   

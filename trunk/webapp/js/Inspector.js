@@ -802,7 +802,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
       html += table.getHTML();
       
       // converts an array of methods into ordered rows
-      function methodsToRows(table, methods, that)
+      function methodsToRows(table, methods, that, isStatic)
       {
         methods.sort(function(m1, m2){
           var n1 = m1.getName(), n2 = m2.getName();
@@ -835,15 +835,22 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
           
           var override = method.isStatic() ? method.isHiding() : method.isOverride();
           
-          table.addRow(nameA, override, method.getArity(), defining, this._listAspects(method));
+          if(isStatic)
+          {
+            table.addRow(nameA, override, method.getArity(), defining, this._listAspects(method));
+          }
+          else
+          {
+            table.addRow(nameA, method.isAbstract(), override, method.getArity(), defining, this._listAspects(method));
+          }
         }, that);
       }
       
       // instance methods
       table = new com.terraframe.mojo.inspector.Table();
-      table.setHeaders('Name', 'Override', 'Arity', 'Defined On', 'Aspects');
+      table.setHeaders('Name', 'Abstract', 'Override', 'Arity', 'Defined On', 'Aspects');
       
-      methodsToRows(table, $class.getInstanceMethods(), this);
+      methodsToRows(table, $class.getInstanceMethods(), this, false);
       
       html += 'Instance Methods:<br />';
       html += table.getHTML();
@@ -853,7 +860,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
       table = new com.terraframe.mojo.inspector.Table();
       table.setHeaders('Name', 'Hiding', 'Arity', 'Defined On', 'Aspects');
       
-      methodsToRows(table, $class.getStaticMethods(), this);
+      methodsToRows(table, $class.getStaticMethods(), this, true);
       
       html += 'Static Methods:<br />';
       html += table.getHTML();

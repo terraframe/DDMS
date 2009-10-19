@@ -474,21 +474,17 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       var tInstances = config.instanceMethods;
       for(var i in tInstances)
       {
-        var method;
-        if(this._instanceMethods[i] && this._instanceMethods.hasOwnProperty(i))
+        var definition = tInstances[i];
+      
+        // Check for a method override
+        if(this._instanceMethods.hasOwnProperty(i))
         {
-          // overridden method (this class gets a clone of the original method)
-          method = this._instanceMethods[i].clone();
-          method._setAbstract(tInstances[i].isAbstract);
-          method._setOverrideClass(this._klass);
-        }
-        else
-        {
-          // new method defined by this class
-          method = new mKlass(tInstances[i], this);
+          var overridden = this._instanceMethods[i];
+          definition.overrideClass = definition.klass;
+          definition.klass = overridden.getDefiningClass();
         }
         
-        this._instanceMethods[i] = method;
+        this._instanceMethods[i] = new mKlass(definition, this);
         
         if(i in abstractMethods)
         {
@@ -525,7 +521,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
         for(var i in pStatics)
         {
           var mStatic = pStatics[i];
-          this._staticMethods[mStatic.getName()] = mStatic.clone();
+          this._staticMethods[mStatic.getName()] = mStatic;
           
           this._klass[mStatic.getName()] = mStatic.getMethod();
         }
@@ -534,18 +530,16 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       var tStatics = config.staticMethods;
       for(var i in tStatics)
       {
-        var method;
-        if(this._staticMethods[i] && this._staticMethods.hasOwnProperty(i))
+        var definition = tStatics[i];
+      
+        if(this._staticMethods.hasOwnProperty(i))
         {
-          // overridden method (this class gets a clone of the original method)
-          method = this._staticMethods[i].clone();
-          method._setOverrideClass(this._klass);
+          var overridden = this._staticMethods[i];
+          definition.overrideClass = definition.klass;
+          definition.klass = overridden.getDefiningClass();
         }
-        else
-        {
-          // new method defined by this class
-          method = new mKlass(tStatics[i], this);
-        }
+        
+        var method = new mKlass(definition, this);
           
         this._staticMethods[i] = method;
         this._klass[i] = method.getMethod();
@@ -588,7 +582,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       {
         this._superClass.$class._addSubClass(this._qualifiedName, this._klass);
       }
-      
       
       // Each class constructor function and instance gets
       // a method to return this Class instance.
@@ -944,34 +937,9 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
       this._aspects = [];
     },
     
-    clone : function()
-    {
-      var cloned = new this.constructor({
-        name : this.getName(),
-        isStatic : this.isStatic(),
-        isConstructor : this.isConstructor(),
-        method : this.getMethod(),
-        klass : this.getDefiningClass(),
-        overrideKlass : this.getOverrideClass(),
-        isAbstract : this.isAbstract(),
-      }, this._klass.$class);
-      
-      return cloned;
-    },
-    
     isAbstract : function()
     {
       return this._isAbstract;
-    },
-    
-    _setAbstract : function(isAbstract)
-    {
-      this._isAbstract = isAbstract;
-    },
-    
-    _setDefiningClass : function(klass)
-    {
-      this._klass = klass;
     },
     
     addAspect : function(aspect)
@@ -982,11 +950,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
     getAspects : function()
     {
       return this._aspects;
-    },
-    
-    _setOverrideClass : function(klass)
-    {
-      this._overrideKlass = klass;
     },
     
     isConstructor : function()

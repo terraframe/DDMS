@@ -358,24 +358,20 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
   
     },
   
-    _getExportXLSAction : function()
-    {
-      // abstract
+    _getExportXLSAction : {
+      IsAbstract : true
     },
   
-    _getExportCSVAction : function()
-    {
-      // abstract
+    _getExportCSVAction : {
+      IsAbstract : true
     },
   
-    _getExportReportAction : function()
-    {
-      // abstract
+    _getExportReportAction : {
+      IsAbstract : true
     },
   
-    _getReportQueryType : function()
-    {
-      // abstract
+    _getReportQueryType : {
+      IsAbstract : true
     },
   
     _getCountDiv : function(that,divName,klass,useRatio){
@@ -496,25 +492,22 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      * Method called to render to set up the QueryPanel
      * this QueryBase uses.
      */
-    render : function()
-    {
-      // Abstract
+    render : {
+      IsAbstract : true
     },
   
     /**
      * Called when the user tries to execute the query.
      */
-    executeQuery : function()
-    {
-      // Abstract
+    executeQuery : {
+      IsAbstract : true
     },
   
     /**
      * Called when the user tries to map a query.
      */
-    mapQuery : function()
-    {
-      // Abstract
+    mapQuery : {
+      IsAbstract : true
     },
   
     /**
@@ -773,9 +766,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       Mojo.$.dss.vector.solutions.query.SavedSearch.loadSearch(request, savedSearchId);
     },
   
-    _loadQueryState : function()
-    {
-      // abstract
+    _loadQueryState : {
+      IsAbstract : true
     },
   
     _fireClickOnOption : function(option)
@@ -889,9 +881,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      * Subclasses must override this to return the controller method
      * that will be executed to save a search.
      */
-    _getQueryType: function()
-    {
-      // Abstract
+    _getQueryType : {
+      IsAbstract : true
     },
   
     /**
