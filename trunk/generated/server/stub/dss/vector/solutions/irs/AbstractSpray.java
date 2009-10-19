@@ -59,18 +59,13 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     view.setBrand(data.getBrand());
     view.setGeoEntity(data.getGeoEntity());
     view.setSprayDate(data.getSprayDate());
+    view.setSurfaceType(data.getSurfaceType());
 
     view.clearSprayMethod();
-    view.clearSurfaceType();
 
     for (SprayMethod method : data.getSprayMethod())
     {
       view.addSprayMethod(method);
-    }
-
-    for (SurfaceType type : data.getSurfaceType())
-    {
-      view.addSurfaceType(type);
     }
 
     view.setSprayData(data);

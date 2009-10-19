@@ -10,10 +10,6 @@ import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.entomology.SexDTO;
-import dss.vector.solutions.intervention.monitor.IPTRecipientDTO;
-import dss.vector.solutions.intervention.monitor.ITNRecipientDTO;
-import dss.vector.solutions.irs.SprayLeaderDTO;
-import dss.vector.solutions.irs.SprayOperatorDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -38,7 +34,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     req.setAttribute("newPerson", person);
 
     // Saving the sex is a pain. This is a shortcut.
-    req.setAttribute("sexEnumName", person.getSex().get(0).getName());
+    req.setAttribute("sexEnumName", person.getSex().getDisplayLabel());
     render("searchResults.jsp");
   }
 
@@ -85,7 +81,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
 
   private void renderCreate(PersonViewDTO view) throws IOException, ServletException
   {
-    req.setAttribute("sexes", SexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("sex", view.getSex());
     req.setAttribute("item", view);
     render("createComponent.jsp");
   }
@@ -143,7 +139,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
 
   private void renderEdit(PersonViewDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("sexes", SexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("sex", dto.getSex());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -182,7 +178,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     utility.put("id", view.getPersonId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    req.setAttribute("sexes", SexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("sex", view.getSex());
     req.setAttribute("item", view);
     render("viewComponent.jsp");
   }
@@ -323,13 +319,6 @@ public class PersonController extends PersonControllerBase implements com.terraf
 
   private void setupRequest()
   {
-    req.setAttribute("dss_vector_solutions_Person_iptRecipientDelegate", IPTRecipientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_itnRecipientDelegate", ITNRecipientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_patientDelegate", PatientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_sex", SexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_Person_sprayLeaderDelegate", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_sprayOperatorDelegate", SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_Person_userDelegate", dss.vector.solutions.MDSSUserDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
   }
 
   public void failSearch(PersonDTO person) throws java.io.IOException, javax.servlet.ServletException
@@ -351,7 +340,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
         dto = PersonDTO.getView(request, id);
       }
 
-      req.setAttribute("sex", SexDTO.allItems(request));
+      req.setAttribute("sex", dto.getSex());
       req.setAttribute("item", dto);
 
       render("editRecipientComponent.jsp");

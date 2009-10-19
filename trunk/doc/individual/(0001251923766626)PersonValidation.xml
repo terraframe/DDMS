@@ -39,13 +39,11 @@
             label="Date of Birth"
             description="Date of Birth"
             required="true" />
-          <enumeration
+          <reference
             name="sex"
             label="Sex"
             description="User's sex / gender"
-            type="dss.vector.solutions.entomology.Sex"
-            selectMultiple="false"
-            default_value="UNKNOWN"
+            type="dss.vector.solutions.ontology.Term"
             required="true" />
         </attributes>
       </mdBusiness>

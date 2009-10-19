@@ -72,7 +72,6 @@ public abstract class ITNHouseholdSurveyPermissionTest extends TestCase implemen
   {
     term.delete();
     site.delete();
-    person.deleteDelegates();
-    Person.get(person.getId()).delete();
+    TestFixture.delete(person);
   }
 }

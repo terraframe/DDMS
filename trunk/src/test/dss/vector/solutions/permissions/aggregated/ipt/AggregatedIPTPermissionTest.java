@@ -1,29 +1,23 @@
-package dss.vector.solutions.permissions.administration;
+package dss.vector.solutions.permissions.aggregated.ipt;
 
-import java.util.Calendar;
 import java.util.Locale;
 
 import junit.framework.TestCase;
 
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.web.WebClientSession;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.TestFixture;
+import dss.vector.solutions.geo.generated.HealthFacility;
+import dss.vector.solutions.ontology.Term;
 
-public abstract class AdministrationPermissionTest extends TestCase
+public abstract class AggregatedIPTPermissionTest extends TestCase
 {
-  private static Person            person;
-
-  private static String            username;
-
-  private static String            password = "test";
-
-  protected static String          rolename;
-
   protected static ClientSession   clientSession;
 
   protected static ClientRequestIF request;
@@ -31,6 +25,22 @@ public abstract class AdministrationPermissionTest extends TestCase
   protected static ClientSession   systemSession;
 
   protected static ClientRequestIF systemRequest;
+
+  protected static String          geoId;
+
+  protected static String          rolename;
+
+  private static Person            person;
+
+  private static String            username;
+
+  private static String            password = "test";
+
+  private static HealthFacility    facility;
+
+  private static Term              term;
+
+  protected static String          termId;
 
   protected static void classSetUp()
   {
@@ -45,19 +55,22 @@ public abstract class AdministrationPermissionTest extends TestCase
   }
 
   @StartSession
+  @Transaction
   protected static void setupVars()
   {
-    Calendar calendar = Calendar.getInstance();
-    calendar.clear();
-    calendar.set(1983, 5, 11);
-
     // Create a test user and assign it to the entomology role
     person = TestFixture.createTestPerson(username, password, rolename);
+    facility = TestFixture.createRandomFacility();
+    term = TestFixture.createRandomTerm();
+
+    geoId = facility.getGeoId();
+    termId = term.getId();
   }
 
   protected static void classTearDown()
   {
     clientSession.logout();
+
     systemSession.logout();
 
     tearDownVars();
@@ -66,6 +79,7 @@ public abstract class AdministrationPermissionTest extends TestCase
   @StartSession
   protected static void tearDownVars()
   {
+    facility.delete();
     TestFixture.delete(person);
   }
 

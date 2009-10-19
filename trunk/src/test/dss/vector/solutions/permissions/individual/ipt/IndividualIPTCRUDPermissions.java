@@ -8,17 +8,19 @@ import com.terraframe.mojo.business.ProblemDTOIF;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
-import dss.vector.solutions.entomology.SexDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTCaseDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO;
 import dss.vector.solutions.ontology.MODTO;
+import dss.vector.solutions.ontology.TermDTO;
 
 public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissionTest
 {
   public void testCreatePatient()
   {
+    TermDTO term = TermDTO.get(request, termId);
+
     Calendar calendar = Calendar.getInstance();
     calendar.clear();
     calendar.set(Calendar.YEAR, 1983);
@@ -29,7 +31,7 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
     dto.setFirstName("Test");
     dto.setLastName("Test");
     dto.setDateOfBirth(calendar.getTime());
-    dto.addSex(SexDTO.MALE);
+    dto.setSex(term);
     dto.setIsIPTRecipient(true);
     dto.setIsPatient(false);
     dto.setIsMDSSUser(false);
@@ -44,7 +46,7 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
       update.setFirstName("Testy");
       update.setLastName("Test");
       update.setDateOfBirth(new Date());
-      update.addSex(SexDTO.MALE);
+      update.setSex(term);
       update.apply();
 
       PersonViewDTO test = PersonDTO.getView(request, dto.getPersonId());
@@ -65,6 +67,8 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
 
   public void testIptCase()
   {
+    TermDTO term = TermDTO.get(request, termId);
+
     Calendar calendar = Calendar.getInstance();
     calendar.clear();
     calendar.set(Calendar.YEAR, 1983);
@@ -75,7 +79,7 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
     dto.setFirstName("Test");
     dto.setLastName("Test");
     dto.setDateOfBirth(calendar.getTime());
-    dto.addSex(SexDTO.MALE);
+    dto.setSex(term);
     dto.setIsIPTRecipient(true);
     dto.setIsPatient(false);
     dto.setIsMDSSUser(false);
@@ -119,6 +123,8 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
 
   public void testIndividualIPT()
   {
+    TermDTO term = TermDTO.get(request, termId);
+
     Calendar calendar = Calendar.getInstance();
     calendar.clear();
     calendar.set(Calendar.YEAR, 1983);
@@ -129,7 +135,7 @@ public abstract class IndividualIPTCRUDPermissions extends IndividualIPTPermissi
     dto.setFirstName("Test");
     dto.setLastName("Test");
     dto.setDateOfBirth(calendar.getTime());
-    dto.addSex(SexDTO.MALE);
+    dto.setSex(term);
     dto.setIsIPTRecipient(true);
     dto.setIsPatient(false);
     dto.setIsMDSSUser(false);

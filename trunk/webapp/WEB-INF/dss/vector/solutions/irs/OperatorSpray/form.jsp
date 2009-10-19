@@ -9,7 +9,8 @@
 <%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayTeamDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayOperatorDTO"%>
-<%@page import="dss.vector.solutions.irs.SprayOperatorViewDTO"%><jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
+<%@page import="dss.vector.solutions.irs.SprayOperatorViewDTO"%>
+<%@page import="dss.vector.solutions.irs.AbstractSprayViewDTO"%><jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
     <mjl:component item="${item}" param="dto">
       <mjl:input type="hidden" param="sprayId" value="${item.sprayId}" />      
@@ -59,13 +60,20 @@
           </mjl:option>
         </mjl:select>
       </mjl:dt>        
-      <mjl:dt attribute="surfaceType">       
-        <mjl:select var="current" valueAttribute="enumName" items="${surfaceTypes}" param="surfaceType">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>        
+      <mjl:dt attribute="surfaceType">
+        <span class="clickable browserLauncher" id="surfaceTypeBtn"> <fmt:message key="Browser"/></span>
+        <div id="surfaceTypeDisplay" class="ontologyDisplay">
+          <c:choose>
+            <c:when test="${surfaceType != null}">
+              ${surfaceType.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
+        </div>
+        <mjl:input type="hidden" param="surfaceType" id="surfaceType" value="${surfaceType != null ? surfaceType.id : ''}" />
+      </mjl:dt>                  
       <mjl:dt attribute="teamSprayWeek" type="text"/>
       <mjl:dt attribute="target" type="text"/>
       <mjl:dt attribute="operatorSprayWeek" type="text" />
@@ -79,17 +87,25 @@
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayOperatorDTO.CLASS}))%>
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayOperatorViewDTO.CLASS}))%>
 
-<script type="text/javascript" defer="defer">
+<script type="text/javascript">
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){   
+    var attributes = [
+         {attributeName:'surfaceType'}
+    ];
+    
+    new MDSS.GenericOntologyBrowser("<%=AbstractSprayViewDTO.CLASS%>", attributes);
 
-var teamSelect = document.getElementById('teamSelect');
-var operatorSelect = document.getElementById('operatorSelect');
-var leaderSelect = document.getElementById('leaderSelect');
-var geoId = document.getElementById('geoIdEl');
+    var teamSelect = document.getElementById('teamSelect');
+    var operatorSelect = document.getElementById('operatorSelect');
+    var leaderSelect = document.getElementById('leaderSelect');
+    var geoId = document.getElementById('geoIdEl');
 
-var search = new MDSS.TeamSearch(geoId, teamSelect, operatorSelect, leaderSelect);
+    var search = new MDSS.TeamSearch(geoId, teamSelect, operatorSelect, leaderSelect);
 
-onValidGeoEntitySelected = function(){
-  search.populateSprayTeams();
-}
-
+    onValidGeoEntitySelected = function(){
+        search.populateSprayTeams();
+    }
+  })
+})();
 </script>

@@ -19,13 +19,9 @@
       ${item.residentialGeoId}
     </mjl:dt>
     <mjl:dt attribute="sex">
-      <ul>
-        <c:forEach var="enumName" items="${item.sexEnumNames}">
-          <li>
-            ${item.sexMd.enumItems[enumName]}
-          </li>
-        </c:forEach>
-      </ul>
+      <c:if test="${sex != null}">
+        ${sex.displayLabel}
+      </c:if>
     </mjl:dt>
     <mjl:dt attribute="dateOfBirth">
       <span class="formatDate">${item.dateOfBirth}</span>

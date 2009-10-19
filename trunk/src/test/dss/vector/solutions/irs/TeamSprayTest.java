@@ -46,6 +46,11 @@ public class TeamSprayTest extends TestCase
 
   private static Term             activeIngredient = null;
 
+  private static Term             surfaceType      = null;
+
+  private static Term             sex              = null;
+
+
   public static Test suite()
   {
     TestSuite suite = new TestSuite();
@@ -79,11 +84,16 @@ public class TeamSprayTest extends TestCase
     brand.delete();
 
     activeIngredient.delete();
+    surfaceType.delete();
+    sex.delete();    
   }
 
   protected static void classSetUp()
   {
     activeIngredient = TestFixture.createRandomTerm();
+    surfaceType = TestFixture.createRandomTerm();
+    sex = TestFixture.createRandomTerm();
+
     BigDecimal weight = new BigDecimal("4.50");
     Integer refill = new Integer(20);
 
@@ -104,6 +114,7 @@ public class TeamSprayTest extends TestCase
     person.setFirstName("Justin");
     person.setLastName("Smethie");
     person.setDateOfBirth(new Date());
+    person.setSex(sex);
     person.apply();
 
     operator = new SprayOperator();
@@ -134,7 +145,7 @@ public class TeamSprayTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     TeamSpray spray = new TeamSpray();
@@ -171,7 +182,7 @@ public class TeamSprayTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     TeamSpray spray = new TeamSpray();
@@ -215,7 +226,7 @@ public class TeamSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(new Date());
     spray.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.setTeamSprayWeek(2);
     spray.setSprayTeam(team);
     spray.setTarget(232);
@@ -239,8 +250,8 @@ public class TeamSprayTest extends TestCase
       assertEquals(spray.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(SprayMethod.MAIN_SPRAY, test.getSprayMethod().get(0));
-      assertEquals(1, test.getSurfaceType().size());
-      assertEquals(SurfaceType.POROUS, test.getSurfaceType().get(0));
+      
+      assertEquals(surfaceType.getId(), test.getSurfaceType().getId());
       assertEquals(edit.getTeamSprayWeek(), test.getTeamSprayWeek());
       assertEquals(team.getId(), test.getSprayTeam().getId());
       assertEquals(edit.getTarget(), test.getTarget());
@@ -261,7 +272,7 @@ public class TeamSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(new Date());
     spray.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.setTeamSprayWeek(2);
     spray.setSprayTeam(team);
     spray.setTarget(232);
@@ -279,8 +290,8 @@ public class TeamSprayTest extends TestCase
       assertEquals(spray.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(SprayMethod.MAIN_SPRAY, test.getSprayMethod().get(0));
-      assertEquals(1, test.getSurfaceType().size());
-      assertEquals(SurfaceType.POROUS, test.getSurfaceType().get(0));
+      
+      assertEquals(surfaceType.getId(), test.getSurfaceType().getId());
       assertEquals(spray.getTeamSprayWeek(), test.getTeamSprayWeek());
       assertEquals(team.getId(), test.getSprayTeam().getId());
       assertEquals(spray.getTarget(), test.getTarget());
@@ -300,7 +311,7 @@ public class TeamSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(new Date());
     spray.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.setTeamSprayWeek(2);
     spray.setTarget(232);
     spray.setTeamSprayWeek(24);
@@ -334,7 +345,7 @@ public class TeamSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(date);
     spray.addSprayMethod(method);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.setTeamSprayWeek(2);
     spray.setTarget(232);
     spray.setTeamSprayWeek(24);
@@ -353,8 +364,8 @@ public class TeamSprayTest extends TestCase
       assertEquals(spray.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(method, test.getSprayMethod().get(0));
-      assertEquals(1, test.getSurfaceType().size());
-      assertEquals(SurfaceType.POROUS, test.getSurfaceType().get(0));
+      
+      assertEquals(surfaceType.getId(), test.getSurfaceType().getId());
       assertEquals(spray.getTeamSprayWeek(), test.getTeamSprayWeek());
       assertEquals(spray.getTarget(), test.getTarget());
       assertEquals(spray.getTeamSprayWeek(), test.getTeamSprayWeek());
@@ -384,7 +395,7 @@ public class TeamSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(new Date());
     spray.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.setTeamSprayWeek(2);
     spray.setSprayTeam(team);
     spray.setTarget(232);
@@ -399,7 +410,7 @@ public class TeamSprayTest extends TestCase
       duplicate.setGeoEntity(geoEntity);
       duplicate.setSprayDate(new Date());
       duplicate.addSprayMethod(SprayMethod.MAIN_SPRAY);
-      duplicate.addSurfaceType(SurfaceType.POROUS);
+      duplicate.setSurfaceType(surfaceType);
       duplicate.setTeamSprayWeek(2);
       duplicate.setSprayTeam(team);
       duplicate.setTarget(232);

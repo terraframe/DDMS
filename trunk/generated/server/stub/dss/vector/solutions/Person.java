@@ -10,7 +10,6 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 
-import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
 import dss.vector.solutions.intervention.monitor.ITNRecipient;
 import dss.vector.solutions.irs.SprayLeader;
@@ -225,7 +224,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     view.setPersonId(this.getId());
     view.setFirstName(this.getFirstName());
     view.setLastName(this.getLastName());
-    view.addSex(this.getSex().get(0));
+    view.setSex(this.getSex());
 
     view.setDateOfBirth(this.getDateOfBirth());
 
@@ -333,9 +332,11 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
       query.WHERE(query.getDateOfBirth().EQ(dob));
 
     // We have a default value set, so there is always a value
-    Sex sex = this.getSex().get(0);
-    if (!sex.equals(Sex.UNKNOWN))
-      query.WHERE(query.getSex().containsExactly(sex));
+    //FIXME MO Upgrade
+//    Sex sex = this.getSex().get(0);
+//    if (!sex.equals(Sex.UNKNOWN))
+//      query.WHERE(query.getSex().containsExactly(sex));
+    query.WHERE(query.getSex().EQ(this.getSex()));
 
     // SprayOperator sprayDelegate = this.getSprayOperatorDelegate();
     // if (sprayDelegate==null)
@@ -383,7 +384,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     ValueQuery valueQuery = new ValueQuery(f);
 
     Selectable[] selectables = new Selectable[] { personQuery.getId(Person.ID), personQuery.getFirstName(Person.FIRSTNAME), personQuery.getLastName(Person.LASTNAME), personQuery.getDateOfBirth(Person.DATEOFBIRTH),
-        personQuery.getResidentialGeoEntity(Person.RESIDENTIALGEOENTITY), personQuery.getSex().getDisplayLabel().currentLocale(Person.SEX) };
+        personQuery.getResidentialGeoEntity(Person.RESIDENTIALGEOENTITY), personQuery.getSex().getTermName(Person.SEX) };
 
     valueQuery.SELECT(selectables);
 

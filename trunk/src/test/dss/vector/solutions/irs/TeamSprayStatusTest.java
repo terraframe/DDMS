@@ -41,6 +41,10 @@ public class TeamSprayStatusTest extends TestCase
 
   private static Term             activeIngredient = null;
 
+  private static Term             surfaceType      = null;
+
+  private static Term             sex              = null;
+
   public static Test suite()
   {
     TestSuite suite = new TestSuite();
@@ -70,13 +74,18 @@ public class TeamSprayStatusTest extends TestCase
 
     geoEntity.delete();
     brand.delete();
-    
+
     activeIngredient.delete();
+    surfaceType.delete();
+    sex.delete();
   }
 
   protected static void classSetUp()
   {
     activeIngredient = TestFixture.createRandomTerm();
+    surfaceType = TestFixture.createRandomTerm();
+    sex = TestFixture.createRandomTerm();
+
     BigDecimal weight = new BigDecimal("4.50");
     Integer refill = new Integer(20);
 
@@ -109,7 +118,7 @@ public class TeamSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
@@ -184,7 +193,7 @@ public class TeamSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
@@ -278,7 +287,7 @@ public class TeamSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
@@ -340,7 +349,7 @@ public class TeamSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
@@ -443,7 +452,7 @@ public class TeamSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
@@ -522,7 +531,7 @@ public class TeamSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try

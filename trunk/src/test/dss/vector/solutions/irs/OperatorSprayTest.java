@@ -14,7 +14,6 @@ import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.TestFixture;
-import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.ontology.Term;
@@ -33,19 +32,23 @@ public class OperatorSprayTest extends TestCase
     super.run(testResult);
   }
 
-  private static InsecticideBrand brand     = null;
+  private static InsecticideBrand brand            = null;
 
-  private static GeoEntity        geoEntity = null;
+  private static GeoEntity        geoEntity        = null;
 
-  private static SprayOperator    operator  = null;
+  private static SprayOperator    operator         = null;
 
-  private static Person           person    = null;
+  private static Person           person           = null;
 
-  private static SprayTeam        team      = null;
+  private static SprayTeam        team             = null;
 
-  private static SprayLeader      leader    = null;
-  
+  private static SprayLeader      leader           = null;
+
   private static Term             activeIngredient = null;
+
+  private static Term             surfaceType      = null;
+
+  private static Term             sex              = null;
 
   public static Test suite()
   {
@@ -78,12 +81,18 @@ public class OperatorSprayTest extends TestCase
 
     geoEntity.delete();
     brand.delete();
+
     activeIngredient.delete();
+    surfaceType.delete();
+    sex.delete();
   }
 
   protected static void classSetUp()
   {
     activeIngredient = TestFixture.createRandomTerm();
+    surfaceType = TestFixture.createRandomTerm();
+    sex = TestFixture.createRandomTerm();
+
     BigDecimal weight = new BigDecimal("4.50");
     Integer refill = new Integer(20);
 
@@ -101,7 +110,7 @@ public class OperatorSprayTest extends TestCase
     geoEntity.apply();
 
     person = new Person();
-    person.addSex(Sex.MALE);
+    person.setSex(sex);
     person.setDateOfBirth(new Date());
     person.setFirstName("Justin");
     person.setLastName("Smethie");
@@ -133,7 +142,7 @@ public class OperatorSprayTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     OperatorSpray spray = new OperatorSpray();
@@ -178,7 +187,7 @@ public class OperatorSprayTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     OperatorSpray spray = new OperatorSpray();
@@ -233,7 +242,7 @@ public class OperatorSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(new Date());
     spray.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.setOperatorSprayWeek(2);
     spray.setReceived(2);
     spray.setRefills(3);
@@ -265,8 +274,8 @@ public class OperatorSprayTest extends TestCase
       assertEquals(edit.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(SprayMethod.MAIN_SPRAY, test.getSprayMethod().get(0));
-      assertEquals(1, test.getSurfaceType().size());
-      assertEquals(SurfaceType.POROUS, test.getSurfaceType().get(0));
+      
+      assertEquals(surfaceType.getId(), test.getSurfaceType().getId());
       assertEquals(edit.getOperatorSprayWeek(), test.getOperatorSprayWeek());
       assertEquals(edit.getReceived(), test.getReceived());
       assertEquals(edit.getRefills(), test.getRefills());
@@ -290,7 +299,7 @@ public class OperatorSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(new Date());
     spray.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.setOperatorSprayWeek(2);
     spray.setReceived(2);
     spray.setRefills(3);
@@ -312,8 +321,8 @@ public class OperatorSprayTest extends TestCase
       assertEquals(spray.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(SprayMethod.MAIN_SPRAY, test.getSprayMethod().get(0));
-      assertEquals(1, test.getSurfaceType().size());
-      assertEquals(SurfaceType.POROUS, test.getSurfaceType().get(0));
+      
+      assertEquals(surfaceType.getId(), test.getSurfaceType().getId());
       assertEquals(spray.getOperatorSprayWeek(), test.getOperatorSprayWeek());
       assertEquals(spray.getReceived(), test.getReceived());
       assertEquals(spray.getRefills(), test.getRefills());
@@ -337,7 +346,7 @@ public class OperatorSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(new Date());
     spray.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.setOperatorSprayWeek(2);
     spray.setReceived(2);
     spray.setRefills(3);
@@ -375,7 +384,7 @@ public class OperatorSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(date);
     spray.addSprayMethod(method);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.setOperatorSprayWeek(2);
     spray.setReceived(2);
     spray.setRefills(3);
@@ -397,9 +406,8 @@ public class OperatorSprayTest extends TestCase
       assertEquals(spray.getGeoEntity().getId(), test.getGeoEntity().getId());
       assertEquals(spray.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
-      assertEquals(method, test.getSprayMethod().get(0));
-      assertEquals(1, test.getSurfaceType().size());
-      assertEquals(SurfaceType.POROUS, test.getSurfaceType().get(0));
+      assertEquals(method, test.getSprayMethod().get(0));      
+      assertEquals(surfaceType.getId(), test.getSurfaceType().getId());
       assertEquals(spray.getOperatorSprayWeek(), test.getOperatorSprayWeek());
       assertEquals(spray.getReceived(), test.getReceived());
       assertEquals(spray.getRefills(), test.getRefills());
@@ -434,7 +442,7 @@ public class OperatorSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(new Date());
     spray.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.setOperatorSprayWeek(2);
     spray.setReceived(2);
     spray.setRefills(3);
@@ -453,7 +461,7 @@ public class OperatorSprayTest extends TestCase
       duplicate.setGeoEntity(geoEntity);
       duplicate.setSprayDate(new Date());
       duplicate.addSprayMethod(SprayMethod.MAIN_SPRAY);
-      duplicate.addSurfaceType(SurfaceType.POROUS);
+      duplicate.setSurfaceType(surfaceType);
       duplicate.setOperatorSprayWeek(2);
       duplicate.setReceived(2);
       duplicate.setRefills(3);

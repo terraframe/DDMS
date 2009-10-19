@@ -1,29 +1,23 @@
-package dss.vector.solutions.permissions.administration;
+package dss.vector.solutions.permissions.geo;
 
-import java.util.Calendar;
 import java.util.Locale;
-
-import junit.framework.TestCase;
 
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.web.WebClientSession;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.TestFixture;
+import dss.vector.solutions.geo.generated.SentinelSite;
+import dss.vector.solutions.geo.generated.WaterBody;
+import dss.vector.solutions.ontology.Term;
+import junit.framework.TestCase;
 
-public abstract class AdministrationPermissionTest extends TestCase
+public class GeoEntityPermissionTest extends TestCase
 {
-  private static Person            person;
-
-  private static String            username;
-
-  private static String            password = "test";
-
-  protected static String          rolename;
-
   protected static ClientSession   clientSession;
 
   protected static ClientRequestIF request;
@@ -31,6 +25,26 @@ public abstract class AdministrationPermissionTest extends TestCase
   protected static ClientSession   systemSession;
 
   protected static ClientRequestIF systemRequest;
+
+  protected static String          geoId;
+
+  protected static String          waterId;
+
+  protected static String          rolename;
+
+  private static Person            person;
+
+  private static String            username;
+
+  private static String            password = "test";
+
+  private static SentinelSite      site;
+
+  private static WaterBody         waterBody;
+
+  private static Term              term;
+
+  protected static String          termId;
 
   protected static void classSetUp()
   {
@@ -45,19 +59,23 @@ public abstract class AdministrationPermissionTest extends TestCase
   }
 
   @StartSession
+  @Transaction
   protected static void setupVars()
   {
-    Calendar calendar = Calendar.getInstance();
-    calendar.clear();
-    calendar.set(1983, 5, 11);
-
-    // Create a test user and assign it to the entomology role
     person = TestFixture.createTestPerson(username, password, rolename);
+    site = TestFixture.createRandomSite();
+    waterBody = TestFixture.createRandomPermanentWaterBody();
+    term = TestFixture.createRandomTerm();
+
+    geoId = site.getId();
+    waterId = waterBody.getId();
+    termId = term.getId();
   }
 
   protected static void classTearDown()
   {
     clientSession.logout();
+
     systemSession.logout();
 
     tearDownVars();
@@ -66,7 +84,10 @@ public abstract class AdministrationPermissionTest extends TestCase
   @StartSession
   protected static void tearDownVars()
   {
+    site.delete();
+    waterBody.delete();
+    term.delete();
+
     TestFixture.delete(person);
   }
-
 }

@@ -3,9 +3,6 @@ package dss.vector.solutions.permissions.geo;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import junit.framework.TestCase;
-
-import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
@@ -17,16 +14,8 @@ import dss.vector.solutions.geo.GeoHierarchyQueryDTO;
 import dss.vector.solutions.geo.SpatialTypesDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 
-public abstract class GeoEntityNoPermissions extends TestCase
+public abstract class GeoEntityNoPermissions extends GeoEntityPermissionTest
 {
-  protected static ClientSession   clientSession;
-
-  protected static ClientRequestIF request;
-
-  protected static ClientSession   systemSession;
-
-  protected static ClientRequestIF systemRequest;
-
   public void testGeoEntity() 
   {
     GeoHierarchyQueryDTO instances = GeoHierarchyDTO.getAllInstances(systemRequest, null, false, 0, 0);

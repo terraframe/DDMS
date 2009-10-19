@@ -134,8 +134,9 @@ public abstract class InterventionPlanningPermissionTest extends TestCase
   protected static void tearDownVars()
   {
     site.delete();
-    person.deleteDelegates();
-    Person.get(person.getId()).delete();
+
+    TestFixture.delete(person);
+    
     season.delete();
     configuration.delete();
     brand.delete();

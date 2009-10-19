@@ -73,7 +73,6 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     String geoId = dto.getGeoEntity().getGeoId();
     
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
-    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(request));
     req.setAttribute("operators", Arrays.asList(dto.getSprayTeam().getTeamMemberViews()));
     req.setAttribute("methods", SprayMethodDTO.allItems(request));
     req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getAll(request)));
@@ -122,11 +121,18 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     ClientRequestIF request = this.getClientSession().getRequest();
     InsecticideBrandDTO brand = dto.getBrand();
     
+    this.setupReferences(dto);
+    
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("item", dto);
     req.setAttribute("status", dto.getStatus());
     req.setAttribute("operators", this.buildOperatorsMap(dto));
     render("viewComponent.jsp");
+  }
+
+  private void setupReferences(TeamSprayViewDTO dto)
+  {
+    req.setAttribute("surfaceType", dto.getSurfaceType());
   }
 
   private JSONObject buildOperatorsMap(TeamSprayViewDTO view)
@@ -163,6 +169,8 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
       TeamSprayViewDTO dto = TeamSprayDTO.lockView(super.getClientRequest(), id);
 
       this.setupRequest(dto);
+      this.setupReferences(dto);
+      
       req.setAttribute("item", dto);
       render("editComponent.jsp");
     }
@@ -252,6 +260,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
       else
       {
         this.setupRequest(dto);
+        this.setupReferences(dto);
 
         req.setAttribute("item", dto);
         render("createComponent.jsp");

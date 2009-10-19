@@ -1,6 +1,5 @@
-package dss.vector.solutions.permissions.administration;
+package dss.vector.solutions.permissions.aggregated.cases;
 
-import java.util.Calendar;
 import java.util.Locale;
 
 import junit.framework.TestCase;
@@ -13,8 +12,10 @@ import com.terraframe.mojo.web.WebClientSession;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.TestFixture;
+import dss.vector.solutions.geo.generated.SentinelSite;
+import dss.vector.solutions.ontology.Term;
 
-public abstract class AdministrationPermissionTest extends TestCase
+public abstract class AggregatedCasesPermissionTest extends TestCase
 {
   private static Person            person;
 
@@ -32,6 +33,14 @@ public abstract class AdministrationPermissionTest extends TestCase
 
   protected static ClientRequestIF systemRequest;
 
+  protected static String          geoId;
+
+  private static SentinelSite      site;
+
+  private static Term              term;
+
+  protected static String          termId;
+
   protected static void classSetUp()
   {
     username = new Long(System.currentTimeMillis()).toString();
@@ -47,12 +56,15 @@ public abstract class AdministrationPermissionTest extends TestCase
   @StartSession
   protected static void setupVars()
   {
-    Calendar calendar = Calendar.getInstance();
-    calendar.clear();
-    calendar.set(1983, 5, 11);
-
     // Create a test user and assign it to the entomology role
     person = TestFixture.createTestPerson(username, password, rolename);
+
+    site = TestFixture.createRandomSite();
+    term = TestFixture.createRandomTerm();
+
+    geoId = site.getId();
+    termId = term.getId();
+
   }
 
   protected static void classTearDown()
@@ -66,6 +78,9 @@ public abstract class AdministrationPermissionTest extends TestCase
   @StartSession
   protected static void tearDownVars()
   {
+    site.delete();
+    term.delete();
+
     TestFixture.delete(person);
   }
 

@@ -14,9 +14,7 @@ import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
 
 import dss.vector.solutions.Person;
-import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.TestFixture;
-import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.ontology.Term;
@@ -45,7 +43,9 @@ public class IndividualIPTTest extends TestCase
 
   private static IndividualIPTCase iptCase  = null;
 
-  private static Term                term     = null;
+  private static Term              term     = null;
+
+  private static Term              sex      = null;
 
   public static Test suite()
   {
@@ -82,25 +82,23 @@ public class IndividualIPTTest extends TestCase
     Person.get(person.getId()).delete();
 
     term.delete();
+    
+    sex.delete();
   }
 
   protected static void classSetUp()
   {
-    facility = new HealthFacility();
-    facility.setGeoId(TestConstants.GEO_ID);
-    facility.setEntityName("Facility");
-    facility.apply();
-
-    site = new SentinelSite();
-    site.setGeoId(TestConstants.GEO_ID_2);
-    site.setEntityName("Site");
-    site.apply();
+    sex = TestFixture.createRandomTerm();
+    term = TestFixture.createRandomTerm();
+    
+    facility = TestFixture.createRandomFacility();
+    site = TestFixture.createRandomSite();
 
     person = new Person();
     person.setFirstName("Justin");
     person.setLastName("Smethie");
     person.setDateOfBirth(new Date());
-    person.addSex(Sex.MALE);
+    person.setSex(sex);
     person.apply();
 
     patient = new IPTRecipient();
@@ -115,7 +113,6 @@ public class IndividualIPTTest extends TestCase
     iptCase.setResidentialLocation(site);
     iptCase.apply();
 
-    term = TestFixture.createRandomTerm();
   }
 
   public void testCreateIndividualIPT()
@@ -184,7 +181,7 @@ public class IndividualIPTTest extends TestCase
       assertEquals(view.getFacility(), test.getFacility());
 
       assertEquals(view.getIptCase().getId(), test.getIptCase().getId());
-      
+
       assertEquals(view.getPatientType().getId(), test.getPatientType().getId());
       assertEquals(view.getIsANCVisit(), test.getIsANCVisit());
       assertEquals(view.getVisitNumber().getId(), test.getVisitNumber().getId());
@@ -208,7 +205,7 @@ public class IndividualIPTTest extends TestCase
     view.setFacility(facility.getGeoId());
 
     view.setIptCase(iptCase);
-    
+
     view.setPatientType(term);
     view.setIsANCVisit(true);
     view.setVisitNumber(term);
@@ -265,7 +262,7 @@ public class IndividualIPTTest extends TestCase
     view.setFacility(facility.getGeoId());
 
     view.setIptCase(iptCase);
-    
+
     view.setPatientType(term);
     view.setIsANCVisit(true);
     view.setVisitNumber(term);
@@ -288,7 +285,7 @@ public class IndividualIPTTest extends TestCase
       IndividualIPTView test = list.get(0);
 
       assertEquals(view.getFacility(), test.getFacility());
-      assertEquals(view.getIptCase().getId(), test.getIptCase().getId());      
+      assertEquals(view.getIptCase().getId(), test.getIptCase().getId());
       assertEquals(view.getPatientType().getId(), test.getPatientType().getId());
       assertEquals(view.getIsANCVisit(), test.getIsANCVisit());
       assertEquals(view.getVisitNumber().getId(), test.getVisitNumber().getId());
@@ -314,7 +311,7 @@ public class IndividualIPTTest extends TestCase
       IndividualIPTView view = new IndividualIPTView();
       view.setFacility(facility.getGeoId());
       view.setIptCase(iptCase);
-      
+
       view.setPatientType(term);
       view.setIsANCVisit(true);
       view.setVisitNumber(term);
@@ -352,7 +349,7 @@ public class IndividualIPTTest extends TestCase
       IndividualIPTView view = new IndividualIPTView();
       view.setFacility(site.getGeoId());
       view.setIptCase(iptCase);
-      
+
       view.setPatientType(term);
       view.setIsANCVisit(true);
       view.setVisitNumber(term);

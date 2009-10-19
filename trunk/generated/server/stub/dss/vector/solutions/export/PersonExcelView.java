@@ -11,6 +11,7 @@ import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Ward;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class PersonExcelView extends PersonExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -33,7 +34,7 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
     personView.setFirstName(this.getFirstName());
     personView.setLastName(this.getLastName());
     personView.setDateOfBirth(this.getDateOfBirth());
-    personView.addSex(getSexByLabel(this.getSex()));
+    personView.setSex(Term.validateByDisplayLabel(this.getSex(), PersonView.getSexMd()));
     
     if(entity != null)
     {

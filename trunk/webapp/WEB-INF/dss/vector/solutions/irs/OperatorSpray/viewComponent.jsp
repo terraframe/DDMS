@@ -81,11 +81,9 @@
         ${item.teamLeader.person.lastName}, ${item.teamLeader.person.firstName}
       </mjl:dt>
       <mjl:dt attribute="surfaceType" >
-        <ul>
-          <c:forEach var="enumName" items="${item.surfaceTypeEnumNames}">
-            <li>${item.surfaceTypeMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>
+        <c:if test="${surfaceType != null}">
+          ${surfaceType.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="teamSprayWeek"> ${item.teamSprayWeek} </mjl:dt>
       <mjl:dt attribute="target"> ${item.target} </mjl:dt>

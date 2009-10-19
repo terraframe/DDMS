@@ -1,11 +1,7 @@
 package dss.vector.solutions.permissions.aggregated.cases;
 
-import junit.framework.TestCase;
-
-import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
-import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
@@ -18,14 +14,8 @@ import dss.vector.solutions.surveillance.CaseTreatmentMethodDTO;
 import dss.vector.solutions.surveillance.CaseTreatmentStockDTO;
 import dss.vector.solutions.surveillance.PeriodTypeDTO;
 
-public abstract class AggregatedCasesCRUDPermissions extends TestCase
+public abstract class AggregatedCasesCRUDPermissions extends AggregatedCasesPermissionTest
 {
-  protected static ClientSession   clientSession;
-
-  protected static ClientRequestIF request;
-
-  protected static String          geoId;
-
   public void testAncientCase()
   {
     AggregatedAgeGroupDTO[] groups = AggregatedAgeGroupDTO.getAll(request);

@@ -105,11 +105,18 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
     InsecticideBrandDTO brand = dto.getBrand();
 
+    this.setupReferences(dto);
+    
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("status", dto.getStatus());
     req.setAttribute("item", dto);
 
     render("viewComponent.jsp");
+  }
+
+  private void setupReferences(OperatorSprayViewDTO dto)
+  {
+    req.setAttribute("surfaceType", dto.getSurfaceType());
   }
 
   public void failView(String id) throws IOException, ServletException
@@ -124,6 +131,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
       OperatorSprayViewDTO dto = OperatorSprayDTO.lockView(super.getClientRequest(), id);
 
       this.setupRequest(dto);
+      this.setupReferences(dto);
 
       req.setAttribute("item", dto);
       render("editComponent.jsp");
@@ -214,6 +222,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
       else
       {
         this.setupRequest(dto);
+        this.setupReferences(dto);
 
         req.setAttribute("item", dto);
         render("createComponent.jsp");
@@ -247,7 +256,6 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     List<? extends SprayTeamDTO> selectedTeam = dto.getSprayOperator().getAllSprayTeam();
 
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
-    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(request));
     req.setAttribute("methods", SprayMethodDTO.allItems(request));
     req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getAll(request)));
     req.setAttribute("teams", Arrays.asList(SprayTeamDTO.findByLocation(request, geoId)));

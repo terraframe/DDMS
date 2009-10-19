@@ -97,7 +97,6 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
     InsecticideBrandDTO brand = dto.getBrand();
 
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
-    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(request));
     req.setAttribute("methods", SprayMethodDTO.allItems(request));
     req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getAll(request)));
   }
@@ -121,6 +120,8 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
 
     JSONObject teamMap = buildTeamsMap(teams);
     String operators = buildOperatorsMap(teams);
+    
+    this.setupReferences(dto);
 
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("teams", teamMap);
@@ -129,6 +130,11 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
     req.setAttribute("item", dto);
 
     render("viewComponent.jsp");
+  }
+
+  private void setupReferences(ZoneSprayViewDTO dto)
+  {
+    req.setAttribute("surfaceType", dto.getSurfaceType());
   }
 
   private JSONObject buildTeamsMap(SprayTeamDTO[] teams)
@@ -187,6 +193,8 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
       ZoneSprayViewDTO dto = ZoneSprayDTO.lockView(super.getClientRequest(), id);
 
       this.setupRequest(dto);
+      this.setupReferences(dto);
+      
       req.setAttribute("item", dto);
       render("editComponent.jsp");
     }
@@ -272,6 +280,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
       else
       {
         this.setupRequest(dto);
+        this.setupReferences(dto);
 
         req.setAttribute("item", dto);
         render("createComponent.jsp");

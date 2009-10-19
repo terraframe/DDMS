@@ -34,6 +34,10 @@ public class SprayDataTest extends TestCase
 
   private static Term             activeIngredient = null;
 
+  private static Term             surfaceType      = null;
+
+  private static Term             sex              = null;
+
   public static Test suite()
   {
     TestSuite suite = new TestSuite();
@@ -61,11 +65,17 @@ public class SprayDataTest extends TestCase
     brand.delete();
     geoEntity.delete();
     activeIngredient.delete();
+
+    surfaceType.delete();
+    sex.delete();    
   }
 
   protected static void classSetUp()
   {
     activeIngredient = TestFixture.createRandomTerm();
+    surfaceType = TestFixture.createRandomTerm();
+    sex = TestFixture.createRandomTerm();
+
     BigDecimal weight = new BigDecimal("4.50");
     Integer refill = new Integer(20);
 
@@ -90,7 +100,7 @@ public class SprayDataTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
@@ -103,8 +113,8 @@ public class SprayDataTest extends TestCase
       assertEquals(data.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(SprayMethod.MAIN_SPRAY, test.getSprayMethod().get(0));
-      assertEquals(1, test.getSurfaceType().size());
-      assertEquals(SurfaceType.POROUS, test.getSurfaceType().get(0));
+      
+      assertEquals(surfaceType.getId(), test.getSurfaceType().getId());
     }
     finally
     {
@@ -119,14 +129,12 @@ public class SprayDataTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     SprayData edit = SprayData.lock(data.getId());
     edit.clearSprayMethod();
-    edit.clearSurfaceType();
     edit.addSprayMethod(SprayMethod.MOP_UP);
-    edit.addSurfaceType(SurfaceType.NON_POROUS);
     edit.apply();
 
     try
@@ -139,8 +147,8 @@ public class SprayDataTest extends TestCase
       assertEquals(edit.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(SprayMethod.MOP_UP, test.getSprayMethod().get(0));
-      assertEquals(1, test.getSurfaceType().size());
-      assertEquals(SurfaceType.NON_POROUS, test.getSurfaceType().get(0));
+      
+      assertEquals(SurfaceType.NON_POROUS, test.getSurfaceType().getId());
     }
     finally
     {
@@ -158,7 +166,7 @@ public class SprayDataTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(date);
     data.addSprayMethod(sprayMethod);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
@@ -170,9 +178,8 @@ public class SprayDataTest extends TestCase
       assertEquals(data.getGeoEntity().getId(), test.getGeoEntity().getId());
       assertEquals(data.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
-      assertEquals(sprayMethod, test.getSprayMethod().get(0));
-      assertEquals(1, test.getSurfaceType().size());
-      assertEquals(SurfaceType.POROUS, test.getSurfaceType().get(0));
+      assertEquals(sprayMethod, test.getSprayMethod().get(0));      
+      assertEquals(surfaceType.getId(), test.getSurfaceType().getId());
     }
     finally
     {

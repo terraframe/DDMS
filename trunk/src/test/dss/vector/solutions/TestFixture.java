@@ -8,7 +8,6 @@ import com.terraframe.mojo.business.rbac.UserDAO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
-import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -126,6 +125,8 @@ public class TestFixture
   
   public static Person createTestPerson(String username, String password, String rolename)
   {
+    Term sex = TestFixture.createRandomTerm();
+    
     Calendar calendar = Calendar.getInstance();
     calendar.clear();
     calendar.set(1983, 5, 11);
@@ -135,7 +136,7 @@ public class TestFixture
     person.setFirstName("Justin");
     person.setLastName("Smethie");
     person.setDateOfBirth(calendar.getTime());
-    person.addSex(Sex.MALE);
+    person.setSex(sex);
     person.apply();
     person.lock();
 
@@ -154,6 +155,17 @@ public class TestFixture
     person.apply();
 
     return person;
+  }
+  
+  public static void delete(Person person)
+  {
+    Term sex = person.getSex();
+    
+    person.deleteDelegates();
+    
+    Person.get(person.getId()).delete();
+    
+    sex.delete();
   }
 
   public static MosquitoCollection createMosquitoCollection(GeoEntity geoEntity, Term collectionMethod)

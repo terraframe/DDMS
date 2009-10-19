@@ -6,21 +6,23 @@ import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
-import dss.vector.solutions.entomology.SexDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTCaseDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO;
 import dss.vector.solutions.ontology.MODTO;
+import dss.vector.solutions.ontology.TermDTO;
 
 public abstract class IndividualIPTNoPermissions extends IndividualIPTPermissionTest
 {
   public void testIndividualIPTCase()
   {
+    TermDTO term = TermDTO.get(request, termId);
+    
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
     dto.setFirstName("Test");
     dto.setLastName("Test");
     dto.setDateOfBirth(new Date());
-    dto.addSex(SexDTO.MALE);
+    dto.setSex(term);
     dto.setIsIPTRecipient(true);
 
     dto.setIsPatient(false);
@@ -57,11 +59,13 @@ public abstract class IndividualIPTNoPermissions extends IndividualIPTPermission
 
   public void testIndividualIPT()
   {
+    TermDTO term = TermDTO.get(request, termId);
+
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
     dto.setFirstName("Test");
     dto.setLastName("Test");
     dto.setDateOfBirth(new Date());
-    dto.addSex(SexDTO.MALE);
+    dto.setSex(term);
     dto.setIsIPTRecipient(true);
 
     dto.setIsPatient(false);

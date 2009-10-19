@@ -523,12 +523,11 @@
             label="Insecticide Brand"
             required="true"
             type="dss.vector.solutions.irs.InsecticideBrand" />
-          <enumeration
+          <reference
             name="surfaceType"
             label="Surface Type"
             required="true"
-            type="dss.vector.solutions.irs.SurfaceType"
-            defaultValue="POROUS" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
       </mdBusiness>
 

@@ -43,13 +43,11 @@
             name="dateOfBirth"
             label="Date of Birth"
             description="Date of Birth" />
-          <enumeration
+          <reference
             name="sex"
             label="Sex"
             description="User's sex / gender"
-            type="dss.vector.solutions.entomology.Sex"
-            selectMultiple="false"
-            defaultValue="UNKNOWN" />
+            type="dss.vector.solutions.ontology.Term" />
           <reference
             name="userDelegate"
             label="MDSS User Delegate"
@@ -84,7 +82,7 @@
             name="residentialGeoEntity"
             label="Residential Geo Entity"
             description="Geo Entity that is nearest to the person's residence"
-            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
         </attributes>
         <mdMethod
           name="searchForDuplicates"
@@ -147,7 +145,7 @@
             description="Is this Person an MDSS User?"
             defaultValue="false"
             negativeLabel="No"
-            positiveLabel="Yes"/>
+            positiveLabel="Yes" />
           <char
             name="uzername"
             accessor="username"
@@ -166,49 +164,49 @@
             description="Is this Person a Malaria Patient?"
             defaultValue="false"
             negativeLabel="No"
-            positiveLabel="Yes"/>
+            positiveLabel="Yes" />
           <boolean
             name="isITNRecipient"
             label="Is ITN Recipient"
             description="Is this Person an ITN Recipient?"
             defaultValue="false"
             negativeLabel="No"
-            positiveLabel="Yes"/>
+            positiveLabel="Yes" />
           <boolean
             name="isIPTRecipient"
             label="Is IPT Recipient"
             description="Is this Person an IPT Recipient?"
             defaultValue="false"
             negativeLabel="No"
-            positiveLabel="Yes"/>
+            positiveLabel="Yes" />
           <boolean
             name="isSprayOperator"
             label="Is Spray Operator"
             description="Is this Person a Spray Operator?"
             defaultValue="false"
             negativeLabel="No"
-            positiveLabel="Yes"/>
+            positiveLabel="Yes" />
           <virtual
             name="operatorId"
             concrete="operatorId"
-            type="dss.vector.solutions.irs.SprayOperator"/>
+            type="dss.vector.solutions.irs.SprayOperator" />
           <boolean
             name="isSprayLeader"
             label="Is Spray Leader"
             description="Is this Person a Spray Team Leader?"
             defaultValue="false"
             negativeLabel="No"
-            positiveLabel="Yes"/>
+            positiveLabel="Yes" />
           <virtual
             name="leaderId"
             concrete="leaderId"
-            type="dss.vector.solutions.irs.SprayLeader"/>
+            type="dss.vector.solutions.irs.SprayLeader" />
         </attributes>
         <mdMethod
           name="searchForDuplicates"
           label="Search For Duplicates"
           description="Searches for existing People with matching parameters"
-          returnType="dss.vector.solutions.PersonQuery"/>
+          returnType="dss.vector.solutions.PersonQuery" />
       </mdView>
 
       <mdBusiness
@@ -380,7 +378,7 @@
               label="Person"
               description="Updates a Person from a view"
               order="0"
-              type="dss.vector.solutions.PersonView"/>
+              type="dss.vector.solutions.PersonView" />
           </mdAction>
         </create>
       </mdController>

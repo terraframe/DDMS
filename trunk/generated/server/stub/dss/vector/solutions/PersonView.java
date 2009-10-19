@@ -7,12 +7,12 @@ import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
 import dss.vector.solutions.intervention.monitor.ITNRecipient;
 import dss.vector.solutions.irs.SprayLeader;
 import dss.vector.solutions.irs.SprayOperator;
+import dss.vector.solutions.ontology.Term;
 
 public class PersonView extends PersonViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -86,25 +86,7 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
       }
     }
 
-    ITNRecipient itnRecipient = person.getItnRecipientDelegate();
-    if (this.getIsITNRecipient())
-    {
-      if (itnRecipient == null)
-      {
-        itnRecipient = new ITNRecipient();
-      }
-
-      itnRecipient.setPerson(person);
-      itnRecipient.apply();
-    }
-    else
-    {
-      if (itnRecipient != null)
-      {
-        itnRecipient.delete();
-        itnRecipient = null;
-      }
-    }
+    ITNRecipient itnRecipient = applyITNRecipient(person);
 
     IPTRecipient iptRecipient = person.getIptRecipientDelegate();
     if (this.getIsIPTRecipient())
@@ -183,13 +165,46 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
 
     this.setPersonId(person.getId());
   }
+
+  private ITNRecipient applyITNRecipient(Person person)
+  {
+    ITNRecipient itnRecipient = person.getItnRecipientDelegate();
+    if (this.getIsITNRecipient())
+    {
+      if (itnRecipient == null)
+      {
+        itnRecipient = new ITNRecipient();
+      }
+
+      itnRecipient.setPerson(person);
+      itnRecipient.apply();
+    }
+    else
+    {
+      if (itnRecipient != null)
+      {
+        itnRecipient.delete();
+        itnRecipient = null;
+      }
+    }
+    return itnRecipient;
+  }
   
+  @Override
+  public void applyAsITNRecipient()
+  {
+    this.applyPerson();
+    
+    this.applyITNRecipient(Person.get(this.getPersonId()));
+  }
+
   @Override
   public void applyNonDelegates()
   {
     this.applyPerson();
   }
   
+
   private Person applyPerson()
   {
     // Update the person data
@@ -205,10 +220,10 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     }
 
     this.populateAttributeMapping(person);
-    
+
     person.setFirstName(this.getFirstName());
     person.setLastName(this.getLastName());
-    person.addSex(this.getSex().get(0));
+    person.setSex(this.getSex());
 
     // Set the persons age
     if (this.getDateOfBirth() != null)
@@ -216,34 +231,34 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
       person.setDateOfBirth(this.getDateOfBirth());
     }
     else if (this.getAge() != null)
-    {      
+    {
       // Must calculate the date of birth from the age
       person.setDateOfBirth(new AgeConverter(this.getAge()).getDateOfBirth());
     }
-    
+
     String residentialId = this.getResidentialGeoId();
 
     if (residentialId != null && !residentialId.equals(""))
     {
       person.setResidentialGeoEntity(GeoEntity.searchByGeoId(residentialId));
     }
-    
+
     person.setResidentialInformation(this.getResidentialInformation());
-    
+
     String workId = this.getWorkGeoId();
-    
+
     if (workId != null && !workId.equals(""))
     {
       person.setWorkGeoEntity(GeoEntity.searchByGeoId(workId));
     }
-    
+
     person.setResidentialInformation(this.getResidentialInformation());
 
     // Applying the person with validate it's attributes
     person.apply();
     return person;
   }
-  
+
   private void populateAttributeMapping(Person person)
   {
     new AttributeNotificationMap(person, Person.DATEOFBIRTH, this, PersonView.DATEOFBIRTH);
@@ -258,7 +273,7 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
   {
     return getDuplicatesPage(Person.LASTNAME, true, 20, 0);
   }
-  
+
   @Override
   public PersonQuery getDuplicatesPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
@@ -277,12 +292,19 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
       query.WHERE(query.getDateOfBirth().EQ(dob));
 
     // We have a default value set, so there is always a value
-    Sex sex = this.getSex().get(0);
-    if (!sex.equals(Sex.UNKNOWN))
-      query.WHERE(query.getSex().containsExactly(sex));
-    
+    // FIXME MO updated
+    // Sex sex = this.getSex().get(0);
+    // if (!sex.equals(Sex.UNKNOWN))
+    // query.WHERE(query.getSex().containsExactly(sex));
+    Term sex = this.getSex();
+
+    if (sex != null)
+    {
+      query.WHERE(query.getSex().EQ(sex));
+    }
+
     Entity.getAllInstances(query, sortAttribute, isAscending, pageSize, pageNumber);
-    
+
     return query;
   }
 }

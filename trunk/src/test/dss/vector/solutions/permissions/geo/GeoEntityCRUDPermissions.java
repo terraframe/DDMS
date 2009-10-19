@@ -3,9 +3,6 @@ package dss.vector.solutions.permissions.geo;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import junit.framework.TestCase;
-
-import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ClassQueryDTO;
 import com.terraframe.mojo.business.ComponentDTOIF;
@@ -22,16 +19,8 @@ import dss.vector.solutions.geo.GeoHierarchyViewDTO;
 import dss.vector.solutions.geo.SpatialTypesDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 
-public abstract class GeoEntityCRUDPermissions extends TestCase
+public abstract class GeoEntityCRUDPermissions extends GeoEntityPermissionTest
 {
-  protected static ClientSession   clientSession;
-
-  protected static ClientRequestIF request;
-
-  protected static ClientSession   systemSession;
-
-  protected static ClientRequestIF systemRequest;
-
   public void testGeoEntity() throws IllegalArgumentException, SecurityException,
       InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException
   {

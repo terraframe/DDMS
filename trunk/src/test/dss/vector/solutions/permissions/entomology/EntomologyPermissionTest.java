@@ -19,33 +19,33 @@ import dss.vector.solutions.ontology.Term;
 
 public abstract class EntomologyPermissionTest extends TestCase
 {
-  protected static ClientSession    clientSession;
+  protected static ClientSession   clientSession;
 
-  protected static ClientRequestIF  request;
+  protected static ClientRequestIF request;
 
-  protected static ClientSession    systemSession;
+  protected static ClientSession   systemSession;
 
-  protected static ClientRequestIF  systemRequest;
+  protected static ClientRequestIF systemRequest;
 
-  protected static String           geoId;
+  protected static String          geoId;
 
-  protected static String           waterId;
+  protected static String          waterId;
 
-  protected static String           rolename;
+  protected static String          rolename;
 
-  private static Person             person;
+  private static Person            person;
 
-  private static String             username;
+  private static String            username;
 
-  private static String             password = "test";
+  private static String            password = "test";
 
-  private static SentinelSite       site;
+  private static SentinelSite      site;
 
-  private static WaterBody waterBody;
+  private static WaterBody         waterBody;
 
-  private static Term               term;
+  private static Term              term;
 
-  protected static String           termId;
+  protected static String          termId;
 
   protected static void classSetUp()
   {
@@ -89,7 +89,6 @@ public abstract class EntomologyPermissionTest extends TestCase
     waterBody.delete();
     term.delete();
 
-    person.deleteDelegates();
-    Person.get(person.getId()).delete();
+    TestFixture.delete(person);
   }
 }

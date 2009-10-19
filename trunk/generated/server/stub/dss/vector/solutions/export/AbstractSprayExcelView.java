@@ -4,8 +4,10 @@ import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 
 import dss.vector.solutions.irs.AbstractSprayView;
+import dss.vector.solutions.irs.SprayData;
 import dss.vector.solutions.irs.SprayMethod;
 import dss.vector.solutions.irs.SurfaceType;
+import dss.vector.solutions.ontology.Term;
 
 public class AbstractSprayExcelView extends AbstractSprayExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -18,7 +20,7 @@ public class AbstractSprayExcelView extends AbstractSprayExcelViewBase implement
   
   public void populate(AbstractSprayView abstractSprayView)
   {
-    abstractSprayView.addSurfaceType(getSurfaceTypeByLabel(this.getSurfaceType()));
+    abstractSprayView.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), SprayData.getSurfaceTypeMd()));
   }
   
   public SurfaceType getSurfaceTypeByLabel(String label)

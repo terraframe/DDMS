@@ -86,8 +86,7 @@ public abstract class IndividualIPTPermissionTest extends TestCase implements Do
   protected static void tearDownVars()
   {
     facility.delete();
-    person.deleteDelegates();
-    Person.get(person.getId()).delete();
+    TestFixture.delete(person);
   }
 
 }

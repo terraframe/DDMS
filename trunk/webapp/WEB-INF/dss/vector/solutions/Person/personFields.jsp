@@ -2,7 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
+
+<%@page import="dss.vector.solutions.PersonViewDTO"%><jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <script type="text/javascript">
 MDSS.AbstractSelectSearch.Political = true;
@@ -27,12 +28,19 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
         <mjl:input type="text" param="dateOfBirth" id="dateOfBirth" classes="DatePick NoFuture"/>
       </mjl:dt>
       <mjl:dt attribute="sex">
-        <mjl:select var="current" valueAttribute="enumName" items="${sexes}" param="sex">
-          <mjl:option selected="${mjl:contains(item.sexEnumNames, current.enumName) ? 'selected' : 'false'}">
-            ${item.sexMd.enumItems[current.enumName]}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>      
+        <span class="clickable browserLauncher" id="sexBtn"> <fmt:message key="Browser"/></span>
+        <div id="sexDisplay" class="ontologyDisplay">
+          <c:choose>
+            <c:when test="${sex != null}">
+              ${sex.displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
+        </div>
+        <mjl:input type="hidden" param="sex" id="sex" value="${sex != null ? sex.id : ''}" />
+      </mjl:dt>            
       <dt>
         <label>
           ${item.isMDSSUserMd.displayLabel}?
@@ -198,34 +206,41 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
         </div>
       </dd>
   </mjl:component>
-  
-<script type="text/javascript" defer="defer">
-<!--
+
+<script type="text/javascript">  
 (function(){
-var password = document.getElementById('password');
-var repassword = document.getElementById('repassword');
-var button = document.getElementById('submit.button');
+  YAHOO.util.Event.onDOMReady(function(){   
+    var attributes = [
+         {attributeName:'sex'}
+    ];
+    
+    new MDSS.GenericOntologyBrowser("<%=PersonViewDTO.CLASS%>", attributes);
 
-var validatePassword = function () {
-  button.disabled = true;
-  MDSS.Calendar.removeError(password);
-  
-  if(password.value !== '' && repassword.value !== '') {
-    if(password.value !== repassword.value) {
-      MDSS.Calendar.addError(password,MDSS.localize("Password_Mismatch"));
+    var password = document.getElementById('password');
+    var repassword = document.getElementById('repassword');
+    var button = document.getElementById('submit.button');
 
-      // Empty the values of password and repassword to ensure that they re
-      password.value = '';
-      repassword.value = '';
-    }
-    else {
-      button.disabled = false;        
-    }
-  }    
-}
+    var validatePassword = function () {
+        button.disabled = true;
+        MDSS.Calendar.removeError(password);
 
-YAHOO.util.Event.on(password, 'blur', validatePassword);
-YAHOO.util.Event.on(repassword, 'blur', validatePassword);
+        if(password.value !== '' && repassword.value !== '') {
+            if(password.value !== repassword.value) {
+
+              MDSS.Calendar.addError(password,MDSS.localize("Password_Mismatch"));
+
+              // Empty the values of password and repassword to ensure that they re
+              password.value = '';
+              repassword.value = '';
+            }
+            else {
+              button.disabled = false;        
+            }
+       }    
+   }
+
+   YAHOO.util.Event.on(password, 'blur', validatePassword);
+   YAHOO.util.Event.on(repassword, 'blur', validatePassword);
+  })
 })();
-//-->
 </script>

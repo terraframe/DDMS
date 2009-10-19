@@ -27,18 +27,13 @@ public abstract class AbstractSprayView extends AbstractSprayViewBase implements
     data.setSprayDate(this.getSprayDate());
     data.setBrand(this.getBrand());
     data.setGeoEntity(this.getGeoEntity());
+    data.setSurfaceType(this.getSurfaceType());
 
     data.clearSprayMethod();
-    data.clearSurfaceType();
 
     for (SprayMethod method : this.getSprayMethod())
     {
       data.addSprayMethod(method);
-    }
-
-    for (SurfaceType surface : this.getSurfaceType())
-    {
-      data.addSurfaceType(surface);
     }
   }
 

@@ -14,7 +14,6 @@ import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.TestFixture;
-import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.ontology.Term;
@@ -33,19 +32,23 @@ public class OperatorSprayStatusTest extends TestCase
     super.run(testResult);
   }
 
-  private static InsecticideBrand brand     = null;
+  private static InsecticideBrand brand            = null;
 
-  private static GeoEntity        geoEntity = null;
+  private static GeoEntity        geoEntity        = null;
 
-  private static SprayOperator    operator  = null;
+  private static SprayOperator    operator         = null;
 
-  private static SprayOperator    operator2 = null;
+  private static SprayOperator    operator2        = null;
 
-  private static Person           person    = null;
+  private static Person           person           = null;
 
-  private static Person           person2   = null;
-  
+  private static Person           person2          = null;
+
   private static Term             activeIngredient = null;
+
+  private static Term             surfaceType      = null;
+
+  private static Term             sex              = null;
 
   public static Test suite()
   {
@@ -79,13 +82,19 @@ public class OperatorSprayStatusTest extends TestCase
 
     geoEntity.delete();
     brand.delete();
-    
+
     activeIngredient.delete();
+    surfaceType.delete();
+    sex.delete();
+
   }
 
   protected static void classSetUp()
   {
     activeIngredient = TestFixture.createRandomTerm();
+    surfaceType = TestFixture.createRandomTerm();
+    sex = TestFixture.createRandomTerm();
+
     BigDecimal weight = new BigDecimal("4.50");
     Integer refill = new Integer(20);
 
@@ -103,7 +112,7 @@ public class OperatorSprayStatusTest extends TestCase
     geoEntity.apply();
 
     person = new Person();
-    person.addSex(Sex.MALE);
+    person.setSex(sex);
     person.setDateOfBirth(new Date());
     person.setFirstName("Justin");
     person.setLastName("Smethie");
@@ -113,12 +122,12 @@ public class OperatorSprayStatusTest extends TestCase
     operator.setOperatorId(TestConstants.OPERATOR_ID);
     operator.setPerson(person);
     operator.apply();
-    
+
     person.setSprayOperatorDelegate(operator);
-    person.apply();    
+    person.apply();
 
     person2 = new Person();
-    person2.addSex(Sex.MALE);
+    person2.setSex(sex);
     person2.setDateOfBirth(new Date());
     person2.setFirstName("Justin");
     person2.setLastName("Smethie");
@@ -130,7 +139,7 @@ public class OperatorSprayStatusTest extends TestCase
     operator2.apply();
 
     person2.setSprayOperatorDelegate(operator2);
-    person2.apply();    
+    person2.apply();
   }
 
   public void testCreate()
@@ -140,7 +149,7 @@ public class OperatorSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
@@ -227,7 +236,7 @@ public class OperatorSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
@@ -333,7 +342,7 @@ public class OperatorSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
@@ -415,7 +424,7 @@ public class OperatorSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
@@ -520,7 +529,7 @@ public class OperatorSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
@@ -585,7 +594,7 @@ public class OperatorSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
@@ -698,7 +707,7 @@ public class OperatorSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
@@ -730,7 +739,7 @@ public class OperatorSprayStatusTest extends TestCase
       try
       {
         OperatorSprayStatusView[] array = OperatorSprayStatusView.search(data, operator);
-        
+
         assertNotNull(array);
         assertEquals(1, array.length);
 
@@ -785,13 +794,13 @@ public class OperatorSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     try
     {
       OperatorSprayStatusView[] array = OperatorSprayStatusView.search(data, operator);
-      
+
       assertNotNull(array);
       assertEquals(0, array.length);
     }

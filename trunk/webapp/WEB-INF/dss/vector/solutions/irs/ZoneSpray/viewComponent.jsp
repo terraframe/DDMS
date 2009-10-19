@@ -79,11 +79,9 @@ background:none;
         </ul>            
       </mjl:dt>    
       <mjl:dt attribute="surfaceType" >
-        <ul>
-          <c:forEach var="enumName" items="${item.surfaceTypeEnumNames}">
-            <li>${item.surfaceTypeMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>
+        <c:if test="${surfaceType != null}">
+          ${surfaceType.displayLabel}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="sprayWeek">
         ${item.sprayWeek}

@@ -45,6 +45,10 @@ public class ZoneSprayTest extends TestCase
   private static SprayLeader      leader           = null;
 
   private static Term             activeIngredient = null;
+  
+  private static Term             surfaceType      = null;
+
+  private static Term             sex              = null;
 
   public static Test suite()
   {
@@ -79,11 +83,16 @@ public class ZoneSprayTest extends TestCase
     brand.delete();
     
     activeIngredient.delete();
+    surfaceType.delete();
+    sex.delete();    
   }
 
   protected static void classSetUp()
   {
     activeIngredient = TestFixture.createRandomTerm();
+    surfaceType = TestFixture.createRandomTerm();
+    sex = TestFixture.createRandomTerm();
+
     BigDecimal weight = new BigDecimal("4.50");
     Integer refill = new Integer(20);
 
@@ -134,7 +143,7 @@ public class ZoneSprayTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     ZoneSpray spray = new ZoneSpray();
@@ -161,7 +170,7 @@ public class ZoneSprayTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     ZoneSpray spray = new ZoneSpray();
@@ -191,7 +200,7 @@ public class ZoneSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(new Date());
     spray.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.apply();
 
     ZoneSprayView edit = ZoneSpray.lockView(spray.getSprayId());
@@ -207,8 +216,8 @@ public class ZoneSprayTest extends TestCase
       assertEquals(spray.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(SprayMethod.MAIN_SPRAY, test.getSprayMethod().get(0));
-      assertEquals(1, test.getSurfaceType().size());
-      assertEquals(SurfaceType.POROUS, test.getSurfaceType().get(0));
+      
+      assertEquals(surfaceType.getId(), test.getSurfaceType().getId());
     }
     finally
     {
@@ -223,7 +232,7 @@ public class ZoneSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(new Date());
     spray.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.apply();
 
     try
@@ -236,8 +245,8 @@ public class ZoneSprayTest extends TestCase
       assertEquals(spray.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(SprayMethod.MAIN_SPRAY, test.getSprayMethod().get(0));
-      assertEquals(1, test.getSurfaceType().size());
-      assertEquals(SurfaceType.POROUS, test.getSurfaceType().get(0));
+      
+      assertEquals(surfaceType.getId(), test.getSurfaceType().getId());
     }
     finally
     {
@@ -252,7 +261,7 @@ public class ZoneSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(new Date());
     spray.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.apply();
 
     String id = spray.getSprayId();
@@ -281,7 +290,7 @@ public class ZoneSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(date);
     spray.addSprayMethod(method);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.apply();
 
     try
@@ -295,8 +304,8 @@ public class ZoneSprayTest extends TestCase
       assertEquals(spray.getSprayDate(), test.getSprayDate());
       assertEquals(1, test.getSprayMethod().size());
       assertEquals(method, test.getSprayMethod().get(0));
-      assertEquals(1, test.getSurfaceType().size());
-      assertEquals(SurfaceType.POROUS, test.getSurfaceType().get(0));
+      
+      assertEquals(surfaceType.getId(), test.getSurfaceType().getId());
     }
     finally
     {
@@ -325,7 +334,7 @@ public class ZoneSprayTest extends TestCase
     spray.setGeoEntity(geoEntity);
     spray.setSprayDate(date);
     spray.addSprayMethod(method);
-    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setSurfaceType(surfaceType);
     spray.apply();
 
     try
@@ -335,7 +344,7 @@ public class ZoneSprayTest extends TestCase
       duplicate.setGeoEntity(geoEntity);
       duplicate.setSprayDate(date);
       duplicate.addSprayMethod(method);
-      duplicate.addSurfaceType(SurfaceType.POROUS);
+      duplicate.setSurfaceType(surfaceType);
       duplicate.apply();
 
       duplicate.deleteConcrete();

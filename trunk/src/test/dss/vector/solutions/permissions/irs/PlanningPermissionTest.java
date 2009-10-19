@@ -58,10 +58,6 @@ public abstract class PlanningPermissionTest extends TestCase
   @Transaction
   protected static void setupVars()
   {
-    Calendar calendar = Calendar.getInstance();
-    calendar.clear();
-    calendar.set(1983, 5, 11);
-
     // Create a test user and assign it to the entomology role
     person = TestFixture.createTestPerson(username, password, rolename);
     facility = TestFixture.createRandomFacility();
@@ -84,7 +80,6 @@ public abstract class PlanningPermissionTest extends TestCase
   protected static void tearDownVars()
   {
     facility.delete();
-    person.deleteDelegates();
-    Person.get(person.getId()).delete();
+    TestFixture.delete(person);
   }
 }

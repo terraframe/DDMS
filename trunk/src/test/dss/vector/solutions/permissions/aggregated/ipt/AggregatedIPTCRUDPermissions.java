@@ -1,11 +1,7 @@
 package dss.vector.solutions.permissions.aggregated.ipt;
 
-import junit.framework.TestCase;
-
-import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
-import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTDTO;
@@ -16,14 +12,8 @@ import dss.vector.solutions.intervention.monitor.IPTPatientsDTO;
 import dss.vector.solutions.intervention.monitor.IPTTreatmentDTO;
 import dss.vector.solutions.surveillance.PeriodTypeDTO;
 
-public abstract class AggregatedIPTCRUDPermissions extends TestCase
+public abstract class AggregatedIPTCRUDPermissions extends AggregatedIPTPermissionTest
 {
-  protected static ClientSession   clientSession;
-
-  protected static ClientRequestIF request;
-
-  protected static String          geoId;
-
   public void testAncientCase()
   {
     GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(request, geoId);

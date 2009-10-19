@@ -17,7 +17,6 @@ import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.TestFixture;
-import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.ontology.Term;
@@ -36,23 +35,27 @@ public class HouseholdSprayStatusTest extends TestCase
     super.run(testResult);
   }
 
-  private static InsecticideBrand brand       = null;
+  private static InsecticideBrand brand            = null;
 
-  private static GeoEntity        geoEntity   = null;
+  private static GeoEntity        geoEntity        = null;
 
-  private static SprayData        data        = null;
+  private static SprayData        data             = null;
 
-  private static SprayData        mopUp       = null;
+  private static SprayData        mopUp            = null;
 
-  private static SprayOperator    operator    = null;
+  private static SprayOperator    operator         = null;
 
-  private static OperatorSpray    spray       = null;
+  private static OperatorSpray    spray            = null;
 
-  private static OperatorSpray    mopupSpray  = null;
+  private static OperatorSpray    mopupSpray       = null;
 
-  private static Person           person      = null;
-  
+  private static Person           person           = null;
+
   private static Term             activeIngredient = null;
+
+  private static Term             surfaceType      = null;
+
+  private static Term             sex              = null;
 
   public static Test suite()
   {
@@ -86,13 +89,18 @@ public class HouseholdSprayStatusTest extends TestCase
     SprayData.get(data.getId()).delete();
     geoEntity.delete();
     brand.delete();
+    
     activeIngredient.delete();
+    surfaceType.delete();
+    sex.delete();
   }
 
   protected static void classSetUp()
   {
     activeIngredient = TestFixture.createRandomTerm();
-    
+    surfaceType = TestFixture.createRandomTerm();
+    sex = TestFixture.createRandomTerm();
+
     BigDecimal weight = new BigDecimal("4.50");
     Integer refill = new Integer(20);
 
@@ -114,7 +122,7 @@ public class HouseholdSprayStatusTest extends TestCase
     data.setGeoEntity(geoEntity);
     data.setSprayDate(new Date());
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.addSurfaceType(SurfaceType.POROUS);
+    data.setSurfaceType(surfaceType);
     data.apply();
 
     mopUp = new SprayData();
@@ -122,11 +130,11 @@ public class HouseholdSprayStatusTest extends TestCase
     mopUp.setGeoEntity(geoEntity);
     mopUp.setSprayDate(new Date());
     mopUp.addSprayMethod(SprayMethod.MOP_UP);
-    mopUp.addSurfaceType(SurfaceType.POROUS);
+    mopUp.setSurfaceType(surfaceType);
     mopUp.apply();
 
     person = new Person();
-    person.addSex(Sex.MALE);
+    person.setSex(sex);
     person.setDateOfBirth(new Date());
     person.setFirstName("Justin");
     person.setLastName("Smethie");

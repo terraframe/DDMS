@@ -177,6 +177,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   {
     req.setAttribute("itn", itn);
     req.setAttribute("recipient", recipient);
+    req.setAttribute("sex", recipient.getSex());
     render("confirmRecipient.jsp");
   }
 
@@ -288,8 +289,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   {
     try
     {
-      recipient.setIsITNRecipient(true);
-      recipient.apply();
+      recipient.applyAsITNRecipient();
       itn.setRecipient(PersonDTO.get(super.getClientRequest(), recipient.getPersonId()).getItnRecipientDelegate());
 
       renderCreate(itn, itn.getDistributionTargetGroups());
