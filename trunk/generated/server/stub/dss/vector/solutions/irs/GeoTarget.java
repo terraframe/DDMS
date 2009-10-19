@@ -5,8 +5,10 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.general.MalariaSeason;
+import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -118,12 +120,15 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
     
     valueQuery.SELECT(selectables);
     
+    String allPaths =  MdBusiness.getMdBusiness(AllPaths.CLASS).getTableName();
+    String geoTarget = MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName();
+    
     sql = sql.substring(0, sql.length()-2);
-    sql += " FROM geotarget, allpaths ";
+    sql += " FROM " + geoTarget + " AS gt, " + allPaths + " AS ap";
     sql += " WHERE season = '" + malariaSeasonId + "'";
-    sql += " AND geotarget.geoentity != '" + geoid + "'";
-    sql += " AND allpaths.parentgeoentity = '" + geoid + "'";
-    sql += " AND geotarget.geoentity = allpaths.childgeoentity)";
+    sql += " AND gt.geoentity != '" + geoid + "'";
+    sql += " AND ap.parentgeoentity = '" + geoid + "'";
+    sql += " AND gt.geoentity = ap.childgeoentity)";
 
     valueQuery.FROM(sql, "caluations");
     
