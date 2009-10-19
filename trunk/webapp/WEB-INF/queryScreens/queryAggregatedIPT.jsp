@@ -129,11 +129,11 @@ YAHOO.util.Event.onDOMReady(function(){
         //row.attributeName = this.relAttribute;
         //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
         //row.type = this.relType;
-        //row.dtoType = "com.terraframe.mojo.AttributeasdfDTO";
+        row.dtoType = "AttributeIntegerDTO";
         row.displayLabel = term.displayLabel;
         
         row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
-        row.type = 'sqlcharacter';
+        row.type = 'sqlinteger';
         row.attributeName = 'term' + term.MOID.replace(':','');
         
       return row;
@@ -170,7 +170,7 @@ YAHOO.util.Event.onDOMReady(function(){
    visitsColumns = orderedGrids.doses.options.map(mapMo, orderedGrids.visits);
     
     var selectableGroups = [
-              {title:"Aggreated_IPT", values:aIPTColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS},
+              {title:"Aggreated IPT", values:aIPTColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS},
               {title:"Doses", values:dosesColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTDose.CLASS},
               {title:"Patients", values:patientsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTPatients.CLASS},
               {title:"Treatments", values:treatmentsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTTreatment.CLASS},
