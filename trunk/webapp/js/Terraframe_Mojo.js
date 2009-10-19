@@ -1,3 +1,8 @@
+// FIXME use special Error subclass that automatically logs messages to the Logger
+// FIXME replace JSON with latest from crockford's site
+// FIXME Enforce that a non-abstract subclass implements abstract methods from its parent 
+// always use getMethod() instead of grabbing the prototype copy? This could cause as many problems as it solves so be careful.
+
 /**
  * Terraframe Mojo Javascript library.
  * 
@@ -160,7 +165,7 @@ var Mojo = {
       
         if(Mojo.Meta._isInitialized && this.$class.isAbstract())
         {
-          var msg = "Cannot instantiate the abstract class ["+this.$class.getQualifiedName()+"]";
+          var msg = "Cannot instantiate the abstract class ["+this.$class.getQualifiedName()+"].";
           var error = new Error(msg);
           Mojo.log.LogManager.writeError(msg, error);
           throw error;
@@ -179,33 +184,46 @@ var Mojo = {
       };      
     },
     
-    _addOverride : function(klass, methodName)
+    _addMethod : function(klass, superClass, methodName, definition)
     {
-      // keep track of parent context
-      klass.prototype['$'+methodName] = (function(m){
+      var isFunction = Mojo.IS_FUNCTION_TO_STRING === Object.prototype.toString.call(definition);
+      var method = isFunction ? definition : definition.method;
+    
+      // add instance method to the prototype
+      klass.prototype[methodName] = method;
       
-        return function(){
+      // add override accessor if the parent class defines the same method
+      if(superClass !== Object
+         && Mojo.IS_FUNCTION_TO_STRING === Object.prototype.toString.call(superClass.prototype[methodName]))
+      {
+        klass.prototype['$'+methodName] = (function(m){
+      
+          return function(){
         
-          // FIXME clean this (use __context__?)
-          var execStack = this.__context__[m];
-          if(!execStack)
-          {
-            execStack = [];
-            this.__context__[m] = execStack;
-          }
-          
-          var currentKlass = execStack.length === 0 ? this.$class.getSuperClass()
-            : execStack[execStack.length-1].$class.getSuperClass();            
-          
-          execStack.push(currentKlass);
-          
-          var retObj = currentKlass.prototype[m].apply(this, arguments);
-          
-          execStack.pop();
-          
-          return retObj;
-        };
-      })(methodName);
+            // FIXME clean this (use __context__?)
+            var execStack = this.__context__[m];
+            if(!execStack)
+            {
+              execStack = [];
+              this.__context__[m] = execStack;
+            }
+            
+            var currentKlass = execStack.length === 0 ? this.$class.getSuperClass()
+              : execStack[execStack.length-1].$class.getSuperClass();            
+            
+            execStack.push(currentKlass);
+            
+            var retObj = currentKlass.prototype[m].apply(this, arguments);
+            
+            execStack.pop();
+            
+            return retObj;
+          };
+        })(methodName);
+      }
+      
+      return {name : methodName, isStatic : false, isAbstract : (!isFunction && definition.IsAbstract),
+          isConstructor : (methodName === 'initialize'), method : method, klass: klass};
     },
     
     newClass : function(qualifiedName, definition)
@@ -298,18 +316,8 @@ var Mojo = {
 
       for(var m in instances)
       {
-        // standard method
-        klass.prototype[m] = instances[m];
-        
-        // check for override
-        if(superClass !== Object
-          && Mojo.IS_FUNCTION_TO_STRING == Object.prototype.toString.call(superClass.prototype[m]))
-        {
-          metaRef._addOverride(klass, m);
-        }
-            
-        config.instanceMethods[m] = {name : m, isStatic : false, 
-          isConstructor : (m === 'initialize'), method : instances[m], klass: klass};
+        var methodConfig = metaRef._addMethod(klass, superClass, m, instances[m]);
+        config.instanceMethods[m] = methodConfig;
       }
       
       if(isSingleton)
@@ -327,16 +335,16 @@ var Mojo = {
       // add static methods
       for(var m in statics)
       {
-        // FIXME wrap static props in a Property class and have them optionally
-        // inherited (or use visibility modifiers?)
-        if(Mojo.IS_FUNCTION_TO_STRING !== Object.prototype.toString.call(statics[m]))
+        if(Mojo.IS_FUNCTION_TO_STRING === Object.prototype.toString.call(statics[m]))
         {
-          klass[m] = statics[m];
+          config.staticMethods[m] = {name : m, isStatic : true, isAbstract : false, 
+            isConstructor : false, method : statics[m], klass: klass};
         }
         else
         {
-          config.staticMethods[m] = {name : m, isStatic : true, 
-            isConstructor : false, method : statics[m], klass: klass};
+          // FIXME wrap static props in a Property class and have them optionally
+          // inherited (or use visibility modifiers?)
+          klass[m] = statics[m];
         }
       }
       
@@ -437,6 +445,8 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       this._alias = config.alias;
       this._qualifiedName = config.qualifiedName;
       this._subclasses = {};
+      
+      this._klass.prototype.getMetaClass = this._klass.getMetaClass;
 
       var notBase = this._superClass !== Object;  
       
@@ -462,12 +472,13 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
         {
           // overridden method (this class gets a clone of the original method)
           method = this._instanceMethods[i].clone();
+          method._setAbstract(tInstances[i].isAbstract);
           method._setOverrideClass(this._klass);
         }
         else
         {
           // new method defined by this class
-          method = new mKlass(tInstances[i]);
+          method = new mKlass(tInstances[i], this);
         }
         
         this._instanceMethods[i] = method;
@@ -499,7 +510,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
         else
         {
           // new method defined by this class
-          method = new mKlass(tStatics[i]);
+          method = new mKlass(tStatics[i], this);
         }
           
         this._staticMethods[i] = method;
@@ -544,6 +555,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
         this._superClass.$class._addSubClass(this._qualifiedName, this._klass);
       }
       
+      
       // Each class constructor function and instance gets
       // a method to return this Class instance.
       // FIXME add method metadata for getMetaClass
@@ -552,8 +564,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
           return metaClass;
         };
       })(this);
-      
-      this._klass.prototype.getMetaClass = this._klass.getMetaClass;
     },
     
     _addSubClass : function(qualifiedName, klass)
@@ -741,7 +751,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
         return true;
       }
     
-      // FIXME allow string, func constructor, and Class instance
       var superClass = classObj.getSuperClass();
       while(superClass !== Object)
       {
@@ -851,22 +860,52 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
   
   Native : true,
   
-  Constants : {
-
-    ABSTRACT_METHOD : function(){} 
-  },
-
   Instance : {
   
-    initialize : function(config)
+    initialize : function(config, metaClass)
     {
       this._name = config.name;
       this._isStatic = config.isStatic;
       this._isConstructor = config.isConstructor;
-      this._method = config.method;
       this._klass = config.klass || null;
       this._overrideKlass = config.overrideKlass || null;
-      this._isAbstract = this._method === this.constructor.ABSTRACT_METHOD;
+      this._isAbstract = config.isAbstract;
+      
+      if(Mojo.Meta._isInitialized && !metaClass.isAbstract()
+         && this._isAbstract)
+      {
+        var msg = "The non-abstract class ["+metaClass.getQualifiedName()+"] cannot " + 
+          "cannot declare the abstract method ["+this._name+"].";
+        var error = new Error(msg);
+        Mojo.log.LogManager.writeError(msg, error);
+        throw error;
+      }
+      
+      var method;
+      if(this._isAbstract)
+      {
+        method = (function(name){
+          return function(){
+ 
+            var definingClass = this.$class.getMethod(name).getDefiningClass().$class.getQualifiedName();
+ 
+            var msg = "Cannot invoke the abstract method ["+name+"] on ["+definingClass+"].";
+            var error = new Error(msg);
+            Mojo.log.LogManager.writeError(msg, error);
+            throw error;
+          };
+        })(this._name);
+        
+        // Add the abstract method to always throw an error. This
+        // will replace any method already on the prototype.
+        this._klass.prototype[this._name] = method;
+      }
+      else
+      {
+        method = config.method;
+      }
+      
+      this._method = method;
       
       this._aspects = [];
     },
@@ -879,8 +918,9 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
         isConstructor : this.isConstructor(),
         method : this.getMethod(),
         klass : this.getDefiningClass(),
-        overrideKlass : this.getOverrideClass()
-      });
+        overrideKlass : this.getOverrideClass(),
+        isAbstract : this.isAbstract(),
+      }, this._klass.$class);
       
       return cloned;
     },
@@ -888,6 +928,11 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
     isAbstract : function()
     {
       return this._isAbstract;
+    },
+    
+    _setAbstract : function(isAbstract)
+    {
+      this._isAbstract = isAbstract;
     },
     
     _setDefiningClass : function(klass)
@@ -3663,11 +3708,15 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'MutableDTO', {
 
     initialize : function(obj)
     {
+    
       // Generate a new id per instance instead of using the id
       // of the cached JSON (to avoid all new instances having the same id),
       // and preserve the id of the metadata type.
-      //FIXME line below to check for new instance before reseting id (mutabledto only)
-//      this.id = Mojo.Util.generateId()+obj.id.substring(32);    
+      if(obj.newInstance)
+      {
+        obj.id = Mojo.Util.generateId()+obj.id.substring(32);    
+      }
+      
       this.$initialize(obj);
     
   
