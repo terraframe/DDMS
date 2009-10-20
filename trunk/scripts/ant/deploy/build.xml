@@ -17,7 +17,7 @@
 
 	<property name="deploy.path" location="${deploy.root}/webapps/MDSS/" />
 
-	<property name="postgres.bin" location="/usr/local/pgsql/bin/" />
+	<property name="postgres.bin" location="/usr/bin/" />
 	<property name="testserver.address" value="66.116.103.235" />
 	<property name="testserver.username" value="administrator" />
 
@@ -277,7 +277,7 @@
 		</java>
 	</target>
 
-	<target name="copy_dev_to_deploy" depends="kill_tomcat" description="Rebuild Develop from scratch and then copy everything to deploy.">
+	<target name="copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="dumping the develop db to a sql file " />
 		<exec executable="${postgres.bin}/pg_dump" dir="./" failonerror="true" searchpath="true" logError="true">
 			<arg line="--blobs -h 127.0.0.1 -U ${root.user} ${develop.db}" />
@@ -324,7 +324,7 @@
 		</java>
 	</target>
 
-	<target name="deploy_all" depends="write_revision" description="Step 2">
+	<target name="deploy_all" description="Step 2">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(2)Deploy All">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -442,7 +442,7 @@
 		</java>
 	</target>
 
-		<target name="import_ontology" depends="kill_tomcat" description="imports ontology into the develop db">
+		<target name="import_ontology" description="imports ontology into the develop db">
 			<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import ontology">
 				<jvmarg value="-Xmx${max_memory_use}" />
 				<classpath>
@@ -454,6 +454,18 @@
 				<arg value="-Droot.pass=${root.pass}" />
 				<arg value="-Dgeodata.db=${geodata.db}" />
 				<arg value="import_ontology" />
+			</java>
+		</target>
+
+		<target name="import_ontology_roots" description="imports ontology roots into the develop db">
+			<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import ontology roots">
+				<jvmarg value="-Xmx${max_memory_use}" />
+				<classpath>
+					<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+				</classpath>
+				<arg value="-buildfile" />
+				<arg file="deploy.xml" />
+				<arg value="import_ontology_roots" />
 			</java>
 		</target>
 
