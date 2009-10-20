@@ -33,7 +33,7 @@ var aSubmenuData = [
             	   submenu: {
             	     id: "Population_Data",
             	     itemdata: [
-            	       { text: "Enter_Population_Data", disabled: true, disabled: true, url: "#", visibleTo:'Administrator'},
+            	       { text: "Enter_Population_Data", url: "dss.vector.solutions.general.PopulationDataController.search.mojo", visibleTo:'Administrator'},
             	       { text: "Import_Population_Data", disabled: true, url: "#", visibleTo:'Administrator'}
             	     ]
                    }

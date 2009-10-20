@@ -1,7 +1,5 @@
 package dss.vector.solutions.irs;
 
-import com.terraframe.mojo.session.Session;
-
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public abstract class InterventionPlanningView extends InterventionPlanningViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -15,10 +13,7 @@ public abstract class InterventionPlanningView extends InterventionPlanningViewB
 
   public void setEntityLabel(GeoEntity entity)
   {
-    String universal = entity.getMdClass().getDisplayLabel(Session.getCurrentLocale());
-    String geoEntityName = entity.getEntityName();
-
-    this.setEntityLabel(geoEntityName + " (" + universal + ")");
+    this.setEntityLabel(entity.getLabel());
   }
 
   protected boolean validateCalculation()

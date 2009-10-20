@@ -19,6 +19,11 @@ public class ColumnSetup implements Reloadable
   private boolean editable;
   
   /**
+   * If the column should sum its values onto the last row
+   */
+  private boolean sum;
+  
+  /**
    * Validator to use in the column
    */
   private String validator;
@@ -50,6 +55,7 @@ public class ColumnSetup implements Reloadable
     this.validator = validator;
     this.type = type;
     this.method = method;
+    this.sum = false;
   }
   
   public boolean isHidden()
@@ -100,5 +106,15 @@ public class ColumnSetup implements Reloadable
   public void setMethod(String method)
   {
     this.method = method;
+  }
+
+  public boolean isSum()
+  {
+    return sum;
+  }
+
+  public void setSum(boolean sum)
+  {
+    this.sum = sum;
   }  
 }

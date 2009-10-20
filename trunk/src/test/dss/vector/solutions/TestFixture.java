@@ -10,6 +10,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.general.Insecticide;
+import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.SentinelSite;
@@ -57,6 +58,16 @@ public class TestFixture
     String geoId = new Long(new Date().getTime()).toString();
     geoId = geoId.substring(Math.max(0, geoId.length() - 15), geoId.length());
     return geoId;
+  }
+  
+  public static Country createRandomCountry()
+  {
+    Country country = new Country();
+    country.setGeoId(TestFixture.getRandomGeoId());
+    country.setEntityName("Test Country");
+    country.apply();
+    
+    return country;
   }
   
   public static SentinelSite createRandomSite()

@@ -564,6 +564,11 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
       buff.add("key:'" + attrib + "'");
       buff.add("label:'" + label.replaceAll("'", "\\\\'") + "'");
+      
+      if(setup.isSum())
+      {
+        buff.add("sum:true");
+      }
 
       if (setup.isHidden())
       {
