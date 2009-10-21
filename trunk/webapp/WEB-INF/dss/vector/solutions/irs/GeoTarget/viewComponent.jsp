@@ -90,7 +90,13 @@ MalariaSeasonDTO season = item.getSeason();
   int startWeek = weeks[0].getPeriod();
   
 
-int i = startWeek;
+int i = 0;
+
+while(i<startWeek)
+{
+  colConfig += "\n,{key:'Target_" + i + "',hidden:true}";
+  i++;
+}
 
 for (EpiDateDTO epiWeek : weeks){
   String startDate = Halp.getFormatedDate(request,epiWeek.getStartDate());
