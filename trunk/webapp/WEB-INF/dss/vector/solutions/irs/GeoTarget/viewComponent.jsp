@@ -161,7 +161,14 @@ GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
           {
             if(calulated[i])
             {
-          	dt.updateCell(row, 'Target_'+i,'<span class="calculated">' + calulated[i]  + '</span>');
+              var col = dt.getColumn('Target_'+i);
+          	dt.updateCell(row, col, calulated[i] );
+
+            var lastTd = dt.getTdEl( {
+              record : row,
+              column : col
+            });
+            YAHOO.util.Dom.addClass(dt.getTdLinerEl(lastTd), "calculated");
             }
           }
         }
