@@ -93,6 +93,9 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 				    width : this.tableData.width
 				  });
 				  
+				  //set this so it accessable by other methods in the jsp
+				  this.tableData.myDataTable = this.myDataTable;
+				  
 				  // the data comes from the server as ids, we need to set the labels
 				  this._mapRecords();
 				  
@@ -126,9 +129,6 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 				  this.myDataTable.subscribe("editorKeydownEvent", this.editorKeyEvent, null, this);
 
 				  this.myDataTable.subscribe("editorSaveEvent", this.saveSomeData, null, this);
-
-				  //set this so it accessable by other methods in the jsp
-				  this.tableData.myDataTable = this.myDataTable;
 				  
 				  this._setUpButtons();
 				  
