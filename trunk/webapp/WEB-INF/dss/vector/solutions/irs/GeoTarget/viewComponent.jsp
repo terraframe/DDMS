@@ -153,7 +153,7 @@ GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
 
     dt.getRecordSet().getRecords().map( function(row) {
       var calulated = calculatedTargets[row.getData('GeoEntity')];
-      if(calulated)
+      if(calulated && calulated != '')
       {  
         for (var i =0; i<53 ;i++)
         {
