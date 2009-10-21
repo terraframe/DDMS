@@ -162,13 +162,13 @@ GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
             if(calulated[i])
             {
               var col = dt.getColumn('Target_'+i);
-          	dt.updateCell(row, col, calulated[i] );
-
-            var lastTd = dt.getTdEl( {
-              record : row,
-              column : col
-            });
-            YAHOO.util.Dom.addClass(dt.getTdLinerEl(lastTd), "calculated");
+              dt.updateCell(row, col, calulated[i] );
+  
+              var lastTd = dt.getTdEl( {
+                record : row,
+                column : col
+              });
+              YAHOO.util.Dom.addClass(dt.getTdLinerEl(lastTd), "calculated");
             }
           }
         }
