@@ -87,14 +87,15 @@ MalariaSeasonDTO season = item.getSeason();
 
   EpiDateDTO[] weeks = season.getEpiWeeks(); 
   int numWeeks =  weeks[0].getNumberOfEpiWeeks();
+  int startWeek = weeks[0].getPeriod();
   
 
-int i = 0;
+int i = startWeek;
 
 for (EpiDateDTO epiWeek : weeks){
   String startDate = Halp.getFormatedDate(request,epiWeek.getStartDate());
   String endDate = Halp.getFormatedDate(request,epiWeek.getEndDate());
-  colConfig += ",\n{sum:true, key:'Target_" + i + "',label:'" + ((epiWeek.getPeriod()%numWeeks)+1) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
+  colConfig += ",\n{sum:true, key:'Target_" + i%numWeeks + "',label:'" + ((epiWeek.getPeriod()%numWeeks)+1) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
   i++;
 }
 while(i<54)
@@ -126,6 +127,8 @@ GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
               addButton:false,
               excelButtons:false,
               after_row_load:function(record){
+                if(record.getCount() < (GeoTargetData.rows.length - 1))
+                {
                 var str = '<form target="dss.vector.solutions.irs.GeoTargetController.view.mojo"';
                 str += ' method = "post"';
                 str += ' id="'+record.getData('GeoEntity')+'">';
@@ -135,6 +138,7 @@ GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
                 str += " <a href=\"javascript: document.getElementById('"+record.getData('GeoEntity')+"').submit();\">";
                 str += record.getData('EntityName')+'</a></form>';
                 GeoTargetData.myDataTable.updateCell(record, 'EntityName', str);
+                }
               }
           };
     MojoGrid.createDataTable(GeoTargetData);
