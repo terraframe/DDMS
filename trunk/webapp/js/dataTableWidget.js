@@ -372,6 +372,12 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
       var record = oArgs.editor.getRecord();
       var editor = oArgs.editor;
       var index = this.myDataTable.getRecordIndex(record);
+      
+      //do nothing if nothing changed
+      if(oArgs.newData == oArgs.oldData )
+      {
+      	return;
+      }
 
       if (editor instanceof YAHOO.widget.DropdownCellEditor && window[oArgs.editor.getColumn().key + "Labels"])
       {
@@ -426,6 +432,11 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
           record : lastRecord,
           column : editor.getColumn()
         });
+        
+        var editedTd = this.myDataTable.getTdEl( {
+          record : record,
+          column : editor.getColumn()
+        });
 
         //no calculation is done if number is entered manualy
         if(this.tableData.rows[lastIndex][editor.getColumn().key])
@@ -439,6 +450,8 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
         	return;
         }
         
+        //they have entered data so make sure to remove the calcuated style
+        YAHOO.util.Dom.removeClass(dt.getTdLinerEl(editedTd), "calculated");
         
         var newData = parseInt(oArgs.newData,10);
         newData = newData || 0;
@@ -684,27 +697,8 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
           break;
       }
     }
-	},
-
-  createObjectRepresentation : function() {
-	  var view_arr = new Array();
-	
-	  for ( var r = 0; r < this.tableData.rows.length; r++) {
-	    var row = this.tableData.rows[r];
-	    var view_contructor = Mojo.Meta.findClass(this.tableData.data_type.substring(7));
-	    var view = new view_contructor();
-	
-	    for ( var i = 0; i < this.tableData.fields.length; i++) {
-	      var attrib = this.tableData.fields[i];
-	      var val = row[attrib.key];
-	
-	      this._setValue(view, attrib, val);
-	    }
-	    view_arr.push(view);
-	  }
-	  
-	  return view_arr;
 	}
+
 });
 
 
