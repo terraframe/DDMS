@@ -37,6 +37,7 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
     this.setYearOfData(concrete.getYearOfData());
     this.setPopulation(concrete.getPopulation());
     this.setGrowthRate(concrete.getGrowthRate());
+    this.setEstimated(concrete.getEstimated());
   }
 
   private void populateConcrete(PopulationData concrete)
@@ -53,6 +54,7 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
     concrete.setYearOfData(this.getYearOfData());
     concrete.setPopulation(this.getPopulation());
     concrete.setGrowthRate(this.getGrowthRate());
+    concrete.setEstimated(this.getEstimated());
   }
 
   private void buildAttributeMap(PopulationData concrete)
@@ -61,6 +63,7 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
     new AttributeNotificationMap(concrete, PopulationData.YEAROFDATA, this, PopulationDataView.YEAROFDATA);
     new AttributeNotificationMap(concrete, PopulationData.GROWTHRATE, this, PopulationDataView.GROWTHRATE);
     new AttributeNotificationMap(concrete, PopulationData.POPULATION, this, PopulationDataView.POPULATION);
+    new AttributeNotificationMap(concrete, PopulationData.ESTIMATED, this, PopulationDataView.ESTIMATED);
   }
 
   @Override

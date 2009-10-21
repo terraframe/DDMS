@@ -26,7 +26,7 @@ ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientCon
 PopulationDataViewDTO view = (PopulationDataViewDTO) request.getAttribute(PopulationDataController.ITEM);
 PopulationDataViewDTO[] rows = (PopulationDataViewDTO[]) request.getAttribute(PopulationDataController.VIEWS);
 
-String[] attributes = {"ConcreteId", "GeoEntity", "YearOfData", "EntityLabel", "Population", "GrowthRate"};
+String[] attributes = {"ConcreteId", "GeoEntity", "YearOfData", "EntityLabel", "Population", "GrowthRate", "Estimated"};
 
 String deleteColumn = "";
 %>
@@ -71,6 +71,7 @@ map.put("YearOfData", new ColumnSetup(true, false));
 map.put("EntityLabel", new ColumnSetup(false, false));
 map.put("Population", population);
 map.put("GrowthRate", new ColumnSetup(false, true));
+map.put("Estimated", new ColumnSetup(true, false));
 %>
 
 <script type="text/javascript">
