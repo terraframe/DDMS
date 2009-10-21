@@ -94,7 +94,7 @@ int i = 0;
 for (EpiDateDTO epiWeek : weeks){
   String startDate = Halp.getFormatedDate(request,epiWeek.getStartDate());
   String endDate = Halp.getFormatedDate(request,epiWeek.getEndDate());
-  colConfig += ",\n{sum:true, key:'Target_" + i + "',label:'" + (epiWeek.getPeriod()%numWeeks) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
+  colConfig += ",\n{sum:true, key:'Target_" + i + "',label:'" + (((epiWeek.getPeriod()+1)%numWeeks)+1) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
   i++;
 }
 while(i<54)
