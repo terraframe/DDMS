@@ -1,7 +1,12 @@
 package dss.vector.solutions.general;
 
 import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.AND;
+import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.RangeValueProblem;
@@ -48,12 +53,88 @@ public class PopulationData extends PopulationDataBase implements com.terraframe
   }
 
   @Override
+  @Transaction
+  public void delete()
+  {
+    super.delete();
+
+    if (!this.getEstimated() && this.getPopulation() != null)
+    {
+      this.updateFuturePopulations();
+    }
+  }
+
+  private void updateFuturePopulations()
+  {
+    List<PopulationData> future = this.getFuturePopulationData();
+
+    // Update all of the future populations until we find data with a population
+    // value. We don't want to update the data after another entry, X, with
+    // population because the estimated population values after year X are
+    // based upon X's population value not this population value.
+    for (PopulationData data : future)
+    {
+      if (data.getEstimated())
+      {
+        if (data.getGrowthRate() != null)
+        {
+          data.setPopulation(null);
+          data.setEstimated(false);
+          data.apply();
+        }
+        else
+        {
+          data.delete();
+        }
+      }
+      else
+      {
+        return;
+      }
+    }
+  }
+
+  private List<PopulationData> getFuturePopulationData()
+  {
+    List<PopulationData> list = new LinkedList<PopulationData>();
+
+    PopulationDataQuery query = new PopulationDataQuery(new QueryFactory());
+    query.WHERE(AND.get(query.getGeoEntity().EQ(this.getGeoEntity()), query.getYearOfData().GT(this.getYearOfData())));
+    query.ORDER_BY_ASC(query.getYearOfData());
+
+    list.addAll(query.getIterator().getAll());
+
+    return list;
+  }
+
+  @Override
   public void apply()
   {
     this.validateGeoEntity();
     this.validateYearOfData();
+    this.validatePopulation();
 
     super.apply();
+
+    if (!this.getEstimated() && this.getPopulation() != null)
+    {
+      this.updateFuturePopulations();
+    }
+  }
+
+  @Override
+  public void validatePopulation()
+  {
+    if (this.getPopulation() != null && this.getPopulation() < 0)
+    {
+      String msg = "Population cannot be less than 0";
+
+      PopulationProblem p = new PopulationProblem(msg);
+      p.setNotification(this, POPULATION);
+      p.apply();
+
+      p.throwIt();
+    }
   }
 
   @Override

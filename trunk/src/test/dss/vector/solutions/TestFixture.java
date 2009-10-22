@@ -10,6 +10,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.general.Insecticide;
+import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
@@ -194,5 +195,27 @@ public class TestFixture
     collection.apply();
     
     return collection;
+  }
+
+  public static PopulationData createPopulationData(GeoEntity entity, Integer year, Boolean estimated, Long population, Float rate)
+  {
+    PopulationData data = new PopulationData();
+    data.setGeoEntity(entity);
+    data.setYearOfData(year);
+    data.setEstimated(estimated);
+    
+    if(population != null)
+    {
+      data.setPopulation(population);
+    }
+    
+    if(rate != null)
+    {
+     data.setGrowthRate(rate); 
+    }
+    
+    data.apply();
+    
+    return data;
   }
 }

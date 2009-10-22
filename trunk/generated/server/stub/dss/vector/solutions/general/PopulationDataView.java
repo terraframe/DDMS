@@ -35,9 +35,13 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
     }
 
     this.setYearOfData(concrete.getYearOfData());
-    this.setPopulation(concrete.getPopulation());
-    this.setGrowthRate(concrete.getGrowthRate());
-    this.setEstimated(concrete.getEstimated());
+    this.setGrowthRate(concrete.getGrowthRate() * 100);    
+    this.setEstimated(false);
+    
+    if(!concrete.getEstimated())
+    {
+      this.setPopulation(concrete.getPopulation());
+    }
   }
 
   private void populateConcrete(PopulationData concrete)
@@ -53,7 +57,7 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
 
     concrete.setYearOfData(this.getYearOfData());
     concrete.setPopulation(this.getPopulation());
-    concrete.setGrowthRate(this.getGrowthRate());
+    concrete.setGrowthRate(this.getGrowthRate() / 100);
     concrete.setEstimated(this.getEstimated());
   }
 
