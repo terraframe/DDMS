@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Map;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.Function;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -251,10 +252,22 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.m
 
     for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
     {
+      while (s instanceof Function)
+      {
+        Function f = (Function)s;
+        s = f.getSelectable();
+      }
+      
       if (s instanceof SelectableSQL)
       {       
         ( (SelectableSQL) s ).setSQL(getGridSql(s.getUserDefinedAlias(), aggregatedIPTQuery.getTableAlias()));
       }
+      
+      if (s instanceof SelectableSQL)
+      {       
+        ( (SelectableSQL) s ).setSQL(getGridSql(s.getUserDefinedAlias(), aggregatedIPTQuery.getTableAlias()));
+      }
+      
     }
 
    
