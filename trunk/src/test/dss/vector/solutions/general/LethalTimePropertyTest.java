@@ -13,7 +13,6 @@ import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 
 import dss.vector.solutions.TestFixture;
-import dss.vector.solutions.ontology.Term;
 
 public class LethalTimePropertyTest extends TestCase
 {
@@ -30,8 +29,6 @@ public class LethalTimePropertyTest extends TestCase
   }
 
   private static Insecticide insecticide;
-
-  private static Term        activeIngredient;
 
   public static Test suite()
   {
@@ -57,14 +54,12 @@ public class LethalTimePropertyTest extends TestCase
 
   protected static void classTearDown()
   {
-    insecticide.delete();    
-    activeIngredient.delete();
+    TestFixture.delete(insecticide);
   }
 
   protected static void classSetUp()
   {
-    activeIngredient = TestFixture.createRandomTerm();
-    insecticide = TestFixture.createInsecticide(activeIngredient);
+    insecticide = TestFixture.createInsecticide();
   }
 
   public void testCreateWithDefaultProperty()

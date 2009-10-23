@@ -1,15 +1,20 @@
-package dss.vector.solutions.permissions.irs;
+package dss.vector.solutions.permissions;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
+import junit.framework.Test;
+
+import com.terraframe.mojo.DoNotWeave;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 
+import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.TestConstants;
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.irs.AreaStandardsDTO;
@@ -30,10 +35,17 @@ import dss.vector.solutions.irs.SprayTeamDTO;
 import dss.vector.solutions.irs.TargetUnitDTO;
 import dss.vector.solutions.ontology.TermDTO;
 
-public abstract class PlanningCRUDPermissions extends PlanningPermissionTest
+public class PlanningCRUDPermissions extends PermissionTest implements DoNotWeave
 {
+  public static Test suite()
+  {
+    return TestFixture.getTestSuite(PlanningCRUDPermissions.class, MDSSRoleInfo.MDSS_CORRDINATOR, MDSSRoleInfo.OPERATIONAL_MANAGER);
+  }
+
   public void testCreateSprayTeam()
   {
+    TermDTO term = TermDTO.get(request, termId);
+    
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
     dto.setFirstName("Test");
     dto.setLastName("Test");
@@ -42,6 +54,7 @@ public abstract class PlanningCRUDPermissions extends PlanningPermissionTest
     dto.setIsSprayOperator(true);
     dto.setLeaderId(TestConstants.LEADER_ID);
     dto.setOperatorId(TestConstants.OPERATOR_ID);
+    dto.setSex(term);
     dto.apply();
 
     PersonDTO person = PersonDTO.get(request, dto.getPersonId());
@@ -50,7 +63,7 @@ public abstract class PlanningCRUDPermissions extends PlanningPermissionTest
 
     SprayTeamDTO team = new SprayTeamDTO(request);
     team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
+    team.create(facilityGeoId, leader.getId(), new String[] { operator.getId() });
 
     try
     {
@@ -257,7 +270,7 @@ public abstract class PlanningCRUDPermissions extends PlanningPermissionTest
     season.apply();
     
     GeoTargetViewDTO view = new GeoTargetViewDTO(request);
-    view.setGeoEntity(GeoEntityDTO.searchByGeoId(request, geoId));
+    view.setGeoEntity(GeoEntityDTO.searchByGeoId(request, facilityGeoId));
     view.setSeason(season);
     view.setTarget_0(4);
     view.apply();
@@ -315,7 +328,7 @@ public abstract class PlanningCRUDPermissions extends PlanningPermissionTest
 
     SprayTeamDTO team = new SprayTeamDTO(request);
     team.setTeamId(TestConstants.TEAM_ID);
-    team.create(geoId, leader.getId(), new String[] { operator.getId() });
+    team.create(facilityGeoId, leader.getId(), new String[] { operator.getId() });
 
     
     ResourceTargetViewDTO view = new ResourceTargetViewDTO(request);

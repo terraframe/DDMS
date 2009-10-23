@@ -34,7 +34,7 @@ import dss.vector.solutions.ontology.Term;
 
 public class EfficacyAssayTest extends TestCase
 {
-  private static GeoEntity          surface        = null;
+  private static GeoEntity          surface          = null;
 
   private static MosquitoCollection collection       = null;
 
@@ -44,11 +44,9 @@ public class EfficacyAssayTest extends TestCase
 
   private static Term               assayMethod      = null;
 
-  private static Term               activeIngredient = null;
-
   private static Term               sex              = null;
 
-  private static Term               position  = null;
+  private static Term               position         = null;
 
   private static Insecticide        insecticide      = null;
 
@@ -95,32 +93,30 @@ public class EfficacyAssayTest extends TestCase
     collectionMethod = TestFixture.createRandomTerm();
     specie = TestFixture.createRandomTerm();
     assayMethod = TestFixture.createRandomTerm();
-    activeIngredient = TestFixture.createRandomTerm();
     sex = TestFixture.createRandomTerm();
     position = TestFixture.createRandomTerm();
 
     surface = TestFixture.createRandomSurface();
     collection = TestFixture.createMosquitoCollection(surface, collectionMethod);
-    insecticide = TestFixture.createInsecticide(activeIngredient);
+    insecticide = TestFixture.createInsecticide();
   }
 
   protected static void classTearDown()
   {
-    insecticide.delete();
+    TestFixture.delete(insecticide);
     collection.delete();
     surface.delete();
-    
-    activeIngredient.delete();
+
     sex.delete();
     position.delete();
-    
+
     clientSession.logout();
   }
 
   public void testGravidAndFedWithMixed() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
-    Date date = dateTime.parse("2008-01-01");    
+    Date date = dateTime.parse("2008-01-01");
 
     EfficacyAssay assay = new EfficacyAssay();
     assay.setTestDate(date);
@@ -174,8 +170,6 @@ public class EfficacyAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    
-    
 
     EfficacyAssay assay = new EfficacyAssay();
     assay.setTestDate(date);
@@ -229,8 +223,6 @@ public class EfficacyAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    
-    
 
     EfficacyAssay assay = new EfficacyAssay();
     assay.setTestDate(date);
@@ -284,9 +276,8 @@ public class EfficacyAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    
+
     EfficacyAssay assay = new EfficacyAssay();
-    
 
     try
     {
@@ -335,9 +326,8 @@ public class EfficacyAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    
+
     EfficacyAssay assay = new EfficacyAssay();
-    
 
     try
     {
@@ -388,9 +378,7 @@ public class EfficacyAssayTest extends TestCase
     calendar.add(Calendar.DAY_OF_YEAR, 99);
     Date date = calendar.getTime();
 
-    
     EfficacyAssay assay = new EfficacyAssay();
-    
 
     try
     {
@@ -434,10 +422,9 @@ public class EfficacyAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    
+
     EfficacyAssay assay = new EfficacyAssay();
     int fed = 40;
-    
 
     try
     {
@@ -487,10 +474,9 @@ public class EfficacyAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    
+
     EfficacyAssay assay = new EfficacyAssay();
     int gravid = 40;
-    
 
     try
     {
@@ -539,8 +525,6 @@ public class EfficacyAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    
-    
 
     EfficacyAssay assay = new EfficacyAssay();
     assay.setTestDate(date);
@@ -595,8 +579,6 @@ public class EfficacyAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    
-    
 
     EfficacyAssay assay = new EfficacyAssay();
     assay.setTestDate(date);
@@ -651,11 +633,10 @@ public class EfficacyAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    
+
     EfficacyAssay assay = new EfficacyAssay();
     int quantityDead = 45;
     int quantityTested = 30;
-    
 
     try
     {
@@ -705,7 +686,6 @@ public class EfficacyAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    
 
     EfficacyAssay assay = new EfficacyAssay();
     assay.setSpecie(specie);
@@ -764,7 +744,6 @@ public class EfficacyAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    
 
     EfficacyAssay assay = new EfficacyAssay();
     assay.setSpecie(specie);
@@ -822,7 +801,6 @@ public class EfficacyAssayTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    
 
     EfficacyAssay assay = new EfficacyAssay();
     assay.setSpecie(specie);

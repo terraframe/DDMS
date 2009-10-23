@@ -84,8 +84,6 @@ public class ADDATest extends TestCase
 
   private static Term               F1                   = null;
 
-  private static Term               activeIngredient     = null;
-
   private static Term               sex                  = null;
 
   private static ClientSession      clientSession;
@@ -126,17 +124,16 @@ public class ADDATest extends TestCase
     assayMethod = TestFixture.createRandomTerm();
     F0 = TestFixture.createRandomTerm();
     F1 = TestFixture.createRandomTerm();
-    activeIngredient = TestFixture.createRandomTerm();
     sex = TestFixture.createRandomTerm();
 
     geoEntity = TestFixture.createRandomSite();
     collection = TestFixture.createMosquitoCollection(geoEntity, collectionMethod);
-    insecticide = TestFixture.createInsecticide(activeIngredient);
+    insecticide = TestFixture.createInsecticide();
   }
 
   protected static void classTearDown()
   {
-    insecticide.delete();
+    TestFixture.delete(insecticide);
     collection.delete();
     geoEntity.delete();
 
@@ -145,7 +142,6 @@ public class ADDATest extends TestCase
     assayMethod.delete();
     F0.delete();
     F1.delete();
-    activeIngredient.delete();
     sex.delete();
 
     clientSession.logout();

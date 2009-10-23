@@ -3,12 +3,13 @@ package dss.vector.solutions;
 import java.util.Calendar;
 import java.util.Date;
 
+import junit.framework.TestSuite;
+
 import com.terraframe.mojo.business.rbac.RoleDAO;
 import com.terraframe.mojo.business.rbac.UserDAO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
-import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.geo.generated.Country;
@@ -22,15 +23,32 @@ import dss.vector.solutions.ontology.MO;
 import dss.vector.solutions.ontology.MODTO;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermDTO;
+import dss.vector.solutions.permissions.PermissionTest;
+import dss.vector.solutions.permissions.PermissionTestSetup;
 
 public class TestFixture
 {
+  public static TestSuite getTestSuite(Class<? extends PermissionTest> klass, String... roles)
+  {
+    TestSuite suite = new TestSuite();
+ 
+    for (String role : roles)
+    {
+      TestSuite coordinator = new TestSuite(klass.getName() + " - " + role);
+      coordinator.addTestSuite(klass);
+
+      suite.addTest(new PermissionTestSetup(coordinator, role));
+    }
+    
+    return suite;
+  }
+
   private static String getRandomTermId()
   {
     String geoId = new Long(new Date().getTime()).toString();
     return geoId;
   }
-  
+
   public static Term createRandomTerm()
   {
     MO term = new MO();
@@ -43,12 +61,15 @@ public class TestFixture
     return term;
   }
 
-  public static Insecticide createInsecticide(Term activeIngredient)
+  public static Insecticide createInsecticide()
   {
+    Term unit = TestFixture.createRandomTerm();
+    Term activeIngredient = TestFixture.createRandomTerm();
+
     Insecticide insecticide = new Insecticide();
     insecticide.setActiveIngredient(activeIngredient);
     insecticide.setAmount(new Double(40.0));
-    insecticide.addUnits(Unit.PERCENT);
+    insecticide.setUnits(unit);
     insecticide.apply();
 
     return insecticide;
@@ -60,17 +81,17 @@ public class TestFixture
     geoId = geoId.substring(Math.max(0, geoId.length() - 15), geoId.length());
     return geoId;
   }
-  
+
   public static Country createRandomCountry()
   {
     Country country = new Country();
     country.setGeoId(TestFixture.getRandomGeoId());
     country.setEntityName("Test Country");
     country.apply();
-    
+
     return country;
   }
-  
+
   public static SentinelSite createRandomSite()
   {
     SentinelSite site = new SentinelSite();
@@ -80,7 +101,7 @@ public class TestFixture
 
     return site;
   }
-  
+
   public static SentinelSiteDTO createRandomSite(ClientRequestIF clientRequest)
   {
     SentinelSiteDTO site = new SentinelSiteDTO(clientRequest);
@@ -91,7 +112,7 @@ public class TestFixture
     return site;
   }
 
-  public static WaterBody createRandomPermanentWaterBody()
+  public static WaterBody createRandomWaterBody()
   {
     WaterBody body = new WaterBody();
     body.setGeoId(TestFixture.getRandomGeoId());
@@ -100,7 +121,6 @@ public class TestFixture
 
     return body;
   }
-
 
   public static HealthFacility createRandomFacility()
   {
@@ -111,7 +131,7 @@ public class TestFixture
 
     return facility;
   }
-  
+
   public static Surface createRandomSurface()
   {
     Surface surface = new Surface();
@@ -121,7 +141,6 @@ public class TestFixture
 
     return surface;
   }
-
 
   public static TermDTO createRandomTerm(ClientRequestIF request)
   {
@@ -134,11 +153,11 @@ public class TestFixture
 
     return term;
   }
-  
+
   public static Person createTestPerson(String username, String password, String rolename)
   {
     Term sex = TestFixture.createRandomTerm();
-    
+
     Calendar calendar = Calendar.getInstance();
     calendar.clear();
     calendar.set(1983, 5, 11);
@@ -168,15 +187,26 @@ public class TestFixture
 
     return person;
   }
-  
+
+  public static void delete(Insecticide insecticide)
+  {
+    Term units = insecticide.getUnits();
+    Term activeIngredient = insecticide.getActiveIngredient();
+
+    insecticide.delete();
+
+    units.delete();
+    activeIngredient.delete();
+  }
+
   public static void delete(Person person)
   {
     Term sex = person.getSex();
-    
+
     person.deleteDelegates();
-    
+
     Person.get(person.getId()).delete();
-    
+
     sex.delete();
   }
 
@@ -193,7 +223,7 @@ public class TestFixture
     collection.setCollectionMethod(collectionMethod);
     collection.setDateCollected(calendar.getTime());
     collection.apply();
-    
+
     return collection;
   }
 

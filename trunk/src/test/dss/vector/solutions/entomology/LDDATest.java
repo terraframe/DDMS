@@ -68,8 +68,6 @@ public class LDDATest extends TestCase
 
   private static Term               endTime              = null;
 
-  private static Term               activeIngredient     = null;
-
   private static ClientSession      clientSession;
 
   private static ClientRequestIF    clientRequest;
@@ -122,16 +120,15 @@ public class LDDATest extends TestCase
     F1 = TestFixture.createRandomTerm();
     startTime = TestFixture.createRandomTerm();
     endTime = TestFixture.createRandomTerm();
-    activeIngredient = TestFixture.createRandomTerm();
 
     geoEntity = TestFixture.createRandomSite();
     collection = TestFixture.createMosquitoCollection(geoEntity, collectionMethod);
-    insecticide = TestFixture.createInsecticide(activeIngredient);
+    insecticide = TestFixture.createInsecticide();
   }
 
   protected static void classTearDown()
   {
-    insecticide.delete();
+    TestFixture.delete(insecticide);
     collection.delete();
     geoEntity.delete();
 
@@ -143,7 +140,6 @@ public class LDDATest extends TestCase
     F1.delete();
     startTime.delete();
     endTime.delete();
-    activeIngredient.delete();
 
     clientSession.logout();
   }

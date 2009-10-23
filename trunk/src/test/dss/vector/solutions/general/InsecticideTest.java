@@ -9,7 +9,6 @@ import junit.framework.TestSuite;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 
 import dss.vector.solutions.TestFixture;
-import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.ontology.Term;
 
 public class InsecticideTest extends TestCase
@@ -29,6 +28,8 @@ public class InsecticideTest extends TestCase
   private static Term ingredient  = null;
 
   private static Term ingredient2 = null;
+  
+  private static Term unit = null;
 
   public static Test suite()
   {
@@ -56,17 +57,19 @@ public class InsecticideTest extends TestCase
   {
     ingredient.delete();
     ingredient2.delete();
+    unit.delete();
   }
 
   protected static void classSetUp()
   {
     ingredient = TestFixture.createRandomTerm();
     ingredient2 = TestFixture.createRandomTerm();
+    unit = TestFixture.createRandomTerm();
   }
 
   public void testCreateInsecticide()
   {
-    Insecticide insecticide = TestFixture.createInsecticide(ingredient);
+    Insecticide insecticide = TestFixture.createInsecticide();
 
     try
     {
@@ -74,25 +77,25 @@ public class InsecticideTest extends TestCase
 
       assertEquals(insecticide.getActiveIngredient().getId(), test.getActiveIngredient().getId());
       assertEquals(insecticide.getAmount(), test.getAmount());
-      assertEquals(insecticide.getUnits().size(), test.getUnits().size());
-      assertEquals(1, test.getUnits().size());
-      assertEquals(insecticide.getUnits().get(0).getEnumName(), test.getUnits().get(0).getEnumName());
+      assertEquals(insecticide.getUnits().getId(), test.getUnits().getId());
+      
+      
     }
     finally
     {
-      insecticide.delete();
+      TestFixture.delete(insecticide);
     }
   }
 
   public void testDuplicateInsecticide()
   {
-    Insecticide insecticide = TestFixture.createInsecticide(ingredient);
+    Insecticide insecticide = TestFixture.createInsecticide();
 
     try
     {
-      Insecticide insecticide2 = TestFixture.createInsecticide(ingredient);
+      Insecticide insecticide2 = TestFixture.createInsecticide();
       
-      insecticide2.delete();
+      TestFixture.delete(insecticide2);
 
       fail("Able to create duplicate insecticides");
     }
@@ -102,7 +105,7 @@ public class InsecticideTest extends TestCase
     }
     finally
     {
-      insecticide.delete();
+      TestFixture.delete(insecticide);
     }
   }
 
@@ -111,13 +114,13 @@ public class InsecticideTest extends TestCase
     Insecticide insecticide = new Insecticide();
     insecticide.setActiveIngredient(ingredient);
     insecticide.setAmount(new Double(40.0));
-    insecticide.addUnits(Unit.PERCENT);
+    insecticide.setUnits(unit);
     insecticide.apply();
 
     Insecticide insecticide2 = new Insecticide();
     insecticide2.setActiveIngredient(ingredient);
     insecticide2.setAmount(new Double(20.0));
-    insecticide2.addUnits(Unit.PERCENT);
+    insecticide2.setUnits(unit);
     insecticide2.apply();
 
     try
@@ -126,17 +129,17 @@ public class InsecticideTest extends TestCase
 
       assertEquals(insecticide.getActiveIngredient().getId(), test.getActiveIngredient().getId());
       assertEquals(insecticide.getAmount(), test.getAmount());
-      assertEquals(insecticide.getUnits().size(), test.getUnits().size());
-      assertEquals(1, test.getUnits().size());
-      assertEquals(insecticide.getUnits().get(0).getEnumName(), test.getUnits().get(0).getEnumName());
+      assertEquals(insecticide.getUnits().getId(), test.getUnits().getId());
+      
+      
 
       Insecticide test2 = Insecticide.get(insecticide2.getId());
 
       assertEquals(insecticide2.getActiveIngredient().getId(), test2.getActiveIngredient().getId());
       assertEquals(insecticide2.getAmount(), test2.getAmount());
-      assertEquals(insecticide2.getUnits().size(), test2.getUnits().size());
-      assertEquals(1, test2.getUnits().size());
-      assertEquals(insecticide2.getUnits().get(0).getEnumName(), test2.getUnits().get(0).getEnumName());
+      assertEquals(insecticide2.getUnits().getId(), test2.getUnits().getId());
+      
+      
     }
     finally
     {
@@ -150,13 +153,13 @@ public class InsecticideTest extends TestCase
     Insecticide insecticide = new Insecticide();
     insecticide.setActiveIngredient(ingredient);
     insecticide.setAmount(new Double(40.0));
-    insecticide.addUnits(Unit.PERCENT);
+    insecticide.setUnits(unit);
     insecticide.apply();
 
     Insecticide insecticide2 = new Insecticide();
     insecticide2.setActiveIngredient(ingredient);
     insecticide2.setAmount(new Double(40.0));
-    insecticide2.addUnits(Unit.MILLIGRAM_PER_LITER);
+    insecticide2.setUnits(unit);
     insecticide2.apply();
 
     try
@@ -165,17 +168,17 @@ public class InsecticideTest extends TestCase
 
       assertEquals(insecticide.getActiveIngredient().getId(), test.getActiveIngredient().getId());
       assertEquals(insecticide.getAmount(), test.getAmount());
-      assertEquals(insecticide.getUnits().size(), test.getUnits().size());
-      assertEquals(1, test.getUnits().size());
-      assertEquals(insecticide.getUnits().get(0).getEnumName(), test.getUnits().get(0).getEnumName());
+      assertEquals(insecticide.getUnits().getId(), test.getUnits().getId());
+      
+      
 
       Insecticide test2 = Insecticide.get(insecticide2.getId());
 
       assertEquals(insecticide2.getActiveIngredient().getId(), test2.getActiveIngredient().getId());
       assertEquals(insecticide2.getAmount(), test2.getAmount());
-      assertEquals(insecticide2.getUnits().size(), test2.getUnits().size());
-      assertEquals(1, test2.getUnits().size());
-      assertEquals(insecticide2.getUnits().get(0).getEnumName(), test2.getUnits().get(0).getEnumName());
+      assertEquals(insecticide2.getUnits().getId(), test2.getUnits().getId());
+      
+      
     }
     finally
     {
@@ -189,13 +192,13 @@ public class InsecticideTest extends TestCase
     Insecticide insecticide = new Insecticide();
     insecticide.setActiveIngredient(ingredient);
     insecticide.setAmount(new Double(40.0));
-    insecticide.addUnits(Unit.PERCENT);
+    insecticide.setUnits(unit);
     insecticide.apply();
 
     Insecticide insecticide2 = new Insecticide();
     insecticide2.setActiveIngredient(ingredient2);
     insecticide2.setAmount(new Double(40.0));
-    insecticide2.addUnits(Unit.PERCENT);
+    insecticide2.setUnits(unit);
     insecticide2.apply();
 
     try
@@ -204,17 +207,13 @@ public class InsecticideTest extends TestCase
 
       assertEquals(insecticide.getActiveIngredient().getId(), test.getActiveIngredient().getId());
       assertEquals(insecticide.getAmount(), test.getAmount());
-      assertEquals(insecticide.getUnits().size(), test.getUnits().size());
-      assertEquals(1, test.getUnits().size());
-      assertEquals(insecticide.getUnits().get(0).getEnumName(), test.getUnits().get(0).getEnumName());
+      assertEquals(insecticide.getUnits().getId(), test.getUnits().getId());
 
       Insecticide test2 = Insecticide.get(insecticide2.getId());
 
       assertEquals(insecticide2.getActiveIngredient().getId(), test2.getActiveIngredient().getId());
       assertEquals(insecticide2.getAmount(), test2.getAmount());
-      assertEquals(insecticide2.getUnits().size(), test2.getUnits().size());
-      assertEquals(1, test2.getUnits().size());
-      assertEquals(insecticide2.getUnits().get(0).getEnumName(), test2.getUnits().get(0).getEnumName());
+      assertEquals(insecticide2.getUnits().getId(), test2.getUnits().getId());      
     }
     finally
     {

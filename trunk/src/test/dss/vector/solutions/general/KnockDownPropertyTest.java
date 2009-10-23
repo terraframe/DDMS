@@ -30,8 +30,6 @@ public class KnockDownPropertyTest extends TestCase
   }
 
   private static Insecticide insecticide;
-  
-  private static Term        activeIngredient;
 
   public static Test suite()
   {
@@ -57,14 +55,12 @@ public class KnockDownPropertyTest extends TestCase
 
   protected static void classTearDown()
   {
-    insecticide.delete();
-    activeIngredient.delete();    
+    TestFixture.delete(insecticide);
   }
 
   protected static void classSetUp()
   {
-    activeIngredient = TestFixture.createRandomTerm();
-    insecticide = TestFixture.createInsecticide(activeIngredient);
+    insecticide = TestFixture.createInsecticide();
   }
 
   public void testCreateWithDefaultProperty()
