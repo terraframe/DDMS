@@ -252,3 +252,23 @@
       </mjl:commandLink>
     </dd>    
   </dl>
+  <dl>
+    <dt><label><f:message key="Population_Data"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Population_Data"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.PopulationDataView">
+        <f:message key="Population_Data"/>
+      </mjl:commandLink>
+    </dd>    
+  </dl>
+  <dl>
+    <dt><label><f:message key="Threshold_Data"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Threshold_Data"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.ThresholdDataView">
+        <f:message key="Threshold_Data"/>
+      </mjl:commandLink>
+    </dd>    
+  </dl>
