@@ -14,7 +14,7 @@ public class PopulationCRUDPermission extends PermissionTest
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(ThresholdNoPermission.class, MDSSRoleInfo.MDSS_CORRDINATOR, MDSSRoleInfo.OPERATIONAL_MANAGER);
+    return TestFixture.getTestSuite(PopulationCRUDPermission.class, MDSSRoleInfo.MDSS_CORRDINATOR, MDSSRoleInfo.OPERATIONAL_MANAGER);
   }
 
   public void testPopulationData()
