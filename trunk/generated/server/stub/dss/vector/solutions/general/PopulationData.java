@@ -170,7 +170,7 @@ public class PopulationData extends PopulationDataBase implements com.terraframe
     {
       Calendar calendar = Calendar.getInstance();
 
-      int max = calendar.getActualMaximum(Calendar.YEAR);
+      int max = calendar.get(Calendar.YEAR);
       int min = calendar.getActualMinimum(Calendar.YEAR);
 
       String msg = "The year [" + this.getYearOfData() + " ] must be between [" + min + "] and [" + max + "]";
@@ -189,7 +189,7 @@ public class PopulationData extends PopulationDataBase implements com.terraframe
   {
     Calendar calendar = Calendar.getInstance();
 
-    int max = calendar.getActualMaximum(Calendar.YEAR);
+    int max = calendar.get(Calendar.YEAR);
     int min = calendar.getActualMinimum(Calendar.YEAR);
 
     return ! ( year < min || year > max );

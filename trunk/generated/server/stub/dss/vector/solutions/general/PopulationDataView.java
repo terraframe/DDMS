@@ -137,7 +137,7 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
     {
       Calendar calendar = Calendar.getInstance();
 
-      int max = calendar.getActualMaximum(Calendar.YEAR);
+      int max = calendar.get(Calendar.YEAR);
       int min = calendar.getActualMinimum(Calendar.YEAR);
 
       String msg = "The year [" + year + " ] must be between [" + min + "] and [" + max + "]";
