@@ -67,6 +67,30 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
     EpiDate weeksArr[] = weeks.toArray(new EpiDate[weeks.size()]);
     return  weeksArr;
   }
+  
+  public EpiDate getEpiWeek(Date date)
+  {
+    EpiDate[] weeks = this.getEpiWeeks();
+    
+    for(EpiDate week : weeks)
+    {
+      Date weekStart = week.getStartDate();
+      Date weekEnd = week.getEndDate();
+
+      if(date.equals(weekStart) || date.equals(weekEnd) || (date.after(weekStart) && date.before(weekEnd)))
+      {
+        return week;
+      }
+    }
+    
+    String msg = "Date [" + date + "] is not contained in the Malaira Season [" + this.getSeasonName() +"]";
+    MalariaSeasonDateException e = new MalariaSeasonDateException(msg);
+    e.setSeasonName(this.getSeasonName());
+    e.setWeekDate(date);
+    e.apply();
+    
+    throw e;
+  }
 
   public void validateStartEndDates()
   {
@@ -131,15 +155,10 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
 
   public static MalariaSeason getSeasonByDate(Date date)
   {
-
     MalariaSeason malariaSeason = null;
 
-    QueryFactory factory = new QueryFactory();
-    MalariaSeasonQuery query = new MalariaSeasonQuery(factory);
-
-    query.AND(query.getStartDate().LE(date));
-    query.AND(query.getEndDate().GE(date));
-
+    MalariaSeasonQuery query = MalariaSeason.getSeasonQueryByDate(date, new QueryFactory());
+    
     OIterator<? extends MalariaSeason> iterator = query.getIterator();
 
     try
@@ -157,6 +176,16 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
     }
 
     return malariaSeason;
+  }
+  
+  public static MalariaSeasonQuery getSeasonQueryByDate(Date date, QueryFactory factory)
+  {    
+    MalariaSeasonQuery query = new MalariaSeasonQuery(factory);
+    
+    query.AND(query.getStartDate().LE(date));
+    query.AND(query.getEndDate().GE(date));
+
+    return query;
   }
 
   /**

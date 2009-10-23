@@ -19,7 +19,7 @@ public class ITNHouseholdSurveyNoPermissions extends PermissionTest implements D
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(ITNHouseholdSurveyNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.DATACAPTURER);
+    return TestFixture.getTestSuite(ITNHouseholdSurveyNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER);
   }
 
   public void testITNCommunityDistribution()

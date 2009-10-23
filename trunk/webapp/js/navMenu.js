@@ -33,7 +33,7 @@ var aSubmenuData = [
             	   submenu: {
             	     id: "Population_Data",
             	     itemdata: [
-            	       { text: "Enter_Population_Data", url: "dss.vector.solutions.general.PopulationDataController.search.mojo", visibleTo:'Administrator'},
+            	       { text: "Enter_Population_Data(003)", url: "dss.vector.solutions.general.PopulationDataController.search.mojo", visibleTo:'Administrator'},
             	       { text: "Import_Population_Data", disabled: true, url: "#", visibleTo:'Administrator'}
             	     ]
                    }
@@ -44,7 +44,7 @@ var aSubmenuData = [
             	     itemdata: [
             	       { text: "Configure_Thresholds", disabled: true, url: "#", visibleTo:'Administrator'},
             	       { text: "Import_Thresholds", disabled: true, url: "#", visibleTo:'Administrator'},
-            	       { text: "Enter_Thresholds", disabled: true, url: "#", visibleTo:'Administrator'}
+            	       { text: "Enter_Thresholds(105)", url: "dss.vector.solutions.general.ThresholdDataController.search.mojo", visibleTo:'Administrator'}
             	     ]
                    }
                },

@@ -50,6 +50,7 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
     dto.setIsSprayOperator(true);
     dto.setLeaderId(TestConstants.LEADER_ID);
     dto.setOperatorId(TestConstants.OPERATOR_ID);
+    dto.setSex(term);
     dto.apply();
 
     try
@@ -60,7 +61,7 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
 
       SprayTeamDTO team = new SprayTeamDTO(systemRequest);
       team.setTeamId(TestConstants.TEAM_ID);
-      team.create(facilityGeoId, leader.getId(), new String[] { operator.getId() });
+      team.create(zoneGeoId, leader.getId(), new String[] { operator.getId() });
 
       try
       {
@@ -77,7 +78,7 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
         {
           InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
 
-          OperatorSprayViewDTO spray = OperatorSprayViewDTO.searchBySprayData(request, facilityGeoId, new Date(), method, brand, operator.getId());
+          OperatorSprayViewDTO spray = OperatorSprayViewDTO.searchBySprayData(request, zoneGeoId, new Date(), method, brand, operator.getId());
           spray.setOperatorSprayWeek(33);
           spray.apply();
           fail("Able to create a object without permissions");
@@ -116,6 +117,7 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
     dto.setIsSprayOperator(true);
     dto.setLeaderId(TestConstants.LEADER_ID);
     dto.setOperatorId(TestConstants.OPERATOR_ID);
+    dto.setSex(term);
     dto.apply();
 
     try
@@ -126,7 +128,7 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
 
       SprayTeamDTO team = new SprayTeamDTO(systemRequest);
       team.setTeamId(TestConstants.TEAM_ID);
-      team.create(facilityGeoId, leader.getId(), new String[] { operator.getId() });
+      team.create(zoneGeoId, leader.getId(), new String[] { operator.getId() });
 
       try
       {
@@ -143,8 +145,9 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
         {
           InsecticideBrandDTO brand = InsecticideBrandDTO.get(request, view.getInsecticdeId());
 
-          OperatorSprayViewDTO spray = OperatorSprayViewDTO.searchBySprayData(systemRequest, facilityGeoId, new Date(), method, brand, operator.getId());
+          OperatorSprayViewDTO spray = OperatorSprayViewDTO.searchBySprayData(systemRequest, zoneGeoId, new Date(), method, brand, operator.getId());
           spray.setOperatorSprayWeek(33);
+          spray.setSurfaceType(term);
           spray.apply();
 
           try
@@ -195,6 +198,7 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
     dto.setIsSprayOperator(true);
     dto.setLeaderId(TestConstants.LEADER_ID);
     dto.setOperatorId(TestConstants.OPERATOR_ID);
+    dto.setSex(term);
     dto.apply();
 
     try
@@ -205,7 +209,7 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
 
       SprayTeamDTO team = new SprayTeamDTO(systemRequest);
       team.setTeamId(TestConstants.TEAM_ID);
-      team.create(facilityGeoId, leader.getId(), new String[] { operator.getId() });
+      team.create(zoneGeoId, leader.getId(), new String[] { operator.getId() });
 
       try
       {
@@ -221,7 +225,7 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
         try
         {
           InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
-          TeamSprayViewDTO spray = TeamSprayViewDTO.searchBySprayData(request, facilityGeoId, new Date(), method, brand, team.getId());
+          TeamSprayViewDTO spray = TeamSprayViewDTO.searchBySprayData(request, zoneGeoId, new Date(), method, brand, team.getId());
           spray.setTeamSprayWeek(31);
           spray.apply();
 
@@ -260,6 +264,7 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
     dto.setIsSprayOperator(true);
     dto.setLeaderId(TestConstants.LEADER_ID);
     dto.setOperatorId(TestConstants.OPERATOR_ID);
+    dto.setSex(term);
     dto.apply();
 
     try
@@ -270,7 +275,7 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
 
       SprayTeamDTO team = new SprayTeamDTO(systemRequest);
       team.setTeamId(TestConstants.TEAM_ID);
-      team.create(facilityGeoId, leader.getId(), new String[] { operator.getId() });
+      team.create(zoneGeoId, leader.getId(), new String[] { operator.getId() });
 
       try
       {
@@ -287,8 +292,9 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
         {
           InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
 
-          TeamSprayViewDTO spray = TeamSprayViewDTO.searchBySprayData(systemRequest, facilityGeoId, new Date(), method, brand, team.getId());
+          TeamSprayViewDTO spray = TeamSprayViewDTO.searchBySprayData(systemRequest, zoneGeoId, new Date(), method, brand, team.getId());
           spray.setTeamSprayWeek(33);
+          spray.setSurfaceType(term);
           spray.apply();
 
           try
@@ -340,6 +346,7 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
     dto.setIsSprayOperator(true);
     dto.setLeaderId(TestConstants.LEADER_ID);
     dto.setOperatorId(TestConstants.OPERATOR_ID);
+    dto.setSex(term);
     dto.apply();
 
     try
@@ -350,7 +357,7 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
 
       SprayTeamDTO team = new SprayTeamDTO(systemRequest);
       team.setTeamId(TestConstants.TEAM_ID);
-      team.create(facilityGeoId, leader.getId(), new String[] { operator.getId() });
+      team.create(zoneGeoId, leader.getId(), new String[] { operator.getId() });
 
       try
       {
@@ -366,7 +373,7 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
         try
         {
           InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
-          ZoneSprayViewDTO spray = ZoneSprayViewDTO.searchBySprayData(request, facilityGeoId, new Date(), method, brand);
+          ZoneSprayViewDTO spray = ZoneSprayViewDTO.searchBySprayData(request, zoneGeoId, new Date(), method, brand);
           spray.apply();
 
           fail("Able to create a object without permissions");
@@ -415,7 +422,7 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
 
       SprayTeamDTO team = new SprayTeamDTO(systemRequest);
       team.setTeamId(TestConstants.TEAM_ID);
-      team.create(facilityGeoId, leader.getId(), new String[] { operator.getId() });
+      team.create(zoneGeoId, leader.getId(), new String[] { operator.getId() });
 
       try
       {
@@ -432,7 +439,8 @@ public class IRSNoPermissions extends PermissionTest implements DoNotWeave
         {
           InsecticideBrandDTO brand = InsecticideBrandDTO.get(systemRequest, view.getInsecticdeId());
 
-          ZoneSprayViewDTO spray = ZoneSprayViewDTO.searchBySprayData(systemRequest, facilityGeoId, new Date(), method, brand);
+          ZoneSprayViewDTO spray = ZoneSprayViewDTO.searchBySprayData(systemRequest, zoneGeoId, new Date(), method, brand);
+          spray.setSurfaceType(term);
           spray.apply();
 
           try

@@ -23,7 +23,7 @@ public class AggregatedCasesCRUDPermissions extends PermissionTest implements Do
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(AggregatedCasesCRUDPermissions.class, MDSSRoleInfo.MDSS_CORRDINATOR, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.OPERATIONAL_MANAGER);
+    return TestFixture.getTestSuite(AggregatedCasesCRUDPermissions.class, MDSSRoleInfo.MDSS_CORRDINATOR, MDSSRoleInfo.DATACAPTURER);
   }
 
   public void testAncientCase()

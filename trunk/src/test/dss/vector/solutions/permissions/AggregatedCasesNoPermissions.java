@@ -22,7 +22,7 @@ public class AggregatedCasesNoPermissions extends PermissionTest implements DoNo
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(AggregatedCasesNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER);
+    return TestFixture.getTestSuite(AggregatedCasesNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER, MDSSRoleInfo.OPERATIONAL_MANAGER);
   }
 
   public void testAncientCase()

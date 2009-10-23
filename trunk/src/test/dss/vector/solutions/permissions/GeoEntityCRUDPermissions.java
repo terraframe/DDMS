@@ -142,6 +142,7 @@ public class GeoEntityCRUDPermissions extends PermissionTest implements DoNotWea
     def1.setDescription("New Geo Entity Type Description 1");
     def1.addSpatialType(SpatialTypesDTO.POLYGON);
     def1.setParentGeoHierarchyId(set.get(0).getId());
+    def1.setPopulationAllowed(true);
 
     try
     {

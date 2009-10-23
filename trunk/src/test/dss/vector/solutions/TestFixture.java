@@ -11,12 +11,14 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.general.Insecticide;
+import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSiteDTO;
+import dss.vector.solutions.geo.generated.SprayZone;
 import dss.vector.solutions.geo.generated.Surface;
 import dss.vector.solutions.geo.generated.WaterBody;
 import dss.vector.solutions.ontology.MO;
@@ -141,6 +143,17 @@ public class TestFixture
 
     return surface;
   }
+  
+
+  public static SprayZone createRandomZone()
+  {
+    SprayZone sprayZone = new SprayZone();
+    sprayZone.setGeoId(TestFixture.getRandomGeoId());
+    sprayZone.setEntityName("Test Site");
+    sprayZone.apply();
+
+    return sprayZone;    
+  }
 
   public static TermDTO createRandomTerm(ClientRequestIF request)
   {
@@ -247,5 +260,27 @@ public class TestFixture
     data.apply();
     
     return data;
+  }
+  
+  public static MalariaSeasonDTO createMalairaSeason(ClientRequestIF request)
+  {
+    Calendar calendar = Calendar.getInstance();
+    calendar.clear();
+    calendar.set(2003, 1, 1);
+
+    Date startDate = calendar.getTime();
+
+    calendar.clear();
+    calendar.set(2003, 10, 1);
+
+    Date endDate = calendar.getTime();
+
+    MalariaSeasonDTO season = new MalariaSeasonDTO(request);
+    season.setSeasonName(TestConstants.SEASON_NAME);
+    season.setStartDate(startDate);
+    season.setEndDate(endDate);
+    season.apply();
+
+    return season;
   }
 }

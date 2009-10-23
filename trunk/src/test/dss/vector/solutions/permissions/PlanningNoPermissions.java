@@ -39,6 +39,8 @@ public class PlanningNoPermissions extends PermissionTest implements DoNotWeave
 
   public void testCreateSprayTeam()
   {
+    TermDTO term = TermDTO.get(request, termId);
+    
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
     dto.setFirstName("Test");
     dto.setLastName("Test");
@@ -47,6 +49,7 @@ public class PlanningNoPermissions extends PermissionTest implements DoNotWeave
     dto.setIsSprayOperator(true);
     dto.setLeaderId(TestConstants.LEADER_ID);
     dto.setOperatorId(TestConstants.OPERATOR_ID);
+    dto.setSex(term);
     dto.apply();
 
     try
@@ -224,6 +227,8 @@ public class PlanningNoPermissions extends PermissionTest implements DoNotWeave
 
   public void testTeamTargets()
   {
+    TermDTO term = TermDTO.get(request, termId);
+
     Calendar calendar = Calendar.getInstance();
     calendar.clear();
     calendar.set(2006, 1, 1);
@@ -243,6 +248,7 @@ public class PlanningNoPermissions extends PermissionTest implements DoNotWeave
 
     try
     {
+
       PersonViewDTO dto = new PersonViewDTO(systemRequest);
       dto.setFirstName("Test");
       dto.setLastName("Test");
@@ -251,6 +257,7 @@ public class PlanningNoPermissions extends PermissionTest implements DoNotWeave
       dto.setIsSprayOperator(true);
       dto.setLeaderId(TestConstants.LEADER_ID);
       dto.setOperatorId(TestConstants.OPERATOR_ID);
+      dto.setSex(term);
       dto.apply();
 
       try
@@ -261,7 +268,7 @@ public class PlanningNoPermissions extends PermissionTest implements DoNotWeave
 
         SprayTeamDTO team = new SprayTeamDTO(systemRequest);
         team.setTeamId(TestConstants.TEAM_ID);
-        team.create(facilityGeoId, leader.getId(), new String[] { operator.getId() });
+        team.create(zoneGeoId, leader.getId(), new String[] { operator.getId() });
 
         try
         {

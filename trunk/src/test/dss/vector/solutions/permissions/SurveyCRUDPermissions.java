@@ -79,9 +79,9 @@ public class SurveyCRUDPermissions extends PermissionTest implements DoNotWeave
 
         edit.applyAll(lockedNets);
 
-        HouseholdDTO test = HouseholdDTO.get(request, household.getConcreteId());
+        HouseholdViewDTO test = HouseholdDTO.getView(request, household.getConcreteId());
 
-        assertEquals(household.getId(), test.getId());
+        assertEquals(household.getConcreteId(), test.getConcreteId());
       }
       finally
       {
