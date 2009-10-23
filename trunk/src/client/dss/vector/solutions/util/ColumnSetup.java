@@ -38,6 +38,10 @@ public class ColumnSetup implements Reloadable
    */
   private String method;  
   
+  private String title;
+  
+  private String label;
+  
   public ColumnSetup()
   {
     this(false, true);
@@ -56,6 +60,8 @@ public class ColumnSetup implements Reloadable
     this.type = type;
     this.method = method;
     this.sum = false;
+    this.title = null;
+    this.label = null;
   }
   
   public boolean isHidden()
@@ -116,5 +122,25 @@ public class ColumnSetup implements Reloadable
   public void setSum(boolean sum)
   {
     this.sum = sum;
-  }  
+  }
+
+  public String getTitle()
+  {
+    return title;
+  }
+
+  public void setTitle(String title)
+  {
+    this.title = title;
+  }
+
+  public String getLabel()
+  {
+    return label;
+  }
+
+  public void setLabel(String label)
+  {
+    this.label = label;
+  }    
 }

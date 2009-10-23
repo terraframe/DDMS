@@ -32,13 +32,7 @@
       </label>
     </dt>
     <dd>
-      <ul>
-        <c:forEach var="enumName" items="${item.unitsEnumNames}">
-          <li>
-            ${item.unitsMd.enumItems[enumName]}
-          </li>
-        </c:forEach>
-      </ul>
+      ${item.units.displayLabel}
     </dd>
   </dl>
 <%--

@@ -2,6 +2,13 @@
   <doIt>
     <create>
       <object
+        key="Ontology__dss.vector.solutions.general.Insecticide.units"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.general.Insecticide.units" />
+      </object>            
+      <object
         key="Ontology__dss.vector.solutions.entomology.MorphologicalSpecieGroupView.specie"
         type="dss.vector.solutions.ontology.BrowserField">
         <attributeReference
@@ -212,6 +219,9 @@
   </doIt>
   <undoIt>
     <delete>
+      <object
+        key="Ontology__dss.vector.solutions.general.Insecticide.units"
+        type="dss.vector.solutions.ontology.BrowserField"/>    
       <object
         key="Ontology__dss.vector.solutions.entomology.MosquitoView.pFalciparumMethod"
         type="dss.vector.solutions.ontology.BrowserField"/>

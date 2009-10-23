@@ -10,7 +10,6 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.entomology.assay.UnitDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -50,7 +49,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
 
   public void failCreate(InsecticideDTO dto) throws IOException, ServletException
   {
-    this.setupRequest();
+    
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
@@ -94,24 +93,18 @@ public class InsecticideController extends InsecticideControllerBase implements 
     ClientRequestIF clientRequest = super.getClientRequest();
     InsecticideDTO dto = new InsecticideDTO(clientRequest);
 
-    this.setupRequest();
-    this.setupMO(dto);
+    
+    this.setupReferences(dto);
     
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
   }
 
-  private void setupRequest()
-  {
-    ClientRequestIF request = super.getClientSession().getRequest();
-
-    req.setAttribute("units", UnitDTO.allItems(request));
-  }
-  
-  private void setupMO(InsecticideDTO dto)
+  private void setupReferences(InsecticideDTO dto)
   {
     req.setAttribute("activeIngredient", dto.getActiveIngredient());
+    req.setAttribute("units", dto.getUnits());
   }
 
 
@@ -135,7 +128,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
 
   public void failUpdate(InsecticideDTO dto) throws IOException, ServletException
   {
-    this.setupRequest();
+    
     req.setAttribute("item", dto);
 
     render("updateComponent.jsp");
@@ -175,7 +168,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
 
   public void failDelete(InsecticideDTO dto) throws IOException, ServletException
   {
-    this.setupRequest();
+    
     req.setAttribute("item", dto);
 
     render("editComponent.jsp");
@@ -188,7 +181,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     InsecticideDTO dto = InsecticideDTO.get(super.getClientRequest(), id);
-    this.setupMO(dto);
+    this.setupReferences(dto);
     req.setAttribute("item", dto);
 
     render("viewComponent.jsp");
@@ -204,9 +197,8 @@ public class InsecticideController extends InsecticideControllerBase implements 
     try
     {
       InsecticideDTO dto = InsecticideDTO.lock(super.getClientRequest(), id);
-
-      this.setupRequest();
-      this.setupMO(dto);
+      
+      this.setupReferences(dto);
 
       req.setAttribute("item", dto);
 

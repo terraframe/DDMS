@@ -2236,13 +2236,11 @@
             required="true"
             length="15"
             decimal="4" />
-          <enumeration
+          <reference
             name="units"
             label="Units"
             required="true"
-            defaultValue="PERCENT"
-            type="dss.vector.solutions.entomology.assay.Unit"
-            selectMultiple="false" />
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
       </mdBusiness>
 

@@ -21,10 +21,10 @@ public class Insecticide extends InsecticideBase implements
   @Override
   protected String buildKey()
   {
-    if (this.getUnits().size() > 0 && this.getActiveIngredient() != null)
+    if (this.getUnits() != null && this.getActiveIngredient() != null)
     {
-      String unit = this.getUnits().get(0).getEnumName();
-      String ingredient = this.getActiveIngredient().getId();
+      String unit = this.getUnits().getKey();
+      String ingredient = this.getActiveIngredient().getKey();
 
       return ingredient + " - " + this.getAmount() + " " + unit;
     }
@@ -35,7 +35,7 @@ public class Insecticide extends InsecticideBase implements
   public static Insecticide get(String activeIngredient, String unit, Double amount)
   {
     Term ingredient = Term.validateByDisplayLabel(activeIngredient, Insecticide.getActiveIngredientMd());
-    Unit u = getUnitByLabel(unit);
+    Term u = Term.validateByDisplayLabel(unit, Insecticide.getUnitsMd());
     
     if(u == null)
     {
@@ -69,7 +69,7 @@ public class Insecticide extends InsecticideBase implements
 
     InsecticideQuery insecticideQuery = new InsecticideQuery(new QueryFactory());
     insecticideQuery.WHERE(insecticideQuery.getActiveIngredient().EQ(ingredient));
-    insecticideQuery.WHERE(insecticideQuery.getUnits().containsExactly(u));
+    insecticideQuery.WHERE(insecticideQuery.getUnits().EQ(u));
     insecticideQuery.WHERE(insecticideQuery.getAmount().EQ(amount));
     
     OIterator<? extends Insecticide> iterator = insecticideQuery.getIterator();

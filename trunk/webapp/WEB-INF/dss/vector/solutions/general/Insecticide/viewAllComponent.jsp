@@ -20,7 +20,7 @@
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="units">
       <mjl:row>
-        ${item.unitsMd.enumItems[item.unitsEnumNames[0]]}
+        ${item.units.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>

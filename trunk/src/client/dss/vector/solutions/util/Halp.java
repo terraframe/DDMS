@@ -561,6 +561,12 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       AttributeMdDTO md = new DTOFacade(attrib, view).getAttributeMdDTO();
 
       String label = md.getDisplayLabel();
+      
+      if(setup.getLabel() != null)
+      {
+        label = setup.getLabel();
+      }
+
 
       buff.add("key:'" + attrib + "'");
       buff.add("label:'" + label.replaceAll("'", "\\\\'") + "'");
@@ -568,6 +574,11 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       if(setup.isSum())
       {
         buff.add("sum:true");
+      }
+      
+      if(setup.getTitle() != null)
+      {
+        buff.add("title:'" + setup.getTitle() +"'");
       }
 
       if (setup.isHidden())
