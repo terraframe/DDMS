@@ -651,7 +651,7 @@
 		<echoproperties>
 		</echoproperties>
 		-->
-		<java classname="dss.vector.solutions.ontology.PostOntologySetup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
+		<java classname="dss.vector.solutions.ontology.PostOntologySetup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntologyRoots">
 			<jvmarg value="-Xmx1024m" />
 			
 			<classpath>
