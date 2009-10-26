@@ -1,12 +1,16 @@
 package dss.vector.solutions.general;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AND;
+import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.OrderBy.SortOrder;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.RangeValueProblem;
@@ -194,4 +198,143 @@ public class PopulationData extends PopulationDataBase implements com.terraframe
 
     return ! ( year < min || year > max );
   }
+  
+	@Transaction
+	public static long calculateAnnualPopulation(String geoId, int year) {
+		//System.out.println("---------" + year + "---------");
+		long population = -1L;
+
+		// Get all of the population data records that are for the year we requested or earlier
+		// and get them in descending order (most recent first).
+		QueryFactory f = new QueryFactory();
+		PopulationDataQuery q = new PopulationDataQuery(f);
+		q.WHERE(q.getGeoEntity().getGeoId().EQ(geoId).AND(q.getYearOfData().LE(year)));
+		q.ORDER_BY(q.getYearOfData(), SortOrder.DESC);
+
+		Stack<PopulationData> data = new Stack<PopulationData>();
+		int currentPopulationYear = -1;
+		float currentGrowthRate = Float.NaN;
+		long currentPopulation = -1L;
+
+		OIterator<? extends PopulationData> i = q.getIterator();
+		boolean finished = false;
+		try {
+			while (i.hasNext() && !finished) {
+				PopulationData pd = i.next();
+				//System.out.println("DB " + pd.getGeoEntity().getGeoId() + "\t" + pd.getYearOfData() + "\t" + pd.getPopulation() + "\t" + pd.getGrowthRate());
+
+				// If we have a valid population (estimated or not) for this
+				// year, use it
+				if (pd.getYearOfData() == year && pd.getPopulation() != null) {
+					population = pd.getPopulation();
+					break;
+				}
+
+				if (currentPopulationYear < 0) {
+					// We haven't gotten a population yet, so we need to find
+					// one
+					if (pd.getPopulation() != null) {
+						// We have one, so store it (and the year)
+						currentPopulationYear = pd.getYearOfData();
+						currentPopulation = pd.getPopulation();
+					}
+				}
+
+				if (pd.getGrowthRate() != null) {
+					// If we've already gotten a population, we're done!
+					if (currentPopulation >= 0) {
+						currentGrowthRate = pd.getGrowthRate();
+						finished = true;
+						break;
+					} else {
+						// otherwise, push it on the stack for the calculation
+						data.push(pd);
+					}
+				}
+			}
+		} finally {
+			i.close();
+		}
+
+		if (population >= 0) {
+			return population;
+		}
+
+		// We never found both a population and a growth rate to calculate from
+		if (!finished) {
+			return -1l;
+		}
+
+		// Loop over each change in growth rate, calculating (and caching in the DB)
+		// the population for each.
+		for (PopulationData growthChange : data) {
+			int thisYear = growthChange.getYearOfData();
+			currentPopulation = Math.round(Math.pow(1.0f + currentGrowthRate, thisYear - currentPopulationYear) * currentPopulation);
+			currentPopulationYear = thisYear;
+			currentGrowthRate = growthChange.getGrowthRate();
+
+			growthChange.setPopulation(currentPopulation);
+			growthChange.setEstimated(true);
+			growthChange.apply();
+		}
+
+		// Calculate the population from the last growth rate available to now
+		population = Math.round(Math.pow(1.0f + currentGrowthRate, year - currentPopulationYear) * currentPopulation);
+
+		return population;
+	}
+
+	@Transaction
+	public static long calculateSeasonalPopulation(String geoId, Date seasonStart, Date seasonEnd) {
+		return calculatePopulationAt(geoId, (seasonStart.getTime() + seasonEnd.getTime()) / 2L);
+	}
+	
+	@Transaction
+	public static long calculateSeasonalPopulation(String geoId, Calendar seasonStart, Calendar seasonEnd) {
+		return calculatePopulationAt(geoId, (seasonStart.getTimeInMillis() + seasonEnd.getTimeInMillis()) / 2L);
+	}
+	
+	@Transaction
+	public static long calculateSeasonalPopulation(String geoId, MalariaSeason season) {
+		return calculateSeasonalPopulation(geoId, season.getStartDate(), season.getEndDate());
+	}
+	
+	private static long calculatePopulationAt(String geoId, long timeInMilliseconds) {
+		Calendar populationDate = getCalendar(timeInMilliseconds);
+
+		// Since the annual populations are effective on July 1, if we're before that we
+		// need to last year's and this year's data.  Otherwise use this year's and next year's data.
+		int priorYear = populationDate.get(Calendar.YEAR);
+		if (populationDate.get(Calendar.MONTH) < Calendar.JULY) {
+			priorYear -= 1;
+		}
+		Calendar startingPopulationDate = getCalendar(priorYear, Calendar.JULY, 1);
+		Calendar endingPopulationDate = getCalendar(priorYear+1, Calendar.JULY, 1);
+
+		// Get the annual populations for the two dates
+		long endingPopulation = calculateAnnualPopulation(geoId, priorYear+1);
+		long startingPopulation = calculateAnnualPopulation(geoId, priorYear);
+		
+		// Calculate the fraction of the year's population that we need to use
+		float yearFraction = ((float) timeInMilliseconds - (float) startingPopulationDate.getTimeInMillis()) / ((float) endingPopulationDate.getTimeInMillis() - (float) startingPopulationDate.getTimeInMillis());
+		
+		// Return that percentage of the population
+		return startingPopulation + Math.round((endingPopulation - startingPopulation) * yearFraction);
+	}
+	
+	// Return a calendar for a given year/month/day
+	public static Calendar getCalendar(int year, int month, int day) {
+		Calendar c = Calendar.getInstance();
+		c.clear();
+		c.set(year, month, day);
+		return c;
+	}	
+	
+	// Return a calendar for a given millisecond time
+	public static Calendar getCalendar(long time) {
+		Calendar c = Calendar.getInstance();
+		c.clear();
+		c.setTimeInMillis(time);
+		return c;
+	}
 }
