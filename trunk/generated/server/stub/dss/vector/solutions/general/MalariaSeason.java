@@ -39,6 +39,23 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
     validateOverlap();
 
     super.apply();
+    
+    // Create the epi weeks which are defined by this season
+    for(EpiDate date : this.getEpiWeeks())
+    {
+      Integer period = date.getPeriod();
+      Integer year = date.getYear();
+      
+      EpiWeek week = EpiWeek.getEpiWeek(period, year);
+      
+      if(week == null)
+      {
+        week = new EpiWeek();
+        week.setPeriod(period);
+        week.setYearOfWeek(year);
+        week.apply();
+      }
+    }
   }
 
   public EpiDate[] getEpiWeeks()

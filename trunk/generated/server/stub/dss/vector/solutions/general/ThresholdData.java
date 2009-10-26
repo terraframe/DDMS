@@ -3,7 +3,8 @@ package dss.vector.solutions.general;
 import java.util.Date;
 import java.util.List;
 
-import com.terraframe.mojo.ApplicationException;
+import com.terraframe.mojo.business.rbac.Authenticate;
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.Session;
@@ -84,56 +85,6 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
     }
   }
 
-  private int getIndex(Date date)
-  {
-    EpiDate week = this.getSeason().getEpiWeek(date);
-
-    int index = ( week.getPeriod() % week.getNumberOfEpiWeeks() );
-    return index;
-  }
-
-  public void setThresholds(Date date, Integer t1, Integer t2)
-  {
-    int index = this.getIndex(date);
-
-    this.setThresholds(index, t1, t2);
-  }
-
-  private void setThresholds(int index, Integer t1, Integer t2)
-  {
-    try
-    {
-      this.getClass().getMethod("setOutbreak_" + index, Integer.class).invoke(this, t1);
-      this.getClass().getMethod("setIdentification_" + index, Integer.class).invoke(this, t2);
-    }
-    catch (Exception e)
-    {
-      throw new ApplicationException(e);
-    }
-  }
-
-  public Integer[] getThresholds(Date date)
-  {
-    int index = this.getIndex(date);
-
-    return this.getThresholds(index);
-  }
-
-  private Integer[] getThresholds(int index)
-  {
-    try
-    {
-      Integer t1 = (Integer) this.getClass().getMethod("getOutbreak_" + index).invoke(this);
-      Integer t2 = (Integer) this.getClass().getMethod("getIdentification_" + index).invoke(this);
-
-      return new Integer[] { t1, t2 };
-    }
-    catch (Exception e)
-    {
-      throw new ApplicationException(e);
-    }
-  }
-
   /**
    * @param entity
    *          GeoEntity
@@ -143,22 +94,94 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
    * @return An array of the Thresholds [T1, T2] for a given GeoEntity on the
    *         give Date. If thresholds are not defined then null is returned.
    */
-  public static Integer[] getThresholds(GeoEntity entity, Date date)
+  public static WeeklyThreshold getThresholds(GeoEntity entity, Date date)
   {
     QueryFactory factory = new QueryFactory();
 
     MalariaSeasonQuery season = MalariaSeason.getSeasonQueryByDate(date, factory);
 
-    ThresholdDataQuery query = new ThresholdDataQuery(factory);
-    query.WHERE(AND.get(query.getGeoEntity().EQ(entity), query.getSeason().EQ(season)));
+    ThresholdDataQuery threshold = new ThresholdDataQuery(factory);
+    threshold.WHERE(AND.get(threshold.getGeoEntity().EQ(entity), threshold.getSeason().EQ(season)));
 
-    List<? extends ThresholdData> list = query.getIterator().getAll();
+    List<? extends ThresholdData> list = threshold.getIterator().getAll();
 
     if (list.size() > 0)
     {
-      return list.get(0).getThresholds(date);
+      EpiDate epiDate = EpiDate.getEpiWeek(date);
+      EpiWeek week = EpiWeek.getEpiWeek(epiDate.getPeriod(), epiDate.getNumberOfEpiWeeks());
+
+      return list.get(0).getEpiWeeksRel(week);
     }
 
     return null;
   }
+
+  @Transaction
+  @Authenticate
+  public static void checkThresholdViolation(Date date, GeoEntity entity, long count)
+  {
+    WeeklyThreshold threshold = ThresholdData.getThresholds(entity, date);
+
+    if (threshold != null)
+    {
+      Integer notification = threshold.getNotification();
+      Integer identification = threshold.getIdentification();
+
+      if (notification != null && count >= notification)
+      {
+        EpiDate epiDate = EpiDate.getEpiWeek(date);
+        EpiWeek week = EpiWeek.getEpiWeek(epiDate.getPeriod(), epiDate.getEpiYear());
+        EpiWeek previousAlert = threshold.getLastNotification();
+
+        if (previousAlert.getId().equals(week.getId()))
+        {
+          String alertType = "Outbreak";
+          String thresholdType = "Alert";
+          String label = entity.getLabel();
+
+          OutbreakAlert alert = new OutbreakAlert();
+          alert.setAlertType(alertType);
+          alert.setThresholdType(thresholdType);
+          alert.setEntityLabel(label);
+          alert.setThreshold(notification);
+          alert.setTotalCases(count);
+          alert.apply();
+
+          alert.throwIt();
+          
+          threshold.setLastNotification(week);
+          threshold.apply();
+        }
+      }
+
+      if (identification != null && count >= identification)
+      {
+        EpiDate epiDate = EpiDate.getEpiWeek(date);
+        EpiWeek week = EpiWeek.getEpiWeek(epiDate.getPeriod(), epiDate.getEpiYear());
+        EpiWeek previousAlert = threshold.getLastIdentification();
+
+
+        if (!previousAlert.getId().equals(week.getId()))
+        {
+          String alertType = "Outbreak";
+          String thresholdType = "Identification";
+          String label = entity.getLabel();
+
+          OutbreakAlert alert = new OutbreakAlert();
+          alert.setAlertType(alertType);
+          alert.setThresholdType(thresholdType);
+          alert.setEntityLabel(label);
+          alert.setThreshold(notification);
+          alert.setTotalCases(count);
+          alert.apply();
+
+          alert.throwIt();
+          
+          threshold.setLastIdentification(week);
+          threshold.apply();
+        }
+      }
+    }
+  }
+
 }

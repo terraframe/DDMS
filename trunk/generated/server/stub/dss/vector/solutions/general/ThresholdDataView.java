@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.SystemException;
 import com.terraframe.mojo.dataaccess.MdViewDAOIF;
 import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
@@ -45,10 +46,33 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
       this.setEntityLabel(entity.getLabel());
     }
 
-    this.populateAttributes(this, concrete, "Outbreak");
-    this.populateAttributes(this, concrete, "Identification");
-
     this.setSeason(concrete.getSeason());
+
+    this.populateViewAttributes(concrete);
+  }
+
+  private void populateViewAttributes(ThresholdData concrete)
+  {
+    OIterator<? extends WeeklyThreshold> it = concrete.getAllEpiWeeksRel();
+
+    try
+    {
+      while (it.hasNext())
+      {
+        WeeklyThreshold threshold = it.next();
+
+        EpiWeek week = threshold.getChild();
+
+        int index = ( week.getPeriod() % EpiDate.getNumberOfEpiWeeks(week.getYearOfWeek()) );
+
+        this.populateAttributes(this, "setOutbreak_" + index, threshold.getNotification());
+        this.populateAttributes(this, "setIdentification_" + index, threshold.getNotification());
+      }
+    }
+    finally
+    {
+      it.close();
+    }
   }
 
   private void populateConcrete(ThresholdData concrete)
@@ -62,30 +86,20 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
       concrete.setGeoEntity(geoEntity);
     }
 
-    this.populateAttributes(concrete, this, "Outbreak");
-    this.populateAttributes(concrete, this, "Identification");
-
     concrete.setSeason(this.getSeason());
   }
 
-  private void populateAttributes(Object to, Object from, String accessor)
+  private void populateAttributes(Object to, String accessor, Integer value)
   {
-    for (int i = 0; i < 53; i++)
+    try
     {
-      String setterName = "set" + accessor + "_" + i;
-      String getterName = "get" + accessor + "_" + i;
+      Method setter = to.getClass().getMethod(accessor, Integer.class);
 
-      try
-      {
-        Method setter = to.getClass().getMethod(setterName, Integer.class);
-        Method getter = from.getClass().getMethod(getterName);
-
-        setter.invoke(to, (Integer) getter.invoke(from));
-      }
-      catch (Exception e)
-      {
-        throw new SystemException(e);
-      }
+      setter.invoke(to, value);
+    }
+    catch (Exception e)
+    {
+      throw new SystemException(e);
     }
   }
 
@@ -102,6 +116,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
   }
 
   @Override
+  @Transaction
   public void apply()
   {
     ThresholdData concrete = new ThresholdData();
@@ -118,8 +133,71 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
     this.populateConcrete(concrete);
 
     concrete.apply();
+    
+    this.populateThresholds(concrete);
 
     this.populateView(concrete);
+  }
+
+  @Transaction
+  private void populateThresholds(ThresholdData data)
+  {
+    EpiDate[] weeks = this.getSeason().getEpiWeeks();
+
+    for(EpiDate week : weeks)
+    {
+      int index = ( week.getPeriod() % week.getNumberOfEpiWeeks());
+      
+      Integer notification = this.getOutbreak(index);
+      Integer identification = this.getIdentification(index);
+      
+      if(notification != null || identification != null)
+      {
+        EpiWeek epiWeek = EpiWeek.getEpiWeek(week.getPeriod(), week.getYear());
+        
+        WeeklyThreshold threshold = data.getEpiWeeksRel(epiWeek);
+        
+        if(threshold == null)
+        {
+          threshold = new WeeklyThreshold(data, epiWeek);
+        }
+        else
+        {
+          threshold.lock();
+        }
+        
+        new AttributeNotificationMap(threshold, WeeklyThreshold.IDENTIFICATION, this, ThresholdDataView.IDENTIFICATION + index);
+        new AttributeNotificationMap(threshold, WeeklyThreshold.NOTIFICATION, this, ThresholdDataView.OUTBREAK + index);
+        
+        threshold.setNotification(notification);
+        threshold.setIdentification(identification);
+        threshold.apply();
+      }
+    }
+  }
+
+  private Integer getIdentification(int index)
+  {
+    try
+    {
+      return (Integer) this.getClass().getMethod("getIdentification_" + index).invoke(this);
+    }
+    catch (Exception e)
+    {
+      throw new ApplicationException(e);
+    }
+  }
+
+  private Integer getOutbreak(int index)
+  {
+    try
+    {
+      return (Integer) this.getClass().getMethod("getOutbreak_" + index).invoke(this);
+    }
+    catch (Exception e)
+    {
+      throw new ApplicationException(e);
+    }    
   }
 
   @Override
@@ -241,24 +319,6 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
     return attributes;
   }
 
-  public void setThresholds(Date date, Integer t1, Integer t2)
-  {
-    if (this.hasConcrete())
-    {
-      ThresholdData.get(this.getConcreteId()).setThresholds(date, t1, t2);
-    }
-  }
-
-  public Integer[] getThresholds(Date date)
-  {
-    if (this.hasConcrete())
-    {
-      return ThresholdData.get(this.getConcreteId()).getThresholds(date);
-    }
-
-    return null;
-  }
-
   /**
    * @param entity
    *          GeoEntity
@@ -268,7 +328,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
    * @return An array of the Thresholds [T1, T2] for a given GeoEntity on the
    *         give Date. If thresholds are not defined then null is returned.
    */
-  public static Integer[] getThresholds(GeoEntity entity, Date date)
+  public static WeeklyThreshold getThresholds(GeoEntity entity, Date date)
   {
     return ThresholdData.getThresholds(entity, date);
   }

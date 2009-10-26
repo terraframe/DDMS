@@ -1,0 +1,143 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.general.EpiWeek"
+        label="Epi Week"
+        generateController="false">
+        <attributes>
+          <integer
+            name="period"
+            label="Period"
+            required="true"
+            rejectNegative="true" />
+          <integer
+            name="yearOfWeek"
+            label="Year"
+            required="true"
+            rejectNegative="true" />
+        </attributes>
+      </mdBusiness>
+
+      <mdTree
+        name="dss.vector.solutions.general.WeeklyThreshold">
+        <attributes>
+          <integer
+            name="notification"
+            label="T1" />
+          <integer
+            name="identification"
+            label="T2" />
+          <reference
+            name="lastNotification"
+            label="Last Notification"
+            type="dss.vector.solutions.general.EpiWeek" />
+          <reference
+            name="lastIdentification"
+            label="Last Identification"
+            type="dss.vector.solutions.general.EpiWeek" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.general.ThresholdData"
+          method="Thresholds" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.general.EpiWeek"
+          method="EpiWeeks" />
+      </mdTree>
+
+      <mdInformation
+        name="dss.vector.solutions.general.OutbreakAlert"
+        label="Outbreak Alert">
+        <attributes>
+          <char
+            name="alertType"
+            label="Alert Type"
+            size="255" />
+          <char
+            name="thresholdType"
+            label="Threshold Type"
+            size="255" />
+          <char
+            name="entityLabel"
+            label="Entity Label"
+            size="255" />
+          <integer
+            name="threshold"
+            label="Threshold" />
+          <long
+            name="totalCases"
+            label="Total Cases" />
+        </attributes>
+      </mdInformation>
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.general.ThresholdData">
+        <create>
+          <mdMethod
+            name="checkThresholdViolation"
+            label="Check Threshold"
+            static="true"
+            returnType="void">
+            <mdParameter
+              name="date"
+              label="Date"
+              order="0"
+              type="java.util.Date" />
+            <mdParameter
+              name="entity"
+              label="Entity"
+              order="1"
+              type="dss.vector.solutions.geo.generated.GeoEntity" />
+            <mdParameter
+              name="count"
+              label="Count"
+              order="2"
+              type="java.lang.Long" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+    <permissions>
+      <method
+        methodName="checkThresholdViolation"
+        type="dss.vector.solutions.general.ThresholdData">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+      <role
+        roleName="mdss.coordinator">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.general.ThresholdData">
+            <mdMethodPermission
+              methodName="checkThresholdViolation">
+              <operation
+                name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
+        </grant>
+      </role>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.ThresholdData.checkThresholdViolation"
+        type="com.terraframe.mojo.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.general.EpiWeek"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThreshold"
+        type="com.terraframe.mojo.system.metadata.MdTree" />
+      <object
+        key="dss.vector.solutions.general.OutbreakAlert"
+        type="com.terraframe.mojo.system.metadata.MdInformation" />
+    </delete>
+  </undoIt>
+</version>

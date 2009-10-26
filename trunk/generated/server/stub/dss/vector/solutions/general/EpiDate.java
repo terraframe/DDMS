@@ -121,7 +121,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     }
   }
 
-  private GregorianCalendar makeEpiCalendar(int year)
+  private static GregorianCalendar makeEpiCalendar(int year)
   {
     int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
     GregorianCalendar cal = new GregorianCalendar();
@@ -192,8 +192,13 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
   public Integer getNumberOfEpiWeeks()
   {
-    Calendar thisYear = makeEpiCalendar(this.getEpiYear());
-    Calendar nextYear = makeEpiCalendar(this.getEpiYear() + 1);
+    return EpiDate.getNumberOfEpiWeeks(this.getEpiYear());
+  }
+  
+  public static Integer getNumberOfEpiWeeks(int year)
+  {
+    Calendar thisYear = makeEpiCalendar(year);
+    Calendar nextYear = makeEpiCalendar(year + 1);
     // add 52 weeks + 1 day and see if that puts us into the next epi year
     thisYear.add(Calendar.WEEK_OF_YEAR, 52);
     thisYear.add(Calendar.DAY_OF_WEEK, 1);
@@ -442,6 +447,20 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
       p.setMaxPeriod(periodType.getMaximumPeriod());
       p.throwIt();
     }
+  }
+
+  public static EpiDate getEpiWeek(Date date)
+  {
+    Calendar instance = Calendar.getInstance(); 
+    instance.setTime(date);
+    int year = instance.get(Calendar.YEAR); 
+      
+    Calendar calendar = makeEpiCalendar(year);
+    calendar.setTime(date);
+    
+    int period = calendar.get(Calendar.WEEK_OF_YEAR);
+    
+    return EpiDate.getInstanceByPeriod(PeriodType.WEEK, period, year);
   }
 
 }
