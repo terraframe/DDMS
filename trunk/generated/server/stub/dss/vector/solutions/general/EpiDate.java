@@ -194,7 +194,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
   {
     return EpiDate.getNumberOfEpiWeeks(this.getEpiYear());
   }
-  
+
   public static Integer getNumberOfEpiWeeks(int year)
   {
     Calendar thisYear = makeEpiCalendar(year);
@@ -229,12 +229,12 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     int days_after_piviot = max - piviot;
 
     // beginning of week wins in case of tie
-    
-    if(snapToFirstDay == null)
+
+    if (snapToFirstDay == null)
     {
-      snapToFirstDay =  (days_before_piviot < days_after_piviot);
+      snapToFirstDay = ( days_before_piviot < days_after_piviot );
     }
-    
+
     if (snapToFirstDay)
     {
       cal.set(period, min);
@@ -261,13 +261,13 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
     int days_before_piviot = piviot - min;
     int days_after_piviot = max - piviot;
-    
+
     // beginning of month wins in case of tie
-    if(snapToFirstDay == null)
+    if (snapToFirstDay == null)
     {
-      snapToFirstDay =  (days_before_piviot < days_after_piviot);
+      snapToFirstDay = ( days_before_piviot < days_after_piviot );
     }
-    
+
     if (snapToFirstDay)
     {
       cal.set(period, min);
@@ -305,11 +305,11 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     int days_after_piviot = max - piviot;
 
     // begining of month wins in case of tie
-    if(snapToFirstDay == null)
+    if (snapToFirstDay == null)
     {
-      snapToFirstDay =  (days_before_piviot < days_after_piviot);
+      snapToFirstDay = ( days_before_piviot < days_after_piviot );
     }
-    
+
     if (snapToFirstDay)
     {
       return quarterStartDate;
@@ -335,13 +335,13 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
     int days_before_piviot = piviot - min;
     int days_after_piviot = max - piviot;
-    
+
     // beginning of year wins in case of tie
-    if(snapToFirstDay == null)
+    if (snapToFirstDay == null)
     {
-      snapToFirstDay =  (days_before_piviot < days_after_piviot);
+      snapToFirstDay = ( days_before_piviot < days_after_piviot );
     }
-    
+
     if (snapToFirstDay)
     {
       cal.set(period, min);
@@ -355,9 +355,9 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
   public static Date snapToSeason(Date snapable, Boolean snapToFirstDay)
   {
-    if(snapToFirstDay == null)
+    if (snapToFirstDay == null)
     {
-      snapToFirstDay =  true;
+      snapToFirstDay = true;
     }
 
     SimpleDateFormat formatter = new SimpleDateFormat(Constants.DATE_FORMAT);
@@ -451,15 +451,18 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
   public static EpiDate getEpiWeek(Date date)
   {
-    Calendar instance = Calendar.getInstance(); 
+    Calendar instance = Calendar.getInstance();
     instance.setTime(date);
-    int year = instance.get(Calendar.YEAR); 
-      
+    int year = instance.get(Calendar.YEAR);
+
     Calendar calendar = makeEpiCalendar(year);
     calendar.setTime(date);
-    
-    int period = calendar.get(Calendar.WEEK_OF_YEAR);
-    
+
+    // IMPORTANT: The periods in the system are 0 based while the week_of_year
+    // is 1 based. Therefore to get the actual period of the system you must
+    // subtract 1 from the week of the year.
+    int period = calendar.get(Calendar.WEEK_OF_YEAR) - 1;
+
     return EpiDate.getInstanceByPeriod(PeriodType.WEEK, period, year);
   }
 

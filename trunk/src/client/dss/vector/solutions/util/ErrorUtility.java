@@ -9,17 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.terraframe.mojo.AttributeNotificationDTO;
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.InformationDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorExceptionDTO;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 public class ErrorUtility implements Reloadable
 {
-  public static final String ERROR_MESSAGE_ARRAY = "errorMessageArray";
+  public static final String  ERROR_MESSAGE_ARRAY = "errorMessageArray";
 
-  public static final String ERROR_MESSAGE       = "errorMessage";
+  public static final String  ERROR_MESSAGE       = "errorMessage";
 
-  public static final String DEVELOPER_MESSAGE   = "developerMessage";
+  public static final String  DEVELOPER_MESSAGE   = "developerMessage";
+
+  private static final String MESSAGE_ARRAY       = "messageArray";
 
   public static void prepareProblems(ProblemExceptionDTO e, HttpServletRequest req)
   {
@@ -38,6 +41,21 @@ public class ErrorUtility implements Reloadable
     if (messages.size() > 0)
     {
       req.setAttribute(ErrorUtility.ERROR_MESSAGE_ARRAY, messages.toArray(new String[messages.size()]));
+    }
+  }
+
+  public static void prepareInformation(List<InformationDTO> list, HttpServletRequest req)
+  {
+    List<String> messages = new LinkedList<String>();
+
+    for (InformationDTO problem : list)
+    {
+      messages.add(problem.getMessage());
+    }
+
+    if (messages.size() > 0)
+    {
+      req.setAttribute(ErrorUtility.MESSAGE_ARRAY, messages.toArray(new String[messages.size()]));
     }
   }
 
@@ -87,27 +105,26 @@ public class ErrorUtility implements Reloadable
 
     return null;
   }
-  
+
   private static String getErrorMessageArray(HttpServletRequest req)
   {
     Object errorMessage = req.getAttribute(ErrorUtility.ERROR_MESSAGE_ARRAY);
-    
+
     if (errorMessage != null && errorMessage instanceof String[])
     {
       StringBuffer buffer = new StringBuffer();
-      
-      for(String msg : (String[]) errorMessage)
+
+      for (String msg : (String[]) errorMessage)
       {
         buffer.append(msg + "\n");
       }
-      
+
       return ErrorUtility.encodeMessage(buffer.toString());
     }
-    
+
     return null;
-    
+
   }
-  
 
   @SuppressWarnings("deprecation")
   private static String encodeMessage(String errorMessage)
@@ -126,13 +143,13 @@ public class ErrorUtility implements Reloadable
   {
     String errorMessage = ErrorUtility.getErrorMessage(req);
     String errorMessageArray = ErrorUtility.getErrorMessageArray(req);
-    
+
     if (errorMessage != null)
     {
       utility.addParameter(ERROR_MESSAGE, errorMessage);
     }
-    
-    if(errorMessageArray != null)
+
+    if (errorMessageArray != null)
     {
       utility.addParameter(ERROR_MESSAGE_ARRAY, errorMessageArray);
     }
@@ -142,17 +159,25 @@ public class ErrorUtility implements Reloadable
   {
     String errorMessage = req.getParameter(ErrorUtility.ERROR_MESSAGE);
     String errorMessageArray = req.getParameter(ErrorUtility.ERROR_MESSAGE_ARRAY);
+    String messageArray = req.getParameter(ErrorUtility.MESSAGE_ARRAY);
 
-    if(errorMessage != null)
+    if (errorMessage != null)
     {
       req.setAttribute(ERROR_MESSAGE, errorMessage);
     }
 
-    if(errorMessageArray != null)
+    if (errorMessageArray != null)
     {
       String[] array = errorMessageArray.split("\\n");
 
       req.setAttribute(ERROR_MESSAGE_ARRAY, array);
     }
+    
+    if (messageArray != null)
+    {
+      String[] array = messageArray.split("\\n");
+      
+      req.setAttribute(MESSAGE_ARRAY, array);
+    }    
   }
 }

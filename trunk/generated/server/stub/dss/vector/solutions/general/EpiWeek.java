@@ -1,5 +1,7 @@
 package dss.vector.solutions.general;
 
+import java.util.Date;
+
 import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -32,5 +34,24 @@ public class EpiWeek extends EpiWeekBase implements com.terraframe.mojo.generati
     {
       it.close();
     }
+  }
+  
+  public static EpiWeek getEpiWeek(Date date)
+  {
+    return EpiWeek.getEpiWeek(EpiDate.getEpiWeek(date));
+  }
+  
+  public static EpiWeek getEpiWeek(EpiDate date)
+  {
+    EpiWeek week = EpiWeek.getEpiWeek(date.getPeriod(), date.getEpiYear());
+    
+    if(week == null)
+    {
+      week = new EpiWeek();
+      week.setPeriod(date.getPeriod());
+      week.setYearOfWeek(date.getEpiYear());
+      week.apply();
+    }
+    return week;
   }
 }

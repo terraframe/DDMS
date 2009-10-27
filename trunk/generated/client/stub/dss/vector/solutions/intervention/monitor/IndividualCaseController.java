@@ -3,7 +3,6 @@ package dss.vector.solutions.intervention.monitor;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -14,8 +13,6 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.PatientDTO;
-import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -103,8 +100,10 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", individualCaseDTO.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
+    
     req.setAttribute("query", individualCaseDTO.getInstances());
     req.setAttribute("item", individualCaseDTO);
+    
     render("viewComponent.jsp");
   }
 
@@ -172,6 +171,11 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     try
     {
       dto.apply();
+      
+      ClientRequestIF request = dto.getRequest();
+
+      ErrorUtility.prepareInformation(request.getInformation(), req);
+            
       this.view(dto.getId());
     }
     catch (ProblemExceptionDTO e)
@@ -214,6 +218,11 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     try
     {
       dto.applyWithPersonId(personId);
+      
+      ClientRequestIF request = dto.getRequest();
+
+      ErrorUtility.prepareInformation(request.getInformation(), req);
+      
       renderView(dto);
     }
     catch (ProblemExceptionDTO e)

@@ -108,9 +108,14 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
     if (list.size() > 0)
     {
       EpiDate epiDate = EpiDate.getEpiWeek(date);
-      EpiWeek week = EpiWeek.getEpiWeek(epiDate.getPeriod(), epiDate.getNumberOfEpiWeeks());
+      EpiWeek week = EpiWeek.getEpiWeek(epiDate.getPeriod(), epiDate.getEpiYear());
 
-      return list.get(0).getEpiWeeksRel(week);
+      if (week != null)
+      {
+        ThresholdData thresholdData = list.get(0);
+
+        return week.getThresholdsRel(thresholdData);
+      }
     }
 
     return null;
@@ -127,59 +132,42 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
       Integer notification = threshold.getNotification();
       Integer identification = threshold.getIdentification();
 
-      if (notification != null && count >= notification)
+      if (notification != null && count >= notification && !threshold.performedNotificationAlert())
       {
-        EpiDate epiDate = EpiDate.getEpiWeek(date);
-        EpiWeek week = EpiWeek.getEpiWeek(epiDate.getPeriod(), epiDate.getEpiYear());
-        EpiWeek previousAlert = threshold.getLastNotification();
+        String alertType = "Outbreak";
+        String thresholdType = "Alert";
+        String label = entity.getLabel();
 
-        if (previousAlert.getId().equals(week.getId()))
-        {
-          String alertType = "Outbreak";
-          String thresholdType = "Alert";
-          String label = entity.getLabel();
+        OutbreakAlert alert = new OutbreakAlert();
+        alert.setAlertType(alertType);
+        alert.setThresholdType(thresholdType);
+        alert.setEntityLabel(label);
+        alert.setThreshold(notification);
+        alert.setTotalCases(count);
+        alert.apply();
 
-          OutbreakAlert alert = new OutbreakAlert();
-          alert.setAlertType(alertType);
-          alert.setThresholdType(thresholdType);
-          alert.setEntityLabel(label);
-          alert.setThreshold(notification);
-          alert.setTotalCases(count);
-          alert.apply();
+        alert.throwIt();
 
-          alert.throwIt();
-          
-          threshold.setLastNotification(week);
-          threshold.apply();
-        }
+        threshold.updateLastNotification();
       }
 
-      if (identification != null && count >= identification)
+      if (identification != null && count >= identification && !threshold.performedIdentificationAlert())
       {
-        EpiDate epiDate = EpiDate.getEpiWeek(date);
-        EpiWeek week = EpiWeek.getEpiWeek(epiDate.getPeriod(), epiDate.getEpiYear());
-        EpiWeek previousAlert = threshold.getLastIdentification();
+        String alertType = "Outbreak";
+        String thresholdType = "Identification";
+        String label = entity.getLabel();
 
+        OutbreakAlert alert = new OutbreakAlert();
+        alert.setAlertType(alertType);
+        alert.setThresholdType(thresholdType);
+        alert.setEntityLabel(label);
+        alert.setThreshold(identification);
+        alert.setTotalCases(count);
+        alert.apply();
 
-        if (!previousAlert.getId().equals(week.getId()))
-        {
-          String alertType = "Outbreak";
-          String thresholdType = "Identification";
-          String label = entity.getLabel();
+        alert.throwIt();
 
-          OutbreakAlert alert = new OutbreakAlert();
-          alert.setAlertType(alertType);
-          alert.setThresholdType(thresholdType);
-          alert.setEntityLabel(label);
-          alert.setThreshold(notification);
-          alert.setTotalCases(count);
-          alert.apply();
-
-          alert.throwIt();
-          
-          threshold.setLastIdentification(week);
-          threshold.apply();
-        }
+        threshold.updateLastIdentification();
       }
     }
   }

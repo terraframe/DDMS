@@ -66,7 +66,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
         int index = ( week.getPeriod() % EpiDate.getNumberOfEpiWeeks(week.getYearOfWeek()) );
 
         this.populateAttributes(this, "setOutbreak_" + index, threshold.getNotification());
-        this.populateAttributes(this, "setIdentification_" + index, threshold.getNotification());
+        this.populateAttributes(this, "setIdentification_" + index, threshold.getIdentification());
       }
     }
     finally
