@@ -730,6 +730,18 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   {
     return this.getPrunedParents(Arrays.asList(types));
   }
+  
+  public List<GeoEntity> getPrunedParents(GeoHierarchyView[] views)
+  {
+    String[] types = new String[views.length];
+    
+    for(int i = 0; i < views.length; i++)
+    {
+      types[i] = views[0].getGeneratedType();
+    }
+        
+    return this.getPrunedParents(types);
+  }
 
   public GeoEntityQuery getPrunedParents(QueryFactory factory, String... types)
   {
@@ -765,6 +777,18 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     geoEntityQuery.WHERE(geoEntityQuery.getId().EQ(query.getParentGeoEntity().getId()));
     return geoEntityQuery;
+  }
+  
+  /**
+   * @return A list of all political ancestors of a GeoEntity including the GeoEntity itself
+   */
+  public List<GeoEntity> getPoliticalAncestors()
+  {
+    GeoHierarchyView[] politicalHierachy = GeoHierarchy.getPopulationHierarchies(this);
+
+    List<GeoEntity> entities = this.getPrunedParents(politicalHierachy);
+
+    return entities;
   }
 
   /**
