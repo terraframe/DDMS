@@ -80,7 +80,7 @@ public class OperatorInterventionPlanningView extends OperatorInterventionPlanni
     GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
     List<OperatorInterventionPlanningView> list = new LinkedList<OperatorInterventionPlanningView>();
 
-    for (GeoEntity child : geoEntity.getImmediateSprayChildren())
+    for (GeoEntity child : geoEntity.getSprayChildren())
     {
       GeoTargetView target = GeoTarget.findByGeoEntityIdAndSeason(child.getId(), season);
       int totalTargets = 0;

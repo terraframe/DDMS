@@ -46,7 +46,7 @@ public class InsecticideInterventionPlanningView extends InsecticideIntervention
     GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
     List<InsecticideInterventionPlanningView> list = new LinkedList<InsecticideInterventionPlanningView>();
 
-    for (GeoEntity child : geoEntity.getImmediateSprayChildren())
+    for (GeoEntity child : geoEntity.getSprayChildren())
     {
       GeoTargetView target = GeoTarget.findByGeoEntityIdAndSeason(child.getId(), season);
 

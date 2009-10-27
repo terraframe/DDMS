@@ -14,8 +14,9 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
 {
   private static final long serialVersionUID = 1235777070211L;
 
-  public static final long SHORT_ID_LENGTH = 8;
-  public static final long MAX_ID = (long) Math.pow(30,SHORT_ID_LENGTH);
+  public static final long  SHORT_ID_LENGTH  = 8;
+
+  public static final long  MAX_ID           = (long) Math.pow(30, SHORT_ID_LENGTH);
 
   public Property()
   {
@@ -31,7 +32,7 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
   {
     PropertyQuery query = new PropertyQuery(new QueryFactory());
 
-    query.WHERE(query.getPropertyPackage().LIKE(pkg+"%"));
+    query.WHERE(query.getPropertyPackage().LIKE(pkg + "%"));
 
     return query;
   }
@@ -44,8 +45,7 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     return query;
   }
 
-  public static dss.vector.solutions.Property getByPackageAndName(java.lang.String pkg,
-      java.lang.String name)
+  public static dss.vector.solutions.Property getByPackageAndName(java.lang.String pkg, java.lang.String name)
   {
     Property prop = null;
 
@@ -56,27 +56,39 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
 
     OIterator<? extends Property> iterator = query.getIterator();
 
-    if (iterator.hasNext())
+    try
     {
-      prop = iterator.next();
-    }
-    else
-    {
-      query = new PropertyQuery(new QueryFactory());
-
-      query.WHERE(query.getPropertyPackage().LIKE(pkg+"%"));
-      query.AND(query.getPropertyName().EQ(name));
-
-      iterator = query.getIterator();
       if (iterator.hasNext())
       {
         prop = iterator.next();
       }
-
+    }
+    finally
+    {
+      iterator.close();
     }
 
+    if (prop == null)
+    {
+      query = new PropertyQuery(new QueryFactory());
 
-    iterator.close();
+      query.WHERE(query.getPropertyPackage().LIKE(pkg + "%"));
+      query.AND(query.getPropertyName().EQ(name));
+
+      iterator = query.getIterator();
+
+      try
+      {
+        if (iterator.hasNext())
+        {
+          prop = iterator.next();
+        }
+      }
+      finally
+      {
+        iterator.close();
+      }
+    }
 
     return prop;
   }
@@ -107,10 +119,10 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
 
       throw e;
     }
-    //if(this.getPropertyType() == "Date")
-   // {
+    // if(this.getPropertyType() == "Date")
+    // {
 
-   // }
+    // }
 
   }
 
@@ -141,7 +153,6 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
       return new Long(value);
     }
   }
-
 
   public Date getPropertyDate(String format)
   {
@@ -189,7 +200,6 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     }
   }
 
-
   public static java.lang.Long getLong(java.lang.String pkg, java.lang.String name)
   {
     Property prop = getByPackageAndName(pkg, name);
@@ -214,7 +224,7 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     }
     else
     {
-      Property format = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE,PropertyInfo.SYSTEM_DATE_FORMAT);
+      Property format = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.SYSTEM_DATE_FORMAT);
 
       return prop.getPropertyDate(format.getPropertyValue());
     }
@@ -231,15 +241,16 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     int segments = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_SEGMENTS);
     int offset = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_OFFSET);
 
-    long totalOffset = (MAX_ID/segments)*offset;
+    long totalOffset = ( MAX_ID / segments ) * offset;
 
     counter++;
     currentValue.setPropertyValue(counter.toString());
     currentValue.apply();
 
-    //TODO:perhaps a check that the address space has not been overflowed should be added?
+    // TODO:perhaps a check that the address space has not been overflowed
+    // should be added?
 
-    return Base30.toBase30String(totalOffset+counter,8);
+    return Base30.toBase30String(totalOffset + counter, 8);
   }
 
   @Authenticate

@@ -22,7 +22,7 @@ public class ErrorUtility implements Reloadable
 
   public static final String  DEVELOPER_MESSAGE   = "developerMessage";
 
-  private static final String MESSAGE_ARRAY       = "messageArray";
+  public static final String MESSAGE_ARRAY       = "messageArray";
 
   public static void prepareProblems(ProblemExceptionDTO e, HttpServletRequest req)
   {
@@ -123,7 +123,25 @@ public class ErrorUtility implements Reloadable
     }
 
     return null;
-
+  }
+  
+  private static String getMessageArray(HttpServletRequest req)
+  {
+    Object message = req.getAttribute(ErrorUtility.MESSAGE_ARRAY);
+    
+    if (message != null && message instanceof String[])
+    {
+      StringBuffer buffer = new StringBuffer();
+      
+      for (String msg : (String[]) message)
+      {
+        buffer.append(msg + "\n");
+      }
+      
+      return ErrorUtility.encodeMessage(buffer.toString());
+    }
+    
+    return null;
   }
 
   @SuppressWarnings("deprecation")
@@ -143,6 +161,7 @@ public class ErrorUtility implements Reloadable
   {
     String errorMessage = ErrorUtility.getErrorMessage(req);
     String errorMessageArray = ErrorUtility.getErrorMessageArray(req);
+    String messageArray = ErrorUtility.getMessageArray(req);
 
     if (errorMessage != null)
     {
@@ -152,6 +171,11 @@ public class ErrorUtility implements Reloadable
     if (errorMessageArray != null)
     {
       utility.addParameter(ERROR_MESSAGE_ARRAY, errorMessageArray);
+    }
+
+    if (messageArray != null)
+    {
+      utility.addParameter(MESSAGE_ARRAY, messageArray);
     }
   }
 

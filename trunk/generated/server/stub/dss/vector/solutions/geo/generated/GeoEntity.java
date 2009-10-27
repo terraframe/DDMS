@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import com.terraframe.mojo.business.Business;
@@ -47,6 +48,8 @@ import com.terraframe.mojo.system.metadata.MdClass;
 import com.terraframe.mojo.util.IdParser;
 
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.ConfirmParentChangeException;
@@ -60,6 +63,7 @@ import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.NoCompatibleTypesException;
+import dss.vector.solutions.geo.SearchParameter;
 import dss.vector.solutions.query.ActionNotAllowedException;
 import dss.vector.solutions.util.GeoEntityImporter;
 
@@ -615,52 +619,103 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   }
 
   /**
-   * Returns the first level of children which belong to the spray hierarchy.
-   * 
-   * @return
+   * @return All of this GeoEntity descendants which are of first GeoHierarchy
+   *         which allows political areas
    */
+  public GeoEntity[] getPoliticalChildren()
+  {
+    return this.getFamily(new SearchParameter(true, false, false, false, true));
+  }
+
+  /**
+   * @return All of this Geo Entity ancestors which are political
+   */
+  public GeoEntity[] getPoliticalAncestors()
+  {
+    return this.getFamily(new SearchParameter(true, false, false, true, false));
+  }
+
+  /**
+   * @return All of this Geo Entity decendants which are political
+   */
+  public GeoEntityQuery getPoliticalDecendants(QueryFactory factory)
+  {
+    return this.getFamily(factory, new SearchParameter(true, false, false, false, false));
+  }
+  
   public GeoEntity[] getImmediateSprayChildren()
   {
-    List<String> list = new LinkedList<String>();
-    List<GeoEntity> children = new LinkedList<GeoEntity>();
-
-    for (GeoHierarchyView view : GeoHierarchy.getSprayHierarchies(this))
-    {
-      list.add(view.getGeneratedType());
-    }
-
-    for (GeoEntity geoEntity : this.getImmediateChildren())
-    {
-      if (list.contains(geoEntity.getType()))
-      {
-        children.add(geoEntity);
-      }
-    }
-
-    return children.toArray(new GeoEntity[children.size()]);
+    return this.getSprayChildren();
   }
 
-  public GeoEntity[] getImmediatePopulationChildren()
+  /**
+   * @return All of this GeoEntity descendants which are of first GeoHierarchy
+   *         which allows spray areas
+   */
+  public GeoEntity[] getSprayChildren()
   {
-    List<String> list = new LinkedList<String>();
-    List<GeoEntity> children = new LinkedList<GeoEntity>();
-
-    for (GeoHierarchyView view : GeoHierarchy.getPopulationHierarchies(this))
-    {
-      list.add(view.getGeneratedType());
-    }
-
-    for (GeoEntity geoEntity : this.getImmediateChildren())
-    {
-      if (list.contains(geoEntity.getType()))
-      {
-        children.add(geoEntity);
-      }
-    }
-
-    return children.toArray(new GeoEntity[children.size()]);
+    return this.getFamily(new SearchParameter(false, true, false, false, true));
   }
 
+  /**
+   * @return All of this Geo Entity ancestors which allow spray targets
+   */
+  public GeoEntity[] getSprayAncestors()
+  {
+    return this.getFamily(new SearchParameter(false, true, false, true, false));
+  }
+
+  /**
+   * @return All of this GeoEntity descendants which are of first GeoHierarchy
+   *         which allows both political and populated areas
+   */
+  public GeoEntity[] getPopulationChildren()
+  {
+    return this.getFamily(new SearchParameter(true, false, true, false, true));
+  }
+
+  /**
+   * @return All of this Geo Entity ancestors which are both political and allow
+   *         populated areas
+   */
+  public GeoEntity[] getPopulationAncestors()
+  {
+    return this.getFamily(new SearchParameter(true, false, true, true, false));
+  }
+
+  /**
+   * @param parameter The search criteria
+   * 
+   * @return All of this Geo Entity ancestors or decendants which meet the search criteria
+   */
+  public GeoEntity[] getFamily(SearchParameter parameter)
+  {
+    GeoEntityQuery query = this.getFamily(new QueryFactory(), parameter);
+
+    OIterator<? extends GeoEntity> it = query.getIterator();
+
+    try
+    {
+      List<? extends GeoEntity> entities = it.getAll();
+
+      return entities.toArray(new GeoEntity[entities.size()]);
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+
+  /**
+   * @param parameter The search criteria
+   * 
+   * @return Query for all of this Geo Entity ancestors or decendants which meet the search criteria
+   */
+  public GeoEntityQuery getFamily(QueryFactory factory, SearchParameter parameter)
+  {    
+    return parameter.getGeoEntityQuery(factory, this);
+  }
+  
   /**
    * Gets all children of a GeoEntity, but stops its breadth-first decent when
    * it finds a child which belongs to the given fully qualified types.
@@ -730,16 +785,16 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   {
     return this.getPrunedParents(Arrays.asList(types));
   }
-  
+
   public List<GeoEntity> getPrunedParents(GeoHierarchyView[] views)
   {
     String[] types = new String[views.length];
-    
-    for(int i = 0; i < views.length; i++)
+
+    for (int i = 0; i < views.length; i++)
     {
-      types[i] = views[0].getGeneratedType();
+      types[i] = views[i].getGeneratedType();
     }
-        
+
     return this.getPrunedParents(types);
   }
 
@@ -777,18 +832,6 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     geoEntityQuery.WHERE(geoEntityQuery.getId().EQ(query.getParentGeoEntity().getId()));
     return geoEntityQuery;
-  }
-  
-  /**
-   * @return A list of all political ancestors of a GeoEntity including the GeoEntity itself
-   */
-  public List<GeoEntity> getPoliticalAncestors()
-  {
-    GeoHierarchyView[] politicalHierachy = GeoHierarchy.getPopulationHierarchies(this);
-
-    List<GeoEntity> entities = this.getPrunedParents(politicalHierachy);
-
-    return entities;
   }
 
   /**
@@ -1437,5 +1480,22 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     String toString = this.getEntityName();
     toString += "(" + this.getTypeDisplayLabel() + ")";
     return toString;
+  }
+
+  public String getOutbreakAlert()
+  {
+    Property property = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.EPIDEMIC_UNIVERSAL);
+
+    if (property != null)
+    {
+      String universal = property.getPropertyValue();
+
+      if (GeoHierarchy.isAncestor(this.getType(), universal))
+      {
+        return ResourceBundle.getBundle("MDSS").getString("Epidemic");
+      }
+    }
+
+    return ResourceBundle.getBundle("MDSS").getString("Outbreak");
   }
 }

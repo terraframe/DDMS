@@ -1240,145 +1240,68 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   }
 
   /**
-   * Returns all political GeoHierarchy views starting with the GeoHierarchy
-   * that represents the given GeoEntity.
-   * 
-   * @param geoEntityId
-   * @return
-   */
-  public static GeoHierarchyView[] getPoliticalGeoHierarchies(String geoEntityId)
-  {
-    GeoEntity geoEntity = GeoEntity.get(geoEntityId);
-
-    return getPoliticalGeoHierarchiesByType(geoEntity.getType());
-  }
-
-  /**
-   * Returns all political GeoHierarchies under and including the given type.
-   * 
-   * @param type
-   * @return
-   */
-  public static GeoHierarchyView[] getPoliticalGeoHierarchiesByType(String type)
-  {
-    GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(type);
-
-    LinkedHashSet<GeoHierarchyView> hierarchy = new LinkedHashSet<GeoHierarchyView>();
-    recursePoliticalHierarchy(hierarchy, earthH);
-
-    return hierarchy.toArray(new GeoHierarchyView[hierarchy.size()]);
-  }
-
-  public static GeoHierarchyView[] getPopulationHierarchies(GeoEntity geoEntity)
-  {
-    return getPopulationHierarchiesByType(geoEntity.getType());
-  }
-
-  public static GeoHierarchyView[] getPopulationHierarchiesByType(String type)
-  {
-    GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(type);
-
-    LinkedHashSet<GeoHierarchyView> hierarchy = new LinkedHashSet<GeoHierarchyView>();
-    recursePopulationHierarchy(hierarchy, earthH);
-
-    return hierarchy.toArray(new GeoHierarchyView[hierarchy.size()]);
-  }
-
-  /**
-   * Returns all political GeoHierarchy views starting with the GeoHierarchy
-   * that represents the given GeoEntity.
-   * 
-   * @param geoEntityId
-   * @return
-   */
-  public static GeoHierarchyView[] getSprayHierarchies(GeoEntity geoEntity)
-  {
-    return getSprayHierarchiesByType(geoEntity.getType());
-  }
-
-  /**
-   * Returns all political GeoHierarchies under and including the given type.
-   * 
-   * @param type
-   * @return
-   */
-  public static GeoHierarchyView[] getSprayHierarchiesByType(String type)
-  {
-    GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(type);
-
-    LinkedHashSet<GeoHierarchyView> hierarchy = new LinkedHashSet<GeoHierarchyView>();
-    recurseSprayHierarchy(hierarchy, earthH);
-
-    return hierarchy.toArray(new GeoHierarchyView[hierarchy.size()]);
-  }
-
-  /**
    * Returns all GeoHierarchy views starting with the GeoHierarchy that
    * represents the given GeoEntity.
    * 
+   * @param parameter
+   *          TODO
    * @param geoEntityId
+   * 
    * @return
    */
-  public static GeoHierarchyView[] getHierarchies(GeoEntity geoEntity)
+  public static GeoHierarchyView[] getHierarchies(GeoEntity geoEntity, SearchParameter parameter)
   {
-    return getGeoHierarchiesByType(geoEntity.getType());
+    return getGeoHierarchiesByType(geoEntity.getType(), parameter);
   }
 
   /**
    * Returns all GeoHierarchies under and including the given type.
    * 
    * @param type
+   * @param parameter
+   *          TODO
    * @return
    */
-  public static GeoHierarchyView[] getGeoHierarchiesByType(String type)
+  public static GeoHierarchyView[] getGeoHierarchiesByType(String type, SearchParameter parameter)
   {
-    GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(type);
+    GeoHierarchy hierarchy = GeoHierarchy.getGeoHierarchyFromType(type);
 
-    LinkedHashSet<GeoHierarchyView> hierarchy = new LinkedHashSet<GeoHierarchyView>();
-    recurseHierarchy(hierarchy, earthH);
+    LinkedHashSet<GeoHierarchyView> views = new LinkedHashSet<GeoHierarchyView>();
 
-    return hierarchy.toArray(new GeoHierarchyView[hierarchy.size()]);
-  }
-  
-  private static void recursePopulationHierarchy(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent)
-  {
-    treeRecurse(hierarchy, parent, false, false, true);
-  }
-
-  private static void recursePoliticalHierarchy(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent)
-  {
-    treeRecurse(hierarchy, parent, true, false, false);
-  }
-
-  private static void recurseSprayHierarchy(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent)
-  {
-    treeRecurse(hierarchy, parent, false, true, false);
-  }
-
-  private static void recurseHierarchy(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent)
-  {
-    treeRecurse(hierarchy, parent, true, true, true);
-  }
-
-  private static void treeRecurse(LinkedHashSet<GeoHierarchyView> hierarchy, GeoHierarchy parent, boolean political, boolean spray, boolean population)
-  {
-    if (political && parent.getPolitical())
+    if (parameter.isFirst())
     {
-      hierarchy.add(parent.getViewForGeoHierarchy());
+      List<GeoHierarchy> hierachies = parameter.getHierarchies(hierarchy);
+
+      for (GeoHierarchy childH : hierachies)
+      {
+        treeRecurse(views, childH, parameter);
+      }
     }
-    else if (spray && parent.getSprayTargetAllowed())
+    else
     {
-      hierarchy.add(parent.getViewForGeoHierarchy());
-    }
-    else if (population && parent.getPopulationAllowed())
-    {
-      hierarchy.add(parent.getViewForGeoHierarchy());
+      treeRecurse(views, hierarchy, parameter);      
     }
 
-    List<GeoHierarchy> children = parent.getImmediateChildren();
-    for (GeoHierarchy childH : children)
+    return views.toArray(new GeoHierarchyView[views.size()]);
+  }
+
+  private static void treeRecurse(LinkedHashSet<GeoHierarchyView> views, GeoHierarchy hierarchy, SearchParameter parameter)
+  {
+    boolean valid = parameter.isValid(hierarchy);
+
+    if (valid)
     {
-      treeRecurse(hierarchy, childH, political, spray, population);
+      views.add(hierarchy.getViewForGeoHierarchy());
+    }
+
+    if (! ( valid && parameter.isFirst() ))
+    {
+      List<GeoHierarchy> hierachies = parameter.getHierarchies(hierarchy);
+
+      for (GeoHierarchy childH : hierachies)
+      {
+        treeRecurse(views, childH, parameter);
+      }
     }
   }
 
@@ -1508,7 +1431,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     return count > 0;
   }
 
-  @SuppressWarnings("unchecked")
   public static boolean addGeoHierarchyJoinConditions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryParserMap)
   {
     QueryFactory queryFactory = valueQuery.getQueryFactory();
@@ -1772,5 +1694,22 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
 
       vQuery.ORDER_BY_ASC(mdBusinessQuery.getDisplayLabel().currentLocale());
     }
+  }
+
+  public static boolean isAncestor(String type, String universal)
+  {
+    SearchParameter parameter = new SearchParameter(true, true, true, false, true);
+
+    GeoHierarchyView[] decendants = GeoHierarchy.getGeoHierarchiesByType(type, parameter);
+
+    for (GeoHierarchyView decendant : decendants)
+    {
+      if (decendant.getGeneratedType().equals(universal))
+      {
+        return false;
+      }
+    }
+
+    return true;
   }
 }

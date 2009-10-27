@@ -46,4 +46,6 @@ public interface PropertyInfo
 
   public static final String DEFAULT_UNITS           = "sprayedUnitsPerDay";
 
+  public static final String EPIDEMIC_UNIVERSAL      = "epidemicUniversal";
+
 }

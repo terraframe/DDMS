@@ -224,7 +224,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
     GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
     List<ThresholdDataView> list = new LinkedList<ThresholdDataView>();
 
-    for (GeoEntity child : geoEntity.getImmediatePopulationChildren())
+    for (GeoEntity child : geoEntity.getPopulationChildren())
     {
       ThresholdDataView view = ThresholdDataView.getView(child, season);
 

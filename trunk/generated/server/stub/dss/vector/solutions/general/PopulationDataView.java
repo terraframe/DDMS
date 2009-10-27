@@ -117,7 +117,7 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
     GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
     List<PopulationDataView> list = new LinkedList<PopulationDataView>();
 
-    for (GeoEntity child : geoEntity.getImmediatePopulationChildren())
+    for (GeoEntity child : geoEntity.getPopulationChildren())
     {
       PopulationDataView view = PopulationDataView.getView(child, yearOfData);
 

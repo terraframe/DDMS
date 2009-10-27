@@ -68,7 +68,7 @@ public class TimeInterventionPlanningView extends TimeInterventionPlanningViewBa
     GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
     List<TimeInterventionPlanningView> list = new LinkedList<TimeInterventionPlanningView>();
 
-    for (GeoEntity child : geoEntity.getImmediateSprayChildren())
+    for (GeoEntity child : geoEntity.getSprayChildren())
     {
       GeoTargetView target = GeoTarget.findByGeoEntityIdAndSeason(child.getId(), season);
       int totalTargets = 0;

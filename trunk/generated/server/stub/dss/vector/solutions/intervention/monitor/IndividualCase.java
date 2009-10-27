@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AND;
@@ -17,6 +16,7 @@ import dss.vector.solutions.Person;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
 public class IndividualCase extends IndividualCaseBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -47,7 +47,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
       Date[] window = IndividualCase.getWindow(date);
 
       // Get all relevant Geo Entities
-      List<GeoEntity> entities = geoEntity.getPoliticalAncestors();
+      GeoEntity[] entities = geoEntity.getPoliticalAncestors();
 
       // First get the Threshold data for the relevant GeoEntities
       for (GeoEntity entity : entities)
@@ -82,9 +82,13 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
 
   private static long getCount(GeoEntity entity, Date startDate, Date endDate)
   {
-    IndividualCaseQuery query = new IndividualCaseQuery(new QueryFactory());
+    QueryFactory factory = new QueryFactory();
 
-    Condition condition = query.getProbableSource().EQ(entity);
+    GeoEntityQuery entityQuery = entity.getPoliticalDecendants(factory);
+    
+    IndividualCaseQuery query = new IndividualCaseQuery(factory);
+
+    Condition condition = query.getProbableSource().EQ(entityQuery);
     condition = AND.get(condition, query.getDiagnosisDate().GE(startDate));
     condition = AND.get(condition, query.getDiagnosisDate().LE(endDate));
 

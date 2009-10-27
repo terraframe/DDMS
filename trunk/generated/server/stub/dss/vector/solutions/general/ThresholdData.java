@@ -2,6 +2,7 @@ package dss.vector.solutions.general;
 
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -117,7 +118,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
         return week.getThresholdsRel(thresholdData);
       }
     }
-
+    
     return null;
   }
 
@@ -134,8 +135,8 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
 
       if (notification != null && count >= notification && !threshold.performedNotificationAlert())
       {
-        String alertType = "Outbreak";
-        String thresholdType = "Alert";
+        String alertType = entity.getOutbreakAlert();
+        String thresholdType = ResourceBundle.getBundle("MDSS").getString("Alert");
         String label = entity.getLabel();
 
         OutbreakAlert alert = new OutbreakAlert();
@@ -148,13 +149,13 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
 
         alert.throwIt();
 
-        threshold.updateLastNotification();
+//        threshold.updateLastNotification();
       }
 
       if (identification != null && count >= identification && !threshold.performedIdentificationAlert())
       {
-        String alertType = "Outbreak";
-        String thresholdType = "Identification";
+        String alertType = entity.getOutbreakAlert();
+        String thresholdType = ResourceBundle.getBundle("MDSS").getString("Identification");
         String label = entity.getLabel();
 
         OutbreakAlert alert = new OutbreakAlert();
@@ -167,7 +168,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
 
         alert.throwIt();
 
-        threshold.updateLastIdentification();
+//        threshold.updateLastIdentification();
       }
     }
   }
