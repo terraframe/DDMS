@@ -9,13 +9,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
   
     initialize : function(queryList, householdMenuItems, personMenuItems, nets, positives)
     {
-      MDSS.QueryBase.prototype.initialize.call(this);
-  
-      if(arguments.length === 1 && arguments[0] == null)
-      {
-        // FIXME used for inheritance optimization
-        return;
-      }
+      this.$initialize();
       
       this._positives = positives;
       
@@ -1038,7 +1032,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       // Date of birth requires SQL pass through to convert a date into an int
       if(attributeName === this._Person.DOB)
       {
-        selectable = attribute.getSelectable(true, MDSS.QueryXML.Sqlinteger);
+        selectable = attribute.getSelectable(false, MDSS.QueryXML.Sqlinteger);
       }
       else
       {
@@ -1625,7 +1619,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       var personUl = document.createElement('ul');
       YAHOO.util.Dom.addClass(personUl, 'gridList');
       YAHOO.util.Dom.setStyle(personUl, 'clear', 'both');
-      //YAHOO.util.Dom.setStyle(householdUl, 'display', 'none');
   
       personDiv.appendChild(labelDiv);
       personDiv.appendChild(personUl);
@@ -1692,11 +1685,12 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       personUl.appendChild(li);
       
       // 24. RDT Result
+      
       /*
       var li = this._createPersonBrowser(this._Person.RDTRESULT);
       personUl.appendChild(li);
       */ 
-       
+      
       // 25. Prevalence
       li = document.createElement('li');
       this._prevalenceCheck = document.createElement('input');
@@ -1706,8 +1700,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       YAHOO.util.Event.on(this._prevalenceCheck, 'click', this._prevalenceHandler, null, this);
       span = document.createElement('span');
       span.innerHTML = MDSS.Localized.Prevalence;
-      
-      //this._prevalenceCheck.disabled = true; // RDTRESULT must be checked first.
       
       li.appendChild(this._prevalenceCheck);
       li.appendChild(span);
@@ -2340,6 +2332,5 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
     {
       this._queryPanel.render();
     }
-  
   }
 });
