@@ -10,6 +10,7 @@ import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
@@ -24,7 +25,7 @@ import com.terraframe.mojo.system.metadata.MdAttributeReference;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdRelationship;
 
-import dss.vector.solutions.UnknownTermException;
+import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.query.ActionNotAllowedException;
 import dss.vector.solutions.surveillance.OptionIF;
 
@@ -410,6 +411,7 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     }
   }
 
+  @Transaction
   public static Term validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
     QueryFactory factory = new QueryFactory();
@@ -429,12 +431,13 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
       String attributeLabel = mdAttribute.getDisplayLabel(Session.getCurrentLocale());
       String msg = "Unknown " + attributeLabel + " with the given name [" + displayLabel + "]";
 
-      UnknownTermException e = new UnknownTermException(msg);
+      UnknownTermProblem e = new UnknownTermProblem(msg);
       e.setTermName(displayLabel);
       e.setAttributeLabel(attributeLabel);
-      e.apply();
-
-      throw e;
+      e.throwIt();
+      
+      // We expect to return nothing, as we're throwing a problem, but include this to satisfy the compile time requirement
+      return null;
     }
     finally
     {

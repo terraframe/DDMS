@@ -4,11 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.Session;
 
-import dss.vector.solutions.UnknownTermException;
+import dss.vector.solutions.UnknownTermProblem;
 
 
 public abstract class AbstractTerm extends AbstractTermBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -76,6 +77,7 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
     }
   }
 
+  @Transaction
   public static AbstractTerm validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
     QueryFactory factory = new QueryFactory();
@@ -96,12 +98,13 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
       String attributeLabel = mdAttribute.getDisplayLabel(Session.getCurrentLocale());
       String msg = "Unknown " + attributeLabel + " with the given name [" + displayLabel + "]";
 
-      UnknownTermException e = new UnknownTermException(msg);
+      UnknownTermProblem e = new UnknownTermProblem(msg);
       e.setTermName(displayLabel);
       e.setAttributeLabel(attributeLabel);
-      e.apply();
-
-      throw e;
+      e.throwIt();
+      
+      // We expect to return nothing, as we're throwing a problem, but include this to satisfy the compile time requirement
+      return null;
     }
     finally
     {
@@ -109,6 +112,7 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
     }
   }
 
+  @Transaction
   public static AbstractTerm validateByTermName(String termName)
   {
     AbstractTerm term = searchByTermName(termName);
@@ -117,11 +121,9 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
     {
       String msg = "Unknown term with the given name [" + termName + "]";
 
-      UnknownTermException e = new UnknownTermException(msg);
+      UnknownTermProblem e = new UnknownTermProblem(msg);
       e.setTermName(termName);
-      e.apply();
-
-      throw e;
+      e.throwIt();
     }
 
     return term;
