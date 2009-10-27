@@ -158,44 +158,6 @@ public class QueryController extends QueryControllerBase implements
       AttributeBooleanMdDTO urbanMd = (AttributeBooleanMdDTO) household.getAttributeDTO(HouseholdDTO.URBAN).getAttributeMdDTO();
       householdMenuItems.put(HouseholdDTO.URBAN, createBooleanItems(urbanMd));
 
-      // 7. Walls
-      JSONArray items = new JSONArray();
-      for(WallViewDTO wall : Arrays.asList(WallViewDTO.getAll(request)))
-      {
-        JSONObject item = new JSONObject();
-        item.put("displayLabel", wall.getDisplayLabel());
-        item.put("isAbstract" , wall.getHasChildren());
-        item.put("value", wall.getWallId());
-
-        items.put(item);
-      }
-      householdMenuItems.put(HouseholdDTO.WALL, items);
-
-      // 8. Roof
-      items = new JSONArray();
-      for(RoofViewDTO roof : Arrays.asList(RoofViewDTO.getAll(request)))
-      {
-        JSONObject item = new JSONObject();
-        item.put("displayLabel", roof.getDisplayLabel());
-        item.put("isAbstract" , roof.getHasChildren());
-        item.put("value", roof.getRoofId());
-
-        items.put(item);
-      }
-      householdMenuItems.put(HouseholdDTO.ROOF, items);
-
-      // 9. Windows
-      items = new JSONArray();
-      for(WindowMasterDTO window : WindowTypeDTO.allItems(request))
-      {
-        JSONObject item = new JSONObject();
-        item.put("displayLabel", window.getDisplayLabel());
-        item.put("value", window.getId());
-
-        items.put(item);
-      }
-      householdMenuItems.put(HouseholdDTO.WINDOWTYPE, items);
-
       req.setAttribute("householdMenuItems", householdMenuItems.toString());
 
       // All available net options (not abstract)
@@ -220,7 +182,7 @@ public class QueryController extends QueryControllerBase implements
       PersonViewDTO person = new PersonViewDTO(request);
 
       // 17. Sex
-      items = new JSONArray();
+      JSONArray items = new JSONArray();
       for (SexMasterDTO sex : HumanSexDTO.allItems(request))
       {
         JSONObject item = new JSONObject();

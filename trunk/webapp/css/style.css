@@ -881,6 +881,10 @@ input.browserOpenBtn {
 	display:inline;
 	cursor: pointer;
 }
+
+#dateGroupSelection {
+	margin-left: 5px;
+}
 	
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */

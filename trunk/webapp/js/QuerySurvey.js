@@ -600,6 +600,38 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       }
     },
     
+    _householdBrowserHandler : function(browser, selected)
+    {
+      // clear all previous criteria on this attribute
+      var attribute = browser.getAttribute();
+      
+      var key = attribute.getKey();
+      this._queryPanel.clearWhereCriteria(key);
+      delete this._householdCriteria[key];
+
+      Mojo.Iter.forEach(selected, function(sel){
+        
+        var display = MDSS.OntologyBrowser.formatLabel(sel);
+        this._setHouseholdCriteria(attribute, sel.getTermId(), display, true);
+      }, this); 
+    },
+    
+    _personBrowserHandler : function(browser, selected)
+    {
+      // clear all previous criteria on this attribute
+      var attribute = browser.getAttribute();
+      
+      var key = attribute.getKey();
+      this._queryPanel.clearWhereCriteria(key);
+      delete this._personCriteria[key];
+
+      Mojo.Iter.forEach(selected, function(sel){
+        
+        var display = MDSS.OntologyBrowser.formatLabel(sel);
+        this._setPersonCriteria(attribute, sel.getTermId(), display, true);
+      }, this); 
+    },
+    
     _setHouseholdCriteria : function(attribute, value, display, addCriteria)
     {
       var key = attribute.getKey();
@@ -1461,13 +1493,16 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       this._createHouseholdInt(householdUl, attribute);
       
       // 7. Wall
-      this._createHouseholdMenu(householdUl, this._Household.WALL, householdMenuItems);
+      var li = this._createHouseholdBrowser(this._Household.WALL);
+      householdUl.appendChild(li);
       
       // 7. Roof
-      this._createHouseholdMenu(householdUl, this._Household.ROOF, householdMenuItems);    
+      li = this._createHouseholdBrowser(this._Household.ROOF);    
+      householdUl.appendChild(li);
       
       // 9. windows
-      this._createHouseholdMenu(householdUl, this._Household.WINDOWTYPE, householdMenuItems);
+      li = this._createHouseholdBrowser(this._Household.WINDOWTYPE);
+      householdUl.appendChild(li);
       
       // 10. # rooms
       attribute = new MDSS.HouseholdAttribute({
@@ -1626,7 +1661,8 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       this._createPersonMenu(personUl, attribute, personMenuItems);
   
       // 17. Sex
-      this._createPersonMenu(personUl, this._Person.SEX, personMenuItems); 
+      var li = this._createPersonBrowser(this._Person.SEX, personMenuItems); 
+      personUl.appendChild(li);
       
       // 18. Pregnant
       this._createPersonMenu(personUl, this._Person.PREGNANT, personMenuItems);   
@@ -1634,29 +1670,32 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       // 19. slept under net
       this._createPersonMenu(personUl, this._Person.SLEPTUNDERNET, personMenuItems);   
   
-      // ??. hemoglobin measured
+      // ??. hemoglobin
       this._createPersonMenu(personUl, this._Person.HAEMOGLOBIN, personMenuItems);
        
       // 20. hemoglobin measured
       this._createPersonMenu(personUl, this._Person.HAEMOGLOBINMEASURED, personMenuItems);   
       
       // 21. Anemia Treatment
-      this._createPersonMenu(personUl, this._Person.ANAEMIATREATMENT, personMenuItems);    
+      var li = this._createPersonBrowser(this._Person.ANAEMIATREATMENT);    
+      personUl.appendChild(li);
   
       // 22. Iron given
       this._createPersonMenu(personUl, this._Person.IRON, personMenuItems);    
   
       // 23. RDT Treatment
-      this._createPersonMenu(personUl, this._Person.RDTTREATMENT, personMenuItems);   
+      var li = this._createPersonBrowser(this._Person.RDTTREATMENT);   
+      personUl.appendChild(li);
       
        // 27. Bloodslide
-      this._createPersonMenu(personUl, this._Person.BLOODSLIDE, personMenuItems);      
+      var li = this._createPersonBrowser(this._Person.BLOODSLIDE);      
+      personUl.appendChild(li);
       
       // 24. RDT Result
-      /* FIXME broken from ontology refactor
-      var rdtResultAttr = this._createPersonMenu(personUl, this._Person.RDTRESULT, personMenuItems);
-      this._rdtResultKey = rdtResultAttr.getKey();
-      */
+      /*
+      var li = this._createPersonBrowser(this._Person.RDTRESULT);
+      personUl.appendChild(li);
+      */ 
        
       // 25. Prevalence
       li = document.createElement('li');
@@ -1675,59 +1714,30 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       personUl.appendChild(li);    
       
       // 28. Fever
-      this._createPersonMenu(personUl, this._Person.FEVER, personMenuItems);   
+      var li = this._createPersonBrowser(this._Person.FEVER);   
+      personUl.appendChild(li);
       
       // 29. Fever Treatment
-      this._createPersonMenu(personUl, this._Person.FEVERTREATMENT, personMenuItems);   
+      var li = this._createPersonBrowser(this._Person.FEVERTREATMENT);   
+      personUl.appendChild(li);
       
       // 30. malaria
-      this._createPersonMenu(personUl, this._Person.MALARIA, personMenuItems);   
+      var li = this._createPersonBrowser(this._Person.MALARIA);   
+      personUl.appendChild(li);
       
       // 31. Malaria Treatment
-      this._createPersonMenu(personUl, this._Person.MALARIATREATMENT, personMenuItems);   
+      var li = this._createPersonBrowser(this._Person.MALARIATREATMENT);   
+      personUl.appendChild(li);
       
       // 32. Payment
-      this._createPersonMenu(personUl, this._Person.PAYMENT, personMenuItems);   
+      var li = this._createPersonBrowser(this._Person.PAYMENT);   
+      personUl.appendChild(li);
       
       this._queryPanel.addQueryItem({
         html : personDiv,
         id: 'personItems',
         menuBuilder : Mojo.Util.bind(this, this._menuBuilder)
       });
-    },
-  
-    _menuBuilder : function(outerLi, targetEl)
-    {
-      var li = null;
-      if(targetEl.nodeName === 'LI')
-      {
-        li = targetEl;
-      }
-      else
-      {
-        var parent = YAHOO.util.Dom.getAncestorByTagName(targetEl, "LI");
-        if(parent != null)
-        {
-          li = parent;
-        }
-      }
-      
-      // make sure the attribute is selected before
-      // showing the context menu
-      if(li == null || !li.firstChild.checked)
-      {
-        return [];
-      }
-      
-      var items = this._menus[li.id];
-      if(items != null)
-      {
-        return items;
-      }
-      else
-      {
-        return [];
-      }
     },
     
     _personMenuItemHandler : function(eventType, event, obj)
@@ -1754,11 +1764,80 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       this._setHouseholdCriteria(attribute, value, display, item.checked);
     },
     
+    _createPersonBrowser : function(attributeName)
+    {
+      var attrDTO = this._person.getAttributeDTO(attributeName);
+      var attrDTOMd = attrDTO.getAttributeMdDTO();
+    
+      var attribute = new MDSS.PersonAttribute({
+        type: this._person.getType(),
+        displayLabel: attrDTOMd.getDisplayLabel(),
+        attributeName: attrDTOMd.getName()
+      });  
+      attribute.setTerm(true);
+      
+      if(attributeName === this._Person.RDTRESULT)
+      {
+        this._rdtResultKey = attribute.getKey();
+      }
+      
+      var li = document.createElement('li');
+      li.id = attribute.getKey()+"_li";
+      
+      this._attachBrowser(li.id, this._personBrowserHandler, attribute, 'dss.vector.solutions.intervention.monitor.PersonView', attributeName, true);
+      
+      var check = document.createElement('input');
+      check.id = attribute.getKey();
+      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+      this._defaults.push({element:check, checked:false});
+      YAHOO.util.Event.on(check, 'click', this._personAttributeHandler, attribute, this);
+  
+      li.appendChild(check);
+  
+      var span = document.createElement('span');
+      span.innerHTML = attribute.getDisplayLabel();
+      
+      li.appendChild(span);
+      
+      return li;
+    },
+    
+    _createHouseholdBrowser: function(attributeName)
+    {
+      var attrDTO = this._household.getAttributeDTO(attributeName);
+      var attrDTOMd = attrDTO.getAttributeMdDTO();
+    
+      var attribute = new MDSS.HouseholdAttribute({
+        type: this._household.getType(),
+        displayLabel: attrDTOMd.getDisplayLabel(),
+        attributeName: attrDTOMd.getName()
+      });  
+      attribute.setTerm(true);
+      
+      var li = document.createElement('li');
+      li.id = attribute.getKey()+"_li";
+      
+      this._attachBrowser(li.id, this._householdBrowserHandler, attribute, 'dss.vector.solutions.intervention.monitor.HouseholdView', attributeName, true);
+      
+      var check = document.createElement('input');
+      check.id = attribute.getKey();
+      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+      this._defaults.push({element:check, checked:false});
+      YAHOO.util.Event.on(check, 'click', this._householdAttributeHandler, attribute, this);
+  
+      li.appendChild(check);
+  
+      var span = document.createElement('span');
+      span.innerHTML = attribute.getDisplayLabel();
+      
+      li.appendChild(span);
+      
+      return li;
+    },
+    
     _createHouseholdMenu : function(householdUl, attributeName, householdMenuItems)
     {
       var attrDTO = this._household.getAttributeDTO(attributeName);
-      var dereference = (attrDTO instanceof AttributeEnumerationDTO ||
-         attrDTO instanceof AttributeReferenceDTO) ? true : false;
     
       var attrDTOMd = attrDTO.getAttributeMdDTO();
     
@@ -1766,7 +1845,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         type: this._household.getType(),
         displayLabel: attrDTOMd.getDisplayLabel(),
         attributeName: attrDTOMd.getName()
-      }, dereference);  
+      });  
     
       var li = document.createElement('li');
       li.id = attribute.getKey()+"_li";
@@ -1856,8 +1935,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       if(Mojo.Util.isString(attributeInput))
       {
         var attrDTO = this._person.getAttributeDTO(attributeInput);
-        var dereference = (attrDTO instanceof AttributeEnumerationDTO ||
-          attrDTO instanceof AttributeReferenceDTO) ? true : false;
     
         var attrDTOMd = attrDTO.getAttributeMdDTO();
     
@@ -1865,7 +1942,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
           type: this._person.getType(),
           displayLabel: attrDTOMd.getDisplayLabel(),
           attributeName: attrDTOMd.getName()
-        }, dereference);  
+        });  
       }
       else
       {
@@ -2264,31 +2341,5 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       this._queryPanel.render();
     }
   
-  }
-});
-
-Mojo.Meta.newClass('MDSS.HouseholdAttribute', {
-
-  Extends: MDSS.AbstractAttribute,
-  
-  Instance : {
-    
-    initialize : function(obj, dereference)
-    {
-      this.$initialize(obj, dereference);
-    } 
-  }
-});
-
-Mojo.Meta.newClass('MDSS.PersonAttribute', {
-
-  Extends: MDSS.AbstractAttribute,
-  
-  Instance : {
-    
-    initialize : function(obj, dereference)
-    {
-      this.$initialize(obj, dereference);
-    } 
   }
 });

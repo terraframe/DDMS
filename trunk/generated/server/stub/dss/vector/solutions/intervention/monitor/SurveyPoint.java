@@ -11,6 +11,7 @@ import java.util.Map;
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
@@ -19,10 +20,13 @@ import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.RDTResult;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.MapUtil;
 import dss.vector.solutions.query.NoThematicLayerException;
@@ -186,6 +190,11 @@ public class SurveyPoint extends SurveyPointBase implements
     if(householdQuery != null)
     {
       valueQuery.WHERE(surveyPointQuery.households(householdQuery));
+      
+      String[] houseAttributes = Term.getTermAttributes(Household.CLASS);
+      String sql = "(" + QueryUtil.getTermSubSelect(Household.CLASS, houseAttributes) + ")";
+      String subSelect = "houseTermSubSel";
+      valueQuery.AND(new InnerJoinEq("id","household",householdQuery.getTableAlias(),"id",sql,subSelect));
     }
     
     if(personQuery != null)
@@ -198,7 +207,15 @@ public class SurveyPoint extends SurveyPointBase implements
       }
       
       valueQuery.WHERE(householdQuery.persons(personQuery));
+      
+      
+      String[] personAttributes = Term.getTermAttributes(Person.CLASS);
+      String sql = "(" + QueryUtil.getTermSubSelect(Person.CLASS, personAttributes) + ")";
+      String subSelect = "personTermSubSel";
+      valueQuery.AND(new InnerJoinEq("id","person",personQuery.getTableAlias(),"id",sql,subSelect));
     }
+    
+    
     
     // Convert Person.DOB into an integer
     try
@@ -287,8 +304,32 @@ public class SurveyPoint extends SurveyPointBase implements
       addPrevalenceColumn("prevalence_"+result.getId(), valueQuery, personQuery, result);
     }
     
+    String sql = valueQuery.getSQL();
+    System.out.println(sql);
+    
     return valueQuery;
   }
+  
+//  private static String getTermSQL()
+//  {
+//    
+//    String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
+//    String houseTable = MdBusiness.getMdBusiness(Household.CLASS).getTableName();
+//    
+//    String sql = "SELECT house.id ,";
+//    
+//    sql += " term1.termName as "+Household.WALL + "_displayLabel,";
+//    sql += " term2.termName as "+Household.ROOF + "_displayLabel,";
+//    sql += " term3.termName as "+Household.WINDOWTYPE + "_displayLabel";
+//    
+//    sql += " FROM "+houseTable+" as house";
+//    sql += " LEFT JOIN "+termTable+" as term1 on house."+Household.WALL+" = term1.id";
+//    sql += " LEFT JOIN "+termTable+" as term2 on house."+Household.ROOF+" = term2.id";
+//    sql += " LEFT JOIN "+termTable+" as term3 on house."+Household.WINDOWTYPE+" = term3.id";
+//    
+//    return sql;
+//    
+//  }
   
   private static String getDobCriteria(QueryConfig config)
   {

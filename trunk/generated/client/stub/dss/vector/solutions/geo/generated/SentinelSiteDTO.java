@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public class SentinelSiteDTO extends SentinelSiteDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1255627174922L;
+  private static final long serialVersionUID = 1256572214391L;
   
   public SentinelSiteDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

@@ -323,7 +323,7 @@ var Mojo = {
       if(isSingleton)
       {
         var methodDef = this._makeSingleton(klass);
-        config.staticMethods['getInstance'] = methodDef;
+        config.staticMethods.getInstance = methodDef;
       }
       
       // add constants
@@ -446,8 +446,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       this._qualifiedName = config.qualifiedName;
       this._subclasses = {};
       
-      this._klass.prototype.getMetaClass = this._klass.getMetaClass;
-
       var notBase = this._superClass !== Object;  
       
       // get parents instance/static methods
@@ -566,6 +564,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
         
         if(notBase && this._constants[constObj.getName()])
         {
+        // FIXME remove _setOverride and use same methodology as instance/static methods above
           constObj._setDefiningClass(this._constants[constObj.getName()].getDefiningClass());
           constObj._setOverrideClass(this._klass);
         }
@@ -591,6 +590,8 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
           return metaClass;
         };
       })(this);
+      
+      this._klass.prototype.getMetaClass = this._klass.getMetaClass;
     },
     
     _addSubClass : function(qualifiedName, klass)
@@ -4606,7 +4607,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeMdDTO', {
       this.id = obj.id;
       this.system = obj.system;
       this.name = obj.name;
-      this.type = obj.type;
     },
   
     getDisplayLabel : function() { return this.displayLabel; },
@@ -5255,7 +5255,7 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeReferenceMdDTO', {
     {
       this.$initialize(obj);
   
-      this.referencedMdBusiness = obj.referenceMdBusiness;
+      this.referencedMdBusiness = obj.referencedMdBusiness;
     },
   
     getReferencedMdBusiness : function() { return this.referencedMdBusiness; }

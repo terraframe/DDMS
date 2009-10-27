@@ -53,8 +53,21 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       // list of all elements and default settings
       this._defaults = [];
+      
+      this._browsers = {};
     },
-  
+    
+    /**
+     * Maps a QueryBrowser object to a specific
+     * attribute element (typically an LI).
+     */
+    _attachBrowser : function(elementId, handler, attribute, fieldClass, fieldAttribute, multipleSelect)
+    {
+      var bound = Mojo.Util.bind(this, handler);
+      var browser = new MDSS.QueryBrowser(bound, attribute, fieldClass, fieldAttribute, multipleSelect);
+      this._browsers[elementId] = browser;
+    },
+    
     getCurrentPage : function()
     {
       return this._currentPage;
@@ -409,7 +422,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         type: klass.CLASS,
         displayLabel: MDSS.QueryXML.COUNT_FUNCTION,
         attributeName: 'id'
-      });
+      }, this);
   
       var countCheck = document.createElement('input');
       YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
@@ -439,7 +452,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           displayLabel: 'RATIO',
           attributeName: MDSS.QueryXML.RATIO_FUNCTION,
           isAggregate:true,
-        });
+        }, this);
   
         var ratioCheck = document.createElement('input');
         YAHOO.util.Dom.setAttribute(ratioCheck, 'type', 'checkbox');
@@ -689,22 +702,31 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         return [];
       }
   
+      // look for menu items
       var items = this._menus[li.id];
-  
-      var itemSorter = function(a,b){
-        x = a.text.toUpperCase();
-        y = b.text.toUpperCase();
-          return x>y?1:x<y?-1:0;
-        }
-  
-      if(items != null)
+      if(items != null && items.length > 0)
       {
+        var itemSorter = function(a,b){
+          x = a.text.toUpperCase();
+          y = b.text.toUpperCase();
+            return x>y?1:x<y?-1:0;
+        };
+  
         return items.sort(itemSorter);
       }
-      else
+      
+      // look for a browser match
+      var browser = this._browsers[li.id];
+      if(browser)
       {
+        browser.openBrowser();
+      
+        // return empty set of menu items as the browser will be launched instead.
         return [];
       }
+      
+      // default case, no menu items to render
+      return [];
     },
   
     /**
@@ -1371,7 +1393,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       controller.editThematicLayer(request, thematicLayerId, thematicVars);
     }
-  
+    
   }
 });
 
@@ -1382,7 +1404,7 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
   
   Instance : {
   
-    initialize :function(obj, dereference)
+    initialize :function(obj)
     {
       this._type = obj.type;
       this._dtoType = obj.dtoType;
@@ -1390,8 +1412,8 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
       this._attributeName = obj.attributeName;
       this._entityAlias = obj.entityAlias || this._type;
       this._whereValues = [];
-      this._dereference = dereference || false;
       this._isAggregate = obj.isAggregate || false;
+      this._isTerm = false;
   
       if(obj.key)
       {
@@ -1403,11 +1425,16 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
       }
     },
     
+    setTerm : function(isTerm)
+    {
+      this._isTerm = isTerm;
+    },
+    
     _genKey : function()
     {
       this._key = this._type.replace(/\./g, '_')+'__'+this._attributeName;
     },
-  
+    
     /**
      * Unique key used with YUI Column
      * and as the user alias for the attribute
@@ -1469,15 +1496,20 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
         label: this._displayLabel
       };
     },
-  
+    
     /**
      * Returns a basic selectable object that represents this
      * attribute.
      */
-    getSelectable : function(derefence, asClass)
+    getSelectable : function(dereference, asClass)
     {
       var attrName = this._attributeName;
-      if(this._dereference && derefence)
+      if(this._isTerm && dereference)
+      {
+        var attribute = new MDSS.QueryXML.Sqlcharacter(this._entityAlias, attrName+'_displayLabel', this._key, this._displayLabel);
+        return new MDSS.QueryXML.Selectable(attribute);
+      }
+      else if(dereference)
       {
         attrName = attrName + '.displayLabel.currentValue';
       }
@@ -1497,15 +1529,106 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
   }
 });
 
-Mojo.Meta.newClass('MDSS.BasicAttribute', {
+Mojo.Meta.newClass('MDSS.QueryBrowser', {
+
+  Instance : {
+  
+    initialize : function(handler, attribute, fieldClass, fieldAttribute, multiSelect)
+    {
+      this._fieldClass = fieldClass;
+      this._fieldAttribute = fieldAttribute;
+      this._multiSelect = multiSelect || false;
+      this._attribute = attribute;
+      this._handler = handler;
+      
+      this._browser = new MDSS.OntologyBrowser(this._multiSelect, this._fieldClass, this._fieldAttribute);
+      this._browser.setHandler(this.setTerms, this);
+      
+      this._terms = {};
+    },
+    
+    getAttribute : function()
+    {
+      return this._attribute;
+    },
+    
+    openBrowser : function()
+    {
+      if(this._browser.isRendered())
+      {
+        this._browser.reset();
+        this._browser.show();
+      }
+      else
+      {
+        this._browser.render();
+      }
+      
+      var selectedIds = Mojo.Iter.map(this._terms, function(sel){
+        return sel.getTermId(); 
+      });
+      
+      this._browser.setSelection(selectedIds);
+    },
+    
+    getTerms : function()
+    {
+      return this._terms;
+    },
+    
+    /**
+     * Sets the Term criteria on the query instance.
+     */
+    setTerms: function(terms)
+    {
+      this._terms = terms;
+      
+      if(this._handler)
+      {
+        this._handler(this, this._terms);
+      }
+    }
+    
+  }
+
+});
+
+Mojo.Meta.newClass('MDSS.HouseholdAttribute', {
 
   Extends: MDSS.AbstractAttribute,
   
   Instance : {
     
-    initialize : function(obj, dereference)
+    initialize : function(obj)
     {
-      this.$initialize(obj, dereference);
+      this.$initialize(obj);
     } 
+  }
+});
+
+Mojo.Meta.newClass('MDSS.PersonAttribute', {
+
+  Extends: MDSS.AbstractAttribute,
+  
+  Instance : {
+    
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    } 
+  }
+});
+
+Mojo.Meta.newClass('MDSS.BasicAttribute', {
+  
+  Extends: MDSS.AbstractAttribute,
+
+  Instance : {
+ 
+    initialize : function(obj, query)
+    {
+      this.$initialize(obj, query);
+    }
+    
   }
 });

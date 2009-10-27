@@ -1101,10 +1101,16 @@ Mojo.Meta.newClass('MDSS.VisibleAttribute', {
   
   Instance : {
     
-    initialize : function(obj, dereference)
+    initialize : function(obj)
     {
-      this.$initialize(obj, dereference);
-    } 
+      this.$initialize(obj);
+    },
+    
+    isThematic : function()
+    {
+      return true;
+    }
+    
   }
 });
 
@@ -1195,6 +1201,11 @@ Mojo.Meta.newClass('MDSS.GridAttribute', {
       var ind = type.lastIndexOf('.');
       var typeName = type.substring(ind+1);
       return typeName;
+    },
+    
+    isThematic : function()
+    {
+      return true;
     }
   }
 });

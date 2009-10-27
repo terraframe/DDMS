@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public class SettlementDTO extends SettlementDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1255627106949L;
+  private static final long serialVersionUID = 1256572141636L;
   
   public SettlementDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

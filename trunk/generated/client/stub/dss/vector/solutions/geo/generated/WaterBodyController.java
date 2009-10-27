@@ -5,47 +5,21 @@ public class WaterBodyController extends WaterBodyControllerBase implements com.
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/WaterBody/";
   public static final String LAYOUT = "/layout.jsp";
   
-  private static final long serialVersionUID = 1255627124132L;
+  private static final long serialVersionUID = 1256572160186L;
   
   public WaterBodyController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void delete(dss.vector.solutions.geo.generated.WaterBodyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(dss.vector.solutions.geo.generated.WaterBodyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    try
-    {
-      dto.delete();
-      this.viewAll();
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
-      this.failDelete(dto);
-    }
-    catch(java.lang.Throwable t)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
-      this.failDelete(dto);
-    }
+    dto.unlock();
+    this.view(dto.getId());
   }
-  public void failDelete(dss.vector.solutions.geo.generated.WaterBodyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(dss.vector.solutions.geo.generated.WaterBodyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("term", dto.getTerm());
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
-  }
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.WaterBodyQueryDTO query = dss.vector.solutions.geo.generated.WaterBodyDTO.getAllInstances(clientRequest, null, true, 20, 1);
-    req.setAttribute("query", query);
-    render("viewAllComponent.jsp");
-  }
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -58,41 +32,16 @@ public class WaterBodyController extends WaterBodyControllerBase implements com.
   {
     resp.sendError(500);
   }
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.WaterBodyDTO dto = new dss.vector.solutions.geo.generated.WaterBodyDTO(clientRequest);
-    req.setAttribute("term", dto.getTerm());
-    req.setAttribute("item", dto);
-    render("createComponent.jsp");
+    dss.vector.solutions.geo.generated.WaterBodyQueryDTO query = dss.vector.solutions.geo.generated.WaterBodyDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    req.setAttribute("query", query);
+    render("viewAllComponent.jsp");
   }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    this.viewAll();
-  }
-  public void create(dss.vector.solutions.geo.generated.WaterBodyDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
-      this.failCreate(dto);
-    }
-    catch(java.lang.Throwable t)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
-      this.failCreate(dto);
-    }
-  }
-  public void failCreate(dss.vector.solutions.geo.generated.WaterBodyDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("term", dto.getTerm());
-    req.setAttribute("item", dto);
-    render("createComponent.jsp");
+    resp.sendError(500);
   }
   public void update(dss.vector.solutions.geo.generated.WaterBodyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -103,54 +52,83 @@ public class WaterBodyController extends WaterBodyControllerBase implements com.
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
-      this.failUpdate(dto);
-    }
-    catch(java.lang.Throwable t)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
       this.failUpdate(dto);
     }
   }
   public void failUpdate(dss.vector.solutions.geo.generated.WaterBodyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("term", dto.getTerm());
+    req.setAttribute("term", dss.vector.solutions.ontology.TermDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.geo.generated.WaterBodyDTO dto = new dss.vector.solutions.geo.generated.WaterBodyDTO(clientRequest);
+    req.setAttribute("term", dss.vector.solutions.ontology.TermDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    render("createComponent.jsp");
+  }
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
+  }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.util.RedirectUtility utility = new dss.vector.solutions.util.RedirectUtility(req, resp);
-    utility.put("id", id);
-    utility.checkURL(this.getClass().getSimpleName(), "view");
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.WaterBodyDTO dto = dss.vector.solutions.geo.generated.WaterBodyDTO.get(clientRequest, id);
-    req.setAttribute("term", dto.getTerm());
-    req.setAttribute("item", dto);
+    req.setAttribute("term", dss.vector.solutions.ontology.TermDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dss.vector.solutions.geo.generated.WaterBodyDTO.get(clientRequest, id));
     render("viewComponent.jsp");
   }
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
   }
-  public void cancel(dss.vector.solutions.geo.generated.WaterBodyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(dss.vector.solutions.geo.generated.WaterBodyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    try
+    {
+      dto.delete();
+      this.viewAll();
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failDelete(dto);
+    }
   }
-  public void failCancel(dss.vector.solutions.geo.generated.WaterBodyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(dss.vector.solutions.geo.generated.WaterBodyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    this.edit(dto.getId());
+    req.setAttribute("term", dss.vector.solutions.ontology.TermDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    render("editComponent.jsp");
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     dss.vector.solutions.geo.generated.WaterBodyDTO dto = dss.vector.solutions.geo.generated.WaterBodyDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("term", dto.getTerm());
+    req.setAttribute("term", dss.vector.solutions.ontology.TermDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.view(id);
+  }
+  public void create(dss.vector.solutions.geo.generated.WaterBodyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failCreate(dto);
+    }
+  }
+  public void failCreate(dss.vector.solutions.geo.generated.WaterBodyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("term", dss.vector.solutions.ontology.TermDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    render("createComponent.jsp");
   }
 }

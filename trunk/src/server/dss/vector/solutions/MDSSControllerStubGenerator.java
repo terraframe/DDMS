@@ -5,8 +5,9 @@ import java.util.Arrays;
 import com.terraframe.mojo.business.generation.GenerationUtil;
 import com.terraframe.mojo.business.generation.facade.ControllerStubGenerator;
 import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.constants.ProblemExceptionDTOInfo;
+import com.terraframe.mojo.constants.JSONMojoExceptionDTOInfo;
 import com.terraframe.mojo.constants.MdAttributeReferenceInfo;
+import com.terraframe.mojo.constants.ProblemExceptionDTOInfo;
 import com.terraframe.mojo.constants.TypeGeneratorInfo;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
@@ -17,6 +18,7 @@ import com.terraframe.mojo.dataaccess.MdMethodDAOIF;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.util.ErrorUtilityInfo;
 import dss.vector.solutions.util.RedirectUtilityInfo;
 
@@ -46,6 +48,33 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
     getWriter().writeLine(ErrorUtilityInfo.CLASS + ".prepareThrowable(t, req);");
     getWriter().writeLine("this.failUpdate(" + args + ");");
     getWriter().closeBracket();
+  }
+  
+  @Override
+  protected void writeNewInstanceAction(MdEntityDAOIF mdEntity)
+  {
+    // TODO Auto-generated method stub
+    boolean isGeoEntity = mdEntity.getSuperTypes().contains(GeoEntity.CLASS);
+    
+    if(isGeoEntity)
+    {
+      getWriter().writeLine("try");
+      getWriter().openBracket();
+    }
+    
+    super.writeNewInstanceAction(mdEntity);
+    
+    if(isGeoEntity)
+    {
+      getWriter().closeBracket();
+      getWriter().writeLine("catch("+Throwable.class.getName()+" t)");
+      getWriter().openBracket();
+      getWriter().writeLine(JSONMojoExceptionDTOInfo.CLASS + " jsonE = new "+JSONMojoExceptionDTOInfo.CLASS+"(t);");
+      getWriter().writeLine("resp.setStatus(500);");
+      getWriter().writeLine("resp.getWriter().print(jsonE.getJSON());");
+      getWriter().closeBracket();
+    }
+    
   }
 
   @Override

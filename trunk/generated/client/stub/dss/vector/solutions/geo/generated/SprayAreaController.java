@@ -5,111 +5,23 @@ public class SprayAreaController extends SprayAreaControllerBase implements com.
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/SprayArea/";
   public static final String LAYOUT = "/layout.jsp";
   
-  private static final long serialVersionUID = 1255627048722L;
+  private static final long serialVersionUID = 1256572078116L;
   
   public SprayAreaController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.SprayAreaDTO dto = new dss.vector.solutions.geo.generated.SprayAreaDTO(clientRequest);
-    req.setAttribute("term", dto.getTerm());
-    req.setAttribute("item", dto);
-    render("createComponent.jsp");
-  }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.util.RedirectUtility utility = new dss.vector.solutions.util.RedirectUtility(req, resp);
-    utility.put("id", id);
-    utility.checkURL(this.getClass().getSimpleName(), "view");
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.SprayAreaDTO dto = dss.vector.solutions.geo.generated.SprayAreaDTO.get(clientRequest, id);
-    req.setAttribute("term", dto.getTerm());
-    req.setAttribute("item", dto);
+    req.setAttribute("term", dss.vector.solutions.ontology.TermDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dss.vector.solutions.geo.generated.SprayAreaDTO.get(clientRequest, id));
     render("viewComponent.jsp");
   }
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
-  }
-  public void update(dss.vector.solutions.geo.generated.SprayAreaDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
-      this.failUpdate(dto);
-    }
-    catch(java.lang.Throwable t)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
-      this.failUpdate(dto);
-    }
-  }
-  public void failUpdate(dss.vector.solutions.geo.generated.SprayAreaDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("term", dto.getTerm());
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
-  }
-  public void delete(dss.vector.solutions.geo.generated.SprayAreaDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.delete();
-      this.viewAll();
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
-      this.failDelete(dto);
-    }
-    catch(java.lang.Throwable t)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
-      this.failDelete(dto);
-    }
-  }
-  public void failDelete(dss.vector.solutions.geo.generated.SprayAreaDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("term", dto.getTerm());
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
-  }
-  public void create(dss.vector.solutions.geo.generated.SprayAreaDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
-      this.failCreate(dto);
-    }
-    catch(java.lang.Throwable t)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
-      this.failCreate(dto);
-    }
-  }
-  public void failCreate(dss.vector.solutions.geo.generated.SprayAreaDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("term", dto.getTerm());
-    req.setAttribute("item", dto);
-    render("createComponent.jsp");
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -122,6 +34,53 @@ public class SprayAreaController extends SprayAreaControllerBase implements com.
   {
     resp.sendError(500);
   }
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    dss.vector.solutions.geo.generated.SprayAreaDTO dto = dss.vector.solutions.geo.generated.SprayAreaDTO.lock(super.getClientRequest(), id);
+    req.setAttribute("term", dss.vector.solutions.ontology.TermDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    render("editComponent.jsp");
+  }
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.view(id);
+  }
+  public void create(dss.vector.solutions.geo.generated.SprayAreaDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failCreate(dto);
+    }
+  }
+  public void failCreate(dss.vector.solutions.geo.generated.SprayAreaDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("term", dss.vector.solutions.ontology.TermDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    render("createComponent.jsp");
+  }
+  public void update(dss.vector.solutions.geo.generated.SprayAreaDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failUpdate(dto);
+    }
+  }
+  public void failUpdate(dss.vector.solutions.geo.generated.SprayAreaDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("term", dss.vector.solutions.ontology.TermDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    render("editComponent.jsp");
+  }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
@@ -133,16 +92,35 @@ public class SprayAreaController extends SprayAreaControllerBase implements com.
   {
     resp.sendError(500);
   }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(dss.vector.solutions.geo.generated.SprayAreaDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.geo.generated.SprayAreaDTO dto = dss.vector.solutions.geo.generated.SprayAreaDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("term", dto.getTerm());
+    try
+    {
+      dto.delete();
+      this.viewAll();
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failDelete(dto);
+    }
+  }
+  public void failDelete(dss.vector.solutions.geo.generated.SprayAreaDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("term", dss.vector.solutions.ontology.TermDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
-    this.view(id);
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.geo.generated.SprayAreaDTO dto = new dss.vector.solutions.geo.generated.SprayAreaDTO(clientRequest);
+    req.setAttribute("term", dss.vector.solutions.ontology.TermDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    render("createComponent.jsp");
+  }
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
   }
   public void cancel(dss.vector.solutions.geo.generated.SprayAreaDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

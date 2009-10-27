@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public class SurfaceDTO extends SurfaceDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1255627137450L;
+  private static final long serialVersionUID = 1256572174240L;
   
   public SurfaceDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

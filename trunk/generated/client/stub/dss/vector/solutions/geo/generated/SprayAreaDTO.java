@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public class SprayAreaDTO extends SprayAreaDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1255627056310L;
+  private static final long serialVersionUID = 1256572086107L;
   
   public SprayAreaDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

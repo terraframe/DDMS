@@ -40,6 +40,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.ThematicLayer;
@@ -66,6 +67,35 @@ public class QueryUtil implements Reloadable
 
   private static final String DATE_REGEX        = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
 
+  
+  public static String getTermSubSelect(String className, String ... attributes)
+  {
+    String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
+    String tableName = MdBusiness.getMdBusiness(className).getTableName();
+    
+    String select = "SELECT "+tableName+".id ,";
+    String from = " FROM "+tableName+" as "+tableName;
+    
+    int count = 0;
+    for(String attr : attributes)
+    {
+      select += " term"+count+".termName as "+attr + "_displayLabel";
+      
+      if(count != attributes.length-1)
+      {
+        select += ",";
+      }
+      
+      from += " LEFT JOIN "+termTable+" as term"+count+" on "+tableName+"."+attr+" = term"+count+".id";
+      
+      count++;
+    }
+    
+    String sql = select+from;
+    
+    return sql;
+  }
+  
   /**
    * Joins the ValueQuery with any selected/restricting geo entity information.
    * This method does not perform the final join between the AllPathsQuery and

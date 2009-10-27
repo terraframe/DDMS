@@ -20,6 +20,8 @@ import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdAttribute;
+import com.terraframe.mojo.system.metadata.MdAttributeReference;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdRelationship;
 
 import dss.vector.solutions.UnknownTermException;
@@ -541,6 +543,29 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
   public String getOptionName()
   {
     return this.getTermName();
+  }
+  
+  /**
+   * Returns all attributes that reference the Term class.
+   * 
+   * @param className
+   * @return
+   */
+  public static String[] getTermAttributes(String className)
+  {
+    MdBusiness md = MdBusiness.getMdBusiness(className);
+    List<String> list = new LinkedList<String>();
+    
+    for(MdAttribute mdAttr : md.getAllAttribute())
+    {
+      if(mdAttr instanceof MdAttributeReference
+           && ((MdAttributeReference)mdAttr).getMdBusiness().definesType().equals(Term.CLASS))
+      {
+        list.add(( (MdAttributeReference) mdAttr ).getAttributeName());
+      }
+    }
+    
+    return list.toArray(new String[list.size()]);
   }
 
 }

@@ -211,7 +211,6 @@ MDSS.GeoEntityTree = (function(){
   function _setGeoEntityAttributes(params, geoEntity)
   {
     var entityName = params['dto.entityName'];
-    var gazId = params['dto.gazId'];
     var geoId = params['dto.geoId'];
     var activatedVal = params['dto.activated'];
     var term = document.getElementById('term').value;
@@ -251,7 +250,6 @@ MDSS.GeoEntityTree = (function(){
     }
 
     geoEntity.setEntityName(entityName);
-    geoEntity.setGazId(gazId);
     geoEntity.setGeoId(geoId);
     geoEntity.setActivated(activated);
     geoEntity.setTerm(term);

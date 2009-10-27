@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public class BuildingDTO extends BuildingDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1255627164633L;
+  private static final long serialVersionUID = 1256572203420L;
   
   public BuildingDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
