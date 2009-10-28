@@ -13,7 +13,10 @@ import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.Patient;
 import dss.vector.solutions.Person;
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.EpiDate;
+import dss.vector.solutions.general.OutbreakCalculation;
 import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
@@ -61,11 +64,11 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
 
   private static Date[] getWindow(Date date)
   {
-    // FIXME once MDSS200 is complete then a global setting will determine if a
-    // EpiDate or Sliding window should be used
-    boolean slidingWindow = false;
+    Property property = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.IS_EPI_WEEK);
+
+    OutbreakCalculation method = OutbreakCalculation.valueOf(property.getPropertyValue());
     
-    if (!slidingWindow)
+    if (method.equals(OutbreakCalculation.EPI_WEEK))
     {
       EpiDate week = EpiDate.getEpiWeek(date);
 
@@ -75,7 +78,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     // Use the sliding window approach
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(date);
-    calendar.set(Calendar.DAY_OF_YEAR, -7);
+    calendar.set(Calendar.DAY_OF_YEAR, -6);
     
     return new Date[] {calendar.getTime(), date};
   }

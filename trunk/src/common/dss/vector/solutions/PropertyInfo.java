@@ -48,4 +48,6 @@ public interface PropertyInfo
 
   public static final String EPIDEMIC_UNIVERSAL      = "epidemicUniversal";
 
+  public static final String IS_EPI_WEEK             = "isEpiWeek";
+
 }

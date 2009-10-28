@@ -42,7 +42,7 @@ var aSubmenuData = [
             	   submenu: {
             	     id: "Thresholds",
             	     itemdata: [
-            	       { text: "Configure_Thresholds", disabled: true, url: "#", visibleTo:'Administrator'},
+            	       { text: "Configure_Thresholds", url: "dss.vector.solutions.general.ThresholdDataController.editThresholdConfiguration.mojo", visibleTo:'Administrator'},
             	       { text: "Import_Thresholds", disabled: true, url: "#", visibleTo:'Administrator'},
             	       { text: "Enter_Thresholds(105)", url: "dss.vector.solutions.general.ThresholdDataController.search.mojo", visibleTo:'Administrator'}
             	     ]

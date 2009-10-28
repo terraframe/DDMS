@@ -15,6 +15,45 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.terrafra
   {
     this(parent.getId(), child.getId());
   }
+  
+  @Override
+  public void apply()
+  {
+    validateNotification();
+    validateIdentification();
+    
+    super.apply();
+  }
+  
+  @Override
+  public void validateNotification()
+  {
+    if(this.getNotification() != null && !(this.getNotification() > 0))
+    {
+      ThresholdValueProblem p = new ThresholdValueProblem();
+      p.setNotification(this, NOTIFICATION);
+      p.setEntityLabel(this.getParent().getGeoEntity().getLabel());
+      p.setThreshold(this.getNotification());
+      p.apply();
+      
+      p.throwIt();
+    }
+  }
+  
+  @Override
+  public void validateIdentification()
+  {
+    if(this.getIdentification() != null && !(this.getIdentification() > 0))
+    {
+      ThresholdValueProblem p = new ThresholdValueProblem();
+      p.setNotification(this, IDENTIFICATION);
+      p.setEntityLabel(this.getParent().getGeoEntity().getLabel());
+      p.setThreshold(this.getIdentification());
+      p.apply();
+      
+      p.throwIt();
+    }
+  }
 
   private boolean performedAlert(EpiWeek weekOfLastAlert)
   {
@@ -33,7 +72,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.terrafra
 
   public boolean performedNotificationAlert()
   {
-    return this.performedAlert(this.getLastIdentification());
+    return this.performedAlert(this.getLastNotification());
   }
   
   public boolean performedIdentificationAlert()

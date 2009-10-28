@@ -92,7 +92,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
    * @param date
    *          Date
    * 
-   * @return An array of the Thresholds [T1, T2] for a given GeoEntity on the
+   * @return A WeeklyThreshold for a given GeoEntity on the
    *         give Date. If thresholds are not defined then null is returned.
    */
   public static WeeklyThreshold getThresholds(GeoEntity entity, Date date)
@@ -149,7 +149,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
 
         alert.throwIt();
 
-//        threshold.updateLastNotification();
+        threshold.updateLastNotification();
       }
 
       if (identification != null && count >= identification && !threshold.performedIdentificationAlert())
@@ -168,7 +168,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
 
         alert.throwIt();
 
-//        threshold.updateLastIdentification();
+        threshold.updateLastIdentification();
       }
     }
   }

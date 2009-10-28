@@ -642,7 +642,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   {
     return this.getFamily(factory, new SearchParameter(true, false, false, false, false));
   }
-  
+
   public GeoEntity[] getImmediateSprayChildren()
   {
     return this.getSprayChildren();
@@ -684,9 +684,11 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   }
 
   /**
-   * @param parameter The search criteria
+   * @param parameter
+   *          The search criteria
    * 
-   * @return All of this Geo Entity ancestors or decendants which meet the search criteria
+   * @return All of this Geo Entity ancestors or decendants which meet the
+   *         search criteria
    */
   public GeoEntity[] getFamily(SearchParameter parameter)
   {
@@ -707,15 +709,17 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   }
 
   /**
-   * @param parameter The search criteria
+   * @param parameter
+   *          The search criteria
    * 
-   * @return Query for all of this Geo Entity ancestors or decendants which meet the search criteria
+   * @return Query for all of this Geo Entity ancestors or decendants which meet
+   *         the search criteria
    */
   public GeoEntityQuery getFamily(QueryFactory factory, SearchParameter parameter)
-  {    
+  {
     return parameter.getGeoEntityQuery(factory, this);
   }
-  
+
   /**
    * Gets all children of a GeoEntity, but stops its breadth-first decent when
    * it finds a child which belongs to the given fully qualified types.
@@ -1490,9 +1494,19 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     {
       String universal = property.getPropertyValue();
 
-      if (GeoHierarchy.isAncestor(this.getType(), universal))
+      if (!universal.equals(""))
       {
-        return ResourceBundle.getBundle("MDSS").getString("Epidemic");
+        GeoHierarchy hierarchy = GeoHierarchy.get(universal);
+
+        if (hierarchy != null)
+        {
+          String universalType = hierarchy.getGeoEntityClass().definesType();
+
+          if (GeoHierarchy.isAncestor(this.getType(), universalType))
+          {
+            return ResourceBundle.getBundle("MDSS").getString("Epidemic");
+          }
+        }
       }
     }
 

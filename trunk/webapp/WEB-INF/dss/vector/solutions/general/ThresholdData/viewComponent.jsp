@@ -74,6 +74,27 @@ String deleteColumn = "";
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
     <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
+
+    var thresholdValidator = function (oData) {
+        if(oData === "")
+        {
+            return oData;
+        }
+
+        var value = 1 * oData;
+        
+        if(Mojo.Util.isNumber(value)) {
+            if(value > 0) {
+                return oData;
+            }                
+        }
+
+        alert(MDSS.localize("Value_Not_Greater_Than_0"));
+        return undefined;
+    }
+
+    var validateValue = function(oData) {
+    }
         
     var data = {
       rows:<%=Halp.getDataMap(rows, attributes, view)%>,

@@ -42,7 +42,7 @@ public class SearchParameter implements Reloadable
   
   public SearchParameter()
   {
-    this(true, false, false, false, true);
+    this(false, false, false, false, false);
   }
 
   public SearchParameter(boolean political, boolean spray, boolean populated, boolean ancestor, boolean first)

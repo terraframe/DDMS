@@ -19,6 +19,11 @@ public class FileDownloadUtil
   {
     writeFile(resp, filename, "csv", inputStream);
   }
+  
+  public static void writeTXT(HttpServletResponse resp, String filename, InputStream inputStream) throws IOException
+  {
+    writeFile(resp, filename, "txt", inputStream);
+  }
 
   private static void writeFile(HttpServletResponse resp, String filename, String extension, InputStream inputStream) throws IOException
   {

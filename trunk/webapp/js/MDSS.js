@@ -103,7 +103,7 @@ var MDSS = {
 
   ErrorModal : function(content)
   {
-      var modal = new YAHOO.widget.Panel("errorModal",
+      var modal = new YAHOO.widget.Panel("errorModal" + Mojo.Util.generateId(),
        {
           width:"400px",
           height: "200px",

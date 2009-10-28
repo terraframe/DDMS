@@ -1109,6 +1109,31 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
 
     return viewQuery;
   }
+  
+  public static GeoHierarchyView[] getAllViews()
+  {
+    List<GeoHierarchyView> list = new LinkedList<GeoHierarchyView>();
+    
+    GeoHierarchyQuery query = new GeoHierarchyQuery(new QueryFactory());
+    query.ORDER_BY_ASC(query.getGeoEntityClass().getTypeName());
+    
+    OIterator<? extends GeoHierarchy> iterator = query.getIterator();
+    
+    try
+    {
+      while(iterator.hasNext())
+      {
+        list.add(iterator.next().getViewForGeoHierarchy());
+      }
+
+      return list.toArray(new GeoHierarchyView[list.size()]);
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+
 
   /**
    * @return An array of all Geo Hierarchies where SprayTargetAllowed==true
@@ -1698,18 +1723,18 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
 
   public static boolean isAncestor(String type, String universal)
   {
-    SearchParameter parameter = new SearchParameter(true, true, true, false, true);
-
-    GeoHierarchyView[] decendants = GeoHierarchy.getGeoHierarchiesByType(type, parameter);
+    GeoHierarchyView[] decendants = GeoHierarchy.getGeoHierarchiesByType(type, new SearchParameter());
 
     for (GeoHierarchyView decendant : decendants)
     {
-      if (decendant.getGeneratedType().equals(universal))
+      String generatedType = decendant.getGeneratedType();
+
+      if (generatedType.equals(universal))
       {
-        return false;
+        return true;
       }
     }
 
-    return true;
+    return false;
   }
 }

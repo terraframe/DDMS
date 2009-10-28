@@ -19,6 +19,8 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ViewArrayExcelExporter;
 import com.terraframe.mojo.session.Session;
 
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class ThresholdDataView extends ThresholdDataViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -133,7 +135,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
     this.populateConcrete(concrete);
 
     concrete.apply();
-    
+
     this.populateThresholds(concrete);
 
     this.populateView(concrete);
@@ -144,20 +146,20 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
   {
     EpiDate[] weeks = this.getSeason().getEpiWeeks();
 
-    for(EpiDate week : weeks)
+    for (EpiDate week : weeks)
     {
-      int index = ( week.getPeriod() % week.getNumberOfEpiWeeks());
-      
+      int index = ( week.getPeriod() % week.getNumberOfEpiWeeks() );
+
       Integer notification = this.getOutbreak(index);
       Integer identification = this.getIdentification(index);
-      
-      if(notification != null || identification != null)
+
+      if (notification != null || identification != null)
       {
         EpiWeek epiWeek = EpiWeek.getEpiWeek(week.getPeriod(), week.getYear());
-        
+
         WeeklyThreshold threshold = data.getEpiWeeksRel(epiWeek);
-        
-        if(threshold == null)
+
+        if (threshold == null)
         {
           threshold = new WeeklyThreshold(data, epiWeek);
         }
@@ -165,10 +167,10 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
         {
           threshold.lock();
         }
-        
+
         new AttributeNotificationMap(threshold, WeeklyThreshold.IDENTIFICATION, this, ThresholdDataView.IDENTIFICATION + index);
         new AttributeNotificationMap(threshold, WeeklyThreshold.NOTIFICATION, this, ThresholdDataView.OUTBREAK + index);
-        
+
         threshold.setNotification(notification);
         threshold.setIdentification(identification);
         threshold.apply();
@@ -197,7 +199,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
     catch (Exception e)
     {
       throw new ApplicationException(e);
-    }    
+    }
   }
 
   @Override
@@ -331,6 +333,20 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
   public static WeeklyThreshold getThresholds(GeoEntity entity, Date date)
   {
     return ThresholdData.getThresholds(entity, date);
+  }
+  
+  @Transaction
+  public static void setThresholdConfiguration(String universal, String calulationMethod)
+  {
+    Property epidemic = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.EPIDEMIC_UNIVERSAL);
+    epidemic.lock();
+    epidemic.setPropertyValue(universal);
+    epidemic.apply();
+
+    Property isEpiProperty = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.IS_EPI_WEEK);
+    isEpiProperty.lock();
+    isEpiProperty.setPropertyValue(calulationMethod);
+    isEpiProperty.apply();
   }
 
 }
