@@ -19,27 +19,27 @@ public class SearchParameter implements Reloadable
    * Flag denoting if the search restrict by political hierarchies
    */
   private boolean political;
-  
+
   /**
-   * Flag denoting if the search should restrict by spray hierarchies 
+   * Flag denoting if the search should restrict by spray hierarchies
    */
   private boolean spray;
-  
+
   /**
    * Flag denoting if the search restribute by populated hierarchies
    */
   private boolean populated;
-  
+
   /**
    * Flag denoting if the search should get the ancestors or decendants
    */
   private boolean ancestor;
-  
+
   /**
    * Flag denoting if the search should only use the first applicable hierarchy
    */
-  private boolean first;  
-  
+  private boolean first;
+
   public SearchParameter()
   {
     this(false, false, false, false, false);
@@ -106,67 +106,86 @@ public class SearchParameter implements Reloadable
 
   public List<GeoHierarchy> getHierarchies(GeoHierarchy hierarchy)
   {
-    if(this.isAncestor())
+    if (this.isAncestor())
     {
       return hierarchy.getImmediateParents();
     }
-    
-    return hierarchy.getImmediateChildren();      
+
+    return hierarchy.getImmediateChildren();
   }
 
   public boolean isValid(GeoHierarchy hierarchy)
   {
-    if(this.isPolitical() && !hierarchy.getPolitical())
+    if (this.isPolitical() && !hierarchy.getPolitical())
     {
       return false;
     }
 
-    if(this.isPopulated() && !hierarchy.getPopulationAllowed())
+    if (this.isPopulated() && !hierarchy.getPopulationAllowed())
     {
       return false;
     }
-    
-    if(this.isSpray() && !hierarchy.getSprayTargetAllowed())
+
+    if (this.isSpray() && !hierarchy.getSprayTargetAllowed())
     {
       return false;
     }
-        
+
     return true;
   }
 
   public AllPathsQuery getPathsQuery(QueryFactory factory, GeoEntity entity)
   {
-    List<Condition> conditions = new LinkedList<Condition>();
-
     AllPathsQuery query = new AllPathsQuery(factory);
-
-    for (GeoHierarchyView view : GeoHierarchy.getHierarchies(entity, this))
-    {
-      MdClass mdClass = MdClass.getMdClass(view.getGeneratedType());
-      
-      if(this.isAncestor())
-      {
-        conditions.add(query.getParentUniversal().EQ(mdClass));        
-      }
-      else
-      {
-        conditions.add(query.getChildUniversal().EQ(mdClass));                
-      }
-            
-    }
-
-    Condition[] array = conditions.toArray(new Condition[conditions.size()]);
     
-    if(this.isAncestor())
+    Condition[] array = this.getUniversalConditions(entity, query);
+
+    if (this.isAncestor())
     {
       query.WHERE(AND.get(query.getChildGeoEntity().EQ(entity), OR.get(array)));
     }
     else
     {
-      query.WHERE(AND.get(query.getParentGeoEntity().EQ(entity), OR.get(array)));      
+      query.WHERE(AND.get(query.getParentGeoEntity().EQ(entity), OR.get(array)));
+    }
+
+    return query;
+  }
+
+  private Condition[] getUniversalConditions(GeoEntity entity, AllPathsQuery query)
+  {
+    List<Condition> conditions = new LinkedList<Condition>();
+
+    for (GeoHierarchyView view : GeoHierarchy.getHierarchies(entity, this))
+    {
+      MdClass mdClass = MdClass.getMdClass(view.getGeneratedType());
+
+      if (this.isAncestor())
+      {
+        conditions.add(query.getParentUniversal().EQ(mdClass));
+      }
+      else
+      {
+        conditions.add(query.getChildUniversal().EQ(mdClass));
+      }
+
     }
     
-    return query;
+    if(conditions.size() == 0)
+    {
+      MdClass mdClass = MdClass.getMdClass(entity.getType());
+
+      if (this.isAncestor())
+      {
+        conditions.add(query.getParentUniversal().EQ(mdClass));
+      }
+      else
+      {
+        conditions.add(query.getChildUniversal().EQ(mdClass));
+      }      
+    }
+    
+    return conditions.toArray(new Condition[conditions.size()]);
   }
 
   public GeoEntityQuery getGeoEntityQuery(QueryFactory factory, GeoEntity geoEntity)
@@ -174,15 +193,15 @@ public class SearchParameter implements Reloadable
     GeoEntityQuery query = new GeoEntityQuery(factory);
     AllPathsQuery pathsQuery = this.getPathsQuery(factory, geoEntity);
 
-    if(this.isAncestor())
+    if (this.isAncestor())
     {
       query.WHERE(query.getId().EQ(pathsQuery.getParentGeoEntity().getId()));
     }
     else
     {
-      query.WHERE(query.getId().EQ(pathsQuery.getChildGeoEntity().getId()));      
+      query.WHERE(query.getId().EQ(pathsQuery.getChildGeoEntity().getId()));
     }
 
     return query;
-  }  
+  }
 }
