@@ -286,7 +286,7 @@
 			</object>
 
 			<object type="dss.vector.solutions.geo.GeoHierarchy" key="dss.vector.solutions.geo.generated.Constituency">
-				<attribute name="political" value="false" />
+				<attribute name="political" value="true" />
 				<attribute name="sprayTargetAllowed" value="false" />
 				<attribute name="populationAllowed" value="false" />
 				<attributeReference name="geoEntityClass"
