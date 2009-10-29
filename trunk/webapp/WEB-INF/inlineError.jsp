@@ -39,15 +39,25 @@
 <script type="text/javascript">
 
 (function(){
-	  YAHOO.util.Event.onDOMReady(function(){
-      var messages = <%=messages%>;
+  YAHOO.util.Event.onDOMReady(function(){
+    var messages = <%=messages%>;
 
-      if(Mojo.Util.isArray(messages)) {
-          for(var i = 0; i < messages.length; i++) {
-              alert(messages[i]);
-          }
-      }		  
-	  });
+    if(Mojo.Util.isArray(messages)) {
+      for(var i = 0; i < messages.length; i++) {
+
+        var message = messages[i];
+        var html = '<form action="dss.vector.solutions.FileController.exportToFile.mojo" method="POST">';
+            html += '<input type="hidden" name="message" value="'+message+'" />';
+            html += '<input type="hidden" name="fileName" value="alert" />';
+            html += '<p>' + message + '</p>';
+            html += '<div style="margin-top:10px">';
+            html += '<input type="submit" value="Export" />';
+            html += '</form>';
+
+        new MDSS.ErrorModal(html);
+      }
+    } 
+  });
 })();
 
 </script>
