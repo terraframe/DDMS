@@ -205,7 +205,11 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 		      }
 
 		      if (feild.title) {
-		        this.myDataTable.getThEl(this.myDataTable.getColumn(feild.key)).title = feild.title;
+		         var th = this.myDataTable.getThEl(this.myDataTable.getColumn(feild.key));
+		         if(th)
+		         {
+		        	 th.title = feild.title;
+		         }
 		      }
 
 		      },this);
