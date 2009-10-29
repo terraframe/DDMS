@@ -24,4 +24,9 @@ public abstract class TermDTO extends TermDTOBase
   {
     return this.getTermName() + " (" + this.getTermId() + ")";
   }
+  
+  public static String getFieldKeyName(String className, String attributeName)
+  {
+    return className+"."+attributeName;
+  }
 }

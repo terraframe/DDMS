@@ -56,12 +56,10 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= SentinelSiteDTO.CLASS %>');
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
-    var householdMenuItems = <%= (String) request.getAttribute("householdMenuItems") %>;
-    var personMenuItems = <%= (String) request.getAttribute("personMenuItems") %>;
     var nets = <%= (String) request.getAttribute("nets") %>;
-    var positives = <%= (String) request.getAttribute("positives") %>;
+    var rdtResults = <%= (String) request.getAttribute("rdtResults") %>
 
-    var query = new MDSS.QuerySurvey(queryList, householdMenuItems, personMenuItems, nets, positives);
+    var query = new MDSS.QuerySurvey(queryList, nets, rdtResults);
     query.render();
 
     // attach load listener to Iframe to receive message when error occurs during

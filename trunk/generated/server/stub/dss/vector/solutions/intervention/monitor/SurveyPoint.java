@@ -9,21 +9,23 @@ import java.util.List;
 import java.util.Map;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
+import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.SelectableSQLDouble;
 import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
 import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.terraframe.mojo.system.metadata.MdEntity;
 
 import dss.vector.solutions.CurrentDateProblem;
-import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.RDTResult;
 import dss.vector.solutions.ontology.Term;
@@ -186,6 +188,7 @@ public class SurveyPoint extends SurveyPointBase implements
     SurveyPointQuery surveyPointQuery = (SurveyPointQuery) queryMap.get(SurveyPoint.CLASS);
     HouseholdQuery householdQuery = (HouseholdQuery) queryMap.get(Household.CLASS);
     PersonQuery personQuery = (PersonQuery) queryMap.get(Person.CLASS);
+    TermQuery termQuery = (TermQuery) queryMap.get(Term.CLASS);
     
     if(householdQuery != null)
     {
@@ -197,6 +200,7 @@ public class SurveyPoint extends SurveyPointBase implements
       valueQuery.AND(new InnerJoinEq("id","household",householdQuery.getTableAlias(),"id",sql,subSelect));
     }
     
+    String personTable = MdBusiness.getMdBusiness(Person.CLASS).getTableName();
     if(personQuery != null)
     {
       if(householdQuery == null)
@@ -212,21 +216,53 @@ public class SurveyPoint extends SurveyPointBase implements
       String[] personAttributes = Term.getTermAttributes(Person.CLASS);
       String sql = "(" + QueryUtil.getTermSubSelect(Person.CLASS, personAttributes) + ")";
       String subSelect = "personTermSubSel";
-      valueQuery.AND(new InnerJoinEq("id","person",personQuery.getTableAlias(),"id",sql,subSelect));
+      valueQuery.AND(new InnerJoinEq("id", personTable,personQuery.getTableAlias(),"id",sql,subSelect));
     }
     
-    
+    // Convert RDTResult which is relationship between Person and Term
+    try
+    {
+      SelectableSQLCharacter sel = (SelectableSQLCharacter) valueQuery.getSelectable(PersonView.RDTRESULT);
+      
+      // If TermQuery exists then restrict by inner joins instead of doing left joins
+      if(termQuery != null)
+      {
+        valueQuery.WHERE(personQuery.rDTResults(termQuery));
+        String sql = termQuery.getTableAlias()+"."+Term.TERMNAME;
+        sel.setSQL(sql);
+      }
+      else
+      {
+        String relTable = MdEntity.getMdEntity(PersonRDTResult.CLASS).getTableName();
+        String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
+        
+        String subSelect = "(select tJoin.id AS tId, pJoin.id AS id, tJoin."+Term.TERMNAME+" AS "+PersonView.RDTRESULT+"_displayLabel from"+
+        " "+personTable+" AS pJoin LEFT JOIN "+relTable+" AS rJoin ON rJoin."+RelationshipInfo.PARENT_ID+" = pJoin.id"+
+        " LEFT JOIN "+termTable+" tJoin on rJoin."+RelationshipInfo.CHILD_ID+" = tJoin.id)";
+        
+        String subSelectName = "rdtResultTermSubSel";
+        
+        String sql = subSelectName+".rDTResult_displayLabel";
+        sel.setSQL(sql);
+        
+        InnerJoinEq join = new InnerJoinEq("id", personTable, personQuery.getTableAlias(), "id", subSelect, subSelectName);
+        valueQuery.AND(join);
+      }
+      
+    }
+    catch(QueryException e)
+    {
+      // RDTResult not included in the query
+    }
     
     // Convert Person.DOB into an integer
     try
     {
       SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable(Person.DOB);
       
-      String personTable = personQuery.getTableAlias();
-      String sql = "EXTRACT(year from AGE(NOW(), "+personTable+".dob))";
+      String personTableAlias = personQuery.getTableAlias();
+      String sql = "EXTRACT(year from AGE(NOW(), "+personTableAlias+".dob))";
       dobSel.setSQL(sql);
-
-      valueQuery.FROM("person", personTable);
 
       // Check for equals or range criteria on Person.DOB
       if(dobCriteria != null)
@@ -280,21 +316,19 @@ public class SurveyPoint extends SurveyPointBase implements
           valueQuery.FROM(householdQuery);
         }
         
-        // FIXME MO UPGRADE
-        TermQuery netQuery = new TermQuery(queryFactory);
+        TermQuery termNetQuery = new TermQuery(queryFactory);
         
-        String netName = entityAlias.substring(entityAlias.indexOf("_")+1);
+        String termId = entityAlias.substring(entityAlias.indexOf("_")+1);
         
         HouseholdNetQuery householdNetQuery = (HouseholdNetQuery) queryMap.get(entityAlias);
         
         valueQuery.AND(householdQuery.nets(householdNetQuery));
-        valueQuery.AND(householdNetQuery.hasChild(netQuery));
-        valueQuery.AND(netQuery.getTermName().EQ(netName));
-        
+        valueQuery.AND(householdNetQuery.hasChild(termNetQuery));
+        valueQuery.AND(termNetQuery.getId().EQ(termId));
       }
     }
     
-    
+   /* 
     // Default prevalence
     addPrevalenceColumn("prevalence", valueQuery, personQuery, null);
 
@@ -303,33 +337,13 @@ public class SurveyPoint extends SurveyPointBase implements
     {
       addPrevalenceColumn("prevalence_"+result.getId(), valueQuery, personQuery, result);
     }
+    */
     
     String sql = valueQuery.getSQL();
     System.out.println(sql);
     
     return valueQuery;
   }
-  
-//  private static String getTermSQL()
-//  {
-//    
-//    String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
-//    String houseTable = MdBusiness.getMdBusiness(Household.CLASS).getTableName();
-//    
-//    String sql = "SELECT house.id ,";
-//    
-//    sql += " term1.termName as "+Household.WALL + "_displayLabel,";
-//    sql += " term2.termName as "+Household.ROOF + "_displayLabel,";
-//    sql += " term3.termName as "+Household.WINDOWTYPE + "_displayLabel";
-//    
-//    sql += " FROM "+houseTable+" as house";
-//    sql += " LEFT JOIN "+termTable+" as term1 on house."+Household.WALL+" = term1.id";
-//    sql += " LEFT JOIN "+termTable+" as term2 on house."+Household.ROOF+" = term2.id";
-//    sql += " LEFT JOIN "+termTable+" as term3 on house."+Household.WINDOWTYPE+" = term3.id";
-//    
-//    return sql;
-//    
-//  }
   
   private static String getDobCriteria(QueryConfig config)
   {

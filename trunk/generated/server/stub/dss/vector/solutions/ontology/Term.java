@@ -495,6 +495,24 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
 
     return childOfChildIdList;
   }
+  
+  /**
+   * Gets all selectable Term objects that are the first descendents of the
+   * field described by the given class and attribute names. Inheritance is already
+   * factored into the method such that if B extends A and A defines attribute m, the
+   * following calls are valid:
+   * 
+   * 1) Term.getAllTermsForField("A", "m")
+   * 2) Term.getAllTermsForField("B", "m")
+   * 
+   * @param className
+   * @param attributeName
+   * @return
+   */
+  public static Term[] getAllTermsForField(String className, String attributeName)
+  {
+    return Term.getRootChildren(className, attributeName, true);
+  }
 
   public static Term[] getAllTermsByAttribute(MdAttribute mdAttribute)
   {
@@ -506,18 +524,10 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     return Term.getRootChildren(mdAttribute, true);
   }
 
-  /**
-   * @param mdAttribute
-   * @return Returns selectable roots and every roots direct descendants for a
-   *         given MdAttribute
-   */
-  public static Term[] getRootChildren(MdAttributeDAOIF mdAttribute, Boolean returnOnlySelectable)
+  public static Term[] getRootChildren(String className, String attributeName, Boolean returnOnlySelectable)
   {
+    BrowserRootView[] roots = BrowserRoot.getAttributeRoots(className, attributeName);
     Set<Term> children = new TreeSet<Term>(new TermComparator());
-
-    String className = mdAttribute.definedByClass().definesType();
-    BrowserRootView[] roots = BrowserRoot.getAttributeRoots(className, mdAttribute.definesAttribute());
-
     for (BrowserRootView view : roots)
     {
       Term term = Term.get(view.getTermId());
@@ -541,6 +551,18 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     }
 
     return children.toArray(new Term[children.size()]);
+  }
+  
+  /**
+   * @param mdAttribute
+   * @return Returns selectable roots and every roots direct descendants for a
+   *         given MdAttribute
+   */
+  public static Term[] getRootChildren(MdAttributeDAOIF mdAttribute, Boolean returnOnlySelectable)
+  {
+    String className = mdAttribute.definedByClass().definesType();
+
+    return Term.getRootChildren(className, mdAttribute.definesAttribute(), returnOnlySelectable);
   }
 
   public String getOptionName()

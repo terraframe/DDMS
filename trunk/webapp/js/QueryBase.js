@@ -57,6 +57,11 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       this._browsers = {};
     },
     
+    getBrowser : function(attribute)
+    {
+      return this._browsers[(Mojo.Util.isString(attribute) ? attribute : attribute.getKey())+'_li'];
+    },
+    
     /**
      * Maps a QueryBrowser object to a specific
      * attribute element (typically an LI).
@@ -1544,7 +1549,7 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
       this._browser = new MDSS.OntologyBrowser(this._multiSelect, this._fieldClass, this._fieldAttribute);
       this._browser.setHandler(this.setTerms, this);
       
-      this._terms = {};
+      this._terms = [];
     },
     
     getAttribute : function()
@@ -1593,42 +1598,15 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
 
 });
 
-Mojo.Meta.newClass('MDSS.HouseholdAttribute', {
-
-  Extends: MDSS.AbstractAttribute,
-  
-  Instance : {
-    
-    initialize : function(obj)
-    {
-      this.$initialize(obj);
-    } 
-  }
-});
-
-Mojo.Meta.newClass('MDSS.PersonAttribute', {
-
-  Extends: MDSS.AbstractAttribute,
-  
-  Instance : {
-    
-    initialize : function(obj)
-    {
-      this.$initialize(obj);
-    } 
-  }
-});
-
 Mojo.Meta.newClass('MDSS.BasicAttribute', {
   
   Extends: MDSS.AbstractAttribute,
 
   Instance : {
  
-    initialize : function(obj, query)
+    initialize : function(obj)
     {
-      this.$initialize(obj, query);
+      this.$initialize(obj);
     }
-    
   }
 });

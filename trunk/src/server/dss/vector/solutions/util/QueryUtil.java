@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import org.xml.sax.SAXParseException;
 
+import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
@@ -30,6 +31,7 @@ import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryParser;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.terraframe.mojo.system.metadata.MdEntity;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
@@ -40,6 +42,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.intervention.monitor.PersonView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
@@ -67,6 +70,16 @@ public class QueryUtil implements Reloadable
 
   private static final String DATE_REGEX        = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
 
+  public static String getRelationshipTermSubSelect(String attribute, String parentClass, String relClass)
+  {
+    String parentTable = MdBusiness.getMdBusiness(parentClass).getTableName();
+    String relTable = MdEntity.getMdEntity(relClass).getTableName();
+    String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
+    
+    return "(select pJoin.id as id, "+Term.TERMNAME+" as "+PersonView.RDTRESULT+"_displayLabel from"+
+    " "+parentTable+" pJoin LEFT JOIN "+relTable+" rJoin ON rJoin."+RelationshipInfo.PARENT_ID+" = pJoin.id"+
+    " LEFT JOIN "+termTable+" tJoin on rJoin."+RelationshipInfo.CHILD_ID+" = tJoin.id)";
+  }
   
   public static String getTermSubSelect(String className, String ... attributes)
   {

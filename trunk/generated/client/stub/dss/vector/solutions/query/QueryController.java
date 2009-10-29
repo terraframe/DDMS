@@ -2,7 +2,6 @@ package dss.vector.solutions.query;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,15 +20,12 @@ import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.business.BusinessDTO;
 import com.terraframe.mojo.business.ClassQueryDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.system.metadata.MdAttributeDTO;
 import com.terraframe.mojo.transport.attributes.AttributeDTO;
 import com.terraframe.mojo.transport.attributes.AttributeReferenceDTO;
 import com.terraframe.mojo.transport.attributes.AttributeStructDTO;
-import com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 
 import dss.vector.solutions.entomology.MosquitoDTO;
-import dss.vector.solutions.entomology.SexMasterDTO;
 import dss.vector.solutions.entomology.assay.AbstractAssayDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
@@ -37,28 +33,17 @@ import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
-import dss.vector.solutions.intervention.BloodslideResponseDTO;
-import dss.vector.solutions.intervention.BloodslideResponseMasterDTO;
-import dss.vector.solutions.intervention.FeverResponseDTO;
-import dss.vector.solutions.intervention.FeverTreatmentDTO;
-import dss.vector.solutions.intervention.HumanSexDTO;
-import dss.vector.solutions.intervention.ResponseMasterDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO;
-import dss.vector.solutions.intervention.monitor.HouseholdDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdNetDTO;
+import dss.vector.solutions.intervention.monitor.HouseholdView;
 import dss.vector.solutions.intervention.monitor.IPTANCVisitDTO;
 import dss.vector.solutions.intervention.monitor.IPTDoseDTO;
 import dss.vector.solutions.intervention.monitor.IPTPatientsDTO;
 import dss.vector.solutions.intervention.monitor.IPTTreatmentDTO;
-import dss.vector.solutions.intervention.monitor.NetDTO;
-import dss.vector.solutions.intervention.monitor.PersonDTO;
+import dss.vector.solutions.intervention.monitor.PersonView;
 import dss.vector.solutions.intervention.monitor.PersonViewDTO;
-import dss.vector.solutions.intervention.monitor.RoofViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
-import dss.vector.solutions.intervention.monitor.WallViewDTO;
-import dss.vector.solutions.intervention.monitor.WindowMasterDTO;
-import dss.vector.solutions.intervention.monitor.WindowTypeDTO;
 import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.surveillance.AbstractGridDTO;
@@ -102,31 +87,6 @@ public class QueryController extends QueryControllerBase implements
     super(req, resp, isAsynchronous);
   }
 
-  private JSONArray createBooleanItems(AttributeBooleanMdDTO mdDTO)
-  {
-    JSONArray items = new JSONArray();
-
-    try
-    {
-      JSONObject pos = new JSONObject();
-      pos.put("displayLabel", mdDTO.getPositiveDisplayLabel());
-      pos.put("value", true);
-
-      JSONObject neg = new JSONObject();
-      neg.put("displayLabel", mdDTO.getNegativeDisplayLabel());
-      neg.put("value", false);
-
-      items.put(pos);
-      items.put(neg);
-
-      return items;
-    }
-    catch (Throwable t)
-    {
-      throw new ApplicationException(t);
-    }
-  }
-
   @Override
   public void querySurvey() throws IOException, ServletException
   {
@@ -145,29 +105,36 @@ public class QueryController extends QueryControllerBase implements
 
         queries.put(idAndName);
       }
+      
+      // 24. RDT Result (special case). Use new PersonView object
+      // as a template to get display values.
+      JSONObject rdtResult = new JSONObject();
+      String display = new PersonViewDTO(this.getClientRequest()).getRDTResultMd().getDisplayLabel();
+      rdtResult.put("displayLabel", display);
+      rdtResult.put("attributeName", PersonView.RDTRESULT);
+      
+      JSONArray items = new JSONArray();
+      rdtResult.put("items", items);
+      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdView.CLASS, HouseholdView.DISPLAYNETS))
+      {
+        JSONObject item = new JSONObject();
+        item.put("displayLabel", term.getDisplayLabel());
+        item.put("value", term.getId());
+
+        items.put(item);
+      }
+      
+      req.setAttribute("rdtResults", rdtResult.toString());
 
       req.setAttribute("queryList", queries.toString());
 
-      // Map of menu items. Key/Value where key is the attribute name
-      // on Person and value is an object with display label and ids.
-      JSONObject householdMenuItems = new JSONObject();
-
-      ClassQueryDTO household = request.getQuery(HouseholdDTO.CLASS);
-
-      // 5. House type (urban/rural)
-      AttributeBooleanMdDTO urbanMd = (AttributeBooleanMdDTO) household.getAttributeDTO(HouseholdDTO.URBAN).getAttributeMdDTO();
-      householdMenuItems.put(HouseholdDTO.URBAN, createBooleanItems(urbanMd));
-
-      req.setAttribute("householdMenuItems", householdMenuItems.toString());
-
-      // All available net options (not abstract)
       JSONArray nets = new JSONArray();
-      for(NetDTO netDTO : NetDTO.getAllLeafs(request))
+      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdView.CLASS, HouseholdView.DISPLAYNETS))
       {
         JSONObject net = new JSONObject();
-        net.put("entityAlias", HouseholdNetDTO.CLASS+"_"+netDTO.getNetName());
-        net.put("key", HouseholdNetDTO.AMOUNT+"_"+netDTO.getNetName());
-        net.put("displayLabel", netDTO.getDisplayLabel().getDefaultLocale());
+        net.put("entityAlias", HouseholdNetDTO.CLASS+"_"+term.getId());
+        net.put("key", HouseholdNetDTO.AMOUNT+"_"+term.getId());
+        net.put("displayLabel", term.getDisplayLabel());
         net.put("attributeName", HouseholdNetDTO.AMOUNT);
         net.put("type", HouseholdNetDTO.CLASS);
 
@@ -175,112 +142,6 @@ public class QueryController extends QueryControllerBase implements
       }
 
       req.setAttribute("nets", nets.toString());
-
-      // Map of menu items. Key/Value where key is the attribute name
-      // on Person and value is an object with display label and ids.
-      JSONObject personMenuItems = new JSONObject();
-      PersonViewDTO person = new PersonViewDTO(request);
-
-      // 17. Sex
-      JSONArray items = new JSONArray();
-      for (SexMasterDTO sex : HumanSexDTO.allItems(request))
-      {
-        JSONObject item = new JSONObject();
-        item.put("displayLabel", sex.getDisplayLabel());
-        item.put("value", sex.getId());
-
-        items.put(item);
-      }
-      personMenuItems.put(PersonDTO.SEX, items);
-
-      // 18. Pregnant
-      personMenuItems.put(PersonDTO.PREGNANT, createBooleanItems(person.getPregnantMd()));
-
-      // 19. Slept Under Net
-      personMenuItems.put(PersonDTO.SLEPTUNDERNET, createBooleanItems(person.getSleptUnderNetMd()));
-
-      // 20. Hemoglobin measured
-      personMenuItems.put(PersonDTO.HAEMOGLOBINMEASURED, createBooleanItems(person.getSleptUnderNetMd()));
-
-      // 21. Anemia Treatment, 23. RDT Treatment, 31. Malaria Treatment
-      items = new JSONArray();
-      for (TreatmentGridDTO drug : Arrays.asList(TreatmentGridDTO.getAll(request)))
-      {
-        JSONObject item = new JSONObject();
-        item.put("displayLabel", drug.getDisplayLabel());
-        item.put("value", drug.getId());
-
-        items.put(item);
-      }
-      personMenuItems.put(PersonDTO.ANAEMIATREATMENT, items);
-      personMenuItems.put(PersonDTO.RDTTREATMENT, items);
-      personMenuItems.put(PersonDTO.MALARIATREATMENT, items);
-
-      // 22. Iron given
-      personMenuItems.put(PersonDTO.IRON, createBooleanItems(person.getIronMd()));
-
-      // 24. RDT Result
-      //FIXME: MO UPGRADE
-//      items = new JSONArray();
-//      JSONArray positives = new JSONArray();
-//      List<RDTResultMasterDTO> results = RDTResultDTO.allItems(request);
-//      for (RDTResultMasterDTO result : results)
-//      {
-//        JSONObject item = new JSONObject();
-//        item.put("displayLabel", result.getDisplayLabel());
-//        item.put("value", result.getId());
-//
-//        if(!result.getEnumName().equals(RDTResultDTO.NOT_VALID.getName()) &&
-//            !result.getEnumName().equals(RDTResultDTO.NEGATIVE.getName()))
-//        {
-//          positives.put(result.getId());
-//        }
-//
-//        items.put(item);
-//      }
-//      personMenuItems.put(PersonDTO.RDTRESULT, items);
-//      req.setAttribute("positives", positives.toString());
-
-      // 27. Bloodslide
-      items = new JSONArray();
-      for (BloodslideResponseMasterDTO response : BloodslideResponseDTO
-          .allItems(request))
-      {
-        JSONObject item = new JSONObject();
-        item.put("displayLabel", response.getDisplayLabel());
-        item.put("value", response.getId());
-
-        items.put(item);
-      }
-      personMenuItems.put(PersonDTO.BLOODSLIDE, items);
-
-      // 29. Fever Treatment
-      items = new JSONArray();
-      for (FeverTreatmentDTO treatment : Arrays.asList(FeverTreatmentDTO.getAllActive(request)))
-      {
-        JSONObject item = new JSONObject();
-        item.put("displayLabel", treatment.getDisplayLabel());
-        item.put("value", treatment.getId());
-
-        items.put(item);
-      }
-      personMenuItems.put(PersonDTO.FEVERTREATMENT, items);
-
-      // 28. Fever, 30. Malaria 32. Payment
-      items = new JSONArray();
-      for (ResponseMasterDTO response : FeverResponseDTO.allItems(request))
-      {
-        JSONObject item = new JSONObject();
-        item.put("displayLabel", response.getDisplayLabel());
-        item.put("value", response.getId());
-
-        items.put(item);
-      }
-      personMenuItems.put(PersonDTO.FEVER, items);
-      personMenuItems.put(PersonDTO.MALARIA, items);
-      personMenuItems.put(PersonDTO.PAYMENT, items);
-
-      req.setAttribute("personMenuItems", personMenuItems.toString());
 
       req.getRequestDispatcher(QUERY_SURVEY).forward(req, resp);
     }
@@ -608,7 +469,7 @@ public class QueryController extends QueryControllerBase implements
       doses.put("relType", IPTDoseDTO.CLASS);
       doses.put("relAttribute", IPTDoseDTO.AMOUNT);
       doses.put("options", new JSONArray());
-      for (TermDTO term : TermDTO.getAllTermsByAttribute(request,MdAttributeDTO.get(request, av.getDisplayDoseMd().getId())))
+      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYDOSE))
       {
         JSONObject option = new JSONObject();
         option.put("id", term.getId());

@@ -7,11 +7,11 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
   
   Instance : {
   
-    initialize : function(queryList, householdMenuItems, personMenuItems, nets, positives)
+    initialize : function(queryList, nets, rdtResults)
     {
       this.$initialize();
       
-      this._positives = positives;
+      this._rdtResults = rdtResults;
       
       // Ref to instances (used as template for display labels/metadata)
       this._SurveyPoint = Mojo.$.dss.vector.solutions.intervention.monitor.SurveyPoint;
@@ -61,13 +61,16 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       
       // Criteria for Person.DOB
       this._config.setProperty('dobCriteria', null);
+      
+      // Criteria to restrict rdtResults by TermId
+      this._config.setProperty(this._rdtResults.attributeName, []);
   
       // Key of Person.RDTRESULT attribute for use with prevalence
       this._rdtResultKey = null;
       this._prevalenceSelectables = {};
       this._prevalenceCheck = null;
   
-      this._buildQueryItems(householdMenuItems, personMenuItems, nets);
+      this._buildQueryItems(nets);
     },
   
     /**
@@ -235,7 +238,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
             {
               thisRef._loadNumericCriteria(attributeName, userAlias, operator, value);
             }
-            else if(attributeName === thisRef._Person.RDTRESULT)
+            else if(attributeName === thisRef._rdtResultKey)
             {
               var enumIds = value.split(',');
               var attribute = null;
@@ -576,6 +579,30 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         }
       }
       
+      // child Term criteria for PersonRDTResult relationship with parent Person
+      var queryBrowser = this.getBrowser(this._rdtResultKey);
+      var terms = queryBrowser.getTerms();
+      if(this._personSelectables[this._rdtResultKey] && terms.length > 0)
+      {
+        var termClass = 'dss.vector.solutions.ontology.Term';
+        var termQuery = new MDSS.QueryXML.Entity(termClass, termClass);
+        queryXML.addEntity(termQuery);
+        
+        var or = new MDSS.QueryXML.Or();
+        Mojo.Iter.forEach(terms, function(term){
+        
+          var attribute = new MDSS.QueryXML.Attribute(termClass, "id", "term_id", "id");
+          var selectable = new MDSS.QueryXML.Selectable(attribute);       
+          var value = term.getTermId();
+        
+          var basicCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
+          or.addCondition(value, basicCondition);
+        });
+        
+        var condition = new MDSS.QueryXML.CompositeCondition(or);
+        termQuery.setCondition(condition);
+      }
+      
       return queryXML;
     },
     
@@ -724,16 +751,21 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       var condition;
       
       var attrDTO = this._person.getAttributeDTO(attribute.getAttributeName());
-      if(attrDTO instanceof AttributeEnumerationDTO)
+      if(key === this._rdtResultKey)
       {
-        // force removal of prevalence columns.
+        // force removal of prevalence columns then re-add.
         // This is done for simplicity instead of synchronizing
         // the columns.
-        if(key === this._rdtResultKey)
-        {
-          this._setPrevalence(false);
-        }
-  
+        // FIXME this._setPrevalence(false);
+        
+        // We only care about adding the WHERE display
+        this._queryPanel.addWhereCriteria(key, value, display);
+        // FIXME this._setPrevalence(true);
+        
+        return;
+      }
+      else if(attrDTO instanceof AttributeEnumerationDTO)
+      {
         var existing = this._personCriteria[key];
         var enumIds = existing != null ? existing.getValue().split(',') : [];
   
@@ -750,12 +782,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
           set.remove(value);
           this._queryPanel.removeWhereCriteria(key, value);
         }
-        
-        // add prevalence columns
-        if(key === this._rdtResultKey)
-        {
-          this._setPrevalence(true);
-        }
   
         var finalEnumIds = set.values();
         if(finalEnumIds.length == 0)
@@ -768,7 +794,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
   
         var selectable = attribute.getSelectable(false);  
         condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.CONTAINS_ANY, finalEnumIds.join(','));
-        
       }
       else if(attrDTO instanceof AttributeReferenceDTO ||
         attrDTO instanceof AttributeBooleanDTO)
@@ -894,7 +919,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
      */
     _resetToDefault : function()
     {
-      MDSS.QueryBase.prototype._resetToDefault.call(this); // super
+      this.$_resetToDefault();
     
       this._setPrevalence(false);
     
@@ -920,6 +945,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       
       // json config
       this._config.setProperty('dobCriteria', null);
+      this._config.setProperty(this._rdtResults.attributeName, []);
       this._queryPanel.clearWhereCriteria(this._Person.DOB);
     },
   
@@ -1029,9 +1055,15 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
   
       var attributeName = attribute.getAttributeName();
       
-      // Date of birth requires SQL pass through to convert a date into an int
-      if(attributeName === this._Person.DOB)
+      if(attributeName === this._rdtResults.attributeName)
       {
+        // SQL character passthrough is required to join Person with Term
+        // via a relationship.
+        selectable = attribute.getSelectable(false, MDSS.QueryXML.Sqlcharacter);
+      }
+      else if(attributeName === this._Person.DOB)
+      {
+        // Date of birth requires SQL pass through to convert a date into an int
         selectable = attribute.getSelectable(false, MDSS.QueryXML.Sqlinteger);
       }
       else
@@ -1080,7 +1112,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       }
     },
     
-    _setPrevalence : function(doSet, excludeIds)
+    _setPrevalence : function(doSet)
     {
       // create columns and selectables for each checked RDTResult menu item.
       // Or, if none are checked, create a generic prevalence column
@@ -1100,7 +1132,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
               var name = "prevalence_"+value;  // name == key == userAlias == enum id
               
               // the option must be a positive result
-              if(!this._contains(this._positives, value))
+              if(!this._contains(this._rdtResult.items, value))
               {
                 continue;
               }
@@ -1159,7 +1191,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
     {
       for(var i=0; i<array.length; i++)
       {
-        if(array[i] === value)
+        if(array[i].value === value)
         {
           return true;
         }
@@ -1420,7 +1452,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
     /**
      * Builds the query items for the left column.
      */
-    _buildQueryItems : function(householdMenuItems, personMenuItems, nets)
+    _buildQueryItems : function(nets)
     {
       /*
        * Target
@@ -1454,91 +1486,38 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       householdDiv.appendChild(labelDiv);
       householdDiv.appendChild(householdUl);
       
-      // 4. Household
-      var attribute = new MDSS.HouseholdAttribute({
-        type: this._household.getType(),
-        displayLabel: this._household.getHouseholdNameMd().getDisplayLabel(),
-        attributeName: this._household.getHouseholdNameMd().getName()
-      });
-  
-      var li = document.createElement('li');
-      var check = document.createElement('input');
-      check.id = attribute.getKey();
-      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
-      this._defaults.push({element: check, checked: false});
-      YAHOO.util.Event.on(check, 'click', this._householdAttributeHandler, attribute, this);
-      var span = document.createElement('span');
-      span.innerHTML = attribute.getDisplayLabel();
-      
-      li.appendChild(check);
-      li.appendChild(span);
-      householdUl.appendChild(li);
+      // 4. Household Id
+      this._createHouseholdMenu(householdUl, this._Household.HOUSEHOLDNAME);
   
       // 5. Status
-      this._createHouseholdMenu(householdUl, this._Household.URBAN, householdMenuItems);
+      this._createHouseholdMenu(householdUl, this._Household.URBAN);
       
       // 6. # People
-      attribute = new MDSS.HouseholdAttribute({
-        type: this._household.getType(),
-        displayLabel: this._household.getPeopleMd().getDisplayLabel(),
-        attributeName: this._household.getPeopleMd().getName()
-      });
-      
-      this._createHouseholdInt(householdUl, attribute);
+      this._createHouseholdInt(householdUl, this._Household.PEOPLE);
       
       // 7. Wall
-      var li = this._createHouseholdBrowser(this._Household.WALL);
-      householdUl.appendChild(li);
+      this._createHouseholdBrowser(householdUl, this._Household.WALL);
       
       // 7. Roof
-      li = this._createHouseholdBrowser(this._Household.ROOF);    
-      householdUl.appendChild(li);
+      this._createHouseholdBrowser(householdUl, this._Household.ROOF);    
       
       // 9. windows
-      li = this._createHouseholdBrowser(this._Household.WINDOWTYPE);
-      householdUl.appendChild(li);
+      this._createHouseholdBrowser(householdUl, this._Household.WINDOWTYPE);
       
       // 10. # rooms
-      attribute = new MDSS.HouseholdAttribute({
-        type: this._household.getType(),
-        displayLabel: this._household.getRoomsMd().getDisplayLabel(),
-        attributeName: this._household.getRoomsMd().getName()
-      });
-      
-      this._createHouseholdInt(householdUl, attribute);
+      this._createHouseholdInt(householdUl, this._Household.ROOMS);
       
       // 11. Last sprayed
-      this._createHouseholdMenu(householdUl, this._Household.LASTSPRAYED, householdMenuItems);
+      this._createHouseholdMenu(householdUl, this._Household.LASTSPRAYED);
       
       // 12. # nets
-      attribute = new MDSS.HouseholdAttribute({
-        type: this._household.getType(),
-        displayLabel: this._household.getNetsMd().getDisplayLabel(),
-        attributeName: this._household.getNetsMd().getName()
-      });
-      
-      this._createHouseholdInt(householdUl, attribute);
-      
-  
+      this._createHouseholdInt(householdUl, this._Household.NETS);
   
       // 13. # people slept under a net
-      attribute = new MDSS.HouseholdAttribute({
-        type: this._household.getType(),
-        displayLabel: this._household.getSleptUnderNetsMd().getDisplayLabel(),
-        attributeName: this._household.getSleptUnderNetsMd().getName()
-      });
-      
-      this._createHouseholdInt(householdUl, attribute);
-      
+      this._createHouseholdInt(householdUl, this._Household.SLEPTUNDERNETS);
       
       // 14. # nets slept under
-      attribute = new MDSS.HouseholdAttribute({
-        type: this._household.getType(),
-        displayLabel: this._household.getNetsUsedMd().getDisplayLabel(),
-        attributeName: this._household.getNetsUsedMd().getName()
-      });
-      
-      this._createHouseholdInt(householdUl, attribute);
+      this._createHouseholdInt(householdUl, this._Household.NETSUSED);
       
       this._queryPanel.addQueryItem({
         html : householdDiv,
@@ -1609,7 +1588,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       /*
        * Person attributes
        */
-      
       var personDiv = document.createElement('div');
        
       labelDiv = document.createElement('div');
@@ -1624,72 +1602,40 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       personDiv.appendChild(personUl);
   
       // 15. Person Id
-      attribute = new MDSS.PersonAttribute({
-        type: this._person.getType(),
-        displayLabel: this._person.getPersonIdMd().getDisplayLabel(),
-        attributeName: this._person.getPersonIdMd().getName()
-      });
-      
-      li = document.createElement('li');
-      check = document.createElement('input');
-      check.id = attribute.getKey();
-      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
-      this._defaults.push({element:check, checked:false});
-      YAHOO.util.Event.on(check, 'click', this._personAttributeHandler, attribute, this);
-      span = document.createElement('span');
-      span.innerHTML = attribute.getDisplayLabel();
-      
-      li.appendChild(check);
-      li.appendChild(span);
-      personUl.appendChild(li);
+      this._createPersonMenu(personUl, this._Person.PERSONID);
       
       // 16. Age
-      attribute = new MDSS.PersonAttribute({
-        type: this._person.getType(),
-        displayLabel: MDSS.Localized.Age,
-        attributeName: this._person.getDobMd().getName()
-      });
-      attribute.setKey(this._Person.DOB);// overwrite key for use with SQL pass-through
-      
-      this._createPersonMenu(personUl, attribute, personMenuItems);
+      this._createPersonMenu(personUl, this._Person.DOB);
   
       // 17. Sex
-      var li = this._createPersonBrowser(this._Person.SEX, personMenuItems); 
-      personUl.appendChild(li);
+      this._createPersonBrowser(personUl, this._Person.SEX); 
       
       // 18. Pregnant
-      this._createPersonMenu(personUl, this._Person.PREGNANT, personMenuItems);   
+      this._createPersonMenu(personUl, this._Person.PREGNANT);   
       
       // 19. slept under net
-      this._createPersonMenu(personUl, this._Person.SLEPTUNDERNET, personMenuItems);   
+      this._createPersonMenu(personUl, this._Person.SLEPTUNDERNET);   
   
       // ??. hemoglobin
-      this._createPersonMenu(personUl, this._Person.HAEMOGLOBIN, personMenuItems);
+      this._createPersonMenu(personUl, this._Person.HAEMOGLOBIN);
        
       // 20. hemoglobin measured
-      this._createPersonMenu(personUl, this._Person.HAEMOGLOBINMEASURED, personMenuItems);   
+      this._createPersonMenu(personUl, this._Person.HAEMOGLOBINMEASURED);   
       
       // 21. Anemia Treatment
-      var li = this._createPersonBrowser(this._Person.ANAEMIATREATMENT);    
-      personUl.appendChild(li);
+      this._createPersonBrowser(personUl, this._Person.ANAEMIATREATMENT);    
   
       // 22. Iron given
-      this._createPersonMenu(personUl, this._Person.IRON, personMenuItems);    
+      this._createPersonMenu(personUl, this._Person.IRON);    
   
       // 23. RDT Treatment
-      var li = this._createPersonBrowser(this._Person.RDTTREATMENT);   
-      personUl.appendChild(li);
+      this._createPersonBrowser(personUl, this._Person.RDTTREATMENT);   
       
        // 27. Bloodslide
-      var li = this._createPersonBrowser(this._Person.BLOODSLIDE);      
-      personUl.appendChild(li);
+      this._createPersonBrowser(personUl, this._Person.BLOODSLIDE);      
       
       // 24. RDT Result
-      
-      /*
-      var li = this._createPersonBrowser(this._Person.RDTRESULT);
-      personUl.appendChild(li);
-      */ 
+      this._createPersonBrowser(personUl, this._rdtResults.attributeName);
       
       // 25. Prevalence
       li = document.createElement('li');
@@ -1703,27 +1649,22 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       
       li.appendChild(this._prevalenceCheck);
       li.appendChild(span);
-      personUl.appendChild(li);    
+      personUl.appendChild(li);
       
       // 28. Fever
-      var li = this._createPersonBrowser(this._Person.FEVER);   
-      personUl.appendChild(li);
+      var li = this._createPersonBrowser(personUl, this._Person.FEVER);   
       
       // 29. Fever Treatment
-      var li = this._createPersonBrowser(this._Person.FEVERTREATMENT);   
-      personUl.appendChild(li);
+      var li = this._createPersonBrowser(personUl, this._Person.FEVERTREATMENT);   
       
       // 30. malaria
-      var li = this._createPersonBrowser(this._Person.MALARIA);   
-      personUl.appendChild(li);
+      var li = this._createPersonBrowser(personUl, this._Person.MALARIA);   
       
       // 31. Malaria Treatment
-      var li = this._createPersonBrowser(this._Person.MALARIATREATMENT);   
-      personUl.appendChild(li);
+      var li = this._createPersonBrowser(personUl, this._Person.MALARIATREATMENT);   
       
       // 32. Payment
-      var li = this._createPersonBrowser(this._Person.PAYMENT);   
-      personUl.appendChild(li);
+      var li = this._createPersonBrowser(personUl, this._Person.PAYMENT);   
       
       this._queryPanel.addQueryItem({
         html : personDiv,
@@ -1756,22 +1697,37 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       this._setHouseholdCriteria(attribute, value, display, item.checked);
     },
     
-    _createPersonBrowser : function(attributeName)
+    _createPersonBrowser : function(personUl, attributeName)
     {
-      var attrDTO = this._person.getAttributeDTO(attributeName);
-      var attrDTOMd = attrDTO.getAttributeMdDTO();
-    
-      var attribute = new MDSS.PersonAttribute({
-        type: this._person.getType(),
-        displayLabel: attrDTOMd.getDisplayLabel(),
-        attributeName: attrDTOMd.getName()
-      });  
-      attribute.setTerm(true);
-      
-      if(attributeName === this._Person.RDTRESULT)
+      // RDTResult is special in that it's only a placeholder attribute on PersonView
+      // in which to attach MO roots. Terms are actually children on a relationship
+      // with Person.
+      var attribute = null;
+      if(attributeName === this._rdtResults.attributeName)
       {
+        attribute = new MDSS.BasicAttribute({
+          type: this._person.getType(),
+          displayLabel: this._rdtResults.displayLabel,
+          attributeName: attributeName,
+          key: attributeName
+        });
+        
         this._rdtResultKey = attribute.getKey();
       }
+      else
+      {
+        var attrDTO = this._person.getAttributeDTO(attributeName);
+        var attrDTOMd = attrDTO.getAttributeMdDTO();
+    
+        attribute = new MDSS.BasicAttribute({
+          type: this._person.getType(),
+          displayLabel: attrDTOMd.getDisplayLabel(),
+          attributeName: attrDTOMd.getName()
+        });  
+      }
+      
+      attribute.setTerm(true);
+      
       
       var li = document.createElement('li');
       li.id = attribute.getKey()+"_li";
@@ -1790,16 +1746,15 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       span.innerHTML = attribute.getDisplayLabel();
       
       li.appendChild(span);
-      
-      return li;
+      personUl.appendChild(li);
     },
     
-    _createHouseholdBrowser: function(attributeName)
+    _createHouseholdBrowser: function(householdUl, attributeName)
     {
       var attrDTO = this._household.getAttributeDTO(attributeName);
       var attrDTOMd = attrDTO.getAttributeMdDTO();
     
-      var attribute = new MDSS.HouseholdAttribute({
+      var attribute = new MDSS.BasicAttribute({
         type: this._household.getType(),
         displayLabel: attrDTOMd.getDisplayLabel(),
         attributeName: attrDTOMd.getName()
@@ -1823,17 +1778,16 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       span.innerHTML = attribute.getDisplayLabel();
       
       li.appendChild(span);
-      
-      return li;
+      householdUl.appendChild(li);
     },
     
-    _createHouseholdMenu : function(householdUl, attributeName, householdMenuItems)
+    _createHouseholdMenu : function(householdUl, attributeName)
     {
       var attrDTO = this._household.getAttributeDTO(attributeName);
     
       var attrDTOMd = attrDTO.getAttributeMdDTO();
-    
-      var attribute = new MDSS.HouseholdAttribute({
+      
+      var attribute = new MDSS.BasicAttribute({
         type: this._household.getType(),
         displayLabel: attrDTOMd.getDisplayLabel(),
         attributeName: attrDTOMd.getName()
@@ -1859,47 +1813,9 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
             
         items.push(single);
       }
-      else if(householdMenuItems[attribute.getAttributeName()] != null)
+      else if(attrDTO instanceof AttributeBooleanDTO)
       {
-        // Use the JSON object sent from the server to build objects
-        // compatible with YUI's context menu constructor.
-        var rawItems = householdMenuItems[attribute.getAttributeName()];
-        for(var i=0; i<rawItems.length; i++)
-        {
-          var rawItem = rawItems[i];
-    
-          var item = {
-            text: rawItem.displayLabel,
-            checked: false,
-          };
-          
-          if(!rawItem.isAbstract)
-          {
-            item.onclick = {
-              fn: this._householdMenuItemHandler,
-              obj: {attribute: attribute, value: rawItem.value, display: rawItem.displayLabel}, 
-              scope: this
-            };
-          }
-          
-          if(rawItem.isAbstract)
-          {
-            item.text = "<strong>"+rawItem.displayLabel+"</strong>";
-          }
-          else if(rawItem.isAbstract === false)
-          {
-            item.text = "&nbsp;&nbsp;&nbsp;&nbsp;"+rawItem.displayLabel;
-          }
-          else
-          {
-            // isAbstract doesn't even exist on the item, meaning it
-            // is not part of a Grid or Configurable List
-            item.text = rawItem.displayLabel;
-          }
-          
-          this._menuItems[attribute.getKey()+'-'+rawItem.value] = item;
-          items.push(item);
-        }
+        items = this._setBooleanMenuItems(attribute, attrDTOMd, this._householdMenuItemHandler);       
       }
       
       // map the menu items to the LI node that contains the attribute data
@@ -1910,8 +1826,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       
       li.appendChild(span);
       householdUl.appendChild(li);
-      
-      return attribute;
     },
     
     /**
@@ -1919,26 +1833,30 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
      * be added as a selectable and with a context menu for 
      * criteria restriction.
      */
-    _createPersonMenu : function(personUl, attributeInput, personMenuItems)
+    _createPersonMenu : function(personUl, attributeName)
     {
-      // The attribute param can either be a string, used to create an
-      // PersonAttribute, or it can be an already created PersonAttribute.
-      var attribute;
-      if(Mojo.Util.isString(attributeInput))
+      var attribute = null;
+      if(attributeName === this._Person.DOB)
       {
-        var attrDTO = this._person.getAttributeDTO(attributeInput);
-    
+        attribute = new MDSS.BasicAttribute({
+          type: this._person.getType(),
+          displayLabel: MDSS.Localized.Age,
+          attributeName: this._person.getDobMd().getName()
+        });
+        
+        // overwrite key for use with SQL pass-through
+        attribute.setKey(this._Person.DOB);
+      }
+      else
+      {
+        var attrDTO = this._person.getAttributeDTO(attributeName);
         var attrDTOMd = attrDTO.getAttributeMdDTO();
     
-        var attribute = new MDSS.PersonAttribute({
+        attribute = new MDSS.BasicAttribute({
           type: this._person.getType(),
           displayLabel: attrDTOMd.getDisplayLabel(),
           attributeName: attrDTOMd.getName()
         });  
-      }
-      else
-      {
-        attribute = attributeInput;
       }
     
       var li = document.createElement('li');
@@ -1964,6 +1882,10 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         items.push(single);
         items.push(range);
       }
+      else if(attrDTO instanceof AttributeBooleanDTO)
+      {
+        items = this._setBooleanMenuItems(attribute, attrDTOMd, this._personMenuItemHandler);       
+      }      
       // Hemoglobin requires a menu item to enable range criteria.
       else if(attribute.getAttributeName() === this._Person.HAEMOGLOBIN)
       {
@@ -1973,30 +1895,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
             
         items.push(range);
       }
-      else if(personMenuItems[attribute.getAttributeName()] != null)
-      {
-        // Use the JSON object sent from the server to build objects
-        // compatible with YUI's context menu constructor.    
-        var rawItems = personMenuItems[attribute.getAttributeName()];
-        for(var i=0; i<rawItems.length; i++)
-        {
-          var rawItem = rawItems[i];
-   
-          var item = {
-            text: rawItem.displayLabel,
-            checked: false,
-            onclick : {
-              fn: this._personMenuItemHandler,
-              obj: {attribute: attribute, value: rawItem.value, display: rawItem.displayLabel}, 
-              scope: this
-            }
-          };
-        
-          this._menuItems[attribute.getKey()+'-'+rawItem.value] = item;
-          items.push(item);
-        }
-      }
-      
       
       // map the menu items to the LI node that contains the attribute data
       this._menus[li.id] = items;
@@ -2290,8 +2188,18 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
      * Creates an attribute entry for an integer
      * on household, along with a SUM option.
      */
-    _createHouseholdInt : function(householdUl, attribute)
+    _createHouseholdInt : function(householdUl, attributeName)
     {
+      var attrDTO = this._household.getAttributeDTO(attributeName);
+    
+      var attrDTOMd = attrDTO.getAttributeMdDTO();
+      
+      var attribute = new MDSS.BasicAttribute({
+        type: this._household.getType(),
+        displayLabel: attrDTOMd.getDisplayLabel(),
+        attributeName: attrDTOMd.getName()
+      });   
+    
       var li = document.createElement('li');
       var check = document.createElement('input');
       check.id = attribute.getKey();
@@ -2323,6 +2231,38 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       li.appendChild(select);
       li.appendChild(span);
       householdUl.appendChild(li);
+    },
+    
+    /**
+     * Creates and returns two YUI compatible menu items, one for
+     * true and one for false values.
+     */
+    _setBooleanMenuItems : function(attribute, attrDTOMd, handler)
+    {
+      var that = this;
+      var createItem = function(bool)
+      {
+        // create two items for true and false with the proper display labels
+        var item = {
+          text: (bool ? attrDTOMd.getPositiveDisplayLabel() : attrDTOMd.getNegativeDisplayLabel()),
+          checked: false,
+        };
+        
+        item.onclick = {
+          fn: handler,
+          obj: {attribute: attribute, value: bool, display: item.text}, 
+          scope: that
+        };
+    
+        that._menuItems[attribute.getKey()+'-'+bool] = item;
+        items.push(item);  
+      }
+
+      var items = [];
+      items.push(createItem(true));
+      items.push(createItem(false));
+      
+      return items;
     },
   
     /**
