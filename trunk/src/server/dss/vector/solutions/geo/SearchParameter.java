@@ -10,6 +10,7 @@ import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.system.metadata.MdClass;
 
+import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
@@ -173,7 +174,7 @@ public class SearchParameter implements Reloadable
     
     if(conditions.size() == 0)
     {
-      MdClass mdClass = MdClass.getMdClass(entity.getType());
+      MdClass mdClass = MdClass.getMdClass(Earth.CLASS);
 
       if (this.isAncestor())
       {
