@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.SystemException;
+import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.MdViewDAOIF;
 import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
 import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
@@ -336,6 +337,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
   }
   
   @Transaction
+  @Authenticate
   public static void setThresholdConfiguration(String universal, String calulationMethod)
   {
     Property epidemic = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.EPIDEMIC_UNIVERSAL);
