@@ -116,7 +116,7 @@ String deleteColumn = "";
           str += '<input type="hidden" name="season.componentId" value="'+record.getData('Season')+'"/>';
           str += " <a href=\"javascript: document.getElementById('"+record.getData('GeoEntity')+"').submit();\">";
           str += record.getData('EntityLabel')+'</a></form>';
-          GeoTargetData.myDataTable.updateCell(record, 'EntityLabel', str);
+          data.myDataTable.updateCell(record, 'EntityLabel', str);
         }
       },
       customButtons : [{
