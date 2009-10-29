@@ -106,6 +106,19 @@ String deleteColumn = "";
       excelButtons:false,
       addButton:false,
       width:"80em",
+      after_row_load:function(record){
+        if(record.getCount() < (data.rows.length - 1))
+        {
+          var str = '<form target="dss.vector.solutions.irs.ThresholdDataController.searchForThresholdData.mojo"';
+          str += ' method = "post"';
+          str += ' id="'+record.getData('GeoEntity')+'">';
+          str += '<input type="hidden" name="geoId" value="'+record.getData('GeoEntity')+'"/>';
+          str += '<input type="hidden" name="season.componentId" value="'+record.getData('Season')+'"/>';
+          str += " <a href=\"javascript: document.getElementById('"+record.getData('GeoEntity')+"').submit();\">";
+          str += record.getData('EntityLabel')+'</a></form>';
+          GeoTargetData.myDataTable.updateCell(record, 'EntityLabel', str);
+        }
+      },
       customButtons : [{
           id : 'Export',
           label : MDSS.localize('Export'),
