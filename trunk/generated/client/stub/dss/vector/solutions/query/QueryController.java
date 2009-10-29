@@ -36,12 +36,11 @@ import dss.vector.solutions.geo.generated.EarthDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdNetDTO;
-import dss.vector.solutions.intervention.monitor.HouseholdView;
+import dss.vector.solutions.intervention.monitor.HouseholdViewDTO;
 import dss.vector.solutions.intervention.monitor.IPTANCVisitDTO;
 import dss.vector.solutions.intervention.monitor.IPTDoseDTO;
 import dss.vector.solutions.intervention.monitor.IPTPatientsDTO;
 import dss.vector.solutions.intervention.monitor.IPTTreatmentDTO;
-import dss.vector.solutions.intervention.monitor.PersonView;
 import dss.vector.solutions.intervention.monitor.PersonViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.irs.AbstractSprayDTO;
@@ -106,16 +105,16 @@ public class QueryController extends QueryControllerBase implements
         queries.put(idAndName);
       }
       
-      // 24. RDT Result (special case). Use new PersonView object
+      // 24. RDT Result (special case). Use new PersonViewDTO object
       // as a template to get display values.
       JSONObject rdtResult = new JSONObject();
       String display = new PersonViewDTO(this.getClientRequest()).getRDTResultMd().getDisplayLabel();
       rdtResult.put("displayLabel", display);
-      rdtResult.put("attributeName", PersonView.RDTRESULT);
+      rdtResult.put("attributeName", PersonViewDTO.RDTRESULT);
       
       JSONArray items = new JSONArray();
       rdtResult.put("items", items);
-      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdView.CLASS, HouseholdView.DISPLAYNETS))
+      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
       {
         JSONObject item = new JSONObject();
         item.put("displayLabel", term.getDisplayLabel());
@@ -129,7 +128,7 @@ public class QueryController extends QueryControllerBase implements
       req.setAttribute("queryList", queries.toString());
 
       JSONArray nets = new JSONArray();
-      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdView.CLASS, HouseholdView.DISPLAYNETS))
+      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
       {
         JSONObject net = new JSONObject();
         net.put("entityAlias", HouseholdNetDTO.CLASS+"_"+term.getId());
