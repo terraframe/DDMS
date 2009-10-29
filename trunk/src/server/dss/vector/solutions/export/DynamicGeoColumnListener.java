@@ -82,11 +82,14 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
           {
             entityName = cell.getRichStringCellValue().getString().trim();
 
-            geoEntityNames.add(entityName);
-            parentGeoEntityMap.put(geoEntityClass.definesType(), entityName);
-
-            endPointEntityName = entityName;
-            endPointEntityType = geoEntityClass.definesType();
+            if (entityName.length()>0)
+            {
+              geoEntityNames.add(entityName);
+              parentGeoEntityMap.put(geoEntityClass.definesType(), entityName);
+              
+              endPointEntityName = entityName;
+              endPointEntityType = geoEntityClass.definesType();
+            }
           }
         }
       }
