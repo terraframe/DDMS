@@ -21,7 +21,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     super();
   }
   
-  private static ValueQuery getValueQuery(String queryClass, String queryXML, String[] selectedUniversals, Boolean includeGeometry, ThematicLayer thematicLayer)
+  private static ValueQuery getValueQuery(String queryClass, String queryXML, String[] selectedUniversals, Boolean includeGeometry, ThematicLayer thematicLayer) 
   {
     
     Class<?> clazz = null;
@@ -65,7 +65,11 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     catch (InvocationTargetException e)
     {
       // TODO Auto-generated catch block
-      e.printStackTrace();
+     
+     RuntimeException cause = (RuntimeException) e.getTargetException();
+     cause.printStackTrace();
+      throw cause;
+     
     }
 
     return valueQuery;
@@ -77,10 +81,11 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
    * Queries 
    *
    * @param xml
+   * @throws Throwable 
    */
   @Transaction
   @Authenticate
-  public static com.terraframe.mojo.query.ValueQuery getQueryResults(String queryClass, String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
+  public static com.terraframe.mojo.query.ValueQuery getQueryResults(String queryClass, String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize) 
   {
     
     QueryConfig queryConfig = new QueryConfig(config);
