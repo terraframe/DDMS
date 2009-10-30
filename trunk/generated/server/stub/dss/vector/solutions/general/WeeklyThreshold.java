@@ -84,7 +84,11 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.terrafra
   {
     EpiWeek week = EpiWeek.getEpiWeek(new Date());
 
+    if(!this.isNew())
+    {
     this.lock();
+    }
+    
     this.setLastNotification(week);
     this.apply();
   }
@@ -93,7 +97,11 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.terrafra
   {
     EpiWeek week = EpiWeek.getEpiWeek(new Date());
 
+    if(!this.isNew())
+    {
     this.lock();
+    }
+    
     this.setLastIdentification(week);
     this.apply();
   }
