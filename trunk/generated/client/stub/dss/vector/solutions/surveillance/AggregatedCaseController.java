@@ -232,11 +232,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, EpiDateDTO date,
       AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
   {
-    ClientRequestIF request = this.getClientSession().getRequest();
-
-    AggregatedCaseViewDTO c = AggregatedCaseDTO.searchByGeoEntityAndEpiDate(this.getClientRequest(),
-        geoEntity, date.getPeriodType().get(0), date.getPeriod(), date.getEpiYear(), ageGroup);
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(request);
+    AggregatedCaseViewDTO c = AggregatedCaseDTO.searchByGeoEntityAndEpiDate(this.getClientRequest(), geoEntity, date.getPeriodType().get(0), date.getPeriod(), date.getEpiYear(), ageGroup);
 
     if (c.hasCaseId())
     {

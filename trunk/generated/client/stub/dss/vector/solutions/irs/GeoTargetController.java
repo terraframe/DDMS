@@ -1,7 +1,6 @@
 package dss.vector.solutions.irs;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,24 +40,11 @@ public class GeoTargetController extends GeoTargetControllerBase implements
 
       ClientRequestIF clientRequest = super.getClientRequest();
 
-      List<String> geoEntityIds = new ArrayList<String>();
-
-      // Get Immediate Spray Children returns all of the immediate children which can
-      // have spray targets associated, and the individual target
-      for (GeoEntityDTO child : geoEntity.getImmediateSprayChildren())
-      {
-        geoEntityIds.add(child.getId());
-      }
-
-      geoEntityIds.add(geoEntity.getId());
-
-      String[] array = geoEntityIds.toArray(new String[geoEntityIds.size()]);
-
       GeoTargetViewDTO item = new GeoTargetViewDTO(clientRequest);
       item.setSeason(season);
       item.setGeoEntity(geoEntity);
 
-      GeoTargetViewDTO[] geoTargetViews = GeoTargetViewDTO.getGeoTargets(clientRequest, array, season);
+      GeoTargetViewDTO[] geoTargetViews = GeoTargetViewDTO.getGeoTargetViews(clientRequest, geoEntity.getGeoId(), season);
 
       req.setAttribute("item", item);
       req.setAttribute("geoTargetViews", geoTargetViews);

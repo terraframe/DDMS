@@ -116,6 +116,12 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
   {
     this.setEntityLabel(entity.getLabel());
   }
+  
+  @Override
+  public Long getCalculatedPopulation()
+  {
+    return this.getPopulation();
+  }
 
   public static PopulationDataView[] getViews(String geoId, Integer yearOfData)
   {
@@ -201,5 +207,4 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
 
     return views;
   }
-
 }

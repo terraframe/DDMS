@@ -1,12 +1,15 @@
 package dss.vector.solutions.irs;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.general.MalariaSeason;
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -106,8 +109,8 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
         Method getter = GeoTargetView.class.getMethod(getterName);
 
         Integer weekTarget = (Integer) getter.invoke(this);
-        
-        if(weekTarget != null)
+
+        if (weekTarget != null)
         {
           total += weekTarget;
         }
@@ -117,7 +120,7 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
         throw new ApplicationException(e);
       }
     }
-    
+
     return total;
   }
 
@@ -217,4 +220,46 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
   {
     return GeoTarget.getCalculatedTargets(this.getGeoEntity().getId(), this.getSeason().getId());
   }
+
+  @Transaction
+  public static GeoTargetView[] getGeoTargetViews(String geoId, MalariaSeason season)
+  {
+    GeoEntity entity = GeoEntity.searchByGeoId(geoId);
+
+    validateSearchEntity(entity);
+
+    List<String> geoEntityIds = new ArrayList<String>();
+
+    // Get Immediate Spray Children returns all of the immediate children which
+    // can have spray targets associated, and the individual target
+    for (GeoEntity child : entity.getImmediateSprayChildren())
+    {
+      geoEntityIds.add(child.getId());
+    }
+
+    geoEntityIds.add(entity.getId());
+
+    String[] array = geoEntityIds.toArray(new String[geoEntityIds.size()]);
+
+    return GeoTargetView.getGeoTargets(array, season);
+  }
+
+  private static void validateSearchEntity(GeoEntity entity)
+  {
+    GeoHierarchy geoHierarchy = GeoHierarchy.getGeoHierarchyFromType(entity.getType());
+
+    if (!geoHierarchy.getSprayTargetAllowed())
+    {
+      String label = entity.getLabel();
+
+      String msg = "The Geo Entity [" + label + "] does not allow spray target values";
+
+      NotASprayEntityException e = new NotASprayEntityException(msg);
+      e.setEntityLabel(label);
+      e.apply();
+
+      throw e;
+    }
+  }
+
 }

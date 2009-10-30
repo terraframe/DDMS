@@ -172,6 +172,7 @@ public class SearchParameter implements Reloadable
 
     }
     
+    // No hierarchy values are valid so just default to earth
     if(conditions.size() == 0)
     {
       MdClass mdClass = MdClass.getMdClass(Earth.CLASS);

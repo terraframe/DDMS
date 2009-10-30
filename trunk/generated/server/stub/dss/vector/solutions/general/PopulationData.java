@@ -11,7 +11,6 @@ import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.OrderBy.SortOrder;
-import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.RangeValueProblem;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -153,10 +152,7 @@ public class PopulationData extends PopulationDataBase implements com.terraframe
 
       if (!geoHierarchy.getPopulationAllowed())
       {
-        String universal = entity.getMdClass().getDisplayLabel(Session.getCurrentLocale());
-        String geoEntityName = entity.getEntityName();
-
-        String label = geoEntityName + " (" + universal + ")";
+        String label = entity.getLabel();
 
         String msg = "The Geo Entity [" + label + "] does not allow population values";
 
