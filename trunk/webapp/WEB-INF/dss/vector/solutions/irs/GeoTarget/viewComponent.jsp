@@ -77,8 +77,6 @@ colConfig += "\n,{key:'Season',label:'Season',hidden:true}";
 MalariaSeasonDTO season = item.getSeason();
 
 
-//FIXME : this is a hack because mojo's dto layer cant handle an array of epidates
-
   long seasonStart = season.getStartDate().getTime();
   long seasonEnd = season.getEndDate().getTime();
   GregorianCalendar cal = new GregorianCalendar();
@@ -135,8 +133,7 @@ GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
               after_row_load:function(record){
                 if(record.getCount() < (GeoTargetData.rows.length - 1))
                 {
-                var str = '<form target="dss.vector.solutions.irs.GeoTargetController.view.mojo"';
-                str += ' method = "post"';
+                var str = '<form method = "post"';
                 str += ' id="'+record.getData('GeoEntity')+'">';
                 str += '<input type="hidden" name="geoEntity.componentId" value="'+record.getData('GeoEntity')+'"/>';
                 str += '<input type="hidden" name="season.componentId" value="'+record.getData('Season')+'"/>';
