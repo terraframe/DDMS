@@ -99,7 +99,23 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
    */
   public static WeeklyThreshold getThresholds(GeoEntity entity, Date date)
   {
+    ThresholdData data = ThresholdData.getThresholdData(entity, date);
 
+    if (data != null)
+    {
+      EpiWeek week = EpiWeek.getEpiWeek(date);
+
+      if (week != null)
+      {
+        return week.getThresholdsRel(data);
+      }
+    }
+
+    return null;
+  }
+
+  public static ThresholdData getThresholdData(GeoEntity entity, Date date)
+  {
     QueryFactory factory = new QueryFactory();
 
     MalariaSeasonQuery season = MalariaSeason.getSeasonQueryByDate(date, factory);
@@ -111,23 +127,8 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
 
     if (list.size() > 0)
     {
-      EpiWeek week = EpiWeek.getEpiWeek(date);
-      
-      if (week != null)
-      {
-        ThresholdData thresholdData = list.get(0);
-
-        WeeklyThreshold weekly = week.getThresholdsRel(thresholdData);
-
-        if (weekly == null)
-        {
-          weekly = new WeeklyThreshold(thresholdData, week);
-        }
-
-        return weekly;
-      }
+      return list.get(0);
     }
-
     return null;
   }
 
@@ -233,24 +234,38 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
   {
     WeeklyThreshold threshold = ThresholdData.getThresholds(entity, date);
 
+    Integer notification = null;
+    Integer identification = null;
+
     if (threshold != null)
     {
-      Integer notification = threshold.getNotification();
-      Integer identification = threshold.getIdentification();
+      notification = threshold.getNotification();
+      identification = threshold.getIdentification();
+    }
 
-      EpiWeek week = EpiWeek.getEpiWeek(date);
+    EpiWeek week = EpiWeek.getEpiWeek(date);
 
-      if(notification == null)
+    if (notification == null)
+    {
+      notification = ThresholdData.getCalculatedValue(entity, week, WeeklyThreshold.NOTIFICATION);
+    }
+
+    if (identification == null)
+    {
+      identification = ThresholdData.getCalculatedValue(entity, week, WeeklyThreshold.IDENTIFICATION);
+    }
+
+    if (notification != null && count >= notification)
+    {
+      if (threshold == null)
       {
-        notification = ThresholdData.getCalculatedValue(entity, week, WeeklyThreshold.NOTIFICATION);
-      }
-      
-      if(identification == null)
-      {
-        identification = ThresholdData.getCalculatedValue(entity, week, WeeklyThreshold.IDENTIFICATION);
+        ThresholdData data = ThresholdData.getThresholdData(entity, date);
+
+        threshold = data.addEpiWeeks(week);
+        threshold.apply();
       }
 
-      if (notification != null && count >= notification && !threshold.performedNotificationAlert())
+      if (!threshold.performedNotificationAlert())
       {
         String alertType = entity.getOutbreakAlert();
         String thresholdType = ResourceBundle.getBundle("MDSS").getString("Alert");
@@ -268,8 +283,19 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
 
         threshold.updateLastNotification();
       }
+    }
 
-      if (identification != null && count >= identification && !threshold.performedIdentificationAlert())
+    if (identification != null && count >= identification)
+    {
+      if (threshold == null)
+      {
+        ThresholdData data = ThresholdData.getThresholdData(entity, date);
+
+        threshold = data.addEpiWeeks(week);
+        threshold.apply();
+      }
+
+      if (!!threshold.performedIdentificationAlert())
       {
         String alertType = entity.getOutbreakAlert();
         String thresholdType = ResourceBundle.getBundle("MDSS").getString("Identification");
@@ -288,7 +314,5 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
         threshold.updateLastIdentification();
       }
     }
-
   }
-
 }
