@@ -1,0 +1,49 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.export.PopulationDataExcelView"
+        label="Population Data Excel View"
+        description="Excel view for importing/exporting population data">
+        <attributes>
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <virtual
+            concrete="yearOfData"
+            type="dss.vector.solutions.general.PopulationData" />
+          <virtual
+            concrete="population"
+            type="dss.vector.solutions.general.PopulationData" />
+          <virtual
+            concrete="growthRate"
+            type="dss.vector.solutions.general.PopulationData" />
+        </attributes>
+      </mdView>
+    </create>
+    <permissions>
+      <role roleName="mdss.GUIVisibility, mdss.coordinator, mdss.operationalManager">
+        <grant>
+          <mdViewPermission type="dss.vector.solutions.export.PopulationDataExcelView">
+            <operation name="CREATE"/>
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+            <operation name="WRITE"/>
+            <operation name="WRITE_ALL_ATTRIBUTES"/>
+            <operation name="DELETE"/>
+          </mdViewPermission>
+        </grant>
+      </role>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.PopulationDataExcelView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+    </delete>
+  </undoIt>
+</version>
