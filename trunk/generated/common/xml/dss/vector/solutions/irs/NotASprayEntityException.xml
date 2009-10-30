@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
+  name="dss.vector.solutions.irs.NotASprayEntityException">
+  <!--
+    - {entityLabel} entityLabel
+    - {id} id
+    -->
+  <locale language="en">The Geo Entity [{entityLabel}] does not allow spray targets to be set against it.</locale>
+</exception>
