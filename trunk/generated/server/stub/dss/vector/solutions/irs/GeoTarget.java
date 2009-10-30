@@ -123,31 +123,28 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
     String geoTarget = MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName();
 
     valueQuery.SELECT(valueQuery.aSQLInteger("summed_value", "summed_value"));
-
     String sql = "(WITH RECURSIVE \n";
     sql += " recursive_rollup AS ( \n";
     sql += " SELECT child_id, parent_id ,\n";
-    sql += " COALESCE((\n";
     // this is the table with the sumable value
-    sql += " SELECT " + attribute + " FROM geotarget \n";
+    sql += " (SELECT " + attribute + " FROM geotarget \n";
     sql += "    WHERE geotarget.season = '" + malariaSeasonId + "'\n";
     sql += "    AND geotarget.geoentity = locatedin.child_id\n";
-    sql += "  ),0)as sumvalue\n";
+    sql += "  ) as sumvalue\n";
     sql += "  FROM locatedin\n";
     // the root geoentity
     sql += " WHERE parent_id = '" + geoid + "'\n";
     //this is the recursive case
     sql += " UNION\n";
     sql += " SELECT b.child_id, b.parent_id, \n";
-    sql += " COALESCE((\n";
-    sql += " SELECT " + attribute + " FROM geotarget \n";
+    sql += " (SELECT " + attribute + " FROM geotarget \n";
     sql += "    WHERE geotarget.season = '" + malariaSeasonId + "'\n";
     sql += "    AND geotarget.geoentity = b.child_id\n";
-    sql += " ),0)\n";
+    sql += "  ) as sumvalue\n";
     sql += " FROM recursive_rollup a, locatedin b \n";
     sql += " WHERE a.child_id = b.parent_id\n";
     // --this will stop the recursion as soon as sumvalue is not null\n";
-    sql += " AND a.sumvalue = 0\n";
+    sql += " AND a.sumvalue IS NULL\n";
     sql += " )\n";
     sql += " select sum(sumvalue) as summed_value from recursive_rollup \n";
     sql += " )\n";
