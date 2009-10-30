@@ -313,7 +313,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
     }
     else
     {
-      for (int i = 0; i < 52; i++)
+      for (int i = 0; i < 53; i++)
       {
         attributes.add(OUTBREAK + i);
         attributes.add(IDENTIFICATION + i);
@@ -335,7 +335,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
   {
     return ThresholdData.getThresholds(entity, date);
   }
-  
+
   @Transaction
   @Authenticate
   public static void setThresholdConfiguration(String universal, String calulationMethod)
@@ -351,4 +351,44 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
     isEpiProperty.apply();
   }
 
+  @Override
+  public Integer[] getCalculatedThresholds()
+  {
+    List<Integer> list = new LinkedList<Integer>();
+
+    EpiDate[] weeks = this.getSeason().getEpiWeeks();
+    GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoEntity());
+
+    int startWeek = weeks[0].getPeriod();
+
+    int i = 0;
+
+    while (i < startWeek)
+    {
+      list.add(null);
+      list.add(null);
+      i++;
+    }
+
+    for (EpiDate week : weeks)
+    {
+      EpiWeek epiWeek = EpiWeek.getEpiWeek(week);
+
+      Integer notification = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.NOTIFICATION);
+      Integer identificaiton = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.IDENTIFICATION);
+
+      list.add(notification);
+      list.add(identificaiton);
+      i++;
+    }
+
+    while (i < 53)
+    {
+      list.add(null);
+      list.add(null);
+      i++;
+    }
+
+    return list.toArray(new Integer[list.size()]);
+  }
 }
