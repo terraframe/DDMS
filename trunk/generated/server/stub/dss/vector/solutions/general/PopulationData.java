@@ -15,6 +15,7 @@ import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.RangeValueProblem;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class PopulationData extends PopulationDataBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -197,6 +198,13 @@ public class PopulationData extends PopulationDataBase implements com.terraframe
     int min = calendar.getActualMinimum(Calendar.YEAR);
 
     return ! ( year < min || year > max );
+  }
+  
+  public static GeoHierarchyQuery getValidGeoHierarchies()
+  {
+    GeoHierarchyQuery query = new GeoHierarchyQuery(new QueryFactory());
+    query.WHERE(query.getPopulationAllowed().EQ(true));
+    return query;
   }
   
 	@Transaction
