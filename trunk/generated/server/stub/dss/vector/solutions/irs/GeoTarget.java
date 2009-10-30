@@ -1,9 +1,10 @@
 package dss.vector.solutions.irs;
 
+import java.util.List;
+
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
@@ -19,11 +20,11 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
   {
     super();
   }
-  
+
   @Override
   protected String buildKey()
   {
-    if(this.getGeoEntity() != null && this.getSeason() != null)
+    if (this.getGeoEntity() != null && this.getSeason() != null)
     {
       return this.getGeoEntity().getGeoId() + "." + this.getSeason().getKey();
     }
@@ -31,11 +32,11 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
   }
 
   public GeoTargetView getView()
-  {    
+  {
     GeoTargetView view = new GeoTargetView();
-    
+
     view.populateView(this);
-    
+
     return view;
   }
 
@@ -93,7 +94,7 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
         view.setGeoEntity(ge);
         view.setEntityName(ge);
         view.setSeason(season);
-        
+
         return view;
       }
     }
@@ -102,56 +103,87 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
       it.close();
     }
   }
-  
- 
-  
-  public static Integer[] getCalculatedTargets(String geoid, String malariaSeasonId)
+
+  /**
+   * @param entity
+   *          GeoEntity
+   * @param date
+   *          Date
+   * 
+   * @return A calulated value for outbreak
+   */
+  public static Integer getCalculatedValue(String geoid, String malariaSeasonId, String attribute)
   {
+
     QueryFactory queryFactory = new QueryFactory();
     ValueQuery valueQuery = new ValueQuery(queryFactory);
-    SelectableSQLInteger[] selectables = new SelectableSQLInteger[53];
-    String sql = "(SELECT " ;
-    
-    for(int i=0; i<selectables.length; i++)
-    {
-      selectables[i] = valueQuery.aSQLInteger("target_" + i,"t" + i, "target_" + i);
-      sql += "SUM(target_" + i + ") AS t" + i + ", ";
-    }
-    
-    valueQuery.SELECT(selectables);
-    
-    String allPaths =  MdBusiness.getMdBusiness(AllPaths.CLASS).getTableName();
-    String geoTarget = MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName();
-    
-    sql = sql.substring(0, sql.length()-2);
-    sql += " FROM " + geoTarget + " AS gt, " + allPaths + " AS ap";
-    sql += " WHERE season = '" + malariaSeasonId + "'";
-    sql += " AND gt.geoentity != '" + geoid + "'";
-    sql += " AND ap.parentgeoentity = '" + geoid + "'";
-    sql += " AND gt.geoentity = ap.childgeoentity)";
+    Integer sum = 0;
 
-    valueQuery.FROM(sql, "caluations");
-    
-   
+    String allPaths = MdBusiness.getMdBusiness(AllPaths.CLASS).getTableName();
+    String geoTarget = MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName();
+
+    valueQuery.SELECT(valueQuery.aSQLInteger("summed_value", "summed_value"));
+
+    String sql = "(WITH RECURSIVE \n";
+    sql += " recursive_rollup AS ( \n";
+    sql += " SELECT child_id, parent_id ,\n";
+    sql += " COALESCE((\n";
+    // this is the table with the sumable value
+    sql += " SELECT " + attribute + " FROM geotarget \n";
+    sql += "    WHERE geotarget.season = '" + malariaSeasonId + "'\n";
+    sql += "    AND geotarget.geoentity = locatedin.child_id\n";
+    sql += "  ),0)as sumvalue\n";
+    sql += "  FROM locatedin\n";
+    // the root geoentity
+    sql += " WHERE parent_id = '" + geoid + "'\n";
+    //this is the recursive case
+    sql += " UNION\n";
+    sql += " SELECT b.child_id, b.parent_id, \n";
+    sql += " COALESCE((\n";
+    sql += " SELECT " + attribute + " FROM geotarget \n";
+    sql += "    WHERE geotarget.season = '" + malariaSeasonId + "'\n";
+    sql += "    AND geotarget.geoentity = b.child_id\n";
+    sql += " ),0)\n";
+    sql += " FROM recursive_rollup a, locatedin b \n";
+    sql += " WHERE a.child_id = b.parent_id\n";
+    // --this will stop the recursion as soon as sumvalue is not null\n";
+    sql += " AND a.sumvalue = 0\n";
+    sql += " )\n";
+    sql += " select sum(sumvalue) as summed_value from recursive_rollup \n";
+    sql += " )\n";
+    valueQuery.FROM(sql, "rr");
+
     System.out.println(valueQuery.getSQL());
-    
-    
-    Integer[] results = new Integer[53];
-    
-    
-    
-    for(int i=0; i<results.length; i++)
-    { 
-      for (ValueObject v : valueQuery.getIterator())
+
+    List<ValueObject> valueObjectList = valueQuery.getIterator().getAll();
+
+    for (ValueObject valueObject : valueObjectList)
+    {
+      String value = valueObject.getValue("summed_value");
+      if (!value.equals(""))
       {
-        String value = v.getValue("target_"+i);
-        if(value != null && value.length()>0)
-        {
-          results[i] = Integer.parseInt(value);
-        }
+        sum += Integer.parseInt(value);
       }
     }
-    return results;
+
+    if (sum == 0)
+    {
+      return null;
+    }
+
+    return sum;
   }
 
+  public static Integer[] getCalculatedTargets(String geoid, String malariaSeasonId)
+  {
+
+    Integer[] results = new Integer[53];
+
+    for (int i = 0; i < 53; i++)
+    {
+      results[i] = getCalculatedValue(geoid, malariaSeasonId, "target_" + i);
+    }
+
+    return results;
+  }
 }
