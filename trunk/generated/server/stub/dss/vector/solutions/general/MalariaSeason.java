@@ -43,18 +43,9 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
     // Create the epi weeks which are defined by this season
     for(EpiDate date : this.getEpiWeeks())
     {
-      Integer period = date.getPeriod();
-      Integer year = date.getYear();
-      
-      EpiWeek week = EpiWeek.getEpiWeek(period, year);
-      
-      if(week == null)
-      {
-        week = new EpiWeek();
-        week.setPeriod(period);
-        week.setYearOfWeek(year);
-        week.apply();
-      }
+      // EpiWeek.getEpiWeek will create an epi week if one does not
+      // alread exist
+      EpiWeek.getEpiWeek(date);      
     }
   }
 

@@ -2,9 +2,12 @@ package dss.vector.solutions.general;
 
 import java.util.Date;
 
+import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+
+import dss.vector.solutions.surveillance.PeriodType;
 
 public class EpiWeek extends EpiWeekBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -15,10 +18,31 @@ public class EpiWeek extends EpiWeekBase implements com.terraframe.mojo.generati
     super();
   }
 
+  @Override
+  public void apply()
+  {
+    validatePeriod();
+    
+    super.apply();
+  }
+  
+  @Override
+  public void validatePeriod()
+  {
+    if(this.getPeriod() != null && this.getPeriod() > 53)
+    {
+      String msg = "Epi Period can never be greater than 53";
+
+      throw new ApplicationException(msg);
+    }
+  }
+
   public static EpiWeek getEpiWeek(Integer period, Integer year)
   {
+    EpiDate week = EpiDate.getInstanceByPeriod(PeriodType.WEEK, period, year);
+    
     EpiWeekQuery query = new EpiWeekQuery(new QueryFactory());
-    query.WHERE(AND.get(query.getPeriod().EQ(period), query.getYearOfWeek().EQ(year)));
+    query.WHERE(AND.get(query.getPeriod().EQ(week.getActualPeriod()), query.getYearOfWeek().EQ(week.getActualYear())));
     OIterator<? extends EpiWeek> it = query.getIterator();
     
     try
@@ -43,13 +67,13 @@ public class EpiWeek extends EpiWeekBase implements com.terraframe.mojo.generati
   
   public static EpiWeek getEpiWeek(EpiDate date)
   {
-    EpiWeek week = EpiWeek.getEpiWeek(date.getPeriod(), date.getEpiYear());
+    EpiWeek week = EpiWeek.getEpiWeek(date.getPeriod(), date.getYear());
     
     if(week == null)
     {
       week = new EpiWeek();
-      week.setPeriod(date.getPeriod());
-      week.setYearOfWeek(date.getEpiYear());
+      week.setPeriod(date.getActualPeriod());
+      week.setYearOfWeek(date.getActualYear());
       week.apply();
     }
     return week;
