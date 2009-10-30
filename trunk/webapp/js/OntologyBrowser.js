@@ -80,6 +80,10 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       this._customHandler = null;
       
       this._searchPanel = null;
+      
+      // List of Term ids that represent the current displayed terms
+      // that are in actuality possible parents of other terms.
+      this._currentParents = [];
     },
     
     show : function()
@@ -111,8 +115,12 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
      */
     _setContent : function(views)
     {
+      // new content is being added so clear prior parent term ids.
+      this._currentParents = [];
+    
       var nodes = Mojo.Iter.map(views, function(view){
-            
+         
+         this._currentParents.push(view.getTermId());
          return this._createTermEntry(view); 
       }, this);
           
@@ -446,7 +454,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     
     _searchFunction : function(request, value)
     {
-      Mojo.$.dss.vector.solutions.ontology.Term.searchTerms(request, value, "");
+      Mojo.$.dss.vector.solutions.ontology.Term.searchTerms(request, value, this._currentParents);
     },
     
     _attachSearch : function()

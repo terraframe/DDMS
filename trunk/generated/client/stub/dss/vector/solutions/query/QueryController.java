@@ -14,6 +14,7 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.terraframe.mojo.ApplicationException;
@@ -45,8 +46,6 @@ import dss.vector.solutions.intervention.monitor.PersonViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.ontology.TermDTO;
-import dss.vector.solutions.surveillance.AbstractGridDTO;
-import dss.vector.solutions.surveillance.AbstractGridQueryDTO;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
 import dss.vector.solutions.surveillance.AggregatedCaseDTO;
 import dss.vector.solutions.surveillance.CaseDiagnosticDTO;
@@ -54,10 +53,7 @@ import dss.vector.solutions.surveillance.CaseReferralDTO;
 import dss.vector.solutions.surveillance.CaseTreatmentDTO;
 import dss.vector.solutions.surveillance.CaseTreatmentMethodDTO;
 import dss.vector.solutions.surveillance.CaseTreatmentStockDTO;
-import dss.vector.solutions.surveillance.DiagnosticGridDTO;
-import dss.vector.solutions.surveillance.ReferralGridDTO;
-import dss.vector.solutions.surveillance.TreatmentGridDTO;
-import dss.vector.solutions.surveillance.TreatmentMethodGridDTO;
+import dss.vector.solutions.surveillance.ChildCaseViewDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.Halp;
 
@@ -68,12 +64,12 @@ public class QueryController extends QueryControllerBase implements
 
   private static final String QUERY_ENTOMOLOGY       = "/WEB-INF/queryScreens/queryEntomology.jsp";
 
-  private static final String QUERY_RESISTANCE      = "/WEB-INF/queryScreens/queryResistance.jsp";
+  private static final String QUERY_RESISTANCE       = "/WEB-INF/queryScreens/queryResistance.jsp";
 
   private static final String QUERY_IRS              = "/WEB-INF/queryScreens/queryIRS.jsp";
 
   private static final String QUERY_AGGREGATED_CASES = "/WEB-INF/queryScreens/queryAggregatedCases.jsp";
-  
+
   private static final String QUERY_AGGREGATED_IPT   = "/WEB-INF/queryScreens/queryAggregatedIPT.jsp";
 
   private static final String QUERY_SURVEY           = "/WEB-INF/queryScreens/querySurvey.jsp";
@@ -104,17 +100,18 @@ public class QueryController extends QueryControllerBase implements
 
         queries.put(idAndName);
       }
-      
+
       // 24. RDT Result (special case). Use new PersonViewDTO object
       // as a template to get display values.
       JSONObject rdtResult = new JSONObject();
       String display = new PersonViewDTO(this.getClientRequest()).getRDTResultMd().getDisplayLabel();
       rdtResult.put("displayLabel", display);
       rdtResult.put("attributeName", PersonViewDTO.RDTRESULT);
-      
+
       JSONArray items = new JSONArray();
       rdtResult.put("items", items);
-      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
+      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS,
+          HouseholdViewDTO.DISPLAYNETS))
       {
         JSONObject item = new JSONObject();
         item.put("displayLabel", term.getDisplayLabel());
@@ -122,17 +119,18 @@ public class QueryController extends QueryControllerBase implements
 
         items.put(item);
       }
-      
+
       req.setAttribute("rdtResults", rdtResult.toString());
 
       req.setAttribute("queryList", queries.toString());
 
       JSONArray nets = new JSONArray();
-      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
+      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS,
+          HouseholdViewDTO.DISPLAYNETS))
       {
         JSONObject net = new JSONObject();
-        net.put("entityAlias", HouseholdNetDTO.CLASS+"_"+term.getId());
-        net.put("key", HouseholdNetDTO.AMOUNT+"_"+term.getId());
+        net.put("entityAlias", HouseholdNetDTO.CLASS + "_" + term.getId());
+        net.put("key", HouseholdNetDTO.AMOUNT + "_" + term.getId());
         net.put("displayLabel", term.getDisplayLabel());
         net.put("attributeName", HouseholdNetDTO.AMOUNT);
         net.put("type", HouseholdNetDTO.CLASS);
@@ -244,7 +242,8 @@ public class QueryController extends QueryControllerBase implements
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
 
       // Available queries
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_AGGREGATED_CASE);
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(),
+          QueryConstants.QUERY_AGGREGATED_CASE);
 
       JSONArray queries = new JSONArray();
       for (SavedSearchViewDTO view : query.getResultSet())
@@ -302,79 +301,56 @@ public class QueryController extends QueryControllerBase implements
       ResourceBundle localized = ResourceBundle.getBundle("MDSS");
       JSONArray ordered = new JSONArray();
 
-      Map<String, JSONObject> orderedMap = new HashMap<String, JSONObject>();
-
       // Referral
       JSONObject referral = new JSONObject();
-      referral.put("type", ReferralGridDTO.CLASS);
+      referral.put("type", TermDTO.CLASS);
       referral.put("label", localized.getObject("Facility_referred"));
       referral.put("relType", CaseReferralDTO.CLASS);
       referral.put("relAttribute", CaseReferralDTO.AMOUNT);
       referral.put("options", new JSONArray());
       ordered.put(referral);
-      orderedMap.put(ReferralGridDTO.CLASS, referral);
+      loadGrid(CaseReferralDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASEREFERRALS, referral, ordered);
 
       // Diagnostic
       JSONObject diagnostic = new JSONObject();
-      diagnostic.put("type", DiagnosticGridDTO.CLASS);
+      diagnostic.put("type", TermDTO.CLASS);
       diagnostic.put("label", localized.getObject("Diagnostic_methods"));
       diagnostic.put("relType", CaseDiagnosticDTO.CLASS);
       diagnostic.put("relAttribute", CaseDiagnosticDTO.AMOUNT);
       diagnostic.put("relAttributeTwo", CaseDiagnosticDTO.AMOUNTPOSITIVE);
       diagnostic.put("options", new JSONArray());
       ordered.put(diagnostic);
-      orderedMap.put(DiagnosticGridDTO.CLASS, diagnostic);
+      loadGrid(CaseDiagnosticDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASEDIAGNOSTIC, diagnostic, ordered);
 
       // TreatmentMethod
       JSONObject treatmentMethod = new JSONObject();
-      treatmentMethod.put("type", TreatmentMethodGridDTO.CLASS);
+      treatmentMethod.put("type", TermDTO.CLASS);
       treatmentMethod.put("label", localized.getObject("Treatment_methods"));
       treatmentMethod.put("relType", CaseTreatmentMethodDTO.CLASS);
       treatmentMethod.put("relAttribute", CaseTreatmentMethodDTO.AMOUNT);
       treatmentMethod.put("options", new JSONArray());
       ordered.put(treatmentMethod);
-      orderedMap.put(TreatmentMethodGridDTO.CLASS, treatmentMethod);
+      loadGrid(CaseTreatmentMethodDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASETREATMENTMETHOD, treatmentMethod, ordered);
 
       // Treatment
       JSONObject treatment = new JSONObject();
-      treatment.put("type", TreatmentGridDTO.CLASS);
+      treatment.put("type", TermDTO.CLASS);
       treatment.put("label", localized.getObject("Treatments"));
       treatment.put("relType", CaseTreatmentDTO.CLASS);
       treatment.put("relAttribute", CaseTreatmentDTO.AMOUNT);
       treatment.put("options", new JSONArray());
       ordered.put(treatment);
-      orderedMap.put(TreatmentGridDTO.CLASS, treatment);
+      loadGrid(CaseTreatmentDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASETREATMENTS, treatment, ordered);
 
       // CaseTreatmentStock
       JSONObject caseTreatmentStock = new JSONObject();
-      caseTreatmentStock.put("type", CaseTreatmentStockDTO.CLASS);
+      caseTreatmentStock.put("type", TermDTO.CLASS);
       caseTreatmentStock.put("label", localized.getObject("Treatment_out_of_Stock"));
       caseTreatmentStock.put("relType", CaseTreatmentStockDTO.CLASS);
       caseTreatmentStock.put("relAttribute", CaseTreatmentStockDTO.OUTOFSTOCK);
       caseTreatmentStock.put("options", new JSONArray());
       ordered.put(caseTreatmentStock);
-      orderedMap.put(CaseTreatmentStockDTO.CLASS, caseTreatmentStock);
-
-      AbstractGridQueryDTO gridQuery = AggregatedCaseDTO.getGridInstances(this.getClientRequest());
-
-      for (AbstractGridDTO grid : gridQuery.getResultSet())
-      {
-        JSONObject option = new JSONObject();
-        option.put("optionName", grid.getOptionName());
-        option.put("displayLabel", grid.getDisplayLabel());
-        option.put("attributeName", AbstractGridDTO.OPTIONNAME);
-        option.put("type", grid.getType());
-
-        if (grid.getType().equals(TreatmentGridDTO.CLASS))
-        {
-          // CaseTreatmentStock (a relationship) gets a copy of all
-          // attributes in Treatment.
-          caseTreatmentStock.getJSONArray("options").put(option);
-        }
-
-        JSONObject gridType = orderedMap.get(grid.getType());
-        gridType.getJSONArray("options").put(option);
-      }
+      loadGrid(CaseTreatmentStockDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASETREATMENTS, caseTreatmentStock, ordered);
 
       req.setAttribute("orderedGrids", ordered.toString());
 
@@ -383,6 +359,32 @@ public class QueryController extends QueryControllerBase implements
     catch (Throwable t)
     {
       throw new ApplicationException(t);
+    }
+  }
+
+  private void loadGrid(String relationshipClass, String className, String attributeName, JSONObject gridMeta, JSONArray ordered)
+  {
+    ordered.put(gridMeta);
+    
+    for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), className, attributeName))
+    {
+      try
+      {
+        JSONObject option = new JSONObject();
+        option.put("optionName", term.getId());
+        option.put("displayLabel", term.getDisplayLabel());
+        // option.put("attributeName", AbstractGridDTO.OPTIONNAME);
+        option.put("attributeName", TermDTO.TERMNAME);
+        // option.put("type", grid.getType());
+        option.put("type", TermDTO.CLASS);
+
+        gridMeta.getJSONArray("options").put(option);
+      }
+      catch (JSONException e)
+      {
+        // Setup problem. Developer error.
+        throw new ApplicationException(e);
+      }
     }
   }
 
@@ -402,7 +404,6 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
-  
   /**
    * Creates the screen to query for Entomology (mosquitos).
    */
@@ -413,7 +414,7 @@ public class QueryController extends QueryControllerBase implements
     {
       // The Earth is the root. FIXME use country's default root
       ClientRequestIF request = this.getClientRequest();
-      
+
       // The Earth is the root. FIXME use country's default root
       EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
@@ -430,27 +431,25 @@ public class QueryController extends QueryControllerBase implements
 
         queries.put(idAndName);
       }
-      
+
       // Load label map for Adult Discriminating Dose Assay
       ClassQueryDTO aIPT = request.getQuery(AggregatedIPTDTO.CLASS);
       String iptMap = Halp.getDropDownMaps(aIPT, request, ", ");
       req.setAttribute("iptMap", iptMap);
 
       req.setAttribute("queryList", queries.toString());
-      
+
       ResourceBundle localized = ResourceBundle.getBundle("MDSS");
       JSONObject ordered = new JSONObject();
 
       Map<String, JSONObject> orderedMap = new HashMap<String, JSONObject>();
 
-
-      //IPTANCVisit[] getIPTANCVisits()
-      //IPTDose[] getIPTDoses()
-      //IPTPatients[] getIPTPatients()
-      //IPTTreatment[] getIPTTreatments()
+      // IPTANCVisit[] getIPTANCVisits()
+      // IPTDose[] getIPTDoses()
+      // IPTPatients[] getIPTPatients()
+      // IPTTreatment[] getIPTTreatments()
       AggregatedIPTViewDTO av = new AggregatedIPTViewDTO(request);
 
-      
       // Patients
       JSONObject patients = new JSONObject();
       patients.put("type", TermDTO.CLASS);
@@ -458,8 +457,8 @@ public class QueryController extends QueryControllerBase implements
       patients.put("relType", IPTPatientsDTO.CLASS);
       patients.put("relAttribute", IPTPatientsDTO.AMOUNT);
       patients.put("options", new JSONArray());
-      ordered.put("patients",patients);
-      //orderedMap.put("patients", patients);
+      ordered.put("patients", patients);
+      // orderedMap.put("patients", patients);
 
       // Doses
       JSONObject doses = new JSONObject();
@@ -468,7 +467,8 @@ public class QueryController extends QueryControllerBase implements
       doses.put("relType", IPTDoseDTO.CLASS);
       doses.put("relAttribute", IPTDoseDTO.AMOUNT);
       doses.put("options", new JSONArray());
-      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYDOSE))
+      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS,
+          AggregatedIPTViewDTO.DISPLAYDOSE))
       {
         JSONObject option = new JSONObject();
         option.put("id", term.getId());
@@ -478,11 +478,11 @@ public class QueryController extends QueryControllerBase implements
         option.put("type", TermDTO.CLASS);
         doses.getJSONArray("options").put(option);
       }
-      
-      ordered.put("doses",doses);
-      //orderedMap.put("doses", doses);
 
-      //Visits
+      ordered.put("doses", doses);
+      // orderedMap.put("doses", doses);
+
+      // Visits
       JSONObject visits = new JSONObject();
       visits.put("type", TermDTO.CLASS);
       visits.put("label", localized.getObject("Treatment_methods"));
@@ -490,7 +490,7 @@ public class QueryController extends QueryControllerBase implements
       visits.put("relAttribute", IPTANCVisitDTO.AMOUNT);
       visits.put("options", new JSONArray());
       ordered.put("visits", visits);
-      //orderedMap.put("visits", visits);
+      // orderedMap.put("visits", visits);
 
       // Treatment
       JSONObject treatment = new JSONObject();
@@ -499,11 +499,10 @@ public class QueryController extends QueryControllerBase implements
       treatment.put("relType", IPTTreatmentDTO.CLASS);
       treatment.put("relAttribute", IPTTreatmentDTO.AMOUNT);
       treatment.put("options", new JSONArray());
-      ordered.put("treatments",treatment);
-      //orderedMap.put("treatments", treatment);
+      ordered.put("treatments", treatment);
+      // orderedMap.put("treatments", treatment);
 
       req.setAttribute("orderedGrids", ordered.toString());
-      
 
       req.getRequestDispatcher(QUERY_AGGREGATED_IPT).forward(req, resp);
 
@@ -513,7 +512,7 @@ public class QueryController extends QueryControllerBase implements
       throw new ApplicationException(t);
     }
   }
-  
+
   /**
    * Creates the screen to query for Entomology (mosquitos).
    */
@@ -640,18 +639,20 @@ public class QueryController extends QueryControllerBase implements
       req.setAttribute("queryList", queries.toString());
 
       // Load label map for spray data
-     // ClassQueryDTO sprayData = request.getQuery(SprayDataDTO.CLASS);
-     // String sprayDataMap = Halp.getDropDownMaps(sprayData, request, ", ");
-     // req.setAttribute("sprayDataMap", sprayDataMap);
+      // ClassQueryDTO sprayData = request.getQuery(SprayDataDTO.CLASS);
+      // String sprayDataMap = Halp.getDropDownMaps(sprayData, request, ", ");
+      // req.setAttribute("sprayDataMap", sprayDataMap);
 
-      //Load label map for InsecticdeBrand
-     // ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandViewDTO.CLASS);
-      //String insecticideMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
+      // Load label map for InsecticdeBrand
+      // ClassQueryDTO insecticideBrand =
+      // request.getQuery(InsecticideBrandViewDTO.CLASS);
+      // String insecticideMap = Halp.getDropDownMaps(insecticideBrand, request,
+      // ", ");
 
-      //InsecticideBrandViewDTO brandView = new InsecticideBrandViewDTO(request);
-      //String insecticideMap = Halp.getDropDownMaps(brandView, request);
-      //req.setAttribute("insecticideBrandMap", insecticideMap);
-
+      // InsecticideBrandViewDTO brandView = new
+      // InsecticideBrandViewDTO(request);
+      // String insecticideMap = Halp.getDropDownMaps(brandView, request);
+      // req.setAttribute("insecticideBrandMap", insecticideMap);
 
       req.getRequestDispatcher(QUERY_IRS).forward(req, resp);
 
@@ -718,7 +719,6 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
-  
   @Override
   public void exportSurveyQueryToCSV(String queryXML, String config, String savedSearchId)
       throws IOException, ServletException
@@ -744,8 +744,8 @@ public class QueryController extends QueryControllerBase implements
   {
     try
     {
-      InputStream stream = SurveyPointDTO.exportQueryToExcel(this.getClientRequest(), queryXML,
-          config, savedSearchId);
+      InputStream stream = SurveyPointDTO.exportQueryToExcel(this.getClientRequest(), queryXML, config,
+          savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -839,8 +839,8 @@ public class QueryController extends QueryControllerBase implements
   {
     try
     {
-      InputStream stream = AdultDiscriminatingDoseAssayDTO.exportQueryToCSV(this.getClientRequest(), queryXML,
-          geoEntityType, savedSearchId);
+      InputStream stream = AdultDiscriminatingDoseAssayDTO.exportQueryToCSV(this.getClientRequest(),
+          queryXML, geoEntityType, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -852,15 +852,14 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
-
   @Override
   public void exportResistanceQueryToExcel(String queryXML, String geoEntityType, String savedSearchId)
       throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AdultDiscriminatingDoseAssayDTO.exportQueryToExcel(this.getClientRequest(), queryXML,
-          geoEntityType, savedSearchId);
+      InputStream stream = AdultDiscriminatingDoseAssayDTO.exportQueryToExcel(this.getClientRequest(),
+          queryXML, geoEntityType, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -871,7 +870,6 @@ public class QueryController extends QueryControllerBase implements
       resp.getWriter().write(t.getLocalizedMessage());
     }
   }
-
 
   @Override
   public void cancelQuery(SavedSearchViewDTO savedQueryView) throws IOException, ServletException

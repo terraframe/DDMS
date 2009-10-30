@@ -57,9 +57,27 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       this._browsers = {};
     },
     
+    /**
+     * Returns the MDSS.QueryBrowser instance based on the AbstractAttribute or key parameters.
+     * Null is returned if no match is found.
+     */
     getBrowser : function(attribute)
     {
       return this._browsers[(Mojo.Util.isString(attribute) ? attribute : attribute.getKey())+'_li'];
+    },
+    
+    /**
+     * Clears all selected Terms on the ontology browser for the given attribute.
+     * This is useful to remove criteria when a selectable for a Term attribute
+     * has been removed from the query.
+     */
+    clearBrowserTerms : function(attribute)
+    {
+      var browser = this.getBrowser(attribute);
+      if(browser)
+      {
+        browser.clearTerms();
+      }
     },
     
     /**
@@ -1574,6 +1592,11 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
       });
       
       this._browser.setSelection(selectedIds);
+    },
+    
+    clearTerms : function()
+    {
+      this._terms = [];
     },
     
     getTerms : function()

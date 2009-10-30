@@ -956,7 +956,7 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
   
           // Diagnostic Method adds two columns
           var second = null;
-          if(attribute.getType() === 'dss.vector.solutions.surveillance.DiagnosticGrid')
+          if(attribute.getRelationshipType() === 'dss.vector.solutions.surveillance.CaseDiagnostic')
           {
             attribute._displayLabel += ' ('+MDSS.Localized.Total_Tests+')';
             YAHOO.util.Event.on(check, 'click', this._gridAttributeHandler, attribute, this);

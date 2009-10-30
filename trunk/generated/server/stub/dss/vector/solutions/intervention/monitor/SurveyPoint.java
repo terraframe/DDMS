@@ -236,6 +236,7 @@ public class SurveyPoint extends SurveyPointBase implements
         String relTable = MdEntity.getMdEntity(PersonRDTResult.CLASS).getTableName();
         String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
         
+        // FIXME use Runway query objects
         String subSelect = "(select tJoin.id AS tId, pJoin.id AS id, tJoin."+Term.TERMNAME+" AS "+PersonView.RDTRESULT+"_displayLabel from"+
         " "+personTable+" AS pJoin LEFT JOIN "+relTable+" AS rJoin ON rJoin."+RelationshipInfo.PARENT_ID+" = pJoin.id"+
         " LEFT JOIN "+termTable+" tJoin on rJoin."+RelationshipInfo.CHILD_ID+" = tJoin.id)";
@@ -338,9 +339,6 @@ public class SurveyPoint extends SurveyPointBase implements
       addPrevalenceColumn("prevalence_"+result.getId(), valueQuery, personQuery, result);
     }
     */
-    
-    String sql = valueQuery.getSQL();
-    System.out.println(sql);
     
     return valueQuery;
   }

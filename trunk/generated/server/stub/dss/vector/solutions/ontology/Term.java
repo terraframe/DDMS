@@ -109,13 +109,11 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     return q;
   }
 
-  public static TermViewQuery searchTerms(String searchValue, String parentTermId)
+  public static TermViewQuery searchTerms(String searchValue, String[] parentTermIds)
   {
     QueryFactory f = new QueryFactory();
 
-    Term parent = Term.get(parentTermId);
-
-    SearchQueryBuilder builder = new SearchQueryBuilder(f, searchValue, parent);
+    SearchQueryBuilder builder = new SearchQueryBuilder(f, searchValue, parentTermIds);
     TermViewQuery q = new TermViewQuery(f, builder);
 
     q.restrictRows(15, 1);
@@ -283,19 +281,23 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
    */
   private static class SearchQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
-    private Term      parent;
+    private String[] parentIds;
 
     private TermQuery termQuery;
+    
+    // AllPaths is used to restrict the query by parent term Ids.
+    private AllPathsQuery pathsQuery;
 
     private String    searchValue;
 
-    protected SearchQueryBuilder(QueryFactory queryFactory, String searchValue, Term parent)
+    protected SearchQueryBuilder(QueryFactory queryFactory, String searchValue, String[] parentIds)
     {
       super(queryFactory);
 
-      this.parent = parent;
+      this.parentIds = parentIds;
       this.searchValue = searchValue;
       this.termQuery = new TermQuery(queryFactory);
+      this.pathsQuery= new AllPathsQuery(queryFactory);
     }
 
     @Override
@@ -316,6 +318,12 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
       String search = this.searchValue + "%";
       query.WHERE(OR.get(termQuery.getTermName().LIKEi(search), termQuery.getTermId().LIKEi(search)));
 
+      if(this.parentIds.length > 0)
+      {
+        query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
+        query.AND(this.pathsQuery.getParentTerm().IN(this.parentIds));
+      }
+      
       query.ORDER_BY_ASC(this.termQuery.getTermName());
     }
   }

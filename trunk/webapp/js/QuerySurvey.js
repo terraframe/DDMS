@@ -579,7 +579,11 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         }
       }
       
-      // child Term criteria for PersonRDTResult relationship with parent Person
+      // IMPORTANT: Person has a PersonRDTResult relationship with Term.
+      // To restrict by Term criteria (term ids selected via the MO browser)
+      // we must first add a TermQuery which will contain the term id criteria.
+      // The joining logic is mixed with a SQLCharacter in SurveyPoint.java. This
+      // TermQuery is only needed if Term criteria is added.
       var queryBrowser = this.getBrowser(this._rdtResultKey);
       var terms = queryBrowser.getTerms();
       if(this._personSelectables[this._rdtResultKey] && terms.length > 0)
@@ -607,7 +611,9 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
     },
     
     /**
-     * Clears (unchecks) all menu items for an attribute.
+     * Clears (unchecks) all menu items for an attribute and
+     * also removes any criteria from a QueryBrowser instance
+     * if one exists.
      */
     _clearAllAttributeItems : function(key)
     {
@@ -619,6 +625,8 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
           items[i].checked = false;
         }
       }
+      
+      this.clearBrowserTerms(key);
     },
     
     _householdBrowserHandler : function(browser, selected)

@@ -34,6 +34,7 @@ import com.terraframe.mojo.session.StartSession;
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.MapUtil;
 import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.SavedSearch;
@@ -484,52 +485,54 @@ public class AggregatedCase extends AggregatedCaseBase implements
     {
       GeneratedEntityQuery generatedQuery = queryMap.get(gridAlias);
       
-      //FIXME MO UPGRADE
-
-//      if (generatedQuery instanceof TreatmentGridQuery)
-//      {
-//        TermQuery treatmentGridQuery = (TermQuery) generatedQuery;
-//        // Alias startse with CaseTreatmentStock_
-//        if (gridAlias.startsWith(caseTreatmentStockRel.getTypeName() + "_"))
-//        {
-//          String caseTreatmentStockAlias = getRelationshipAlias(gridAlias);
-//          CaseTreatmentStockQuery ctsq = (CaseTreatmentStockQuery) queryMap.get(caseTreatmentStockAlias);
-//          valueQuery.AND(aggregatedCaseQuery.treatmentStock(ctsq));
-//          valueQuery.AND(ctsq.hasChild(treatmentGridQuery));
-//        }
-//        else
-//        {
-//          String caseTreatmentAlias = getRelationshipAlias(gridAlias);
-//          CaseTreatmentQuery ctq = (CaseTreatmentQuery) queryMap.get(caseTreatmentAlias);
-//          valueQuery.AND(aggregatedCaseQuery.treatment(ctq));
-//          valueQuery.AND(ctq.hasChild(treatmentGridQuery));
-//        }
-//      }
-//      else if (generatedQuery instanceof ReferralGridQuery)
-//      {
-//        ReferralGridQuery referralGridQuery = (ReferralGridQuery) generatedQuery;
-//        String caseReferralAlias = getRelationshipAlias(gridAlias);
-//        CaseReferralQuery crq = (CaseReferralQuery) queryMap.get(caseReferralAlias);
-//        valueQuery.AND(aggregatedCaseQuery.referral(crq));
-//        valueQuery.AND(crq.hasChild(referralGridQuery));
-//      }
-//      else if (generatedQuery instanceof DiagnosticGridQuery)
-//      {
-//        DiagnosticGridQuery diagnosticGridQuery = (DiagnosticGridQuery) generatedQuery;
-//        String caseDiagnosticAlias = getRelationshipAlias(gridAlias);
-//        CaseDiagnosticQuery cdq = (CaseDiagnosticQuery) queryMap.get(caseDiagnosticAlias);
-//        valueQuery.AND(aggregatedCaseQuery.diagnosticMethod(cdq));
-//        valueQuery.AND(cdq.hasChild(diagnosticGridQuery));
-//      }
-//      else if (generatedQuery instanceof TreatmentMethodGridQuery)
-//      {
-//        TreatmentMethodGridQuery treatmentMethodGridQuery = (TreatmentMethodGridQuery) generatedQuery;
-//        String caseTreatmentMethodAlias = getRelationshipAlias(gridAlias);
-//        CaseTreatmentMethodQuery ctmq = (CaseTreatmentMethodQuery) queryMap
-//            .get(caseTreatmentMethodAlias);
-//        valueQuery.AND(aggregatedCaseQuery.treatmentMethod(ctmq));
-//        valueQuery.AND(ctmq.hasChild(treatmentMethodGridQuery));
-//      }
+      if(true) continue;
+      /*
+      
+      if (generatedQuery instanceof TreatmentGridQuery)
+      {
+        TermQuery treatmentGridQuery = (TermQuery) generatedQuery;
+        // Alias startse with CaseTreatmentStock_
+        if (gridAlias.startsWith(caseTreatmentStockRel.getTypeName() + "_"))
+        {
+          String caseTreatmentStockAlias = getRelationshipAlias(gridAlias);
+          CaseTreatmentStockQuery ctsq = (CaseTreatmentStockQuery) queryMap.get(caseTreatmentStockAlias);
+          valueQuery.AND(aggregatedCaseQuery.treatmentStock(ctsq));
+          valueQuery.AND(ctsq.hasChild(treatmentGridQuery));
+        }
+        else
+        {
+          String caseTreatmentAlias = getRelationshipAlias(gridAlias);
+          CaseTreatmentQuery ctq = (CaseTreatmentQuery) queryMap.get(caseTreatmentAlias);
+          valueQuery.AND(aggregatedCaseQuery.treatment(ctq));
+          valueQuery.AND(ctq.hasChild(treatmentGridQuery));
+        }
+      }
+      else if (generatedQuery instanceof ReferralGridQuery)
+      {
+        ReferralGridQuery referralGridQuery = (ReferralGridQuery) generatedQuery;
+        String caseReferralAlias = getRelationshipAlias(gridAlias);
+        CaseReferralQuery crq = (CaseReferralQuery) queryMap.get(caseReferralAlias);
+        valueQuery.AND(aggregatedCaseQuery.referral(crq));
+        valueQuery.AND(crq.hasChild(referralGridQuery));
+      }
+      else if (generatedQuery instanceof DiagnosticGridQuery)
+      {
+        DiagnosticGridQuery diagnosticGridQuery = (DiagnosticGridQuery) generatedQuery;
+        String caseDiagnosticAlias = getRelationshipAlias(gridAlias);
+        CaseDiagnosticQuery cdq = (CaseDiagnosticQuery) queryMap.get(caseDiagnosticAlias);
+        valueQuery.AND(aggregatedCaseQuery.diagnosticMethod(cdq));
+        valueQuery.AND(cdq.hasChild(diagnosticGridQuery));
+      }
+      else if (generatedQuery instanceof TreatmentMethodGridQuery)
+      {
+        TreatmentMethodGridQuery treatmentMethodGridQuery = (TreatmentMethodGridQuery) generatedQuery;
+        String caseTreatmentMethodAlias = getRelationshipAlias(gridAlias);
+        CaseTreatmentMethodQuery ctmq = (CaseTreatmentMethodQuery) queryMap
+            .get(caseTreatmentMethodAlias);
+        valueQuery.AND(aggregatedCaseQuery.treatmentMethod(ctmq));
+        valueQuery.AND(ctmq.hasChild(treatmentMethodGridQuery));
+      }
+      */
     }
 
     String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
