@@ -88,7 +88,19 @@ map.put("Estimated", new ColumnSetup(true, false));
       data_type: "Mojo.$.<%=PopulationDataViewDTO.CLASS%>",
       saveFunction:"applyAll",
       excelButtons:false,
-      addButton:false
+      addButton:false,
+      after_row_load:function(record){
+        if(record.getCount() < (data.rows.length - 1))
+        {
+        	var str = '<form method = "post"';
+          str += ' id="'+record.getData('GeoEntity')+'">';
+          str += '<input type="hidden" name="geoId" value="'+record.getData('GeoEntity')+'"/>';
+          str += '<input type="hidden" name="yearOfData" value="'+record.getData('YearOfData')+'"/>';
+          str += " <a href=\"#\" onclick=\"document.getElementById('"+record.getData('GeoEntity')+"').submit();\">";
+          str += record.getData('EntityLabel')+'</a></form>';
+          data.myDataTable.updateCell(record, 'EntityLabel', str);
+        }
+      },
     };        
 
     var grid = MojoGrid.createDataTable(data);
