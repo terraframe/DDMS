@@ -491,17 +491,27 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
   {
     Calendar instance = Calendar.getInstance();
     instance.setTime(date);
-    int year = instance.get(Calendar.YEAR);
-
-    Calendar calendar = makeEpiCalendar(year);
+    
+    Calendar calendar = makeEpiCalendar(instance.get(Calendar.YEAR));
     calendar.setTime(date);
 
     // IMPORTANT: The periods in the system are 0 based while the week_of_year
     // is 1 based. Therefore to get the actual period of the system you must
     // subtract 1 from the week of the year.
     int period = calendar.get(Calendar.WEEK_OF_YEAR) - 1;
+    int year = calendar.get(Calendar.YEAR);
 
-    return EpiDate.getInstanceByPeriod(PeriodType.WEEK, period, year);
+    EpiDate epiDate = EpiDate.getInstanceByPeriod(PeriodType.WEEK, period, year);
+    
+    if(epiDate.getEndDate().before(date) && !epiDate.getEndDate().equals(date))
+    {
+      period = EpiDate.getNumberOfEpiWeeks(year);
+      
+      epiDate = EpiDate.getInstanceByPeriod(PeriodType.WEEK, period, year);
+    }
+    
+    
+    return epiDate;
   }
 
 }
