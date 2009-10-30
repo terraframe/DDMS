@@ -36,7 +36,8 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
 
     this.setYearOfData(concrete.getYearOfData());
     
-    if(this.getGrowthRate() != null)
+    if(concrete.getGrowthRate() != null)
+    
     {
       this.setGrowthRate(concrete.getGrowthRate() * 100);    
     }
