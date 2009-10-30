@@ -104,6 +104,38 @@ map.put("Estimated", new ColumnSetup(true, false));
     };        
 
     var grid = MojoGrid.createDataTable(data);
+    
+    <%
+      out.println("var calculatedValues = " + request.getAttribute("calculatedValues") + ";");
+    %>
+
+    var dt = data.myDataTable;
+
+    dt.getRecordSet().getRecords().map( function(row) {
+
+      if(!row.getData('Population'))
+      {
+        var calculated = calculatedValues[row.getData('GeoEntity')];
+
+        if(calculated && calculated != '')
+        {  
+          var value = calculated[0];
+          
+          if(value)
+          {
+            var col = dt.getColumn('Population');
+
+            dt.updateCell(row, col, value);
+  
+            var lastTd = dt.getTdEl( {record : row, column : col});
+            
+            YAHOO.util.Dom.addClass(dt.getTdLinerEl(lastTd), "calculated");
+          }
+        }
+      }
+    });
+     
+
   });
 })();
         

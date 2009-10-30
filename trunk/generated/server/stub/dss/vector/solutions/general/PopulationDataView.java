@@ -35,10 +35,12 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
     }
 
     this.setYearOfData(concrete.getYearOfData());
+    
     if(this.getGrowthRate() != null)
     {
       this.setGrowthRate(concrete.getGrowthRate() * 100);    
     }
+
     this.setEstimated(false);
     
     if(!concrete.getEstimated())
@@ -120,7 +122,8 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
   @Override
   public Long getCalculatedPopulation()
   {
-    return this.getPopulation();
+//    return this.getPopulation();
+    return 1L;
   }
 
   public static PopulationDataView[] getViews(String geoId, Integer yearOfData)

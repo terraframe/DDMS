@@ -93,9 +93,6 @@ String deleteColumn = "";
         return undefined;
     }
 
-    var validateValue = function(oData) {
-    }
-        
     var data = {
       rows:<%=Halp.getDataMap(rows, attributes, view)%>,
       columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,

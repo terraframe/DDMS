@@ -1,12 +1,16 @@
 package dss.vector.solutions.general;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
@@ -67,6 +71,16 @@ public class PopulationDataController extends PopulationDataControllerBase imple
 
       PopulationDataViewDTO[] views = PopulationDataViewDTO.getViews(request, geoId, yearOfData);
 
+      JSONObject calcuatedValues = new JSONObject();
+
+      for(PopulationDataViewDTO view : views)
+      {
+        calcuatedValues.put(view.getGeoEntity(), new JSONArray(Arrays.asList(view.getCalculatedPopulation()))); 
+      }
+      
+      req.setAttribute("calculatedValues", calcuatedValues);
+      
+      
       if (views.length > 0)
       {
         req.setAttribute(ITEM, views[views.length - 1]);
