@@ -4,14 +4,19 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 
+import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.irs.GeoTarget;
 
 public class PopulationDataView extends PopulationDataViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -123,8 +128,63 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
   @Override
   public Long getCalculatedPopulation()
   {
-//    return this.getPopulation();
-    return 1L;
+    QueryFactory queryFactory = new QueryFactory();
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+    Long sum = 0L;
+
+    String allPaths = MdBusiness.getMdBusiness(AllPaths.CLASS).getTableName();
+    String geoTarget = MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName();
+    
+    GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoEntity());
+    
+
+    valueQuery.SELECT(valueQuery.aSQLInteger("summed_value", "summed_value"));
+    String sql = "(WITH RECURSIVE \n";
+    sql += " recursive_rollup AS ( \n";
+    sql += " SELECT child_id, parent_id ,\n";
+    // this is the table with the sumable value
+    sql += " (SELECT population FROM populationdata pd \n";
+    sql += "    WHERE pd.yearofdata  = " + this.getYearOfData() + "\n";
+    sql += "     AND pd.geoentity = li.child_id\n";
+    sql += "  ) as sumvalue\n";
+    sql += "  FROM locatedin li \n";
+    // the root geoentity
+    sql += " WHERE parent_id = '" + entity.getId() + "'\n";
+    //this is the recursive case
+    sql += " UNION\n";
+    sql += " SELECT li.child_id, li.parent_id ,\n";
+    sql += " (SELECT population FROM populationdata pd \n";
+    sql += "    WHERE pd.yearofdata  = " + this.getYearOfData() + "\n";
+    sql += "    AND pd.geoentity = li.child_id\n";
+    sql += "  ) as sumvalue\n";
+    sql += " FROM recursive_rollup rr, locatedin li \n";
+    sql += " WHERE rr.child_id = li.parent_id\n";
+    // --this will stop the recursion as soon as sumvalue is not null\n";
+    sql += "  AND rr.sumvalue is null \n";
+    sql += " )\n";
+    sql += " select sum(sumvalue) as summed_value from recursive_rollup \n";
+    sql += " )\n";
+    valueQuery.FROM(sql, "rr");
+
+    System.out.println(valueQuery.getSQL());
+
+    List<ValueObject> valueObjectList = valueQuery.getIterator().getAll();
+
+    for (ValueObject valueObject : valueObjectList)
+    {
+      String value = valueObject.getValue("summed_value");
+      if (!value.equals(""))
+      {
+        sum += Long.parseLong(value);
+      }
+    }
+
+    if (sum == 0)
+    {
+      return null;
+    }
+
+    return sum;
   }
 
   public static PopulationDataView[] getViews(String geoId, Integer yearOfData)
