@@ -16,7 +16,10 @@
 <%@page import="java.util.LinkedList"%>
 <%@page import="java.util.List"%>
 
-<c:set var="page_title" value="Threshold_Data"  scope="request"/>
+
+<%@page import="org.json.JSONObject"%>
+<%@page import="dss.vector.solutions.irs.GeoTargetViewDTO"%>
+<%@page import="org.json.JSONArray"%><c:set var="page_title" value="Threshold_Data"  scope="request"/>
 
 <mjl:messages>
   <mjl:message />
@@ -106,8 +109,7 @@ String deleteColumn = "";
       after_row_load:function(record){
         if(record.getCount() < (data.rows.length - 1))
         {
-          var str = '<form target="dss.vector.solutions.irs.ThresholdDataController.searchForThresholdData.mojo"';
-          str += ' method = "post"';
+          var str = '<form method = "post"';
           str += ' id="'+record.getData('GeoEntity')+'">';
           str += '<input type="hidden" name="geoId" value="'+record.getData('GeoEntity')+'"/>';
           str += '<input type="hidden" name="season.componentId" value="'+record.getData('Season')+'"/>';
@@ -152,7 +154,68 @@ String deleteColumn = "";
           
     };        
 
+
+    <%
+    JSONObject calcuatedTargets = new JSONObject();
+    for(ThresholdDataViewDTO threshold :rows)
+    {
+      calcuatedTargets.put
+      (
+          threshold.getGeoEntity(),
+          new JSONArray(
+              Arrays.asList(
+                  threshold.getCalculatedThresholds()))); 
+    }
+    out.println("var calculatedTargets = "+calcuatedTargets+";");
+    %>
+
+    
     var grid = MojoGrid.createDataTable(data);
+
+    var dt = data.myDataTable;
+
+    dt.getRecordSet().getRecords().map( function(row) {
+      var calulated = calculatedTargets[row.getData('GeoEntity')];
+      if(calulated && calulated != '')
+      {  
+        for (var i =0; i<53 ;i++)
+        {
+          if(! row.getData('Outbreak_'+i))
+          {
+          	var calc = calulated[i*2];
+            if(calc)
+            {
+              var col = dt.getColumn('Outbreak_'+i);
+              dt.updateCell(row, col, calc );
+  
+              var lastTd = dt.getTdEl( {
+                record : row,
+                column : col
+              });
+              YAHOO.util.Dom.addClass(dt.getTdLinerEl(lastTd), "calculated");
+            }
+          }
+          
+          if(! row.getData('Identification_'+i))
+          {
+            var calc = calulated[i*2+1];
+            if(calc)
+            {
+              var col = dt.getColumn('Identification_'+i);
+              dt.updateCell(row, col, calc );
+  
+              var lastTd = dt.getTdEl( {
+                record : row,
+                column : col
+              });
+              YAHOO.util.Dom.addClass(dt.getTdLinerEl(lastTd), "calculated");
+            }
+          }
+
+        }
+      }
+    });
+    
   });
 })();
         
