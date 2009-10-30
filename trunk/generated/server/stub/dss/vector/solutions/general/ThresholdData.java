@@ -108,8 +108,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
 
     if (list.size() > 0)
     {
-      EpiDate epiDate = EpiDate.getEpiWeek(date);
-      EpiWeek week = EpiWeek.getEpiWeek(epiDate.getPeriod(), epiDate.getEpiYear());
+      EpiWeek week = EpiWeek.getEpiWeek(date);
 
       if (week != null)
       {
