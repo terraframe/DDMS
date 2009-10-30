@@ -455,7 +455,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
         }
         
         //they have entered data so make sure to remove the calcuated style
-        YAHOO.util.Dom.removeClass(dt.getTdLinerEl(editedTd), "calculated");
+        YAHOO.util.Dom.removeClass(this.myDataTable.getTdLinerEl(editedTd), "calculated");
         
         var newData = parseInt(oArgs.newData,10);
         newData = newData || 0;
