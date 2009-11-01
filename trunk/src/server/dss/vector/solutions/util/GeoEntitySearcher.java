@@ -408,7 +408,12 @@ public class GeoEntitySearcher implements Reloadable
 
       geoEntityIdQuery.
       WHERE(
-          OR.get(childGeoEntityQuery.getEntityName().EQ(childGeoEntityName),
+          OR.get(
+          // Check for a name match
+          childGeoEntityQuery.getEntityName().EQ(childGeoEntityName),
+          // OR check for a GeoId Match
+          childGeoEntityQuery.getGeoId().EQ(childGeoEntityName),
+          // Or check for a synonym match
           childGeoEntityQuery.synonyms(geoSynonymQuery)));
 
     }
