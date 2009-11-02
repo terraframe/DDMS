@@ -143,11 +143,11 @@ YAHOO.util.Event.onDOMReady(function(){
       var row = {};
       if(attrib){
         row.attributeName = attrib.attributeName;
-        if(attrib.dtoType === 'AttributeReferenceDTO')
+        if(attrib.dtoType.contains('AttributeReferenceDTO'))
         {
-          row.attributeName += '.displayLabel.currentValue';
+          row.attributeName += '.termName';
         }
-        if(attrib.dtoType === 'AttributeEnumerationDTO')
+        if(attrib.dtoType.contains('AttributeEnumerationDTO'))
         {
           row.attributeName += '.displayLabel.currentValue';
         }
@@ -339,7 +339,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                    },
                                    {
                                      displayLabel:"Unit Application Rate (mg/m²)",
-                                     key:"room_application_rate",
+                                     key:"room_application_rate_mg",
                                      type:"sqldouble",
                                      attributeName:"room_application_rate_mg",
                                    },
@@ -355,6 +355,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                      type:"sqldouble",
                                      attributeName:"room_application_ratio",
                                    },
+                                   /*
                                    {
                                      displayLabel:"Unit Application Rate (g/m²)",
                                      key:"structure_application_rate",
@@ -402,7 +403,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                      key:"household_application_ratio",
                                      type:"sqldouble",
                                      attributeName:"household_application_ratio",
-                                   },
+                                   },*/
 
                                 ];
 

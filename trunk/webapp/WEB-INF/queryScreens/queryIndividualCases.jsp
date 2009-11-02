@@ -99,7 +99,7 @@ YAHOO.util.Event.onDOMReady(function(){
         row.attributeName = attrib.attributeName;
         if(attrib.dtoType.contains('AttributeReferenceDTO'))
         {
-          row.attributeName += '.termName';
+          row.attributeName += '.displayLabel.currentValue';
         }
         if(attrib.dtoType.contains('AttributeEnumerationDTO'))
         {
@@ -144,9 +144,9 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
-    var iptMaps = {<%=(String) request.getAttribute("iptMap")%>};
+    iptMaps = {<%=(String) request.getAttribute("iptMap")%>};
 
-    var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
+    orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
     var aggreatedIPT = new Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT();
 
@@ -155,7 +155,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
 
     
-    var aIPTColumns =   aIPTAttribs.map(mapAttribs, {obj:aggreatedIPT, suffix:'_aipt', dropDownMaps:iptMaps});
+    aIPTColumns =   aIPTAttribs.map(mapAttribs, {obj:aggreatedIPT, suffix:'_aipt', dropDownMaps:iptMaps});
 
     
     //IPTANCVisit[] getIPTANCVisits()
@@ -164,10 +164,10 @@ YAHOO.util.Event.onDOMReady(function(){
     //IPTTreatment[] getIPTTreatments()
 
     
-   var dosesColumns = orderedGrids.doses.options.map(mapMo, orderedGrids.doses);
-   var patientsColumns = orderedGrids.patients.options.map(mapMo, orderedGrids.patients);
-   var treatmentsColumns = orderedGrids.treatments.options.map(mapMo, orderedGrids.treatments);
-   var visitsColumns = orderedGrids.visits.options.map(mapMo, orderedGrids.visits);
+   dosesColumns = orderedGrids.doses.options.map(mapMo, orderedGrids.doses);
+   patientsColumns = orderedGrids.doses.options.map(mapMo, orderedGrids.patients);
+   treatmentsColumns = orderedGrids.doses.options.map(mapMo, orderedGrids.treatments);
+   visitsColumns = orderedGrids.doses.options.map(mapMo, orderedGrids.visits);
     
     var selectableGroups = [
               {title:"Aggreated IPT", values:aIPTColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS},
