@@ -376,7 +376,7 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       this._visibleSelectables[attribute.getKey()] = selectable;
 
       // ADD THEMATIC VARIABLE
-      if(attribute.getDtoType().contains('AttributeIntegerDTO'))
+      if(Mojo.Util.isFunction(attribute.getDtoType()) && attribute.getDtoType().contains('AttributeIntegerDTO'))
       {
         this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
       }
