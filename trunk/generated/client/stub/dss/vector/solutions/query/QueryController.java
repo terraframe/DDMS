@@ -452,6 +452,17 @@ public class QueryController extends QueryControllerBase implements
       patients.put("relType", IPTPatientsDTO.CLASS);
       patients.put("relAttribute", IPTPatientsDTO.AMOUNT);
       patients.put("options", new JSONArray());
+      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS,
+          AggregatedIPTViewDTO.DISPLAYPATIENTS))
+      {
+        JSONObject option = new JSONObject();
+        option.put("id", term.getId());
+        option.put("displayLabel", term.getDisplayLabel());
+        option.put("MOID", term.getTermId());
+        option.put("optionName", term.getTermName());
+        option.put("type", TermDTO.CLASS);
+        patients.getJSONArray("options").put(option);
+      }
       ordered.put("patients", patients);
       // orderedMap.put("patients", patients);
 
@@ -484,6 +495,17 @@ public class QueryController extends QueryControllerBase implements
       visits.put("relType", IPTANCVisitDTO.CLASS);
       visits.put("relAttribute", IPTANCVisitDTO.AMOUNT);
       visits.put("options", new JSONArray());
+      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS,
+          AggregatedIPTViewDTO.DISPLAYVISITS))
+      {
+        JSONObject option = new JSONObject();
+        option.put("id", term.getId());
+        option.put("displayLabel", term.getDisplayLabel());
+        option.put("MOID", term.getTermId());
+        option.put("optionName", term.getTermName());
+        option.put("type", TermDTO.CLASS);
+        visits.getJSONArray("options").put(option);
+      }
       ordered.put("visits", visits);
       // orderedMap.put("visits", visits);
 
@@ -494,6 +516,17 @@ public class QueryController extends QueryControllerBase implements
       treatment.put("relType", IPTTreatmentDTO.CLASS);
       treatment.put("relAttribute", IPTTreatmentDTO.AMOUNT);
       treatment.put("options", new JSONArray());
+      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS,
+          AggregatedIPTViewDTO.DISPLAYTREATMENTS))
+      {
+        JSONObject option = new JSONObject();
+        option.put("id", term.getId());
+        option.put("displayLabel", term.getDisplayLabel());
+        option.put("MOID", term.getTermId());
+        option.put("optionName", term.getTermName());
+        option.put("type", TermDTO.CLASS);
+        treatment.getJSONArray("options").put(option);
+      }
       ordered.put("treatments", treatment);
       // orderedMap.put("treatments", treatment);
 
