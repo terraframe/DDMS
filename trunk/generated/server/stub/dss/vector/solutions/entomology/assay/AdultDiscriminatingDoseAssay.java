@@ -2,6 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.database.Database;
@@ -11,6 +12,7 @@ import com.terraframe.mojo.query.InnerJoin;
 import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableMoment;
 import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.ValueQuery;
@@ -25,6 +27,7 @@ import dss.vector.solutions.entomology.ConcreteMosquitoCollectionQuery;
 import dss.vector.solutions.entomology.ControlMortalityException;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
+import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.query.MapUtil;
 import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.SavedSearch;
@@ -41,7 +44,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   {
     super();
   }
-  
+
   @Override
   public void validateQuantityDead()
   {
@@ -138,7 +141,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
-   *
+   * 
    * @param xml
    * @return
    */
@@ -200,6 +203,24 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
         valueQuery.WHERE((InnerJoin) join);
       }
     }
+    for(Entry<String, GeneratedEntityQuery> e : queryMap.entrySet()) {
+      if (e.getValue() instanceof AllPathsQuery)
+      {
+        String key = e.getKey();
+        AllPathsQuery allPathsQuery = (AllPathsQuery) e.getValue();
+        
+        int index1 = key.indexOf("__");
+        int index2 = key.lastIndexOf("__");
+        String attrib = key.substring(0, index1);
+        String klass = key.substring(index1+2, index2).replace("_", ".");
+        String attrib2 = key.substring(index2+2,key.length());
+        Selectable term  = valueQuery.getSelectable(attrib2);
+        
+        
+        valueQuery.WHERE(new InnerJoinEq("id", term.getDefiningTableName(), term.getDefiningTableAlias(), "childTerm", allPathsQuery.getMdClassIF().getTableName(), allPathsQuery.getTableAlias()));
+      }
+    }
+    
 
     String susceptibleLabel = "Susceptible";
     String resistantLabel = "Resistant";
@@ -252,7 +273,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
   /**
    * Queries for Mosquitos.
-   *
+   * 
    * @param xml
    */
   @Transaction
@@ -288,8 +309,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     if (thematicLayer == null || thematicLayer.getGeoHierarchy() == null)
     {
-      String error = "Cannot create a map for search [" + search.getQueryName()
-          + "] without having selected a thematic layer.";
+      String error = "Cannot create a map for search [" + search.getQueryName() + "] without having selected a thematic layer.";
       NoThematicLayerException ex = new NoThematicLayerException(error);
       throw ex;
     }
@@ -297,8 +317,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     // Update ThematicLayer if the thematic layer type has changed or
     // if one has not yet been defined.
     String thematicLayerType = thematicLayer.getGeoHierarchy().getGeoEntityClass().definesType();
-    if (thematicLayer.getGeometryStyle() == null
-        || !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
+    if (thematicLayer.getGeometryStyle() == null || !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
     {
       thematicLayer.changeLayerType(thematicLayerType);
     }
@@ -312,7 +331,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     return layers;
   }
-
 
   @Transaction
   public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
