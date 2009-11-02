@@ -807,6 +807,7 @@ MDSS.Query.Config = function(configJSON)
 {
   this._config = {
     selectedUniversals : [],
+    terms: {}
 //    thematicLayerType : ''
   };
 
@@ -859,6 +860,25 @@ MDSS.Query.Config.prototype = {
   getProperty : function(key)
   {
     return this._config[key];
+  },
+  
+  addTerms : function(key, termIds)
+  {
+    this.removeTerms(key);
+    for(var i=0; i<termIds.length; i++)
+    {
+      this._config.terms[key][termIds[i]] = '';
+    }
+  },
+  
+  getTermDisplay : function(key, termId)
+  {
+    return this._config.terms[key][termId];
+  },
+  
+  removeTerms : function(key)
+  {
+    this._config.terms[key] = {};
   },
 
   getJSON : function()

@@ -729,7 +729,7 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       for(var i=0; i<visibleAttributes.length; i++)
       {
         var visibleObj = visibleAttributes[i];
-        var attribute = new MDSS.VisibleAttribute(visibleObj);
+        var attribute = new MDSS.BasicAttribute(visibleObj);
         attribute.mainQueryClass = mainQueryClass;
 
         var li = document.createElement('li');

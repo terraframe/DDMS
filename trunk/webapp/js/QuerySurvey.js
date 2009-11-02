@@ -62,9 +62,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       // Criteria for Person.DOB
       this._config.setProperty('dobCriteria', null);
       
-      // Criteria to restrict rdtResults by TermId
-      this._config.setProperty(this._rdtResults.attributeName, []);
-  
       // Key of Person.RDTRESULT attribute for use with prevalence
       this._rdtResultKey = null;
       this._prevalenceSelectables = {};
@@ -179,6 +176,12 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         },
         sqlcharacter : function(entityAlias, attributeName, userAlias)
         {
+          var browser = thisRef.getBrowser(userAlias);
+          if(browser)
+          {
+            thisRef._checkBox(userAlias);
+          }
+          
           thisRef._checkBox(attributeName); // Date selection
         },
         sqldouble: function(entityAlias, attributeName, userAlias){
@@ -259,18 +262,40 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
             }
             else
             {
-              // Handle all other attribute criteria.
-              var item = thisRef._menuItems[userAlias+'-'+value];
-              item.checked = true;         
+              // Check if this criteria is for the MO browser. If so,
+              // set the selected terms on the browser.
+              var attribute;
+              var display;
+              var browser = thisRef.getBrowser(userAlias);
+              if(browser)
+              {
+                browser.addTerm(value);
+                attribute = browser.getAttribute();
+                display = browser.getDisplay(value);
+              }
+              else if(entityAlias === 'dss.vector.solutions.ontology.Term')
+              {
+                // RDTResult uses a TermQuery with the MO criteria
+                var browser = thisRef.getBrowser(thisRef._rdtResultKey);
+                browser.addTerm(value);
+                attribute = browser.getAttribute();
+                display = browser.getDisplay(value);
+              }
+              else
+              {
+                // Handle all other attribute criteria.
+                var item = thisRef._menuItems[userAlias+'-'+value];
+                item.checked = true;         
               
-              // Re-use the onclick object, which contains all information
-              // needed to rebuild the criteria.
-              var obj = item.onclick.obj;
+                // Re-use the onclick object, which contains all information
+                // needed to rebuild the criteria.
+                var obj = item.onclick.obj;
   
-              var attribute = item.onclick.obj.attribute;
-              var display = item.onclick.obj.display;
+                attribute = item.onclick.obj.attribute;
+                display = item.onclick.obj.display;
+              }
               
-              if(entityAlias === thisRef._Person.CLASS)
+              if(entityAlias === thisRef._Person.CLASS || entityAlias === 'dss.vector.solutions.ontology.Term')
               {
                 thisRef._setPersonCriteria(attribute, value, display, true);
               }
@@ -289,9 +314,9 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       }
       
       // check if DOB has been added as criteria
-      var configRaw = view.getConfig();
-      var config = new MDSS.Query.Config(configRaw);
-      var dobCrit = config.getProperty("dobCriteria");
+//      var configRaw = view.getConfig();
+//      var config = new MDSS.Query.Config(configRaw);
+      var dobCrit = this._config.getProperty("dobCriteria");
       if(dobCrit != null)
       {
         if(dobCrit.indexOf('-') != -1)
@@ -593,11 +618,11 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         queryXML.addEntity(termQuery);
         
         var or = new MDSS.QueryXML.Or();
-        Mojo.Iter.forEach(terms, function(term){
+        Mojo.Iter.forEach(terms, function(termId){
         
           var attribute = new MDSS.QueryXML.Attribute(termClass, "id", "term_id", "id");
           var selectable = new MDSS.QueryXML.Selectable(attribute);       
-          var value = term.getTermId();
+          var value = termId;
         
           var basicCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
           or.addCondition(value, basicCondition);
@@ -953,7 +978,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       
       // json config
       this._config.setProperty('dobCriteria', null);
-      this._config.setProperty(this._rdtResults.attributeName, []);
       this._queryPanel.clearWhereCriteria(this._Person.DOB);
     },
   
@@ -2263,7 +2287,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         };
     
         that._menuItems[attribute.getKey()+'-'+bool] = item;
-        items.push(item);  
+        return item; 
       }
 
       var items = [];

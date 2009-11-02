@@ -531,8 +531,6 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
      */
     _removeGridAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
     {
-      var relAlias = attribute.getRelationshipAlias();
-  
       if(removeSelectable)
       {
         delete this._gridSelectables[attribute.getKey()];
@@ -548,6 +546,7 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
         this._queryPanel.removeColumn(column);
   
         delete this._gridEntities[attribute.getBusinessAlias()];
+        delete this._gridEntities[attribute.getRelationshipAlias()];
       }
   
       if(removeThematic)
@@ -756,7 +755,7 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
   
       // startAge
       var startAge = this._aggregatedCase.getStartAgeMd().getName();
-      var startAgeAttribute = new MDSS.VisibleAttribute({
+      var startAgeAttribute = new MDSS.BasicAttribute({
         type: this._aggregatedCase.getType(),
         attributeName : startAge,
         displayLabel: this._aggregatedCase.getStartAgeMd().getDisplayLabel(),
@@ -764,7 +763,7 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
   
       // endAge
       var endAge = this._aggregatedCase.getEndAgeMd().getName();
-      var endAgeAttribute = new MDSS.VisibleAttribute({
+      var endAgeAttribute = new MDSS.BasicAttribute({
         type: this._aggregatedCase.getType(),
         displayLabel: this._aggregatedCase.getEndAgeMd().getDisplayLabel(),
         attributeName: endAge
@@ -858,7 +857,7 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
       for(var i=0; i<visibleAttributes.length; i++)
       {
         var visibleObj = visibleAttributes[i];
-        var attribute = new MDSS.VisibleAttribute(visibleObj);
+        var attribute = new MDSS.BasicAttribute(visibleObj);
   
         var li = document.createElement('li');
   
@@ -1089,26 +1088,6 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
     {
       // render the panel
       this._queryPanel.render();
-    }
-    
-  }
-});
-
-
-Mojo.Meta.newClass('MDSS.VisibleAttribute', {
-
-  Extends: MDSS.AbstractAttribute,
-  
-  Instance : {
-    
-    initialize : function(obj)
-    {
-      this.$initialize(obj);
-    },
-    
-    isThematic : function()
-    {
-      return true;
     }
     
   }

@@ -14,10 +14,8 @@ import com.terraframe.mojo.business.rbac.Operation;
 import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
-import com.terraframe.mojo.dataaccess.MdRelationshipDAOIF;
 import com.terraframe.mojo.dataaccess.MdViewDAOIF;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
-import com.terraframe.mojo.dataaccess.metadata.MdRelationshipDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
@@ -476,63 +474,45 @@ public class AggregatedCase extends AggregatedCaseBase implements
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
         valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, AggregatedCase.CLASS, AggregatedCase.GEOENTITY);
 
-    MdRelationshipDAOIF caseTreatmentStockRel = MdRelationshipDAO
-        .getMdRelationshipDAO(CaseTreatmentStock.CLASS);
-
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
 
     for (String gridAlias : queryMap.keySet())
     {
       GeneratedEntityQuery generatedQuery = queryMap.get(gridAlias);
       
-      if(true) continue;
-      /*
+      String termAlias = gridAlias+"_Term";
+      TermQuery termQuery = (TermQuery) queryMap.get(termAlias);
       
-      if (generatedQuery instanceof TreatmentGridQuery)
+      if (generatedQuery instanceof CaseTreatmentStockQuery)
       {
-        TermQuery treatmentGridQuery = (TermQuery) generatedQuery;
-        // Alias startse with CaseTreatmentStock_
-        if (gridAlias.startsWith(caseTreatmentStockRel.getTypeName() + "_"))
-        {
-          String caseTreatmentStockAlias = getRelationshipAlias(gridAlias);
-          CaseTreatmentStockQuery ctsq = (CaseTreatmentStockQuery) queryMap.get(caseTreatmentStockAlias);
-          valueQuery.AND(aggregatedCaseQuery.treatmentStock(ctsq));
-          valueQuery.AND(ctsq.hasChild(treatmentGridQuery));
-        }
-        else
-        {
-          String caseTreatmentAlias = getRelationshipAlias(gridAlias);
-          CaseTreatmentQuery ctq = (CaseTreatmentQuery) queryMap.get(caseTreatmentAlias);
-          valueQuery.AND(aggregatedCaseQuery.treatment(ctq));
-          valueQuery.AND(ctq.hasChild(treatmentGridQuery));
-        }
+        CaseTreatmentStockQuery ctsq = (CaseTreatmentStockQuery)generatedQuery;
+        valueQuery.AND(aggregatedCaseQuery.treatmentStock(ctsq));
+        valueQuery.AND(ctsq.hasChild(termQuery));
+      }
+      else if(generatedQuery instanceof CaseTreatmentQuery)
+      {
+        CaseTreatmentQuery ctq = (CaseTreatmentQuery) generatedQuery;
+        valueQuery.AND(aggregatedCaseQuery.treatment(ctq));
+        valueQuery.AND(ctq.hasChild(termQuery));
       }
       else if (generatedQuery instanceof ReferralGridQuery)
       {
-        ReferralGridQuery referralGridQuery = (ReferralGridQuery) generatedQuery;
-        String caseReferralAlias = getRelationshipAlias(gridAlias);
-        CaseReferralQuery crq = (CaseReferralQuery) queryMap.get(caseReferralAlias);
+        CaseReferralQuery crq = (CaseReferralQuery) generatedQuery;
         valueQuery.AND(aggregatedCaseQuery.referral(crq));
-        valueQuery.AND(crq.hasChild(referralGridQuery));
+        valueQuery.AND(crq.hasChild(termQuery));
       }
       else if (generatedQuery instanceof DiagnosticGridQuery)
       {
-        DiagnosticGridQuery diagnosticGridQuery = (DiagnosticGridQuery) generatedQuery;
-        String caseDiagnosticAlias = getRelationshipAlias(gridAlias);
-        CaseDiagnosticQuery cdq = (CaseDiagnosticQuery) queryMap.get(caseDiagnosticAlias);
+        CaseDiagnosticQuery cdq = (CaseDiagnosticQuery) generatedQuery;
         valueQuery.AND(aggregatedCaseQuery.diagnosticMethod(cdq));
-        valueQuery.AND(cdq.hasChild(diagnosticGridQuery));
+        valueQuery.AND(cdq.hasChild(termQuery));
       }
       else if (generatedQuery instanceof TreatmentMethodGridQuery)
       {
-        TreatmentMethodGridQuery treatmentMethodGridQuery = (TreatmentMethodGridQuery) generatedQuery;
-        String caseTreatmentMethodAlias = getRelationshipAlias(gridAlias);
-        CaseTreatmentMethodQuery ctmq = (CaseTreatmentMethodQuery) queryMap
-            .get(caseTreatmentMethodAlias);
+        CaseTreatmentMethodQuery ctmq = (CaseTreatmentMethodQuery) generatedQuery;
         valueQuery.AND(aggregatedCaseQuery.treatmentMethod(ctmq));
-        valueQuery.AND(ctmq.hasChild(treatmentMethodGridQuery));
+        valueQuery.AND(ctmq.hasChild(termQuery));
       }
-      */
     }
 
     String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();

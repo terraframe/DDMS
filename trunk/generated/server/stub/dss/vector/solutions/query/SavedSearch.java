@@ -1,19 +1,29 @@
 package dss.vector.solutions.query;
 
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.terraframe.mojo.business.rbac.UserDAOIF;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
+import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.vault.VaultFileDAO;
 import com.terraframe.mojo.vault.VaultFileDAOIF;
 
 import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.report.UndefinedTemplateException;
 
 public class SavedSearch extends SavedSearchBase implements
@@ -209,7 +219,73 @@ public class SavedSearch extends SavedSearchBase implements
     
     if(includeConfig)
     {
-      view.setConfig(this.getConfig());
+      JSONObject config;
+      
+      try
+      {
+        // Dereference all MO Terms in the configuration
+        config = new JSONObject(this.getConfig());
+        JSONObject terms = config.getJSONObject("_config").getJSONObject("terms");
+        
+        Map<String, List<JSONObject>> termIds = new HashMap<String, List<JSONObject>>();
+        List<String> ids = new LinkedList<String>();
+        
+        Iterator<?> termKeys = terms.keys();
+        while(termKeys.hasNext())
+        {
+          String termKey = (String) termKeys.next();
+          
+          JSONObject termIdsObj = terms.getJSONObject(termKey);
+          
+          Iterator<?> idKeys = termIdsObj.keys();
+          while(idKeys.hasNext())
+          {
+            String id = (String) idKeys.next();
+            ids.add(id);
+            
+            if(!termIds.containsKey(id))
+            {
+              termIds.put(id, new LinkedList<JSONObject>());
+            }
+            
+//            JSONObject termIdDisplay = termIdsObj.getJSONObject(id);
+            termIds.get(id).add(termIdsObj);
+          }
+        }
+        
+        QueryFactory f = new QueryFactory();
+        TermQuery t = new TermQuery(f);
+        ValueQuery v = new ValueQuery(f);
+        
+        v.SELECT(t.getId("tId"), t.getTermName("termName"), t.getTermId("termId"));
+        v.WHERE(t.getId("tId").IN(ids.toArray(new String[ids.size()])));
+        OIterator<ValueObject> iter = v.getIterator();
+        
+        try
+        {
+          while(iter.hasNext())
+          {
+            ValueObject o = iter.next();
+            String id = o.getValue("tId");
+            String display = o.getValue("termName") + " ("+o.getValue("termId")+")";
+            
+            for(JSONObject termIdDisplay : termIds.get(id))
+            {
+              termIdDisplay.put(id, display);
+            }
+          }
+        }
+        finally
+        {
+          iter.close();
+        }
+      }
+      catch(JSONException e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
+      
+      view.setConfig(config.toString());
     }
 
     return view;

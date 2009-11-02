@@ -98,7 +98,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     		bound = Mojo.emptyFunction;
     	}
     		      
-      var browser = new MDSS.QueryBrowser(bound, attribute, fieldClass, fieldAttribute, multipleSelect);
+      var browser = new MDSS.QueryBrowser(this, bound, attribute, fieldClass, fieldAttribute, multipleSelect);
       this._browsers[elementId] = browser;
     },
     
@@ -583,9 +583,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     _reconstructSearch : function(entities, view)
     {
       // check all selected universals
-      var configRaw = view.getConfig();
-      var config = new MDSS.Query.Config(configRaw);
-      var selectedUniversals = config.getSelectedUniversals();
+//      var configRaw = view.getConfig();
+//      var config = new MDSS.Query.Config(configRaw);
+      var selectedUniversals = this._config.getSelectedUniversals();
       this._selectSearch.setSelectedUniversals(selectedUniversals);
   
       // Load the GeoEntities as WHERE criteria
@@ -664,6 +664,13 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
      */
     _resetToDefault : function()
     {
+      // clear all criteria on any browsers
+      var browsers = Mojo.Util.getValues(this.browsers);
+      for(var i=0; i<browsers.length; i++)
+      {
+        browsers[i].clearTerms();
+      }
+    
       for(var i=0; i<this._defaults.length; i++)
       {
         var obj = this._defaults[i];
@@ -775,6 +782,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         onSuccess: function(savedSearchView){
   
           this.thisRef._resetToDefault();
+          this.thisRef._config = new MDSS.Query.Config(savedSearchView.getConfig()); 
+          
+          
           this.thisRef._queryPanel.clearAllDefinedLayers();
   
           this.thisRef._queryPanel.setCurrentSavedSearch(savedSearchView);
@@ -1567,8 +1577,9 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
 
   Instance : {
   
-    initialize : function(handler, attribute, fieldClass, fieldAttribute, multiSelect)
+    initialize : function(query, handler, attribute, fieldClass, fieldAttribute, multiSelect)
     {
+      this._query = query;
       this._fieldClass = fieldClass;
       this._fieldAttribute = fieldAttribute;
       this._multiSelect = multiSelect || false;
@@ -1576,9 +1587,16 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
       this._handler = handler;
       
       this._browser = new MDSS.OntologyBrowser(this._multiSelect, this._fieldClass, this._fieldAttribute);
-      this._browser.setHandler(this.setTerms, this);
+      this._browser.setHandler(this.setTermsHandler, this);
       
+      // Array of ids used for setting criteria before
+      // the browser is opened (when loading a query).
       this._terms = [];
+    },
+    
+    addTerm : function(termId)
+    {
+      this._terms.push(termId);
     },
     
     getAttribute : function()
@@ -1597,16 +1615,16 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
       {
         this._browser.render();
       }
-      
-      var selectedIds = Mojo.Iter.map(this._terms, function(sel){
-        return sel.getTermId(); 
-      });
-      
-      this._browser.setSelection(selectedIds);
+     
+      this._browser.setSelection(this._terms);
     },
     
     clearTerms : function()
     {
+      // Remove all terms on the Query Config because they
+      // will no longer need to be dereferenced.
+      this._query._config.removeTerms(this._attribute.getKey());
+      
       this._terms = [];
     },
     
@@ -1615,16 +1633,24 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
       return this._terms;
     },
     
+    getDisplay : function(termId)
+    {
+      return this._query._config.getTermDisplay(this._attribute.getKey(), termId);
+    },
+    
     /**
      * Sets the Term criteria on the query instance.
      */
-    setTerms: function(terms)
+    setTermsHandler: function(terms)
     {
-      this._terms = terms;
-      
+      this._terms = Mojo.Iter.map(terms, function(term){
+        return term.getTermId(); 
+      });
+      this._query._config.addTerms(this._attribute.getKey(), this._terms);
+    
       if(this._handler)
       {
-        this._handler(this, this._terms);
+        this._handler(this, terms);
       }
     }
     

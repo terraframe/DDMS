@@ -308,7 +308,6 @@ public class QueryController extends QueryControllerBase implements
       referral.put("relType", CaseReferralDTO.CLASS);
       referral.put("relAttribute", CaseReferralDTO.AMOUNT);
       referral.put("options", new JSONArray());
-      ordered.put(referral);
       loadGrid(CaseReferralDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASEREFERRALS, referral, ordered);
 
       // Diagnostic
@@ -319,7 +318,6 @@ public class QueryController extends QueryControllerBase implements
       diagnostic.put("relAttribute", CaseDiagnosticDTO.AMOUNT);
       diagnostic.put("relAttributeTwo", CaseDiagnosticDTO.AMOUNTPOSITIVE);
       diagnostic.put("options", new JSONArray());
-      ordered.put(diagnostic);
       loadGrid(CaseDiagnosticDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASEDIAGNOSTIC, diagnostic, ordered);
 
       // TreatmentMethod
@@ -329,7 +327,6 @@ public class QueryController extends QueryControllerBase implements
       treatmentMethod.put("relType", CaseTreatmentMethodDTO.CLASS);
       treatmentMethod.put("relAttribute", CaseTreatmentMethodDTO.AMOUNT);
       treatmentMethod.put("options", new JSONArray());
-      ordered.put(treatmentMethod);
       loadGrid(CaseTreatmentMethodDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASETREATMENTMETHOD, treatmentMethod, ordered);
 
       // Treatment
@@ -339,7 +336,6 @@ public class QueryController extends QueryControllerBase implements
       treatment.put("relType", CaseTreatmentDTO.CLASS);
       treatment.put("relAttribute", CaseTreatmentDTO.AMOUNT);
       treatment.put("options", new JSONArray());
-      ordered.put(treatment);
       loadGrid(CaseTreatmentDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASETREATMENTS, treatment, ordered);
 
       // CaseTreatmentStock
@@ -349,8 +345,7 @@ public class QueryController extends QueryControllerBase implements
       caseTreatmentStock.put("relType", CaseTreatmentStockDTO.CLASS);
       caseTreatmentStock.put("relAttribute", CaseTreatmentStockDTO.OUTOFSTOCK);
       caseTreatmentStock.put("options", new JSONArray());
-      ordered.put(caseTreatmentStock);
-      loadGrid(CaseTreatmentStockDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASETREATMENTS, caseTreatmentStock, ordered);
+      loadGrid(CaseTreatmentStockDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASESTOCKS, caseTreatmentStock, ordered);
 
       req.setAttribute("orderedGrids", ordered.toString());
 
@@ -374,7 +369,7 @@ public class QueryController extends QueryControllerBase implements
         option.put("optionName", term.getId());
         option.put("displayLabel", term.getDisplayLabel());
         // option.put("attributeName", AbstractGridDTO.OPTIONNAME);
-        option.put("attributeName", TermDTO.TERMNAME);
+        option.put("attributeName", TermDTO.ID);
         // option.put("type", grid.getType());
         option.put("type", TermDTO.CLASS);
 
