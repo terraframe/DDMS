@@ -86,7 +86,18 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
      */
     _attachBrowser : function(elementId, handler, attribute, fieldClass, fieldAttribute, multipleSelect)
     {
-      var bound = Mojo.Util.bind(this, handler);
+    	
+    	var bound = null;
+    	
+    	if(Mojo.Util.isFunction(handler))
+    	{
+    		bound = Mojo.Util.bind(this, handler);
+    	}
+    	else
+    	{
+    		bound = Mojo.emptyFunction;
+    	}
+    		      
       var browser = new MDSS.QueryBrowser(bound, attribute, fieldClass, fieldAttribute, multipleSelect);
       this._browsers[elementId] = browser;
     },

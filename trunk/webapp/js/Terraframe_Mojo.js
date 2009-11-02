@@ -234,10 +234,18 @@ var Mojo = {
       if(Mojo.IS_FUNCTION_TO_STRING === Object.prototype.toString.call(definition.Extends))
       {
         superClass = definition.Extends;
+        if(!superClass)
+        {
+          throw new Error('The class ['+qualifiedName+'] does not extend a valid class.');
+        }
       }
       else if(Mojo.IS_STRING_TO_STRING === Object.prototype.toString.call(definition.Extends))
       {
         superClass = metaRef._classes[definition.Extends];
+        if(!superClass)
+        {
+          throw new Error('The class ['+qualifiedName+'] does not extend a valid class.');
+        }
       }
       else
       {
@@ -387,7 +395,8 @@ var Mojo = {
   IS_DATE_TO_STRING : Object.prototype.toString.call(new Date()),
   IS_STRING_TO_STRING : Object.prototype.toString.call(''),
   IS_NUMBER_TO_STRING : Object.prototype.toString.call(0),
-  IS_BOOLEAN_TO_STRING : Object.prototype.toString.call(true)
+  IS_BOOLEAN_TO_STRING : Object.prototype.toString.call(true),
+  emptyFunction : function(){}
 };
 
 Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Base', {

@@ -53,6 +53,10 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
   
       // list of all elements and default settings
       this._defaults = [];
+      
+      this._dataQueryFunction = Mojo.$.dss.vector.solutions.query.QueryBuilder.getQueryResults;
+      this._mapQueryFunction  = Mojo.$.dss.vector.solutions.query.QueryBuilder.mapQuery;
+      
     },
   
     getCurrentPage : function()
@@ -82,6 +86,575 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       form.submit();
     },
   
+    /**
+     * Returns the type of query.
+     */
+    _getQueryType: function()
+    {
+      return this._queryType;
+    },
+    
+    /*
+    * Returns the controller action to invoke when exporting the query to XML.
+    */
+	  _getExportXLSAction : function()
+	  {
+	    return 'dss.vector.solutions.query.QueryController.exportResistanceQueryToExcel.mojo';
+	  },
+	
+	  _getExportCSVAction : function()
+	  {
+	    return 'dss.vector.solutions.query.QueryController.exportResistanceQueryToCSV.mojo';
+	  },
+	
+	  _getExportReportAction : function()
+	  {
+	    return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
+	  },
+	
+	   _getReportQueryType : function()
+	   {
+	   return this._queryReportType;
+	   },
+	   
+	   
+	   
+	   
+
+   /**
+    * Final function called before query is executed.
+    * Any last minute cleanup is done here. The this
+    * reference is that of the QueryPanel.
+    */
+	   
+	 
+	   
+   executeQuery : function()
+   {
+
+
+     // execute the query
+     var queryXML = this._constructQuery();
+     var xml = queryXML.getXML();
+
+     var request = new MDSS.Request({
+       thisRef : this,
+       onSuccess : function(query)
+       {
+           this.thisRef.resetQueryResults(query);
+       }
+     });
+
+
+    $('debug_xml').value = xml;
+     xml = $('debug_xml').value;
+     var page = this.getCurrentPage();
+
+       // FIXME json conversion below is temporary
+     this._dataQueryFunction(request,this._mainQueryClass, xml, this._config.getJSON(), '', true, page, this.PAGE_SIZE);
+   },
+
+   /**
+    * Handler called to generate a map with a thematic variable.
+    */
+   mapQuery : function()
+   {
+     var queryXML = this._constructQuery(true);
+     var xml = queryXML.getXML();
+
+     var request = new MDSS.Request({
+       thisRef: this,
+       onSuccess : function(layers){
+         var layersObj = Mojo.Util.getObject(layers);
+         this.thisRef._queryPanel.createMap(layersObj);
+       }
+     });
+
+     var layerIds = this._queryPanel.getSelectedLayers();
+     var savedSearchView = this._queryPanel.getCurrentSavedSearch();
+     var savedSearchId = (savedSearchView != null ? savedSearchView.getSavedQueryId() : "");
+
+       // FIXME json conversion below is temporary
+     this._mapQueryFunction(request,this._mainQueryClass, xml, this._config.getJSON(), layerIds, savedSearchId);
+   },
+
+    
+   /**
+    * Helper method to add Entomology attributes to selectables and as a column.
+    */
+   _addVisibleAttribute : function(attribute)
+   {
+     var attributeName = attribute.getAttributeName();
+
+     if(attribute.mainQueryClass)
+     {
+       //this._mainQueryClass = attribute.mainQueryClass;
+     }
+
+     if(attribute.getType() == 'sqlcharacter'){
+       var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
+       selectable.attribute = attribute;
+       var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+        column.attribute = attribute;
+     }
+     if(attribute.getType() == 'sqlinteger'){
+       var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
+       selectable.attribute = attribute;
+       var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+        column.attribute = attribute;
+     }
+     else
+     {
+       var selectable = attribute.getSelectable();
+       selectable.attribute = attribute;
+       var column = new YAHOO.widget.Column(attribute.getColumnObject());
+        column.attribute = attribute;
+     }
+
+     column = this._queryPanel.insertColumn(column);
+
+     this._visibleSelectables[attribute.getKey()] = selectable;
+
+     // ADD THEMATIC VARIABLE
+    // if(attribute.getDtoType != 'undefined' && attribute.getDtoType().contains('AttributeIntegerDTO'))
+    // {
+      // this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
+     //}
+   },
+
+
+
+   /**
+    * Removes an attribute as a selectable and column.
+    */
+   _removeVisibleAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
+   {
+     var attributeName = attribute.getAttributeName();
+     var key = attribute.getKey();
+
+     if(removeSelectable)
+     {
+       delete this._visibleSelectables[attribute.getKey()];
+     }
+
+     // remove all possible query references
+     delete this._visibleAggregateSelectables[attribute.getKey()];
+
+     if(removeColumn)
+     {
+       var column = this._queryPanel.getColumn(key);
+       this._queryPanel.removeColumn(column);
+     }
+
+    if(removeThematic)
+    {
+       this._queryPanel.removeThematicVariable(attribute.getKey());
+    }
+   },
+
+
+
+   /**
+    * Handler to toggle visible attributes as selectables
+    * to the Entomology query.
+    */
+   _visibleAttributeHandler : function(e, attribute)
+   {
+     var check = e.target;
+     var liTarget = YAHOO.util.Dom.getAncestorByTagName(check, "LI");
+     if(check.checked)
+     {
+       this._uncheckAllNotInGroup(check);
+       this._addVisibleAttribute(attribute);
+       check.nextSibling.disabled = false;
+     }
+     else
+     {
+       this._removeVisibleAttribute(attribute, true, true, true);
+       var select = check.nextSibling;
+       select.selectedIndex = 0;
+       select.disabled = true;
+     }
+   },
+
+   _uncheckAllNotInGroup : function(target)
+   {
+     //find all the exclusion classes the target is not a member of
+     var uncheckClasses = this._exclusionClasses.filter(function(klass){return !YAHOO.util.Dom.hasClass(target, klass);});
+
+     var queryTypeSwitched = uncheckClasses.filter(function(uncheckClass){
+       return this._uncheckAllByClass(uncheckClass).length > 0;
+     },this);
+
+     if(queryTypeSwitched.length > 0)
+     {
+       this._uncheckAllByClass('uncheckMeOnQueryTypeSwitch');
+     }
+   },
+
+   _uncheckAllByClass : function(klass,root)
+   {
+     return YAHOO.util.Dom.getElementsByClassName(klass,'input',root).filter(function(check){
+       if(check.checked)
+       {
+         //do not fire click event on select all checkbox
+         if(YAHOO.util.Dom.hasClass(check, 'selectAllCheck')){
+           check.checked = false;
+         }else{
+           check.click();
+           return true;
+         }
+       }
+       return false;
+     });
+   },
+
+   _toggleCount : function(e, attribute)
+   {
+     var check = e.target;
+
+     attribute.setType(this._mainQueryClass);
+
+     if(check.checked)
+     {
+       var selectable = attribute.getSelectable();
+
+       var count = new MDSS.QueryXML.COUNT(selectable, attribute.getKey());
+       var aggSelectable = new MDSS.QueryXML.Selectable(count);
+       this._countSelectable = aggSelectable;
+
+       this._queryPanel.insertColumn(attribute.getColumnObject());
+
+       // ADD THEMATIC VARIABLE
+       this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
+     }
+     else
+     {
+       var column = this._queryPanel.getColumn(attribute.getKey());
+       this._queryPanel.removeColumn(column);
+
+       this._countSelectable = null;
+
+       this._queryPanel.removeThematicVariable(attribute.getKey());
+     }
+   },
+
+   _toggleRatio : function(e, attribute)
+   {
+     var check = e.target;
+
+     if(check.checked)
+     {
+       //if(attribute.getType() == 'sqlcharacter'){
+         var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel(),attribute._isAggregate));
+         selectable.attribute = attribute;
+         var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+          column.attribute = attribute;
+       //}
+
+       this._ratioSelectable = selectable;
+
+       this._queryPanel.insertColumn(column);
+
+       // ADD THEMATIC VARIABLE
+       this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
+     }
+     else
+     {
+       var column = this._queryPanel.getColumn(attribute.getKey());
+       this._queryPanel.removeColumn(column);
+
+       this._countSelectable = null;
+
+       this._queryPanel.removeThematicVariable(attribute.getKey());
+     }
+   },
+
+   /**
+    * Handler when someone selects an aggregate function
+    * on a visible attribute.
+    */
+   _visibleAggregateHandler : function(e, attribute)
+   {
+     var func = e.target.value;
+
+     var attributeName = attribute.getAttributeName();
+     var key = attribute.getKey();
+     
+     var selectable = attribute.getSelectable();
+     
+     if(attribute.getType() == 'sqlinteger'){
+       var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),false));
+       selectable.attribute = attribute;
+       var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+        column.attribute = attribute;
+     }
+     
+
+     this._queryPanel.updateColumnLabel(key, func);
+
+     // special cases
+     if(func === '')
+     {
+       // Use regular selectable (this is just here for clarity).
+       this._removeVisibleAttribute(attribute, false, true, false);
+       this._visibleSelectables[attribute.getKey()] = selectable;
+
+       return;
+     }
+
+     // aggregate functions
+     var aggFunc = null;
+     var displayLabel = "("+func+") "+ attribute.getDisplayLabel();
+     if(func === MDSS.QueryXML.Functions.SUM)
+     {
+       aggFunc = new MDSS.QueryXML.SUM(selectable, key, displayLabel);
+     }
+     else if(func === MDSS.QueryXML.Functions.MIN)
+     {
+       aggFunc = new MDSS.QueryXML.MIN(selectable, key, displayLabel);
+     }
+     else if(func === MDSS.QueryXML.Functions.MAX)
+     {
+       aggFunc = new MDSS.QueryXML.MAX(selectable, key, displayLabel);
+     }
+     else if(func === MDSS.QueryXML.Functions.AVG)
+     {
+       aggFunc = new MDSS.QueryXML.AVG(selectable, key, displayLabel);
+     }
+
+     this._removeVisibleAttribute(attribute, false, true, false);
+
+     var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
+     this._visibleAggregateSelectables[attribute.getKey()] = aggSelectable;
+   },
+
+
+   _whereValueHandler: function(eventType, event, obj)
+   {
+
+      var attribute = obj.attribute;
+      var value = obj.value;
+      var display = obj.display;
+
+      var item = this._menuItems[attribute.getKey()+'-'+value];
+      item.checked = !item.checked;
+
+      if(item.checked)
+      {
+        this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
+      }
+      else
+      {
+        this._queryPanel.removeWhereCriteria(attribute.getKey(), value);
+      }
+   },
+
+
+   _loadQueryState : function(view)
+   {
+     var thisRef = this;
+
+     var xml = view.getQueryXml();
+     var parser = new MDSS.Query.Parser(xml);
+
+     parser.parseSelectables({
+       attribute : function(entityAlias, attributeName, userAlias){
+           thisRef._checkBox(userAlias);
+       },
+       sum: function(entityAlias, attributeName, userAlias){
+
+         thisRef._checkBox(userAlias);
+         thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.SUM);
+       },
+       min: function(entityAlias, attributeName, userAlias){
+
+         thisRef._checkBox(userAlias);
+         thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MIN);
+       },
+       max: function(entityAlias, attributeName, userAlias){
+
+         thisRef._checkBox(userAlias);
+         thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MAX);
+       },
+       avg: function(entityAlias, attributeName, userAlias){
+
+         thisRef._checkBox(userAlias);
+         thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.AVG);
+       },
+       count: function(entityAlias, attributeName, userAlias){
+
+         thisRef._checkBox(userAlias);
+       },
+       sqlcharacter : function(entityAlias, attributeName, userAlias){
+
+         thisRef._checkBox(attributeName);
+       },
+       sqlinteger: function(entityAlias, attributeName, userAlias){
+         
+         thisRef._checkBox(userAlias);
+       },
+       sqldate : function(entityAlias, attributeName, userAlias){
+
+         thisRef._checkBox(userAlias);
+       }
+     });
+
+     var entities = [];
+
+     parser.parseCriteria({
+       attribute : function(entityAlias, attributeName, userAlias, operator, value){
+
+         // restricting geo entities
+         if(entityAlias === thisRef.ALL_PATHS)
+         {
+           entities.push(value);
+         }else
+         if(userAlias === thisRef._dateAttribute.getUserAlias())
+         {
+           var formatted = MDSS.Calendar.getLocalizedString(value);
+           if(operator === MDSS.QueryXML.Operator.GE)
+           {
+             var start = thisRef._queryPanel.getStartDate();
+             start.value = formatted;
+           }
+           else
+           {
+             var end = thisRef._queryPanel.getEndDate();
+             end.value = formatted;
+           }
+         }
+         else
+         {
+           var item = thisRef._menuItems[userAlias+'-'+value];
+           if(item)
+           {
+             item.checked = true;
+             var attribute = item.onclick.obj.attribute;
+             var display = item.onclick.obj.display;
+             thisRef._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
+           }
+         }
+
+
+       }
+     });
+
+     this._reconstructSearch(entities, view);
+   },
+
+   /**
+    * Resets all defaults, including clearing all criteria and unchecking
+    * all context menu items.
+    */
+   _resetToDefault : function()
+   {
+     MDSS.QueryBase.prototype._resetToDefault.call(this); // super
+
+     // uncheck all menu items
+     var keys = Mojo.Util.getKeys(this._menuItems);
+     for(var i=0; i<keys.length; i++)
+     {
+       var item = this._menuItems[keys[i]];
+       item.checked = false;
+     }
+
+
+   },
+   
+   /**
+    * Attaches an option to select all items in the given list.
+    */
+   _attachSelectAll : function(ul,klass)
+   {
+     var check = document.createElement('input');
+     YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+     YAHOO.util.Dom.addClass(check,'selectAllCheck');
+     YAHOO.util.Dom.addClass(check,klass);
+     YAHOO.util.Event.on(check, 'click', this._toggleSelectAll, ul, this);
+
+     var span = document.createElement('span');
+     span.innerHTML = MDSS.Localized.Select_All;
+
+     var li = document.createElement('li');
+     li.appendChild(check);
+     li.appendChild(span);
+
+     ul.appendChild(li);
+   },
+
+   /**
+    *
+    */
+   _toggleSelectAll : function(e, ul)
+   {
+     var check = e.target;
+     var checks = YAHOO.util.Selector.query('input[type="checkbox"]', ul);
+     var doCheck = check.checked;
+
+     for(var i=0; i<checks.length; i++)
+     {
+       var check = checks[i];
+       if(doCheck !== check.checked)
+       {
+         check.click();
+       }
+     }
+   },
+
+   /**
+    * Handler to toggle the visibility of a list.
+    */
+   _toggleVisibility : function(toggle, element)
+   {
+     YAHOO.util.Event.on(toggle, 'click', function(e, obj){
+       var el = obj.element;
+       var toggle = obj.toggle;
+
+       if(YAHOO.util.Dom.getStyle(el, 'display') === 'block')
+       {
+         YAHOO.util.Dom.setStyle(el, 'display', 'none');
+         toggle.innerHTML = MDSS.Localized.Toggle_Show;
+       }
+       else
+       {
+         YAHOO.util.Dom.setStyle(el, 'display', 'block');
+         toggle.innerHTML = MDSS.Localized.Toggle_Hide;
+       }
+
+     }, {toggle: toggle, element: element}, this);
+
+   },
+
+   /**
+    * Builds the column information (pre-render) for the table
+    * in the the QueryPanel.
+    */
+   _buildColumns : function()
+   {
+   },
+
+   /**
+    * Renders the QueryPanel to query on Entomology.
+    */
+   render : function()
+   {
+     // render the panel
+     this._queryPanel.render();
+
+     // add pre-configured columns
+     for(var i=0; i<this._preconfiguredColumns.length; i++)
+     {
+       var column = this._preconfiguredColumns[i];
+       this._addVisibleAttribute(column);
+     }
+
+   },
+   
+   
+
+   
+   
     _dateGroupHandler : function(e,group)
     {
       var check = e.target;
@@ -346,7 +919,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         this._dateGroupSelectables[range] = selectable;
         this._queryPanel.insertColumn({
           key: range.toLowerCase(),
-          label: MDSS.localize(range),
+          label: MDSS.localize(range)
         });
       }
       else
@@ -357,22 +930,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       }
   
     },
-  
-    _getExportXLSAction : {
-      IsAbstract : true
-    },
-  
-    _getExportCSVAction : {
-      IsAbstract : true
-    },
-  
-    _getExportReportAction : {
-      IsAbstract : true
-    },
-  
-    _getReportQueryType : {
-      IsAbstract : true
-    },
+
   
     _getCountDiv : function(that,divName,klass,useRatio){
   
@@ -438,7 +996,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           key: MDSS.QueryXML.RATIO_FUNCTION,
           displayLabel: 'RATIO',
           attributeName: MDSS.QueryXML.RATIO_FUNCTION,
-          isAggregate:true,
+          isAggregate:true
         });
   
         var ratioCheck = document.createElement('input');
@@ -488,27 +1046,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
   
     },
   
-    /**
-     * Method called to render to set up the QueryPanel
-     * this QueryBase uses.
-     */
-    render : {
-      IsAbstract : true
-    },
   
-    /**
-     * Called when the user tries to execute the query.
-     */
-    executeQuery : {
-      IsAbstract : true
-    },
-  
-    /**
-     * Called when the user tries to map a query.
-     */
-    mapQuery : {
-      IsAbstract : true
-    },
   
     /**
      * Handler for when a new thematic layer type is selected.
@@ -765,11 +1303,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
   
       Mojo.$.dss.vector.solutions.query.SavedSearch.loadSearch(request, savedSearchId);
     },
-  
-    _loadQueryState : {
-      IsAbstract : true
-    },
-  
+
     _fireClickOnOption : function(option)
     {
       // FIXME add IE version of this
@@ -876,14 +1410,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       view.setThematicLayer(this._queryPanel.getCurrentThematicLayer());
       view.setQueryType(queryType);
     },
-  
-    /**
-     * Subclasses must override this to return the controller method
-     * that will be executed to save a search.
-     */
-    _getQueryType : {
-      IsAbstract : true
-    },
+
   
     /**
      * Creates and returns an MDSS.QueryXML.Query object.

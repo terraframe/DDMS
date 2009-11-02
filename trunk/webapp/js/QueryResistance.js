@@ -179,8 +179,8 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
         {
 
           var t =  selectable.attribute.getType();
-          var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'');
-          var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'');
+          var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'').replace(/.termName/,'');
+          var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'').replace(/.termName/,'');
           if(t == 'sqlcharacter')
           {
             n = selectable.attribute.getAttributeName().replace(/_defaultLocale/,'');
@@ -199,7 +199,8 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
 
 
           var items = this._menus[selectable.attribute.getKey()+'_li'];
-
+          
+          // this is for right click menus
           if(items)
           {
           if(selectable.attribute.getDtoType() == 'AttributeEnumerationDTO')
@@ -236,6 +237,42 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
             }
           }
         }
+          //this is for mo terms
+          var queryBrowser = this.getBrowser(selectable.attribute);
+          if(queryBrowser)
+          {
+          	var terms = queryBrowser.getTerms();
+          	
+          	if(terms.length > 0)
+          	{
+          		//create a new where clause for allpaths
+	          	var termClass = 'dss.vector.solutions.ontology.AllPaths';
+	          	var termAlias = n +'__'+ t.replace(/[.]/g,'_') +'__'+ selectable.attribute.getKey();
+	          	var termQuery = new MDSS.QueryXML.Entity(termClass, termAlias);
+	          	queryXML.addEntity(termQuery);
+	          	
+	          	var termParent = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(termAlias, "parentTerm"));
+	          	//var termChild = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(termAlias, "childTerm"));
+	          	
+	          	//join selected term to allpaths child
+	          	//var joinCondition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.EQ, termChild);
+	          	//conditions.push(joinCondition);
+	          	
+	          	//now restrict to attrubtes having the parent id of the restrictor term
+	          	var or = new MDSS.QueryXML.Or();
+	          	Mojo.Iter.forEach(terms, function(term){
+	
+		          	var restrictorID = term.getTermId();
+		          	var restrictCondition = new MDSS.QueryXML.BasicCondition(termParent, MDSS.QueryXML.Operator.EQ, restrictorID);
+		          	or.addCondition(restrictorID, restrictCondition);
+		            
+          	  });
+	            //add the restrictions to the query
+          	  var composite = new MDSS.QueryXML.CompositeCondition(or);
+          	  termQuery.setCondition(composite);
+          	}
+          	
+          }
        }
       }
 
@@ -339,7 +376,7 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       this._visibleSelectables[attribute.getKey()] = selectable;
 
       // ADD THEMATIC VARIABLE
-      if(attribute.getDtoType.contains('AttributeIntegerDTO'))
+      if(attribute.getDtoType().contains('AttributeIntegerDTO'))
       {
         this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
       }
@@ -776,13 +813,34 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
           }
           this._menus[li.id] = items;
         }
-
+        else
+        if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeReferenceDTO'))
+        {
+        	li.id = attribute.getKey()+'_li';
+        	var n =  attribute.getAttributeName().replace(/.termName/,'');
+          this._attachBrowser(li.id, this._genericBrowserHandler, attribute, visibleObj.type, n, true);
+        }
         visibleUl.appendChild(li);
       }
 
       visibleDiv.appendChild(visibleUl);
 
       return visibleDiv;
+    },
+    
+    _genericBrowserHandler : function(browser, selected)
+    {
+      // clear all previous criteria on this attribute
+      var attribute = browser.getAttribute();
+      
+      var key = attribute.getKey();
+      this._queryPanel.clearWhereCriteria(key);      
+
+      Mojo.Iter.forEach(selected, function(sel){
+        //for display
+        var display = MDSS.OntologyBrowser.formatLabel(sel);
+        this._queryPanel.addWhereCriteria(attribute.getKey(), sel.getTermId(), display);
+      }, this); 
     },
 
     /**
