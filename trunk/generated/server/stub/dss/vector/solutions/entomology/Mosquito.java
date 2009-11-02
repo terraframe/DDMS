@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.database.Database;
@@ -15,6 +16,7 @@ import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableMoment;
 import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.ValueQuery;
@@ -27,6 +29,7 @@ import dss.vector.solutions.entomology.assay.AssayTestResultQuery;
 import dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult;
 import dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult;
 import dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult;
+import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.query.MapUtil;
 import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.SavedSearch;
@@ -161,6 +164,24 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       for(Join join: dateAttribute.getJoinStatements())
       {
         valueQuery.WHERE((InnerJoin) join);
+      }
+    }
+    
+    for(Entry<String, GeneratedEntityQuery> e : queryMap.entrySet()) {
+      if (e.getValue() instanceof AllPathsQuery)
+      {
+        String key = e.getKey();
+        AllPathsQuery allPathsQuery = (AllPathsQuery) e.getValue();
+        
+        int index1 = key.indexOf("__");
+        int index2 = key.lastIndexOf("__");
+        String attrib = key.substring(0, index1);
+        String klass = key.substring(index1+2, index2).replace("_", ".");
+        String attrib2 = key.substring(index2+2,key.length());
+        Selectable term  = valueQuery.getSelectable(attrib2);
+        
+        
+        valueQuery.WHERE(new InnerJoinEq("id", term.getDefiningTableName(), term.getDefiningTableAlias(), "childTerm", allPathsQuery.getMdClassIF().getTableName(), allPathsQuery.getTableAlias()));
       }
     }
 

@@ -338,7 +338,8 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       // s += "dtoType:'" + md.getMdAttributeConcrete().getType() + "',";
       s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + "'";
       s += "},\n";
-
+      if (! superAssayClass.equals(MetabolicAssayTestResult.class.getCanonicalName()))
+      {
       try
       {
         String testMdGetter = acc + "Method";
@@ -358,6 +359,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       {
         System.out.print(e);
       }
+    }
 
     }
     return s + "]";
@@ -404,7 +406,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
   public static String getInfectivityAssayViewSQL()
   {
     String select = "SELECT mosquito.id AS mosquito_id,\n";
-    String from = "FROM  " + MdBusiness.getMdBusiness(Mosquito.CLASS).getTableName() + " mosquito, ";
+    String from = "FROM  " + MdBusiness.getMdBusiness(Mosquito.CLASS).getTableName() + " mosquito";
     String where = "";
     MdAttributeVirtual[] mdArray = MosquitoView.getAccessors(InfectivityAssayTestResult.CLASS);
     int i = 0;
@@ -423,41 +425,48 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
 
       String testResultTable = MdBusiness.getMdBusiness(InfectivityAssayTestResult.CLASS).getTableName();
       String testMethodTable = MdBusiness.getMdBusiness(InfectivityMethodology.CLASS).getTableName();
-      String abstractTermTable = MdBusiness.getMdBusiness(AbstractTerm.CLASS).getTableName();
-      String abstractTermDisplayLabelTable = "abstracttermdisplaylabel";
+      String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
+      String atrTable =  MdBusiness.getMdBusiness(AssayTestResult.CLASS).getTableName();
 
       String positveLabel = ( (MdAttributeBoolean) md.getMdAttributeConcrete() ).getPositiveDisplayLabel().getDefaultLocale();
       String negativeLabel = ( (MdAttributeBoolean) md.getMdAttributeConcrete() ).getNegativeDisplayLabel().getDefaultLocale();
 
-      select += "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN 'true'\n";
-      select += "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN 'false'\n";
-      select += "ELSE '' END) AS " + result + ",\n";
+      select += "(SELECT CASE WHEN (arg.testresult = 1) THEN 'true'\n";
+      select += "WHEN (arg.testresult = 0) THEN 'false' ELSE '' END\n";
+      select += "FROM " + mdClass.getTableName()+ " arg\n"; 
+      select += "JOIN " + atrTable + " atr on atr.id = arg.id\n";
+      select += "WHERE atr.mosquito = mosquito.id) AS " + result + ",\n";
 
       select += "(SELECT tr.testmethod  \n";
-      select += "FROM " + testResultTable + "  tr LEFT JOIN " + testMethodTable + " tm on tr.testmethod = tm.id\n";
-      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + method + " ,\n";
+      select += "FROM " + testResultTable + " tr\n" ;
+      select += "JOIN " + mdClass.getTableName()+ " arg on tr.id = arg.id\n";
+      select += "JOIN " + atrTable + " atr on atr.id = arg.id\n";
+      select += "WHERE atr.mosquito = mosquito.id) AS " + method + ",\n";     
 
-      select += "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN '" + positveLabel + "'\n";
-      select += "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN '" + negativeLabel + "'\n";
-      select += "ELSE '' END) AS " + resultLocalized + ",\n";
+      select += "(SELECT CASE WHEN (arg.testresult = 1) THEN '" + positveLabel + "'\n";
+      select += "WHEN (arg.testresult = 0) THEN '" + negativeLabel + "' ELSE '' END\n";
+      select += "FROM " + mdClass.getTableName()+ " arg\n";
+      select += "JOIN " + atrTable + " atr on atr.id = arg.id\n";
+      select += "WHERE atr.mosquito = mosquito.id) AS " + resultLocalized + ",\n";
 
-      select += "(SELECT label.defaultLocale \n";
-      select += "FROM " + testResultTable + "  tr LEFT JOIN " + testMethodTable + " tm on tr.testmethod = tm.id\n";
-      select += "LEFT JOIN " + abstractTermTable + " term ON tm.id = term.id \n";
-      select += "LEFT JOIN " + abstractTermDisplayLabelTable + " label ON term.displayLabel = label.id\n";
-      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + methodLocalized + ",\n";
+      select += "(SELECT term.termName \n";
+      select += "FROM " + testResultTable + " tr\n" ;
+      select += "JOIN " + mdClass.getTableName()+ " arg on tr.id = arg.id\n";
+      select += "JOIN " + atrTable + " atr on atr.id = arg.id\n";
+      select += "JOIN " + termTable + " term on tr.testmethod = term.id\n";
+      select += "WHERE atr.mosquito = mosquito.id) AS " + methodLocalized + ",\n";
 
-      from += mdClass.getTableName() + ",\n";
-      from += MdBusiness.getMdBusiness(AssayTestResult.CLASS).getTableName() + " assaytestresult_" + i + ",\n";
+      //from += mdClass.getTableName() + ",\n";
+      //from += MdBusiness.getMdBusiness(AssayTestResult.CLASS).getTableName() + " assaytestresult_" + i + ",\n";
 
-      where += "AND assaytestresult_" + i + ".mosquito = mosquito.id \n";
-      where += "AND assaytestresult_" + i + ".id = " + mdClass.getTableName() + ".id \n";
+      //where += "AND assaytestresult_" + i + ".mosquito = mosquito.id \n";
+      //where += "AND assaytestresult_" + i + ".id = " + mdClass.getTableName() + ".id \n";
       i++;
     }
 
     select = select.substring(0, select.length() - 2);
-    where = "WHERE " + where.substring(3, where.length() - 2);
-    from = from.substring(0, from.length() - 2);
+    //where = "WHERE " + where.substring(3, where.length() - 2);
+    //from = from.substring(0, from.length() - 2);
 
     return select + "\n" + from + "\n" + where;
   }
@@ -465,7 +474,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
   public static String getTargetSiteAssayViewSQL()
   {
     String select = "SELECT mosquito.id AS mosquito_id,";
-    String from = "FROM  " + MdBusiness.getMdBusiness(Mosquito.CLASS).getTableName() + " mosquito, ";
+    String from = "FROM  " + MdBusiness.getMdBusiness(Mosquito.CLASS).getTableName() + " mosquito";
     String where = "";
     MdAttributeVirtual[] mdArray = MosquitoView.getAccessors(TargetSiteAssayTestResult.CLASS);
     int i = 0;
@@ -486,38 +495,49 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       String abstractTermTable = MdBusiness.getMdBusiness(AbstractTerm.CLASS).getTableName();
       String abstractTermDisplayLabelTable = "abstracttermdisplaylabel";
       String molecularAssayResultTable = MdBusiness.getMdBusiness(MolecularAssayResult.CLASS).getTableName();
+      String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
+      String atrTable =  MdBusiness.getMdBusiness(AssayTestResult.CLASS).getTableName();
+      
+      select += "(SELECT arg.testresult \n";
+      select += "FROM " + targetSiteTestResultTable + " tr\n" ;
+      select += "JOIN " + mdClass.getTableName()+ " arg on tr.id = arg.id\n";
+      select += "JOIN " + atrTable + " atr on atr.id = arg.id\n";
+      select += "WHERE atr.mosquito = mosquito.id) AS " + result + ",\n";
+      
+      
+      select += "(SELECT tr.testmethod \n";
+      select += "FROM " + targetSiteTestResultTable + " tr\n" ;
+      select += "JOIN " + mdClass.getTableName()+ " arg on tr.id = arg.id\n";
+      select += "JOIN " + atrTable + " atr on atr.id = arg.id\n";
+      select += "WHERE atr.mosquito = mosquito.id) AS " + method+ ",\n";
 
-      select += "(SELECT " + mdClass.getTableName() + ".testresult  \n";
-      select += "FROM " + targetSiteTestResultTable + "   tr LEFT JOIN " + molecularAssayResultTable + " mt on " + mdClass.getTableName() + ".testresult = mt.id\n";
-      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + result + " ,\n";
+     
+      select += "(SELECT term.termName \n";
+      select += "FROM " + targetSiteTestResultTable + " tr\n" ;
+      select += "JOIN " + mdClass.getTableName()+ " arg on tr.id = arg.id\n";
+      select += "JOIN " + atrTable + " atr on atr.id = arg.id\n";
+      select += "JOIN " + termTable + " term on arg.testresult = term.id\n";
+      select += "WHERE atr.mosquito = mosquito.id) AS " + resultLocalized + ",\n";
+      
+      
+      select += "(SELECT term.termName \n";
+      select += "FROM " + targetSiteTestResultTable + " tr\n" ;
+      select += "JOIN " + mdClass.getTableName()+ " arg on tr.id = arg.id\n";
+      select += "JOIN " + atrTable + " atr on atr.id = arg.id\n";
+      select += "JOIN " + termTable + " term on tr.testmethod = term.id\n";
+      select += "WHERE atr.mosquito = mosquito.id) AS " + methodLocalized + ",\n";
 
-      select += "(SELECT tr.testmethod  \n";
-      select += "FROM " + targetSiteTestResultTable + "  tr LEFT JOIN " + testMethodTable + " tm on tr.testmethod = tm.id\n";
-      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + method + " ,\n";
+     // from += mdClass.getTableName() + ",\n";
+      //from += "assaytestresult  assaytestresult_" + i + ",\n";
 
-      select += "(SELECT label.defaultLocale \n";
-      select += "FROM " + targetSiteTestResultTable + "   tr LEFT JOIN " + molecularAssayResultTable + " mt on " + mdClass.getTableName() + ".testresult = mt.id\n";
-      select += "LEFT JOIN " + abstractTermTable + " term ON mt.id = term.id \n";
-      select += "LEFT JOIN " + abstractTermDisplayLabelTable + " label ON term.displayLabel = label.id\n";
-      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + resultLocalized + ",\n";
-
-      select += "(SELECT label.defaultLocale \n";
-      select += "FROM " + targetSiteTestResultTable + "  tr LEFT JOIN " + testMethodTable + " tm on tr.testmethod = tm.id\n";
-      select += "LEFT JOIN " + abstractTermTable + " term ON tm.id = term.id \n";
-      select += "LEFT JOIN " + abstractTermDisplayLabelTable + " label ON term.displayLabel = label.id\n";
-      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + methodLocalized + ",\n";
-
-      from += mdClass.getTableName() + ",\n";
-      from += "assaytestresult  assaytestresult_" + i + ",\n";
-
-      where += "AND assaytestresult_" + i + ".mosquito = mosquito.id \n";
-      where += "AND assaytestresult_" + i + ".id = " + mdClass.getTableName() + ".id \n";
+//      where += "AND assaytestresult_" + i + ".mosquito = mosquito.id \n";
+  //    where += "AND assaytestresult_" + i + ".id = " + mdClass.getTableName() + ".id \n";
       i++;
     }
 
     select = select.substring(0, select.length() - 2);
-    where = "WHERE " + where.substring(3, where.length() - 2);
-    from = from.substring(0, from.length() - 2);
+   // where = "WHERE " + where.substring(3, where.length() - 2);
+    //from = from.substring(0, from.length() - 2);
 
     return select + "\n" + from + "\n" + where;
   }
@@ -525,7 +545,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
   public static String getMetabolicAssayViewSQL()
   {
     String select = "SELECT mosquito.id AS mosquito_id,";
-    String from = "FROM  " + MdBusiness.getMdBusiness(Mosquito.CLASS).getTableName() + " mosquito, ";
+    String from = "FROM  " + MdBusiness.getMdBusiness(Mosquito.CLASS).getTableName() + " mosquito ";
     String where = "";
     MdAttributeVirtual[] mdArray = MosquitoView.getAccessors(MetabolicAssayTestResult.CLASS);
     int i = 0;
@@ -539,29 +559,35 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
 
       MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
       MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
+      String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
+      String atrTable =  MdBusiness.getMdBusiness(AssayTestResult.CLASS).getTableName();
 
       String positveLabel = ( (MdAttributeBoolean) md.getMdAttributeConcrete() ).getPositiveDisplayLabel().getDefaultLocale();
       String negativeLabel = ( (MdAttributeBoolean) md.getMdAttributeConcrete() ).getNegativeDisplayLabel().getDefaultLocale();
 
-      select += "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN 'true'\n";
-      select += "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN 'false'\n";
-      select += "ELSE '' END) AS " + result + ",\n";
+      select += "(SELECT CASE WHEN (arg.testresult = 1) THEN 'true'\n";
+      select += "WHEN (arg.testresult = 0) THEN 'false' ELSE '' END\n";
+      select += "FROM " + mdClass.getTableName()+ " arg\n"; 
+      select += "JOIN " + atrTable + " atr on atr.id = arg.id\n";
+      select += "WHERE atr.mosquito = mosquito.id) AS " + result + ",\n";
 
-      select += "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN '" + positveLabel + "'\n";
-      select += "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN '" + negativeLabel + "'\n";
-      select += "ELSE '' END) AS " + resultLocalized + ",\n";
+      select += "(SELECT CASE WHEN (arg.testresult = 1) THEN '" + positveLabel + "'\n";
+      select += "WHEN (arg.testresult = 0) THEN '" + negativeLabel + "' ELSE '' END\n";
+      select += "FROM " + mdClass.getTableName()+ " arg\n";
+      select += "JOIN " + atrTable + " atr on atr.id = arg.id\n";
+      select += "WHERE atr.mosquito = mosquito.id) AS " + resultLocalized + ",\n";
 
-      from += mdClass.getTableName() + ", \n";
-      from += "assaytestresult  assaytestresult_" + i + ",\n";
+      //from += mdClass.getTableName() + ", \n";
+      //from += "assaytestresult  assaytestresult_" + i + ",\n";
 
-      where += "AND assaytestresult_" + i + ".mosquito = mosquito.id \n";
-      where += "AND assaytestresult_" + i + ".id = " + mdClass.getTableName() + ".id \n";
+      //where += "AND assaytestresult_" + i + ".mosquito = mosquito.id \n";
+      //where += "AND assaytestresult_" + i + ".id = " + mdClass.getTableName() + ".id \n";
       i++;
     }
 
     select = select.substring(0, select.length() - 2);
-    where = "WHERE " + where.substring(3, where.length() - 2);
-    from = from.substring(0, from.length() - 2);
+    //where = "WHERE " + where.substring(3, where.length() - 2);
+    //from = from.substring(0, from.length() - 2);
 
     return select + "\n" + from + "\n" + where;
   }
