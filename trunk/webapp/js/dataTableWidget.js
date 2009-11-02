@@ -194,10 +194,16 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 		      if (editor instanceof YAHOO.widget.OntologyTermEditor )		      	
 		      {
 		      	  editor.tableData = this.tableData;
-		          var id = this.record.getData(feild.key).split('^^^^')[1];
-		          var displayLabel = this.record.getData(feild.key).split('^^^^')[0];
-		          this.tableData.rows[this.record.getCount()][feild.key] = id;
-		          this.record.setData(feild.key, displayLabel);
+		      	  var data = this.record.getData(feild.key);
+		      	  if(data){
+			          var id = data.split('^^^^')[1];
+			          var displayLabel = data.split('^^^^')[0];
+			          var r = this.tableData.rows[this.record.getCount()]
+			          if(r){
+			            r[feild.key] = id;
+			            this.record.setData(feild.key, displayLabel);
+			          }
+		      	  }
 		      }
 		      if (editor && editor instanceof YAHOO.widget.DateCellEditor) {
 		        var date = MDSS.Calendar.parseDate(this.record.getData(feild.key));
