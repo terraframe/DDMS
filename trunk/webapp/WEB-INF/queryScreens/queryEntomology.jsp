@@ -103,7 +103,7 @@ YAHOO.util.Event.onDOMReady(function(){
          row.attributeName = attrib.attributeName;
          if(attrib.dtoType.contains('AttributeReferenceDTO'))
          {
-           row.attributeName += '.displayLabel.currentValue';
+        	 row.attributeName += '.termName';
          }
          if(attrib.dtoType.contains('AttributeEnumerationDTO'))
          {
