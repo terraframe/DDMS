@@ -13,6 +13,7 @@ import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class ThresholdData extends ThresholdDataBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -142,6 +143,10 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
    */
   public static Integer getCalculatedValue(GeoEntity entity, EpiWeek week, String attribute)
   {
+    if(entity.getType().equals(Earth.CLASS))
+    {
+      return null;
+    }
 
     QueryFactory queryFactory = new QueryFactory();
     ValueQuery valueQuery = new ValueQuery(queryFactory);
