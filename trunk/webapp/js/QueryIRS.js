@@ -177,8 +177,8 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
         if(selectable.attribute)
         {
           var t =  selectable.attribute.getType();
-          var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'');
-          var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'');
+          var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'').replace(/.termName/,'');
+          var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'').replace(/.termName/,'');
           if(t == 'sqlcharacter')
           {
             n = selectable.attribute.getAttributeName().replace(/_defaultLocale/,'');
@@ -239,6 +239,35 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
             }
           }
         }
+          //this is for mo terms
+          var queryBrowser = this.getBrowser(selectable.attribute);
+          if(queryBrowser)
+          {
+          	var terms = queryBrowser.getTerms();
+          	
+          	if(terms.length > 0)
+          	{
+          		//create a new where clause for allpaths
+	          	var termClass = 'dss.vector.solutions.ontology.AllPaths';
+	          	var termAlias = n +'__'+ t.replace(/[.]/g,'_') +'__'+ selectable.attribute.getKey();
+	          	var termQuery = new MDSS.QueryXML.Entity(termClass, termAlias);
+	          	queryXML.addEntity(termQuery);
+	          	
+	          	var termParent = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(termAlias, "parentTerm"));
+	          	//now restrict to attrubtes having the parent id of the restrictor term
+	          	var or = new MDSS.QueryXML.Or();
+	          	Mojo.Iter.forEach(terms, function(restrictorID){
+	
+		          	var restrictCondition = new MDSS.QueryXML.BasicCondition(termParent, MDSS.QueryXML.Operator.EQ, restrictorID);
+		          	or.addCondition(restrictorID, restrictCondition);
+		            
+          	  });
+	            //add the restrictions to the query
+          	  var composite = new MDSS.QueryXML.CompositeCondition(or);
+          	  termQuery.setCondition(composite);
+          	}
+          	
+          }
        }
       }
 
@@ -590,6 +619,18 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       parser.parseSelectables({
         attribute : function(entityAlias, attributeName, userAlias){
             thisRef._checkBox(userAlias);
+            
+           	var key = userAlias + '_li';
+          	var browser = thisRef._browsers[key];
+	          if(browser){
+	          	var termList = thisRef._config._config.terms[userAlias];
+	            for(var termId in termList){
+	                browser.addTerm(termId);
+	                attribute = browser.getAttribute();
+	                display = browser.getDisplay(termId);
+	                thisRef._queryPanel.addWhereCriteria(attribute.getKey(), termId, display);
+	            }
+          	}
         },
         sum: function(entityAlias, attributeName, userAlias){
 
@@ -799,6 +840,13 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
           }
           this._menus[li.id] = items;
         }
+        else
+          if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeReferenceDTO'))
+          {
+          	li.id = attribute.getKey()+'_li';
+          	var n =  attribute.getAttributeName().replace(/.termName/,'');
+            this._attachBrowser(li.id, this._genericBrowserHandler, attribute, visibleObj.type+'View', n, true);
+          }
 
         visibleUl.appendChild(li);
       }
@@ -806,6 +854,21 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       visibleDiv.appendChild(visibleUl);
 
       return visibleDiv;
+    },
+    
+    _genericBrowserHandler : function(browser, selected)
+    {
+      // clear all previous criteria on this attribute
+      var attribute = browser.getAttribute();
+      
+      var key = attribute.getKey();
+      this._queryPanel.clearWhereCriteria(key);      
+
+      Mojo.Iter.forEach(selected, function(sel){
+        //for display
+        var display = MDSS.OntologyBrowser.formatLabel(sel);
+        this._queryPanel.addWhereCriteria(attribute.getKey(), sel.getTermId(), display);
+      }, this); 
     },
 
     /**
