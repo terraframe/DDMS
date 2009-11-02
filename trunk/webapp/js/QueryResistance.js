@@ -252,17 +252,10 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
 	          	queryXML.addEntity(termQuery);
 	          	
 	          	var termParent = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(termAlias, "parentTerm"));
-	          	//var termChild = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(termAlias, "childTerm"));
-	          	
-	          	//join selected term to allpaths child
-	          	//var joinCondition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.EQ, termChild);
-	          	//conditions.push(joinCondition);
-	          	
 	          	//now restrict to attrubtes having the parent id of the restrictor term
 	          	var or = new MDSS.QueryXML.Or();
-	          	Mojo.Iter.forEach(terms, function(term){
+	          	Mojo.Iter.forEach(terms, function(restrictorID){
 	
-		          	var restrictorID = term.getTermId();
 		          	var restrictCondition = new MDSS.QueryXML.BasicCondition(termParent, MDSS.QueryXML.Operator.EQ, restrictorID);
 		          	or.addCondition(restrictorID, restrictCondition);
 		            
@@ -391,6 +384,7 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
     {
       var attributeName = attribute.getAttributeName();
       var key = attribute.getKey();
+      this.clearBrowserTerms(key); // attribute.getKey()
 
       if(removeSelectable)
       {
@@ -613,6 +607,18 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       parser.parseSelectables({
         attribute : function(entityAlias, attributeName, userAlias){
             thisRef._checkBox(userAlias);
+          	var key = userAlias + '_li';
+          	var browser = thisRef._browsers[key];
+	          if(browser){
+	          	var termList = thisRef._config._config.terms[userAlias];
+	            for(var termId in termList){
+	                browser.addTerm(termId);
+	                attribute = browser.getAttribute();
+	                display = browser.getDisplay(termId);
+	                thisRef._queryPanel.addWhereCriteria(attribute.getKey(), termId, display);
+	            }
+          	}
+            
         },
         sum: function(entityAlias, attributeName, userAlias){
 
