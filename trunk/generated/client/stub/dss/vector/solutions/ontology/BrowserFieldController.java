@@ -37,12 +37,36 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
     {
       com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
 
+      // Map fields to their default terms (if one exists).
       BrowserFieldViewDTO[] results = BrowserFieldDTO.getAsViews(clientRequest);
-      BrowserRootViewQueryDTO rootQuery = BrowserRootDTO.getAsViews(clientRequest);
+      List<String> defaultTermIds = new LinkedList<String>();
+      Map<String, String> defaultTerms = new HashMap<String, String>();
+      for(BrowserFieldViewDTO field : results)
+      {
+        String defaultTerm = field.getValue(BrowserFieldViewDTO.DEFAULTVALUE);
+        if(defaultTerm != null && defaultTerm.length() > 0)
+        {
+          defaultTermIds.add(defaultTerm);
+          defaultTerms.put(field.getBrowserFieldId(), defaultTerm);
+        }
+        else
+        {
+          defaultTerms.put(field.getBrowserFieldId(), "");
+        }
+      }
+      
+      // Create a map of termId => TermViewDTO so BrowserFields can
+      // dereference their default term values.
+      Map<String, TermViewDTO> termMap = new HashMap<String, TermViewDTO>();
+      TermViewQueryDTO defaultQueryQuery = TermDTO.getByIds(clientRequest, defaultTermIds.toArray(new String[defaultTermIds.size()]));
+      for(TermViewDTO term : defaultQueryQuery.getResultSet())
+      {
+        termMap.put(term.getTermId(), term); 
+      }
 
+      BrowserRootViewQueryDTO rootQuery = BrowserRootDTO.getAsViews(clientRequest);
       // Build a map whose values are lists that contain BrowserRootViewDTOs
-      // grouped
-      // by their owning MdAttribute
+      // grouped by their owning MdAttribute.
       Map<String, List<BrowserRootViewDTO>> rootMap = new HashMap<String, List<BrowserRootViewDTO>>();
       for (BrowserRootViewDTO view : rootQuery.getResultSet())
       {
@@ -55,8 +79,11 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
         rootMap.get(attrId).add(view);
       }
 
+      
       req.setAttribute("fields", results);
       req.setAttribute("rootMap", rootMap);
+      req.setAttribute("terms", termMap);
+      req.setAttribute("defaultTerms", defaultTerms);
 
       render("viewAllComponent.jsp");
     }

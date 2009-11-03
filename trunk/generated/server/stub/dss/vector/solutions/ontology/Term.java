@@ -272,7 +272,15 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       // restrict by the term ids (ordering will be done client-side)
-      query.WHERE(termQuery.getId().IN(this.termIds));
+      if(this.termIds != null && this.termIds.length > 0)
+      {
+        query.WHERE(termQuery.getId().IN(this.termIds));
+      }
+      else
+      {
+        // Use empty string to avoid SQL syntax error.
+        query.WHERE(termQuery.getId().IN(""));
+      }
     }
   }
 

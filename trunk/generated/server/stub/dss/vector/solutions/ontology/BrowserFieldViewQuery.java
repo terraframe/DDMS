@@ -3,7 +3,7 @@ package dss.vector.solutions.ontology;
 import com.terraframe.mojo.query.SelectableChar;
 import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.system.metadata.MdAttributeConcreteQuery;
+import com.terraframe.mojo.system.metadata.MdAttributeReferenceQuery;
 import com.terraframe.mojo.system.metadata.MdAttributeVirtualQuery;
 import com.terraframe.mojo.system.metadata.MdClassQuery;
 
@@ -30,7 +30,8 @@ private static final long serialVersionUID = 1252959713156L;
   {
     
 //    private MdAttributeQuery mdAttributeQuery;
-    private MdAttributeConcreteQuery mdConcreteQuery;
+    private MdAttributeReferenceQuery mdRefQuery;
+    private MdAttributeReferenceQuery mdVirtualRefQuery;
     private MdAttributeVirtualQuery mdVirtualQuery;
     
     private MdClassQuery mdClassQuery;
@@ -44,7 +45,8 @@ private static final long serialVersionUID = 1252959713156L;
     {
       super(queryFactory);
       
-      this.mdConcreteQuery = new MdAttributeConcreteQuery(queryFactory);
+      this.mdRefQuery = new MdAttributeReferenceQuery(queryFactory);
+      this.mdVirtualRefQuery = new MdAttributeReferenceQuery(queryFactory);
       this.mdVirtualQuery = new MdAttributeVirtualQuery(queryFactory);
       
       this.mdClassQuery = new MdClassQuery(queryFactory);
@@ -68,9 +70,10 @@ private static final long serialVersionUID = 1252959713156L;
       // join concrete attribute with display labels
       this.concreteQuery.SELECT(this.mdClassQuery.getId("classId"),
           this.mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
-          this.mdConcreteQuery.getId("attributeId"),
-          this.mdConcreteQuery.getDisplayLabel().currentLocale("attributeLabel"),
-          this.mdConcreteQuery.getDefiningMdClass().getId("definingMdClass"));
+          this.mdRefQuery.getId("attributeId"),
+          this.mdRefQuery.getDisplayLabel().currentLocale("attributeLabel"),
+          this.mdRefQuery.getDefaultValue("defaultValue"),
+          this.mdRefQuery.getDefiningMdClass().getId("definingMdClass"));
       
       
       // join virtual attribute with display labels
@@ -78,6 +81,7 @@ private static final long serialVersionUID = 1252959713156L;
           this.mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
           this.mdVirtualQuery.getId("attributeId"),
           this.mdVirtualQuery.getDisplayLabel().currentLocale("attributeLabel"),
+          this.mdVirtualRefQuery.getDefaultValue("defaultValue"),
           this.mdVirtualQuery.getDefiningMdView().getId("definingMdClass"));
       
       
@@ -85,12 +89,13 @@ private static final long serialVersionUID = 1252959713156L;
       this.unioned.UNION(this.concreteQuery, this.virtualQuery);
       
       query.map(BrowserFieldView.BROWSERFIELDID, this.fieldQuery.getId());
-
+      
       query.map(BrowserFieldView.MDCLASSID, this.unioned.aAttribute("classId"));
       query.map(BrowserFieldView.MDCLASSLABEL, this.unioned.aAttribute("classLabel"));
 
       query.map(BrowserFieldView.MDATTRIBUTEID, this.unioned.aAttribute("attributeId"));
       query.map(BrowserFieldView.MDATTRIBUTELABEL, this.unioned.aAttribute("attributeLabel"));
+      query.map(BrowserFieldView.DEFAULTVALUE, this.unioned.aAttribute("defaultValue"));
     }
 
     /**
@@ -99,8 +104,10 @@ private static final long serialVersionUID = 1252959713156L;
     protected void buildWhereClause()
     {
       BrowserFieldViewQuery query = this.getViewQuery();
-      this.concreteQuery.WHERE(this.mdConcreteQuery.getDefiningMdClass().EQ(this.mdClassQuery));
+      this.concreteQuery.WHERE(this.mdRefQuery.getDefiningMdClass().EQ(this.mdClassQuery));
+      
       this.virtualQuery.WHERE(this.mdVirtualQuery.getDefiningMdView().EQ(this.mdClassQuery));
+      this.virtualQuery.AND(this.mdVirtualQuery.getMdAttributeConcrete().EQ(this.mdVirtualRefQuery));
       
       // join the MOField to the MdAttribute
       query.WHERE(this.fieldQuery.getMdAttribute().getId().EQ((SelectableChar) this.unioned.aAttribute("attributeId")));

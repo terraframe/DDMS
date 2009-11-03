@@ -36,9 +36,28 @@ YAHOO.util.Event.onDOMReady(function() {
 <c:forEach items="${fields}" var="field">
 
  <dt>
-    <button value="${field.browserFieldId}" class="addRootBtn"><fmt:message key="Add_Root" /></button>  ${field.mdClassLabel} : ${field.mdAttributeLabel}
+    <button value="${field.browserFieldId}" class="addRootBtn"><fmt:message key="Add_Root" /></button>
+    ${field.mdClassLabel} : ${field.mdAttributeLabel}
  </dt> 
  <dd>
+   <div class="defaultFieldTerm">
+        <fmt:message key="Default_Term" />:
+        <span class="clickable browserLauncher" id="termBtn">
+          <fmt:message key="Browser" />
+        </span>
+        <div class="ontologyDisplay defaultTermBrowser" id="${field.mdAttributeId}_defaultDisplay">
+          <c:choose>
+            <c:when test="${defaultTerms[field.browserFieldId] != ''}">
+              ${terms[defaultTerms[field.browserFieldId]].displayLabel}
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="no_value" />
+            </c:otherwise>
+          </c:choose>
+        </div>
+        <input type="hidden" value="${defaultTerms[field.browserFieldId]}" type="hidden" id="${field.mdAttributeId}_defaultTerm" />
+   </div>
+   
    <table id="${field.browserFieldId}_table" cellpadding="3" cellspacing="0" border="1" class="ontologyFields">
      <tr><th><fmt:message key="Term" /></th><th><fmt:message key="Selectable" /></th><th><fmt:message key="Edit" /></th><th><fmt:message key="Delete" /></th></tr>
      

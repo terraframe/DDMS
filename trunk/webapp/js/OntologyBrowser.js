@@ -30,9 +30,6 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       // temporary cache of TermViews while a search is being performed
       this._searchCache = {};
     
-//      this._ontology = ontology;
-//      this._instance = instance;
-//      this._relationship = relationship;
       this._multipleSelect = multipleSelect || false;
       
       // is this browser to render all terms (for field admin) or
@@ -353,7 +350,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         });
   
         var pck = 'dss.vector.solutions.ontology.';
-        var types = [pck+'BrowserRoot', pck+'BrowserRootView', pck+'TermView', pck+'Term'];
+        var types = [pck+'BrowserRoot', pck+'BrowserRootView', pck+'TermView', pck+'Term', pck+'FieldDefaultView'];
         Mojo.Facade.importTypes(request, types, {autoEval:true});
         return;
       }

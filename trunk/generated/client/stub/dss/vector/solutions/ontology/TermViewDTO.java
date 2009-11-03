@@ -9,4 +9,9 @@ public class TermViewDTO extends TermViewDTOBase
     super(clientRequest);
   }
   
+  public String getDisplayLabel()
+  {
+    return this.getTermName() + " (" + this.getTermOntologyId() + ")";
+  }
+  
 }
