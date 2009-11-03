@@ -70,6 +70,11 @@
               <operation
                 name="EXECUTE" />
             </mdMethodPermission>
+            <mdMethodPermission
+              methodName="deleteConcrete">
+              <operation
+                name="EXECUTE" />
+            </mdMethodPermission>
           </mdViewPermission>
         </grant>
       </role>
