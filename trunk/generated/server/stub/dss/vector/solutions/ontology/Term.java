@@ -578,6 +578,11 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     return this.getTermName();
   }
   
+  public boolean isLeaf()
+  {
+    return this.getAllChildTerm().getAll().size() == 0;
+  }
+  
   /**
    * Returns all attributes that reference the Term class.
    * 
@@ -600,5 +605,6 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
     
     return list.toArray(new String[list.size()]);
   }
+
 
 }

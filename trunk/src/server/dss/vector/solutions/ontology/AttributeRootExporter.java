@@ -60,6 +60,7 @@ public class AttributeRootExporter
     header.createCell(0).setCellValue(new HSSFRichTextString("Key"));
     header.createCell(1).setCellValue(new HSSFRichTextString("Class"));
     header.createCell(2).setCellValue(new HSSFRichTextString("Attribute"));
+    header.createCell(3).setCellValue(new HSSFRichTextString("Default"));    
   }
   
   public void exportTemplate()
@@ -82,6 +83,7 @@ public class AttributeRootExporter
       }
       
       HSSFRow row = sheet.createRow(count++);
+            
       row.createCell(0).setCellValue(new HSSFRichTextString(mdAttribute.getKey()));
       row.createCell(1).setCellValue(new HSSFRichTextString(mdClass.getDisplayLabel().getDefaultLocale()));
       row.createCell(2).setCellValue(new HSSFRichTextString(attributeLabel));
@@ -90,6 +92,7 @@ public class AttributeRootExporter
     sheet.autoSizeColumn((short)0);
     sheet.autoSizeColumn((short)1);
     sheet.autoSizeColumn((short)2);
+    sheet.autoSizeColumn((short)3);
   }
   
   /**

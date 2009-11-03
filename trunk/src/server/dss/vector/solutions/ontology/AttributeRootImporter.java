@@ -74,14 +74,15 @@ public class AttributeRootImporter
     }
   }
 
-  @SuppressWarnings("unchecked")
   private void readRow(HSSFRow row)
   {
-    Iterator<HSSFCell> iterator = row.cellIterator();
+    this.importDefault(row);
+    this.importRoots(row);
+  }
 
-    String key = iterator.next().getRichStringCellValue().getString();
-    iterator.next(); // Skip the Class Label
-    iterator.next(); // Skip the Attribute Label
+  private void importDefault(HSSFRow row)
+  {
+    String key = row.getCell(0).getRichStringCellValue().getString();
 
     MdAttributeDAOIF mdAttribute = MdAttributeDAO.getByKey(key);
     if (mdAttribute == null)
@@ -89,12 +90,42 @@ public class AttributeRootImporter
       throw new DataNotFoundException("Attribute key [" + key + "] not found.", MdTypeDAO.getMdTypeDAO(MdAttribute.CLASS));
     }
 
+    // Iterate over all remaining columns. Each should have a Mo Term ID
+    HSSFCell cell = row.getCell(3);
+
+    if (cell != null && cell.getCellType() == HSSFCell.CELL_TYPE_STRING)
+    {
+      String termId = cell.getRichStringCellValue().getString();
+      Term term = Term.getByTermId(termId);
+
+      FieldDefaultView view = new FieldDefaultView();
+      view.setMdAttribute(MdAttribute.get(mdAttribute.getId()));
+      view.setDefaultValue(term);
+      view.apply();
+    }
+  }
+
+  private void importRoots(HSSFRow row)
+  {
+    String key = row.getCell(0).getRichStringCellValue().getString();
+
+    MdAttributeDAOIF mdAttribute = MdAttributeDAO.getByKey(key);
+
+    if (mdAttribute == null)
+    {
+      throw new DataNotFoundException("Attribute key [" + key + "] not found.", MdTypeDAO.getMdTypeDAO(MdAttribute.CLASS));
+    }
+
     BrowserField browserField = BrowserField.getFieldForAttribute(mdAttribute.definedByClass().definesType(), mdAttribute.definesAttribute());
 
-    // Iterate over all remaining columns.  Each should have a Mo Term ID
-    while (iterator.hasNext())
+    int i = 4;
+
+    // Iterate over all remaining columns. Each should have a Mo Term ID
+    while (row.getCell(i) != null)
     {
-      String termId = iterator.next().getRichStringCellValue().getString();
+      HSSFCell cell = row.getCell(i);
+      String termId = cell.getRichStringCellValue().getString();
+
       Term term = Term.getByTermId(termId);
 
       try
@@ -108,6 +139,8 @@ public class AttributeRootImporter
         // We'll ignore this. It's cheaper to catch the exception than to fetch
         // and iterate over the entire list of existing roots
       }
+
+      i++;
     }
 
     browserField.apply();
