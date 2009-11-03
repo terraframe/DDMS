@@ -27,7 +27,6 @@
       <mjl:input type="hidden" param="typeSearchFilter" id="typeSearchFilter" value="dss.vector.solutions.geo.generated.SprayZone" />
       <mjl:input type="text" param="geoId" value="${item.sprayZone.geoId}" id="geoIdEl" classes="geoInput"/>
     </dd>
-    <%-- 5.13.09 - Marlize says we don't need Spray Leaders --%>
     <dt><label> <fmt:message key="Spray_Team_Leader" /> </label></dt>
     <dd>
       <mjl:input id="leaderInput" param="leaderInput" type="text" value="${leaderLabel}"/>
@@ -36,18 +35,20 @@
         <mjl:message />
       </mjl:messages>
     </dd>
-    <dt><label> <fmt:message key="Spray_Team_Manage_Operators" /> </label></dt>
+    <dt></dt>
     <dd>
     <table>
       <tr>
-        <th colspan="2" width="33%"><fmt:message key="Spray_Team_Current_Operators" /></th>
-        <th colspan="2" width="33%"><fmt:message key="Spray_Team_Available_Operators" /></th>
-        <th width="33%"><fmt:message key="Spray_Team_Assigned_Operators" /></th>
+        <th colspan="2" width="33%" ><label><fmt:message key="Spray_Team_Current_Operators" /></label></th>
+        <th colspan="2" width="33%" ><label><fmt:message key="Spray_Team_Available_Operators" /></label></th>
+        <th width="33%"><label><fmt:message key="Spray_Team_Assigned_Operators" /></label></th>
       </tr>
       <tr>
-        <td colspan="2" style="padding-right:5px"><fmt:message key="Spray_Team_Current_Operators_Instructions" /></td>
-        <td colspan="2" style="padding-right:5px"><fmt:message key="Spray_Team_Available_Operators_Instructions" /></td>
-        <td><fmt:message key="Spray_Team_Assigned_Operators_Instructions" /></td>
+        <td colspan="1" style="padding-top:5px"><fmt:message key="Spray_Team_Current_Operators_Instructions" /></td>
+        <td></td>
+        <td colspan="1" style="padding-top:5px"><fmt:message key="Spray_Team_Available_Operators_Instructions" /></td>
+        <td></td>
+        <td style="padding-top:5px"><fmt:message key="Spray_Team_Assigned_Operators_Instructions" /></td>
       </tr>
       <tr>
         <td><mjl:select var="operator" valueAttribute="actorId" items="${current}" param="operatorIds" multiple="true" size="12" id="onTeam" style="width:15em">
