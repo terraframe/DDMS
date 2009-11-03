@@ -794,7 +794,7 @@ MDSS.GeoHierarchyTree = (function(){
       // Create the one instance of the OntologyBrowser that will
       // be shared by all BrowserRoots. This is done because only one
       // BrowserRoot can be edited at a time.
-      _sharedBrowser = new MDSS.OntologyBrowser(false, 'dss.vector.solutions.geo.GeoHierarchy', 'term');
+      _sharedBrowser = new MDSS.OntologyBrowser(false, 'dss.vector.solutions.geo.GeoEntityDefinition', 'term');
       _sharedBrowser.setHandler(_setField);
     
     // Fetch the root node
