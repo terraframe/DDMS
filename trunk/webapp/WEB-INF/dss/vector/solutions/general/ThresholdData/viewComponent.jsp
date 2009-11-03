@@ -141,6 +141,24 @@ String deleteColumn = "";
                     for(var j = 0; j < 52; j++) {
                     	var outbreak = object['getOutbreak_'+j]();
                     	var identification = object['getIdentification_'+j]();
+
+                    	if(!outbreak) {
+                        	var value = calculatedTargets[object.getGeoEntity()][j*2];
+
+                        	if(value) {
+                            outbreak = value;
+                        	}                            	
+                    	}
+
+                    	if(!identification) {
+                    		var value = calculatedTargets[object.getGeoEntity()][j*2 + 1];
+
+                    		if(value) {
+                    		  identification = value;
+                    		}
+                    	}
+                        	
+                    	
                       innerHTML += '<input type="hidden" name="views_' + i + '.outbreak_' + j +'" value="' + outbreak + '"/>\n';
                       innerHTML += '<input type="hidden" name="views_' + i + '.identification_' + j + '" value="' + identification + '"/>\n'                    
                     }
