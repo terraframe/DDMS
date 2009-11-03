@@ -13,6 +13,7 @@ import dss.vector.solutions.intervention.monitor.ITNRecipient;
 import dss.vector.solutions.irs.SprayLeader;
 import dss.vector.solutions.irs.SprayOperator;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.stock.StockStaff;
 
 public class PersonView extends PersonViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -147,6 +148,26 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
         sprayLeader = null;
       }
     }
+    
+    StockStaff staff = person.getStockStaffDelegate();
+    
+    if (this.getIsStockStaff())
+    {
+      if (staff == null)
+      {
+        staff = new StockStaff();
+      }
+      staff.setPerson(person);
+      staff.apply();
+    }
+    else
+    {
+      if (staff != null)
+      {
+        staff.delete();
+        staff = null;
+      }
+    }
 
     // Update the person delegates
     person = Person.lockPerson(person.getId());
@@ -156,6 +177,7 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     person.setSprayOperatorDelegate(sprayOperator);
     person.setSprayLeaderDelegate(sprayLeader);
     person.setPatientDelegate(patient);
+    person.setStockStaffDelegate(staff);
 
     // Do not validate the person again because a second problem will be
     // generated for every validation problem that occurs. The person has

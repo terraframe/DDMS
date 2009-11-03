@@ -18,8 +18,8 @@ import dss.vector.solutions.irs.SprayOperator;
 public class Person extends PersonBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240792902476L;
-  
-  private static final long MAXIMUM_AGE = 110;
+
+  private static final long MAXIMUM_AGE      = 110;
 
   public Person()
   {
@@ -38,15 +38,15 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   {
     this.apply(true);
   }
-  
+
   @Transaction
   public void apply(boolean validate)
   {
-    if(validate)
+    if (validate)
     {
       validateDateOfBirth();
     }
-    
+
     super.apply();
   }
 
@@ -73,16 +73,16 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
       else
       {
         Integer age = new AgeConverter(this.getDateOfBirth()).getAge();
-        
-        if(age > MAXIMUM_AGE)
+
+        if (age > MAXIMUM_AGE)
         {
           String msg = "A person's age can not be older than 110";
-          
+
           PersonAgeProblem p = new PersonAgeProblem(msg);
           p.setAge(age);
           p.setNotification(this, DATEOFBIRTH);
           p.apply();
-          p.throwIt();          
+          p.throwIt();
         }
       }
     }
@@ -164,6 +164,11 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     {
       this.getSprayLeaderDelegate().lock();
     }
+
+    if (this.getStockStaffDelegate() != null)
+    {
+      this.getStockStaffDelegate().lock();
+    }
   }
 
   @Transaction
@@ -199,6 +204,11 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     if (this.getSprayLeaderDelegate() != null)
     {
       this.getSprayLeaderDelegate().unlock();
+    }    
+
+    if (this.getStockStaffDelegate() != null)
+    {
+      this.getStockStaffDelegate().unlock();
     }
   }
 
@@ -219,7 +229,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   @Override
   public PersonView getView()
   {
-    // Set the person's base attributes    
+    // Set the person's base attributes
     PersonView view = new PersonView();
     view.setPersonId(this.getId());
     view.setFirstName(this.getFirstName());
@@ -228,27 +238,27 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
 
     view.setDateOfBirth(this.getDateOfBirth());
 
-    if(this.getDateOfBirth() != null)
-    {        
+    if (this.getDateOfBirth() != null)
+    {
       view.setAge(Math.max(0, new AgeConverter(this.getDateOfBirth()).getAge()));
     }
 
-    if(this.getResidentialGeoEntity() != null)
+    if (this.getResidentialGeoEntity() != null)
     {
       view.setResidentialGeoId(this.getResidentialGeoEntity().getGeoId());
     }
-    
+
     view.setResidentialInformation(this.getResidentialInformation());
-    
-    if(this.getWorkGeoEntity() != null)
+
+    if (this.getWorkGeoEntity() != null)
     {
       view.setWorkGeoId(this.getWorkGeoEntity().getGeoId());
     }
-    
+
     view.setWorkInformation(this.getWorkInformation());
-    
+
     // Set the person's delegate attributes
-    
+
     MDSSUser user = this.getUserDelegate();
     if (user == null)
     {
@@ -312,6 +322,8 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
       view.setLeaderId(sprayLeader.getLeaderId());
     }
 
+    view.setIsStockStaff(this.getStockStaffDelegate() != null);
+
     return view;
   }
 
@@ -332,10 +344,10 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
       query.WHERE(query.getDateOfBirth().EQ(dob));
 
     // We have a default value set, so there is always a value
-    //FIXME MO Upgrade
-//    Sex sex = this.getSex().get(0);
-//    if (!sex.equals(Sex.UNKNOWN))
-//      query.WHERE(query.getSex().containsExactly(sex));
+    // FIXME MO Upgrade
+    // Sex sex = this.getSex().get(0);
+    // if (!sex.equals(Sex.UNKNOWN))
+    // query.WHERE(query.getSex().containsExactly(sex));
     query.WHERE(query.getSex().EQ(this.getSex()));
 
     // SprayOperator sprayDelegate = this.getSprayOperatorDelegate();
@@ -364,18 +376,18 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   {
     super.unlock();
   }
-  
+
   @Override
   public String toString()
   {
     String value = this.getFirstName() + " " + this.getLastName();
-    if (value.length()>1)
+    if (value.length() > 1)
     {
       return value;
     }
     return this.getKey();
   }
-  
+
   public static ValueQuery searchForPerson(String value)
   {
     QueryFactory f = new QueryFactory();
@@ -383,8 +395,8 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     PersonQuery personQuery = new PersonQuery(f);
     ValueQuery valueQuery = new ValueQuery(f);
 
-    Selectable[] selectables = new Selectable[] { personQuery.getId(Person.ID), personQuery.getFirstName(Person.FIRSTNAME), personQuery.getLastName(Person.LASTNAME), personQuery.getDateOfBirth(Person.DATEOFBIRTH),
-        personQuery.getResidentialGeoEntity(Person.RESIDENTIALGEOENTITY), personQuery.getSex().getTermName(Person.SEX) };
+    Selectable[] selectables = new Selectable[] { personQuery.getId(Person.ID), personQuery.getFirstName(Person.FIRSTNAME), personQuery.getLastName(Person.LASTNAME), personQuery.getDateOfBirth(Person.DATEOFBIRTH), personQuery.getResidentialGeoEntity(Person.RESIDENTIALGEOENTITY),
+        personQuery.getSex().getTermName(Person.SEX) };
 
     valueQuery.SELECT(selectables);
 

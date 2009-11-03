@@ -3,7 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 
-<%@page import="dss.vector.solutions.PersonViewDTO"%><jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
+<%@page import="dss.vector.solutions.PersonViewDTO"%>
+
+<jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <script type="text/javascript">
 MDSS.AbstractSelectSearch.Political = true;
@@ -205,6 +207,23 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
           </fieldset>
         </div>
       </dd>
+      <dt>
+        <label>
+          ${item.isStockStaffMd.displayLabel}
+          <span id="stockStaffSwitch" class="clickable">
+          <c:choose>
+            <c:when test="${item.isStockStaff}"><fmt:message key="Click_to_Remove" /></c:when>
+            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
+          </c:choose>
+          </span>
+        </label>
+      </dt>
+      <dd>
+        <mjl:input id="stockStaffInput" type="hidden" value="${item.isStockStaff}" param="isStockStaff" />
+        <div id="stockStaffDiv" style="display: ${item.isStockStaff ? 'block' : 'none'}">
+          <!-- Patient Fieldset -->
+        </div>
+      </dd>      
   </mjl:component>
 
 <script type="text/javascript">  
