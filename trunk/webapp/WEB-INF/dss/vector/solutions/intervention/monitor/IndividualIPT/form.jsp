@@ -48,7 +48,7 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
     <mjl:boolean param="isANCVisit" id="isANCVisit" />
   </mjl:dt>
   <mjl:dt attribute="visitNumber" classes="visitNumber">
-    <span class="clickable visitNumber" id="visitNumberBtn"> <fmt:message key="Browser"/></span>
+    <span class="clickable visitNumber browserLauncher" id="visitNumberBtn"> <fmt:message key="Browser"/></span>
     <div id="visitNumberDisplay" class="ontologyDisplay visitNumber">
       <c:choose>
         <c:when test="${visitNumber != null}">
