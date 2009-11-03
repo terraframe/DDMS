@@ -1,0 +1,25 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+  
+<delete>
+      <object
+        key="Ontology__dss.vector.solutions.geo.GeoHierarchy.term"
+        type="dss.vector.solutions.ontology.BrowserField" />
+</delete>
+
+<create>
+
+      <object
+        key="Ontology__dss.vector.solutions.geo.GeoEntityDefinition.term"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.geo.GeoEntityDefinition.term"/>
+      </object> 
+      
+</create>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
