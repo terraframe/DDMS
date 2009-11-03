@@ -44,11 +44,11 @@
         <th width="33%"><label><fmt:message key="Spray_Team_Assigned_Operators" /></label></th>
       </tr>
       <tr>
-        <td colspan="1" style="padding-top:5px"><fmt:message key="Spray_Team_Current_Operators_Instructions" /></td>
+        <td colspan="1" style="padding-bottom:5px;padding-top:5px;font-size:smaller;"><fmt:message key="Spray_Team_Current_Operators_Instructions" /></td>
         <td></td>
-        <td colspan="1" style="padding-top:5px"><fmt:message key="Spray_Team_Available_Operators_Instructions" /></td>
+        <td colspan="1" style="padding-bottom:5px;padding-top:5px;font-size:smaller;"><fmt:message key="Spray_Team_Available_Operators_Instructions" /></td>
         <td></td>
-        <td style="padding-top:5px"><fmt:message key="Spray_Team_Assigned_Operators_Instructions" /></td>
+        <td style="padding-bottom:5px;padding-top:5px;font-size:smaller;"><fmt:message key="Spray_Team_Assigned_Operators_Instructions" /></td>
       </tr>
       <tr>
         <td><mjl:select var="operator" valueAttribute="actorId" items="${current}" param="operatorIds" multiple="true" size="12" id="onTeam" style="width:15em">
