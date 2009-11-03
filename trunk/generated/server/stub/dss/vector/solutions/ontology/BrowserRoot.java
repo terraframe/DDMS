@@ -76,15 +76,39 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
   }
   
   /**
-   * Gets all roots for the given class name and attribute name.
+   * Gets all roots for the given class name and attribute name. Because overloading
+   * isn't supported with MdMethods, this method can also take an empty string as the
+   * class name which means the attribute param is the id of an MdAttribute.
    * 
    * @param className
    * @param attributeName
    * @return
    */
-  public static BrowserRootView[] getAttributeRoots(String className, String attributeName)
+  public static BrowserRootView[] getAttributeRoots(String className, String attribute)
   {
-    BrowserField field = BrowserField.getFieldForAttribute(className, attributeName);
+    // retrieve by MdAttributeId
+    BrowserField field;
+    if(className.length() == 0)
+    {
+      QueryFactory f = new QueryFactory();
+      BrowserFieldQuery q = new BrowserFieldQuery(f);
+      
+      q.WHERE(q.getMdAttribute().EQ(attribute));
+      
+      OIterator<? extends BrowserField> iter = q.getIterator();
+      try
+      {
+        field = iter.next(); 
+      }
+      finally
+      {
+        iter.close();
+      }
+    }
+    else
+    {
+      field = BrowserField.getFieldForAttribute(className, attribute);
+    }
     
     List<BrowserRootView> views = new LinkedList<BrowserRootView>();
     

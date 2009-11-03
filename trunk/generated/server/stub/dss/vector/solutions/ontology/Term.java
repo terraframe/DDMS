@@ -331,6 +331,12 @@ public abstract class Term extends TermBase implements Reloadable, OptionIF
         query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
         query.AND(this.pathsQuery.getParentTerm().IN(this.parentIds));
       }
+      else
+      {
+        // There are no Parent terms meaning no roots have been set. Searching is not
+        // allowed without roots.
+        query.AND(termQuery.getId().EQ(""));
+      }
       
       query.ORDER_BY_ASC(this.termQuery.getTermName());
     }

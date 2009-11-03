@@ -55,7 +55,7 @@ YAHOO.util.Event.onDOMReady(function() {
             </c:otherwise>
           </c:choose>
         </div>
-        <input type="hidden" value="${defaultTerms[field.browserFieldId]}" type="hidden" id="${field.mdAttributeId}_defaultTerm" />
+        <input type="hidden" value="${defaultTerms[field.browserFieldId]}" id="${field.mdAttributeId}_defaultTerm" />
    </div>
    
    <table id="${field.browserFieldId}_table" cellpadding="3" cellspacing="0" border="1" class="ontologyFields">

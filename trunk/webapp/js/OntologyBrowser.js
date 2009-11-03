@@ -14,11 +14,6 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
 
   Instance : {
     
-    /**
-     * Constructor with two allowed calls, depending on what information is available:
-     * 1) new MDSS.OntologyBrowser(true, keyName); // keyName of MdAttribute
-     * 2) new MDSS.OntologyBrowser(true, className, attributeName);
-     */
     initialize : function(multipleSelect)
     {
       // map of termId, termName
@@ -34,16 +29,14 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       
       // is this browser to render all terms (for field admin) or
       // is it to render specific roots for a class attribute?
-      this._defaultRoot = arguments.length === 1;
-      
-      if(arguments.length === 2)
+      if(arguments.length === 1)
       {
-        // key name passed as param
-        var keyName = arguments[1];
-        
-       var ind = s.lastIndexOf('.');
-       this._className = s.substring(0, ind);
-       this._attributeName = s.substring(ind+1);
+        this._defaultRoot = true;
+      }
+      else if(arguments.length == 2)
+      {
+        // id of MdAttribute passed in
+        this._mdAttributeId = arguments[1];
       }
       else
       {
@@ -52,7 +45,6 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         this._attributeName = arguments[2];
       }
       
-     
       this._rendered = false;
       
       this._panel = null;
@@ -154,6 +146,10 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         if(this._defaultRoot)
         {
           Mojo.$.dss.vector.solutions.ontology.BrowserRoot.getDefaultRoot(request);
+        }
+        else if(this._mdAttributeId)
+        {
+          Mojo.$.dss.vector.solutions.ontology.BrowserRoot.getAttributeRoots(request, '', this._mdAttributeId);
         }
         else
         {

@@ -51,7 +51,13 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       // add events to open the browser to set the default field terms
       var defaultTerms = YAHOO.util.Selector.query('.defaultTermBrowser');
       Mojo.Iter.forEach(defaultTerms, function(defaultTerm){
-        YAHOO.util.Event.on(defaultTerm, 'click', this._openDefaultBrowser, null, this);
+      
+        var mdAttributeId = defaultTerm.id.replace(this.constructor.DEFAULT_DISPLAY_SUFFIX, '')
+        var browser = new MDSS.OntologyBrowser(false, mdAttributeId);
+        
+        browser.setHandler(this._setDefault, this);
+      
+        YAHOO.util.Event.on(defaultTerm, 'click', this._openDefaultBrowser, browser, this);
       }, this);
     },
     
@@ -101,13 +107,13 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       }
     },
     
-    _openDefaultBrowser : function(e)
+    _openDefaultBrowser : function(e, browser)
     {
       this._currentDefaultDisplay = e.target.id;
       this._currentDefaultInput = 
         this._currentDefaultDisplay.replace(this.constructor.DEFAULT_DISPLAY_SUFFIX, this.constructor.DEFAULT_TERM_SUFFIX);
       
-      this._launchBrowser(this._defaultBrowser, this._currentDefaultInput);
+      this._launchBrowser(browser, this._currentDefaultInput);
     },
     
     _openBrowser : function()
