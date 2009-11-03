@@ -14,7 +14,10 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.terraframe.mojo.SystemException;
+import com.terraframe.mojo.constants.MdAttributeConcreteInfo;
+import com.terraframe.mojo.dataaccess.BusinessDAO;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
@@ -98,10 +101,21 @@ public class AttributeRootImporter
       String termId = cell.getRichStringCellValue().getString();
       Term term = Term.getByTermId(termId);
 
-      FieldDefaultView view = new FieldDefaultView();
-      view.setMdAttribute(MdAttribute.get(mdAttribute.getId()));
-      view.setDefaultValue(term);
-      view.apply();
+//      FieldDefaultView view = new FieldDefaultView();
+//      view.setMdAttribute(MdAttribute.get(mdAttribute.getId()));
+//      view.setDefaultValue(term);
+//      view.apply();
+      
+      if (term != null)
+      {
+        BusinessDAO mdAttributeDAO = mdAttribute.getMdAttributeConcrete().getBusinessDAO();
+
+        if (mdAttributeDAO instanceof MdAttributeRefDAOIF)
+        {
+          mdAttributeDAO.setValue(MdAttributeConcreteInfo.DEFAULT_VALUE, term.getId());
+          mdAttributeDAO.apply();
+        }
+      }
     }
   }
 
