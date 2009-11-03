@@ -4,63 +4,12 @@
   <doIt>
     <create>
 
-      <object
-        type="dss.vector.solutions.Person"
-        key="dss.vector.solutions.MDSSPersonAdmin">
-        <attribute
-          name="firstName"
-          value="MDSS" />
-        <attribute
-          name="lastName"
-          value="User" />
-        <attribute
-          name="dateOfBirth"
-          value="2009-01-01" />
-      </object>
-
-      <object
-        key="Users.MDSS"
-        type="dss.vector.solutions.MDSSUser">
-        <attribute
-          name="username"
-          value="MDSS" />
-        <attribute
-          name="password"
-          value="mdsstest2" />
-        <attribute
-          name="sessionLimit"
-          value="10" />
-        <attributeReference
-          name="person"
-          key="dss.vector.solutions.MDSSPersonAdmin" />
-      </object>
-
       <mdException
         name="dss.vector.solutions.InvalidEpiStartFormat"
         label="Invalid Epi Start Format"
         description="Property does not conform to the date format." />
 
     </create>
-
-    <update>
-
-      <object
-        type="dss.vector.solutions.Person"
-        key="dss.vector.solutions.MDSSPersonAdmin">
-        <attributeReference
-          name="userDelegate"
-          key="Users.MDSS" />
-      </object>
-
-    </update>
-
-    <permissions>
-      <user
-        userName="MDSS">
-        <assignedRole
-          roleName="Administrator" />
-      </user>
-    </permissions>
 
   </doIt>
   <undoIt>

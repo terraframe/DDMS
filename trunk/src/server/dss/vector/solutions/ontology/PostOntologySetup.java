@@ -1,10 +1,16 @@
 package dss.vector.solutions.ontology;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 
+import com.terraframe.mojo.business.rbac.RoleDAO;
+import com.terraframe.mojo.business.rbac.RoleDAOIF;
+import com.terraframe.mojo.business.rbac.UserDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.session.StartSession;
 
+import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.Person;
 import dss.vector.solutions.irs.AreaStandards;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.InsecticideNozzle;
@@ -20,11 +26,43 @@ public class PostOntologySetup
   @StartSession
   public static void main(String[] args)  throws Exception
   {
-    
     //Setup root values
-    AttributeRootImporter.main(args);
+    AttributeRootImporter.main(args);    
 
+    setupMDSSUser();
+    
     setupApplicationRate();
+  }
+
+  @Transaction
+  private static void setupMDSSUser()
+  {
+    String UNKNOWN = "MDSS:0000320";
+    
+    Calendar calendar = Calendar.getInstance();
+    calendar.clear();
+    calendar.set(Calendar.YEAR, 2009);
+    calendar.set(Calendar.MONTH, 1);
+    calendar.set(Calendar.DAY_OF_YEAR, 1);
+    
+    Person person = new Person();
+    person.setDateOfBirth(calendar.getTime());
+    person.setFirstName("MDSS");
+    person.setLastName("User");
+    person.setSex(Term.getByTermId(UNKNOWN));
+    person.apply();
+    
+    MDSSUser user = new MDSSUser();
+    user.setUsername("MDSS");
+    user.setPassword("mdsstest2");
+    user.setSessionLimit(10);
+    user.setPerson(person);
+    user.apply();
+
+    RoleDAO.findRole(RoleDAOIF.ADMIN_ROLE).assignMember(UserDAO.get(user.getId()));
+    
+    person.setUserDelegate(user);
+    person.apply();    
   }
 
   @Transaction
