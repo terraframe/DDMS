@@ -414,12 +414,12 @@
             description="Average surface area of a household in square Meters" />
           <float
             name="unitNozzleAreaCoverage"
-            label="Unit Nozzle Area Coverage (m²)"
+            label="Unit Nozzle, Can, Area Coverage (m²)"
             length="12"
             decimal="2"
             rejectNegative="true"
             rejectZero="true"
-            description="Average number of square meters that can typically be covered by a full can of insecticide using the unit nozzle." />
+            description="Average number of square meters that can typically be covered by a full can of insecticide using the unit nozzle and unit can." />
 
         </attributes>
         <mdMethod
