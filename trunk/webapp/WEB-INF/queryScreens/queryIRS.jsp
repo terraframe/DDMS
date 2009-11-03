@@ -199,13 +199,13 @@ YAHOO.util.Event.onDOMReady(function(){
                                                          attributeName:"active_ingredient_per_can",
                                                        },
                                                        {
-                                                         displayLabel:"Application Rate (g/m²)",
+                                                         displayLabel:"Recommended Application Rate (g/m²)",
                                                          key:"standard_application_rate",
                                                          type:"sqldouble",
                                                          attributeName:"standard_application_rate",
                                                        },
                                                        {
-                                                         displayLabel:"Application Rate (mg/m²)",
+                                                         displayLabel:"Recommended Application Rate (mg/m²)",
                                                          key:"standard_application_rate_mg",
                                                          type:"sqldouble",
                                                          attributeName:"standard_application_rate_mg",
