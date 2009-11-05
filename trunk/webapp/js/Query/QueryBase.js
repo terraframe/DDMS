@@ -58,6 +58,30 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     },
     
     /**
+     * Handler to toggle the visibility of a list.
+     */
+    _toggleVisibility : function(toggle, element)
+    {
+      YAHOO.util.Event.on(toggle, 'click', function(e, obj){
+        var el = obj.element;
+        var toggle = obj.toggle;
+  
+        if(YAHOO.util.Dom.getStyle(el, 'display') === 'block')
+        {
+          YAHOO.util.Dom.setStyle(el, 'display', 'none');
+          toggle.innerHTML = MDSS.Localized.Toggle_Show;
+        }
+        else
+        {
+          YAHOO.util.Dom.setStyle(el, 'display', 'block');
+          toggle.innerHTML = MDSS.Localized.Toggle_Hide;
+        }
+  
+      }, {toggle: toggle, element: element}, this);
+  
+    },
+    
+    /**
      * Returns the MDSS.QueryBrowser instance based on the AbstractAttribute or key parameters.
      * Null is returned if no match is found.
      */
@@ -939,7 +963,10 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       view.setQueryXml(xml);
       view.setConfig(Mojo.Util.getJSON(this._config));
+      view.setThematicLayer('');
+      /* FIXME MAP
       view.setThematicLayer(this._queryPanel.getCurrentThematicLayer());
+      */ 
       view.setQueryType(queryType);
     },
   

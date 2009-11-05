@@ -1058,30 +1058,6 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
     },
   
     /**
-     * Handler to toggle the visibility of a list.
-     */
-    _toggleVisibility : function(toggle, element)
-    {
-      YAHOO.util.Event.on(toggle, 'click', function(e, obj){
-        var el = obj.element;
-        var toggle = obj.toggle;
-  
-        if(YAHOO.util.Dom.getStyle(el, 'display') === 'block')
-        {
-          YAHOO.util.Dom.setStyle(el, 'display', 'none');
-          toggle.innerHTML = MDSS.Localized.Toggle_Show;
-        }
-        else
-        {
-          YAHOO.util.Dom.setStyle(el, 'display', 'block');
-          toggle.innerHTML = MDSS.Localized.Toggle_Hide;
-        }
-  
-      }, {toggle: toggle, element: element}, this);
-  
-    },
-  
-    /**
      * Renders the QueryPanel to query on AggregatedCases.
      */
     render : function()

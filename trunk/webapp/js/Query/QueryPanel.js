@@ -25,6 +25,7 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
     ]
   });
 
+/* FIXME MAP
   this._mapLayout = new YAHOO.widget.Layout(mapPanelId, {
     height: pHeight,
     width: pWidth,
@@ -34,6 +35,7 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
         { position: 'center', body: '<div id="'+this.MAP_CONTAINER+'"></div>', gutter: '0 2 0 0', scroll: true }
     ]
   });
+*/
 
   this._pWidth = pWidth;
   this._pHeight = pHeight;
@@ -539,10 +541,6 @@ MDSS.QueryPanel.prototype = {
     this._qCenterUnit = this._queryLayout.getUnitByPosition('center');
     this._qRightUnit = this._queryLayout.getUnitByPosition('right');
 
-    this._mLeftUnit = this._mapLayout.getUnitByPosition('left');
-    this._mBottomUnit = this._mapLayout.getUnitByPosition('bottom');
-    this._mCenterUnit = this._mapLayout.getUnitByPosition('center');
-
     this._buildButtons();
 
     this._buildDateRange();
@@ -555,7 +553,9 @@ MDSS.QueryPanel.prototype = {
 
     YAHOO.util.Event.on(this.PAGINATION_SECTION, 'click', this._paginationHandler, null, this);
 
+/* FIXME MAP
     this._buildUniversalList();
+    */
 
     // let the query panels perform their own post-render logic
     if(Mojo.Util.isFunction(this._config.postRender))
@@ -1248,9 +1248,10 @@ MDSS.QueryPanel.prototype = {
     refreshMapButton.on('click', this._mapQuery, {}, this);
     mapButtonDiv.appendChild(refreshMapButton);
 
-
+/*
     var mBottom = new YAHOO.util.Element(this._mBottomUnit.body);
     mBottom.appendChild(mapButtonDiv);
+    */ 
   },
 
   /**
@@ -1842,8 +1843,10 @@ MDSS.QueryPanel.prototype = {
   render : function()
   {
     this._queryLayout.render();
+    
+    /* FIXME MAP
     this._mapLayout.render();
-
+    */ 
     this._postRender();
   }
 };

@@ -84,23 +84,6 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
 
 </script>
 
-<div class="yui-skin-sam">
+<jsp:include page="queryContainer.jsp"></jsp:include>
 
-<div id="tabSet" class="yui-navset">
-    <ul class="yui-nav">
-        <li class="selected"><a href="#tab1"><em><fmt:message key="Query_Tab" /></em></a></li>
-        <li><a href="#tab2"><em><fmt:message key="Map_Tab" /></em></a></li>
-    </ul>
-    <div class="yui-content">
-        <div><div id="queryPanel"></div></div>
-        <div><div id="mapPanel"></div></div>
-    </div>
-</div>
-
-<div style="display: none" id="XLSFormContainer"></div>
-<div style="display: none" id="CSVFormContainer"></div>
-<div style="display: none" id="ReportFormContainer"></div>
-<iframe id="messageFrame" name="messageFrame" style="display: none; width: 1px; height: 1px;"></iframe>
-
-</div>
 <jsp:include page="../templates/footer.jsp"></jsp:include>

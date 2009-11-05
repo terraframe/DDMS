@@ -1507,6 +1507,11 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
        */
       var householdDiv = document.createElement('div');
        
+      var toggleDiv = document.createElement('div');
+      YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
+      YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
+      toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;       
+       
       var labelDiv = document.createElement('div');
       YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
       labelDiv.innerHTML = this._household.getTypeMd().getDisplayLabel();
@@ -1514,9 +1519,13 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       var householdUl = document.createElement('ul');
       YAHOO.util.Dom.addClass(householdUl, 'gridList');
       YAHOO.util.Dom.setStyle(householdUl, 'clear', 'both');
+      YAHOO.util.Dom.setStyle(householdUl, 'display', 'none');
   
       householdDiv.appendChild(labelDiv);
+      householdDiv.appendChild(toggleDiv);
       householdDiv.appendChild(householdUl);
+      
+      this._toggleVisibility(toggleDiv, householdUl);
       
       // 4. Household Id
       this._createHouseholdMenu(householdUl, this._Household.HOUSEHOLDNAME);
@@ -1564,12 +1573,21 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
       labelDiv.innerHTML = MDSS.Localized.Nets
       
+      toggleDiv = document.createElement('div');
+      YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
+      YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
+      toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;
+
       var netUl = document.createElement('ul');
       YAHOO.util.Dom.addClass(netUl, 'gridList');
       YAHOO.util.Dom.setStyle(netUl, 'clear', 'both');
+      YAHOO.util.Dom.setStyle(netUl, 'display', 'none');
   
       netDiv.appendChild(labelDiv);
+      netDiv.appendChild(toggleDiv);
       netDiv.appendChild(netUl);
+      
+      this._toggleVisibility(toggleDiv, netUl);
       
       for(var i=0; i<nets.length; i++)
       {
@@ -1626,12 +1644,21 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
       labelDiv.innerHTML = this._person.getTypeMd().getDisplayLabel();
       
+      toggleDiv = document.createElement('div');
+      YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
+      YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
+      toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;
+      
       var personUl = document.createElement('ul');
       YAHOO.util.Dom.addClass(personUl, 'gridList');
       YAHOO.util.Dom.setStyle(personUl, 'clear', 'both');
+      YAHOO.util.Dom.setStyle(personUl, 'display', 'none');
   
       personDiv.appendChild(labelDiv);
+      personDiv.appendChild(toggleDiv);
       personDiv.appendChild(personUl);
+      
+      this._toggleVisibility(toggleDiv, personUl);
   
       // 15. Person Id
       this._createPersonMenu(personUl, this._Person.PERSONID);

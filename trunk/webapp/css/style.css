@@ -313,6 +313,7 @@ span.linkify:hover {
 	width: 520px;
 	height: 620px;
 	border: 1px solid black;
+	margin-left: 5px;
 }
 
 #mapPanel {
