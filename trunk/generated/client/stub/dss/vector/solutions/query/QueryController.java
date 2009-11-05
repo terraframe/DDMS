@@ -42,6 +42,7 @@ import dss.vector.solutions.intervention.monitor.IPTANCVisitDTO;
 import dss.vector.solutions.intervention.monitor.IPTDoseDTO;
 import dss.vector.solutions.intervention.monitor.IPTPatientsDTO;
 import dss.vector.solutions.intervention.monitor.IPTTreatmentDTO;
+import dss.vector.solutions.intervention.monitor.IndividualIPTDTO;
 import dss.vector.solutions.intervention.monitor.PersonViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.irs.AbstractSprayDTO;
@@ -57,8 +58,7 @@ import dss.vector.solutions.surveillance.ChildCaseViewDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.Halp;
 
-public class QueryController extends QueryControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class QueryController extends QueryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long   serialVersionUID       = 1237863171352L;
 
@@ -72,12 +72,15 @@ public class QueryController extends QueryControllerBase implements
 
   private static final String QUERY_AGGREGATED_IPT   = "/WEB-INF/queryScreens/queryAggregatedIPT.jsp";
 
+  private static final String QUERY_INDIVIDUAL_IPT   = "/WEB-INF/queryScreens/queryIndividualIPT.jsp";
+
   private static final String QUERY_SURVEY           = "/WEB-INF/queryScreens/querySurvey.jsp";
 
   private static final String NEW_QUERY              = "/WEB-INF/queryScreens/newQuery.jsp";
 
-  public QueryController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  private static final String QUERY_EFFICACY_ASSAY   = "/WEB-INF/queryScreens/queryEfficacyAssay.jsp";
+
+  public QueryController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
   }
@@ -89,8 +92,7 @@ public class QueryController extends QueryControllerBase implements
     {
       ClientRequestIF request = this.getClientRequest();
 
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(request,
-          QueryConstants.QUERY_INDICATOR_SURVEY);
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(request, QueryConstants.QUERY_INDICATOR_SURVEY);
       JSONArray queries = new JSONArray();
       for (SavedSearchViewDTO view : query.getResultSet())
       {
@@ -110,8 +112,7 @@ public class QueryController extends QueryControllerBase implements
 
       JSONArray items = new JSONArray();
       rdtResult.put("items", items);
-      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS,
-          HouseholdViewDTO.DISPLAYNETS))
+      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
       {
         JSONObject item = new JSONObject();
         item.put("displayLabel", term.getDisplayLabel());
@@ -125,8 +126,7 @@ public class QueryController extends QueryControllerBase implements
       req.setAttribute("queryList", queries.toString());
 
       JSONArray nets = new JSONArray();
-      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS,
-          HouseholdViewDTO.DISPLAYNETS))
+      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
       {
         JSONObject net = new JSONObject();
         net.put("entityAlias", HouseholdNetDTO.CLASS + "_" + term.getId());
@@ -182,8 +182,7 @@ public class QueryController extends QueryControllerBase implements
       ClientRequestIF request = this.getClientRequest();
       if (savedSearchIdValue == null || savedSearchIdValue.trim().length() == 0)
       {
-        SavedSearchRequiredExceptionDTO ex = new SavedSearchRequiredExceptionDTO(request, req
-            .getLocale());
+        SavedSearchRequiredExceptionDTO ex = new SavedSearchRequiredExceptionDTO(request, req.getLocale());
         message = ex.getLocalizedMessage();
         return;
       }
@@ -242,8 +241,7 @@ public class QueryController extends QueryControllerBase implements
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
 
       // Available queries
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(),
-          QueryConstants.QUERY_AGGREGATED_CASE);
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_AGGREGATED_CASE);
 
       JSONArray queries = new JSONArray();
       for (SavedSearchViewDTO view : query.getResultSet())
@@ -282,9 +280,7 @@ public class QueryController extends QueryControllerBase implements
       {
         AttributeDTO attributeDTO = classQuery.getAttributeDTO(visibleAttribute);
 
-        if (attributeDTO.isReadable() && ! ( attributeDTO instanceof AttributeReferenceDTO )
-            && ! ( attributeDTO instanceof AttributeStructDTO )
-            && !attributeDTO.getName().equals(AggregatedCaseDTO.GEOENTITY)
+        if (attributeDTO.isReadable() && ! ( attributeDTO instanceof AttributeReferenceDTO ) && ! ( attributeDTO instanceof AttributeStructDTO ) && !attributeDTO.getName().equals(AggregatedCaseDTO.GEOENTITY)
             && !attributeDTO.getName().equals(AggregatedCaseDTO.ID))
         {
           JSONObject json = new JSONObject();
@@ -360,7 +356,7 @@ public class QueryController extends QueryControllerBase implements
   private void loadGrid(String relationshipClass, String className, String attributeName, JSONObject gridMeta, JSONArray ordered)
   {
     ordered.put(gridMeta);
-    
+
     for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), className, attributeName))
     {
       try
@@ -414,8 +410,7 @@ public class QueryController extends QueryControllerBase implements
       EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
 
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(),
-          QueryConstants.QUERY_AGGREGATED_IPT);
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_AGGREGATED_IPT);
       JSONArray queries = new JSONArray();
       // Available queries
       for (SavedSearchViewDTO view : query.getResultSet())
@@ -452,8 +447,7 @@ public class QueryController extends QueryControllerBase implements
       patients.put("relType", IPTPatientsDTO.CLASS);
       patients.put("relAttribute", IPTPatientsDTO.AMOUNT);
       patients.put("options", new JSONArray());
-      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS,
-          AggregatedIPTViewDTO.DISPLAYPATIENTS))
+      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYPATIENTS))
       {
         JSONObject option = new JSONObject();
         option.put("id", term.getId());
@@ -473,8 +467,7 @@ public class QueryController extends QueryControllerBase implements
       doses.put("relType", IPTDoseDTO.CLASS);
       doses.put("relAttribute", IPTDoseDTO.AMOUNT);
       doses.put("options", new JSONArray());
-      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS,
-          AggregatedIPTViewDTO.DISPLAYDOSE))
+      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYDOSE))
       {
         JSONObject option = new JSONObject();
         option.put("id", term.getId());
@@ -495,8 +488,7 @@ public class QueryController extends QueryControllerBase implements
       visits.put("relType", IPTANCVisitDTO.CLASS);
       visits.put("relAttribute", IPTANCVisitDTO.AMOUNT);
       visits.put("options", new JSONArray());
-      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS,
-          AggregatedIPTViewDTO.DISPLAYVISITS))
+      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYVISITS))
       {
         JSONObject option = new JSONObject();
         option.put("id", term.getId());
@@ -516,8 +508,7 @@ public class QueryController extends QueryControllerBase implements
       treatment.put("relType", IPTTreatmentDTO.CLASS);
       treatment.put("relAttribute", IPTTreatmentDTO.AMOUNT);
       treatment.put("options", new JSONArray());
-      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS,
-          AggregatedIPTViewDTO.DISPLAYTREATMENTS))
+      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYTREATMENTS))
       {
         JSONObject option = new JSONObject();
         option.put("id", term.getId());
@@ -544,6 +535,92 @@ public class QueryController extends QueryControllerBase implements
   /**
    * Creates the screen to query for Entomology (mosquitos).
    */
+  @Override
+  public void queryIndividualIPT() throws IOException, ServletException
+  {
+    try
+    {
+      // The Earth is the root. FIXME use country's default root
+      ClientRequestIF request = this.getClientRequest();
+
+      // The Earth is the root. FIXME use country's default root
+      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_INDIVIDUAL_IPT);
+      JSONArray queries = new JSONArray();
+      // Available queries
+      for (SavedSearchViewDTO view : query.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", view.getSavedQueryId());
+        idAndName.put("name", view.getQueryName());
+
+        queries.put(idAndName);
+      }
+
+      // Load label map for Adult Discriminating Dose Assay
+      ClassQueryDTO aIPT = request.getQuery(IndividualIPTDTO.CLASS);
+      String iptMap = Halp.getDropDownMaps(aIPT, request, ", ");
+      req.setAttribute("iptMap", iptMap);
+
+      req.setAttribute("queryList", queries.toString());
+
+      req.getRequestDispatcher(QUERY_INDIVIDUAL_IPT).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+
+  /**
+   * Creates the screen to query for Entomology (mosquitos).
+   */
+  @Override
+  public void queryEfficacyAssay() throws IOException, ServletException
+  {
+    try
+    {
+      // The Earth is the root. FIXME use country's default root
+      ClientRequestIF request = this.getClientRequest();
+
+      // The Earth is the root. FIXME use country's default root
+      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_EFFICACY_ASSAY);
+      JSONArray queries = new JSONArray();
+      // Available queries
+      for (SavedSearchViewDTO view : query.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", view.getSavedQueryId());
+        idAndName.put("name", view.getQueryName());
+
+        queries.put(idAndName);
+      }
+
+      // Load label map for Adult Discriminating Dose Assay
+      ClassQueryDTO aIPT = request.getQuery(IndividualIPTDTO.CLASS);
+      String iptMap = Halp.getDropDownMaps(aIPT, request, ", ");
+      req.setAttribute("iptMap", iptMap);
+
+      req.setAttribute("queryList", queries.toString());
+
+      req.getRequestDispatcher(QUERY_EFFICACY_ASSAY).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+
+  /**
+   * Creates the screen to query for Entomology (mosquitos).
+   */
 
   public void queryEntomology() throws IOException, ServletException
   {
@@ -557,8 +634,7 @@ public class QueryController extends QueryControllerBase implements
 
       req.setAttribute("assayTree", json);
 
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(),
-          QueryConstants.QUERY_ENTOMOLOGY);
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_ENTOMOLOGY);
       JSONArray queries = new JSONArray();
       // Available queries
       for (SavedSearchViewDTO view : query.getResultSet())
@@ -595,8 +671,7 @@ public class QueryController extends QueryControllerBase implements
       EarthDTO earth = EarthDTO.getEarthInstance(request);
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
 
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(request,
-          QueryConstants.QUERY_RESISTANCE);
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(request, QueryConstants.QUERY_RESISTANCE);
       JSONArray queries = new JSONArray();
       // Available queries
       for (SavedSearchViewDTO view : query.getResultSet())
@@ -651,8 +726,7 @@ public class QueryController extends QueryControllerBase implements
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
       ClientRequestIF request = this.getClientRequest();
 
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(),
-          QueryConstants.QUERY_IRS);
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_IRS);
       JSONArray queries = new JSONArray();
       // Available queries
       for (SavedSearchViewDTO view : query.getResultSet())
@@ -691,13 +765,13 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
-  public void exportAggregatedCaseQueryToCSV(String queryXML, String config, String savedSearchId)
-      throws IOException, ServletException
+  
+  @Override
+  public void exportQueryToCSV(String className, String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config,
-          savedSearchId);
+      InputStream stream = QueryBuilderDTO.exportQueryToCSV(this.getClientRequest(),className, queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -710,13 +784,11 @@ public class QueryController extends QueryControllerBase implements
   }
 
   @Override
-  public void exportAggregatedCaseQueryToExcel(String queryXML, String config, String savedSearchId)
-      throws IOException, ServletException
+  public void exportQueryToExcel(String className, String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML,
-          config, savedSearchId);
+      InputStream stream = QueryBuilderDTO.exportQueryToExcel(this.getClientRequest(),className, queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -729,32 +801,11 @@ public class QueryController extends QueryControllerBase implements
   }
 
   @Override
-  public void exportAggregatedIPTQueryToExcel(String queryXML, String config, String savedSearchId)
-      throws IOException, ServletException
+  public void exportAggregatedCaseQueryToCSV(String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML,
-          config, savedSearchId);
-
-      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
-      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
-    }
-    catch (Throwable t)
-    {
-      resp.getWriter().write(t.getLocalizedMessage());
-    }
-  }
-
-  @Override
-  public void exportSurveyQueryToCSV(String queryXML, String config, String savedSearchId)
-      throws IOException, ServletException
-  {
-    try
-    {
-      InputStream stream = SurveyPointDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config,
-          savedSearchId);
+      InputStream stream = AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -767,13 +818,11 @@ public class QueryController extends QueryControllerBase implements
   }
 
   @Override
-  public void exportSurveyQueryToExcel(String queryXML, String config, String savedSearchId)
-      throws IOException, ServletException
+  public void exportAggregatedCaseQueryToExcel(String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = SurveyPointDTO.exportQueryToExcel(this.getClientRequest(), queryXML, config,
-          savedSearchId);
+      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -786,32 +835,11 @@ public class QueryController extends QueryControllerBase implements
   }
 
   @Override
-  public void exportIRSQueryToCSV(String queryXML, String geoEntityType, String savedSearchId)
-      throws IOException, ServletException
+  public void exportAggregatedIPTQueryToExcel(String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AbstractSprayDTO.exportQueryToCSV(this.getClientRequest(), queryXML,
-          geoEntityType, savedSearchId);
-
-      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
-      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
-    }
-    catch (Throwable t)
-    {
-      resp.getWriter().write(t.getLocalizedMessage());
-    }
-  }
-
-  @Override
-  public void exportIRSQueryToExcel(String queryXML, String geoEntityType, String savedSearchId)
-      throws IOException, ServletException
-  {
-    try
-    {
-      InputStream stream = AbstractSprayDTO.exportQueryToExcel(this.getClientRequest(), queryXML,
-          geoEntityType, savedSearchId);
+      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -824,13 +852,11 @@ public class QueryController extends QueryControllerBase implements
   }
 
   @Override
-  public void exportEntomologyQueryToCSV(String queryXML, String geoEntityType, String savedSearchId)
-      throws IOException, ServletException
+  public void exportSurveyQueryToCSV(String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML,
-          geoEntityType, savedSearchId);
+      InputStream stream = SurveyPointDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -843,13 +869,11 @@ public class QueryController extends QueryControllerBase implements
   }
 
   @Override
-  public void exportEntomologyQueryToExcel(String queryXML, String geoEntityType, String savedSearchId)
-      throws IOException, ServletException
+  public void exportSurveyQueryToExcel(String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = MosquitoDTO.exportQueryToExcel(this.getClientRequest(), queryXML,
-          geoEntityType, savedSearchId);
+      InputStream stream = SurveyPointDTO.exportQueryToExcel(this.getClientRequest(), queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -862,13 +886,11 @@ public class QueryController extends QueryControllerBase implements
   }
 
   @Override
-  public void exportResistanceQueryToCSV(String queryXML, String geoEntityType, String savedSearchId)
-      throws IOException, ServletException
+  public void exportIRSQueryToCSV(String queryXML, String geoEntityType, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AdultDiscriminatingDoseAssayDTO.exportQueryToCSV(this.getClientRequest(),
-          queryXML, geoEntityType, savedSearchId);
+      InputStream stream = AbstractSprayDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -881,13 +903,79 @@ public class QueryController extends QueryControllerBase implements
   }
 
   @Override
-  public void exportResistanceQueryToExcel(String queryXML, String geoEntityType, String savedSearchId)
-      throws IOException, ServletException
+  public void exportIRSQueryToExcel(String queryXML, String geoEntityType, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AdultDiscriminatingDoseAssayDTO.exportQueryToExcel(this.getClientRequest(),
-          queryXML, geoEntityType, savedSearchId);
+      InputStream stream = AbstractSprayDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
+
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+
+      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
+  }
+
+  @Override
+  public void exportEntomologyQueryToCSV(String queryXML, String geoEntityType, String savedSearchId) throws IOException, ServletException
+  {
+    try
+    {
+      InputStream stream = MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
+
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+
+      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
+  }
+
+  @Override
+  public void exportEntomologyQueryToExcel(String queryXML, String geoEntityType, String savedSearchId) throws IOException, ServletException
+  {
+    try
+    {
+      InputStream stream = MosquitoDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
+
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+
+      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
+  }
+
+  @Override
+  public void exportResistanceQueryToCSV(String queryXML, String geoEntityType, String savedSearchId) throws IOException, ServletException
+  {
+    try
+    {
+      InputStream stream = AdultDiscriminatingDoseAssayDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
+
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+
+      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
+  }
+
+  @Override
+  public void exportResistanceQueryToExcel(String queryXML, String geoEntityType, String savedSearchId) throws IOException, ServletException
+  {
+    try
+    {
+      InputStream stream = AdultDiscriminatingDoseAssayDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 

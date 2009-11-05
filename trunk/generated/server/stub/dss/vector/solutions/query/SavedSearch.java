@@ -252,32 +252,35 @@ public class SavedSearch extends SavedSearchBase implements
             termIds.get(id).add(termIdsObj);
           }
         }
-        
-        QueryFactory f = new QueryFactory();
-        TermQuery t = new TermQuery(f);
-        ValueQuery v = new ValueQuery(f);
-        
-        v.SELECT(t.getId("tId"), t.getTermName("termName"), t.getTermId("termId"));
-        v.WHERE(t.getId("tId").IN(ids.toArray(new String[ids.size()])));
-        OIterator<ValueObject> iter = v.getIterator();
-        
-        try
-        {
-          while(iter.hasNext())
+ 
+        if(ids.size() > 0)
+        { 
+          QueryFactory f = new QueryFactory();
+          TermQuery t = new TermQuery(f);
+          ValueQuery v = new ValueQuery(f);
+          
+          v.SELECT(t.getId("tId"), t.getTermName("termName"), t.getTermId("termId"));
+          v.WHERE(t.getId("tId").IN(ids.toArray(new String[ids.size()])));
+          OIterator<ValueObject> iter = v.getIterator();
+          
+          try
           {
-            ValueObject o = iter.next();
-            String id = o.getValue("tId");
-            String display = o.getValue("termName") + " ("+o.getValue("termId")+")";
-            
-            for(JSONObject termIdDisplay : termIds.get(id))
+            while(iter.hasNext())
             {
-              termIdDisplay.put(id, display);
+              ValueObject o = iter.next();
+              String id = o.getValue("tId");
+              String display = o.getValue("termName") + " ("+o.getValue("termId")+")";
+              
+              for(JSONObject termIdDisplay : termIds.get(id))
+              {
+                termIdDisplay.put(id, display);
+              }
             }
           }
-        }
-        finally
-        {
-          iter.close();
+          finally
+          {
+            iter.close();
+          }
         }
       }
       catch(JSONException e)

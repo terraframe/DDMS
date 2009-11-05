@@ -3,14 +3,20 @@ package dss.vector.solutions.entomology.assay;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
 import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
+import com.terraframe.mojo.query.AttributeMoment;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
+import dss.vector.solutions.query.ThematicLayer;
+import dss.vector.solutions.util.QueryUtil;
 
 public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -167,6 +173,32 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
   public static EfficacyAssayView getView(String id)
   {
     return EfficacyAssay.get(id).getView();
+  }
+  
+  /**
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
+   *
+   * @param xml
+   * @return
+   */
+  public static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals, Boolean includeGeometry, ThematicLayer thematicLayer)
+  {
+
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, EfficacyAssay.CLASS, EfficacyAssay.GEOENTITY);   
+   
+    EfficacyAssayQuery efficacyAssayIPTQuery = (EfficacyAssayQuery) queryMap.get(EfficacyAssay.CLASS);
+
+   
+    AttributeMoment dateAttribute = efficacyAssayIPTQuery.getTestDate();
+
+    return QueryUtil.setQueryDates(xml,valueQuery,dateAttribute);
+
   }
 
 }

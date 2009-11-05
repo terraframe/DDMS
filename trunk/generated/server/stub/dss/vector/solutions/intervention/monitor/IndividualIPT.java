@@ -2,11 +2,18 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 import com.terraframe.mojo.dataaccess.MdAttributeBooleanDAOIF;
+import com.terraframe.mojo.query.AttributeMoment;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.query.ThematicLayer;
+import dss.vector.solutions.util.QueryUtil;
 
 public class IndividualIPT extends IndividualIPTBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -112,4 +119,33 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
     }
   }
 
+
+  /**
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
+   *
+   * @param xml
+   * @return
+   */
+  public static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals, Boolean includeGeometry, ThematicLayer thematicLayer)
+  {
+
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, IndividualIPT.CLASS, IndividualIPT.FACILITY);   
+   
+    IndividualIPTQuery IndividualIPTQuery = (IndividualIPTQuery) queryMap.get(IndividualIPT.CLASS);
+
+   
+
+   
+    AttributeMoment dateAttribute = IndividualIPTQuery.getServiceDate();
+
+    return QueryUtil.setQueryDates(xml,valueQuery,dateAttribute);
+
+  }
+  
 }

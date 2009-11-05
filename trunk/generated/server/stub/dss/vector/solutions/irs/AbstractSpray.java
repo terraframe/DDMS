@@ -3,6 +3,7 @@ package dss.vector.solutions.irs;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.database.Database;
@@ -14,7 +15,12 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
+import com.terraframe.mojo.query.ValueQueryExcelExporter;
 
+import dss.vector.solutions.ontology.AllPathsQuery;
+import dss.vector.solutions.query.MapUtil;
+import dss.vector.solutions.query.NoThematicLayerException;
+import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.util.QueryConfig;
@@ -113,6 +119,24 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
 
     String viewName = ThematicLayer.GEO_VIEW_PREFIX + System.currentTimeMillis();
     ResourceTarget.createDatabaseView(viewName);
+    
+    for(Entry<String, GeneratedEntityQuery> e : queryMap.entrySet()) {
+      if (e.getValue() instanceof AllPathsQuery)
+      {
+        String key = e.getKey();
+        AllPathsQuery allPathsQuery = (AllPathsQuery) e.getValue();
+        
+        int index1 = key.indexOf("__");
+        int index2 = key.lastIndexOf("__");
+        String attrib = key.substring(0, index1);
+        String klass = key.substring(index1+2, index2).replace("_", ".");
+        String attrib2 = key.substring(index2+2,key.length());
+        Selectable term  = valueQuery.getSelectable(attrib2);
+        
+        
+        valueQuery.WHERE(new InnerJoinEq("id", term.getDefiningTableName(), term.getDefiningTableAlias(), "childTerm", allPathsQuery.getMdClassIF().getTableName(), allPathsQuery.getTableAlias()));
+      }
+    }
 
     String coverageCalculationsView = "spray_data_view";
     String sprayCaluclationsSQL = "(" + SprayStatus.getTempTableSQL() + ")";
@@ -150,6 +174,87 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     return valueQuery;
   }
 
+  /**
+   * Queries for Mosquitos.
+   * 
+   * @param xml
+   */
+  @Transaction
+  @Authenticate
+  public static com.terraframe.mojo.query.ValueQuery queryIRS(String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
+  {
+    QueryConfig queryConfig = new QueryConfig(config);
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
+
+    ValueQuery valueQuery = xmlToValueQuery(queryXML, selectedUniversals, false, null);
+
+    valueQuery.restrictRows(pageSize, pageNumber);
+
+    System.out.println(valueQuery.getSQL());
+
+    return valueQuery;
+  }
+
+  @Transaction
+  public static String mapQuery(String xml, String config, String[] universalLayers, String savedSearchId)
+  {
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    {
+      String error = "Cannot map a query without a current SavedSearch instance.";
+      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
+      throw ex;
+    }
+
+    SavedSearch search = SavedSearch.get(savedSearchId);
+    QueryConfig queryConfig = new QueryConfig(config);
+
+    ThematicLayer thematicLayer = search.getThematicLayer();
+
+    if (thematicLayer == null || thematicLayer.getGeoHierarchy() == null)
+    {
+      String error = "Cannot create a map for search [" + search.getQueryName() + "] without having selected a thematic layer.";
+      NoThematicLayerException ex = new NoThematicLayerException(error);
+      throw ex;
+    }
+
+    // Update ThematicLayer if the thematic layer type has changed or
+    // if one has not yet been defined.
+    String thematicLayerType = thematicLayer.getGeoHierarchy().getGeoEntityClass().definesType();
+    if (thematicLayer.getGeometryStyle() == null || !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
+    {
+      thematicLayer.changeLayerType(thematicLayerType);
+    }
+
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
+    ValueQuery query = xmlToValueQuery(xml, selectedUniversals, true, thematicLayer);
+
+    System.out.println(query.getSQL());
+
+    String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
+
+    return layers;
+  }
+
+  @Transaction
+  public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
+  {
+    QueryConfig queryConfig = new QueryConfig(config);
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
+
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    {
+      String error = "Cannot export to Excel without a current SavedSearch instance.";
+      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
+      throw ex;
+    }
+
+    SavedSearch search = SavedSearch.get(savedSearchId);
+
+    ValueQuery query = xmlToValueQuery(queryXML, selectedUniversals, false, null);
+
+    ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
+    return exporter.exportStream();
+  }
 
   @Transaction
   public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId)
