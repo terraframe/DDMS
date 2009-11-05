@@ -31,4 +31,9 @@ public class QueryConstants implements Reloadable
   public static final String QUERY_RESISTANCE = "QueryResistance";
 
   public static final String QUERY_AGGREGATED_IPT = "QueryAggregatedIPT";
+  
+  public static final String QUERY_INDIVIDUAL_IPT = "QueryIndividualAggregatedIPT";
+
+  public static final String QUERY_EFFICACY_ASSAY = "QueryEfficacyAssay";
+  
 }

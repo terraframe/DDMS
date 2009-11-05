@@ -810,15 +810,15 @@ MDSS.QueryPanel.prototype = {
    */
   clearAllDefinedLayers : function()
   {
-    var ul = document.getElementById(this.DEFINED_LAYERS_LIST);
-    ul.innerHTML = '';
+    //var ul = document.getElementById(this.DEFINED_LAYERS_LIST);
+   // ul.innerHTML = '';
 
-    var select = document.getElementById(this.AVAILABLE_LAYERS_LIST);
-    var options = select.options;
-    for(var i=0; i<options.length; i++)
-    {
-      options[i].disabled = false;
-    }
+   // var select = document.getElementById(this.AVAILABLE_LAYERS_LIST);
+   // var options = select.options;
+   // for(var i=0; i<options.length; i++)
+   // {
+   //   options[i].disabled = false;
+   // }
   },
 
   removeDefinedLayer : function(layerId, type)
@@ -960,7 +960,11 @@ MDSS.QueryPanel.prototype = {
     var config = document.createElement('input');
     YAHOO.util.Dom.setAttribute(config, 'type', 'hidden');
     YAHOO.util.Dom.setAttribute(config, 'name', 'config');
-
+    
+    var queryClassInput = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(queryClassInput, 'type', 'hidden');
+    YAHOO.util.Dom.setAttribute(queryClassInput, 'name', 'queryClass');
+    
     var searchIdInput = document.createElement('input');
     YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
     YAHOO.util.Dom.setAttribute(searchIdInput, 'name', 'savedSearchId');
@@ -969,7 +973,8 @@ MDSS.QueryPanel.prototype = {
       form: form,
       xmlInput: xmlInput,
       config : config,
-      searchIdInput : searchIdInput
+      searchIdInput : searchIdInput,
+      queryClassInput: queryClassInput
     };
 
     var exportCSVButton = document.createElement('input');
@@ -981,6 +986,7 @@ MDSS.QueryPanel.prototype = {
     form.appendChild(xmlInput);
     form.appendChild(config);
     form.appendChild(searchIdInput);
+    form.appendChild(queryClassInput);
 
     document.getElementById('CSVFormContainer').appendChild(form);
 
@@ -1056,6 +1062,10 @@ MDSS.QueryPanel.prototype = {
     var config = document.createElement('input');
     YAHOO.util.Dom.setAttribute(config, 'type', 'hidden');
     YAHOO.util.Dom.setAttribute(config, 'name', 'config');
+    
+    var queryClassInput = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(queryClassInput, 'type', 'hidden');
+    YAHOO.util.Dom.setAttribute(queryClassInput, 'name', 'queryClass');
 
     var searchIdInput = document.createElement('input');
     YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
@@ -1065,7 +1075,8 @@ MDSS.QueryPanel.prototype = {
       form: form,
       xmlInput: xmlInput,
       config : config,
-      searchIdInput : searchIdInput
+      searchIdInput : searchIdInput,
+      queryClassInput: queryClassInput
     };
 
     var exportXLSButton = document.createElement('input');
@@ -1077,6 +1088,7 @@ MDSS.QueryPanel.prototype = {
     form.appendChild(xmlInput);
     form.appendChild(config);
     form.appendChild(searchIdInput);
+    form.appendChild(queryClassInput);
 
     document.getElementById('XLSFormContainer').appendChild(form);
 
