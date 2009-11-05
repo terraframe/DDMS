@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
+  name="dss.vector.solutions.stock.StockOutProblem">
+  <!--
+    - {availableStock} availableStock
+    - {itemLabel} itemLabel
+    - {stockOut} stockOut
+    -->
+  <locale language="en">The item [{itemLabel}] can not have more stock removed [{stockOut}] than is available [{availableStock}]. </locale>
+</exception>
