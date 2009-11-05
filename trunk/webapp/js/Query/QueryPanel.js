@@ -1183,7 +1183,7 @@ MDSS.QueryPanel.prototype = {
 
     var deleteButton = new YAHOO.util.Element(document.createElement('input'));
     deleteButton.set('type', 'button');
-    deleteButton.set('value', MDSS.localize("Delete Query"));
+    deleteButton.set('value', MDSS.localize("Delete_Query"));
     deleteButton.set('id', this.LOAD_QUERY_BUTTON);
     deleteButton.addClass('queryButton');
     deleteButton.on('click', this._deleteQuery, {}, this);
