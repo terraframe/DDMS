@@ -8,7 +8,7 @@ Mojo.Meta.newClass('MDSS.QueryIndividualIPT', {
     {
 
 
-      this._individualIPT = Mojo.$.dss.vector.solutions.intervention.monitor.IndividualIPT();
+      this._individualIPT = Mojo.$.dss.vector.solutions.intervention.monitor.IndividualIPT;
       this._dateAttribute = new MDSS.QueryXML.Attribute(this._individualIPT.CLASS, this._individualIPT.STARTDATE, this._individualIPT.STARTDATE);
       
       var startDateAttr = new MDSS.QueryXML.Attribute(this._individualIPT.CLASS, this._individualIPT.STARTDATE, this._individualIPT.STARTDATE);
@@ -18,25 +18,21 @@ Mojo.Meta.newClass('MDSS.QueryIndividualIPT', {
       this._endDateSelectable = new MDSS.QueryXML.Selectable(endDateAttr);
 
       this._mainQueryClass = this._individualIPT.CLASS;
-      this._groupByClass = Mojo.$.dss.vector.solutions.intervention.monitor.IndividualIPT();
+      this._groupByClass = this._individualIPT;
 
       this._commonQueryClasses = [
-                                  Mojo.$.dss.vector.solutions.intervention.monitor.IndividualIPT().CLASS,
+                                  this._individualIPT.CLASS,
+                                  "dss.vector.solutions.intervention.monitor.IndividualIPTCase",
+                                  Mojo.$.dss.vector.solutions.Person.CLASS,
                                   ];
 
       this._exclusionClasses = [];
 
-      this._dataQueryFunction = Mojo.$.dss.vector.solutions.query.QueryBuilder.getQueryResults;
-      this._mapQueryFunction  = Mojo.$.dss.vector.solutions.query.QueryBuilder.mapQuery;
       
       this.$initialize(selectableGroups, queryList);   
       
 
-      /**
-       * Returns the type of query.
-       */
       this._queryType = 'QueryIndividualIPT';
-      
 
       this._reportQueryType = 'QueryIndividualIPT';
       }

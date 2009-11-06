@@ -1,5 +1,11 @@
 MDSS.validateEpiDate = function(button, geoId, year, period, periodType){
   var validate = function(e, obj){
+  	
+  	if ( this.e && e.keyCode !== 9)
+  	{
+  	  return;
+  	}
+  	
 	button.disabled=true;
 	  
     var selectedType;
@@ -20,14 +26,22 @@ MDSS.validateEpiDate = function(button, geoId, year, period, periodType){
 	{
 	  return;
 	}
+	
+
+	
+	
 
     if(geoId.value != '' && year.value != '' && period.value != '' && selectedType != '')
     {
       var request = new MDSS.Request({
+      	  e:e,
           onSend: function(){},
           onComplete: function(){},
           onSuccess : function(){
-        	  button.disabled=false;              
+        	  button.disabled=false; 
+        	  if(this.e && e.keyCode === 9 ){
+        	  	button.focus();
+        	  }
           },
           onFailure : function(e){
           	MDSS.Calendar.addError(geoId,e.getLocalizedMessage());            
@@ -55,7 +69,6 @@ MDSS.validateEpiDate = function(button, geoId, year, period, periodType){
       Mojo.$.dss.vector.solutions.surveillance.AggregatedCaseView.validateSearchCriteria(request, geoId.value, selectedType, parseInt(period.value), parseInt(year.value));
     }
   }
-
   onValidGeoEntitySelected = function() {
 	  validate();	  
   }
@@ -66,5 +79,5 @@ MDSS.validateEpiDate = function(button, geoId, year, period, periodType){
   YAHOO.util.Event.on(geoId, 'blur', validate);
   YAHOO.util.Event.on(periodType, 'click', validate);
   YAHOO.util.Event.on(period, 'blur', validate);
-  YAHOO.util.Event.on(year, 'blur', validate);
+  YAHOO.util.Event.on(year, 'keypress', validate);
 }

@@ -28,9 +28,6 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedIPT', {
                                   ];
 
       this._exclusionClasses = [];
-
-      this._dataQueryFunction = Mojo.$.dss.vector.solutions.query.QueryBuilder.getQueryResults;
-      this._mapQueryFunction  = Mojo.$.dss.vector.solutions.query.QueryBuilder.mapQuery;
       
       this.$initialize(selectableGroups, queryList);   
       
