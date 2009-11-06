@@ -39,7 +39,9 @@
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.IndividualIPTDTO"%>
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
+<%@page import="dss.vector.solutions.PersonDTO"%>
 
 
 
@@ -53,7 +55,7 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ IndividualIPTViewDTO.CLASS};
+    String[] mosquitoTypes = new String[]{ IndividualIPTViewDTO.CLASS, IndividualIPTDTO.CLASS, PersonDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
     MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
@@ -109,9 +111,10 @@ YAHOO.util.Event.onDOMReady(function(){
         }
       }else{
         row.attributeName = attribName;
-        row.type = 'sqlcharacter';
+        row.type = 'sqlinteger';
         row.displayLabel = attribName;
         row.key = attribName;
+        row.dtoType = "AttributeIntegerDTO";
 
       }
       return row;
@@ -139,29 +142,34 @@ YAHOO.util.Event.onDOMReady(function(){
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
     var iptMaps = {<%=(String) request.getAttribute("iptMap")%>};
+    
+    var personMaps = {<%=(String) request.getAttribute("iptMap")%>};
 
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
-    var indivduualIPT = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualIPT();
+    var individualIPT = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualIPT();
 
-    
-    var iIPTAttribs = ["administratorName","administratorSurname",
-                       "doseNumber","doseType","iptCase","isANCVisit",
+    var iIPTAttribs = ["serviceDate",
+                       "doseNumber","doseType","isANCVisit",
                        "numberOfRecievedITNs","patientType","recievedITN",
-                       "recievedSupplement","serviceDate","visitNumber",
-                       "patient","residentialLocation"];
-
+                       "recievedSupplement","visitNumber","administratorName","administratorSurname",];
 
     
-    var iIPTColumns =   aIPTAttribs.map(mapAttribs, {obj:aggreatedIPT, suffix:'_aipt', dropDownMaps:iptMaps});
+    var iIPTColumns =   iIPTAttribs.map(mapAttribs, {obj:individualIPT, suffix:'_ipt', dropDownMaps:iptMaps});
 
+    var person = new Mojo.$.dss.vector.solutions.Person();
+    
+    var personAttribs = ["dateOfBirth","firstName","lastName","sex","age","residentialInformation","workInformation"];
+    
+    var personColumns =  personAttribs.map(mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
 
     
     var selectableGroups = [
-              {title:"Individual IPT", values:aIPTColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IndividualIPT.CLASS}
+              {title:"IPT", values:iIPTColumns, group:"ipt", klass:individualIPT.CLASS},
+              {title:"Patient", values:personColumns, group:"ipt", klass:individualIPT.CLASS}
     ];
 
-    var query = new MDSS.QueryAggreatedIPT(selectableGroups, queryList);
+    var query = new MDSS.QueryIndividualIPT(selectableGroups, queryList);
     query.render();
 
 });

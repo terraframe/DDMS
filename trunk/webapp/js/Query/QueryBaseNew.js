@@ -21,6 +21,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       this._whereOptions = {};
       this._visibleAggregateSelectables = {};
 
+      
+      this._singleAndRangeAttributes = [];
   
       this._dataQueryFunction = Mojo.$.dss.vector.solutions.query.QueryBuilder.getQueryResults;
       this._mapQueryFunction  = Mojo.$.dss.vector.solutions.query.QueryBuilder.mapQuery;
@@ -772,6 +774,21 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         this._defaults.push({element:check, checked:false});
         if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeIntegerDTO'))
         {
+        	li.id = attribute.getKey()+'_li';
+
+            // Add single match and range
+        	var items = [];
+          var single = this._createSingleItem(check, li, attribute);
+          var range = this._createRangeItem(check, li, attribute);
+          
+          this._menuItems[attribute.getKey()+'-single'] = single;        
+          this._menuItems[attribute.getKey()+'-range'] = range;
+              
+          items.push(single);
+          items.push(range);
+          
+          this._menus[li.id] = items;
+        	
           var select = document.createElement('select');
 
           var options = [''];
@@ -958,6 +975,284 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         this._addVisibleAttribute(column);
       }
 
-    }
+    },
+    /**
+     * Creates the JSON necessary to let a user specify an single
+     * match on an attribute.
+     */
+    _createSingleItem : function(check, li, attribute)
+    {
+      this._singleAndRangeAttributes.push(attribute);
+    
+      var singleInput = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(singleInput, 'type', 'text');
+      YAHOO.util.Dom.setStyle(singleInput, 'display', 'none');
+      YAHOO.util.Dom.addClass(singleInput, 'queryNumberCriteria');
+      singleInput.id = attribute.getKey()+"-single";
+      
+      var obj = {
+        attribute: attribute,
+        type: 'single'
+      };
+      
+      YAHOO.util.Event.on(singleInput, 'keyup', this._setNumberCriteria, obj, this);
+  
+      li.appendChild(singleInput);
+  
+      // When the check box is toggled, be sure to clear and hide the input
+      YAHOO.util.Event.on(check, 'click', function(e, attr){
+        if(!e.target.checked)
+        {
+          this._toggleSingle(attr, false);
+        }
+      }, attribute, this);
+  
+      return item = {
+        text: MDSS.Localized.Single_Value,
+        checked: false,
+        onclick : {
+          fn: this._toggleNumberInputs,
+          obj: obj, 
+          scope: this
+        }
+      };
+    },
+    
+    /**
+     * Creates the JSON necessary to let a user specify an single
+     * match on an attribute.
+     */
+    _createRangeItem : function(check, li, attribute)
+    {
+      this._singleAndRangeAttributes.push(attribute);
+    
+      var rangeInput1 = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(rangeInput1, 'type', 'text');
+      YAHOO.util.Dom.setStyle(rangeInput1, 'display', 'none');
+      YAHOO.util.Dom.addClass(rangeInput1, 'queryNumberCriteria');
+      rangeInput1.id = attribute.getKey()+"-range1";
+  
+      var obj = {
+        attribute: attribute,
+        type: 'range'
+      };
+  
+      YAHOO.util.Event.on(rangeInput1, 'keyup', this._setNumberCriteria, obj, this);
+  
+      var rangeSign = document.createElement('span');
+      rangeSign.innerHTML = '-';
+      YAHOO.util.Dom.setStyle(rangeSign, 'display', 'none');
+      rangeSign.id = attribute.getKey()+"-rangeSign";
+  
+      var rangeInput2 = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(rangeInput2, 'type', 'text');
+      YAHOO.util.Dom.setStyle(rangeInput2, 'display', 'none');
+      YAHOO.util.Dom.addClass(rangeInput2, 'queryNumberCriteria');
+      rangeInput2.id = attribute.getKey()+"-range2";
+  
+      YAHOO.util.Event.on(rangeInput2, 'keyup', this._setNumberCriteria, obj, this);
+      
+      li.appendChild(rangeInput1);
+      li.appendChild(rangeSign);
+      li.appendChild(rangeInput2);  
+  
+      // When the check box is toggled, be sure to clear and hide the inputs
+      YAHOO.util.Event.on(check, 'click', function(e, attr){
+        if(!e.target.checked)
+        {
+          this._toggleRange(attr, false);
+        }
+      }, attribute, this);
+  
+      return item = {
+        text: MDSS.Localized.Set_Range,
+        checked: false,
+        onclick : {
+          fn: this._toggleNumberInputs,
+          obj: obj,
+          scope: this
+        }
+      };
+    },
+    _toggleSingle : function(attribute, toggleOverride)
+    {
+      var item = this._menuItems[attribute.getKey()+'-single'];
+      // The single criteria is optional, so return if null
+      if(item == null)
+      {
+        return;
+      }
+      
+      item.checked = Mojo.Util.isBoolean(toggleOverride) ? toggleOverride : !item.checked; 
+    
+      var single = document.getElementById(attribute.getKey()+"-single");
+      if(item.checked)
+      {
+        YAHOO.util.Dom.setStyle(single, 'display', 'inline');
+      }
+      else
+      {
+        single.value = '';
+        YAHOO.util.Dom.setStyle(single, 'display', 'none');
+      }
+      
+      return item.checked;
+    },
+    
+    _toggleRange : function(attribute, toggleOverride)
+    {
+      var item = this._menuItems[attribute.getKey()+'-range'];
+      // The range criteria is optional, so return if null
+      if(item == null)
+      {
+        return;
+      }
+      
+      item.checked = Mojo.Util.isBoolean(toggleOverride) ? toggleOverride : !item.checked;
+      
+      var range1 = document.getElementById(attribute.getKey()+"-range1");
+      var rangeSign = document.getElementById(attribute.getKey()+"-rangeSign");
+      var range2 = document.getElementById(attribute.getKey()+"-range2");
+      
+      if(item.checked)
+      {
+        YAHOO.util.Dom.setStyle(range1, 'display', 'inline');
+        YAHOO.util.Dom.setStyle(rangeSign, 'display', 'inline');
+        YAHOO.util.Dom.setStyle(range2, 'display', 'inline');
+      }
+      else
+      {
+        range1.value = '';
+        range2.value = '';
+  
+        YAHOO.util.Dom.setStyle(range1, 'display', 'none');
+        YAHOO.util.Dom.setStyle(rangeSign, 'display', 'none');
+        YAHOO.util.Dom.setStyle(range2, 'display', 'none');
+      }
+      
+      return item.checked;
+    },
+    
+    /**
+     * Sets number restriction criteria by showing/hiding
+     * input fields for single value matching and range.
+     */
+    _toggleNumberInputs : function(eventType, event, obj)
+    {
+      var attribute = obj.attribute;
+      
+      var that = this;
+      var checked;
+      if(obj.type === 'single')
+      {
+        this._toggleRange(attribute, false);
+        checked = this._toggleSingle(attribute);
+      }
+      else
+      {
+        this._toggleSingle(attribute, false);
+        checked = this._toggleRange(attribute);
+      }
+      
+      // Always clear the criteria as there's no reason to
+      // preserve it when toggling single/range inputs.
+      this._queryPanel.clearWhereCriteria(attribute.getKey());
+      
+     // if(!checked && attribute.getAttributeName() === this._Person.DOB)
+      //{
+       // this._config.setProperty('dobCriteria', null);
+      //}
+     // else if(!checked)
+     // {
+        // no criteria specified, so clear the mapping
+     //   if(attribute.getType() === this._Person.CLASS)
+     //   {
+     //     this._setPersonCriteria(attribute, null, null, true);
+     //   }
+     //   else
+     //   {
+     //     this._setHouseholdCriteria(attribute,  null, null, true);
+      //  }
+      //}
+    },
+    
+    /**
+     * Sets the numeric values on the text inputs for single and range
+     * criteria.
+     */
+    _setNumberInputValues : function(obj, value1, value2)
+    {
+      var attribute = obj.attribute;
+      if(obj.type === 'single')
+      {
+        if(value1 != null)
+        {
+          document.getElementById(attribute.getKey()+"-single").value = value1;
+        }
+      }
+      else
+      {
+        if(value1 != null)
+        {
+          document.getElementById(attribute.getKey()+"-range1").value = value1;
+        }
+        
+        if(value2 != null)
+        {
+          document.getElementById(attribute.getKey()+"-range2").value = value2;
+        }
+      }
+      
+    },
+    
+    /**
+     * Sets number criteria on an attribute.
+     */
+    _setNumberCriteria : function(e, obj)
+    {
+      var attribute = obj.attribute;
+      var value;
+      if(obj.type === 'single')
+      {
+        var single = document.getElementById(attribute.getKey()+"-single");
+        value = single.value;
+      }
+      else
+      {
+        var range1 = document.getElementById(attribute.getKey()+"-range1");
+        var range2 = document.getElementById(attribute.getKey()+"-range2");
+        value = range1.value+'-'+range2.value; // Will be split up in this._setPersonCriteria
+      }
+      
+      // DOB uses the json config because WHERE criteria is not easily passed
+      // between a date and sql integer.
+      /*
+      if(attribute.getAttributeName() === this._Person.DOB)
+      {
+      */
+        if(value === '' || value === '-')
+        {
+          value = null;
+        }
+      
+        this._config.setProperty('dobCriteria', value);
+        this._queryPanel.clearWhereCriteria(attribute.getKey());
+        
+        if(value != null)
+        {
+          this._queryPanel.addWhereCriteria(attribute.getKey(), value, value);
+        }
+        /*
+      }
+      else if(attribute.getType() === this._Person.CLASS)
+      {
+        this._setPersonCriteria(attribute, value, value, true);
+      }
+      else if(attribute.getType() === this._Household.CLASS)
+      {
+        this._setHouseholdCriteria(attribute, value, value, true);
+      }
+      */
+    },
   }
 });

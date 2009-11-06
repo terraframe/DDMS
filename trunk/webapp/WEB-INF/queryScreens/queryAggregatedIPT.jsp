@@ -170,7 +170,7 @@ YAHOO.util.Event.onDOMReady(function(){
    var visitsColumns = orderedGrids.visits.options.map(mapMo, orderedGrids.visits);
     
     var selectableGroups = [
-              {title:"Aggreated IPT", values:aIPTColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS},
+              {title:"IPT", values:aIPTColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS},
               {title:"Doses", values:dosesColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTDose.CLASS},
               {title:"Patients", values:patientsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTPatients.CLASS},
               {title:"Treatments", values:treatmentsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTTreatment.CLASS},
