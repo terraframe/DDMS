@@ -495,19 +495,19 @@ public class AggregatedCase extends AggregatedCaseBase implements
         valueQuery.AND(aggregatedCaseQuery.treatment(ctq));
         valueQuery.AND(ctq.hasChild(termQuery));
       }
-      else if (generatedQuery instanceof ReferralGridQuery)
+      else if (generatedQuery instanceof CaseReferralQuery)
       {
         CaseReferralQuery crq = (CaseReferralQuery) generatedQuery;
         valueQuery.AND(aggregatedCaseQuery.referral(crq));
         valueQuery.AND(crq.hasChild(termQuery));
       }
-      else if (generatedQuery instanceof DiagnosticGridQuery)
+      else if (generatedQuery instanceof CaseDiagnosticQuery)
       {
         CaseDiagnosticQuery cdq = (CaseDiagnosticQuery) generatedQuery;
         valueQuery.AND(aggregatedCaseQuery.diagnosticMethod(cdq));
         valueQuery.AND(cdq.hasChild(termQuery));
       }
-      else if (generatedQuery instanceof TreatmentMethodGridQuery)
+      else if (generatedQuery instanceof CaseTreatmentMethodQuery)
       {
         CaseTreatmentMethodQuery ctmq = (CaseTreatmentMethodQuery) generatedQuery;
         valueQuery.AND(aggregatedCaseQuery.treatmentMethod(ctmq));
@@ -641,21 +641,4 @@ public class AggregatedCase extends AggregatedCaseBase implements
     return exporter.exportStream();
   }
 
-  /**
-   * Returns all AbstractGrid subclass instances relative to Aggregated Cases.
-   *
-   * @return
-   */
-  public static AbstractGridQuery getGridInstances()
-  {
-    QueryFactory f = new QueryFactory();
-    AbstractGridQuery q = new AbstractGridQuery(f);
-
-    String[] types = new String[] { CaseTreatmentStock.CLASS, TreatmentGrid.CLASS,
-        TreatmentMethodGrid.CLASS, DiagnosticGrid.CLASS, ReferralGrid.CLASS };
-
-    q.WHERE(q.getType().IN(types));
-
-    return q;
-  }
 }

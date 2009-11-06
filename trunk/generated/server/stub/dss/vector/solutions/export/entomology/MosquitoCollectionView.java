@@ -20,7 +20,6 @@ import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.mo.CollectionMethod;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
@@ -113,6 +112,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
       throw e;
     }
 
+    /* FIXME MO REFACTOR
     CollectionMethod method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this
         .getCollectionMethod(), MosquitoCollection.getCollectionMethodMd());
 
@@ -140,7 +140,8 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     finally
     {
       iterator.close();
-    }
+    }*/
+    return null; // FIXME MO REFACTOR (to make compile)
   }
 
   private boolean hasCollectionMethod()

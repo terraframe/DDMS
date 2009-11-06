@@ -13,12 +13,6 @@ public class IPTPatients extends IPTPatientsBase implements ChildOption, Reloada
     super(parentId, childId);
   }
 
-  public IPTPatients(dss.vector.solutions.intervention.monitor.AggregatedIPT parent,
-      dss.vector.solutions.intervention.monitor.PatientGrid child)
-  {
-    this(parent.getId(), child.getId());
-  }
-
   public IPTPatients clone(AggregatedIPTView parent)
   {
     IPTPatients clone = new IPTPatients(parent.getConcreteId(), this.getChildId());

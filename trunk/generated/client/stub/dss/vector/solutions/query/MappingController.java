@@ -31,6 +31,8 @@ public class MappingController extends MappingControllerBase implements
   public static final String  EDIT_LAYER           = JSP_DIR + "editLayer.jsp";
 
   public static final String  EDIT_VARIABLE_STYLES = JSP_DIR + "editVariableStyles.jsp";
+  
+  public static final String GENERATE_MAPS = JSP_DIR+"generateMaps.jsp";
 
   public MappingController(javax.servlet.http.HttpServletRequest req,
       javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
@@ -77,6 +79,13 @@ public class MappingController extends MappingControllerBase implements
       }
     }
     
+  }
+  
+  public void generateMaps() throws IOException, ServletException
+  {
+    //
+    
+    this.req.getRequestDispatcher(GENERATE_MAPS).forward(req, resp);
   }
   
   /**

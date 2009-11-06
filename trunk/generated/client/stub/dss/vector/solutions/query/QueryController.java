@@ -27,7 +27,6 @@ import com.terraframe.mojo.transport.attributes.AttributeStructDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 
 import dss.vector.solutions.entomology.MosquitoDTO;
-import dss.vector.solutions.entomology.assay.AbstractAssayDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
@@ -535,7 +534,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   /**
    * Creates the screen to query for Entomology (mosquitos).
    */
-  @Override
+//  @Override
   public void queryIndividualIPT() throws IOException, ServletException
   {
     try
@@ -578,7 +577,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   /**
    * Creates the screen to query for Entomology (mosquitos).
    */
-  @Override
+//  @Override
   public void queryEfficacyAssay() throws IOException, ServletException
   {
     try
@@ -629,10 +628,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       // The Earth is the root. FIXME use country's default root
       EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      String json = AbstractAssayDTO.getAssayTree(this.getClientRequest());
-
-      req.setAttribute("assayTree", json);
 
       SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_ENTOMOLOGY);
       JSONArray queries = new JSONArray();
@@ -766,7 +761,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   }
 
   
-  @Override
+//  @Override
   public void exportQueryToCSV(String className, String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
@@ -783,7 +778,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     }
   }
 
-  @Override
+//  @Override
   public void exportQueryToExcel(String className, String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try

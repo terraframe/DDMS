@@ -1,7 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,11 +10,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.surveillance.DiagnosticGridDTO;
-import dss.vector.solutions.surveillance.ReferralGridDTO;
-import dss.vector.solutions.surveillance.TreatmentGridDTO;
 import dss.vector.solutions.util.ErrorUtility;
-import dss.vector.solutions.util.RedirectUtility;
 
 public class IndividualInstanceController extends IndividualInstanceControllerBase implements Reloadable
 {
@@ -64,12 +59,14 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   public void failUpdate(IndividualInstanceDTO dto) throws IOException, ServletException
   {
+    /* FIXME MO REFACTOR
     req.setAttribute("labTest", Arrays.asList(DiagnosticGridDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("patientCategory", Arrays.asList(PatientGridDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("referralReason", Arrays.asList(ReferralGridDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("treatment", Arrays.asList(TreatmentGridDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("item", dto);
     render("editComponent.jsp");
+    */
   }
 
   public void create(IndividualInstanceDTO dto) throws IOException, ServletException
@@ -110,7 +107,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   }
 
   public void edit(String id) throws IOException, ServletException
-  {
+  {/* FIXME MO REFACTOR
     IndividualInstanceDTO dto = IndividualInstanceDTO.lock(super.getClientRequest(), id);
     req.setAttribute("labTest", Arrays.asList(DiagnosticGridDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("patientCategory", Arrays.asList(PatientGridDTO.getAll(super.getClientSession().getRequest())));
@@ -118,6 +115,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     req.setAttribute("treatment", Arrays.asList(TreatmentGridDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("item", dto);
     render("editComponent.jsp");
+    */
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -145,6 +143,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   private void renderCreate(IndividualInstanceDTO dto, String caseId) throws IOException, ServletException
   {
+    /* FIXME MO REFACTOR
     ClientRequestIF request = super.getClientSession().getRequest();
     req.setAttribute("labTest", Arrays.asList(DiagnosticGridDTO.getAll(request)));
     req.setAttribute("patientCategory", Arrays.asList(PatientGridDTO.getAll(request)));
@@ -153,6 +152,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     req.setAttribute("caseId", caseId);
     req.setAttribute("item", dto);
     render("createComponent.jsp");
+    */
   }
 
   public void failNewInstance(String caseId) throws IOException, ServletException
@@ -181,16 +181,19 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   public void failDelete(IndividualInstanceDTO dto) throws IOException, ServletException
   {
+    /* FIXME MO REFACTOR
     req.setAttribute("labTest", Arrays.asList(DiagnosticGridDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("patientCategory", Arrays.asList(PatientGridDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("referralReason", Arrays.asList(ReferralGridDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("treatment", Arrays.asList(TreatmentGridDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("item", dto);
     render("editComponent.jsp");
+    */
   }
 
   public void view(String id) throws IOException, ServletException
   {
+    /* FIXME MO REFACTOR
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
@@ -201,6 +204,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     req.setAttribute("treatment", Arrays.asList(TreatmentGridDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("item", IndividualInstanceDTO.get(clientRequest, id));
     render("viewComponent.jsp");
+    */
   }
 
   public void failView(String id) throws IOException, ServletException

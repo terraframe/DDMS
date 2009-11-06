@@ -17,7 +17,6 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
-import com.terraframe.mojo.query.SelectableSQLDouble;
 import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
@@ -27,7 +26,6 @@ import com.terraframe.mojo.system.metadata.MdEntity;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.intervention.RDTResult;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.MapUtil;
@@ -356,6 +354,7 @@ public class SurveyPoint extends SurveyPointBase implements
     }
   }
   
+  /* FIXME MO REFACTOR
   private static void addPrevalenceColumn(String prevalenceSel, ValueQuery valueQuery, PersonQuery personQuery, RDTResult rdtResult)
   {
     try
@@ -372,26 +371,25 @@ public class SurveyPoint extends SurveyPointBase implements
       
       PersonQuery prevalencePQ = new PersonQuery(valueQuery.getQueryFactory()); // PersonQuery for Prevalence
 
-      // FIXME MO UPGRADE
-//      // total tested
-//      Condition or = OR.get(prevalencePQ.getPerformedRDT().containsAny(RDTResponse.YES),
-//          prevalencePQ.getBloodslide().containsAny(BloodslideResponse.DONE));
-//      prevalencePQ.WHERE(or);
-//      
-//      // total positive
-//      if(rdtResult != null)
-//      {
-//        prevalencePQ.AND(prevalencePQ.getRDTResult().containsAny(rdtResult));
-//      }
-//      else
-//      {
-//        prevalencePQ.AND(prevalencePQ.getRDTResult().containsAny(RDTResult.MALARIAE_POSITIVE, RDTResult.MIXED_POSITIVE,
-//          RDTResult.OVALE_POSITIVE, RDTResult.PF_POSITIVE, RDTResult.VIVAX_POSITIVE));
-//      }
-//      
-//      innerVQ.SELECT(F.COUNT(prevalencePQ.getId()));
-//      
-//      prevalence.setSQL("100 * AVG( ("+innerVQ.getSQL()+" AND "+prevalencePQ.getTableAlias()+".id = "+personQuery.getTableAlias()+".id))");
+      // total tested
+      Condition or = OR.get(prevalencePQ.getPerformedRDT().containsAny(RDTResponse.YES),
+          prevalencePQ.getBloodslide().containsAny(BloodslideResponse.DONE));
+      prevalencePQ.WHERE(or);
+      
+      // total positive
+      if(rdtResult != null)
+      {
+        prevalencePQ.AND(prevalencePQ.getRDTResult().containsAny(rdtResult));
+      }
+      else
+      {
+        prevalencePQ.AND(prevalencePQ.getRDTResult().containsAny(RDTResult.MALARIAE_POSITIVE, RDTResult.MIXED_POSITIVE,
+          RDTResult.OVALE_POSITIVE, RDTResult.PF_POSITIVE, RDTResult.VIVAX_POSITIVE));
+      }
+      
+      innerVQ.SELECT(F.COUNT(prevalencePQ.getId()));
+      
+      prevalence.setSQL("100 * AVG( ("+innerVQ.getSQL()+" AND "+prevalencePQ.getTableAlias()+".id = "+personQuery.getTableAlias()+".id))");
       
     }
     catch(QueryException e)
@@ -399,6 +397,7 @@ public class SurveyPoint extends SurveyPointBase implements
       // no precision query
     }
   }
+  */
   
   @Transaction
   public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)

@@ -40,23 +40,6 @@
             </attributePermission>
           </mdBusinessPermission>
 
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.Net">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdRelationshipPermission
-            type="dss.vector.solutions.intervention.monitor.NetHeiarchy">
-            <operation name="READ" />
-            <operation name="READ_PARENT" />
-            <operation name="READ_CHILD" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdRelationshipPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.WindowMaster">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
           <mdViewPermission
             type="dss.vector.solutions.intervention.monitor.HouseholdView">
             <operation name="READ" />
@@ -85,16 +68,6 @@
           </mdRelationshipPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.SexMaster">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.ResponseMaster">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.RDTResultMaster">
             <operation name="READ" />
             <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>

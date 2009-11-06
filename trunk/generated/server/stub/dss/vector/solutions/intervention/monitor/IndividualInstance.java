@@ -1,11 +1,5 @@
 package dss.vector.solutions.intervention.monitor;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import dss.vector.solutions.surveillance.DiagnosticGrid;
-import dss.vector.solutions.surveillance.TreatmentGrid;
 
 public class IndividualInstance extends IndividualInstanceBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -19,6 +13,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.te
   @Override
   protected String buildKey()
   {
+    /* FIXME MO REFACTOR
     Date admissionDate = this.getAdmissionDate();
     Date facilityVisit = this.getFacilityVisit();
     Boolean clinicalDiagnosis = this.getClinicalDiagnosis();
@@ -30,6 +25,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.te
       
       return format.format(admissionDate) + "." + format.format(facilityVisit) + "." + clinicalDiagnosis + "." + labTest.getOptionName() + "." + treatment.getOptionName();
     }
+    */
     return this.getId();
   }
 }

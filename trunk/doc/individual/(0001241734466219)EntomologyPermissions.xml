@@ -71,44 +71,8 @@
             <operation name="READ" />
             <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.mo.AbstractTerm">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.mo.CollectionMethod">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.mo.Generation">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.mo.Specie">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.mo.IdentificationMethod">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.mo.ActiveIngredient">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.mo.ResistanceMethodology">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.entomology.assay.UnitMaster">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.mo.LarvaeAge">
             <operation name="READ" />
             <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
@@ -194,21 +158,6 @@
             <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
           <mdBusinessPermission type="dss.vector.solutions.Property">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.mo.MolecularAssayResult">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.mo.InfectivityMethodology">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.mo.InsecticideMethodology">
             <operation name="READ" />
             <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>

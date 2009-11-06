@@ -17,10 +17,6 @@ import com.terraframe.mojo.system.metadata.MdAttribute;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.CaseDiagnostic;
 import dss.vector.solutions.surveillance.ChildCaseView;
-import dss.vector.solutions.surveillance.DiagnosticGrid;
-import dss.vector.solutions.surveillance.ReferralGrid;
-import dss.vector.solutions.surveillance.TreatmentGrid;
-import dss.vector.solutions.surveillance.TreatmentMethodGrid;
 
 public class AggregatedCaseListener implements ExcelExportListener, ImportListener, Reloadable
 {
@@ -33,6 +29,7 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
+    /* FIXME MO REFACTOR
     for (TreatmentGrid grid : TreatmentGrid.getAll())
     {
       extraColumns.add(new ExcelColumn(STOCK + grid.getOptionName(), grid.getDisplayLabel().toString()));
@@ -63,6 +60,7 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
     {
       extraColumns.add(new ExcelColumn(REFERRAL + grid.getOptionName(), grid.getDisplayLabel().toString()));
     }
+    */
   }
 
   public void preHeader(ExcelColumn columnInfo)
@@ -75,6 +73,7 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
 
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row)
   {
+    /* FIXME MO REFACTOR
     AggregatedCaseExcelView aggregatedCase = (AggregatedCaseExcelView) instance;
     
     for (Term term : Term.getRootChildren(ChildCaseView.getCaseStocksMd()))
@@ -156,5 +155,6 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
         }
       }
     }
+    */
   }
 }

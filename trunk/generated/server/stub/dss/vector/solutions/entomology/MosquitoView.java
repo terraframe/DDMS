@@ -35,10 +35,6 @@ import dss.vector.solutions.entomology.assay.AssayTestResult;
 import dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult;
 import dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult;
 import dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult;
-import dss.vector.solutions.mo.AbstractTerm;
-import dss.vector.solutions.mo.InfectivityMethodology;
-import dss.vector.solutions.mo.InsecticideMethodology;
-import dss.vector.solutions.mo.MolecularAssayResult;
 import dss.vector.solutions.ontology.Term;
 
 public class MosquitoView extends MosquitoViewBase implements Reloadable
@@ -424,7 +420,9 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
 
       String testResultTable = MdBusiness.getMdBusiness(InfectivityAssayTestResult.CLASS).getTableName();
+      /* FIXME MO REFACTOR
       String testMethodTable = MdBusiness.getMdBusiness(InfectivityMethodology.CLASS).getTableName();
+      */
       String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
       String atrTable =  MdBusiness.getMdBusiness(AssayTestResult.CLASS).getTableName();
 
@@ -491,10 +489,15 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
 
       String targetSiteTestResultTable = MdBusiness.getMdBusiness(TargetSiteAssayTestResult.CLASS).getTableName();
+      /* FIXME MO REFACTOR
       String testMethodTable = MdBusiness.getMdBusiness(InsecticideMethodology.CLASS).getTableName();
       String abstractTermTable = MdBusiness.getMdBusiness(AbstractTerm.CLASS).getTableName();
+      */
       String abstractTermDisplayLabelTable = "abstracttermdisplaylabel";
+      
+      /* FIXME MO REFACTOR
       String molecularAssayResultTable = MdBusiness.getMdBusiness(MolecularAssayResult.CLASS).getTableName();
+      */
       String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
       String atrTable =  MdBusiness.getMdBusiness(AssayTestResult.CLASS).getTableName();
       

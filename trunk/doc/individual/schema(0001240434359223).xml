@@ -109,36 +109,6 @@
             <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
 
-          <mdBusinessPermission
-            type="dss.vector.solutions.surveillance.AbstractGrid">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-
-          <mdBusinessPermission
-            type="dss.vector.solutions.surveillance.TreatmentGrid">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-
-          <mdBusinessPermission
-            type="dss.vector.solutions.surveillance.ReferralGrid">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-
-          <mdBusinessPermission
-            type="dss.vector.solutions.surveillance.DiagnosticGrid">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-
-          <mdBusinessPermission
-            type="dss.vector.solutions.surveillance.TreatmentMethodGrid">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-
           <mdRelationshipPermission
             type="dss.vector.solutions.surveillance.CaseTreatmentStock">
             <operation name="READ" />

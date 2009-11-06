@@ -21,21 +21,6 @@
           </mdBusinessPermission>
 
           <!--DEFINE ALL READ PERMISSIONS FOR AGGREGATED IPT CRUD -->
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.PatientGrid">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.VisitGrid">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.DoseGrid">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.IPTPatients">
             <operation name="READ" />
@@ -122,27 +107,6 @@
         <superRole roleName="mdss.GUIVisibility" />
         <grant>
           <!-- DEFINE WRITE PERMISSIONS FOR AGGREGATED IPT INFORMATION -->
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.PatientGrid">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.VisitGrid">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.DoseGrid">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.IPTPatients">
             <operation name="CREATE" />

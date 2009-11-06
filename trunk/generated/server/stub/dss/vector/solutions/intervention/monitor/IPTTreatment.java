@@ -13,12 +13,6 @@ public class IPTTreatment extends IPTTreatmentBase implements ChildOption, Reloa
     super(parentId, childId);
   }
 
-  public IPTTreatment(dss.vector.solutions.intervention.monitor.AggregatedIPT parent,
-      dss.vector.solutions.surveillance.TreatmentGrid child)
-  {
-    this(parent.getId(), child.getId());
-  }
-
   public IPTTreatment clone(AggregatedIPTView parent)
   {
     IPTTreatment clone = new IPTTreatment(parent.getConcreteId(), this.getChildId());

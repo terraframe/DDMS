@@ -3,27 +3,20 @@ package dss.vector.solutions.export;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
-import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.intervention.BloodslideResponse;
-import dss.vector.solutions.intervention.FeverResponse;
-import dss.vector.solutions.intervention.HumanSex;
-import dss.vector.solutions.intervention.RDTResponse;
 import dss.vector.solutions.intervention.monitor.Household;
 import dss.vector.solutions.intervention.monitor.HouseholdNet;
 import dss.vector.solutions.intervention.monitor.HouseholdQuery;
 import dss.vector.solutions.intervention.monitor.HouseholdView;
 import dss.vector.solutions.intervention.monitor.Person;
 import dss.vector.solutions.intervention.monitor.SurveyPoint;
-import dss.vector.solutions.intervention.monitor.WindowType;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
@@ -175,7 +168,10 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     house.setSleptUnderNets(this.getSleptUnderNets());
     house.setUrban(this.getUrban());
     house.setWindowType(Term.validateByDisplayLabel(this.getWindowType(), getWindowTypeMd()));
+    
+    /* FIXME MO REFACTOR
     house.setWall(Term.validateByDisplayLabel(this.getWallName(), getWallNameMd()));
+    */
     house.setWallInfo(this.getWallInfo());
     
     return house;
@@ -187,6 +183,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     amounts.add(count);
   }
   
+  /* FIXME MO REFACTOR
   public static WindowType getWindowTypeByLabel(String label)
   {
     if(label == null || label == "")
@@ -258,4 +255,5 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     }
     return null;
   }
+  */
 }

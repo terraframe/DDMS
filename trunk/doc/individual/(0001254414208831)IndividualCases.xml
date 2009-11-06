@@ -87,10 +87,6 @@
           <date
             name="facilityVisit"
             label="Facility Visit Date"/>
-          <reference
-            name="patientCategory"
-            label="Patient Category"
-            type="dss.vector.solutions.intervention.monitor.PatientGrid" />
           <date
             name="admissionDate"
             label="Admission Date"
@@ -136,16 +132,8 @@
             positiveLabel="Yes"
             negativeLabel="No"
             defaultValue="false" />
-          <reference
-            name="referralReason"
-            label="Reason for Referral"
-            type="dss.vector.solutions.surveillance.ReferralGrid" />
           <!-- Clinical Findings -->
           <!-- Laboratory Testing -->
-          <reference
-            name="labTest"
-            label="Test used"
-            type="dss.vector.solutions.surveillance.DiagnosticGrid" />
           <date
             name="testSampleDate"
             label="Test Sample Date"
@@ -155,14 +143,6 @@
             label="Laboratory Test Date"
             description="Date laboratory test was done"/>
           <!-- Treatment -->
-          <reference
-            name="treatmentMethod"
-            label="Treatment Method"
-            type="dss.vector.solutions.surveillance.TreatmentMethodGrid" />
-          <reference
-            name="treatment"
-            label="Treatment"
-            type="dss.vector.solutions.surveillance.TreatmentGrid" />
         </attributes>
       </mdBusiness>
     </create>

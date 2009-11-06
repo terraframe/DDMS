@@ -130,10 +130,6 @@
             concrete="people"
             type="dss.vector.solutions.intervention.monitor.Household"/>
           <virtual
-            name="wallName"
-            concrete="wallName"
-            type="dss.vector.solutions.intervention.monitor.Wall"/>
-          <virtual
             name="wallInfo"
             concrete="wallInfo"
             type="dss.vector.solutions.intervention.monitor.Household"/>

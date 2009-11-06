@@ -191,6 +191,7 @@ public class SurveyTest extends TestCase
     assertNull(SurveyPoint.searchByGeoEntityAndDate(geoEntity, new Date()));
   }
 
+  /* FIXME MO REFACTOR
   public void createNet()
   {
     Net net = new Net();
@@ -222,7 +223,7 @@ public class SurveyTest extends TestCase
     Net[] leafs = Net.getAllLeafs();
 
     assertEquals(10, leafs.length);
-  }
+  }*/
 
   public void testCreateHousehold()
   {

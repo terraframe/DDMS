@@ -70,22 +70,6 @@
             <operation name="WRITE" />
             <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
-          <mdViewPermission
-            type="dss.vector.solutions.intervention.monitor.WallView">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-          </mdViewPermission>
-          <mdViewPermission
-            type="dss.vector.solutions.intervention.monitor.RoofView">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-          </mdViewPermission>
           <mdViewPermission type="dss.vector.solutions.general.EpiDate">
             <operation name="READ" />
             <operation name="READ_ALL_ATTRIBUTES" />

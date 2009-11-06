@@ -21,37 +21,6 @@
       </mdBusiness>
     </create>
     <update>
-      <mdBusiness
-        name="dss.vector.solutions.intervention.monitor.Net">
-        <create>
-          <mdMethod
-            name="getPage"
-            label="getPage"
-            static="true"
-            returnType="com.terraframe.mojo.query.ValueQuery">
-            <mdParameter
-              name="sortAttribute"
-              label="Sort Attribute"
-              type="java.lang.String"
-              order="0" />
-            <mdParameter
-              name="isAscending"
-              label="Is Ascending"
-              type="java.lang.Boolean"
-              order="1" />
-            <mdParameter
-              name="pageSize"
-              label="Page Size"
-              type="java.lang.Integer"
-              order="2" />
-            <mdParameter
-              name="pageNumber"
-              label="Page Number"
-              type="java.lang.Integer"
-              order="3" />
-          </mdMethod>
-        </create>
-      </mdBusiness>
       <mdView
         name="dss.vector.solutions.export.MosquitoExcelView">
         <create>

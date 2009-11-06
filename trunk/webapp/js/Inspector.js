@@ -2,6 +2,8 @@
 // add record/stop auto-record+buffer for Tracer (and logger?)
 // add settings tab for above
 // Fix bug where method with same name for static/instance shows only instance (I think it executes this way too)
+// FIXME override/hiding flag isn't working correctly
+
 Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
 
   Alias : Mojo.$,

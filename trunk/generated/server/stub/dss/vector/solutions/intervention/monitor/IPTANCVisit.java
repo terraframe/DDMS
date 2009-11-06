@@ -13,12 +13,6 @@ public class IPTANCVisit extends IPTANCVisitBase implements ChildOption, Reloada
     super(parentId, childId);
   }
 
-  public IPTANCVisit(dss.vector.solutions.intervention.monitor.AggregatedIPT parent,
-      dss.vector.solutions.intervention.monitor.VisitGrid child)
-  {
-    this(parent.getId(), child.getId());
-  }
-
   public IPTANCVisit clone(AggregatedIPTView parent)
   {
     IPTANCVisit clone = new IPTANCVisit(parent.getConcreteId(), this.getChildId());

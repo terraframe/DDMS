@@ -234,6 +234,7 @@ var aSubmenuData = [
         itemdata: [
             { text: "Configure_the_Universal_Tree(101)", url: "dss.vector.solutions.geo.GeoEntityTypeController.viewHierarchyTree.mojo?rootGeoHierarchyId=" , visibleTo:'Administrator'},
             { text: "Manage_Geo_Entities(111)", url: "dss.vector.solutions.geo.GeoEntityTreeController.displayTree.mojo?rootGeoEntityId=" , visibleTo:'Administrator'},
+            { text: "Generate_Maps", url: "dss.vector.solutions.query.MappingController.generateMaps", visibleTo:'Administrator'}
 
         ]
     },

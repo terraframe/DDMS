@@ -4,16 +4,6 @@
     <permissions>
       <role roleName="mdss.GUIVisibility">
         <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.ServiceGrid">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.TargetGroupGrid">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
           <mdViewPermission
             type="dss.vector.solutions.intervention.monitor.ITNDataView">
             <operation name="CREATE" />
@@ -105,20 +95,6 @@
       </role>
       <role roleName="mdss.coordinator">
         <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.ServiceGrid">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.TargetGroupGrid">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.ITNData">
             <operation name="CREATE" />
