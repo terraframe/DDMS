@@ -224,6 +224,7 @@ public class SavedSearch extends SavedSearchBase implements
       try
       {
         // Dereference all MO Terms in the configuration
+        // FIXME this shouldn't have _config
         config = new JSONObject(this.getConfig());
         JSONObject terms = config.getJSONObject("_config").getJSONObject("terms");
         

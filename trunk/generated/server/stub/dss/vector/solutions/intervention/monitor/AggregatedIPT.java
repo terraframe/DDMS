@@ -6,6 +6,10 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.Function;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
@@ -238,15 +242,24 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.m
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals, Boolean includeGeometry, ThematicLayer thematicLayer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry, ThematicLayer thematicLayer)
   {
-
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+    
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, AggregatedIPT.CLASS, AggregatedIPT.GEOENTITY);   
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, AggregatedIPT.CLASS, AggregatedIPT.GEOENTITY);   
    
     AggregatedIPTQuery aggregatedIPTQuery = (AggregatedIPTQuery) queryMap.get(AggregatedIPT.CLASS);
 

@@ -9,12 +9,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.business.rbac.Operation;
 import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.MdViewDAOIF;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -38,7 +42,6 @@ import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
-import dss.vector.solutions.util.QueryConfig;
 import dss.vector.solutions.util.QueryUtil;
 
 public class AggregatedCase extends AggregatedCaseBase implements
@@ -463,16 +466,26 @@ public class AggregatedCase extends AggregatedCaseBase implements
    * @return
    */
   @Authenticate
-  public static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals,
+  public static ValueQuery xmlToValueQuery(String xml, String config,
       boolean includeGeometry, ThematicLayer thematicLayer)
   {
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+    
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
-        valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, AggregatedCase.CLASS, AggregatedCase.GEOENTITY);
+        valueQuery, xml, queryConfig, thematicLayer, includeGeometry, AggregatedCase.CLASS, AggregatedCase.GEOENTITY);
 
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
 
@@ -545,10 +558,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
   public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String config,
       Integer pageNumber, Integer pageSize)
   {
-    QueryConfig queryConfig = new QueryConfig(config);
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-
-    ValueQuery valueQuery = xmlToValueQuery(xml, selectedUniversals, false, null);
+    ValueQuery valueQuery = xmlToValueQuery(xml, config, false, null);
 
     valueQuery.restrictRows(pageSize, pageNumber);
 
@@ -572,7 +582,6 @@ public class AggregatedCase extends AggregatedCaseBase implements
     }
 
     SavedSearch search = SavedSearch.get(savedSearchId);
-    QueryConfig queryConfig = new QueryConfig(config);
 
     ThematicLayer thematicLayer = search.getThematicLayer();
 
@@ -593,8 +602,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
       thematicLayer.changeLayerType(thematicLayerType);
     }
 
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-    ValueQuery query = xmlToValueQuery(xml, selectedUniversals, true, thematicLayer);
+    ValueQuery query = xmlToValueQuery(xml, config, true, thematicLayer);
 
     String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
 
@@ -604,9 +612,6 @@ public class AggregatedCase extends AggregatedCaseBase implements
   @Transaction
   public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
   {
-    QueryConfig queryConfig = new QueryConfig(config);
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to Excel without a current SavedSearch instance.";
@@ -616,7 +621,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    ValueQuery query = xmlToValueQuery(queryXML, selectedUniversals, false, null);
+    ValueQuery query = xmlToValueQuery(queryXML, config, false, null);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
@@ -625,9 +630,6 @@ public class AggregatedCase extends AggregatedCaseBase implements
   @Transaction
   public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId)
   {
-    QueryConfig queryConfig = new QueryConfig(config);
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to CSV without a current SavedSearch instance.";
@@ -635,7 +637,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
       throw ex;
     }
 
-    ValueQuery query = xmlToValueQuery(queryXML, selectedUniversals, false, null);
+    ValueQuery query = xmlToValueQuery(queryXML, config, false, null);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();

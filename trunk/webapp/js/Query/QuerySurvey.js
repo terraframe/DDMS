@@ -10,9 +10,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
     initialize : function(queryList, nets, rdtResults)
     {
       this.$initialize();
-      
-      this._rdtResults = rdtResults;
-      
+
       // Ref to instances (used as template for display labels/metadata)
       this._SurveyPoint = Mojo.$.dss.vector.solutions.intervention.monitor.SurveyPoint;
       this._surveyPoint= new this._SurveyPoint();
@@ -22,6 +20,8 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       
       this._Person = Mojo.$.dss.vector.solutions.intervention.monitor.Person
       this._person = new this._Person();
+      
+      this._rdtResults = rdtResults;
   
       // START: query objects that dictate state of the query.
   
@@ -1489,13 +1489,15 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       /*
        * Target
        */
-      // 3. area (geo entity search)
-      var boundSearch = Mojo.Util.bind(this, this._displaySearch);
-      this._queryPanel.addQueryItem({
-        html: MDSS.Localized.Target_Search+' <img src="./imgs/icons/world.png"/>',
-        onclick: {handler: boundSearch},
-        id: "areaItem"
-      });
+      var attributes = [
+        {
+          keyName :  this._SurveyPoint.CLASS+'.'+this._SurveyPoint.GEOENTITY,
+          display : this._surveyPoint.getGeoEntityMd().getDisplayLabel()
+        }        
+      ];
+      
+      this.addGeoAttributes(attributes);
+      
       
       this._queryPanel.addQueryItem({
           html: this._getCountDiv(this,"Group_By", this._SurveyPoint),

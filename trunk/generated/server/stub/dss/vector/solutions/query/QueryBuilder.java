@@ -10,8 +10,6 @@ import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
 
-import dss.vector.solutions.util.QueryConfig;
-
 public class QueryBuilder extends QueryBuilderBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1255379414351L;
@@ -21,7 +19,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     super();
   }
   
-  private static ValueQuery getValueQuery(String queryClass, String queryXML, String[] selectedUniversals, Boolean includeGeometry, ThematicLayer thematicLayer) 
+  private static ValueQuery getValueQuery(String queryClass, String queryXML, String config, Boolean includeGeometry, ThematicLayer thematicLayer) 
   {
     
     Class<?> clazz = null;
@@ -32,8 +30,8 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     try
     {
       clazz = Class.forName(queryClass);
-      xmlToValueQuery = clazz.getMethod("xmlToValueQuery",String.class, String[].class, Boolean.class, ThematicLayer.class );
-      valueQuery = (ValueQuery) xmlToValueQuery.invoke(clazz, queryXML, selectedUniversals, includeGeometry, thematicLayer);
+      xmlToValueQuery = clazz.getMethod("xmlToValueQuery",String.class, String.class, Boolean.class, ThematicLayer.class );
+      valueQuery = (ValueQuery) xmlToValueQuery.invoke(clazz, queryXML, config, includeGeometry, thematicLayer);
       System.out.println(valueQuery.getSQL());
       
     }
@@ -87,11 +85,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
   @Authenticate
   public static com.terraframe.mojo.query.ValueQuery getQueryResults(String queryClass, String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize) 
   {
-    
-    QueryConfig queryConfig = new QueryConfig(config);
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-
-    ValueQuery valueQuery = getValueQuery(queryClass, queryXML, selectedUniversals, false, null);
+    ValueQuery valueQuery = getValueQuery(queryClass, queryXML, config, false, null);
 
     valueQuery.restrictRows(pageSize, pageNumber);
 
@@ -111,7 +105,6 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     }
 
     SavedSearch search = SavedSearch.get(savedSearchId);
-    QueryConfig queryConfig = new QueryConfig(config);
 
     ThematicLayer thematicLayer = search.getThematicLayer();
 
@@ -132,8 +125,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
       thematicLayer.changeLayerType(thematicLayerType);
     }
 
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-    ValueQuery query = getValueQuery(queryClass,xml, selectedUniversals, true, thematicLayer);
+    ValueQuery query = getValueQuery(queryClass,xml, config, true, thematicLayer);
 
     System.out.println(query.getSQL());
 
@@ -146,9 +138,6 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
   @Transaction
   public static InputStream exportQueryToExcel(String queryClass,String queryXML, String config, String savedSearchId)
   {
-    QueryConfig queryConfig = new QueryConfig(config);
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to Excel without a current SavedSearch instance.";
@@ -158,7 +147,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    ValueQuery query = getValueQuery(queryClass, queryXML, selectedUniversals, false, null);
+    ValueQuery query = getValueQuery(queryClass, queryXML, config, false, null);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
@@ -167,9 +156,6 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
   @Transaction
   public static InputStream exportQueryToCSV(String queryClass, String queryXML, String config, String savedSearchId)
   {
-    QueryConfig queryConfig = new QueryConfig(config);
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to CSV without a current SavedSearch instance.";
@@ -177,7 +163,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
       throw ex;
     }
 
-    ValueQuery query = getValueQuery(queryClass, queryXML, selectedUniversals, false, null);
+    ValueQuery query = getValueQuery(queryClass, queryXML, config, false, null);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();

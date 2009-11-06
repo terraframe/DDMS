@@ -4,7 +4,11 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.terraframe.mojo.business.rbac.Authenticate;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
@@ -33,7 +37,6 @@ import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
-import dss.vector.solutions.util.QueryConfig;
 import dss.vector.solutions.util.QueryUtil;
 
 public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -146,15 +149,24 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
    * @return
    */
   @Authenticate
-  public static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals, boolean includeGeometry, ThematicLayer thematicLayer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, boolean includeGeometry, ThematicLayer thematicLayer)
   {
-
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+    
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, MosquitoCollection.CLASS, MosquitoCollection.GEOENTITY);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, MosquitoCollection.CLASS, MosquitoCollection.GEOENTITY);
 
     // join Mosquito with mosquito collection
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
@@ -280,10 +292,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   @Authenticate
   public static com.terraframe.mojo.query.ValueQuery queryResistance(String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
-    QueryConfig queryConfig = new QueryConfig(config);
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-
-    ValueQuery valueQuery = xmlToValueQuery(queryXML, selectedUniversals, false, null);
+    ValueQuery valueQuery = xmlToValueQuery(queryXML, config, false, null);
 
     valueQuery.restrictRows(pageSize, pageNumber);
 
@@ -303,7 +312,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     }
 
     SavedSearch search = SavedSearch.get(savedSearchId);
-    QueryConfig queryConfig = new QueryConfig(config);
 
     ThematicLayer thematicLayer = search.getThematicLayer();
 
@@ -322,8 +330,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       thematicLayer.changeLayerType(thematicLayerType);
     }
 
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-    ValueQuery query = xmlToValueQuery(xml, selectedUniversals, true, thematicLayer);
+    ValueQuery query = xmlToValueQuery(xml, config, true, thematicLayer);
 
     System.out.println(query.getSQL());
 
@@ -335,9 +342,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   @Transaction
   public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
   {
-    QueryConfig queryConfig = new QueryConfig(config);
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to Excel without a current SavedSearch instance.";
@@ -347,7 +351,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    ValueQuery query = xmlToValueQuery(queryXML, selectedUniversals, false, null);
+    ValueQuery query = xmlToValueQuery(queryXML, config, false, null);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
@@ -356,9 +360,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   @Transaction
   public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId)
   {
-    QueryConfig queryConfig = new QueryConfig(config);
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to CSV without a current SavedSearch instance.";
@@ -366,7 +367,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       throw ex;
     }
 
-    ValueQuery query = xmlToValueQuery(queryXML, selectedUniversals, false, null);
+    ValueQuery query = xmlToValueQuery(queryXML, config, false, null);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();

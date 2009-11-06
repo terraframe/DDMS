@@ -8,8 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.constants.RelationshipInfo;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.InnerJoinEq;
@@ -33,7 +37,6 @@ import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
-import dss.vector.solutions.util.QueryConfig;
 import dss.vector.solutions.util.QueryUtil;
 
 public class SurveyPoint extends SurveyPointBase implements
@@ -172,16 +175,28 @@ public class SurveyPoint extends SurveyPointBase implements
   }
 
   @Authenticate
-  public static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals,
-      boolean includeGeometry, ThematicLayer thematicLayer, String dobCriteria)
+  public static ValueQuery xmlToValueQuery(String xml, String config,
+      boolean includeGeometry, ThematicLayer thematicLayer)
   {
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+    
+    String dobCriteria = getDobCriteria(queryConfig);
+    
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
-        valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, SurveyPoint.CLASS, SurveyPoint.GEOENTITY);
+        valueQuery, xml, queryConfig, thematicLayer, includeGeometry, SurveyPoint.CLASS, SurveyPoint.GEOENTITY);
     
     SurveyPointQuery surveyPointQuery = (SurveyPointQuery) queryMap.get(SurveyPoint.CLASS);
     HouseholdQuery householdQuery = (HouseholdQuery) queryMap.get(Household.CLASS);
@@ -341,12 +356,19 @@ public class SurveyPoint extends SurveyPointBase implements
     return valueQuery;
   }
   
-  private static String getDobCriteria(QueryConfig config)
+  private static String getDobCriteria(JSONObject config)
   {
     String dobCriteriaKey = "dobCriteria";
     if(config.has(dobCriteriaKey) && !config.isNull(dobCriteriaKey))
     {
-      return config.getString(dobCriteriaKey);
+      try
+      {
+        return config.getString(dobCriteriaKey);
+      }
+      catch (JSONException e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
     }
     else
     {
@@ -354,7 +376,7 @@ public class SurveyPoint extends SurveyPointBase implements
     }
   }
   
-  /* FIXME MO REFACTOR
+  /* FIXME check with Marlize/Miguel on proper implementation
   private static void addPrevalenceColumn(String prevalenceSel, ValueQuery valueQuery, PersonQuery personQuery, RDTResult rdtResult)
   {
     try
@@ -402,10 +424,6 @@ public class SurveyPoint extends SurveyPointBase implements
   @Transaction
   public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
   {
-    QueryConfig queryConfig = new QueryConfig(config);
-    String dobCriteria = getDobCriteria(queryConfig);
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-    
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to Excel without a current SavedSearch instance.";
@@ -415,7 +433,7 @@ public class SurveyPoint extends SurveyPointBase implements
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    ValueQuery query = xmlToValueQuery(queryXML, selectedUniversals, false, null, dobCriteria);
+    ValueQuery query = xmlToValueQuery(queryXML, config, false, null);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
@@ -424,10 +442,6 @@ public class SurveyPoint extends SurveyPointBase implements
   @Transaction
   public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId)
   {
-    QueryConfig queryConfig = new QueryConfig(config);
-    String dobCriteria = getDobCriteria(queryConfig);
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-    
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to CSV without a current SavedSearch instance.";
@@ -435,7 +449,7 @@ public class SurveyPoint extends SurveyPointBase implements
       throw ex;
     }
 
-    ValueQuery query = xmlToValueQuery(queryXML, selectedUniversals, false, null, dobCriteria);
+    ValueQuery query = xmlToValueQuery(queryXML, config, false, null);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     
@@ -461,11 +475,7 @@ public class SurveyPoint extends SurveyPointBase implements
     }
 
     SavedSearch search = SavedSearch.get(savedSearchId);
-    QueryConfig queryConfig = new QueryConfig(config);
     
-    String dobCriteria = getDobCriteria(queryConfig);
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-
     ThematicLayer thematicLayer = search.getThematicLayer();
 
     if (thematicLayer == null || thematicLayer.getGeoHierarchy() == null)
@@ -485,7 +495,7 @@ public class SurveyPoint extends SurveyPointBase implements
       thematicLayer.changeLayerType(thematicLayerType);
     }
 
-    ValueQuery query = xmlToValueQuery(xml, selectedUniversals, true, thematicLayer, dobCriteria);
+    ValueQuery query = xmlToValueQuery(xml, config, true, thematicLayer);
 
     String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
 
@@ -506,11 +516,7 @@ public class SurveyPoint extends SurveyPointBase implements
   public static com.terraframe.mojo.query.ValueQuery querySurvey(String xml, String config,
       Integer pageNumber, Integer pageSize)
   {
-    QueryConfig queryConfig = new QueryConfig(config);
-    String dobCriteria = getDobCriteria(queryConfig);
-    String[] selectedUniversals = queryConfig.getSelectedUniversals();
-    
-    ValueQuery valueQuery = xmlToValueQuery(xml, selectedUniversals, false, null, dobCriteria);
+    ValueQuery valueQuery = xmlToValueQuery(xml, config, false, null);
 
     valueQuery.restrictRows(pageSize, pageNumber);
 

@@ -806,9 +806,8 @@ MDSS.Query = {};
 MDSS.Query.Config = function(configJSON)
 {
   this._config = {
-    selectedUniversals : [],
+    selectedUniversals : {},
     terms: {}
-//    thematicLayerType : ''
   };
 
   if(configJSON != null)
@@ -820,23 +819,19 @@ MDSS.Query.Config = function(configJSON)
 
 MDSS.Query.Config.prototype = {
 
-/*
-  getThematicLayerType : function()
+  setGeoAttributes : function(attributeKeys)
   {
-    return this._config.thematicLayerType;
+    Mojo.Iter.forEach(attributeKeys, function(key){
+      this._config.selectedUniversals[key] = [];
+    }, this);
   },
 
-  setThematicLayerType : function(type)
+  addSelectedUniversal : function(attributeKey, universal)
   {
-    this._config.thematicLayerType = type;
-  },
-*/
-
-  addSelectedUniversal : function(universal)
-  {
-    this._config.selectedUniversals.push(universal);
+    this._config.selectedUniversals[attributeKey].push(universal);
   },
 
+  // FIXME GEO
   setSelectedUniversals : function(universals)
   {
     this._config.selectedUniversals = universals;
@@ -849,7 +844,10 @@ MDSS.Query.Config.prototype = {
 
   clearSelectedUniversals : function()
   {
-    this._config.selectedUniversals = [];
+    for(var key in this._config.selectedUniversals)
+    {
+      this._config.selectedUniversals[key] = [];
+    }
   },
 
   setProperty : function(key, value)

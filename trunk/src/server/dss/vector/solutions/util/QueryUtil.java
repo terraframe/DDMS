@@ -1,16 +1,22 @@
 package dss.vector.solutions.util;
 
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xml.sax.SAXParseException;
 
 import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.generation.loader.Reloadable;
@@ -38,6 +44,7 @@ import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
+import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -122,7 +129,7 @@ public class QueryUtil implements Reloadable
    * @param selectedUniversals
    * @return
    */
-  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory, ValueQuery valueQuery, String xml, ThematicLayer thematicLayer, boolean includeGeometry, String[] selectedUniversals, String generatedQueryClass,
+  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory, ValueQuery valueQuery, String xml, JSONObject config, ThematicLayer thematicLayer, boolean includeGeometry, String generatedQueryClass,
       String geoEntityAttribute)
   {
     ValueQueryParser valueQueryParser;
@@ -160,6 +167,7 @@ public class QueryUtil implements Reloadable
       }
     }
 
+    // FIXME does not take into account multiple geo attributes
     if (includeGeometry)
     {
       /*
@@ -225,70 +233,124 @@ public class QueryUtil implements Reloadable
     else
     {
       // Normal query (non-mapping)
-      List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
-      for (String selectedGeoEntityType : selectedUniversals)
+      Map<String, List<ValueQuery>> attributeKeysAndJoins = new HashMap<String, List<ValueQuery>>();
+      try
       {
-        GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
-
-        AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
-        ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
-        MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
-
-        Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName().toLowerCase() + "_entityName");
-        Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName().toLowerCase() + "_geoId");
-        SelectableReference selectable3 = subAllPathsQuery.getChildGeoEntity("child_id");
-
-        geoEntityVQ.SELECT(selectable1, selectable2, selectable3);
-
-        List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
-        Condition[] geoConditions = new Condition[allClasses.size()];
-        for (int i = 0; i < allClasses.size(); i++)
+        JSONObject selectedUniMap = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+        Iterator<?> keys = selectedUniMap.keys();
+        while(keys.hasNext())
         {
-          geoConditions[i] = subAllPathsQuery.getParentUniversal().EQ(allClasses.get(i));
+          String attributeKey = (String) keys.next();
+          
+          JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
+          if(universals.length() > 0)
+          {
+            String[] selectedUniversals = new String[universals.length()];
+            for(int i=0; i<universals.length(); i++)
+            {
+              selectedUniversals[i] = universals.getString(i);
+            }
+            
+            List<ValueQuery> leftJoinValueQueries = addUniversalsForAttribute(queryFactory, attributeKey, selectedUniversals, valueQueryParser);
+            attributeKeysAndJoins.put(attributeKey, leftJoinValueQueries);
+          }
         }
-
-        geoEntityVQ.WHERE(OR.get(geoConditions));
-        geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
-
-        leftJoinValueQueries.add(geoEntityVQ);
-
-        valueQueryParser.setValueQuery(selectedGeoEntityType, geoEntityVQ);
       }
-
+      catch (JSONException e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
+      
       queryMap = valueQueryParser.parse();
 
-      AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
-
-      if (allPathsQuery == null && leftJoinValueQueries.size() > 0)
+      
+      for(String attributeKey : attributeKeysAndJoins.keySet())
       {
-        // This case is for when they have not restricted by any specific  geoEntity
-        allPathsQuery = new AllPathsQuery(queryFactory);
-        valueQuery.FROM(allPathsQuery);
-        // we use the country universial to restrict the cross product
-        valueQuery.AND(allPathsQuery.getParentUniversal().EQ(MdBusiness.getMdBusiness(Country.CLASS).getId()));
+        // FIXME use all paths query per geo attribute
+        AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
+        List<ValueQuery> leftJoinValueQueries = attributeKeysAndJoins.get(attributeKey);
+        
+        restrictEntitiesForAttribute(attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery, queryMap);
       }
-      if (allPathsQuery != null)
-      {
-        // this case is for when they have restricted to a specific geoEntity
-        List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
-        for (ValueQuery leftJoinVQ : leftJoinValueQueries)
-        {
-          leftJoinSelectables.add(leftJoinVQ.aReference("child_id"));
-        }
-
-        int size = leftJoinSelectables.size();
-        if (size > 0)
-        {
-          valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
-        }
-
-        GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
-        valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
-      }
-
+      
     }
 
     return queryMap;
+  }
+  
+  private static List<ValueQuery> addUniversalsForAttribute(QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser)
+  {
+    List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
+    for (String selectedGeoEntityType : selectedUniversals)
+    {
+      GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
+
+      AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
+      ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
+      MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
+      
+      String prepend = attributeKey.replaceAll("\\.", "_")+"__";
+      String entityNameAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_"+GeoEntityView.ENTITYNAME;
+      String geoIdAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_"+GeoEntityView.GEOID;
+
+      Selectable selectable1 = geoEntityQuery.getEntityName(entityNameAlias);
+      Selectable selectable2 = geoEntityQuery.getGeoId(geoIdAlias);
+      SelectableReference selectable3 = subAllPathsQuery.getChildGeoEntity("child_id");
+
+      geoEntityVQ.SELECT(selectable1, selectable2, selectable3);
+
+      List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
+      Condition[] geoConditions = new Condition[allClasses.size()];
+      for (int i = 0; i < allClasses.size(); i++)
+      {
+        geoConditions[i] = subAllPathsQuery.getParentUniversal().EQ(allClasses.get(i));
+      }
+
+      geoEntityVQ.WHERE(OR.get(geoConditions));
+      geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
+
+      leftJoinValueQueries.add(geoEntityVQ);
+
+      valueQueryParser.setValueQuery(selectedGeoEntityType, geoEntityVQ);
+    }
+    
+    return leftJoinValueQueries;
+  }
+  
+  private static void restrictEntitiesForAttribute(String attributeKey, AllPathsQuery allPathsQuery,
+    List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  {
+    if (allPathsQuery == null && leftJoinValueQueries.size() > 0)
+    {
+      // This case is for when they have not restricted by any specific  geoEntity
+      allPathsQuery = new AllPathsQuery(valueQuery.getQueryFactory());
+      valueQuery.FROM(allPathsQuery);
+      // we use the country universial to restrict the cross product
+      valueQuery.AND(allPathsQuery.getParentUniversal().EQ(MdBusiness.getMdBusiness(Country.CLASS).getId()));
+    }
+    
+    if (allPathsQuery != null)
+    {
+      // this case is for when they have restricted to a specific geoEntity
+      List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
+      for (ValueQuery leftJoinVQ : leftJoinValueQueries)
+      {
+        leftJoinSelectables.add(leftJoinVQ.aReference("child_id"));
+      }
+
+      int size = leftJoinSelectables.size();
+      if (size > 0)
+      {
+        valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
+      }
+      
+      int ind = attributeKey.lastIndexOf(".");
+      String className = attributeKey.substring(0, ind);
+      String attributeName = attributeKey.substring(ind+1);
+
+      GeneratedEntityQuery generatedEntityQuery = queryMap.get(className);
+      valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(attributeName) ).EQ(allPathsQuery.getChildGeoEntity()));
+    }
   }
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, SelectableMoment dateAttribute)

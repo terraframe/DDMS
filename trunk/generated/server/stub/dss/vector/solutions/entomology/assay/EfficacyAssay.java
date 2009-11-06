@@ -5,7 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
 import com.terraframe.mojo.query.AttributeMoment;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
@@ -182,15 +186,24 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals, Boolean includeGeometry, ThematicLayer thematicLayer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry, ThematicLayer thematicLayer)
   {
-
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+    
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, EfficacyAssay.CLASS, EfficacyAssay.GEOENTITY);   
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, EfficacyAssay.CLASS, EfficacyAssay.GEOENTITY);   
    
     EfficacyAssayQuery efficacyAssayIPTQuery = (EfficacyAssayQuery) queryMap.get(EfficacyAssay.CLASS);
 
