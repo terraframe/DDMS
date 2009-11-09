@@ -18,7 +18,10 @@
 <%@page import="dss.vector.solutions.query.RangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
+<%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
+<%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
+<%@page import="dss.vector.solutions.entomology.MosquitoDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
@@ -35,18 +38,18 @@
 <%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
 <%@page import="dss.vector.solutions.query.LayerViewDTO"%>
 <%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoView"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.IndividualIPTDTO"%>
+
+<%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayDTO"%>
+
+<%@page import="dss.vector.solutions.general.InsecticideDTO"%>
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
-<%@page import="dss.vector.solutions.PersonDTO"%>
 
 
 
 
-<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Individual_IPT"  scope="request"/>
+<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Efficacy"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -55,7 +58,7 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ IndividualIPTViewDTO.CLASS, IndividualIPTDTO.CLASS, PersonDTO.CLASS};
+    String[] mosquitoTypes = new String[]{  EfficacyAssayDTO.CLASS, InsecticideDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
     MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
@@ -88,6 +91,12 @@ YAHOO.util.Event.onDOMReady(function(){
 
     }, null, this);
 
+    var queryList = <%= (String) request.getAttribute("queryList") %>;
+
+    var efficacyMaps = {<%//=(String) request.getAttribute("adultMap")%>};
+
+    var insecticideMaps = {<%//=(String) request.getAttribute("insecticideMap")%>};
+
     var mapAttribs = function(attribName,index){
       var attrib = this.obj.attributeMap[attribName];
       var row = {};
@@ -111,70 +120,42 @@ YAHOO.util.Event.onDOMReady(function(){
         }
       }else{
         row.attributeName = attribName;
-        row.type = 'sqlinteger';
+        row.type = 'sqlcharacter';
         row.displayLabel = attribName;
         row.key = attribName;
-        row.dtoType = "AttributeIntegerDTO";
 
       }
       return row;
-    };
+    }
 
 
-    var mapMo = function(term,index){
-    	var row = {};
-        //row.attributeName = this.relAttribute;
-        //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
-        //row.type = this.relType;
-        row.dtoType = "AttributeIntegerDTO";
-        row.displayLabel = term.displayLabel;
-        
-        row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
-        row.type = 'sqlinteger';
-        row.attributeName = 'term' + term.MOID.replace(':','');
-        
-      return row;
-    };
 
-    // TODO move into QueryPanel, and pass el ids as params
-	var tabs = new YAHOO.widget.TabView("tabSet");
+    var insectcide = new Mojo.$.dss.vector.solutions.general.Insecticide();
+    var insectcideAttribs = ["activeIngredient","amount","units"];
 
-    var queryList = <%= (String) request.getAttribute("queryList") %>;
 
-    var iptMaps = {<%=(String) request.getAttribute("iptMap")%>};
-    
-    var personMaps = {<%=(String) request.getAttribute("iptMap")%>};
-
-    var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
-
-    var individualIPT = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualIPT();
-
-    var iIPTAttribs = ["serviceDate",
-                       "doseNumber","doseType","isANCVisit",
-                       "numberOfRecievedITNs","patientType","recievedITN",
-                       "recievedSupplement","visitNumber","administratorName","administratorSurname",];
+    var insectcideColumns =   insectcideAttribs.map(mapAttribs, {obj:insectcide, suffix:'_eff', dropDownMaps:insecticideMaps});
 
     
-    var iIPTColumns =   iIPTAttribs.map(mapAttribs, {obj:individualIPT, suffix:'_ipt', dropDownMaps:iptMaps});
+    var efficacyAssay = new Mojo.$.dss.vector.solutions.entomology.assay.EfficacyAssay();
+    //public static java.lang.String GEOENTITY = "geoEntity";
+    var efficacyAttribs = ["specie","testMethod","holdingTime","quantityTested","colonyName","sex","fed","gravid","quantityTested","quantityDead","quantityLive","mortality","surfacePostion","timeOnSurface"];
+    //var efficacyCalculations = ["quanityAlive","percentMortality","controlTestMortality"];
 
-    var person = new Mojo.$.dss.vector.solutions.Person();
-    
-    var personAttribs = ["dateOfBirth","firstName","lastName","sex","age","residentialInformation","workInformation"];
-    
-    var personColumns =  personAttribs.map(mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
+    var efficacyColumns =  efficacyAttribs.map(mapAttribs, {obj:efficacyAssay, suffix:'_efficacy', dropDownMaps:efficacyMaps});
 
-    
     var selectableGroups = [
-              {title:"IPT", values:iIPTColumns, group:"ipt", klass:individualIPT.CLASS},
-              {title:"Patient", values:personColumns, group:"ipt", klass:individualIPT.CLASS}
+              {title:"Efficacy", values:efficacyColumns, group:"eff", klass:Mojo.$.dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS},
+              {title:"Insecticide", values:insectcideColumns, group:"eff", klass:Mojo.$.dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS},
     ];
 
-    var query = new MDSS.QueryIndividualIPT(selectableGroups, queryList);
+    var query = new MDSS.QueryEfficacyAssay(selectableGroups, queryList);
     query.render();
 
 });
 
 </script>
+
 <jsp:include page="queryContainer.jsp"></jsp:include>
 
 <jsp:include page="../templates/footer.jsp"></jsp:include>

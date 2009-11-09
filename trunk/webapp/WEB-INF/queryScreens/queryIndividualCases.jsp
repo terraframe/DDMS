@@ -169,32 +169,14 @@ YAHOO.util.Event.onDOMReady(function(){
               {title:"Patient", values:personColumns, group:"ipt", klass:individualIPT.CLASS}
     ];
 
-    var query = new MDSS.QueryIndividualIPT(selectableGroups, queryList);
+    var query = new MDSS.QueryIndividualCases(selectableGroups, queryList);
     query.render();
 
 });
 
 </script>
 
-<div class="yui-skin-sam">
-
-<div id="tabSet" class="yui-navset">
-    <ul class="yui-nav">
-        <li class="selected"><a href="#tab1"><em><fmt:message key="Query_Tab" /></em></a></li>
-        <li><a href="#tab2"><em><fmt:message key="Map_Tab" /></em></a></li>
-    </ul>
-    <div class="yui-content">
-        <div><div id="queryPanel"></div></div>
-        <div><div id="mapPanel"></div></div>
-    </div>
-</div>
-
-</div>
-
-<div style="display: none" id="XLSFormContainer"></div>
-<div style="display: none" id="CSVFormContainer"></div>
-<div style="display: none" id="ReportFormContainer"></div>
-<iframe id="messageFrame" name="messageFrame" style="display: none; width: 1px; height: 1px;"></iframe>
+<jsp:include page="queryContainer.jsp"></jsp:include>
 
 <textarea id="debug_xml" cols="40" rows="40" style="width:1280px"> </textarea>
 
