@@ -204,7 +204,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     if (this.getSprayLeaderDelegate() != null)
     {
       this.getSprayLeaderDelegate().unlock();
-    }    
+    }
 
     if (this.getStockStaffDelegate() != null)
     {
@@ -396,7 +396,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     ValueQuery valueQuery = new ValueQuery(f);
 
     Selectable[] selectables = new Selectable[] { personQuery.getId(Person.ID), personQuery.getFirstName(Person.FIRSTNAME), personQuery.getLastName(Person.LASTNAME), personQuery.getDateOfBirth(Person.DATEOFBIRTH), personQuery.getResidentialGeoEntity(Person.RESIDENTIALGEOENTITY),
-        personQuery.getSex().getTermName(Person.SEX) };
+        personQuery.getSex().getName(Person.SEX) };
 
     valueQuery.SELECT(selectables);
 
