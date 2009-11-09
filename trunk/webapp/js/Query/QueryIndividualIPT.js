@@ -29,13 +29,23 @@ Mojo.Meta.newClass('MDSS.QueryIndividualIPT', {
                                   ];
 
       this._exclusionClasses = [];
-
       
+      var tmpPerson = new  Mojo.$.dss.vector.solutions.Person();
+
       this._geoEntityAttribs = [
                              {
                                keyName :  this._groupByClass.CLASS+'.'+this._groupByClass.FACILITY,
                                display : this._individualIPT.getFacilityMd().getDisplayLabel()
+                             },
+                             {
+                               keyName :  Mojo.$.dss.vector.solutions.Person.CLASS+'.'+Mojo.$.dss.vector.solutions.Person.RESIDENTIALGEOENTITY,
+                               display : tmpPerson.getResidentialGeoEntityMd().getDisplayLabel()
+                             },
+                             {
+                               keyName :  Mojo.$.dss.vector.solutions.Person.CLASS+'.'+Mojo.$.dss.vector.solutions.Person.WORKGEOENTITY,
+                               display : tmpPerson.getWorkGeoEntityMd().getDisplayLabel()
                              }        
+                             
                            ];
       
       this._queryType = 'QueryIndividualIPT';

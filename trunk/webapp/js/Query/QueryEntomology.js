@@ -48,6 +48,13 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
       {
         this._queryPanel.addAvailableQuery(queryList[i]);
       }
+        
+      this._geoEntityAttribs = [
+           {
+             keyName :  this._concerteMosquitoCollection.CLASS+'.'+this._concerteMosquitoCollection.GEOENTITY,
+             display : "GeoEntity"
+           }        
+         ];
 
       this._buildQueryItems(groupAttributes,individualAttributes, orderedGrids);
 

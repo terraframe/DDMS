@@ -172,6 +172,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 	  },
     
     _mapRecords : function() {
+	  	  this.recordIndex = 0;
     	this.myDataTable.getRecordSet().getRecords().map( function(record) {
     		this.record = record;
 		    this.tableData.columnDefs.map( function(feild) {
@@ -198,7 +199,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 		      	  if(data){
 			          var id = data.split('^^^^')[1];
 			          var displayLabel = data.split('^^^^')[0];
-			          var r = this.tableData.rows[this.record.getCount()]
+			          var r = this.tableData.rows[this.recordIndex];
 			          if(r){
 			            r[feild.key] = id;
 			            this.record.setData(feild.key, displayLabel);
@@ -224,6 +225,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 		    }
 		  },this);
     	this.record = null;
+    	this.recordIndex  = null;
 	  },
     
 	  _setUpButtons : function(record) {
