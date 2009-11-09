@@ -11,7 +11,9 @@ import com.terraframe.mojo.dataaccess.MdAttributeBooleanDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.query.AttributeMoment;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 
@@ -150,12 +152,64 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
     // IMPORTANT: Required call for all query screens.
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, IndividualIPT.CLASS, IndividualIPT.FACILITY);   
    
-    IndividualIPTQuery IndividualIPTQuery = (IndividualIPTQuery) queryMap.get(IndividualIPT.CLASS);
+    IndividualIPTQuery individualIPTQuery = (IndividualIPTQuery) queryMap.get(IndividualIPT.CLASS);
+    IndividualIPTCaseQuery individualIPTCaseQuery = (IndividualIPTCaseQuery) queryMap.get(IndividualIPTCase.CLASS);
+    dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
+       
+    valueQuery.WHERE(individualIPTQuery.getIptCase().EQ(individualIPTCaseQuery.getId()));
+
+    valueQuery.WHERE(personQuery.getIptRecipientDelegate().EQ(individualIPTCaseQuery.getPatient()));
+    
+    try
+    {
+      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable("age");
+      
+      String personTableAlias = personQuery.getTableAlias();
+      String sql = "EXTRACT(year from AGE(NOW(), "+personTableAlias+".dateofbirth))";
+      dobSel.setSQL(sql);
+
+      // Check for equals or range criteria on Person.DOB
+      /*
+      if(dobCriteria != null)
+      {
+        if(dobCriteria.contains("-"))
+        {
+          String[] range = dobCriteria.split("-");
+          if(range.length == 2)
+          {
+            String range1 = range[0];
+            String range2 = range[1];
+            if(range1.length() > 0)
+            {
+              valueQuery.WHERE(dobSel.GE(range1));
+            }
+            
+            if(range2.length() > 0)
+            {
+              valueQuery.WHERE(dobSel.LE(range2));
+            }
+          }
+          else
+          {
+            // Just the GE criteria was specified (e.g., "7-")
+            valueQuery.WHERE(dobSel.GE(range[0]));
+          }
+        }
+        else
+        {
+          // exact value
+          valueQuery.WHERE(dobSel.EQ(dobCriteria));
+        }
+      }
+      */
+    }
+    catch(QueryException e)
+    {
+      // Person.DOB not included in query.
+    }
 
    
-
-   
-    AttributeMoment dateAttribute = IndividualIPTQuery.getServiceDate();
+    AttributeMoment dateAttribute = individualIPTQuery.getServiceDate();
 
     return QueryUtil.setQueryDates(xml,valueQuery,dateAttribute);
 
