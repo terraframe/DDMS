@@ -14,7 +14,6 @@ import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.intervention.monitor.IndividualIPTCaseDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO;
-import dss.vector.solutions.ontology.MODTO;
 import dss.vector.solutions.ontology.TermDTO;
 
 public class IndividualIPTNoPermissions extends PermissionTest implements DoNotWeave
@@ -27,7 +26,7 @@ public class IndividualIPTNoPermissions extends PermissionTest implements DoNotW
   public void testIndividualIPTCase()
   {
     TermDTO term = TermDTO.get(request, termId);
-    
+
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
     dto.setFirstName("Test");
     dto.setLastName("Test");
@@ -103,11 +102,11 @@ public class IndividualIPTNoPermissions extends PermissionTest implements DoNotW
           IndividualIPTViewDTO view = new IndividualIPTViewDTO(request);
           view.setFacility(facilityGeoId);
           view.setIptCase(iptCase);
-          view.setPatientType(MODTO.get(request, termId));
+          view.setPatientType(TermDTO.get(request, termId));
           view.setIsANCVisit(true);
-          view.setVisitNumber(MODTO.get(request, termId));
-          view.setDoseNumber(MODTO.get(request, termId));
-          view.setDoseType(MODTO.get(request, termId));
+          view.setVisitNumber(TermDTO.get(request, termId));
+          view.setDoseNumber(TermDTO.get(request, termId));
+          view.setDoseType(TermDTO.get(request, termId));
           view.setRecievedSupplement(true);
           view.setRecievedITN(true);
           view.setNumberOfRecievedITNs(5);

@@ -17,7 +17,6 @@ import dss.vector.solutions.intervention.monitor.IndividualIPTCaseDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO;
-import dss.vector.solutions.ontology.MODTO;
 import dss.vector.solutions.ontology.TermDTO;
 
 public class IndividualIPTCRUDPermissions extends PermissionTest implements DoNotWeave
@@ -169,11 +168,11 @@ public class IndividualIPTCRUDPermissions extends PermissionTest implements DoNo
         IndividualIPTViewDTO view = new IndividualIPTViewDTO(request);
         view.setFacility(facilityGeoId);
         view.setIptCase(iptCase);
-        view.setPatientType(MODTO.get(request, termId));
+        view.setPatientType(TermDTO.get(request, termId));
         view.setIsANCVisit(true);
-        view.setVisitNumber(MODTO.get(request, termId));
-        view.setDoseNumber(MODTO.get(request, termId));
-        view.setDoseType(MODTO.get(request, termId));
+        view.setVisitNumber(TermDTO.get(request, termId));
+        view.setDoseNumber(TermDTO.get(request, termId));
+        view.setDoseType(TermDTO.get(request, termId));
         view.setRecievedSupplement(true);
         view.setRecievedITN(true);
         view.setNumberOfRecievedITNs(5);
@@ -187,11 +186,11 @@ public class IndividualIPTCRUDPermissions extends PermissionTest implements DoNo
           IndividualIPTViewDTO edit = IndividualIPTDTO.lockView(request, view.getConcreteId());
           edit.setFacility(facilityGeoId);
           edit.setIptCase(iptCase);
-          edit.setPatientType(MODTO.get(request, termId));
+          edit.setPatientType(TermDTO.get(request, termId));
           edit.setIsANCVisit(true);
-          edit.setVisitNumber(MODTO.get(request, termId));
-          edit.setDoseNumber(MODTO.get(request, termId));
-          edit.setDoseType(MODTO.get(request, termId));
+          edit.setVisitNumber(TermDTO.get(request, termId));
+          edit.setDoseNumber(TermDTO.get(request, termId));
+          edit.setDoseType(TermDTO.get(request, termId));
           edit.setRecievedSupplement(true);
           edit.setRecievedITN(true);
           edit.setNumberOfRecievedITNs(2);

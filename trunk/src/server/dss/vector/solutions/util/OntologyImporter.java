@@ -1,269 +1,889 @@
 package dss.vector.solutions.util;
 
-import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.Savepoint;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
+import com.terraframe.mojo.dataaccess.DuplicateGraphPathException;
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
+import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.StartSession;
+import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.terraframe.mojo.system.metadata.MdClass;
 
-import dss.vector.solutions.ontology.IsA;
-import dss.vector.solutions.ontology.MO;
-import dss.vector.solutions.ontology.OntologyDefinition;
-import dss.vector.solutions.ontology.OntologyDefinitionQuery;
+import dss.vector.solutions.ontology.InvalidOBOFormatException;
+import dss.vector.solutions.ontology.Ontology;
+import dss.vector.solutions.ontology.OntologyQuery;
+import dss.vector.solutions.ontology.OntologyRelationship;
+import dss.vector.solutions.ontology.OntologyRelationshipQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
+import dss.vector.solutions.ontology.TermRelationship;
+import dss.vector.solutions.ontology.TermRelationshipQuery;
 
-public class OntologyImporter {
-	private static final String OBO_FIELD_DELIMITER = "\\s*:\\s*";
-	private static final String OBO_SECTION_DELIMITER = "[";
-	private static final String OBO_RELATIONSHIP_DELIMITER = "\\s*!\\s*";
+public class OntologyImporter
+{
+  public static final int feedbackMod = 50;
 
-	private static final String OBO_SECTION_FILE = "File";
-	private static final String OBO_SECTION_TERM = "Term";
+  private boolean displayStatusToSysOut = false;
 
-	private static final String OBO_VALUE_TRUE = "TRUE";
-	private static final String OBO_FIELD_DEF = "def";
+  private static final String OBO_ONTOLOGY_DEFAULT_NAMESPACE         = "default-namespace";
+  private static final String OBO_SECTION_DELIMITER                  = "[";
+  private static final String OBO_TYPEDEF_DELIMITER                  = "[Typedef]";
+  private static final String OBO_TERM_DELIMITER                     = "[Term]";
 
-	private static final String OBO_FIELD_ID = "id";
-	private static final String OBO_FIELD_NAME = "name";
-	private static final String OBO_FIELD_IS_OBSOLETE = "is_obsolete";
-	private static final String OBO_FIELD_NAMESPACE = "default-namespace";
-	private static final String OBO_FIELD_COMMENT = "comment";
-	private static final String OBO_FIELD_DESCRIPTION = "def";
+  private static final String OBO_FIELD_ID                           = "id";
+  private static final String OBO_FIELD_NAME                         = "name";
+  private static final String OBO_FIELD_NAMESPACE                    = "namespace";
+  private static final String OBO_FIELD_DEF                          = "def";
+  private static final String OBO_FIELD_COMMENT                      = "comment";
 
-	private static final String OBO_RELATIONSHIP_IS_A = "is_a";
+  // Typedef attributes
+  private static final String OBO_FIELD_ALT_ID                       = "alt_id";
+  private static final String OBO_FIELD_INVERSE_OF                   = "inverse_of";
+  private static final String OBO_FIELD_INVERSE_OF_ON_INSTANCE_LEVEL = "inverse_of_on_instance_level";
+  private static final String OBO_FIELD_BUILTIN                      = "builtin";
+  private static final String OBO_FIELD_IS_REFLEXIVE                 = "is_reflexive";
+  private static final String OBO_FIELD_IS_TRANSITIVE                = "is_transitive";
+  private static final String OBO_FIELD_IS_OBSOLETE                  = "is_obsolete";
+  private static final String OBO_FIELD_IS_ANTI_SYMMETRIC            = "is_anti_symmetric";
 
-	private String ontologyName;
-	private String fileName;
+  // Term attributes
+  private static final String OBO_FIELD_OBSOLETE                     = "obsolete";
 
-	private Set<String> allTermKeys = new HashSet<String>();
-	private OntologyDefinition ontology;
-	private Map<String, List<String>> relationships = new HashMap<String, List<String>>();
-	private Map<String, String> termIds = new HashMap<String, String>();
+  private String ontologyTitle;
+  private String fileName;
+  private Ontology ontology = null;
+  private Map<String, OntologyRelationshipInfo> ontologyRelationshipInfoMap;
+  private Map<String, OntologyRelationship> ontologyRelationshipByNameMap;
+  private List<TermRelationshipInfo> termRelationshipInfoList;
 
-	/**
-	 * @param args
-	 */
-	@StartSession
-	public static void main(String[] args) {
-		String ontologyName = "MO";
+  private class OntologyRelationshipInfo
+  {
+    private OntologyRelationship ontologyRelationship;
+    private String inverseOfId;
+    private String inverseOfOnInstanceLevelId;
 
-		switch (args.length) {
-			case 2:
-				ontologyName = args[1];
-			case 1:
-				String fileName = args[0];
-				System.out.println("Start");
-				OntologyImporter oi = new OntologyImporter(ontologyName, fileName);
-				oi.importOntology();
-				System.out.println("End");
-				break;
-			default:
-				System.out.println("Incorrect args!  Takes two arguments, filename & ontology name (optional, defaults to MO)");
-		}
-	}
+    private OntologyRelationshipInfo(OntologyRelationship ontologyRelationship,
+        String inverseOfId, String inverseOfOnInstanceLevelId)
+    {
+      this.ontologyRelationship = ontologyRelationship;
+      this.inverseOfId = inverseOfId;
+      this.inverseOfOnInstanceLevelId = inverseOfOnInstanceLevelId;
+    }
 
-	private OntologyImporter() {
-		super();
-	}
+    private OntologyRelationship getOntologyRelationship()
+    {
+      return this.ontologyRelationship;
+    }
 
-	public OntologyImporter(String ontologyName, String fileName) {
-		this();
-		this.ontologyName = ontologyName;
-		this.fileName = fileName;
-	}
+    private String getInverseOfId()
+    {
+      return this.inverseOfId;
+    }
 
-	@Transaction
-	public void importOntology() {
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(this.fileName));
-			String line;
-			String section = OBO_SECTION_FILE;
-			Map<String, List<String>> sectionData = new HashMap<String, List<String>>();
-			while ((line = br.readLine()) != null) {
-				if (line.startsWith(OBO_SECTION_DELIMITER)) {
-					this.processSection(section, sectionData);
-					section = line.substring(1, line.length() - 1);
-					sectionData = new HashMap<String, List<String>>();
-				} else {
-					String[] tokens = line.split(OBO_FIELD_DELIMITER, 2);
-					if (tokens.length == 2) {
-						this.put(sectionData, tokens[0], tokens[1]);
-					}
-				}
-			}
-			br.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.processRelationships();
-		System.out.println(allTermKeys);
-	}
+    private String getInverseOfOnInstanceLevelId()
+    {
+      return this.inverseOfOnInstanceLevelId;
+    }
+  }
 
-	private void processSection(String section, Map<String, List<String>> sectionData) {
-		if (OBO_SECTION_TERM.equals(section)) {
-			this.processTerm(sectionData);
-		} else if (OBO_SECTION_FILE.equals(section)) {
-			this.processFile(sectionData);
-		}
-	}
+  private class TermRelationshipInfo
+  {
+    private String parentTermId;
+    private String childTermId;
+    private String relationshipName;
 
-	@Transaction
-	private void processFile(Map<String, List<String>> sectionData) {
-		System.out.println("File");
+    private TermRelationshipInfo(String parentTermId, String childTermId, String relationshipName)
+    {
+      this.parentTermId = parentTermId;
+      this.childTermId = childTermId;
+      this.relationshipName = relationshipName;
+    }
 
-		//this.purgeOldOntology();
+    private String getParentTermId()
+    {
+      return this.parentTermId;
+    }
 
-		String namespace = this.getString(sectionData, OBO_FIELD_NAMESPACE);
-		ontology = new OntologyDefinition();
-		ontology.setOntologyName(this.ontologyName);
-		ontology.setNamespace(namespace);
-		ontology.apply();
-	}
+    private String getChildTermId()
+    {
+      return this.childTermId;
+    }
 
-	private void purgeOldOntology() {
-		/*
-delete from ontologydefinition;
-delete from term;
-delete from mo;
-delete from termrelationship;
-delete from isa;
-		 */
-		System.out.print("Deleting old ontology...");
-		OntologyDefinition oldOntology = null;
-		QueryFactory qf = new QueryFactory();
+    private String getRelationshipName()
+    {
+      return this.relationshipName;
+    }
+  }
 
-		// See if there's an existing ontology
-		OntologyDefinitionQuery ontologyQuery = new OntologyDefinitionQuery(qf);
-		ontologyQuery.WHERE(ontologyQuery.getOntologyName().EQ(this.ontologyName));
-		OIterator<? extends OntologyDefinition> oi = ontologyQuery.getIterator();
-		try {
-			for (OntologyDefinition ontology : oi) {
-				oldOntology = ontology;
-			}
-		} finally {
-			// do this in case the for loop is interrupted by an exception
-			oi.close();
-		}
 
-		if (oldOntology != null) {
-			// Clean out any old ontology terms
-			TermQuery termQuery = new TermQuery(qf);
-			termQuery.WHERE(termQuery.getOntology().EQ(oldOntology));
-			OIterator<? extends Term> i = termQuery.getIterator();
-			try {
-				for (Term term : i) {
-					term.delete();
-					System.out.print(".4746*15");
-				}
-			} finally {
-				// do this in case the for loop is interrupted by an exception
-				i.close();
-			}
+  /**
+   * @param args
+   */
+  @StartSession
+  public static void main(String[] args) throws Exception
+  {
+    OntologyImporter oi = null;
+    String fileName = null;
 
-			if (oldOntology != null) {
-				oldOntology.delete();
-			}
-		}
-		System.out.println("done");
-	}
+    switch (args.length)
+    {
+        case 2:
+            fileName = args[0];
+            String ontologyTitle = args[1];
+            oi = new OntologyImporter(fileName, ontologyTitle);
+            oi.displayStatusToSysOut = true;
+            oi.importOntology();
+            break;
+        case 1:
+            fileName = args[0];
+            oi = new OntologyImporter(fileName);
+            oi.displayStatusToSysOut = true;
+            oi.importOntology();
+            break;
+        default:
+            String errMsg =
+              "Incorrect args!  Takes two arguments, filename & ontology name (optional)\n"+
+              "Specifying just the filename will only import the relationship definitions and will \n"+
+              "term definitions";
+            System.out.println(errMsg);
+    }
+  }
 
-	private void processTerm(Map<String, List<String>> sectionData) {
-		String obsolete = this.getString(sectionData, OBO_FIELD_IS_OBSOLETE);
-		if (obsolete != null && OBO_VALUE_TRUE.equals(obsolete.toUpperCase())) {
-			System.out.print("OBSOLETE ");
-		}
-		System.out.print(this.getString(sectionData, OBO_FIELD_NAME));
-		System.out.print(" (" + this.getString(sectionData, OBO_FIELD_ID) + ")");
+  private OntologyImporter()
+  {
+    super();
+    this.ontologyRelationshipInfoMap = new HashMap<String, OntologyRelationshipInfo>();
+    this.ontologyRelationshipByNameMap = new HashMap<String, OntologyRelationship>();
 
-		if (this.getString(sectionData, "is_a") != null) {
-			System.out.print(" extends " + this.getString(sectionData, "is_a"));
-		}
-		System.out.print(" = " + this.getString(sectionData, OBO_FIELD_DEF));
-		System.out.println();
+    this.initializeBuiltInRelationships();
 
-		this.allTermKeys.addAll(sectionData.keySet());
+    this.termRelationshipInfoList = new LinkedList<TermRelationshipInfo>();
+  }
 
-		if (obsolete == null || !OBO_VALUE_TRUE.equals(obsolete.toUpperCase())) {
-			MO moTerm = new MO();
-			moTerm.setOntology(ontology);
-			moTerm.setTermId(this.getString(sectionData, OBO_FIELD_ID));
-			moTerm.setTermName(this.getString(sectionData, OBO_FIELD_NAME));
-			if (this.getString(sectionData, OBO_FIELD_COMMENT) != null) {
-				moTerm.setTermComment(this.getString(sectionData, OBO_FIELD_COMMENT));
-			}
-			if (this.getString(sectionData, OBO_FIELD_DESCRIPTION) != null) {
-				moTerm.setDescription(this.getString(sectionData, OBO_FIELD_DESCRIPTION));
-			}
-			moTerm.apply();
-			termIds.put(moTerm.getTermId(), moTerm.getId());
+  public OntologyImporter(String fileName, String ontologyTitle)
+  {
+    this();
+    this.fileName = fileName;
+    this.ontologyTitle = ontologyTitle;
+  }
 
-			List<String> isA = this.get(sectionData, OBO_RELATIONSHIP_IS_A);
-			if (isA != null) {
-				for (String parent : isA) {
-					String parentId = parent;
-					String[] tokens = parent.split(OBO_RELATIONSHIP_DELIMITER, 2);
-					if (tokens.length == 2) {
-						parentId = tokens[0];
-					}
-					this.put(relationships, parentId, moTerm.getId());
-				}
-			}
-		}
-	}
+  public OntologyImporter(String fileName)
+  {
+    this();
+    this.fileName = fileName;
+    this.ontologyTitle = null;
+  }
 
-	private void processRelationships() {
-		for (String parent : relationships.keySet()) {
-			List<String> children = relationships.get(parent);
-			for (String child : children) {
-				IsA relationship = new IsA(termIds.get(parent), child);
-				relationship.applyWithoutCreatingAllPaths();
-			}
-		}
-	}
+  protected void setDisplayStatusToSysOut(boolean displayStatusToSysOut)
+  {
+    this.displayStatusToSysOut = displayStatusToSysOut;
+  }
 
-	private void put(Map<String, List<String>> multimap, String key, String value) {
-		if (multimap.containsKey(key)) {
-			multimap.get(key).add(value);
-		} else {
-			List<String> l = new ArrayList<String>();
-			l.add(value);
-			multimap.put(key, l);
-		}
-	}
+  /**
+   * Some ontology relationships are built in, meaning they apply to
+   * any ontology.
+   */
+  private void initializeBuiltInRelationships()
+  {
+    QueryFactory qf = new QueryFactory();
 
-	private List<String> get(Map<String, List<String>> multimap, String key) {
-		return multimap.get(key);
+    OntologyRelationshipQuery orQ = new OntologyRelationshipQuery(qf);
+    orQ.WHERE(orQ.getIsBuiltIn().EQ(true));
 
-	}
+    for (OntologyRelationship ontologyRelationship : orQ.getIterator())
+    {
+      this.ontologyRelationshipByNameMap.put(ontologyRelationship.getName(), ontologyRelationship);
+    }
 
-	private String getString(Map<String, List<String>> multimap, String key) {
-		String s = null;
-		List<String> l = this.get(multimap, key);
-		if (l != null) {
-			StringBuilder sb = new StringBuilder();
-			for (String value : l) {
-				if (sb.length() > 0) {
-					sb.append(",");
-				}
-				sb.append(value);
-			}
-			s = sb.toString();
-		}
-		return s;
-	}
+  }
+
+  @Transaction
+  public void importOntology() throws Exception
+  {
+//    cleanup();
+
+    if (this.ontologyTitle != null)
+    {
+      this.importOntologyDefinition();
+    }
+
+    this.importOntologyRelationshipDefinitions();
+
+    if (this.ontologyTitle != null)
+    {
+      this.importTermDefinitions();
+    }
+  }
+
+  private void cleanup()
+  {
+    int applyCount = 0;
+
+    QueryFactory qf = new QueryFactory();
+
+    if (this.displayStatusToSysOut)
+    {
+      System.out.println("\nDeleting: ["+MdClass.getMdClass(TermRelationship.CLASS).definesType()+"]");
+    }
+    TermRelationshipQuery trQ = new TermRelationshipQuery(qf);
+    for (TermRelationship termRelationship : trQ.getIterator())
+    {
+      TermRelationship.get(termRelationship.getId()).delete();
+      applyCount = cleanupFeedback(applyCount);
+    }
+
+    applyCount = 0;
+    if (this.displayStatusToSysOut)
+    {
+      System.out.println("\nDeleting: ["+MdClass.getMdClass(Term.CLASS).definesType()+"]");
+    }
+    TermQuery tQ = new TermQuery(qf);
+    for (Term term : tQ.getIterator())
+    {
+      Term.get(term.getId()).delete();
+      applyCount = cleanupFeedback(applyCount);
+    }
+
+    applyCount = 0;
+    if (this.displayStatusToSysOut)
+    {
+      System.out.println("\nDeleting: ["+MdClass.getMdClass(OntologyRelationship.CLASS).definesType()+"]");
+    }
+    OntologyRelationshipQuery orQ = new OntologyRelationshipQuery(qf);
+    for (OntologyRelationship ontologyRelationship : orQ.getIterator())
+    {
+      OntologyRelationship.get(ontologyRelationship.getId()).delete();
+      applyCount = cleanupFeedback(applyCount);
+    }
+
+    applyCount = 0;
+    if (this.displayStatusToSysOut)
+    {
+      System.out.println("\nDeleting: ["+MdClass.getMdClass(Ontology.CLASS).definesType()+"]");
+    }
+    OntologyQuery ontologyQuery = new OntologyQuery(qf);
+    for (Ontology ontology : ontologyQuery.getIterator())
+    {
+      ontology.delete();
+      applyCount = cleanupFeedback(applyCount);
+    }
+  }
+
+
+  private int cleanupFeedback(int applyCount)
+  {
+    if (this.displayStatusToSysOut)
+    {
+      if (applyCount % feedbackMod == 0)
+      {
+        System.out.println();
+      }
+      System.out.print(".");
+      applyCount++;
+    }
+
+    return applyCount;
+  }
+
+  /**
+   * Creates a new ontology with the given ontology title and namespace or
+   * uses an existing ontology with the given ontology title and namespace
+   * if one exists.
+   *
+   * @precondition this.ontologyTitle != null && !this.ontologyTitle.equals("")
+   *
+   * @throws Exception
+   */
+  private void importOntologyDefinition() throws Exception
+  {
+    String defaultNamespace = "";
+
+    try
+    {
+      BufferedReader br = new BufferedReader(new FileReader(this.fileName));
+      String line;
+      while ((line = br.readLine()) != null)
+      {
+        // We are finished processing the ontology section
+        if (line.startsWith(OBO_SECTION_DELIMITER))
+        {
+          break;
+        }
+        else if (line.startsWith(OBO_ONTOLOGY_DEFAULT_NAMESPACE))
+        {
+          defaultNamespace = this.extractFieldValue(OBO_ONTOLOGY_DEFAULT_NAMESPACE, line);
+        }
+      }
+      br.close();
+    }
+    catch (FileNotFoundException e)
+    {
+      throw e;
+    }
+    catch (IOException e)
+    {
+      throw e;
+    }
+
+    String ontologyKey = Ontology.buildKey(defaultNamespace, this.ontologyTitle);
+
+    try
+    {
+
+      this.ontology = Ontology.getByKey(ontologyKey);
+
+      if (this.displayStatusToSysOut)
+      {
+        System.out.println("Modifying Ontology: " + this.ontology.getTitle());
+      }
+    }
+    // Ontology does not yet exist
+    catch (DataNotFoundException e)
+    {
+      this.ontology = new Ontology();
+      this.ontology.setTitle(this.ontologyTitle);
+      this.ontology.setDefaultNamespace(defaultNamespace);
+      this.ontology.apply();
+
+      if (this.displayStatusToSysOut)
+      {
+        System.out.println("Created Ontology: " + this.ontology.getTitle());
+      }
+
+    }
+  }
+
+  private void importOntologyRelationshipDefinitions() throws Exception
+  {
+    if (this.displayStatusToSysOut)
+    {
+      System.out.println("Importing Ontology Relationshipo Definitions");
+    }
+
+    try
+    {
+      BufferedReader br = new BufferedReader(new FileReader(this.fileName));
+      String line;
+      while ((line = br.readLine()) != null)
+      {
+        if (line.startsWith(OBO_TYPEDEF_DELIMITER))
+        {
+          boolean encounteredNewTypeDef = this.importTypeDef(br, line);
+
+          while (encounteredNewTypeDef)
+          {
+            encounteredNewTypeDef = this.importTypeDef(br, line);
+          }
+        }
+      }
+      br.close();
+    }
+    catch (FileNotFoundException e)
+    {
+      throw e;
+    }
+    catch (IOException e)
+    {
+      throw e;
+    }
+
+    // set the inverse references and relationship to the ontology
+    for (OntologyRelationshipInfo ontologyRelationshipInfo : this.ontologyRelationshipInfoMap.values())
+    {
+      OntologyRelationship ontologyRelationship = ontologyRelationshipInfo.getOntologyRelationship();
+      String inverseOfId = ontologyRelationshipInfo.getInverseOfId();
+      String inverseOfOnInstanceLevelId = ontologyRelationshipInfo.getInverseOfOnInstanceLevelId();
+
+      if (!inverseOfId.equals(""))
+      {
+        try
+        {
+          OntologyRelationship inverseOfOntologyRelationship = OntologyRelationship.getByKey(inverseOfId);
+          ontologyRelationship.setInverseOf(inverseOfOntologyRelationship);
+        }
+        catch (DataNotFoundException e)
+        {
+          String devMessage =
+            "Unable to locate "+OBO_TYPEDEF_DELIMITER+" with id ["+inverseOfId+"] for ["+OBO_FIELD_INVERSE_OF+
+            "] on "+ontologyRelationship+" with id ["+ontologyRelationship.getRelationshipId()+"]";
+          this.throwInvalidOBOFormatException(devMessage);
+        }
+      }
+
+      if (!inverseOfOnInstanceLevelId.equals(""))
+      {
+        try
+        {
+          OntologyRelationship inverseOfOnInstanceLevelOR = OntologyRelationship.getByKey(inverseOfOnInstanceLevelId);
+          ontologyRelationship.setInverseOf(inverseOfOnInstanceLevelOR);
+        }
+        catch (DataNotFoundException e)
+        {
+          String devMessage =
+            "Unable to locate "+OBO_TYPEDEF_DELIMITER+" with id ["+inverseOfOnInstanceLevelId+"] for ["+OBO_FIELD_INVERSE_OF_ON_INSTANCE_LEVEL+
+            "] on "+ontologyRelationship+" with id ["+ontologyRelationship.getRelationshipId()+"]";
+          this.throwInvalidOBOFormatException(devMessage);
+        }
+      }
+
+      ontologyRelationship.apply();
+
+      if (this.displayStatusToSysOut)
+      {
+        if (ontologyRelationship.isNew())
+        {
+          System.out.println("Creating Ontology Relationship: "+ontologyRelationship.getRelationshipId());
+        }
+        else
+        {
+          System.out.println("Modifying Ontology Relationship: "+ontologyRelationship.getRelationshipId());
+        }
+      }
+    }
+
+  }
+
+  private boolean importTypeDef(BufferedReader br, String line) throws Exception
+  {
+    OntologyRelationship ontologyRelationship = null;
+    String relationshipId = "";
+    String inverseOfId = "";
+    String inverseOfOnInstanceLevelId = "";
+
+    boolean encounteredNewTypeDef = false;
+    try
+    {
+      while ((line = br.readLine()) != null)
+      {
+        if (line.startsWith(OBO_TYPEDEF_DELIMITER))
+        {
+          encounteredNewTypeDef = true;
+          break;
+        }
+        // Assumes this field is parsed first!!!!
+        else if (line.startsWith(OBO_FIELD_ID))
+        {
+          relationshipId = this.extractFieldValue(OBO_FIELD_ID, line);
+          ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
+          ontologyRelationship.setRelationshipId(this.extractFieldValue(OBO_FIELD_ID, line));
+        }
+        else if (line.startsWith(OBO_FIELD_ALT_ID))
+        {
+          ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
+          ontologyRelationship.setAltId(this.extractFieldValue(OBO_FIELD_ALT_ID, line));
+        }
+        else if (line.startsWith(OBO_FIELD_NAME))
+        {
+          ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
+          ontologyRelationship.setName(this.extractFieldValue(OBO_FIELD_NAME, line));
+        }
+        else if (line.startsWith(OBO_FIELD_NAMESPACE))
+        {
+          ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
+          ontologyRelationship.setNamespace(this.extractFieldValue(OBO_FIELD_NAMESPACE, line));
+        }
+        else if (line.startsWith(OBO_FIELD_DEF))
+        {
+          ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
+          ontologyRelationship.setDef(this.extractFieldValue(OBO_FIELD_DEF, line));
+        }
+        else if (line.startsWith(OBO_FIELD_COMMENT))
+        {
+          ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
+          ontologyRelationship.setDef(this.extractFieldValue(OBO_FIELD_COMMENT, line));
+        }
+        else if (line.startsWith(OBO_FIELD_INVERSE_OF_ON_INSTANCE_LEVEL))
+        {
+          inverseOfOnInstanceLevelId = this.extractReferenceFieldValue(OBO_FIELD_INVERSE_OF_ON_INSTANCE_LEVEL, line);
+        }
+        else if (line.startsWith(OBO_FIELD_INVERSE_OF))
+        {
+          inverseOfId = this.extractReferenceFieldValue(OBO_FIELD_INVERSE_OF, line);
+        }
+        else if (line.startsWith(OBO_FIELD_BUILTIN))
+        {
+          String builtInString = this.extractFieldValue(OBO_FIELD_BUILTIN, line);
+          ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
+          ontologyRelationship.setIsBuiltIn(Boolean.parseBoolean(builtInString));
+        }
+        else if (line.startsWith(OBO_FIELD_IS_REFLEXIVE))
+        {
+          String isReflexiveString = this.extractFieldValue(OBO_FIELD_IS_REFLEXIVE, line);
+          ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
+          ontologyRelationship.setIsReflexive(Boolean.parseBoolean(isReflexiveString));
+        }
+        else if (line.startsWith(OBO_FIELD_IS_TRANSITIVE))
+        {
+          String isTransitiveString = this.extractFieldValue(OBO_FIELD_IS_TRANSITIVE, line);
+          ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
+          ontologyRelationship.setIsTransitive(Boolean.parseBoolean(isTransitiveString));
+        }
+        else if (line.startsWith(OBO_FIELD_IS_OBSOLETE))
+        {
+          String isObsoleteString = this.extractFieldValue(OBO_FIELD_IS_OBSOLETE, line);
+          ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
+          ontologyRelationship.setIsObsolete(Boolean.parseBoolean(isObsoleteString));
+        }
+        else if (line.startsWith(OBO_FIELD_IS_ANTI_SYMMETRIC))
+        {
+          String isAntiSymmetricString = this.extractFieldValue(OBO_FIELD_IS_ANTI_SYMMETRIC, line);
+          ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
+          ontologyRelationship.setIsAntiSymmetric(Boolean.parseBoolean(isAntiSymmetricString));
+        }
+      }
+    }
+    catch (FileNotFoundException e)
+    {
+      throw e;
+    }
+    catch (IOException e)
+    {
+      throw e;
+    }
+
+    ontologyRelationship = initOntologyRelationship(ontologyRelationship,  relationshipId);
+
+    ontologyRelationship.apply();
+
+    if (this.ontology != null)
+    {
+      // create save point
+      Savepoint savepoint = Database.setSavepoint();
+
+      try
+      {
+        ontologyRelationship.addOntology(this.ontology).apply();
+      }
+      catch (DuplicateGraphPathException e)
+      {
+        // a relationship between this typedef and the ontology already exists
+        Database.rollbackSavepoint(savepoint);
+      }
+      finally
+      {
+        Database.releaseSavepoint(savepoint);
+      }
+    }
+
+    OntologyRelationshipInfo ontologyRelationshipInfo =
+      new OntologyRelationshipInfo(ontologyRelationship, inverseOfId, inverseOfOnInstanceLevelId);
+
+    this.ontologyRelationshipInfoMap.put(ontologyRelationship.getRelationshipId(), ontologyRelationshipInfo);
+    this.ontologyRelationshipByNameMap.put(ontologyRelationship.getName(), ontologyRelationship);
+
+    return encounteredNewTypeDef;
+
+  }
+
+  /**
+   * Initializes the given <code>OntologyRelationship</code> object
+   *
+   * @precondition relationshipId != null
+   *
+   * @param ontologyRelationship
+   * @param relationshipId
+   * @return
+   */
+  private OntologyRelationship initOntologyRelationship(OntologyRelationship ontologyRelationship, String relationshipId)
+  {
+    if(relationshipId.equals(""))
+    {
+      String devMessage = "Missing ID for "+OBO_TYPEDEF_DELIMITER;
+      this.throwInvalidOBOFormatException(devMessage);
+    }
+
+    if (ontologyRelationship != null)
+    {
+      return ontologyRelationship;
+    }
+    else
+    {
+      try
+      {
+        return OntologyRelationship.getByKey(relationshipId);
+      }
+      catch (DataNotFoundException e)
+      {
+        OntologyRelationship newOntologyRelationship = new OntologyRelationship();
+        newOntologyRelationship.setRelationshipId(relationshipId);
+
+        return newOntologyRelationship;
+      }
+    }
+  }
+
+  private void importTermDefinitions() throws Exception
+  {
+    int applyCount = 0;
+
+    if (this.displayStatusToSysOut)
+    {
+      System.out.println("Creating Terms:");
+    }
+
+    try
+    {
+      BufferedReader br = new BufferedReader(new FileReader(this.fileName));
+      String line;
+      while ((line = br.readLine()) != null)
+      {
+        if (line.startsWith(OBO_TERM_DELIMITER))
+        {
+          boolean encounteredNewTerm = this.importTerm(br, line);
+
+          if (this.displayStatusToSysOut)
+          {
+            if (applyCount % feedbackMod == 0)
+            {
+              System.out.println();
+            }
+            System.out.print(".");
+            applyCount++;
+          }
+
+          while (encounteredNewTerm)
+          {
+            encounteredNewTerm = this.importTerm(br, line);
+
+            if (this.displayStatusToSysOut)
+            {
+              if (applyCount % feedbackMod == 0)
+              {
+                System.out.println();
+              }
+
+              System.out.print(".");
+              applyCount++;
+            }
+          }
+        }
+        else if (line.startsWith(OBO_TYPEDEF_DELIMITER))
+        {
+          break;
+        }
+      }
+      br.close();
+    }
+    catch (FileNotFoundException e)
+    {
+      throw e;
+    }
+    catch (IOException e)
+    {
+      throw e;
+    }
+
+    System.out.println("\nCreating term relationships: ");
+    applyCount = 0;
+
+
+    for (TermRelationshipInfo termRelationshipInfo : this.termRelationshipInfoList)
+    {
+      Term term = Term.getByKey(termRelationshipInfo.getParentTermId());
+      Term referencedTerm = Term.getByKey(termRelationshipInfo.getChildTermId());
+      TermRelationship termRelationship = new TermRelationship(term, referencedTerm);
+      termRelationship.setOntologyRelationship(this.ontologyRelationshipByNameMap.get(termRelationshipInfo.getRelationshipName()));
+
+      if (this.displayStatusToSysOut)
+      {
+        if (applyCount % feedbackMod == 0)
+        {
+          System.out.println();
+        }
+        System.out.print(".");
+        applyCount++;
+      }
+
+      // create save point
+      Savepoint savepoint = Database.setSavepoint();
+      try
+      {
+        termRelationship.applyWithoutCreatingAllPaths();
+      }
+      catch (DuplicateGraphPathException e)
+      {
+        // a relationship between this typedef and the parent and the child already exists
+        Database.rollbackSavepoint(savepoint);
+      }
+      finally
+      {
+        Database.releaseSavepoint(savepoint);
+      }
+    }
+  }
+
+  private boolean importTerm(BufferedReader br, String line) throws Exception
+  {
+    Term term = null;
+    String termId = "";
+
+    boolean encounteredNewTerm = false;
+    try
+    {
+      while ((line = br.readLine()) != null)
+      {
+        if (line.startsWith(OBO_TERM_DELIMITER))
+        {
+          encounteredNewTerm = true;
+          break;
+        }
+        else if (line.startsWith(OBO_TYPEDEF_DELIMITER))
+        {
+          break;
+        }
+        // Assumes this field is parsed first!!!!
+        else if (line.startsWith(OBO_FIELD_ID))
+        {
+          termId = this.extractFieldValue(OBO_FIELD_ID, line);
+          term = initTerm(term, termId);
+          term.setTermId(this.extractFieldValue(OBO_FIELD_ID, line));
+        }
+        else if (line.startsWith(OBO_FIELD_NAME))
+        {
+          term = initTerm(term, termId);
+          term.setName(this.extractFieldValue(OBO_FIELD_NAME, line));
+        }
+        else if (line.startsWith(OBO_FIELD_NAMESPACE))
+        {
+          term = initTerm(term, termId);
+          term.setNamespace(this.extractFieldValue(OBO_FIELD_NAMESPACE, line));
+        }
+        else if (line.startsWith(OBO_FIELD_DEF))
+        {
+          term = initTerm(term, termId);
+          term.setDef(this.extractFieldValue(OBO_FIELD_DEF, line));
+        }
+        else if (line.startsWith(OBO_FIELD_COMMENT))
+        {
+          term = initTerm(term, termId);
+          term.setComment(this.extractFieldValue(OBO_FIELD_COMMENT, line));
+        }
+        else if (line.startsWith(OBO_FIELD_OBSOLETE))
+        {
+          String obsoleteString = this.extractFieldValue(OBO_FIELD_IS_OBSOLETE, line);
+          term = initTerm(term, termId);
+          term.setObsolete(Boolean.parseBoolean(obsoleteString));
+        }
+        else
+        {
+          // The next line might be a relationship
+          processRelationship(line, term);
+        }
+      }
+    }
+    catch (FileNotFoundException e)
+    {
+      throw e;
+    }
+    catch (IOException e)
+    {
+      throw e;
+    }
+
+    term.setOntology(this.ontology);
+    term.apply();
+
+    return encounteredNewTerm;
+  }
+
+  /**
+   * Initializes the given <code>Term</code> object
+   *
+   * @precondition termId != null
+   *
+   * @param term
+   * @param termId
+   * @return
+   */
+  private Term initTerm(Term term, String termId)
+  {
+    if(termId.equals(""))
+    {
+      String devMessage = "Missing ID for "+OBO_TYPEDEF_DELIMITER;
+      this.throwInvalidOBOFormatException(devMessage);
+    }
+
+    if (term != null)
+    {
+      return term;
+    }
+    else
+    {
+      try
+      {
+        return Term.getByKey(termId);
+      }
+      catch (DataNotFoundException e)
+      {
+        Term newTerm = new Term();
+        newTerm.setTermId(termId);
+
+        return newTerm;
+      }
+    }
+  }
+
+  private void processRelationship(String line, Term term)
+  {
+    int delimIndex = line.indexOf(":");
+    if (delimIndex <= -1)
+    {
+      return;
+    }
+
+    int separatorIndex = line.indexOf("!");
+    if (separatorIndex <= -1)
+    {
+      return;
+    }
+
+    String relationshipName = line.substring(0, delimIndex).trim();
+    String referencedTermId = line.substring(delimIndex+1, separatorIndex).trim();
+
+    if (this.ontologyRelationshipByNameMap.containsKey(relationshipName))
+    {
+      TermRelationshipInfo termRelationshipInfo = new TermRelationshipInfo(term.getTermId(), referencedTermId, relationshipName);
+      this.termRelationshipInfoList.add(termRelationshipInfo);
+    }
+
+  }
+
+  private String extractFieldValue(String fieldDelimiter, String line)
+  {
+    return line.substring((fieldDelimiter+":").length(), line.length()).trim();
+  }
+
+  private String extractReferenceFieldValue(String fieldDelimiter, String line)
+  {
+    int endIndex;
+
+    if (line.indexOf("!") <= -1)
+    {
+      endIndex = line.length();
+    }
+    else
+    {
+      endIndex = line.indexOf("!");
+    }
+
+    return line.substring((fieldDelimiter+":").length(), endIndex).trim();
+  }
+
+  private void throwInvalidOBOFormatException(String devMessage)
+  {
+    InvalidOBOFormatException invalidOBOFormatException = new InvalidOBOFormatException(devMessage);
+    invalidOBOFormatException.setFileName(this.fileName);
+    invalidOBOFormatException.apply();
+    throw invalidOBOFormatException;
+  }
 }

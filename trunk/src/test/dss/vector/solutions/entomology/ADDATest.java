@@ -49,8 +49,8 @@ import dss.vector.solutions.entomology.assay.SusceptibleCollectionDTO;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.ontology.MODTO;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermDTO;
 
 public class ADDATest extends TestCase
 {
@@ -1786,12 +1786,12 @@ public class ADDATest extends TestCase
     AdultDiscriminatingDoseAssayDTO assay = new AdultDiscriminatingDoseAssayDTO(clientRequest);
     assay.setCollection(MosquitoCollectionDTO.get(clientRequest, collection.getId()));
     assay.setTestDate(date);
-    assay.setSex(MODTO.get(clientRequest, sex.getId()));
-    assay.setIdentificationMethod(MODTO.get(clientRequest, identificationMethod.getId()));
-    assay.setTestMethod(MODTO.get(clientRequest, assayMethod.getId()));
+    assay.setSex(TermDTO.get(clientRequest, sex.getId()));
+    assay.setIdentificationMethod(TermDTO.get(clientRequest, identificationMethod.getId()));
+    assay.setTestMethod(TermDTO.get(clientRequest, assayMethod.getId()));
     assay.setExposureTime(60);
     assay.setIntervalTime(10);
-    assay.setGeneration(MODTO.get(clientRequest, F1.getId()));
+    assay.setGeneration(TermDTO.get(clientRequest, F1.getId()));
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(2.99));
     assay.setIsofemale(false);
@@ -1823,12 +1823,12 @@ public class ADDATest extends TestCase
     AdultDiscriminatingDoseAssayDTO assay = new AdultDiscriminatingDoseAssayDTO(clientRequest);
     assay.setCollection(MosquitoCollectionDTO.get(clientRequest, collection.getId()));
     assay.setTestDate(date);
-    assay.setSex(MODTO.get(clientRequest, sex.getId()));
-    assay.setIdentificationMethod(MODTO.get(clientRequest, identificationMethod.getId()));
-    assay.setTestMethod(MODTO.get(clientRequest, assayMethod.getId()));
+    assay.setSex(TermDTO.get(clientRequest, sex.getId()));
+    assay.setIdentificationMethod(TermDTO.get(clientRequest, identificationMethod.getId()));
+    assay.setTestMethod(TermDTO.get(clientRequest, assayMethod.getId()));
     assay.setExposureTime(60);
     assay.setIntervalTime(10);
-    assay.setGeneration(MODTO.get(clientRequest, F1.getId()));
+    assay.setGeneration(TermDTO.get(clientRequest, F1.getId()));
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(2.99));
     assay.setIsofemale(false);
@@ -1861,12 +1861,12 @@ public class ADDATest extends TestCase
     AdultDiscriminatingDoseAssayDTO assay = new AdultDiscriminatingDoseAssayDTO(clientRequest);
     assay.setCollection(MosquitoCollectionDTO.get(clientRequest, collection.getId()));
     assay.setTestDate(date);
-    assay.setSex(MODTO.get(clientRequest, sex.getId()));
-    assay.setIdentificationMethod(MODTO.get(clientRequest, identificationMethod.getId()));
-    assay.setTestMethod(MODTO.get(clientRequest, assayMethod.getId()));
+    assay.setSex(TermDTO.get(clientRequest, sex.getId()));
+    assay.setIdentificationMethod(TermDTO.get(clientRequest, identificationMethod.getId()));
+    assay.setTestMethod(TermDTO.get(clientRequest, assayMethod.getId()));
     assay.setExposureTime(60);
     assay.setIntervalTime(10);
-    assay.setGeneration(MODTO.get(clientRequest, F1.getId()));
+    assay.setGeneration(TermDTO.get(clientRequest, F1.getId()));
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(2.99));
     assay.setIsofemale(false);

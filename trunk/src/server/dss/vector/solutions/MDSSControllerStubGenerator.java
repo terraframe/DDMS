@@ -127,9 +127,9 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
     String clientRequest = ClientRequestIF.class.getName();
 
     getWriter().writeLine(clientRequest + " clientRequest = super.getClientRequest();");
-    
+
     String typeName = mdEntity.definesType() + "DTO";
-    
+
     getWriter().writeLine(typeName + " dto = " + typeName  + ".get(clientRequest, id);");
 
     // Load options for Enumeration and Reference attributes
@@ -149,21 +149,21 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
     boolean published = mdBusiness.isPublished();
     boolean isGeoEntity = MDSSGenerationUtility.isAGeoEntity(mdBusiness);
     boolean isTerm = MDSSGenerationUtility.isATerm(mdBusiness);
-    
+
     String definesAttribute = mdAttribute.definesAttribute();
 
     if(isTerm)
     {
       String accessor = mdAttribute.getValue(MdAttributeReferenceInfo.ACCESSOR);
-      
+
       if(accessor == null || accessor.equals(""))
       {
         accessor = definesAttribute;
       }
-      
+
       String getter = GenerationUtil.upperFirstCharacter(accessor);
-      
-      getWriter().writeLine("req.setAttribute(\"" + definesAttribute + "\", dto.get" + getter + "());");      
+
+      getWriter().writeLine("req.setAttribute(\"" + definesAttribute + "\", dto.get" + getter + "());");
     }
     else if (published && !isGeoEntity)
     {
@@ -174,7 +174,7 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
 
       try
       {
-        MdMethodDAOIF mdMethod = mdBusiness.definesMdMethod("getAllActive");
+        MdMethodDAOIF mdMethod = mdBusiness.getMdMethod("getAllActive");
 
         command = Arrays.class.getName() + ".asList(" + dtoType + "." + mdMethod.getName() + "(" + request + "))";
       }
@@ -182,7 +182,7 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
       {
         try
         {
-          MdMethodDAOIF mdMethod = mdBusiness.definesMdMethod("getAll");
+          MdMethodDAOIF mdMethod = mdBusiness.getMdMethod("getAll");
 
           command = Arrays.class.getName() + ".asList(" + dtoType + "." + mdMethod.getName() + "(" + request + "))";
         }

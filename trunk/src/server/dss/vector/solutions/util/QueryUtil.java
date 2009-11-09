@@ -82,40 +82,40 @@ public class QueryUtil implements Reloadable
     String parentTable = MdBusiness.getMdBusiness(parentClass).getTableName();
     String relTable = MdEntity.getMdEntity(relClass).getTableName();
     String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
-    
-    return "(select pJoin.id as id, "+Term.TERMNAME+" as "+PersonView.RDTRESULT+"_displayLabel from"+
+
+    return "(select pJoin.id as id, "+Term.NAME+" as "+PersonView.RDTRESULT+"_displayLabel from"+
     " "+parentTable+" pJoin LEFT JOIN "+relTable+" rJoin ON rJoin."+RelationshipInfo.PARENT_ID+" = pJoin.id"+
     " LEFT JOIN "+termTable+" tJoin on rJoin."+RelationshipInfo.CHILD_ID+" = tJoin.id)";
   }
-  
+
   public static String getTermSubSelect(String className, String ... attributes)
   {
     String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
     String tableName = MdBusiness.getMdBusiness(className).getTableName();
-    
+
     String select = "SELECT "+tableName+".id ,";
     String from = " FROM "+tableName+" as "+tableName;
-    
+
     int count = 0;
     for(String attr : attributes)
     {
       select += " term"+count+".termName as "+attr + "_displayLabel";
-      
+
       if(count != attributes.length-1)
       {
         select += ",";
       }
-      
+
       from += " LEFT JOIN "+termTable+" as term"+count+" on "+tableName+"."+attr+" = term"+count+".id";
-      
+
       count++;
     }
-    
+
     String sql = select+from;
-    
+
     return sql;
   }
-  
+
   /**
    * Joins the ValueQuery with any selected/restricting geo entity information.
    * This method does not perform the final join between the AllPathsQuery and
@@ -450,7 +450,7 @@ public class QueryUtil implements Reloadable
   {
     // NOTE: the regex uses \W{1,2} to match against newlines because \N
     // does not work for all encodings.
-    
+
     if (xml.indexOf(START_DATE_RANGE) > 0)
     {
       SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(START_DATE_RANGE);

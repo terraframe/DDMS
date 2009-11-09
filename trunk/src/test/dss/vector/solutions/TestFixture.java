@@ -21,8 +21,6 @@ import dss.vector.solutions.geo.generated.SentinelSiteDTO;
 import dss.vector.solutions.geo.generated.SprayZone;
 import dss.vector.solutions.geo.generated.Surface;
 import dss.vector.solutions.geo.generated.WaterBody;
-import dss.vector.solutions.ontology.MO;
-import dss.vector.solutions.ontology.MODTO;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.permissions.PermissionTest;
@@ -33,7 +31,7 @@ public class TestFixture
   public static TestSuite getTestSuite(Class<? extends PermissionTest> klass, String... roles)
   {
     TestSuite suite = new TestSuite();
- 
+
     for (String role : roles)
     {
       TestSuite coordinator = new TestSuite(klass.getName() + " - " + role);
@@ -41,7 +39,7 @@ public class TestFixture
 
       suite.addTest(new PermissionTestSetup(coordinator, role));
     }
-    
+
     return suite;
   }
 
@@ -53,10 +51,10 @@ public class TestFixture
 
   public static Term createRandomTerm()
   {
-    MO term = new MO();
+    Term term = new Term();
     term.setTermId(TestFixture.getRandomTermId());
-    term.setTermName("Test Term");
-    term.setTermComment("Test Comment");
+    term.setName("Test Term");
+    term.setComment("Test Comment");
     term.setObsolete(false);
     term.apply();
 
@@ -143,7 +141,7 @@ public class TestFixture
 
     return surface;
   }
-  
+
 
   public static SprayZone createRandomZone()
   {
@@ -152,15 +150,15 @@ public class TestFixture
     sprayZone.setEntityName("Test Site");
     sprayZone.apply();
 
-    return sprayZone;    
+    return sprayZone;
   }
 
   public static TermDTO createRandomTerm(ClientRequestIF request)
   {
-    MODTO term = new MODTO(request);
+    TermDTO term = new TermDTO(request);
     term.setTermId(TestFixture.getRandomTermId());
-    term.setTermName("Test Term");
-    term.setTermComment("Test Comment");
+    term.setName("Test Term");
+    term.setComment("Test Comment");
     term.setObsolete(false);
     term.apply();
 
@@ -246,22 +244,22 @@ public class TestFixture
     data.setGeoEntity(entity);
     data.setYearOfData(year);
     data.setEstimated(estimated);
-    
+
     if(population != null)
     {
       data.setPopulation(population);
     }
-    
+
     if(rate != null)
     {
-     data.setGrowthRate(rate); 
+     data.setGrowthRate(rate);
     }
-    
+
     data.apply();
-    
+
     return data;
   }
-  
+
   public static MalariaSeasonDTO createMalairaSeason(ClientRequestIF request)
   {
     Calendar calendar = Calendar.getInstance();

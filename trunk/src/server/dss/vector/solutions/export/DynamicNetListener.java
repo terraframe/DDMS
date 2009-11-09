@@ -28,7 +28,7 @@ public class DynamicNetListener implements ExcelExportListener, ImportListener, 
   {
     for (Term net : allNets)
     {
-      extraColumns.add(new ExcelColumn(net.getTermName(), net.getTermName()));
+      extraColumns.add(new ExcelColumn(net.getName(), net.getName()));
     }
   }
 
@@ -47,7 +47,7 @@ public class DynamicNetListener implements ExcelExportListener, ImportListener, 
     {
       for (ExcelColumn column : extraColumns)
       {
-        if (column.getAttributeName().equals(net.getTermName()))
+        if (column.getAttributeName().equals(net.getName()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
 

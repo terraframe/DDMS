@@ -29,6 +29,8 @@
 	<property name="xsd.location" value="${local.root}/profiles/datatype_gis.xsd" />
 
 	<property name="version.dir" value="${local.root}/doc/individual/" />
+
+	<property name="version.dir" value="${local.root}/doc/individual/" />
 	<property name="working.dir" value="${local.root}/doc/working/" />
 
 	<property name="version.xsd" value="/version_gis.xsd" />
@@ -613,7 +615,7 @@
 		</echoproperties>
 		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
 			<jvmarg value="-Xmx1024m" />
-	    
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -634,15 +636,17 @@
 		<echoproperties>
 		</echoproperties>
 		-->
-		<java classname="dss.vector.solutions.util.OntologyImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
+		<java classname="dss.vector.solutions.util.OntologyImportManager" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx1024m" />
-			
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
+			<arg value="../../../doc/ontology/ro.obo" />
 			<arg value="../../../doc/ontology/MO.obo" />
 			<arg value="MO" />
 		</java>
+
 	</target>
 
 	<target name="import_ontology_roots" depends="" description="imports the MO roots into the db">
@@ -653,7 +657,7 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.PostOntologySetup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntologyRoots">
 			<jvmarg value="-Xmx1024m" />
-			
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -673,7 +677,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-	    
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -694,7 +698,7 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.AllPaths" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-	    
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
