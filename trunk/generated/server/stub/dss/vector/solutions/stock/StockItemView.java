@@ -13,12 +13,12 @@ import dss.vector.solutions.ontology.Term;
 public class StockItemView extends StockItemViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1257278739978L;
-  
+
   public StockItemView()
   {
     super();
   }
- 
+
   public void populateView(StockItem concrete)
   {
     this.setConcreteId(concrete.getId());
@@ -94,7 +94,7 @@ public class StockItemView extends StockItemViewBase implements com.terraframe.m
     }
     else if (attribute instanceof AttributeReference)
     {
-      attribute = ((AttributeReference) attribute).aAttribute(Term.TERMNAME);
+      attribute = ((AttributeReference) attribute).aAttribute(Term.NAME);
     }
     else if (attribute instanceof AttributeLocal)
     {
@@ -116,5 +116,5 @@ public class StockItemView extends StockItemViewBase implements com.terraframe.m
     }
 
     return query;
-  }  
+  }
 }

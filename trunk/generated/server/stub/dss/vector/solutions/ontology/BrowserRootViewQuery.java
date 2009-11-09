@@ -27,11 +27,11 @@ private static final long serialVersionUID = 1252959712966L;
     private TermQuery termQuery;
     private MdAttributeQuery mdAttributeQuery;
     private BrowserFieldQuery browserFieldQuery;
-    
+
     public DefaultBrowserRootViewBuilder(com.terraframe.mojo.query.QueryFactory queryFactory)
     {
       super(queryFactory);
-      
+
       this.browserRootQuery = new BrowserRootQuery(queryFactory);
       this.termQuery = new TermQuery(queryFactory);
       this.mdAttributeQuery = new MdAttributeQuery(queryFactory);
@@ -49,16 +49,16 @@ private static final long serialVersionUID = 1252959712966L;
     protected void buildSelectClause()
     {
       BrowserRootViewQuery query = this.getViewQuery();
-      
+
       // Add all to FROM to avoid cross-product
       query.valueQuery.FROM(this.browserRootQuery);
       query.valueQuery.FROM(this.termQuery);
       query.valueQuery.FROM(this.mdAttributeQuery);
       query.valueQuery.FROM(this.browserFieldQuery);
-      
+
       query.map(BrowserRootView.BROWSERROOTID, this.browserRootQuery.getId());
       query.map(BrowserRootView.TERMID, this.termQuery.getId());
-      query.map(BrowserRootView.TERMNAME, this.termQuery.getTermName());
+      query.map(BrowserRootView.TERMNAME, this.termQuery.getName());
       query.map(BrowserRootView.TERMONTOLOGYID, this.termQuery.getTermId());
       query.map(BrowserRootView.SELECTABLE, this.browserRootQuery.getSelectable());
       query.map(BrowserRootView.MDATTRIBUTEID, this.mdAttributeQuery.getId());
@@ -70,7 +70,7 @@ private static final long serialVersionUID = 1252959712966L;
     protected void buildWhereClause()
     {
       BrowserRootViewQuery query = this.getViewQuery();
-     
+
       query.WHERE(this.browserRootQuery.getTerm().EQ(this.termQuery));
       query.AND(this.browserRootQuery.field(this.browserFieldQuery));
       query.AND(this.browserFieldQuery.getMdAttribute().EQ(this.mdAttributeQuery));

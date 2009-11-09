@@ -19,7 +19,7 @@ public class HouseholdNet extends HouseholdNetBase implements ChildOption, Reloa
   {
     this(parent.getConcreteId(), child.getId());
   }
-  
+
   @Override
   protected String buildKey()
   {
@@ -33,32 +33,32 @@ public class HouseholdNet extends HouseholdNetBase implements ChildOption, Reloa
 
     return clone;
   }
-  
+
   @Override
   public void validateAmount()
   {
     if(this.getAmount() != null)
     {
       Integer nets = this.getParent().getNets();
-    
+
       if(nets != null && nets == 0 && this.getAmount() != 0)
       {
         String msg = "The individual household net amount may not be set when the total number of nets is 0";
         Term term = this.getChild();
-        
+
         NetProblem p = new NetProblem(msg);
-        p.setNetName(term.getTermName());
+        p.setNetName(term.getName());
         p.apply();
         p.throwIt();
       }
     }
   }
-  
+
   @Override
   public void apply()
   {
     validateAmount();
-    
+
     super.apply();
   }
 }

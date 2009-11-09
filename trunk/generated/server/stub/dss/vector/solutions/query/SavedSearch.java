@@ -35,7 +35,7 @@ public class SavedSearch extends SavedSearchBase implements
   {
     super();
   }
-  
+
   @Override
   protected String buildKey()
   {
@@ -66,7 +66,7 @@ public class SavedSearch extends SavedSearchBase implements
     searchQuery.WHERE(searchQuery.getQueryName().EQ(searchName));
     searchQuery.WHERE(searchQuery.getQueryType().EQ(this.getQueryType()));
     searchQuery.WHERE(searchQuery.getQueryType().NEi(DefaultSavedSearch.DEFAULT));
-    
+
     if (searchQuery.getCount() > 0)
     {
       String error = "A name must be unique per query screen.";
@@ -74,10 +74,10 @@ public class SavedSearch extends SavedSearchBase implements
       throw ex;
     }
   }
-  
+
   /**
    * Creates a new SavedSearch object.
-   * 
+   *
    * @param view
    * @return
    */
@@ -86,10 +86,10 @@ public class SavedSearch extends SavedSearchBase implements
   {
     SavedSearch search = new SavedSearch();
     search.create(view, false);
-    
+
     return search.getAsView(false, false);
   }
-  
+
   @Transaction
   public static SavedSearchView updateSearch(SavedSearchView view)
   {
@@ -98,7 +98,7 @@ public class SavedSearch extends SavedSearchBase implements
       NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
       throw ex;
     }
-    
+
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
     SavedSearch defaultSearch = mdssUser.getDefaultSearch();
@@ -107,13 +107,13 @@ public class SavedSearch extends SavedSearchBase implements
       NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
       throw ex;
     }
-    
+
     SavedSearch search = SavedSearch.get(view.getSavedQueryId());
     search.update(view);
-    
+
     return search.getAsView(false, false);
   }
-  
+
   public static SavedSearchViewQuery getSearchesForType(String type)
   {
     QueryFactory f = new QueryFactory();
@@ -130,12 +130,12 @@ public class SavedSearch extends SavedSearchBase implements
   {
     String xml = view.getQueryXml();
     String config = view.getConfig();
-    
+
     this.appLock();
-    
+
     this.setQueryXml(xml);
     this.setConfig(config);
-    
+
     this.apply();
   }
 
@@ -156,13 +156,13 @@ public class SavedSearch extends SavedSearchBase implements
     {
       // Always replace the old default search.
       SavedSearch search = mdssUser.getDefaultSearch();
-      
+
       if(search != null)
       {
         search.delete();
       }
     }
-    
+
     String name = view.getQueryName();
 
 
@@ -173,7 +173,7 @@ public class SavedSearch extends SavedSearchBase implements
     this.setQueryXml(xml);
     this.setQueryType(view.getQueryType());
     this.setConfig(view.getConfig());
-    
+
     checkUniqueness(name, mdssUser);
 
     // Create the thematic layer if it does not exist
@@ -194,7 +194,7 @@ public class SavedSearch extends SavedSearchBase implements
       mdssUser.addPersistedQueries(this).apply();
     }
   }
-  
+
   public SavedSearchView getAsView(Boolean includeXML, Boolean includeConfig)
   {
     SavedSearchView view = new SavedSearchView();
@@ -207,7 +207,7 @@ public class SavedSearch extends SavedSearchBase implements
     {
       String layerId = layer.getId();
       view.setThematicLayerId(layerId);
-      
+
       String thematicLayerId = view.getThematicLayerId();
       System.out.println(thematicLayerId);
     }
@@ -216,54 +216,54 @@ public class SavedSearch extends SavedSearchBase implements
     {
       view.setQueryXml(this.getQueryXml());
     }
-    
+
     if(includeConfig)
     {
       JSONObject config;
-      
+
       try
       {
         // Dereference all MO Terms in the configuration
         // FIXME this shouldn't have _config
         config = new JSONObject(this.getConfig());
         JSONObject terms = config.getJSONObject("_config").getJSONObject("terms");
-        
+
         Map<String, List<JSONObject>> termIds = new HashMap<String, List<JSONObject>>();
         List<String> ids = new LinkedList<String>();
-        
+
         Iterator<?> termKeys = terms.keys();
         while(termKeys.hasNext())
         {
           String termKey = (String) termKeys.next();
-          
+
           JSONObject termIdsObj = terms.getJSONObject(termKey);
-          
+
           Iterator<?> idKeys = termIdsObj.keys();
           while(idKeys.hasNext())
           {
             String id = (String) idKeys.next();
             ids.add(id);
-            
+
             if(!termIds.containsKey(id))
             {
               termIds.put(id, new LinkedList<JSONObject>());
             }
-            
+
 //            JSONObject termIdDisplay = termIdsObj.getJSONObject(id);
             termIds.get(id).add(termIdsObj);
           }
         }
- 
+
         if(ids.size() > 0)
-        { 
+        {
           QueryFactory f = new QueryFactory();
           TermQuery t = new TermQuery(f);
           ValueQuery v = new ValueQuery(f);
-          
-          v.SELECT(t.getId("tId"), t.getTermName("termName"), t.getTermId("termId"));
+
+          v.SELECT(t.getId("tId"), t.getName("termName"), t.getTermId("termId"));
           v.WHERE(t.getId("tId").IN(ids.toArray(new String[ids.size()])));
           OIterator<ValueObject> iter = v.getIterator();
-          
+
           try
           {
             while(iter.hasNext())
@@ -271,7 +271,7 @@ public class SavedSearch extends SavedSearchBase implements
               ValueObject o = iter.next();
               String id = o.getValue("tId");
               String display = o.getValue("termName") + " ("+o.getValue("termId")+")";
-              
+
               for(JSONObject termIdDisplay : termIds.get(id))
               {
                 termIdDisplay.put(id, display);
@@ -288,19 +288,19 @@ public class SavedSearch extends SavedSearchBase implements
       {
         throw new ProgrammingErrorException(e);
       }
-      
+
       view.setConfig(config.toString());
     }
 
     return view;
   }
-  
+
   public LayerView[] getAllLayers()
   {
     List<LayerView> views = new LinkedList<LayerView>();
-    
+
     OIterator<? extends UniversalLayer> iter = this.getAllDefinesLayers();
-    
+
     try
     {
       while(iter.hasNext())
@@ -312,36 +312,36 @@ public class SavedSearch extends SavedSearchBase implements
     {
       iter.close();
     }
-    
-    
+
+
     ThematicLayer thematicLayer = this.getThematicLayer();
     if(thematicLayer != null)
     {
       views.add(thematicLayer.getAsView());
     }
-    
+
     return views.toArray(new LayerView[views.size()]);
   }
-  
+
   public InputStream getTemplateStream()
   {
     String template = this.getTemplateFile();
-    
+
     if(template == null || template.equals(""))
     {
       String msg = "A report template has not been defined for this query";
-      
+
       UndefinedTemplateException e = new UndefinedTemplateException(msg);
       e.apply();
-      
+
       throw e;
     }
-    
+
     VaultFileDAOIF file = VaultFileDAO.get(template);
-    
+
     return file.getFile();
   }
-  
+
   public static SavedSearchView loadSearch(String searchId)
   {
     if(searchId == null || searchId.trim().length() == 0)
@@ -349,7 +349,7 @@ public class SavedSearch extends SavedSearchBase implements
       NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
       throw ex;
     }
-    
+
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
     SavedSearch search = mdssUser.getDefaultSearch();
@@ -358,20 +358,20 @@ public class SavedSearch extends SavedSearchBase implements
       NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
       throw ex;
     }
-    
+
     return getAsView(searchId, true, true);
   }
-  
+
   @Transaction
   public static SavedSearchView loadDefaultSearch(SavedSearchView view)
   {
     // This is an entry point common to all query screens, so we take this opportunity to clear out old views
     cleanOldViews();
-    
+
     SavedSearch search = new DefaultSavedSearch();
-    
+
     search.create(view, true);
-    
+
     return search.getAsView(false, false);
   }
 
@@ -390,7 +390,7 @@ public class SavedSearch extends SavedSearchBase implements
         long parseLong = Long.parseLong(next.substring(ThematicLayer.GEO_VIEW_PREFIX.length()));
         if (parseLong < anHourAgo)
         {
-          // This view is old.  Add it to the deletion list 
+          // This view is old.  Add it to the deletion list
           viewsToDelete.add(viewName);
         }
       }

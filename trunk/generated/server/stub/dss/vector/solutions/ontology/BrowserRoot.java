@@ -10,12 +10,12 @@ import com.terraframe.mojo.query.QueryFactory;
 public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1252959715750L;
-  
+
   public BrowserRoot()
   {
     super();
   }
-  
+
   @Override
   protected String buildKey()
   {
@@ -24,32 +24,32 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     {
       return ""; // object not properly constructed.
     }
-    
+
     return "Root__"+term.getKeyName();
   }
-  
+
   public static BrowserRootViewQuery getAsViews()
   {
     QueryFactory f = new QueryFactory();
     BrowserRootViewQuery q = new BrowserRootViewQuery(f);
     return q;
   }
-  
+
   @Override
   public BrowserRootView update(BrowserRoot browserRoot)
   {
     this.setTerm(browserRoot.getTerm());
     this.setSelectable(browserRoot.getSelectable());
-    
+
     this.apply();
-    
+
     return this.toView();
   }
-  
+
   /**
    * Fetches the default root, which is the Term
    * without a parent.
-   * 
+   *
    * @return
    */
   public static BrowserRootView[] getDefaultRoot()
@@ -57,9 +57,9 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     TermViewQuery query = Term.getDefaultRoots();
 
     OIterator<? extends TermView> iter = query.getIterator();
-    
+
     List<BrowserRootView> views = new LinkedList<BrowserRootView>();
-    
+
     try
     {
       while(iter.hasNext())
@@ -71,15 +71,15 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     {
       iter.close();
     }
-    
+
     return views.toArray(new BrowserRootView[views.size()]);
   }
-  
+
   /**
    * Gets all roots for the given class name and attribute name. Because overloading
    * isn't supported with MdMethods, this method can also take an empty string as the
    * class name which means the attribute param is the id of an MdAttribute.
-   * 
+   *
    * @param className
    * @param attributeName
    * @return
@@ -109,9 +109,9 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     {
       field = BrowserField.getFieldForAttribute(className, attribute);
     }
-    
+
     List<BrowserRootView> views = new LinkedList<BrowserRootView>();
-    
+
     OIterator<? extends BrowserRoot> iter = field.getAllroot();
     try
     {
@@ -124,10 +124,10 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     {
       iter.close();
     }
-    
+
     return views.toArray(new BrowserRootView[views.size()]);
   }
-  
+
   private static BrowserRootView toView(TermView termView)
   {
     BrowserRootView view = new BrowserRootView();
@@ -135,28 +135,28 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     view.setTermName(termView.getTermName());
     view.setSelectable(true);
     view.setTermOntologyId(termView.getTermOntologyId());
-    
+
     return view;
   }
-  
+
   /**
    * Converts this BrowserRoot object into a BrowserRootView.
-   * 
+   *
    * @return
    */
   @AbortIfProblem
   public BrowserRootView toView()
   {
     Term term = this.getTerm();
-    
+
     BrowserRootView view = new BrowserRootView();
     view.setTermId(term.getId());
-    view.setTermName(term.getTermName());
+    view.setTermName(term.getName());
     view.setSelectable(this.getSelectable());
     view.setBrowserRootId(this.getId());
     view.setTermOntologyId(term.getTermId());
-    
+
     return view;
   }
-  
+
 }

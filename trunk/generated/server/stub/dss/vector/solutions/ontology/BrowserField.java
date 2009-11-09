@@ -18,14 +18,14 @@ import com.terraframe.mojo.system.metadata.MdAttributeVirtual;
 public class BrowserField extends BrowserFieldBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1252959713570L;
-  
+
   private static final String KEY_PREFIX = "Ontology__";
-  
+
   public BrowserField()
   {
     super();
   }
-  
+
   @Override
   protected String buildKey()
   {
@@ -37,7 +37,7 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
    * Returns the BrowserField associated with the given class name and attribute. This
    * method should only be called if a BrowserField exists that matches the criteria. Otherwise,
    * this method will error out with a generic exception.
-   * 
+   *
    * @param className
    * @param attribute
    * @return
@@ -46,28 +46,28 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
   {
     QueryFactory f = new QueryFactory();
     BrowserFieldQuery q = new BrowserFieldQuery(f);
-    
+
     // reconstruct the keyname (assumes MdAttribute keyname is preserved).
     String keyName = BrowserField.buildKey(className, attribute);
-    
+
     Condition or = OR.get(q.getKeyName().EQ(keyName));
 
     MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(className);
-    
+
     for(MdClassDAOIF superClass : mdClass.getSuperClasses())
     {
       String key = buildKey(superClass.definesType(), attribute);
 
       or = OR.get(or, q.getKeyName().EQ(key));
     }
-    
-    
+
+
     q.WHERE(or);
     OIterator<? extends BrowserField> iter = q.getIterator();
-    
+
     try
     {
-      return iter.next();  
+      return iter.next();
     }
     catch(Throwable t)
     {
@@ -76,7 +76,7 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
     }
     finally
     {
-      iter.close(); 
+      iter.close();
     }
   }
 
@@ -84,15 +84,15 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
   {
     return KEY_PREFIX+className+"."+attribute;
   }
-  
+
   public static BrowserFieldView[] getAsViews()
   {
     QueryFactory f = new QueryFactory();
     BrowserFieldViewQuery q = new BrowserFieldViewQuery(f);
-    
+
     List<BrowserFieldView> views = new LinkedList<BrowserFieldView>();
     OIterator<? extends BrowserFieldView> iter = q.getIterator();
-    
+
     try
     {
       while(iter.hasNext())
@@ -102,9 +102,9 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
         {
           MdAttributeVirtual mdAttr = (MdAttributeVirtual) MdAttribute.get(view.getMdAttributeId());
           view.setMdAttributeLabel(mdAttr.getMdAttributeConcrete().getDisplayLabel().getDefaultLocale());
-          
+
         }
-        
+
         views.add(view);
       }
     }
@@ -112,17 +112,17 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
     {
       iter.close();
     }
-    
+
     return views.toArray(new BrowserFieldView[views.size()]);
   }
-  
+
   @Transaction
   public BrowserRootView addBrowserRoot(BrowserRoot root)
   {
     root.validateTerm(); // make sure a term value exists
     Term term = root.getTerm();
-    
-    OIterator<? extends BrowserRoot> roots = this.getAllroot();        
+
+    OIterator<? extends BrowserRoot> roots = this.getAllroot();
     try
     {
       while(roots.hasNext())
@@ -130,12 +130,12 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
         if(roots.next().getTerm().equals(term))
         {
           String display = this.getMdAttribute().getDisplayLabel().getDefaultLocale();
-          
-          String msg = "The field ["+display+"] already defines the root ["+term.getTermName()+"].";
+
+          String msg = "The field ["+display+"] already defines the root ["+term.getName()+"].";
           DuplicateRootException ex = new DuplicateRootException(msg);
           ex.setBrowserField(display);
-          ex.setBrowserRoot(term.getTermName());
-          
+          ex.setBrowserRoot(term.getName());
+
           throw ex;
         }
       }
@@ -144,11 +144,11 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
     {
       roots.close();
     }
-    
+
     root.apply();
-    
+
     this.addroot(root).apply();
-    
+
     return root.toView();
   }
 }
