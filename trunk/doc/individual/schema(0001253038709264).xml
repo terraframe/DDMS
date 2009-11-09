@@ -15,7 +15,7 @@
             name="termName"
             required="true"
             type="dss.vector.solutions.ontology.Term"
-            concrete="termName" />
+            concrete="name" />
         </attributes>
       </mdView>
 
@@ -49,7 +49,7 @@
             type="dss.vector.solutions.ontology.BrowserRoot" />
         </mdMethod>
       </mdBusiness>
-      
+
       <mdView
         name="dss.vector.solutions.ontology.BrowserFieldView"
         label="BrowserFieldView" >
@@ -84,7 +84,7 @@
             required="true" />
         </attributes>
       </mdView>
-      
+
       <mdBusiness
         name="dss.vector.solutions.ontology.BrowserRoot"
         label="Ontology Root">
@@ -129,7 +129,7 @@
             type="dss.vector.solutions.ontology.BrowserRoot" />
         </mdMethod>
       </mdBusiness>
-      
+
       <mdView
         name="dss.vector.solutions.ontology.BrowserRootView"
         label="BrowserRootView">
@@ -148,7 +148,7 @@
             name="termName"
             required="true"
             type="dss.vector.solutions.ontology.Term"
-            concrete="termName" />
+            concrete="name" />
           <char
             name="mdAttributeId"
             label="MdAttribute Id"
@@ -159,15 +159,15 @@
             required="true"
             type="dss.vector.solutions.ontology.BrowserRoot"
             concrete="selectable" />
-        </attributes> 
+        </attributes>
       </mdView>
-      
+
       <mdRelationship
         name="dss.vector.solutions.ontology.FieldRoot">
         <parent cardinality="1" name="dss.vector.solutions.ontology.BrowserField" method="field" />
         <child cardinality="*" name="dss.vector.solutions.ontology.BrowserRoot" method="root"/>
       </mdRelationship>
-      
+
       <object
         key="Ontology__dss.vector.solutions.entomology.assay.LarvaeAssay.startPoint"
         type="dss.vector.solutions.ontology.BrowserField">
@@ -183,9 +183,9 @@
           name="mdAttribute"
           key="dss.vector.solutions.entomology.assay.LarvaeAssay.endPoint"/>
       </object>
-      
+
     </create>
-    
+
     <update>
 
       <mdBusiness
@@ -217,15 +217,15 @@
   </doIt>
   <undoIt>
     <delete>
-      
+
       <object
         key="dss.vector.solutions.ontology.BrowserFieldView"
         type="com.terraframe.mojo.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.ontology.BrowserRootView"
         type="com.terraframe.mojo.system.metadata.MdView" />
-    
-    
+
+
       <object
         key="dss.vector.solutions.ontology.BrowserField"
         type="com.terraframe.mojo.system.metadata.MdBusiness" />
@@ -235,7 +235,7 @@
       <object
         key="dss.vector.solutions.ontology.BrowserRelationship"
         type="com.terraframe.mojo.system.metadata.MdBusiness" />
-        
+
     </delete>
   </undoIt>
 </version>

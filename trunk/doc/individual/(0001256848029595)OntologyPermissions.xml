@@ -13,20 +13,15 @@
             <operation name="READ" />
             <operation name="READ_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.ontology.GeoUniversal">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdRelationshipPermission type="dss.vector.solutions.ontology.IsA">
+          <mdRelationshipPermission type="dss.vector.solutions.ontology.TermRelationship">
             <operation name="READ" />
             <operation name="READ_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
-          <mdBusinessPermission type="dss.vector.solutions.ontology.MO">
+          <mdBusinessPermission type="dss.vector.solutions.ontology.Term">
             <operation name="READ" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="dss.vector.solutions.ontology.OntologyDefinition">
+            type="dss.vector.solutions.ontology.Ontology">
             <operation name="READ" />
             <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
@@ -87,27 +82,20 @@
             <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.ontology.GeoUniversal">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-          <mdRelationshipPermission type="dss.vector.solutions.ontology.IsA">
+          <mdRelationshipPermission type="dss.vector.solutions.ontology.TermRelationship">
             <operation name="CREATE" />
             <operation name="WRITE" />
             <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdRelationshipPermission>
-          <mdBusinessPermission type="dss.vector.solutions.ontology.MO">
+          <mdBusinessPermission type="dss.vector.solutions.ontology.Term">
             <operation name="CREATE" />
             <operation name="WRITE" />
             <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="dss.vector.solutions.ontology.OntologyDefinition">
+            type="dss.vector.solutions.ontology.Ontology">
             <operation name="CREATE" />
             <operation name="WRITE" />
             <operation name="WRITE_ALL_ATTRIBUTES" />
@@ -140,7 +128,7 @@
             <operation name="DELETE" />
           </mdRelationshipPermission>
         </grant>
-      </role>      
+      </role>
     </permissions>
   </doIt>
   <undoIt>
