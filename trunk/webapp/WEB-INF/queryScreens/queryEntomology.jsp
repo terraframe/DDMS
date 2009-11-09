@@ -22,7 +22,6 @@
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoDTO"%>
-<%@page import="dss.vector.solutions.mo.SpecieDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
@@ -56,7 +55,7 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ MosquitoDTO.CLASS, SpecieDTO.CLASS, MosquitoViewDTO.CLASS, UninterestingSpecieGroupDTO.CLASS,MosquitoCollectionDTO.CLASS};
+    String[] mosquitoTypes = new String[]{ MosquitoDTO.CLASS, MosquitoViewDTO.CLASS, UninterestingSpecieGroupDTO.CLASS,MosquitoCollectionDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
 
     MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);

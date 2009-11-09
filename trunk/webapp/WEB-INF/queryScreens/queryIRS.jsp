@@ -22,7 +22,6 @@
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoDTO"%>
-<%@page import="dss.vector.solutions.mo.SpecieDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
