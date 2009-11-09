@@ -10,21 +10,21 @@ public class TermController extends TermControllerBase implements com.terraframe
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/ontology/Term/";
   public static final String LAYOUT = "/layout.jsp";
-  
+
   private static final long serialVersionUID = 1253040304944L;
-  
+
   public TermController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   @Override
   public void viewTree() throws IOException, ServletException
   {
     // Views the ontology as a tree structure (default to MO/is_a for now)
     req.getRequestDispatcher(JSP_DIR+"tree.jsp").forward(req, resp);
   }
-  
+
   @Override
   public void confirmChangeParent(String childId, String parentId) throws IOException, ServletException
   {
@@ -38,7 +38,7 @@ public class TermController extends TermControllerBase implements com.terraframe
       req.setAttribute("message", e.getLocalizedMessage());
       req.setAttribute("childId", childId);
       req.setAttribute("parentId", parentId);
-      
+
       req.getRequestDispatcher(JSP_DIR+"confirmChangeParent.jsp").forward(req, resp);
     }
     catch (Throwable t)
@@ -48,7 +48,7 @@ public class TermController extends TermControllerBase implements com.terraframe
       resp.getWriter().print(jsonE.getJSON());
     }
   }
-  
+
   public void delete(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -69,7 +69,7 @@ public class TermController extends TermControllerBase implements com.terraframe
   }
   public void failDelete(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -93,7 +93,7 @@ public class TermController extends TermControllerBase implements com.terraframe
   }
   public void failUpdate(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -103,7 +103,7 @@ public class TermController extends TermControllerBase implements com.terraframe
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.ontology.TermDTO.get(clientRequest, id));
     render("viewComponent.jsp");
   }
@@ -131,7 +131,7 @@ public class TermController extends TermControllerBase implements com.terraframe
   }
   public void failCreate(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
@@ -149,7 +149,7 @@ public class TermController extends TermControllerBase implements com.terraframe
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     dss.vector.solutions.ontology.TermDTO dto = dss.vector.solutions.ontology.TermDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDefinitionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }

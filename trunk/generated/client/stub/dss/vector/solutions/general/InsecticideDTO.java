@@ -18,7 +18,7 @@ public class InsecticideDTO extends InsecticideDTOBase implements
   /**
    * Copy Constructor: Duplicates the values and attributes of the given
    * BusinessDTO into a new DTO.
-   * 
+   *
    * @param businessDTO
    *          The BusinessDTO to duplicate
    * @param clientRequest
@@ -33,12 +33,12 @@ public class InsecticideDTO extends InsecticideDTOBase implements
 
   public String getDisplayLabel()
   {
-    String unitDisplayLabel = this.getUnits().getTermName();
-    String ingredientDisplayLabel = this.getActiveIngredient().getTermName();
+    String unitDisplayLabel = this.getUnits().getName();
+    String ingredientDisplayLabel = this.getActiveIngredient().getName();
 
     return ingredientDisplayLabel + " - " + this.getAmount() + " " + unitDisplayLabel;
   }
-  
+
   public static List<? extends InsecticideDTO> getAll(ClientRequestIF clientRequest)
   {
     return InsecticideDTO.getAllInstances(clientRequest, "keyName", true, 0, 0).getResultSet();

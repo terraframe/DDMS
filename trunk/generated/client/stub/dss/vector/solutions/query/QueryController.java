@@ -452,7 +452,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
         option.put("id", term.getId());
         option.put("displayLabel", term.getDisplayLabel());
         option.put("MOID", term.getTermId());
-        option.put("optionName", term.getTermName());
+        option.put("optionName", term.getName());
         option.put("type", TermDTO.CLASS);
         patients.getJSONArray("options").put(option);
       }
@@ -472,7 +472,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
         option.put("id", term.getId());
         option.put("displayLabel", term.getDisplayLabel());
         option.put("MOID", term.getTermId());
-        option.put("optionName", term.getTermName());
+        option.put("optionName", term.getName());
         option.put("type", TermDTO.CLASS);
         doses.getJSONArray("options").put(option);
       }
@@ -493,7 +493,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
         option.put("id", term.getId());
         option.put("displayLabel", term.getDisplayLabel());
         option.put("MOID", term.getTermId());
-        option.put("optionName", term.getTermName());
+        option.put("optionName", term.getName());
         option.put("type", TermDTO.CLASS);
         visits.getJSONArray("options").put(option);
       }
@@ -513,7 +513,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
         option.put("id", term.getId());
         option.put("displayLabel", term.getDisplayLabel());
         option.put("MOID", term.getTermId());
-        option.put("optionName", term.getTermName());
+        option.put("optionName", term.getName());
         option.put("type", TermDTO.CLASS);
         treatment.getJSONArray("options").put(option);
       }
@@ -760,7 +760,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     }
   }
 
-  
+
 //  @Override
   public void exportQueryToCSV(String className, String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-public class OntologyDefinitionDTO extends OntologyDefinitionDTOBase
+public class OntologyRelationshipDTO extends OntologyRelationshipDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1253040066848L;
+  private static final long serialVersionUID = 1331119786;
   
-  public OntologyDefinitionDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public OntologyRelationshipDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class OntologyDefinitionDTO extends OntologyDefinitionDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected OntologyDefinitionDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected OntologyRelationshipDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
