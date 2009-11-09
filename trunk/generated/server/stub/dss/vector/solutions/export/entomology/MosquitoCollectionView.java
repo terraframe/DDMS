@@ -62,7 +62,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
       collection.setDateCollected(collectionDate);
       collection.apply();
     }
-    
+
     if (this.hasMorphologicalSpecieGroup())
     {
       MorphologicalSpecieGroup msg = new MorphologicalSpecieGroup();
@@ -88,7 +88,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
       RequiredAttributeException e = new RequiredAttributeException(msg);
       e.setAttributeLabel(MosquitoCollectionView.getCollectionMethodMd().getDisplayLabel(Session.getCurrentLocale()));
       e.apply();
-      
+
       throw e;
     }
 
@@ -98,7 +98,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
       RequiredAttributeException e = new RequiredAttributeException(msg);
       e.setAttributeLabel(MosquitoCollectionView.getGeoEntityMd().getDisplayLabel(Session.getCurrentLocale()));
       e.apply();
-      
+
       throw e;
     }
 
@@ -108,7 +108,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
       RequiredAttributeException e = new RequiredAttributeException(msg);
       e.setAttributeLabel(MosquitoCollectionView.getDateCollectedMd().getDisplayLabel(Session.getCurrentLocale()));
       e.apply();
-      
+
       throw e;
     }
 
@@ -161,7 +161,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
     if (collection.getCollectionMethod() != null)
     {
-      this.setCollectionMethod(collection.getCollectionMethod().getTermName());
+      this.setCollectionMethod(collection.getCollectionMethod().getName());
     }
   }
 
