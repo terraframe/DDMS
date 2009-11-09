@@ -7,16 +7,17 @@ Mojo.Meta.newClass('MDSS.QueryEfficacyAssay', {
     initialize : function(selectableGroups, queryList)
     {
 
-      this._efficacyAssay = Mojo.$.dss.vector.solutions.intervention.monitor.EfficacyAssay;
-      this._dateAttribute = new MDSS.QueryXML.Attribute(this._efficacyAssay.CLASS, this._efficacyAssay.STARTDATE, this._efficacyAssay.STARTDATE);
+      this._efficacyAssay = Mojo.$.dss.vector.solutions.entomology.assay.EfficacyAssay;
+      
+      
+      this._dateAttribute = new MDSS.QueryXML.Attribute(this._efficacyAssay.CLASS, this._efficacyAssay.TESTDATE, this._efficacyAssay.TESTDATE);
       
       this._startDateSelectable = new MDSS.QueryXML.Selectable(this._dateAttribute);
       this._endDateSelectable = new MDSS.QueryXML.Selectable(this._dateAttribute);
       
-      var endDateAttr = startDateAttr;
 
       this._mainQueryClass = this._efficacyAssay.CLASS;
-      this._groupByClass = Mojo.$.dss.vector.solutions.intervention.monitor.EfficacyAssay;
+      this._groupByClass = this._efficacyAssay;
 
       this._commonQueryClasses = [
                                   ];
@@ -25,6 +26,17 @@ Mojo.Meta.newClass('MDSS.QueryEfficacyAssay', {
 
       this._dataQueryFunction = Mojo.$.dss.vector.solutions.query.QueryBuilder.getQueryResults;
       this._mapQueryFunction  = Mojo.$.dss.vector.solutions.query.QueryBuilder.mapQuery;
+      
+      
+      var efficacyInstance = new this._efficacyAssay();
+      
+      
+      this._geoEntityAttribs = [
+                                {
+                                  keyName :  this._groupByClass.CLASS+'.'+this._groupByClass.GEOENTITY,
+                                  display : efficacyInstance.getGeoEntityMd().getDisplayLabel()
+                                }        
+                              ];
       
       this.$initialize(selectableGroups, queryList);   
       

@@ -856,17 +856,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      */
     _buildQueryItems : function(selectableGroups)
     {
-      /*
-       * Target
-       */
-      // area (geo entity search)
-      var boundSearch = Mojo.Util.bind(this, this._displaySearch);
-      this._queryPanel.addQueryItem({
-        html: MDSS.Localized.Target_Search + ' <img src="./imgs/icons/world.png"/>',
-        onclick: {handler: boundSearch},
-        id: "areaItem"
-      });
-
+      this.addGeoAttributes(this._geoEntityAttribs);
 
       this._queryPanel.addQueryItem({
         html: this._getCountDiv(this,"Group_By",this._groupByClass,true),
