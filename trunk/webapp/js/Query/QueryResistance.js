@@ -33,7 +33,6 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       this._commonQueryClasses = [Mojo.$.dss.vector.solutions.entomology.MosquitoCollection.CLASS,
                                   Mojo.$.dss.vector.solutions.general.Insecticide.CLASS,
                                   Mojo.$.dss.vector.solutions.entomology.assay.AbstractAssay.CLASS,
-                                  Mojo.$.dss.vector.solutions.mo.ActiveIngredient.CLASS
                                  ];
 
       this._exclusionClasses = [];
