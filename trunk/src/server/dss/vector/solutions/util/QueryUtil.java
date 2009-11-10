@@ -266,8 +266,7 @@ public class QueryUtil implements Reloadable
       
       for(String attributeKey : attributeKeysAndJoins.keySet())
       {
-        // FIXME use all paths query per geo attribute
-        AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
+        AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS+"_"+attributeKey);
         List<ValueQuery> leftJoinValueQueries = attributeKeysAndJoins.get(attributeKey);
         
         restrictEntitiesForAttribute(attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery, queryMap);

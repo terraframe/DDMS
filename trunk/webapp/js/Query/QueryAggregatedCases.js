@@ -737,13 +737,14 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
       /*
        * Target
        */
-      // area (geo entity search)
-      var boundSearch = Mojo.Util.bind(this, this._displaySearch);
-      this._queryPanel.addQueryItem({
-        html: MDSS.Localized.Target_Search+' <img src="./imgs/icons/world.png"/>',
-        onclick: {handler: boundSearch},
-        id: "areaItem"
-      });
+      var attributes = [
+        {
+          keyName :  this._aggregatedCase.constructor.CLASS+'.'+this._aggregatedCase.constructor.GEOENTITY,
+          display : this._aggregatedCase.getGeoEntityMd().getDisplayLabel()
+        }        
+      ];
+      
+      this.addGeoAttributes(attributes);
   
       /*
        * Age Group
@@ -751,7 +752,7 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
       var ageGroupDiv = document.createElement('div');
   
       var ageDiv = document.createElement('div');
-      ageDiv  .innerHTML = MDSS.Localized.Age_Group;
+      ageDiv.innerHTML = MDSS.Localized.Age_Group;
   
       // startAge
       var startAge = this._aggregatedCase.getStartAgeMd().getName();

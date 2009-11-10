@@ -12,8 +12,8 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       this._menu = null;
       
       // alias the Term/TermController class for convenience
-      this._Term = Mojo.$.dss.vector.solutions.ontology.MO; // FIXME will be Term
-      this._controller = Mojo.$.dss.vector.solutions.ontology.MOController; // FIXME will be TermController
+      this._Term = Mojo.$.dss.vector.solutions.ontology.Term;
+      this._controller = Mojo.$.dss.vector.solutions.ontology.TermController;
       
       this._controller.setCreateListener(Mojo.Util.bind(this, this._createListener));
       this._controller.setUpdateListener(Mojo.Util.bind(this, this._updateListener));
@@ -177,9 +177,10 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
     _getTermFromParams : function(params)
     {
       var term = new this._Term();
-      term.setTermName(params['dto.termName']);
+      term.setName(params['dto.name']);
+      term.setNamespace(params['dto.namespace']);
       term.setTermId(params['dto.termId']);
-      term.setTermComment(params['dto.termComment']);
+      term.setComment(params['dto.comment']);
       term.setDescription(params['dto.description']);
       term.setObsolete(params['dto.obsolete']);
       

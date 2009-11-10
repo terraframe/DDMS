@@ -35,11 +35,10 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       // Map of attribute key to display label
       this._geoAttributes = {};
       
-      this._allPathsQuery = null;
+      this._allPathQueries = {};
   
       this._geoEntityTypes = {};
       this._geoEntitySelectables = {};
-      this._geoIdConditions = {};
   
       this._currentPage = 1;
   
@@ -970,7 +969,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       }
   
       view.setQueryXml(xml);
-      view.setConfig(Mojo.Util.getJSON(this._config));
+      view.setConfig(this._config.getJSON());
       view.setThematicLayer('');
       /* FIXME MAP
       view.setThematicLayer(this._queryPanel.getCurrentThematicLayer());
@@ -996,11 +995,12 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       var queryXML = new MDSS.QueryXML.Query();
   
-      if(this._allPathsQuery != null)
+      var allPaths = Mojo.Util.getValues(this._allPathQueries);
+      for(var i=0; i<allPaths.length; i++)
       {
-        queryXML.addEntity(this._allPathsQuery);
+        queryXML.addEntity(allPaths[i]);
       }
-  
+      
       if(forMapping)
       {
         // only include the thematic layer as an entity in the query.
@@ -1024,23 +1024,6 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
           queryXML.addSelectable(name, selectable);
         }
-      }
-  
-      // geo id restrictions (WHERE clause)
-      var conditions = Mojo.Util.getValues(this._geoIdConditions);
-      if(conditions.length > 0)
-      {
-        var or = new MDSS.QueryXML.Or();
-        for(var i=0; i<conditions.length; i++)
-        {
-          var condition = conditions[i];
-  
-          or.addCondition('geoIdCondition_'+i, condition);
-        }
-  
-        var compositeCondition = new MDSS.QueryXML.CompositeCondition(or);
-  
-        this._allPathsQuery.setCondition(compositeCondition);
       }
   
       // calculate the date criteria
@@ -1160,8 +1143,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
      */
     _hideHandler : function(criteriaEntities, selectedUniversals)
     {
-      var target = document.getElementById(MDSS.QueryBase.GEO_ATTRIBUTES);
-      var currentAttribute = target.options[target.selectedIndex].value;
+      var currentAttribute = this._getCurrentGeoAttribute();
     
       this._queryPanel.clearAllRecords();
   
@@ -1187,27 +1169,44 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       this._queryPanel.setAvailableThematicLayers(selectedUniversals);
   
-      // remove all prior conditions
-      this._geoIdConditions = {};
-      this._allPathsQuery = null;
   
       if(criteriaEntities.length > 0)
       {
-        this._allPathsQuery = new MDSS.QueryXML.Entity(this.ALL_PATHS, this.ALL_PATHS);
-      }
+        var entityAlias = this.ALL_PATHS+'_'+currentAttribute; // Unique namespace per attribute 
+      
+        var allPaths = new MDSS.QueryXML.Entity(this.ALL_PATHS, entityAlias);
   
-      for(var i=0; i<criteriaEntities.length; i++)
+        var or = new MDSS.QueryXML.Or();
+        for(var i=0; i<criteriaEntities.length; i++)
+        {
+          var geoEntityView = criteriaEntities[i];
+  
+          var attribute = new MDSS.QueryXML.Attribute(entityAlias, 'parentGeoEntity');
+          var selectable = new MDSS.QueryXML.Selectable(attribute);
+          var geoIdCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, geoEntityView.getGeoEntityId());
+  
+          or.addCondition(currentAttribute+'__'+geoEntityView.getGeoEntityId()+'_'+i, geoIdCondition);
+        }
+        
+        var compositeCondition = new MDSS.QueryXML.CompositeCondition(or);
+        allPaths.setCondition(compositeCondition);
+
+        this._allPathQueries[currentAttribute] = allPaths;
+      }
+      else
       {
-        var geoEntityView = criteriaEntities[i];
-  
-        var attribute = new MDSS.QueryXML.Attribute(this._allPathsQuery.getAlias(), 'parentGeoEntity');
-        var selectable = new MDSS.QueryXML.Selectable(attribute);
-        var geoIdCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, geoEntityView.getGeoEntityId());
-  
-        this._geoIdConditions[geoEntityView.getGeoId()] = geoIdCondition;
+        delete this._allPathQueries[currentAttribute];
       }
-  
+      
       this._queryPanel.addSelectedGeoEntities(criteriaEntities);
+    },
+    
+    _getCurrentGeoAttribute : function()
+    {
+      var target = document.getElementById(MDSS.QueryBase.GEO_ATTRIBUTES);
+      var currentAttribute = target.options[target.selectedIndex].value;
+    
+      return currentAttribute;
     },
     
     addGeoAttributes : function(attributes)

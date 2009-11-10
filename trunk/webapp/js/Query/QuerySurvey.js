@@ -1502,7 +1502,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       this._queryPanel.addQueryItem({
           html: this._getCountDiv(this,"Group_By", this._SurveyPoint),
           id: 'globalCount'
-        });
+      });
       
       /*
        * Household attributes
