@@ -482,15 +482,15 @@ public class OntologyImporter
           ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
           ontologyRelationship.setAltId(this.extractFieldValue(OBO_FIELD_ALT_ID, line));
         }
-        else if (line.startsWith(OBO_FIELD_NAME))
-        {
-          ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
-          ontologyRelationship.setName(this.extractFieldValue(OBO_FIELD_NAME, line));
-        }
         else if (line.startsWith(OBO_FIELD_NAMESPACE))
         {
           ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
           ontologyRelationship.setNamespace(this.extractFieldValue(OBO_FIELD_NAMESPACE, line));
+        }
+        else if (line.startsWith(OBO_FIELD_NAME))
+        {
+          ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
+          ontologyRelationship.setName(this.extractFieldValue(OBO_FIELD_NAME, line));
         }
         else if (line.startsWith(OBO_FIELD_DEF))
         {
