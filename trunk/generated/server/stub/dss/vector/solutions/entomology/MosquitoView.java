@@ -447,7 +447,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       select += "JOIN " + atrTable + " atr on atr.id = arg.id\n";
       select += "WHERE atr.mosquito = mosquito.id) AS " + resultLocalized + ",\n";
 
-      select += "(SELECT term.termName \n";
+      select += "(SELECT term."+Term.NAME+" \n";
       select += "FROM " + testResultTable + " tr\n" ;
       select += "JOIN " + mdClass.getTableName()+ " arg on tr.id = arg.id\n";
       select += "JOIN " + atrTable + " atr on atr.id = arg.id\n";
@@ -515,7 +515,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       select += "WHERE atr.mosquito = mosquito.id) AS " + method+ ",\n";
 
      
-      select += "(SELECT term.termName \n";
+      select += "(SELECT term."+Term.NAME+" \n";
       select += "FROM " + targetSiteTestResultTable + " tr\n" ;
       select += "JOIN " + mdClass.getTableName()+ " arg on tr.id = arg.id\n";
       select += "JOIN " + atrTable + " atr on atr.id = arg.id\n";
@@ -523,7 +523,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       select += "WHERE atr.mosquito = mosquito.id) AS " + resultLocalized + ",\n";
       
       
-      select += "(SELECT term.termName \n";
+      select += "(SELECT term."+Term.NAME+" \n";
       select += "FROM " + targetSiteTestResultTable + " tr\n" ;
       select += "JOIN " + mdClass.getTableName()+ " arg on tr.id = arg.id\n";
       select += "JOIN " + atrTable + " atr on atr.id = arg.id\n";
