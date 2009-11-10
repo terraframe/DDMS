@@ -37,6 +37,7 @@ public class OntologyImporter
 
   private static final String OBO_ONTOLOGY_DEFAULT_NAMESPACE         = "default-namespace";
   private static final String OBO_SECTION_DELIMITER                  = "[";
+  private static final String OBO_FIELD_DELIMITER                    = ":";
   private static final String OBO_TYPEDEF_DELIMITER                  = "[Typedef]";
   private static final String OBO_TERM_DELIMITER                     = "[Term]";
 
@@ -471,70 +472,70 @@ public class OntologyImporter
           break;
         }
         // Assumes this field is parsed first!!!!
-        else if (line.startsWith(OBO_FIELD_ID))
+        else if (line.startsWith(OBO_FIELD_ID+OBO_FIELD_DELIMITER))
         {
           relationshipId = this.extractFieldValue(OBO_FIELD_ID, line);
           ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
           ontologyRelationship.setRelationshipId(this.extractFieldValue(OBO_FIELD_ID, line));
         }
-        else if (line.startsWith(OBO_FIELD_ALT_ID))
+        else if (line.startsWith(OBO_FIELD_ALT_ID+OBO_FIELD_DELIMITER))
         {
           ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
           ontologyRelationship.setAltId(this.extractFieldValue(OBO_FIELD_ALT_ID, line));
         }
-        else if (line.startsWith(OBO_FIELD_NAMESPACE))
+        else if (line.startsWith(OBO_FIELD_NAMESPACE+OBO_FIELD_DELIMITER))
         {
           ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
           ontologyRelationship.setNamespace(this.extractFieldValue(OBO_FIELD_NAMESPACE, line));
         }
-        else if (line.startsWith(OBO_FIELD_NAME))
+        else if (line.startsWith(OBO_FIELD_NAME+OBO_FIELD_DELIMITER))
         {
           ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
           ontologyRelationship.setName(this.extractFieldValue(OBO_FIELD_NAME, line));
         }
-        else if (line.startsWith(OBO_FIELD_DEF))
+        else if (line.startsWith(OBO_FIELD_DEF+OBO_FIELD_DELIMITER))
         {
           ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
           ontologyRelationship.setDef(this.extractFieldValue(OBO_FIELD_DEF, line));
         }
-        else if (line.startsWith(OBO_FIELD_COMMENT))
+        else if (line.startsWith(OBO_FIELD_COMMENT+OBO_FIELD_DELIMITER))
         {
           ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
           ontologyRelationship.setDef(this.extractFieldValue(OBO_FIELD_COMMENT, line));
         }
-        else if (line.startsWith(OBO_FIELD_INVERSE_OF_ON_INSTANCE_LEVEL))
+        else if (line.startsWith(OBO_FIELD_INVERSE_OF_ON_INSTANCE_LEVEL+OBO_FIELD_DELIMITER))
         {
           inverseOfOnInstanceLevelId = this.extractReferenceFieldValue(OBO_FIELD_INVERSE_OF_ON_INSTANCE_LEVEL, line);
         }
-        else if (line.startsWith(OBO_FIELD_INVERSE_OF))
+        else if (line.startsWith(OBO_FIELD_INVERSE_OF+OBO_FIELD_DELIMITER))
         {
           inverseOfId = this.extractReferenceFieldValue(OBO_FIELD_INVERSE_OF, line);
         }
-        else if (line.startsWith(OBO_FIELD_BUILTIN))
+        else if (line.startsWith(OBO_FIELD_BUILTIN+OBO_FIELD_DELIMITER))
         {
           String builtInString = this.extractFieldValue(OBO_FIELD_BUILTIN, line);
           ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
           ontologyRelationship.setIsBuiltIn(Boolean.parseBoolean(builtInString));
         }
-        else if (line.startsWith(OBO_FIELD_IS_REFLEXIVE))
+        else if (line.startsWith(OBO_FIELD_IS_REFLEXIVE+OBO_FIELD_DELIMITER))
         {
           String isReflexiveString = this.extractFieldValue(OBO_FIELD_IS_REFLEXIVE, line);
           ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
           ontologyRelationship.setIsReflexive(Boolean.parseBoolean(isReflexiveString));
         }
-        else if (line.startsWith(OBO_FIELD_IS_TRANSITIVE))
+        else if (line.startsWith(OBO_FIELD_IS_TRANSITIVE+OBO_FIELD_DELIMITER))
         {
           String isTransitiveString = this.extractFieldValue(OBO_FIELD_IS_TRANSITIVE, line);
           ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
           ontologyRelationship.setIsTransitive(Boolean.parseBoolean(isTransitiveString));
         }
-        else if (line.startsWith(OBO_FIELD_IS_OBSOLETE))
+        else if (line.startsWith(OBO_FIELD_IS_OBSOLETE+OBO_FIELD_DELIMITER))
         {
           String isObsoleteString = this.extractFieldValue(OBO_FIELD_IS_OBSOLETE, line);
           ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
           ontologyRelationship.setIsObsolete(Boolean.parseBoolean(isObsoleteString));
         }
-        else if (line.startsWith(OBO_FIELD_IS_ANTI_SYMMETRIC))
+        else if (line.startsWith(OBO_FIELD_IS_ANTI_SYMMETRIC+OBO_FIELD_DELIMITER))
         {
           String isAntiSymmetricString = this.extractFieldValue(OBO_FIELD_IS_ANTI_SYMMETRIC, line);
           ontologyRelationship = initOntologyRelationship(ontologyRelationship, relationshipId);
@@ -742,33 +743,33 @@ public class OntologyImporter
           break;
         }
         // Assumes this field is parsed first!!!!
-        else if (line.startsWith(OBO_FIELD_ID))
+        else if (line.startsWith(OBO_FIELD_ID+OBO_FIELD_DELIMITER))
         {
           termId = this.extractFieldValue(OBO_FIELD_ID, line);
           term = initTerm(term, termId);
           term.setTermId(this.extractFieldValue(OBO_FIELD_ID, line));
         }
-        else if (line.startsWith(OBO_FIELD_NAME))
+        else if (line.startsWith(OBO_FIELD_NAME+OBO_FIELD_DELIMITER))
         {
           term = initTerm(term, termId);
           term.setName(this.extractFieldValue(OBO_FIELD_NAME, line));
         }
-        else if (line.startsWith(OBO_FIELD_NAMESPACE))
+        else if (line.startsWith(OBO_FIELD_NAMESPACE+OBO_FIELD_DELIMITER))
         {
           term = initTerm(term, termId);
           term.setNamespace(this.extractFieldValue(OBO_FIELD_NAMESPACE, line));
         }
-        else if (line.startsWith(OBO_FIELD_DEF))
+        else if (line.startsWith(OBO_FIELD_DEF+OBO_FIELD_DELIMITER))
         {
           term = initTerm(term, termId);
           term.setDef(this.extractFieldValue(OBO_FIELD_DEF, line));
         }
-        else if (line.startsWith(OBO_FIELD_COMMENT))
+        else if (line.startsWith(OBO_FIELD_COMMENT+OBO_FIELD_DELIMITER))
         {
           term = initTerm(term, termId);
           term.setComment(this.extractFieldValue(OBO_FIELD_COMMENT, line));
         }
-        else if (line.startsWith(OBO_FIELD_OBSOLETE))
+        else if (line.startsWith(OBO_FIELD_OBSOLETE+OBO_FIELD_DELIMITER))
         {
           String obsoleteString = this.extractFieldValue(OBO_FIELD_IS_OBSOLETE, line);
           term = initTerm(term, termId);
@@ -860,7 +861,7 @@ public class OntologyImporter
 
   private String extractFieldValue(String fieldDelimiter, String line)
   {
-    return line.substring((fieldDelimiter+":").length(), line.length()).trim();
+    return line.substring((fieldDelimiter+OBO_FIELD_DELIMITER).length(), line.length()).trim();
   }
 
   private String extractReferenceFieldValue(String fieldDelimiter, String line)
