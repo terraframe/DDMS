@@ -280,7 +280,7 @@
         type="dss.vector.solutions.ontology.AllPaths"
         label="Parent Term Ontology Relationship Type Index"
         active="true"
-        unique="true"
+        unique="false"
         description="Enforces a unique index between the parent term and the relatoinship type">
         <attribute
           name="parentTerm"
@@ -294,7 +294,7 @@
         type="dss.vector.solutions.ontology.AllPaths"
         label="Child Term Ontology Relationship Type Index"
         active="true"
-        unique="true"
+        unique="false"
         description="Enforces a unique index between the child term and the relatoinship type">
         <attribute
           name="childTerm"
@@ -334,186 +334,7 @@
       </mdException>
 
     </create>
-<!--
-      <mdBusiness
-        name="dss.vector.solutions.ontology.OntologyDefinition"
-        isAbstract="false"
-        label="Ontology"
-        description="Ontology class that models different ontologies in the system"
-        cacheAlgorithm="everything">
-        <attributes>
-          <char
-            name="ontologyName"
-            label="Name"
-            required="true"
-            indexType="unique index"
-            size="64" />
-          <char
-            name="namespace"
-            label="Namespace"
-            required="true"
-            indexType="no index"
-            size="256" />
-        </attributes>
-      </mdBusiness>
 
-      <mdBusiness
-        name="dss.vector.solutions.ontology.Term"
-        isAbstract="true"
-        label="Term"
-        description="Ontology term">
-        <attributes>
-          <char
-            name="termId"
-            label="Term Id"
-            required="true"
-            indexType="unique index"
-            size="64" />
-          <char
-            name="termName"
-            label="Name"
-            required="true"
-            indexType="non-unique index"
-            size="256" />
-          <text
-            name="description"
-            label="Description"
-            required="false" />
-          <text
-            name="termComment"
-            label="Comment"
-            required="false" />
-          <boolean
-            name="obsolete"
-            label="Obsolete"
-            required="true"
-            defaultValue="false" />
-          <reference
-            name="ontology"
-            required="true"
-            label="Ontology"
-            type="dss.vector.solutions.ontology.OntologyDefinition" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.ontology.MO"
-        isAbstract="false"
-        label="MO Term"
-        description="Ontology term"
-        extends="dss.vector.solutions.ontology.Term">
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.ontology.GeoUniversal"
-        isAbstract="false"
-        label="Geo Universal"
-        description="Geo Universal"
-        extends="dss.vector.solutions.ontology.Term">
-      </mdBusiness>
-
-      <mdGraph
-        name="dss.vector.solutions.ontology.TermRelationship"
-        label="Term Relationship"
-        description="Ontology relationship between two terms."
-        isAbstract="true"
-        generateController="false">
-        <parent
-          cardinality="*"
-          name="dss.vector.solutions.ontology.Term"
-          method="ParentTerm" />
-        <child
-          cardinality="*"
-          name="dss.vector.solutions.ontology.Term"
-          method="ChildTerm" />
-      </mdGraph>
-
-      <mdGraph
-        name="dss.vector.solutions.ontology.IsA"
-        label="Is A"
-        description="Is A Term Relationship"
-        extends="dss.vector.solutions.ontology.TermRelationship"
-        isAbstract="false"
-        generateController="true">
-        <parent
-          cardinality="*"
-          name="dss.vector.solutions.ontology.Term"
-          method="IsA" />
-        <child
-          cardinality="*"
-          name="dss.vector.solutions.ontology.Term"
-          method="SubClass" />
-      </mdGraph>
-
-
-      <mdBusiness
-        name="dss.vector.solutions.ontology.AllPaths"
-        label="Ontology All Paths"
-        description="Contains recursive relationships for all paths between ontology terms"
-        extendable="false"
-        isAbstract="false"
-        publish="false"
-        generateController="false">
-        <attributes>
-          <reference
-            name="parentTerm"
-            label="Parent Term"
-            required="true"
-            unique="false"
-            type="dss.vector.solutions.ontology.Term"
-            description="The parent term that has a relationship (possibily recursive) with the child term"
-            indexType="non-unique index" />
-          <reference
-            name="parentOntologyMdBusiness"
-            label="Parent Ontology MdBusiness"
-            required="true"
-            unique="false"
-            type="com.terraframe.mojo.system.metadata.MdBusiness"
-            description="The MdBusiness that defines the Parent"
-            indexType="non-unique index" />
-          <reference
-            name="childTerm"
-            label="Child Term"
-            required="true"
-            unique="false"
-            type="dss.vector.solutions.ontology.Term"
-            description="The parent term that has a relationship (possibily recursive) with the child term"
-            indexType="non-unique index" />
-          <reference
-            name="childOntologyMdBusiness"
-            label="Child Ontology MdBusiness"
-            required="true"
-            unique="false"
-            type="com.terraframe.mojo.system.metadata.MdBusiness"
-            description="The MdBusiness that defines the Child"
-            indexType="non-unique index" />
-          <reference
-            name="ontologyRelationship"
-            label="Ontology Relationship"
-            required="true"
-            unique="false"
-            type="com.terraframe.mojo.system.metadata.MdGraph"
-            description="The MdGraph that defines the ontology relationship"
-            indexType="non-unique index" />
-        </attributes>
-      </mdBusiness>
-
-      <mdIndex
-        type="dss.vector.solutions.ontology.AllPaths"
-        label="Parent Child Ontology Term Index"
-        active="true"
-        unique="true"
-        description="Enforces a unique index between the parent term and the child term">
-        <attribute
-          name="parentTerm"
-          indexOrder="0" />
-        <attribute
-          name="childTerm"
-          indexOrder="1" />
-      </mdIndex>
-
-    </create>
--->
     <create>
       <object
         type="com.terraframe.mojo.system.Roles"
