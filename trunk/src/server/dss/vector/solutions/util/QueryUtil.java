@@ -99,7 +99,7 @@ public class QueryUtil implements Reloadable
     int count = 0;
     for(String attr : attributes)
     {
-      select += " term"+count+".termName as "+attr + "_displayLabel";
+      select += " term"+count+"."+Term.NAME+" as "+attr + "_displayLabel";
 
       if(count != attributes.length-1)
       {
