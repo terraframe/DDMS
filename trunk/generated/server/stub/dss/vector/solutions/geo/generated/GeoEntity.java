@@ -45,6 +45,7 @@ import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 import com.terraframe.mojo.system.metadata.MdClass;
+import com.terraframe.mojo.system.metadata.MdRelationship;
 import com.terraframe.mojo.util.IdParser;
 
 import dss.vector.solutions.MDSSInfo;
@@ -1390,6 +1391,55 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     return parentIdList;
   }
+  
+  @Transaction
+  public static void buildAllPathsFast()
+  {
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    valueQuery.SELECT(valueQuery.aSQLCharacter("parent_id", "parent_id"),valueQuery.aSQLCharacter("child_id", "child_id"));
+
+    String geoEntityTable = MdBusiness.getMdBusiness(GeoEntity.CLASS).getTableName();
+    String locatedInTable = MdRelationship.getMdElement(LocatedIn.CLASS).getTableName();
+    
+    String sql = "( WITH RECURSIVE quick_paths AS ( " + 
+    " SELECT child_id as root_id, child_id, parent_id FROM "+locatedInTable+" locatedin " +
+    " UNION "+
+    " SELECT a.root_id, b.child_id, b.parent_id FROM quick_paths a, "+locatedInTable+" b WHERE b.child_id = a.parent_id)" +
+    " SELECT root_id as child_id, parent_id  FROM quick_paths" +
+    " UNION" +
+    " SELECT id, id FROM "+geoEntityTable+" geoentity)";
+
+    valueQuery.FROM(sql, "all_paths");
+    
+    System.out.println(valueQuery.getSQL());
+
+    List<ValueObject> valueObjectList = valueQuery.getIterator().getAll();
+
+    List<String> parentIdList = new LinkedList<String>();
+
+    for (ValueObject valueObject : valueObjectList)
+    {
+      String parentId = valueObject.getValue("parent_id");
+      String childId = valueObject.getValue("child_id");
+      
+      MdClassDAOIF childMdClassIF = MdClassDAO.getMdClassByRootId(IdParser.parseMdTypeRootIdFromId(childId));
+      MdClassDAOIF parentMdClassIF = MdClassDAO.getMdClassByRootId(IdParser.parseMdTypeRootIdFromId(parentId));
+      
+      AllPaths allPaths = new AllPaths();
+      allPaths.setValue(AllPaths.PARENTGEOENTITY, parentId);
+      allPaths.setValue(AllPaths.PARENTUNIVERSAL, parentMdClassIF.getId());
+      allPaths.setValue(AllPaths.CHILDGEOENTITY, childId);
+      allPaths.setValue(AllPaths.CHILDUNIVERSAL, childMdClassIF.getId());
+      allPaths.apply();
+      
+      parentIdList.add(parentId);
+    }
+
+  }
+
 
   private static List<String> getChildIds(String parentId)
   {
@@ -1415,7 +1465,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     return childOfChildIdList;
   }
 
-  private static void createPath(String parentId, String parentMdBusiness, String childId, String childMdBusiness)
+  public static void createPath(String parentId, String parentMdBusiness, String childId, String childMdBusiness)
   {
     // create save point
     Savepoint savepoint = Database.setSavepoint();
