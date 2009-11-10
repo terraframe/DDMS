@@ -853,7 +853,7 @@ public class OntologyImporter
 
     if (this.ontologyRelationshipByNameMap.containsKey(relationshipName))
     {
-      TermRelationshipInfo termRelationshipInfo = new TermRelationshipInfo(term.getTermId(), referencedTermId, relationshipName);
+      TermRelationshipInfo termRelationshipInfo = new TermRelationshipInfo(referencedTermId, term.getTermId(), relationshipName);
       this.termRelationshipInfoList.add(termRelationshipInfo);
     }
 
