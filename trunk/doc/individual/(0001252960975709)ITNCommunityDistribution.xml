@@ -225,14 +225,18 @@
             name="pretreated"
             concrete="pretreated"
             type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
-          <integer
+          <reference
             name="displayTargetGroups"
             label="ITN Target Groups"
-            description="Marker for displaying ITN Target Group grid" />
-          <integer
+            description="Marker for displaying ITN Target Group grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
             name="displayNets"
             label="ITN Nets"
-            description="Marker for displaying ITN Net grid" />
+            description="Marker for displaying ITN Net grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
         <mdMethod
           name="deleteConcrete"

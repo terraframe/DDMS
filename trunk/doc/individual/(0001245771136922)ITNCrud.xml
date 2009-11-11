@@ -226,18 +226,24 @@
             name="currencyReceived"
             concrete="currencyReceived"
             type="dss.vector.solutions.intervention.monitor.ITNData" />
-          <integer
+          <reference
             name="displayServices"
             label="Total per type of service received"
-            description="Marker for displaying ITN Service grid" />
-          <integer
+            description="Marker for displaying ITN Service grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
             name="displayTargetGroups"
             label="Total ITNs distributed per target group/s"
-            description="Marker for displaying ITN Target Group grid" />
-          <integer
+            description="Marker for displaying ITN Target Group grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
             name="displayNets"
             label="Total ITN distributed by type"
-            description="Marker for displaying ITN Net grid" />
+            description="Marker for displaying ITN Net grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
         <mdMethod
           name="deleteConcrete"

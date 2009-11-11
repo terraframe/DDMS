@@ -19,7 +19,7 @@
       <label> ${view.stockDepotMd.displayLabel} </label>
     </dt>
     <dd>
-      <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput"/>
+      <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput" value="${geoId}"/>
     </dd>
     <dt>
       <label> ${view.itemMd.displayLabel} </label>
@@ -42,7 +42,7 @@
       <label> ${view.eventDateMd.displayLabel} </label>
     </dt>
     <dd>
-      <mjl:input param="date" type="text" classes="DatePick NoFuture" id="date"/>
+      <mjl:input param="date" type="text" classes="DatePick NoFuture" id="date" value="${date}"/>
     </dd>    
     <mjl:command classes="submitButton" action="dss.vector.solutions.stock.StockEventController.searchInStock.mojo" name="inStock" value="In_Stock" id="inStock"/>
     <mjl:command classes="submitButton" action="dss.vector.solutions.stock.StockEventController.searchOutStock.mojo" name="outStock" value="Out_Stock" id="outStock"/>
@@ -50,7 +50,7 @@
       <label> <fmt:message key="endDate" /> </label>
     </dt>
     <dd>
-      <mjl:input param="endDate" type="text" classes="DatePick NoFuture" id="endDate"/>
+      <mjl:input param="endDate" type="text" classes="DatePick NoFuture" id="endDate" value="${endDate}"/>
     </dd>    
     <mjl:command classes="submitButton" action="dss.vector.solutions.stock.StockEventController.searchPage.mojo" name="searchPage" value="Search" id="searchPage"/>    
   </dl>

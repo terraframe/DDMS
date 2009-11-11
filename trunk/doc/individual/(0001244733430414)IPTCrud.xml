@@ -233,22 +233,30 @@
             name="totalITN"
             concrete="totalITN"
             type="dss.vector.solutions.intervention.monitor.AggregatedIPT" />
-          <integer
+          <reference
             name="displayPatients"
             label="Number per person category"
-            description="Marker for displaying IPT Patients grid" />
-          <integer
+            description="Marker for displaying IPT Patients grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
             name="displayVisits"
             label="Number of pregnant females who received IPT per ANC visit"
-            description="Marker for displaying IPT Visits grid" />
-          <integer
+            description="Marker for displaying IPT Visits grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
             name="displayDose"
             label="Number of pregnant females who received IPT per IPT dose number"
-            description="Marker for displaying IPT Dose grid" />
-          <integer
+            description="Marker for displaying IPT Dose grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
             name="displayTreatments"
             label="Number of pregnant females who received IPT per type"
-            description="Marker for displaying IPT Treatments grid" />
+            description="Marker for displaying IPT Treatments grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
         <mdMethod
           name="deleteConcrete"

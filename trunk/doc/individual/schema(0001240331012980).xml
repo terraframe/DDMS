@@ -61,10 +61,12 @@
             name="performedRDT"
             concrete="performedRDT"
             type="dss.vector.solutions.intervention.monitor.Person" />
-          <integer
+          <reference
             name="rDTResult"
             label="Result"
-            description="Place holder for permissions and ontology root binding" />
+            description="Place holder for permissions and ontology root binding"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
           <virtual
             name="rdtTreatment"
             concrete="rdtTreatment"

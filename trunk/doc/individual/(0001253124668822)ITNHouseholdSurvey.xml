@@ -315,18 +315,24 @@
             name="retreatmentPeriod"
             concrete="retreatmentPeriod"
             type="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey" />
-          <integer
+          <reference
             name="displayTargetGroups"
             label="Use by target group last night"
-            description="Marker for displaying ITN Target Group grid" />
-          <integer
+            description="Marker for displaying ITN Target Group grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
             name="displayNets"
             label="The ITN type used"
-            description="Marker for displaying ITN Net grid" />            
-          <integer
+            description="Marker for displaying ITN Net grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
             name="displayNonUseReasons"
             label="Reason for not using ITN"
-            description="Marker for displaying ITN Household Survey - Non Use Reason grid" />
+            description="Marker for displaying ITN Household Survey - Non Use Reason grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
         <mdMethod
           name="deleteConcrete"

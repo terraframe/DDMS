@@ -50,41 +50,36 @@
         name="dss.vector.solutions.surveillance.ChildCaseView">
         <create>
           <attributes>
-            <boolean
+            <reference
               name="caseStocks"
               label="Treatment Stock"
-              defaultValue="false"
               description="Marker indicating if the treatment stocks should be displayed"
-              negativeLabel="No"
-              positiveLabel="Yes" />
-            <boolean
+              required="false"
+              type="dss.vector.solutions.ontology.Term" />
+            <reference
               name="caseTreatments"
               label="Treatments"
-              defaultValue="false"
               description="Marker indicating if the treatments should be displayed"
-              negativeLabel="No"
-              positiveLabel="Yes" />
-            <boolean
+              required="false"
+              type="dss.vector.solutions.ontology.Term" />
+            <reference
               name="caseTreatmentMethod"
               label="Treatment Methods"
-              defaultValue="false"
               description="Marker indicating if the treatment methods should be displayed"
-              negativeLabel="No"
-              positiveLabel="Yes" />
-            <boolean
+              required="false"
+              type="dss.vector.solutions.ontology.Term" />
+            <reference
               name="caseReferrals"
               label="Referral Reasons"
-              defaultValue="false"
               description="Marker indicating if the referral reasons should be displayed"
-              negativeLabel="No"
-              positiveLabel="Yes" />
-            <boolean
+              required="false"
+              type="dss.vector.solutions.ontology.Term" />
+            <reference
               name="caseDiagnostic"
               label="Diagnostic Methods"
-              defaultValue="false"
               description="Marker indicating if the diagnostic methods should be displayed"
-              negativeLabel="No"
-              positiveLabel="Yes" />
+              required="false"
+              type="dss.vector.solutions.ontology.Term" />
           </attributes>
         </create>
       </mdView>

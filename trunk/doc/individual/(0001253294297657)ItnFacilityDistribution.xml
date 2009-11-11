@@ -111,9 +111,11 @@
             name="concreteId"
             label="Concrete Id"
             size="255" />
-          <integer
+          <reference
             name="targetGroups"
-            label="ITNs distributed to the target groups" />
+            label="ITNs distributed to the target groups"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
           <virtual
             name="distributionDate"
             concrete="distributionDate"
@@ -201,7 +203,7 @@
             name="dto"
             type="dss.vector.solutions.intervention.monitor.ITNDistributionView"
             order="0" />
-        </mdAction>        
+        </mdAction>
         <mdAction
           name="create"
           label="Create ITN"

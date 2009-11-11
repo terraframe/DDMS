@@ -205,9 +205,11 @@
             label="Concrete Id"
             size="255"
             required="true" />
-          <integer
+          <reference
             name="displayNets"
-            label="Number of nets against the brand" />
+            label="Number of nets against the brand"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
           <virtual
             name="surveyPoint"
             concrete="surveyPoint"
@@ -462,7 +464,7 @@
           <mdParameter
             name="dto"
             order="0"
-            type="dss.vector.solutions.intervention.monitor.HouseholdView" />          
+            type="dss.vector.solutions.intervention.monitor.HouseholdView" />
           <create>
             <mdParameter
               name="nets"
@@ -477,7 +479,7 @@
           <mdParameter
             name="dto"
             order="0"
-            type="dss.vector.solutions.intervention.monitor.HouseholdView" />          
+            type="dss.vector.solutions.intervention.monitor.HouseholdView" />
           <create>
             <mdParameter
               name="nets"

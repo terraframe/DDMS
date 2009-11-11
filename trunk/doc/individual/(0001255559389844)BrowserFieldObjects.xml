@@ -361,13 +361,6 @@
           key="dss.vector.solutions.intervention.monitor.AggregatedIPTView.displayVisits" />
       </object>
       <object
-        key="Ontology__dss.vector.solutions.intervention.monitor.Household.hasWindows"
-        type="dss.vector.solutions.ontology.BrowserField">
-        <attributeReference
-          name="mdAttribute"
-          key="dss.vector.solutions.intervention.monitor.Household.hasWindows" />
-      </object>
-      <object
         key="Ontology__dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.displayTargetGroups"
         type="dss.vector.solutions.ontology.BrowserField">
         <attributeReference
@@ -558,9 +551,6 @@
         type="dss.vector.solutions.ontology.BrowserField" />
       <object
         key="Ontology__dss.vector.solutions.intervention.monitor.AggregatedIPTView.displayVisits"
-        type="dss.vector.solutions.ontology.BrowserField" />
-      <object
-        key="Ontology__dss.vector.solutions.intervention.monitor.Household.hasWindows"
         type="dss.vector.solutions.ontology.BrowserField" />
       <object
         key="Ontology__dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.displayTargetGroups"

@@ -50,7 +50,7 @@ private static final long serialVersionUID = 1257790601973L;
       itemLabel = F.CONCAT(itemLabel, " ");
       itemLabel = F.CONCAT(itemLabel, query.getItem().getQuantity());
       itemLabel = F.CONCAT(itemLabel, " ");
-//      itemLabel = F.CONCAT(itemLabel, query.getItem().getUnit().getName());
+      itemLabel = F.CONCAT(itemLabel, query.getItem().getUnit().getName());
       
       CONCAT staffLabel = F.CONCAT(query.getStaff().getPerson().getFirstName(), " ");
       staffLabel = F.CONCAT(staffLabel, query.getStaff().getPerson().getLastName());
