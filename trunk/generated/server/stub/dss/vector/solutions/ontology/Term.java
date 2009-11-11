@@ -1,13 +1,16 @@
 package dss.vector.solutions.ontology;
 
+import java.sql.Savepoint;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import com.terraframe.mojo.constants.RelationshipInfo;
+import com.terraframe.mojo.dataaccess.DuplicateGraphPathException;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.ValueObject;
+import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.Reloadable;
@@ -136,6 +139,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   @Override
+  @Transaction
   public TermView applyWithParent(String parentTermId, Boolean cloneOperation)
   {
     Term parent = Term.get(parentTermId);
@@ -197,6 +201,22 @@ public class Term extends TermBase implements Reloadable, OptionIF
     TermRelationship termRelationship = this.addParentTerm(parent);
     termRelationship.setOntologyRelationship(OntologyRelationship.getByKey(OBO.IS_A));
 
+    // create save point
+    Savepoint savepoint = Database.setSavepoint();
+    try
+    {
+      termRelationship.applyWithoutCreatingAllPaths();
+    }
+    catch (DuplicateGraphPathException e)
+    {
+      // a relationship between this typedef and the parent and the child already exists
+      Database.rollbackSavepoint(savepoint);
+    }
+    finally
+    {
+      Database.releaseSavepoint(savepoint);
+    }
+    
     TermViewQuery query = getByIds(new String[] { this.getId() });
     OIterator<? extends TermView> iter = query.getIterator();
 

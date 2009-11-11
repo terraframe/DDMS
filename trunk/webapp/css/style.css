@@ -660,7 +660,7 @@ div.scrollable {
   text-decoration: underline;
 }
 
-#columnsList LI LI
+#columnsList LI LI, #geoEntityPanelList li
 {
   list-style-type: disc;
   list-style-position:inside;

@@ -310,7 +310,7 @@ public class QueryUtil implements Reloadable
 
       leftJoinValueQueries.add(geoEntityVQ);
 
-      valueQueryParser.setValueQuery(selectedGeoEntityType, geoEntityVQ);
+      valueQueryParser.setValueQuery(attributeKey+"__"+selectedGeoEntityType, geoEntityVQ);
     }
     
     return leftJoinValueQueries;

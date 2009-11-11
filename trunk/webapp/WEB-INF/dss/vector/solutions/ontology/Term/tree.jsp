@@ -6,14 +6,13 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.ontology.TermDTO"%>
 <%@page import="dss.vector.solutions.ontology.TermController"%>
-<%@page import="dss.vector.solutions.ontology.MOController"%>
-<%@page import="dss.vector.solutions.ontology.MODTO"%><c:set var="page_title" value="Ontology_Admin"  scope="request"/>
+<c:set var="page_title" value="Ontology_Admin"  scope="request"/>
 
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 
 <script type="text/javascript">
 <% 
-String[] types = new String[]{TermViewDTO.CLASS, MODTO.CLASS, TermController.CLASS, MOController.CLASS};
+String[] types = new String[]{TermViewDTO.CLASS, TermDTO.CLASS, TermController.CLASS};
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 String js = JSONController.importTypes(clientRequest.getSessionId(), types, true);
 out.write(js);

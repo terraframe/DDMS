@@ -39,6 +39,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       this._geoEntityTypes = {};
       this._geoEntitySelectables = {};
+      
+      // list of geo attributes to their GeoEntityView criteria objects
+      this._criteriaEntities = {};
   
       this._currentPage = 1;
   
@@ -1071,14 +1074,16 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       }
   
       var type = geoEntityView.getEntityType();
+      var entityAlias = attributeKey+"__"+type;
   
   
       // add the GeoEntity as a query entity
-      var geoEntityQuery = this._geoEntityTypes[type];
+      var namespace = attributeKey+'_';
+      
+      var geoEntityQuery = this._geoEntityTypes[namespace+type];
       if(!Mojo.Util.isObject(geoEntityQuery))
       {
-        geoEntityQuery = new MDSS.QueryXML.Entity(type, type);
-        this._geoEntityTypes[type] = geoEntityQuery;
+        this._geoEntityTypes[namespace+type] = new MDSS.QueryXML.Entity(type, entityAlias);
       }
   
       // use the type name and lowercase it so it adheres to attribute naming conventions
@@ -1102,7 +1107,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           var column = new YAHOO.widget.Column(obj);
           this._queryPanel.insertColumn(column);
    
-          var attr = new MDSS.QueryXML.Attribute(type, geoAttr, columnKey, obj.label);
+          var attr = new MDSS.QueryXML.Attribute(entityAlias, geoAttr, columnKey, obj.label);
           var sel = new MDSS.QueryXML.Selectable(attr);
           this._geoEntitySelectables[columnKey] = sel;
         }
@@ -1118,7 +1123,12 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       // remove all universal entities from the query
       var keys = Mojo.Util.getKeys(this._geoEntityTypes);
       Mojo.Iter.forEach(keys, function(key){
-        delete this._geoEntityTypes[key];
+        
+        // only delete GeoEntity queries for this attribute
+        if(key.indexOf(attributeKey) !== -1)
+        {
+          delete this._geoEntityTypes[key];
+        }
       }, this);
       
       // reme all geo entity name and geo id columns
@@ -1127,13 +1137,17 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       
         // The column may not exist because the selectable
         // was used for criteria and not selection
-        var column = this._queryPanel.getColumn(key);
-        if(column)
+        // only delete GeoEntity queries for this attribute
+        if(key.indexOf(attributeKey.replace(/\./g, '_')) !== -1)
         {
-          this._queryPanel.removeColumn(column);
+          var column = this._queryPanel.getColumn(key);
+          if(column)
+          {
+            this._queryPanel.removeColumn(column);
+          }
+          
+          delete this._geoEntitySelectables[key];
         }
-        
-        delete this._geoEntitySelectables[key];
       }, this);
     },
   
@@ -1148,7 +1162,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       this._queryPanel.clearAllRecords();
   
       // clear any prior selected universals
-      this._config.clearSelectedUniversals();
+      this._config.clearSelectedUniversals(currentAttribute);
   
       // remove existing columns
       this._removeUniversalColumns(currentAttribute);
@@ -1169,7 +1183,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       this._queryPanel.setAvailableThematicLayers(selectedUniversals);
   
-  
+      this._criteriaEntities[currentAttribute] = criteriaEntities;
       if(criteriaEntities.length > 0)
       {
         var entityAlias = this.ALL_PATHS+'_'+currentAttribute; // Unique namespace per attribute 
@@ -1198,35 +1212,58 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         delete this._allPathQueries[currentAttribute];
       }
       
-      this._queryPanel.addSelectedGeoEntities(criteriaEntities);
+      // update the query panel with the attribute's restricting geo entities
+      var display = this._geoAttributes[currentAttribute];
+      this._queryPanel.addSelectedGeoEntities(currentAttribute, display, criteriaEntities);
     },
     
     _getCurrentGeoAttribute : function()
     {
       var target = document.getElementById(MDSS.QueryBase.GEO_ATTRIBUTES);
-      var currentAttribute = target.options[target.selectedIndex].value;
-    
-      return currentAttribute;
+      if(target.nodeName === 'INPUT')
+      {
+        return target.value;
+      }
+      else
+      {
+        return target.options[target.selectedIndex].value;
+      }
     },
     
     addGeoAttributes : function(attributes)
     {
-      var select = '<select id="'+MDSS.QueryBase.GEO_ATTRIBUTES+'">';
+      var html;
       var attributeKeys = [];
-      for(var i=0; i<attributes.length; i++)
+      if(attributes.length > 1)
       {
-        var attribute = attributes[i];
-        attributeKeys.push(attribute.keyName);
-        
-        this._geoAttributes[attribute.keyName] = attribute.display;
-        
-        select += '<option value="'+attribute.keyName+'">'+attribute.display+'</option>';
+        var html = '<select id="'+MDSS.QueryBase.GEO_ATTRIBUTES+'">';
+        for(var i=0; i<attributes.length; i++)
+        {
+          var attribute = attributes[i];
+          
+          attributeKeys.push(attribute.keyName);
+          this._geoAttributes[attribute.keyName] = attribute.display;
+          this._criteriaEntities[attribute.keyName] = [];
+          
+          html += '<option value="'+attribute.keyName+'">'+attribute.display+'</option>';
+        }
+        html += '</select>';
       }
-      select += '</select>';
+      else
+      {
+        var attribute = attributes[0];
+        
+        attributeKeys.push(attribute.keyName);
+        this._geoAttributes[attribute.keyName] = attribute.display;
+        this._criteriaEntities[attribute.keyName] = [];
+      
+        html = '<input type="hidden" value="'+attribute.keyName+'" id="'+MDSS.QueryBase.GEO_ATTRIBUTES+'" />';
+        html += attribute.display;
+      }
     
       var boundSearch = Mojo.Util.bind(this, this._displaySearch);
       this._queryPanel.addQueryItem({
-        html: select + ' <img id="'+MDSS.QueryBase.TARGET+'" class="clickable" src="./imgs/icons/world.png"/>',
+        html: html + ' <img id="'+MDSS.QueryBase.TARGET+'" class="clickable" src="./imgs/icons/world.png"/>',
         id: "areaItem"
       });
       
@@ -1238,6 +1275,14 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
      */
     _displaySearch : function()
     {
+      // Set the selected universals and criteria entities
+      var currentAttribute = this._getCurrentGeoAttribute();
+      var selectedUniversals = this._config.getSelectedUniversals(currentAttribute);
+      var criteria = this._criteriaEntities[currentAttribute];
+      
+      this._selectSearch.setSelectedUniversals(selectedUniversals);
+      this._selectSearch.setCriteria(criteria);
+    
       if(this._selectSearch != null && this._selectSearch.isInitialized())
       {
         this._selectSearch.show();

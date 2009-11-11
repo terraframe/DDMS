@@ -813,7 +813,7 @@ MDSS.Query.Config = function(configJSON)
   if(configJSON != null)
   {
     var config = Mojo.Util.getObject(configJSON);
-    Mojo.Util.copy(config._config, this._config);
+    Mojo.Util.copy(config, this._config);
   }
 };
 
@@ -837,16 +837,23 @@ MDSS.Query.Config.prototype = {
     this._config.selectedUniversals = universals;
   },
 
-  getSelectedUniversals : function()
+  getSelectedUniversals : function(attributeKey)
   {
-    return this._config.selectedUniversals;
+    return this._config.selectedUniversals[attributeKey];
   },
 
-  clearSelectedUniversals : function()
+  clearSelectedUniversals : function(attributeKey)
   {
-    for(var key in this._config.selectedUniversals)
+    if(attributeKey)
     {
-      this._config.selectedUniversals[key] = [];
+      this._config.selectedUniversals[attributeKey] = [];
+    }
+    else
+    {
+      for(var key in this._config.selectedUniversals)
+      {
+        this._config.selectedUniversals[key] = [];
+      }
     }
   },
 

@@ -181,7 +181,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       term.setNamespace(params['dto.namespace']);
       term.setTermId(params['dto.termId']);
       term.setComment(params['dto.comment']);
-      term.setDescription(params['dto.description']);
+      term.setDef(params['dto.def']);
       term.setObsolete(params['dto.obsolete']);
       
       return term;
@@ -478,7 +478,6 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
           this.that._setupTree(roots);
         } 
       });
-      
       this._Term.getDefaultRoots(request);
     }
   }

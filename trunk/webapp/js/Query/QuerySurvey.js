@@ -314,8 +314,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       }
       
       // check if DOB has been added as criteria
-//      var configRaw = view.getConfig();
-//      var config = new MDSS.Query.Config(configRaw);
       var dobCrit = this._config.getProperty("dobCriteria");
       if(dobCrit != null)
       {

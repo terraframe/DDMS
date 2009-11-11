@@ -276,26 +276,57 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   * Adds the list of GeoEntit objects to the list
-   * of selected GeoEntities.
+   * Adds the list of GeoEntity objects to the list
+   * of criteria entities for the given attribute.
    */
-  addSelectedGeoEntities : function(geoEntities)
+  addSelectedGeoEntities : function(attributeKey, displayLabel, geoEntities)
   {
-    var ul = document.getElementById(this.GEO_ENTITY_PANEL_LIST);
-
-    var frag = document.createDocumentFragment();
-    for(var i=0; i<geoEntities.length; i++)
+    var parent = document.getElementById(this.GEO_ENTITY_PANEL_LIST);
+        
+    var ulId = attributeKey+'_criteriaEntitiesUl';
+    var spanId = attributeKey+'_criteriaEntitiesSpan';
+    
+    var ul = document.getElementById(ulId);
+    var span = document.getElementById(spanId);
+    if(geoEntities.length > 0)
     {
-      var geoEntityView = geoEntities[i];
-
-      var li = document.createElement('li');
-      li.innerHTML = geoEntityView.getEntityName() + ' ('+geoEntityView.getGeoId()+')';
-
-      frag.appendChild(li);
+      // To avoid an ugly diff procedure, just wipe the previous node clean
+      // if it already exists.
+      if(ul)
+      {
+        ul.innerHTML = '';
+      }
+      else
+      {
+        ul = document.createElement('ul');
+        ul.id = ulId; 
+        
+        span = document.createElement('span');
+        span.id = spanId;
+        span.innerHTML = displayLabel;
+        
+        parent.appendChild(span);
+        parent.appendChild(ul);
+      }
+  
+      var frag = document.createDocumentFragment();
+      for(var i=0; i<geoEntities.length; i++)
+      {
+        var geoEntityView = geoEntities[i];
+  
+        var li = document.createElement('li');
+        li.innerHTML = geoEntityView.getEntityName() + ' ('+geoEntityView.getGeoId()+')';
+  
+        frag.appendChild(li);
+      }
+  
+      ul.appendChild(frag);
     }
-
-    ul.innerHTML = '';
-    ul.appendChild(frag);
+    else if(ul)
+    {
+      parent.removeChild(ul);
+      parent.removeChild(span);
+    }
   },
 
   /**
@@ -572,7 +603,7 @@ MDSS.QueryPanel.prototype = {
   _buildQuerySummary : function()
   {
     var html = '<h3>'+MDSS.Localized.Columns+'</h3><ul id="'+this.COLUMNS_LIST+'"></ul>';
-    html += '<h3>'+MDSS.Localized.Selected_Entities + '</h3><ul id="'+this.GEO_ENTITY_PANEL_LIST+'"></ul>';
+    html += '<h3>'+MDSS.Localized.Selected_Entities + '</h3><div id="'+this.GEO_ENTITY_PANEL_LIST+'"></div>';
 
     var querySummary = document.getElementById(this.QUERY_SUMMARY);
     querySummary.innerHTML = html;
