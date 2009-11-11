@@ -99,7 +99,7 @@ YAHOO.util.Event.onDOMReady(function(){
         row.attributeName = attrib.attributeName;
         if(attrib.dtoType.contains('AttributeReferenceDTO'))
         {
-          row.attributeName += '.termName';
+          row.attributeName += '.name';
         }
         if(attrib.dtoType.contains('AttributeEnumerationDTO'))
         {

@@ -102,7 +102,7 @@ YAHOO.util.Event.onDOMReady(function(){
          row.attributeName = attrib.attributeName;
          if(attrib.dtoType.contains('AttributeReferenceDTO'))
          {
-        	 row.attributeName += '.termName';
+        	 row.attributeName += '.name';
          }
          if(attrib.dtoType.contains('AttributeEnumerationDTO'))
          {
@@ -178,6 +178,6 @@ YAHOO.util.Event.onDOMReady(function(){
 </script>
 
 <jsp:include page="queryContainer.jsp"></jsp:include>
-
+<textarea id="debug_xml" cols="40" rows="40" style="width:1280px"> </textarea>
 
 <jsp:include page="../templates/footer.jsp"></jsp:include>
