@@ -114,7 +114,7 @@ public class PostOntologySetup
     standards.setRoom(25F);
     standards.setStructureArea(100F);
     standards.setHousehold(300F);
-    standards.addTargetUnit(TargetUnit.HOUSEHOLD);
+    standards.addTargetUnit(TargetUnit.ROOM);
     standards.apply();    
   }
 
