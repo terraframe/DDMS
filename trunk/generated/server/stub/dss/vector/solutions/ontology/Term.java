@@ -116,11 +116,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
    * FIXME parameterize to pass in the relationship type.
    */
   @Override
-  public TermViewQuery getOntologyChildren()
+  public TermViewQuery getOntologyChildren(Boolean filterObsolete)
   {
     QueryFactory f = new QueryFactory();
 
-    GetChildrenQueryBuilder builder = new GetChildrenQueryBuilder(f, this);
+    GetChildrenQueryBuilder builder = new GetChildrenQueryBuilder(f, this, filterObsolete);
     TermViewQuery q = new TermViewQuery(f, builder);
 
     return q;
@@ -230,7 +230,20 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
   }
 
+  /**
+   * Returns all default roots (Terms without parents). This method
+   * WILL return all Terms regardless of obsolete status. To return the
+   * terms with obsolete marked as false, use BrowserRoot.getDefaultRoot().
+   * 
+   * @param filterObsolete
+   * @return
+   */
   public static TermViewQuery getDefaultRoots()
+  {
+    return getDefaultRoots(false);
+  }
+  
+  public static TermViewQuery getDefaultRoots(boolean filterObsolete)
   {
     QueryFactory f = new QueryFactory();
 
@@ -243,7 +256,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       termRelQuery = new TermRelationshipQuery(f);
     }
 
-    DefaultRootQueryBuilder builder = new DefaultRootQueryBuilder(f, termQuery, termRelQuery);
+    DefaultRootQueryBuilder builder = new DefaultRootQueryBuilder(f, termQuery, termRelQuery, filterObsolete);
     TermViewQuery query = new TermViewQuery(f, builder);
 
     return query;
@@ -387,14 +400,17 @@ public class Term extends TermBase implements Reloadable, OptionIF
     private TermQuery             termQuery;
 
     private TermRelationshipQuery termRelQuery;
+    
+    private Boolean filterObsolete;
 
-    protected GetChildrenQueryBuilder(QueryFactory queryFactory, Term parent)
+    protected GetChildrenQueryBuilder(QueryFactory queryFactory, Term parent, Boolean filterObsolete)
     {
       super(queryFactory);
 
       this.parent = parent;
       this.termQuery = new TermQuery(queryFactory);
       this.termRelQuery = new TermRelationshipQuery(queryFactory);
+      this.filterObsolete = filterObsolete;
     }
 
     @Override
@@ -415,6 +431,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
       query.WHERE(this.termRelQuery.parentId().EQ(this.parent.getId()));
       query.AND(termQuery.parentTerm(this.termRelQuery)); // FIXME parent-child
       // label reversed
+      
+      if(this.filterObsolete)
+      {
+        query.AND(termQuery.getObsolete().EQ(false));
+      }
 
       query.ORDER_BY_ASC(this.termQuery.getName());
     }
@@ -431,14 +452,17 @@ public class Term extends TermBase implements Reloadable, OptionIF
     private ValueQuery            valueQuery;
 
     private TermRelationshipQuery termRelQuery;
+    
+    private boolean filterObsolete;
 
-    protected DefaultRootQueryBuilder(QueryFactory queryFactory, TermQuery termQuery, TermRelationshipQuery termRelQuery)
+    protected DefaultRootQueryBuilder(QueryFactory queryFactory, TermQuery termQuery, TermRelationshipQuery termRelQuery, boolean filterObsolete)
     {
       super(queryFactory);
 
       this.termQuery = termQuery;
       this.valueQuery = queryFactory.valueQuery();
       this.termRelQuery = termRelQuery;
+      this.filterObsolete = filterObsolete;
     }
 
     @Override
@@ -463,6 +487,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
       // query.WHERE(this.termQuery.NOT_IN(this.termQuery.getId(),
       // this.valueQuery));
       query.WHERE(this.termQuery.getId().SUBSELECT_NOT_IN(this.valueQuery));
+      
+      if(this.filterObsolete)
+      {
+        query.AND(termQuery.getObsolete().EQ(false));
+      }
 
       query.ORDER_BY_ASC(this.termQuery.getName());
     }

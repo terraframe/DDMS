@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1986290330)
+@com.terraframe.mojo.business.ClassSignature(hash = -73720540)
 public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = 1986290330;
+  private static final long serialVersionUID = -73720540;
   
   protected TermDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -705,18 +705,18 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final dss.vector.solutions.ontology.TermViewQueryDTO getOntologyChildren()
+  public final dss.vector.solutions.ontology.TermViewQueryDTO getOntologyChildren(java.lang.Boolean filterObsolete)
   {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
+    String[] _declaredTypes = new String[]{"java.lang.Boolean"};
+    Object[] _parameters = new Object[]{filterObsolete};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getOntologyChildren", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.TermViewQueryDTO getOntologyChildren(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.ontology.TermViewQueryDTO getOntologyChildren(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.Boolean filterObsolete)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{id, filterObsolete};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getOntologyChildren", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

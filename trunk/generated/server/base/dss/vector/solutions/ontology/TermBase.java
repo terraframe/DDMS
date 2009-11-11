@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -615779302)
+@com.terraframe.mojo.business.ClassSignature(hash = 1083076260)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -615779302;
+  private static final long serialVersionUID = 1083076260;
   
   public TermBase()
   {
@@ -1654,16 +1654,16 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public dss.vector.solutions.ontology.TermViewQuery getOntologyChildren()
+  public dss.vector.solutions.ontology.TermViewQuery getOntologyChildren(java.lang.Boolean filterObsolete)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final dss.vector.solutions.ontology.TermViewQuery getOntologyChildren(java.lang.String id)
+  public static final dss.vector.solutions.ontology.TermViewQuery getOntologyChildren(java.lang.String id, java.lang.Boolean filterObsolete)
   {
     Term _instance = Term.get(id);
-    return _instance.getOntologyChildren();
+    return _instance.getOntologyChildren(filterObsolete);
   }
   
   public static dss.vector.solutions.ontology.TermViewQuery getRoots(java.lang.String relationshipType)

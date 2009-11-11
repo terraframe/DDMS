@@ -48,13 +48,14 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
 
   /**
    * Fetches the default root, which is the Term
-   * without a parent.
+   * without a parent. The query WILL NOT include terms
+   * that are marked as obsolete.
    *
    * @return
    */
   public static BrowserRootView[] getDefaultRoot()
   {
-    TermViewQuery query = Term.getDefaultRoots();
+    TermViewQuery query = Term.getDefaultRoots(true);
 
     OIterator<? extends TermView> iter = query.getIterator();
 

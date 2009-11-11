@@ -267,7 +267,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
           }
         });
     
-        Mojo.$.dss.vector.solutions.ontology.Term.getOntologyChildren(request, termId);
+        Mojo.$.dss.vector.solutions.ontology.Term.getOntologyChildren(request, termId, true);
       }
       
       // push selected node onto breadcrumbs

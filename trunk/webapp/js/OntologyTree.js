@@ -293,7 +293,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       });
       
       var termId = parentNode.data.termId;
-      this._Term.getOntologyChildren(request, termId);
+      this._Term.getOntologyChildren(request, termId, false);
     },
     
     /**
