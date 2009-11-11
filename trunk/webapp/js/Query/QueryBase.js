@@ -1050,7 +1050,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         var allPaths = this._allPathQueries[attributeKey];
         
         var or = new MDSS.QueryXML.Or();
-        var criteriaEntities = this._criteriaEntities[attributeKeys];
+        var criteriaEntities = this._criteriaEntities[attributeKey];
         for(var i=0; i<criteriaEntities.length; i++)
         {
           var geoEntityView = criteriaEntities[i];
@@ -1059,7 +1059,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           var selectable = new MDSS.QueryXML.Selectable(attribute);
           var geoIdCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, geoEntityView.getGeoEntityId());
   
-          or.addCondition(attributeKeys+'__'+geoEntityView.getGeoEntityId()+'_'+i, geoIdCondition);
+          or.addCondition(attributeKey+'__'+geoEntityView.getGeoEntityId()+'_'+i, geoIdCondition);
         }
         
         var compositeCondition = new MDSS.QueryXML.CompositeCondition(or);
