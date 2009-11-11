@@ -654,16 +654,9 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
         },
       });
 
-      var entities = [];
-
       parser.parseCriteria({
         attribute : function(entityAlias, attributeName, userAlias, operator, value){
 
-          // restricting geo entities
-          if(entityAlias === thisRef.ALL_PATHS)
-          {
-            entities.push(value);
-          }else
           if(userAlias === thisRef._concerteMosquitoCollection.DATECOLLECTED)
           {
             var formatted = MDSS.Calendar.getLocalizedString(value);
@@ -693,8 +686,6 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
 
         }
       });
-
-      this._reconstructSearch(entities, view);
     },
 
     /**

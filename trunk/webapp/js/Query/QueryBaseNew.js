@@ -702,16 +702,9 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         },
       });
 
-      var entities = [];
-
       parser.parseCriteria({
         attribute : function(entityAlias, attributeName, userAlias, operator, value){
 
-          // restricting geo entities
-          if(entityAlias === thisRef.ALL_PATHS)
-          {
-            entities.push(value);
-          }else
           if(userAlias === thisRef._dateAttribute.getUserAlias())
           {
             var formatted = MDSS.Calendar.getLocalizedString(value);
@@ -741,8 +734,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
         }
       });
-
-      this._reconstructSearch(entities, view);
     },
 
     /**

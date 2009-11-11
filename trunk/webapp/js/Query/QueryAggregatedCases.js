@@ -148,8 +148,6 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
         },
       });
   
-      var entities = [];
-  
       // uncheck all age groups (even though they are checked by default,
       // we want only to check those in the saved query).
       for(var i=0; i<this._defaultAgeGroups.length; i++)
@@ -160,13 +158,8 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
       parser.parseCriteria({
         attribute : function(entityAlias, attributeName, userAlias, operator, value){
   
-          // restricting geo entities
-          if(entityAlias === thisRef.ALL_PATHS)
-          {
-            entities.push(value);
-          }
           // start date
-          else if(userAlias === aggregatedCase.STARTDATE)
+          if(userAlias === aggregatedCase.STARTDATE)
           {
             thisRef._queryPanel.getStartDate().value = value;
           }
@@ -182,11 +175,7 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
           }
         }
       });
-      
-      this._reconstructSearch(entities, view);
     },
-  
-  
   
     /**
      * Final function called before query is executed.

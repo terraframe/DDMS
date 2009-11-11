@@ -616,32 +616,67 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       Mojo.$.dss.vector.solutions.query.ThematicLayer.changeLayerType(request, thematicLayerId, layerType);
     },
   
-    _reconstructSearch : function(entities, view)
+    _reconstructSearch : function(view)
     {
-      // check all selected universals
-      var selectedUniversals = this._config.getSelectedUniversals(); // FIXME GEO
-      this._selectSearch.setSelectedUniversals(selectedUniversals); // FIXME GEO
-  
+      // check all selected universals for every geo attribute
+      var attributeKeys = Mojo.Util.getKeys(this._geoAttributes);
+      var loaded = {};
+      for(var i=0; i<attributeKeys.length; i++)
+      {
+        var attributeKey = attributeKeys[i];
+        
+        // check if any entities need to be loaded
+        var entityCriteria = this._config.getCriteriaEntities(attributeKey);
+        if(entityCriteria)
+        {
+          for(var j=0; j<entityCriteria.length; j++)
+          {
+            var id = entityCriteria[j];
+            loaded[id] = null;
+          } 
+        }
+      }
+      
+      
       // Load the GeoEntities as WHERE criteria
-      if(entities.length > 0)
+      var toLoad = Mojo.Util.getKeys(loaded);
+      if(toLoad.length > 0)
       {
         var request = new MDSS.Request({
           thisRef : this,
           onSuccess : function(query)
           {
             var results = query.getResultSet();
-  
-            this.thisRef._selectSearch.setCriteria(results);
-  
-            this.thisRef._hideHandler(results, selectedUniversals);
+            for(var i=0; i<results.length; i++)
+            {
+              var view = results[i];
+              var id = view.getGeoEntityId();
+              loaded[id] = view;
+            }
+            
+            for(var i=0; i<attributeKeys.length; i++)
+            {
+              var attributeKey = attributeKeys[i];
+              var entityCriteria = this.thisRef._config.getCriteriaEntities(attributeKey);
+              var views = [];
+              for(var j=0; j<entityCriteria.length; j++)
+              {
+                var view = loaded[entityCriteria[j]];
+                views.push(view);
+              } 
+                
+              var selectedUniversals = this.thisRef._config.getSelectedUniversals(attributeKey);
+                
+              this.thisRef._hideHandler(views, selectedUniversals, attributeKey);
+            }
           }
         });
   
-        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getAsViews(request, entities);
+        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getAsViews(request, toLoad);
       }
       else
       {
-        this._hideHandler([], selectedUniversals);
+        MDSS.util.wait_for_ajax.hide();
       }
     },
   
@@ -698,6 +733,12 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
      */
     _resetToDefault : function()
     {
+      var attributeKeys = Mojo.Util.getKeys(this._geoAttributes);
+      for(var i=0; i<attributeKeys.length; i++)
+      {
+        this._hideHandler([], [], attributeKeys[i]);
+      }
+    
       // clear all criteria on any browsers
       var browsers = Mojo.Util.getValues(this.browsers);
       for(var i=0; i<browsers.length; i++)
@@ -822,11 +863,13 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           this.thisRef._queryPanel.clearAllDefinedLayers();
   
           this.thisRef._queryPanel.setCurrentSavedSearch(savedSearchView);
+          this.thisRef._reconstructSearch(savedSearchView);
   
           // set the XML and config
           this.thisRef._loadQueryState(savedSearchView);
   
           // set the layers
+            /* FIXME MAP
           var request2 = new MDSS.Request({
             thisRef : this.thisRef,
             onSend : function(){},
@@ -860,6 +903,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           });
   
           Mojo.$.dss.vector.solutions.query.SavedSearch.getAllLayers(request2, this.savedSearchId);
+              */
         }
       });
   
@@ -998,10 +1042,30 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       var queryXML = new MDSS.QueryXML.Query();
   
-      var allPaths = Mojo.Util.getValues(this._allPathQueries);
-      for(var i=0; i<allPaths.length; i++)
+      // Add GeoEntity criteria on any geo attribute
+      var attributeKeys = Mojo.Util.getKeys(this._allPathQueries);
+      for(var i=0; i<attributeKeys.length; i++)
       {
-        queryXML.addEntity(allPaths[i]);
+        var attributeKey = attributeKeys[i];
+        var allPaths = this._allPathQueries[attributeKey];
+        
+        var or = new MDSS.QueryXML.Or();
+        var criteriaEntities = this._criteriaEntities[attributeKeys];
+        for(var i=0; i<criteriaEntities.length; i++)
+        {
+          var geoEntityView = criteriaEntities[i];
+  
+          var attribute = new MDSS.QueryXML.Attribute(allPaths.getAlias(), 'parentGeoEntity');
+          var selectable = new MDSS.QueryXML.Selectable(attribute);
+          var geoIdCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, geoEntityView.getGeoEntityId());
+  
+          or.addCondition(attributeKeys+'__'+geoEntityView.getGeoEntityId()+'_'+i, geoIdCondition);
+        }
+        
+        var compositeCondition = new MDSS.QueryXML.CompositeCondition(or);
+        allPaths.setCondition(compositeCondition);
+      
+        queryXML.addEntity(allPaths);
       }
       
       if(forMapping)
@@ -1055,8 +1119,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       {
         this._endDate = null;
       }
-  
-  
+      
       return queryXML;
     },
   
@@ -1155,9 +1218,13 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
      * Uses the given GeoEntityView objects to add
      * restrictions to the GeoEntity query.
      */
-    _hideHandler : function(criteriaEntities, selectedUniversals)
+    _hideHandler : function(criteriaEntities, selectedUniversals, currentAttribute)
     {
-      var currentAttribute = this._getCurrentGeoAttribute();
+      // This override is required for loading saved queries
+      if(!currentAttribute)
+      {
+        currentAttribute = this._getCurrentGeoAttribute();
+      }
     
       this._queryPanel.clearAllRecords();
   
@@ -1184,28 +1251,14 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       this._queryPanel.setAvailableThematicLayers(selectedUniversals);
   
       this._criteriaEntities[currentAttribute] = criteriaEntities;
+      
       if(criteriaEntities.length > 0)
       {
         var entityAlias = this.ALL_PATHS+'_'+currentAttribute; // Unique namespace per attribute 
-      
         var allPaths = new MDSS.QueryXML.Entity(this.ALL_PATHS, entityAlias);
   
-        var or = new MDSS.QueryXML.Or();
-        for(var i=0; i<criteriaEntities.length; i++)
-        {
-          var geoEntityView = criteriaEntities[i];
-  
-          var attribute = new MDSS.QueryXML.Attribute(entityAlias, 'parentGeoEntity');
-          var selectable = new MDSS.QueryXML.Selectable(attribute);
-          var geoIdCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, geoEntityView.getGeoEntityId());
-  
-          or.addCondition(currentAttribute+'__'+geoEntityView.getGeoEntityId()+'_'+i, geoIdCondition);
-        }
-        
-        var compositeCondition = new MDSS.QueryXML.CompositeCondition(or);
-        allPaths.setCondition(compositeCondition);
-
         this._allPathQueries[currentAttribute] = allPaths;
+        this._config.setCriteriaEntities(currentAttribute, criteriaEntities);
       }
       else
       {

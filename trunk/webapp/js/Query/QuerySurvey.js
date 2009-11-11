@@ -208,17 +208,10 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         },
       });
       
-      var entities = [];
-  
       parser.parseCriteria({
         attribute : function(entityAlias, attributeName, userAlias, operator, value){
   
-          // restricting geo entities
-          if(entityAlias === thisRef.ALL_PATHS)
-          {
-            entities.push(value);
-          }
-          else if(userAlias === thisRef._SurveyPoint.SURVEYDATE)
+          if(userAlias === thisRef._SurveyPoint.SURVEYDATE)
           {
             var formatted = MDSS.Calendar.getLocalizedString(value);
           
@@ -342,8 +335,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
           this._loadNumericCriteria(this._Person.DOB, this._Person.DOB, MDSS.QueryXML.Operator.EQ, dobCrit);
         }
       }
-      
-      this._reconstructSearch(entities, view);
     },
   
     /**

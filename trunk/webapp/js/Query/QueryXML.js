@@ -807,6 +807,7 @@ MDSS.Query.Config = function(configJSON)
 {
   this._config = {
     selectedUniversals : {},
+    criteriaEntities : {},
     terms: {}
   };
 
@@ -823,18 +824,27 @@ MDSS.Query.Config.prototype = {
   {
     Mojo.Iter.forEach(attributeKeys, function(key){
       this._config.selectedUniversals[key] = [];
+      this._config.criteriaEntities[key] = [];
     }, this);
+  },
+  
+  setCriteriaEntities : function(attributeKey, entities)
+  {
+    var ids = Mojo.Iter.map(entities, function(entity){
+      return entity.getGeoEntityId();
+    });
+    
+    this._config.criteriaEntities[attributeKey] = ids;
+  },
+  
+  getCriteriaEntities : function(attributeKey)
+  {
+    return this._config.criteriaEntities[attributeKey];
   },
 
   addSelectedUniversal : function(attributeKey, universal)
   {
     this._config.selectedUniversals[attributeKey].push(universal);
-  },
-
-  // FIXME GEO
-  setSelectedUniversals : function(universals)
-  {
-    this._config.selectedUniversals = universals;
   },
 
   getSelectedUniversals : function(attributeKey)
@@ -968,6 +978,12 @@ MDSS.Query.Parser.prototype = {
           var entityAlias = this._getValue(selectable, 'entityAlias');
           var attributeName = this._getValue(selectable, 'name');
           var userAlias = this._getValue(selectable, 'userAlias');
+
+          // Don't parse GeoEntity criteria (QueryBase) takes care of that.
+          if(attributeName === 'parentGeoEntity')
+          {
+            continue;
+          }
 
           var parent = selectable.parentNode;
           var operator = this._getValue(parent, 'operator');
