@@ -205,7 +205,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     Savepoint savepoint = Database.setSavepoint();
     try
     {
-      termRelationship.applyWithoutCreatingAllPaths();
+      termRelationship.apply();
     }
     catch (DuplicateGraphPathException e)
     {
