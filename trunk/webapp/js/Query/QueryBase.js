@@ -676,6 +676,14 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       }
       else
       {
+        for(var i=0; i<attributeKeys.length; i++)
+        {
+          var attributeKey = attributeKeys[i];
+          
+          var selectedUniversals = this._config.getSelectedUniversals(attributeKey);
+          this._hideHandler([], selectedUniversals, attributeKey);
+        }
+      
         MDSS.util.wait_for_ajax.hide();
       }
     },
@@ -1258,12 +1266,13 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         var allPaths = new MDSS.QueryXML.Entity(this.ALL_PATHS, entityAlias);
   
         this._allPathQueries[currentAttribute] = allPaths;
-        this._config.setCriteriaEntities(currentAttribute, criteriaEntities);
       }
       else
       {
         delete this._allPathQueries[currentAttribute];
       }
+      
+      this._config.setCriteriaEntities(currentAttribute, criteriaEntities);
       
       // update the query panel with the attribute's restricting geo entities
       var display = this._geoAttributes[currentAttribute];
