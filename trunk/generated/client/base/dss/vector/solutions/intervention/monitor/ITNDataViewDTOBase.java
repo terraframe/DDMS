@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1115066450)
+@com.terraframe.mojo.business.ClassSignature(hash = -1301735064)
 public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNDataView";
-  private static final long serialVersionUID = -1115066450;
+  private static final long serialVersionUID = -1301735064;
   
   protected ITNDataViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -142,12 +142,19 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CURRENCYRECEIVED).getAttributeMdDTO();
   }
   
-  public Integer getDisplayNets()
+  public dss.vector.solutions.ontology.TermDTO getDisplayNets()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYNETS));
+    if(getValue(DISPLAYNETS) == null || getValue(DISPLAYNETS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DISPLAYNETS));
+    }
   }
   
-  public void setDisplayNets(Integer value)
+  public void setDisplayNets(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -155,7 +162,7 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     }
     else
     {
-      setValue(DISPLAYNETS, java.lang.Integer.toString(value));
+      setValue(DISPLAYNETS, value.getId());
     }
   }
   
@@ -174,17 +181,24 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(DISPLAYNETS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDisplayNetsMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayNetsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLAYNETS).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYNETS).getAttributeMdDTO();
   }
   
-  public Integer getDisplayServices()
+  public dss.vector.solutions.ontology.TermDTO getDisplayServices()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYSERVICES));
+    if(getValue(DISPLAYSERVICES) == null || getValue(DISPLAYSERVICES).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DISPLAYSERVICES));
+    }
   }
   
-  public void setDisplayServices(Integer value)
+  public void setDisplayServices(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -192,7 +206,7 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     }
     else
     {
-      setValue(DISPLAYSERVICES, java.lang.Integer.toString(value));
+      setValue(DISPLAYSERVICES, value.getId());
     }
   }
   
@@ -211,17 +225,24 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(DISPLAYSERVICES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDisplayServicesMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayServicesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLAYSERVICES).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYSERVICES).getAttributeMdDTO();
   }
   
-  public Integer getDisplayTargetGroups()
+  public dss.vector.solutions.ontology.TermDTO getDisplayTargetGroups()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYTARGETGROUPS));
+    if(getValue(DISPLAYTARGETGROUPS) == null || getValue(DISPLAYTARGETGROUPS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DISPLAYTARGETGROUPS));
+    }
   }
   
-  public void setDisplayTargetGroups(Integer value)
+  public void setDisplayTargetGroups(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -229,7 +250,7 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     }
     else
     {
-      setValue(DISPLAYTARGETGROUPS, java.lang.Integer.toString(value));
+      setValue(DISPLAYTARGETGROUPS, value.getId());
     }
   }
   
@@ -248,9 +269,9 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(DISPLAYTARGETGROUPS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDisplayTargetGroupsMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayTargetGroupsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLAYTARGETGROUPS).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYTARGETGROUPS).getAttributeMdDTO();
   }
   
   public String getGeoId()

@@ -1,10 +1,10 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 249210385)
+@com.terraframe.mojo.business.ClassSignature(hash = 1989025067)
 public abstract class StockItemViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.stock.StockItemView";
-  private static final long serialVersionUID = 249210385;
+  private static final long serialVersionUID = 1989025067;
   
   protected StockItemViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -18,6 +18,7 @@ public abstract class StockItemViewDTOBase extends com.terraframe.mojo.business.
   
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String ID = "id";
+  public static java.lang.String ITEMID = "itemId";
   public static java.lang.String ITEMNAME = "itemName";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String UNIT = "unit";
@@ -56,6 +57,43 @@ public abstract class StockItemViewDTOBase extends com.terraframe.mojo.business.
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+  }
+  
+  public String getItemId()
+  {
+    return getValue(ITEMID);
+  }
+  
+  public void setItemId(String value)
+  {
+    if(value == null)
+    {
+      setValue(ITEMID, "");
+    }
+    else
+    {
+      setValue(ITEMID, value);
+    }
+  }
+  
+  public boolean isItemIdWritable()
+  {
+    return isWritable(ITEMID);
+  }
+  
+  public boolean isItemIdReadable()
+  {
+    return isReadable(ITEMID);
+  }
+  
+  public boolean isItemIdModified()
+  {
+    return isModified(ITEMID);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getItemIdMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ITEMID).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getItemName()

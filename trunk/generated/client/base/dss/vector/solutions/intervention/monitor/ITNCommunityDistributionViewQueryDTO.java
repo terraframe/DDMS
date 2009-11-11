@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -458095773)
+@com.terraframe.mojo.business.ClassSignature(hash = 1721301875)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public class ITNCommunityDistributionViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -458095773;
+private static final long serialVersionUID = 1721301875;
 
   protected ITNCommunityDistributionViewQueryDTO(String type)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1130702654)
+@com.terraframe.mojo.business.ClassSignature(hash = -665943370)
 public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.AggregatedIPTView";
-  private static final long serialVersionUID = 1130702654;
+  private static final long serialVersionUID = -665943370;
   
   protected AggregatedIPTViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -68,12 +68,19 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
-  public Integer getDisplayDose()
+  public dss.vector.solutions.ontology.TermDTO getDisplayDose()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYDOSE));
+    if(getValue(DISPLAYDOSE) == null || getValue(DISPLAYDOSE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DISPLAYDOSE));
+    }
   }
   
-  public void setDisplayDose(Integer value)
+  public void setDisplayDose(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -81,7 +88,7 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      setValue(DISPLAYDOSE, java.lang.Integer.toString(value));
+      setValue(DISPLAYDOSE, value.getId());
     }
   }
   
@@ -100,17 +107,24 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(DISPLAYDOSE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDisplayDoseMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayDoseMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLAYDOSE).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYDOSE).getAttributeMdDTO();
   }
   
-  public Integer getDisplayPatients()
+  public dss.vector.solutions.ontology.TermDTO getDisplayPatients()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYPATIENTS));
+    if(getValue(DISPLAYPATIENTS) == null || getValue(DISPLAYPATIENTS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DISPLAYPATIENTS));
+    }
   }
   
-  public void setDisplayPatients(Integer value)
+  public void setDisplayPatients(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -118,7 +132,7 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      setValue(DISPLAYPATIENTS, java.lang.Integer.toString(value));
+      setValue(DISPLAYPATIENTS, value.getId());
     }
   }
   
@@ -137,17 +151,24 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(DISPLAYPATIENTS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDisplayPatientsMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayPatientsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLAYPATIENTS).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYPATIENTS).getAttributeMdDTO();
   }
   
-  public Integer getDisplayTreatments()
+  public dss.vector.solutions.ontology.TermDTO getDisplayTreatments()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYTREATMENTS));
+    if(getValue(DISPLAYTREATMENTS) == null || getValue(DISPLAYTREATMENTS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DISPLAYTREATMENTS));
+    }
   }
   
-  public void setDisplayTreatments(Integer value)
+  public void setDisplayTreatments(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -155,7 +176,7 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      setValue(DISPLAYTREATMENTS, java.lang.Integer.toString(value));
+      setValue(DISPLAYTREATMENTS, value.getId());
     }
   }
   
@@ -174,17 +195,24 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(DISPLAYTREATMENTS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDisplayTreatmentsMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayTreatmentsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLAYTREATMENTS).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYTREATMENTS).getAttributeMdDTO();
   }
   
-  public Integer getDisplayVisits()
+  public dss.vector.solutions.ontology.TermDTO getDisplayVisits()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYVISITS));
+    if(getValue(DISPLAYVISITS) == null || getValue(DISPLAYVISITS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DISPLAYVISITS));
+    }
   }
   
-  public void setDisplayVisits(Integer value)
+  public void setDisplayVisits(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -192,7 +220,7 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      setValue(DISPLAYVISITS, java.lang.Integer.toString(value));
+      setValue(DISPLAYVISITS, value.getId());
     }
   }
   
@@ -211,9 +239,9 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(DISPLAYVISITS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDisplayVisitsMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayVisitsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLAYVISITS).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYVISITS).getAttributeMdDTO();
   }
   
   public String getGeoId()

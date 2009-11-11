@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1346893445)
+@com.terraframe.mojo.business.ClassSignature(hash = -363967253)
 public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.HouseholdView";
-  private static final long serialVersionUID = 1346893445;
+  private static final long serialVersionUID = -363967253;
   
   protected HouseholdViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -71,12 +71,19 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
-  public Integer getDisplayNets()
+  public dss.vector.solutions.ontology.TermDTO getDisplayNets()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYNETS));
+    if(getValue(DISPLAYNETS) == null || getValue(DISPLAYNETS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DISPLAYNETS));
+    }
   }
   
-  public void setDisplayNets(Integer value)
+  public void setDisplayNets(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -84,7 +91,7 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     }
     else
     {
-      setValue(DISPLAYNETS, java.lang.Integer.toString(value));
+      setValue(DISPLAYNETS, value.getId());
     }
   }
   
@@ -103,9 +110,9 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(DISPLAYNETS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDisplayNetsMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayNetsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLAYNETS).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYNETS).getAttributeMdDTO();
   }
   
   public Boolean getHasWindows()

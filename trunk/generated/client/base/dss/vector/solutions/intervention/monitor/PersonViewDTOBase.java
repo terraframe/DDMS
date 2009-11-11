@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 311531194)
+@com.terraframe.mojo.business.ClassSignature(hash = -257611628)
 public abstract class PersonViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.PersonView";
-  private static final long serialVersionUID = 311531194;
+  private static final long serialVersionUID = -257611628;
   
   protected PersonViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -730,12 +730,19 @@ public abstract class PersonViewDTOBase extends com.terraframe.mojo.business.Vie
     return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(PREGNANT).getAttributeMdDTO();
   }
   
-  public Integer getRDTResult()
+  public dss.vector.solutions.ontology.TermDTO getRDTResult()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RDTRESULT));
+    if(getValue(RDTRESULT) == null || getValue(RDTRESULT).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(RDTRESULT));
+    }
   }
   
-  public void setRDTResult(Integer value)
+  public void setRDTResult(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -743,7 +750,7 @@ public abstract class PersonViewDTOBase extends com.terraframe.mojo.business.Vie
     }
     else
     {
-      setValue(RDTRESULT, java.lang.Integer.toString(value));
+      setValue(RDTRESULT, value.getId());
     }
   }
   
@@ -762,9 +769,9 @@ public abstract class PersonViewDTOBase extends com.terraframe.mojo.business.Vie
     return isModified(RDTRESULT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRDTResultMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getRDTResultMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RDTRESULT).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(RDTRESULT).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getRdtTreatment()

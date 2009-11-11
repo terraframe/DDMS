@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -155573399)
+@com.terraframe.mojo.business.ClassSignature(hash = -497711849)
 public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNDistributionView";
-  private static final long serialVersionUID = -155573399;
+  private static final long serialVersionUID = -497711849;
   
   protected ITNDistributionViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -457,12 +457,19 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SERVICE).getAttributeMdDTO();
   }
   
-  public Integer getTargetGroups()
+  public dss.vector.solutions.ontology.TermDTO getTargetGroups()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGETGROUPS));
+    if(getValue(TARGETGROUPS) == null || getValue(TARGETGROUPS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TARGETGROUPS));
+    }
   }
   
-  public void setTargetGroups(Integer value)
+  public void setTargetGroups(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -470,7 +477,7 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     }
     else
     {
-      setValue(TARGETGROUPS, java.lang.Integer.toString(value));
+      setValue(TARGETGROUPS, value.getId());
     }
   }
   
@@ -489,9 +496,9 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return isModified(TARGETGROUPS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTargetGroupsMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTargetGroupsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TARGETGROUPS).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TARGETGROUPS).getAttributeMdDTO();
   }
   
   public final void applyAll(dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO[] targetGroups)

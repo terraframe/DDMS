@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -14260191)
+@com.terraframe.mojo.business.ClassSignature(hash = -680797055)
 public abstract class ChildCaseViewDTOBase extends dss.vector.solutions.surveillance.AggregatedCaseViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.ChildCaseView";
-  private static final long serialVersionUID = -14260191;
+  private static final long serialVersionUID = -680797055;
   
   protected ChildCaseViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -57,12 +57,19 @@ public abstract class ChildCaseViewDTOBase extends dss.vector.solutions.surveill
   public static java.lang.String REFERRALSRECEIVED = "referralsReceived";
   public static java.lang.String REFERRALSSENT = "referralsSent";
   public static java.lang.String STILLBIRTHS = "stillBirths";
-  public Boolean getCaseDiagnostic()
+  public dss.vector.solutions.ontology.TermDTO getCaseDiagnostic()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASEDIAGNOSTIC));
+    if(getValue(CASEDIAGNOSTIC) == null || getValue(CASEDIAGNOSTIC).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CASEDIAGNOSTIC));
+    }
   }
   
-  public void setCaseDiagnostic(Boolean value)
+  public void setCaseDiagnostic(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -70,7 +77,7 @@ public abstract class ChildCaseViewDTOBase extends dss.vector.solutions.surveill
     }
     else
     {
-      setValue(CASEDIAGNOSTIC, java.lang.Boolean.toString(value));
+      setValue(CASEDIAGNOSTIC, value.getId());
     }
   }
   
@@ -89,17 +96,24 @@ public abstract class ChildCaseViewDTOBase extends dss.vector.solutions.surveill
     return isModified(CASEDIAGNOSTIC);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getCaseDiagnosticMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCaseDiagnosticMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASEDIAGNOSTIC).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CASEDIAGNOSTIC).getAttributeMdDTO();
   }
   
-  public Boolean getCaseReferrals()
+  public dss.vector.solutions.ontology.TermDTO getCaseReferrals()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASEREFERRALS));
+    if(getValue(CASEREFERRALS) == null || getValue(CASEREFERRALS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CASEREFERRALS));
+    }
   }
   
-  public void setCaseReferrals(Boolean value)
+  public void setCaseReferrals(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -107,7 +121,7 @@ public abstract class ChildCaseViewDTOBase extends dss.vector.solutions.surveill
     }
     else
     {
-      setValue(CASEREFERRALS, java.lang.Boolean.toString(value));
+      setValue(CASEREFERRALS, value.getId());
     }
   }
   
@@ -126,17 +140,24 @@ public abstract class ChildCaseViewDTOBase extends dss.vector.solutions.surveill
     return isModified(CASEREFERRALS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getCaseReferralsMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCaseReferralsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASEREFERRALS).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CASEREFERRALS).getAttributeMdDTO();
   }
   
-  public Boolean getCaseStocks()
+  public dss.vector.solutions.ontology.TermDTO getCaseStocks()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASESTOCKS));
+    if(getValue(CASESTOCKS) == null || getValue(CASESTOCKS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CASESTOCKS));
+    }
   }
   
-  public void setCaseStocks(Boolean value)
+  public void setCaseStocks(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -144,7 +165,7 @@ public abstract class ChildCaseViewDTOBase extends dss.vector.solutions.surveill
     }
     else
     {
-      setValue(CASESTOCKS, java.lang.Boolean.toString(value));
+      setValue(CASESTOCKS, value.getId());
     }
   }
   
@@ -163,17 +184,24 @@ public abstract class ChildCaseViewDTOBase extends dss.vector.solutions.surveill
     return isModified(CASESTOCKS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getCaseStocksMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCaseStocksMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASESTOCKS).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CASESTOCKS).getAttributeMdDTO();
   }
   
-  public Boolean getCaseTreatmentMethod()
+  public dss.vector.solutions.ontology.TermDTO getCaseTreatmentMethod()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASETREATMENTMETHOD));
+    if(getValue(CASETREATMENTMETHOD) == null || getValue(CASETREATMENTMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CASETREATMENTMETHOD));
+    }
   }
   
-  public void setCaseTreatmentMethod(Boolean value)
+  public void setCaseTreatmentMethod(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -181,7 +209,7 @@ public abstract class ChildCaseViewDTOBase extends dss.vector.solutions.surveill
     }
     else
     {
-      setValue(CASETREATMENTMETHOD, java.lang.Boolean.toString(value));
+      setValue(CASETREATMENTMETHOD, value.getId());
     }
   }
   
@@ -200,17 +228,24 @@ public abstract class ChildCaseViewDTOBase extends dss.vector.solutions.surveill
     return isModified(CASETREATMENTMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getCaseTreatmentMethodMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCaseTreatmentMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASETREATMENTMETHOD).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CASETREATMENTMETHOD).getAttributeMdDTO();
   }
   
-  public Boolean getCaseTreatments()
+  public dss.vector.solutions.ontology.TermDTO getCaseTreatments()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASETREATMENTS));
+    if(getValue(CASETREATMENTS) == null || getValue(CASETREATMENTS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CASETREATMENTS));
+    }
   }
   
-  public void setCaseTreatments(Boolean value)
+  public void setCaseTreatments(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -218,7 +253,7 @@ public abstract class ChildCaseViewDTOBase extends dss.vector.solutions.surveill
     }
     else
     {
-      setValue(CASETREATMENTS, java.lang.Boolean.toString(value));
+      setValue(CASETREATMENTS, value.getId());
     }
   }
   
@@ -237,9 +272,9 @@ public abstract class ChildCaseViewDTOBase extends dss.vector.solutions.surveill
     return isModified(CASETREATMENTS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getCaseTreatmentsMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCaseTreatmentsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASETREATMENTS).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CASETREATMENTS).getAttributeMdDTO();
   }
   
   public Integer getCases()

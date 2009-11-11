@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1880439834)
+@com.terraframe.mojo.business.ClassSignature(hash = 1313585898)
 public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView";
-  private static final long serialVersionUID = 1880439834;
+  private static final long serialVersionUID = 1313585898;
   
   protected ITNCommunityDistributionViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -222,12 +222,19 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CURRENCYRECEIVED).getAttributeMdDTO();
   }
   
-  public Integer getDisplayNets()
+  public dss.vector.solutions.ontology.TermDTO getDisplayNets()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYNETS));
+    if(getValue(DISPLAYNETS) == null || getValue(DISPLAYNETS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DISPLAYNETS));
+    }
   }
   
-  public void setDisplayNets(Integer value)
+  public void setDisplayNets(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -235,7 +242,7 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     }
     else
     {
-      setValue(DISPLAYNETS, java.lang.Integer.toString(value));
+      setValue(DISPLAYNETS, value.getId());
     }
   }
   
@@ -254,17 +261,24 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(DISPLAYNETS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDisplayNetsMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayNetsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLAYNETS).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYNETS).getAttributeMdDTO();
   }
   
-  public Integer getDisplayTargetGroups()
+  public dss.vector.solutions.ontology.TermDTO getDisplayTargetGroups()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYTARGETGROUPS));
+    if(getValue(DISPLAYTARGETGROUPS) == null || getValue(DISPLAYTARGETGROUPS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DISPLAYTARGETGROUPS));
+    }
   }
   
-  public void setDisplayTargetGroups(Integer value)
+  public void setDisplayTargetGroups(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
@@ -272,7 +286,7 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     }
     else
     {
-      setValue(DISPLAYTARGETGROUPS, java.lang.Integer.toString(value));
+      setValue(DISPLAYTARGETGROUPS, value.getId());
     }
   }
   
@@ -291,9 +305,9 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(DISPLAYTARGETGROUPS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDisplayTargetGroupsMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayTargetGroupsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLAYTARGETGROUPS).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYTARGETGROUPS).getAttributeMdDTO();
   }
   
   public String getDistributionLocation()

@@ -1,10 +1,10 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1644064538)
+@com.terraframe.mojo.business.ClassSignature(hash = 1107475311)
 public abstract class StockStaffDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.stock.StockStaff";
-  private static final long serialVersionUID = -1644064538;
+  private static final long serialVersionUID = 1107475311;
   
   protected StockStaffDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -403,6 +403,22 @@ public abstract class StockStaffDTOBase extends com.terraframe.mojo.business.Bus
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public static final dss.vector.solutions.stock.StockStaffDTO[] getAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockStaffDTO.CLASS, "getAll", _declaredTypes);
+    return (dss.vector.solutions.stock.StockStaffDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.stock.StockStaffQueryDTO searchAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String criteria)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{criteria};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockStaffDTO.CLASS, "searchAll", _declaredTypes);
+    return (dss.vector.solutions.stock.StockStaffQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.stock.StockStaffDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

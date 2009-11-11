@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -922710022)
+@com.terraframe.mojo.business.ClassSignature(hash = 618427606)
 public class ITNCommunityDistributionControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController";
@@ -10,7 +10,7 @@ public class ITNCommunityDistributionControllerBase implements com.terraframe.mo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -922710022;
+  private static final long serialVersionUID = 618427606;
   
   public ITNCommunityDistributionControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -68,6 +68,20 @@ public class ITNCommunityDistributionControllerBase implements com.terraframe.mo
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO:dto", post=true)
+  public void cancel(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.cancel");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO:dto", post=true)
+  public void failCancel(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.failCancel");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO:dto", post=true)
   public void delete(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
@@ -81,18 +95,46 @@ public class ITNCommunityDistributionControllerBase implements com.terraframe.mo
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.failDelete");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO:dto", post=true)
-  public void cancel(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.cancel");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.edit");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO:dto", post=true)
-  public void failCancel(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.failCancel");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.failEdit");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO:dto, [Ldss.vector.solutions.intervention.monitor.ITNCommunityNetDTO;:nets, [Ldss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO;:targetGroups", post=true)
+  public void create(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO dto, dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO[] nets, dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO[] targetGroups) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.create");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO:dto, [Ldss.vector.solutions.intervention.monitor.ITNCommunityNetDTO;:nets, [Ldss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO;:targetGroups", post=true)
+  public void failCreate(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO dto, dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO[] nets, dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO[] targetGroups) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.failCreate");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.viewAll");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.failViewAll");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
@@ -109,18 +151,18 @@ public class ITNCommunityDistributionControllerBase implements com.terraframe.mo
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.failViewPage");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO:dto, [Ldss.vector.solutions.intervention.monitor.ITNCommunityNetDTO;:nets, [Ldss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO;:targetGroups", post=true)
-  public void create(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO dto, dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO[] nets, dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO[] targetGroups) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.create");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.view");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO:dto, [Ldss.vector.solutions.intervention.monitor.ITNCommunityNetDTO;:nets, [Ldss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO;:targetGroups", post=true)
-  public void failCreate(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO dto, dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO[] nets, dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO[] targetGroups) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.failCreate");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.failView");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
@@ -149,48 +191,6 @@ public class ITNCommunityDistributionControllerBase implements com.terraframe.mo
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.failUpdate");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.edit");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.failEdit");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.viewAll");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.failViewAll");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.view");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.failView");
   }
   
 }

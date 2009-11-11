@@ -1,12 +1,12 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1099286682)
-public abstract class StockItemDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.terraframe.mojo.business.ClassSignature(hash = 1907372081)
+public abstract class StockEventDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public final static String CLASS = "dss.vector.solutions.stock.StockItem";
-  private static final long serialVersionUID = -1099286682;
+  public final static String CLASS = "dss.vector.solutions.stock.StockEvent";
+  private static final long serialVersionUID = 1907372081;
   
-  protected StockItemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected StockEventDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class StockItemDTOBase extends com.terraframe.mojo.business.Busi
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected StockItemDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected StockEventDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -27,12 +27,13 @@ public abstract class StockItemDTOBase extends com.terraframe.mojo.business.Busi
     return CLASS;
   }
   
+  public static java.lang.String COST = "cost";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String EVENTDATE = "eventDate";
   public static java.lang.String ID = "id";
-  public static java.lang.String ITEMID = "itemId";
-  public static java.lang.String ITEMNAME = "itemName";
+  public static java.lang.String ITEM = "item";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
@@ -41,8 +42,47 @@ public abstract class StockItemDTOBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String STAFF = "staff";
+  public static java.lang.String STOCKDEPOT = "stockDepot";
+  public static java.lang.String TRANSACTIONTYPE = "transactionType";
   public static java.lang.String TYPE = "type";
-  public static java.lang.String UNIT = "unit";
+  public java.math.BigDecimal getCost()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(COST));
+  }
+  
+  public void setCost(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(COST, "");
+    }
+    else
+    {
+      setValue(COST, value.toString());
+    }
+  }
+  
+  public boolean isCostWritable()
+  {
+    return isWritable(COST);
+  }
+  
+  public boolean isCostReadable()
+  {
+    return isReadable(COST);
+  }
+  
+  public boolean isCostModified()
+  {
+    return isModified(COST);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getCostMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(COST).getAttributeMdDTO();
+  }
+  
   public java.util.Date getCreateDate()
   {
     return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
@@ -144,85 +184,85 @@ public abstract class StockItemDTOBase extends com.terraframe.mojo.business.Busi
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
-  public String getItemId()
+  public java.util.Date getEventDate()
   {
-    return getValue(ITEMID);
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(EVENTDATE));
   }
   
-  public void setItemId(String value)
+  public void setEventDate(java.util.Date value)
   {
     if(value == null)
     {
-      setValue(ITEMID, "");
+      setValue(EVENTDATE, "");
     }
     else
     {
-      setValue(ITEMID, value);
+      setValue(EVENTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
-  public boolean isItemIdWritable()
+  public boolean isEventDateWritable()
   {
-    return isWritable(ITEMID);
+    return isWritable(EVENTDATE);
   }
   
-  public boolean isItemIdReadable()
+  public boolean isEventDateReadable()
   {
-    return isReadable(ITEMID);
+    return isReadable(EVENTDATE);
   }
   
-  public boolean isItemIdModified()
+  public boolean isEventDateModified()
   {
-    return isModified(ITEMID);
+    return isModified(EVENTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getItemIdMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getEventDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ITEMID).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(EVENTDATE).getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.ontology.TermDTO getItemName()
+  public dss.vector.solutions.stock.StockItemDTO getItem()
   {
-    if(getValue(ITEMNAME) == null || getValue(ITEMNAME).trim().equals(""))
+    if(getValue(ITEM) == null || getValue(ITEM).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(ITEMNAME));
+      return dss.vector.solutions.stock.StockItemDTO.get(getRequest(), getValue(ITEM));
     }
   }
   
-  public void setItemName(dss.vector.solutions.ontology.TermDTO value)
+  public void setItem(dss.vector.solutions.stock.StockItemDTO value)
   {
     if(value == null)
     {
-      setValue(ITEMNAME, "");
+      setValue(ITEM, "");
     }
     else
     {
-      setValue(ITEMNAME, value.getId());
+      setValue(ITEM, value.getId());
     }
   }
   
-  public boolean isItemNameWritable()
+  public boolean isItemWritable()
   {
-    return isWritable(ITEMNAME);
+    return isWritable(ITEM);
   }
   
-  public boolean isItemNameReadable()
+  public boolean isItemReadable()
   {
-    return isReadable(ITEMNAME);
+    return isReadable(ITEM);
   }
   
-  public boolean isItemNameModified()
+  public boolean isItemModified()
   {
-    return isModified(ITEMNAME);
+    return isModified(ITEM);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getItemNameMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getItemMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ITEMNAME).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ITEM).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -395,12 +435,12 @@ public abstract class StockItemDTOBase extends com.terraframe.mojo.business.Busi
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
-  public Float getQuantity()
+  public Integer getQuantity()
   {
-    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(QUANTITY));
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITY));
   }
   
-  public void setQuantity(Float value)
+  public void setQuantity(Integer value)
   {
     if(value == null)
     {
@@ -408,7 +448,7 @@ public abstract class StockItemDTOBase extends com.terraframe.mojo.business.Busi
     }
     else
     {
-      setValue(QUANTITY, java.lang.Float.toString(value));
+      setValue(QUANTITY, java.lang.Integer.toString(value));
     }
   }
   
@@ -427,9 +467,9 @@ public abstract class StockItemDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(QUANTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getQuantityMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(QUANTITY).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITY).getAttributeMdDTO();
   }
   
   public Long getSeq()
@@ -482,103 +522,193 @@ public abstract class StockItemDTOBase extends com.terraframe.mojo.business.Busi
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.ontology.TermDTO getUnit()
+  public dss.vector.solutions.stock.StockStaffDTO getStaff()
   {
-    if(getValue(UNIT) == null || getValue(UNIT).trim().equals(""))
+    if(getValue(STAFF) == null || getValue(STAFF).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(UNIT));
+      return dss.vector.solutions.stock.StockStaffDTO.get(getRequest(), getValue(STAFF));
     }
   }
   
-  public void setUnit(dss.vector.solutions.ontology.TermDTO value)
+  public void setStaff(dss.vector.solutions.stock.StockStaffDTO value)
   {
     if(value == null)
     {
-      setValue(UNIT, "");
+      setValue(STAFF, "");
     }
     else
     {
-      setValue(UNIT, value.getId());
+      setValue(STAFF, value.getId());
     }
   }
   
-  public boolean isUnitWritable()
+  public boolean isStaffWritable()
   {
-    return isWritable(UNIT);
+    return isWritable(STAFF);
   }
   
-  public boolean isUnitReadable()
+  public boolean isStaffReadable()
   {
-    return isReadable(UNIT);
+    return isReadable(STAFF);
   }
   
-  public boolean isUnitModified()
+  public boolean isStaffModified()
   {
-    return isModified(UNIT);
+    return isModified(STAFF);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getUnitMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getStaffMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(UNIT).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(STAFF).getAttributeMdDTO();
   }
   
-  public final dss.vector.solutions.stock.StockItemViewDTO getView()
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getStockDepot()
+  {
+    if(getValue(STOCKDEPOT) == null || getValue(STOCKDEPOT).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(STOCKDEPOT));
+    }
+  }
+  
+  public void setStockDepot(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  {
+    if(value == null)
+    {
+      setValue(STOCKDEPOT, "");
+    }
+    else
+    {
+      setValue(STOCKDEPOT, value.getId());
+    }
+  }
+  
+  public boolean isStockDepotWritable()
+  {
+    return isWritable(STOCKDEPOT);
+  }
+  
+  public boolean isStockDepotReadable()
+  {
+    return isReadable(STOCKDEPOT);
+  }
+  
+  public boolean isStockDepotModified()
+  {
+    return isModified(STOCKDEPOT);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getStockDepotMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(STOCKDEPOT).getAttributeMdDTO();
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.stock.EventOptionDTO> getTransactionType()
+  {
+    return (java.util.List<dss.vector.solutions.stock.EventOptionDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.stock.EventOption", getEnumNames(TRANSACTIONTYPE));
+  }
+  
+  public java.util.List<String> getTransactionTypeEnumNames()
+  {
+    return getEnumNames(TRANSACTIONTYPE);
+  }
+  
+  public void addTransactionType(dss.vector.solutions.stock.EventOptionDTO enumDTO)
+  {
+    addEnumItem(TRANSACTIONTYPE, enumDTO.toString());
+  }
+  
+  public void removeTransactionType(dss.vector.solutions.stock.EventOptionDTO enumDTO)
+  {
+    removeEnumItem(TRANSACTIONTYPE, enumDTO.toString());
+  }
+  
+  public void clearTransactionType()
+  {
+    clearEnum(TRANSACTIONTYPE);
+  }
+  
+  public boolean isTransactionTypeWritable()
+  {
+    return isWritable(TRANSACTIONTYPE);
+  }
+  
+  public boolean isTransactionTypeReadable()
+  {
+    return isReadable(TRANSACTIONTYPE);
+  }
+  
+  public boolean isTransactionTypeModified()
+  {
+    return isModified(TRANSACTIONTYPE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getTransactionTypeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(TRANSACTIONTYPE).getAttributeMdDTO();
+  }
+  
+  public final dss.vector.solutions.stock.StockEventViewDTO getView()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockItemDTO.CLASS, "getView", _declaredTypes);
-    return (dss.vector.solutions.stock.StockItemViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockEventDTO.CLASS, "getView", _declaredTypes);
+    return (dss.vector.solutions.stock.StockEventViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.stock.StockItemViewDTO getView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.stock.StockEventViewDTO getView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockItemDTO.CLASS, "getView", _declaredTypes);
-    return (dss.vector.solutions.stock.StockItemViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockEventDTO.CLASS, "getView", _declaredTypes);
+    return (dss.vector.solutions.stock.StockEventViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final dss.vector.solutions.stock.StockItemViewDTO lockView()
+  public final dss.vector.solutions.stock.StockEventViewDTO lockView()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockItemDTO.CLASS, "lockView", _declaredTypes);
-    return (dss.vector.solutions.stock.StockItemViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockEventDTO.CLASS, "lockView", _declaredTypes);
+    return (dss.vector.solutions.stock.StockEventViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.stock.StockItemViewDTO lockView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.stock.StockEventViewDTO lockView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockItemDTO.CLASS, "lockView", _declaredTypes);
-    return (dss.vector.solutions.stock.StockItemViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockEventDTO.CLASS, "lockView", _declaredTypes);
+    return (dss.vector.solutions.stock.StockEventViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final dss.vector.solutions.stock.StockItemViewDTO unlockView()
+  public final dss.vector.solutions.stock.StockEventViewDTO unlockView()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockItemDTO.CLASS, "unlockView", _declaredTypes);
-    return (dss.vector.solutions.stock.StockItemViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockEventDTO.CLASS, "unlockView", _declaredTypes);
+    return (dss.vector.solutions.stock.StockEventViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.stock.StockItemViewDTO unlockView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.stock.StockEventViewDTO unlockView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockItemDTO.CLASS, "unlockView", _declaredTypes);
-    return (dss.vector.solutions.stock.StockItemViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockEventDTO.CLASS, "unlockView", _declaredTypes);
+    return (dss.vector.solutions.stock.StockEventViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static dss.vector.solutions.stock.StockItemDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.stock.StockEventDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
   {
     com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
     
-    return (dss.vector.solutions.stock.StockItemDTO) dto;
+    return (dss.vector.solutions.stock.StockEventDTO) dto;
   }
   
   public void apply()
@@ -597,9 +727,9 @@ public abstract class StockItemDTOBase extends com.terraframe.mojo.business.Busi
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.stock.StockItemQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.stock.StockEventQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.stock.StockItemQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.stock.StockItem", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.stock.StockEventQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.stock.StockEvent", sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -607,12 +737,12 @@ public abstract class StockItemDTOBase extends com.terraframe.mojo.business.Busi
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.stock.StockItemDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.stock.StockEventDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockItemDTO.CLASS, "lock", _declaredTypes);
-    return (dss.vector.solutions.stock.StockItemDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockEventDTO.CLASS, "lock", _declaredTypes);
+    return (dss.vector.solutions.stock.StockEventDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public void unlock()
@@ -620,12 +750,12 @@ public abstract class StockItemDTOBase extends com.terraframe.mojo.business.Busi
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.stock.StockItemDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.stock.StockEventDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockItemDTO.CLASS, "unlock", _declaredTypes);
-    return (dss.vector.solutions.stock.StockItemDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockEventDTO.CLASS, "unlock", _declaredTypes);
+    return (dss.vector.solutions.stock.StockEventDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
 }
