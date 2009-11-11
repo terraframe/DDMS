@@ -275,11 +275,11 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
     if (snapToFirstDay)
     {
-      cal.set(period, min);
+      cal.add(Calendar.DAY_OF_YEAR, -days_before_piviot);
     }
     else
     {
-      cal.set(period, max);
+      cal.add(Calendar.DAY_OF_YEAR, days_after_piviot);
     }
     return cal.getTime();
   }
@@ -308,11 +308,11 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
     if (snapToFirstDay)
     {
-      cal.set(period, min);
+      cal.add(Calendar.DAY_OF_YEAR, -days_before_piviot);
     }
     else
     {
-      cal.set(period, max);
+      cal.add(Calendar.DAY_OF_YEAR, days_after_piviot);
     }
     return cal.getTime();
   }
