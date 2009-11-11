@@ -29,7 +29,18 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedIPT', {
 
       this._exclusionClasses = [];
       
-      this.$initialize(selectableGroups, queryList);   
+      
+      
+      var instance = new this._aggregatedIPT();
+      
+      
+      this._geoEntityAttribs = [
+                                {
+                                  keyName :  this._groupByClass.CLASS+'.'+this._groupByClass.GEOENTITY,
+                                  display : instance.getGeoEntityMd().getDisplayLabel()
+                                }        
+                              ];
+      
       
 
       /**
@@ -39,6 +50,9 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedIPT', {
       
 
       this._reportQueryType = 'QueryAggregatedIPT';
+      this.$initialize(selectableGroups, queryList);   
+      
+
       }
     }
 });

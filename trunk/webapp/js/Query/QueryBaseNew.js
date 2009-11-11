@@ -207,8 +207,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         if(selectable.attribute)
         {
           var t =  selectable.attribute.getType();
-          var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'');
-          var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'');
+          var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'').replace(/.name/,'');
+          var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'').replace(/.name/,'');
           if(t == 'sqlcharacter')
           {
             n = selectable.attribute.getAttributeName().replace(/_defaultLocale/,'');
@@ -269,6 +269,35 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
             }
           }
         }
+          //this is for mo terms
+          var queryBrowser = this.getBrowser(selectable.attribute);
+          if(queryBrowser)
+          {
+          	var terms = queryBrowser.getTerms();
+          	
+          	if(terms.length > 0)
+          	{
+          		//create a new where clause for allpaths
+	          	var termClass = 'dss.vector.solutions.ontology.AllPaths';
+	          	var termAlias = n +'__'+ t.replace(/[.]/g,'_') +'__'+ selectable.attribute.getKey();
+	          	var termQuery = new MDSS.QueryXML.Entity(termClass, termAlias);
+	          	queryXML.addEntity(termQuery);
+	          	
+	          	var termParent = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(termAlias, "parentTerm"));
+	          	//now restrict to attrubtes having the parent id of the restrictor term
+	          	var or = new MDSS.QueryXML.Or();
+	          	Mojo.Iter.forEach(terms, function(restrictorID){
+	
+		          	var restrictCondition = new MDSS.QueryXML.BasicCondition(termParent, MDSS.QueryXML.Operator.EQ, restrictorID);
+		          	or.addCondition(restrictorID, restrictCondition);
+		            
+          	  });
+	            //add the restrictions to the query
+          	  var composite = new MDSS.QueryXML.CompositeCondition(or);
+          	  termQuery.setCondition(composite);
+          	}
+          	
+          }
        }
       }
 
@@ -622,6 +651,18 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       parser.parseSelectables({
         attribute : function(entityAlias, attributeName, userAlias){
             thisRef._checkBox(userAlias);
+           
+           	var key = userAlias + '_li';
+          	var browser = thisRef._browsers[key];
+	          if(browser){
+	          	var termList = thisRef._config._config.terms[userAlias];
+	            for(var termId in termList){
+	                browser.addTerm(termId);
+	                attribute = browser.getAttribute();
+	                display = browser.getDisplay(termId);
+	                thisRef._queryPanel.addWhereCriteria(attribute.getKey(), termId, display);
+	            }
+          	}
         },
         sum: function(entityAlias, attributeName, userAlias){
 
@@ -778,7 +819,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
             // Add single match and range
         	var items = [];
-          var single = this._createSingleItem(check, li, attribute);
+          var single = this._createSingleItem(check, li, attribute,'queryNumberCriteria');
           var range = this._createRangeItem(check, li, attribute);
           
           this._menuItems[attribute.getKey()+'-single'] = single;        
@@ -842,6 +883,13 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           }
           this._menus[li.id] = items;
         }
+        else //Mo terms
+          if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeReferenceDTO'))
+          {
+          	li.id = attribute.getKey()+'_li';
+          	var n =  attribute.getAttributeName().replace(/.name/,'');
+            this._attachBrowser(li.id, this._genericBrowserHandler, attribute, visibleObj.type + "View", n, true);
+          }
 
         visibleUl.appendChild(li);
       }
@@ -851,6 +899,21 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       return visibleDiv;
     },
 
+    _genericBrowserHandler : function(browser, selected)
+    {
+      // clear all previous criteria on this attribute
+      var attribute = browser.getAttribute();
+      
+      var key = attribute.getKey();
+      this._queryPanel.clearWhereCriteria(key);      
+
+      Mojo.Iter.forEach(selected, function(sel){
+        //for display
+        var display = MDSS.OntologyBrowser.formatLabel(sel);
+        this._queryPanel.addWhereCriteria(attribute.getKey(), sel.getTermId(), display);
+      }, this); 
+    },
+    
     /**
      * Builds the query items for the left column.
      */
@@ -970,14 +1033,14 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      * Creates the JSON necessary to let a user specify an single
      * match on an attribute.
      */
-    _createSingleItem : function(check, li, attribute)
+    _createSingleItem : function(check, li, attribute, klass)
     {
       this._singleAndRangeAttributes.push(attribute);
     
       var singleInput = document.createElement('input');
       YAHOO.util.Dom.setAttribute(singleInput, 'type', 'text');
       YAHOO.util.Dom.setStyle(singleInput, 'display', 'none');
-      YAHOO.util.Dom.addClass(singleInput, 'queryNumberCriteria');
+      YAHOO.util.Dom.addClass(singleInput, klass);
       singleInput.id = attribute.getKey()+"-single";
       
       var obj = {
@@ -1148,22 +1211,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       // preserve it when toggling single/range inputs.
       this._queryPanel.clearWhereCriteria(attribute.getKey());
       
-     // if(!checked && attribute.getAttributeName() === this._Person.DOB)
-      //{
-       // this._config.setProperty('dobCriteria', null);
-      //}
-     // else if(!checked)
-     // {
-        // no criteria specified, so clear the mapping
-     //   if(attribute.getType() === this._Person.CLASS)
-     //   {
-     //     this._setPersonCriteria(attribute, null, null, true);
-     //   }
-     //   else
-     //   {
-     //     this._setHouseholdCriteria(attribute,  null, null, true);
-      //  }
-      //}
+      if(!checked)
+      {
+        this._config.setProperty(attribute.getKey()+'Criteria', null);
+      }
+    
     },
     
     /**
@@ -1216,33 +1268,20 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       
       // DOB uses the json config because WHERE criteria is not easily passed
       // between a date and sql integer.
-      /*
-      if(attribute.getAttributeName() === this._Person.DOB)
+
+      if(value === '' || value === '-')
       {
-      */
-        if(value === '' || value === '-')
-        {
-          value = null;
-        }
+        value = null;
+      }
+    
+      this._config.setProperty(attribute.getKey()+'Criteria', value);
+      this._queryPanel.clearWhereCriteria(attribute.getKey());
       
-        this._config.setProperty('dobCriteria', value);
-        this._queryPanel.clearWhereCriteria(attribute.getKey());
-        
-        if(value != null)
-        {
-          this._queryPanel.addWhereCriteria(attribute.getKey(), value, value);
-        }
-        /*
-      }
-      else if(attribute.getType() === this._Person.CLASS)
+      if(value != null)
       {
-        this._setPersonCriteria(attribute, value, value, true);
+        this._queryPanel.addWhereCriteria(attribute.getKey(), value, value);
       }
-      else if(attribute.getType() === this._Household.CLASS)
-      {
-        this._setHouseholdCriteria(attribute, value, value, true);
-      }
-      */
+     
     },
   }
 });

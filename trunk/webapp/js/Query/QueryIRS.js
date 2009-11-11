@@ -177,8 +177,8 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
         if(selectable.attribute)
         {
           var t =  selectable.attribute.getType();
-          var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'').replace(/.termName/,'');
-          var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'').replace(/.termName/,'');
+          var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'').replace(/.name/,'');
+          var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'').replace(/.name/,'');
           if(t == 'sqlcharacter')
           {
             n = selectable.attribute.getAttributeName().replace(/_defaultLocale/,'');
@@ -844,7 +844,7 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
           if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeReferenceDTO'))
           {
           	li.id = attribute.getKey()+'_li';
-          	var n =  attribute.getAttributeName().replace(/.termName/,'');
+          	var n =  attribute.getAttributeName().replace(/.name/,'');
             this._attachBrowser(li.id, this._genericBrowserHandler, attribute, visibleObj.type+'View', n, true);
           }
 
