@@ -1,8 +1,11 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +16,9 @@ import com.terraframe.mojo.query.AttributeMoment;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectableChar;
+import com.terraframe.mojo.query.SelectableNumber;
 import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
@@ -74,14 +80,13 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
     validateServiceDate();
 
     // Set the service date to the last update time
-    if(this.getServiceDate() == null)
+    if (this.getServiceDate() == null)
     {
       this.setServiceDate(new Date());
     }
-    
+
     super.apply();
   }
-
 
   @Override
   public void validateNumberOfRecievedITNs()
@@ -102,7 +107,6 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
       p.throwIt();
     }
   }
-  
 
   @Override
   public void validateServiceDate()
@@ -125,11 +129,10 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
     }
   }
 
-
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
-   *
+   * 
    * @param xml
    * @return
    */
@@ -144,75 +147,99 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
     {
       throw new ProgrammingErrorException(e1);
     }
-    
+
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, IndividualIPT.CLASS, IndividualIPT.FACILITY);   
-   
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, IndividualIPT.CLASS, IndividualIPT.FACILITY);
+
     IndividualIPTQuery individualIPTQuery = (IndividualIPTQuery) queryMap.get(IndividualIPT.CLASS);
     IndividualIPTCaseQuery individualIPTCaseQuery = (IndividualIPTCaseQuery) queryMap.get(IndividualIPTCase.CLASS);
     dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
-       
+
     valueQuery.WHERE(individualIPTQuery.getIptCase().EQ(individualIPTCaseQuery.getId()));
 
     valueQuery.WHERE(personQuery.getIptRecipientDelegate().EQ(individualIPTCaseQuery.getPatient()));
-    
+
     try
     {
       SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable("age");
-      
-      String personTableAlias = personQuery.getTableAlias();
-      String sql = "EXTRACT(year from AGE(NOW(), "+personTableAlias+".dateofbirth))";
-      dobSel.setSQL(sql);
 
-      // Check for equals or range criteria on Person.DOB
-      /*
-      if(dobCriteria != null)
-      {
-        if(dobCriteria.contains("-"))
-        {
-          String[] range = dobCriteria.split("-");
-          if(range.length == 2)
-          {
-            String range1 = range[0];
-            String range2 = range[1];
-            if(range1.length() > 0)
-            {
-              valueQuery.WHERE(dobSel.GE(range1));
-            }
-            
-            if(range2.length() > 0)
-            {
-              valueQuery.WHERE(dobSel.LE(range2));
-            }
-          }
-          else
-          {
-            // Just the GE criteria was specified (e.g., "7-")
-            valueQuery.WHERE(dobSel.GE(range[0]));
-          }
-        }
-        else
-        {
-          // exact value
-          valueQuery.WHERE(dobSel.EQ(dobCriteria));
-        }
-      }
-      */
+      String personTableAlias = personQuery.getTableAlias();
+      String sql = "EXTRACT(year from AGE(NOW(), " + personTableAlias + ".dateofbirth))";
+      dobSel.setSQL(sql);
     }
-    catch(QueryException e)
+    catch (QueryException e)
     {
       // Person.DOB not included in query.
     }
 
-   
+    for (Iterator<String> iter = queryConfig.keys(); iter.hasNext();)
+    {
+      String key = (String) iter.next();
+      Pattern pattern = Pattern.compile("^(\\w+)Criteria$");
+      Matcher matcher = pattern.matcher(key);
+      String attributeName = null;
+      if (matcher.find())
+      {
+        attributeName = matcher.group(1);
+
+        try
+        {
+          String value = queryConfig.getString(key);
+          Selectable sel = valueQuery.getSelectable(attributeName);
+
+          if (value.contains("-"))
+          {
+            String[] range = value.split("-");
+            if (range.length == 2)
+            {
+              String range1 = range[0];
+              String range2 = range[1];
+              if (range1.length() > 0)
+              {
+                valueQuery.WHERE( ( (SelectableNumber) sel ).GE(range1));
+              }
+
+              if (range2.length() > 0)
+              {
+                valueQuery.WHERE( ( (SelectableNumber) sel ).LE(range2));
+              }
+            }
+            else
+            {
+              // Just the GE criteria was specified (e.g., "7-")
+              valueQuery.WHERE( ( (SelectableNumber) sel ).GE(range[0]));
+            }
+          }
+          else
+          {
+            // exact value
+            if (sel instanceof SelectableNumber)
+            {
+              valueQuery.WHERE(sel.EQ(value));
+            }
+            if (sel instanceof SelectableChar)
+            {
+              valueQuery.WHERE(((SelectableChar)sel).LIKE(value));
+            }
+
+          }
+
+        }
+        catch (Exception e)
+        {
+          // TODO Auto-generated catch block
+          // e.printStackTrace();
+        }
+      }
+    }
+
     AttributeMoment dateAttribute = individualIPTQuery.getServiceDate();
 
-    return QueryUtil.setQueryDates(xml,valueQuery,dateAttribute);
+    return QueryUtil.setQueryDates(xml, valueQuery, dateAttribute);
 
   }
-  
 }
