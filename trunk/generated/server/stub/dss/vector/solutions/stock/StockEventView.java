@@ -31,7 +31,8 @@ public class StockEventView extends StockEventViewBase implements com.terraframe
   public void populateView(StockEvent concrete)
   {
     StockItem item = concrete.getItem();
-    Integer stock = StockEvent.getAvailableStock(concrete.getStockDepot(), item, concrete.getEventDate());
+    
+    Integer stock = StockEvent.getQuantity(concrete.getStockDepot(), item, concrete.getEventDate());
 
     this.setConcreteId(concrete.getId());
     this.setStockDepot(concrete.getStockDepot());
@@ -128,10 +129,10 @@ public class StockEventView extends StockEventViewBase implements com.terraframe
 
     for (StockItem stockItem : items)
     {
-      if (stockItem.isLeaf() || StockEvent.hasQuantity(entity, stockItem, date))
+      Integer stock = StockEvent.getQuantity(entity, stockItem, date);
+      
+      if (stockItem.isLeaf() || stock > 0)
       {
-        Integer stock = StockEvent.getAvailableStock(entity, stockItem, date);
-
         StockEventView view = new StockEventView();
         view.setStockDepot(entity);
         view.setItem(stockItem);

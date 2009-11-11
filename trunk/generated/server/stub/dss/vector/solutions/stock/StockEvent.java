@@ -65,15 +65,7 @@ public class StockEvent extends StockEventBase implements com.terraframe.mojo.ge
     return quantity;
   }
 
-  public static Integer getAvailableStock(GeoEntity entity, StockItem stockItem, Date date)
-  {
-    int inStock = StockEvent.getQuantity(entity, stockItem, date, EventOption.STOCK_IN);
-    int outStock = StockEvent.getQuantity(entity, stockItem, date, EventOption.STOCK_OUT);
-
-    return inStock - outStock;
-  }
-
-  public static boolean hasQuantity(GeoEntity entity, StockItem stockItem, Date date)
+  public static int getQuantity(GeoEntity entity, StockItem stockItem, Date date)
   {
     int quantity = 0;
 
@@ -84,10 +76,16 @@ public class StockEvent extends StockEventBase implements com.terraframe.mojo.ge
     {
       if (e.getQuantity() != null)
       {
-        quantity += e.getQuantity();
+        if(e.getTransactionType().contains(EventOption.STOCK_IN))
+        {
+          quantity += e.getQuantity();
+        }
+        else 
+        {
+          quantity -= e.getQuantity();          
+        }
       }
     }
-
-    return quantity > 0;
+    return quantity;
   }
 }
