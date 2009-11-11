@@ -27,8 +27,8 @@
       <mjl:header><fmt:message key="User"/></mjl:header>
       <mjl:row>
         <c:choose>
-          <c:when test="${item.userDelegate != null}">Yes</c:when>
-          <c:otherwise>No</c:otherwise>
+          <c:when test="${item.userDelegate != null}"><fmt:message key="Yes" /></c:when>
+          <c:otherwise><fmt:message key="No" /></c:otherwise>
         </c:choose>
       </mjl:row>
     </mjl:freeColumn>
@@ -76,11 +76,20 @@
       <mjl:header><fmt:message key="Spray_Leader"/></mjl:header>
       <mjl:row>
         <c:choose>
-          <c:when test="${item.sprayLeaderDelegate != null}">Yes</c:when>
-          <c:otherwise>No</c:otherwise>
+          <c:when test="${item.sprayLeaderDelegate != null}"><fmt:message key="Yes" /></c:when>
+          <c:otherwise><fmt:message key="No" /></c:otherwise>
         </c:choose>
       </mjl:row>
     </mjl:freeColumn>
+    <mjl:freeColumn>
+      <mjl:header><fmt:message key="Stock_Staff"/></mjl:header>
+      <mjl:row>
+        <c:choose>
+          <c:when test="${item.stockStaffDelegate != null}"><fmt:message key="Yes" /></c:when>
+          <c:otherwise><fmt:message key="No" /></c:otherwise>
+        </c:choose>
+      </mjl:row>
+    </mjl:freeColumn>    
     <mjl:freeColumn>
       <mjl:header>
         
