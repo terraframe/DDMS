@@ -16,9 +16,10 @@ import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.StartSession;
-import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdClass;
 
+import dss.vector.solutions.ontology.AllPaths;
+import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.ontology.InvalidOBOFormatException;
 import dss.vector.solutions.ontology.Ontology;
 import dss.vector.solutions.ontology.OntologyQuery;
@@ -56,9 +57,6 @@ public class OntologyImporter
   private static final String OBO_FIELD_IS_TRANSITIVE                = "is_transitive";
   private static final String OBO_FIELD_IS_OBSOLETE                  = "is_obsolete";
   private static final String OBO_FIELD_IS_ANTI_SYMMETRIC            = "is_anti_symmetric";
-
-  // Term attributes
-  private static final String OBO_FIELD_OBSOLETE                     = "obsolete";
 
   private String ontologyTitle;
   private String fileName;
@@ -769,7 +767,7 @@ public class OntologyImporter
           term = initTerm(term, termId);
           term.setComment(this.extractFieldValue(OBO_FIELD_COMMENT, line));
         }
-        else if (line.startsWith(OBO_FIELD_OBSOLETE+OBO_FIELD_DELIMITER))
+        else if (line.startsWith(OBO_FIELD_IS_OBSOLETE+OBO_FIELD_DELIMITER))
         {
           String obsoleteString = this.extractFieldValue(OBO_FIELD_IS_OBSOLETE, line);
           term = initTerm(term, termId);
@@ -791,8 +789,32 @@ public class OntologyImporter
       throw e;
     }
 
-    term.setOntology(this.ontology);
-    term.apply();
+    if (!term.getObsolete())
+    {
+      term.setOntology(this.ontology);
+      term.apply();
+    }
+    else // term.getObsolete() == true;
+    {
+      // Delete the term if it is not new and it is marked obsolete.
+      if (!term.isNew())
+      {
+        // If there are more than one row in the all paths table,
+        // then the delete will abort because that table needs to
+        // be maintained
+        QueryFactory qf = new QueryFactory();
+        AllPathsQuery apQ = new AllPathsQuery(qf);
+        apQ.WHERE(apQ.getParentTerm().EQ(term).
+            AND(apQ.getChildTerm().EQ(term)));
+
+        for (AllPaths allPaths : apQ.getIterator())
+        {
+          allPaths.delete();
+        }
+
+        term.delete();
+      }
+    }
 
     return encounteredNewTerm;
   }
