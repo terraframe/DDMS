@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 103096225)
+@com.terraframe.mojo.business.ClassSignature(hash = -720328089)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -42,7 +42,7 @@ public abstract class ITNHouseholdSurveyViewBase extends com.terraframe.mojo.bus
   public static java.lang.String WASHINTERVAL = "washInterval";
   public static java.lang.String WASHED = "washed";
   public static java.lang.String YEARRECEIVED = "yearReceived";
-  private static final long serialVersionUID = 103096225;
+  private static final long serialVersionUID = -720328089;
   
   public ITNHouseholdSurveyViewBase()
   {
@@ -224,9 +224,16 @@ public abstract class ITNHouseholdSurveyViewBase extends com.terraframe.mojo.bus
     }
   }
   
-  public Integer getDisplayNets()
+  public dss.vector.solutions.ontology.Term getDisplayNets()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYNETS));
+    if (getValue(DISPLAYNETS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(DISPLAYNETS));
+    }
   }
   
   public void validateDisplayNets()
@@ -240,7 +247,7 @@ public abstract class ITNHouseholdSurveyViewBase extends com.terraframe.mojo.bus
     return mdClassIF.definesAttribute(DISPLAYNETS);
   }
   
-  public void setDisplayNets(Integer value)
+  public void setDisplayNets(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -248,13 +255,20 @@ public abstract class ITNHouseholdSurveyViewBase extends com.terraframe.mojo.bus
     }
     else
     {
-      setValue(DISPLAYNETS, java.lang.Integer.toString(value));
+      setValue(DISPLAYNETS, value.getId());
     }
   }
   
-  public Integer getDisplayNonUseReasons()
+  public dss.vector.solutions.ontology.Term getDisplayNonUseReasons()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYNONUSEREASONS));
+    if (getValue(DISPLAYNONUSEREASONS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(DISPLAYNONUSEREASONS));
+    }
   }
   
   public void validateDisplayNonUseReasons()
@@ -268,7 +282,7 @@ public abstract class ITNHouseholdSurveyViewBase extends com.terraframe.mojo.bus
     return mdClassIF.definesAttribute(DISPLAYNONUSEREASONS);
   }
   
-  public void setDisplayNonUseReasons(Integer value)
+  public void setDisplayNonUseReasons(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -276,13 +290,20 @@ public abstract class ITNHouseholdSurveyViewBase extends com.terraframe.mojo.bus
     }
     else
     {
-      setValue(DISPLAYNONUSEREASONS, java.lang.Integer.toString(value));
+      setValue(DISPLAYNONUSEREASONS, value.getId());
     }
   }
   
-  public Integer getDisplayTargetGroups()
+  public dss.vector.solutions.ontology.Term getDisplayTargetGroups()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYTARGETGROUPS));
+    if (getValue(DISPLAYTARGETGROUPS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(DISPLAYTARGETGROUPS));
+    }
   }
   
   public void validateDisplayTargetGroups()
@@ -296,7 +317,7 @@ public abstract class ITNHouseholdSurveyViewBase extends com.terraframe.mojo.bus
     return mdClassIF.definesAttribute(DISPLAYTARGETGROUPS);
   }
   
-  public void setDisplayTargetGroups(Integer value)
+  public void setDisplayTargetGroups(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -304,7 +325,7 @@ public abstract class ITNHouseholdSurveyViewBase extends com.terraframe.mojo.bus
     }
     else
     {
-      setValue(DISPLAYTARGETGROUPS, java.lang.Integer.toString(value));
+      setValue(DISPLAYTARGETGROUPS, value.getId());
     }
   }
   

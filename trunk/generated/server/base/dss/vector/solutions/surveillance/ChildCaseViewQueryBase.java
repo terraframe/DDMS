@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -394033206)
+@com.terraframe.mojo.business.ClassSignature(hash = -1649228872)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.surveillance;
 public  abstract  class ChildCaseViewQueryBase extends dss.vector.solutions.surveillance.AggregatedCaseViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -394033206;
+private static final long serialVersionUID = -1649228872;
 
   public ChildCaseViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -26,96 +26,101 @@ private static final long serialVersionUID = -394033206;
   {
     return dss.vector.solutions.surveillance.ChildCaseView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeBoolean getCaseDiagnostic()
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseDiagnostic()
   {
     return getCaseDiagnostic(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getCaseDiagnostic(String alias)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseDiagnostic(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASEDIAGNOSTIC, alias, null);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASEDIAGNOSTIC, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getCaseDiagnostic(String alias, String displayLabel)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseDiagnostic(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASEDIAGNOSTIC, alias, displayLabel);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASEDIAGNOSTIC, alias, displayLabel);
 
   }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getCaseReferrals()
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseReferrals()
   {
     return getCaseReferrals(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getCaseReferrals(String alias)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseReferrals(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASEREFERRALS, alias, null);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASEREFERRALS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getCaseReferrals(String alias, String displayLabel)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseReferrals(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASEREFERRALS, alias, displayLabel);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASEREFERRALS, alias, displayLabel);
 
   }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getCaseStocks()
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseStocks()
   {
     return getCaseStocks(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getCaseStocks(String alias)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseStocks(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESTOCKS, alias, null);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESTOCKS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getCaseStocks(String alias, String displayLabel)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseStocks(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESTOCKS, alias, displayLabel);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESTOCKS, alias, displayLabel);
 
   }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getCaseTreatmentMethod()
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseTreatmentMethod()
   {
     return getCaseTreatmentMethod(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getCaseTreatmentMethod(String alias)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseTreatmentMethod(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASETREATMENTMETHOD, alias, null);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASETREATMENTMETHOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getCaseTreatmentMethod(String alias, String displayLabel)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseTreatmentMethod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASETREATMENTMETHOD, alias, displayLabel);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASETREATMENTMETHOD, alias, displayLabel);
 
   }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getCaseTreatments()
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseTreatments()
   {
     return getCaseTreatments(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getCaseTreatments(String alias)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseTreatments(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASETREATMENTS, alias, null);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASETREATMENTS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getCaseTreatments(String alias, String displayLabel)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseTreatments(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASETREATMENTS, alias, displayLabel);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASETREATMENTS, alias, displayLabel);
 
   }
- 
   public com.terraframe.mojo.query.AttributeInteger getCases()
   {
     return getCases(null);

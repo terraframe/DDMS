@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1500464132)
+@com.terraframe.mojo.business.ClassSignature(hash = 1031875092)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class HouseholdViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1500464132;
+private static final long serialVersionUID = 1031875092;
 
   public HouseholdViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -44,24 +44,25 @@ private static final long serialVersionUID = -1500464132;
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getDisplayNets()
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayNets()
   {
     return getDisplayNets(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getDisplayNets(String alias)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayNets(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.DISPLAYNETS, alias, null);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.DISPLAYNETS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getDisplayNets(String alias, String displayLabel)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayNets(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.DISPLAYNETS, alias, displayLabel);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.DISPLAYNETS, alias, displayLabel);
 
   }
- 
   public com.terraframe.mojo.query.AttributeBoolean getHasWindows()
   {
     return getHasWindows(null);

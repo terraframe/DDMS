@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -515820283)
+@com.terraframe.mojo.business.ClassSignature(hash = -496664981)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -29,7 +29,7 @@ public abstract class HouseholdViewBase extends com.terraframe.mojo.business.Vie
   public static java.lang.String WALL = "wall";
   public static java.lang.String WALLINFO = "wallInfo";
   public static java.lang.String WINDOWTYPE = "windowType";
-  private static final long serialVersionUID = -515820283;
+  private static final long serialVersionUID = -496664981;
   
   public HouseholdViewBase()
   {
@@ -64,9 +64,16 @@ public abstract class HouseholdViewBase extends com.terraframe.mojo.business.Vie
     }
   }
   
-  public Integer getDisplayNets()
+  public dss.vector.solutions.ontology.Term getDisplayNets()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYNETS));
+    if (getValue(DISPLAYNETS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(DISPLAYNETS));
+    }
   }
   
   public void validateDisplayNets()
@@ -80,7 +87,7 @@ public abstract class HouseholdViewBase extends com.terraframe.mojo.business.Vie
     return mdClassIF.definesAttribute(DISPLAYNETS);
   }
   
-  public void setDisplayNets(Integer value)
+  public void setDisplayNets(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -88,7 +95,7 @@ public abstract class HouseholdViewBase extends com.terraframe.mojo.business.Vie
     }
     else
     {
-      setValue(DISPLAYNETS, java.lang.Integer.toString(value));
+      setValue(DISPLAYNETS, value.getId());
     }
   }
   

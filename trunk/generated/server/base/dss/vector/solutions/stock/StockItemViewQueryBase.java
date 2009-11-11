@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1488590342)
+@com.terraframe.mojo.business.ClassSignature(hash = 726906132)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.stock;
 public  abstract  class StockItemViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1488590342;
+private static final long serialVersionUID = 726906132;
 
   public StockItemViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -59,6 +59,24 @@ private static final long serialVersionUID = -1488590342;
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.stock.StockItemView.ID, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getItemId()
+  {
+    return getItemId(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getItemId(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.stock.StockItemView.ITEMID, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getItemId(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.stock.StockItemView.ITEMID, alias, displayLabel);
 
   }
  

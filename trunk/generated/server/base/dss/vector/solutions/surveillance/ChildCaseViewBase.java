@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1030969761)
+@com.terraframe.mojo.business.ClassSignature(hash = -1305822463)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -52,16 +52,23 @@ public abstract class ChildCaseViewBase extends dss.vector.solutions.surveillanc
   public static java.lang.String REFERRALSRECEIVED = "referralsReceived";
   public static java.lang.String REFERRALSSENT = "referralsSent";
   public static java.lang.String STILLBIRTHS = "stillBirths";
-  private static final long serialVersionUID = 1030969761;
+  private static final long serialVersionUID = -1305822463;
   
   public ChildCaseViewBase()
   {
     super();
   }
   
-  public Boolean getCaseDiagnostic()
+  public dss.vector.solutions.ontology.Term getCaseDiagnostic()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASEDIAGNOSTIC));
+    if (getValue(CASEDIAGNOSTIC).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(CASEDIAGNOSTIC));
+    }
   }
   
   public void validateCaseDiagnostic()
@@ -75,7 +82,7 @@ public abstract class ChildCaseViewBase extends dss.vector.solutions.surveillanc
     return mdClassIF.definesAttribute(CASEDIAGNOSTIC);
   }
   
-  public void setCaseDiagnostic(Boolean value)
+  public void setCaseDiagnostic(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -83,13 +90,20 @@ public abstract class ChildCaseViewBase extends dss.vector.solutions.surveillanc
     }
     else
     {
-      setValue(CASEDIAGNOSTIC, java.lang.Boolean.toString(value));
+      setValue(CASEDIAGNOSTIC, value.getId());
     }
   }
   
-  public Boolean getCaseReferrals()
+  public dss.vector.solutions.ontology.Term getCaseReferrals()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASEREFERRALS));
+    if (getValue(CASEREFERRALS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(CASEREFERRALS));
+    }
   }
   
   public void validateCaseReferrals()
@@ -103,7 +117,7 @@ public abstract class ChildCaseViewBase extends dss.vector.solutions.surveillanc
     return mdClassIF.definesAttribute(CASEREFERRALS);
   }
   
-  public void setCaseReferrals(Boolean value)
+  public void setCaseReferrals(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -111,13 +125,20 @@ public abstract class ChildCaseViewBase extends dss.vector.solutions.surveillanc
     }
     else
     {
-      setValue(CASEREFERRALS, java.lang.Boolean.toString(value));
+      setValue(CASEREFERRALS, value.getId());
     }
   }
   
-  public Boolean getCaseStocks()
+  public dss.vector.solutions.ontology.Term getCaseStocks()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASESTOCKS));
+    if (getValue(CASESTOCKS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(CASESTOCKS));
+    }
   }
   
   public void validateCaseStocks()
@@ -131,7 +152,7 @@ public abstract class ChildCaseViewBase extends dss.vector.solutions.surveillanc
     return mdClassIF.definesAttribute(CASESTOCKS);
   }
   
-  public void setCaseStocks(Boolean value)
+  public void setCaseStocks(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -139,13 +160,20 @@ public abstract class ChildCaseViewBase extends dss.vector.solutions.surveillanc
     }
     else
     {
-      setValue(CASESTOCKS, java.lang.Boolean.toString(value));
+      setValue(CASESTOCKS, value.getId());
     }
   }
   
-  public Boolean getCaseTreatmentMethod()
+  public dss.vector.solutions.ontology.Term getCaseTreatmentMethod()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASETREATMENTMETHOD));
+    if (getValue(CASETREATMENTMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(CASETREATMENTMETHOD));
+    }
   }
   
   public void validateCaseTreatmentMethod()
@@ -159,7 +187,7 @@ public abstract class ChildCaseViewBase extends dss.vector.solutions.surveillanc
     return mdClassIF.definesAttribute(CASETREATMENTMETHOD);
   }
   
-  public void setCaseTreatmentMethod(Boolean value)
+  public void setCaseTreatmentMethod(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -167,13 +195,20 @@ public abstract class ChildCaseViewBase extends dss.vector.solutions.surveillanc
     }
     else
     {
-      setValue(CASETREATMENTMETHOD, java.lang.Boolean.toString(value));
+      setValue(CASETREATMENTMETHOD, value.getId());
     }
   }
   
-  public Boolean getCaseTreatments()
+  public dss.vector.solutions.ontology.Term getCaseTreatments()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASETREATMENTS));
+    if (getValue(CASETREATMENTS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(CASETREATMENTS));
+    }
   }
   
   public void validateCaseTreatments()
@@ -187,7 +222,7 @@ public abstract class ChildCaseViewBase extends dss.vector.solutions.surveillanc
     return mdClassIF.definesAttribute(CASETREATMENTS);
   }
   
-  public void setCaseTreatments(Boolean value)
+  public void setCaseTreatments(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -195,7 +230,7 @@ public abstract class ChildCaseViewBase extends dss.vector.solutions.surveillanc
     }
     else
     {
-      setValue(CASETREATMENTS, java.lang.Boolean.toString(value));
+      setValue(CASETREATMENTS, value.getId());
     }
   }
   

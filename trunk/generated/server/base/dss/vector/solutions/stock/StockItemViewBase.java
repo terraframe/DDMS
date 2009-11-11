@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 415430545)
+@com.terraframe.mojo.business.ClassSignature(hash = 1938058923)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,10 +13,11 @@ public abstract class StockItemViewBase extends com.terraframe.mojo.business.Vie
   public final static String CLASS = "dss.vector.solutions.stock.StockItemView";
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String ID = "id";
+  public static java.lang.String ITEMID = "itemId";
   public static java.lang.String ITEMNAME = "itemName";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String UNIT = "unit";
-  private static final long serialVersionUID = 415430545;
+  private static final long serialVersionUID = 1938058923;
   
   public StockItemViewBase()
   {
@@ -65,6 +66,34 @@ public abstract class StockItemViewBase extends com.terraframe.mojo.business.Vie
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockItemView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public String getItemId()
+  {
+    return getValue(ITEMID);
+  }
+  
+  public void validateItemId()
+  {
+    this.validateAttribute(ITEMID);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getItemIdMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockItemView.CLASS);
+    return mdClassIF.definesAttribute(ITEMID);
+  }
+  
+  public void setItemId(String value)
+  {
+    if(value == null)
+    {
+      setValue(ITEMID, "");
+    }
+    else
+    {
+      setValue(ITEMID, value);
+    }
   }
   
   public dss.vector.solutions.ontology.Term getItemName()

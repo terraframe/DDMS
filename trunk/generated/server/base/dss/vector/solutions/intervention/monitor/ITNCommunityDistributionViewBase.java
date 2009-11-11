@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1002011290)
+@com.terraframe.mojo.business.ClassSignature(hash = -1592190614)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class ITNCommunityDistributionViewBase extends com.terraframe.mo
   public static java.lang.String RETRIEVED = "retrieved";
   public static java.lang.String SOLD = "sold";
   public static java.lang.String STARTDATE = "startDate";
-  private static final long serialVersionUID = 1002011290;
+  private static final long serialVersionUID = -1592190614;
   
   public ITNCommunityDistributionViewBase()
   {
@@ -179,9 +179,16 @@ public abstract class ITNCommunityDistributionViewBase extends com.terraframe.mo
     }
   }
   
-  public Integer getDisplayNets()
+  public dss.vector.solutions.ontology.Term getDisplayNets()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYNETS));
+    if (getValue(DISPLAYNETS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(DISPLAYNETS));
+    }
   }
   
   public void validateDisplayNets()
@@ -195,7 +202,7 @@ public abstract class ITNCommunityDistributionViewBase extends com.terraframe.mo
     return mdClassIF.definesAttribute(DISPLAYNETS);
   }
   
-  public void setDisplayNets(Integer value)
+  public void setDisplayNets(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -203,13 +210,20 @@ public abstract class ITNCommunityDistributionViewBase extends com.terraframe.mo
     }
     else
     {
-      setValue(DISPLAYNETS, java.lang.Integer.toString(value));
+      setValue(DISPLAYNETS, value.getId());
     }
   }
   
-  public Integer getDisplayTargetGroups()
+  public dss.vector.solutions.ontology.Term getDisplayTargetGroups()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYTARGETGROUPS));
+    if (getValue(DISPLAYTARGETGROUPS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(DISPLAYTARGETGROUPS));
+    }
   }
   
   public void validateDisplayTargetGroups()
@@ -223,7 +237,7 @@ public abstract class ITNCommunityDistributionViewBase extends com.terraframe.mo
     return mdClassIF.definesAttribute(DISPLAYTARGETGROUPS);
   }
   
-  public void setDisplayTargetGroups(Integer value)
+  public void setDisplayTargetGroups(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -231,7 +245,7 @@ public abstract class ITNCommunityDistributionViewBase extends com.terraframe.mo
     }
     else
     {
-      setValue(DISPLAYTARGETGROUPS, java.lang.Integer.toString(value));
+      setValue(DISPLAYTARGETGROUPS, value.getId());
     }
   }
   

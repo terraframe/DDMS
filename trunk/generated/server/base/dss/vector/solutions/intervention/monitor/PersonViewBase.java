@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 553732154)
+@com.terraframe.mojo.business.ClassSignature(hash = -1059125484)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class PersonViewBase extends com.terraframe.mojo.business.View i
   public static java.lang.String RDTTREATMENT = "rdtTreatment";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SLEPTUNDERNET = "sleptUnderNet";
-  private static final long serialVersionUID = 553732154;
+  private static final long serialVersionUID = -1059125484;
   
   public PersonViewBase()
   {
@@ -595,9 +595,16 @@ public abstract class PersonViewBase extends com.terraframe.mojo.business.View i
     }
   }
   
-  public Integer getRDTResult()
+  public dss.vector.solutions.ontology.Term getRDTResult()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RDTRESULT));
+    if (getValue(RDTRESULT).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(RDTRESULT));
+    }
   }
   
   public void validateRDTResult()
@@ -611,7 +618,7 @@ public abstract class PersonViewBase extends com.terraframe.mojo.business.View i
     return mdClassIF.definesAttribute(RDTRESULT);
   }
   
-  public void setRDTResult(Integer value)
+  public void setRDTResult(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -619,7 +626,7 @@ public abstract class PersonViewBase extends com.terraframe.mojo.business.View i
     }
     else
     {
-      setValue(RDTRESULT, java.lang.Integer.toString(value));
+      setValue(RDTRESULT, value.getId());
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1372822938)
+@com.terraframe.mojo.business.ClassSignature(hash = -813950481)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class StockStaffBase extends com.terraframe.mojo.business.Busine
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1372822938;
+  private static final long serialVersionUID = -813950481;
   
   public StockStaffBase()
   {
@@ -349,6 +349,18 @@ public abstract class StockStaffBase extends com.terraframe.mojo.business.Busine
   public static StockStaff getByKey(String key)
   {
     return (StockStaff) com.terraframe.mojo.business.Business.get(CLASS, key);
+  }
+  
+  public static dss.vector.solutions.stock.StockStaff[] getAll()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.stock.StockStaff.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static dss.vector.solutions.stock.StockStaffQuery searchAll(java.lang.String criteria)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.stock.StockStaff.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static StockStaff lock(java.lang.String id)

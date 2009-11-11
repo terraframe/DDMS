@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -771967767)
+@com.terraframe.mojo.business.ClassSignature(hash = -1886354537)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class ITNDistributionViewBase extends com.terraframe.mojo.busine
   public static java.lang.String RECIPIENT = "recipient";
   public static java.lang.String SERVICE = "service";
   public static java.lang.String TARGETGROUPS = "targetGroups";
-  private static final long serialVersionUID = -771967767;
+  private static final long serialVersionUID = -1886354537;
   
   public ITNDistributionViewBase()
   {
@@ -376,9 +376,16 @@ public abstract class ITNDistributionViewBase extends com.terraframe.mojo.busine
     }
   }
   
-  public Integer getTargetGroups()
+  public dss.vector.solutions.ontology.Term getTargetGroups()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGETGROUPS));
+    if (getValue(TARGETGROUPS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(TARGETGROUPS));
+    }
   }
   
   public void validateTargetGroups()
@@ -392,7 +399,7 @@ public abstract class ITNDistributionViewBase extends com.terraframe.mojo.busine
     return mdClassIF.definesAttribute(TARGETGROUPS);
   }
   
-  public void setTargetGroups(Integer value)
+  public void setTargetGroups(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -400,7 +407,7 @@ public abstract class ITNDistributionViewBase extends com.terraframe.mojo.busine
     }
     else
     {
-      setValue(TARGETGROUPS, java.lang.Integer.toString(value));
+      setValue(TARGETGROUPS, value.getId());
     }
   }
   

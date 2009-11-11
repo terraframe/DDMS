@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -632781614)
+@com.terraframe.mojo.business.ClassSignature(hash = -1604528882)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class ITNDistributionViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -632781614;
+private static final long serialVersionUID = -1604528882;
 
   public ITNDistributionViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -245,24 +245,25 @@ private static final long serialVersionUID = -632781614;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDistributionView.SERVICE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTargetGroups()
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTargetGroups()
   {
     return getTargetGroups(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTargetGroups(String alias)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTargetGroups(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDistributionView.TARGETGROUPS, alias, null);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDistributionView.TARGETGROUPS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTargetGroups(String alias, String displayLabel)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTargetGroups(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDistributionView.TARGETGROUPS, alias, displayLabel);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDistributionView.TARGETGROUPS, alias, displayLabel);
 
   }
- 
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 

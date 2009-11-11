@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1811662658)
+@com.terraframe.mojo.business.ClassSignature(hash = 1501254710)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
   public static java.lang.String PERIODTYPE = "periodType";
   public static java.lang.String PERIODYEAR = "periodYear";
   public static java.lang.String TOTALITN = "totalITN";
-  private static final long serialVersionUID = -1811662658;
+  private static final long serialVersionUID = 1501254710;
   
   public AggregatedIPTViewBase()
   {
@@ -61,9 +61,16 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
     }
   }
   
-  public Integer getDisplayDose()
+  public dss.vector.solutions.ontology.Term getDisplayDose()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYDOSE));
+    if (getValue(DISPLAYDOSE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(DISPLAYDOSE));
+    }
   }
   
   public void validateDisplayDose()
@@ -77,7 +84,7 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
     return mdClassIF.definesAttribute(DISPLAYDOSE);
   }
   
-  public void setDisplayDose(Integer value)
+  public void setDisplayDose(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -85,13 +92,20 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
     }
     else
     {
-      setValue(DISPLAYDOSE, java.lang.Integer.toString(value));
+      setValue(DISPLAYDOSE, value.getId());
     }
   }
   
-  public Integer getDisplayPatients()
+  public dss.vector.solutions.ontology.Term getDisplayPatients()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYPATIENTS));
+    if (getValue(DISPLAYPATIENTS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(DISPLAYPATIENTS));
+    }
   }
   
   public void validateDisplayPatients()
@@ -105,7 +119,7 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
     return mdClassIF.definesAttribute(DISPLAYPATIENTS);
   }
   
-  public void setDisplayPatients(Integer value)
+  public void setDisplayPatients(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -113,13 +127,20 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
     }
     else
     {
-      setValue(DISPLAYPATIENTS, java.lang.Integer.toString(value));
+      setValue(DISPLAYPATIENTS, value.getId());
     }
   }
   
-  public Integer getDisplayTreatments()
+  public dss.vector.solutions.ontology.Term getDisplayTreatments()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYTREATMENTS));
+    if (getValue(DISPLAYTREATMENTS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(DISPLAYTREATMENTS));
+    }
   }
   
   public void validateDisplayTreatments()
@@ -133,7 +154,7 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
     return mdClassIF.definesAttribute(DISPLAYTREATMENTS);
   }
   
-  public void setDisplayTreatments(Integer value)
+  public void setDisplayTreatments(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -141,13 +162,20 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
     }
     else
     {
-      setValue(DISPLAYTREATMENTS, java.lang.Integer.toString(value));
+      setValue(DISPLAYTREATMENTS, value.getId());
     }
   }
   
-  public Integer getDisplayVisits()
+  public dss.vector.solutions.ontology.Term getDisplayVisits()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLAYVISITS));
+    if (getValue(DISPLAYVISITS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(DISPLAYVISITS));
+    }
   }
   
   public void validateDisplayVisits()
@@ -161,7 +189,7 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
     return mdClassIF.definesAttribute(DISPLAYVISITS);
   }
   
-  public void setDisplayVisits(Integer value)
+  public void setDisplayVisits(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
@@ -169,7 +197,7 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
     }
     else
     {
-      setValue(DISPLAYVISITS, java.lang.Integer.toString(value));
+      setValue(DISPLAYVISITS, value.getId());
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -922984840)
+@com.terraframe.mojo.business.ClassSignature(hash = -1290840602)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,6 +15,7 @@ public abstract class StockItemBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
+  public static java.lang.String ITEMID = "itemId";
   public static java.lang.String ITEMNAME = "itemName";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
@@ -26,7 +27,7 @@ public abstract class StockItemBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UNIT = "unit";
-  private static final long serialVersionUID = -922984840;
+  private static final long serialVersionUID = -1290840602;
   
   public StockItemBase()
   {
@@ -121,6 +122,34 @@ public abstract class StockItemBase extends com.terraframe.mojo.business.Busines
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockItem.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public String getItemId()
+  {
+    return getValue(ITEMID);
+  }
+  
+  public void validateItemId()
+  {
+    this.validateAttribute(ITEMID);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getItemIdMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockItem.CLASS);
+    return mdClassIF.definesAttribute(ITEMID);
+  }
+  
+  public void setItemId(String value)
+  {
+    if(value == null)
+    {
+      setValue(ITEMID, "");
+    }
+    else
+    {
+      setValue(ITEMID, value);
+    }
   }
   
   public dss.vector.solutions.ontology.Term getItemName()

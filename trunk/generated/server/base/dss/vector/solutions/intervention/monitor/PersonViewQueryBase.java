@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1416660707)
+@com.terraframe.mojo.business.ClassSignature(hash = 1450242507)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class PersonViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1416660707;
+private static final long serialVersionUID = 1450242507;
 
   public PersonViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -359,24 +359,25 @@ private static final long serialVersionUID = 1416660707;
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getRDTResult()
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRDTResult()
   {
     return getRDTResult(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getRDTResult(String alias)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRDTResult(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.PersonView.RDTRESULT, alias, null);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.PersonView.RDTRESULT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getRDTResult(String alias, String displayLabel)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRDTResult(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.PersonView.RDTRESULT, alias, displayLabel);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.PersonView.RDTRESULT, alias, displayLabel);
 
   }
- 
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRdtTreatment()
   {
     return getRdtTreatment(null);

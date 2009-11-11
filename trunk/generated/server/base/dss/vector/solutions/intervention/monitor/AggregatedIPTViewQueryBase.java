@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -267799641)
+@com.terraframe.mojo.business.ClassSignature(hash = -457481825)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class AggregatedIPTViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -267799641;
+private static final long serialVersionUID = -457481825;
 
   public AggregatedIPTViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -44,78 +44,82 @@ private static final long serialVersionUID = -267799641;
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getDisplayDose()
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayDose()
   {
     return getDisplayDose(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getDisplayDose(String alias)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayDose(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYDOSE, alias, null);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYDOSE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getDisplayDose(String alias, String displayLabel)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayDose(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYDOSE, alias, displayLabel);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYDOSE, alias, displayLabel);
 
   }
- 
-  public com.terraframe.mojo.query.AttributeInteger getDisplayPatients()
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayPatients()
   {
     return getDisplayPatients(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getDisplayPatients(String alias)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayPatients(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYPATIENTS, alias, null);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYPATIENTS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getDisplayPatients(String alias, String displayLabel)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayPatients(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYPATIENTS, alias, displayLabel);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYPATIENTS, alias, displayLabel);
 
   }
- 
-  public com.terraframe.mojo.query.AttributeInteger getDisplayTreatments()
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayTreatments()
   {
     return getDisplayTreatments(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getDisplayTreatments(String alias)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayTreatments(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYTREATMENTS, alias, null);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYTREATMENTS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getDisplayTreatments(String alias, String displayLabel)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayTreatments(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYTREATMENTS, alias, displayLabel);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYTREATMENTS, alias, displayLabel);
 
   }
- 
-  public com.terraframe.mojo.query.AttributeInteger getDisplayVisits()
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayVisits()
   {
     return getDisplayVisits(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getDisplayVisits(String alias)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayVisits(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYVISITS, alias, null);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYVISITS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getDisplayVisits(String alias, String displayLabel)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayVisits(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYVISITS, alias, displayLabel);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYVISITS, alias, displayLabel);
 
   }
- 
   public com.terraframe.mojo.query.AttributeChar getGeoId()
   {
     return getGeoId(null);
