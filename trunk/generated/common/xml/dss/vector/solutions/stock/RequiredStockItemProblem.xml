@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
+  name="dss.vector.solutions.stock.RequiredStockItemProblem">
+  <!--
+    - {id} id
+    -->
+  <locale language="en">Stock Item is required.</locale>
+</exception>
