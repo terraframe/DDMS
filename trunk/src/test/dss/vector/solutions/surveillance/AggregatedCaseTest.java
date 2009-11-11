@@ -26,6 +26,7 @@ import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermDTO;
 
 public class AggregatedCaseTest extends TestCase
 {
@@ -40,6 +41,12 @@ public class AggregatedCaseTest extends TestCase
   {
     super.run(testResult);
   }
+  
+  private static Term                 term         = null;
+  
+  private static Term[]               terms = null;
+  
+  private static TermDTO[]             dtos = null;
 
   private static GeoEntity             geoEntity   = null;
 
@@ -75,9 +82,9 @@ public class AggregatedCaseTest extends TestCase
 
   protected static void classTearDown()
   {
+    term.delete();
     geoEntity.delete();
     clientSession.logout();
-
   }
 
   protected static void classSetUp()
@@ -86,9 +93,13 @@ public class AggregatedCaseTest extends TestCase
     clientRequest = clientSession.getRequest();
 
     geoEntity = TestFixture.createRandomSite();
+    term = TestFixture.createRandomTerm();
 
     ageGroup = AggregatedAgeGroup.getAll()[0];
     ageGroupDTO = AggregatedAgeGroupDTO.getAll(clientRequest)[0];
+    
+    terms = new Term[]{term};
+    dtos = new TermDTO[]{TermDTO.get(clientRequest, term.getId())};
   }
 
   public void testCreateAggregatedCase()
@@ -482,110 +493,7 @@ public class AggregatedCaseTest extends TestCase
     }
 
   }
-
-  /* FIXME MO REFACTOR
-  public void testApplyAllDTO()
-  {
-    Integer cases = new Integer(50);
-    Integer casesFemale = new Integer(23);
-    Integer casesMale = new Integer(50);
-    Integer casesPregnant = new Integer(2);
-    Integer clinicallyDiagnosed = new Integer(50);
-    Integer deaths = new Integer(50);
-
-    AggregatedCaseDTO c = new AggregatedCaseDTO(clientRequest);
-    c.setGeoEntity(GeoEntityDTO.get(clientRequest, geoEntity.getId()));
-    c.setStartDate(new Date());
-    c.setEndDate(new Date());
-    c.setAgeGroup(ageGroupDTO);
-    c.setCases(cases);
-    c.setCasesFemale(casesFemale);
-    c.setCasesMale(casesMale);
-    c.setCasesPregnant(casesPregnant);
-    c.setClinicallyDiagnosed(clinicallyDiagnosed);
-    c.setDeaths(deaths);
-
-    List<CaseDiagnosticDTO> diagnostics = new LinkedList<CaseDiagnosticDTO>();
-
-    for (DiagnosticGridDTO d : DiagnosticGridDTO.getAll(clientRequest))
-    {
-      CaseDiagnosticDTO method = new CaseDiagnosticDTO(clientRequest, c.getId(), d.getId());
-      method.setAmount(new Integer(50));
-      diagnostics.add(method);
-    }
-
-    List<CaseTreatmentDTO> treatments = new LinkedList<CaseTreatmentDTO>();
-    List<CaseTreatmentStockDTO> stocks = new LinkedList<CaseTreatmentStockDTO>();
-    for (TreatmentGridDTO g : TreatmentGridDTO.getAll(clientRequest))
-    {
-      CaseTreatmentDTO t = new CaseTreatmentDTO(clientRequest, c.getId(), g.getId());
-      t.setAmount(new Integer(30));
-      treatments.add(t);
-
-      CaseTreatmentStockDTO s = new CaseTreatmentStockDTO(clientRequest, c.getId(), g.getId());
-      s.setOutOfStock(true);
-      stocks.add(s);
-    }
-
-    List<CaseTreatmentMethodDTO> methods = new LinkedList<CaseTreatmentMethodDTO>();
-    for (TreatmentMethodGridDTO g : TreatmentMethodGridDTO.getAll(clientRequest))
-    {
-      CaseTreatmentMethodDTO t = new CaseTreatmentMethodDTO(clientRequest, c.getId(), g.getId());
-      t.setAmount(new Integer(40));
-      methods.add(t);
-    }
-
-    List<CaseReferralDTO> referrals = new LinkedList<CaseReferralDTO>();
-    for (ReferralGridDTO g : ReferralGridDTO.getAll(clientRequest))
-    {
-      CaseReferralDTO r = new CaseReferralDTO(clientRequest, c.getId(), g.getId());
-      r.setAmount(new Integer(70));
-      referrals.add(r);
-    }
-
-    CaseTreatmentDTO[] treatArray = treatments.toArray(new CaseTreatmentDTO[treatments.size()]);
-    CaseTreatmentMethodDTO[] methodArray = methods.toArray(new CaseTreatmentMethodDTO[methods.size()]);
-    CaseTreatmentStockDTO[] stockArray = stocks.toArray(new CaseTreatmentStockDTO[stocks.size()]);
-    CaseDiagnosticDTO[] diagnosticArray = diagnostics.toArray(new CaseDiagnosticDTO[diagnostics.size()]);
-    CaseReferralDTO[] referralArray = referrals.toArray(new CaseReferralDTO[referrals.size()]);
-
-    c.applyAll(treatArray, methodArray, stockArray, diagnosticArray, referralArray);
-
-    try
-    {
-      AggregatedCaseDTO test = AggregatedCaseDTO.get(clientRequest, c.getId());
-
-      assertEquals(c.getGeoEntity().getId(), test.getGeoEntity().getId());
-      assertEquals(c.getStartAge(), test.getStartAge());
-      assertEquals(c.getEndAge(), test.getEndAge());
-      assertEquals(c.getStartDate(), test.getStartDate());
-      assertEquals(c.getEndAge(), test.getEndAge());
-      assertEquals(c.getCases(), test.getCases());
-      assertEquals(c.getCasesFemale(), test.getCasesFemale());
-      assertEquals(c.getCasesMale(), test.getCasesMale());
-      assertEquals(c.getCasesPregnant(), test.getCasesPregnant());
-      assertEquals(c.getClinicallyDiagnosed(), test.getClinicallyDiagnosed());
-      assertEquals(c.getDeaths(), test.getDeaths());
-
-      for (CaseTreatmentStockDTO s : test.getAllTreatmentStockRelationships())
-        assertEquals(new Boolean(true), s.getOutOfStock());
-      for (CaseTreatmentMethodDTO m : test.getAllTreatmentMethodRelationships())
-        assertEquals(new Integer(40), m.getAmount());
-      for (CaseTreatmentDTO t : test.getAllTreatmentRelationships())
-        assertEquals(new Integer(30), t.getAmount());
-      for (CaseReferralDTO r : test.getAllReferralRelationships())
-        assertEquals(new Integer(70), r.getAmount());
-      for (CaseDiagnosticDTO d : test.getAllDiagnosticMethodRelationships())
-        assertEquals(new Integer(50), d.getAmount());
-    }
-    finally
-    {
-      c.delete();
-    }
-  }
-  */
-
-  /* FIXME MO REFACTOR
+  
   public void testCreateAggregatedView()
   {
     EpiDate date = EpiDate.getInstanceByPeriod(PeriodType.QUARTER, new Integer(1), new Integer(2007));
@@ -610,7 +518,7 @@ public class AggregatedCaseTest extends TestCase
     c.setDeaths(deaths);
 
     List<CaseDiagnostic> diagnostics = new LinkedList<CaseDiagnostic>();
-    for (DiagnosticGrid g : DiagnosticGrid.getAll())
+    for (Term g : terms)
     {
       CaseDiagnostic method = new CaseDiagnostic(c.getId(), g.getId());
       method.setAmount(new Integer(50));
@@ -620,7 +528,7 @@ public class AggregatedCaseTest extends TestCase
 
     List<CaseTreatment> treatments = new LinkedList<CaseTreatment>();
     List<CaseTreatmentStock> stocks = new LinkedList<CaseTreatmentStock>();
-    for (TreatmentGrid g : TreatmentGrid.getAll())
+    for (Term g : terms)
     {
       CaseTreatment t = new CaseTreatment(c.getId(), g.getId());
       t.setAmount(new Integer(30));
@@ -632,7 +540,7 @@ public class AggregatedCaseTest extends TestCase
     }
 
     List<CaseTreatmentMethod> methods = new LinkedList<CaseTreatmentMethod>();
-    for (TreatmentMethodGrid g : TreatmentMethodGrid.getAll())
+    for (Term g : terms)
     {
       CaseTreatmentMethod t = new CaseTreatmentMethod(c.getId(), g.getId());
       t.setAmount(new Integer(40));
@@ -640,7 +548,7 @@ public class AggregatedCaseTest extends TestCase
     }
 
     List<CaseReferral> referrals = new LinkedList<CaseReferral>();
-    for (ReferralGrid g : ReferralGrid.getAll())
+    for (Term g : terms)
     {
       CaseReferral r = new CaseReferral(c.getId(), g.getId());
       r.setAmount(new Integer(70));
@@ -703,9 +611,7 @@ public class AggregatedCaseTest extends TestCase
       c.delete();
     }
   }
-  */
-
-  /* FIXME MO REFACTOR
+  
   public void testGetRelationshipsView()
   {
     Integer cases = new Integer(50);
@@ -728,7 +634,7 @@ public class AggregatedCaseTest extends TestCase
     c.setDeaths(deaths);
 
     List<CaseDiagnostic> diagnostics = new LinkedList<CaseDiagnostic>();
-    for (DiagnosticGrid g : DiagnosticGrid.getAll())
+    for (Term g : terms)
     {
       CaseDiagnostic method = new CaseDiagnostic(c.getId(), g.getId());
       method.setAmount(new Integer(50));
@@ -738,7 +644,7 @@ public class AggregatedCaseTest extends TestCase
 
     List<CaseTreatment> treatments = new LinkedList<CaseTreatment>();
     List<CaseTreatmentStock> stocks = new LinkedList<CaseTreatmentStock>();
-    for (TreatmentGrid g : TreatmentGrid.getAll())
+    for (Term g : terms)
     {
       CaseTreatment t = new CaseTreatment(c.getId(), g.getId());
       t.setAmount(new Integer(30));
@@ -750,7 +656,7 @@ public class AggregatedCaseTest extends TestCase
     }
 
     List<CaseTreatmentMethod> methods = new LinkedList<CaseTreatmentMethod>();
-    for (TreatmentMethodGrid g : TreatmentMethodGrid.getAll())
+    for (Term g : terms)
     {
       CaseTreatmentMethod t = new CaseTreatmentMethod(c.getId(), g.getId());
       t.setAmount(new Integer(40));
@@ -758,7 +664,7 @@ public class AggregatedCaseTest extends TestCase
     }
 
     List<CaseReferral> referrals = new LinkedList<CaseReferral>();
-    for (ReferralGrid g : ReferralGrid.getAll())
+    for (Term g : terms)
     {
       CaseReferral r = new CaseReferral(c.getId(), g.getId());
       r.setAmount(new Integer(70));
@@ -793,9 +699,7 @@ public class AggregatedCaseTest extends TestCase
       c.delete();
     }
   }
-  */
   
-  /* FIXME MO REFACTOR
   public void testViewApplyAllDTO()
   {
     Integer cases = new Integer(50);
@@ -820,7 +724,7 @@ public class AggregatedCaseTest extends TestCase
 
     List<CaseDiagnosticDTO> diagnostics = new LinkedList<CaseDiagnosticDTO>();
 
-    for (DiagnosticGridDTO d : DiagnosticGridDTO.getAll(clientRequest))
+    for (TermDTO d : dtos)
     {
       CaseDiagnosticDTO method = new CaseDiagnosticDTO(clientRequest, c.getId(), d.getId());
       method.setAmount(new Integer(50));
@@ -829,7 +733,7 @@ public class AggregatedCaseTest extends TestCase
 
     List<CaseTreatmentDTO> treatments = new LinkedList<CaseTreatmentDTO>();
     List<CaseTreatmentStockDTO> stocks = new LinkedList<CaseTreatmentStockDTO>();
-    for (TreatmentGridDTO g : TreatmentGridDTO.getAll(clientRequest))
+    for (TermDTO g : dtos)
     {
       CaseTreatmentDTO t = new CaseTreatmentDTO(clientRequest, c.getId(), g.getId());
       t.setAmount(new Integer(30));
@@ -841,7 +745,7 @@ public class AggregatedCaseTest extends TestCase
     }
 
     List<CaseTreatmentMethodDTO> methods = new LinkedList<CaseTreatmentMethodDTO>();
-    for (TreatmentMethodGridDTO g : TreatmentMethodGridDTO.getAll(clientRequest))
+    for (TermDTO g : dtos)
     {
       CaseTreatmentMethodDTO t = new CaseTreatmentMethodDTO(clientRequest, c.getId(), g.getId());
       t.setAmount(new Integer(40));
@@ -849,7 +753,7 @@ public class AggregatedCaseTest extends TestCase
     }
 
     List<CaseReferralDTO> referrals = new LinkedList<CaseReferralDTO>();
-    for (ReferralGridDTO g : ReferralGridDTO.getAll(clientRequest))
+    for (TermDTO g : dtos)
     {
       CaseReferralDTO r = new CaseReferralDTO(clientRequest, c.getId(), g.getId());
       r.setAmount(new Integer(70));
@@ -892,9 +796,7 @@ public class AggregatedCaseTest extends TestCase
       c.delete();
     }
   }
-  */
-
-  /* FIXME MO REFACTOR
+  
   public void testSearchAggregatedCase()
   {
     Integer cases = new Integer(50);
@@ -917,7 +819,7 @@ public class AggregatedCaseTest extends TestCase
     c.setDeaths(deaths);
 
     List<CaseDiagnostic> diagnostics = new LinkedList<CaseDiagnostic>();
-    for (DiagnosticGrid g : DiagnosticGrid.getAll())
+    for (Term g : terms)
     {
       CaseDiagnostic method = new CaseDiagnostic(c.getId(), g.getId());
       method.setAmount(new Integer(50));
@@ -927,7 +829,7 @@ public class AggregatedCaseTest extends TestCase
 
     List<CaseTreatment> treatments = new LinkedList<CaseTreatment>();
     List<CaseTreatmentStock> stocks = new LinkedList<CaseTreatmentStock>();
-    for (TreatmentGrid g : TreatmentGrid.getAll())
+    for (Term g : terms)
     {
       CaseTreatment t = new CaseTreatment(c.getId(), g.getId());
       t.setAmount(new Integer(30));
@@ -939,7 +841,7 @@ public class AggregatedCaseTest extends TestCase
     }
 
     List<CaseTreatmentMethod> methods = new LinkedList<CaseTreatmentMethod>();
-    for (TreatmentMethodGrid g : TreatmentMethodGrid.getAll())
+    for (Term g : terms)
     {
       CaseTreatmentMethod t = new CaseTreatmentMethod(c.getId(), g.getId());
       t.setAmount(new Integer(40));
@@ -947,7 +849,7 @@ public class AggregatedCaseTest extends TestCase
     }
 
     List<CaseReferral> referrals = new LinkedList<CaseReferral>();
-    for (ReferralGrid g : ReferralGrid.getAll())
+    for (Term g : terms)
     {
       CaseReferral r = new CaseReferral(c.getId(), g.getId());
       r.setAmount(new Integer(70));
@@ -994,7 +896,6 @@ public class AggregatedCaseTest extends TestCase
       c.delete();
     }
   }
-  */
 
   public void testUnknownCase()
   {

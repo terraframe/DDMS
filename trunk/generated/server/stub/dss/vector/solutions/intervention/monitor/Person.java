@@ -25,28 +25,8 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   }
 
   @Override
-  public void validatePregnant()
-  {
-    if(this.getPregnant() != null && this.getPregnant() == true)
-    {
-      //FIXME Get the real female key
-//      String femaleId = "";
-//      if(this.getSex() != null && this.getSex().getId().equals(femaleId))
-//      {
-//        String msg = "It is impossible for a human male to be pregnant";
-//
-//        PregnantProblem p = new PregnantProblem(msg);
-//        p.apply();
-//        p.throwIt();
-//      }
-    }
-  }
-
-  @Override
   public void apply()
   {
-    validatePregnant();
-
     boolean first = this.isNew() && !this.isAppliedToDB();
 
     super.apply();

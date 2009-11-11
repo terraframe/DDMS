@@ -191,40 +191,6 @@ public class SurveyTest extends TestCase
     assertNull(SurveyPoint.searchByGeoEntityAndDate(geoEntity, new Date()));
   }
 
-  /* FIXME MO REFACTOR
-  public void createNet()
-  {
-    Net net = new Net();
-    net.setNetName("Test_Net");
-    net.getDisplayLabel().setDefaultLocale("Test Net");
-    net.apply();
-
-    try
-    {
-      Net test = Net.get(net.getId());
-      assertEquals(net.getNetName(), test.getNetName());
-      assertEquals(net.getDisplayLabel(), test.getDisplayLabel());
-    }
-    finally
-    {
-      net.delete();
-    }
-  }
-
-  public void testGetAllNets()
-  {
-    Net[] nets = Net.getAll();
-
-    assertEquals(12, nets.length);
-  }
-
-  public void testGelAllLeafNets()
-  {
-    Net[] leafs = Net.getAllLeafs();
-
-    assertEquals(10, leafs.length);
-  }*/
-
   public void testCreateHousehold()
   {
     Date date = new Date();

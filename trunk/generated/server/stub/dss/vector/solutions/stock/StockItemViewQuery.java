@@ -48,6 +48,7 @@ private static final long serialVersionUID = 1257278739999L;
       vQuery.map(StockItemView.ITEMNAME, stock.getItemName());
       vQuery.map(StockItemView.QUANTITY, stock.getQuantity());
       vQuery.map(StockItemView.UNIT, stock.getUnit());      
+      vQuery.map(StockItemView.ITEMID, stock.getItemId());      
     }
 
     /**

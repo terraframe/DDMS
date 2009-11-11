@@ -210,7 +210,7 @@ var aSubmenuData = [
     	id: "StockControl",
     	itemdata: [
     	         { text: "Configure_Stock_Items(032)", url: "dss.vector.solutions.stock.StockItemController.viewAll.mojo", visibileTo:'Administrator'},
-                 { text: "Manage_Stock", disabled: true, url: "#", visibileTo:'Administrator'},
+                 { text: "Manage_Stock(032)", url: "dss.vector.solutions.stock.StockEventController.search.mojo", visibileTo:'Administrator'},
                  { text: "Query_Stock", disabled: true, url: "#", visibileTo:'Administrator'}    	               	           
               ]
     },

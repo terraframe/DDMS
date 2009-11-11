@@ -120,6 +120,11 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     {
       this.getSprayLeaderDelegate().delete();
     }
+    
+    if (this.getStockStaffDelegate() != null)
+    {
+      this.getStockStaffDelegate().delete();
+    }
   }
 
   @Transaction

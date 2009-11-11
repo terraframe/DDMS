@@ -1,28 +1,33 @@
 package dss.vector.solutions.stock;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import com.terraframe.mojo.query.QueryFactory;
+
+import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermQuery;
 
 /**
  * @author jsmethie
- *
+ * 
  */
 public class StockItem extends StockItemBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1257278739419L;
-  
+
   public StockItem()
   {
     super();
   }
-  
+
   @Override
   protected String buildKey()
   {
-    // ITN Community Distribution class has no attributes that can form a unique
-    // identifier
-    return this.getId();
+    return this.getItemName().getKey() + "-" + this.getQuantity() + "-" + this.getUnit().getKey();
   }
-  
+
   @Override
   public StockItemView getView()
   {
@@ -52,26 +57,78 @@ public class StockItem extends StockItemBase implements com.terraframe.mojo.gene
   public void apply()
   {
     validateItemName();
-    
+
     super.apply();
   }
-  
+
   @Override
   public void validateItemName()
   {
     Term item = this.getItemName();
 
-    if(item != null && !item.isLeaf())
-    {      
+    if (item != null && !item.isLeaf())
+    {
       String msg = "Term [" + item.getOptionName() + "] may not have any children to be a valid item.";
 
       ItemLeafProblem p = new ItemLeafProblem(msg);
       p.setNotification(this, ITEMNAME);
       p.setItemName(item.getOptionName());
       p.apply();
-      
+
       p.throwIt();
     }
   }
 
+  public static StockItemQuery getItems(Term item, QueryFactory factory)
+  {
+    AllPathsQuery apQ = new AllPathsQuery(factory);
+    apQ.WHERE(apQ.getParentTerm().EQ(item));
+
+    TermQuery tQ = new TermQuery(factory);
+    tQ.WHERE(tQ.getId().EQ(apQ.getChildTerm().getId()));
+
+    StockItemQuery query = new StockItemQuery(factory);
+    query.WHERE(query.getItemName().EQ(tQ));
+
+    return query;
+  }
+  
+  public boolean isLeaf()
+  {
+    return this.getItemName().isLeaf();
+  }
+
+  public static StockItem[] getItems(Term item)
+  {
+    QueryFactory factory = new QueryFactory();
+
+    StockItemQuery query = getItems(item, factory);
+
+    List<? extends StockItem> list = query.getIterator().getAll();
+
+    return list.toArray(new StockItem[list.size()]);
+  }
+  
+  public static StockItem[] getLeafs(Term item)
+  {
+    List<StockItem> list = new LinkedList<StockItem>();
+    QueryFactory factory = new QueryFactory();
+
+    StockItemQuery query = getItems(item, factory);
+
+    for(StockItem stock : query.getIterator().getAll())
+    {
+      if(stock.isLeaf())
+      {
+        list.add(stock);
+      }
+    }
+
+    return list.toArray(new StockItem[list.size()]);
+  }
+  
+  public String getLabel()
+  {
+    return this.getItemId() + " - " + this.getItemName().getName() + " " + this.getQuantity() + " " + this.getUnit().getName();
+  }
 }

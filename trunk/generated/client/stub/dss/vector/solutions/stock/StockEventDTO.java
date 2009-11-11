@@ -1,10 +1,10 @@
-package dss.vector.solutions;
+package dss.vector.solutions.stock;
 
-public class PersonDTO extends PersonDTOBase
+public class StockEventDTO extends StockEventDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1254169589059L;
+  private static final long serialVersionUID = 1257354693139L;
   
-  public PersonDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public StockEventDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,8 +15,9 @@ public class PersonDTO extends PersonDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected PersonDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected StockEventDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
-  }  
+  }
+  
 }

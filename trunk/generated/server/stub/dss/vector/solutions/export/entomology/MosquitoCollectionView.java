@@ -1,7 +1,6 @@
 package dss.vector.solutions.export.entomology;
 
 import java.util.Date;
-import java.util.Locale;
 
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
@@ -112,9 +111,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
       throw e;
     }
 
-    /* FIXME MO REFACTOR
-    CollectionMethod method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this
-        .getCollectionMethod(), MosquitoCollection.getCollectionMethodMd());
+    Term method = Term.validateByDisplayLabel(this.getCollectionMethod(), MosquitoCollection.getCollectionMethodMd());
 
     MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
     query.WHERE(query.getGeoEntity().EQ(entity));
@@ -133,15 +130,14 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
       {
         String message = "No mosquito collection found with date [" + this.getDateCollected()
             + "], Geo Entity [" + entity.getEntityName() + "], and collection method ["
-            + method.getDisplayLabel().getValue(Locale.US) + "]";
+            + method.getName() + "]";
         throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(MosquitoCollection.CLASS));
       }
     }
     finally
     {
       iterator.close();
-    }*/
-    return null; // FIXME MO REFACTOR (to make compile)
+    }
   }
 
   private boolean hasCollectionMethod()

@@ -35,9 +35,6 @@ public abstract class AdultAssay extends AdultAssayBase implements com.terrafram
   @Override
   public void validateFed()
   {
-    //FIXME: this "super" function is not super at all and does not work!
-    //super.validateFed();
-
     new FedValidator(this).validate();
   }
 

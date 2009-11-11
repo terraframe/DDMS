@@ -25,6 +25,7 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.permissions.PermissionTest;
 import dss.vector.solutions.permissions.PermissionTestSetup;
+import dss.vector.solutions.stock.StockStaffDTO;
 
 public class TestFixture
 {
@@ -43,7 +44,7 @@ public class TestFixture
     return suite;
   }
 
-  private static String getRandomTermId()
+  public static String getRandomTermId()
   {
     String geoId = new Long(new Date().getTime()).toString();
     return geoId;
@@ -198,6 +199,32 @@ public class TestFixture
 
     return person;
   }
+  
+  public static StockStaffDTO createTestStaff(ClientRequestIF request, TermDTO sex)
+  {
+    Calendar calendar = Calendar.getInstance();
+    calendar.clear();
+    calendar.set(1983, 5, 11);
+
+    // Create a test user and assign it to the entomology role
+    PersonDTO person = new PersonDTO(request);
+    person.setFirstName("Justin");
+    person.setLastName("Smethie");
+    person.setDateOfBirth(calendar.getTime());
+    person.setSex(sex);
+    person.apply();
+
+    // Create MDSS User
+    StockStaffDTO staff = new StockStaffDTO(request);
+    staff.setPerson(person);
+    staff.apply();
+
+    person.lock();
+    person.setStockStaffDelegate(staff);
+    person.apply();    
+    
+    return staff;
+  }
 
   public static void delete(Insecticide insecticide)
   {
@@ -218,6 +245,15 @@ public class TestFixture
 
     Person.get(person.getId()).delete();
 
+    sex.delete();
+  }
+  
+  public static void delete(PersonDTO person)
+  {
+    TermDTO sex = person.getSex();
+    
+    person.delete();
+    
     sex.delete();
   }
 

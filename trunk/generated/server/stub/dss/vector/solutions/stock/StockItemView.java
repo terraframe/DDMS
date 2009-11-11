@@ -26,6 +26,7 @@ public class StockItemView extends StockItemViewBase implements com.terraframe.m
     this.setItemName(concrete.getItemName());
     this.setQuantity(concrete.getQuantity());
     this.setUnit(concrete.getUnit());
+    this.setItemId(concrete.getItemId());
   }
 
   private void populateConcrete(StockItem concrete)
@@ -33,6 +34,7 @@ public class StockItemView extends StockItemViewBase implements com.terraframe.m
     concrete.setItemName(this.getItemName());
     concrete.setQuantity(this.getQuantity());
     concrete.setUnit(this.getUnit());
+    concrete.setItemId(this.getItemId());
   }
 
   private void buildAttributeMap(StockItem concrete)
@@ -40,6 +42,7 @@ public class StockItemView extends StockItemViewBase implements com.terraframe.m
     new AttributeNotificationMap(concrete, StockItem.ITEMNAME, this, StockItemView.ITEMNAME);
     new AttributeNotificationMap(concrete, StockItem.QUANTITY, this, StockItemView.QUANTITY);
     new AttributeNotificationMap(concrete, StockItem.UNIT, this, StockItemView.UNIT);
+    new AttributeNotificationMap(concrete, StockItem.ITEMID, this, StockItemView.ITEMID);
   }
 
   @Override
@@ -83,7 +86,7 @@ public class StockItemView extends StockItemViewBase implements com.terraframe.m
 
     if (sortAttribute == null)
     {
-      sortAttribute = StockItemView.CONCRETEID;
+      sortAttribute = StockItemView.ITEMID;
     }
 
     Selectable attribute = query.getComponentQuery().getSelectable(sortAttribute);

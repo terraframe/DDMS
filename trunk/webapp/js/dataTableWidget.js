@@ -45,12 +45,13 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
     initialize : function(data)
     {
 				 
-  				this.tableData = data;
+  		      this.tableData = data;
   			  this.myDataSource = null;
   			  this.myDataTable = null;
   			  this.bReverseSorted = false;
   			  this.btnSaveRows = false;
   			  this.btnAddRow = false;
+  			  this.disableButton = !Mojo.Util.isBoolean(data.cleanDisable) ? true : data.cleanDisable;
 
 				  // set the fields
 				  if (typeof this.tableData.fields === 'undefined') {
@@ -74,12 +75,6 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 				  }
 				
 				  this.tableData.dirty = false;
-				
-				
-				  // set the default value for disable button
-				  if(!Mojo.Util.isBoolean(this.tableData.cleanDisable)) {
-					  this.tableData.cleanDisable = true;
-				  }
 				
 				  // load the data
 				  this.myDataSource = new YAHOO.util.DataSource(this.tableData.rows);
@@ -141,6 +136,10 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 				  };
 				 */ 
 				  
+    },
+    
+    _getDisableButton : function() {
+      return this.disableButton;
     },
   
     _getLabelFromId : function(feild, id) {
@@ -276,7 +275,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 		    // set up the button that saves the rows to the db
 		    this.btnSaveRows = new YAHOO.widget.Button(this.tableData.div_id + "Saverows");
 		    this.btnSaveRows.on("click", this.persistData, null, this);
-		    this.btnSaveRows.set("disabled", true);
+		    this.btnSaveRows.set("disabled", this._getDisableButton());
 		  }
 	
 		  // Setup the custom button actions
@@ -597,7 +596,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 
               this.tableData.dirty = false;
               
-              this.thisRef.btnSaveRows.set("disabled", this.tableData.cleanDisable);
+              this.thisRef.btnSaveRows.set("disabled", this.thisRef._getDisableButton());
               
               this.dataTable.render();
 
@@ -611,9 +610,11 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 
 
         var view_arr = this.createObjectRepresentation();
-      	  
-        // Save the table
+
+        // Disable the save button until the request has been executed
+        this.btnSaveRows.set("disabled", true);
         
+        // Save the table
 			  if(Mojo.Util.isFunction(this.tableData.saveHandler)) {
 			  	this.tableData.saveHandler(request, view_arr);
 			  }
@@ -621,8 +622,6 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 			  {
 			  	this._saveHandler(request, view_arr);
 			  }
-        
-        this.btnSaveRows.set("disabled", true);
       },
 
 
@@ -657,7 +656,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
       this.tableData.rows.push(new_data_row);
       this.myDataTable.addRow(new_label_row);
       this.tableData.dirty = true;
-      this.btnSaveRows.set("disabled", false);
+      this.btnSaveRows.set("disabled", this._getDisableButton());
 
   	// Execute after row add
       if(typeof afterRowAdd !== 'undefined' && Mojo.Util.isFunction(afterRowAdd))

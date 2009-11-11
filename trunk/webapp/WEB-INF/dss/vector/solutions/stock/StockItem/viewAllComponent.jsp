@@ -8,6 +8,7 @@
 <mjl:table classes="displayTable" var="item" query="${query}" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.stock.StockItemController.viewPage.mojo" />
   <mjl:columns>
+    <mjl:attributeColumn attributeName="itemId"/>  
     <mjl:attributeColumn attributeName="itemName">
       <mjl:row>
         ${item.itemName.displayLabel}
