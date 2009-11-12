@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1574574939)
+@com.terraframe.mojo.business.ClassSignature(hash = -583935947)
 public class OntologyRelationshipControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.ontology.OntologyRelationshipController";
@@ -10,7 +10,7 @@ public class OntologyRelationshipControllerBase implements com.terraframe.mojo.g
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1574574939;
+  private static final long serialVersionUID = -583935947;
   
   public OntologyRelationshipControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -67,32 +67,18 @@ public class OntologyRelationshipControllerBase implements com.terraframe.mojo.g
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.ontology.OntologyRelationshipDTO:dto", post=true)
+  public void cancel(dss.vector.solutions.ontology.OntologyRelationshipDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.viewPage");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.cancel");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber", post=false)
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.ontology.OntologyRelationshipDTO:dto", post=true)
+  public void failCancel(dss.vector.solutions.ontology.OntologyRelationshipDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.failViewPage");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.newInstance");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.failNewInstance");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.failCancel");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.ontology.OntologyRelationshipDTO:dto", post=true)
@@ -110,17 +96,17 @@ public class OntologyRelationshipControllerBase implements com.terraframe.mojo.g
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.ontology.OntologyRelationshipDTO:dto", post=true)
-  public void cancel(dss.vector.solutions.ontology.OntologyRelationshipDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(dss.vector.solutions.ontology.OntologyRelationshipDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.cancel");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.delete");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.ontology.OntologyRelationshipDTO:dto", post=true)
-  public void failCancel(dss.vector.solutions.ontology.OntologyRelationshipDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(dss.vector.solutions.ontology.OntologyRelationshipDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.failCancel");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.failDelete");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
@@ -137,6 +123,20 @@ public class OntologyRelationshipControllerBase implements com.terraframe.mojo.g
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.failEdit");
   }
   
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.newInstance");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.failNewInstance");
+  }
+  
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.ontology.OntologyRelationshipDTO:dto", post=true)
   public void update(dss.vector.solutions.ontology.OntologyRelationshipDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -149,20 +149,6 @@ public class OntologyRelationshipControllerBase implements com.terraframe.mojo.g
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.failUpdate");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.viewAll");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.failViewAll");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
@@ -179,18 +165,32 @@ public class OntologyRelationshipControllerBase implements com.terraframe.mojo.g
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.failView");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.ontology.OntologyRelationshipDTO:dto", post=true)
-  public void delete(dss.vector.solutions.ontology.OntologyRelationshipDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.delete");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.viewAll");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.ontology.OntologyRelationshipDTO:dto", post=true)
-  public void failDelete(dss.vector.solutions.ontology.OntologyRelationshipDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.failDelete");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.failViewAll");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
+  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.viewPage");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber", post=false)
+  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.OntologyRelationshipController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.OntologyRelationshipController.failViewPage");
   }
   
 }

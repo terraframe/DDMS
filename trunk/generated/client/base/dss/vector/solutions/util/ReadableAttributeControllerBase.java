@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 737396931)
+@com.terraframe.mojo.business.ClassSignature(hash = -1750336707)
 public class ReadableAttributeControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.util.ReadableAttributeController";
@@ -10,7 +10,7 @@ public class ReadableAttributeControllerBase implements com.terraframe.mojo.gene
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 737396931;
+  private static final long serialVersionUID = -1750336707;
   
   public ReadableAttributeControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -67,20 +67,6 @@ public class ReadableAttributeControllerBase implements com.terraframe.mojo.gene
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:universal, java.lang.String:actor, [Ldss.vector.solutions.util.ReadableAttributeViewDTO;:attributeViews", post=true)
-  public void setAttributes(java.lang.String universal, java.lang.String actor, dss.vector.solutions.util.ReadableAttributeViewDTO[] attributeViews) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.ReadableAttributeController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ReadableAttributeController.setAttributes");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:universal, java.lang.String:actor, [Ldss.vector.solutions.util.ReadableAttributeViewDTO;:attributeViews", post=true)
-  public void failSetAttributes(java.lang.String universal, java.lang.String actor, dss.vector.solutions.util.ReadableAttributeViewDTO[] attributeViews) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.ReadableAttributeController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ReadableAttributeController.failSetAttributes");
-  }
-  
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
   public void getActor() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -93,6 +79,20 @@ public class ReadableAttributeControllerBase implements com.terraframe.mojo.gene
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.ReadableAttributeController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ReadableAttributeController.failGetActor");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:universal, java.lang.String:actor", post=false)
+  public void getAttributes(java.lang.String universal, java.lang.String actor) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.ReadableAttributeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ReadableAttributeController.getAttributes");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:universal, java.lang.String:actor", post=false)
+  public void failGetAttributes(java.lang.String universal, java.lang.String actor) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.ReadableAttributeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ReadableAttributeController.failGetAttributes");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:actor", post=false)
@@ -109,18 +109,18 @@ public class ReadableAttributeControllerBase implements com.terraframe.mojo.gene
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ReadableAttributeController.failGetUniversal");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:universal, java.lang.String:actor", post=false)
-  public void getAttributes(java.lang.String universal, java.lang.String actor) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:universal, java.lang.String:actor, [Ldss.vector.solutions.util.ReadableAttributeViewDTO;:attributeViews", post=true)
+  public void setAttributes(java.lang.String universal, java.lang.String actor, dss.vector.solutions.util.ReadableAttributeViewDTO[] attributeViews) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.ReadableAttributeController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ReadableAttributeController.getAttributes");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ReadableAttributeController.setAttributes");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:universal, java.lang.String:actor", post=false)
-  public void failGetAttributes(java.lang.String universal, java.lang.String actor) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:universal, java.lang.String:actor, [Ldss.vector.solutions.util.ReadableAttributeViewDTO;:attributeViews", post=true)
+  public void failSetAttributes(java.lang.String universal, java.lang.String actor, dss.vector.solutions.util.ReadableAttributeViewDTO[] attributeViews) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.ReadableAttributeController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ReadableAttributeController.failGetAttributes");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ReadableAttributeController.failSetAttributes");
   }
   
 }

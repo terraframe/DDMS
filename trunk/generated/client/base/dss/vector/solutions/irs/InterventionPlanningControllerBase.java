@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1757021981)
+@com.terraframe.mojo.business.ClassSignature(hash = -944822265)
 public class InterventionPlanningControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.irs.InterventionPlanningController";
@@ -10,7 +10,7 @@ public class InterventionPlanningControllerBase implements com.terraframe.mojo.g
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1757021981;
+  private static final long serialVersionUID = -944822265;
   
   public InterventionPlanningControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -67,18 +67,60 @@ public class InterventionPlanningControllerBase implements com.terraframe.mojo.g
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.Integer:unitsPerDay", post=true)
-  public void setSprayedUnitsPerDay(java.lang.Integer unitsPerDay) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="[Ldss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO;:views", post=true)
+  public void exportInsecticidePlanning(dss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO[] views) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.setSprayedUnitsPerDay");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.exportInsecticidePlanning");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:unitsPerDay", post=true)
-  public void failSetSprayedUnitsPerDay(java.lang.String unitsPerDay) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="[Ldss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO;:views", post=true)
+  public void failExportInsecticidePlanning(dss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO[] views) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.failSetSprayedUnitsPerDay");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.failExportInsecticidePlanning");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="[Ldss.vector.solutions.irs.OperatorInterventionPlanningViewDTO;:views", post=true)
+  public void exportOperatorPlanning(dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO[] views) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.exportOperatorPlanning");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="[Ldss.vector.solutions.irs.OperatorInterventionPlanningViewDTO;:views", post=true)
+  public void failExportOperatorPlanning(dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO[] views) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.failExportOperatorPlanning");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="[Ldss.vector.solutions.irs.TimeInterventionPlanningViewDTO;:views", post=true)
+  public void exportTimePlanning(dss.vector.solutions.irs.TimeInterventionPlanningViewDTO[] views) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.exportTimePlanning");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="[Ldss.vector.solutions.irs.TimeInterventionPlanningViewDTO;:views", post=true)
+  public void failExportTimePlanning(dss.vector.solutions.irs.TimeInterventionPlanningViewDTO[] views) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.failExportTimePlanning");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:option", post=false)
+  public void search(java.lang.String option) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.search");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:option", post=false)
+  public void failSearch(java.lang.String option) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.failSearch");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoId, dss.vector.solutions.general.MalariaSeasonDTO:season", post=true)
@@ -109,20 +151,6 @@ public class InterventionPlanningControllerBase implements com.terraframe.mojo.g
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.failSearchForOperatorPlanning");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="[Ldss.vector.solutions.irs.TimeInterventionPlanningViewDTO;:views", post=true)
-  public void exportTimePlanning(dss.vector.solutions.irs.TimeInterventionPlanningViewDTO[] views) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.exportTimePlanning");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="[Ldss.vector.solutions.irs.TimeInterventionPlanningViewDTO;:views", post=true)
-  public void failExportTimePlanning(dss.vector.solutions.irs.TimeInterventionPlanningViewDTO[] views) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.failExportTimePlanning");
-  }
-  
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoId, dss.vector.solutions.general.MalariaSeasonDTO:season", post=true)
   public void searchForTimePlanning(java.lang.String geoId, dss.vector.solutions.general.MalariaSeasonDTO season) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -137,46 +165,18 @@ public class InterventionPlanningControllerBase implements com.terraframe.mojo.g
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.failSearchForTimePlanning");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="[Ldss.vector.solutions.irs.OperatorInterventionPlanningViewDTO;:views", post=true)
-  public void exportOperatorPlanning(dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO[] views) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.Integer:unitsPerDay", post=true)
+  public void setSprayedUnitsPerDay(java.lang.Integer unitsPerDay) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.exportOperatorPlanning");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.setSprayedUnitsPerDay");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="[Ldss.vector.solutions.irs.OperatorInterventionPlanningViewDTO;:views", post=true)
-  public void failExportOperatorPlanning(dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO[] views) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:unitsPerDay", post=true)
+  public void failSetSprayedUnitsPerDay(java.lang.String unitsPerDay) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.failExportOperatorPlanning");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="[Ldss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO;:views", post=true)
-  public void exportInsecticidePlanning(dss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO[] views) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.exportInsecticidePlanning");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="[Ldss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO;:views", post=true)
-  public void failExportInsecticidePlanning(dss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO[] views) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.failExportInsecticidePlanning");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:option", post=false)
-  public void search(java.lang.String option) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.search");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:option", post=false)
-  public void failSearch(java.lang.String option) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InterventionPlanningController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.failSearch");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.InterventionPlanningController.failSetSprayedUnitsPerDay");
   }
   
 }

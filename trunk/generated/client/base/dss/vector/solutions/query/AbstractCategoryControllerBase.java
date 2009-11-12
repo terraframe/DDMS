@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 208137741)
+@com.terraframe.mojo.business.ClassSignature(hash = 158476919)
 public class AbstractCategoryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.AbstractCategoryController";
@@ -10,7 +10,7 @@ public class AbstractCategoryControllerBase implements com.terraframe.mojo.gener
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 208137741;
+  private static final long serialVersionUID = 158476919;
   
   public AbstractCategoryControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -67,34 +67,6 @@ public class AbstractCategoryControllerBase implements com.terraframe.mojo.gener
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.viewAll");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.failViewAll");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.AbstractCategoryDTO:dto", post=true)
-  public void delete(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.delete");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.AbstractCategoryDTO:dto", post=true)
-  public void failDelete(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.failDelete");
-  }
-  
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.AbstractCategoryDTO:dto", post=true)
   public void cancel(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -110,17 +82,31 @@ public class AbstractCategoryControllerBase implements com.terraframe.mojo.gener
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.AbstractCategoryDTO:dto", post=true)
-  public void update(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.update");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.create");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.AbstractCategoryDTO:dto", post=true)
-  public void failUpdate(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.failUpdate");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.failCreate");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.AbstractCategoryDTO:dto", post=true)
+  public void delete(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.delete");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.AbstractCategoryDTO:dto", post=true)
+  public void failDelete(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.failDelete");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
@@ -138,17 +124,17 @@ public class AbstractCategoryControllerBase implements com.terraframe.mojo.gener
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.AbstractCategoryDTO:dto", post=true)
-  public void create(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.create");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.update");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.AbstractCategoryDTO:dto", post=true)
-  public void failCreate(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.failCreate");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.failUpdate");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
@@ -163,6 +149,20 @@ public class AbstractCategoryControllerBase implements com.terraframe.mojo.gener
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.failView");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.viewAll");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.failViewAll");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
