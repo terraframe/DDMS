@@ -42,14 +42,14 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     resp.sendError(500);
   }
 
-  public void search(Date diagnosisDate, String personId) throws IOException, ServletException
+  public void search(Date diagnosisDate, Date caseReportDate, String personId) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = getClientRequest();
     IndividualCaseDTO individualCase = IndividualCaseDTO.searchForExistingCase(clientRequest, diagnosisDate, personId);
-    if (individualCase==null)
+    if (individualCase.isNewInstance())
     {
-      individualCase = new IndividualCaseDTO(clientRequest);
       individualCase.setDiagnosisDate(diagnosisDate);
+      individualCase.setCaseReportDate(caseReportDate);
       renderCreate(individualCase, personId);
     }
     else
@@ -201,7 +201,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     IndividualCaseDTO dto = new IndividualCaseDTO(clientRequest);
     renderSearch(dto);
   }
-
+  
   private void renderSearch(IndividualCaseDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);

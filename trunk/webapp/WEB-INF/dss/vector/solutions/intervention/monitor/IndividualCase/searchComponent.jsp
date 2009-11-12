@@ -23,6 +23,12 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%=HealthFacilityDTO.CLASS%>*');
 <dl>
 	<mjl:form id="form.id" name="IndividualCase.form.name" method="GET">
 	  <dt>
+	    <label> ${item.caseReportDateMd.displayLabel} </label>
+	  </dt>
+	  <dd>
+	    <mjl:input type="text" param="caseReportDate" classes="DatePick" id="caseReportDate"/>
+	  </dd>
+	  <dt>
 	    <label> ${item.diagnosisDateMd.displayLabel} </label>
 	  </dt>
 	  <dd>

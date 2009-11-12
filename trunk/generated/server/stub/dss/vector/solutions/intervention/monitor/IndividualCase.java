@@ -119,11 +119,31 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     query.WHERE(query.getPatient().EQ(patient));
     query.ORDER_BY_DESC(query.getDiagnosisDate());
 
-    IndividualCase individualCase = null;
+    IndividualCase individualCase = new IndividualCase();
     OIterator<? extends IndividualCase> iterator = query.getIterator();
     if (iterator.hasNext())
     {
       individualCase = iterator.next();
+    }
+    else
+    {
+      // If values don't exist on the case, give them defaults from the person
+      if (individualCase.getResidence()==null)
+      {
+        individualCase.setResidence(person.getResidentialGeoEntity());
+      }
+      if (individualCase.getResidenceText()==null)
+      {
+        individualCase.setResidenceText(person.getResidentialInformation());
+      }
+      if (individualCase.getWorkplace()==null)
+      {
+        individualCase.setWorkplace(person.getWorkGeoEntity());
+      }
+      if (individualCase.getWorkplaceText()==null)
+      {
+        individualCase.setWorkplaceText(person.getWorkInformation());
+      }
     }
     iterator.close();
 

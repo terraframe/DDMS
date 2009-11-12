@@ -123,6 +123,7 @@
   </mjl:columns>
 </mjl:table>
 </dd>
+
 <mjl:commandLink action="dss.vector.solutions.intervention.monitor.IndividualInstanceController.newInstance.mojo" name="IndividualInstanceController.newInstance">
   <fmt:message key="Create_a_new_Individual_Instance" />
   <mjl:property name="caseId" value="${item.id}"/>

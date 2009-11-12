@@ -1,6 +1,7 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,9 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class IndividualInstanceController extends IndividualInstanceControllerBase implements Reloadable
 {
@@ -38,59 +41,78 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     resp.sendError(500);
   }
 
-  public void update(IndividualInstanceDTO dto) throws IOException, ServletException
+  public void update(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
   {
     try
     {
-      dto.apply();
+      dto.applyAll(symptoms);
       this.view(dto.getId());
     }
     catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      this.failUpdate(dto);
+      this.failUpdate(dto, symptoms);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
-      this.failUpdate(dto);
+      this.failUpdate(dto, symptoms);
     }
   }
 
-  public void failUpdate(IndividualInstanceDTO dto) throws IOException, ServletException
+  public void failUpdate(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
   {
-    /* FIXME MO REFACTOR
-    req.setAttribute("labTest", Arrays.asList(DiagnosticGridDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("patientCategory", Arrays.asList(PatientGridDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("referralReason", Arrays.asList(ReferralGridDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("treatment", Arrays.asList(TreatmentGridDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("item", dto);
+    req.setAttribute("symptoms", symptoms);
     render("editComponent.jsp");
-    */
   }
 
-  public void create(IndividualInstanceDTO dto) throws IOException, ServletException
+  public void create(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
   {
     try
     {
-      dto.apply();
+      dto.applyAll(symptoms);
       this.view(dto.getId());
     }
     catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      this.failCreate(dto);
+      this.failCreate(dto, symptoms);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
-      this.failCreate(dto);
+      this.failCreate(dto, symptoms);
     }
   }
-
-  public void failCreate(IndividualInstanceDTO dto) throws IOException, ServletException
+  
+  public void failCreate(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
   {
     renderCreate(dto, dto.getValue(IndividualInstanceDTO.INDIVIDUALCASE));
+  }
+  
+  public void createWithCase(IndividualInstanceDTO dto, IndividualCaseDTO newCase, String personId, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
+  {
+    try
+    {
+      newCase.applyWithPersonId(personId);
+      this.create(dto, symptoms);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failCreateWithCase(dto, newCase, personId, symptoms);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failCreateWithCase(dto, newCase, personId, symptoms);
+    }
+  }
+  
+  public void failCreateWithCase(IndividualInstanceDTO dto, IndividualCaseDTO newCase, String personId, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
+  {
+    renderCreateWithCase(dto, newCase, personId);
   }
 
   public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
@@ -107,15 +129,16 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   }
 
   public void edit(String id) throws IOException, ServletException
-  {/* FIXME MO REFACTOR
+  {
     IndividualInstanceDTO dto = IndividualInstanceDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("labTest", Arrays.asList(DiagnosticGridDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("patientCategory", Arrays.asList(PatientGridDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("referralReason", Arrays.asList(ReferralGridDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("treatment", Arrays.asList(TreatmentGridDTO.getAll(super.getClientSession().getRequest())));
+    renderEdit(dto);
+  }
+
+  private void renderEdit(IndividualInstanceDTO dto) throws IOException, ServletException
+  {
     req.setAttribute("item", dto);
+    req.setAttribute("symptoms", Arrays.asList(dto.getSymptoms()));
     render("editComponent.jsp");
-    */
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -140,19 +163,33 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     IndividualInstanceDTO dto = new IndividualInstanceDTO(clientRequest);
     renderCreate(dto, caseId);
   }
+  
+  public void newInstanceWithCase(IndividualCaseDTO newCase, String personId) throws IOException, ServletException
+  {
+    ClientRequestIF clientRequest = super.getClientRequest();
+    IndividualInstanceDTO dto = new IndividualInstanceDTO(clientRequest);
+    renderCreateWithCase(dto, newCase, personId);
+  }
+  
+  private void renderCreateWithCase(IndividualInstanceDTO dto, IndividualCaseDTO newCase, String personId) throws IOException, ServletException
+  {
+    prepareCreateReq(dto);
+    req.setAttribute("newCase", newCase);
+    req.setAttribute("personId", personId);
+    render("createWithCase.jsp");
+  }
 
   private void renderCreate(IndividualInstanceDTO dto, String caseId) throws IOException, ServletException
   {
-    /* FIXME MO REFACTOR
-    ClientRequestIF request = super.getClientSession().getRequest();
-    req.setAttribute("labTest", Arrays.asList(DiagnosticGridDTO.getAll(request)));
-    req.setAttribute("patientCategory", Arrays.asList(PatientGridDTO.getAll(request)));
-    req.setAttribute("referralReason", Arrays.asList(ReferralGridDTO.getAll(request)));
-    req.setAttribute("treatment", Arrays.asList(TreatmentGridDTO.getAll(request)));
+    prepareCreateReq(dto);
     req.setAttribute("caseId", caseId);
-    req.setAttribute("item", dto);
     render("createComponent.jsp");
-    */
+  }
+
+  private void prepareCreateReq(IndividualInstanceDTO dto)
+  {
+    req.setAttribute("item", dto);
+    req.setAttribute("symptoms", Arrays.asList(dto.getSymptoms()));
   }
 
   public void failNewInstance(String caseId) throws IOException, ServletException
@@ -181,30 +218,19 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   public void failDelete(IndividualInstanceDTO dto) throws IOException, ServletException
   {
-    /* FIXME MO REFACTOR
-    req.setAttribute("labTest", Arrays.asList(DiagnosticGridDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("patientCategory", Arrays.asList(PatientGridDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("referralReason", Arrays.asList(ReferralGridDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("treatment", Arrays.asList(TreatmentGridDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
-    */
+    renderEdit(dto);
   }
 
   public void view(String id) throws IOException, ServletException
   {
-    /* FIXME MO REFACTOR
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("labTest", Arrays.asList(DiagnosticGridDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("patientCategory", Arrays.asList(PatientGridDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("referralReason", Arrays.asList(ReferralGridDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("treatment", Arrays.asList(TreatmentGridDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("item", IndividualInstanceDTO.get(clientRequest, id));
+    
+    IndividualInstanceDTO dto = IndividualInstanceDTO.get(super.getClientRequest(), id);
+    req.setAttribute("item", dto);
+    req.setAttribute("symptoms", Arrays.asList(dto.getSymptoms()));
     render("viewComponent.jsp");
-    */
   }
 
   public void failView(String id) throws IOException, ServletException
