@@ -65,6 +65,7 @@ private static final long serialVersionUID = 1257790601973L;
       vQuery.map(StockEventView.STAFFLABEL, staffLabel);
       vQuery.map(StockEventView.STOCKDEPOT, query.getStockDepot());
       vQuery.map(StockEventView.TRANSACTIONTYPE, query.getTransactionType());
+      vQuery.map(StockEventView.OTHERPARTY, query.getOtherParty());
     }
 
     /**

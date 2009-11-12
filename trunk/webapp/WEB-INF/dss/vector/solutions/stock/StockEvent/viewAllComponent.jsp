@@ -28,7 +28,11 @@
         ${current.staffLabel}
       </mjl:row>
     </mjl:attributeColumn>
-    
+    <mjl:attributeColumn attributeName="otherParty" >
+      <mjl:row>
+        ${current.otherParty}
+      </mjl:row>
+    </mjl:attributeColumn>    
     <mjl:attributeColumn attributeName="transactionType">
       <mjl:row>
         <ul>

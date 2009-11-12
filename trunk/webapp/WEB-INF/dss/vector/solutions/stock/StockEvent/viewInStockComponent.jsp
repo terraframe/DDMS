@@ -28,40 +28,33 @@ ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientCon
 StockEventViewDTO view = (StockEventViewDTO) request.getAttribute(StockEventController.ITEM);
 StockEventViewDTO[] rows = (StockEventViewDTO[]) request.getAttribute(StockEventController.VIEWS);
 
-String[] attributes = {"ConcreteId", "StockDepot", "Staff", "StaffLabel", "EventDate", "Item", "TransactionType", "ItemLabel", "AvailableStock", "Quantity", "Cost"};
+String[] attributes = {"ConcreteId", "StockDepot", "Staff", "StaffLabel", "OtherParty", "EventDate", "Item", "TransactionType", "ItemLabel", "AvailableStock", "Quantity", "Cost"};
 
 String deleteColumn = "";
 %>
 
-<dl>  
-  <dt>
-    <label> ${item.stockDepotMd.displayLabel} </label>
-  </dt>
-  <dd>
-    ${entity.displayString}
-  </dd>
-  <dt>
-    <label> ${item.itemMd.displayLabel} </label>
-  </dt>
-  <dd>
-    ${term.displayLabel}
-  </dd>
-  <dt>
-    <label> ${item.eventDateMd.displayLabel} </label>
-  </dt>
-  <dd>
-    <span class="formatDate">${date}</span>
-  </dd>
-  <dt>
-    <label> ${item.staffMd.displayLabel} </label>
-  </dt>
-  <dd>
-    <mjl:select valueAttribute="id" param="staff" items="${staff}" id="staff" var="current">
-      <mjl:option>
-        ${current.person}        
-      </mjl:option>
-    </mjl:select>
-  </dd>
+<dl>
+  <mjl:component item="${item}" param="item">
+    <mjl:dt attribute="stockDepot">
+      ${entity.displayString}
+    </mjl:dt>
+    <mjl:dt attribute="item">
+      ${term.displayLabel}
+    </mjl:dt>
+    <mjl:dt attribute="eventDate">
+      <span class="formatDate">${date}</span>
+    </mjl:dt>
+    <mjl:dt attribute="staff">
+      <mjl:select valueAttribute="id" param="staff" items="${staff}" id="staff" var="current">
+        <mjl:option>
+          ${current.person}        
+        </mjl:option>
+      </mjl:select>
+    </mjl:dt>
+    <mjl:dt attribute="otherParty">
+      <mjl:input type="text" param="otherParty" id="otherParty"/>
+    </mjl:dt>  
+  </mjl:component>
 </dl>
 <div id="StockEvent"></div>
 <br />
@@ -79,6 +72,7 @@ map.put("ConcreteId", new ColumnSetup(true, false));
 map.put("StockDepot", new ColumnSetup(true, false));
 map.put("Staff", new ColumnSetup(true, false));
 map.put("StaffLabel", new ColumnSetup(true, false));
+map.put("OtherParty", new ColumnSetup(true, true));
 map.put("EventDate", new ColumnSetup(true, false));
 map.put("Item", new ColumnSetup(true, false));
 map.put("TransactionType", new ColumnSetup(true, false));
@@ -97,6 +91,7 @@ map.put("Cost", new ColumnSetup(false, true));
 
     var saveHandler = function(request, view_array) {
       var staff = document.getElementById('staff').value;
+      var otherParty = document.getElementById('otherParty').value;
       var valid = true;
 
       if(staff === "")  {
@@ -107,6 +102,7 @@ map.put("Cost", new ColumnSetup(false, true));
       if(valid) {
         for(var i = 0; i < view_array.length; i++) {
           view_array[i].setStaff(staff);
+          view_array[i].setOtherParty(otherParty);
         }
 
         Mojo.$.<%=StockEventViewDTO.CLASS%>.applyAll(request, view_array);      

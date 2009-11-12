@@ -44,6 +44,7 @@ public class StockEventView extends StockEventViewBase implements com.terraframe
     this.setStaff(concrete.getStaff());
     this.setAvailableStock(stock);
     this.setStaffLabel(concrete.getStaff().getPerson().toString());
+    this.setOtherParty(concrete.getOtherParty());
 
     this.clearTransactionType();
 
@@ -61,6 +62,7 @@ public class StockEventView extends StockEventViewBase implements com.terraframe
     concrete.setEventDate(this.getEventDate());
     concrete.setQuantity(this.getQuantity());
     concrete.setStaff(this.getStaff());
+    concrete.setOtherParty(this.getOtherParty());
 
     concrete.clearTransactionType();
 
@@ -79,6 +81,7 @@ public class StockEventView extends StockEventViewBase implements com.terraframe
     new AttributeNotificationMap(concrete, StockEvent.QUANTITY, this, StockEventView.QUANTITY);
     new AttributeNotificationMap(concrete, StockEvent.STAFF, this, StockEventView.STAFF);
     new AttributeNotificationMap(concrete, StockEvent.TRANSACTIONTYPE, this, StockEventView.TRANSACTIONTYPE);
+    new AttributeNotificationMap(concrete, StockEvent.OTHERPARTY, this, StockEventView.OTHERPARTY);
   }
 
   @Override
@@ -179,7 +182,7 @@ public class StockEventView extends StockEventViewBase implements com.terraframe
 
     if (sortAttribute == null)
     {
-      sortAttribute = StockEventView.CONCRETEID;
+      sortAttribute = StockEventView.EVENTDATE;
     }
 
     Selectable attribute = query.getComponentQuery().getSelectable(sortAttribute);
