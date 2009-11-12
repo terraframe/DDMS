@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 795130001)
+@com.terraframe.mojo.business.ClassSignature(hash = 1691879438)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  class IndividualCaseQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 795130001;
+private static final long serialVersionUID = 1691879438;
 
   public IndividualCaseQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -27,6 +27,23 @@ private static final long serialVersionUID = 795130001;
   public String getClassType()
   {
     return dss.vector.solutions.intervention.monitor.IndividualCase.CLASS;
+  }
+  public com.terraframe.mojo.query.AttributeInteger getAge()
+  {
+    return getAge(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getAge(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.AGE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getAge(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.AGE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+
   }
   public com.terraframe.mojo.query.AttributeMoment getCaseEntryDate()
   {
@@ -308,6 +325,63 @@ private static final long serialVersionUID = 795130001;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.PROBABLESOURCE, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeChar getProbableSourceText()
+  {
+    return getProbableSourceText(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getProbableSourceText(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.PROBABLESOURCETEXT, "com.terraframe.mojo.system.metadata.MdAttributeText", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getProbableSourceText(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.PROBABLESOURCETEXT, "com.terraframe.mojo.system.metadata.MdAttributeText", alias, displayLabel);
+
+  }
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence()
+  {
+    return getResidence(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("residence");
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.RESIDENCE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("residence");
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.RESIDENCE, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getResidenceText()
+  {
+    return getResidenceText(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getResidenceText(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.RESIDENCETEXT, "com.terraframe.mojo.system.metadata.MdAttributeText", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getResidenceText(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.RESIDENCETEXT, "com.terraframe.mojo.system.metadata.MdAttributeText", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeLong getSeq()
   {
     return getSeq(null);
@@ -359,6 +433,46 @@ private static final long serialVersionUID = 795130001;
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace()
+  {
+    return getWorkplace(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("workplace");
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.WORKPLACE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("workplace");
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.WORKPLACE, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getWorkplaceText()
+  {
+    return getWorkplaceText(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getWorkplaceText(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.WORKPLACETEXT, "com.terraframe.mojo.system.metadata.MdAttributeText", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getWorkplaceText(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.WORKPLACETEXT, "com.terraframe.mojo.system.metadata.MdAttributeText", alias, displayLabel);
+
+  }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();
@@ -388,6 +502,14 @@ private static final long serialVersionUID = 795130001;
        return new dss.vector.solutions.PatientQuery.PatientQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals("probableSource")) 
+    {
+       return new dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("residence")) 
+    {
+       return new dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("workplace")) 
     {
        return new dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -429,6 +551,9 @@ private static final long serialVersionUID = 795130001;
   public interface IndividualCaseQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.query.SelectableReference
   {
 
+    public com.terraframe.mojo.query.AttributeInteger getAge();
+    public com.terraframe.mojo.query.AttributeInteger getAge(String alias);
+    public com.terraframe.mojo.query.AttributeInteger getAge(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeMoment getCaseEntryDate();
     public com.terraframe.mojo.query.AttributeMoment getCaseEntryDate(String alias);
     public com.terraframe.mojo.query.AttributeMoment getCaseEntryDate(String alias, String displayLabel);
@@ -471,6 +596,15 @@ private static final long serialVersionUID = 795130001;
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getProbableSource();
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getProbableSource(String alias);
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getProbableSource(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getProbableSourceText();
+    public com.terraframe.mojo.query.AttributeChar getProbableSourceText(String alias);
+    public com.terraframe.mojo.query.AttributeChar getProbableSourceText(String alias, String displayLabel);
+    public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence();
+    public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence(String alias);
+    public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getResidenceText();
+    public com.terraframe.mojo.query.AttributeChar getResidenceText(String alias);
+    public com.terraframe.mojo.query.AttributeChar getResidenceText(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeLong getSeq();
     public com.terraframe.mojo.query.AttributeLong getSeq(String alias);
     public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel);
@@ -480,6 +614,12 @@ private static final long serialVersionUID = 795130001;
     public com.terraframe.mojo.query.AttributeChar getType();
     public com.terraframe.mojo.query.AttributeChar getType(String alias);
     public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel);
+    public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace();
+    public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace(String alias);
+    public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getWorkplaceText();
+    public com.terraframe.mojo.query.AttributeChar getWorkplaceText(String alias);
+    public com.terraframe.mojo.query.AttributeChar getWorkplaceText(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.intervention.monitor.IndividualCase individualCase);
 
@@ -495,7 +635,7 @@ private static final long serialVersionUID = 795130001;
  implements IndividualCaseQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1406514509;
+private static final long serialVersionUID = 1022961968;
 
   public IndividualCaseQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -514,6 +654,23 @@ private static final long serialVersionUID = -1406514509;
       return this.NE(individualCase.getId());
     }
 
+  public com.terraframe.mojo.query.AttributeInteger getAge()
+  {
+    return getAge(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getAge(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("age", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getAge(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("age", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeMoment getCaseEntryDate()
   {
     return getCaseEntryDate(null);
@@ -752,6 +909,57 @@ private static final long serialVersionUID = -1406514509;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.attributeFactory("probableSource", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeChar getProbableSourceText()
+  {
+    return getProbableSourceText(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getProbableSourceText(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("probableSourceText", "com.terraframe.mojo.system.metadata.MdAttributeText", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getProbableSourceText(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("probableSourceText", "com.terraframe.mojo.system.metadata.MdAttributeText", alias, displayLabel);
+
+  }
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence()
+  {
+    return getResidence(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence(String alias)
+  {
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.attributeFactory("residence", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.attributeFactory("residence", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getResidenceText()
+  {
+    return getResidenceText(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getResidenceText(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("residenceText", "com.terraframe.mojo.system.metadata.MdAttributeText", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getResidenceText(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("residenceText", "com.terraframe.mojo.system.metadata.MdAttributeText", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeLong getSeq()
   {
     return getSeq(null);
@@ -803,6 +1011,40 @@ private static final long serialVersionUID = -1406514509;
     return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace()
+  {
+    return getWorkplace(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace(String alias)
+  {
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.attributeFactory("workplace", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.attributeFactory("workplace", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getWorkplaceText()
+  {
+    return getWorkplaceText(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getWorkplaceText(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("workplaceText", "com.terraframe.mojo.system.metadata.MdAttributeText", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getWorkplaceText(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("workplaceText", "com.terraframe.mojo.system.metadata.MdAttributeText", alias, displayLabel);
+
+  }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();
@@ -832,6 +1074,14 @@ private static final long serialVersionUID = -1406514509;
        return new dss.vector.solutions.PatientQuery.PatientQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals("probableSource")) 
+    {
+       return new dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("residence")) 
+    {
+       return new dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("workplace")) 
     {
        return new dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

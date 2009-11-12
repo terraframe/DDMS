@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1009697448)
+@com.terraframe.mojo.business.ClassSignature(hash = -1215351131)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,6 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public abstract class IndividualCaseBase extends com.terraframe.mojo.business.Business implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualCase";
+  public static java.lang.String AGE = "age";
   public static java.lang.String CASEENTRYDATE = "caseEntryDate";
   public static java.lang.String CASEREPORTDATE = "caseReportDate";
   public static java.lang.String CREATEDATE = "createDate";
@@ -25,14 +26,47 @@ public abstract class IndividualCaseBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PATIENT = "patient";
   public static java.lang.String PROBABLESOURCE = "probableSource";
+  public static java.lang.String PROBABLESOURCETEXT = "probableSourceText";
+  public static java.lang.String RESIDENCE = "residence";
+  public static java.lang.String RESIDENCETEXT = "residenceText";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1009697448;
+  public static java.lang.String WORKPLACE = "workplace";
+  public static java.lang.String WORKPLACETEXT = "workplaceText";
+  private static final long serialVersionUID = -1215351131;
   
   public IndividualCaseBase()
   {
     super();
+  }
+  
+  public Integer getAge()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AGE));
+  }
+  
+  public void validateAge()
+  {
+    this.validateAttribute(AGE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAgeMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualCase.CLASS);
+    return mdClassIF.definesAttribute(AGE);
+  }
+  
+  public void setAge(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(AGE, "");
+    }
+    else
+    {
+      setValue(AGE, java.lang.Integer.toString(value));
+    }
   }
   
   public java.util.Date getCaseEntryDate()
@@ -404,6 +438,97 @@ public abstract class IndividualCaseBase extends com.terraframe.mojo.business.Bu
     }
   }
   
+  public String getProbableSourceText()
+  {
+    return getValue(PROBABLESOURCETEXT);
+  }
+  
+  public void validateProbableSourceText()
+  {
+    this.validateAttribute(PROBABLESOURCETEXT);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getProbableSourceTextMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualCase.CLASS);
+    return mdClassIF.definesAttribute(PROBABLESOURCETEXT);
+  }
+  
+  public void setProbableSourceText(String value)
+  {
+    if(value == null)
+    {
+      setValue(PROBABLESOURCETEXT, "");
+    }
+    else
+    {
+      setValue(PROBABLESOURCETEXT, value);
+    }
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntity getResidence()
+  {
+    if (getValue(RESIDENCE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(RESIDENCE));
+    }
+  }
+  
+  public void validateResidence()
+  {
+    this.validateAttribute(RESIDENCE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getResidenceMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualCase.CLASS);
+    return mdClassIF.definesAttribute(RESIDENCE);
+  }
+  
+  public void setResidence(dss.vector.solutions.geo.generated.GeoEntity value)
+  {
+    if(value == null)
+    {
+      setValue(RESIDENCE, "");
+    }
+    else
+    {
+      setValue(RESIDENCE, value.getId());
+    }
+  }
+  
+  public String getResidenceText()
+  {
+    return getValue(RESIDENCETEXT);
+  }
+  
+  public void validateResidenceText()
+  {
+    this.validateAttribute(RESIDENCETEXT);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getResidenceTextMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualCase.CLASS);
+    return mdClassIF.definesAttribute(RESIDENCETEXT);
+  }
+  
+  public void setResidenceText(String value)
+  {
+    if(value == null)
+    {
+      setValue(RESIDENCETEXT, "");
+    }
+    else
+    {
+      setValue(RESIDENCETEXT, value);
+    }
+  }
+  
   public Long getSeq()
   {
     return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
@@ -450,6 +575,69 @@ public abstract class IndividualCaseBase extends com.terraframe.mojo.business.Bu
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualCase.CLASS);
     return mdClassIF.definesAttribute(TYPE);
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntity getWorkplace()
+  {
+    if (getValue(WORKPLACE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(WORKPLACE));
+    }
+  }
+  
+  public void validateWorkplace()
+  {
+    this.validateAttribute(WORKPLACE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getWorkplaceMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualCase.CLASS);
+    return mdClassIF.definesAttribute(WORKPLACE);
+  }
+  
+  public void setWorkplace(dss.vector.solutions.geo.generated.GeoEntity value)
+  {
+    if(value == null)
+    {
+      setValue(WORKPLACE, "");
+    }
+    else
+    {
+      setValue(WORKPLACE, value.getId());
+    }
+  }
+  
+  public String getWorkplaceText()
+  {
+    return getValue(WORKPLACETEXT);
+  }
+  
+  public void validateWorkplaceText()
+  {
+    this.validateAttribute(WORKPLACETEXT);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getWorkplaceTextMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualCase.CLASS);
+    return mdClassIF.definesAttribute(WORKPLACETEXT);
+  }
+  
+  public void setWorkplaceText(String value)
+  {
+    if(value == null)
+    {
+      setValue(WORKPLACETEXT, "");
+    }
+    else
+    {
+      setValue(WORKPLACETEXT, value);
+    }
   }
   
   protected String getDeclaredType()

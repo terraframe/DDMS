@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 434825868)
+@com.terraframe.mojo.business.ClassSignature(hash = 285041653)
 public class IndividualCaseControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.intervention.monitor.IndividualCaseController";
@@ -10,7 +10,7 @@ public class IndividualCaseControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 434825868;
+  private static final long serialVersionUID = 285041653;
   
   public IndividualCaseControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -137,15 +137,15 @@ public class IndividualCaseControllerBase implements com.terraframe.mojo.generat
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualCaseController.failNewInstance");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.util.Date:diagnosisDate, java.lang.String:personId", post=false)
-  public void search(java.util.Date diagnosisDate, java.lang.String personId) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.util.Date:diagnosisDate, java.util.Date:caseReportDate, java.lang.String:personId", post=false)
+  public void search(java.util.Date diagnosisDate, java.util.Date caseReportDate, java.lang.String personId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualCaseController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualCaseController.search");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:diagnosisDate, java.lang.String:personId", post=false)
-  public void failSearch(java.lang.String diagnosisDate, java.lang.String personId) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:diagnosisDate, java.lang.String:caseReportDate, java.lang.String:personId", post=false)
+  public void failSearch(java.lang.String diagnosisDate, java.lang.String caseReportDate, java.lang.String personId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualCaseController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualCaseController.failSearch");

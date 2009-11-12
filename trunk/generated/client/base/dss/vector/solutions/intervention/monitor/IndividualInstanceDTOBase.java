@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1716241149)
+@com.terraframe.mojo.business.ClassSignature(hash = -1474821690)
 public abstract class IndividualInstanceDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualInstance";
-  private static final long serialVersionUID = 1716241149;
+  private static final long serialVersionUID = -1474821690;
   
   protected IndividualInstanceDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -27,32 +27,82 @@ public abstract class IndividualInstanceDTOBase extends com.terraframe.mojo.busi
     return CLASS;
   }
   
+  public static java.lang.String ACTIVELYDETECTED = "activelyDetected";
   public static java.lang.String ADMISSIONDATE = "admissionDate";
   public static java.lang.String ANAEMIAPATIENT = "anaemiaPatient";
   public static java.lang.String CLINICALDIAGNOSIS = "clinicalDiagnosis";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DETECTEDBY = "detectedBy";
   public static java.lang.String DIEDINFACILITY = "diedInFacility";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String FACILITYVISIT = "facilityVisit";
+  public static java.lang.String HEALTHFACILITY = "healthFacility";
   public static java.lang.String ID = "id";
   public static java.lang.String INDIVIDUALCASE = "individualCase";
   public static java.lang.String KEYNAME = "keyName";
+  public static java.lang.String LABTEST = "labTest";
   public static java.lang.String LABTESTDATE = "labTestDate";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String MALARIATYPE = "malariaType";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String PATIENTCATEGORY = "patientCategory";
   public static java.lang.String PREGNANT = "pregnant";
   public static java.lang.String PROPERLYRELEASE = "properlyRelease";
+  public static java.lang.String REFERRALREASON = "referralReason";
   public static java.lang.String REFERREDFROM = "referredFrom";
   public static java.lang.String REFERREDTO = "referredTo";
   public static java.lang.String RELEASEDATE = "releaseDate";
+  public static java.lang.String SAMPLETYPE = "sampleType";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String SYMPTOM = "symptom";
+  public static java.lang.String SYMPTOMCOMMENTS = "symptomComments";
   public static java.lang.String SYMPTOMONSET = "symptomOnset";
   public static java.lang.String TESTSAMPLEDATE = "testSampleDate";
+  public static java.lang.String TREATMENT = "treatment";
+  public static java.lang.String TREATMENTMETHOD = "treatmentMethod";
+  public static java.lang.String TREATMENTSTARTDATE = "treatmentStartDate";
   public static java.lang.String TYPE = "type";
+  public Boolean getActivelyDetected()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ACTIVELYDETECTED));
+  }
+  
+  public void setActivelyDetected(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ACTIVELYDETECTED, "");
+    }
+    else
+    {
+      setValue(ACTIVELYDETECTED, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isActivelyDetectedWritable()
+  {
+    return isWritable(ACTIVELYDETECTED);
+  }
+  
+  public boolean isActivelyDetectedReadable()
+  {
+    return isReadable(ACTIVELYDETECTED);
+  }
+  
+  public boolean isActivelyDetectedModified()
+  {
+    return isModified(ACTIVELYDETECTED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getActivelyDetectedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ACTIVELYDETECTED).getAttributeMdDTO();
+  }
+  
   public java.util.Date getAdmissionDate()
   {
     return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ADMISSIONDATE));
@@ -221,6 +271,50 @@ public abstract class IndividualInstanceDTOBase extends com.terraframe.mojo.busi
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.ontology.TermDTO getDetectedBy()
+  {
+    if(getValue(DETECTEDBY) == null || getValue(DETECTEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DETECTEDBY));
+    }
+  }
+  
+  public void setDetectedBy(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(DETECTEDBY, "");
+    }
+    else
+    {
+      setValue(DETECTEDBY, value.getId());
+    }
+  }
+  
+  public boolean isDetectedByWritable()
+  {
+    return isWritable(DETECTEDBY);
+  }
+  
+  public boolean isDetectedByReadable()
+  {
+    return isReadable(DETECTEDBY);
+  }
+  
+  public boolean isDetectedByModified()
+  {
+    return isModified(DETECTEDBY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDetectedByMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DETECTEDBY).getAttributeMdDTO();
+  }
+  
   public Boolean getDiedInFacility()
   {
     return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(DIEDINFACILITY));
@@ -339,6 +433,50 @@ public abstract class IndividualInstanceDTOBase extends com.terraframe.mojo.busi
     return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(FACILITYVISIT).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.geo.generated.HealthFacilityDTO getHealthFacility()
+  {
+    if(getValue(HEALTHFACILITY) == null || getValue(HEALTHFACILITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.HealthFacilityDTO.get(getRequest(), getValue(HEALTHFACILITY));
+    }
+  }
+  
+  public void setHealthFacility(dss.vector.solutions.geo.generated.HealthFacilityDTO value)
+  {
+    if(value == null)
+    {
+      setValue(HEALTHFACILITY, "");
+    }
+    else
+    {
+      setValue(HEALTHFACILITY, value.getId());
+    }
+  }
+  
+  public boolean isHealthFacilityWritable()
+  {
+    return isWritable(HEALTHFACILITY);
+  }
+  
+  public boolean isHealthFacilityReadable()
+  {
+    return isReadable(HEALTHFACILITY);
+  }
+  
+  public boolean isHealthFacilityModified()
+  {
+    return isModified(HEALTHFACILITY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getHealthFacilityMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(HEALTHFACILITY).getAttributeMdDTO();
+  }
+  
   public dss.vector.solutions.intervention.monitor.IndividualCaseDTO getIndividualCase()
   {
     if(getValue(INDIVIDUALCASE) == null || getValue(INDIVIDUALCASE).trim().equals(""))
@@ -418,6 +556,50 @@ public abstract class IndividualInstanceDTOBase extends com.terraframe.mojo.busi
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getLabTest()
+  {
+    if(getValue(LABTEST) == null || getValue(LABTEST).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(LABTEST));
+    }
+  }
+  
+  public void setLabTest(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(LABTEST, "");
+    }
+    else
+    {
+      setValue(LABTEST, value.getId());
+    }
+  }
+  
+  public boolean isLabTestWritable()
+  {
+    return isWritable(LABTEST);
+  }
+  
+  public boolean isLabTestReadable()
+  {
+    return isReadable(LABTEST);
+  }
+  
+  public boolean isLabTestModified()
+  {
+    return isModified(LABTEST);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLabTestMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LABTEST).getAttributeMdDTO();
   }
   
   public java.util.Date getLabTestDate()
@@ -546,6 +728,50 @@ public abstract class IndividualInstanceDTOBase extends com.terraframe.mojo.busi
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.ontology.TermDTO getMalariaType()
+  {
+    if(getValue(MALARIATYPE) == null || getValue(MALARIATYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(MALARIATYPE));
+    }
+  }
+  
+  public void setMalariaType(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(MALARIATYPE, "");
+    }
+    else
+    {
+      setValue(MALARIATYPE, value.getId());
+    }
+  }
+  
+  public boolean isMalariaTypeWritable()
+  {
+    return isWritable(MALARIATYPE);
+  }
+  
+  public boolean isMalariaTypeReadable()
+  {
+    return isReadable(MALARIATYPE);
+  }
+  
+  public boolean isMalariaTypeModified()
+  {
+    return isModified(MALARIATYPE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getMalariaTypeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(MALARIATYPE).getAttributeMdDTO();
+  }
+  
   public com.terraframe.mojo.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
@@ -588,6 +814,50 @@ public abstract class IndividualInstanceDTOBase extends com.terraframe.mojo.busi
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getPatientCategory()
+  {
+    if(getValue(PATIENTCATEGORY) == null || getValue(PATIENTCATEGORY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(PATIENTCATEGORY));
+    }
+  }
+  
+  public void setPatientCategory(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(PATIENTCATEGORY, "");
+    }
+    else
+    {
+      setValue(PATIENTCATEGORY, value.getId());
+    }
+  }
+  
+  public boolean isPatientCategoryWritable()
+  {
+    return isWritable(PATIENTCATEGORY);
+  }
+  
+  public boolean isPatientCategoryReadable()
+  {
+    return isReadable(PATIENTCATEGORY);
+  }
+  
+  public boolean isPatientCategoryModified()
+  {
+    return isModified(PATIENTCATEGORY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getPatientCategoryMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PATIENTCATEGORY).getAttributeMdDTO();
   }
   
   public Boolean getPregnant()
@@ -662,6 +932,50 @@ public abstract class IndividualInstanceDTOBase extends com.terraframe.mojo.busi
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getProperlyReleaseMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(PROPERLYRELEASE).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getReferralReason()
+  {
+    if(getValue(REFERRALREASON) == null || getValue(REFERRALREASON).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(REFERRALREASON));
+    }
+  }
+  
+  public void setReferralReason(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(REFERRALREASON, "");
+    }
+    else
+    {
+      setValue(REFERRALREASON, value.getId());
+    }
+  }
+  
+  public boolean isReferralReasonWritable()
+  {
+    return isWritable(REFERRALREASON);
+  }
+  
+  public boolean isReferralReasonReadable()
+  {
+    return isReadable(REFERRALREASON);
+  }
+  
+  public boolean isReferralReasonModified()
+  {
+    return isModified(REFERRALREASON);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getReferralReasonMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(REFERRALREASON).getAttributeMdDTO();
   }
   
   public Boolean getReferredFrom()
@@ -775,6 +1089,50 @@ public abstract class IndividualInstanceDTOBase extends com.terraframe.mojo.busi
     return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(RELEASEDATE).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.ontology.TermDTO getSampleType()
+  {
+    if(getValue(SAMPLETYPE) == null || getValue(SAMPLETYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SAMPLETYPE));
+    }
+  }
+  
+  public void setSampleType(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(SAMPLETYPE, "");
+    }
+    else
+    {
+      setValue(SAMPLETYPE, value.getId());
+    }
+  }
+  
+  public boolean isSampleTypeWritable()
+  {
+    return isWritable(SAMPLETYPE);
+  }
+  
+  public boolean isSampleTypeReadable()
+  {
+    return isReadable(SAMPLETYPE);
+  }
+  
+  public boolean isSampleTypeModified()
+  {
+    return isModified(SAMPLETYPE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSampleTypeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SAMPLETYPE).getAttributeMdDTO();
+  }
+  
   public Long getSeq()
   {
     return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
@@ -823,6 +1181,87 @@ public abstract class IndividualInstanceDTOBase extends com.terraframe.mojo.busi
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getSymptom()
+  {
+    if(getValue(SYMPTOM) == null || getValue(SYMPTOM).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SYMPTOM));
+    }
+  }
+  
+  public void setSymptom(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(SYMPTOM, "");
+    }
+    else
+    {
+      setValue(SYMPTOM, value.getId());
+    }
+  }
+  
+  public boolean isSymptomWritable()
+  {
+    return isWritable(SYMPTOM);
+  }
+  
+  public boolean isSymptomReadable()
+  {
+    return isReadable(SYMPTOM);
+  }
+  
+  public boolean isSymptomModified()
+  {
+    return isModified(SYMPTOM);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSymptomMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SYMPTOM).getAttributeMdDTO();
+  }
+  
+  public String getSymptomComments()
+  {
+    return getValue(SYMPTOMCOMMENTS);
+  }
+  
+  public void setSymptomComments(String value)
+  {
+    if(value == null)
+    {
+      setValue(SYMPTOMCOMMENTS, "");
+    }
+    else
+    {
+      setValue(SYMPTOMCOMMENTS, value);
+    }
+  }
+  
+  public boolean isSymptomCommentsWritable()
+  {
+    return isWritable(SYMPTOMCOMMENTS);
+  }
+  
+  public boolean isSymptomCommentsReadable()
+  {
+    return isReadable(SYMPTOMCOMMENTS);
+  }
+  
+  public boolean isSymptomCommentsModified()
+  {
+    return isModified(SYMPTOMCOMMENTS);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getSymptomCommentsMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(SYMPTOMCOMMENTS).getAttributeMdDTO();
   }
   
   public java.util.Date getSymptomOnset()
@@ -897,6 +1336,217 @@ public abstract class IndividualInstanceDTOBase extends com.terraframe.mojo.busi
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getTestSampleDateMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(TESTSAMPLEDATE).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getTreatment()
+  {
+    if(getValue(TREATMENT) == null || getValue(TREATMENT).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TREATMENT));
+    }
+  }
+  
+  public void setTreatment(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(TREATMENT, "");
+    }
+    else
+    {
+      setValue(TREATMENT, value.getId());
+    }
+  }
+  
+  public boolean isTreatmentWritable()
+  {
+    return isWritable(TREATMENT);
+  }
+  
+  public boolean isTreatmentReadable()
+  {
+    return isReadable(TREATMENT);
+  }
+  
+  public boolean isTreatmentModified()
+  {
+    return isModified(TREATMENT);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTreatmentMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TREATMENT).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getTreatmentMethod()
+  {
+    if(getValue(TREATMENTMETHOD) == null || getValue(TREATMENTMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TREATMENTMETHOD));
+    }
+  }
+  
+  public void setTreatmentMethod(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(TREATMENTMETHOD, "");
+    }
+    else
+    {
+      setValue(TREATMENTMETHOD, value.getId());
+    }
+  }
+  
+  public boolean isTreatmentMethodWritable()
+  {
+    return isWritable(TREATMENTMETHOD);
+  }
+  
+  public boolean isTreatmentMethodReadable()
+  {
+    return isReadable(TREATMENTMETHOD);
+  }
+  
+  public boolean isTreatmentMethodModified()
+  {
+    return isModified(TREATMENTMETHOD);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTreatmentMethodMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TREATMENTMETHOD).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getTreatmentStartDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(TREATMENTSTARTDATE));
+  }
+  
+  public void setTreatmentStartDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(TREATMENTSTARTDATE, "");
+    }
+    else
+    {
+      setValue(TREATMENTSTARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isTreatmentStartDateWritable()
+  {
+    return isWritable(TREATMENTSTARTDATE);
+  }
+  
+  public boolean isTreatmentStartDateReadable()
+  {
+    return isReadable(TREATMENTSTARTDATE);
+  }
+  
+  public boolean isTreatmentStartDateModified()
+  {
+    return isModified(TREATMENTSTARTDATE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getTreatmentStartDateMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(TREATMENTSTARTDATE).getAttributeMdDTO();
+  }
+  
+  public final void applyAll(dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[] symptoms)
+  {
+    String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.surveillance.IndividualCaseSymptom;"};
+    Object[] _parameters = new Object[]{symptoms};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO.CLASS, "applyAll", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[] symptoms)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "[Ldss.vector.solutions.surveillance.IndividualCaseSymptom;"};
+    Object[] _parameters = new Object[]{id, symptoms};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO.CLASS, "applyAll", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[] getSymptoms()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO.CLASS, "getSymptoms", _declaredTypes);
+    return (dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[] getSymptoms(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO.CLASS, "getSymptoms", _declaredTypes);
+    return (dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllSymptoms()
+  {
+    return (java.util.List<? extends dss.vector.solutions.ontology.TermDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllSymptoms(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.ontology.TermDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.surveillance.IndividualCaseSymptomDTO> getAllSymptomsRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.IndividualCaseSymptomDTO>) getRequest().getChildRelationships(this.getId(), dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.surveillance.IndividualCaseSymptomDTO> getAllSymptomsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.IndividualCaseSymptomDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.surveillance.IndividualCaseSymptomDTO addSymptoms(dss.vector.solutions.ontology.TermDTO child)
+  {
+    return (dss.vector.solutions.surveillance.IndividualCaseSymptomDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.surveillance.IndividualCaseSymptomDTO addSymptoms(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO child)
+  {
+    return (dss.vector.solutions.surveillance.IndividualCaseSymptomDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  public void removeSymptoms(dss.vector.solutions.surveillance.IndividualCaseSymptomDTO relationship)
+  {
+    getRequest().deleteChild(relationship.getId());
+  }
+  
+  public static void removeSymptoms(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO relationship)
+  {
+    clientRequestIF.deleteChild(relationship.getId());
+  }
+  
+  public void removeAllSymptoms()
+  {
+    getRequest().deleteChildren(this.getId(), dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  public static void removeAllSymptoms(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteChildren(id, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
   }
   
   public static dss.vector.solutions.intervention.monitor.IndividualInstanceDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

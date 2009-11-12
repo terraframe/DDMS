@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 331034920)
+@com.terraframe.mojo.business.ClassSignature(hash = -1209244379)
 public abstract class IndividualCaseDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualCase";
-  private static final long serialVersionUID = 331034920;
+  private static final long serialVersionUID = -1209244379;
   
   protected IndividualCaseDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -27,6 +27,7 @@ public abstract class IndividualCaseDTOBase extends com.terraframe.mojo.business
     return CLASS;
   }
   
+  public static java.lang.String AGE = "age";
   public static java.lang.String CASEENTRYDATE = "caseEntryDate";
   public static java.lang.String CASEREPORTDATE = "caseReportDate";
   public static java.lang.String CREATEDATE = "createDate";
@@ -41,9 +42,51 @@ public abstract class IndividualCaseDTOBase extends com.terraframe.mojo.business
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PATIENT = "patient";
   public static java.lang.String PROBABLESOURCE = "probableSource";
+  public static java.lang.String PROBABLESOURCETEXT = "probableSourceText";
+  public static java.lang.String RESIDENCE = "residence";
+  public static java.lang.String RESIDENCETEXT = "residenceText";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
+  public static java.lang.String WORKPLACE = "workplace";
+  public static java.lang.String WORKPLACETEXT = "workplaceText";
+  public Integer getAge()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AGE));
+  }
+  
+  public void setAge(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(AGE, "");
+    }
+    else
+    {
+      setValue(AGE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isAgeWritable()
+  {
+    return isWritable(AGE);
+  }
+  
+  public boolean isAgeReadable()
+  {
+    return isReadable(AGE);
+  }
+  
+  public boolean isAgeModified()
+  {
+    return isModified(AGE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getAgeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AGE).getAttributeMdDTO();
+  }
+  
   public java.util.Date getCaseEntryDate()
   {
     return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CASEENTRYDATE));
@@ -514,6 +557,124 @@ public abstract class IndividualCaseDTOBase extends com.terraframe.mojo.business
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PROBABLESOURCE).getAttributeMdDTO();
   }
   
+  public String getProbableSourceText()
+  {
+    return getValue(PROBABLESOURCETEXT);
+  }
+  
+  public void setProbableSourceText(String value)
+  {
+    if(value == null)
+    {
+      setValue(PROBABLESOURCETEXT, "");
+    }
+    else
+    {
+      setValue(PROBABLESOURCETEXT, value);
+    }
+  }
+  
+  public boolean isProbableSourceTextWritable()
+  {
+    return isWritable(PROBABLESOURCETEXT);
+  }
+  
+  public boolean isProbableSourceTextReadable()
+  {
+    return isReadable(PROBABLESOURCETEXT);
+  }
+  
+  public boolean isProbableSourceTextModified()
+  {
+    return isModified(PROBABLESOURCETEXT);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getProbableSourceTextMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(PROBABLESOURCETEXT).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getResidence()
+  {
+    if(getValue(RESIDENCE) == null || getValue(RESIDENCE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(RESIDENCE));
+    }
+  }
+  
+  public void setResidence(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  {
+    if(value == null)
+    {
+      setValue(RESIDENCE, "");
+    }
+    else
+    {
+      setValue(RESIDENCE, value.getId());
+    }
+  }
+  
+  public boolean isResidenceWritable()
+  {
+    return isWritable(RESIDENCE);
+  }
+  
+  public boolean isResidenceReadable()
+  {
+    return isReadable(RESIDENCE);
+  }
+  
+  public boolean isResidenceModified()
+  {
+    return isModified(RESIDENCE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getResidenceMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(RESIDENCE).getAttributeMdDTO();
+  }
+  
+  public String getResidenceText()
+  {
+    return getValue(RESIDENCETEXT);
+  }
+  
+  public void setResidenceText(String value)
+  {
+    if(value == null)
+    {
+      setValue(RESIDENCETEXT, "");
+    }
+    else
+    {
+      setValue(RESIDENCETEXT, value);
+    }
+  }
+  
+  public boolean isResidenceTextWritable()
+  {
+    return isWritable(RESIDENCETEXT);
+  }
+  
+  public boolean isResidenceTextReadable()
+  {
+    return isReadable(RESIDENCETEXT);
+  }
+  
+  public boolean isResidenceTextModified()
+  {
+    return isModified(RESIDENCETEXT);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getResidenceTextMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(RESIDENCETEXT).getAttributeMdDTO();
+  }
+  
   public Long getSeq()
   {
     return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
@@ -562,6 +723,87 @@ public abstract class IndividualCaseDTOBase extends com.terraframe.mojo.business
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getWorkplace()
+  {
+    if(getValue(WORKPLACE) == null || getValue(WORKPLACE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(WORKPLACE));
+    }
+  }
+  
+  public void setWorkplace(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  {
+    if(value == null)
+    {
+      setValue(WORKPLACE, "");
+    }
+    else
+    {
+      setValue(WORKPLACE, value.getId());
+    }
+  }
+  
+  public boolean isWorkplaceWritable()
+  {
+    return isWritable(WORKPLACE);
+  }
+  
+  public boolean isWorkplaceReadable()
+  {
+    return isReadable(WORKPLACE);
+  }
+  
+  public boolean isWorkplaceModified()
+  {
+    return isModified(WORKPLACE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getWorkplaceMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WORKPLACE).getAttributeMdDTO();
+  }
+  
+  public String getWorkplaceText()
+  {
+    return getValue(WORKPLACETEXT);
+  }
+  
+  public void setWorkplaceText(String value)
+  {
+    if(value == null)
+    {
+      setValue(WORKPLACETEXT, "");
+    }
+    else
+    {
+      setValue(WORKPLACETEXT, value);
+    }
+  }
+  
+  public boolean isWorkplaceTextWritable()
+  {
+    return isWritable(WORKPLACETEXT);
+  }
+  
+  public boolean isWorkplaceTextReadable()
+  {
+    return isReadable(WORKPLACETEXT);
+  }
+  
+  public boolean isWorkplaceTextModified()
+  {
+    return isModified(WORKPLACETEXT);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getWorkplaceTextMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(WORKPLACETEXT).getAttributeMdDTO();
   }
   
   public final void applyWithPersonId(java.lang.String personId)

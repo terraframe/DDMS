@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -784887071)
+@com.terraframe.mojo.business.ClassSignature(hash = 1263289887)
 public class IndividualInstanceControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.intervention.monitor.IndividualInstanceController";
@@ -10,7 +10,7 @@ public class IndividualInstanceControllerBase implements com.terraframe.mojo.gen
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -784887071;
+  private static final long serialVersionUID = 1263289887;
   
   public IndividualInstanceControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -81,18 +81,32 @@ public class IndividualInstanceControllerBase implements com.terraframe.mojo.gen
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualInstanceController.failCancel");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO:dto", post=true)
-  public void create(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO:dto, [Ldss.vector.solutions.surveillance.IndividualCaseSymptomDTO;:symptoms", post=true)
+  public void create(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO dto, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[] symptoms) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualInstanceController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualInstanceController.create");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO:dto", post=true)
-  public void failCreate(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO:dto, [Ldss.vector.solutions.surveillance.IndividualCaseSymptomDTO;:symptoms", post=true)
+  public void failCreate(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO dto, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[] symptoms) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualInstanceController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualInstanceController.failCreate");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO:dto, dss.vector.solutions.intervention.monitor.IndividualCaseDTO:newCase, java.lang.String:personId, [Ldss.vector.solutions.surveillance.IndividualCaseSymptomDTO;:symptoms", post=true)
+  public void createWithCase(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO dto, dss.vector.solutions.intervention.monitor.IndividualCaseDTO newCase, java.lang.String personId, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[] symptoms) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualInstanceController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualInstanceController.createWithCase");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO:dto, dss.vector.solutions.intervention.monitor.IndividualCaseDTO:newCase, java.lang.String:personId, [Ldss.vector.solutions.surveillance.IndividualCaseSymptomDTO;:symptoms", post=true)
+  public void failCreateWithCase(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO dto, dss.vector.solutions.intervention.monitor.IndividualCaseDTO newCase, java.lang.String personId, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[] symptoms) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualInstanceController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualInstanceController.failCreateWithCase");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO:dto", post=true)
@@ -137,15 +151,29 @@ public class IndividualInstanceControllerBase implements com.terraframe.mojo.gen
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualInstanceController.failNewInstance");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO:dto", post=true)
-  public void update(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualCaseDTO:newCase, java.lang.String:personId", post=true)
+  public void newInstanceWithCase(dss.vector.solutions.intervention.monitor.IndividualCaseDTO newCase, java.lang.String personId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualInstanceController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualInstanceController.newInstanceWithCase");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualCaseDTO:newCase, java.lang.String:personId", post=true)
+  public void failNewInstanceWithCase(dss.vector.solutions.intervention.monitor.IndividualCaseDTO newCase, java.lang.String personId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualInstanceController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualInstanceController.failNewInstanceWithCase");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO:dto, [Ldss.vector.solutions.surveillance.IndividualCaseSymptomDTO;:symptoms", post=true)
+  public void update(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO dto, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[] symptoms) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualInstanceController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualInstanceController.update");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO:dto", post=true)
-  public void failUpdate(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO:dto, [Ldss.vector.solutions.surveillance.IndividualCaseSymptomDTO;:symptoms", post=true)
+  public void failUpdate(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO dto, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[] symptoms) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualInstanceController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualInstanceController.failUpdate");
