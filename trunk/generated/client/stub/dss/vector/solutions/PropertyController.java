@@ -13,23 +13,23 @@ import dss.vector.solutions.util.ErrorUtility;
 
 public class PropertyController extends PropertyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/Property/";
-  public static final String LAYOUT = "/layout.jsp";
+  public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/Property/";
 
-  private static final long serialVersionUID = 1236023121846L;
+  public static final String LAYOUT           = "/layout.jsp";
+
+  private static final long  serialVersionUID = 1236023121846L;
 
   public PropertyController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   @Override
   public void viewPackage(String propertyPackage) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     PropertyQueryDTO query = PropertyDTO.getAllByPackage(clientRequest, propertyPackage);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Properties");
     render("viewAllComponent.jsp");
   }
 
@@ -39,10 +39,12 @@ public class PropertyController extends PropertyControllerBase implements com.te
     req.setAttribute("item", PropertyDTO.get(clientRequest, id));
     render("viewComponent.jsp");
   }
+
   public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
   }
+
   public void create(PropertyDTO dto) throws IOException, ServletException
   {
     try
@@ -50,19 +52,20 @@ public class PropertyController extends PropertyControllerBase implements com.te
       dto.apply();
       this.newInstance();
     }
-    catch(ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
 
       this.failCreate(dto);
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
 
       this.failCreate(dto);
     }
   }
+
   public void failCreate(PropertyDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
@@ -72,36 +75,42 @@ public class PropertyController extends PropertyControllerBase implements com.te
   public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START_DAY);
+    PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
     req.setAttribute("item", dto);
-    req.getRequestDispatcher(dir+"epiWeekExcel.jsp").forward(req, resp);
+    req.getRequestDispatcher(dir + "epiWeekExcel.jsp").forward(req, resp);
   }
+
   public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
   {
     resp.sendError(500);
   }
+
   public void cancel(PropertyDTO dto) throws IOException, ServletException
   {
     dto.unlock();
     this.viewAll();
   }
+
   public void failCancel(PropertyDTO dto) throws IOException, ServletException
   {
     resp.sendError(500);
   }
+
   public void viewAll() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    PropertyQueryDTO query = PropertyDTO.getAllInstances(clientRequest, null, true, 20, 1);
-    query = PropertyDTO.getAllEditable(clientRequest);
+    
+    PropertyQueryDTO query = PropertyDTO.getAllEditable(clientRequest);
+
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Properties");
     render("viewAllComponent.jsp");
   }
+
   public void failViewAll() throws IOException, ServletException
   {
     resp.sendError(500);
   }
+
   public void update(PropertyDTO dto) throws IOException, ServletException
   {
     try
@@ -109,45 +118,50 @@ public class PropertyController extends PropertyControllerBase implements com.te
       dto.apply();
       this.view(dto.getId());
     }
-    catch(ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
 
       this.failUpdate(dto);
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
 
       this.failUpdate(dto);
     }
   }
+
   public void failUpdate(PropertyDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
+
   public void edit(String id) throws IOException, ServletException
   {
     PropertyDTO dto = PropertyDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
+
   public void failEdit(String id) throws IOException, ServletException
   {
     this.view(id);
   }
+
   public void newInstance() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     /*
-    PropertyDTO dto = new PropertyDTO(clientRequest);
-    */
-    PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START_DAY);
+     * PropertyDTO dto = new PropertyDTO(clientRequest);
+     */
+    PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
     dto.lock();
     req.setAttribute("item", dto);
     render("epiWeekComponent.jsp");
   }
+
   public void failNewInstance() throws IOException, ServletException
   {
     this.viewAll();

@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.AND;
+import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
@@ -40,8 +42,13 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
   public static PropertyQuery getAllEditable()
   {
     PropertyQuery query = new PropertyQuery(new QueryFactory());
-    query.WHERE(query.getPropertyPackage().NE("dss.vector.solutions.entomology.ResistantanceCutOff"));
-    query.WHERE(query.getEditable().EQ(true));
+    
+    Condition condition = AND.get(query.getPropertyPackage().NE(PropertyInfo.RESISTANCE_PACKAGE), query.getEditable().EQ(true));
+    condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.GENERAL_PACKAGE));
+    condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.STANDARDS_PACKAGE));
+    
+    query.WHERE(condition);
+    
     return query;
   }
 

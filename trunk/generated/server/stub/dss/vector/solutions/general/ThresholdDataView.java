@@ -174,6 +174,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
 
         threshold.setNotification(notification);
         threshold.setIdentification(identification);
+        threshold.setCalculationType(null);
         threshold.apply();
       }
     }
