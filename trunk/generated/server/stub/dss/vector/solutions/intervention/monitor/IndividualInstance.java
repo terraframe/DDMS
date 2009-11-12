@@ -112,7 +112,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.te
     {
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
       
-      return format.format(admissionDate) + "." + format.format(facilityVisit) + "." + clinicalDiagnosis + "." + labTest.getTermName() + "." + treatment.getTermName();
+      return format.format(admissionDate) + "." + format.format(facilityVisit) + "." + clinicalDiagnosis + "." + labTest.getName() + "." + treatment.getName();
     }
     return this.getId();
   }
