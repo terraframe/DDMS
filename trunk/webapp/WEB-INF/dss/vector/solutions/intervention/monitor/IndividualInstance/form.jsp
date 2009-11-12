@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@page import="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO"%>
+<jsp:include page="/WEB-INF/selectSearch.jsp" />
 
 <mjl:component item="${item}" param="dto">
   <mjl:input type="hidden" param="individualCase" value="${caseId}"/>
