@@ -107,25 +107,25 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     calendar.add(Calendar.DAY_OF_MONTH, -28);
     Date fourWeeksAgo = calendar.getTime();
 
+    IndividualCase individualCase = new IndividualCase();
     Person person = Person.get(personId);
     Patient patient = person.getPatientDelegate();
-    if (patient == null)
+    if (patient != null)
     {
-      return null;
+      IndividualCaseQuery query = new IndividualCaseQuery(new QueryFactory());
+      query.WHERE(query.getDiagnosisDate().GE(fourWeeksAgo));
+      query.WHERE(query.getPatient().EQ(patient));
+      query.ORDER_BY_DESC(query.getDiagnosisDate());
+      
+      OIterator<? extends IndividualCase> iterator = query.getIterator();
+      if (iterator.hasNext())
+      {
+        individualCase = iterator.next();
+      }
+      iterator.close();
     }
 
-    IndividualCaseQuery query = new IndividualCaseQuery(new QueryFactory());
-    query.WHERE(query.getDiagnosisDate().GE(fourWeeksAgo));
-    query.WHERE(query.getPatient().EQ(patient));
-    query.ORDER_BY_DESC(query.getDiagnosisDate());
-
-    IndividualCase individualCase = new IndividualCase();
-    OIterator<? extends IndividualCase> iterator = query.getIterator();
-    if (iterator.hasNext())
-    {
-      individualCase = iterator.next();
-    }
-    else
+    if (individualCase.isNew())
     {
       // If values don't exist on the case, give them defaults from the person
       if (individualCase.getResidence()==null)
@@ -145,7 +145,6 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
         individualCase.setWorkplaceText(person.getWorkInformation());
       }
     }
-    iterator.close();
 
     return individualCase;
   }
