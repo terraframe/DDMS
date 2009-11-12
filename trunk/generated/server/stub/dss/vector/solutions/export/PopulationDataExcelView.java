@@ -5,12 +5,8 @@ import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 
-import dss.vector.solutions.PersonView;
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.Ward;
-import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class PopulationDataExcelView extends PopulationDataExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
