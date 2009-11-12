@@ -26,7 +26,6 @@ import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.intervention.monitor.IndividualCase;
 import dss.vector.solutions.intervention.monitor.IndividualCaseQuery;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.util.ThresholdCalculator;
 
 public class ThresholdCalculationTest extends TestCase {
 	private static GeoEntity EGYPT = GeoEntity.searchByGeoId("22220002");
