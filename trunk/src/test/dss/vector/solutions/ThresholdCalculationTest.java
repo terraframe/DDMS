@@ -3,15 +3,14 @@ package dss.vector.solutions;
 import java.util.Calendar;
 import java.util.Date;
 
-
 import junit.framework.TestCase;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.StartSession;
-import com.terraframe.mojo.system.metadata.MdBusiness;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.system.metadata.MdEntity;
 
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.general.EpiWeek;
@@ -83,6 +82,7 @@ public class ThresholdCalculationTest extends TestCase {
 		this.deleteAllTableRecords(ThresholdData.CLASS);
 		this.deleteAllTableRecords(EpiWeek.CLASS);
 		this.deleteAllTableRecords(ThresholdCalculationType.CLASS);
+		this.deleteAllTableRecords(WeeklyThreshold.CLASS);
 
 		malariaSeason = new MalariaSeason();
 		malariaSeason.setSeasonName("Threshold Calculation Test Season");
@@ -251,7 +251,7 @@ public class ThresholdCalculationTest extends TestCase {
 
 	@Transaction
 	private void deleteAllTableRecords(String className) {
-		MdBusiness biz = MdBusiness.getMdBusiness(className);
+		MdEntity biz = MdEntity.getMdEntity(className);
 		biz.deleteAllTableRecords();
 	}
 
