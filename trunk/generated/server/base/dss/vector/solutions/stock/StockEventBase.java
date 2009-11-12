@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 489115313)
+@com.terraframe.mojo.business.ClassSignature(hash = -1518135329)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,6 +22,7 @@ public abstract class StockEventBase extends com.terraframe.mojo.business.Busine
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String OTHERPARTY = "otherParty";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String SEQ = "seq";
@@ -30,7 +31,7 @@ public abstract class StockEventBase extends com.terraframe.mojo.business.Busine
   public static java.lang.String STOCKDEPOT = "stockDepot";
   public static java.lang.String TRANSACTIONTYPE = "transactionType";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 489115313;
+  private static final long serialVersionUID = -1518135329;
   
   public StockEventBase()
   {
@@ -306,6 +307,34 @@ public abstract class StockEventBase extends com.terraframe.mojo.business.Busine
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEvent.CLASS);
     return mdClassIF.definesAttribute(LOCKEDBY);
+  }
+  
+  public String getOtherParty()
+  {
+    return getValue(OTHERPARTY);
+  }
+  
+  public void validateOtherParty()
+  {
+    this.validateAttribute(OTHERPARTY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getOtherPartyMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEvent.CLASS);
+    return mdClassIF.definesAttribute(OTHERPARTY);
+  }
+  
+  public void setOtherParty(String value)
+  {
+    if(value == null)
+    {
+      setValue(OTHERPARTY, "");
+    }
+    else
+    {
+      setValue(OTHERPARTY, value);
+    }
   }
   
   public com.terraframe.mojo.system.Actor getOwner()

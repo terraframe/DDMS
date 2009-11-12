@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1400793320)
+@com.terraframe.mojo.business.ClassSignature(hash = -1242586936)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.stock;
 public  class StockEventQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1400793320;
+private static final long serialVersionUID = -1242586936;
 
   public StockEventQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -243,6 +243,23 @@ private static final long serialVersionUID = 1400793320;
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lockedBy");
 
     return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.stock.StockEvent.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getOtherParty()
+  {
+    return getOtherParty(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getOtherParty(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.stock.StockEvent.OTHERPARTY, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getOtherParty(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.stock.StockEvent.OTHERPARTY, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -527,6 +544,9 @@ private static final long serialVersionUID = 1400793320;
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getOtherParty();
+    public com.terraframe.mojo.query.AttributeChar getOtherParty(String alias);
+    public com.terraframe.mojo.query.AttributeChar getOtherParty(String alias, String displayLabel);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -566,7 +586,7 @@ private static final long serialVersionUID = 1400793320;
  implements StockEventQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1051840250;
+private static final long serialVersionUID = 844941546;
 
   public StockEventQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -770,6 +790,23 @@ private static final long serialVersionUID = -1051840250;
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getOtherParty()
+  {
+    return getOtherParty(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getOtherParty(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("otherParty", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getOtherParty(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("otherParty", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()

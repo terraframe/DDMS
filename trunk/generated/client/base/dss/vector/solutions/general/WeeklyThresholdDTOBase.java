@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1083071355)
+@com.terraframe.mojo.business.ClassSignature(hash = -1723333204)
 public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.WeeklyThreshold";
-  private static final long serialVersionUID = 1083071355;
+  private static final long serialVersionUID = -1723333204;
   
   public WeeklyThresholdDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {
@@ -28,6 +28,7 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return CLASS;
   }
   
+  public static java.lang.String CALCULATIONTYPE = "calculationType";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
@@ -44,6 +45,50 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
+  public dss.vector.solutions.general.ThresholdCalculationTypeDTO getCalculationType()
+  {
+    if(getValue(CALCULATIONTYPE) == null || getValue(CALCULATIONTYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.ThresholdCalculationTypeDTO.get(getRequest(), getValue(CALCULATIONTYPE));
+    }
+  }
+  
+  public void setCalculationType(dss.vector.solutions.general.ThresholdCalculationTypeDTO value)
+  {
+    if(value == null)
+    {
+      setValue(CALCULATIONTYPE, "");
+    }
+    else
+    {
+      setValue(CALCULATIONTYPE, value.getId());
+    }
+  }
+  
+  public boolean isCalculationTypeWritable()
+  {
+    return isWritable(CALCULATIONTYPE);
+  }
+  
+  public boolean isCalculationTypeReadable()
+  {
+    return isReadable(CALCULATIONTYPE);
+  }
+  
+  public boolean isCalculationTypeModified()
+  {
+    return isModified(CALCULATIONTYPE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCalculationTypeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CALCULATIONTYPE).getAttributeMdDTO();
+  }
+  
   public java.util.Date getCreateDate()
   {
     return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));

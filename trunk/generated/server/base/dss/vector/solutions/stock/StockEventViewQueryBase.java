@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -118726590)
+@com.terraframe.mojo.business.ClassSignature(hash = -730644772)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.stock;
 public  abstract  class StockEventViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -118726590;
+private static final long serialVersionUID = -730644772;
 
   public StockEventViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -150,6 +150,24 @@ private static final long serialVersionUID = -118726590;
   public com.terraframe.mojo.query.AttributeChar getItemLabel(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.ITEMLABEL, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getOtherParty()
+  {
+    return getOtherParty(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getOtherParty(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.OTHERPARTY, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getOtherParty(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.OTHERPARTY, alias, displayLabel);
 
   }
  

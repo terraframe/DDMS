@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 748302937)
+@com.terraframe.mojo.business.ClassSignature(hash = -1006193165)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,12 +18,13 @@ public abstract class StockEventViewBase extends com.terraframe.mojo.business.Vi
   public static java.lang.String ID = "id";
   public static java.lang.String ITEM = "item";
   public static java.lang.String ITEMLABEL = "itemLabel";
+  public static java.lang.String OTHERPARTY = "otherParty";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String STAFF = "staff";
   public static java.lang.String STAFFLABEL = "staffLabel";
   public static java.lang.String STOCKDEPOT = "stockDepot";
   public static java.lang.String TRANSACTIONTYPE = "transactionType";
-  private static final long serialVersionUID = 748302937;
+  private static final long serialVersionUID = -1006193165;
   
   public StockEventViewBase()
   {
@@ -218,6 +219,34 @@ public abstract class StockEventViewBase extends com.terraframe.mojo.business.Vi
     else
     {
       setValue(ITEMLABEL, value);
+    }
+  }
+  
+  public String getOtherParty()
+  {
+    return getValue(OTHERPARTY);
+  }
+  
+  public void validateOtherParty()
+  {
+    this.validateAttribute(OTHERPARTY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getOtherPartyMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEventView.CLASS);
+    return mdClassIF.definesAttribute(OTHERPARTY);
+  }
+  
+  public void setOtherParty(String value)
+  {
+    if(value == null)
+    {
+      setValue(OTHERPARTY, "");
+    }
+    else
+    {
+      setValue(OTHERPARTY, value);
     }
   }
   

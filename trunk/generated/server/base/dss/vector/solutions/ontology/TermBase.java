@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1083076260)
+@com.terraframe.mojo.business.ClassSignature(hash = 590654213)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1083076260;
+  private static final long serialVersionUID = 590654213;
   
   public TermBase()
   {
@@ -1057,6 +1057,49 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
   public dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup getITNHouseholdSurveysWithTargetGroupsRel(dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey iTNHouseholdSurvey)
   {
     com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup> iterator = (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup>) getRelationshipsWithParent(iTNHouseholdSurvey, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup.CLASS);
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
+  public dss.vector.solutions.surveillance.IndividualCaseSymptom addIndividualInstance(dss.vector.solutions.intervention.monitor.IndividualInstance individualInstance)
+  {
+    return (dss.vector.solutions.surveillance.IndividualCaseSymptom) addParent(individualInstance, dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
+  }
+  
+  public void removeIndividualInstance(dss.vector.solutions.intervention.monitor.IndividualInstance individualInstance)
+  {
+    removeAllParents(individualInstance, dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.IndividualInstance> getAllIndividualInstance()
+  {
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.IndividualInstance>) getParents(dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.surveillance.IndividualCaseSymptom> getAllIndividualInstanceRel()
+  {
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.surveillance.IndividualCaseSymptom>) getParentRelationships(dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public dss.vector.solutions.surveillance.IndividualCaseSymptom getIndividualInstanceRel(dss.vector.solutions.intervention.monitor.IndividualInstance individualInstance)
+  {
+    com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.surveillance.IndividualCaseSymptom> iterator = (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.surveillance.IndividualCaseSymptom>) getRelationshipsWithParent(individualInstance, dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
     try
     {
       if (iterator.hasNext())

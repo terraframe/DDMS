@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -580100681)
+@com.terraframe.mojo.business.ClassSignature(hash = -81278551)
 public class RoleControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.RoleController";
@@ -10,7 +10,7 @@ public class RoleControllerBase implements com.terraframe.mojo.generation.loader
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -580100681;
+  private static final long serialVersionUID = -81278551;
   
   public RoleControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -67,32 +67,18 @@ public class RoleControllerBase implements com.terraframe.mojo.generation.loader
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void cancel(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.RoleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.RoleController.viewPage");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.RoleController.cancel");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber", post=false)
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void failCancel(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.RoleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.RoleController.failViewPage");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.RoleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.RoleController.viewAll");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.RoleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.RoleController.failViewAll");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.RoleController.failCancel");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
@@ -109,20 +95,6 @@ public class RoleControllerBase implements com.terraframe.mojo.generation.loader
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.RoleController.failEdit");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
-  public void cancel(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.RoleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.RoleController.cancel");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
-  public void failCancel(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.RoleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.RoleController.failCancel");
-  }
-  
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id, [Ljava.lang.String;:assigned, [Ljava.lang.String;:revoked", post=true)
   public void save(java.lang.String id, java.lang.String[] assigned, java.lang.String[] revoked) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -135,6 +107,34 @@ public class RoleControllerBase implements com.terraframe.mojo.generation.loader
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.RoleController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.RoleController.failSave");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.RoleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.RoleController.viewAll");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.RoleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.RoleController.failViewAll");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
+  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.RoleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.RoleController.viewPage");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber", post=false)
+  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.RoleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.RoleController.failViewPage");
   }
   
 }

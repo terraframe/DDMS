@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1046571707)
+@com.terraframe.mojo.business.ClassSignature(hash = -605058819)
 public class ThresholdDataControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.general.ThresholdDataController";
@@ -10,7 +10,7 @@ public class ThresholdDataControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1046571707;
+  private static final long serialVersionUID = -605058819;
   
   public ThresholdDataControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -65,6 +65,20 @@ public class ThresholdDataControllerBase implements com.terraframe.mojo.generati
   public com.terraframe.mojo.ClientSession getClientSession()
   {
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.general.ThresholdCalculationTypeViewDTO:thresholdCalculation, java.lang.Boolean:currentYear", post=true)
+  public void calculateThresholds(dss.vector.solutions.general.ThresholdCalculationTypeViewDTO thresholdCalculation, java.lang.Boolean currentYear) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdDataController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.ThresholdDataController.calculateThresholds");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.general.ThresholdCalculationTypeViewDTO:thresholdCalculation, java.lang.String:currentYear", post=true)
+  public void failCalculateThresholds(dss.vector.solutions.general.ThresholdCalculationTypeViewDTO thresholdCalculation, java.lang.String currentYear) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdDataController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.ThresholdDataController.failCalculateThresholds");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
@@ -123,15 +137,15 @@ public class ThresholdDataControllerBase implements com.terraframe.mojo.generati
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.ThresholdDataController.failSearchForThresholdData");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:universal, java.lang.String:calulationMethod", post=true)
-  public void setThresholdConfiguration(java.lang.String universal, java.lang.String calulationMethod) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:universal, java.lang.String:calulationMethod, dss.vector.solutions.general.ThresholdCalculationTypeViewDTO:thresholdCalculation", post=true)
+  public void setThresholdConfiguration(java.lang.String universal, java.lang.String calulationMethod, dss.vector.solutions.general.ThresholdCalculationTypeViewDTO thresholdCalculation) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdDataController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.ThresholdDataController.setThresholdConfiguration");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:universal, java.lang.String:calulationMethod", post=true)
-  public void failSetThresholdConfiguration(java.lang.String universal, java.lang.String calulationMethod) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:universal, java.lang.String:calulationMethod, dss.vector.solutions.general.ThresholdCalculationTypeViewDTO:thresholdCalculation", post=true)
+  public void failSetThresholdConfiguration(java.lang.String universal, java.lang.String calulationMethod, dss.vector.solutions.general.ThresholdCalculationTypeViewDTO thresholdCalculation) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdDataController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.ThresholdDataController.failSetThresholdConfiguration");

@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -234128566)
+@com.terraframe.mojo.business.ClassSignature(hash = 1004010416)
 public class PointStyleControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.PointStyleController";
@@ -10,7 +10,7 @@ public class PointStyleControllerBase implements com.terraframe.mojo.generation.
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -234128566;
+  private static final long serialVersionUID = 1004010416;
   
   public PointStyleControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -67,18 +67,74 @@ public class PointStyleControllerBase implements com.terraframe.mojo.generation.
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.PointStyleDTO:dto", post=true)
+  public void cancel(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.view");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.cancel");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.PointStyleDTO:dto", post=true)
+  public void failCancel(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.failCancel");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.PointStyleDTO:dto", post=true)
+  public void create(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.create");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.PointStyleDTO:dto", post=true)
+  public void failCreate(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.failCreate");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.PointStyleDTO:dto", post=true)
+  public void delete(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.delete");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.PointStyleDTO:dto", post=true)
+  public void failDelete(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.failDelete");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.failView");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.edit");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.failEdit");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.newInstance");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.failNewInstance");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.PointStyleDTO:dto", post=true)
@@ -96,31 +152,17 @@ public class PointStyleControllerBase implements com.terraframe.mojo.generation.
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.edit");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.view");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.failEdit");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.PointStyleDTO:dto", post=true)
-  public void create(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.create");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.PointStyleDTO:dto", post=true)
-  public void failCreate(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.failCreate");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.failView");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
@@ -149,48 +191,6 @@ public class PointStyleControllerBase implements com.terraframe.mojo.generation.
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.failViewPage");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.newInstance");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.failNewInstance");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.PointStyleDTO:dto", post=true)
-  public void delete(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.delete");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.PointStyleDTO:dto", post=true)
-  public void failDelete(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.failDelete");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.PointStyleDTO:dto", post=true)
-  public void cancel(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.cancel");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.PointStyleDTO:dto", post=true)
-  public void failCancel(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PointStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PointStyleController.failCancel");
   }
   
 }

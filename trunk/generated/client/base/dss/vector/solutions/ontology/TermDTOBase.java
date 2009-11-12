@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -73720540)
+@com.terraframe.mojo.business.ClassSignature(hash = 920161413)
 public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = -73720540;
+  private static final long serialVersionUID = 920161413;
   
   protected TermDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -1437,6 +1437,60 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   public static void removeAllITNHouseholdSurveysWithTargetGroups(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroupDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualInstanceDTO> getAllIndividualInstance()
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualInstanceDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualInstanceDTO> getAllIndividualInstance(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualInstanceDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.surveillance.IndividualCaseSymptomDTO> getAllIndividualInstanceRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.IndividualCaseSymptomDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.surveillance.IndividualCaseSymptomDTO> getAllIndividualInstanceRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.IndividualCaseSymptomDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.surveillance.IndividualCaseSymptomDTO addIndividualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO parent)
+  {
+    return (dss.vector.solutions.surveillance.IndividualCaseSymptomDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.surveillance.IndividualCaseSymptomDTO addIndividualInstance(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.IndividualInstanceDTO parent)
+  {
+    return (dss.vector.solutions.surveillance.IndividualCaseSymptomDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  public void removeIndividualInstance(dss.vector.solutions.surveillance.IndividualCaseSymptomDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removeIndividualInstance(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllIndividualInstance()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  public static void removeAllIndividualInstance(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")

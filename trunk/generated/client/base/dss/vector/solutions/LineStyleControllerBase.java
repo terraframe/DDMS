@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -926124334)
+@com.terraframe.mojo.business.ClassSignature(hash = -420128766)
 public class LineStyleControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.LineStyleController";
@@ -10,7 +10,7 @@ public class LineStyleControllerBase implements com.terraframe.mojo.generation.l
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -926124334;
+  private static final long serialVersionUID = -420128766;
   
   public LineStyleControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -67,18 +67,18 @@ public class LineStyleControllerBase implements com.terraframe.mojo.generation.l
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.LineStyleDTO:dto", post=true)
+  public void cancel(dss.vector.solutions.LineStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.newInstance");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.cancel");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.LineStyleDTO:dto", post=true)
+  public void failCancel(dss.vector.solutions.LineStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failNewInstance");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failCancel");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.LineStyleDTO:dto", post=true)
@@ -95,18 +95,46 @@ public class LineStyleControllerBase implements com.terraframe.mojo.generation.l
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failCreate");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.LineStyleDTO:dto", post=true)
+  public void delete(dss.vector.solutions.LineStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.viewAll");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.delete");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.LineStyleDTO:dto", post=true)
+  public void failDelete(dss.vector.solutions.LineStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failDelete");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.edit");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failEdit");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failViewAll");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.newInstance");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failNewInstance");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.LineStyleDTO:dto", post=true)
@@ -123,48 +151,6 @@ public class LineStyleControllerBase implements com.terraframe.mojo.generation.l
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failUpdate");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.LineStyleDTO:dto", post=true)
-  public void cancel(dss.vector.solutions.LineStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.cancel");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.LineStyleDTO:dto", post=true)
-  public void failCancel(dss.vector.solutions.LineStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failCancel");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.LineStyleDTO:dto", post=true)
-  public void delete(dss.vector.solutions.LineStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.delete");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.LineStyleDTO:dto", post=true)
-  public void failDelete(dss.vector.solutions.LineStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failDelete");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.viewPage");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber", post=false)
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failViewPage");
-  }
-  
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -179,18 +165,32 @@ public class LineStyleControllerBase implements com.terraframe.mojo.generation.l
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failView");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.edit");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.viewAll");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failEdit");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failViewAll");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
+  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.viewPage");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber", post=false)
+  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LineStyleController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.LineStyleController.failViewPage");
   }
   
 }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -893825797)
+@com.terraframe.mojo.business.ClassSignature(hash = -1652656340)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,6 +11,7 @@ package dss.vector.solutions.general;
 public abstract class WeeklyThresholdBase extends com.terraframe.mojo.business.Relationship implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.WeeklyThreshold";
+  public static java.lang.String CALCULATIONTYPE = "calculationType";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
@@ -27,11 +28,46 @@ public abstract class WeeklyThresholdBase extends com.terraframe.mojo.business.R
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -893825797;
+  private static final long serialVersionUID = -1652656340;
   
   public WeeklyThresholdBase(String parentId, String childId)
   {
     super(parentId, childId);
+  }
+  
+  public dss.vector.solutions.general.ThresholdCalculationType getCalculationType()
+  {
+    if (getValue(CALCULATIONTYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.ThresholdCalculationType.get(getValue(CALCULATIONTYPE));
+    }
+  }
+  
+  public void validateCalculationType()
+  {
+    this.validateAttribute(CALCULATIONTYPE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getCalculationTypeMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
+    return mdClassIF.definesAttribute(CALCULATIONTYPE);
+  }
+  
+  public void setCalculationType(dss.vector.solutions.general.ThresholdCalculationType value)
+  {
+    if(value == null)
+    {
+      setValue(CALCULATIONTYPE, "");
+    }
+    else
+    {
+      setValue(CALCULATIONTYPE, value.getId());
+    }
   }
   
   public java.util.Date getCreateDate()

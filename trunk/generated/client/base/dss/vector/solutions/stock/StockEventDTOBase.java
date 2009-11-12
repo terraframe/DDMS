@@ -1,10 +1,10 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1907372081)
+@com.terraframe.mojo.business.ClassSignature(hash = -701036961)
 public abstract class StockEventDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.stock.StockEvent";
-  private static final long serialVersionUID = 1907372081;
+  private static final long serialVersionUID = -701036961;
   
   protected StockEventDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -38,6 +38,7 @@ public abstract class StockEventDTOBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String OTHERPARTY = "otherParty";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String SEQ = "seq";
@@ -389,6 +390,43 @@ public abstract class StockEventDTOBase extends com.terraframe.mojo.business.Bus
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+  }
+  
+  public String getOtherParty()
+  {
+    return getValue(OTHERPARTY);
+  }
+  
+  public void setOtherParty(String value)
+  {
+    if(value == null)
+    {
+      setValue(OTHERPARTY, "");
+    }
+    else
+    {
+      setValue(OTHERPARTY, value);
+    }
+  }
+  
+  public boolean isOtherPartyWritable()
+  {
+    return isWritable(OTHERPARTY);
+  }
+  
+  public boolean isOtherPartyReadable()
+  {
+    return isReadable(OTHERPARTY);
+  }
+  
+  public boolean isOtherPartyModified()
+  {
+    return isModified(OTHERPARTY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getOtherPartyMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(OTHERPARTY).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.ActorDTO getOwner()

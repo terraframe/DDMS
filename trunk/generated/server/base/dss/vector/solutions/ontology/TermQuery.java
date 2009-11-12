@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2112660237)
+@com.terraframe.mojo.business.ClassSignature(hash = 988291900)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  class TermQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2112660237;
+private static final long serialVersionUID = 988291900;
 
   public TermQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -1142,6 +1142,64 @@ private static final long serialVersionUID = 2112660237;
   }
 
 
+  public com.terraframe.mojo.query.Condition individualInstance()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition individualInstance(dss.vector.solutions.surveillance.IndividualCaseSymptomQuery individualCaseSymptomQuery)
+  {
+    return this.getBusinessQuery().isChildIn(individualCaseSymptomQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(individualInstanceQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery, dss.vector.solutions.surveillance.IndividualCaseSymptomQuery individualCaseSymptomQuery)
+  {
+    individualCaseSymptomQuery.AND(individualCaseSymptomQuery.hasParent(individualInstanceQuery));
+    return this.getBusinessQuery().isChildIn(individualCaseSymptomQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_individualInstance()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_individualInstance(dss.vector.solutions.surveillance.IndividualCaseSymptomQuery individualCaseSymptomQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn(individualCaseSymptomQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(individualInstanceQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery, dss.vector.solutions.surveillance.IndividualCaseSymptomQuery individualCaseSymptomQuery)
+  {
+    individualCaseSymptomQuery.AND(individualCaseSymptomQuery.hasParent(individualInstanceQuery));
+    return this.getBusinessQuery().isNotChildIn(individualCaseSymptomQuery);
+  }
+
+
   public com.terraframe.mojo.query.Condition mosquitosWithBiochemicalResults()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -2052,6 +2110,12 @@ private static final long serialVersionUID = 2112660237;
   public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroupQuery iTNHouseholdSurveyTargetGroupQuery);
 
 
+  public com.terraframe.mojo.query.Condition individualInstance();
+  public com.terraframe.mojo.query.Condition individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery);
+
+  public com.terraframe.mojo.query.Condition individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery, dss.vector.solutions.surveillance.IndividualCaseSymptomQuery individualCaseSymptomQuery);
+
+
   public com.terraframe.mojo.query.Condition mosquitosWithBiochemicalResults();
   public com.terraframe.mojo.query.Condition mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery);
 
@@ -2196,6 +2260,12 @@ private static final long serialVersionUID = 2112660237;
   public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroupQuery iTNHouseholdSurveyTargetGroupQuery);
 
 
+  public com.terraframe.mojo.query.Condition NOT_IN_individualInstance();
+  public com.terraframe.mojo.query.Condition NOT_IN_individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery);
+
+  public com.terraframe.mojo.query.Condition NOT_IN_individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery, dss.vector.solutions.surveillance.IndividualCaseSymptomQuery individualCaseSymptomQuery);
+
+
   public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithBiochemicalResults();
   public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery);
 
@@ -2277,7 +2347,7 @@ private static final long serialVersionUID = 2112660237;
  implements TermQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -900990417;
+private static final long serialVersionUID = 2147157850;
 
   public TermQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -2956,6 +3026,30 @@ private static final long serialVersionUID = -900990417;
   }
 
 
+  public com.terraframe.mojo.query.Condition individualInstance()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(individualInstanceQuery));
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery, dss.vector.solutions.surveillance.IndividualCaseSymptomQuery individualCaseSymptomQuery)
+  {
+    individualCaseSymptomQuery.AND(individualCaseSymptomQuery.hasParent(individualInstanceQuery));
+    return this.isChildIn(individualCaseSymptomQuery);
+  }
+
+
   public com.terraframe.mojo.query.Condition mosquitosWithBiochemicalResults()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -3529,6 +3623,30 @@ private static final long serialVersionUID = -900990417;
   {
     iTNHouseholdSurveyTargetGroupQuery.AND(iTNHouseholdSurveyTargetGroupQuery.hasParent(iTNHouseholdSurveyQuery));
     return this.isNotChildIn(iTNHouseholdSurveyTargetGroupQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_individualInstance()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(individualInstanceQuery));
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery, dss.vector.solutions.surveillance.IndividualCaseSymptomQuery individualCaseSymptomQuery)
+  {
+    individualCaseSymptomQuery.AND(individualCaseSymptomQuery.hasParent(individualInstanceQuery));
+    return this.isNotChildIn(individualCaseSymptomQuery);
   }
 
 

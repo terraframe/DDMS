@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1041936164)
+@com.terraframe.mojo.business.ClassSignature(hash = 1849335381)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -10,7 +10,7 @@ package dss.vector.solutions.general;
  */
 public  class WeeklyThresholdQuery extends com.terraframe.mojo.query.GeneratedRelationshipQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1041936164;
+private static final long serialVersionUID = 1849335381;
 
   public WeeklyThresholdQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -67,7 +67,11 @@ private static final long serialVersionUID = 1041936164;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("createdBy")) 
+    if (name.equals("calculationType")) 
+    {
+       return new dss.vector.solutions.general.ThresholdCalculationTypeQuery.ThresholdCalculationTypeQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("createdBy")) 
     {
        return new com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -102,6 +106,29 @@ private static final long serialVersionUID = 1041936164;
     }
   }
 
+  public dss.vector.solutions.general.ThresholdCalculationTypeQuery.ThresholdCalculationTypeQueryReferenceIF getCalculationType()
+  {
+    return getCalculationType(null);
+
+  }
+ 
+  public dss.vector.solutions.general.ThresholdCalculationTypeQuery.ThresholdCalculationTypeQueryReferenceIF getCalculationType(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("calculationType");
+
+    return (dss.vector.solutions.general.ThresholdCalculationTypeQuery.ThresholdCalculationTypeQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.CALCULATIONTYPE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.ThresholdCalculationTypeQuery.ThresholdCalculationTypeQueryReferenceIF getCalculationType(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("calculationType");
+
+    return (dss.vector.solutions.general.ThresholdCalculationTypeQuery.ThresholdCalculationTypeQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.CALCULATIONTYPE, mdAttributeIF, this, alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeMoment getCreateDate()
   {
     return getCreateDate(null);

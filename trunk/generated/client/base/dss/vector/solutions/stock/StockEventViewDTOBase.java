@@ -1,10 +1,10 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -915234599)
+@com.terraframe.mojo.business.ClassSignature(hash = -189094797)
 public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.stock.StockEventView";
-  private static final long serialVersionUID = -915234599;
+  private static final long serialVersionUID = -189094797;
   
   protected StockEventViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -23,6 +23,7 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
   public static java.lang.String ID = "id";
   public static java.lang.String ITEM = "item";
   public static java.lang.String ITEMLABEL = "itemLabel";
+  public static java.lang.String OTHERPARTY = "otherParty";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String STAFF = "staff";
   public static java.lang.String STAFFLABEL = "staffLabel";
@@ -255,6 +256,43 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getItemLabelMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ITEMLABEL).getAttributeMdDTO();
+  }
+  
+  public String getOtherParty()
+  {
+    return getValue(OTHERPARTY);
+  }
+  
+  public void setOtherParty(String value)
+  {
+    if(value == null)
+    {
+      setValue(OTHERPARTY, "");
+    }
+    else
+    {
+      setValue(OTHERPARTY, value);
+    }
+  }
+  
+  public boolean isOtherPartyWritable()
+  {
+    return isWritable(OTHERPARTY);
+  }
+  
+  public boolean isOtherPartyReadable()
+  {
+    return isReadable(OTHERPARTY);
+  }
+  
+  public boolean isOtherPartyModified()
+  {
+    return isModified(OTHERPARTY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getOtherPartyMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(OTHERPARTY).getAttributeMdDTO();
   }
   
   public Integer getQuantity()
