@@ -48,31 +48,40 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
     }
   }
 
-  private void populateConcrete(ThresholdCalculationType concrete) {
-		concrete.setWeeksBefore(this.getWeeksBefore());
-		concrete.setWeeksAfter(this.getWeeksAfter());
-		concrete.setPriorYears(this.getPriorYears());
-		
-		if(this.getPriorYears() != null)
-		{
-		  int years = this.getPriorYears();
+  private void populateConcrete(ThresholdCalculationType concrete)
+  {
+    concrete.setWeeksBefore(this.getWeeksBefore());
+    concrete.setWeeksAfter(this.getWeeksAfter());
+    concrete.setPriorYears(this.getPriorYears());
 
-		  for(int i = 0; i < years; i++)
-		  {
-		    concrete.setValue(WEIGHT + i, this.getValue(WEIGHT + i));
-		  }
-		}
+    if (this.getPriorYears() != null)
+    {
+      int years = this.getPriorYears();
 
-		concrete.clearT1Method();
-		for (ThresholdCalculationMethod m : this.getT1Method()) {
-			concrete.addT1Method(m);
-		}
+      for (int i = 0; i < years; i++)
+      {
+        concrete.setValue(ThresholdCalculationType.WEIGHT + i, this.getWeight(i));
+      }
+    }
 
-		concrete.clearT2Method();
-		for (ThresholdCalculationMethod m : this.getT2Method()) {
-			concrete.addT2Method(m);
-		}
-	}
+    concrete.clearT1Method();
+    for (ThresholdCalculationMethod m : this.getT1Method())
+    {
+      concrete.addT1Method(m);
+    }
+
+    concrete.clearT2Method();
+    for (ThresholdCalculationMethod m : this.getT2Method())
+    {
+      concrete.addT2Method(m);
+    }
+  }
+  
+  public String getWeight(int i)
+  {
+    return this.getValue(WEIGHT + i);
+  }
+
 
   private void buildAttributeMap(ThresholdCalculationType concrete)
   {

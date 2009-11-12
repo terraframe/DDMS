@@ -2,7 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<c:set var="page_title" value="Configure_Thresholds"  scope="request"/>
+
+<%@page import="dss.vector.solutions.general.ThresholdDataController"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="dss.vector.solutions.util.Halp"%><c:set var="page_title" value="Configure_Thresholds"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
@@ -10,7 +13,7 @@
   <mjl:message />
 </mjl:messages>
 
-<mjl:form name="PopulationData.search.mojo" method="POST">
+<mjl:form name="ThresholdData.search.mojo" method="POST" id="threshold.form">
   <dl>
     <dt>
       <label><fmt:message key="Epidemic_Universal"/></label>
@@ -33,28 +36,28 @@
       </mjl:radioGroup>
     </dd>
     <mjl:component item="${thresholdCalculation}" param="thresholdCalculation">
-		  <mjl:dt attribute="t1Method">
-			  <mjl:select valueAttribute="enumName" param="t1Method" items="${thresholdCalculationMethods}" var="current">
-				  <mjl:option>${current.displayLabel}</mjl:option>
-			  </mjl:select>
-		  </mjl:dt>
-		  <mjl:dt attribute="t2Method">
-			  <mjl:select valueAttribute="enumName" param="t2Method" items="${thresholdCalculationMethods}" var="current">
-				  <mjl:option>${current.displayLabel}</mjl:option>
-			  </mjl:select>
-		  </mjl:dt>
-		  <mjl:dt attribute="weeksBefore">
-		    <mjl:input type="text" param="weeksBefore"/>
-		  </mjl:dt>
-		  <mjl:dt attribute="weeksAfter">
-		    <mjl:input type="text" param="weeksAfter"/>
-		  </mjl:dt>
-		  <mjl:dt attribute="priorYears">
-		    <mjl:input type="text" param="priorYears" id="priorYears" size="1" maxlength="1"/>
-		  </mjl:dt>
-		
-		  <div id="weightsDiv" style="display:none;">
-  		  <table class="displayTable">
+      <mjl:dt attribute="t1Method">
+        <mjl:select valueAttribute="enumName" param="t1Method" items="${thresholdCalculationMethods}" var="current">
+          <mjl:option>${current.displayLabel}</mjl:option>
+        </mjl:select>
+      </mjl:dt>
+      <mjl:dt attribute="t2Method">
+        <mjl:select valueAttribute="enumName" param="t2Method" items="${thresholdCalculationMethods}" var="current">
+          <mjl:option>${current.displayLabel}</mjl:option>
+        </mjl:select>
+      </mjl:dt>
+      <mjl:dt attribute="weeksBefore">
+        <mjl:input type="text" param="weeksBefore"/>
+      </mjl:dt>
+      <mjl:dt attribute="weeksAfter">
+        <mjl:input type="text" param="weeksAfter"/>
+      </mjl:dt>
+      <mjl:dt attribute="priorYears">
+        <mjl:input type="text" param="priorYears" id="priorYears" size="1" maxlength="1"/>
+      </mjl:dt>
+    
+      <div id="weightsDiv" style="display:none;">
+        <table class="displayTable">
           <tr>
             <th></th>
             <th><fmt:message key="Weight"/></th>
@@ -99,10 +102,11 @@
             <td>${thresholdCalculation.weight9Md.displayLabel}</td>
             <td><mjl:input type="text" param="weight9" /></td>
           </tr>
-        </table>		
+        </table>    
       </div>
     </mjl:component>
     
+    <mjl:command classes="submitButton" action="dss.vector.solutions.general.ThresholdDataController.setThresholdConfiguration.mojo" name="search" value="Submit"/>
     
     <dt>
       <label> <fmt:message key="Calculation_Interval"/> </label>
@@ -112,44 +116,62 @@
       <input type="radio" name="currentYear" value="false"/> <fmt:message key="Next_Year"/>    
     </dd>
     
-    <mjl:command classes="submitButton" action="dss.vector.solutions.general.ThresholdDataController.setThresholdConfiguration.mojo" name="search" value="Submit"/>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.general.ThresholdDataController.calculateThresholds.mojo" name="calculate" value="Calculate"/>
+    <input type="button" id="calculate.button" value="" />
+    (<fmt:message key="Calculation_may_take_time"/>)
   </dl>
 </mjl:form>
 
+<%=Halp.loadTypes(Arrays.asList(new String[]{ThresholdDataController.CLASS}))%>
+
 <script type="text/javascript">
 (function(){
-	  YAHOO.util.Event.onDOMReady(function(){
-		  var priorYearsHandler = function(){
-		    var value = document.getElementById('priorYears').value;
+    YAHOO.util.Event.onDOMReady(function(){
+
+      var button = document.getElementById('calculate.button');    
+      button.value = MDSS.localize('Calculate');
+        
+      var calculateThresholds = function(e) {
+        e.preventDefault();
+        YAHOO.util.Event.stopEvent(e);
+
+        var request = new MDSS.Request({ /* whatever */});
+        var params = Mojo.Util.collectFormValues('threshold.form');
+
+        Mojo.$.dss.vector.solutions.general.ThresholdDataController.calculateThresholdsMap(request, params);        
+      };
+
+      
+      var priorYearsHandler = function(){
+        var value = document.getElementById('priorYears').value;
         var weightsDiv = document.getElementById('weightsDiv');
         
-		    if(value !== "" && value * 1 > 0) {
-			    var priorYears = value * 1;
-			    weightsDiv.style.display = "block";
+        if(value !== "" && value * 1 > 0) {
+          var priorYears = value * 1;
+          weightsDiv.style.display = "block";
 
-			    for(var i = 0; i < priorYears; i++) {
+          for(var i = 0; i < priorYears; i++) {
             var weightEl = document.getElementById('weight' + i);
             weightEl.style.display = "table-row";            
-			    }
+          }
 
-			    for(var i = priorYears; i < 10; i++) {
-				    var weightEl = document.getElementById('weight' + i);
-				    weightEl.style.display = "none";            
-		      }		 			    
-		    }
-		    else {
-			    weightsDiv.style.display = "none";
-			    for(var i = 0; i < 10; i++) {
+          for(var i = priorYears; i < 10; i++) {
             var weightEl = document.getElementById('weight' + i);
-			      weightEl.style.display = "none";            
-			    }
-		    }
-		  }
+            weightEl.style.display = "none";            
+          }               
+        }
+        else {
+          weightsDiv.style.display = "none";
+          for(var i = 0; i < 10; i++) {
+            var weightEl = document.getElementById('weight' + i);
+            weightEl.style.display = "none";            
+          }
+        }
+      }
 
-		  YAHOO.util.Event.addListener('priorYears', "blur", priorYearsHandler);  
-
-		  priorYearsHandler();
-	  });
+      YAHOO.util.Event.addListener('priorYears', "blur", priorYearsHandler);  
+      YAHOO.util.Event.on(button, 'click', calculateThresholds);    
+      
+      priorYearsHandler();
+    });
 })();
 </script>
