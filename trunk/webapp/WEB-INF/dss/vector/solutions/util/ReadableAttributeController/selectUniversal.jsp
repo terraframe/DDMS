@@ -271,4 +271,30 @@
         <f:message key="Threshold_Data"/>
       </mjl:commandLink>
     </dd>    
+    <dt><label><f:message key="Threshold_Calculation"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Threshold_Calculation"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.ThresholdCalculationTypeView">
+        <f:message key="Threshold_Calculation"/>
+      </mjl:commandLink>
+    </dd>    
+  </dl>
+  <dl>
+    <dt><label><f:message key="Stock_Item"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Stock_Item"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.stock.StockItemView">
+        <f:message key="Stock_Item"/>
+      </mjl:commandLink>
+    </dd>    
+    <dt><label><f:message key="Stock_Event"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Stock_Event"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.stock.StockEventView">
+        <f:message key="Stock_Event"/>
+      </mjl:commandLink>
+    </dd>    
   </dl>
