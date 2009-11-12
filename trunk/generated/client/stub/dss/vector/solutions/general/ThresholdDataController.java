@@ -29,288 +29,261 @@ import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class ThresholdDataController extends ThresholdDataControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
-{
-  private static final long  serialVersionUID = 1256068148447L;
+public class ThresholdDataController extends ThresholdDataControllerBase implements com.terraframe.mojo.generation.loader.Reloadable {
+	private static final long serialVersionUID = 1256068148447L;
 
-  public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/general/ThresholdData/";
+	public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/general/ThresholdData/";
 
-  public static final String LAYOUT           = "/layout.jsp";
+	public static final String LAYOUT = "/layout.jsp";
 
-  public static final String VIEWS            = "views";
+	public static final String VIEWS = "views";
 
-  public static final String ITEM             = "item";
+	public static final String ITEM = "item";
 
-  public static final String KEYS             = "keys";
+	public static final String KEYS = "keys";
 
-  public static final String COLUMNS          = "columns";
+	public static final String COLUMNS = "columns";
 
-  public ThresholdDataController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
-  {
-    super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
-  }
+	public ThresholdDataController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous) {
+		super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
+	}
 
-  @Override
-  public void search() throws IOException, ServletException
-  {
-    if (!this.isAsynchronous())
-    {
-      RedirectUtility utility = new RedirectUtility(req, resp);
-      utility.checkURL(this.getClass().getSimpleName(), "search");
+	@Override
+	public void search() throws IOException, ServletException {
+		if (!this.isAsynchronous()) {
+			RedirectUtility utility = new RedirectUtility(req, resp);
+			utility.checkURL(this.getClass().getSimpleName(), "search");
 
-      new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "search");
+			new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "search");
 
-      MalariaSeasonDTO[] seasons = MalariaSeasonDTO.getAll(this.getClientRequest());
+			MalariaSeasonDTO[] seasons = MalariaSeasonDTO.getAll(this.getClientRequest());
 
-      req.setAttribute("seasons", Arrays.asList(seasons));
+			req.setAttribute("seasons", Arrays.asList(seasons));
 
-      render("searchComponent.jsp");
-    }
-  }
+			render("searchComponent.jsp");
+		}
+	}
 
-  @Override
-  public void failSearch() throws IOException, ServletException
-  {
-    // This should never happen
-    req.getRequestDispatcher("index.jsp").forward(req, resp);
-  }
+	@Override
+	public void failSearch() throws IOException, ServletException {
+		// This should never happen
+		req.getRequestDispatcher("index.jsp").forward(req, resp);
+	}
 
-  @Override
-  public void searchForThresholdData(String geoId, MalariaSeasonDTO season) throws IOException, ServletException
-  {
-    try
-    {
-      validateParameters(geoId, season);
+	@Override
+	public void searchForThresholdData(String geoId, MalariaSeasonDTO season) throws IOException, ServletException {
+		try {
+			validateParameters(geoId, season);
 
-      ClientRequestIF request = this.getClientRequest();
+			ClientRequestIF request = this.getClientRequest();
 
-      ThresholdDataViewDTO[] views = ThresholdDataViewDTO.getViews(request, geoId, season);
+			ThresholdDataViewDTO[] views = ThresholdDataViewDTO.getViews(request, geoId, season);
 
-      if (views.length > 0)
-      {
-        req.setAttribute(ITEM, views[views.length - 1]);
-      }
-      else
-      {
-        ThresholdDataViewDTO item = new ThresholdDataViewDTO(request);
-        item.setGeoEntity(geoId);
-        item.setSeason(season);
+			if (views.length > 0) {
+				req.setAttribute(ITEM, views[views.length - 1]);
+			} else {
+				ThresholdDataViewDTO item = new ThresholdDataViewDTO(request);
+				item.setGeoEntity(geoId);
+				item.setSeason(season);
 
-        req.setAttribute(ITEM, item);
-      }
+				req.setAttribute(ITEM, item);
+			}
 
-      EpiDateDTO[] weeks = season.getEpiWeeks();
+			EpiDateDTO[] weeks = season.getEpiWeeks();
 
-      String[] keys = getAttributeKeys(weeks);
-      Map<String, ColumnSetup> map = getColumns(weeks);
+			String[] keys = getAttributeKeys(weeks);
+			Map<String, ColumnSetup> map = getColumns(weeks);
 
-      req.setAttribute(VIEWS, views);
-      req.setAttribute(KEYS, keys);
-      req.setAttribute(COLUMNS, map);
-      req.setAttribute("season", season);
+			req.setAttribute(VIEWS, views);
+			req.setAttribute(KEYS, keys);
+			req.setAttribute(COLUMNS, map);
+			req.setAttribute("season", season);
 
-      render("viewComponent.jsp");
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
+			render("viewComponent.jsp");
+		} catch (ProblemExceptionDTO e) {
+			ErrorUtility.prepareProblems(e, req);
 
-      this.failSearchForThresholdData(geoId, season);
-    }
-    catch (Throwable t)
-    {
-      ErrorUtility.prepareThrowable(t, req);
+			this.failSearchForThresholdData(geoId, season);
+		} catch (Throwable t) {
+			ErrorUtility.prepareThrowable(t, req);
 
-      this.failSearchForThresholdData(geoId, season);
-    }
-  }
+			this.failSearchForThresholdData(geoId, season);
+		}
+	}
 
-  private Map<String, ColumnSetup> getColumns(EpiDateDTO[] weeks)
-  {
-    Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-    map.put("ConcreteId", new ColumnSetup(true, false));
-    map.put("GeoEntity", new ColumnSetup(true, false));
-    map.put("Season", new ColumnSetup(true, false));
-    map.put("EntityLabel", new ColumnSetup(false, false));
+	private Map<String, ColumnSetup> getColumns(EpiDateDTO[] weeks) {
+		Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+		map.put("ConcreteId", new ColumnSetup(true, false));
+		map.put("GeoEntity", new ColumnSetup(true, false));
+		map.put("Season", new ColumnSetup(true, false));
+		map.put("EntityLabel", new ColumnSetup(false, false));
 
-    for (int i = 0; i < 53; i++)
-    {
-      map.put("Outbreak_" + i, new ColumnSetup(true, false));
-      map.put("Identification_" + i, new ColumnSetup(true, false));
-    }
+		for (int i = 0; i < 53; i++) {
+			map.put("Outbreak_" + i, new ColumnSetup(true, false));
+			map.put("Identification_" + i, new ColumnSetup(true, false));
+		}
 
-    for (EpiDateDTO week : weeks)
-    {
-      String startDate = Halp.getFormatedDate(req, week.getStartDate());
-      String endDate = Halp.getFormatedDate(req, week.getEndDate());
+		for (EpiDateDTO week : weeks) {
+			String startDate = Halp.getFormatedDate(req, week.getStartDate());
+			String endDate = Halp.getFormatedDate(req, week.getEndDate());
 
-      int weekNumber = ( week.getPeriod() % week.getNumberOfEpiWeeks() ) + 1;
+			int weekNumber = (week.getPeriod() % week.getNumberOfEpiWeeks()) + 1;
 
-      ColumnSetup outbreakSetup = new ColumnSetup(false, true);
-      outbreakSetup.setSum(true);
-      outbreakSetup.setTitle(startDate + " -> " + endDate);
-      outbreakSetup.setValidator("thresholdValidator");
+			ColumnSetup outbreakSetup = new ColumnSetup(false, true);
+			outbreakSetup.setSum(true);
+			outbreakSetup.setTitle(startDate + " -> " + endDate);
+			outbreakSetup.setValidator("thresholdValidator");
 
-      ColumnSetup identificationSetup = new ColumnSetup(false, true);
-      identificationSetup.setSum(true);
-      identificationSetup.setTitle(startDate + " -> " + endDate);
-      identificationSetup.setValidator("thresholdValidator");
+			ColumnSetup identificationSetup = new ColumnSetup(false, true);
+			identificationSetup.setSum(true);
+			identificationSetup.setTitle(startDate + " -> " + endDate);
+			identificationSetup.setValidator("thresholdValidator");
 
-      int index = weekNumber - 1;
-      map.put("Outbreak_" + index, outbreakSetup);
-      map.put("Identification_" + index, identificationSetup);
-    }
+			int index = weekNumber - 1;
+			map.put("Outbreak_" + index, outbreakSetup);
+			map.put("Identification_" + index, identificationSetup);
+		}
 
-    return map;
-  }
+		return map;
+	}
 
-  private String[] getAttributeKeys(EpiDateDTO[] weeks)
-  {
-    List<String> list = new LinkedList<String>();
-    list.add("ConcreteId");
-    list.add("GeoEntity");
-    list.add("Season");
-    list.add("EntityLabel");
+	private String[] getAttributeKeys(EpiDateDTO[] weeks) {
+		List<String> list = new LinkedList<String>();
+		list.add("ConcreteId");
+		list.add("GeoEntity");
+		list.add("Season");
+		list.add("EntityLabel");
 
-    List<Integer> indices = getAttributeIndicies(weeks);
+		List<Integer> indices = getAttributeIndicies(weeks);
 
-    for (Integer i : indices)
-    {
-      list.add("Outbreak_" + i);
-      list.add("Identification_" + i);
-    }
+		for (Integer i : indices) {
+			list.add("Outbreak_" + i);
+			list.add("Identification_" + i);
+		}
 
-    String[] attributes = list.toArray(new String[list.size()]);
-    return attributes;
-  }
+		String[] attributes = list.toArray(new String[list.size()]);
+		return attributes;
+	}
 
-  private List<Integer> getAttributeIndicies(EpiDateDTO[] weeks)
-  {
-    List<Integer> indices = new ArrayList<Integer>();
+	private List<Integer> getAttributeIndicies(EpiDateDTO[] weeks) {
+		List<Integer> indices = new ArrayList<Integer>();
 
-    for (EpiDateDTO week : weeks)
-    {
-      int index = ( week.getPeriod() % week.getNumberOfEpiWeeks() );
+		for (EpiDateDTO week : weeks) {
+			int index = (week.getPeriod() % week.getNumberOfEpiWeeks());
 
-      indices.add(index);
-    }
+			indices.add(index);
+		}
 
-    for (int i = 0; i < 52; i++)
-    {
-      if (!indices.contains(i))
-      {
-        indices.add(i);
-      }
-    }
-    return indices;
-  }
+		for (int i = 0; i < 52; i++) {
+			if (!indices.contains(i)) {
+				indices.add(i);
+			}
+		}
+		return indices;
+	}
 
-  @Override
-  public void failSearchForThresholdData(String geoId, MalariaSeasonDTO season) throws IOException, ServletException
-  {
-    this.search();
-  }
+	@Override
+	public void failSearchForThresholdData(String geoId, MalariaSeasonDTO season) throws IOException, ServletException {
+		this.search();
+	}
 
-  @Override
-  public void exportThresholdData(ThresholdDataViewDTO[] views) throws IOException, ServletException
-  {
-    ClientRequestIF clientRequest = this.getClientRequest();
+	@Override
+	public void exportThresholdData(ThresholdDataViewDTO[] views) throws IOException, ServletException {
+		ClientRequestIF clientRequest = this.getClientRequest();
 
-    InputStream stream = ThresholdDataViewDTO.exportToExcel(clientRequest, views);
+		InputStream stream = ThresholdDataViewDTO.exportToExcel(clientRequest, views);
 
-    FileDownloadUtil.writeXLS(resp, "threshold", stream);
-  }
+		FileDownloadUtil.writeXLS(resp, "threshold", stream);
+	}
 
-  @Override
-  public void editThresholdConfiguration() throws IOException, ServletException
-  {
-    if (!this.isAsynchronous())
-    {
-      RedirectUtility utility = new RedirectUtility(req, resp);
-      utility.checkURL(this.getClass().getSimpleName(), "editThresholdConfiguration");
+	@Override
+	public void editThresholdConfiguration() throws IOException, ServletException {
+		if (!this.isAsynchronous()) {
+			RedirectUtility utility = new RedirectUtility(req, resp);
+			utility.checkURL(this.getClass().getSimpleName(), "editThresholdConfiguration");
 
-      new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "editThresholdConfiguration");
+			new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "editThresholdConfiguration");
 
-      ClientRequestIF request = this.getClientRequest();
+			ClientRequestIF request = this.getClientRequest();
 
-      GeoHierarchyViewDTO[] views = GeoHierarchyDTO.getAllViews(request);
-      List<OutbreakCalculationMasterDTO> methods = OutbreakCalculationDTO.allItems(request);
-      
-      PropertyDTO hierarchy = PropertyDTO.getByPackageAndName(request, PropertyInfo.GENERAL_PACKAGE, PropertyInfo.EPIDEMIC_UNIVERSAL);
-      PropertyDTO isEpiWeek = PropertyDTO.getByPackageAndName(request, PropertyInfo.GENERAL_PACKAGE, PropertyInfo.IS_EPI_WEEK);
+			GeoHierarchyViewDTO[] views = GeoHierarchyDTO.getAllViews(request);
+			List<OutbreakCalculationMasterDTO> methods = OutbreakCalculationDTO.allItems(request);
 
-      req.setAttribute("methods", methods);
-      req.setAttribute("views", Arrays.asList(views));
-      
-      if(hierarchy != null)
-      {
-        req.setAttribute("hierarchy", hierarchy.getPropertyValue());      
-      }
-      
-      if(isEpiWeek != null)
-      {
-        req.setAttribute("isEpiWeek", isEpiWeek.getPropertyValue());      
-      }
-      
-      render("editThresholdConfiguration.jsp");
-    }
-  }
+			PropertyDTO hierarchy = PropertyDTO.getByPackageAndName(request, PropertyInfo.GENERAL_PACKAGE, PropertyInfo.EPIDEMIC_UNIVERSAL);
+			PropertyDTO isEpiWeek = PropertyDTO.getByPackageAndName(request, PropertyInfo.GENERAL_PACKAGE, PropertyInfo.IS_EPI_WEEK);
 
-  @Override
-  public void failEditThresholdConfiguration() throws IOException, ServletException
-  {
-    // This should never happen
-    req.getRequestDispatcher("index.jsp").forward(req, resp);
-  }
-  
-  @Override
-  public void setThresholdConfiguration(String universal, String calulationMethod) throws IOException, ServletException
-  {
-    try
-    {
-      ClientRequestIF request = this.getClientRequest();
-      
-      ThresholdDataViewDTO.setThresholdConfiguration(request, universal, calulationMethod);
-      
-      this.editThresholdConfiguration();
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
+			req.setAttribute("methods", methods);
+			req.setAttribute("views", Arrays.asList(views));
+			req.setAttribute("thresholdCalculation", ThresholdCalculationTypeViewDTO.getCalculationThreshold(request));
+			req.setAttribute("thresholdCalculationMethods", ThresholdCalculationMethodDTO.allItems(request));
 
-      this.failSetThresholdConfiguration(universal, calulationMethod);
-    }
-    catch (Throwable t)
-    {
-      ErrorUtility.prepareThrowable(t, req);
+			if (hierarchy != null) {
+				req.setAttribute("hierarchy", hierarchy.getPropertyValue());
+			}
 
-      this.failSetThresholdConfiguration(universal, calulationMethod);
-    }
-  }
-  
-  @Override
-  public void failSetThresholdConfiguration(String universal, String calculationMethod) throws IOException, ServletException
-  {
-    this.editThresholdConfiguration();
-  }
+			if (isEpiWeek != null) {
+				req.setAttribute("isEpiWeek", isEpiWeek.getPropertyValue());
+			}
 
-  private void validateParameters(String geoId, MalariaSeasonDTO season)
-  {
-    List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
+			render("editThresholdConfiguration.jsp");
+		}
+	}
 
-    if (geoId == null)
-    {
-      problems.add(new RequiredGeoIdProblemDTO(this.getClientRequest(), req.getLocale()));
-    }
+	@Override
+	public void failEditThresholdConfiguration() throws IOException, ServletException {
+		// This should never happen
+		req.getRequestDispatcher("index.jsp").forward(req, resp);
+	}
 
-    if (season == null)
-    {
-      problems.add(new RequiredSeasonProblemDTO(this.getClientRequest(), req.getLocale()));
-    }
+	@Override
+	public void setThresholdConfiguration(String universal, String calulationMethod, ThresholdCalculationTypeViewDTO thresholdCalculation) throws IOException, ServletException {
+		try {
+			ClientRequestIF request = this.getClientRequest();
 
-    if (problems.size() > 0)
-    {
-      throw new ProblemExceptionDTO("", problems);
-    }
-  }
+			ThresholdDataViewDTO.setThresholdConfiguration(request, universal, calulationMethod);
+			thresholdCalculation.apply();
+			this.editThresholdConfiguration();
+		} catch (ProblemExceptionDTO e) {
+			ErrorUtility.prepareProblems(e, req);
+
+			this.failSetThresholdConfiguration(universal, calulationMethod, thresholdCalculation);
+		} catch (Throwable t) {
+			ErrorUtility.prepareThrowable(t, req);
+
+			this.failSetThresholdConfiguration(universal, calulationMethod, thresholdCalculation);
+		}
+	}
+
+	@Override
+	public void failSetThresholdConfiguration(String universal, String calculationMethod, ThresholdCalculationTypeViewDTO thresholdCalculation) throws IOException, ServletException {
+		this.editThresholdConfiguration();
+	}
+
+	private void validateParameters(String geoId, MalariaSeasonDTO season) {
+		List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
+
+		if (geoId == null) {
+			problems.add(new RequiredGeoIdProblemDTO(this.getClientRequest(), req.getLocale()));
+		}
+
+		if (season == null) {
+			problems.add(new RequiredSeasonProblemDTO(this.getClientRequest(), req.getLocale()));
+		}
+
+		if (problems.size() > 0) {
+			throw new ProblemExceptionDTO("", problems);
+		}
+	}
+
+	@Override
+	public void calculateThresholds(ThresholdCalculationTypeViewDTO thresholdCalculation, Boolean currentYear) throws IOException, ServletException {
+		ThresholdCalculationTypeViewDTO.calculateThresholds(this.getClientRequest(), thresholdCalculation, currentYear);
+		this.editThresholdConfiguration();
+	}
+
+	@Override
+	public void failCalculateThresholds(ThresholdCalculationTypeViewDTO thresholdCalculation, String currentYear) throws IOException, ServletException {
+		// TODO Auto-generated method stub
+		super.failCalculateThresholds(thresholdCalculation, currentYear);
+	}
 }
