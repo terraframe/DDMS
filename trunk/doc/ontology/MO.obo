@@ -1,6 +1,5 @@
 format-version: 1.2
-date: 07:10:2009 09:44
-saved-by: Saul
+date: 19:10:2009 17:57
 auto-generated-by: OBO-Edit 2.0
 default-namespace: mdss_namespace
 remark: alpha-version: please send comments to slozano[at]colostate.edu
@@ -2247,7 +2246,7 @@ creation_date: 2009-08-12T10:54:44Z
 id: MDSS:0000010
 name: brand of insecticide formulation
 def: "Needs a definition." [SLF:SLF]
-is_a: IDOMAL:0000672 ! chemical compound
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-12T10:56:10Z
 
@@ -2998,7 +2997,7 @@ creation_date: 2009-08-14T04:21:08Z
 [Term]
 id: MDSS:0000113
 name: block
-is_a: MDSS:0000391 ! settlement subdivision
+is_a: MDSS:0000111 ! administrative area
 created_by: Saul
 creation_date: 2009-08-14T04:22:11Z
 
@@ -3033,14 +3032,14 @@ creation_date: 2009-08-14T04:22:11Z
 [Term]
 id: MDSS:0000118
 name: neighborhood
-is_a: MDSS:0000391 ! settlement subdivision
+is_a: MDSS:0000111 ! administrative area
 created_by: Saul
 creation_date: 2009-08-14T04:22:11Z
 
 [Term]
 id: MDSS:0000119
 name: premises
-is_a: MDSS:0000391 ! settlement subdivision
+is_a: MDSS:0000111 ! administrative area
 created_by: Saul
 creation_date: 2009-08-14T04:22:11Z
 
