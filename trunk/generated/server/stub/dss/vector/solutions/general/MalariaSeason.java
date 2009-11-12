@@ -163,10 +163,22 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
 
   public static MalariaSeason getSeasonByDate(Date date)
   {
+	  MalariaSeasonQuery query = MalariaSeason.getSeasonQueryByDate(date, new QueryFactory());
+	  return getSeasonFromQueryByDate(query, date);
+  }
+  
+
+  public static MalariaSeason getNextSeasonByDate(Date date)
+  {
+	  MalariaSeasonQuery query = MalariaSeason.getNextSeasonQueryByDate(date, new QueryFactory());
+	  return getSeasonFromQueryByDate(query, date);
+  }
+  
+
+  public static MalariaSeason getSeasonFromQueryByDate(MalariaSeasonQuery query, Date date)
+  {
     MalariaSeason malariaSeason = null;
 
-    MalariaSeasonQuery query = MalariaSeason.getSeasonQueryByDate(date, new QueryFactory());
-    
     OIterator<? extends MalariaSeason> iterator = query.getIterator();
 
     try
@@ -186,12 +198,21 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
     return malariaSeason;
   }
   
-  public static MalariaSeasonQuery getSeasonQueryByDate(Date date, QueryFactory factory)
+  
+  public static MalariaSeasonQuery getNextSeasonQueryByDate(Date date, QueryFactory factory)
   {    
     MalariaSeasonQuery query = new MalariaSeasonQuery(factory);
     
-    query.AND(query.getStartDate().LE(date));
-    query.AND(query.getEndDate().GE(date));
+    query.AND(query.getStartDate().GE(date));
+
+    return query;
+  }
+  
+  public static MalariaSeasonQuery getSeasonQueryByDate(Date date, QueryFactory factory)
+  {    
+    MalariaSeasonQuery query = getNextSeasonQueryByDate(date, factory);
+    
+    query.AND(query.getEndDate().LE(date));
 
     return query;
   }

@@ -232,6 +232,30 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     
     return this.getYear();
   }
+  
+  public EpiDate getPrevious() {
+	  EpiDate previousDate = null;
+	  if (this.getPeriodType().contains(PeriodType.WEEK)) {
+		  if (this.getPeriod() == 0) {
+			  previousDate = EpiDate.getInstanceByPeriod(PeriodType.WEEK, EpiDate.getNumberOfEpiWeeks(this.getYear()-1)-1, this.getYear()-1);
+		  } else {
+			  previousDate = EpiDate.getInstanceByPeriod(PeriodType.WEEK, this.getPeriod() - 1, this.getYear());
+		  }
+  		}
+  	return previousDate;
+  }  
+  
+  public EpiDate getNext() {
+	  EpiDate nextDate = null;
+	  if (this.getPeriodType().contains(PeriodType.WEEK)) {
+		  if (this.getPeriod() == EpiDate.getNumberOfEpiWeeks(this.getYear()) - 1) {
+			  nextDate = EpiDate.getInstanceByPeriod(PeriodType.WEEK, 1, this.getYear()+1);
+		  } else {
+			  nextDate = EpiDate.getInstanceByPeriod(PeriodType.WEEK, this.getPeriod() + 1, this.getYear());
+		  }
+  		}
+  	return nextDate;
+  }
 
   public static Integer getNumberOfEpiWeeks(int year)
   {

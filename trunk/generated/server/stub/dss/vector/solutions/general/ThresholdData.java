@@ -132,6 +132,22 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
     }
     return null;
   }
+  
+  public static ThresholdData getThresholdData(GeoEntity entity, MalariaSeason season)
+  {
+    QueryFactory factory = new QueryFactory();
+
+    ThresholdDataQuery threshold = new ThresholdDataQuery(factory);
+    threshold.WHERE(AND.get(threshold.getGeoEntity().EQ(entity), threshold.getSeason().EQ(season)));
+
+    List<? extends ThresholdData> list = threshold.getIterator().getAll();
+
+    if (list.size() > 0)
+    {
+      return list.get(0);
+    }
+    return null;
+  }
 
   /**
    * @param entity
