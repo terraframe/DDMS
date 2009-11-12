@@ -1,8 +1,5 @@
 package dss.vector.solutions;
 
-import java.util.Arrays;
-import java.util.List;
-
 import junit.framework.TestCase;
 
 
@@ -19,7 +16,7 @@ public class StatisticsTest extends TestCase {
 	public void testQuartile() {
 		Statistics s = new Statistics();
 
-		List<Double> list1 = Arrays.asList(0.0, 2.0, 3.0, 5.0, 6.0, 8.0, 9.0);
+		double[] list1 = {0.0d, 2.0d, 3.0d, 5.0d, 6.0d, 8.0d, 9.0d};
 		assertEquals(0.0, s.quartile(list1, 0), QUARTILE_TOLERANCE);
 		assertEquals(2.5, s.quartile(list1, 1), QUARTILE_TOLERANCE);
 		assertEquals(5.0, s.quartile(list1, 2), QUARTILE_TOLERANCE);
@@ -44,14 +41,14 @@ public class StatisticsTest extends TestCase {
 			fail();
 		}
 		
-		List<Double> list2 = Arrays.asList(1.0, 3.0, 3.0, 4.0, 4.0, 5.0, 6.0);
+		double[] list2 = {1.0d, 3.0d, 3.0d, 4.0d, 4.0d, 5.0d, 6.0d};
 		assertEquals(1.0, s.quartile(list2, 0), QUARTILE_TOLERANCE);
 		assertEquals(3.0, s.quartile(list2, 1), QUARTILE_TOLERANCE);
 		assertEquals(4.0, s.quartile(list2, 2), QUARTILE_TOLERANCE);
 		assertEquals(4.5, s.quartile(list2, 3), QUARTILE_TOLERANCE);
 		assertEquals(6.0, s.quartile(list2, 4), QUARTILE_TOLERANCE);
 		
-		List<Double> list3 = Arrays.asList(1.0, 3.0, 4.0, 4.0, 5.0, 5.0, 6.0);
+		double[] list3 = {1.0d, 3.0d, 4.0d, 4.0d, 5.0d, 5.0d, 6.0d};
 		assertEquals(1.0, s.quartile(list3, 0), QUARTILE_TOLERANCE);
 		assertEquals(3.5, s.quartile(list3, 1), QUARTILE_TOLERANCE);
 		assertEquals(4.0, s.quartile(list3, 2), QUARTILE_TOLERANCE);
