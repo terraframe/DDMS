@@ -12,9 +12,7 @@
 <%@page import="dss.vector.solutions.geo.GeoHierarchyViewDTO"%>
 
 <%@page import="dss.vector.solutions.ontology.TermViewDTO"%>
-<%@page import="dss.vector.solutions.ontology.MODTO"%>
 <%@page import="dss.vector.solutions.ontology.TermController"%>
-<%@page import="dss.vector.solutions.ontology.MOController"%>
 <%@page import="dss.vector.solutions.ontology.BrowserFieldDTO"%>
 <%@page import="dss.vector.solutions.ontology.BrowserRootDTO"%>
 <%@page import="dss.vector.solutions.ontology.BrowserRootViewDTO"%>
