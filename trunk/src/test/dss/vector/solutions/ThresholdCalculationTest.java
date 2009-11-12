@@ -245,6 +245,7 @@ public class ThresholdCalculationTest extends TestCase {
 		data.setDiagnosisDate(date);
 		data.setPatient(patient);
 		data.setProbableSource(geoEntity);
+		data.setResidence(geoEntity);
 		data.apply();
 	}
 
