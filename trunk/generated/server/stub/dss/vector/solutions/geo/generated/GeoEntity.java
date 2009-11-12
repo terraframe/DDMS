@@ -644,6 +644,15 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     return this.getFamily(factory, new SearchParameter(true, false, false, false, false));
   }
 
+
+  /**
+   * @return All of this Geo Entity decendants which can have population
+   */
+  public GeoEntityQuery getPopulationDecendants(QueryFactory factory)
+  {
+    return this.getFamily(factory, new SearchParameter(true, false, true, false, false));
+  }
+  
   public GeoEntity[] getImmediateSprayChildren()
   {
     return this.getSprayChildren();
