@@ -38,15 +38,16 @@
 <%@page import="dss.vector.solutions.entomology.MosquitoView"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.IndividualIPTDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.IndividualCaseDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO"%>
+<%@page import="dss.vector.solutions.surveillance.IndividualCaseSymptomDTO"%>
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
 <%@page import="dss.vector.solutions.PersonDTO"%>
 
 
 
 
-<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Individual_IPT"  scope="request"/>
+<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Individual_Cases"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -55,7 +56,7 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ IndividualIPTViewDTO.CLASS, IndividualIPTDTO.CLASS, PersonDTO.CLASS};
+    String[] mosquitoTypes = new String[]{ IndividualCaseDTO.CLASS, IndividualInstanceDTO.CLASS, PersonDTO.CLASS,IndividualCaseSymptomDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
     MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
@@ -126,11 +127,11 @@ YAHOO.util.Event.onDOMReady(function(){
         //row.attributeName = this.relAttribute;
         //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
         //row.type = this.relType;
-        row.dtoType = "AttributeIntegerDTO";
+        row.dtoType = "AttributeBooleanDTO";
         row.displayLabel = term.displayLabel;
         
         row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
-        row.type = 'sqlinteger';
+        row.type = 'sqlcharacter';
         row.attributeName = 'term' + term.MOID.replace(':','');
         
       return row;
@@ -141,32 +142,80 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
-    var iptMaps = {<%=(String) request.getAttribute("iptMap")%>};
+    var instanceMaps = {<%=(String) request.getAttribute("instanceMaps")%>};
     
-    var personMaps = {<%=(String) request.getAttribute("iptMap")%>};
+    var personMaps = {};
 
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
-    var individualIPT = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualIPT();
-
-    var iIPTAttribs = ["serviceDate",
-                       "doseNumber","doseType","isANCVisit",
-                       "numberOfRecievedITNs","patientType","recievedITN",
-                       "recievedSupplement","visitNumber","administratorName","administratorSurname",];
-
+    var individualCase = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualCase();
+    var caseAttribs = ["age",
+                           "caseEntryDate","caseReportDate","diagnosisDate",
+                           "workplaceText","probableSourceText","residenceText"];
+    var caseColumns = caseAttribs.map(mapAttribs, {obj:individualCase, suffix:'_case', dropDownMaps:{}});
     
-    var iIPTColumns =   iIPTAttribs.map(mapAttribs, {obj:individualIPT, suffix:'_ipt', dropDownMaps:iptMaps});
 
-    var person = new Mojo.$.dss.vector.solutions.Person();
+    var individualInstance = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualInstance();  
+    var instanceAttribs = ["activelyDetected",
+                       "admissionDate","anaemiaPatient","clinicalDiagnosis",
+                       "detectedBy","diedInFacility","facilityVisit",
+                       "patientCategory","pregnant","properlyRelease",
+                       "referralReason","labTestDate","symptomComments",
+                       "releaseDate","sampleType","malariaType",
+                       "testSampleDate","treatment","treatmentMethod",
+                       "treatmentStartDate"];
     
-    var personAttribs = ["dateOfBirth","firstName","lastName","sex","age","residentialInformation","workInformation"];
-    
-    var personColumns =  personAttribs.map(mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
+    var instanceColumns = instanceAttribs.map(mapAttribs, {obj:individualInstance, suffix:'_ins', dropDownMaps:{}});
 
+    var person = new Mojo.$.dss.vector.solutions.Person();   
+    var personAttribs = ["dateOfBirth","firstName","lastName","sex"];    
+    var personColumns =  personAttribs.map(mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
+
+
+    var calculations = ([
+                          {
+                           displayLabel:"Instances",
+                           key:"instances",
+                           type:"sqlinteger",
+                           attributeName:"instances"
+                          },
+                          {
+                           displayLabel:"Cases",
+                           key:"cases",
+                           type:"sqlinteger",
+                           attributeName:"cases",
+                          },
+                          {
+                           displayLabel:"Deaths",
+                           key:"deaths",
+                           type:"sqlinteger",
+                           attributeName:"deaths",
+                          },                       
+                          {
+                            displayLabel:"Incidence",
+                            key:"incidence",
+                            type:"sqlfloat",
+                            attributeName:"incidence",
+                            dropDownMap:{'100':'1000','1,000':'1000','10,000':'10000','100,000':'100000'}
+                          },
+                          {
+                            displayLabel:"CFR",
+                            key:"cfr",
+                            type:"sqlfloat",
+                            attributeName:"cfr",
+                            dropDownMap:{'100':'1000','1,000':'1000','10,000':'10000','100,000':'100000'}
+                          },
+
+                         ]);
     
+    var symptomsColumns = orderedGrids.symptoms.options.map(mapMo, orderedGrids.symptoms);
+     
     var selectableGroups = [
-              {title:"IPT", values:iIPTColumns, group:"ipt", klass:individualIPT.CLASS},
-              {title:"Patient", values:personColumns, group:"ipt", klass:individualIPT.CLASS}
+              {title:"Case", values:caseColumns, group:"c", klass:individualCase.CLASS},
+              {title:"Patient", values:personColumns, group:"c", klass:individualCase.CLASS},
+              {title:"Instance", values:instanceColumns, group:"c", klass:individualCase.CLASS},
+              {title:"Calculations", values:calculations, group:"c", klass:individualCase.CLASS},
+              {title:"Symptoms", values:symptomsColumns, group:"c", klass:Mojo.$.dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS}
     ];
 
     var query = new MDSS.QueryIndividualCases(selectableGroups, queryList);
