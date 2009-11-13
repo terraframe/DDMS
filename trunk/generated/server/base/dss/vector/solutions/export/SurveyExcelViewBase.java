@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -345774719)
+@com.terraframe.mojo.business.ClassSignature(hash = -2053115490)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,32 +26,26 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String LASTSPRAYED = "lastSprayed";
   public static java.lang.String MALARIA = "malaria";
   public static java.lang.String MALARIATREATMENT = "malariaTreatment";
-  public static java.lang.String MALARIAEPOSITIVE = "malariaePositive";
-  public static java.lang.String MIXEDPOSITIVE = "mixedPositive";
-  public static java.lang.String NEGATIVE = "negative";
   public static java.lang.String NETS = "nets";
   public static java.lang.String NETSUSED = "netsUsed";
-  public static java.lang.String NOTVALID = "notValid";
-  public static java.lang.String OVALEPOSITIVE = "ovalePositive";
   public static java.lang.String PAYMENT = "payment";
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PERFORMEDRDT = "performedRDT";
   public static java.lang.String PERSONID = "personId";
-  public static java.lang.String PFPOSITIVE = "pfPositive";
   public static java.lang.String PREGNANT = "pregnant";
   public static java.lang.String RDTTREATMENT = "rdtTreatment";
-  public static java.lang.String ROOF = "roof";
   public static java.lang.String ROOFINFO = "roofInfo";
+  public static java.lang.String ROOFSURFACE = "roofSurface";
   public static java.lang.String ROOMS = "rooms";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SLEPTUNDERNET = "sleptUnderNet";
   public static java.lang.String SLEPTUNDERNETS = "sleptUnderNets";
   public static java.lang.String SURVEYDATE = "surveyDate";
   public static java.lang.String URBAN = "urban";
-  public static java.lang.String VIVAXPOSITIVE = "vivaxPositive";
   public static java.lang.String WALLINFO = "wallInfo";
+  public static java.lang.String WALLSURFACE = "wallSurface";
   public static java.lang.String WINDOWTYPE = "windowType";
-  private static final long serialVersionUID = -345774719;
+  private static final long serialVersionUID = -2053115490;
   
   public SurveyExcelViewBase()
   {
@@ -473,90 +467,6 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
     }
   }
   
-  public Boolean getMalariaePositive()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(MALARIAEPOSITIVE));
-  }
-  
-  public void validateMalariaePositive()
-  {
-    this.validateAttribute(MALARIAEPOSITIVE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getMalariaePositiveMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(MALARIAEPOSITIVE);
-  }
-  
-  public void setMalariaePositive(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(MALARIAEPOSITIVE, "");
-    }
-    else
-    {
-      setValue(MALARIAEPOSITIVE, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public Boolean getMixedPositive()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(MIXEDPOSITIVE));
-  }
-  
-  public void validateMixedPositive()
-  {
-    this.validateAttribute(MIXEDPOSITIVE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getMixedPositiveMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(MIXEDPOSITIVE);
-  }
-  
-  public void setMixedPositive(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(MIXEDPOSITIVE, "");
-    }
-    else
-    {
-      setValue(MIXEDPOSITIVE, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public Boolean getNegative()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(NEGATIVE));
-  }
-  
-  public void validateNegative()
-  {
-    this.validateAttribute(NEGATIVE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getNegativeMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(NEGATIVE);
-  }
-  
-  public void setNegative(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(NEGATIVE, "");
-    }
-    else
-    {
-      setValue(NEGATIVE, java.lang.Boolean.toString(value));
-    }
-  }
-  
   public Integer getNets()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NETS));
@@ -610,62 +520,6 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
     else
     {
       setValue(NETSUSED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Boolean getNotValid()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(NOTVALID));
-  }
-  
-  public void validateNotValid()
-  {
-    this.validateAttribute(NOTVALID);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getNotValidMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(NOTVALID);
-  }
-  
-  public void setNotValid(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(NOTVALID, "");
-    }
-    else
-    {
-      setValue(NOTVALID, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public Boolean getOvalePositive()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OVALEPOSITIVE));
-  }
-  
-  public void validateOvalePositive()
-  {
-    this.validateAttribute(OVALEPOSITIVE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getOvalePositiveMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(OVALEPOSITIVE);
-  }
-  
-  public void setOvalePositive(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(OVALEPOSITIVE, "");
-    }
-    else
-    {
-      setValue(OVALEPOSITIVE, java.lang.Boolean.toString(value));
     }
   }
   
@@ -781,34 +635,6 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
     }
   }
   
-  public Boolean getPfPositive()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(PFPOSITIVE));
-  }
-  
-  public void validatePfPositive()
-  {
-    this.validateAttribute(PFPOSITIVE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getPfPositiveMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(PFPOSITIVE);
-  }
-  
-  public void setPfPositive(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(PFPOSITIVE, "");
-    }
-    else
-    {
-      setValue(PFPOSITIVE, java.lang.Boolean.toString(value));
-    }
-  }
-  
   public Boolean getPregnant()
   {
     return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(PREGNANT));
@@ -865,41 +691,6 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
     }
   }
   
-  public dss.vector.solutions.ontology.Term getRoof()
-  {
-    if (getValue(ROOF).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.ontology.Term.get(getValue(ROOF));
-    }
-  }
-  
-  public void validateRoof()
-  {
-    this.validateAttribute(ROOF);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getRoofMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(ROOF);
-  }
-  
-  public void setRoof(dss.vector.solutions.ontology.Term value)
-  {
-    if(value == null)
-    {
-      setValue(ROOF, "");
-    }
-    else
-    {
-      setValue(ROOF, value.getId());
-    }
-  }
-  
   public String getRoofInfo()
   {
     return getValue(ROOFINFO);
@@ -925,6 +716,34 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
     else
     {
       setValue(ROOFINFO, value);
+    }
+  }
+  
+  public String getRoofSurface()
+  {
+    return getValue(ROOFSURFACE);
+  }
+  
+  public void validateRoofSurface()
+  {
+    this.validateAttribute(ROOFSURFACE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getRoofSurfaceMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
+    return mdClassIF.definesAttribute(ROOFSURFACE);
+  }
+  
+  public void setRoofSurface(String value)
+  {
+    if(value == null)
+    {
+      setValue(ROOFSURFACE, "");
+    }
+    else
+    {
+      setValue(ROOFSURFACE, value);
     }
   }
   
@@ -1096,34 +915,6 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
     }
   }
   
-  public Boolean getVivaxPositive()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(VIVAXPOSITIVE));
-  }
-  
-  public void validateVivaxPositive()
-  {
-    this.validateAttribute(VIVAXPOSITIVE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getVivaxPositiveMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(VIVAXPOSITIVE);
-  }
-  
-  public void setVivaxPositive(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(VIVAXPOSITIVE, "");
-    }
-    else
-    {
-      setValue(VIVAXPOSITIVE, java.lang.Boolean.toString(value));
-    }
-  }
-  
   public String getWallInfo()
   {
     return getValue(WALLINFO);
@@ -1149,6 +940,34 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
     else
     {
       setValue(WALLINFO, value);
+    }
+  }
+  
+  public String getWallSurface()
+  {
+    return getValue(WALLSURFACE);
+  }
+  
+  public void validateWallSurface()
+  {
+    this.validateAttribute(WALLSURFACE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getWallSurfaceMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
+    return mdClassIF.definesAttribute(WALLSURFACE);
+  }
+  
+  public void setWallSurface(String value)
+  {
+    if(value == null)
+    {
+      setValue(WALLSURFACE, "");
+    }
+    else
+    {
+      setValue(WALLSURFACE, value);
     }
   }
   

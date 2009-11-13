@@ -41,55 +41,26 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   {
     HouseholdView house = getHousehold();
     
-    HouseholdNet[] array = new HouseholdNet[nets.size()];
-    for (int i=0; i<array.length; i++)
-    {
-      array[i] = new HouseholdNet(house, nets.get(i));
-      array[i].setAmount(amounts.get(i));
-    }
-    
-    house.applyAll(array);
-    
     // Person stuff
     Person person = new Person();
     person.setHousehold(Household.get(house.getConcreteId()));
     person.setPersonId(this.getPersonId());
     person.setDob(this.getDob());
+    person.setSex(Term.validateByDisplayLabel(this.getSex(), Person.getSexMd()));
     person.setPregnant(this.getPregnant());
     person.setSleptUnderNet(this.getSleptUnderNet());
     person.setHaemoglobinMeasured(this.getHaemoglobinMeasured());
     person.setHaemoglobin(this.getHaemoglobin());
-    person.setAnaemiaTreatment(Term.validateByDisplayLabel(this.getAnaemiaTreatment(), getAnaemiaTreatmentMd()));
+    person.setAnaemiaTreatment(Term.validateByDisplayLabel(this.getAnaemiaTreatment(), Person.getAnaemiaTreatmentMd()));
     person.setIron(this.getIron());
-    
-    person.setSex(Term.validateByDisplayLabel(this.getSex(), getSexMd()));
-    person.setPerformedRDT(Term.validateByDisplayLabel(this.getPerformedRDT(), getPerformedRDTMd()));
-    person.setBloodslide(Term.validateByDisplayLabel(this.getBloodslide(), getBloodslideMd()));
-    
-    // This block mirrors the check boxes for RDT Results
-    // FIXME: MO UPGRADE
-//    if (this.getMalariaePositive() != null && this.getMalariaePositive())
-//      person.addRDTResult(RDTResult.MALARIAE_POSITIVE);
-//    if (this.getMixedPositive() != null && this.getMixedPositive())
-//      person.addRDTResult(RDTResult.MIXED_POSITIVE);
-//    if (this.getNegative() != null && this.getNegative())
-//      person.addRDTResult(RDTResult.NEGATIVE);
-//    if (this.getNotValid() != null && this.getNotValid())
-//      person.addRDTResult(RDTResult.NOT_VALID);
-//    if (this.getOvalePositive() != null && this.getOvalePositive())
-//      person.addRDTResult(RDTResult.OVALE_POSITIVE);
-//    if (this.getPfPositive() != null && this.getPfPositive())
-//      person.addRDTResult(RDTResult.PF_POSITIVE);
-//    if (this.getVivaxPositive() != null && this.getVivaxPositive())
-//      person.addRDTResult(RDTResult.VIVAX_POSITIVE);
-    
-    person.setRdtTreatment(Term.validateByDisplayLabel(this.getRdtTreatment(), getRdtTreatmentMd()));    
-    person.setFever(Term.validateByDisplayLabel(this.getFever(), getFeverMd()));
-    person.setFeverTreatment(Term.validateByDisplayLabel(this.getFeverTreatement(), getFeverTreatementMd()));
-    
-    person.setMalaria(Term.validateByDisplayLabel(this.getMalaria(), getMalariaMd()));
-    person.setMalariaTreatment(Term.validateByDisplayLabel(this.getMalariaTreatment(), getMalariaTreatmentMd()));
-    person.setPayment(Term.validateByDisplayLabel(this.getPayment(), getPaymentMd()));
+    person.setPerformedRDT(Term.validateByDisplayLabel(this.getPerformedRDT(), Person.getPerformedRDTMd()));
+    person.setBloodslide(Term.validateByDisplayLabel(this.getBloodslide(), Person.getBloodslideMd()));
+    person.setRdtTreatment(Term.validateByDisplayLabel(this.getRdtTreatment(), Person.getRdtTreatmentMd()));
+    person.setFever(Term.validateByDisplayLabel(this.getFever(), Person.getFeverMd()));
+    person.setFeverTreatment(Term.validateByDisplayLabel(this.getFeverTreatement(), Person.getFeverTreatmentMd()));
+    person.setMalaria(Term.validateByDisplayLabel(this.getMalaria(), Person.getMalariaMd()));
+    person.setMalariaTreatment(Term.validateByDisplayLabel(this.getMalariaTreatment(), Person.getMalariaTreatmentMd()));
+    person.setPayment(Term.validateByDisplayLabel(this.getPayment(), Person.getPaymentMd()));
     person.apply();
   }
 
@@ -123,7 +94,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
       surveyPoint = new SurveyPoint();
       surveyPoint.setGeoEntity(this.getGeoEntity());
       surveyPoint.setSurveyDate(this.getSurveyDate());
-      surveyPoint.apply();      
+      surveyPoint.apply();
     }
     
     return surveyPoint;
@@ -152,27 +123,32 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     else
     {
       house = new HouseholdView();
+      house.setHouseholdName(name);
+      house.setSurveyPoint(this.getSurveyPoint());
+      house.setUrban(this.getUrban());
+      house.setPeople(this.getPeople());
+      house.setWall(Term.validateByDisplayLabel(this.getWallSurface(), Household.getWallMd()));
+      house.setWallInfo(this.getWallInfo());
+      house.setRoof(Term.validateByDisplayLabel(this.getRoofSurface(), Household.getRoofMd()));
+      house.setRoofInfo(this.getRoofInfo());
+      house.setHasWindows(this.getHasWindows());
+      house.setWindowType(Term.validateByDisplayLabel(this.getWindowType(), Household.getWindowTypeMd()));
+      house.setRooms(this.getRooms());
+      house.setLastSprayed(this.getLastSprayed());
+      house.setNets(this.getNets());
+      house.setNetsUsed(this.getNetsUsed());
+      house.setSleptUnderNets(this.getSleptUnderNets());
+      
+      HouseholdNet[] array = new HouseholdNet[nets.size()];
+      for (int i=0; i<array.length; i++)
+      {
+        array[i] = new HouseholdNet(house, nets.get(i));
+        array[i].setAmount(amounts.get(i));
+      }
+      
+      house.applyAll(array);
     }
     iterator.close();
-    
-    house.setSurveyPoint(this.getSurveyPoint());
-    house.setHasWindows(this.getHasWindows());
-    house.setHouseholdName(this.getHouseholdName());
-    house.setLastSprayed(this.getLastSprayed());
-    house.setNets(this.getNets());
-    house.setNetsUsed(this.getNetsUsed());
-    house.setPeople(this.getPeople());
-    house.setRoof(this.getRoof());
-    house.setRoofInfo(this.getRoofInfo());
-    house.setRooms(this.getRooms());
-    house.setSleptUnderNets(this.getSleptUnderNets());
-    house.setUrban(this.getUrban());
-    house.setWindowType(Term.validateByDisplayLabel(this.getWindowType(), getWindowTypeMd()));
-    
-    /* FIXME MO REFACTOR
-    house.setWall(Term.validateByDisplayLabel(this.getWallName(), getWallNameMd()));
-    */
-    house.setWallInfo(this.getWallInfo());
     
     return house;
   }
@@ -182,78 +158,4 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     nets.add(net);
     amounts.add(count);
   }
-  
-  /* FIXME MO REFACTOR
-  public static WindowType getWindowTypeByLabel(String label)
-  {
-    if(label == null || label == "")
-    {
-      return null;
-    }
-    
-    for (WindowType e : WindowType.values())
-    {
-      if (e.getDisplayLabel().equals(label))
-      {
-        return e;
-      }
-    }
-    String message = "[" + label + "] is not a valid display label for [" + WindowType.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(WindowType.CLASS));
-  }
-  
-  public static HumanSex getHumanSexByLabel(String label)
-  {
-    if(label == null || label == "")
-    {
-      return null;
-    }
-
-    for (HumanSex e : HumanSex.values())
-    {
-      if (e.getDisplayLabel().equals(label))
-      {
-        return e;
-      }
-    }
-    String message = "[" + label + "] is not a valid display label for [" + HumanSex.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(HumanSex.CLASS));
-  }
-
-  private RDTResponse getRDTResponseByLabel(String label)
-  {
-    for (RDTResponse e : RDTResponse.values())
-    {
-      if (e.getDisplayLabel().equals(label))
-      {
-        return e;
-      }
-    }
-    return null;
-  }
-
-  private BloodslideResponse getBloodsideByLabel(String label)
-  {
-    for (BloodslideResponse e : BloodslideResponse.values())
-    {
-      if (e.getDisplayLabel().equals(label))
-      {
-        return e;
-      }
-    }
-    return null;
-  }
-
-  private FeverResponse getFeverByLabel(String label)
-  {
-    for (FeverResponse e : FeverResponse.values())
-    {
-      if (e.getDisplayLabel().equals(label))
-      {
-        return e;
-      }
-    }
-    return null;
-  }
-  */
 }

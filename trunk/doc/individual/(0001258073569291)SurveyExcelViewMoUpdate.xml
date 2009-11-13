@@ -1,0 +1,60 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.malariaePositive"
+        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.mixedPositive"
+        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.negative"
+        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.notValid"
+        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.ovalePositive"
+        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.pfPositive"
+        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.roof"
+        type="com.terraframe.mojo.system.metadata.MdAttributeReference"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.vivaxPositive"
+        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
+    </delete>
+    <update>
+      <mdView
+        name="dss.vector.solutions.export.SurveyExcelView">
+        <create>
+          <attributes>
+            <char
+              name="wallSurface"
+              label="Wall Surface"
+              size="255"/>
+            <char
+              name="roofSurface"
+              label="Roof Surface"
+              size="255"/>
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+    <create>
+    </create>
+    <permissions>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+    <!--
+      We can't really undo the deletes at the top so... sorry.  No undo.
+    -->
+    </delete>
+  </undoIt>
+</version>

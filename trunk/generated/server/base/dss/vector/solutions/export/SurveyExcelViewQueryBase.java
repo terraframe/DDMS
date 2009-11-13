@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -154006166)
+@com.terraframe.mojo.business.ClassSignature(hash = 548407381)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class SurveyExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -154006166;
+private static final long serialVersionUID = 548407381;
 
   public SurveyExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -297,60 +297,6 @@ private static final long serialVersionUID = -154006166;
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getMalariaePositive()
-  {
-    return getMalariaePositive(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getMalariaePositive(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MALARIAEPOSITIVE, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getMalariaePositive(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MALARIAEPOSITIVE, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getMixedPositive()
-  {
-    return getMixedPositive(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getMixedPositive(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MIXEDPOSITIVE, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getMixedPositive(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MIXEDPOSITIVE, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getNegative()
-  {
-    return getNegative(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getNegative(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.NEGATIVE, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getNegative(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.NEGATIVE, alias, displayLabel);
-
-  }
- 
   public com.terraframe.mojo.query.AttributeInteger getNets()
   {
     return getNets(null);
@@ -384,42 +330,6 @@ private static final long serialVersionUID = -154006166;
   public com.terraframe.mojo.query.AttributeInteger getNetsUsed(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.NETSUSED, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getNotValid()
-  {
-    return getNotValid(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getNotValid(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.NOTVALID, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getNotValid(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.NOTVALID, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getOvalePositive()
-  {
-    return getOvalePositive(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getOvalePositive(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.OVALEPOSITIVE, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getOvalePositive(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.OVALEPOSITIVE, alias, displayLabel);
 
   }
  
@@ -495,24 +405,6 @@ private static final long serialVersionUID = -154006166;
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getPfPositive()
-  {
-    return getPfPositive(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getPfPositive(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PFPOSITIVE, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getPfPositive(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PFPOSITIVE, alias, displayLabel);
-
-  }
- 
   public com.terraframe.mojo.query.AttributeBoolean getPregnant()
   {
     return getPregnant(null);
@@ -549,25 +441,6 @@ private static final long serialVersionUID = -154006166;
 
   }
  
-  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRoof()
-  {
-    return getRoof(null);
-
-  }
- 
-  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRoof(String alias)
-  {
-
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.ROOF, alias, null);
-
-  }
- 
-  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRoof(String alias, String displayLabel)
-  {
-
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.ROOF, alias, displayLabel);
-
-  }
   public com.terraframe.mojo.query.AttributeChar getRoofInfo()
   {
     return getRoofInfo(null);
@@ -583,6 +456,24 @@ private static final long serialVersionUID = -154006166;
   public com.terraframe.mojo.query.AttributeChar getRoofInfo(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.ROOFINFO, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getRoofSurface()
+  {
+    return getRoofSurface(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getRoofSurface(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.ROOFSURFACE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getRoofSurface(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.ROOFSURFACE, alias, displayLabel);
 
   }
  
@@ -694,24 +585,6 @@ private static final long serialVersionUID = -154006166;
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getVivaxPositive()
-  {
-    return getVivaxPositive(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getVivaxPositive(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.VIVAXPOSITIVE, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getVivaxPositive(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.VIVAXPOSITIVE, alias, displayLabel);
-
-  }
- 
   public com.terraframe.mojo.query.AttributeChar getWallInfo()
   {
     return getWallInfo(null);
@@ -727,6 +600,24 @@ private static final long serialVersionUID = -154006166;
   public com.terraframe.mojo.query.AttributeChar getWallInfo(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.WALLINFO, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getWallSurface()
+  {
+    return getWallSurface(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getWallSurface(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.WALLSURFACE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getWallSurface(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.WALLSURFACE, alias, displayLabel);
 
   }
  
