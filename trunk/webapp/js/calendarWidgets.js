@@ -83,6 +83,8 @@ MDSS.Calendar = {};
 
     var var_to_date = function(date_str) {
     	if(date_str instanceof Date) return date_str;
+    	
+    	if(date_str == null) return date_str; 
 
     	var date = parseISO8601(date_str);
     	if(date == null) date = Date.parseString(date_str,java_date_format);

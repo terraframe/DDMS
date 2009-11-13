@@ -421,6 +421,10 @@ MDSS.QueryPanel.prototype = {
 
     // add the date fields
 
+    if(this._queryClass._dateAttribs){
+    	this._queryClass._buildDateAttributesSelect(dateRange);
+    }
+    
     dateRange.appendChild(startLabel);
     dateRange.appendChild(this._startDateRangeCheck);
     dateRange.appendChild(this._startDate);

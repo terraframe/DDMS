@@ -827,7 +827,7 @@ MDSS.Query.Config.prototype = {
       this._config.criteriaEntities[key] = [];
     }, this);
   },
-  
+ 
   setCriteriaEntities : function(attributeKey, entities)
   {
     var ids = Mojo.Iter.map(entities, function(entity){

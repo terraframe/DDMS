@@ -1062,6 +1062,49 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       };
     },
     
+    _buildDateAttributesSelect : function(div)
+    {   	
+    	attributes = this._dateAttribs.map( 
+         	function(d){
+   	      	var tmp = new d.klass();
+   	      	var attrib = tmp.attributeMap[d.accessor];
+   	      	var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(d.klass.CLASS, d.accessor, d.accessor));
+   	      	return {
+   	          keyName :  d.klass.CLASS+'.'+d.accessor,
+   	          display : attrib.attributeMdDTO.displayLabel,
+   	          startDateSelectable : selectable,
+   	          endDateSelectable : selectable
+   	      	};
+         });
+    	
+    	var sel;
+    	this._dateAttributes = [];
+     
+    	sel = document.createElement('select');
+      sel.id = MDSS.QueryBase.DATE_ATTRIBUTES;
+      for(var i=0; i<attributes.length; i++)
+      {
+      	var attribute = attributes[i];
+        var optionEl = document.createElement('option');
+        optionEl.innerHTML = attribute.display;
+        optionEl.value = i;
+        this._dateAttributes[i] = attribute;
+        
+        //YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
+        sel.appendChild(optionEl);
+      }
+
+      //var boundSearch = Mojo.Util.bind(this, this._displaySearch);
+
+      var label = document.createElement('span');
+      label.innerHTML = MDSS.localize("Restrict_By");
+      div.appendChild(label);
+      div.appendChild(sel);
+      
+      this._dateAttributeSelect = sel;
+      
+    },
+    
     /**
      * Creates the JSON necessary to let a user specify an single
      * match on an attribute.

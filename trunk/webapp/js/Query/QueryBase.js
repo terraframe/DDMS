@@ -7,6 +7,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
 
   Constants : {
     GEO_ATTRIBUTES : 'geoAttributes',
+    DATE_ATTRIBUTES : 'dateAttributes',
     TARGET : 'target'
   },
 
@@ -1102,6 +1103,16 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       }
   
       // calculate the date criteria
+      
+      if(this._dateAttribs){
+      	var dateAttrib =  this._dateAttribs[this._dateAttributeSelect.value];
+      	this._startDateSelectable = dateAttrib.startDateSelectable;
+      	this._endDateSelectable = dateAttrib.endDateSelectable;
+      	this._config.dateAttribute = dateAttrib.keyname;
+      }
+      
+      
+      
       var startDateEl = this._queryPanel.getStartDate();
       var startDate = MDSS.util.stripWhitespace(startDateEl.value);
       if(startDate.length > 0)
