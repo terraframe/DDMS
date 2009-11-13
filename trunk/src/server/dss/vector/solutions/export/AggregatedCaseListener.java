@@ -6,7 +6,6 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.business.Mutable;
 import com.terraframe.mojo.dataaccess.io.ExcelExportListener;
 import com.terraframe.mojo.dataaccess.io.excel.ExcelColumn;
@@ -16,51 +15,58 @@ import com.terraframe.mojo.system.metadata.MdAttribute;
 
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.CaseDiagnostic;
+import dss.vector.solutions.surveillance.CaseReferral;
+import dss.vector.solutions.surveillance.CaseTreatment;
+import dss.vector.solutions.surveillance.CaseTreatmentMethod;
+import dss.vector.solutions.surveillance.CaseTreatmentStock;
 import dss.vector.solutions.surveillance.ChildCaseView;
 
 public class AggregatedCaseListener implements ExcelExportListener, ImportListener, Reloadable
 {
-  private static final String TREATMENT = "treatment";
-  private static final String STOCK = "stock";
-  private static final String METHOD = "method";
-  private static final String DIAGNOSTIC = "diagnostic";
-  private static final String POSITIVE = "positive";
-  private static final String REFERRAL = "referral";
+  private static final String TREATMENT = "treatment ";
+  private static final String STOCK = "stock ";
+  private static final String METHOD = "method ";
+  private static final String DIAGNOSTIC = "diagnostic ";
+  private static final String POSITIVE = "positive ";
+  private static final String REFERRAL = "referral ";
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    /* FIXME MO REFACTOR
-    for (TreatmentGrid grid : TreatmentGrid.getAll())
+    
+    for (Term grid : Term.getRootChildren(ChildCaseView.getCaseStocksMd()))
     {
-      extraColumns.add(new ExcelColumn(STOCK + grid.getOptionName(), grid.getDisplayLabel().toString()));
+      String outOfStock = MdAttribute.get(CaseTreatmentStock.getOutOfStockMd().getId()).getDisplayLabel().toString();
+      extraColumns.add(new ExcelColumn(STOCK + grid.getTermId(), grid.getName().toString() + " " + outOfStock));
     }
     
-    for (TreatmentGrid grid : TreatmentGrid.getAll())
+    for (Term grid : Term.getRootChildren(ChildCaseView.getCaseTreatmentsMd()))
     {
-      extraColumns.add(new ExcelColumn(TREATMENT + grid.getOptionName(), grid.getDisplayLabel().toString()));
+      String amount = MdAttribute.get(CaseTreatment.getAmountMd().getId()).getDisplayLabel().toString();
+      extraColumns.add(new ExcelColumn(TREATMENT + grid.getTermId(), grid.getName().toString() + " " + amount));
     }
     
-    for (TreatmentMethodGrid grid : TreatmentMethodGrid.getAll())
+    for (Term grid : Term.getRootChildren(ChildCaseView.getCaseTreatmentMethodMd()))
     {
-      extraColumns.add(new ExcelColumn(METHOD + grid.getOptionName(), grid.getDisplayLabel().toString()));
+      String amount = MdAttribute.get(CaseTreatmentMethod.getAmountMd().getId()).getDisplayLabel().toString();
+      extraColumns.add(new ExcelColumn(METHOD + grid.getTermId(), grid.getName().toString() + " " + amount));
     }
     
-    for (DiagnosticGrid grid : DiagnosticGrid.getAll())
+    for (Term grid : Term.getRootChildren(ChildCaseView.getCaseDiagnosticMd()))
     {
-      String attributeName = DIAGNOSTIC + grid.getOptionName();
-      MdAttribute positive = (MdAttribute)BusinessFacade.get(CaseDiagnostic.getAmountPositiveMd());
-      String positiveLabel = positive.getDisplayLabel().toString();
-      String gridLabel = grid.getDisplayLabel().toString();
+      String attributeName = DIAGNOSTIC + grid.getTermId();
+      String total = MdAttribute.get(CaseDiagnostic.getAmountMd().getId()).getDisplayLabel().toString();
+      String positive = MdAttribute.get(CaseDiagnostic.getAmountPositiveMd().getId()).getDisplayLabel().toString();
+      String gridLabel = grid.getName().toString();
       
-      extraColumns.add(new ExcelColumn(attributeName, gridLabel));
-      extraColumns.add(new ExcelColumn(attributeName + POSITIVE, gridLabel + " " + positiveLabel));
+      extraColumns.add(new ExcelColumn(attributeName, gridLabel + " " + total));
+      extraColumns.add(new ExcelColumn(attributeName + POSITIVE, gridLabel + " " + positive));
     }
     
-    for (ReferralGrid grid : ReferralGrid.getAll())
+    for (Term grid : Term.getRootChildren(ChildCaseView.getCaseReferralsMd()))
     {
-      extraColumns.add(new ExcelColumn(REFERRAL + grid.getOptionName(), grid.getDisplayLabel().toString()));
+      String amount = MdAttribute.get(CaseReferral.getAmountMd().getId()).getDisplayLabel().toString();
+      extraColumns.add(new ExcelColumn(REFERRAL + grid.getTermId(), grid.getName().toString() + " " + amount));
     }
-    */
   }
 
   public void preHeader(ExcelColumn columnInfo)
@@ -73,14 +79,13 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
 
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row)
   {
-    /* FIXME MO REFACTOR
     AggregatedCaseExcelView aggregatedCase = (AggregatedCaseExcelView) instance;
     
     for (Term term : Term.getRootChildren(ChildCaseView.getCaseStocksMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
-        if (column.getAttributeName().equals(STOCK + term.getOptionName()))
+        if (column.getAttributeName().equals(STOCK + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
           Boolean inStock = cell.getBooleanCellValue();
@@ -93,7 +98,7 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
     {
       for (ExcelColumn column : extraColumns)
       {
-        if (column.getAttributeName().equals(TREATMENT + term.getOptionName()))
+        if (column.getAttributeName().equals(TREATMENT + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
           int count = new Double(cell.getNumericCellValue()).intValue();
@@ -106,7 +111,7 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
     {
       for (ExcelColumn column : extraColumns)
       {
-        if (column.getAttributeName().equals(METHOD + term.getOptionName()))
+        if (column.getAttributeName().equals(METHOD + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
           int count = new Double(cell.getNumericCellValue()).intValue();
@@ -123,7 +128,7 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
       // Iterate over all extra columns, looking for matches to this DiagnosticGrid
       for (ExcelColumn column : extraColumns)
       {
-        String diagnosticName = DIAGNOSTIC + term.getOptionName();
+        String diagnosticName = DIAGNOSTIC + term.getTermId();
         if (column.getAttributeName().equals(diagnosticName))
         {
           HSSFCell cell = row.getCell(column.getIndex());
@@ -147,7 +152,7 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
     {
       for (ExcelColumn column : extraColumns)
       {
-        if (column.getAttributeName().equals(REFERRAL + term.getOptionName()))
+        if (column.getAttributeName().equals(REFERRAL + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
           int count = new Double(cell.getNumericCellValue()).intValue();
@@ -155,6 +160,5 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
         }
       }
     }
-    */
   }
 }
