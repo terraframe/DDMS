@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1755175611)
+@com.terraframe.mojo.business.ClassSignature(hash = 1012007668)
 public class QueryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.QueryController";
@@ -10,7 +10,7 @@ public class QueryControllerBase implements com.terraframe.mojo.generation.loade
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1755175611;
+  private static final long serialVersionUID = 1012007668;
   
   public QueryControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -207,14 +207,14 @@ public class QueryControllerBase implements com.terraframe.mojo.generation.loade
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failExportIRSQueryToExcel");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryClass, java.lang.String:queryXML, java.lang.String:config, java.lang.String:savedSearchId", post=false)
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryClass, java.lang.String:queryXML, java.lang.String:config, java.lang.String:savedSearchId", post=true)
   public void exportQueryToCSV(java.lang.String queryClass, java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.exportQueryToCSV");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryClass, java.lang.String:queryXML, java.lang.String:config, java.lang.String:savedSearchId", post=false)
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryClass, java.lang.String:queryXML, java.lang.String:config, java.lang.String:savedSearchId", post=true)
   public void failExportQueryToCSV(java.lang.String queryClass, java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
@@ -387,6 +387,20 @@ public class QueryControllerBase implements com.terraframe.mojo.generation.loade
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failQueryIndicatorSurvey");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void queryIndividualCases() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.queryIndividualCases");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failQueryIndividualCases() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failQueryIndividualCases");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)

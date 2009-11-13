@@ -6,6 +6,7 @@ import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.StockDepot;
 
 public class StockEvent extends StockEventBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -45,6 +46,29 @@ public class StockEvent extends StockEventBase implements com.terraframe.mojo.ge
     this.lock();
 
     return this.getView();
+  }
+  
+  @Override
+  public void apply()
+  {
+    validateStockDepot();
+    
+    super.apply();
+  }
+  
+  @Override
+  public void validateStockDepot()
+  {
+    GeoEntity entity = this.getStockDepot();
+
+    if(entity != null && !(entity instanceof StockDepot)) 
+    {
+      StockDepotProblem p = new StockDepotProblem();
+      p.setGeoId(entity.getGeoId());
+      p.apply();
+      
+      p.throwIt();
+    }
   }
 
   public static int getQuantity(GeoEntity entity, StockItem stockItem, Date date, EventOption event)

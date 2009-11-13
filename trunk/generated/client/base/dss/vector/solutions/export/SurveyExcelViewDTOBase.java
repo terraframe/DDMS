@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1102926849)
+@com.terraframe.mojo.business.ClassSignature(hash = 1723077406)
 public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.SurveyExcelView";
-  private static final long serialVersionUID = 1102926849;
+  private static final long serialVersionUID = 1723077406;
   
   protected SurveyExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -31,30 +31,24 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
   public static java.lang.String LASTSPRAYED = "lastSprayed";
   public static java.lang.String MALARIA = "malaria";
   public static java.lang.String MALARIATREATMENT = "malariaTreatment";
-  public static java.lang.String MALARIAEPOSITIVE = "malariaePositive";
-  public static java.lang.String MIXEDPOSITIVE = "mixedPositive";
-  public static java.lang.String NEGATIVE = "negative";
   public static java.lang.String NETS = "nets";
   public static java.lang.String NETSUSED = "netsUsed";
-  public static java.lang.String NOTVALID = "notValid";
-  public static java.lang.String OVALEPOSITIVE = "ovalePositive";
   public static java.lang.String PAYMENT = "payment";
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PERFORMEDRDT = "performedRDT";
   public static java.lang.String PERSONID = "personId";
-  public static java.lang.String PFPOSITIVE = "pfPositive";
   public static java.lang.String PREGNANT = "pregnant";
   public static java.lang.String RDTTREATMENT = "rdtTreatment";
-  public static java.lang.String ROOF = "roof";
   public static java.lang.String ROOFINFO = "roofInfo";
+  public static java.lang.String ROOFSURFACE = "roofSurface";
   public static java.lang.String ROOMS = "rooms";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SLEPTUNDERNET = "sleptUnderNet";
   public static java.lang.String SLEPTUNDERNETS = "sleptUnderNets";
   public static java.lang.String SURVEYDATE = "surveyDate";
   public static java.lang.String URBAN = "urban";
-  public static java.lang.String VIVAXPOSITIVE = "vivaxPositive";
   public static java.lang.String WALLINFO = "wallInfo";
+  public static java.lang.String WALLSURFACE = "wallSurface";
   public static java.lang.String WINDOWTYPE = "windowType";
   public String getAnaemiaTreatment()
   {
@@ -581,117 +575,6 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MALARIATREATMENT).getAttributeMdDTO();
   }
   
-  public Boolean getMalariaePositive()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(MALARIAEPOSITIVE));
-  }
-  
-  public void setMalariaePositive(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(MALARIAEPOSITIVE, "");
-    }
-    else
-    {
-      setValue(MALARIAEPOSITIVE, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isMalariaePositiveWritable()
-  {
-    return isWritable(MALARIAEPOSITIVE);
-  }
-  
-  public boolean isMalariaePositiveReadable()
-  {
-    return isReadable(MALARIAEPOSITIVE);
-  }
-  
-  public boolean isMalariaePositiveModified()
-  {
-    return isModified(MALARIAEPOSITIVE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getMalariaePositiveMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(MALARIAEPOSITIVE).getAttributeMdDTO();
-  }
-  
-  public Boolean getMixedPositive()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(MIXEDPOSITIVE));
-  }
-  
-  public void setMixedPositive(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(MIXEDPOSITIVE, "");
-    }
-    else
-    {
-      setValue(MIXEDPOSITIVE, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isMixedPositiveWritable()
-  {
-    return isWritable(MIXEDPOSITIVE);
-  }
-  
-  public boolean isMixedPositiveReadable()
-  {
-    return isReadable(MIXEDPOSITIVE);
-  }
-  
-  public boolean isMixedPositiveModified()
-  {
-    return isModified(MIXEDPOSITIVE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getMixedPositiveMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(MIXEDPOSITIVE).getAttributeMdDTO();
-  }
-  
-  public Boolean getNegative()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(NEGATIVE));
-  }
-  
-  public void setNegative(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(NEGATIVE, "");
-    }
-    else
-    {
-      setValue(NEGATIVE, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isNegativeWritable()
-  {
-    return isWritable(NEGATIVE);
-  }
-  
-  public boolean isNegativeReadable()
-  {
-    return isReadable(NEGATIVE);
-  }
-  
-  public boolean isNegativeModified()
-  {
-    return isModified(NEGATIVE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getNegativeMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(NEGATIVE).getAttributeMdDTO();
-  }
-  
   public Integer getNets()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NETS));
@@ -764,80 +647,6 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNetsUsedMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NETSUSED).getAttributeMdDTO();
-  }
-  
-  public Boolean getNotValid()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(NOTVALID));
-  }
-  
-  public void setNotValid(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(NOTVALID, "");
-    }
-    else
-    {
-      setValue(NOTVALID, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isNotValidWritable()
-  {
-    return isWritable(NOTVALID);
-  }
-  
-  public boolean isNotValidReadable()
-  {
-    return isReadable(NOTVALID);
-  }
-  
-  public boolean isNotValidModified()
-  {
-    return isModified(NOTVALID);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getNotValidMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(NOTVALID).getAttributeMdDTO();
-  }
-  
-  public Boolean getOvalePositive()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OVALEPOSITIVE));
-  }
-  
-  public void setOvalePositive(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(OVALEPOSITIVE, "");
-    }
-    else
-    {
-      setValue(OVALEPOSITIVE, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isOvalePositiveWritable()
-  {
-    return isWritable(OVALEPOSITIVE);
-  }
-  
-  public boolean isOvalePositiveReadable()
-  {
-    return isReadable(OVALEPOSITIVE);
-  }
-  
-  public boolean isOvalePositiveModified()
-  {
-    return isModified(OVALEPOSITIVE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getOvalePositiveMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(OVALEPOSITIVE).getAttributeMdDTO();
   }
   
   public String getPayment()
@@ -988,43 +797,6 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PERSONID).getAttributeMdDTO();
   }
   
-  public Boolean getPfPositive()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(PFPOSITIVE));
-  }
-  
-  public void setPfPositive(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(PFPOSITIVE, "");
-    }
-    else
-    {
-      setValue(PFPOSITIVE, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isPfPositiveWritable()
-  {
-    return isWritable(PFPOSITIVE);
-  }
-  
-  public boolean isPfPositiveReadable()
-  {
-    return isReadable(PFPOSITIVE);
-  }
-  
-  public boolean isPfPositiveModified()
-  {
-    return isModified(PFPOSITIVE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPfPositiveMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(PFPOSITIVE).getAttributeMdDTO();
-  }
-  
   public Boolean getPregnant()
   {
     return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(PREGNANT));
@@ -1099,50 +871,6 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(RDTTREATMENT).getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.ontology.TermDTO getRoof()
-  {
-    if(getValue(ROOF) == null || getValue(ROOF).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(ROOF));
-    }
-  }
-  
-  public void setRoof(dss.vector.solutions.ontology.TermDTO value)
-  {
-    if(value == null)
-    {
-      setValue(ROOF, "");
-    }
-    else
-    {
-      setValue(ROOF, value.getId());
-    }
-  }
-  
-  public boolean isRoofWritable()
-  {
-    return isWritable(ROOF);
-  }
-  
-  public boolean isRoofReadable()
-  {
-    return isReadable(ROOF);
-  }
-  
-  public boolean isRoofModified()
-  {
-    return isModified(ROOF);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getRoofMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ROOF).getAttributeMdDTO();
-  }
-  
   public String getRoofInfo()
   {
     return getValue(ROOFINFO);
@@ -1178,6 +906,43 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getRoofInfoMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ROOFINFO).getAttributeMdDTO();
+  }
+  
+  public String getRoofSurface()
+  {
+    return getValue(ROOFSURFACE);
+  }
+  
+  public void setRoofSurface(String value)
+  {
+    if(value == null)
+    {
+      setValue(ROOFSURFACE, "");
+    }
+    else
+    {
+      setValue(ROOFSURFACE, value);
+    }
+  }
+  
+  public boolean isRoofSurfaceWritable()
+  {
+    return isWritable(ROOFSURFACE);
+  }
+  
+  public boolean isRoofSurfaceReadable()
+  {
+    return isReadable(ROOFSURFACE);
+  }
+  
+  public boolean isRoofSurfaceModified()
+  {
+    return isModified(ROOFSURFACE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getRoofSurfaceMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ROOFSURFACE).getAttributeMdDTO();
   }
   
   public Integer getRooms()
@@ -1402,43 +1167,6 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
     return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(URBAN).getAttributeMdDTO();
   }
   
-  public Boolean getVivaxPositive()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(VIVAXPOSITIVE));
-  }
-  
-  public void setVivaxPositive(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(VIVAXPOSITIVE, "");
-    }
-    else
-    {
-      setValue(VIVAXPOSITIVE, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isVivaxPositiveWritable()
-  {
-    return isWritable(VIVAXPOSITIVE);
-  }
-  
-  public boolean isVivaxPositiveReadable()
-  {
-    return isReadable(VIVAXPOSITIVE);
-  }
-  
-  public boolean isVivaxPositiveModified()
-  {
-    return isModified(VIVAXPOSITIVE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getVivaxPositiveMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(VIVAXPOSITIVE).getAttributeMdDTO();
-  }
-  
   public String getWallInfo()
   {
     return getValue(WALLINFO);
@@ -1474,6 +1202,43 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getWallInfoMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(WALLINFO).getAttributeMdDTO();
+  }
+  
+  public String getWallSurface()
+  {
+    return getValue(WALLSURFACE);
+  }
+  
+  public void setWallSurface(String value)
+  {
+    if(value == null)
+    {
+      setValue(WALLSURFACE, "");
+    }
+    else
+    {
+      setValue(WALLSURFACE, value);
+    }
+  }
+  
+  public boolean isWallSurfaceWritable()
+  {
+    return isWritable(WALLSURFACE);
+  }
+  
+  public boolean isWallSurfaceReadable()
+  {
+    return isReadable(WALLSURFACE);
+  }
+  
+  public boolean isWallSurfaceModified()
+  {
+    return isModified(WALLSURFACE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getWallSurfaceMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(WALLSURFACE).getAttributeMdDTO();
   }
   
   public String getWindowType()

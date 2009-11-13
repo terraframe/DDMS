@@ -17,6 +17,7 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectablePrimitive;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.StockDepot;
 import dss.vector.solutions.ontology.Term;
 
 public class StockEventView extends StockEventViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -122,9 +123,20 @@ public class StockEventView extends StockEventViewBase implements com.terraframe
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
   }
 
+  @Transaction
   public static StockEventView[] getViews(String geoId, Term item, Date date, EventOption transactionType)
   {
     GeoEntity entity = GeoEntity.searchByGeoId(geoId);
+    
+    if(entity != null && !(entity instanceof StockDepot)) 
+    {
+      StockDepotProblem p = new StockDepotProblem();
+      p.setGeoId(entity.getGeoId());
+      p.apply();
+      
+      p.throwIt();
+    }
+
 
     StockItem[] items = StockEventView.getItems(item, transactionType);
 
@@ -176,8 +188,20 @@ public class StockEventView extends StockEventViewBase implements com.terraframe
     return views;
   }
 
+  @Transaction
   public static StockEventViewQuery getPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String geoId, String itemId, Date startDate, Date endDate)
   {
+    GeoEntity entity = GeoEntity.searchByGeoId(geoId);
+    
+    if(entity != null && !(entity instanceof StockDepot)) 
+    {
+      StockDepotProblem p = new StockDepotProblem();
+      p.setGeoId(entity.getGeoId());
+      p.apply();
+      
+      p.throwIt();
+    }
+
     StockEventViewQuery query = StockEventView.getQuery(geoId, itemId, startDate, endDate);
 
     if (sortAttribute == null)
@@ -214,8 +238,6 @@ public class StockEventView extends StockEventViewBase implements com.terraframe
       query.restrictRows(pageSize, pageNumber);
     }
     
-    System.out.println(query.getSQL());
-
     return query;
   }
 
