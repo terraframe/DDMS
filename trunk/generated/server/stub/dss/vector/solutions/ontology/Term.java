@@ -91,6 +91,13 @@ public class Term extends TermBase implements Reloadable, OptionIF
   @Override
   public void apply()
   {
+    // Use the name as the display label if no value is given
+    String display= this.getDisplay();
+    if(display== null || display.length() == 0)
+    {
+      this.setDisplay(this.getName());
+    }
+    
     // If this is new, set the Ontology value to the MO ontology.
     // FIXME this will be removed once Term subclasses are refactored
     // out and Term will be come concrete.
@@ -312,7 +319,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       query.map(TermView.TERMID, termQuery.getId());
-      query.map(TermView.TERMNAME, termQuery.getName());
+//      query.map(TermView.TERMNAME, termQuery.getName());
+      query.map(TermView.TERMNAME, termQuery.getDisplay());
       query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
     }
 
@@ -364,7 +372,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       query.map(TermView.TERMID, termQuery.getId());
-      query.map(TermView.TERMNAME, termQuery.getName());
+//      query.map(TermView.TERMNAME, termQuery.getName());
+      query.map(TermView.TERMNAME, termQuery.getDisplay());
       query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
     }
 
@@ -387,6 +396,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
         // allowed without roots.
         query.AND(termQuery.getId().EQ(""));
       }
+      
+      query.ORDER_BY_ASC(this.termQuery.getDisplay());
     }
   }
 
@@ -419,7 +430,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       query.map(TermView.TERMID, termQuery.getId());
-      query.map(TermView.TERMNAME, termQuery.getName());
+//      query.map(TermView.TERMNAME, termQuery.getName());
+      query.map(TermView.TERMNAME, termQuery.getDisplay());
       query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
     }
 
@@ -437,7 +449,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
         query.AND(termQuery.getObsolete().EQ(false));
       }
 
-      query.ORDER_BY_ASC(this.termQuery.getName());
+//      query.ORDER_BY_ASC(this.termQuery.getName());
+      query.ORDER_BY_ASC(this.termQuery.getDisplay());
     }
 
   }
@@ -471,7 +484,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       query.map(TermView.TERMID, this.termQuery.getId());
-      query.map(TermView.TERMNAME, this.termQuery.getName());
+//      query.map(TermView.TERMNAME, this.termQuery.getName());
+      query.map(TermView.TERMNAME, termQuery.getDisplay());
       query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
     }
 
@@ -493,7 +507,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
         query.AND(termQuery.getObsolete().EQ(false));
       }
 
-      query.ORDER_BY_ASC(this.termQuery.getName());
+//      query.ORDER_BY_ASC(this.termQuery.getName());
+      query.ORDER_BY_ASC(this.termQuery.getDisplay());
     }
   }
 

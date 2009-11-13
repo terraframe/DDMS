@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 920161413)
+@com.terraframe.mojo.business.ClassSignature(hash = 1026396695)
 public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = 920161413;
+  private static final long serialVersionUID = 1026396695;
   
   protected TermDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -31,6 +31,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DEF = "def";
+  public static java.lang.String DISPLAY = "display";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
@@ -175,6 +176,43 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getDefMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(DEF).getAttributeMdDTO();
+  }
+  
+  public String getDisplay()
+  {
+    return getValue(DISPLAY);
+  }
+  
+  public void setDisplay(String value)
+  {
+    if(value == null)
+    {
+      setValue(DISPLAY, "");
+    }
+    else
+    {
+      setValue(DISPLAY, value);
+    }
+  }
+  
+  public boolean isDisplayWritable()
+  {
+    return isWritable(DISPLAY);
+  }
+  
+  public boolean isDisplayReadable()
+  {
+    return isReadable(DISPLAY);
+  }
+  
+  public boolean isDisplayModified()
+  {
+    return isModified(DISPLAY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDisplayMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAY).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()

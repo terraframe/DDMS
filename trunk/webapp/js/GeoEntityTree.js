@@ -30,9 +30,9 @@ MDSS.GeoEntityTree = (function(){
   
   var _uploadModal = null;
   
-  // reference to the Ontology browser used to select the proper
-  // term for a univeral
-  var _sharedBrowser = null
+  // Map between universal type and Browser
+  var _browsers = {};
+  var _currentBrowser = null;
   
   /**
    * Action to upload a template file.
@@ -278,7 +278,7 @@ MDSS.GeoEntityTree = (function(){
         if(_selectedNode.dynamicLoadComplete)
         {
           var view = _copyEntityToView(geoEntity);
-          var div = _createNodeDiv(view);
+          var div = _createNodeDiv(view, true);
 
           // add the node to all parent nodes
           var parentGeoEntityView = _getGeoEntityView(_selectedNode);
@@ -339,7 +339,7 @@ MDSS.GeoEntityTree = (function(){
       	// another operation).
       	var div = _selectedNode.getContentEl().innerHTML;
         var view = _copyEntityToView(geoEntity);
-      	var span = _createContentSpan(view);
+      	var span = _createContentSpan(view, true);
       	div = div.replace(/(<div class=["']\w*["']>).*?(<\/div>)/, '$1'+span+'$2');
 
       	// update selected node and all copies
@@ -380,6 +380,19 @@ MDSS.GeoEntityTree = (function(){
 
     Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.get(request, geoEntityView.getGeoEntityId());
   }
+  
+  function _setCurrentBrowser(type)
+  {
+    // set the current browser for the type
+    if(!_browsers[type])
+    {
+      var browser = new MDSS.OntologyBrowser(false, true, type);
+      browser.setHandler(_setField);
+      _browsers[type] = browser;
+    }
+    
+    _currentBrowser = _browsers[type];
+  }
 
   /**
    * Event handler for when a GeoEntity type is selected
@@ -388,6 +401,8 @@ MDSS.GeoEntityTree = (function(){
   function _createTypeSelected(e, obj)
   {
   	var type = obj.type;
+  	_setCurrentBrowser(type);
+  	
     var request = new MDSS.Request({
       label : obj.label,
       onSuccess : function(html){
@@ -449,17 +464,17 @@ MDSS.GeoEntityTree = (function(){
     {
       selected.push(termId); 
     }
- 
-    if(_sharedBrowser.isRendered())
+    
+    if(_currentBrowser.isRendered())
     {
-      _sharedBrowser.reset();
-      _sharedBrowser.show();
-      _sharedBrowser.setSelection(selected); 
+      _currentBrowser.reset();
+      _currentBrowser.show();
+      _currentBrowser.setSelection(selected); 
     }
     else
     {
-      _sharedBrowser.render();
-      _sharedBrowser.setSelection(selected); 
+      _currentBrowser.render();
+      _currentBrowser.setSelection(selected); 
     }
   }
 
@@ -493,10 +508,9 @@ MDSS.GeoEntityTree = (function(){
 
     var request = new MDSS.Request({
       oldId : geoEntityView.getGeoEntityId(),
-      onSuccess : function(geoEntity){
+      onSuccess : function(view){
 
       	var div = _selectedNode.getContentEl().innerHTML;
-        var view = _copyEntityToView(geoEntity);
       	var span = _createContentSpan(view);
       	div = div.replace(/(<div class=["']\w*["']>).*?(<\/div>)/, '$1'+span+'$2');
 
@@ -892,6 +906,7 @@ MDSS.GeoEntityTree = (function(){
   {
     var geoEntityView = _getGeoEntityView(_selectedNode);
     var typeToEdit = geoEntityView.getEntityType();
+    _setCurrentBrowser(typeToEdit);
 
     var request = new MDSS.Request({
       typeToEdit: typeToEdit,
@@ -1153,22 +1168,30 @@ MDSS.GeoEntityTree = (function(){
   /**
    * Creates a div element as a string that represents the given GeoEntity.
    */
-  function _createNodeDiv(geoEntityView)
+  function _createNodeDiv(geoEntityView, scrapeTerm)
   {
     var activeClass = geoEntityView.getActivated() === true ? 'activeEntity' : 'inactiveEntity';
 
-    var span = _createContentSpan(geoEntityView);
+    var span = _createContentSpan(geoEntityView, scrapeTerm);
     var div = "<div class='"+activeClass+"'>"+span+"</div>";
 
     return div;
   }
 
-  function _createContentSpan(geoEntityView)
+  function _createContentSpan(geoEntityView, scrapeTerm)
   {
-  	var entityType = geoEntityView.getEntityType();
-  	var type = MDSS.GeoTreeSelectables.types[entityType];
-  	var label = type != null ? type.label : '';
-    return "<span title='"+geoEntityView.getGeoId()+"'>"+geoEntityView.getEntityName()+" ("+label+")</span>";
+    if(scrapeTerm)
+    {
+      var display = document.getElementById('termDisplay');
+      if(display && Mojo.Util.trim(display.innerHTML) !== MDSS.Localized.no_value)
+      {
+        var termName = MDSS.OntologyBrowser.extractName(display.innerHTML);
+        geoEntityView.setMoSubType(termName);
+      }
+    }
+    
+    var display = MDSS.AbstractSelectSearch.formatDisplay(geoEntityView);
+    return "<span title='"+geoEntityView.getGeoId()+"'>"+display+"</span>";
   }
 
   /**
@@ -1272,12 +1295,6 @@ MDSS.GeoEntityTree = (function(){
       }
     });
     
-      // Create the one instance of the OntologyBrowser that will
-      // be shared by all BrowserRoots. This is done because only one
-      // BrowserRoot can be edited at a time.
-      _sharedBrowser = new MDSS.OntologyBrowser(false, 'dss.vector.solutions.geo.generated.GeoEntity', 'term');
-      _sharedBrowser.setHandler(_setField);
-
     // Fetch the root node
     Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.get(request, MDSS.GeoEntityTreeRootId);
   }

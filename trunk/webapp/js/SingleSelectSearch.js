@@ -282,7 +282,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
     _listFunction : function(valueObj)
     {
       return MDSS.AbstractSelectSearch.formatDisplay2(valueObj.getValue(this._entityNameAttr),
-        valueObj.getValue('displayLabel'), valueObj.getValue(this._geoIdAttr));
+        valueObj.getValue('displayLabel'), valueObj.getValue(this._geoIdAttr), valueObj.getValue('moSubType'));
     },
     
     _idFunction : function(valueObj)

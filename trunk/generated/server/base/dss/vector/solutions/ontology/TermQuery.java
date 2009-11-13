@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 988291900)
+@com.terraframe.mojo.business.ClassSignature(hash = 1014535758)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  class TermQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 988291900;
+private static final long serialVersionUID = 1014535758;
 
   public TermQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -100,6 +100,23 @@ private static final long serialVersionUID = 988291900;
   public com.terraframe.mojo.query.AttributeChar getDef(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Term.DEF, "com.terraframe.mojo.system.metadata.MdAttributeText", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getDisplay()
+  {
+    return getDisplay(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getDisplay(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Term.DISPLAY, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getDisplay(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Term.DISPLAY, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -1973,6 +1990,9 @@ private static final long serialVersionUID = 988291900;
     public com.terraframe.mojo.query.AttributeChar getDef();
     public com.terraframe.mojo.query.AttributeChar getDef(String alias);
     public com.terraframe.mojo.query.AttributeChar getDef(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getDisplay();
+    public com.terraframe.mojo.query.AttributeChar getDisplay(String alias);
+    public com.terraframe.mojo.query.AttributeChar getDisplay(String alias, String displayLabel);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
@@ -2347,7 +2367,7 @@ private static final long serialVersionUID = 988291900;
  implements TermQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 2147157850;
+private static final long serialVersionUID = -412594836;
 
   public TermQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -2432,6 +2452,23 @@ private static final long serialVersionUID = 2147157850;
   public com.terraframe.mojo.query.AttributeChar getDef(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("def", "com.terraframe.mojo.system.metadata.MdAttributeText", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getDisplay()
+  {
+    return getDisplay(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getDisplay(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("display", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getDisplay(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("display", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()

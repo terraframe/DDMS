@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 590654213)
+@com.terraframe.mojo.business.ClassSignature(hash = 966520983)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,6 +15,7 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DEF = "def";
+  public static java.lang.String DISPLAY = "display";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
@@ -30,7 +31,7 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 590654213;
+  private static final long serialVersionUID = 966520983;
   
   public TermBase()
   {
@@ -129,6 +130,34 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
     else
     {
       setValue(DEF, value);
+    }
+  }
+  
+  public String getDisplay()
+  {
+    return getValue(DISPLAY);
+  }
+  
+  public void validateDisplay()
+  {
+    this.validateAttribute(DISPLAY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getDisplayMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.Term.CLASS);
+    return mdClassIF.definesAttribute(DISPLAY);
+  }
+  
+  public void setDisplay(String value)
+  {
+    if(value == null)
+    {
+      setValue(DISPLAY, "");
+    }
+    else
+    {
+      setValue(DISPLAY, value);
     }
   }
   

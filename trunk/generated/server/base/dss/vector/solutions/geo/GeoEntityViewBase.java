@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1594020293)
+@com.terraframe.mojo.business.ClassSignature(hash = -69282945)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,8 +17,9 @@ public abstract class GeoEntityViewBase extends com.terraframe.mojo.business.Vie
   public static java.lang.String GEOENTITYID = "geoEntityId";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
+  public static java.lang.String MOSUBTYPE = "moSubType";
   public static java.lang.String TYPEDISPLAYLABEL = "typeDisplayLabel";
-  private static final long serialVersionUID = -1594020293;
+  private static final long serialVersionUID = -69282945;
   
   public GeoEntityViewBase()
   {
@@ -179,6 +180,34 @@ public abstract class GeoEntityViewBase extends com.terraframe.mojo.business.Vie
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public String getMoSubType()
+  {
+    return getValue(MOSUBTYPE);
+  }
+  
+  public void validateMoSubType()
+  {
+    this.validateAttribute(MOSUBTYPE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getMoSubTypeMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
+    return mdClassIF.definesAttribute(MOSUBTYPE);
+  }
+  
+  public void setMoSubType(String value)
+  {
+    if(value == null)
+    {
+      setValue(MOSUBTYPE, "");
+    }
+    else
+    {
+      setValue(MOSUBTYPE, value);
+    }
   }
   
   public String getTypeDisplayLabel()

@@ -7,6 +7,8 @@ import com.terraframe.mojo.dataaccess.transaction.AbortIfProblem;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.geo.GeoHierarchy;
+
 public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1252959715750L;
@@ -44,6 +46,30 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     this.apply();
 
     return this.toView();
+  }
+  
+  public static BrowserRootView[] getDefaultGeoRoots(String universalType)
+  {
+    GeoHierarchy geoH = GeoHierarchy.getGeoHierarchyFromType(universalType);
+    String termId = geoH.getValue(GeoHierarchy.TERM);
+    if(termId != null && termId.length() > 0)
+    {
+      TermViewQuery q = Term.getByIds(new String[]{termId});
+      OIterator<? extends TermView> iter = q.getIterator();
+      try
+      {
+        BrowserRootView view = toView(iter.next());
+        return new BrowserRootView[]{view};
+      }
+      finally
+      {
+        iter.close();
+      }
+    }
+    else
+    {
+      return new BrowserRootView[0];
+    }
   }
 
   /**
@@ -152,7 +178,8 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
 
     BrowserRootView view = new BrowserRootView();
     view.setTermId(term.getId());
-    view.setTermName(term.getName());
+//    view.setTermName(term.getName());
+    view.setTermName(term.getDisplay());
     view.setSelectable(this.getSelectable());
     view.setBrowserRootId(this.getId());
     view.setTermOntologyId(term.getTermId());

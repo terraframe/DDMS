@@ -22,7 +22,8 @@ public class TermDTO extends TermDTOBase
 
   public String getDisplayLabel()
   {
-    return this.getName() + " (" + this.getTermId() + ")";
+//    return this.getName() + " (" + this.getTermId() + ")";
+    return this.getDisplay() + " (" + this.getTermId() + ")";
   }
 
   public static String getFieldKeyName(String className, String attributeName)

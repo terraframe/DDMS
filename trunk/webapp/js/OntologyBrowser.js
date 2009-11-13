@@ -38,6 +38,10 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         // id of MdAttribute passed in
         this._mdAttributeId = arguments[1];
       }
+      else if(arguments.length === 3 && arguments[1] === true)
+      {
+        this._universalType = arguments[2];
+      }
       else
       {
         // class name and attribute passed as params
@@ -146,6 +150,10 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         if(this._defaultRoot)
         {
           Mojo.$.dss.vector.solutions.ontology.BrowserRoot.getDefaultRoot(request);
+        }
+        else if(this._universalType)
+        {
+          Mojo.$.dss.vector.solutions.ontology.BrowserRoot.getDefaultGeoRoots(request, this._universalType);
         }
         else if(this._mdAttributeId)
         {
@@ -734,6 +742,15 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     formatLabel : function(term)
     {
       return term.getTermName() + ' ('+term.getTermOntologyId()+')';
+    },
+    
+    // Extracts the term name from the display created with formatLabel()
+    extractName : function(html)
+    {
+      html = Mojo.Util.trim(html);
+      html = html.replace(/ \(.*?\)$/, '');
+      
+      return html;
     }
   }
 });

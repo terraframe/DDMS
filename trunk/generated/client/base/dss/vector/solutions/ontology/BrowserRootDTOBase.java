@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1427134453)
+@com.terraframe.mojo.business.ClassSignature(hash = 94346339)
 public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.BrowserRoot";
-  private static final long serialVersionUID = 1427134453;
+  private static final long serialVersionUID = 94346339;
   
   protected BrowserRootDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -456,6 +456,14 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{className, attributeName};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "getAttributeRoots", _declaredTypes);
+    return (dss.vector.solutions.ontology.BrowserRootViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.ontology.BrowserRootViewDTO[] getDefaultGeoRoots(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String universalType)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{universalType};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "getDefaultGeoRoots", _declaredTypes);
     return (dss.vector.solutions.ontology.BrowserRootViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

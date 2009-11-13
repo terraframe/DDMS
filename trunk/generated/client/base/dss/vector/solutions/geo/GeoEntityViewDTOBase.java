@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1257549893)
+@com.terraframe.mojo.business.ClassSignature(hash = 1225282815)
 public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoEntityView";
-  private static final long serialVersionUID = -1257549893;
+  private static final long serialVersionUID = 1225282815;
   
   protected GeoEntityViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -22,6 +22,7 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
   public static java.lang.String GEOENTITYID = "geoEntityId";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
+  public static java.lang.String MOSUBTYPE = "moSubType";
   public static java.lang.String TYPEDISPLAYLABEL = "typeDisplayLabel";
   public Boolean getActivated()
   {
@@ -206,6 +207,43 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
+  }
+  
+  public String getMoSubType()
+  {
+    return getValue(MOSUBTYPE);
+  }
+  
+  public void setMoSubType(String value)
+  {
+    if(value == null)
+    {
+      setValue(MOSUBTYPE, "");
+    }
+    else
+    {
+      setValue(MOSUBTYPE, value);
+    }
+  }
+  
+  public boolean isMoSubTypeWritable()
+  {
+    return isWritable(MOSUBTYPE);
+  }
+  
+  public boolean isMoSubTypeReadable()
+  {
+    return isReadable(MOSUBTYPE);
+  }
+  
+  public boolean isMoSubTypeModified()
+  {
+    return isModified(MOSUBTYPE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMoSubTypeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MOSUBTYPE).getAttributeMdDTO();
   }
   
   public String getTypeDisplayLabel()

@@ -315,7 +315,7 @@ MDSS.QueryPanel.prototype = {
         var geoEntityView = geoEntities[i];
   
         var li = document.createElement('li');
-        li.innerHTML = geoEntityView.getEntityName() + ' ('+geoEntityView.getGeoId()+')';
+        li.innerHTML = MDSS.AbstractSelectSearch.formatDisplay(geoEntityView);
   
         frag.appendChild(li);
       }

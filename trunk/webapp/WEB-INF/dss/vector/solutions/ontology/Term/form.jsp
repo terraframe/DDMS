@@ -11,6 +11,9 @@
   <mjl:dt attribute="name">
     <mjl:input type="text" param="name" />
   </mjl:dt>
+  <mjl:dt attribute="display">
+    <mjl:input type="text" param="display" />
+  </mjl:dt>
   <mjl:dt attribute="namespace">
     <mjl:input type="text" param="namespace" />
   </mjl:dt>

@@ -178,6 +178,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
     {
       var term = new this._Term();
       term.setName(params['dto.name']);
+      term.setDisplay(params['dto.display']);
       term.setNamespace(params['dto.namespace']);
       term.setTermId(params['dto.termId']);
       term.setComment(params['dto.comment']);
@@ -230,7 +231,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
     
     _createNodeHTML : function(view)
     {
-      return view.getTermName() + ' ('+ view.getTermOntologyId() + ')';
+      return MDSS.OntologyBrowser.formatLabel(view);
     },
     
     /**
@@ -392,7 +393,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       var id = new String(Math.random()).substring(2);
       this._panel = new YAHOO.widget.Panel(id,  {
           width: (useSmall ? '300px' : '400px'),
-          height: (useSmall ? '200px' : '400px'),
+          height: (useSmall ? '200px' : '410px'),
           fixedcenter:true,
           close: useSmall || false,
           draggable:false,
