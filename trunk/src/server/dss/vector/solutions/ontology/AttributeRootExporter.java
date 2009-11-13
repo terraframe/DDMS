@@ -11,6 +11,9 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.terraframe.mojo.SystemException;
+import com.terraframe.mojo.business.BusinessFacade;
+import com.terraframe.mojo.dataaccess.EntityDAOIF;
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.StartSession;
@@ -68,7 +71,8 @@ public class AttributeRootExporter
     BrowserFieldQuery query = new BrowserFieldQuery(new QueryFactory());
     OIterator<? extends BrowserField> iterator = query.getIterator();
     
-    int count = 1;
+    int rowCount = 1;
+    short maxCellCount = 0;
     for (BrowserField field : iterator)
     {
       MdAttribute mdAttribute = field.getMdAttribute();
@@ -82,17 +86,36 @@ public class AttributeRootExporter
         attributeLabel = concrete.getDisplayLabel().getDefaultLocale();
       }
       
-      HSSFRow row = sheet.createRow(count++);
-            
-      row.createCell(0).setCellValue(new HSSFRichTextString(mdAttribute.getKey()));
-      row.createCell(1).setCellValue(new HSSFRichTextString(mdClass.getDisplayLabel().getDefaultLocale()));
-      row.createCell(2).setCellValue(new HSSFRichTextString(attributeLabel));
+      HSSFRow row = sheet.createRow(rowCount++);
+      
+      int cellCount = 0;
+      row.createCell(cellCount++).setCellValue(new HSSFRichTextString(mdAttribute.getKey()));
+      row.createCell(cellCount++).setCellValue(new HSSFRichTextString(mdClass.getDisplayLabel().getDefaultLocale()));
+      row.createCell(cellCount++).setCellValue(new HSSFRichTextString(attributeLabel));
+      
+      MdAttributeDAOIF mdAttributeDAO = (MdAttributeDAOIF) BusinessFacade.getEntityDAO(mdAttribute);
+      String defaultTermId = mdAttributeDAO.getMdAttributeConcrete().getDefaultValue();
+      String defaultTermValue = new String();
+      if (defaultTermId.length()>0)
+      {
+        defaultTermValue = Term.get(defaultTermId).getTermId();
+      }
+      row.createCell(cellCount++).setCellValue(new HSSFRichTextString(defaultTermValue));
+      
+      for (BrowserRoot root : field.getAllroot())
+      {
+        row.createCell(cellCount++).setCellValue(new HSSFRichTextString(root.getTerm().getTermId()));
+      }
+      if (cellCount>maxCellCount)
+      {
+        maxCellCount = (short)cellCount;
+      }
     }
     
-    sheet.autoSizeColumn((short)0);
-    sheet.autoSizeColumn((short)1);
-    sheet.autoSizeColumn((short)2);
-    sheet.autoSizeColumn((short)3);
+    for (short s=0; s<maxCellCount; s++)
+    {
+      sheet.autoSizeColumn(s);
+    }
   }
   
   /**
