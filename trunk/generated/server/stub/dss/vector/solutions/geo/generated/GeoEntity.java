@@ -22,6 +22,7 @@ import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.MdClassDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
@@ -65,6 +66,8 @@ import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.NoCompatibleTypesException;
 import dss.vector.solutions.geo.SearchParameter;
+import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.ActionNotAllowedException;
 import dss.vector.solutions.util.GeoEntityImporter;
 
@@ -171,6 +174,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     MdBusinessQuery mdQ = new MdBusinessQuery(f);
     GeoEntityQuery q;
+    TermQuery tq = new TermQuery(f);
     if (type == null || type.trim().length() == 0)
     {
       q = new GeoEntityQuery(f);
@@ -191,12 +195,14 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     ValueQuery valueQuery = new ValueQuery(f);
 
-    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL) };
+    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID),
+          mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL), tq.getName(GeoEntityView.MOSUBTYPE)};
     valueQuery.SELECT(selectables);
 
     String searchable = name + "%";
     valueQuery.WHERE(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable));
     valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
+    valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
 
     valueQuery.restrictRows(20, 1);
 
@@ -216,7 +222,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     MdBusinessQuery mdQ = new MdBusinessQuery(f);
     GeoEntityQuery q;
-
+    TermQuery tq = new TermQuery(f);
     if (type == null || type.trim().length() == 0)
     {
       q = new GeoEntityQuery(f);
@@ -237,7 +243,9 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     ValueQuery valueQuery = new ValueQuery(f);
 
-    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL) };
+    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME),
+        q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE),
+        mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL), tq.getName(GeoEntityView.MOSUBTYPE) };
 
     valueQuery.SELECT(selectables);
 
@@ -247,10 +255,12 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     valueQuery.WHERE(or);
     valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
-
-    // valueQuery.AND(mdQ.getId().EQ(q.getMdClassIF().getId()));
+    valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
 
     valueQuery.restrictRows(20, 1);
+    
+    String sql = valueQuery.getSQL();
+    System.out.println(sql);
 
     return valueQuery;
   }
@@ -467,6 +477,12 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     view.setGeoEntityId(this.getId());
     view.setGeoId(this.getGeoId());
     view.setTypeDisplayLabel(this.getTypeDisplayLabel());
+    
+    Term term = this.getTerm();
+    if(term != null)
+    {
+      view.setMoSubType(term.getDisplay());
+    }
 
     return view;
   }
@@ -1116,7 +1132,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
   @Override
   @Transaction
-  public GeoEntity changeUniversalType(String newType)
+  public GeoEntityView changeUniversalType(String newType)
   {
     Class<?> newClass = LoaderDecorator.load(newType);
     try
@@ -1160,7 +1176,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
         copy.addContainsGeoEntity(child).apply();
       }
 
-      return copy;
+      return getView(copy.getId());
     }
     catch (Throwable e)
     {
@@ -1192,6 +1208,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     private LocatedInQuery  locatedInQuery;
 
     private MdBusinessQuery mdBusinessQuery;
+    
+    private TermQuery termQuery;
 
     private String          filter;
 
@@ -1204,6 +1222,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       this.geoEntityQuery = new GeoEntityQuery(queryFactory);
       this.locatedInQuery = new LocatedInQuery(queryFactory);
       this.mdBusinessQuery = new MdBusinessQuery(queryFactory);
+      this.termQuery = new TermQuery(queryFactory);
     }
 
     @Override
@@ -1217,6 +1236,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       vQuery.map(GeoEntityView.ENTITYNAME, geoEntityQuery.getEntityName());
       vQuery.map(GeoEntityView.ENTITYTYPE, geoEntityQuery.getType());
       vQuery.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().currentLocale());
+//      vQuery.map(GeoEntityView.MOSUBTYPE, termQuery.getName());
+      vQuery.map(GeoEntityView.MOSUBTYPE, termQuery.getDisplay());
     }
 
     @Override
@@ -1225,15 +1246,15 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       GeneratedViewQuery vQuery = this.getViewQuery();
 
       vQuery.WHERE(this.locatedInQuery.parentId().EQ(geoEntity.getId()));
-      vQuery.WHERE(this.geoEntityQuery.locatedInGeoEntity(this.locatedInQuery));
+      vQuery.AND(this.geoEntityQuery.locatedInGeoEntity(this.locatedInQuery));
 
-      vQuery.WHERE(F.CONCAT(mdBusinessQuery.getPackageName(), F.CONCAT(".", mdBusinessQuery.getTypeName())).EQ(geoEntityQuery.getType()));
+      vQuery.AND(F.CONCAT(mdBusinessQuery.getPackageName(), F.CONCAT(".", mdBusinessQuery.getTypeName())).EQ(geoEntityQuery.getType()));
 
       // filter by type if possible (and all of type's child subclasses)
       if (filter != null && filter.trim().length() > 0)
       {
         String types[] = filteredTypes(filter);
-        vQuery.WHERE(geoEntityQuery.getType().IN(types));
+        vQuery.AND(geoEntityQuery.getType().IN(types));
       }
 
       // Restricted types to avoid returning large data sets
@@ -1244,17 +1265,25 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       Set<String> notInSet = new HashSet<String>(Arrays.asList(baseTypes));
       for (String baseType : baseTypes)
       {
-        MdBusiness baseMd = MdBusiness.getMdBusiness(baseType);
-        MdBusinessDAOIF baseDAOIF = (MdBusinessDAOIF) BusinessFacade.getEntityDAO(baseMd);
-
-        for (MdBusinessDAOIF subclass : baseDAOIF.getAllConcreteSubClasses())
+        try
         {
-          notInSet.add(subclass.definesType());
+          MdBusiness baseMd = MdBusiness.getMdBusiness(baseType);
+          MdBusinessDAOIF baseDAOIF = (MdBusinessDAOIF) BusinessFacade.getEntityDAO(baseMd);
+          for (MdBusinessDAOIF subclass : baseDAOIF.getAllConcreteSubClasses())
+          {
+            notInSet.add(subclass.definesType());
+          }
+        }
+        catch(DataNotFoundException e)
+        {
+          // The type doesn't exist for this country. Just ignore it
         }
       }
 
-      vQuery.WHERE(geoEntityQuery.getType().NI(notInSet.toArray(new String[notInSet.size()])));
+      vQuery.AND(geoEntityQuery.getType().NI(notInSet.toArray(new String[notInSet.size()])));
 
+      vQuery.AND(geoEntityQuery.getTerm("geoTermId").LEFT_JOIN_EQ(termQuery.getId("termId")));
+      
       vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityName());
     }
   }

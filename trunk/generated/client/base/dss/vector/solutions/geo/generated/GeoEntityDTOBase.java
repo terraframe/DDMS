@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1948177452)
+@com.terraframe.mojo.business.ClassSignature(hash = -1895292016)
 public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
-  private static final long serialVersionUID = 1948177452;
+  private static final long serialVersionUID = -1895292016;
   
   protected GeoEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -611,20 +611,20 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final dss.vector.solutions.geo.generated.GeoEntityDTO changeUniversalType(java.lang.String newType)
+  public final dss.vector.solutions.geo.GeoEntityViewDTO changeUniversalType(java.lang.String newType)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{newType};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "changeUniversalType", _declaredTypes);
-    return (dss.vector.solutions.geo.generated.GeoEntityDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+    return (dss.vector.solutions.geo.GeoEntityViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.generated.GeoEntityDTO changeUniversalType(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String newType)
+  public static final dss.vector.solutions.geo.GeoEntityViewDTO changeUniversalType(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String newType)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, newType};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "changeUniversalType", _declaredTypes);
-    return (dss.vector.solutions.geo.generated.GeoEntityDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (dss.vector.solutions.geo.GeoEntityViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final dss.vector.solutions.geo.GeoEntityViewDTO[] collectAllLocatedIn(java.lang.Boolean includeParents, java.lang.String filter)
