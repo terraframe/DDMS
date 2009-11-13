@@ -11,7 +11,7 @@
     <mjl:attributeColumn attributeName="geoEntity">
       <mjl:header />
       <mjl:row>
-        ${item.geoEntity.geoId}
+        ${item.geoEntity.displayString} <!--  FIXME use view -->
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="surveyDate">
