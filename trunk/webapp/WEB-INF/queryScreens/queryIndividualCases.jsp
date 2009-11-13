@@ -96,7 +96,7 @@ YAHOO.util.Event.onDOMReady(function(){
         row.attributeName = attrib.attributeName;
         if(attrib.dtoType.contains('AttributeReferenceDTO'))
         {
-          row.attributeName += '.name';
+          //row.attributeName += '.name';
         }
         if(attrib.dtoType.contains('AttributeEnumerationDTO'))
         {
@@ -133,7 +133,7 @@ YAHOO.util.Event.onDOMReady(function(){
         row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
         row.type = 'sqlcharacter';
         row.attributeName = 'term' + term.MOID.replace(':','');
-        
+        row.dropDownMap = {'true':'Yes','false':'No'};
       return row;
     };
 
@@ -149,8 +149,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
     var individualCase = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualCase();
-    var caseAttribs = ["age",
-                           "caseEntryDate","caseReportDate","diagnosisDate",
+    var caseAttribs = ["age","createDate","caseReportDate","diagnosisDate",
                            "workplaceText","probableSourceText","residenceText"];
     var caseColumns = caseAttribs.map(mapAttribs, {obj:individualCase, suffix:'_case', dropDownMaps:{}});
     
@@ -165,7 +164,7 @@ YAHOO.util.Event.onDOMReady(function(){
                        "testSampleDate","treatment","treatmentMethod",
                        "treatmentStartDate"];
     
-    var instanceColumns = instanceAttribs.map(mapAttribs, {obj:individualInstance, suffix:'_ins', dropDownMaps:{}});
+    var instanceColumns = instanceAttribs.map(mapAttribs, {obj:individualInstance, suffix:'_ins', dropDownMaps:instanceMaps});
 
     var person = new Mojo.$.dss.vector.solutions.Person();   
     var personAttribs = ["dateOfBirth","firstName","lastName","sex"];    
