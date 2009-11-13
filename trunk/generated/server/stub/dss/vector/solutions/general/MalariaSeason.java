@@ -210,9 +210,10 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
   
   public static MalariaSeasonQuery getSeasonQueryByDate(Date date, QueryFactory factory)
   {    
-    MalariaSeasonQuery query = getNextSeasonQueryByDate(date, factory);
+    MalariaSeasonQuery query = new MalariaSeasonQuery(factory);
     
-    query.AND(query.getEndDate().LE(date));
+    query.AND(query.getStartDate().LE(date));
+    query.AND(query.getEndDate().GE(date));
 
     return query;
   }
