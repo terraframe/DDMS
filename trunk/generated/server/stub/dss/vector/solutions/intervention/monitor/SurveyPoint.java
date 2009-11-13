@@ -12,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
-import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
@@ -26,7 +25,6 @@ import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
 import com.terraframe.mojo.system.metadata.MdBusiness;
-import com.terraframe.mojo.system.metadata.MdEntity;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -246,14 +244,7 @@ public class SurveyPoint extends SurveyPointBase implements
       }
       else
       {
-        String relTable = MdEntity.getMdEntity(PersonRDTResult.CLASS).getTableName();
-        String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
-
-        // FIXME use Runway query objects
-        String subSelect = "(select tJoin.id AS tId, pJoin.id AS id, tJoin."+Term.NAME+" AS "+PersonView.RDTRESULT+"_displayLabel from"+
-        " "+personTable+" AS pJoin LEFT JOIN "+relTable+" AS rJoin ON rJoin."+RelationshipInfo.PARENT_ID+" = pJoin.id"+
-        " LEFT JOIN "+termTable+" tJoin on rJoin."+RelationshipInfo.CHILD_ID+" = tJoin.id)";
-
+        String subSelect = QueryUtil.getRelationshipTermSubSelect(PersonView.RDTRESULT, Person.CLASS, PersonRDTResult.CLASS);
         String subSelectName = "rdtResultTermSubSel";
 
         String sql = subSelectName+".rDTResult_displayLabel";
