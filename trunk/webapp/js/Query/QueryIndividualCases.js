@@ -243,9 +243,10 @@ Mojo.Meta.newClass('MDSS.QueryIndividualCases', {
           else //Mo terms
             if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeReferenceDTO'))
             {
+            	attribute.setTerm(true);
             	li.id = attribute.getKey()+'_li';
             	var n =  attribute.getAttributeName().replace(/.name/,'');
-              this._attachBrowser(li.id, this._genericBrowserHandler, attribute, visibleObj.type + "View", n, true);
+              this._attachBrowser(li.id, this._genericBrowserHandler, attribute, visibleObj.type, n, true);
             }
 
           visibleUl.appendChild(li);

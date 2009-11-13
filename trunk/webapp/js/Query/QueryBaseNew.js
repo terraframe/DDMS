@@ -141,9 +141,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         }
       });
 
-
-      //$('debug_xml').value = xml;
-      //xml = $('debug_xml').value;
+      var debug = $('debug_xml')
+      if(debug){
+      	debug.value = xml;
+      	xml = $('debug_xml').value;
+      }
       var page = this.getCurrentPage();
 
         // FIXME json conversion below is temporary
@@ -386,7 +388,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         selectable.attribute = attribute;
         var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
          column.attribute = attribute;
-      }
+      }else
       if(attribute.getType() == 'sqlinteger'){
         var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
         selectable.attribute = attribute;
@@ -395,7 +397,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       }
       else
       {
-        var selectable = attribute.getSelectable();
+        var selectable = attribute.getSelectable(true);
         selectable.attribute = attribute;
         var column = new YAHOO.widget.Column(attribute.getColumnObject());
          column.attribute = attribute;
@@ -877,6 +879,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         else //Mo terms
           if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeReferenceDTO'))
           {
+          	attribute.setTerm(true);
           	li.id = attribute.getKey()+'_li';
           	var n =  attribute.getAttributeName().replace(/.name/,'');
             this._attachBrowser(li.id, this._genericBrowserHandler, attribute, visibleObj.type + "View", n, true);
@@ -1097,9 +1100,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       //var boundSearch = Mojo.Util.bind(this, this._displaySearch);
 
       var label = document.createElement('span');
-      label.innerHTML = MDSS.localize("Restrict_By");
-      div.appendChild(label);
+      label.innerHTML = ' ';
+      //YAHOO.util.Dom.addClass(sel, 'DatePick');
+      //div.appendChild(label);
       div.appendChild(sel);
+      div.appendChild(label);
       
       this._dateAttributeSelect = sel;
       
