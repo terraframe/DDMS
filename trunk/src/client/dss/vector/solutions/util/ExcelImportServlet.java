@@ -102,7 +102,7 @@ public class ExcelImportServlet extends HttpServlet
       String type = fields.get(TYPE);
       
       // This referenced a constant, GeoEntityExcelViewDTO.CLASS, but was removed for now to eliminate the compile-time reference to a Reloadable class
-      isGeoImport = type.equals("dss.vector.solutions.export.GeoEntityExcelViewDTO");
+      isGeoImport = type.equals("dss.vector.solutions.export.GeoEntityExcelView");
 
       if (isGeoImport)
       {
@@ -117,6 +117,14 @@ public class ExcelImportServlet extends HttpServlet
         String[] params = new String[1];
         params[0] = fields.get("parentGeoEntityId");
         errorStream = importExcelFile(clientRequest, bytes, type, params);
+        
+        if (errorStream.available()>0)
+        {
+          res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
+          ServletOutputStream outputStream = res.getOutputStream();
+          FileIO.write(outputStream, errorStream);
+          return;
+        }
       }
       else
       {
