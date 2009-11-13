@@ -200,6 +200,7 @@
 <script type="text/javascript">  
   YAHOO.util.Event.onDOMReady(function(){   
     var attributes = [
+         {attributeName:'detectedBy'},
          {attributeName:'sampleType'},
          {attributeName:'labTest'},
          {attributeName:'malariaType'},
