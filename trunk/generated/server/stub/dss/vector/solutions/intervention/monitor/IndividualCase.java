@@ -4,12 +4,19 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.Patient;
 import dss.vector.solutions.Person;
@@ -20,6 +27,8 @@ import dss.vector.solutions.general.OutbreakCalculation;
 import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.query.ThematicLayer;
+import dss.vector.solutions.util.QueryUtil;
 
 public class IndividualCase extends IndividualCaseBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -192,4 +201,48 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     }
     return this.getId();
   }
+  
+  /**
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
+   * 
+   * @param xml
+   * @return
+   */
+  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry, ThematicLayer thematicLayer)
+  {
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, IndividualIPT.CLASS, IndividualIPT.FACILITY);
+
+    IndividualCaseQuery caseQuery = (IndividualCaseQuery) queryMap.get(IndividualCase.CLASS);
+    IndividualInstanceQuery instanceQuery = (IndividualInstanceQuery) queryMap.get(IndividualInstance.CLASS);
+    dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
+
+    valueQuery.WHERE(instanceQuery.getIndividualCase().EQ(caseQuery.getId()));
+
+    valueQuery.WHERE(personQuery.getPatientDelegate().EQ(caseQuery.getPatient()));
+
+
+    return QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+
+    //AttributeMoment dateAttribute = individualIPTQuery.getServiceDate();
+
+    //return QueryUtil.setQueryDates(xml, valueQuery, dateAttribute);
+
+  }
+
 }
