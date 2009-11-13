@@ -16,7 +16,7 @@
       </mjl:dt>
       <mjl:dt attribute="caseEntryDate">
         <span class="formatDate">
-          ${item.caseEntryDate}
+          ${item.createDate}
         </span>
       </mjl:dt>
       <mjl:dt attribute="diagnosisDate">

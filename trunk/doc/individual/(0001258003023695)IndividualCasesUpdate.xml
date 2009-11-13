@@ -17,7 +17,7 @@
             positiveLabel="Yes" />
         </attributes>
         <parent
-          cardinality="1"
+          cardinality="*"
           name="dss.vector.solutions.intervention.monitor.IndividualInstance"
           method="IndividualInstance" />
         <child
