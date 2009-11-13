@@ -161,6 +161,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     IndividualInstanceDTO dto = new IndividualInstanceDTO(clientRequest);
+    dto.setValue(IndividualInstanceDTO.INDIVIDUALCASE, caseId);
     renderCreate(dto, dto.getSymptoms(), caseId);
   }
   
