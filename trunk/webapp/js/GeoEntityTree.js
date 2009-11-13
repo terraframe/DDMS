@@ -1257,9 +1257,11 @@ MDSS.GeoEntityTree = (function(){
     createMenuItem.subscribe("click", _addNodeHandler);
     itemData.push(createMenuItem);
 
+/* OBSOLETE: no longer needed after the MO refactor
     var changeTypeMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Change_Type);
     changeTypeMenuItem.subscribe("click", _changeTypeHandler);
     itemData.push(changeTypeMenuItem);
+*/ 
 
     var editMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Edit);
     editMenuItem.subscribe("click", _editNodeHandler);

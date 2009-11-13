@@ -849,8 +849,8 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     
     formatDisplay2 : function(entityName, typeDisplayLabel, geoId, moSubType)
     {
-      var mo = moSubType != null && moSubType.length > 0 ? " ("+moSubType+")" : '';
-      return entityName + ' ('+typeDisplayLabel+')'+mo+' - ' + geoId;
+      var mo = moSubType != null && moSubType.length > 0 ? " - "+moSubType : '';
+      return entityName + ' ('+typeDisplayLabel+mo+') - ' + geoId;
     }
   }
 });
