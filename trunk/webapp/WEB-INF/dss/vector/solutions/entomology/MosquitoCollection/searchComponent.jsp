@@ -88,7 +88,7 @@
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoEntity">
       <mjl:row>
-        ${item.geoEntity.entityName}
+        ${item.geoEntity.displayString} <!--  FIXME needs to use a view -->
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
