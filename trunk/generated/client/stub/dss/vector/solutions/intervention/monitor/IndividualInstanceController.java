@@ -63,7 +63,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   public void failUpdate(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("symptoms", symptoms);
+    req.setAttribute("symptoms", Arrays.asList(symptoms));
     render("editComponent.jsp");
   }
 
@@ -88,7 +88,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   
   public void failCreate(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
   {
-    renderCreate(dto, dto.getValue(IndividualInstanceDTO.INDIVIDUALCASE));
+    renderCreate(dto, symptoms, dto.getValue(IndividualInstanceDTO.INDIVIDUALCASE));
   }
   
   public void createWithCase(IndividualInstanceDTO dto, IndividualCaseDTO newCase, String personId, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
@@ -161,7 +161,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     IndividualInstanceDTO dto = new IndividualInstanceDTO(clientRequest);
-    renderCreate(dto, caseId);
+    renderCreate(dto, dto.getSymptoms(), caseId);
   }
   
   public void newInstanceWithCase(IndividualCaseDTO newCase, String personId) throws IOException, ServletException
@@ -173,23 +173,23 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   
   private void renderCreateWithCase(IndividualInstanceDTO dto, IndividualCaseDTO newCase, String personId) throws IOException, ServletException
   {
-    prepareCreateReq(dto);
+    prepareCreateReq(dto, dto.getSymptoms());
     req.setAttribute("newCase", newCase);
     req.setAttribute("personId", personId);
     render("createWithCase.jsp");
   }
 
-  private void renderCreate(IndividualInstanceDTO dto, String caseId) throws IOException, ServletException
+  private void renderCreate(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms, String caseId) throws IOException, ServletException
   {
-    prepareCreateReq(dto);
+    prepareCreateReq(dto, symptoms);
     req.setAttribute("caseId", caseId);
     render("createComponent.jsp");
   }
 
-  private void prepareCreateReq(IndividualInstanceDTO dto)
+  private void prepareCreateReq(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms)
   {
     req.setAttribute("item", dto);
-    req.setAttribute("symptoms", Arrays.asList(dto.getSymptoms()));
+    req.setAttribute("symptoms", Arrays.asList(symptoms));
   }
 
   public void failNewInstance(String caseId) throws IOException, ServletException
