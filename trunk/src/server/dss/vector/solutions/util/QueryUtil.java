@@ -27,7 +27,9 @@ import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectableChar;
 import com.terraframe.mojo.query.SelectableMoment;
+import com.terraframe.mojo.query.SelectableNumber;
 import com.terraframe.mojo.query.SelectableReference;
 import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
@@ -86,6 +88,71 @@ public class QueryUtil implements Reloadable
     return "(select pJoin.id as id, "+Term.NAME+" as "+PersonView.RDTRESULT+"_displayLabel from"+
     " "+parentTable+" pJoin LEFT JOIN "+relTable+" rJoin ON rJoin."+RelationshipInfo.PARENT_ID+" = pJoin.id"+
     " LEFT JOIN "+termTable+" tJoin on rJoin."+RelationshipInfo.CHILD_ID+" = tJoin.id)";
+  }
+  
+  public static ValueQuery setNumericRestrictions(ValueQuery valueQuery, JSONObject queryConfig)
+  {
+    for (Iterator<String> iter = queryConfig.keys(); iter.hasNext();)
+    {
+      String key = (String) iter.next();
+      Pattern pattern = Pattern.compile("^(\\w+)Criteria$");
+      Matcher matcher = pattern.matcher(key);
+      String attributeName = null;
+      if (matcher.find())
+      {
+        attributeName = matcher.group(1);
+
+        try
+        {
+          String value = queryConfig.getString(key);
+          Selectable sel = valueQuery.getSelectable(attributeName);
+
+          if (value.contains("-"))
+          {
+            String[] range = value.split("-");
+            if (range.length == 2)
+            {
+              String range1 = range[0];
+              String range2 = range[1];
+              if (range1.length() > 0)
+              {
+                valueQuery.WHERE( ( (SelectableNumber) sel ).GE(range1));
+              }
+
+              if (range2.length() > 0)
+              {
+                valueQuery.WHERE( ( (SelectableNumber) sel ).LE(range2));
+              }
+            }
+            else
+            {
+              // Just the GE criteria was specified (e.g., "7-")
+              valueQuery.WHERE( ( (SelectableNumber) sel ).GE(range[0]));
+            }
+          }
+          else
+          {
+            // exact value
+            if (sel instanceof SelectableNumber)
+            {
+              valueQuery.WHERE(sel.EQ(value));
+            }
+            if (sel instanceof SelectableChar)
+            {
+              valueQuery.WHERE(((SelectableChar)sel).LIKE(value));
+            }
+
+          }
+
+        }
+        catch (Exception e)
+        {
+          // TODO Auto-generated catch block
+          // e.printStackTrace();
+        }
+      }
+    }
+    return valueQuery;
   }
 
   public static String getTermSubSelect(String className, String ... attributes)
