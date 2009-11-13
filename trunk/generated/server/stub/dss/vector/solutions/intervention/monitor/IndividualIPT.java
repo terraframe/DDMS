@@ -1,11 +1,8 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,9 +13,6 @@ import com.terraframe.mojo.query.AttributeMoment;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectableChar;
-import com.terraframe.mojo.query.SelectableNumber;
 import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
@@ -175,67 +169,8 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
     {
       // Person.DOB not included in query.
     }
-
-    for (Iterator<String> iter = queryConfig.keys(); iter.hasNext();)
-    {
-      String key = (String) iter.next();
-      Pattern pattern = Pattern.compile("^(\\w+)Criteria$");
-      Matcher matcher = pattern.matcher(key);
-      String attributeName = null;
-      if (matcher.find())
-      {
-        attributeName = matcher.group(1);
-
-        try
-        {
-          String value = queryConfig.getString(key);
-          Selectable sel = valueQuery.getSelectable(attributeName);
-
-          if (value.contains("-"))
-          {
-            String[] range = value.split("-");
-            if (range.length == 2)
-            {
-              String range1 = range[0];
-              String range2 = range[1];
-              if (range1.length() > 0)
-              {
-                valueQuery.WHERE( ( (SelectableNumber) sel ).GE(range1));
-              }
-
-              if (range2.length() > 0)
-              {
-                valueQuery.WHERE( ( (SelectableNumber) sel ).LE(range2));
-              }
-            }
-            else
-            {
-              // Just the GE criteria was specified (e.g., "7-")
-              valueQuery.WHERE( ( (SelectableNumber) sel ).GE(range[0]));
-            }
-          }
-          else
-          {
-            // exact value
-            if (sel instanceof SelectableNumber)
-            {
-              valueQuery.WHERE(sel.EQ(value));
-            }
-            if (sel instanceof SelectableChar)
-            {
-              valueQuery.WHERE(((SelectableChar)sel).LIKE(value));
-            }
-
-          }
-
-        }
-        catch (Exception e)
-        {
-          // TODO Auto-generated catch block
-          // e.printStackTrace();
-        }
-      }
-    }
+    
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
     AttributeMoment dateAttribute = individualIPTQuery.getServiceDate();
 
