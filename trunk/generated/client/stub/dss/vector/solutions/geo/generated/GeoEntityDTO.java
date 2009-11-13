@@ -23,8 +23,22 @@ public abstract class GeoEntityDTO extends GeoEntityDTOBase
   
   public String getDisplayString()
   {
-    //${item.geoEntity.geoId} <br/> ${item.geoEntity.entityName} (${item.geoEntity.typeDisplayLabel})
-    return this.getEntityName() + " (" + this.getTypeDisplayLabel() + ") - " +this.getGeoId();
+    // To avoid a trip to the server, make a best attempt to render the display string here.
+    String typeDisplay = this.getMd().getDisplayLabel();
+    String termId = this.getValue(GeoEntityDTO.TERM);
+    String display;
+    if((typeDisplay == null || typeDisplay.trim().length() == 0)
+        || (termId != null && termId.trim().length() > 0))
+    {
+      // We have to fetch the type display label or the MO term
+      display = this.getTypeDisplayLabel();
+    }
+    else
+    {
+      display = typeDisplay;
+    }
+    
+    return this.getEntityName() + " (" + display + ") - " + this.getGeoId();
   }
   
 }

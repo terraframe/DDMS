@@ -864,7 +864,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         // for different ranges.
         this._queryPanel.clearWhereCriteria(key);
         
-        if(!addCriteria || value === '-' || value === '')
+        if(!addCriteria || value == null || value === '-' || value === '')
         {
           // No conditions left.
           delete this._personCriteria[key];
@@ -1375,6 +1375,13 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
           this._setPrevalence(false);
           this._setPrevalence(true);
         }
+        
+        // clear DOB
+              
+        if(attribute.getAttributeName() === this._Person.DOB)
+        {
+          this._config.setProperty('dobCriteria', null);
+        }
       }
     },
     
@@ -1418,29 +1425,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       this._householdAggregateSelectables[attribute.getKey()] = aggSelectable;
     },
     
-    /**
-     * Handler to toggle the visibility of a list.
-     */
-    _toggleVisibility : function(toggle, element)
-    {
-     YAHOO.util.Event.on(toggle, 'click', function(e, obj){
-       var el = obj.element;
-       var toggle = obj.toggle;
-  
-       if(YAHOO.util.Dom.getStyle(el, 'display') === 'block')
-       {
-         YAHOO.util.Dom.setStyle(el, 'display', 'none');
-         toggle.innerHTML = MDSS.Localized.Toggle_Show;
-       }
-       else
-       {
-         YAHOO.util.Dom.setStyle(el, 'display', 'block');
-         toggle.innerHTML = MDSS.Localized.Toggle_Hide;
-       }
-  
-     }, {toggle: toggle, element: element}, this);
-    },
-  
     _toggleCount : function(e, attribute)
     {
       var check = e.target;

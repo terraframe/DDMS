@@ -490,9 +490,18 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   @Override
   public String getTypeDisplayLabel()
   {
-    // FIXME point to MO term or if null use MdClass display label
+    String display;
+    
     MdClass mdClass = MdClass.getMdClass(this.getType());
-    return ( mdClass.getDisplayLabel().getValue() );
+    display = mdClass.getDisplayLabel().getValue(); 
+    
+    String termId = this.getValue(GeoEntity.TERM);
+    if(termId != null && termId.trim().length() > 0)
+    {
+      display += " - "+this.getTerm().getDisplay(); 
+    }
+    
+    return display;
   }
 
   public String getLabel()
