@@ -42,6 +42,7 @@ import dss.vector.solutions.intervention.monitor.IPTDoseDTO;
 import dss.vector.solutions.intervention.monitor.IPTPatientsDTO;
 import dss.vector.solutions.intervention.monitor.IPTTreatmentDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTDTO;
+import dss.vector.solutions.intervention.monitor.IndividualInstanceDTO;
 import dss.vector.solutions.intervention.monitor.PersonViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.irs.AbstractSprayDTO;
@@ -54,6 +55,7 @@ import dss.vector.solutions.surveillance.CaseTreatmentDTO;
 import dss.vector.solutions.surveillance.CaseTreatmentMethodDTO;
 import dss.vector.solutions.surveillance.CaseTreatmentStockDTO;
 import dss.vector.solutions.surveillance.ChildCaseViewDTO;
+import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.Halp;
 
@@ -72,6 +74,8 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   private static final String QUERY_AGGREGATED_IPT   = "/WEB-INF/queryScreens/queryAggregatedIPT.jsp";
 
   private static final String QUERY_INDIVIDUAL_IPT   = "/WEB-INF/queryScreens/queryIndividualIPT.jsp";
+  
+  private static final String QUERY_INDIVIDUAL_CASES = "/WEB-INF/queryScreens/queryIndividualCases.jsp";
 
   private static final String QUERY_SURVEY           = "/WEB-INF/queryScreens/querySurvey.jsp";
 
@@ -534,7 +538,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   /**
    * Creates the screen to query for Entomology (mosquitos).
    */
-//  @Override
+  @Override
   public void queryIndividualIPT() throws IOException, ServletException
   {
     try
@@ -574,6 +578,77 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     }
   }
 
+  /**
+   * Creates the screen to query for Entomology (mosquitos).
+   */
+  @Override
+  public void queryIndividualCases() throws IOException, ServletException
+  {
+    try
+    {
+      // The Earth is the root. FIXME use country's default root
+      ClientRequestIF request = this.getClientRequest();
+
+      // The Earth is the root. FIXME use country's default root
+      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_INDIVIDUAL_CASES);
+      JSONArray queries = new JSONArray();
+      // Available queries
+      for (SavedSearchViewDTO view : query.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", view.getSavedQueryId());
+        idAndName.put("name", view.getQueryName());
+
+        queries.put(idAndName);
+      }
+
+      // Load label map 
+      ClassQueryDTO iInstance = request.getQuery(IndividualInstanceDTO.CLASS);
+      String instanceMap = Halp.getDropDownMaps(iInstance, request, ", ");
+      req.setAttribute("instanceMaps", instanceMap);
+
+      req.setAttribute("queryList", queries.toString());
+
+      ResourceBundle localized = ResourceBundle.getBundle("MDSS");
+      JSONObject ordered = new JSONObject();
+      
+
+      // Treatment
+      JSONObject symptoms = new JSONObject();
+      symptoms.put("type", TermDTO.CLASS);
+      symptoms.put("label", localized.getObject("Malaria_Symptom"));
+      symptoms.put("relType", IndividualCaseSymptomDTO.CLASS);
+      symptoms.put("relAttribute", IndividualCaseSymptomDTO.HASSYMPTOM);
+      symptoms.put("options", new JSONArray());
+      IndividualInstanceDTO dto = new IndividualInstanceDTO(request);
+      for (IndividualCaseSymptomDTO s : dto.getSymptoms())
+      {
+        TermDTO term = s.getChild();
+        JSONObject option = new JSONObject();
+        option.put("id", term.getId());
+        option.put("displayLabel", term.getDisplayLabel());
+        option.put("MOID", term.getTermId());
+        option.put("optionName", term.getName());
+        option.put("type", TermDTO.CLASS);
+        symptoms.getJSONArray("options").put(option);
+      }
+      ordered.put("symptoms", symptoms);
+
+      req.setAttribute("orderedGrids", ordered.toString());
+
+      req.getRequestDispatcher(QUERY_INDIVIDUAL_CASES).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+  
+  
   /**
    * Creates the screen to query for Entomology (mosquitos).
    */
