@@ -181,8 +181,10 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
           {
             thisRef._checkBox(userAlias);
           }
-          
-          thisRef._checkBox(attributeName); // Date selection
+          else
+          {          
+            thisRef._checkBox(attributeName); // Date selection
+          }
         },
         sqldouble: function(entityAlias, attributeName, userAlias){
           
