@@ -23,7 +23,7 @@
         type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.roof"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference"/>
+        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.vivaxPositive"
         type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
