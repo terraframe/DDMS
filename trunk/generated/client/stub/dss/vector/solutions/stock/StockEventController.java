@@ -40,9 +40,16 @@ public class StockEventController extends StockEventControllerBase implements co
   {
     if (!this.isAsynchronous())
     {
+      this.setupSearchDefaults();
       req.setAttribute("view", new StockEventViewDTO(this.getClientRequest()));
       render("searchComponent.jsp");
     }
+  }
+
+  private void setupSearchDefaults()
+  {
+    StockItemViewDTO item = new StockItemViewDTO(this.getClientRequest());
+    req.setAttribute("item", item.getItemName());
   }
 
   @Override

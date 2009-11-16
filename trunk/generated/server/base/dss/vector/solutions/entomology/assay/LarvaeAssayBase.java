@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 610324940)
+@com.terraframe.mojo.business.ClassSignature(hash = -1363814446)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class LarvaeAssayBase extends dss.vector.solutions.entomology.as
   public final static String CLASS = "dss.vector.solutions.entomology.assay.LarvaeAssay";
   public static java.lang.String ENDPOINT = "endPoint";
   public static java.lang.String STARTPOINT = "startPoint";
-  private static final long serialVersionUID = 610324940;
+  private static final long serialVersionUID = -1363814446;
   
   public LarvaeAssayBase()
   {
@@ -110,18 +110,6 @@ public abstract class LarvaeAssayBase extends dss.vector.solutions.entomology.as
   public static LarvaeAssay getByKey(String key)
   {
     return (LarvaeAssay) com.terraframe.mojo.business.Business.get(CLASS, key);
-  }
-  
-  public dss.vector.solutions.entomology.assay.LarvaeTestIntervalView[] getTestIntervals()
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeAssay.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final dss.vector.solutions.entomology.assay.LarvaeTestIntervalView[] getTestIntervals(java.lang.String id)
-  {
-    LarvaeAssay _instance = LarvaeAssay.get(id);
-    return _instance.getTestIntervals();
   }
   
   public static LarvaeAssay lock(java.lang.String id)

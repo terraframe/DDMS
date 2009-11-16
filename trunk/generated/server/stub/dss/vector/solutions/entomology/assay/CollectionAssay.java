@@ -4,13 +4,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.vecmath.GMatrix;
-import javax.vecmath.GVector;
-
-import com.gregdennis.drej.PolynomialKernel;
-import com.gregdennis.drej.Regression;
-import com.gregdennis.drej.Representer;
-
 import dss.vector.solutions.ontology.Term;
 
 public abstract class CollectionAssay extends CollectionAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -87,84 +80,6 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
     }
   }
 
-
-  @Override
-  public Double getKD50()
-  {
-    return this.getKD(50);
-  }
-
-  @Override
-  public Double getKD95()
-  {
-    return this.getKD(95);
-  }
-
-  private Double getKD(int value)
-  {
-    // Use regression of the form log(y) = (a1 * x) + a0 where a0 = 0
-
-    // x data array
-    double[] x = this.getTimeIntervals();
-    // Log of the observed y data array
-    double[] y = this.getLogKnockDownPercent();
-
-    GMatrix data = new GMatrix(1, x.length);
-    GVector values = new GVector(y);
-
-    for (int i = 0; i < x.length; i++)
-    {
-      data.setColumn(i, new double[] { x[i] });
-    }
-
-    double lambda = 0.5;
-
-    // do the regression, which returns a function fit to the data
-    Representer representer = Regression.solve(data, values, PolynomialKernel.QUADRATIC_KERNEL, lambda);
-
-    // return representer.eval(new GVector(new double[]{Math.log(value)}));
-    return representer.eval(new GVector(new double[] { value }));
-  }
-
-  public abstract TestIntervalIF[] getTestIntervals();
-
-  private double[] getTimeIntervals()
-  {
-    TestIntervalIF[] array = this.getTestIntervals();
-    double[] d = new double[array.length];
-
-    for (int i = 0; i < array.length; i++)
-    {
-      d[i] = array[i].getIntervalTime();
-    }
-
-    return d;
-  }
-
-  private double[] getLogKnockDownPercent()
-  {
-    TestIntervalIF[] array = this.getTestIntervals();
-
-    double[] d = new double[array.length];
-
-    for (int i = 0; i < array.length; i++)
-    {
-      double percent = array[i].getValue() / (double) this.getQuantityTested() * 100;
-
-      if (percent > 0)
-      {
-        // d[i] = Math.log(percent);
-        d[i] = percent;
-      }
-      else
-      {
-        d[i] = 0;
-      }
-    }
-
-    return d;
-  }
-
   @Override
   public void apply()
   {
@@ -174,8 +89,6 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
     super.apply();
   }
 
-
-
   public Integer calculatePeriod()
   {
     double exposureTime = (double) this.getExposureTime();
@@ -183,9 +96,6 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
 
     return (int) Math.ceil(exposureTime / intervalTime) + 1;
   }
-
-
-
 
   public static String getCollectionResistanceSQL(String assayTable,String mortality,String resistant, String susceptible, String[] labels)
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -500809789)
+@com.terraframe.mojo.business.ClassSignature(hash = 353431626)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology.assay;
 public class AdultAssayQueryDTO extends dss.vector.solutions.entomology.assay.CollectionAssayQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -500809789;
+private static final long serialVersionUID = 353431626;
 
   protected AdultAssayQueryDTO(String type)
   {

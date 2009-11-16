@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 191135820)
+@com.terraframe.mojo.business.ClassSignature(hash = 212223570)
 public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology.assay.CollectionAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.LarvaeAssay";
-  private static final long serialVersionUID = 191135820;
+  private static final long serialVersionUID = 212223570;
   
   protected LarvaeAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -115,22 +115,6 @@ public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getStartPointMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(STARTPOINT).getAttributeMdDTO();
-  }
-  
-  public final dss.vector.solutions.entomology.assay.LarvaeTestIntervalViewDTO[] getTestIntervals()
-  {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.LarvaeAssayDTO.CLASS, "getTestIntervals", _declaredTypes);
-    return (dss.vector.solutions.entomology.assay.LarvaeTestIntervalViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final dss.vector.solutions.entomology.assay.LarvaeTestIntervalViewDTO[] getTestIntervals(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.LarvaeAssayDTO.CLASS, "getTestIntervals", _declaredTypes);
-    return (dss.vector.solutions.entomology.assay.LarvaeTestIntervalViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.entomology.assay.LarvaeAssayDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

@@ -2,14 +2,6 @@ package dss.vector.solutions.entomology.assay;
 
 import java.util.Date;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.terraframe.mojo.constants.MdBusinessInfo;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.system.metadata.MdBusiness;
-
 import dss.vector.solutions.CurrentDateProblem;
 
 public abstract class AbstractAssay extends AbstractAssayBase implements

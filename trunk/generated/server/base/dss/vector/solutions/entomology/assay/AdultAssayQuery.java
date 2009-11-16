@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1575516303)
+@com.terraframe.mojo.business.ClassSignature(hash = -1113430692)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology.assay;
 public  class AdultAssayQuery extends dss.vector.solutions.entomology.assay.CollectionAssayQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1575516303;
+private static final long serialVersionUID = -1113430692;
 
   public AdultAssayQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -194,7 +194,7 @@ private static final long serialVersionUID = -1575516303;
  implements AdultAssayQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 710569103;
+private static final long serialVersionUID = 26485502;
 
   public AdultAssayQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {

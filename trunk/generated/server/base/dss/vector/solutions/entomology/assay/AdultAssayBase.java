@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1509712570)
+@com.terraframe.mojo.business.ClassSignature(hash = 2111610803)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,7 +17,7 @@ public abstract class AdultAssayBase extends dss.vector.solutions.entomology.ass
   public static java.lang.String FED = "fed";
   public static java.lang.String GRAVID = "gravid";
   public static java.lang.String SEX = "sex";
-  private static final long serialVersionUID = 1509712570;
+  private static final long serialVersionUID = 2111610803;
   
   public AdultAssayBase()
   {
@@ -152,18 +152,6 @@ public abstract class AdultAssayBase extends dss.vector.solutions.entomology.ass
   public static AdultAssay getByKey(String key)
   {
     return (AdultAssay) com.terraframe.mojo.business.Business.get(CLASS, key);
-  }
-  
-  public dss.vector.solutions.entomology.assay.AdultTestIntervalView[] getTestIntervals()
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultAssay.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final dss.vector.solutions.entomology.assay.AdultTestIntervalView[] getTestIntervals(java.lang.String id)
-  {
-    AdultAssay _instance = AdultAssay.get(id);
-    return _instance.getTestIntervals();
   }
   
   public static AdultAssay lock(java.lang.String id)

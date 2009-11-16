@@ -1,21 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@page import="java.util.*"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
-<%@page import="org.json.JSONArray"%>
-<%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
-<%@page import="dss.vector.solutions.util.Halp"%>
-<%@page import="java.text.DecimalFormat"%>
-<%@page import="dss.vector.solutions.entomology.assay.AdultTestIntervalViewDTO"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
-<%@page import="java.util.Map"%>
-<%@page import="java.util.HashMap"%>
-
-<%
-AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request.getAttribute("item");
-%>
 
 <c:set var="page_title" value="View_ADDA"  scope="request"/>
 
@@ -120,8 +105,6 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
   </dl>
 </mjl:form>
 
-<div id="intervals"></div>
-
 <ul>
   <li>
     <mjl:commandLink name="collection.link" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" >
@@ -141,42 +124,3 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
     </mjl:commandLink>
   </li>
 </ul>
-
-
-<%
-    String[] types =
-    {
-     "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay",
-     "dss.vector.solutions.entomology.assay.AdultTestIntervalView"
-    };
-    String[] attribs = { "IntervalId","Assay","Period","IntervalTime","KnockedDown"};
-
-    String last_column = "{key:'Percent',label:'%',resizeable:true}";
-
-    Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-    map.put("IntervalId", new ColumnSetup(true, false, null, null, null));
-    map.put("Assay", new ColumnSetup(true, false, null, null, null));
-    map.put("Period", new ColumnSetup(false, false, null, null, null));
-    map.put("IntervalTime", new ColumnSetup(false, false, null, null, null));
-%>
-<%=Halp.loadTypes((List<String>) Arrays.asList(types))%>
-<script type="text/javascript" defer="defer">
-
-calculate_percent = function(record){
-  return ((parseInt(record.getData('KnockedDown'))*100.0)/<%=adda.getQuantityTested()%>).toFixed(1)+"%";
-}
-
-table_data = {
-		    rows:<%=Halp.getDataMap(adda.getTestIntervals(),attribs,adda.getTestIntervals()[0])%>,
-            columnDefs:<%=Halp.getColumnSetup(adda.getTestIntervals()[0],attribs,last_column,false,map)%>,
-            defaults: {IntervalId:"",Period:"",IntervalTime:"",KnockedDown:"",Percent:""},
-            div_id: "intervals",
-            addButton:false,
-            excelButtons:false,
-  	        data_type: "Mojo.$.dss.vector.solutions.entomology.assay.AdultTestIntervalView",
-            after_row_load:function(record){this.myDataTable.updateCell(record, 'Percent', calculate_percent(record))},
-            after_row_edit:function(record){this.myDataTable.updateCell(record, 'Percent', calculate_percent(record))},
-	        after_save:function(){location.href="./dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.view.mojo?id=${item.id}";}
-	    };
-MojoGrid.createDataTable(table_data);
-</script>
