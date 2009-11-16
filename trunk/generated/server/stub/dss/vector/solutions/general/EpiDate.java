@@ -10,6 +10,7 @@ import com.terraframe.mojo.constants.Constants;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQLDate;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.PeriodMonthProblem;
@@ -345,19 +346,28 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
   {
     int period = Calendar.DAY_OF_YEAR;
 
+    
+    
     Calendar cal = new GregorianCalendar();
     cal.setTime(startDate);
     cal = getEpiCalendar(cal.get(Calendar.YEAR));
     cal.setTime(startDate);
 
-    int quarter = ( ( cal.get(Calendar.MONTH) - 1 ) / 3 );
+    int quarter = ( ( cal.get(Calendar.MONTH)  ) / 3 );
     Calendar startOfQuarter = new GregorianCalendar(cal.get(Calendar.YEAR), quarter * 3, 1);
     Calendar endOfQuarter = (Calendar) startOfQuarter.clone();
     endOfQuarter.add(Calendar.MONTH, 3);
     endOfQuarter.add(Calendar.DAY_OF_YEAR, -1);
-
-    Date quarterStartDate = startOfQuarter.getTime();
-    Date quarterEndDate = endOfQuarter.getTime();
+    
+    //Date quarterStartDate = startOfQuarter.getTime();
+    //Date quarterEndDate = endOfQuarter.getTime();
+    
+    //System.out.println();
+    //System.out.println(cal.get(Calendar.MONTH));
+    //System.out.println(startDate);
+    //System.out.println(quarter);
+    //System.out.println(quarterStartDate);
+    //System.out.println(quarterEndDate);
 
     int piviot = cal.get(period);
     int min = startOfQuarter.get(period);
@@ -374,12 +384,13 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
     if (snapToFirstDay)
     {
-      return quarterStartDate;
+      cal.add(Calendar.DAY_OF_YEAR, -days_before_piviot);
     }
     else
     {
-      return quarterEndDate;
+      cal.add(Calendar.DAY_OF_YEAR, days_after_piviot);
     }
+    return cal.getTime();
   }
 
   public static Date snapToYear(Date startDate, Boolean snapToFirstDay)
@@ -436,14 +447,19 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     {
       startOrEnd = MalariaSeason.STARTDATE;
       valueQuery.SELECT(seasonQuery.getStartDate(MalariaSeason.STARTDATE));
+      SelectableSQLDate dist = valueQuery.aSQLDate("dist", "(age(" + startOrEnd + ", '" + formatter.format(snapable) + "'))", "dist");
+      valueQuery.ORDER_BY_DESC(dist);
+      valueQuery.WHERE(seasonQuery.getStartDate(MalariaSeason.STARTDATE).LE(formatter.format(snapable)));
     }
     else
     {
       startOrEnd = MalariaSeason.ENDDATE;
       valueQuery.SELECT(seasonQuery.getEndDate(MalariaSeason.ENDDATE));
+      SelectableSQLDate dist = valueQuery.aSQLDate("dist", "(age(" + startOrEnd + ", '" + formatter.format(snapable) + "'))", "dist");
+      valueQuery.ORDER_BY_ASC(dist);
+      valueQuery.WHERE(seasonQuery.getEndDate(MalariaSeason.ENDDATE).GE(formatter.format(snapable)));
     }
 
-    valueQuery.ORDER_BY_DESC(valueQuery.aSQLDate("dist", "age(" + startOrEnd + ", '" + formatter.format(snapable) + "')", "dist"));
 
     System.out.println(valueQuery.getSQL());
 
