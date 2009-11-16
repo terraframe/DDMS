@@ -4,38 +4,38 @@
   <doIt>
     <create>
       <object
-        key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstance.target"
+        key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstanceView.target"
         type="dss.vector.solutions.ontology.BrowserField">
         <attributeReference
           name="mdAttribute"
-          key="dss.vector.solutions.intervention.monitor.LarvacideInstance.target" />
+          key="dss.vector.solutions.intervention.monitor.LarvacideInstanceView.target" />
       </object>
       <object
-        key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstance.controlMethod"
+        key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstanceView.controlMethod"
         type="dss.vector.solutions.ontology.BrowserField">
         <attributeReference
           name="mdAttribute"
-          key="dss.vector.solutions.intervention.monitor.LarvacideInstance.controlMethod" />
+          key="dss.vector.solutions.intervention.monitor.LarvacideInstanceView.controlMethod" />
       </object>
       <object
-        key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstance.unit"
+        key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstanceView.unit"
         type="dss.vector.solutions.ontology.BrowserField">
         <attributeReference
           name="mdAttribute"
-          key="dss.vector.solutions.intervention.monitor.LarvacideInstance.unit" />
+          key="dss.vector.solutions.intervention.monitor.LarvacideInstanceView.unit" />
       </object>
     </create>
   </doIt>
   <undoIt>
     <delete>
       <object
-        key="dss.vector.solutions.intervention.monitor.LarvacideInstance.target"
+        key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstanceView.target"
         type="dss.vector.solutions.ontology.BrowserField" />
       <object
-        key="dss.vector.solutions.intervention.monitor.LarvacideInstance.controlMethod"
+        key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstanceView.controlMethod"
         type="dss.vector.solutions.ontology.BrowserField" />
       <object
-        key="dss.vector.solutions.intervention.monitor.LarvacideInstance.unit"
+        key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstanceView.unit"
         type="dss.vector.solutions.ontology.BrowserField" />
     </delete>
   </undoIt>
