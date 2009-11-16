@@ -7,6 +7,7 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 
+import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.UniqueLeaderIdException;
@@ -89,5 +90,12 @@ public class SprayLeader extends SprayLeaderBase implements com.terraframe.mojo.
     valueQuery.restrictRows(20, 1);
     
     return valueQuery;
-  }  
+  }
+  
+  @Override
+  public String toString()
+  {
+    Person person = this.getPerson();
+    return person.getFirstName() + " " + person.getLastName() + " - " + this.getLeaderId();
+  }
 }
