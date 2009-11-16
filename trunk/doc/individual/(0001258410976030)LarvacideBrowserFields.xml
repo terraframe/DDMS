@@ -1,0 +1,42 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstance.target"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.LarvacideInstance.target" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstance.controlMethod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.LarvacideInstance.controlMethod" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstance.unit"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.LarvacideInstance.unit" />
+      </object>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.LarvacideInstance.target"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.LarvacideInstance.controlMethod"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.LarvacideInstance.unit"
+        type="dss.vector.solutions.ontology.BrowserField" />
+    </delete>
+  </undoIt>
+</version>
