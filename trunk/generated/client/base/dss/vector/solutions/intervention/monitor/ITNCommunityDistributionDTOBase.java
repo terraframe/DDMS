@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -400192783)
+@com.terraframe.mojo.business.ClassSignature(hash = -714542869)
 public abstract class ITNCommunityDistributionDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNCommunityDistribution";
-  private static final long serialVersionUID = -400192783;
+  private static final long serialVersionUID = -714542869;
   
   protected ITNCommunityDistributionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -41,6 +41,7 @@ public abstract class ITNCommunityDistributionDTOBase extends com.terraframe.moj
   public static java.lang.String HOUSEHOLDNAME = "householdName";
   public static java.lang.String HOUSEHOLDSURNAME = "householdSurname";
   public static java.lang.String ID = "id";
+  public static java.lang.String ITNSRECEIVED = "itnsReceived";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
@@ -538,6 +539,43 @@ public abstract class ITNCommunityDistributionDTOBase extends com.terraframe.moj
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getHouseholdSurnameMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(HOUSEHOLDSURNAME).getAttributeMdDTO();
+  }
+  
+  public Integer getItnsReceived()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ITNSRECEIVED));
+  }
+  
+  public void setItnsReceived(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(ITNSRECEIVED, "");
+    }
+    else
+    {
+      setValue(ITNSRECEIVED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isItnsReceivedWritable()
+  {
+    return isWritable(ITNSRECEIVED);
+  }
+  
+  public boolean isItnsReceivedReadable()
+  {
+    return isReadable(ITNSRECEIVED);
+  }
+  
+  public boolean isItnsReceivedModified()
+  {
+    return isModified(ITNSRECEIVED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getItnsReceivedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ITNSRECEIVED).getAttributeMdDTO();
   }
   
   public String getKeyName()

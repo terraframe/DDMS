@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 318312040)
+@com.terraframe.mojo.business.ClassSignature(hash = 461072532)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  class ITNCommunityDistributionQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 318312040;
+private static final long serialVersionUID = 461072532;
 
   public ITNCommunityDistributionQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -288,6 +288,23 @@ private static final long serialVersionUID = 318312040;
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeInteger getItnsReceived()
+  {
+    return getItnsReceived(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getItnsReceived(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.ITNSRECEIVED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getItnsReceived(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.ITNSRECEIVED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -774,6 +791,9 @@ private static final long serialVersionUID = 318312040;
     public com.terraframe.mojo.query.AttributeChar getId();
     public com.terraframe.mojo.query.AttributeChar getId(String alias);
     public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeInteger getItnsReceived();
+    public com.terraframe.mojo.query.AttributeInteger getItnsReceived(String alias);
+    public com.terraframe.mojo.query.AttributeInteger getItnsReceived(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeChar getKeyName();
     public com.terraframe.mojo.query.AttributeChar getKeyName(String alias);
     public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel);
@@ -859,7 +879,7 @@ private static final long serialVersionUID = 318312040;
  implements ITNCommunityDistributionQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 2143725574;
+private static final long serialVersionUID = 925470518;
 
   public ITNCommunityDistributionQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1114,6 +1134,23 @@ private static final long serialVersionUID = 2143725574;
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeInteger getItnsReceived()
+  {
+    return getItnsReceived(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getItnsReceived(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("itnsReceived", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getItnsReceived(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("itnsReceived", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()

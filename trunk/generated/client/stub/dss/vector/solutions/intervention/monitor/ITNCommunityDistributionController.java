@@ -11,6 +11,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -79,9 +80,25 @@ public class ITNCommunityDistributionController extends ITNCommunityDistribution
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     this.prepareRelationships(dto);
-
+    this.getGeoEntities(dto);
+        
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
+  }
+
+  private void getGeoEntities(ITNCommunityDistributionViewDTO dto)
+  {
+    ClientRequestIF request = super.getClientSession().getRequest();
+    
+    if(dto.getDistributionLocation() != null && !dto.getDistributionLocation().equals(""))
+    {
+      req.setAttribute("distributionLocation", GeoEntityDTO.searchByGeoId(request, dto.getDistributionLocation()));
+    }
+
+    if(dto.getHouseholdAddress() != null && !dto.getHouseholdAddress().equals(""))
+    {
+      req.setAttribute("householdAddress", GeoEntityDTO.searchByGeoId(request, dto.getHouseholdAddress()));
+    }
   }
 
   public void failView(String id) throws IOException, ServletException

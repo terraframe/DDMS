@@ -14,6 +14,9 @@
   <mjl:dt attribute="agentSurname">
     <mjl:input param="agentSurname" type="text" />
   </mjl:dt>
+  <mjl:dt attribute="itnsReceived">
+    <mjl:input param="itnsReceived" type="text" />
+  </mjl:dt>  
   <mjl:dt attribute="hasBatchNumber" >
     <mjl:boolean param="hasBatchNumber" id="hasBatchNumber"/>
   </mjl:dt>

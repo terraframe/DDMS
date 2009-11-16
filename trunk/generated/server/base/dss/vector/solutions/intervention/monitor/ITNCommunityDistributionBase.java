@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -74200719)
+@com.terraframe.mojo.business.ClassSignature(hash = 345629291)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,6 +25,7 @@ public abstract class ITNCommunityDistributionBase extends com.terraframe.mojo.b
   public static java.lang.String HOUSEHOLDNAME = "householdName";
   public static java.lang.String HOUSEHOLDSURNAME = "householdSurname";
   public static java.lang.String ID = "id";
+  public static java.lang.String ITNSRECEIVED = "itnsReceived";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
@@ -39,7 +40,7 @@ public abstract class ITNCommunityDistributionBase extends com.terraframe.mojo.b
   public static java.lang.String SOLD = "sold";
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -74200719;
+  private static final long serialVersionUID = 345629291;
   
   public ITNCommunityDistributionBase()
   {
@@ -428,6 +429,34 @@ public abstract class ITNCommunityDistributionBase extends com.terraframe.mojo.b
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public Integer getItnsReceived()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ITNSRECEIVED));
+  }
+  
+  public void validateItnsReceived()
+  {
+    this.validateAttribute(ITNSRECEIVED);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getItnsReceivedMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
+    return mdClassIF.definesAttribute(ITNSRECEIVED);
+  }
+  
+  public void setItnsReceived(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(ITNSRECEIVED, "");
+    }
+    else
+    {
+      setValue(ITNSRECEIVED, java.lang.Integer.toString(value));
+    }
   }
   
   public String getKeyName()

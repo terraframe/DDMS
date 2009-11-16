@@ -44,9 +44,10 @@ public class ITNCommunityDistributionViewQuery extends dss.vector.solutions.inte
 
       vQuery.map(ITNCommunityDistributionView.CONCRETEID, itnQuery.getId());
       vQuery.map(ITNCommunityDistributionView.STARTDATE, itnQuery.getStartDate());
-      vQuery.map(ITNCommunityDistributionView.ENDDATE, itnQuery.getEndDate());
+      vQuery.map(ITNCommunityDistributionView.ENDDATE, itnQuery.getEndDate());      
       vQuery.map(ITNCommunityDistributionView.AGENTFIRSTNAME, itnQuery.getAgentFirstName());
       vQuery.map(ITNCommunityDistributionView.AGENTSURNAME, itnQuery.getAgentSurname());
+      vQuery.map(ITNCommunityDistributionView.ITNSRECEIVED, itnQuery.getItnsReceived());      
       vQuery.map(ITNCommunityDistributionView.BATCHNUMBER, itnQuery.getBatchNumber());      
       vQuery.map(ITNCommunityDistributionView.ENTRYTYPE, itnQuery.getEntryType());
 //      vQuery.map(ITNCommunityDistributionView.HOUSEHOLDADDRESS, itnQuery.getHouseholdAddress().getGeoId());

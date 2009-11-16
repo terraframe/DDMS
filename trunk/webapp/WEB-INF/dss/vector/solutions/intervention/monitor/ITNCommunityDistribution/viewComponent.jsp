@@ -25,6 +25,9 @@
       <mjl:dt attribute="agentSurname">
         ${item.agentSurname}
       </mjl:dt>
+      <mjl:dt attribute="itnsReceived">
+        ${item.itnsReceived}
+      </mjl:dt>
       <mjl:dt attribute="hasBatchNumber">
         ${item.hasBatchNumber ? item.hasBatchNumberMd.positiveDisplayLabel : item.hasBatchNumberMd.negativeDisplayLabel}
       </mjl:dt>
@@ -41,13 +44,13 @@
         ${item.householdSurname}
       </mjl:dt>
       <mjl:dt attribute="householdAddress">
-        ${item.householdAddress}
+        ${householdAddress != null ? householdAddress.displayString : ''}
       </mjl:dt>                  
       <mjl:dt attribute="residents">
         ${item.residents}
       </mjl:dt>
       <mjl:dt attribute="distributionLocation">
-        ${item.distributionLocation}
+        ${distributionLocation != null ? distributionLocation.displayString : ''}
       </mjl:dt>      
       <c:if test="${item.isDisplayTargetGroupsReadable}">
         <dt>      

@@ -28,6 +28,7 @@ public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBa
     this.setEndDate(concrete.getEndDate());
     this.setAgentFirstName(concrete.getAgentFirstName());
     this.setAgentSurname(concrete.getAgentSurname());
+    this.setItnsReceived(concrete.getItnsReceived());
     this.setHasBatchNumber(concrete.getBatchNumber() != null);
     this.setBatchNumber(concrete.getBatchNumber());
     this.setEntryType(concrete.getEntryType());
@@ -57,6 +58,7 @@ public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBa
     concrete.setEndDate(this.getEndDate());
     concrete.setAgentFirstName(this.getAgentFirstName());
     concrete.setAgentSurname(this.getAgentSurname());
+    concrete.setItnsReceived(this.getItnsReceived());
     concrete.setBatchNumber(this.getBatchNumber());
     concrete.setEntryType(this.getEntryType());
     concrete.setSold(this.getSold());
@@ -91,6 +93,7 @@ public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBa
   {
     new AttributeNotificationMap(concrete, ITNCommunityDistribution.AGENTFIRSTNAME, this, ITNCommunityDistributionView.AGENTFIRSTNAME);
     new AttributeNotificationMap(concrete, ITNCommunityDistribution.AGENTSURNAME, this, ITNCommunityDistributionView.AGENTSURNAME);
+    new AttributeNotificationMap(concrete, ITNCommunityDistribution.ITNSRECEIVED, this, ITNCommunityDistributionView.ITNSRECEIVED);
     new AttributeNotificationMap(concrete, ITNCommunityDistribution.BATCHNUMBER, this, ITNCommunityDistributionView.BATCHNUMBER);
     new AttributeNotificationMap(concrete, ITNCommunityDistribution.CURRENCYRECEIVED, this, ITNCommunityDistributionView.CURRENCYRECEIVED);
     new AttributeNotificationMap(concrete, ITNCommunityDistribution.DISTRIBUTIONLOCATION, this, ITNCommunityDistributionView.DISTRIBUTIONLOCATION);

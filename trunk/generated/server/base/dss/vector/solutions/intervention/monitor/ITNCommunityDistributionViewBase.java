@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1592190614)
+@com.terraframe.mojo.business.ClassSignature(hash = -386579259)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,13 +26,14 @@ public abstract class ITNCommunityDistributionViewBase extends com.terraframe.mo
   public static java.lang.String HOUSEHOLDNAME = "householdName";
   public static java.lang.String HOUSEHOLDSURNAME = "householdSurname";
   public static java.lang.String ID = "id";
+  public static java.lang.String ITNSRECEIVED = "itnsReceived";
   public static java.lang.String NUMBERRETRIEVED = "numberRetrieved";
   public static java.lang.String PRETREATED = "pretreated";
   public static java.lang.String RESIDENTS = "residents";
   public static java.lang.String RETRIEVED = "retrieved";
   public static java.lang.String SOLD = "sold";
   public static java.lang.String STARTDATE = "startDate";
-  private static final long serialVersionUID = -1592190614;
+  private static final long serialVersionUID = -386579259;
   
   public ITNCommunityDistributionViewBase()
   {
@@ -459,6 +460,34 @@ public abstract class ITNCommunityDistributionViewBase extends com.terraframe.mo
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public Integer getItnsReceived()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ITNSRECEIVED));
+  }
+  
+  public void validateItnsReceived()
+  {
+    this.validateAttribute(ITNSRECEIVED);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getItnsReceivedMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.CLASS);
+    return mdClassIF.definesAttribute(ITNSRECEIVED);
+  }
+  
+  public void setItnsReceived(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(ITNSRECEIVED, "");
+    }
+    else
+    {
+      setValue(ITNSRECEIVED, java.lang.Integer.toString(value));
+    }
   }
   
   public Integer getNumberRetrieved()
