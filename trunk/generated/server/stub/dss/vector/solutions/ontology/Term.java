@@ -515,12 +515,28 @@ public class Term extends TermBase implements Reloadable, OptionIF
   @Transaction
   public static Term validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
+    // No value means they didn't specify one.  Don't throw a problem; just return null
+    if (displayLabel.trim().length()==0)
+    {
+      return null;
+    }
+    
     QueryFactory factory = new QueryFactory();
-    TermQuery query = new TermQuery(factory);
-
-    query.WHERE(query.getName().EQ(displayLabel));
-
-    OIterator<? extends Term> iterator = query.getIterator();
+    
+    BrowserFieldQuery bfq = new BrowserFieldQuery(factory);
+    bfq.WHERE(bfq.getMdAttribute().EQ(mdAttribute));
+    
+    BrowserRootQuery brq = new BrowserRootQuery(factory);
+    brq.WHERE(brq.field(bfq));
+    
+    AllPathsQuery apq = new AllPathsQuery(factory);
+    apq.WHERE(apq.getParentTerm().EQ(brq.getTerm()));
+    
+    TermQuery tq = new TermQuery(factory);
+    tq.WHERE(tq.getName().EQi(displayLabel));
+    tq.WHERE(tq.getId().EQ(apq.getChildTerm().getId()));
+    
+    OIterator<? extends Term> iterator = tq.getIterator();
 
     try
     {
