@@ -121,14 +121,12 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     acv.setStillBirths(this.getStillBirths());
     acv.setDaysOutOfStock(this.getDaysOutOfStock());
 
-    AggregatedCase aggregatedCase = acv.getAggregatedCase();
-
     CaseTreatmentStock[] stockArray = new CaseTreatmentStock[stock.size()];
     for (int i = 0; i < stockArray.length; i++)
     {
       if (i < stockValues.size())
       {
-        stockArray[i] = new CaseTreatmentStock(aggregatedCase, stock.get(i));
+        stockArray[i] = new CaseTreatmentStock(acv.getId(), stock.get(i).getId());
         stockArray[i].setOutOfStock(stockValues.get(i));
       }
     }
@@ -138,7 +136,7 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     {
       if (i < treatmentAmounts.size())
       {
-        treatmentArray[i] = new CaseTreatment(aggregatedCase, treatments.get(i));
+        treatmentArray[i] = new CaseTreatment(acv.getId(), treatments.get(i).getId());
         treatmentArray[i].setAmount(treatmentAmounts.get(i));
       }
     }
@@ -148,7 +146,7 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     {
       if (i < methodAmounts.size())
       {
-        methodArray[i] = new CaseTreatmentMethod(aggregatedCase, methods.get(i));
+        methodArray[i] = new CaseTreatmentMethod(acv.getId(), methods.get(i).getId());
         methodArray[i].setAmount(methodAmounts.get(i));
       }
     }
@@ -158,7 +156,7 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     {
       if (i < diagnosticAmounts.size())
       {
-        diagnosticArray[i] = new CaseDiagnostic(aggregatedCase, diagnostics.get(i));
+        diagnosticArray[i] = new CaseDiagnostic(acv.getId(), diagnostics.get(i).getId());
         diagnosticArray[i].setAmount(diagnosticAmounts.get(i));
         diagnosticArray[i].setAmountPositive(diagnosticPositives.get(i));
       }
@@ -169,7 +167,7 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     {
       if (i < referralAmounts.size())
       {
-        referralArray[i] = new CaseReferral(aggregatedCase, referrals.get(i));
+        referralArray[i] = new CaseReferral(acv.getId(), referrals.get(i).getId());
         referralArray[i].setAmount(referralAmounts.get(i));
       }
     }

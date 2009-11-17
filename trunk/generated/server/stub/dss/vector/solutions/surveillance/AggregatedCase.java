@@ -279,29 +279,29 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     if (newCase)
     {
-      for (int i = 0; i < diagnosticMethods.length; i++)
+      for (CaseDiagnostic method : diagnosticMethods)
       {
-        diagnosticMethods[i] = diagnosticMethods[i].clone(this);
+        method.overwriteParentId(this.getId());
       }
 
-      for (int i = 0; i < referrals.length; i++)
+      for (CaseReferral referral : referrals)
       {
-        referrals[i] = referrals[i].clone(this);
+        referral.overwriteParentId(this.getId());
       }
 
-      for (int i = 0; i < treatments.length; i++)
+      for (CaseTreatment treatment : treatments)
       {
-        treatments[i] = treatments[i].clone(this);
+        treatment.overwriteParentId(this.getId());
       }
 
-      for (int i = 0; i < treatmentMethods.length; i++)
+      for (CaseTreatmentMethod method : treatmentMethods)
       {
-        treatmentMethods[i] = treatmentMethods[i].clone(this);
+        method.overwriteParentId(this.getId());
       }
 
-      for (int i = 0; i < stock.length; i++)
+      for (CaseTreatmentStock s : stock)
       {
-        stock[i] = stock[i].clone(this);
+        s.overwriteParentId(this.getId());
       }
     }
 
@@ -361,56 +361,10 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   public AggregatedCaseView getView()
   {
-    return this.updateView(this.getAgeGroup().getView());
-  }
-
-  public AggregatedCaseView updateView(AggregatedCaseView view)
-  {
-    EpiDate epiDate = EpiDate.getInstanceByDate(this.getStartDate(), this.getEndDate());
-
-    view.setGeoEntity(this.getGeoEntity());
-    view.setPeriod(epiDate.getPeriod());
-    view.addPeriodType(epiDate.getEpiPeriodType());
-    view.setPeriodYear(epiDate.getYear());
-    view.setAgeGroup(this.getAgeGroup());
-    view.setCaseId(this.getId());
-    view.setCases(this.getCases());
-    view.setCasesMale(this.getCasesMale());
-    view.setCasesFemale(this.getCasesFemale());
-    view.setCasesPregnant(this.getCasesPregnant());
-    view.setDeaths(this.getDeaths());
-    view.setDeathsMale(this.getDeathsMale());
-    view.setDeathsFemale(this.getDeathsFemale());
-    view.setDeathsPregnant(this.getDeathsPregnant());
-    view.setInPatients(this.getInPatients());
-    view.setOutPatients(this.getOutPatients());
-    view.setReferralsReceived(this.getReferralsReceived());
-    view.setReferralsSent(this.getReferralsSent());
-    view.setPregnantReferralsReceived(this.getPregnantReferralsReceived());
-    view.setPregnantDiagnosis(this.getPregnantDiagnosis());
-    view.setPregnantDiagnosisDeath(this.getPregnantDiagnosisDeath());
-    view.setClinicallyDiagnosed(this.getClinicallyDiagnosed());
-    view.setDefinitivelyDiagnosed(this.getDefinitivelyDiagnosed());
-    view.setClinicallyDiagnosedDeath(this.getClinicallyDiagnosedDeath());
-    view.setDefinitivelyDiagnosedDeath(this.getDefinitivelyDiagnosedDeath());
-    view.setInPatientsTotal(this.getInPatientsTotal());
-    view.setInPatientsAnemia(this.getInPatientsAnemia());
-    view.setInPatientsPregnantAnemia(this.getInPatientsPregnantAnemia());
-    view.setInPatientsPregnantDianosis(this.getInPatientsPregnantDianosis());
-    view.setInPatientsFemale(this.getInPatientsFemale());
-    view.setInPatientsMale(this.getInPatientsMale());
-    view.setInPatientsDefinitive(this.getInPatientsDefinitive());
-    view.setInPatientsClinically(this.getInPatientsClinically());
-    view.setInPatientsDischarged(this.getInPatientsDischarged());
-    view.setInPatientsNotTreated(this.getInPatientsNotTreated());
-    view.setOutPatientsTotal(this.getOutPatientsTotal());
-    view.setOutPatientsFemale(this.getOutPatientsFemale());
-    view.setOutPatientsMale(this.getOutPatientsMale());
-    view.setPatientsNotTreated(this.getPatientsNotTreated());
-    view.setOutPatientsNotTreated(this.getOutPatientsNotTreated());
-    view.setStillBirths(this.getStillBirths());
-    view.setDaysOutOfStock(this.getDaysOutOfStock());
-
+    AggregatedCaseView view = this.getAgeGroup().getView();
+    
+    view.populateView(this);
+    
     return view;
   }
 

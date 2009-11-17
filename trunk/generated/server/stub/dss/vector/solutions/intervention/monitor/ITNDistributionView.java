@@ -145,7 +145,7 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
   {
     for (int i = 0; i < targetGroups.length; i++)
     {
-      targetGroups[i] = targetGroups[i].clone(this);
+      targetGroups[i].overwriteParentId(this.getConcreteId());
     }
   }
 

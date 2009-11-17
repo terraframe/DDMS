@@ -160,9 +160,9 @@ public class HouseholdView extends HouseholdViewBase implements com.terraframe.m
     // system
     if (newCase)
     {
-      for (int i = 0; i < nets.length; i++)
+      for(HouseholdNet net : nets)
       {
-        nets[i] = nets[i].clone(this);
+        net.overwriteParentId(this.getConcreteId());
       }
     }
 

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.session.Session;
 
@@ -12,8 +13,7 @@ import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 
-public abstract class AggregatedCaseView extends AggregatedCaseViewBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public abstract class AggregatedCaseView extends AggregatedCaseViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1239135495810L;
 
@@ -166,65 +166,94 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
 
   public abstract Integer getDaysOutOfStock();
 
-  public AggregatedCase getAggregatedCase()
+  public AggregatedCase populateConcrete(AggregatedCase concrete)
   {
-    AggregatedCase c = new AggregatedCase();
+    concrete.setCases(this.getCases());
+    concrete.setCasesFemale(this.getCasesFemale());
+    concrete.setCasesMale(this.getCasesMale());
+    concrete.setCasesPregnant(this.getCasesPregnant());
+    concrete.setDeaths(this.getDeaths());
+    concrete.setDeathsMale(this.getDeathsMale());
+    concrete.setDeathsFemale(this.getDeathsFemale());
+    concrete.setDeathsPregnant(this.getDeathsPregnant());
+    concrete.setInPatients(this.getInPatients());
+    concrete.setOutPatients(this.getOutPatients());
+    concrete.setReferralsReceived(this.getReferralsReceived());
+    concrete.setReferralsSent(this.getReferralsSent());
+    concrete.setPregnantReferralsReceived(this.getPregnantReferralsReceived());
+    concrete.setPregnantDiagnosis(this.getPregnantDiagnosis());
+    concrete.setPregnantDiagnosisDeath(this.getPregnantDiagnosisDeath());
+    concrete.setClinicallyDiagnosed(this.getClinicallyDiagnosed());
+    concrete.setDefinitivelyDiagnosed(this.getDefinitivelyDiagnosed());
+    concrete.setClinicallyDiagnosedDeath(this.getClinicallyDiagnosedDeath());
+    concrete.setDefinitivelyDiagnosedDeath(this.getDefinitivelyDiagnosedDeath());
+    concrete.setInPatientsTotal(this.getInPatientsTotal());
+    concrete.setInPatientsAnemia(this.getInPatientsAnemia());
+    concrete.setInPatientsPregnantAnemia(this.getInPatientsPregnantAnemia());
+    concrete.setInPatientsPregnantDianosis(this.getInPatientsPregnantDianosis());
+    concrete.setInPatientsFemale(this.getInPatientsFemale());
+    concrete.setInPatientsMale(this.getInPatientsMale());
+    concrete.setInPatientsDefinitive(this.getInPatientsDefinitive());
+    concrete.setInPatientsClinically(this.getInPatientsClinically());
+    concrete.setInPatientsDischarged(this.getInPatientsDischarged());
+    concrete.setInPatientsNotTreated(this.getInPatientsNotTreated());
+    concrete.setOutPatientsTotal(this.getOutPatientsTotal());
+    concrete.setOutPatientsFemale(this.getOutPatientsFemale());
+    concrete.setOutPatientsMale(this.getOutPatientsMale());
+    concrete.setPatientsNotTreated(this.getPatientsNotTreated());
+    concrete.setOutPatientsNotTreated(this.getOutPatientsNotTreated());
+    concrete.setStillBirths(this.getStillBirths());
+    concrete.setDaysOutOfStock(this.getDaysOutOfStock());
 
-    if (hasConcreteId())
-    {
-      c = AggregatedCase.get(this.getCaseId());
-    }
-    else
-    {
-      PeriodType pt = this.getPeriodType().get(0);
-      EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod(), this.getPeriodYear());
+    return concrete;
+  }
 
-      c.setStartDate(date.getStartDate());
-      c.setEndDate(date.getEndDate());
-      c.setStartAge(this.getAgeGroup().getStartAge());
-      c.setEndAge(this.getAgeGroup().getEndAge());
-      c.setAgeGroup(this.getAgeGroup());
-      c.setGeoEntity(this.getGeoEntity());
-    }
+  public void populateView(AggregatedCase concrete)
+  {
+    EpiDate epiDate = EpiDate.getInstanceByDate(concrete.getStartDate(), concrete.getEndDate());
 
-    c.setCases(this.getCases());
-    c.setCasesFemale(this.getCasesFemale());
-    c.setCasesMale(this.getCasesMale());
-    c.setCasesPregnant(this.getCasesPregnant());
-    c.setDeaths(this.getDeaths());
-    c.setDeathsMale(this.getDeathsMale());
-    c.setDeathsFemale(this.getDeathsFemale());
-    c.setDeathsPregnant(this.getDeathsPregnant());
-    c.setInPatients(this.getInPatients());
-    c.setOutPatients(this.getOutPatients());
-    c.setReferralsReceived(this.getReferralsReceived());
-    c.setReferralsSent(this.getReferralsSent());
-    c.setPregnantReferralsReceived(this.getPregnantReferralsReceived());
-    c.setPregnantDiagnosis(this.getPregnantDiagnosis());
-    c.setPregnantDiagnosisDeath(this.getPregnantDiagnosisDeath());
-    c.setClinicallyDiagnosed(this.getClinicallyDiagnosed());
-    c.setDefinitivelyDiagnosed(this.getDefinitivelyDiagnosed());
-    c.setClinicallyDiagnosedDeath(this.getClinicallyDiagnosedDeath());
-    c.setDefinitivelyDiagnosedDeath(this.getDefinitivelyDiagnosedDeath());
-    c.setInPatientsTotal(this.getInPatientsTotal());
-    c.setInPatientsAnemia(this.getInPatientsAnemia());
-    c.setInPatientsPregnantAnemia(this.getInPatientsPregnantAnemia());
-    c.setInPatientsPregnantDianosis(this.getInPatientsPregnantDianosis());
-    c.setInPatientsFemale(this.getInPatientsFemale());
-    c.setInPatientsMale(this.getInPatientsMale());
-    c.setInPatientsDefinitive(this.getInPatientsDefinitive());
-    c.setInPatientsClinically(this.getInPatientsClinically());
-    c.setInPatientsDischarged(this.getInPatientsDischarged());
-    c.setInPatientsNotTreated(this.getInPatientsNotTreated());
-    c.setOutPatientsTotal(this.getOutPatientsTotal());
-    c.setOutPatientsFemale(this.getOutPatientsFemale());
-    c.setOutPatientsMale(this.getOutPatientsMale());
-    c.setPatientsNotTreated(this.getPatientsNotTreated());
-    c.setOutPatientsNotTreated(this.getOutPatientsNotTreated());
-    c.setStillBirths(this.getStillBirths());
-    c.setDaysOutOfStock(this.getDaysOutOfStock());
-
-    return c;
+    this.setGeoEntity(concrete.getGeoEntity());
+    this.setPeriod(epiDate.getPeriod());
+    this.addPeriodType(epiDate.getEpiPeriodType());
+    this.setPeriodYear(epiDate.getYear());
+    this.setAgeGroup(concrete.getAgeGroup());
+    this.setCaseId(concrete.getId());
+    this.setCases(concrete.getCases());
+    this.setCasesMale(concrete.getCasesMale());
+    this.setCasesFemale(concrete.getCasesFemale());
+    this.setCasesPregnant(concrete.getCasesPregnant());
+    this.setDeaths(concrete.getDeaths());
+    this.setDeathsMale(concrete.getDeathsMale());
+    this.setDeathsFemale(concrete.getDeathsFemale());
+    this.setDeathsPregnant(concrete.getDeathsPregnant());
+    this.setInPatients(concrete.getInPatients());
+    this.setOutPatients(concrete.getOutPatients());
+    this.setReferralsReceived(concrete.getReferralsReceived());
+    this.setReferralsSent(concrete.getReferralsSent());
+    this.setPregnantReferralsReceived(concrete.getPregnantReferralsReceived());
+    this.setPregnantDiagnosis(concrete.getPregnantDiagnosis());
+    this.setPregnantDiagnosisDeath(concrete.getPregnantDiagnosisDeath());
+    this.setClinicallyDiagnosed(concrete.getClinicallyDiagnosed());
+    this.setDefinitivelyDiagnosed(concrete.getDefinitivelyDiagnosed());
+    this.setClinicallyDiagnosedDeath(concrete.getClinicallyDiagnosedDeath());
+    this.setDefinitivelyDiagnosedDeath(concrete.getDefinitivelyDiagnosedDeath());
+    this.setInPatientsTotal(concrete.getInPatientsTotal());
+    this.setInPatientsAnemia(concrete.getInPatientsAnemia());
+    this.setInPatientsPregnantAnemia(concrete.getInPatientsPregnantAnemia());
+    this.setInPatientsPregnantDianosis(concrete.getInPatientsPregnantDianosis());
+    this.setInPatientsFemale(concrete.getInPatientsFemale());
+    this.setInPatientsMale(concrete.getInPatientsMale());
+    this.setInPatientsDefinitive(concrete.getInPatientsDefinitive());
+    this.setInPatientsClinically(concrete.getInPatientsClinically());
+    this.setInPatientsDischarged(concrete.getInPatientsDischarged());
+    this.setInPatientsNotTreated(concrete.getInPatientsNotTreated());
+    this.setOutPatientsTotal(concrete.getOutPatientsTotal());
+    this.setOutPatientsFemale(concrete.getOutPatientsFemale());
+    this.setOutPatientsMale(concrete.getOutPatientsMale());
+    this.setPatientsNotTreated(concrete.getPatientsNotTreated());
+    this.setOutPatientsNotTreated(concrete.getOutPatientsNotTreated());
+    this.setStillBirths(concrete.getStillBirths());
+    this.setDaysOutOfStock(concrete.getDaysOutOfStock());
   }
 
   @Override
@@ -232,8 +261,7 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   {
     if (hasConcreteId())
     {
-      AggregatedCase lock = AggregatedCase.lock(this.getCaseId());
-      lock.updateView(this);
+      this.populateView(AggregatedCase.lock(this.getCaseId()));
     }
   }
 
@@ -242,27 +270,42 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   {
     if (hasConcreteId())
     {
-      AggregatedCase lock = AggregatedCase.unlock(this.getCaseId());
-      lock.updateView(this);
+      this.populateView(AggregatedCase.unlock(this.getCaseId()));
     }
 
   }
 
   public final void apply()
   {
-    AggregatedCase aggregatedCase = this.getAggregatedCase();
-    aggregatedCase.apply();
+    AggregatedCase concrete = new AggregatedCase();
 
-    aggregatedCase.updateView(this);
+    if (hasConcreteId())
+    {
+      concrete = AggregatedCase.get(this.getCaseId());
+    }
+    else
+    {
+      PeriodType pt = this.getPeriodType().get(0);
+      EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod(), this.getPeriodYear());
+
+      concrete.setStartDate(date.getStartDate());
+      concrete.setEndDate(date.getEndDate());
+      concrete.setStartAge(this.getAgeGroup().getStartAge());
+      concrete.setEndAge(this.getAgeGroup().getEndAge());
+      concrete.setAgeGroup(this.getAgeGroup());
+      concrete.setGeoEntity(this.getGeoEntity());
+    }
+
+    this.populateView(concrete);
   }
-  
+
   @Transaction
   public void deleteConcrete()
   {
     if (hasConcreteId())
     {
       AggregatedCase.get(this.getCaseId()).delete();
-    }    
+    }
   }
 
   private boolean hasConcreteId()
@@ -270,13 +313,44 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
     return this.getCaseId() != null && !this.getCaseId().equals("");
   }
 
-  public void applyAll(CaseTreatment[] treatments, CaseTreatmentMethod[] treatmentMethods,
-      CaseTreatmentStock[] stock, CaseDiagnostic[] diagnosticMethods, CaseReferral[] referrals)
+  @Transaction
+  public void applyAll(CaseTreatment[] treatments, CaseTreatmentMethod[] treatmentMethods, CaseTreatmentStock[] stock, CaseDiagnostic[] diagnosticMethods, CaseReferral[] referrals)
   {
-    AggregatedCase aggregatedCase = this.getAggregatedCase();
-    aggregatedCase.applyAll(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
+    AggregatedCase concrete = new AggregatedCase();
 
-    aggregatedCase.updateView(this);
+    if (hasConcreteId())
+    {
+      concrete = AggregatedCase.get(this.getCaseId());
+    }
+    else
+    {
+      PeriodType pt = this.getPeriodType().get(0);
+      EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod(), this.getPeriodYear());
+
+      concrete.setStartDate(date.getStartDate());
+      concrete.setEndDate(date.getEndDate());
+      concrete.setStartAge(this.getAgeGroup().getStartAge());
+      concrete.setEndAge(this.getAgeGroup().getEndAge());
+      concrete.setAgeGroup(this.getAgeGroup());
+      concrete.setGeoEntity(this.getGeoEntity());
+    }
+    
+    this.buildAttributeMap(concrete);
+
+    concrete.applyAll(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
+
+    this.populateView(concrete);
+  }
+  
+  private void buildAttributeMap(AggregatedCase concrete)
+  {
+    new AttributeNotificationMap(concrete, AggregatedCase.ID, this, AggregatedCaseView.CASEID);
+    new AttributeNotificationMap(concrete, AggregatedCase.AGEGROUP, this, AggregatedCaseView.AGEGROUP);
+    new AttributeNotificationMap(concrete, AggregatedCase.GEOENTITY, this, AggregatedCaseView.GEOENTITY);
+    new AttributeNotificationMap(concrete, AggregatedCase.STARTDATE, this, AggregatedCaseView.PERIOD);
+    new AttributeNotificationMap(concrete, AggregatedCase.ENDDATE, this, AggregatedCaseView.PERIOD);
+    new AttributeNotificationMap(concrete, AggregatedCase.ENDAGE, this, AggregatedCaseView.AGEGROUP);
+    new AttributeNotificationMap(concrete, AggregatedCase.STARTAGE, this, AggregatedCaseView.AGEGROUP);
   }
 
   public CaseDiagnostic[] getDiagnosticMethods()
@@ -295,11 +369,11 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
       for (CaseDiagnostic d : c.getAllDiagnosticMethodRel())
       {
         // We will only want Diagnostic methods which are active
-        // All active methods are already in the set.  Thus, if
+        // All active methods are already in the set. Thus, if
         // the set already contains an entry for the Grid Option
         // replace the default relationshipo with the actaul
         // relationship
-        if(set.contains(d))
+        if (set.contains(d))
         {
           set.remove(d);
           set.add(d);
@@ -326,11 +400,11 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
       for (CaseReferral d : c.getAllReferralRel())
       {
         // We will only want grid options methods which are active
-        // All active methods are already in the set.  Thus, if
+        // All active methods are already in the set. Thus, if
         // the set already contains an entry for the Grid Option
         // replace the default relationship with the actaul
         // relationship
-        if(set.contains(d))
+        if (set.contains(d))
         {
           set.remove(d);
           set.add(d);
@@ -357,11 +431,11 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
       for (CaseTreatmentMethod d : c.getAllTreatmentMethodRel())
       {
         // We will only want grid options methods which are active
-        // All active methods are already in the set.  Thus, if
+        // All active methods are already in the set. Thus, if
         // the set already contains an entry for the Grid Option
         // replace the default relationship with the actaul
         // relationship
-        if(set.contains(d))
+        if (set.contains(d))
         {
           set.remove(d);
           set.add(d);
@@ -388,11 +462,11 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
       for (CaseTreatment d : c.getAllTreatmentRel())
       {
         // We will only want grid options methods which are active
-        // All active methods are already in the set.  Thus, if
+        // All active methods are already in the set. Thus, if
         // the set already contains an entry for the Grid Option
         // replace the default relationship with the actaul
         // relationship
-        if(set.contains(d))
+        if (set.contains(d))
         {
           set.remove(d);
           set.add(d);
@@ -419,11 +493,11 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
       for (CaseTreatmentStock d : c.getAllTreatmentStockRel())
       {
         // We will only want grid options methods which are active
-        // All active methods are already in the set.  Thus, if
+        // All active methods are already in the set. Thus, if
         // the set already contains an entry for the Grid Option
         // replace the default relationship with the actaul
         // relationship
-        if(set.contains(d))
+        if (set.contains(d))
         {
           set.remove(d);
           set.add(d);
@@ -438,7 +512,7 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   public static void validateEpiDate(String periodType, Integer period, Integer year)
   {
     PeriodType type = PeriodType.valueOf(periodType);
-    
+
     EpiDate.validate(type, period, year);
 
     EpiDate date = EpiDate.getInstanceByPeriod(type, period, year);
@@ -457,13 +531,14 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
       p.throwIt();
     }
   }
-  
+
   @Transaction
   public static void validateSearchCriteria(String geoId, String periodType, Integer period, Integer year)
   {
-    // Validate that the geo id references a real geo entity by retreving the Geo Entity
+    // Validate that the geo id references a real geo entity by retreving the
+    // Geo Entity
     GeoEntity.searchByGeoId(geoId);
-    
+
     // Validate the epi date
     validateEpiDate(periodType, period, year);
   }

@@ -173,12 +173,12 @@ public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBa
   {
     for (int i = 0; i < nets.length; i++)
     {
-      nets[i] = nets[i].clone(this);
+      nets[i].overwriteParentId(this.getConcreteId());
     }
 
     for (int i = 0; i < targetGroups.length; i++)
     {
-      targetGroups[i] = targetGroups[i].clone(this);
+      targetGroups[i].overwriteParentId(this.getConcreteId());
     }
   }
 

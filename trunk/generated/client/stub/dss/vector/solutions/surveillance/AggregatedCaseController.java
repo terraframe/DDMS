@@ -62,7 +62,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
       CaseDiagnosticDTO[] diagnosticMethods, CaseReferralDTO[] referrals) throws IOException,
       ServletException
   {
-    this. setupRequest(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
+    this.setupRequest(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }

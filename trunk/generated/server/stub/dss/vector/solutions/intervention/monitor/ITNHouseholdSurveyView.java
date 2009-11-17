@@ -196,17 +196,17 @@ public class ITNHouseholdSurveyView extends ITNHouseholdSurveyViewBase implement
   {
     for (int i = 0; i < nets.length; i++)
     {
-      nets[i] = nets[i].clone(this);
+      nets[i].overwriteParentId(this.getConcreteId());
     }
 
     for (int i = 0; i < targetGroups.length; i++)
     {
-      targetGroups[i] = targetGroups[i].clone(this);
+      targetGroups[i].overwriteParentId(this.getConcreteId());
     }
 
     for (int i = 0; i < reasons.length; i++)
     {
-      reasons[i] = reasons[i].clone(this);
+      reasons[i].overwriteParentId(this.getConcreteId());
     }
   }
 

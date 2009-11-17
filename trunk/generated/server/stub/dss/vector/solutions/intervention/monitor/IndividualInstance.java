@@ -31,9 +31,9 @@ public class IndividualInstance extends IndividualInstanceBase implements com.te
 
     if (newCase)
     {
-      for (int i = 0; i < symptom.length; i++)
+      for (IndividualCaseSymptom s : symptom)
       {
-        symptom[i] = symptom[i].clone(this);
+        s.overwriteParentId(this.getId());
       }
     }
 

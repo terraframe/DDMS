@@ -120,22 +120,22 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
   {
     for (int i = 0; i < patients.length; i++)
     {
-      patients[i] = patients[i].clone(this);
+      patients[i].overwriteParentId(this.getConcreteId());
     }
 
     for (int i = 0; i < visits.length; i++)
     {
-      visits[i] = visits[i].clone(this);
+      visits[i].overwriteParentId(this.getConcreteId());
     }
 
     for (int i = 0; i < doses.length; i++)
     {
-      doses[i] = doses[i].clone(this);
+      doses[i].overwriteParentId(this.getConcreteId());
     }
 
     for (int i = 0; i < treatments.length; i++)
     {
-      treatments[i] = treatments[i].clone(this);
+      treatments[i].overwriteParentId(this.getConcreteId());
     }
   }
   
