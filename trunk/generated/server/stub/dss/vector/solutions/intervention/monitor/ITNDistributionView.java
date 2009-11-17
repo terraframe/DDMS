@@ -126,28 +126,15 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
   @Transaction
   public void applyAll(ITNDistributionTargetGroup[] targetGroups)
   {
-    boolean newCase = !this.hasConcrete();
-
     this.apply();
 
-    if (newCase)
-    {
-      this.updateParentIds(targetGroups);
-    }
-    
     for (ITNDistributionTargetGroup targetGroup : targetGroups)
     {
+      targetGroup.overwriteParentId(this.getConcreteId());
       targetGroup.apply();
     }
   }
-  
-  private void updateParentIds(ITNDistributionTargetGroup[] targetGroups)
-  {
-    for (int i = 0; i < targetGroups.length; i++)
-    {
-      targetGroups[i].overwriteParentId(this.getConcreteId());
-    }
-  }
+
 
   @Override
   public ITNDistributionTargetGroup[] getDistributionTargetGroups()

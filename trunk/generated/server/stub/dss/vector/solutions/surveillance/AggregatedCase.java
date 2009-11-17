@@ -273,60 +273,35 @@ public class AggregatedCase extends AggregatedCaseBase implements
   public void applyAll(CaseTreatment[] treatments, CaseTreatmentMethod[] treatmentMethods,
       CaseTreatmentStock[] stock, CaseDiagnostic[] diagnosticMethods, CaseReferral[] referrals)
   {
-    boolean newCase = this.isNew();
-
     this.apply();
-
-    if (newCase)
-    {
-      for (CaseDiagnostic method : diagnosticMethods)
-      {
-        method.overwriteParentId(this.getId());
-      }
-
-      for (CaseReferral referral : referrals)
-      {
-        referral.overwriteParentId(this.getId());
-      }
-
-      for (CaseTreatment treatment : treatments)
-      {
-        treatment.overwriteParentId(this.getId());
-      }
-
-      for (CaseTreatmentMethod method : treatmentMethods)
-      {
-        method.overwriteParentId(this.getId());
-      }
-
-      for (CaseTreatmentStock s : stock)
-      {
-        s.overwriteParentId(this.getId());
-      }
-    }
 
     for (CaseDiagnostic method : diagnosticMethods)
     {
+      method.overwriteParentId(this.getId());
       method.apply();
     }
 
     for (CaseReferral referral : referrals)
     {
+      referral.overwriteParentId(this.getId());
       referral.apply();
     }
 
     for (CaseTreatment treatment : treatments)
     {
+      treatment.overwriteParentId(this.getId());
       treatment.apply();
     }
 
     for (CaseTreatmentMethod method : treatmentMethods)
     {
+      method.overwriteParentId(this.getId());
       method.apply();
     }
 
     for (CaseTreatmentStock s : stock)
     {
+      s.overwriteParentId(this.getId());
       s.apply();
     }
 

@@ -85,57 +85,30 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
   @Transaction
   public void applyAll(IPTPatients[] patients, IPTANCVisit[] visits, IPTDose[] doses, IPTTreatment[] treatments)
   {
-    boolean newCase = !this.hasConcrete();
-
     this.apply();
-
-    if (newCase)
-    {
-      this.updateParentIds(patients, visits, doses, treatments);
-    }
 
     for (IPTPatients patient : patients)
     {
+      patient.overwriteParentId(this.getConcreteId());
       patient.apply();
     }
 
     for (IPTANCVisit visit : visits)
     {
+      visit.overwriteParentId(this.getConcreteId());
       visit.apply();
     }
 
     for (IPTDose dose : doses)
     {
+      dose.overwriteParentId(this.getConcreteId());
       dose.apply();
     }
 
     for (IPTTreatment treatment : treatments)
     {
+      treatment.overwriteParentId(this.getConcreteId());
       treatment.apply();
-    }
-  }
-
-  @Transaction
-  private void updateParentIds(IPTPatients[] patients, IPTANCVisit[] visits, IPTDose[] doses, IPTTreatment[] treatments)
-  {
-    for (int i = 0; i < patients.length; i++)
-    {
-      patients[i].overwriteParentId(this.getConcreteId());
-    }
-
-    for (int i = 0; i < visits.length; i++)
-    {
-      visits[i].overwriteParentId(this.getConcreteId());
-    }
-
-    for (int i = 0; i < doses.length; i++)
-    {
-      doses[i].overwriteParentId(this.getConcreteId());
-    }
-
-    for (int i = 0; i < treatments.length; i++)
-    {
-      treatments[i].overwriteParentId(this.getConcreteId());
     }
   }
   

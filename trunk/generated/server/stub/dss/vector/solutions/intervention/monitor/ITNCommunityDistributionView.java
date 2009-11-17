@@ -148,40 +148,21 @@ public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBa
   @Transaction
   public void applyAll(ITNCommunityNet[] nets, ITNCommunityTargetGroup[] targetGroups)
   {
-    boolean newCase = !this.hasConcrete();
-
     this.apply();
-
-    if (newCase)
-    {
-      this.updateParentIds(nets, targetGroups);
-    }
 
     for (ITNCommunityNet net : nets)
     {
+      net.overwriteParentId(this.getConcreteId());
       net.apply();
     }
 
     for (ITNCommunityTargetGroup group : targetGroups)
     {
+      group.overwriteParentId(this.getConcreteId());
       group.apply();
     }
   }
-
-  @Transaction
-  private void updateParentIds(ITNCommunityNet[] nets, ITNCommunityTargetGroup[] targetGroups)
-  {
-    for (int i = 0; i < nets.length; i++)
-    {
-      nets[i].overwriteParentId(this.getConcreteId());
-    }
-
-    for (int i = 0; i < targetGroups.length; i++)
-    {
-      targetGroups[i].overwriteParentId(this.getConcreteId());
-    }
-  }
-
+  
   @Override
   public ITNCommunityNet[] getITNCommunityNets()
   {

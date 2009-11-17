@@ -25,20 +25,11 @@ public class IndividualInstance extends IndividualInstanceBase implements com.te
   @Transaction
   public void applyAll(IndividualCaseSymptom[] symptom)
   {
-    boolean newCase = this.isNew();
-
     this.apply();
-
-    if (newCase)
-    {
-      for (IndividualCaseSymptom s : symptom)
-      {
-        s.overwriteParentId(this.getId());
-      }
-    }
 
     for (IndividualCaseSymptom s : symptom)
     {
+      s.overwriteParentId(this.getId());
       s.apply();
     }
   }

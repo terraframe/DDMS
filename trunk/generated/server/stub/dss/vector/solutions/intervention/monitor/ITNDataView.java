@@ -103,47 +103,24 @@ public class ITNDataView extends ITNDataViewBase implements
   @Transaction
   public void applyAll(ITNNet[] nets, ITNTargetGroup[] targetGroups, ITNService[] services)
   {
-    boolean newCase = !this.hasConcrete();
-
     this.apply();
-
-    if (newCase)
-    {
-      this.updateParentIds(nets, targetGroups, services);
-    }
 
     for (ITNNet net : nets)
     {
+      net.overwriteParentId(this.getConcreteId());
       net.apply();
     }
 
     for (ITNTargetGroup group : targetGroups)
     {
+      group.overwriteParentId(this.getConcreteId());
       group.apply();
     }
 
     for (ITNService dose : services)
     {
+      dose.overwriteParentId(this.getConcreteId());
       dose.apply();
-    }
-  }
-
-  @Transaction
-  private void updateParentIds(ITNNet[] nets, ITNTargetGroup[] targetGroups, ITNService[] services)
-  {
-    for (int i = 0; i < nets.length; i++)
-    {
-      nets[i].overwriteParentId(this.getConcreteId());
-    }
-
-    for (int i = 0; i < targetGroups.length; i++)
-    {
-      targetGroups[i].overwriteParentId(this.getConcreteId());
-    }
-
-    for (int i = 0; i < services.length; i++)
-    {
-      services[i].overwriteParentId(this.getConcreteId());
     }
   }
 

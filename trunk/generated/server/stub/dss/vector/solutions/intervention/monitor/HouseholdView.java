@@ -150,24 +150,11 @@ public class HouseholdView extends HouseholdViewBase implements com.terraframe.m
   @Transaction
   public void applyAll(HouseholdNet[] nets)
   {
-    boolean newCase = !this.hasConcrete();
-
     this.apply();
-
-    // If this is a new household then all of the house hold
-    // nets to need be clone with the proper parent id
-    // because their existing parent id does not exist in the
-    // system
-    if (newCase)
-    {
-      for(HouseholdNet net : nets)
-      {
-        net.overwriteParentId(this.getConcreteId());
-      }
-    }
 
     for(HouseholdNet net : nets)
     {
+      net.overwriteParentId(this.getConcreteId());
       net.apply();
     }
     

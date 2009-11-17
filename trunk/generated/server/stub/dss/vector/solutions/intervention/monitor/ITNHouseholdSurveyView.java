@@ -166,47 +166,24 @@ public class ITNHouseholdSurveyView extends ITNHouseholdSurveyViewBase implement
   @Transaction
   public void applyAll(ITNHouseholdSurveyNet[] nets, ITNHouseholdSurveyTargetGroup[] targetGroups, ITNHouseholdSurveyNonUseReason[] reasons)
   {
-    boolean newCase = !this.hasConcrete();
-
     this.apply();
-
-    if (newCase)
-    {
-      this.updateParentIds(nets, targetGroups, reasons);
-    }
 
     for (ITNHouseholdSurveyNet net : nets)
     {
+      net.overwriteParentId(this.getConcreteId());
       net.apply();
     }
 
     for (ITNHouseholdSurveyTargetGroup group : targetGroups)
     {
+      group.overwriteParentId(this.getConcreteId());
       group.apply();
     }
     
     for(ITNHouseholdSurveyNonUseReason reason : reasons)
     {
+      reason.overwriteParentId(this.getConcreteId());
       reason.apply();
-    }
-  }
-
-  @Transaction
-  private void updateParentIds(ITNHouseholdSurveyNet[] nets, ITNHouseholdSurveyTargetGroup[] targetGroups, ITNHouseholdSurveyNonUseReason[] reasons)
-  {
-    for (int i = 0; i < nets.length; i++)
-    {
-      nets[i].overwriteParentId(this.getConcreteId());
-    }
-
-    for (int i = 0; i < targetGroups.length; i++)
-    {
-      targetGroups[i].overwriteParentId(this.getConcreteId());
-    }
-
-    for (int i = 0; i < reasons.length; i++)
-    {
-      reasons[i].overwriteParentId(this.getConcreteId());
     }
   }
 
