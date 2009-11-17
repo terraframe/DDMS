@@ -117,6 +117,7 @@
 			<arg file="deploy.xml" />
     		<arg value="-Dprofile.name=deploy" />
 			<arg value="import_most_recent" />
+			<arg value="install_db_procedures" />
 		</java>
 	</target>
 
@@ -191,6 +192,7 @@
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
 			<arg value="import_most_recent" />
+			<arg value="install_db_procedures" />
 		</java>
 	</target>
 
@@ -326,11 +328,13 @@
 			<arg value="-Droot.user=${root.user}" />
 			<arg value="-Droot.pass=${root.pass}" />
 			<arg value="-Droot.db=${root.db}" />
+
 			<arg value="rebuild_db" />
 <!--
 			<arg value="delete_generated_base" />
 -->
 			<arg value="import_most_recent" />
+			<arg value="install_db_procedures" />
 		</java>
 	</target>
 
@@ -360,6 +364,7 @@
 			<arg value="-Droot.pass=${root.pass}" />
 			<arg value="-Droot.db=${root.db}" />
 			<arg value="import_most_recent" />
+			<arg value="install_db_procedures" />
 		</java>
 
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(4)Update Deploy DB With Source">
@@ -375,6 +380,7 @@
 			<arg value="-Droot.db=${root.db}" />
 			<arg value="import_most_recent" />
 			<arg value="update_db_source_and_classes" />
+			<arg value="install_db_procedures" />
 		</java>
 	</target>
 

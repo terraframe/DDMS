@@ -258,6 +258,17 @@
 		</java>
 	</target>
 
+	<target name="install_db_procedures" description="Installs Dabase Procedures" depends="">
+		<echo message="Install Database Stored Procedures:" />
+		<java classname="dss.vector.solutions.util.InstallStoredProcedures" failonerror="true">
+			<arg file="${local.root}/scripts/plsql/postgres_pl_functions.sql" />
+            <arg file="${local.root}/scripts/plsql/ddss_ontology.sql" />
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+		</java>
+    </target>
+
 	<target name="clean_generated" description="Removes all generated classes and directories">
 		<!-- we don't want to fail on error because the dirs may not exist if this is a fresh install -->
 		<delete failonerror="false" includeemptydirs="true">
