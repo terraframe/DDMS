@@ -1,19 +1,5 @@
 /*
-SELECT dss_ontology_build_allpaths('z6n4nserbewij67if9ykzs010471b6v6', 1234, 'www.mdss.com', '0000000000000000000000000000001000000000000000000000000000000003', LOCALTIMESTAMP, '8c5el20qi34valnolx8i9ee6abi9hvci8h7axqy237pseam7pgbp75h70o2fjpig');
-
-        SELECT id, id
-        FROM term
-        WHERE id IN
-          (SELECT parent_id
-           FROM termrelationship
-           WHERE ontologyrelationship = '8c5el20qi34valnolx8i9ee6abi9hvci8h7axqy237pseam7pgbp75h70o2fjpig'
-          )
-         OR id IN
-          (SELECT child_id
-           FROM termrelationship
-           WHERE ontologyrelationship = '8c5el20qi34valnolx8i9ee6abi9hvci8h7axqy237pseam7pgbp75h70o2fjpig'
-          )
-
+SELECT dss_ontology_build_allpaths('z6n4nserbewij67if9ykzs010471b6v6', 1234, 'www.mdss.com', '0000000000000000000000000000001000000000000000000000000000000003', LOCALTIMESTAMP, 'swvpyeupgazp93x943y5xcvnjte24rjy1svxgm8h0q3cgvy8nvi1941cl9l5ekyb');
 */
 
 CREATE OR REPLACE FUNCTION dss_ontology_build_allpaths
@@ -61,7 +47,11 @@ DECLARE
   _parentId  termrelationship.parent_id%TYPE;
   _childId   termrelationship.child_id%TYPE;
 
+  _seq       allpaths.seq%TYPE;
+
 BEGIN
+
+  _seq := 0;
 
   OPEN _termCursor(_ontologyRelationshipId);
 
@@ -69,6 +59,9 @@ BEGIN
     FETCH _termCursor INTO _parentId, _childId;
 
     EXIT WHEN NOT FOUND;
+
+--	SELECT NEXTVAL('object_sequence_unique_id') INTO _seq;
+    _seq := _seq + 1;
 
     PERFORM
       dss_ontology_create_allpath(
@@ -79,7 +72,8 @@ BEGIN
         _transactionDate,
         _parentId,
         _childId,
-        _ontologyRelationshipId);
+        _ontologyRelationshipId,
+        _seq);
 
   END LOOP;
 
@@ -98,7 +92,8 @@ CREATE OR REPLACE FUNCTION dss_ontology_create_allpath
   _transactionDate      allpaths.createdate%TYPE,
   _parentTerm           allpaths.parentterm%TYPE,
   _childTerm            allpaths.childterm%TYPE,
-  _ontologyRelationshipId allpaths.ontologyrelationship%TYPE
+  _ontologyRelationshipId allpaths.ontologyrelationship%TYPE,
+  _seq                  allpaths.seq%TYPE
 )
 RETURNS VOID AS $$
 
@@ -106,15 +101,20 @@ RETURNS VOID AS $$
 DECLARE
   _id                 allpaths.id%TYPE;
   _idString           VARCHAR;
-  _seq                allpaths.seq%TYPE;
+  _currentTimeMillis  TIMESTAMP;
+
 BEGIN
+
+--	SELECT NOW() + interval '1 millisecond';
+
+--    EXECUTE 'SELECT timestamp ''' || _transactionDate || ''' + interval ''' || _seq || ' millisecond ''' INTO _currentTimeMillis;
 
 	SELECT com_terraframe_mojo_createid
 	  (_allPathsRootTypeId,
        _random,
-       _sitemaster) INTO _id;
-
-	SELECT NEXTVAL('object_sequence_unique_id') INTO _seq;
+       _sitemaster,
+       _seq,
+       _transactionDate) INTO _id;
 
     INSERT INTO allpaths
       (id,
@@ -157,22 +157,22 @@ SELECT dss_ontology_copy_term(
 'www.mdss.com',
 '0000000000000000000000000000001000000000000000000000000000000003',
 LOCALTIMESTAMP,
-'1s8jhj2o59ilr1zdvvsjpjyqrb417lv901j56k3f5jbvxozykhoczqcgzmb5mx8t',
-'8py9vq6zo8byi5zkp5rhnawa5emrjckx01j56k3f5jbvxozykhoczqcgzmb5mx8t',
-'8c5el20qi34valnolx8i9ee6abi9hvci8h7axqy237pseam7pgbp75h70o2fjpig'
+'zn96h6uok8wi9mp9ckp9mxwznfiyfiktsne8jxk8l206b5zftsv4t85gv0ryhuzr',
+'1yivcac6w8n9tf1kim8xb3jdcsz5cxncsne8jxk8l206b5zftsv4t85gv0ryhuzr',
+'6oeb2eotn3gyzx6efajdrfvrhq4vpblhzad6j3ceqzmnmlccektq3l57zy7skzgp'
 );
 
 
 mdssdevelop=> select id from term where termid = 'IDOMAL:0000047';
                                 id
 ------------------------------------------------------------------
- 1s8jhj2o59ilr1zdvvsjpjyqrb417lv901j56k3f5jbvxozykhoczqcgzmb5mx8t
+ zn96h6uok8wi9mp9ckp9mxwznfiyfiktsne8jxk8l206b5zftsv4t85gv0ryhuzr
 (1 row)
 
 mdssdevelop=> select id from term where termid = 'IDOMAL:0000049';
                                 id
 ------------------------------------------------------------------
- 8py9vq6zo8byi5zkp5rhnawa5emrjckx01j56k3f5jbvxozykhoczqcgzmb5mx8t
+ 1yivcac6w8n9tf1kim8xb3jdcsz5cxncsne8jxk8l206b5zftsv4t85gv0ryhuzr
 
 
 
@@ -193,7 +193,6 @@ RETURNS VOID AS $$
 
 DECLARE
   _seq                allpaths.seq%TYPE;
-  _currentTimeMillis  TIMESTAMP;
 
   -- As the cursor iteratates over the term query, store the current term in this variable
   _cursorChildTerm      allpaths.childterm%TYPE;
@@ -216,7 +215,6 @@ BEGIN
     EXIT WHEN NOT FOUND;
 
 	SELECT NEXTVAL('object_sequence_unique_id') INTO _seq;
-    SELECT NOW() INTO _currentTimeMillis;
 
     INSERT INTO allpaths
       (id,
@@ -233,9 +231,9 @@ BEGIN
        childterm,
        ontologyrelationship)
     SELECT
-        (SELECT com_terraframe_mojo_createid(_allPathsRootTypeId, _random, _sitemaster, _seq, _currentTimeMillis) AS newId),
+        (SELECT com_terraframe_mojo_createid(_allPathsRootTypeId, _random, _sitemaster, _seq, _transactionDate) AS newId),
       	_sitemaster,
-      	(SELECT com_terraframe_mojo_createid(_allPathsRootTypeId, _random, _sitemaster, _seq, _currentTimeMillis) AS newKey),
+      	(SELECT com_terraframe_mojo_createid(_allPathsRootTypeId, _random, _sitemaster, _seq, _transactionDate) AS newKey),
     	_createdById,
         _transactionDate,
     	'dss.vector.solutions.ontology.AllPaths',

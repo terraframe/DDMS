@@ -1,22 +1,29 @@
 package dss.vector.solutions.ontology;
 
+import java.security.SecureRandom;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.terraframe.mojo.constants.ComponentInfo;
-import com.terraframe.mojo.dataaccess.MdClassDAOIF;
+import com.terraframe.mojo.constants.ServerConstants;
+import com.terraframe.mojo.constants.ServerProperties;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
-import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.session.Session;
+import com.terraframe.mojo.session.SessionIF;
 import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.system.metadata.MdBusiness;
-import com.terraframe.mojo.system.metadata.MdRelationship;
 import com.terraframe.mojo.util.IdParser;
 
 
@@ -40,14 +47,201 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
     rebuildAllPaths();
   }
 
-  private static void rebuildAllPaths()
+  /**
+   * Only one thread can rebuild this table at a time.
+   */
+  public synchronized static void rebuildAllPaths()
   {
     MdBusiness mdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);
 
     mdBusiness.deleteAllTableRecords();
 
-    updateAllPaths();
+//    updateAllPaths();
+
+    updateAllPathsStoredProc();
   }
+
+
+  /**
+   * Precondition:  Assumes the given term is a leaf node!!!
+   */
+  public static void deleteLeafFromAllPaths(String leafTermId)
+  {
+    MdBusiness mdBusinessAllPaths = MdBusiness.getMdBusiness(AllPaths.CLASS);
+
+    String tableName = mdBusinessAllPaths.getTableName();
+
+    String childTermColumn = AllPaths.getChildTermMd().definesAttribute();
+
+    String procCallString = "DELETE FROM "+tableName+" WHERE "+childTermColumn+" = ?";
+
+    Connection conn = Database.getConnection();
+    CallableStatement procCall = null;
+
+    try
+    {
+      procCall = conn.prepareCall(procCallString);
+      procCall.setString(1, leafTermId);
+      procCall.execute();
+    }
+    catch (SQLException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    finally
+    {
+      if (procCall != null)
+      {
+        try
+        {
+          procCall.close();
+        }
+        catch (SQLException e2)
+        {
+          throw new ProgrammingErrorException(e2);
+        }
+      }
+    }
+  }
+
+  @Transaction
+  public static void updateAllPathsStoredProc()
+  {
+    Connection conn = Database.getConnection();
+
+    MdBusiness mdBussinessAllPaths = MdBusiness.getMdBusiness(AllPaths.CLASS);
+
+    String allPathsRootTypeId = IdParser.parseRootFromId(mdBussinessAllPaths.getId());
+    SecureRandom random = new SecureRandom();
+    long randomLong = random.nextLong();
+    String domain = ServerProperties.getDomain();
+
+    String createdById;
+    SessionIF sessionIF = Session.getCurrentSession();
+    if (sessionIF != null)
+    {
+      createdById = sessionIF.getUser().getId();
+    }
+    else
+    {
+      createdById = ServerConstants.SYSTEM_USER_ID;
+    }
+    Date transactionDate = new Date();
+    QueryFactory qf = new QueryFactory();
+    OntologyRelationshipQuery orQ = new OntologyRelationshipQuery(qf);
+
+    for (OntologyRelationship ontologyRelationship : orQ.getIterator())
+    {
+      String ontologyRelationshipId = ontologyRelationship.getId();
+      String procCallString = "{ call dss_ontology_build_allpaths(?, ?, ?, ?, ?, ?)}";
+
+      CallableStatement procCall = null;
+
+      try
+      {
+        procCall = conn.prepareCall(procCallString);
+        procCall.setString(1, allPathsRootTypeId);
+        procCall.setLong(2, randomLong);
+        procCall.setString(3, domain);
+        procCall.setString(4, createdById);
+        procCall.setDate(5, new java.sql.Date(transactionDate.getTime()));
+        procCall.setString(6, ontologyRelationshipId);
+        procCall.execute();
+      }
+      catch (SQLException e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
+      finally
+      {
+        if (procCall != null)
+        {
+          try
+          {
+            procCall.close();
+          }
+          catch (SQLException e2)
+          {
+            throw new ProgrammingErrorException(e2);
+          }
+        }
+      }
+    }
+
+  }
+
+  public static void copyTerm(String newParentTermId, String childTerm, String ontologyRelationshipId)
+  {
+    Connection conn = Database.getConnection();
+
+    MdBusiness mdBussinessAllPaths = MdBusiness.getMdBusiness(AllPaths.CLASS);
+
+    String allPathsRootTypeId = IdParser.parseRootFromId(mdBussinessAllPaths.getId());
+    SecureRandom random = new SecureRandom();
+    long randomLong = random.nextLong();
+    String domain = ServerProperties.getDomain();
+
+    String createdById;
+    SessionIF sessionIF = Session.getCurrentSession();
+    if (sessionIF != null)
+    {
+      createdById = sessionIF.getUser().getId();
+    }
+    else
+    {
+      createdById = ServerConstants.SYSTEM_USER_ID;
+    }
+    Date transactionDate = new Date();
+
+    String procCallString = "{ call dss_ontology_copy_term(?, ?, ?, ?, ?, ?, ?, ?)}";
+
+    CallableStatement procCall = null;
+
+    try
+    {
+      procCall = conn.prepareCall(procCallString);
+      procCall.setString(1, allPathsRootTypeId);
+      procCall.setLong(2, randomLong);
+      procCall.setString(3, domain);
+      procCall.setString(4, createdById);
+      procCall.setDate(5, new java.sql.Date(transactionDate.getTime()));
+      procCall.setString(6, newParentTermId);
+      procCall.setString(7, childTerm);
+      procCall.setString(8, ontologyRelationshipId);
+      procCall.execute();
+
+      /*
+      _allPathsRootTypeId     VARCHAR,
+      _random                 BIGINT,
+      _sitemaster             allpaths.sitemaster%TYPE,
+      _createdById            allpaths.id%TYPE,
+      _transactionDate        allpaths.createdate%TYPE,
+      _newParentTerm          allpaths.parentterm%TYPE,
+      _childTerm              allpaths.childterm%TYPE,
+      _ontologyRelationshipId allpaths.ontologyrelationship%TYPE
+    */
+    }
+    catch (SQLException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    finally
+    {
+      if (procCall != null)
+      {
+        try
+        {
+          procCall.close();
+        }
+        catch (SQLException e2)
+        {
+          throw new ProgrammingErrorException(e2);
+        }
+      }
+    }
+
+  }
+
 
   public static void updateAllPaths()
   {

@@ -97,7 +97,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       this.setDisplay(this.getName());
     }
-    
+
     // If this is new, set the Ontology value to the MO ontology.
     // FIXME this will be removed once Term subclasses are refactored
     // out and Term will be come concrete.
@@ -223,7 +223,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       Database.releaseSavepoint(savepoint);
     }
-    
+
     TermViewQuery query = getByIds(new String[] { this.getId() });
     OIterator<? extends TermView> iter = query.getIterator();
 
@@ -241,7 +241,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
    * Returns all default roots (Terms without parents). This method
    * WILL return all Terms regardless of obsolete status. To return the
    * terms with obsolete marked as false, use BrowserRoot.getDefaultRoot().
-   * 
+   *
    * @param filterObsolete
    * @return
    */
@@ -249,7 +249,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     return getDefaultRoots(false);
   }
-  
+
   public static TermViewQuery getDefaultRoots(boolean filterObsolete)
   {
     QueryFactory f = new QueryFactory();
@@ -396,7 +396,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
         // allowed without roots.
         query.AND(termQuery.getId().EQ(""));
       }
-      
+
       query.ORDER_BY_ASC(this.termQuery.getDisplay());
     }
   }
@@ -411,7 +411,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     private TermQuery             termQuery;
 
     private TermRelationshipQuery termRelQuery;
-    
+
     private Boolean filterObsolete;
 
     protected GetChildrenQueryBuilder(QueryFactory queryFactory, Term parent, Boolean filterObsolete)
@@ -443,7 +443,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       query.WHERE(this.termRelQuery.parentId().EQ(this.parent.getId()));
       query.AND(termQuery.parentTerm(this.termRelQuery)); // FIXME parent-child
       // label reversed
-      
+
       if(this.filterObsolete)
       {
         query.AND(termQuery.getObsolete().EQ(false));
@@ -465,7 +465,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     private ValueQuery            valueQuery;
 
     private TermRelationshipQuery termRelQuery;
-    
+
     private boolean filterObsolete;
 
     protected DefaultRootQueryBuilder(QueryFactory queryFactory, TermQuery termQuery, TermRelationshipQuery termRelQuery, boolean filterObsolete)
@@ -501,7 +501,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       // query.WHERE(this.termQuery.NOT_IN(this.termQuery.getId(),
       // this.valueQuery));
       query.WHERE(this.termQuery.getId().SUBSELECT_NOT_IN(this.valueQuery));
-      
+
       if(this.filterObsolete)
       {
         query.AND(termQuery.getObsolete().EQ(false));
@@ -701,5 +701,27 @@ public class Term extends TermBase implements Reloadable, OptionIF
     return list.toArray(new String[list.size()]);
   }
 
+
+  public boolean isLeafNode(String ontologyRelationshipId)
+  {
+    QueryFactory qf = new QueryFactory();
+
+    AllPathsQuery apQ = new AllPathsQuery(qf);
+    apQ.WHERE(apQ.getParentTerm().EQ(this).
+        // Exclude the row where the term is both the parent and the child
+        AND(apQ.getParentTerm().NE(apQ.getChildTerm()).
+        AND(apQ.getOntologyRelationship().EQ(ontologyRelationshipId))));
+
+    // This node is a parent, so it is not a leaf
+    if (apQ.getCount() > 0)
+    {
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+
+  }
 
 }
