@@ -17,6 +17,7 @@
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="object" type="entityReference" />
         <xs:element name="relationship" type="entityReference" />
+        <xs:element name="timestamp" type="timestamp" />
       </xs:choice>
     </xs:complexType>
   </xs:element>
@@ -70,6 +71,7 @@
         <xs:element name="mdView" type="mdView" />
         <xs:element name="mdUtil" type="mdSession" />
         <xs:element name="mdController" type="mdController" />
+        <xs:element name="timestamp" type="timestamp" />
       </xs:choice>
     </xs:complexType>
     <!--VALIDATION SEGMENT-->
@@ -116,6 +118,10 @@
       </xs:choice>
     </xs:complexType>
   </xs:element>
+
+  <xs:complexType name="timestamp">
+    <xs:attribute name="version" />
+  </xs:complexType>
 
   <!--
     ******************************** Metadata definition
@@ -188,10 +194,8 @@
         </xs:sequence>
         <!--name: The name of the mdMethod-->
         <xs:attribute name="name" type="xs:string" use="required" />
-        <xs:attribute name="isPost" type="xs:boolean" use="optional"
-          default="false" />
-        <xs:attribute name="isQuery" type="xs:boolean" use="optional"
-          default="false" />
+        <xs:attribute name="isPost" type="xs:boolean" use="optional" />
+        <xs:attribute name="isQuery" type="xs:boolean" use="optional" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -426,7 +430,7 @@
             maxOccurs="1" />
         </xs:choice>
         <xs:attribute name="generateController" type="xs:boolean"
-          default="true" use="optional" />
+          use="optional" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -975,8 +979,7 @@
       selectMultipe: If multiple values of the enumeration can be
       checked simulataneously
     -->
-    <xs:attribute name="selectMultiple" type="xs:boolean"
-      default="true" />
+    <xs:attribute name="selectMultiple" type="xs:boolean" />
   </xs:complexType>
 
   <!-- referenceName: Must reference a defined mdBusiness type -->
@@ -1027,8 +1030,8 @@
     -->
     <xs:attribute name="type" type="xs:string" use="required" />
     <!--accessor: The name of the concrete attribute-->
-    <xs:attribute name="concrete" type="xs:string" use="required"/>
-    <xs:anyAttribute processContents="skip"  />
+    <xs:attribute name="concrete" type="xs:string" use="required" />
+    <xs:anyAttribute processContents="skip" />
   </xs:complexType>
 
 
