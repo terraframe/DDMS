@@ -1103,42 +1103,42 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       }
   
       // calculate the date criteria
-      
-      if(this._dateAttribs){
-      	var dateAttrib =  this._dateAttribs[this._dateAttributeSelect.value];
-      	this._startDateSelectable = dateAttrib.startDateSelectable;
-      	this._endDateSelectable = dateAttrib.endDateSelectable;
-      	this._config.dateAttribute = dateAttrib.keyname;
-      }
-      
-      
-      
       var startDateEl = this._queryPanel.getStartDate();
       var startDate = MDSS.util.stripWhitespace(startDateEl.value);
-      if(startDate.length > 0)
-      {
-        var formatted = MDSS.Calendar.getMojoDateString(startDate);
-        var startDateCondition = new MDSS.QueryXML.BasicCondition(this._startDateSelectable, MDSS.QueryXML.Operator.GE, formatted);
-        this._startDate = startDateCondition;
-      }
-      else
-      {
-        this._startDate = null;
-      }
-  
       var endDateEl = this._queryPanel.getEndDate();
       var endDate = MDSS.util.stripWhitespace(endDateEl.value);
-      if(endDate.length > 0)
-      {
-        var formatted = MDSS.Calendar.getMojoDateString(endDate);
-        var endDateCondition = new MDSS.QueryXML.BasicCondition(this._endDateSelectable, MDSS.QueryXML.Operator.LE, formatted);
-        this._endDate = endDateCondition;
+      this._endDate = null;
+      this._startDate = null;
+      startDate = MDSS.Calendar.getMojoDateString(startDate);
+      endDate = MDSS.Calendar.getMojoDateString(endDate);
+      
+
+      
+      if(this._dateAttributes){
+      	var dateAttrib =  this._dateAttributes[this._dateAttributeSelect.value];
+      	var dateObj = {
+      		'date_attribute':dateAttrib.attribute,
+      		'klass':dateAttrib.klass,
+      		'start':startDate,
+      	  'end':endDate
+      	}; 
+      	this._config.setDateAttribute(dateObj);
       }
       else
       {
-        this._endDate = null;
+        if(startDate)
+        {
+          var startDateCondition = new MDSS.QueryXML.BasicCondition(this._startDateSelectable, MDSS.QueryXML.Operator.GE, startDate);
+          this._startDate = startDateCondition;
+        }
+
+        if(endDate)
+        {
+          var endDateCondition = new MDSS.QueryXML.BasicCondition(this._endDateSelectable, MDSS.QueryXML.Operator.LE, endDate);
+          this._endDate = endDateCondition;
+        }
       }
-      
+    
       return queryXML;
     },
   

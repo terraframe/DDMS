@@ -808,7 +808,8 @@ MDSS.Query.Config = function(configJSON)
   this._config = {
     selectedUniversals : {},
     criteriaEntities : {},
-    terms: {}
+    terms: {},
+    date_attribute: {}
   };
 
   if(configJSON != null)
@@ -865,6 +866,10 @@ MDSS.Query.Config.prototype = {
         this._config.selectedUniversals[key] = [];
       }
     }
+  },
+  setDateAttribute : function(value)
+  {
+    this._config.date_attribute = value;
   },
 
   setProperty : function(key, value)

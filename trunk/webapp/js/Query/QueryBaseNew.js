@@ -250,7 +250,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
             }
           }else{
             var whereIds = items.filter(
-                function(a){return a.checked;}).map(
+                function(a){return a.checked && a.uuid;}).map(
                     function(a){return a.uuid;});
             if(whereIds.length == 1)
             {
@@ -279,6 +279,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           	
           	if(terms.length > 0)
           	{
+          		
+          		if(this._typeOverride && this._typeOverride[selectable.attribute.getKey()])
+          		{
+          			t = this._typeOverride[selectable.attribute.getKey()];
+          		}
           		//create a new where clause for allpaths
 	          	var termClass = 'dss.vector.solutions.ontology.AllPaths';
 	          	var termAlias = n +'__'+ t.replace(/[.]/g,'_') +'__'+ selectable.attribute.getKey();
@@ -286,7 +291,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 	          	queryXML.addEntity(termQuery);
 	          	
 	          	var termParent = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(termAlias, "parentTerm"));
-	          	//now restrict to attrubtes having the parent id of the restrictor term
+	          	//now restrict to attributes having the parent id of the restrictor term
 	          	var or = new MDSS.QueryXML.Or();
 	          	Mojo.Iter.forEach(terms, function(restrictorID){
 	
@@ -316,17 +321,17 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
       if(this._startDate != null || this._endDate != null)
       {
-        where = new MDSS.QueryXML.And();
+        var dateAnd = new MDSS.QueryXML.And();
         if(this._startDate != null)
         {
-            where.addCondition(('StartDateRange'), this._startDate );
+        	dateAnd.addCondition(('StartDateRange'), this._startDate );
         }
 
         if(this._endDate != null)
         {
-          where.addCondition(('EndDateRange'), this._endDate );
+        	dateAnd.addCondition(('EndDateRange'), this._endDate );
         }
-        var composite = new MDSS.QueryXML.CompositeCondition(where);
+        var composite = new MDSS.QueryXML.CompositeCondition(dateAnd);
         //the first common query holds the date attrib
         //commonQueries[0].setCondition(composite);
         conditions.push(composite);
@@ -448,7 +453,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
     /**
      * Handler to toggle visible attributes as selectables
-     * to the Entomology query.
      */
     _visibleAttributeHandler : function(e, attribute)
     {
@@ -458,7 +462,9 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       {
         this._uncheckAllNotInGroup(check);
         this._addVisibleAttribute(attribute);
-        check.nextSibling.disabled = false;
+        var select = check.nextSibling;
+        select.selectedIndex = 0;
+        select.disabled = false;
       }
       else
       {
@@ -806,28 +812,31 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         check.id = attribute.getKey();
         li.appendChild(check);
         this._defaults.push({element:check, checked:false});
-        if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeIntegerDTO'))
+        
+        if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeCharacterDTO'))
         {
         	li.id = attribute.getKey()+'_li';
 
-            // Add single match and range
+          // Add single match and range
         	var items = [];
-          var single = this._createSingleItem(check, li, attribute,'queryNumberCriteria');
-          var range = this._createRangeItem(check, li, attribute);
+          var single = this._createSingleItem(check, li, attribute,'queryTextCriteria');
           
           this._menuItems[attribute.getKey()+'-single'] = single;        
-          this._menuItems[attribute.getKey()+'-range'] = range;
               
           items.push(single);
-          items.push(range);
           
           this._menus[li.id] = items;
-        	
+          
+        }
+        
+        if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeIntegerDTO'))
+        {
+        	li.id = attribute.getKey()+'_li';
+        	 	
           var select = document.createElement('select');
 
           var options = [''];
           options = options.concat(Mojo.Util.getValues(MDSS.QueryXML.Functions));
-
 
           for(var j=0; j<options.length; j++)
           {
@@ -844,6 +853,19 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           select.disabled = true; // default (must be checked to enabled)
           this._defaults.push({element:select, index:0});
           li.appendChild(select);
+
+            // Add single match and range
+        	var items = [];
+          var single = this._createSingleItem(check, li, attribute,'queryNumberCriteria');
+          var range = this._createRangeItem(check, li, attribute);
+          
+          this._menuItems[attribute.getKey()+'-single'] = single;        
+          this._menuItems[attribute.getKey()+'-range'] = range;
+              
+          items.push(single);
+          items.push(range);
+        	this._menus[li.id] = items;
+       
         }
 
         var span = document.createElement('span');
@@ -1071,12 +1093,14 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
          	function(d){
    	      	var tmp = new d.klass();
    	      	var attrib = tmp.attributeMap[d.accessor];
-   	      	var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(d.klass.CLASS, d.accessor, d.accessor));
+   	      	//var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(d.klass.CLASS, d.accessor, d.accessor));
    	      	return {
    	          keyName :  d.klass.CLASS+'.'+d.accessor,
+   	          klass:d.klass.CLASS,
+   	          attribute:d.accessor,
    	          display : attrib.attributeMdDTO.displayLabel,
-   	          startDateSelectable : selectable,
-   	          endDateSelectable : selectable
+   	          //startDateSelectable : selectable,
+   	          //endDateSelectable : selectable
    	      	};
          });
     	
