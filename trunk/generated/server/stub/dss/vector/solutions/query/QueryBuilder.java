@@ -6,9 +6,13 @@ import java.lang.reflect.Method;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.AttributeCharacter;
+import com.terraframe.mojo.query.F;
+import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 
 public class QueryBuilder extends QueryBuilderBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -168,5 +172,33 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();
   }
+  
+  @Transaction
+  public static ValueQuery getTextAttributeSugestions(String klass, String attribute, String match)
+  {
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+    
+    AttributeCharacter attribSelectable = valueQuery.aCharacter("attribute", attribute);
+
+    valueQuery.SELECT(attribSelectable,F.COUNT(attribSelectable, "attributeCount"));
+
+    String table = MdBusiness.getMdBusiness(klass).getTableName();
+    
+    //String sql = "(SELECT "+attribute+" FROM )";
+
+    valueQuery.FROM(table, "auto_complete");
+    
+    valueQuery.WHERE(attribSelectable.LIKEi(match));
+    
+    valueQuery.restrictRows(20, 1);
+    
+    System.out.println(valueQuery.getSQL());
+
+
+    return valueQuery;
+  }
+  
   
 }
