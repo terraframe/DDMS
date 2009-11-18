@@ -1067,6 +1067,12 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       YAHOO.util.Event.on(singleInput, 'keyup', this._setNumberCriteria, obj, this);
   
       li.appendChild(singleInput);
+      
+      if(klass == 'queryTextCriteria')
+      {
+      	this._buildTextAttributeAutoSuggest(singleInput,attribute,obj,this);
+      }
+      
   
       // When the check box is toggled, be sure to clear and hide the input
       YAHOO.util.Event.on(check, 'click', function(e, attr){
@@ -1085,6 +1091,38 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           scope: this
         }
       };
+    },
+    
+    _buildTextAttributeAutoSuggest: function(searchEl,attribute,obj,queryObject)
+    {
+
+    	  var listFunction = function(valueObject) {
+
+    	    return  valueObject.getValue('attributeCount') +') ' + valueObject.getValue('attribute') ;
+    	  };
+
+    	  var displayFunction = function(valueObject) {
+
+    	    return valueObject.getValue('attribute');
+    	  };
+    	  
+    	  var idFunction = function(valueObject) {
+
+    	    return null;
+    	  };
+
+    	  var searchFunction = Mojo.$.dss.vector.solutions.query.QueryBuilder.getTextAttributeSugestions;
+    	  
+    	  var selectEventHandler = function(selected) {
+    	  	queryObject._setNumberCriteria(null,obj);	
+    	  };
+    	   
+    	  var search = new MDSS.GenericSearch(searchEl, null, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler);
+    	  
+    	  search.addParameter([attribute.getType(),attribute.getAttributeName()]);
+
+    	  YAHOO.util.Event.on(searchEl, 'keyup', search.performSearch, search, search);
+    	
     },
     
     _buildDateAttributesSelect : function(div)
