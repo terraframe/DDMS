@@ -33,6 +33,7 @@ import com.terraframe.mojo.gis.dataaccess.database.PostGIS;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.StartSession;
+import com.terraframe.mojo.system.metadata.MdEntity;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -44,6 +45,7 @@ import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 
 import dss.vector.solutions.Universal;
+import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.geo.LocatedIn;
@@ -80,8 +82,6 @@ public class GeoEntityImporter {
 	private static String GEO_ID = "geo_id";
 	private static String ENTITY_ID = "entity_id";
 	private static String GEO_NAME = "geo_name";
-
-	private static double DELTA = 0.01d;
 	
 	private static int BATCH_SIZE = 1000;
 
@@ -94,6 +94,8 @@ public class GeoEntityImporter {
 
 	private Connection conn;
 
+	private GeometryHelper geometryHelper = new GeometryHelper();
+	
 	private class UniversalSubtype {
 		public GeoHierarchy geoHierarchy;
 		public Term moTerm;
@@ -122,7 +124,14 @@ public class GeoEntityImporter {
 	}
 
 	@Transaction
-	private static void deleteGeoEntityies() {
+	private void deleteAllTableRecords(String className) {
+		MdEntity biz = MdEntity.getMdEntity(className);
+		biz.deleteAllTableRecords();
+	}
+	
+	@Transaction
+	private void deleteGeoEntities() {
+		//this.deleteAllTableRecords(AllPaths.CLASS);
 		System.out.println("Deleting GeoEntities ");
 
 		int applyCount = 0;
@@ -196,6 +205,7 @@ public class GeoEntityImporter {
 	}
 
 	private void importGeoEntities() throws Exception {
+		//deleteGeoEntities();
 		this.updateUniversalRoots();
 		this.buildUniversalMap();
 		this.createGeoEntities();
@@ -349,9 +359,9 @@ public class GeoEntityImporter {
 						g = multiPolygonField.getGeometry();
 					}
 					if (g != null) {
-						geoEntity.setGeoPoint(this.getGeoPoint(g));
-						geoEntity.setGeoMultiPolygon(this.getGeoMultiPolygon(g));
-						businessClass.getMethod("setMultiPolygon", MultiPolygon.class).invoke(geoEntity, this.getGeoMultiPolygon(g));
+						geoEntity.setGeoPoint(geometryHelper.getGeoPoint(g));
+						geoEntity.setGeoMultiPolygon(geometryHelper.getGeoMultiPolygon(g));
+						businessClass.getMethod("setMultiPolygon", MultiPolygon.class).invoke(geoEntity, geometryHelper.getGeoMultiPolygon(g));
 					}
 				} catch (Exception e) {
 					System.out.println(geoName + "  geoId: " + geoId + "  type: " + type);
@@ -481,90 +491,6 @@ public class GeoEntityImporter {
 		}
 	}
 
-	/**
-	 * @param g
-	 * @return
-	 */
-	private Point getGeoPoint(Geometry g) {
-		Point geoPoint = null;
-
-		if (g instanceof Point) {
-			geoPoint = (Point) g;
-		} else {
-			geoPoint = g.getCentroid();
-		}
-
-		return geoPoint;
-	}
-
-	/**
-	 * @param g
-	 * @return
-	 */
-	private MultiPolygon getGeoMultiPolygon(Geometry g) {
-		MultiPolygon geoMultiPolygon = null;
-
-		if (g instanceof Point) {
-			Coordinate[] points = new Coordinate[4];
-			points[0] = new Coordinate(g.getCoordinate());
-			points[0].y += DELTA;
-			points[1] = new Coordinate(g.getCoordinate());
-			points[1].y -= DELTA;
-			points[1].x -= DELTA;
-			points[2] = new Coordinate(g.getCoordinate());
-			points[2].y -= DELTA;
-			points[2].x += DELTA;
-			points[3] = new Coordinate(points[0]);
-			geoMultiPolygon = new MultiPolygon(new Polygon[] { this.createPolygon(points, g.getFactory()) }, g.getFactory());
-		} else if (g instanceof MultiPolygon) {
-			geoMultiPolygon = (MultiPolygon) g;
-		} else if (g instanceof Polygon) {
-			geoMultiPolygon = new MultiPolygon(new Polygon[] { (Polygon) g }, g.getFactory());
-		} else if (g instanceof LineString) {
-			geoMultiPolygon = new MultiPolygon(new Polygon[] { this.createPolygon((LineString) g) }, g.getFactory());
-		} else if (g instanceof MultiLineString) {
-			MultiLineString mls = (MultiLineString) g;
-			Polygon[] polygons = new Polygon[mls.getNumGeometries()];
-			for (int n = 0; n < mls.getNumGeometries(); n++) {
-				polygons[n] = this.createPolygon((LineString) mls.getGeometryN(n));
-			}
-			geoMultiPolygon = new MultiPolygon(polygons, g.getFactory());
-		}
-		return geoMultiPolygon;
-	}
-
-	/**
-	 * @param lineString
-	 * @return
-	 */
-	private Polygon createPolygon(LineString lineString) {
-		Coordinate[] forward = lineString.getCoordinates();
-		Coordinate[] backward = lineString.reverse().getCoordinates();
-		Coordinate[] full = null;
-
-		// If the LineString is closed (i.e. a loop: the first and last points
-		// are the same) then
-		// we can use it as is, otherwise we have to "self-close" by adding all
-		// the points
-		// in reverse order
-		if (forward.length < 1 || forward[0].equals(backward[0])) {
-			full = forward;
-		} else {
-			full = new Coordinate[forward.length + backward.length];
-			System.arraycopy(forward, 0, full, 0, forward.length);
-			System.arraycopy(backward, 0, full, forward.length, backward.length);
-		}
-
-		return this.createPolygon(full, lineString.getFactory());
-
-	}
-
-	private Polygon createPolygon(Coordinate[] coordinates, GeometryFactory factory) {
-		LinearRing ring = factory.createLinearRing(coordinates);
-		Polygon polygon = factory.createPolygon(ring, null);
-		return polygon;
-	}
-	
 	@Transaction
 	private void updateUniversalRoots() throws Exception {
 		InputStream is = new FileInputStream(this.universalSpreadsheet);
