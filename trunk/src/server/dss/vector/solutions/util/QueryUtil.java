@@ -20,9 +20,11 @@ import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.query.AttributeMoment;
 import com.terraframe.mojo.query.AttributeReference;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
@@ -40,6 +42,7 @@ import com.terraframe.mojo.query.ValueQueryParser;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdEntity;
+import com.terraframe.mojo.system.metadata.MdRelationship;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
@@ -76,6 +79,8 @@ public class QueryUtil implements Reloadable
 
   private static final String END_DATE_RANGE    = "end_date_range";
 
+  private static final String DATE_ATTRIBUTE    = "date_attribute";
+
   private static final String DATE_REGEX        = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
 
   public static String getRelationshipTermSubSelect(String attribute, String parentClass, String relClass)
@@ -84,11 +89,49 @@ public class QueryUtil implements Reloadable
     String relTable = MdEntity.getMdEntity(relClass).getTableName();
     String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
 
-    return "(select pJoin.id AS id, tJoin."+Term.NAME+" as "+attribute+"_displayLabel from"+
-    " "+parentTable+" AS pJoin LEFT JOIN "+relTable+" rJoin ON rJoin."+RelationshipInfo.PARENT_ID+" = pJoin.id"+
-    " LEFT JOIN "+termTable+" tJoin on rJoin."+RelationshipInfo.CHILD_ID+" = tJoin.id)";
+    return "(select pJoin.id AS id, tJoin." + Term.NAME + " as " + attribute + "_displayLabel from" + " " + parentTable + " AS pJoin LEFT JOIN " + relTable + " rJoin ON rJoin." + RelationshipInfo.PARENT_ID + " = pJoin.id" + " LEFT JOIN " + termTable
+        + " tJoin on rJoin." + RelationshipInfo.CHILD_ID + " = tJoin.id)";
   }
-  
+
+  public static ValueQuery joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
+  {
+    if (query != null)
+    {
+      String[] personAttributes = Term.getTermAttributes(klass);
+      String sql = "(" + QueryUtil.getTermSubSelect(klass, personAttributes) + ")";
+      String subSelect = klass.replace('.', '_') + "TermSubSel";
+      String personTable = MdBusiness.getMdBusiness(klass).getTableName();
+      valueQuery.AND(new InnerJoinEq("id", personTable, query.getTableAlias(), "id", sql, subSelect));
+    }
+    return valueQuery;
+
+  }
+
+  public static ValueQuery setTermRestrictions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  {
+    for (String entityAlias : queryMap.keySet())
+    {
+      int index1 = entityAlias.indexOf("__");
+      int index2 = entityAlias.lastIndexOf("__");
+      if (index1 > 0 && index2 > 0)
+      {
+        String attrib_name = entityAlias.substring(0, index1);
+        String klass = entityAlias.substring(index1 + 2, index2).replace("_", ".");
+        String attrib_alias = entityAlias.substring(index2 + 2, entityAlias.length());
+        String table = MdRelationship.getMdEntity(klass).getTableName();
+        if (queryMap.get(entityAlias) instanceof dss.vector.solutions.ontology.AllPathsQuery)
+        {
+          dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
+          String allPathsTable = MdRelationship.getMdEntity(dss.vector.solutions.ontology.AllPaths.CLASS).getTableName();
+          GeneratedEntityQuery attributeQuery = queryMap.get(klass);
+          valueQuery.AND(new InnerJoinEq(attrib_name, table, attributeQuery.getTableAlias(), dss.vector.solutions.ontology.AllPaths.CHILDTERM, allPathsTable, allPathsQuery.getTableAlias()));
+        }
+      }
+
+    }
+    return null;
+  }
+
   public static ValueQuery setNumericRestrictions(ValueQuery valueQuery, JSONObject queryConfig)
   {
     for (Iterator<String> iter = queryConfig.keys(); iter.hasNext();)
@@ -138,7 +181,7 @@ public class QueryUtil implements Reloadable
             }
             if (sel instanceof SelectableChar)
             {
-              valueQuery.WHERE(((SelectableChar)sel).LIKE(value));
+              valueQuery.WHERE( ( (SelectableChar) sel ).LIKE(value));
             }
 
           }
@@ -154,30 +197,30 @@ public class QueryUtil implements Reloadable
     return valueQuery;
   }
 
-  public static String getTermSubSelect(String className, String ... attributes)
+  public static String getTermSubSelect(String className, String... attributes)
   {
     String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
     String tableName = MdBusiness.getMdBusiness(className).getTableName();
 
-    String select = "SELECT "+tableName+".id ,";
-    String from = " FROM "+tableName+" as "+tableName;
+    String select = "SELECT " + tableName + ".id ,";
+    String from = " FROM " + tableName + " as " + tableName;
 
     int count = 0;
-    for(String attr : attributes)
+    for (String attr : attributes)
     {
-      select += " term"+count+"."+Term.NAME+" as "+attr + "_displayLabel";
+      select += " term" + count + "." + Term.NAME + " as " + attr + "_displayLabel";
 
-      if(count != attributes.length-1)
+      if (count != attributes.length - 1)
       {
         select += ",";
       }
 
-      from += " LEFT JOIN "+termTable+" as term"+count+" on "+tableName+"."+attr+" = term"+count+".id";
+      from += " LEFT JOIN " + termTable + " as term" + count + " on " + tableName + "." + attr + " = term" + count + ".id";
 
       count++;
     }
 
-    String sql = select+from;
+    String sql = select + from;
 
     return sql;
   }
@@ -186,7 +229,7 @@ public class QueryUtil implements Reloadable
    * Joins the ValueQuery with any selected/restricting geo entity information.
    * This method does not perform the final join between the AllPathsQuery and
    * the GeneratedEntityQuery that exists in the calling code.
-   *
+   * 
    * @param queryFactory
    * @param valueQuery
    * @param xml
@@ -304,19 +347,19 @@ public class QueryUtil implements Reloadable
       {
         JSONObject selectedUniMap = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
         Iterator<?> keys = selectedUniMap.keys();
-        while(keys.hasNext())
+        while (keys.hasNext())
         {
           String attributeKey = (String) keys.next();
-          
+
           JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-          if(universals.length() > 0)
+          if (universals.length() > 0)
           {
             String[] selectedUniversals = new String[universals.length()];
-            for(int i=0; i<universals.length(); i++)
+            for (int i = 0; i < universals.length(); i++)
             {
               selectedUniversals[i] = universals.getString(i);
             }
-            
+
             List<ValueQuery> leftJoinValueQueries = addUniversalsForAttribute(queryFactory, attributeKey, selectedUniversals, valueQueryParser);
             attributeKeysAndJoins.put(attributeKey, leftJoinValueQueries);
           }
@@ -326,23 +369,22 @@ public class QueryUtil implements Reloadable
       {
         throw new ProgrammingErrorException(e);
       }
-      
+
       queryMap = valueQueryParser.parse();
 
-      
-      for(String attributeKey : attributeKeysAndJoins.keySet())
+      for (String attributeKey : attributeKeysAndJoins.keySet())
       {
-        AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS+"_"+attributeKey);
+        AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS + "_" + attributeKey);
         List<ValueQuery> leftJoinValueQueries = attributeKeysAndJoins.get(attributeKey);
-        
+
         restrictEntitiesForAttribute(attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery, queryMap);
       }
-      
+
     }
 
     return queryMap;
   }
-  
+
   private static List<ValueQuery> addUniversalsForAttribute(QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser)
   {
     List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
@@ -353,10 +395,10 @@ public class QueryUtil implements Reloadable
       AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
       ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
       MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
-      
-      String prepend = attributeKey.replaceAll("\\.", "_")+"__";
-      String entityNameAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_"+GeoEntityView.ENTITYNAME;
-      String geoIdAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_"+GeoEntityView.GEOID;
+
+      String prepend = attributeKey.replaceAll("\\.", "_") + "__";
+      String entityNameAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_" + GeoEntityView.ENTITYNAME;
+      String geoIdAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_" + GeoEntityView.GEOID;
 
       Selectable selectable1 = geoEntityQuery.getEntityName(entityNameAlias);
       Selectable selectable2 = geoEntityQuery.getGeoId(geoIdAlias);
@@ -376,24 +418,24 @@ public class QueryUtil implements Reloadable
 
       leftJoinValueQueries.add(geoEntityVQ);
 
-      valueQueryParser.setValueQuery(attributeKey+"__"+selectedGeoEntityType, geoEntityVQ);
+      valueQueryParser.setValueQuery(attributeKey + "__" + selectedGeoEntityType, geoEntityVQ);
     }
-    
+
     return leftJoinValueQueries;
   }
-  
-  private static void restrictEntitiesForAttribute(String attributeKey, AllPathsQuery allPathsQuery,
-    List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+
+  private static void restrictEntitiesForAttribute(String attributeKey, AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
   {
     if (allPathsQuery == null && leftJoinValueQueries.size() > 0)
     {
-      // This case is for when they have not restricted by any specific  geoEntity
+      // This case is for when they have not restricted by any specific
+      // geoEntity
       allPathsQuery = new AllPathsQuery(valueQuery.getQueryFactory());
       valueQuery.FROM(allPathsQuery);
       // we use the country universial to restrict the cross product
       valueQuery.AND(allPathsQuery.getParentUniversal().EQ(MdBusiness.getMdBusiness(Country.CLASS).getId()));
     }
-    
+
     if (allPathsQuery != null)
     {
       // this case is for when they have restricted to a specific geoEntity
@@ -408,14 +450,56 @@ public class QueryUtil implements Reloadable
       {
         valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
       }
-      
+
       int ind = attributeKey.lastIndexOf(".");
       String className = attributeKey.substring(0, ind);
-      String attributeName = attributeKey.substring(ind+1);
+      String attributeName = attributeKey.substring(ind + 1);
 
       GeneratedEntityQuery generatedEntityQuery = queryMap.get(className);
       valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(attributeName) ).EQ(allPathsQuery.getChildGeoEntity()));
     }
+  }
+
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap)
+  {
+    String attributeName = null;
+    String start = null;
+    String end = null;
+    String klass = null;
+    JSONObject dateObj = null;
+    try
+    {
+      dateObj = queryConfig.getJSONObject(DATE_ATTRIBUTE);
+      attributeName = dateObj.getString(DATE_ATTRIBUTE);
+      klass = dateObj.getString("klass");
+      if (dateObj.has("start") && !dateObj.isNull("start"))
+      {
+        start = dateObj.getString("start");
+        if (queryMap.containsKey(klass))
+        {
+          GeneratedEntityQuery attributeQuery = queryMap.get(klass);
+          AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.aAttribute(attributeName);
+          valueQuery.AND(dateAttriute.GE(start));
+        }
+
+      }
+      if (dateObj.has("end") && !dateObj.isNull("end"))
+      {
+        end = dateObj.getString("end");
+        if (queryMap.containsKey(klass))
+        {
+          GeneratedEntityQuery attributeQuery = queryMap.get(klass);
+          AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.aAttribute(attributeName);
+          valueQuery.AND(dateAttriute.LE(end));
+        }
+      }
+      return setQueryDates(xml, valueQuery, attributeName);
+    }
+    catch (JSONException e)
+    {
+      return valueQuery;
+    }
+
   }
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, SelectableMoment dateAttribute)
