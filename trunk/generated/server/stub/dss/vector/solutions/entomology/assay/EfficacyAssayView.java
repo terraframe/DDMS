@@ -198,6 +198,13 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
        query.restrictRows(pageSize, pageNumber);
     }
     
+    
+    
+    //FIXME: Printing out the sql changes the result,  the struct table is not being joined. 
+    
+    //DO NOT DELETE THIS PRINTLN UNTILL THIS BUG IS FIXED!!!!!!!!!
+    System.out.println(query.getSQL());    
+
     return query;
   }
 

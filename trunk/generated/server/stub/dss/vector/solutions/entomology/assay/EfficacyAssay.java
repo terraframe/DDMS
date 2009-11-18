@@ -228,11 +228,6 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
     
     AttributeMoment dateAttribute = efficacyAssayQuery.getTestDate();
-    
-    
-    //FIXME: Printing out the sql changes the result, 
-    //DO NOT DELETE THIS PRINTLN UNTILL THIS BUG IS FIXED!!!!!!!!!   
-    System.out.println(valueQuery.getSQL());
 
     return QueryUtil.setQueryDates(xml,valueQuery,dateAttribute);
 
