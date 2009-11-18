@@ -404,7 +404,16 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
       var request = MDSS.GenericSearch.createSearchRequest(this);
 
       if(this.getParameters()) {
-        this.searchFunction(request, value, this.getParameters());  
+      	if(Mojo.Util.isArray(this.getParameters()))
+      	{
+      		var args = [request,value];
+      		args = args.concat(this.getParameters());
+      		this.searchFunction.apply(this,args);
+      	}
+      	else      	
+    		{
+        		this.searchFunction(request, value, this.getParameters());
+      	}
       }
       else {
         this.searchFunction(request, value);  
@@ -433,9 +442,9 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
     
     createResultList : function (searchObject, outer, inner, ul) {
 
-      var header = document.createElement('div');
-      header.innerHTML = '<h3>'+MDSS.Localized.Search_Results+'</h3><hr />';
-      outer.appendChild(header);
+      //var header = document.createElement('div');
+      //header.innerHTML = '<h3>'+MDSS.Localized.Search_Results+'</h3><hr />';
+      //outer.appendChild(header);
 
       YAHOO.util.Dom.addClass(inner, 'entitySearchResults');
       outer.appendChild(inner);
