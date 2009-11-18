@@ -169,6 +169,12 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
     {
       // Person.DOB not included in query.
     }
+
+    QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery);
+    
+    QueryUtil.joinTermAllpaths(valueQuery,IndividualIPT.CLASS,individualIPTQuery);  
+
+    QueryUtil.setTermRestrictions(valueQuery, queryMap );    
     
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
