@@ -213,7 +213,9 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
     
     InsecticideQuery insecticideQuery = (InsecticideQuery) queryMap.get(Insecticide.CLASS);
     
-    valueQuery.WHERE(efficacyAssayQuery.getInsecticide().EQ(insecticideQuery));
+    valueQuery.WHERE(abstractAssayQuery.getInsecticide().EQ(insecticideQuery));
+    
+    valueQuery.WHERE(abstractAssayQuery.getId().EQ(efficacyAssayQuery.getId()));
 
     QueryUtil.joinTermAllpaths(valueQuery,Insecticide.CLASS,insecticideQuery);
     
@@ -226,6 +228,11 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
     
     AttributeMoment dateAttribute = efficacyAssayQuery.getTestDate();
+    
+    
+    //FIXME: Printing out the sql changes the result, 
+    //DO NOT DELETE THIS PRINTLN UNTILL THIS BUG IS FIXED!!!!!!!!!   
+    System.out.println(valueQuery.getSQL());
 
     return QueryUtil.setQueryDates(xml,valueQuery,dateAttribute);
 
