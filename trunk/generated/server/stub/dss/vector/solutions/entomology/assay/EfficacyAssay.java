@@ -17,6 +17,8 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 
+import dss.vector.solutions.general.Insecticide;
+import dss.vector.solutions.general.InsecticideQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
 import dss.vector.solutions.query.ThematicLayer;
@@ -205,10 +207,25 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
     // IMPORTANT: Required call for all query screens.
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, EfficacyAssay.CLASS, EfficacyAssay.GEOENTITY);   
    
-    EfficacyAssayQuery efficacyAssayIPTQuery = (EfficacyAssayQuery) queryMap.get(EfficacyAssay.CLASS);
+    EfficacyAssayQuery efficacyAssayQuery = (EfficacyAssayQuery) queryMap.get(EfficacyAssay.CLASS);
+    
+    AbstractAssayQuery abstractAssayQuery = (AbstractAssayQuery) queryMap.get(AbstractAssay.CLASS);
+    
+    InsecticideQuery insecticideQuery = (InsecticideQuery) queryMap.get(Insecticide.CLASS);
+    
+    valueQuery.WHERE(efficacyAssayQuery.getInsecticide().EQ(insecticideQuery));
 
-   
-    AttributeMoment dateAttribute = efficacyAssayIPTQuery.getTestDate();
+    QueryUtil.joinTermAllpaths(valueQuery,Insecticide.CLASS,insecticideQuery);
+    
+    QueryUtil.joinTermAllpaths(valueQuery,EfficacyAssay.CLASS,efficacyAssayQuery);
+    
+    QueryUtil.joinTermAllpaths(valueQuery,AbstractAssay.CLASS,abstractAssayQuery);
+
+    QueryUtil.setTermRestrictions(valueQuery, queryMap);
+    
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    
+    AttributeMoment dateAttribute = efficacyAssayQuery.getTestDate();
 
     return QueryUtil.setQueryDates(xml,valueQuery,dateAttribute);
 
