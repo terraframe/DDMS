@@ -472,7 +472,7 @@ public class QueryUtil implements Reloadable
       dateObj = queryConfig.getJSONObject(DATE_ATTRIBUTE);
       attributeName = dateObj.getString(DATE_ATTRIBUTE);
       klass = dateObj.getString("klass");
-      if (dateObj.has("start") && !dateObj.isNull("start"))
+      if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null") )
       {
         start = dateObj.getString("start");
         if (queryMap.containsKey(klass))
@@ -483,7 +483,7 @@ public class QueryUtil implements Reloadable
         }
 
       }
-      if (dateObj.has("end") && !dateObj.isNull("end"))
+      if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("start").equals("null") )
       {
         end = dateObj.getString("end");
         if (queryMap.containsKey(klass))
