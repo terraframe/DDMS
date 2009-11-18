@@ -36,6 +36,14 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
                                  ];
 
       this._exclusionClasses = [];
+      
+      this._geoEntityAttribs = [
+                                {
+                                  keyName :  this._concerteMosquitoCollection.CLASS+'.'+this._concerteMosquitoCollection.GEOENTITY,
+                                  display : "GeoEntity"
+                                }        
+                              ];
+
 
       this._dataQueryFunction = Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.queryResistance;
       this._mapQueryFunction  = Mojo.$.dss.vector.solutions.query.MappingController.mapResistanceQuery;
@@ -847,13 +855,7 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       /*
        * Target
        */
-      // area (geo entity search)
-      var boundSearch = Mojo.Util.bind(this, this._displaySearch);
-      this._queryPanel.addQueryItem({
-        html: MDSS.Localized.Target_Search + ' <img src="./imgs/icons/world.png"/>',
-        onclick: {handler: boundSearch},
-        id: "areaItem"
-      });
+      this.addGeoAttributes(this._geoEntityAttribs);
 
 
       this._queryPanel.addQueryItem({
