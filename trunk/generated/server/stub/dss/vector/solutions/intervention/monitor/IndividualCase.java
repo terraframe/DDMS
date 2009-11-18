@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,6 +49,20 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
   @Transaction
   public void apply()
   {
+    super.apply();
+    
+    // Truncate the createdByDate and store it in entry date
+    this.setCaseEntryDate(DateUtils.truncate(this.getCreateDate(), Calendar.DATE));
+    
+    // If no age is specified, calculate it
+    if (this.getAge()==null)
+    {
+      long difference = this.getDiagnosisDate().getTime() - this.getPatient().getPerson().getDateOfBirth().getTime();
+      // Divide by the number of milliseconds in a year
+      long age = difference / 31556926000l;
+      this.setAge((int)age);
+    }
+    
     super.apply();
 
     // Perfrom outbreak notification
