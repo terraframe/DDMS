@@ -23,6 +23,7 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.AttributeMoment;
 import com.terraframe.mojo.query.AttributeReference;
 import com.terraframe.mojo.query.Condition;
+import com.terraframe.mojo.query.Function;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.OR;
@@ -149,6 +150,12 @@ public class QueryUtil implements Reloadable
           String value = queryConfig.getString(key);
           Selectable sel = valueQuery.getSelectable(attributeName);
 
+          while (sel instanceof Function)
+          {
+            Function f = (Function)sel;
+            sel = f.getSelectable();
+          }
+          
           if (value.contains("-"))
           {
             String[] range = value.split("-");
