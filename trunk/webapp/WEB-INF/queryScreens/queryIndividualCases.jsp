@@ -149,7 +149,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
     var individualCase = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualCase();
-    var caseAttribs = ["age","createDate","caseReportDate","diagnosisDate",
+    var caseAttribs = ["age","caseReportDate","diagnosisDate",
                            "workplaceText","probableSourceText","residenceText"];
     var caseColumns = caseAttribs.map(mapAttribs, {obj:individualCase, suffix:'_case', dropDownMaps:{}});
     
@@ -213,7 +213,7 @@ YAHOO.util.Event.onDOMReady(function(){
               {title:"Case", values:caseColumns, group:"c", klass:individualCase.CLASS},
               {title:"Patient", values:personColumns, group:"c", klass:individualCase.CLASS},
               {title:"Instance", values:instanceColumns, group:"c", klass:individualCase.CLASS},
-              {title:"Calculations", values:calculations, group:"c", klass:individualCase.CLASS},
+           //   {title:"Calculations", values:calculations, group:"c", klass:individualCase.CLASS},
               {title:"Symptoms", values:symptomsColumns, group:"c", klass:Mojo.$.dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS}
     ];
 

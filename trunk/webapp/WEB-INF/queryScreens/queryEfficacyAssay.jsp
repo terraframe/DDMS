@@ -104,7 +104,7 @@ YAHOO.util.Event.onDOMReady(function(){
         row.attributeName = attrib.attributeName;
         if(attrib.dtoType.contains('AttributeReferenceDTO'))
         {
-          row.attributeName += '.name';
+          //row.attributeName += '.name';
         }
         if(attrib.dtoType.contains('AttributeEnumerationDTO'))
         {
@@ -139,10 +139,12 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var efficacyAssay = new Mojo.$.dss.vector.solutions.entomology.assay.EfficacyAssay();
     //public static java.lang.String GEOENTITY = "geoEntity";
-    var efficacyAttribs = ["specie","testMethod","holdingTime","quantityTested","colonyName","sex","fed","gravid","quantityTested","quantityDead","quantityLive","mortality","surfacePostion","timeOnSurface"];
+    var efficacyAttribs = ["testDate","specie","testMethod","holdingTime","colonyName","sex","fed","gravid","quantityTested","quantityDead","quantityLive","mortality","surfacePostion","timeOnSurface"];
     //var efficacyCalculations = ["quanityAlive","percentMortality","controlTestMortality"];
 
     var efficacyColumns =  efficacyAttribs.map(mapAttribs, {obj:efficacyAssay, suffix:'_efficacy', dropDownMaps:efficacyMaps});
+
+    //efficacyColumns[0].type = Mojo.$.dss.vector.solutions.entomology.assay.AbstractAssay.CLASS;
 
     var selectableGroups = [
               {title:"Efficacy", values:efficacyColumns, group:"eff", klass:Mojo.$.dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS},
@@ -157,5 +159,8 @@ YAHOO.util.Event.onDOMReady(function(){
 </script>
 
 <jsp:include page="queryContainer.jsp"></jsp:include>
+
+<textarea id="debug_xml" cols="40" rows="40" style="width:1280px"> </textarea>
+
 
 <jsp:include page="../templates/footer.jsp"></jsp:include>
