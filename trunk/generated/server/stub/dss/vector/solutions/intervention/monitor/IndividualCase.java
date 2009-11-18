@@ -16,7 +16,6 @@ import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.Function;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
-import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
@@ -33,7 +32,6 @@ import dss.vector.solutions.general.OutbreakCalculation;
 import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -242,19 +240,9 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
 
     valueQuery.WHERE(personQuery.getPatientDelegate().EQ(caseQuery.getPatient()));
     
-    if(instanceQuery != null)
-    {
-      valueQuery.WHERE(instanceQuery.getIndividualCase().EQ(caseQuery.getId()));
-
-      String[] individualAttributes = Term.getTermAttributes(IndividualInstance.CLASS);
-      String sql = "(" + QueryUtil.getTermSubSelect(IndividualInstance.CLASS, individualAttributes) + ")";
-      String subSelect = "instanceTermSubSel";
-      valueQuery.AND(new InnerJoinEq("id","individualinstance",instanceQuery.getTableAlias(),"id",sql,subSelect));
-    }
-    
-    
-
-
+    valueQuery.WHERE(instanceQuery.getIndividualCase().EQ(caseQuery.getId()));
+        
+    QueryUtil.joinTermAllpaths(valueQuery,IndividualInstance.CLASS,instanceQuery);
 
     
     for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
@@ -279,12 +267,11 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
       
     }
 
+    QueryUtil.setTermRestrictions(valueQuery, queryMap );
     
-    return QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    //AttributeMoment dateAttribute = individualIPTQuery.getServiceDate();
-
-    //return QueryUtil.setQueryDates(xml, valueQuery, dateAttribute);
+    return QueryUtil.setQueryDates(xml, valueQuery, queryConfig,queryMap);
 
   }
   
