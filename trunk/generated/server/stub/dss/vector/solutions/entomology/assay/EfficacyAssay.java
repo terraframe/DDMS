@@ -229,7 +229,11 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
     
     AttributeMoment dateAttribute = efficacyAssayQuery.getTestDate();
 
-    return QueryUtil.setQueryDates(xml,valueQuery,dateAttribute);
+    QueryUtil.setQueryDates(xml,valueQuery,dateAttribute);
+    
+    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
+    
+    return valueQuery; 
 
   }
 
