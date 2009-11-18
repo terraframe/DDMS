@@ -6,9 +6,10 @@ import java.lang.reflect.Method;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AttributeCharacter;
+import com.terraframe.mojo.query.COUNT;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
@@ -173,24 +174,27 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     return exporter.exportStream();
   }
   
+  @Authenticate
   @Transaction
-  public static ValueQuery getTextAttributeSugestions(String klass, String attribute, String match)
+  public static ValueQuery getTextAttributeSugestions(String match, String klass, String attribute)
   {
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
     
-    AttributeCharacter attribSelectable = valueQuery.aCharacter("attribute", attribute);
-
-    valueQuery.SELECT(attribSelectable,F.COUNT(attribSelectable, "attributeCount"));
+    SelectableSQLCharacter attribSelectable = valueQuery.aSQLCharacter("attribute", attribute);
+    
+    COUNT count = F.COUNT(attribSelectable, "attributeCount");
+    
+    valueQuery.SELECT(attribSelectable,count);
 
     String table = MdBusiness.getMdBusiness(klass).getTableName();
     
-    //String sql = "(SELECT "+attribute+" FROM )";
-
     valueQuery.FROM(table, "auto_complete");
     
-    valueQuery.WHERE(attribSelectable.LIKEi(match));
+    valueQuery.WHERE(attribSelectable.LIKEi(match+"%"));
+    
+    valueQuery.ORDER_BY_DESC(count);
     
     valueQuery.restrictRows(20, 1);
     
