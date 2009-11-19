@@ -221,6 +221,9 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
             //{
               //queryXML.addEntity(new MDSS.QueryXML.Entity(t,t));
             //}
+          }else if(t == 'sqlfloat')
+          {
+            var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlfloat('', n, k));
           }else if(t == 'sqldouble')
           {
             var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', n, k));
@@ -396,6 +399,12 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       }else
       if(attribute.getType() == 'sqlinteger'){
         var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
+        selectable.attribute = attribute;
+        var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+         column.attribute = attribute;
+    	}else
+      if(attribute.getType() == 'sqlfloat'){
+        var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlfloat('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
         selectable.attribute = attribute;
         var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
          column.attribute = attribute;
@@ -704,10 +713,14 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           
           thisRef._checkBox(userAlias);
         },
+        sqlfloat: function(entityAlias, attributeName, userAlias){
+          
+          thisRef._checkBox(userAlias);
+        },
         sqldate : function(entityAlias, attributeName, userAlias){
 
           thisRef._checkBox(userAlias);
-        },
+        }
       });
 
       parser.parseCriteria({
@@ -1131,14 +1144,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
          	function(d){
    	      	var tmp = new d.klass();
    	      	var attrib = tmp.attributeMap[d.accessor];
-   	      	//var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(d.klass.CLASS, d.accessor, d.accessor));
    	      	return {
    	          keyName :  d.klass.CLASS+'.'+d.accessor,
    	          klass:d.klass.CLASS,
    	          attribute:d.accessor,
-   	          display : attrib.attributeMdDTO.displayLabel,
-   	          //startDateSelectable : selectable,
-   	          //endDateSelectable : selectable
+   	          display : attrib.attributeMdDTO.displayLabel
    	      	};
          });
     	
@@ -1154,18 +1164,12 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         optionEl.innerHTML = attribute.display;
         optionEl.value = i;
         this._dateAttributes[i] = attribute;
-        
-        //YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
         sel.appendChild(optionEl);
       }
-
-      //var boundSearch = Mojo.Util.bind(this, this._displaySearch);
+      div.appendChild(sel);
 
       var label = document.createElement('span');
       label.innerHTML = ' ';
-      //YAHOO.util.Dom.addClass(sel, 'DatePick');
-      //div.appendChild(label);
-      div.appendChild(sel);
       div.appendChild(label);
       
       this._dateAttributeSelect = sel;

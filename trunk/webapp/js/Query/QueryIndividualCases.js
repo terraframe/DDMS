@@ -32,7 +32,7 @@ Mojo.Meta.newClass('MDSS.QueryIndividualCases', {
       this._dateAttribs = [
                            {
                           	 klass :  this._groupByClass,
-                             accessor : this._groupByClass.CASEENTRYDATE,
+                             accessor : this._groupByClass.DIAGNOSISDATE,
                            },
                            {
                           	 klass :  this._groupByClass,
@@ -40,7 +40,7 @@ Mojo.Meta.newClass('MDSS.QueryIndividualCases', {
                            },
                            {
                           	 klass :  this._groupByClass,
-                             accessor : this._groupByClass.DIAGNOSISDATE,
+                             accessor : this._groupByClass.CASEENTRYDATE,
                            },
                            {
                              klass :  this._individualInstance,
@@ -154,7 +154,7 @@ Mojo.Meta.newClass('MDSS.QueryIndividualCases', {
           li.appendChild(check);
           this._defaults.push({element:check, checked:false});
           
-          if(attribute.getKey().contains('Name'))
+          if(visibleObj.dtoType && (visibleObj.dtoType.contains('AttributeCharacterDTO')||visibleObj.dtoType.contains('AttributeTextDTO')))
           {
           	li.id = attribute.getKey()+'_li';
 
@@ -169,6 +169,7 @@ Mojo.Meta.newClass('MDSS.QueryIndividualCases', {
 	          this._menus[li.id] = items;
             
           }
+          
           
           if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeIntegerDTO'))
           {
