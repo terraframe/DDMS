@@ -18,10 +18,14 @@ import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.Function;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableSQL;
+import com.terraframe.mojo.query.SelectableSQLFloat;
+import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdRelationship;
 
 import dss.vector.solutions.Patient;
@@ -258,7 +262,65 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     valueQuery.WHERE(instanceQuery.getIndividualCase().EQ(caseQuery.getId()));
         
     QueryUtil.joinTermAllpaths(valueQuery,IndividualInstance.CLASS,instanceQuery);
+    
+    QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery);
 
+    
+    try
+    {
+      SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectable("instances");
+      String sql = "COUNT(*)";
+      calc.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+    }
+    
+    try
+    {
+      SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectable("cases");
+      String tableAlias = caseQuery.getTableAlias();
+      String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
+      String sql = "SUM(1/(SELECT COUNT(*) FROM "+tableName+" AS ii WHERE ii.individualcase = "+tableAlias+".id))";
+      calc.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+    }
+    
+    try
+    {
+      SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectable("deaths");
+      String sql = "SUM(diedInFacility)";
+      calc.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+    }
+    
+    
+    try
+    {
+      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectable("cfr");
+      String tableAlias = caseQuery.getTableAlias();
+      String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
+      String sql = "(SUM(diedInFacility)/SUM(1/(SELECT COUNT(*) FROM "+tableName+" AS ii WHERE ii.individualcase = "+tableAlias+".id)))*100.0";
+      calc.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+    }
+    
+    try
+    {
+      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectable("incidence");
+      String sql = "999";
+      calc.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+    }
+    
     
     for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
     {
@@ -274,10 +336,6 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
           ( (SelectableSQL) s ).setSQL(getGridSql(s.getUserDefinedAlias(), instanceQuery.getTableAlias()));
         }
         
-        if (s instanceof SelectableSQL)
-        {       
-          ( (SelectableSQL) s ).setSQL(getGridSql(s.getUserDefinedAlias(), instanceQuery.getTableAlias()));
-        }
       }
       
     }
@@ -286,7 +344,11 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    return QueryUtil.setQueryDates(xml, valueQuery, queryConfig,queryMap);
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+    
+    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
+    
+    return valueQuery; 
 
   }
   
