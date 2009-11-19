@@ -66,70 +66,55 @@
       </mjl:dt>
 
       <mjl:dt attribute="hasWindows">
-        <mjl:boolean param="hasWindows" trueLabel="Yes" falseLabel="No" />
+        <mjl:boolean param="hasWindows" id="hasWindows"/>
       </mjl:dt>
-
-      <mjl:dt attribute="windowType">
-        <span class="clickable browserLauncher" id="windowTypeBtn"> <fmt:message key="Browser"/></span>
-        <div id="windowTypeDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${windowType != null}">
-              ${windowType.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="windowType" id="windowType" value="${windowType != null ? windowType.id : ''}" />
-      </mjl:dt>
+      
+      <div class="windowType">
+        <mjl:dt attribute="windowType">
+          <span class="clickable browserLauncher" id="windowTypeBtn"> <fmt:message key="Browser"/></span>
+          <div id="windowTypeDisplay" class="ontologyDisplay">
+            <c:choose>
+              <c:when test="${windowType != null}">
+                ${windowType.displayLabel}
+              </c:when>
+              <c:otherwise>
+                <fmt:message key="no_value" />
+              </c:otherwise>
+            </c:choose>
+          </div>
+          <mjl:input type="hidden" param="windowType" id="windowType" value="${windowType != null ? windowType.id : ''}" />
+        </mjl:dt>
+      </div>
 
       <mjl:dt attribute="rooms">
         <mjl:input type="text" param="rooms" />
       </mjl:dt>
-
-      <mjl:dt attribute="lastSprayed">
-        <mjl:input type="text" param="lastSprayed" />
-      </mjl:dt>
+      
+      <mjl:dt attribute="hasBeenSprayed">
+        <mjl:radioGroup param="hasBeenSprayed" items="${hasBeenSprayed}" var="current" valueAttribute="enumName">
+          <mjl:radioOption checked="${mjl:contains(item.hasBeenSprayedEnumNames, current.enumName) ? 'checked' : 'false'}" id="hasBeenSprayed.${current.enumName}">
+            ${item.hasBeenSprayedMd.enumItems[current.enumName]}
+          </mjl:radioOption>
+        </mjl:radioGroup>    
+      </mjl:dt>     
+      
+      <div class="lastSprayed">
+        <mjl:dt attribute="lastSprayed">
+          <mjl:input type="text" param="lastSprayed" id="lastSprayed" size="2" maxlength="2"/>
+        </mjl:dt>
+      </div>
 
       <mjl:dt attribute="nets">
-        <mjl:input type="text" param="nets" />
-
+        <c:if test="${!item.hasHouseholdNets}">
+          <mjl:input type="text" param="nets" />
+        </c:if>
+        <c:if test="${item.hasHouseholdNets}">
+          ${item.nets}
+          <mjl:input type="hidden" param="nets" value="${item.nets}" />
+        </c:if>      
       </mjl:dt>
-      <mjl:dt attribute="netsUsed">
-        <mjl:input type="text" param="netsUsed" />
-      </mjl:dt>
-
-      <mjl:dt attribute="sleptUnderNets">
-        <mjl:input type="text" param="sleptUnderNets" />
-      </mjl:dt>
-
+      
     </mjl:component>
-
-    <c:if test="${true}">
-      <dt></dt>
-      <dd>
-        <table class="displayTable">
-          <tr> 
-            <th>Nets</th>
-            <th><fmt:message key="Amount"/></th>
-          </tr>      
-          <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
-            <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-              <td>
-                ${current.child.displayLabel}
-              </td>
-              <td>
-                <mjl:input type="text" param="amount" />
-                <mjl:messages attribute="amount">
-                  <mjl:message />
-                </mjl:messages>
-              </td>
-            </tr>
-          </mjl:components>
-        </table>
-      </dd>
-    </c:if>
   
 <%String[] types_to_load = {PropertyDTO.CLASS};%>
 <%=Halp.loadTypes((List<String>) Arrays.asList(types_to_load))%>
@@ -137,24 +122,38 @@
 <script type="text/javascript">
 (function(){
   YAHOO.util.Event.onDOMReady(function(){
-	  YAHOO.util.Event.on('getUniqueId', 'click', function(e, obj){
-		  var request = new MDSS.Request({
-		      onSend: function(){},
-		      onComplete: function(){},
-		      onSuccess : function(result){
-		      document.getElementById('householdId').value = result;
-		    }
-		  });
-		  Mojo.$.dss.vector.solutions.Property.getNextId(request);
-		});
+    //**********************************************************
+    // SETUP FIELD HIDING
+    //**********************************************************    
+    var triggers = new Array('hasBeenSprayed.NO', 'hasBeenSprayed.DONT_KNOW');
+    
+    MDSS.ElementHandler.setupBooleanHandler('hasWindows.positive', 'hasWindows.negative', MDSS.HiddenInputElement.toArray(['windowType']));
+    MDSS.ElementHandler.setupBooleanHandler('hasBeenSprayed.YES', triggers, MDSS.HiddenInputElement.toArray(['lastSprayed']));    
+  
+    //**********************************************************
+    // SETUP UNIQUE ID GENERATOR
+    //**********************************************************      
+    YAHOO.util.Event.on('getUniqueId', 'click', function(e, obj){
+      var request = new MDSS.Request({
+        onSend: function(){},
+        onComplete: function(){},
+        onSuccess : function(result){
+          document.getElementById('householdId').value = result;
+        }
+      });
+      Mojo.$.dss.vector.solutions.Property.getNextId(request);
+    });
 
-	  var attributes = [
-	    {attributeName:'wall'},
-	    {attributeName:'roof'},
-	    {attributeName:'windowType'}
-	  ];
-	  
-	  new MDSS.GenericOntologyBrowser("<%=HouseholdViewDTO.CLASS%>", attributes);
+    //**********************************************************
+    // SETUP MO BROWSERS
+    //**********************************************************    
+    var attributes = [
+      {attributeName:'wall'},
+      {attributeName:'roof'},
+      {attributeName:'windowType'}
+    ];
+  
+    new MDSS.GenericOntologyBrowser("<%=HouseholdViewDTO.CLASS%>", attributes);
   })
 })();
 </script>

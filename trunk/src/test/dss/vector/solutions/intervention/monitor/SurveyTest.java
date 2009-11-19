@@ -4,13 +4,9 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -215,8 +211,6 @@ public class SurveyTest extends TestCase
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
-    household.setNetsUsed(2);
-    household.setSleptUnderNets(14);
     household.apply();
 
     try
@@ -235,8 +229,6 @@ public class SurveyTest extends TestCase
       assertEquals(test.getRooms(), household.getRooms());
       assertEquals(test.getLastSprayed(), household.getLastSprayed());
       assertEquals(test.getNets(), household.getNets());
-      assertEquals(test.getNetsUsed(), household.getNetsUsed());
-      assertEquals(test.getSleptUnderNets(), household.getSleptUnderNets());
     }
     catch (Exception e)
     {
@@ -277,35 +269,11 @@ public class SurveyTest extends TestCase
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
-    household.setNetsUsed(2);
-    household.setSleptUnderNets(14);
-
-    Map<String, HouseholdNet> map = new HashMap<String, HouseholdNet>();
-
-    for (Term net : Term.getRootChildren(HouseholdView.getDisplayNetsMd()))
-    {
-      map.put(net.getId(), new HouseholdNet(household, net));
-    }
-
-    Collection<HouseholdNet> values = map.values();
-    HouseholdNet[] nets = values.toArray(new HouseholdNet[values.size()]);
-
-    for (HouseholdNet net : nets)
-    {
-      net.setAmount(30);
-    }
-
-    household.applyAll(nets);
+    household.apply();
 
     try
     {
       Household test = Household.get(household.getId());
-      List<HouseholdNet> testNets = new LinkedList<HouseholdNet>();
-
-      for (HouseholdNet net : test.getAllNetsRel())
-      {
-        testNets.add(net);
-      }
 
       assertEquals(test.getSurveyPoint().getId(), point.getId());
       assertEquals(test.getHouseholdName(), household.getHouseholdName());
@@ -320,14 +288,6 @@ public class SurveyTest extends TestCase
       assertEquals(test.getRooms(), household.getRooms());
       assertEquals(test.getLastSprayed(), household.getLastSprayed());
       assertEquals(test.getNets(), household.getNets());
-      assertEquals(test.getNetsUsed(), household.getNetsUsed());
-      assertEquals(test.getSleptUnderNets(), household.getSleptUnderNets());
-      assertEquals(nets.length, testNets.size());
-
-      for (int i = 0; i < nets.length; i++)
-      {
-        assertEquals(nets[i].getAmount(), testNets.get(i).getAmount());
-      }
     }
     finally
     {
@@ -360,28 +320,11 @@ public class SurveyTest extends TestCase
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
-    household.setNetsUsed(2);
-    household.setSleptUnderNets(14);
-
-    HouseholdNet[] nets = household.getHouseholdNets();
-
-    for (HouseholdNet net : nets)
-    {
-      net.setAmount(30);
-    }
-
-    household.applyAll(nets);
+    household.apply();
 
     try
     {
       Household test = Household.get(household.getId());
-      List<HouseholdNet> testNets = new LinkedList<HouseholdNet>();
-
-      for (HouseholdNet net : test.getAllNetsRel())
-      {
-        testNets.add(net);
-      }
-
       assertEquals(test.getSurveyPoint().getId(), point.getId());
       assertEquals(test.getHouseholdName(), household.getHouseholdName());
       assertEquals(test.getUrban(), household.getUrban());
@@ -395,14 +338,6 @@ public class SurveyTest extends TestCase
       assertEquals(test.getRooms(), household.getRooms());
       assertEquals(test.getLastSprayed(), household.getLastSprayed());
       assertEquals(test.getNets(), household.getNets());
-      assertEquals(test.getNetsUsed(), household.getNetsUsed());
-      assertEquals(test.getSleptUnderNets(), household.getSleptUnderNets());
-      assertEquals(10, testNets.size());
-
-      for (int i = 0; i < 10; i++)
-      {
-        assertEquals(nets[i].getAmount(), testNets.get(i).getAmount());
-      }
     }
     finally
     {
@@ -435,40 +370,16 @@ public class SurveyTest extends TestCase
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
-    household.setNetsUsed(2);
-    household.setSleptUnderNets(14);
-
-    HouseholdNet[] nets = household.getHouseholdNets();
-
-    for (HouseholdNet net : nets)
-    {
-      net.setAmount(30);
-    }
-
-    household.applyAll(nets);
+    household.apply();
 
     HouseholdView edit = Household.lockView(household.getConcreteId());
     edit.setHouseholdName("Edit Name");
-
-    nets = edit.getHouseholdNets();
-
-    for (HouseholdNet net : nets)
-    {
-      net.setAmount(50);
-    }
-
-    edit.applyAll(nets);
+    edit.apply();
 
     try
     {
       Household test = Household.get(household.getId());
-      List<HouseholdNet> testNets = new LinkedList<HouseholdNet>();
-
-      for (HouseholdNet net : test.getAllNetsRel())
-      {
-        testNets.add(net);
-      }
-
+      
       assertEquals(test.getSurveyPoint().getId(), point.getId());
       assertEquals(test.getHouseholdName(), edit.getHouseholdName());
       assertEquals(test.getUrban(), edit.getUrban());
@@ -481,14 +392,6 @@ public class SurveyTest extends TestCase
       assertEquals(test.getRooms(), edit.getRooms());
       assertEquals(test.getLastSprayed(), edit.getLastSprayed());
       assertEquals(test.getNets(), edit.getNets());
-      assertEquals(test.getNetsUsed(), edit.getNetsUsed());
-      assertEquals(test.getSleptUnderNets(), edit.getSleptUnderNets());
-      assertEquals(10, testNets.size());
-
-      for (int i = 0; i < 10; i++)
-      {
-        assertEquals(nets[i].getAmount(), testNets.get(i).getAmount());
-      }
     }
     finally
     {
@@ -521,8 +424,6 @@ public class SurveyTest extends TestCase
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
-    household.setNetsUsed(2);
-    household.setSleptUnderNets(14);
     household.apply();
 
     Household household2 = new Household();
@@ -538,8 +439,6 @@ public class SurveyTest extends TestCase
     household2.setRooms(30);
     household2.setLastSprayed(7);
     household2.setNets(24);
-    household2.setNetsUsed(2);
-    household2.setSleptUnderNets(14);
     household2.apply();
 
     try
@@ -595,8 +494,6 @@ public class SurveyTest extends TestCase
       household.setRooms(30);
       household.setLastSprayed(15);
       household.setNets(24);
-      household.setNetsUsed(2);
-      household.setSleptUnderNets(14);
       household.apply();
 
       fail("Able to set a last sprayed month larger than 12");
@@ -637,57 +534,35 @@ public class SurveyTest extends TestCase
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
-    household.setNetsUsed(2);
-    household.setSleptUnderNets(14);
     household.apply();
 
-    Person person = new Person();
+    SurveyedPerson person = new SurveyedPerson();
     person.setHousehold(household);
     person.setDob(date);
     person.setAnaemiaTreatment(drug);
-    person.setFeverTreatment(treatment);
     person.setHaemoglobin(haemoglobin);
-    person.setHaemoglobinMeasured(true);
     person.setIron(true);
-    person.setMalariaTreatment(drug);
     person.setPersonId("000");
     person.setPregnant(true);
     person.setRdtTreatment(drug);
-    person.setBloodslide(bloodSlide);
-    person.setFever(response);
-    person.setMalaria(response);
     person.setPayment(response);
-    person.setPerformedRDT(response);
     person.setSex(sex);
     person.apply();
 
     try
     {
-      Person test = Person.get(person.getId());
+      SurveyedPerson test = SurveyedPerson.get(person.getId());
 
       assertNotNull(test);
       assertEquals(household.getId(), test.getHousehold().getId());
       assertEquals(date, test.getDob());
       assertEquals(drug.getId(), test.getAnaemiaTreatment().getId());
-      assertEquals(treatment.getId(), test.getFeverTreatment().getId());
       assertEquals(haemoglobin, test.getHaemoglobin());
       assertEquals(new Boolean(true), test.getHaemoglobinMeasured());
       assertEquals(new Boolean(true), test.getIron());
-      assertEquals(drug.getId(), test.getMalariaTreatment().getId());
       assertEquals("000", test.getPersonId());
       assertEquals(new Boolean(true), test.getPregnant());
       assertEquals(drug.getId(), test.getRdtTreatment().getId());
-
-      assertEquals(bloodSlide.getId(), test.getBloodslide().getId());
-
-      assertEquals(response.getId(), test.getFever().getId());
-
-      assertEquals(response.getId(), test.getMalaria().getId());
-
-      assertEquals(response.getId(), test.getPayment().getId());
-
-      assertEquals(response.getId(), test.getPerformedRDT().getId());
-
       assertEquals(sex.getId(), test.getSex().getId());
     }
     finally
@@ -724,54 +599,51 @@ public class SurveyTest extends TestCase
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
-    household.setNetsUsed(2);
-    household.setSleptUnderNets(14);
     household.apply();
 
-    PersonView person = new PersonView();
+    SurveyedPersonView person = new SurveyedPersonView();
     person.setHousehold(household);
     person.setDob(date);
     person.setAnaemiaTreatment(drug);
-    person.setFeverTreatment(treatment);
     person.setHaemoglobin(haemoglobin);
-    person.setHaemoglobinMeasured(true);
     person.setIron(true);
-    person.setMalariaTreatment(drug);
+
     person.setPersonId("000");
     person.setPregnant(true);
     person.setRdtTreatment(drug);
-    person.setBloodslide(bloodSlide);
-    person.setFever(response);
-    person.setMalaria(response);
+
+
+
     person.setPayment(response);
-    person.setPerformedRDT(response);
+
     person.setSex(sex);
-    person.applyAll(new Term[]{result});
+    person.applyAll(new Term[]{result}, new Term[]{result});
 
     try
     {
-      PersonView test = Person.getView(person.getConcreteId());
-      Term[] results = test.getRDTResults();
+      SurveyedPersonView test = SurveyedPerson.getView(person.getConcreteId());
+      Term[] locations = test.getLocations();
+      Term[] treatments = test.getTreatments();
 
       assertNotNull(test);
       assertEquals(household.getId(), test.getHousehold().getId());
       assertEquals(date, test.getDob());
       assertEquals(drug.getId(), test.getAnaemiaTreatment().getId());
-      assertEquals(treatment.getId(), test.getFeverTreatment().getId());
+
       assertEquals(haemoglobin, test.getHaemoglobin());
       assertEquals(new Boolean(true), test.getHaemoglobinMeasured());
       assertEquals(new Boolean(true), test.getIron());
-      assertEquals(drug.getId(), test.getMalariaTreatment().getId());
+
       assertEquals("000", test.getPersonId());
       assertEquals(new Boolean(true), test.getPregnant());
       assertEquals(drug.getId(), test.getRdtTreatment().getId());
-      assertEquals(bloodSlide.getId(), test.getBloodslide().getId());
-      assertEquals(response.getId(), test.getFever().getId());
-      assertEquals(response.getId(), test.getMalaria().getId());
+
+
+
       assertEquals(response.getId(), test.getPayment().getId());
-      assertEquals(response.getId(), test.getPerformedRDT().getId());
-      assertEquals(1, results.length);
-      assertEquals(result.getId(), results[0].getId());
+
+      assertEquals(1, locations.length);
+      assertEquals(result.getId(), locations[0].getId());
       assertEquals(sex.getId(), test.getSex().getId());
 
     }
@@ -809,49 +681,47 @@ public class SurveyTest extends TestCase
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
-    household.setNetsUsed(2);
-    household.setSleptUnderNets(14);
     household.apply();
 
-    Person person = new Person();
+    SurveyedPerson person = new SurveyedPerson();
     person.setHousehold(household);
     person.setDob(date);
     person.setAnaemiaTreatment(drug);
-    person.setFeverTreatment(treatment);
+
     person.setHaemoglobin(haemoglobin);
-    person.setHaemoglobinMeasured(true);
+
     person.setIron(true);
-    person.setMalariaTreatment(drug);
+
     person.setPersonId("000");
     person.setPregnant(true);
     person.setRdtTreatment(drug);
-    person.setBloodslide(bloodSlide);
-    person.setFever(response);
-    person.setMalaria(response);
+
+
+
     person.setPayment(response);
-    person.setPerformedRDT(response);
+
     person.setSex(sex);
     person.apply();
 
     try
     {
-      Person duplicate = new Person();
+      SurveyedPerson duplicate = new SurveyedPerson();
       duplicate.setHousehold(household);
       duplicate.setDob(date);
       duplicate.setAnaemiaTreatment(drug);
-      duplicate.setFeverTreatment(treatment);
+
       duplicate.setHaemoglobin(haemoglobin);
-      duplicate.setHaemoglobinMeasured(true);
+
       duplicate.setIron(true);
-      duplicate.setMalariaTreatment(drug);
+
       duplicate.setPersonId("000");
       duplicate.setPregnant(true);
       duplicate.setRdtTreatment(drug);
-      duplicate.setBloodslide(bloodSlide);
-      duplicate.setFever(response);
-      duplicate.setMalaria(response);
+
+
+
       duplicate.setPayment(response);
-      duplicate.setPerformedRDT(response);
+
       duplicate.setSex(sex);
       duplicate.apply();
 
@@ -897,29 +767,27 @@ public class SurveyTest extends TestCase
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
-    household.setNetsUsed(2);
-    household.setSleptUnderNets(14);
     household.apply();
 
     try
     {
-      Person person = new Person();
+      SurveyedPerson person = new SurveyedPerson();
       person.setHousehold(household);
       person.setDob(date);
       person.setAnaemiaTreatment(drug);
-      person.setFeverTreatment(treatment);
+  
       person.setHaemoglobin(haemoglobin);
-      person.setHaemoglobinMeasured(true);
+
       person.setIron(true);
-      person.setMalariaTreatment(drug);
+  
       person.setPersonId("000");
       person.setPregnant(true);
       person.setRdtTreatment(drug);
-      person.setBloodslide(bloodSlide);
-      person.setFever(response);
-      person.setMalaria(response);
+
+
+
       person.setPayment(response);
-      person.setPerformedRDT(response);
+
       person.setSex(sex);
       person.apply();
 
@@ -967,64 +835,57 @@ public class SurveyTest extends TestCase
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(24);
-    household.setNetsUsed(2);
-    household.setSleptUnderNets(14);
     household.apply();
 
-    Person person = new Person();
+    SurveyedPerson person = new SurveyedPerson();
     person.setHousehold(household);
     person.setDob(date);
     person.setAnaemiaTreatment(drug);
-    person.setFeverTreatment(treatment);
+
     person.setHaemoglobin(haemoglobin);
-    person.setHaemoglobinMeasured(true);
+
     person.setIron(true);
-    person.setMalariaTreatment(drug);
+
     person.setPersonId("000");
     person.setPregnant(true);
     person.setRdtTreatment(drug);
-    person.setBloodslide(bloodSlide);
-    person.setFever(response);
-    person.setMalaria(response);
+
+
+
     person.setPayment(response);
-    person.setPerformedRDT(response);
+
     person.setSex(sex);
     person.apply();
 
-    Person person2 = new Person();
+    SurveyedPerson person2 = new SurveyedPerson();
     person2.setHousehold(household);
     person2.setDob(date);
     person2.setAnaemiaTreatment(drug);
-    person2.setFeverTreatment(treatment);
+
     person2.setHaemoglobin(haemoglobin);
-    person2.setHaemoglobinMeasured(true);
+
     person2.setIron(true);
-    person2.setMalariaTreatment(drug);
+
     person2.setPersonId("001");
     person2.setPregnant(true);
     person2.setRdtTreatment(drug);
-    person2.setBloodslide(bloodSlide);
-    person2.setFever(response);
-    person2.setMalaria(response);
+
+
+
     person2.setPayment(response);
-    person2.setPerformedRDT(response);
+
     person2.setSex(sex);
     person2.apply();
 
     try
     {
-      Set<Person> list = new TreeSet<Person>(new Comparator<Person>()
+      Set<SurveyedPerson> list = new TreeSet<SurveyedPerson>(new Comparator<SurveyedPerson>()
       {
-        public int compare(Person o1, Person o2)
+        public int compare(SurveyedPerson o1, SurveyedPerson o2)
         {
           return o1.getId().compareTo(o2.getId());
         }
       });
-
-      for (Person p : household.getAllPersons())
-      {
-        list.add(p);
-      }
 
       assertEquals(2, list.size());
       assertTrue(list.contains(person));
@@ -1088,8 +949,6 @@ public class SurveyTest extends TestCase
       household.setRooms(30);
       household.setLastSprayed(7);
       household.setNets(24);
-      household.setNetsUsed(30);
-      household.setSleptUnderNets(14);
       household.apply();
 
       household.delete();
@@ -1137,8 +996,6 @@ public class SurveyTest extends TestCase
       household.setRooms(30);
       household.setLastSprayed(7);
       household.setNets(24);
-      household.setNetsUsed(3);
-      household.setSleptUnderNets(30);
       household.apply();
 
       household.delete();
@@ -1184,8 +1041,6 @@ public class SurveyTest extends TestCase
       household.setWindowType(windowType);
       household.setRooms(30);
       household.setLastSprayed(7);
-      household.setNetsUsed(4);
-      household.setSleptUnderNets(30);
       household.apply();
 
       household.delete();
@@ -1234,22 +1089,10 @@ public class SurveyTest extends TestCase
     household.setRooms(30);
     household.setLastSprayed(7);
     household.setNets(0);
-    household.setNetsUsed(0);
-    household.setSleptUnderNets(0);
-
-    Collection<HouseholdNet> values = new LinkedList<HouseholdNet>();
-
-    for (Term net : Term.getRootChildren(HouseholdView.getDisplayNetsMd()))
-    {
-      HouseholdNet value = new HouseholdNet(household, net);
-      value.setAmount(30);
-
-      values.add(value);
-    }
 
     try
     {
-      household.applyAll(values.toArray(new HouseholdNet[values.size()]));
+      household.apply();
 
       household.deleteConcrete();
 
@@ -1258,8 +1101,6 @@ public class SurveyTest extends TestCase
     catch (ProblemException e)
     {
       List<ProblemIF> problems = e.getProblems();
-
-      assertEquals(values.size(), problems.size());
 
       for (ProblemIF problem : problems)
       {
@@ -1300,8 +1141,6 @@ public class SurveyTest extends TestCase
       household.setRooms(30);
       household.setLastSprayed(7);
       household.setNets(50);
-      household.setNetsUsed(4);
-      household.setSleptUnderNets(30);
       household.apply();
 
       household.delete();

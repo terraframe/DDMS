@@ -52,6 +52,20 @@ public class SurveyPointView extends SurveyPointViewBase implements com.terrafra
     return new Household[0];
   }
   
+  @Override
+  public HouseholdView[] getHouseholdViews()
+  {
+    Household[] households = this.getHouseholds();
+    HouseholdView[] views = new HouseholdView[households.length];
+    
+    for(int i = 0; i < households.length; i++)
+    {
+      views[i] = households[i].getView();
+    }
+    
+    return views;
+  }
+  
   public void apply()
   {
     SurveyPoint point = new SurveyPoint();

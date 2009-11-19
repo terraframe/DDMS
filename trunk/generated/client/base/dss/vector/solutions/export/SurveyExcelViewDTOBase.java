@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1723077406)
+@com.terraframe.mojo.business.ClassSignature(hash = -1439563411)
 public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.SurveyExcelView";
-  private static final long serialVersionUID = 1723077406;
+  private static final long serialVersionUID = -1439563411;
   
   protected SurveyExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -18,33 +18,24 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
   
   public static java.lang.String ANAEMIATREATMENT = "anaemiaTreatment";
   public static java.lang.String BLOODSLIDE = "bloodslide";
-  public static java.lang.String DOB = "dob";
   public static java.lang.String FEVER = "fever";
   public static java.lang.String FEVERTREATEMENT = "feverTreatement";
   public static java.lang.String GEOENTITY = "geoEntity";
-  public static java.lang.String HAEMOGLOBIN = "haemoglobin";
-  public static java.lang.String HAEMOGLOBINMEASURED = "haemoglobinMeasured";
   public static java.lang.String HASWINDOWS = "hasWindows";
   public static java.lang.String HOUSEHOLDNAME = "householdName";
   public static java.lang.String ID = "id";
-  public static java.lang.String IRON = "iron";
   public static java.lang.String LASTSPRAYED = "lastSprayed";
   public static java.lang.String MALARIA = "malaria";
   public static java.lang.String MALARIATREATMENT = "malariaTreatment";
   public static java.lang.String NETS = "nets";
-  public static java.lang.String NETSUSED = "netsUsed";
   public static java.lang.String PAYMENT = "payment";
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PERFORMEDRDT = "performedRDT";
-  public static java.lang.String PERSONID = "personId";
-  public static java.lang.String PREGNANT = "pregnant";
   public static java.lang.String RDTTREATMENT = "rdtTreatment";
   public static java.lang.String ROOFINFO = "roofInfo";
   public static java.lang.String ROOFSURFACE = "roofSurface";
   public static java.lang.String ROOMS = "rooms";
   public static java.lang.String SEX = "sex";
-  public static java.lang.String SLEPTUNDERNET = "sleptUnderNet";
-  public static java.lang.String SLEPTUNDERNETS = "sleptUnderNets";
   public static java.lang.String SURVEYDATE = "surveyDate";
   public static java.lang.String URBAN = "urban";
   public static java.lang.String WALLINFO = "wallInfo";
@@ -122,43 +113,6 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getBloodslideMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BLOODSLIDE).getAttributeMdDTO();
-  }
-  
-  public java.util.Date getDob()
-  {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DOB));
-  }
-  
-  public void setDob(java.util.Date value)
-  {
-    if(value == null)
-    {
-      setValue(DOB, "");
-    }
-    else
-    {
-      setValue(DOB, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
-    }
-  }
-  
-  public boolean isDobWritable()
-  {
-    return isWritable(DOB);
-  }
-  
-  public boolean isDobReadable()
-  {
-    return isReadable(DOB);
-  }
-  
-  public boolean isDobModified()
-  {
-    return isModified(DOB);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getDobMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DOB).getAttributeMdDTO();
   }
   
   public String getFever()
@@ -279,80 +233,6 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
-  public java.math.BigDecimal getHaemoglobin()
-  {
-    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(HAEMOGLOBIN));
-  }
-  
-  public void setHaemoglobin(java.math.BigDecimal value)
-  {
-    if(value == null)
-    {
-      setValue(HAEMOGLOBIN, "");
-    }
-    else
-    {
-      setValue(HAEMOGLOBIN, value.toString());
-    }
-  }
-  
-  public boolean isHaemoglobinWritable()
-  {
-    return isWritable(HAEMOGLOBIN);
-  }
-  
-  public boolean isHaemoglobinReadable()
-  {
-    return isReadable(HAEMOGLOBIN);
-  }
-  
-  public boolean isHaemoglobinModified()
-  {
-    return isModified(HAEMOGLOBIN);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getHaemoglobinMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(HAEMOGLOBIN).getAttributeMdDTO();
-  }
-  
-  public Boolean getHaemoglobinMeasured()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HAEMOGLOBINMEASURED));
-  }
-  
-  public void setHaemoglobinMeasured(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(HAEMOGLOBINMEASURED, "");
-    }
-    else
-    {
-      setValue(HAEMOGLOBINMEASURED, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isHaemoglobinMeasuredWritable()
-  {
-    return isWritable(HAEMOGLOBINMEASURED);
-  }
-  
-  public boolean isHaemoglobinMeasuredReadable()
-  {
-    return isReadable(HAEMOGLOBINMEASURED);
-  }
-  
-  public boolean isHaemoglobinMeasuredModified()
-  {
-    return isModified(HAEMOGLOBINMEASURED);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getHaemoglobinMeasuredMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(HAEMOGLOBINMEASURED).getAttributeMdDTO();
-  }
-  
   public Boolean getHasWindows()
   {
     return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HASWINDOWS));
@@ -425,43 +305,6 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getHouseholdNameMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(HOUSEHOLDNAME).getAttributeMdDTO();
-  }
-  
-  public Boolean getIron()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(IRON));
-  }
-  
-  public void setIron(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(IRON, "");
-    }
-    else
-    {
-      setValue(IRON, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isIronWritable()
-  {
-    return isWritable(IRON);
-  }
-  
-  public boolean isIronReadable()
-  {
-    return isReadable(IRON);
-  }
-  
-  public boolean isIronModified()
-  {
-    return isModified(IRON);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIronMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(IRON).getAttributeMdDTO();
   }
   
   public Integer getLastSprayed()
@@ -612,43 +455,6 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NETS).getAttributeMdDTO();
   }
   
-  public Integer getNetsUsed()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NETSUSED));
-  }
-  
-  public void setNetsUsed(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(NETSUSED, "");
-    }
-    else
-    {
-      setValue(NETSUSED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isNetsUsedWritable()
-  {
-    return isWritable(NETSUSED);
-  }
-  
-  public boolean isNetsUsedReadable()
-  {
-    return isReadable(NETSUSED);
-  }
-  
-  public boolean isNetsUsedModified()
-  {
-    return isModified(NETSUSED);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNetsUsedMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NETSUSED).getAttributeMdDTO();
-  }
-  
   public String getPayment()
   {
     return getValue(PAYMENT);
@@ -758,80 +564,6 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPerformedRDTMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PERFORMEDRDT).getAttributeMdDTO();
-  }
-  
-  public String getPersonId()
-  {
-    return getValue(PERSONID);
-  }
-  
-  public void setPersonId(String value)
-  {
-    if(value == null)
-    {
-      setValue(PERSONID, "");
-    }
-    else
-    {
-      setValue(PERSONID, value);
-    }
-  }
-  
-  public boolean isPersonIdWritable()
-  {
-    return isWritable(PERSONID);
-  }
-  
-  public boolean isPersonIdReadable()
-  {
-    return isReadable(PERSONID);
-  }
-  
-  public boolean isPersonIdModified()
-  {
-    return isModified(PERSONID);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPersonIdMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PERSONID).getAttributeMdDTO();
-  }
-  
-  public Boolean getPregnant()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(PREGNANT));
-  }
-  
-  public void setPregnant(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(PREGNANT, "");
-    }
-    else
-    {
-      setValue(PREGNANT, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isPregnantWritable()
-  {
-    return isWritable(PREGNANT);
-  }
-  
-  public boolean isPregnantReadable()
-  {
-    return isReadable(PREGNANT);
-  }
-  
-  public boolean isPregnantModified()
-  {
-    return isModified(PREGNANT);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPregnantMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(PREGNANT).getAttributeMdDTO();
   }
   
   public String getRdtTreatment()
@@ -1017,80 +749,6 @@ public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.busines
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSexMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
-  }
-  
-  public Boolean getSleptUnderNet()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SLEPTUNDERNET));
-  }
-  
-  public void setSleptUnderNet(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(SLEPTUNDERNET, "");
-    }
-    else
-    {
-      setValue(SLEPTUNDERNET, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isSleptUnderNetWritable()
-  {
-    return isWritable(SLEPTUNDERNET);
-  }
-  
-  public boolean isSleptUnderNetReadable()
-  {
-    return isReadable(SLEPTUNDERNET);
-  }
-  
-  public boolean isSleptUnderNetModified()
-  {
-    return isModified(SLEPTUNDERNET);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getSleptUnderNetMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SLEPTUNDERNET).getAttributeMdDTO();
-  }
-  
-  public Integer getSleptUnderNets()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SLEPTUNDERNETS));
-  }
-  
-  public void setSleptUnderNets(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(SLEPTUNDERNETS, "");
-    }
-    else
-    {
-      setValue(SLEPTUNDERNETS, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isSleptUnderNetsWritable()
-  {
-    return isWritable(SLEPTUNDERNETS);
-  }
-  
-  public boolean isSleptUnderNetsReadable()
-  {
-    return isReadable(SLEPTUNDERNETS);
-  }
-  
-  public boolean isSleptUnderNetsModified()
-  {
-    return isModified(SLEPTUNDERNETS);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSleptUnderNetsMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SLEPTUNDERNETS).getAttributeMdDTO();
   }
   
   public java.util.Date getSurveyDate()

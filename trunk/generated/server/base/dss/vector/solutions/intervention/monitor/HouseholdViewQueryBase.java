@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1031875092)
+@com.terraframe.mojo.business.ClassSignature(hash = 738417803)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class HouseholdViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1031875092;
+private static final long serialVersionUID = 738417803;
 
   public HouseholdViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -44,25 +44,41 @@ private static final long serialVersionUID = 1031875092;
 
   }
  
-  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayNets()
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getHasBeenSprayed()
   {
-    return getDisplayNets(null);
+    return getHasBeenSprayed(null);
 
   }
  
-  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayNets(String alias)
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getHasBeenSprayed(String alias)
   {
-
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.DISPLAYNETS, alias, null);
+    return (dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HASBEENSPRAYED, alias, null);
 
   }
  
-  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDisplayNets(String alias, String displayLabel)
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getHasBeenSprayed(String alias, String displayLabel)
   {
-
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.DISPLAYNETS, alias, displayLabel);
+    return (dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HASBEENSPRAYED, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeBoolean getHasHouseholdNets()
+  {
+    return getHasHouseholdNets(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getHasHouseholdNets(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HASHOUSEHOLDNETS, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getHasHouseholdNets(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HASHOUSEHOLDNETS, alias, displayLabel);
+
+  }
+ 
   public com.terraframe.mojo.query.AttributeBoolean getHasWindows()
   {
     return getHasWindows(null);
@@ -153,24 +169,6 @@ private static final long serialVersionUID = 1031875092;
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNetsUsed()
-  {
-    return getNetsUsed(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getNetsUsed(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.NETSUSED, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getNetsUsed(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.NETSUSED, alias, displayLabel);
-
-  }
- 
   public com.terraframe.mojo.query.AttributeInteger getPeople()
   {
     return getPeople(null);
@@ -241,24 +239,6 @@ private static final long serialVersionUID = 1031875092;
   public com.terraframe.mojo.query.AttributeInteger getRooms(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.ROOMS, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getSleptUnderNets()
-  {
-    return getSleptUnderNets(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getSleptUnderNets(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.SLEPTUNDERNETS, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getSleptUnderNets(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.SLEPTUNDERNETS, alias, displayLabel);
 
   }
  

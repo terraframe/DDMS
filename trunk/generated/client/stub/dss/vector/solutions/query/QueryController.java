@@ -35,8 +35,6 @@ import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO;
-import dss.vector.solutions.intervention.monitor.HouseholdNetDTO;
-import dss.vector.solutions.intervention.monitor.HouseholdViewDTO;
 import dss.vector.solutions.intervention.monitor.IPTANCVisitDTO;
 import dss.vector.solutions.intervention.monitor.IPTDoseDTO;
 import dss.vector.solutions.intervention.monitor.IPTPatientsDTO;
@@ -113,35 +111,35 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       rdtResult.put("displayLabel", display);
       rdtResult.put("attributeName", PersonViewDTO.RDTRESULT);
 
-      JSONArray items = new JSONArray();
-      rdtResult.put("items", items);
-      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
-      {
-        JSONObject item = new JSONObject();
-        item.put("displayLabel", term.getDisplayLabel());
-        item.put("value", term.getId());
-
-        items.put(item);
-      }
-
-      req.setAttribute("rdtResults", rdtResult.toString());
-
-      req.setAttribute("queryList", queries.toString());
-
-      JSONArray nets = new JSONArray();
-      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
-      {
-        JSONObject net = new JSONObject();
-        net.put("entityAlias", HouseholdNetDTO.CLASS + "_" + term.getId());
-        net.put("key", HouseholdNetDTO.AMOUNT + "_" + term.getId());
-        net.put("displayLabel", term.getDisplayLabel());
-        net.put("attributeName", HouseholdNetDTO.AMOUNT);
-        net.put("type", HouseholdNetDTO.CLASS);
-
-        nets.put(net);
-      }
-
-      req.setAttribute("nets", nets.toString());
+//      JSONArray items = new JSONArray();
+//      rdtResult.put("items", items);
+//      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
+//      {
+//        JSONObject item = new JSONObject();
+//        item.put("displayLabel", term.getDisplayLabel());
+//        item.put("value", term.getId());
+//
+//        items.put(item);
+//      }
+//
+//      req.setAttribute("rdtResults", rdtResult.toString());
+//
+//      req.setAttribute("queryList", queries.toString());
+//
+//      JSONArray nets = new JSONArray();
+//      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
+//      {
+//        JSONObject net = new JSONObject();
+//        net.put("entityAlias", HouseholdNetDTO.CLASS + "_" + term.getId());
+//        net.put("key", HouseholdNetDTO.AMOUNT + "_" + term.getId());
+//        net.put("displayLabel", term.getDisplayLabel());
+//        net.put("attributeName", HouseholdNetDTO.AMOUNT);
+//        net.put("type", HouseholdNetDTO.CLASS);
+//
+//        nets.put(net);
+//      }
+//
+//      req.setAttribute("nets", nets.toString());
 
       req.getRequestDispatcher(QUERY_SURVEY).forward(req, resp);
     }

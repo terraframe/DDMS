@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -921379502)
+@com.terraframe.mojo.business.ClassSignature(hash = 1285677797)
 public abstract class HouseholdDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.Household";
-  private static final long serialVersionUID = -921379502;
+  private static final long serialVersionUID = 1285677797;
   
   protected HouseholdDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -30,6 +30,7 @@ public abstract class HouseholdDTOBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String HASBEENSPRAYED = "hasBeenSprayed";
   public static java.lang.String HASWINDOWS = "hasWindows";
   public static java.lang.String HOUSEHOLDNAME = "householdName";
   public static java.lang.String ID = "id";
@@ -39,7 +40,6 @@ public abstract class HouseholdDTOBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NETS = "nets";
-  public static java.lang.String NETSUSED = "netsUsed";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String ROOF = "roof";
@@ -47,7 +47,6 @@ public abstract class HouseholdDTOBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String ROOMS = "rooms";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
-  public static java.lang.String SLEPTUNDERNETS = "sleptUnderNets";
   public static java.lang.String SURVEYPOINT = "surveyPoint";
   public static java.lang.String TYPE = "type";
   public static java.lang.String URBAN = "urban";
@@ -153,6 +152,52 @@ public abstract class HouseholdDTOBase extends com.terraframe.mojo.business.Busi
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.ResponseDTO> getHasBeenSprayed()
+  {
+    return (java.util.List<dss.vector.solutions.ResponseDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.Response", getEnumNames(HASBEENSPRAYED));
+  }
+  
+  public java.util.List<String> getHasBeenSprayedEnumNames()
+  {
+    return getEnumNames(HASBEENSPRAYED);
+  }
+  
+  public void addHasBeenSprayed(dss.vector.solutions.ResponseDTO enumDTO)
+  {
+    addEnumItem(HASBEENSPRAYED, enumDTO.toString());
+  }
+  
+  public void removeHasBeenSprayed(dss.vector.solutions.ResponseDTO enumDTO)
+  {
+    removeEnumItem(HASBEENSPRAYED, enumDTO.toString());
+  }
+  
+  public void clearHasBeenSprayed()
+  {
+    clearEnum(HASBEENSPRAYED);
+  }
+  
+  public boolean isHasBeenSprayedWritable()
+  {
+    return isWritable(HASBEENSPRAYED);
+  }
+  
+  public boolean isHasBeenSprayedReadable()
+  {
+    return isReadable(HASBEENSPRAYED);
+  }
+  
+  public boolean isHasBeenSprayedModified()
+  {
+    return isModified(HASBEENSPRAYED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getHasBeenSprayedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(HASBEENSPRAYED).getAttributeMdDTO();
   }
   
   public Boolean getHasWindows()
@@ -429,43 +474,6 @@ public abstract class HouseholdDTOBase extends com.terraframe.mojo.business.Busi
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NETS).getAttributeMdDTO();
   }
   
-  public Integer getNetsUsed()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NETSUSED));
-  }
-  
-  public void setNetsUsed(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(NETSUSED, "");
-    }
-    else
-    {
-      setValue(NETSUSED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isNetsUsedWritable()
-  {
-    return isWritable(NETSUSED);
-  }
-  
-  public boolean isNetsUsedReadable()
-  {
-    return isReadable(NETSUSED);
-  }
-  
-  public boolean isNetsUsedModified()
-  {
-    return isModified(NETSUSED);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNetsUsedMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NETSUSED).getAttributeMdDTO();
-  }
-  
   public com.terraframe.mojo.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
@@ -715,43 +723,6 @@ public abstract class HouseholdDTOBase extends com.terraframe.mojo.business.Busi
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public Integer getSleptUnderNets()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SLEPTUNDERNETS));
-  }
-  
-  public void setSleptUnderNets(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(SLEPTUNDERNETS, "");
-    }
-    else
-    {
-      setValue(SLEPTUNDERNETS, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isSleptUnderNetsWritable()
-  {
-    return isWritable(SLEPTUNDERNETS);
-  }
-  
-  public boolean isSleptUnderNetsReadable()
-  {
-    return isReadable(SLEPTUNDERNETS);
-  }
-  
-  public boolean isSleptUnderNetsModified()
-  {
-    return isModified(SLEPTUNDERNETS);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSleptUnderNetsMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SLEPTUNDERNETS).getAttributeMdDTO();
-  }
-  
   public dss.vector.solutions.intervention.monitor.SurveyPointDTO getSurveyPoint()
   {
     if(getValue(SURVEYPOINT) == null || getValue(SURVEYPOINT).trim().equals(""))
@@ -999,111 +970,111 @@ public abstract class HouseholdDTOBase extends com.terraframe.mojo.business.Busi
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllNets()
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNInstanceDTO> getAllITNs()
   {
-    return (java.util.List<? extends dss.vector.solutions.ontology.TermDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNInstanceDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNInstanceDTO> getAllITNs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
-    return (java.util.List<? extends dss.vector.solutions.ontology.TermDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNInstanceDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdNetDTO> getAllNetsRelationships()
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO> getAllITNsRelationships()
   {
-    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdNetDTO>) getRequest().getChildRelationships(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO>) getRequest().getChildRelationships(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdNetDTO> getAllNetsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO> getAllITNsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
-    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdNetDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO.CLASS);
   }
   
-  public dss.vector.solutions.intervention.monitor.HouseholdNetDTO addNets(dss.vector.solutions.ontology.TermDTO child)
+  public dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO addITNs(dss.vector.solutions.intervention.monitor.ITNInstanceDTO child)
   {
-    return (dss.vector.solutions.intervention.monitor.HouseholdNetDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
+    return (dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.HouseholdNetDTO addNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO child)
+  public static dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO addITNs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.ITNInstanceDTO child)
   {
-    return (dss.vector.solutions.intervention.monitor.HouseholdNetDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
+    return (dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO.CLASS);
   }
   
-  public void removeNets(dss.vector.solutions.intervention.monitor.HouseholdNetDTO relationship)
+  public void removeITNs(dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO relationship)
   {
     getRequest().deleteChild(relationship.getId());
   }
   
-  public static void removeNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.HouseholdNetDTO relationship)
+  public static void removeITNs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO relationship)
   {
     clientRequestIF.deleteChild(relationship.getId());
   }
   
-  public void removeAllNets()
+  public void removeAllITNs()
   {
-    getRequest().deleteChildren(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
+    getRequest().deleteChildren(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO.CLASS);
   }
   
-  public static void removeAllNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllITNs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
-    clientRequestIF.deleteChildren(id, dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonDTO> getAllPersons()
-  {
-    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdPersonDTO.CLASS);
+    clientRequestIF.deleteChildren(id, dss.vector.solutions.intervention.monitor.HouseholdITNInstanceDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonDTO> getAllPersons(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO> getAllSurveyedPeople()
   {
-    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.intervention.monitor.HouseholdPersonDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdPersonDTO> getAllPersonsRelationships()
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO> getAllSurveyedPeople(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
-    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdPersonDTO>) getRequest().getChildRelationships(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdPersonDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdPersonDTO> getAllPersonsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO> getAllSurveyedPeopleRelationships()
   {
-    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdPersonDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.intervention.monitor.HouseholdPersonDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO>) getRequest().getChildRelationships(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO.CLASS);
   }
   
-  public dss.vector.solutions.intervention.monitor.HouseholdPersonDTO addPersons(dss.vector.solutions.intervention.monitor.PersonDTO child)
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO> getAllSurveyedPeopleRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
-    return (dss.vector.solutions.intervention.monitor.HouseholdPersonDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.intervention.monitor.HouseholdPersonDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.HouseholdPersonDTO addPersons(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.PersonDTO child)
+  public dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO addSurveyedPeople(dss.vector.solutions.intervention.monitor.SurveyedPersonDTO child)
   {
-    return (dss.vector.solutions.intervention.monitor.HouseholdPersonDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.intervention.monitor.HouseholdPersonDTO.CLASS);
+    return (dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO.CLASS);
   }
   
-  public void removePersons(dss.vector.solutions.intervention.monitor.HouseholdPersonDTO relationship)
+  public static dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO addSurveyedPeople(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.SurveyedPersonDTO child)
+  {
+    return (dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO.CLASS);
+  }
+  
+  public void removeSurveyedPeople(dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO relationship)
   {
     getRequest().deleteChild(relationship.getId());
   }
   
-  public static void removePersons(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.HouseholdPersonDTO relationship)
+  public static void removeSurveyedPeople(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO relationship)
   {
     clientRequestIF.deleteChild(relationship.getId());
   }
   
-  public void removeAllPersons()
+  public void removeAllSurveyedPeople()
   {
-    getRequest().deleteChildren(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdPersonDTO.CLASS);
+    getRequest().deleteChildren(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO.CLASS);
   }
   
-  public static void removeAllPersons(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllSurveyedPeople(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
-    clientRequestIF.deleteChildren(id, dss.vector.solutions.intervention.monitor.HouseholdPersonDTO.CLASS);
+    clientRequestIF.deleteChildren(id, dss.vector.solutions.intervention.monitor.HouseholdSurveyedPersonDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")

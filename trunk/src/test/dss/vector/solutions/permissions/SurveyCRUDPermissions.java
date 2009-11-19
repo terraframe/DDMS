@@ -9,7 +9,6 @@ import com.terraframe.mojo.DoNotWeave;
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
-import dss.vector.solutions.intervention.monitor.HouseholdNetDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdViewDTO;
 import dss.vector.solutions.intervention.monitor.PersonDTO;
 import dss.vector.solutions.intervention.monitor.PersonViewDTO;
@@ -65,19 +64,14 @@ public class SurveyCRUDPermissions extends PermissionTest implements DoNotWeave
       household.setRoof(term);
       household.setHouseholdName("232");
       household.setNets(40);
-
-      HouseholdNetDTO[] nets = household.getHouseholdNets();
-      nets[0].setAmount(40);
-
-      household.applyAll(nets);
+      household.apply();
 
       try
       {
         HouseholdViewDTO edit = HouseholdDTO.lockView(request, household.getConcreteId());
-        edit.setNetsUsed(20);
-        HouseholdNetDTO[] lockedNets = edit.getHouseholdNets();
+        edit.setHasWindows(false);
+        edit.apply();
 
-        edit.applyAll(lockedNets);
 
         HouseholdViewDTO test = HouseholdDTO.getView(request, household.getConcreteId());
 
@@ -113,11 +107,7 @@ public class SurveyCRUDPermissions extends PermissionTest implements DoNotWeave
       household.setRoof(term);
       household.setHouseholdName("232");
       household.setNets(40);
-
-      HouseholdNetDTO[] nets = household.getHouseholdNets();
-      nets[0].setAmount(40);
-
-      household.applyAll(nets);
+      household.apply();
 
       try
       {

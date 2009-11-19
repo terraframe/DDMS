@@ -198,7 +198,7 @@ public class SurveyPoint extends SurveyPointBase implements
 
     SurveyPointQuery surveyPointQuery = (SurveyPointQuery) queryMap.get(SurveyPoint.CLASS);
     HouseholdQuery householdQuery = (HouseholdQuery) queryMap.get(Household.CLASS);
-    PersonQuery personQuery = (PersonQuery) queryMap.get(Person.CLASS);
+    SurveyedPersonQuery personQuery = (SurveyedPersonQuery) queryMap.get(SurveyedPerson.CLASS);
     TermQuery termQuery = (TermQuery) queryMap.get(Term.CLASS);
 
     if(householdQuery != null)
@@ -211,7 +211,7 @@ public class SurveyPoint extends SurveyPointBase implements
       valueQuery.AND(new InnerJoinEq("id","household",householdQuery.getTableAlias(),"id",sql,subSelect));
     }
 
-    String personTable = MdBusiness.getMdBusiness(Person.CLASS).getTableName();
+    String personTable = MdBusiness.getMdBusiness(SurveyedPerson.CLASS).getTableName();
     if(personQuery != null)
     {
       if(householdQuery == null)
@@ -221,30 +221,30 @@ public class SurveyPoint extends SurveyPointBase implements
         valueQuery.FROM(householdQuery);
       }
 
-      valueQuery.WHERE(householdQuery.persons(personQuery));
+      valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
 
 
-      String[] personAttributes = Term.getTermAttributes(Person.CLASS);
-      String sql = "(" + QueryUtil.getTermSubSelect(Person.CLASS, personAttributes) + ")";
+      String[] personAttributes = Term.getTermAttributes(SurveyedPerson.CLASS);
+      String sql = "(" + QueryUtil.getTermSubSelect(SurveyedPerson.CLASS, personAttributes) + ")";
       String subSelect = "personTermSubSel";
       valueQuery.AND(new InnerJoinEq("id", personTable,personQuery.getTableAlias(),"id",sql,subSelect));
     }
 
-    // Convert RDTResult which is relationship between Person and Term
+    // Convert Treatments which is relationship between Surveyed Person and Term
     try
     {
-      SelectableSQLCharacter sel = (SelectableSQLCharacter) valueQuery.getSelectable(PersonView.RDTRESULT);
+      SelectableSQLCharacter sel = (SelectableSQLCharacter) valueQuery.getSelectable(SurveyedPersonView.RDTRESULT);
 
       // If TermQuery exists then restrict by inner joins instead of doing left joins
       if(termQuery != null)
       {
-        valueQuery.WHERE(personQuery.rDTResults(termQuery));
+        valueQuery.WHERE(personQuery.locations(termQuery));
         String sql = termQuery.getTableAlias()+"."+Term.NAME;
         sel.setSQL(sql);
       }
       else
       {
-        String subSelect = QueryUtil.getRelationshipTermSubSelect(PersonView.RDTRESULT, Person.CLASS, PersonRDTResult.CLASS);
+        String subSelect = QueryUtil.getRelationshipTermSubSelect(SurveyedPersonView.RDTRESULT, SurveyedPerson.CLASS, SurveyedPersonView.CLASS);
         String subSelectName = "rdtResultTermSubSel";
 
         String sql = subSelectName+".rDTResult_displayLabel";
@@ -263,7 +263,7 @@ public class SurveyPoint extends SurveyPointBase implements
     // Convert Person.DOB into an integer
     try
     {
-      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable(Person.DOB);
+      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable(SurveyedPerson.DOB);
 
       String personTableAlias = personQuery.getTableAlias();
       String sql = "EXTRACT(year from AGE(NOW(), "+personTableAlias+".dob))";
@@ -312,25 +312,25 @@ public class SurveyPoint extends SurveyPointBase implements
     // Add net selectables
     for(String entityAlias : queryMap.keySet())
     {
-      if(entityAlias.startsWith(HouseholdNet.CLASS))
-      {
-        if(householdQuery == null)
-        {
-          householdQuery = new HouseholdQuery(queryFactory);
-          valueQuery.WHERE(surveyPointQuery.households(householdQuery));
-          valueQuery.FROM(householdQuery);
-        }
-
-        TermQuery termNetQuery = new TermQuery(queryFactory);
-
-        String termId = entityAlias.substring(entityAlias.indexOf("_")+1);
-
-        HouseholdNetQuery householdNetQuery = (HouseholdNetQuery) queryMap.get(entityAlias);
-
-        valueQuery.AND(householdQuery.nets(householdNetQuery));
-        valueQuery.AND(householdNetQuery.hasChild(termNetQuery));
-        valueQuery.AND(termNetQuery.getId().EQ(termId));
-      }
+//      if(entityAlias.startsWith(HouseholdNet.CLASS))
+//      {
+//        if(householdQuery == null)
+//        {
+//          householdQuery = new HouseholdQuery(queryFactory);
+//          valueQuery.WHERE(surveyPointQuery.households(householdQuery));
+//          valueQuery.FROM(householdQuery);
+//        }
+//
+//        TermQuery termNetQuery = new TermQuery(queryFactory);
+//
+//        String termId = entityAlias.substring(entityAlias.indexOf("_")+1);
+//
+//        HouseholdNetQuery householdNetQuery = (HouseholdNetQuery) queryMap.get(entityAlias);
+//
+//        valueQuery.AND(householdQuery.nets(householdNetQuery));
+//        valueQuery.AND(householdNetQuery.hasChild(termNetQuery));
+//        valueQuery.AND(termNetQuery.getId().EQ(termId));
+//      }
     }
 
    /*

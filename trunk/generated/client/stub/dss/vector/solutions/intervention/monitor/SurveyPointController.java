@@ -132,7 +132,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     req.setAttribute("item", survey);
-    req.setAttribute("households", Arrays.asList(survey.getHouseholds()));
+    req.setAttribute("households", Arrays.asList(survey.getHouseholdViews()));
     render("viewComponent.jsp");
   }
 

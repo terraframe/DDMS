@@ -1,13 +1,12 @@
 package dss.vector.solutions.intervention.monitor;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.OIterator;
 
-import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.surveillance.GridComparator;
+import dss.vector.solutions.Response;
 
 public class HouseholdView extends HouseholdViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -24,33 +23,47 @@ public class HouseholdView extends HouseholdViewBase implements com.terraframe.m
 
     this.setHasWindows(concrete.getHasWindows());
     this.setHouseholdName(concrete.getHouseholdName());
+    
+    this.clearHasBeenSprayed();
+    for(Response response : concrete.getHasBeenSprayed())
+    {
+      this.addHasBeenSprayed(response);
+    }    
+    
     this.setLastSprayed(concrete.getLastSprayed());
     this.setNets(concrete.getNets());
-    this.setNetsUsed(concrete.getNetsUsed());
     this.setPeople(concrete.getPeople());
     this.setRoof(concrete.getRoof());
     this.setRoofInfo(concrete.getRoofInfo());
     this.setRooms(concrete.getRooms());
-    this.setSleptUnderNets(concrete.getSleptUnderNets());
     this.setSurveyPoint(concrete.getSurveyPoint());
     this.setUrban(concrete.getUrban());
     this.setWall(concrete.getWall());
     this.setWallInfo(concrete.getWallInfo());
     this.setWindowType(concrete.getWindowType());
+
+    long count = ITNInstance.getCount(concrete);
+    this.setHasHouseholdNets(count > 0);
+    
   }
 
   private void populateConcrete(Household concrete)
   {
     concrete.setHasWindows(this.getHasWindows());
     concrete.setHouseholdName(this.getHouseholdName());
+        
+    concrete.clearHasBeenSprayed();
+    for(Response response : this.getHasBeenSprayed())
+    {
+      concrete.addHasBeenSprayed(response);
+    }    
+    
     concrete.setLastSprayed(this.getLastSprayed());
     concrete.setNets(this.getNets());
-    concrete.setNetsUsed(this.getNetsUsed());
     concrete.setPeople(this.getPeople());
     concrete.setRoof(this.getRoof());
     concrete.setRoofInfo(this.getRoofInfo());
     concrete.setRooms(this.getRooms());
-    concrete.setSleptUnderNets(this.getSleptUnderNets());
     concrete.setSurveyPoint(this.getSurveyPoint());
     concrete.setUrban(this.getUrban());
     concrete.setWall(this.getWall());
@@ -62,14 +75,13 @@ public class HouseholdView extends HouseholdViewBase implements com.terraframe.m
   {    
     new AttributeNotificationMap(concrete, Household.HASWINDOWS, this, HouseholdView.HASWINDOWS);
     new AttributeNotificationMap(concrete, Household.HOUSEHOLDNAME, this, HouseholdView.HOUSEHOLDNAME);
+    new AttributeNotificationMap(concrete, Household.HASBEENSPRAYED, this, HouseholdView.HASBEENSPRAYED);
     new AttributeNotificationMap(concrete, Household.LASTSPRAYED, this, HouseholdView.LASTSPRAYED);
     new AttributeNotificationMap(concrete, Household.NETS, this, HouseholdView.NETS);
-    new AttributeNotificationMap(concrete, Household.NETSUSED, this, HouseholdView.NETSUSED);
     new AttributeNotificationMap(concrete, Household.PEOPLE, this, HouseholdView.PEOPLE);
     new AttributeNotificationMap(concrete, Household.ROOF, this, HouseholdView.ROOF);
     new AttributeNotificationMap(concrete, Household.ROOFINFO, this, HouseholdView.ROOFINFO);
     new AttributeNotificationMap(concrete, Household.ROOMS, this, HouseholdView.ROOMS);
-    new AttributeNotificationMap(concrete, Household.SLEPTUNDERNETS, this, HouseholdView.SLEPTUNDERNETS);
     new AttributeNotificationMap(concrete, Household.SURVEYPOINT, this, HouseholdView.SURVEYPOINT);
     new AttributeNotificationMap(concrete, Household.URBAN, this, HouseholdView.URBAN);
     new AttributeNotificationMap(concrete, Household.WALL, this, HouseholdView.WALL);
@@ -116,51 +128,62 @@ public class HouseholdView extends HouseholdViewBase implements com.terraframe.m
   }
   
   @Override
-  public HouseholdNet[] getHouseholdNets()
+  public SurveyedPersonView[] getSurveyedPeople()
   {
-    Set<HouseholdNet> set = new TreeSet<HouseholdNet>(new GridComparator());
-
-    for (Term d : Term.getRootChildren(HouseholdView.getDisplayNetsMd()))
+    if(this.hasConcrete())
     {
-      set.add(new HouseholdNet(this.getId(), d.getId()));
-    }
-
-    if (this.hasConcrete())
-    {
-      Household concrete = Household.get(this.getConcreteId());
-
-      for (HouseholdNet net : concrete.getAllNetsRel())
+      Household household = Household.get(this.getConcreteId());
+      
+      OIterator<? extends SurveyedPerson> it = household.getAllSurveyedPeople();
+      
+      try
       {
-        // We will only want grid options methods which are active
-        // All active methods are already in the set.  Thus, if
-        // the set already contains an entry for the Grid Option
-        // replace the default relationship with the actaul
-        // relationship
-        if(set.contains(net))
+        List<SurveyedPersonView> list = new LinkedList<SurveyedPersonView>();
+
+        while(it.hasNext())
         {
-          set.remove(net);
-          set.add(net);
+          list.add(it.next().getView());
         }
+        
+        return list.toArray(new SurveyedPersonView[list.size()]);
       }
-    }
-
-    return set.toArray(new HouseholdNet[set.size()]);
-  }
-
-  @Transaction
-  public void applyAll(HouseholdNet[] nets)
-  {
-    this.apply();
-
-    for(HouseholdNet net : nets)
-    {
-      net.overwriteParentId(this.getConcreteId());
-      net.apply();
+      finally
+      {
+        it.close();
+      }
+      
     }
     
-    //  Validate the sum of all the nets
-    this.validateNets();
+    return new SurveyedPersonView[0];    
   }
+  
+  @Override
+  public ITNInstanceView[] getItns()
+  {
+    if(this.hasConcrete())
+    {
+      Household household = Household.get(this.getConcreteId());
+      
+      OIterator<? extends ITNInstance> it = household.getAllITNs();
+      
+      try
+      {
+        List<ITNInstanceView> list = new LinkedList<ITNInstanceView>();
 
-
+        while(it.hasNext())
+        {
+          list.add(it.next().getView());
+        }
+        
+        return list.toArray(new ITNInstanceView[list.size()]);
+      }
+      finally
+      {
+        it.close();
+      }
+      
+    }
+    
+    return new ITNInstanceView[0];        
+  }
 }

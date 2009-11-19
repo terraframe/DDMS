@@ -12,7 +12,6 @@ import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
-import dss.vector.solutions.intervention.monitor.HouseholdNetDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdViewDTO;
 import dss.vector.solutions.intervention.monitor.PersonViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
@@ -61,10 +60,7 @@ public class SurveyNoPermissions extends PermissionTest implements DoNotWeave
       household.setRoof(term);
       household.setHouseholdName("232");
       household.setNets(40);
-
-      HouseholdNetDTO[] nets = household.getHouseholdNets();
-
-      household.applyAll(nets);
+      household.apply();
 
       fail("Able to create a household without permissions");
     }
@@ -96,11 +92,7 @@ public class SurveyNoPermissions extends PermissionTest implements DoNotWeave
       household.setRoof(term);
       household.setHouseholdName("232");
       household.setNets(40);
-
-      HouseholdNetDTO[] nets = household.getHouseholdNets();
-      nets[0].setAmount(40);
-
-      household.applyAll(nets);
+      household.apply();
 
       try
       {

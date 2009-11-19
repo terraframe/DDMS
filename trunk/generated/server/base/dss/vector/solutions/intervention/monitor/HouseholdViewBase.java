@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -496664981)
+@com.terraframe.mojo.business.ClassSignature(hash = 1124227362)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,24 +12,23 @@ public abstract class HouseholdViewBase extends com.terraframe.mojo.business.Vie
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.HouseholdView";
   public static java.lang.String CONCRETEID = "concreteId";
-  public static java.lang.String DISPLAYNETS = "displayNets";
+  public static java.lang.String HASBEENSPRAYED = "hasBeenSprayed";
+  public static java.lang.String HASHOUSEHOLDNETS = "hasHouseholdNets";
   public static java.lang.String HASWINDOWS = "hasWindows";
   public static java.lang.String HOUSEHOLDNAME = "householdName";
   public static java.lang.String ID = "id";
   public static java.lang.String LASTSPRAYED = "lastSprayed";
   public static java.lang.String NETS = "nets";
-  public static java.lang.String NETSUSED = "netsUsed";
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String ROOF = "roof";
   public static java.lang.String ROOFINFO = "roofInfo";
   public static java.lang.String ROOMS = "rooms";
-  public static java.lang.String SLEPTUNDERNETS = "sleptUnderNets";
   public static java.lang.String SURVEYPOINT = "surveyPoint";
   public static java.lang.String URBAN = "urban";
   public static java.lang.String WALL = "wall";
   public static java.lang.String WALLINFO = "wallInfo";
   public static java.lang.String WINDOWTYPE = "windowType";
-  private static final long serialVersionUID = -496664981;
+  private static final long serialVersionUID = 1124227362;
   
   public HouseholdViewBase()
   {
@@ -64,38 +63,69 @@ public abstract class HouseholdViewBase extends com.terraframe.mojo.business.Vie
     }
   }
   
-  public dss.vector.solutions.ontology.Term getDisplayNets()
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.Response> getHasBeenSprayed()
   {
-    if (getValue(DISPLAYNETS).trim().equals(""))
+    return (java.util.List<dss.vector.solutions.Response>) getEnumValues(HASBEENSPRAYED);
+  }
+  
+  public void addHasBeenSprayed(dss.vector.solutions.Response value)
+  {
+    if(value != null)
     {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.ontology.Term.get(getValue(DISPLAYNETS));
+      addEnumItem(HASBEENSPRAYED, value.getId());
     }
   }
   
-  public void validateDisplayNets()
+  public void removeHasBeenSprayed(dss.vector.solutions.Response value)
   {
-    this.validateAttribute(DISPLAYNETS);
+    if(value != null)
+    {
+      removeEnumItem(HASBEENSPRAYED, value.getId());
+    }
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getDisplayNetsMd()
+  public void clearHasBeenSprayed()
+  {
+    clearEnum(HASBEENSPRAYED);
+  }
+  
+  public void validateHasBeenSprayed()
+  {
+    this.validateAttribute(HASBEENSPRAYED);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getHasBeenSprayedMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.HouseholdView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYNETS);
+    return mdClassIF.definesAttribute(HASBEENSPRAYED);
   }
   
-  public void setDisplayNets(dss.vector.solutions.ontology.Term value)
+  public Boolean getHasHouseholdNets()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HASHOUSEHOLDNETS));
+  }
+  
+  public void validateHasHouseholdNets()
+  {
+    this.validateAttribute(HASHOUSEHOLDNETS);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getHasHouseholdNetsMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.HouseholdView.CLASS);
+    return mdClassIF.definesAttribute(HASHOUSEHOLDNETS);
+  }
+  
+  public void setHasHouseholdNets(Boolean value)
   {
     if(value == null)
     {
-      setValue(DISPLAYNETS, "");
+      setValue(HASHOUSEHOLDNETS, "");
     }
     else
     {
-      setValue(DISPLAYNETS, value.getId());
+      setValue(HASHOUSEHOLDNETS, java.lang.Boolean.toString(value));
     }
   }
   
@@ -227,34 +257,6 @@ public abstract class HouseholdViewBase extends com.terraframe.mojo.business.Vie
     }
   }
   
-  public Integer getNetsUsed()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NETSUSED));
-  }
-  
-  public void validateNetsUsed()
-  {
-    this.validateAttribute(NETSUSED);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getNetsUsedMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.HouseholdView.CLASS);
-    return mdClassIF.definesAttribute(NETSUSED);
-  }
-  
-  public void setNetsUsed(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(NETSUSED, "");
-    }
-    else
-    {
-      setValue(NETSUSED, java.lang.Integer.toString(value));
-    }
-  }
-  
   public Integer getPeople()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PEOPLE));
@@ -371,34 +373,6 @@ public abstract class HouseholdViewBase extends com.terraframe.mojo.business.Vie
     else
     {
       setValue(ROOMS, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getSleptUnderNets()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SLEPTUNDERNETS));
-  }
-  
-  public void validateSleptUnderNets()
-  {
-    this.validateAttribute(SLEPTUNDERNETS);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSleptUnderNetsMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.HouseholdView.CLASS);
-    return mdClassIF.definesAttribute(SLEPTUNDERNETS);
-  }
-  
-  public void setSleptUnderNets(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(SLEPTUNDERNETS, "");
-    }
-    else
-    {
-      setValue(SLEPTUNDERNETS, java.lang.Integer.toString(value));
     }
   }
   
@@ -573,18 +547,6 @@ public abstract class HouseholdViewBase extends com.terraframe.mojo.business.Vie
     return (HouseholdView) com.terraframe.mojo.business.View.get(id);
   }
   
-  public void applyAll(dss.vector.solutions.intervention.monitor.HouseholdNet[] nets)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.HouseholdView.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final void applyAll(java.lang.String id, dss.vector.solutions.intervention.monitor.HouseholdNet[] nets)
-  {
-    HouseholdView _instance = HouseholdView.get(id);
-    _instance.applyAll(nets);
-  }
-  
   public void deleteConcrete()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.HouseholdView.java";
@@ -597,16 +559,28 @@ public abstract class HouseholdViewBase extends com.terraframe.mojo.business.Vie
     _instance.deleteConcrete();
   }
   
-  public dss.vector.solutions.intervention.monitor.HouseholdNet[] getHouseholdNets()
+  public dss.vector.solutions.intervention.monitor.ITNInstanceView[] getItns()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.HouseholdView.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.HouseholdNet[] getHouseholdNets(java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.ITNInstanceView[] getItns(java.lang.String id)
   {
     HouseholdView _instance = HouseholdView.get(id);
-    return _instance.getHouseholdNets();
+    return _instance.getItns();
+  }
+  
+  public dss.vector.solutions.intervention.monitor.SurveyedPersonView[] getSurveyedPeople()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.HouseholdView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.SurveyedPersonView[] getSurveyedPeople(java.lang.String id)
+  {
+    HouseholdView _instance = HouseholdView.get(id);
+    return _instance.getSurveyedPeople();
   }
   
   public String toString()

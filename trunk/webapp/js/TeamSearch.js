@@ -138,8 +138,8 @@ Mojo.Meta.newClass('MDSS.ElementCondition', {
 
   Instance: {
     initialize: function(option, condition) {
-    this.option = option;
-    this.condition = condition;
+      this.option = option;
+      this.condition = condition;
     },
 
     getOption : function () {
@@ -191,18 +191,234 @@ Mojo.Meta.newClass('MDSS.SelectElementCondition', {
   }
 });
 
+Mojo.Meta.newClass('MDSS.AbstractHiddenElement', {
+  IsAbstract : true,
+  Instance : {
+    getElements : function() {
+      IsAbstract : true
+    },
+    
+    getClearValue : function() {
+      IsAbstract : true
+    },
+  
+    updateValues : function() {
+      IsAbstract : true
+    },
+  
+    clearValues : function() {
+      IsAbstract : true
+    },
+  
+    resetValues : {
+      IsAbstract : true
+    },
+
+    hideElement : function() {
+      this.updateValues();
+      
+      var clear = this.getClearValue();
+    
+      if(clear === true) {
+        this.clearValues();
+      }
+
+      var elements = this.getElements();
+      
+      for(var i = 0; i < elements.length; i++) {
+        elements[i].style.display = "none";      
+      }
+    },
+  
+    showElement : function() {
+      this.resetValues();
+      
+      var elements = this.getElements();
+        
+      for(var i = 0; i < elements.length; i++) {
+        var element = elements[i];
+        
+        if(element.tagName && element.tagName == 'div') {
+          element.style.display = "block";
+        }
+        
+        element.style.display = "inline";      
+      }      
+    }
+  }
+});
+
+Mojo.Meta.newClass('MDSS.HiddenRadioElement', {
+  Extends : MDSS.AbstractHiddenElement,  
+  Instance: {
+    initialize: function(prop) {
+      this._elements = YAHOO.util.Selector.query('.' + prop.element);      
+      this._positiveElement = document.getElementById(prop.element + '.positive');
+      this._negativeElement = document.getElementById(prop.element + '.negative');
+      this._clearValue = Mojo.Util.isBoolean(prop.element) ? prop.clearValue : true;
+    
+      this.updateValues();
+    },
+    
+    getElements : function() {
+      return this._elements;
+    },
+    
+    getClearValue : function() {
+      return this._clearValue;
+    },
+    
+    updateValues : function() {
+      this._postivieChecked = this._positiveElement.checked;
+      this._negativeChecked = this._negativeElement.checked;      
+    },
+    
+    clearValues : function() {
+      this._positiveElement.checked = false;
+      this._negativeElement.checked = false;            
+    },
+    
+    resetValues : function() {
+      this._positiveElement.checked = this._postivieChecked;
+      this._negativeElement.checked = this._negativeChecked;            
+    }    
+  }
+});
+
+
+Mojo.Meta.newClass('MDSS.HiddenSelectElement', {
+  Extends : MDSS.AbstractHiddenElement,  
+  Instance: {
+    initialize: function(prop) {
+      this._elements = YAHOO.util.Selector.query('.' + prop.element);      
+      this._inputElement = document.getElementById(prop.element);
+      this._clearValue = Mojo.Util.isBoolean(prop.element) ? prop.clearValue : true;
+    
+      this.updateValues();
+    },
+    
+    getElements : function() {
+      return this._elements;
+    },
+
+    getClearValue : function() {
+      return this._clearValue;
+    },
+      
+    updateValues : function() {
+      this._selectedIndex = this._inputElement.selectedIndex;
+    },
+      
+    clearValues : function() {
+      //Add a blank option with a null value
+      var blankOption = document.createElement('option');
+      blankOption.text = '';
+      blankOption.value = '';
+
+      //Set the input element to the blank option
+      this._inputElement.add(blankOption, null);
+      this._inputElement.selectedIndex = this._inputElement.length - 1;
+    },
+      
+    resetValues : function() {
+      this._inputElement.selectedIndex = this._selectedIndex;
+      
+      this._inputElement.remove(this._inputElement.length - 1);      
+    }    
+  }
+});
+
+
+
+Mojo.Meta.newClass('MDSS.HiddenInputElement', {
+  Extends : MDSS.AbstractHiddenElement,  
+  Instance: {
+    initialize: function(prop) {
+      this._elements = YAHOO.util.Selector.query('.' + prop.element);      
+      this._inputElement = document.getElementById(prop.element);
+      this._clearValue = Mojo.Util.isBoolean(prop.element) ? prop.clearValue : true;      
+      
+      this.updateValues();
+    },
+
+    getElements : function() {
+      return this._elements;
+    },
+
+    getClearValue : function() {
+      return this._clearValue;
+    },
+    
+    updateValues : function() {
+      this._inputValue = this._inputElement.value;
+    },
+    
+    clearValues : function() {
+      this._inputElement.value = '';
+    },
+    
+    resetValues : function() {
+      this._inputElement.value = this._inputValue;
+    }    
+  },
+  Static: {
+    toArray : function(elements) {
+      var array = new Array();
+  
+      for(var i = 0; i < elements.length; i++) {
+        var element = new MDSS.HiddenInputElement({element:elements[i]});
+        
+        array.push(element);
+      }
+  
+      return array;
+    }
+  }
+});
+
+Mojo.Meta.newClass('MDSS.HiddenMultiTermElement', {
+  Extends : MDSS.AbstractHiddenElement,  
+  Instance: {
+    initialize: function(prop) {
+      this._elements = YAHOO.util.Selector.query('.' + prop.element);      
+      this._inputElement = document.getElementById(prop.element);
+      this._clearValue = Mojo.Util.isBoolean(prop.element) ? prop.clearValue : true;      
+      
+      this.updateValues();
+    },
+
+    getElements : function() {
+      return this._elements;
+    },
+
+    getClearValue : function() {
+      return this._clearValue;
+    },
+    
+    updateValues : function() {
+      this._inputValue = this._inputElement.innerHTML;
+    },
+    
+    clearValues : function() {
+      this._inputElement.innerHTML = '';
+    },
+    
+    resetValues : function() {
+      this._inputElement.innerHTML = this._inputValue;
+    }    
+  }
+});
+
+
 Mojo.Meta.newClass('MDSS.ElementHandler', {
   Instance: {
-    initialize: function(condition, elements, clearValue) {
+    initialize: function(condition, elements) {
       // Constructor code
       this.condition = condition;
       
-      // elements: When option set to some condition these elements are set to element.display = '', otherwise it is set to element.display = 'none'
+      // elements: An array of AbstractElementProperty
       this.elements = elements;       
 
-      // clearValue: Optional flag denoting if the element.value should be cleared when the element is hidden
-      this.clearValue = (Mojo.Util.isBoolean(clearValue)) ? clearValue : true;
-          
       // Finally we need to set the initial state of the elements
       this.optionHandler();
     },
@@ -216,62 +432,32 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
       return this.condition;
     },
     
-    getClearValue : function () {
-      return this.clearValue;
-    },
-                      
     optionHandler : function () {
       if(this.getCondition())
       {
         if(this.getCondition().evaluate())
         {
-          this.constructor.toggleElements(this.getElements(), this.constructor.showElement);
+          for(var i = 0; i < this.elements.length; i++) {
+            this.elements[i].showElement();
+          }
         }
         else
         {
-          this.constructor.toggleElements(this.getElements(), this.constructor.hideElement, this.getClearValue());
+          for(var i = 0; i < this.elements.length; i++) {
+            this.elements[i].hideElement();
+          }
         }
       }
     }    
   },
   
   Static:
-  {
-    hideElement : function (obj, clearValue) {
-      // When hiding an element clear out the existing value so that when the form
-      // submits occurs hidden elements do not have values assigned to them
-      if(obj.value && clearValue) {
-        obj.value = '';
-      }
-      
-      obj.style.display = "none";
-    },
-      
-    showElement : function (obj) {
-      if(obj.tagName && obj.tagName == 'div') {
-        obj.style.display = "block";
-      }
-      
-      obj.style.display = "inline";
-    },
-    
-    toggleElements : function (list, func, param) {
-      if(list && func)
-      {
-        for(i in list) {
-          func(list[i], param);
-        }
-      }
-    },
-    
-    setupBooleanHandler : function (conditionElement, trigger, elements, clearValue) {
+  {    
+    setupBooleanHandler : function (conditionElement, trigger, elements) {
       conditionElement = MDSS.ElementHandler.getElement(conditionElement);
       
-      if(Mojo.Util.isString(elements)) {
-        elements = YAHOO.util.Selector.query('.' + elements);
-      }
-        
-      var handler = new MDSS.ElementHandler(new MDSS.RadioElementCondition(conditionElement, true), elements, clearValue);
+      var condition = new MDSS.RadioElementCondition(conditionElement, true);
+      var handler = new MDSS.ElementHandler(condition, elements);
 
       MDSS.ElementHandler.addEventListener(conditionElement, handler);
       MDSS.ElementHandler.addEventListener(trigger, handler);
@@ -282,11 +468,8 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
     setupSelectHandler : function (conditionElement, trigger, elements) {
       conditionElement = MDSS.ElementHandler.getElement(conditionElement);
             
-      if(Mojo.Util.isString(elements)) {
-        elements = YAHOO.util.Selector.query('.' + elements);
-      }
-      
-      var handler = new MDSS.ElementHandler(new MDSS.SelectElementCondition(conditionElement, true), elements);
+      var condition = new MDSS.SelectElementCondition(conditionElement, true);
+      var handler = new MDSS.ElementHandler(condition, elements);
       
       MDSS.ElementHandler.addEventListener(conditionElement, handler);
       MDSS.ElementHandler.addEventListener(trigger, handler);
@@ -321,10 +504,10 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
 
 Mojo.Meta.newClass('MDSS.GenericSearch', {
   Instance: {
-    initialize: function(displayElement, concreteElement, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler) {
+    initialize: function(displayElement, concreteElement, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler, prop) {
   
       // Constructor code
-    this.displayElement = displayElement;          // DOM element where the search is inputed and the selected result is displayed
+      this.displayElement = displayElement;          // DOM element where the search is inputed and the selected result is displayed
       this.concreteElement = concreteElement;        // DOM element where the id of the selected result is stored
       
       this.listFunction = listFunction;              // Function which accepts a valueObject and returns a formatted string for a single result 
@@ -340,6 +523,13 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
       
       // Disable the browser autocomplete function for the element we provide an auto-complete
       this.displayElement.setAttribute("autocomplete", "off");
+
+      // Create the default properties object
+      if(prop == null) {
+        prop = {minLength:2};
+      }
+      
+      this.minLength = (Mojo.Util.isNumber(prop.minLength * 1) ? prop.minLength * 1 : 2);
     },
     
     hide : function()
@@ -396,7 +586,7 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
       var value = this.getDisplayElement().value;
         
       // must have at least 2 characters ready
-      if(value.length < 2)
+      if(value.length < this.minLength)
       {
         return;
       }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1582040110)
+@com.terraframe.mojo.business.ClassSignature(hash = 187815013)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,6 +14,7 @@ public abstract class HouseholdBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String HASBEENSPRAYED = "hasBeenSprayed";
   public static java.lang.String HASWINDOWS = "hasWindows";
   public static java.lang.String HOUSEHOLDNAME = "householdName";
   public static java.lang.String ID = "id";
@@ -23,7 +24,6 @@ public abstract class HouseholdBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NETS = "nets";
-  public static java.lang.String NETSUSED = "netsUsed";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String ROOF = "roof";
@@ -31,14 +31,13 @@ public abstract class HouseholdBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String ROOMS = "rooms";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
-  public static java.lang.String SLEPTUNDERNETS = "sleptUnderNets";
   public static java.lang.String SURVEYPOINT = "surveyPoint";
   public static java.lang.String TYPE = "type";
   public static java.lang.String URBAN = "urban";
   public static java.lang.String WALL = "wall";
   public static java.lang.String WALLINFO = "wallInfo";
   public static java.lang.String WINDOWTYPE = "windowType";
-  private static final long serialVersionUID = -1582040110;
+  private static final long serialVersionUID = 187815013;
   
   public HouseholdBase()
   {
@@ -117,6 +116,44 @@ public abstract class HouseholdBase extends com.terraframe.mojo.business.Busines
     {
       setValue(ENTITYDOMAIN, value.getId());
     }
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.Response> getHasBeenSprayed()
+  {
+    return (java.util.List<dss.vector.solutions.Response>) getEnumValues(HASBEENSPRAYED);
+  }
+  
+  public void addHasBeenSprayed(dss.vector.solutions.Response value)
+  {
+    if(value != null)
+    {
+      addEnumItem(HASBEENSPRAYED, value.getId());
+    }
+  }
+  
+  public void removeHasBeenSprayed(dss.vector.solutions.Response value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(HASBEENSPRAYED, value.getId());
+    }
+  }
+  
+  public void clearHasBeenSprayed()
+  {
+    clearEnum(HASBEENSPRAYED);
+  }
+  
+  public void validateHasBeenSprayed()
+  {
+    this.validateAttribute(HASBEENSPRAYED);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getHasBeenSprayedMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
+    return mdClassIF.definesAttribute(HASBEENSPRAYED);
   }
   
   public Boolean getHasWindows()
@@ -337,34 +374,6 @@ public abstract class HouseholdBase extends com.terraframe.mojo.business.Busines
     }
   }
   
-  public Integer getNetsUsed()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NETSUSED));
-  }
-  
-  public void validateNetsUsed()
-  {
-    this.validateAttribute(NETSUSED);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getNetsUsedMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(NETSUSED);
-  }
-  
-  public void setNetsUsed(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(NETSUSED, "");
-    }
-    else
-    {
-      setValue(NETSUSED, java.lang.Integer.toString(value));
-    }
-  }
-  
   public com.terraframe.mojo.system.Actor getOwner()
   {
     if (getValue(OWNER).trim().equals(""))
@@ -549,34 +558,6 @@ public abstract class HouseholdBase extends com.terraframe.mojo.business.Busines
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
     return mdClassIF.definesAttribute(SITEMASTER);
-  }
-  
-  public Integer getSleptUnderNets()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SLEPTUNDERNETS));
-  }
-  
-  public void validateSleptUnderNets()
-  {
-    this.validateAttribute(SLEPTUNDERNETS);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSleptUnderNetsMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(SLEPTUNDERNETS);
-  }
-  
-  public void setSleptUnderNets(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(SLEPTUNDERNETS, "");
-    }
-    else
-    {
-      setValue(SLEPTUNDERNETS, java.lang.Integer.toString(value));
-    }
   }
   
   public dss.vector.solutions.intervention.monitor.SurveyPoint getSurveyPoint()
@@ -768,32 +749,32 @@ public abstract class HouseholdBase extends com.terraframe.mojo.business.Busines
     return query;
   }
   
-  public dss.vector.solutions.intervention.monitor.HouseholdNet addNets(dss.vector.solutions.ontology.Term term)
+  public dss.vector.solutions.intervention.monitor.HouseholdITNInstance addITNs(dss.vector.solutions.intervention.monitor.ITNInstance iTNInstance)
   {
-    return (dss.vector.solutions.intervention.monitor.HouseholdNet) addChild(term, dss.vector.solutions.intervention.monitor.HouseholdNet.CLASS);
+    return (dss.vector.solutions.intervention.monitor.HouseholdITNInstance) addChild(iTNInstance, dss.vector.solutions.intervention.monitor.HouseholdITNInstance.CLASS);
   }
   
-  public void removeNets(dss.vector.solutions.ontology.Term term)
+  public void removeITNs(dss.vector.solutions.intervention.monitor.ITNInstance iTNInstance)
   {
-    removeAllChildren(term, dss.vector.solutions.intervention.monitor.HouseholdNet.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.ontology.Term> getAllNets()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.ontology.Term>) getChildren(dss.vector.solutions.intervention.monitor.HouseholdNet.CLASS);
+    removeAllChildren(iTNInstance, dss.vector.solutions.intervention.monitor.HouseholdITNInstance.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdNet> getAllNetsRel()
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNInstance> getAllITNs()
   {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdNet>) getChildRelationships(dss.vector.solutions.intervention.monitor.HouseholdNet.CLASS);
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNInstance>) getChildren(dss.vector.solutions.intervention.monitor.HouseholdITNInstance.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public dss.vector.solutions.intervention.monitor.HouseholdNet getNetsRel(dss.vector.solutions.ontology.Term term)
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdITNInstance> getAllITNsRel()
   {
-    com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdNet> iterator = (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdNet>) getRelationshipsWithChild(term, dss.vector.solutions.intervention.monitor.HouseholdNet.CLASS);
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdITNInstance>) getChildRelationships(dss.vector.solutions.intervention.monitor.HouseholdITNInstance.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public dss.vector.solutions.intervention.monitor.HouseholdITNInstance getITNsRel(dss.vector.solutions.intervention.monitor.ITNInstance iTNInstance)
+  {
+    com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdITNInstance> iterator = (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdITNInstance>) getRelationshipsWithChild(iTNInstance, dss.vector.solutions.intervention.monitor.HouseholdITNInstance.CLASS);
     try
     {
       if (iterator.hasNext())
@@ -811,32 +792,32 @@ public abstract class HouseholdBase extends com.terraframe.mojo.business.Busines
     }
   }
   
-  public dss.vector.solutions.intervention.monitor.HouseholdPerson addPersons(dss.vector.solutions.intervention.monitor.Person person)
+  public dss.vector.solutions.intervention.monitor.HouseholdSurveyedPerson addSurveyedPeople(dss.vector.solutions.intervention.monitor.SurveyedPerson surveyedPerson)
   {
-    return (dss.vector.solutions.intervention.monitor.HouseholdPerson) addChild(person, dss.vector.solutions.intervention.monitor.HouseholdPerson.CLASS);
+    return (dss.vector.solutions.intervention.monitor.HouseholdSurveyedPerson) addChild(surveyedPerson, dss.vector.solutions.intervention.monitor.HouseholdSurveyedPerson.CLASS);
   }
   
-  public void removePersons(dss.vector.solutions.intervention.monitor.Person person)
+  public void removeSurveyedPeople(dss.vector.solutions.intervention.monitor.SurveyedPerson surveyedPerson)
   {
-    removeAllChildren(person, dss.vector.solutions.intervention.monitor.HouseholdPerson.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.Person> getAllPersons()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.Person>) getChildren(dss.vector.solutions.intervention.monitor.HouseholdPerson.CLASS);
+    removeAllChildren(surveyedPerson, dss.vector.solutions.intervention.monitor.HouseholdSurveyedPerson.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdPerson> getAllPersonsRel()
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.SurveyedPerson> getAllSurveyedPeople()
   {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdPerson>) getChildRelationships(dss.vector.solutions.intervention.monitor.HouseholdPerson.CLASS);
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.SurveyedPerson>) getChildren(dss.vector.solutions.intervention.monitor.HouseholdSurveyedPerson.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public dss.vector.solutions.intervention.monitor.HouseholdPerson getPersonsRel(dss.vector.solutions.intervention.monitor.Person person)
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdSurveyedPerson> getAllSurveyedPeopleRel()
   {
-    com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdPerson> iterator = (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdPerson>) getRelationshipsWithChild(person, dss.vector.solutions.intervention.monitor.HouseholdPerson.CLASS);
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdSurveyedPerson>) getChildRelationships(dss.vector.solutions.intervention.monitor.HouseholdSurveyedPerson.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public dss.vector.solutions.intervention.monitor.HouseholdSurveyedPerson getSurveyedPeopleRel(dss.vector.solutions.intervention.monitor.SurveyedPerson surveyedPerson)
+  {
+    com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdSurveyedPerson> iterator = (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.HouseholdSurveyedPerson>) getRelationshipsWithChild(surveyedPerson, dss.vector.solutions.intervention.monitor.HouseholdSurveyedPerson.CLASS);
     try
     {
       if (iterator.hasNext())

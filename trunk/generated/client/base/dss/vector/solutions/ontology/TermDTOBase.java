@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1026396695)
+@com.terraframe.mojo.business.ClassSignature(hash = 601427145)
 public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = 1026396695;
+  private static final long serialVersionUID = 601427145;
   
   protected TermDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -1694,60 +1694,6 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdDTO> getAllNetHouseholds()
-  {
-    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdDTO> getAllNetHouseholds(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdNetDTO> getAllNetHouseholdsRelationships()
-  {
-    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdNetDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdNetDTO> getAllNetHouseholdsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.HouseholdNetDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
-  }
-  
-  public dss.vector.solutions.intervention.monitor.HouseholdNetDTO addNetHouseholds(dss.vector.solutions.intervention.monitor.HouseholdDTO parent)
-  {
-    return (dss.vector.solutions.intervention.monitor.HouseholdNetDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
-  }
-  
-  public static dss.vector.solutions.intervention.monitor.HouseholdNetDTO addNetHouseholds(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.HouseholdDTO parent)
-  {
-    return (dss.vector.solutions.intervention.monitor.HouseholdNetDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
-  }
-  
-  public void removeNetHouseholds(dss.vector.solutions.intervention.monitor.HouseholdNetDTO relationship)
-  {
-    getRequest().deleteParent(relationship.getId());
-  }
-  
-  public static void removeNetHouseholds(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.HouseholdNetDTO relationship)
-  {
-    clientRequestIF.deleteParent(relationship.getId());
-  }
-  
-  public void removeAllNetHouseholds()
-  {
-    getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
-  }
-  
-  public static void removeAllNetHouseholds(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.HouseholdNetDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
   public java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllParentTerm()
   {
     return (java.util.List<? extends dss.vector.solutions.ontology.TermDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.ontology.TermRelationshipDTO.CLASS);
@@ -1856,57 +1802,111 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonDTO> getAllPersons()
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO> getAllPersonsWithTreatmentLocations()
   {
-    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.intervention.monitor.PersonRDTResultDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonDTO> getAllPersons(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO> getAllPersonsWithTreatmentLocations(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
-    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.PersonRDTResultDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonRDTResultDTO> getAllPersonsRelationships()
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO> getAllPersonsWithTreatmentLocationsRelationships()
   {
-    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonRDTResultDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.intervention.monitor.PersonRDTResultDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonRDTResultDTO> getAllPersonsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO> getAllPersonsWithTreatmentLocationsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
-    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonRDTResultDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.PersonRDTResultDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO.CLASS);
   }
   
-  public dss.vector.solutions.intervention.monitor.PersonRDTResultDTO addPersons(dss.vector.solutions.intervention.monitor.PersonDTO parent)
+  public dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO addPersonsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonDTO parent)
   {
-    return (dss.vector.solutions.intervention.monitor.PersonRDTResultDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.PersonRDTResultDTO.CLASS);
+    return (dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.PersonRDTResultDTO addPersons(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.PersonDTO parent)
+  public static dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO addPersonsWithTreatmentLocations(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.SurveyedPersonDTO parent)
   {
-    return (dss.vector.solutions.intervention.monitor.PersonRDTResultDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.PersonRDTResultDTO.CLASS);
+    return (dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO.CLASS);
   }
   
-  public void removePersons(dss.vector.solutions.intervention.monitor.PersonRDTResultDTO relationship)
+  public void removePersonsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO relationship)
   {
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removePersons(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.PersonRDTResultDTO relationship)
+  public static void removePersonsWithTreatmentLocations(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
   
-  public void removeAllPersons()
+  public void removeAllPersonsWithTreatmentLocations()
   {
-    getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.PersonRDTResultDTO.CLASS);
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO.CLASS);
   }
   
-  public static void removeAllPersons(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllPersonsWithTreatmentLocations(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
-    clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.PersonRDTResultDTO.CLASS);
+    clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO> getAllPersonsWithTreatments()
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO> getAllPersonsWithTreatments(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO> getAllPersonsWithTreatmentsRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO> getAllPersonsWithTreatmentsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO addPersonsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonDTO parent)
+  {
+    return (dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO addPersonsWithTreatments(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.SurveyedPersonDTO parent)
+  {
+    return (dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
+  }
+  
+  public void removePersonsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removePersonsWithTreatments(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllPersonsWithTreatments()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
+  }
+  
+  public static void removeAllPersonsWithTreatments(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")

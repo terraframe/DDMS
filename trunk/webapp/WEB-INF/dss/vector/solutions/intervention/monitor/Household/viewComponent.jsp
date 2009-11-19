@@ -54,7 +54,17 @@
 
     <mjl:dt attribute="rooms">
       ${item.rooms}
-     </mjl:dt>
+    </mjl:dt>
+    
+    <mjl:dt attribute="hasBeenSprayed">
+      <ul>
+        <c:forEach items="${item.hasBeenSprayedEnumNames}" var="enumName">
+          <li>
+            ${item.hasBeenSprayedMd.enumItems[enumName]}
+          </li>
+        </c:forEach>
+      </ul>
+    </mjl:dt>    
 
     <mjl:dt attribute="lastSprayed">
       ${item.lastSprayed}
@@ -62,53 +72,27 @@
 
     <mjl:dt attribute="nets">
       ${item.nets}
-      </mjl:dt>
-    <mjl:dt attribute="netsUsed">
-      ${item.netsUsed}
-    </mjl:dt>
-    <mjl:dt attribute="sleptUnderNets">
-      ${item.sleptUnderNets}
     </mjl:dt>
     
-    <c:if test="${true}">
-      <dt></dt>
-      <dd>
-        <table class="displayTable">
-          <tr> 
-            <th>Nets</th>
-            <th><fmt:message key="Amount"/></th>
-          </tr>      
-          <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
-            <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-              <td>
-                ${current.child.displayLabel}
-              </td>
-              <td>
-                ${current.amount}
-                <mjl:messages attribute="amount">
-                  <mjl:message />
-                </mjl:messages>
-              </td>
-            </tr>
-          </mjl:components>
-        </table>
-      </dd>
-    </c:if>
     </mjl:component>
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.HouseholdController.edit.mojo" name="dss.vector.solutions.intervention.monitor.Household.form.edit.button" />
   </dl>
 </mjl:form>
 <dl>
-  <dt><fmt:message key="People" /> </dt>
+  <dt></dt>
   <dd>
-    <table class="displayTable">
+    <table class="displayTable" width="33%">
+      <tr>
+        <th><fmt:message key="People" /></th>
+        <th></th>
+      </tr>
       <c:forEach items="${people}" var="current" varStatus="status">
        <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
          <td>
            ${current.personId}
          </td>
          <td>
-           <mjl:commandLink action="dss.vector.solutions.intervention.monitor.PersonController.view.mojo" name="Person.view.link">
+           <mjl:commandLink action="dss.vector.solutions.intervention.monitor.SurveyedPersonController.view.mojo" name="Person.view.link">
              <fmt:message key="View"/>
              <mjl:property name="id" value="${current.concreteId}"/>
            </mjl:commandLink>
@@ -117,11 +101,41 @@
       </c:forEach>
     </table>
   </dd>
-  <mjl:commandLink action="dss.vector.solutions.intervention.monitor.PersonController.newInstance.mojo" name="Person.newInstance.link">
+  <mjl:commandLink action="dss.vector.solutions.intervention.monitor.SurveyedPersonController.newInstance.mojo" name="Person.newInstance.link">
     <fmt:message key="Add_Person"/>
     <mjl:property name="householdId" value="${item.concreteId}"/>
   </mjl:commandLink>
 </dl>
+
+<dl>
+  <dt> </dt>
+  <dd>
+    <table class="displayTable" width="33%">
+      <tr>
+        <th><fmt:message key="ITNs" /></th>
+        <th></th>
+      </tr>    
+      <c:forEach items="${itns}" var="current" varStatus="status">
+       <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
+         <td>
+           ${current.netId}
+         </td>
+         <td>
+           <mjl:commandLink action="dss.vector.solutions.intervention.monitor.ITNInstanceController.view.mojo" name="ITN.view.link">
+             <fmt:message key="View"/>
+             <mjl:property name="id" value="${current.concreteId}"/>
+           </mjl:commandLink>
+         </td>
+        </tr>
+      </c:forEach>
+    </table>
+  </dd>
+  <mjl:commandLink action="dss.vector.solutions.intervention.monitor.ITNInstanceController.newInstance.mojo" name="Person.newInstance.link">
+    <fmt:message key="Add_ITN_Instance"/>
+    <mjl:property name="householdId" value="${item.concreteId}"/>
+  </mjl:commandLink>
+</dl>
+
 <mjl:commandLink action="dss.vector.solutions.intervention.monitor.SurveyPointController.view.mojo" name="Household.view.link">
   <fmt:message key="Back_To_Survey_Point"/>
   <mjl:property name="id" value="${item.surveyPoint.id}" />

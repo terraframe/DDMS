@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 548407381)
+@com.terraframe.mojo.business.ClassSignature(hash = 29551446)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class SurveyExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 548407381;
+private static final long serialVersionUID = 29551446;
 
   public SurveyExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -59,24 +59,6 @@ private static final long serialVersionUID = 548407381;
   public com.terraframe.mojo.query.AttributeChar getBloodslide(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.BLOODSLIDE, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeMoment getDob()
-  {
-    return getDob(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeMoment getDob(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.DOB, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeMoment getDob(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.DOB, alias, displayLabel);
 
   }
  
@@ -135,42 +117,6 @@ private static final long serialVersionUID = 548407381;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.GEOENTITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeDecimal getHaemoglobin()
-  {
-    return getHaemoglobin(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeDecimal getHaemoglobin(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HAEMOGLOBIN, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeDecimal getHaemoglobin(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HAEMOGLOBIN, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getHaemoglobinMeasured()
-  {
-    return getHaemoglobinMeasured(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getHaemoglobinMeasured(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HAEMOGLOBINMEASURED, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getHaemoglobinMeasured(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HAEMOGLOBINMEASURED, alias, displayLabel);
-
-  }
- 
   public com.terraframe.mojo.query.AttributeBoolean getHasWindows()
   {
     return getHasWindows(null);
@@ -222,24 +168,6 @@ private static final long serialVersionUID = 548407381;
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.ID, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getIron()
-  {
-    return getIron(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getIron(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.IRON, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getIron(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.IRON, alias, displayLabel);
 
   }
  
@@ -315,24 +243,6 @@ private static final long serialVersionUID = 548407381;
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNetsUsed()
-  {
-    return getNetsUsed(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getNetsUsed(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.NETSUSED, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getNetsUsed(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.NETSUSED, alias, displayLabel);
-
-  }
- 
   public com.terraframe.mojo.query.AttributeChar getPayment()
   {
     return getPayment(null);
@@ -384,42 +294,6 @@ private static final long serialVersionUID = 548407381;
   public com.terraframe.mojo.query.AttributeChar getPerformedRDT(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PERFORMEDRDT, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getPersonId()
-  {
-    return getPersonId(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getPersonId(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PERSONID, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getPersonId(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PERSONID, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getPregnant()
-  {
-    return getPregnant(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getPregnant(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PREGNANT, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getPregnant(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PREGNANT, alias, displayLabel);
 
   }
  
@@ -510,42 +384,6 @@ private static final long serialVersionUID = 548407381;
   public com.terraframe.mojo.query.AttributeChar getSex(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.SEX, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getSleptUnderNet()
-  {
-    return getSleptUnderNet(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getSleptUnderNet(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.SLEPTUNDERNET, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getSleptUnderNet(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.SLEPTUNDERNET, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getSleptUnderNets()
-  {
-    return getSleptUnderNets(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getSleptUnderNets(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.SLEPTUNDERNETS, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getSleptUnderNets(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.SLEPTUNDERNETS, alias, displayLabel);
 
   }
  

@@ -12,10 +12,9 @@ import com.terraframe.mojo.query.QueryFactory;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.intervention.monitor.Household;
-import dss.vector.solutions.intervention.monitor.HouseholdNet;
 import dss.vector.solutions.intervention.monitor.HouseholdQuery;
 import dss.vector.solutions.intervention.monitor.HouseholdView;
-import dss.vector.solutions.intervention.monitor.Person;
+import dss.vector.solutions.intervention.monitor.SurveyedPerson;
 import dss.vector.solutions.intervention.monitor.SurveyPoint;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
@@ -41,26 +40,26 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   {
     HouseholdView house = getHousehold();
     
-    // Person stuff
-    Person person = new Person();
+    // SurveyedPerson stuff
+    SurveyedPerson person = new SurveyedPerson();
     person.setHousehold(Household.get(house.getConcreteId()));
-    person.setPersonId(this.getPersonId());
-    person.setDob(this.getDob());
-    person.setSex(Term.validateByDisplayLabel(this.getSex(), Person.getSexMd()));
-    person.setPregnant(this.getPregnant());
-    person.setSleptUnderNet(this.getSleptUnderNet());
-    person.setHaemoglobinMeasured(this.getHaemoglobinMeasured());
-    person.setHaemoglobin(this.getHaemoglobin());
-    person.setAnaemiaTreatment(Term.validateByDisplayLabel(this.getAnaemiaTreatment(), Person.getAnaemiaTreatmentMd()));
-    person.setIron(this.getIron());
-    person.setPerformedRDT(Term.validateByDisplayLabel(this.getPerformedRDT(), Person.getPerformedRDTMd()));
-    person.setBloodslide(Term.validateByDisplayLabel(this.getBloodslide(), Person.getBloodslideMd()));
-    person.setRdtTreatment(Term.validateByDisplayLabel(this.getRdtTreatment(), Person.getRdtTreatmentMd()));
-    person.setFever(Term.validateByDisplayLabel(this.getFever(), Person.getFeverMd()));
-    person.setFeverTreatment(Term.validateByDisplayLabel(this.getFeverTreatement(), Person.getFeverTreatmentMd()));
-    person.setMalaria(Term.validateByDisplayLabel(this.getMalaria(), Person.getMalariaMd()));
-    person.setMalariaTreatment(Term.validateByDisplayLabel(this.getMalariaTreatment(), Person.getMalariaTreatmentMd()));
-    person.setPayment(Term.validateByDisplayLabel(this.getPayment(), Person.getPaymentMd()));
+//    person.setPersonId(this.getPersonId());
+//    person.setDob(this.getDob());
+    person.setSex(Term.validateByDisplayLabel(this.getSex(), SurveyedPerson.getSexMd()));
+//    person.setPregnant(this.getPregnant());
+//    person.setSleptUnderNet(this.getSleptUnderNet());
+//    person.setHaemoglobinMeasured(this.getHaemoglobinMeasured());
+//    person.setHaemoglobin(this.getHaemoglobin());
+//    person.setAnaemiaTreatment(Term.validateByDisplayLabel(this.getAnaemiaTreatment(), SurveyedPerson.getAnaemiaTreatmentMd()));
+//    person.setIron(this.getIron());
+//    person.setPerformedRDT(Term.validateByDisplayLabel(this.getPerformedRDT(), SurveyedPerson.getPerformedRDTMd()));
+//    person.setBloodslide(Term.validateByDisplayLabel(this.getBloodslide(), SurveyedPerson.getBloodslideMd()));
+    person.setRdtTreatment(Term.validateByDisplayLabel(this.getRdtTreatment(), SurveyedPerson.getRdtTreatmentMd()));
+//    person.setFever(Term.validateByDisplayLabel(this.getFever(), SurveyedPerson.getFeverMd()));
+//    person.setFeverTreatment(Term.validateByDisplayLabel(this.getFeverTreatement(), SurveyedPerson.getFeverTreatmentMd()));
+//    person.setMalaria(Term.validateByDisplayLabel(this.getMalaria(), SurveyedPerson.getMalariaMd()));
+//    person.setMalariaTreatment(Term.validateByDisplayLabel(this.getMalariaTreatment(), SurveyedPerson.getMalariaTreatmentMd()));
+    person.setPayment(Term.validateByDisplayLabel(this.getPayment(), SurveyedPerson.getPaymentMd()));
     person.apply();
   }
 
@@ -135,18 +134,8 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
       house.setWindowType(Term.validateByDisplayLabel(this.getWindowType(), Household.getWindowTypeMd()));
       house.setRooms(this.getRooms());
       house.setLastSprayed(this.getLastSprayed());
-      house.setNets(this.getNets());
-      house.setNetsUsed(this.getNetsUsed());
-      house.setSleptUnderNets(this.getSleptUnderNets());
-      
-      HouseholdNet[] array = new HouseholdNet[nets.size()];
-      for (int i=0; i<array.length; i++)
-      {
-        array[i] = new HouseholdNet(house, nets.get(i));
-        array[i].setAmount(amounts.get(i));
-      }
-      
-      house.applyAll(array);
+      house.setNets(this.getNets());      
+      house.apply();
     }
     iterator.close();
     

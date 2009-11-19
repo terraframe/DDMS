@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1014535758)
+@com.terraframe.mojo.business.ClassSignature(hash = 907947058)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  class TermQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1014535758;
+private static final long serialVersionUID = 907947058;
 
   public TermQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -1391,64 +1391,6 @@ private static final long serialVersionUID = 1014535758;
   }
 
 
-  public com.terraframe.mojo.query.Condition netHouseholds()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.HouseholdNet.CLASS);
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition netHouseholds(dss.vector.solutions.intervention.monitor.HouseholdNetQuery householdNetQuery)
-  {
-    return this.getBusinessQuery().isChildIn(householdNetQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition netHouseholds(dss.vector.solutions.intervention.monitor.HouseholdQuery householdQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.HouseholdNet.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(householdQuery));
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition netHouseholds(dss.vector.solutions.intervention.monitor.HouseholdQuery householdQuery, dss.vector.solutions.intervention.monitor.HouseholdNetQuery householdNetQuery)
-  {
-    householdNetQuery.AND(householdNetQuery.hasParent(householdQuery));
-    return this.getBusinessQuery().isChildIn(householdNetQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_netHouseholds()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.HouseholdNet.CLASS);
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_netHouseholds(dss.vector.solutions.intervention.monitor.HouseholdNetQuery householdNetQuery)
-  {
-    return this.getBusinessQuery().isNotChildIn(householdNetQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_netHouseholds(dss.vector.solutions.intervention.monitor.HouseholdQuery householdQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.HouseholdNet.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(householdQuery));
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_netHouseholds(dss.vector.solutions.intervention.monitor.HouseholdQuery householdQuery, dss.vector.solutions.intervention.monitor.HouseholdNetQuery householdNetQuery)
-  {
-    householdNetQuery.AND(householdNetQuery.hasParent(householdQuery));
-    return this.getBusinessQuery().isNotChildIn(householdNetQuery);
-  }
-
-
   public com.terraframe.mojo.query.Condition parentTerm()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -1565,61 +1507,119 @@ private static final long serialVersionUID = 1014535758;
   }
 
 
-  public com.terraframe.mojo.query.Condition persons()
+  public com.terraframe.mojo.query.Condition personsWithTreatmentLocations()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.PersonRDTResult.CLASS);
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocation.CLASS);
 
     return this.getBusinessQuery().isChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition persons(dss.vector.solutions.intervention.monitor.PersonRDTResultQuery personRDTResultQuery)
+  public com.terraframe.mojo.query.Condition personsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationQuery surveyedPersonTreatmentLocationQuery)
   {
-    return this.getBusinessQuery().isChildIn(personRDTResultQuery);
+    return this.getBusinessQuery().isChildIn(surveyedPersonTreatmentLocationQuery);
   }
 
-  public com.terraframe.mojo.query.Condition persons(dss.vector.solutions.intervention.monitor.PersonQuery personQuery)
+  public com.terraframe.mojo.query.Condition personsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.PersonRDTResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(personQuery));
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocation.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(surveyedPersonQuery));
 
     return this.getBusinessQuery().isChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition persons(dss.vector.solutions.intervention.monitor.PersonQuery personQuery, dss.vector.solutions.intervention.monitor.PersonRDTResultQuery personRDTResultQuery)
+  public com.terraframe.mojo.query.Condition personsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationQuery surveyedPersonTreatmentLocationQuery)
   {
-    personRDTResultQuery.AND(personRDTResultQuery.hasParent(personQuery));
-    return this.getBusinessQuery().isChildIn(personRDTResultQuery);
+    surveyedPersonTreatmentLocationQuery.AND(surveyedPersonTreatmentLocationQuery.hasParent(surveyedPersonQuery));
+    return this.getBusinessQuery().isChildIn(surveyedPersonTreatmentLocationQuery);
   }
 
 
-  public com.terraframe.mojo.query.Condition NOT_IN_persons()
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatmentLocations()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.PersonRDTResult.CLASS);
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocation.CLASS);
 
     return this.getBusinessQuery().isNotChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition NOT_IN_persons(dss.vector.solutions.intervention.monitor.PersonRDTResultQuery personRDTResultQuery)
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationQuery surveyedPersonTreatmentLocationQuery)
   {
-    return this.getBusinessQuery().isNotChildIn(personRDTResultQuery);
+    return this.getBusinessQuery().isNotChildIn(surveyedPersonTreatmentLocationQuery);
   }
 
-  public com.terraframe.mojo.query.Condition NOT_IN_persons(dss.vector.solutions.intervention.monitor.PersonQuery personQuery)
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.PersonRDTResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(personQuery));
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocation.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(surveyedPersonQuery));
 
     return this.getBusinessQuery().isNotChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition NOT_IN_persons(dss.vector.solutions.intervention.monitor.PersonQuery personQuery, dss.vector.solutions.intervention.monitor.PersonRDTResultQuery personRDTResultQuery)
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationQuery surveyedPersonTreatmentLocationQuery)
   {
-    personRDTResultQuery.AND(personRDTResultQuery.hasParent(personQuery));
-    return this.getBusinessQuery().isNotChildIn(personRDTResultQuery);
+    surveyedPersonTreatmentLocationQuery.AND(surveyedPersonTreatmentLocationQuery.hasParent(surveyedPersonQuery));
+    return this.getBusinessQuery().isNotChildIn(surveyedPersonTreatmentLocationQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition personsWithTreatments()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment.CLASS);
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentQuery surveyedPersonTreatmentQuery)
+  {
+    return this.getBusinessQuery().isChildIn(surveyedPersonTreatmentQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(surveyedPersonQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentQuery surveyedPersonTreatmentQuery)
+  {
+    surveyedPersonTreatmentQuery.AND(surveyedPersonTreatmentQuery.hasParent(surveyedPersonQuery));
+    return this.getBusinessQuery().isChildIn(surveyedPersonTreatmentQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatments()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentQuery surveyedPersonTreatmentQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn(surveyedPersonTreatmentQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(surveyedPersonQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentQuery surveyedPersonTreatmentQuery)
+  {
+    surveyedPersonTreatmentQuery.AND(surveyedPersonTreatmentQuery.hasParent(surveyedPersonQuery));
+    return this.getBusinessQuery().isNotChildIn(surveyedPersonTreatmentQuery);
   }
 
 
@@ -2154,12 +2154,6 @@ private static final long serialVersionUID = 1014535758;
   public com.terraframe.mojo.query.Condition mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.TargetSiteTestResultQuery targetSiteTestResultQuery);
 
 
-  public com.terraframe.mojo.query.Condition netHouseholds();
-  public com.terraframe.mojo.query.Condition netHouseholds(dss.vector.solutions.intervention.monitor.HouseholdQuery householdQuery);
-
-  public com.terraframe.mojo.query.Condition netHouseholds(dss.vector.solutions.intervention.monitor.HouseholdQuery householdQuery, dss.vector.solutions.intervention.monitor.HouseholdNetQuery householdNetQuery);
-
-
   public com.terraframe.mojo.query.Condition parentTerm();
   public com.terraframe.mojo.query.Condition parentTerm(dss.vector.solutions.ontology.TermQuery termQuery);
 
@@ -2172,10 +2166,16 @@ private static final long serialVersionUID = 1014535758;
   public com.terraframe.mojo.query.Condition patientAggregatedIPTs(dss.vector.solutions.intervention.monitor.AggregatedIPTQuery aggregatedIPTQuery, dss.vector.solutions.intervention.monitor.IPTPatientsQuery iPTPatientsQuery);
 
 
-  public com.terraframe.mojo.query.Condition persons();
-  public com.terraframe.mojo.query.Condition persons(dss.vector.solutions.intervention.monitor.PersonQuery personQuery);
+  public com.terraframe.mojo.query.Condition personsWithTreatmentLocations();
+  public com.terraframe.mojo.query.Condition personsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery);
 
-  public com.terraframe.mojo.query.Condition persons(dss.vector.solutions.intervention.monitor.PersonQuery personQuery, dss.vector.solutions.intervention.monitor.PersonRDTResultQuery personRDTResultQuery);
+  public com.terraframe.mojo.query.Condition personsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationQuery surveyedPersonTreatmentLocationQuery);
+
+
+  public com.terraframe.mojo.query.Condition personsWithTreatments();
+  public com.terraframe.mojo.query.Condition personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery);
+
+  public com.terraframe.mojo.query.Condition personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentQuery surveyedPersonTreatmentQuery);
 
 
   public com.terraframe.mojo.query.Condition referralAggregatedCase();
@@ -2304,12 +2304,6 @@ private static final long serialVersionUID = 1014535758;
   public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.TargetSiteTestResultQuery targetSiteTestResultQuery);
 
 
-  public com.terraframe.mojo.query.Condition NOT_IN_netHouseholds();
-  public com.terraframe.mojo.query.Condition NOT_IN_netHouseholds(dss.vector.solutions.intervention.monitor.HouseholdQuery householdQuery);
-
-  public com.terraframe.mojo.query.Condition NOT_IN_netHouseholds(dss.vector.solutions.intervention.monitor.HouseholdQuery householdQuery, dss.vector.solutions.intervention.monitor.HouseholdNetQuery householdNetQuery);
-
-
   public com.terraframe.mojo.query.Condition NOT_IN_parentTerm();
   public com.terraframe.mojo.query.Condition NOT_IN_parentTerm(dss.vector.solutions.ontology.TermQuery termQuery);
 
@@ -2322,10 +2316,16 @@ private static final long serialVersionUID = 1014535758;
   public com.terraframe.mojo.query.Condition NOT_IN_patientAggregatedIPTs(dss.vector.solutions.intervention.monitor.AggregatedIPTQuery aggregatedIPTQuery, dss.vector.solutions.intervention.monitor.IPTPatientsQuery iPTPatientsQuery);
 
 
-  public com.terraframe.mojo.query.Condition NOT_IN_persons();
-  public com.terraframe.mojo.query.Condition NOT_IN_persons(dss.vector.solutions.intervention.monitor.PersonQuery personQuery);
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatmentLocations();
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery);
 
-  public com.terraframe.mojo.query.Condition NOT_IN_persons(dss.vector.solutions.intervention.monitor.PersonQuery personQuery, dss.vector.solutions.intervention.monitor.PersonRDTResultQuery personRDTResultQuery);
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationQuery surveyedPersonTreatmentLocationQuery);
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatments();
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery);
+
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentQuery surveyedPersonTreatmentQuery);
 
 
   public com.terraframe.mojo.query.Condition NOT_IN_referralAggregatedCase();
@@ -2367,7 +2367,7 @@ private static final long serialVersionUID = 1014535758;
  implements TermQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -412594836;
+private static final long serialVersionUID = -2099876268;
 
   public TermQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -3159,30 +3159,6 @@ private static final long serialVersionUID = -412594836;
   }
 
 
-  public com.terraframe.mojo.query.Condition netHouseholds()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.HouseholdNet.CLASS);
-
-    return this.isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition netHouseholds(dss.vector.solutions.intervention.monitor.HouseholdQuery householdQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.HouseholdNet.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(householdQuery));
-
-    return this.isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition netHouseholds(dss.vector.solutions.intervention.monitor.HouseholdQuery householdQuery, dss.vector.solutions.intervention.monitor.HouseholdNetQuery householdNetQuery)
-  {
-    householdNetQuery.AND(householdNetQuery.hasParent(householdQuery));
-    return this.isChildIn(householdNetQuery);
-  }
-
-
   public com.terraframe.mojo.query.Condition parentTerm()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -3231,27 +3207,51 @@ private static final long serialVersionUID = -412594836;
   }
 
 
-  public com.terraframe.mojo.query.Condition persons()
+  public com.terraframe.mojo.query.Condition personsWithTreatmentLocations()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.PersonRDTResult.CLASS);
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocation.CLASS);
 
     return this.isChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition persons(dss.vector.solutions.intervention.monitor.PersonQuery personQuery)
+  public com.terraframe.mojo.query.Condition personsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.PersonRDTResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(personQuery));
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocation.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(surveyedPersonQuery));
 
     return this.isChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition persons(dss.vector.solutions.intervention.monitor.PersonQuery personQuery, dss.vector.solutions.intervention.monitor.PersonRDTResultQuery personRDTResultQuery)
+  public com.terraframe.mojo.query.Condition personsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationQuery surveyedPersonTreatmentLocationQuery)
   {
-    personRDTResultQuery.AND(personRDTResultQuery.hasParent(personQuery));
-    return this.isChildIn(personRDTResultQuery);
+    surveyedPersonTreatmentLocationQuery.AND(surveyedPersonTreatmentLocationQuery.hasParent(surveyedPersonQuery));
+    return this.isChildIn(surveyedPersonTreatmentLocationQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition personsWithTreatments()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment.CLASS);
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(surveyedPersonQuery));
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentQuery surveyedPersonTreatmentQuery)
+  {
+    surveyedPersonTreatmentQuery.AND(surveyedPersonTreatmentQuery.hasParent(surveyedPersonQuery));
+    return this.isChildIn(surveyedPersonTreatmentQuery);
   }
 
 
@@ -3759,30 +3759,6 @@ private static final long serialVersionUID = -412594836;
   }
 
 
-  public com.terraframe.mojo.query.Condition NOT_IN_netHouseholds()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.HouseholdNet.CLASS);
-
-    return this.isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_netHouseholds(dss.vector.solutions.intervention.monitor.HouseholdQuery householdQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.HouseholdNet.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(householdQuery));
-
-    return this.isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_netHouseholds(dss.vector.solutions.intervention.monitor.HouseholdQuery householdQuery, dss.vector.solutions.intervention.monitor.HouseholdNetQuery householdNetQuery)
-  {
-    householdNetQuery.AND(householdNetQuery.hasParent(householdQuery));
-    return this.isNotChildIn(householdNetQuery);
-  }
-
-
   public com.terraframe.mojo.query.Condition NOT_IN_parentTerm()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -3831,27 +3807,51 @@ private static final long serialVersionUID = -412594836;
   }
 
 
-  public com.terraframe.mojo.query.Condition NOT_IN_persons()
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatmentLocations()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.PersonRDTResult.CLASS);
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocation.CLASS);
 
     return this.isNotChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition NOT_IN_persons(dss.vector.solutions.intervention.monitor.PersonQuery personQuery)
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.PersonRDTResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(personQuery));
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocation.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(surveyedPersonQuery));
 
     return this.isNotChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition NOT_IN_persons(dss.vector.solutions.intervention.monitor.PersonQuery personQuery, dss.vector.solutions.intervention.monitor.PersonRDTResultQuery personRDTResultQuery)
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatmentLocations(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationQuery surveyedPersonTreatmentLocationQuery)
   {
-    personRDTResultQuery.AND(personRDTResultQuery.hasParent(personQuery));
-    return this.isNotChildIn(personRDTResultQuery);
+    surveyedPersonTreatmentLocationQuery.AND(surveyedPersonTreatmentLocationQuery.hasParent(surveyedPersonQuery));
+    return this.isNotChildIn(surveyedPersonTreatmentLocationQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatments()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment.CLASS);
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(surveyedPersonQuery));
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentQuery surveyedPersonTreatmentQuery)
+  {
+    surveyedPersonTreatmentQuery.AND(surveyedPersonTreatmentQuery.hasParent(surveyedPersonQuery));
+    return this.isNotChildIn(surveyedPersonTreatmentQuery);
   }
 
 

@@ -832,7 +832,7 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
         for(var i = 0; i < terms.length; i++) {
           var termId = terms[i].value;
         	
-          if(termId !== '')
+          if(termId != null && termId !== '')
           {
             selected.push(termId); 
           }
@@ -841,7 +841,7 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       else {
         var termId = document.getElementById(attributeName).value;
 
-        if(termId !== '')
+        if(termId != null && termId !== '')
         {
           selected.push(termId); 
         }

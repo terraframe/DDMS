@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1067797406)
+@com.terraframe.mojo.business.ClassSignature(hash = -1562137066)
 public class HouseholdControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.intervention.monitor.HouseholdController";
@@ -10,7 +10,7 @@ public class HouseholdControllerBase implements com.terraframe.mojo.generation.l
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1067797406;
+  private static final long serialVersionUID = -1562137066;
   
   public HouseholdControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -81,15 +81,15 @@ public class HouseholdControllerBase implements com.terraframe.mojo.generation.l
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.HouseholdController.failCancel");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.HouseholdViewDTO:dto, [Ldss.vector.solutions.intervention.monitor.HouseholdNetDTO;:nets", post=true)
-  public void create(dss.vector.solutions.intervention.monitor.HouseholdViewDTO dto, dss.vector.solutions.intervention.monitor.HouseholdNetDTO[] nets) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.HouseholdViewDTO:dto", post=true)
+  public void create(dss.vector.solutions.intervention.monitor.HouseholdViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.HouseholdController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.HouseholdController.create");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.HouseholdViewDTO:dto, [Ldss.vector.solutions.intervention.monitor.HouseholdNetDTO;:nets", post=true)
-  public void failCreate(dss.vector.solutions.intervention.monitor.HouseholdViewDTO dto, dss.vector.solutions.intervention.monitor.HouseholdNetDTO[] nets) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.HouseholdViewDTO:dto", post=true)
+  public void failCreate(dss.vector.solutions.intervention.monitor.HouseholdViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.HouseholdController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.HouseholdController.failCreate");
@@ -137,15 +137,15 @@ public class HouseholdControllerBase implements com.terraframe.mojo.generation.l
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.HouseholdController.failNewInstance");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.HouseholdViewDTO:dto, [Ldss.vector.solutions.intervention.monitor.HouseholdNetDTO;:nets", post=true)
-  public void update(dss.vector.solutions.intervention.monitor.HouseholdViewDTO dto, dss.vector.solutions.intervention.monitor.HouseholdNetDTO[] nets) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.HouseholdViewDTO:dto", post=true)
+  public void update(dss.vector.solutions.intervention.monitor.HouseholdViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.HouseholdController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.HouseholdController.update");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.HouseholdViewDTO:dto, [Ldss.vector.solutions.intervention.monitor.HouseholdNetDTO;:nets", post=true)
-  public void failUpdate(dss.vector.solutions.intervention.monitor.HouseholdViewDTO dto, dss.vector.solutions.intervention.monitor.HouseholdNetDTO[] nets) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.HouseholdViewDTO:dto", post=true)
+  public void failUpdate(dss.vector.solutions.intervention.monitor.HouseholdViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.HouseholdController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.HouseholdController.failUpdate");

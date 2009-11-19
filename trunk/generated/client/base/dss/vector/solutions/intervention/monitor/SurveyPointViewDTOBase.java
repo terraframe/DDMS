@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -43875179)
+@com.terraframe.mojo.business.ClassSignature(hash = -880074742)
 public abstract class SurveyPointViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.SurveyPointView";
-  private static final long serialVersionUID = -43875179;
+  private static final long serialVersionUID = -880074742;
   
   protected SurveyPointViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -145,6 +145,22 @@ public abstract class SurveyPointViewDTOBase extends com.terraframe.mojo.busines
     Object[] _parameters = new Object[]{id};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.intervention.monitor.HouseholdViewDTO[] getHouseholdViews()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "getHouseholdViews", _declaredTypes);
+    return (dss.vector.solutions.intervention.monitor.HouseholdViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.HouseholdViewDTO[] getHouseholdViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "getHouseholdViews", _declaredTypes);
+    return (dss.vector.solutions.intervention.monitor.HouseholdViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final dss.vector.solutions.intervention.monitor.HouseholdDTO[] getHouseholds()

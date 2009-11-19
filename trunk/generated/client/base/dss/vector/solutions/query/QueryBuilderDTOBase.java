@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -245383816)
+@com.terraframe.mojo.business.ClassSignature(hash = -984298641)
 public abstract class QueryBuilderDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.QueryBuilder";
-  private static final long serialVersionUID = -245383816;
+  private static final long serialVersionUID = -984298641;
   
   protected QueryBuilderDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -38,6 +38,14 @@ public abstract class QueryBuilderDTOBase extends com.terraframe.mojo.business.V
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{queryType, queryXML, config, sortBy, ascending, pageNumber, pageSize};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.QueryBuilderDTO.CLASS, "getQueryResults", _declaredTypes);
+    return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final com.terraframe.mojo.business.ValueQueryDTO getTextAttributeSugestions(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String match, java.lang.String klass, java.lang.String attribute)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{match, klass, attribute};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.QueryBuilderDTO.CLASS, "getTextAttributeSugestions", _declaredTypes);
     return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

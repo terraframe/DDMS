@@ -33,7 +33,7 @@
       <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
         <td>${current.householdName}</td>
         <td><mjl:commandLink display="View" action="dss.vector.solutions.intervention.monitor.HouseholdController.view.mojo" name="Household.view.link">
-          <mjl:property name="id" value="${current.id}" />
+          <mjl:property name="id" value="${current.concreteId}" />
         </mjl:commandLink></td>
       </tr>
     </c:forEach>

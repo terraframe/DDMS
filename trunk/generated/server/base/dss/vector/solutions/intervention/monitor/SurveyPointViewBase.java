@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2080383765)
+@com.terraframe.mojo.business.ClassSignature(hash = -134635894)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,7 +15,7 @@ public abstract class SurveyPointViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
   public static java.lang.String SURVEYDATE = "surveyDate";
-  private static final long serialVersionUID = 2080383765;
+  private static final long serialVersionUID = -134635894;
   
   public SurveyPointViewBase()
   {
@@ -142,6 +142,18 @@ public abstract class SurveyPointViewBase extends com.terraframe.mojo.business.V
   {
     SurveyPointView _instance = SurveyPointView.get(id);
     _instance.deleteConcrete();
+  }
+  
+  public dss.vector.solutions.intervention.monitor.HouseholdView[] getHouseholdViews()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.SurveyPointView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.HouseholdView[] getHouseholdViews(java.lang.String id)
+  {
+    SurveyPointView _instance = SurveyPointView.get(id);
+    return _instance.getHouseholdViews();
   }
   
   public dss.vector.solutions.intervention.monitor.Household[] getHouseholds()

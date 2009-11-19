@@ -133,18 +133,14 @@
       <span id="dss.vector.solutions.intervention.monitor.SurveyPointView" class="roleLink"><f:message key="Survey_Point"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.intervention.monitor.Household" class="roleLink"><f:message key="Household"/></span>
+      <span id="dss.vector.solutions.intervention.monitor.HouseholdView" class="roleLink"><f:message key="Household"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.intervention.monitor.PersonView" class="roleLink"><f:message key="Surveyed_Person"/></span>
+      <span id="dss.vector.solutions.intervention.monitor.ITNInstanceView" class="roleLink"><f:message key="ITNs"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.intervention.monitor.WallView" class="roleLink"><f:message key="Wall"/></span>
+      <span id="dss.vector.solutions.intervention.monitor.SurveyedPersonView" class="roleLink"><f:message key="Surveyed_Person"/></span>
     </dd>
-    <dd>
-      <span id="dss.vector.solutions.intervention.monitor.RoofView" class="roleLink"><f:message key="Surveyed_Person"/></span>
-    </dd>
-
   </dl>
   <dl>
     <dt><label><f:message key="Configure_Application_Rate_Management"/></label></dt>
