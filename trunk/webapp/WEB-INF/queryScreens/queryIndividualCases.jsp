@@ -149,7 +149,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
     var individualCase = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualCase();
-    var caseAttribs = ["age","caseReportDate","diagnosisDate",
+    var caseAttribs = ["age","diagnosisDate","caseReportDate","caseEntryDate",
                            "workplaceText","probableSourceText","residenceText"];
     var caseColumns = caseAttribs.map(mapAttribs, {obj:individualCase, suffix:'_case', dropDownMaps:{}});
     
@@ -173,36 +173,40 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var calculations = ([
                           {
-                           displayLabel:"Instances",
+                           displayLabel:"Instances (GB)",
                            key:"instances",
                            type:"sqlinteger",
-                           attributeName:"instances"
+                           attributeName:"instances",
+                           isAggregate:true  
                           },
                           {
-                           displayLabel:"Cases",
+                           displayLabel:"Cases (GB)",
                            key:"cases",
                            type:"sqlinteger",
                            attributeName:"cases",
+                           isAggregate:true
                           },
                           {
-                           displayLabel:"Deaths",
+                           displayLabel:"Deaths (GB)",
                            key:"deaths",
                            type:"sqlinteger",
                            attributeName:"deaths",
+                           isAggregate:true
                           },                       
                           {
-                            displayLabel:"Incidence",
+                            displayLabel:"Incidence (GB)",
                             key:"incidence",
                             type:"sqlfloat",
                             attributeName:"incidence",
-                            dropDownMap:{'100':'1000','1,000':'1000','10,000':'10000','100,000':'100000'}
+                            dropDownMap:{'100':'1000','1,000':'1000','10,000':'10000','100,000':'100000'},
+                            isAggregate:true
                           },
                           {
-                            displayLabel:"CFR",
+                            displayLabel:"CFR (GB)",
                             key:"cfr",
                             type:"sqlfloat",
                             attributeName:"cfr",
-                            dropDownMap:{'100':'1000','1,000':'1000','10,000':'10000','100,000':'100000'}
+                            isAggregate:true
                           },
 
                          ]);
@@ -213,7 +217,7 @@ YAHOO.util.Event.onDOMReady(function(){
               {title:"Case", values:caseColumns, group:"c", klass:individualCase.CLASS},
               {title:"Patient", values:personColumns, group:"c", klass:individualCase.CLASS},
               {title:"Instance", values:instanceColumns, group:"c", klass:individualCase.CLASS},
-           //   {title:"Calculations", values:calculations, group:"c", klass:individualCase.CLASS},
+              {title:"Calculations", values:calculations, group:"c", klass:individualCase.CLASS},
               {title:"Symptoms", values:symptomsColumns, group:"c", klass:Mojo.$.dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS}
     ];
 
