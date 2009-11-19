@@ -209,22 +209,6 @@
           method="ChildTerm" />
       </mdGraph>
 
-<!--
-      <mdGraph
-        name="dss.vector.solutions.ontology.RelationshipIsA"
-        label="Ontology Relationship Is A"
-        description="Is A relationship between ontology relationships"
-        isAbstract="false">
-        <parent
-          cardinality="*"
-          name="dss.vector.solutions.ontology.OntologyRelationship"
-          method="IsA" />
-        <child
-          cardinality="*"
-          name="dss.vector.solutions.ontology.OntologyRelationship"
-          method="SubClass" />
-      </mdGraph>
--->
 
       <mdBusiness
         name="dss.vector.solutions.ontology.AllPaths"
@@ -274,6 +258,9 @@
         <attribute
           name="childTerm"
           indexOrder="1" />
+        <attribute
+          name="ontologyRelationship"
+          indexOrder="2" />
       </mdIndex>
 
       <mdIndex
