@@ -156,14 +156,14 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
 	    var searchFunction = Mojo.$.dss.vector.solutions.Person.searchForPerson;
 
 	    var selectEventHandler = function() {
-		    MDSS.ElementHandler.hideElement(modalConfig.createLink);
-		    MDSS.ElementHandler.showElement(modalConfig.editLink);
+		    modalConfig.createLink.style.display = "none";      
+		    modalConfig.editLink.style.display = "inline";
 		    formConfig.button.disabled=false;
 	    };
 
 	    var showCreatePatient = function() {
-	    	MDSS.ElementHandler.hideElement(modalConfig.editLink);
-	    	MDSS.ElementHandler.showElement(modalConfig.createLink);
+	    	modalConfig.editLink.style.display = "none";
+	    	modalConfig.createLink.style.display = "inline";
 	    	formConfig.button.disabled=true;
 	    }
 

@@ -255,7 +255,7 @@ Mojo.Meta.newClass('MDSS.HiddenRadioElement', {
       this._elements = YAHOO.util.Selector.query('.' + prop.element);      
       this._positiveElement = document.getElementById(prop.element + '.positive');
       this._negativeElement = document.getElementById(prop.element + '.negative');
-      this._clearValue = Mojo.Util.isBoolean(prop.element) ? prop.clearValue : true;
+      this._clearValue = Mojo.Util.isBoolean(prop.clearValue) ? prop.clearValue : true;
     
       this.updateValues();
     },
@@ -292,7 +292,7 @@ Mojo.Meta.newClass('MDSS.HiddenSelectElement', {
     initialize: function(prop) {
       this._elements = YAHOO.util.Selector.query('.' + prop.element);      
       this._inputElement = document.getElementById(prop.element);
-      this._clearValue = Mojo.Util.isBoolean(prop.element) ? prop.clearValue : true;
+      this._clearValue = Mojo.Util.isBoolean(prop.clearValue) ? prop.clearValue : true;
     
       this.updateValues();
     },
@@ -336,7 +336,7 @@ Mojo.Meta.newClass('MDSS.HiddenInputElement', {
     initialize: function(prop) {
       this._elements = YAHOO.util.Selector.query('.' + prop.element);      
       this._inputElement = document.getElementById(prop.element);
-      this._clearValue = Mojo.Util.isBoolean(prop.element) ? prop.clearValue : true;      
+      this._clearValue = Mojo.Util.isBoolean(prop.clearValue) ? prop.clearValue : true;      
       
       this.updateValues();
     },
@@ -382,7 +382,7 @@ Mojo.Meta.newClass('MDSS.HiddenMultiTermElement', {
     initialize: function(prop) {
       this._elements = YAHOO.util.Selector.query('.' + prop.element);      
       this._inputElement = document.getElementById(prop.element);
-      this._clearValue = Mojo.Util.isBoolean(prop.element) ? prop.clearValue : true;      
+      this._clearValue = Mojo.Util.isBoolean(prop.clearValue) ? prop.clearValue : true;      
       
       this.updateValues();
     },
