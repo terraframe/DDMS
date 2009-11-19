@@ -182,11 +182,11 @@ public class QueryUtil implements Reloadable
           else
           {
             // exact value
-            if (sel instanceof SelectableNumber)
+            if (sel instanceof SelectableNumber && ! value.equals("NULL"))
             {
               valueQuery.WHERE(sel.EQ(value));
             }
-            if (sel instanceof SelectableChar)
+            if (sel instanceof SelectableChar && ! value.equals("NULL"))
             {
               valueQuery.WHERE( ( (SelectableChar) sel ).LIKE(value));
             }
