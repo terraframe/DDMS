@@ -229,8 +229,6 @@
         action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualIPTCaseView">
         <f:message key="Individual_IPT_Case"/>
       </mjl:commandLink>
-    </dd>    
-    <dd>
       <mjl:commandLink
         name="IndividualIPT"
         action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualIPTView">
@@ -257,7 +255,6 @@
         <f:message key="Threshold_Data"/>
       </mjl:commandLink>
     </dd>    
-    <dt><label><f:message key="Threshold_Calculation"/></label></dt>
     <dd>
       <mjl:commandLink
         name="Threshold_Calculation"
@@ -275,7 +272,6 @@
         <f:message key="Stock_Item"/>
       </mjl:commandLink>
     </dd>    
-    <dt><label><f:message key="Stock_Event"/></label></dt>
     <dd>
       <mjl:commandLink
         name="Stock_Event"
