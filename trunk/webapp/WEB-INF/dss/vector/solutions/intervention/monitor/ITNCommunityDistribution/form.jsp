@@ -22,29 +22,36 @@
   </mjl:dt>
   <div class = "batchNumber" >  
     <mjl:dt attribute="batchNumber">
-      <mjl:input param="batchNumber" type="text" classes="batchNumber"/>
+      <mjl:input param="batchNumber" type="text" id="batchNumber"/>
     </mjl:dt>
   </div>
   <mjl:dt attribute="entryType">
     <mjl:boolean param="entryType" id="entryType" />
   </mjl:dt>  
-  <div class="household">
+  <div class="householdName">
     <mjl:dt attribute="householdName">
-      <mjl:input param="householdName" type="text" classes="household"/>
-    </mjl:dt>
-    <mjl:dt attribute="householdSurname">
-      <mjl:input param="householdSurname" type="text" classes="household"/>
-    </mjl:dt>  
-    <mjl:dt attribute="householdAddress">
-      <mjl:input id="householdAddress" param="householdAddress" type="text" classes="geoInput household" />
-    </mjl:dt>
-    <mjl:dt attribute="residents">
-      <mjl:input param="residents" type="text" classes="household"/>
+      <mjl:input param="householdName" type="text" id="householdName"/>
     </mjl:dt>
   </div>
+  <div class="householdSurname">
+    <mjl:dt attribute="householdSurname">
+      <mjl:input param="householdSurname" type="text" id="householdSurname"/>
+    </mjl:dt>  
+  </div>
+  <div class="householdAddress">
+    <mjl:dt attribute="householdAddress">
+      <mjl:input id="householdAddress" param="householdAddress" type="text" classes="geoInput" />
+    </mjl:dt>
+  </div>
+  <div class="residents">
+    <mjl:dt attribute="residents">
+      <mjl:input param="residents" type="text" id="residents"/>
+    </mjl:dt>
+  </div>
+  
   <div class="distributionLocation">    
     <mjl:dt attribute="distributionLocation">
-      <mjl:input id="distributionLocation" param="distributionLocation" type="text" classes="geoInput distributionLocation" />
+      <mjl:input id="distributionLocation" param="distributionLocation" type="text" classes="geoInput" />
     </mjl:dt>
   </div>
   
@@ -105,7 +112,7 @@
   </mjl:dt>
   <div class="currencyReceived">
     <mjl:dt attribute="currencyReceived">
-      <mjl:input param="currencyReceived" type="text" classes="currencyReceived"/>
+      <mjl:input param="currencyReceived" type="text" id="currencyReceived"/>
     </mjl:dt>
   </div>
   <mjl:dt attribute="retrieved">
@@ -113,7 +120,7 @@
   </mjl:dt>
   <div class="numberRetrieved">  
     <mjl:dt attribute="numberRetrieved">
-      <mjl:input param="numberRetrieved" type="text" classes="numberRetrieved" />
+      <mjl:input param="numberRetrieved" type="text" id="numberRetrieved" />
     </mjl:dt>
   </div>
   <mjl:dt attribute="pretreated">
@@ -122,13 +129,14 @@
 </mjl:component>
 
 
-<script type="text/javascript" defer="defer">
-<!--
-// Setup the option fields for batch number
-MDSS.ElementHandler.setupBooleanHandler('hasBatchNumber.positive', 'hasBatchNumber.negative', 'batchNumber');
-MDSS.ElementHandler.setupBooleanHandler('entryType.positive', 'entryType.negative', 'household');
-MDSS.ElementHandler.setupBooleanHandler('entryType.negative', 'entryType.positive', 'distributionLocation');
-MDSS.ElementHandler.setupBooleanHandler('sold.positive', 'sold.negative', 'currencyReceived');
-MDSS.ElementHandler.setupBooleanHandler('retrieved.positive', 'retrieved.negative', 'numberRetrieved');
-//-->
+<script type="text/javascript">
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){
+    MDSS.ElementHandler.setupBooleanHandler('hasBatchNumber.positive', 'hasBatchNumber.negative', MDSS.HiddenInputElement.toArray(['batchNumber']));
+    MDSS.ElementHandler.setupBooleanHandler('entryType.positive', 'entryType.negative', MDSS.HiddenInputElement.toArray(['householdName','householdSurname','householdAddress','residents']));
+    MDSS.ElementHandler.setupBooleanHandler('entryType.negative', 'entryType.positive', MDSS.HiddenInputElement.toArray(['distributionLocation']));
+    MDSS.ElementHandler.setupBooleanHandler('sold.positive', 'sold.negative', MDSS.HiddenInputElement.toArray(['currencyReceived']));
+    MDSS.ElementHandler.setupBooleanHandler('retrieved.positive', 'retrieved.negative', MDSS.HiddenInputElement.toArray(['numberRetrieved']));
+  })
+})();
 </script>

@@ -222,16 +222,6 @@
     
   </dl>
   <dl>
-    <dt><label><f:message key="ITN_Household_Survey"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="ITNHouseholdSurvey"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView">
-        <f:message key="ITN_Household_Survey"/>
-      </mjl:commandLink>
-    </dd>    
-  </dl>
-  <dl>
     <dt><label><f:message key="Individual_IPT"/></label></dt>
     <dd>
       <mjl:commandLink

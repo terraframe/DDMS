@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 907947058)
+@com.terraframe.mojo.business.ClassSignature(hash = 243094560)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  class TermQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 907947058;
+private static final long serialVersionUID = 243094560;
 
   public TermQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -985,180 +985,6 @@ private static final long serialVersionUID = 907947058;
   }
 
 
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNets()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet.CLASS);
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNetQuery iTNHouseholdSurveyNetQuery)
-  {
-    return this.getBusinessQuery().isChildIn(iTNHouseholdSurveyNetQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(iTNHouseholdSurveyQuery));
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNetQuery iTNHouseholdSurveyNetQuery)
-  {
-    iTNHouseholdSurveyNetQuery.AND(iTNHouseholdSurveyNetQuery.hasParent(iTNHouseholdSurveyQuery));
-    return this.getBusinessQuery().isChildIn(iTNHouseholdSurveyNetQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNets()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet.CLASS);
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNetQuery iTNHouseholdSurveyNetQuery)
-  {
-    return this.getBusinessQuery().isNotChildIn(iTNHouseholdSurveyNetQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(iTNHouseholdSurveyQuery));
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNetQuery iTNHouseholdSurveyNetQuery)
-  {
-    iTNHouseholdSurveyNetQuery.AND(iTNHouseholdSurveyNetQuery.hasParent(iTNHouseholdSurveyQuery));
-    return this.getBusinessQuery().isNotChildIn(iTNHouseholdSurveyNetQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNonUseReasons()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason.CLASS);
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReasonQuery iTNHouseholdSurveyNonUseReasonQuery)
-  {
-    return this.getBusinessQuery().isChildIn(iTNHouseholdSurveyNonUseReasonQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(iTNHouseholdSurveyQuery));
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReasonQuery iTNHouseholdSurveyNonUseReasonQuery)
-  {
-    iTNHouseholdSurveyNonUseReasonQuery.AND(iTNHouseholdSurveyNonUseReasonQuery.hasParent(iTNHouseholdSurveyQuery));
-    return this.getBusinessQuery().isChildIn(iTNHouseholdSurveyNonUseReasonQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNonUseReasons()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason.CLASS);
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReasonQuery iTNHouseholdSurveyNonUseReasonQuery)
-  {
-    return this.getBusinessQuery().isNotChildIn(iTNHouseholdSurveyNonUseReasonQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(iTNHouseholdSurveyQuery));
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReasonQuery iTNHouseholdSurveyNonUseReasonQuery)
-  {
-    iTNHouseholdSurveyNonUseReasonQuery.AND(iTNHouseholdSurveyNonUseReasonQuery.hasParent(iTNHouseholdSurveyQuery));
-    return this.getBusinessQuery().isNotChildIn(iTNHouseholdSurveyNonUseReasonQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithTargetGroups()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup.CLASS);
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroupQuery iTNHouseholdSurveyTargetGroupQuery)
-  {
-    return this.getBusinessQuery().isChildIn(iTNHouseholdSurveyTargetGroupQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(iTNHouseholdSurveyQuery));
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroupQuery iTNHouseholdSurveyTargetGroupQuery)
-  {
-    iTNHouseholdSurveyTargetGroupQuery.AND(iTNHouseholdSurveyTargetGroupQuery.hasParent(iTNHouseholdSurveyQuery));
-    return this.getBusinessQuery().isChildIn(iTNHouseholdSurveyTargetGroupQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithTargetGroups()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup.CLASS);
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroupQuery iTNHouseholdSurveyTargetGroupQuery)
-  {
-    return this.getBusinessQuery().isNotChildIn(iTNHouseholdSurveyTargetGroupQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(iTNHouseholdSurveyQuery));
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroupQuery iTNHouseholdSurveyTargetGroupQuery)
-  {
-    iTNHouseholdSurveyTargetGroupQuery.AND(iTNHouseholdSurveyTargetGroupQuery.hasParent(iTNHouseholdSurveyQuery));
-    return this.getBusinessQuery().isNotChildIn(iTNHouseholdSurveyTargetGroupQuery);
-  }
-
-
   public com.terraframe.mojo.query.Condition individualInstance()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -2112,24 +1938,6 @@ private static final long serialVersionUID = 907947058;
   public com.terraframe.mojo.query.Condition iTNFacilityDistributionsWithNets(dss.vector.solutions.intervention.monitor.ITNDistributionQuery iTNDistributionQuery, dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupQuery iTNDistributionTargetGroupQuery);
 
 
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNets();
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery);
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNetQuery iTNHouseholdSurveyNetQuery);
-
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNonUseReasons();
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery);
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReasonQuery iTNHouseholdSurveyNonUseReasonQuery);
-
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithTargetGroups();
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery);
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroupQuery iTNHouseholdSurveyTargetGroupQuery);
-
-
   public com.terraframe.mojo.query.Condition individualInstance();
   public com.terraframe.mojo.query.Condition individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery);
 
@@ -2262,24 +2070,6 @@ private static final long serialVersionUID = 907947058;
   public com.terraframe.mojo.query.Condition NOT_IN_iTNFacilityDistributionsWithNets(dss.vector.solutions.intervention.monitor.ITNDistributionQuery iTNDistributionQuery, dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupQuery iTNDistributionTargetGroupQuery);
 
 
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNets();
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery);
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNetQuery iTNHouseholdSurveyNetQuery);
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNonUseReasons();
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery);
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReasonQuery iTNHouseholdSurveyNonUseReasonQuery);
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithTargetGroups();
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery);
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroupQuery iTNHouseholdSurveyTargetGroupQuery);
-
-
   public com.terraframe.mojo.query.Condition NOT_IN_individualInstance();
   public com.terraframe.mojo.query.Condition NOT_IN_individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery);
 
@@ -2367,7 +2157,7 @@ private static final long serialVersionUID = 907947058;
  implements TermQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -2099876268;
+private static final long serialVersionUID = 1927726398;
 
   public TermQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -2991,78 +2781,6 @@ private static final long serialVersionUID = -2099876268;
   }
 
 
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNets()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet.CLASS);
-
-    return this.isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(iTNHouseholdSurveyQuery));
-
-    return this.isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNetQuery iTNHouseholdSurveyNetQuery)
-  {
-    iTNHouseholdSurveyNetQuery.AND(iTNHouseholdSurveyNetQuery.hasParent(iTNHouseholdSurveyQuery));
-    return this.isChildIn(iTNHouseholdSurveyNetQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNonUseReasons()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason.CLASS);
-
-    return this.isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(iTNHouseholdSurveyQuery));
-
-    return this.isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReasonQuery iTNHouseholdSurveyNonUseReasonQuery)
-  {
-    iTNHouseholdSurveyNonUseReasonQuery.AND(iTNHouseholdSurveyNonUseReasonQuery.hasParent(iTNHouseholdSurveyQuery));
-    return this.isChildIn(iTNHouseholdSurveyNonUseReasonQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithTargetGroups()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup.CLASS);
-
-    return this.isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(iTNHouseholdSurveyQuery));
-
-    return this.isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroupQuery iTNHouseholdSurveyTargetGroupQuery)
-  {
-    iTNHouseholdSurveyTargetGroupQuery.AND(iTNHouseholdSurveyTargetGroupQuery.hasParent(iTNHouseholdSurveyQuery));
-    return this.isChildIn(iTNHouseholdSurveyTargetGroupQuery);
-  }
-
-
   public com.terraframe.mojo.query.Condition individualInstance()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -3588,78 +3306,6 @@ private static final long serialVersionUID = -2099876268;
   {
     iTNDistributionTargetGroupQuery.AND(iTNDistributionTargetGroupQuery.hasParent(iTNDistributionQuery));
     return this.isNotChildIn(iTNDistributionTargetGroupQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNets()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet.CLASS);
-
-    return this.isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(iTNHouseholdSurveyQuery));
-
-    return this.isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNetQuery iTNHouseholdSurveyNetQuery)
-  {
-    iTNHouseholdSurveyNetQuery.AND(iTNHouseholdSurveyNetQuery.hasParent(iTNHouseholdSurveyQuery));
-    return this.isNotChildIn(iTNHouseholdSurveyNetQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNonUseReasons()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason.CLASS);
-
-    return this.isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(iTNHouseholdSurveyQuery));
-
-    return this.isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReasonQuery iTNHouseholdSurveyNonUseReasonQuery)
-  {
-    iTNHouseholdSurveyNonUseReasonQuery.AND(iTNHouseholdSurveyNonUseReasonQuery.hasParent(iTNHouseholdSurveyQuery));
-    return this.isNotChildIn(iTNHouseholdSurveyNonUseReasonQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithTargetGroups()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup.CLASS);
-
-    return this.isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(iTNHouseholdSurveyQuery));
-
-    return this.isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_iTNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyQuery iTNHouseholdSurveyQuery, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroupQuery iTNHouseholdSurveyTargetGroupQuery)
-  {
-    iTNHouseholdSurveyTargetGroupQuery.AND(iTNHouseholdSurveyTargetGroupQuery.hasParent(iTNHouseholdSurveyQuery));
-    return this.isNotChildIn(iTNHouseholdSurveyTargetGroupQuery);
   }
 
 

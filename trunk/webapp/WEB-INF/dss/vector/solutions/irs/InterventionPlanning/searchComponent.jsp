@@ -36,9 +36,17 @@
         </mjl:option>
       </mjl:select>
     </dd>
-    <mjl:command classes="submitButton Time" action="dss.vector.solutions.irs.InterventionPlanningController.searchForTimePlanning.mojo" name="search.time" value="Search" id="search.time"/>
-    <mjl:command classes="submitButton Insecticide" action="dss.vector.solutions.irs.InterventionPlanningController.searchForInsceticidePlanning.mojo" name="search.insecticide" value="Search" id="search.insecticide"/>
-    <mjl:command classes="submitButton Operator" action="dss.vector.solutions.irs.InterventionPlanningController.searchForOperatorPlanning.mojo" name="search.operator" value="Search" id="search.operator"/>
+    <dd>
+      <div class="time">
+        <mjl:command classes="submitButton" action="dss.vector.solutions.irs.InterventionPlanningController.searchForTimePlanning.mojo" name="search.time" value="Search" id="time"/>
+      </div>
+      <div class="insecticide">
+        <mjl:command classes="submitButton Insecticide" action="dss.vector.solutions.irs.InterventionPlanningController.searchForInsceticidePlanning.mojo" name="search.insecticide" value="Search" id="insecticide"/>
+      </div>
+      <div class="operator">
+        <mjl:command classes="submitButton Operator" action="dss.vector.solutions.irs.InterventionPlanningController.searchForOperatorPlanning.mojo" name="search.operator" value="Search" id="operator"/>
+      </div>
+    </dd>
   </dl>
 </mjl:form>
 
@@ -50,11 +58,15 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
 
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
-	  var options = YAHOO.util.Selector.query('.planningOption');
+    var options = YAHOO.util.Selector.query('.planningOption');
 
-    MDSS.ElementHandler.setupBooleanHandler('planningType.time', options, 'Time', false);
-    MDSS.ElementHandler.setupBooleanHandler('planningType.insecticide', options, 'Insecticide', false);
-    MDSS.ElementHandler.setupBooleanHandler('planningType.operator', options, 'Operator', false);
+    var time = new MDSS.HiddenInputElement({element:'time', clearValue:false});
+    var insecticide = new MDSS.HiddenInputElement({element:'insecticide', clearValue:false});
+    var operator = new MDSS.HiddenInputElement({element:'operator', clearValue:false});
+
+    MDSS.ElementHandler.setupBooleanHandler('planningType.time', options, [time]);
+    MDSS.ElementHandler.setupBooleanHandler('planningType.insecticide', options, [insecticide]);
+    MDSS.ElementHandler.setupBooleanHandler('planningType.operator', options, [operator]);
   });
 })();
 

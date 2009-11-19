@@ -47,20 +47,22 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
   <mjl:dt attribute="isANCVisit">
     <mjl:boolean param="isANCVisit" id="isANCVisit" />
   </mjl:dt>
-  <mjl:dt attribute="visitNumber" classes="visitNumber">
-    <span class="clickable visitNumber browserLauncher" id="visitNumberBtn"> <fmt:message key="Browser"/></span>
-    <div id="visitNumberDisplay" class="ontologyDisplay visitNumber">
-      <c:choose>
-        <c:when test="${visitNumber != null}">
-          ${visitNumber.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input type="hidden" param="visitNumber" id="visitNumber" classes="visitNumber" value="${visitNumber != null ? visitNumber.id : ''}" />
-  </mjl:dt>
+  <div class="visitNumber">
+    <mjl:dt attribute="visitNumber">
+      <span class="clickable browserLauncher" id="visitNumberBtn"> <fmt:message key="Browser"/></span>
+      <div id="visitNumberDisplay" class="ontologyDisplay">
+        <c:choose>
+          <c:when test="${visitNumber != null}">
+            ${visitNumber.displayLabel}
+          </c:when>
+          <c:otherwise>
+            <fmt:message key="no_value" />
+          </c:otherwise>
+        </c:choose>
+      </div>
+      <mjl:input type="hidden" param="visitNumber" id="visitNumber" classes="visitNumber" value="${visitNumber != null ? visitNumber.id : ''}" />
+    </mjl:dt>
+  </div>
   <mjl:dt attribute="doseNumber">
     <span class="clickable browserLauncher" id="doseNumberBtn"> <fmt:message key="Browser"/></span>
     <div id="doseNumberDisplay" class="ontologyDisplay">
@@ -95,9 +97,11 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
   <mjl:dt attribute="recievedITN">
     <mjl:boolean param="recievedITN" id="recievedITN" />
   </mjl:dt>
-  <mjl:dt attribute="numberOfRecievedITNs" classes="numberOfRecievedITNs">
-    <mjl:input param="numberOfRecievedITNs" type="text" classes="numberOfRecievedITNs" />
-  </mjl:dt>
+  <div class="numberOfRecievedITNs">
+    <mjl:dt attribute="numberOfRecievedITNs" classes="numberOfRecievedITNs">
+      <mjl:input param="numberOfRecievedITNs" type="text" id="numberOfRecievedITNs" />
+    </mjl:dt>
+  </div>
   <mjl:dt attribute="administratorName">
     <mjl:input param="administratorName" type="text" />
   </mjl:dt>
@@ -113,9 +117,8 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
 
     new MDSS.GenericOntologyBrowser("<%=IndividualIPTViewDTO.CLASS%>", attrs);
 
-//    MDSS.ElementHandler.setupBooleanHandler('isANCVisit.positive', 'isANCVisit.negative', 'visitNumber');
-//    MDSS.ElementHandler.setupBooleanHandler('isANCVisit.positive', 'isANCVisit.negative', 'visitNumberBtn', false);
-//    MDSS.ElementHandler.setupBooleanHandler('recievedITN.positive', 'recievedITN.negative', 'numberOfRecievedITNs');
+    MDSS.ElementHandler.setupBooleanHandler('isANCVisit.positive', 'isANCVisit.negative', MDSS.HiddenInputElement.toArray(['visitNumber']));
+    MDSS.ElementHandler.setupBooleanHandler('recievedITN.positive', 'recievedITN.negative', MDSS.HiddenInputElement.toArray(['numberOfRecievedITNs']));    
   })
 })();
 </script>

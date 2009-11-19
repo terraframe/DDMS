@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 865115721)
+@com.terraframe.mojo.business.ClassSignature(hash = -1372268183)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,7 +31,7 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 865115721;
+  private static final long serialVersionUID = -1372268183;
   
   public TermBase()
   {
@@ -957,135 +957,6 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
   public dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup getITNFacilityDistributionsWithNetsRel(dss.vector.solutions.intervention.monitor.ITNDistribution iTNDistribution)
   {
     com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup> iterator = (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup>) getRelationshipsWithParent(iTNDistribution, dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
-  public dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet addITNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey iTNHouseholdSurvey)
-  {
-    return (dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet) addParent(iTNHouseholdSurvey, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet.CLASS);
-  }
-  
-  public void removeITNHouseholdSurveysWithNets(dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey iTNHouseholdSurvey)
-  {
-    removeAllParents(iTNHouseholdSurvey, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey> getAllITNHouseholdSurveysWithNets()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey>) getParents(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet> getAllITNHouseholdSurveysWithNetsRel()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet>) getParentRelationships(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet getITNHouseholdSurveysWithNetsRel(dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey iTNHouseholdSurvey)
-  {
-    com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet> iterator = (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet>) getRelationshipsWithParent(iTNHouseholdSurvey, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNet.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
-  public dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason addITNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey iTNHouseholdSurvey)
-  {
-    return (dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason) addParent(iTNHouseholdSurvey, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason.CLASS);
-  }
-  
-  public void removeITNHouseholdSurveysWithNonUseReasons(dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey iTNHouseholdSurvey)
-  {
-    removeAllParents(iTNHouseholdSurvey, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey> getAllITNHouseholdSurveysWithNonUseReasons()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey>) getParents(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason> getAllITNHouseholdSurveysWithNonUseReasonsRel()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason>) getParentRelationships(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason getITNHouseholdSurveysWithNonUseReasonsRel(dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey iTNHouseholdSurvey)
-  {
-    com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason> iterator = (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason>) getRelationshipsWithParent(iTNHouseholdSurvey, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyNonUseReason.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
-  public dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup addITNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey iTNHouseholdSurvey)
-  {
-    return (dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup) addParent(iTNHouseholdSurvey, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup.CLASS);
-  }
-  
-  public void removeITNHouseholdSurveysWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey iTNHouseholdSurvey)
-  {
-    removeAllParents(iTNHouseholdSurvey, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey> getAllITNHouseholdSurveysWithTargetGroups()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey>) getParents(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup> getAllITNHouseholdSurveysWithTargetGroupsRel()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup>) getParentRelationships(dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup getITNHouseholdSurveysWithTargetGroupsRel(dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey iTNHouseholdSurvey)
-  {
-    com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup> iterator = (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup>) getRelationshipsWithParent(iTNHouseholdSurvey, dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyTargetGroup.CLASS);
     try
     {
       if (iterator.hasNext())
