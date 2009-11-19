@@ -534,7 +534,7 @@ MDSS.QueryXML.Sqlfloat.prototype = {
   build : function()
   {
     var obj = {
-      'sqlinteger': {
+      'sqlfloat': {
         'name': this._name,
         'userAlias': this._userAlias,
         'userDisplayLabel': this._userDisplayLabel,
