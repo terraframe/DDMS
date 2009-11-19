@@ -12,21 +12,21 @@
             static="true"
             returnType="com.terraframe.mojo.query.ValueQuery">
             <mdParameter
+              name="match"
+              label="match"
+              description="The partial search string"
+              order="0"
+              type="java.lang.String"/>
+            <mdParameter
               name="klass"
               label="Query Type"
               description="The FQCN this method will be run on"
-              order="0"
+              order="1"
               type="java.lang.String"/>
             <mdParameter
               name="attribute"
               label="attribute"
               description="the attribute to search on"
-              order="1"
-              type="java.lang.String"/>
-            <mdParameter
-              name="match"
-              label="match"
-              description="The partial search string"
               order="2"
               type="java.lang.String"/>
           </mdMethod>
