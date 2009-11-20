@@ -74,6 +74,10 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
     {
       concrete.setGrowthRate(this.getGrowthRate() / 100);
     }
+    else
+    {
+      concrete.setGrowthRate(null);
+    }
   }
 
   private void buildAttributeMap(PopulationData concrete)
