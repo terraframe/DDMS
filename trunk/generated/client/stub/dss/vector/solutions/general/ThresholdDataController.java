@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -233,14 +234,15 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
       ClientRequestIF request = this.getClientRequest();
 
-      GeoHierarchyViewDTO[] views = GeoHierarchyDTO.getAllViews(request);
+      List<GeoHierarchyViewDTO> views = this.getPopulationFilterHiearchies();
+      
       List<OutbreakCalculationMasterDTO> methods = OutbreakCalculationDTO.allItems(request);
 
       PropertyDTO hierarchy = PropertyDTO.getByPackageAndName(request, PropertyInfo.GENERAL_PACKAGE, PropertyInfo.EPIDEMIC_UNIVERSAL);
       PropertyDTO isEpiWeek = PropertyDTO.getByPackageAndName(request, PropertyInfo.GENERAL_PACKAGE, PropertyInfo.IS_EPI_WEEK);
 
       req.setAttribute("methods", methods);
-      req.setAttribute("views", Arrays.asList(views));
+      req.setAttribute("views", views);
       req.setAttribute("thresholdCalculation", ThresholdCalculationTypeViewDTO.getCalculationThreshold(request));
       req.setAttribute("thresholdCalculationMethods", ThresholdCalculationMethodDTO.allItems(request));
 
@@ -256,6 +258,25 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
       render("editThresholdConfiguration.jsp");
     }
+  }
+
+  private List<GeoHierarchyViewDTO> getPopulationFilterHiearchies()
+  {
+    ClientRequestIF request = this.getClientRequest();
+
+    List<GeoHierarchyViewDTO> list = Arrays.asList(GeoHierarchyDTO.getAllViews(request));
+    List<GeoHierarchyViewDTO> views = new LinkedList<GeoHierarchyViewDTO>();
+
+    for (Iterator<GeoHierarchyViewDTO> it = list.iterator(); it.hasNext();)
+    {
+      GeoHierarchyViewDTO view = it.next();
+      
+      if (view.getPolitical() && view.getPopulationAllowed())
+      {
+        views.add(view);
+      }
+    }
+    return views;
   }
 
   @Override
