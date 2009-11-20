@@ -41,7 +41,6 @@ import dss.vector.solutions.intervention.monitor.IPTPatientsDTO;
 import dss.vector.solutions.intervention.monitor.IPTTreatmentDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTDTO;
 import dss.vector.solutions.intervention.monitor.IndividualInstanceDTO;
-import dss.vector.solutions.intervention.monitor.PersonViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.ontology.TermDTO;
@@ -107,9 +106,9 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       // 24. RDT Result (special case). Use new PersonViewDTO object
       // as a template to get display values.
       JSONObject rdtResult = new JSONObject();
-      String display = new PersonViewDTO(this.getClientRequest()).getRDTResultMd().getDisplayLabel();
-      rdtResult.put("displayLabel", display);
-      rdtResult.put("attributeName", PersonViewDTO.RDTRESULT);
+//      String display = new PersonViewDTO(this.getClientRequest()).getRDTResultMd().getDisplayLabel();
+//      rdtResult.put("displayLabel", display);
+//      rdtResult.put("attributeName", PersonViewDTO.RDTRESULT);
 
 //      JSONArray items = new JSONArray();
 //      rdtResult.put("items", items);

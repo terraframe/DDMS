@@ -1,5 +1,6 @@
 package dss.vector.solutions.permissions;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import junit.framework.Test;
@@ -10,12 +11,14 @@ import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 
 import dss.vector.solutions.MDSSRoleInfo;
+import dss.vector.solutions.RefusedResponseDTO;
+import dss.vector.solutions.ResponseDTO;
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdViewDTO;
-import dss.vector.solutions.intervention.monitor.PersonViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointViewDTO;
+import dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO;
 import dss.vector.solutions.ontology.TermDTO;
 
 public class SurveyNoPermissions extends PermissionTest implements DoNotWeave
@@ -96,18 +99,30 @@ public class SurveyNoPermissions extends PermissionTest implements DoNotWeave
 
       try
       {
-        PersonViewDTO person = new PersonViewDTO(request);
-        person.setBloodslide(term);
-        person.setFever(term);
-        person.setMalaria(term);
-        person.setPayment(term);
-        person.setPerformedRDT(term);
-        person.setSex(term);
+        SurveyedPersonViewDTO person = new SurveyedPersonViewDTO(request);
+        person.addFever(ResponseDTO.YES);
+        person.addHaemoglobinMeasured(RefusedResponseDTO.YES);
+        person.addMalaria(ResponseDTO.YES);
+        person.setAge(26);
         person.setAnaemiaTreatment(term);
-        person.setFeverTreatment(term);
+        person.setBloodslideDetail(term);
+        person.setBloodslideReason(term);
+        person.setBloodslideResult(true);
+        person.setHaemoglobin(new BigDecimal(99.9));
+        person.setHeadOfHousehold(term);
         person.setHousehold(HouseholdDTO.get(request, household.getConcreteId()));
+        person.setImmuneCompromised(term);
+        person.setIron(true);
+        person.setMalariaConformationTechnique(term);
+        person.setPayment(term);
+        person.setPerformedBloodslide(true);
         person.setPersonId("teste3243");
-        person.applyAll(new TermDTO[]{term});
+        person.setPregnant(true);
+        person.setRdtDetail(term);
+        person.setRdtResult(true);
+        person.setRdtTreatment(term);
+        person.setSex(term);
+        person.applyAll(new TermDTO[]{term}, new TermDTO[]{term});
 
         fail("Able to create a person without permissions");
       }

@@ -1,8 +1,11 @@
-package dss.vector.solutions;
+package dss.vector.solutions.util;
 
 import java.util.Comparator;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
+
+import dss.vector.solutions.MonthOfYearDTO;
+import dss.vector.solutions.MonthOfYearMasterDTO;
 
 public class MonthComparator implements Comparator<MonthOfYearMasterDTO>, Reloadable
 {
@@ -17,57 +20,57 @@ public class MonthComparator implements Comparator<MonthOfYearMasterDTO>, Reload
   {
     String enumName = month.getEnumName();
 
-    if(enumName.equalsIgnoreCase(MonthOfYear.JANUARY.name()))
+    if(enumName.equalsIgnoreCase(MonthOfYearDTO.JANUARY.name()))
     {
       return 1;
     }
     
-    if(enumName.equalsIgnoreCase(MonthOfYear.FEBRUARY.name()))
+    if(enumName.equalsIgnoreCase(MonthOfYearDTO.FEBRUARY.name()))
     {
       return 2;
     }
     
-    if(enumName.equalsIgnoreCase(MonthOfYear.MARCH.name()))
+    if(enumName.equalsIgnoreCase(MonthOfYearDTO.MARCH.name()))
     {
       return 3;
     }
     
-    if(enumName.equalsIgnoreCase(MonthOfYear.APRIL.name()))
+    if(enumName.equalsIgnoreCase(MonthOfYearDTO.APRIL.name()))
     {
       return 4;
     }
     
-    if(enumName.equalsIgnoreCase(MonthOfYear.MAY.name()))
+    if(enumName.equalsIgnoreCase(MonthOfYearDTO.MAY.name()))
     {
       return 5;
     }
     
-    if(enumName.equalsIgnoreCase(MonthOfYear.JUNE.name()))
+    if(enumName.equalsIgnoreCase(MonthOfYearDTO.JUNE.name()))
     {
       return 6;
     }
     
-    if(enumName.equalsIgnoreCase(MonthOfYear.JULY.name()))
+    if(enumName.equalsIgnoreCase(MonthOfYearDTO.JULY.name()))
     {
       return 7;
     }
     
-    if(enumName.equalsIgnoreCase(MonthOfYear.AUGUST.name()))
+    if(enumName.equalsIgnoreCase(MonthOfYearDTO.AUGUST.name()))
     {
       return 8;
     }
     
-    if(enumName.equalsIgnoreCase(MonthOfYear.SEPTEMBER.name()))
+    if(enumName.equalsIgnoreCase(MonthOfYearDTO.SEPTEMBER.name()))
     {
       return 9;
     }
     
-    if(enumName.equalsIgnoreCase(MonthOfYear.OCTOBER.name()))
+    if(enumName.equalsIgnoreCase(MonthOfYearDTO.OCTOBER.name()))
     {
       return 10;
     }
     
-    if(enumName.equalsIgnoreCase(MonthOfYear.NOVEMBER.name()))
+    if(enumName.equalsIgnoreCase(MonthOfYearDTO.NOVEMBER.name()))
     {
       return 11;
     }

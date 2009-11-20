@@ -12,10 +12,10 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.MonthComparator;
 import dss.vector.solutions.MonthOfYearDTO;
 import dss.vector.solutions.MonthOfYearMasterDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.MonthComparator;
 import dss.vector.solutions.util.RedirectUtility;
 
 public class ITNInstanceController extends ITNInstanceControllerBase implements Reloadable
