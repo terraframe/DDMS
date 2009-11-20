@@ -4,7 +4,8 @@
 <%@page import="dss.vector.solutions.stock.StockEventDTO"%>
 
 
-<%@page import="dss.vector.solutions.stock.StockItemViewDTO"%><c:set var="page_title" value="Stock_Detail"  scope="request"/>
+<%@page import="dss.vector.solutions.stock.StockItemViewDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.StockDepotDTO"%><c:set var="page_title" value="Stock_Detail"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
@@ -12,6 +13,7 @@
   <mjl:message />
 </mjl:messages>
 
+<c:set var="StockDepot" scope="request"><%=StockDepotDTO.CLASS%></c:set>
 
 <mjl:form name="StockDetail.search.mojo" method="POST">
   <dl>
@@ -19,6 +21,7 @@
       <label> ${view.stockDepotMd.displayLabel} </label>
     </dt>
     <dd>
+      <input type="hidden" name="typeSearchFilter" id="typeSearchFilter" value="${StockDepot}" />
       <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput" value="${geoId}"/>
     </dd>
     <dt>
