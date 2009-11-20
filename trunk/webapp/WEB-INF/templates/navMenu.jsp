@@ -20,9 +20,6 @@
                   <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Intervention_Monitoring"/></a>
               </li>
               <li class="yuimenubaritem">
-                  <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Control_of_Immatures"/></a>
-              </li>
-              <li class="yuimenubaritem">
                   <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Stock_Control"/></a>
               </li>
               <li class="yuimenubaritem">

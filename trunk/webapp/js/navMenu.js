@@ -195,14 +195,17 @@ var aSubmenuData = [
            	           ]
                }
             },
+            {
+            	text: "Control_of_Immatures",
+            	submenu: {
+            	id: "Control_of_Immatures",
+            	itemdata: [
+            	           { text: "Enter_for_Control_of_Immatures_records", disabled: false, url: "dss.vector.solutions.intervention.monitor.LarvacideController.viewAll.mojo", visibileTo:'Administrator'},
+            	           { text: "Query_Control_of_Immatures", disabled: true, url: "#", visibileTo:'Administrator'}    	               	           
+           	           ]
+               }
+            },
         ]
-    },
-    {
-    	id: "Control_of_Immatures",
-    	itemdata: [
-    	           { text: "Enter_for_Control_of_Immatures_records", disabled: false, url: "dss.vector.solutions.intervention.monitor.LarvacideController.viewAll.mojo", visibileTo:'Administrator'},
-    	           { text: "Query_Control_of_Immatures", disabled: true, url: "#", visibileTo:'Administrator'}    	               	           
-   	           ]
     },
     {
     	id: "StockControl",
