@@ -11,11 +11,13 @@ import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 
 import dss.vector.solutions.MDSSRoleInfo;
+import dss.vector.solutions.MonthOfYearDTO;
 import dss.vector.solutions.RefusedResponseDTO;
 import dss.vector.solutions.ResponseDTO;
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdViewDTO;
+import dss.vector.solutions.intervention.monitor.ITNInstanceViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO;
@@ -77,6 +79,75 @@ public class SurveyNoPermissions extends PermissionTest implements DoNotWeave
     }
   }
 
+  public void testITNInstance()
+  {
+    TermDTO term = TermDTO.get(systemRequest, termId);
+    
+    SurveyPointViewDTO point = new SurveyPointViewDTO(systemRequest);
+    point.setGeoId(facilityGeoId);
+    point.setSurveyDate(new Date());
+    point.apply();
+    
+    try
+    {
+      HouseholdViewDTO household = new HouseholdViewDTO(systemRequest);
+      household.setSurveyPoint(SurveyPointDTO.get(request, point.getConcreteId()));
+      household.setHasWindows(true);
+      household.setWall(term);
+      household.setRoof(term);
+      household.setHouseholdName("232");
+      household.setNets(40);
+      household.apply();
+      
+      try
+      {
+        ITNInstanceViewDTO view = new ITNInstanceViewDTO(request);
+        view.addMonthRecieved(MonthOfYearDTO.JANUARY);
+        view.addMonthRetreated(MonthOfYearDTO.APRIL);
+        view.addWashed(ResponseDTO.YES);
+        view.setDamaged(term);
+        view.setHanging(term);
+        view.setHousehold(HouseholdDTO.get(request, household.getConcreteId()));
+        view.setIsNetUsed(true);
+        view.setNetBrand(term);
+        view.setNetId("netId1231");
+        view.setNotUsedForSleeping(true);
+        view.setObtained(term);
+        view.setPrice(new BigDecimal(4.50000));
+        view.setPurpose(term);
+        view.setPurposeComments("Ch30248");
+        view.setReteated(true);
+        view.setSleptUnderNet(5L);
+        view.setWashFrequency(3);
+        view.setWashPeriod(term);
+        view.setYearRecieved(2007);
+        view.setYearRetreated(2009);
+        view.apply();
+        
+        fail("Able to create an ITN instance without permissions");
+      }
+      catch (CreatePermissionExceptionDTO e)
+      {
+        // This is expected
+      }
+      finally
+      {
+        household.deleteConcrete();
+      }
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      for(ProblemDTOIF p : e.getProblems())
+      {
+        fail(p.getMessage());
+      }
+    }
+    finally
+    {
+      point.deleteConcrete();
+    }
+  }
+  
   public void testPerson()
   {
     TermDTO term = TermDTO.get(systemRequest, termId);
