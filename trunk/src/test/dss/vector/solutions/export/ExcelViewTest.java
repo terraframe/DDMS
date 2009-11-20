@@ -42,6 +42,7 @@ import dss.vector.solutions.entomology.assay.EfficacyAssay;
 import dss.vector.solutions.entomology.assay.EfficacyAssayQuery;
 import dss.vector.solutions.export.entomology.MosquitoCollectionView;
 import dss.vector.solutions.general.Insecticide;
+import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
 import dss.vector.solutions.irs.SprayLeader;
@@ -132,9 +133,9 @@ public class ExcelViewTest extends TestCase
     john.setSprayOperatorDelegate(operator);
     john.apply();
     
-//    sprayTeam = new SprayTeam();
-//    sprayTeam.setTeamId("team1");
-//    sprayTeam.create("2828007", sprayLeader.getId(), new String[] {operator.getId()});
+    sprayTeam = new SprayTeam();
+    sprayTeam.setTeamId("team1");
+    sprayTeam.create("2828007", sprayLeader.getId(), new String[] {operator.getId()});
     
     deltamethrin = new Insecticide();
     deltamethrin.setActiveIngredient(Term.getByTermId("MIRO:10000133"));
@@ -165,6 +166,7 @@ public class ExcelViewTest extends TestCase
   {
     john.delete();
     deltamethrin.delete();
+    sprayTeam.delete();
   }
   
 //  public void testMopUpSpray() throws IOException
@@ -303,6 +305,25 @@ public class ExcelViewTest extends TestCase
 //    
 //    assertNotNull(surveyPoint);
 //  }
+
+  public void testSuccessfulGeoEntity() throws IOException
+  {
+    importGeoEntityView(sessionId, "(111) GeoEntityExcelView.xls");
+    
+    GeoEntity canada = GeoEntity.searchByGeoId("8675307");
+    GeoEntity mexico = GeoEntity.searchByGeoId("8675308");
+    GeoEntity usa = GeoEntity.searchByGeoId("8675309");
+    
+    assertEquals(Boolean.TRUE, canada.getActivated());
+    assertEquals(Boolean.TRUE, mexico.getActivated());
+    assertEquals(Boolean.TRUE, usa.getActivated());
+    assertEquals("Canada", canada.getEntityName());
+    assertEquals("Mexico", mexico.getEntityName());
+    assertEquals("United States", usa.getEntityName());
+    assertEquals(Country.CLASS, canada.getType());
+    assertEquals(Country.CLASS, mexico.getType());
+    assertEquals(Country.CLASS, usa.getType());
+  }
   
   public void testSuccessfulPerson() throws IOException
   {
@@ -409,6 +430,15 @@ public class ExcelViewTest extends TestCase
   {
     ExcelImporter importer = new ExcelImporter();
     SurveyExcelView.setupImportListener(importer);
+    printImportErrors(importer, DIRECTORY + fileName);
+  }
+  
+  @StartSession
+  public void importGeoEntityView(String sessionId, String fileName) throws IOException
+  {
+    ExcelImporter importer = new ExcelImporter();
+    GeoEntity earth = GeoEntity.searchByGeoId("000000");
+    GeoEntityExcelView.setupImportListener(importer, earth.getId());
     printImportErrors(importer, DIRECTORY + fileName);
   }
   

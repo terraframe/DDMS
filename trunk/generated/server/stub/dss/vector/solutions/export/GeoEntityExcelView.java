@@ -64,6 +64,13 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.te
     }
   }
   
+  @Override
+  public String getGeoId()
+  {
+    String superId = super.getGeoId();
+    return superId.split("\\.")[0];
+  }
+  
   public static void setupImportListener(ExcelImporter importer, String... params)
   {
     importer.addListener(new GeoParentListener(params[0]));
