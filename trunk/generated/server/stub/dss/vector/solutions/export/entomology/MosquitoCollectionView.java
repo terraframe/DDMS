@@ -13,6 +13,7 @@ import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.entomology.MorphologicalSpecieGroup;
+import dss.vector.solutions.entomology.MorphologicalSpecieGroupView;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
@@ -66,8 +67,8 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     {
       MorphologicalSpecieGroup msg = new MorphologicalSpecieGroup();
       msg.setCollection(collection);
-      msg.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), MorphologicalSpecieGroup.getSpecieMd()));
-      msg.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(), MorphologicalSpecieGroup.getIdentificationMethodMd()));
+      msg.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), MorphologicalSpecieGroupView.getSpecieMd()));
+      msg.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(), MorphologicalSpecieGroupView.getIdentificationMethodMd()));
       msg.setQuantity(this.getQuantity());
       msg.setQuantityMale(this.getQuantityMale());
       msg.setQuantityFemale(this.getQuantityFemale());

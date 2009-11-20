@@ -34,10 +34,13 @@ import dss.vector.solutions.MDSSUserQuery;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.entomology.MorphologicalSpecieGroup;
 import dss.vector.solutions.entomology.MorphologicalSpecieGroupQuery;
+import dss.vector.solutions.entomology.MorphologicalSpecieGroupView;
+import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionPoint;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.EfficacyAssay;
 import dss.vector.solutions.entomology.assay.EfficacyAssayQuery;
+import dss.vector.solutions.export.entomology.MosquitoCollectionView;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
@@ -212,6 +215,37 @@ public class ExcelViewTest extends TestCase
     }
   }
   
+  public void testSuccessfulMosquitoCollection() throws IOException
+  {
+    importMosquitoCollection(sessionId, "(024) MosquitoCollectionView.xls");
+    
+    Calendar calendar = Calendar.getInstance();
+    calendar.clear();
+    calendar.set(2009, 9, 31);
+    MosquitoCollection collection = MosquitoCollection.searchByGeoEntityAndDate(GeoEntity.searchByGeoId("100011"), calendar.getTime());
+    assertNotNull(collection);
+    
+    MorphologicalSpecieGroup msg = null;
+    try
+    {
+      assertEquals("MDSS:0000316", collection.getCollectionMethod().getTermId());
+      MorphologicalSpecieGroupView[] groups = collection.getMorphologicalSpecieGroups();
+      assertEquals(1, groups.length);
+      
+      msg = MorphologicalSpecieGroup.get(groups[0].getGroupId());
+      assertEquals("MIRO:30000042", msg.getIdentificationMethod().getTermId());
+      assertEquals(10, msg.getQuantity().intValue());
+      assertEquals(6, msg.getQuantityFemale().intValue());
+      assertEquals(4, msg.getQuantityMale().intValue());
+      assertEquals("MIRO:40002525", msg.getSpecie().getTermId());
+    }
+    finally
+    {
+      delete(sessionId, msg);
+      delete(sessionId, collection);
+    }
+  }
+  
   public void testSuccessfulEfficacyAssay() throws IOException
   {
     importEfficacyAssay(sessionId, "(025) EfficacyAssayExcelView.xls");
@@ -351,6 +385,14 @@ public class ExcelViewTest extends TestCase
   {
     ExcelImporter importer = new ExcelImporter();
     MorphologicalSpecieGroupExcelView.setupImportListener(importer);
+    printImportErrors(importer, DIRECTORY + fileName);
+  }
+  
+  @StartSession
+  public void importMosquitoCollection(String sessionId, String fileName) throws IOException
+  {
+    ExcelImporter importer = new ExcelImporter();
+    MosquitoCollectionView.setupImportListener(importer);
     printImportErrors(importer, DIRECTORY + fileName);
   }
   
