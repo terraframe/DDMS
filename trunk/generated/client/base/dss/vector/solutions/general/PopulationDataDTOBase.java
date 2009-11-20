@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 844290080)
+@com.terraframe.mojo.business.ClassSignature(hash = 1701028281)
 public abstract class PopulationDataDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.PopulationData";
-  private static final long serialVersionUID = 844290080;
+  private static final long serialVersionUID = 1701028281;
   
   protected PopulationDataDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -226,12 +226,12 @@ public abstract class PopulationDataDTOBase extends com.terraframe.mojo.business
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
-  public Float getGrowthRate()
+  public Double getGrowthRate()
   {
-    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(GROWTHRATE));
+    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(GROWTHRATE));
   }
   
-  public void setGrowthRate(Float value)
+  public void setGrowthRate(Double value)
   {
     if(value == null)
     {
@@ -239,7 +239,7 @@ public abstract class PopulationDataDTOBase extends com.terraframe.mojo.business
     }
     else
     {
-      setValue(GROWTHRATE, java.lang.Float.toString(value));
+      setValue(GROWTHRATE, java.lang.Double.toString(value));
     }
   }
   

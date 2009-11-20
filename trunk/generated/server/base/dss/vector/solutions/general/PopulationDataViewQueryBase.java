@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -569566251)
+@com.terraframe.mojo.business.ClassSignature(hash = -1176301048)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  abstract  class PopulationDataViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -569566251;
+private static final long serialVersionUID = -1176301048;
 
   public PopulationDataViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -98,21 +98,21 @@ private static final long serialVersionUID = -569566251;
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getGrowthRate()
+  public com.terraframe.mojo.query.AttributeDouble getGrowthRate()
   {
     return getGrowthRate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getGrowthRate(String alias)
+  public com.terraframe.mojo.query.AttributeDouble getGrowthRate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.getSelectable(dss.vector.solutions.general.PopulationDataView.GROWTHRATE, alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getSelectable(dss.vector.solutions.general.PopulationDataView.GROWTHRATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getGrowthRate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeDouble getGrowthRate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.getSelectable(dss.vector.solutions.general.PopulationDataView.GROWTHRATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getSelectable(dss.vector.solutions.general.PopulationDataView.GROWTHRATE, alias, displayLabel);
 
   }
  

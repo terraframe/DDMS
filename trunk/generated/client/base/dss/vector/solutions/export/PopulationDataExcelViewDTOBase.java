@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -460689114)
+@com.terraframe.mojo.business.ClassSignature(hash = -200857611)
 public abstract class PopulationDataExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.PopulationDataExcelView";
-  private static final long serialVersionUID = -460689114;
+  private static final long serialVersionUID = -200857611;
   
   protected PopulationDataExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -65,12 +65,12 @@ public abstract class PopulationDataExcelViewDTOBase extends com.terraframe.mojo
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
-  public Float getGrowthRate()
+  public Double getGrowthRate()
   {
-    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(GROWTHRATE));
+    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(GROWTHRATE));
   }
   
-  public void setGrowthRate(Float value)
+  public void setGrowthRate(Double value)
   {
     if(value == null)
     {
@@ -78,7 +78,7 @@ public abstract class PopulationDataExcelViewDTOBase extends com.terraframe.mojo
     }
     else
     {
-      setValue(GROWTHRATE, java.lang.Float.toString(value));
+      setValue(GROWTHRATE, java.lang.Double.toString(value));
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1661885786)
+@com.terraframe.mojo.business.ClassSignature(hash = 1216751221)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,7 +16,7 @@ public abstract class PopulationDataExcelViewBase extends com.terraframe.mojo.bu
   public static java.lang.String ID = "id";
   public static java.lang.String POPULATION = "population";
   public static java.lang.String YEAROFDATA = "yearOfData";
-  private static final long serialVersionUID = -1661885786;
+  private static final long serialVersionUID = 1216751221;
   
   public PopulationDataExcelViewBase()
   {
@@ -58,9 +58,9 @@ public abstract class PopulationDataExcelViewBase extends com.terraframe.mojo.bu
     }
   }
   
-  public Float getGrowthRate()
+  public Double getGrowthRate()
   {
-    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(GROWTHRATE));
+    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(GROWTHRATE));
   }
   
   public void validateGrowthRate()
@@ -74,7 +74,7 @@ public abstract class PopulationDataExcelViewBase extends com.terraframe.mojo.bu
     return mdClassIF.definesAttribute(GROWTHRATE);
   }
   
-  public void setGrowthRate(Float value)
+  public void setGrowthRate(Double value)
   {
     if(value == null)
     {
@@ -82,7 +82,7 @@ public abstract class PopulationDataExcelViewBase extends com.terraframe.mojo.bu
     }
     else
     {
-      setValue(GROWTHRATE, java.lang.Float.toString(value));
+      setValue(GROWTHRATE, java.lang.Double.toString(value));
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1611380617)
+@com.terraframe.mojo.business.ClassSignature(hash = -288968848)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  class PopulationDataQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1611380617;
+private static final long serialVersionUID = -288968848;
 
   public PopulationDataQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -131,21 +131,21 @@ private static final long serialVersionUID = 1611380617;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.PopulationData.GEOENTITY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeFloat getGrowthRate()
+  public com.terraframe.mojo.query.AttributeDouble getGrowthRate()
   {
     return getGrowthRate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getGrowthRate(String alias)
+  public com.terraframe.mojo.query.AttributeDouble getGrowthRate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.PopulationData.GROWTHRATE, "com.terraframe.mojo.system.metadata.MdAttributeFloat", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.PopulationData.GROWTHRATE, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getGrowthRate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeDouble getGrowthRate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.PopulationData.GROWTHRATE, "com.terraframe.mojo.system.metadata.MdAttributeFloat", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.PopulationData.GROWTHRATE, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -434,9 +434,9 @@ private static final long serialVersionUID = 1611380617;
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity();
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias);
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeFloat getGrowthRate();
-    public com.terraframe.mojo.query.AttributeFloat getGrowthRate(String alias);
-    public com.terraframe.mojo.query.AttributeFloat getGrowthRate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeDouble getGrowthRate();
+    public com.terraframe.mojo.query.AttributeDouble getGrowthRate(String alias);
+    public com.terraframe.mojo.query.AttributeDouble getGrowthRate(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeChar getId();
     public com.terraframe.mojo.query.AttributeChar getId(String alias);
     public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel);
@@ -485,7 +485,7 @@ private static final long serialVersionUID = 1611380617;
  implements PopulationDataQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -701007445;
+private static final long serialVersionUID = 1041445262;
 
   public PopulationDataQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -589,21 +589,21 @@ private static final long serialVersionUID = -701007445;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.attributeFactory("geoEntity", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeFloat getGrowthRate()
+  public com.terraframe.mojo.query.AttributeDouble getGrowthRate()
   {
     return getGrowthRate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getGrowthRate(String alias)
+  public com.terraframe.mojo.query.AttributeDouble getGrowthRate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.attributeFactory("growthRate", "com.terraframe.mojo.system.metadata.MdAttributeFloat", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("growthRate", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getGrowthRate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeDouble getGrowthRate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.attributeFactory("growthRate", "com.terraframe.mojo.system.metadata.MdAttributeFloat", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("growthRate", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
