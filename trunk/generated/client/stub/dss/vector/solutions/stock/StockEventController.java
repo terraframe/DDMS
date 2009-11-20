@@ -40,16 +40,55 @@ public class StockEventController extends StockEventControllerBase implements co
   {
     if (!this.isAsynchronous())
     {
-      this.setupSearchDefaults();
+      this.setupSearchParameters();
+            
       req.setAttribute("view", new StockEventViewDTO(this.getClientRequest()));
       render("searchComponent.jsp");
     }
   }
 
+  private void setupSearchParameters()
+  {
+    String geoId = req.getParameter("geoId");
+    String itemId = req.getParameter("itemId");
+    String dateString = req.getParameter("date");
+    String endDateString = req.getParameter("endDate");
+    
+    if(geoId != null && !geoId.equals(""))
+    {
+      req.setAttribute("geoId", geoId);
+    }
+    
+    if(itemId != null && !itemId.equals(""))
+    {
+      TermDTO item = TermDTO.get(this.getClientRequest(), itemId);
+      
+      req.setAttribute("item", item);
+    }
+    else
+    {
+      this.setupSearchDefaults();
+    }
+    
+    if(dateString != null && !dateString.equals(""))
+    {
+      Object date = new DefaultConverter(Date.class).parse(dateString, req.getLocale());
+      
+      req.setAttribute("date", date);
+    }
+    
+    if(endDateString != null && !endDateString.equals(""))
+    {
+      Object date = new DefaultConverter(Date.class).parse(endDateString, req.getLocale());
+      
+      req.setAttribute("endDate", date);
+    }
+  }
+
   private void setupSearchDefaults()
   {
-    StockItemViewDTO item = new StockItemViewDTO(this.getClientRequest());
-    req.setAttribute("item", item.getItemName());
+    StockItemViewDTO stockItem = new StockItemViewDTO(this.getClientRequest());
+    req.setAttribute("item", stockItem.getItemName());
   }
 
   @Override
@@ -137,7 +176,7 @@ public class StockEventController extends StockEventControllerBase implements co
 
     this.req.setAttribute("entity", GeoEntityDTO.searchByGeoId(request, geoId));
     this.req.setAttribute("term", item);
-    this.req.setAttribute("date", date);
+    this.req.setAttribute("date", new DefaultConverter(Date.class).format(date, req.getLocale()));
 
     this.req.setAttribute(ITEM, new StockEventViewDTO(request));
     this.req.setAttribute(VIEWS, views);

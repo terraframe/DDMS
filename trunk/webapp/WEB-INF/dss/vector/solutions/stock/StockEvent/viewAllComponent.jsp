@@ -52,6 +52,10 @@
 <br />
 <span class="noprint">
   <mjl:commandLink  action="dss.vector.solutions.stock.StockEventController.search.mojo" name="search.link" >
+    <mjl:property name="geoId" value="${geoId}"/>
+    <mjl:property name="itemId" value="${item}"/>
+    <mjl:property name="date" value="${startDate}"/>    
+    <mjl:property name="endDate" value="${endDate}"/>    
     <fmt:message key="Back_To_Search"/>
   </mjl:commandLink>
 </span>

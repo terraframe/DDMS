@@ -61,6 +61,9 @@ String deleteColumn = "";
 
 <span class="noprint">
   <mjl:commandLink  action="dss.vector.solutions.stock.StockEventController.search.mojo" name="search.link" >
+    <mjl:property name="geoId" value="${entity.geoId}"/>
+    <mjl:property name="itemId" value="${term.id}"/>
+    <mjl:property name="date" value="${date}"/>
     <fmt:message key="Back_To_Search"/>
   </mjl:commandLink>
 </span>
