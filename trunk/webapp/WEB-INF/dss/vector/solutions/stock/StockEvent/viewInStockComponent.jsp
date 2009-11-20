@@ -45,7 +45,7 @@ String deleteColumn = "";
       <span class="formatDate">${date}</span>
     </mjl:dt>
     <mjl:dt attribute="staff">
-      <mjl:select valueAttribute="id" param="staff" items="${staff}" id="staff" var="current">
+      <mjl:select valueAttribute="id" param="staff" items="${staff}" id="staff" var="current" includeBlank="true">
         <mjl:option>
           ${current.person}        
         </mjl:option>
