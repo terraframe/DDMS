@@ -52,6 +52,9 @@
         key="dss.vector.solutions.intervention.monitor.PersonRDTResult"
         type="com.terraframe.mojo.system.metadata.MdTree" />
       <object
+        key="dss.vector.solutions.intervention.monitor.PersonController"
+        type="com.terraframe.mojo.system.metadata.MdController" />
+      <object
         key="dss.vector.solutions.intervention.monitor.Person"
         type="com.terraframe.mojo.system.metadata.MdBusiness" />
       <object
