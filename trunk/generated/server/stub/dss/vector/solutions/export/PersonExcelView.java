@@ -27,7 +27,8 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
   @Transaction
   public void apply()
   {
-    GeoEntity entity = this.getGeoEntity();
+    GeoEntity residentialEntity = this.getResidentialGeoEntity();
+    GeoEntity workEntity = this.getWorkGeoEntity();
     
     PersonView personView = new PersonView();
     
@@ -36,9 +37,14 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
     personView.setDateOfBirth(this.getDateOfBirth());
     personView.setSex(Term.validateByDisplayLabel(this.getSex(), PersonView.getSexMd()));
     
-    if(entity != null)
+    if(residentialEntity != null)
     {
-      personView.setResidentialGeoId(entity.getGeoId());
+      personView.setResidentialGeoId(residentialEntity.getGeoId());
+    }
+    
+    if(workEntity != null)
+    {
+      personView.setWorkGeoId(workEntity.getGeoId());
     }
     
     personView.setIsMDSSUser(this.getIsMDSSUser() != null && this.getIsMDSSUser());
@@ -60,20 +66,21 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
   
   public static void setupExportListener(ExcelExporter exporter, String...params)
   {
-    exporter.addListener(createExcelGeoListener());
+    exporter.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY));
+    exporter.addListener(createExcelGeoListener(WORKGEOENTITY));
   }
 
   public static void setupImportListener(ExcelImporter importer, String... params)
   {
-    importer.addListener(createExcelGeoListener());
+    importer.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY));
+    importer.addListener(createExcelGeoListener(WORKGEOENTITY));
   }
   
-  private static DynamicGeoColumnListener createExcelGeoListener()
+  private static DynamicGeoColumnListener createExcelGeoListener(String attributeName)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     builder.add(GeoHierarchy.getGeoHierarchyFromType(SettlementSubdivision.CLASS));
-    // builder.add(Term.getByTermId("MDSS:0000117"));
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
+    return new DynamicGeoColumnListener(CLASS, attributeName, builder);
   }
 
   public static Sex getSexByLabel(String label)
