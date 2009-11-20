@@ -10,7 +10,6 @@ import dss.vector.solutions.MonthOfYearMasterDTO;
 public class MonthComparator implements Comparator<MonthOfYearMasterDTO>, Reloadable
 {
 
-  @Override
   public int compare(MonthOfYearMasterDTO month1, MonthOfYearMasterDTO month2)
   {
     return this.getIndex(month1).compareTo(this.getIndex(month2));
