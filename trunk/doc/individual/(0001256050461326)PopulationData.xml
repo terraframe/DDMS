@@ -22,12 +22,12 @@
             name="population"
             label="Population"
             required="false" />
-          <float
+          <double
             name="growthRate"
             label="Annual Growth Rate (%)"
             required="false"
-            length="10"
-            decimal="3" />
+            length="32"
+            decimal="5" />
         </attributes>
         <mdMethod
           name="unlockView"

@@ -124,7 +124,7 @@ public class ThresholdCalculationTest extends TestCase {
 		PopulationData data = new PopulationData();
 		data.setGeoEntity(DJIBOUTI);
 		data.setYearOfData(2009);
-		data.setGrowthRate(0f);
+		data.setGrowthRate(0D);
 		data.setPopulation(182981L);
 		data.apply();
 	}

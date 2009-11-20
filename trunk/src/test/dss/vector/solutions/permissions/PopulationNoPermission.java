@@ -23,7 +23,7 @@ public class PopulationNoPermission extends PermissionTest
       view.setGeoEntity(countryGeoId);
       view.setYearOfData(2009);
       view.setPopulation(19L);
-      view.setGrowthRate(4.3F);
+      view.setGrowthRate(4.3D);
       view.apply();
 
       view.deleteConcrete();

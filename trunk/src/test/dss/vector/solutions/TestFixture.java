@@ -274,7 +274,7 @@ public class TestFixture
     return collection;
   }
 
-  public static PopulationData createPopulationData(GeoEntity entity, Integer year, Boolean estimated, Long population, Float rate)
+  public static PopulationData createPopulationData(GeoEntity entity, Integer year, Boolean estimated, Long population, Double rate)
   {
     PopulationData data = new PopulationData();
     data.setGeoEntity(entity);

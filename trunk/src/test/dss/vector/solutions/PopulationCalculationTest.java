@@ -27,15 +27,15 @@ public class PopulationCalculationTest extends TestCase {
 	    mdBusiness.deleteAllTableRecords();
 	    
 		createData(1990, 50000L, null);
-		createData(1900, null, 0.027F);
+		createData(1900, null, 0.027D);
 		createData(1902, 100000L, null);
-		createData(1905, null, 0.024F);
-		createData(1908, null, 0.02F);
+		createData(1905, null, 0.024D);
+		createData(1908, null, 0.02D);
 		createData(1910, 120000L, null);
 		createData(1914, 130000L, null);
-		createData(1917, 140000L, 0.01F);
+		createData(1917, 140000L, 0.01D);
 		createData(1921, 150000L, null);
-		createData(1924, null, 0.05F);
+		createData(1924, null, 0.05D);
 	}
 	
 	@StartSession
@@ -75,7 +75,7 @@ public class PopulationCalculationTest extends TestCase {
 	}
 	
 	@Transaction
-	private void createData(int year, Long population, Float growthRate) {
+	private void createData(int year, Long population, Double growthRate) {
 		PopulationData data = new PopulationData();
 		data.setGeoEntity(GeoEntity.searchByGeoId(GEOENTITY));
 		data.setYearOfData(year);

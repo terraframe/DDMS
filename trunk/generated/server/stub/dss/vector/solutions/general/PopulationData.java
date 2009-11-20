@@ -217,7 +217,7 @@ public class PopulationData extends PopulationDataBase implements com.terraframe
 
 		Stack<PopulationData> data = new Stack<PopulationData>();
 		int currentPopulationYear = -1;
-		float currentGrowthRate = Float.NaN;
+		double currentGrowthRate = Double.NaN;
 		long currentPopulation = -1L;
 
 		OIterator<? extends PopulationData> i = q.getIterator();

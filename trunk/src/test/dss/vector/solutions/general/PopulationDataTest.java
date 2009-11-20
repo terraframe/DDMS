@@ -222,7 +222,7 @@ public class PopulationDataTest extends TestCase
     PopulationData pop2001 = TestFixture.createPopulationData(entity, 2001, true, 200L, null);
     PopulationData pop2002 = TestFixture.createPopulationData(entity, 2002, false, 200L, null);
     PopulationData pop2003 = TestFixture.createPopulationData(entity, 2003, true, 200L, null);
-    PopulationData pop2004 = TestFixture.createPopulationData(entity, 2004, true, 200L, 0.04F);
+    PopulationData pop2004 = TestFixture.createPopulationData(entity, 2004, true, 200L, 0.04D);
     PopulationData pop2005 = TestFixture.createPopulationData(entity, 2005, true, 200L, null);
     PopulationData pop2006 = TestFixture.createPopulationData(entity, 2006, false, 200L, null);
     PopulationData pop2007 = TestFixture.createPopulationData(entity, 2007, true, 200L, null);

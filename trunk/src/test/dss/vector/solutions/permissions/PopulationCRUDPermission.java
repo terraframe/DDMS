@@ -25,14 +25,14 @@ public class PopulationCRUDPermission extends PermissionTest
       view.setGeoEntity(countryGeoId);
       view.setYearOfData(2009);
       view.setPopulation(19L);
-      view.setGrowthRate(4.3F);
+      view.setGrowthRate(4.3D);
       view.apply();
 
       try
       {
         PopulationDataViewDTO edit = PopulationDataDTO.getView(request, view.getConcreteId());
         edit.setPopulation(20L);
-        edit.setGrowthRate(14.3F);
+        edit.setGrowthRate(14.3D);
         edit.apply();
 
         PopulationDataViewDTO test = PopulationDataDTO.getView(request, view.getConcreteId());

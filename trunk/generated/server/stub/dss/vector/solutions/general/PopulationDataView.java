@@ -12,11 +12,8 @@ import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.system.metadata.MdBusiness;
 
-import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.irs.GeoTarget;
 
 public class PopulationDataView extends PopulationDataViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -136,8 +133,8 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
     ValueQuery valueQuery = new ValueQuery(queryFactory);
     Long sum = 0L;
 
-    String allPaths = MdBusiness.getMdBusiness(AllPaths.CLASS).getTableName();
-    String geoTarget = MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName();
+//    String allPaths = MdBusiness.getMdBusiness(AllPaths.CLASS).getTableName();
+//    String geoTarget = MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName();
     
     GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoEntity());
     
