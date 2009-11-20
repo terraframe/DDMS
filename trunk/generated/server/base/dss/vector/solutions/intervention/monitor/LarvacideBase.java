@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 623775231)
+@com.terraframe.mojo.business.ClassSignature(hash = 156811061)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,6 +22,7 @@ public abstract class LarvacideBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String NATUREOFCONTROL = "natureOfControl";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PERSONCOUNT = "personCount";
   public static java.lang.String SEQ = "seq";
@@ -29,7 +30,7 @@ public abstract class LarvacideBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String TEAMLEADER = "teamLeader";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 623775231;
+  private static final long serialVersionUID = 156811061;
   
   public LarvacideBase()
   {
@@ -305,6 +306,34 @@ public abstract class LarvacideBase extends com.terraframe.mojo.business.Busines
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Larvacide.CLASS);
     return mdClassIF.definesAttribute(LOCKEDBY);
+  }
+  
+  public Boolean getNatureOfControl()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(NATUREOFCONTROL));
+  }
+  
+  public void validateNatureOfControl()
+  {
+    this.validateAttribute(NATUREOFCONTROL);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getNatureOfControlMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Larvacide.CLASS);
+    return mdClassIF.definesAttribute(NATUREOFCONTROL);
+  }
+  
+  public void setNatureOfControl(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(NATUREOFCONTROL, "");
+    }
+    else
+    {
+      setValue(NATUREOFCONTROL, java.lang.Boolean.toString(value));
+    }
   }
   
   public com.terraframe.mojo.system.Actor getOwner()

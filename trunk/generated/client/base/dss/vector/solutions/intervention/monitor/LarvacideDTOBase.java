@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1342075009)
+@com.terraframe.mojo.business.ClassSignature(hash = -1273831243)
 public abstract class LarvacideDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.Larvacide";
-  private static final long serialVersionUID = -1342075009;
+  private static final long serialVersionUID = -1273831243;
   
   protected LarvacideDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -38,6 +38,7 @@ public abstract class LarvacideDTOBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String NATUREOFCONTROL = "natureOfControl";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PERSONCOUNT = "personCount";
   public static java.lang.String SEQ = "seq";
@@ -388,6 +389,43 @@ public abstract class LarvacideDTOBase extends com.terraframe.mojo.business.Busi
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+  }
+  
+  public Boolean getNatureOfControl()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(NATUREOFCONTROL));
+  }
+  
+  public void setNatureOfControl(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(NATUREOFCONTROL, "");
+    }
+    else
+    {
+      setValue(NATUREOFCONTROL, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isNatureOfControlWritable()
+  {
+    return isWritable(NATUREOFCONTROL);
+  }
+  
+  public boolean isNatureOfControlReadable()
+  {
+    return isReadable(NATUREOFCONTROL);
+  }
+  
+  public boolean isNatureOfControlModified()
+  {
+    return isModified(NATUREOFCONTROL);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getNatureOfControlMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(NATUREOFCONTROL).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.ActorDTO getOwner()

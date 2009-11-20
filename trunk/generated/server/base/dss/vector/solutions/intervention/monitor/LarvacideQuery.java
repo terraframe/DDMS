@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 34244726)
+@com.terraframe.mojo.business.ClassSignature(hash = -410193428)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  class LarvacideQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 34244726;
+private static final long serialVersionUID = -410193428;
 
   public LarvacideQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -243,6 +243,23 @@ private static final long serialVersionUID = 34244726;
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lockedBy");
 
     return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.Larvacide.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeBoolean getNatureOfControl()
+  {
+    return getNatureOfControl(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getNatureOfControl(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.Larvacide.NATUREOFCONTROL, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getNatureOfControl(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.Larvacide.NATUREOFCONTROL, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -537,6 +554,9 @@ private static final long serialVersionUID = 34244726;
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeBoolean getNatureOfControl();
+    public com.terraframe.mojo.query.AttributeBoolean getNatureOfControl(String alias);
+    public com.terraframe.mojo.query.AttributeBoolean getNatureOfControl(String alias, String displayLabel);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -587,7 +607,7 @@ private static final long serialVersionUID = 34244726;
  implements LarvacideQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1975548652;
+private static final long serialVersionUID = -208973046;
 
   public LarvacideQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -791,6 +811,23 @@ private static final long serialVersionUID = -1975548652;
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeBoolean getNatureOfControl()
+  {
+    return getNatureOfControl(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getNatureOfControl(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("natureOfControl", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getNatureOfControl(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("natureOfControl", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()

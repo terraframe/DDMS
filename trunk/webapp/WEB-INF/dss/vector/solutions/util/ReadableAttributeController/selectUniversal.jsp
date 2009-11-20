@@ -280,3 +280,21 @@
       </mjl:commandLink>
     </dd>    
   </dl>
+  <dl>
+    <dt><label><f:message key="Control_of_Immatures"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Larvacide"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.Larvacide">
+        <f:message key="Larvacide"/>
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mjl:commandLink
+        name="Larvacide_Instance"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.LarvacideInstanceView">
+        <f:message key="Larvacide_Instance"/>
+      </mjl:commandLink>
+    </dd>    
+  </dl>
+

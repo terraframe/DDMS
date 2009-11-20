@@ -96,6 +96,12 @@ public class SprayLeader extends SprayLeaderBase implements com.terraframe.mojo.
   public String toString()
   {
     Person person = this.getPerson();
-    return person.getFirstName() + " " + person.getLastName() + " - " + this.getLeaderId();
+    
+    if(person != null)
+    {
+      return person.getFirstName() + " " + person.getLastName() + " - " + this.getLeaderId();
+    }
+    
+    return this.getId();
   }
 }

@@ -16,6 +16,9 @@
   <mjl:dt attribute="geoDescription">
     <mjl:textarea param="geoDescription" cols="3" rows="3" />
   </mjl:dt>
+  <mjl:dt attribute="natureOfControl">
+    <mjl:boolean param="natureOfControl"/>
+  </mjl:dt>
   <mjl:dt attribute="personCount">
     <mjl:input type="text" param="personCount" />
   </mjl:dt>

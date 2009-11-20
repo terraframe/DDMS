@@ -47,6 +47,9 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
       <mjl:dt attribute="geoDescription">
         ${item.geoDescription}
       </mjl:dt>
+      <mjl:dt attribute="natureOfControl">
+        ${item.natureOfControl ? item.natureOfControlMd.positiveDisplayLabel : item.natureOfControlMd.negativeDisplayLabel}
+      </mjl:dt>      
       <mjl:dt attribute="personCount">
         ${item.personCount}
       </mjl:dt>
