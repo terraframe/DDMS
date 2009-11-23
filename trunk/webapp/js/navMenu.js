@@ -126,8 +126,8 @@ var aSubmenuData = [
         	submenu: {
         	  id: "Individual_Cases",
         	  itemdata: [               
-        	    { text: "Enter_For_Individual_Cases(001)", disabled: false, url: "dss.vector.solutions.intervention.monitor.IndividualCaseController.newInstance.mojo" , visibleTo:'Administrator'},
-        	    { text: "Query_Individual_Cases(128)", disabled: false, url: "dss.vector.solutions.query.QueryController.queryIndividualCases.mojo" , visibleTo:'Administrator'}
+        	    { text: "Enter_For_Individual_Cases(001)", url: "dss.vector.solutions.intervention.monitor.IndividualCaseController.newInstance.mojo" , visibleTo:'Administrator'},
+        	    { text: "Query_Individual_Cases(128)", url: "dss.vector.solutions.query.QueryController.queryIndividualCases.mojo" , visibleTo:'Administrator'}
         	  ]
             }
         }
@@ -175,7 +175,7 @@ var aSubmenuData = [
             	id: "IPT",
             	itemdata: [
             	           { text: "Enter_Aggregated_IPT_records(069)", url: "dss.vector.solutions.intervention.monitor.AggregatedIPTController.search.mojo", visibileTo:'Administrator'},
-            	           { text: "Query_Aggregated_IPT(131)", url: "dss.vector.solutions.query.QueryController.queryAggregatedIPT.mojo", visibileTo:'Administrator'},
+            	           { text: "Query_Aggregated_IPT(131)", url: "dss.vector.solutions.queryqueryAggregatedITNqueryAggregatedIPT.mojo", visibileTo:'Administrator'},
             	           { text: "Enter_Individual_IPT_records(081)", url: "dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.search.mojo", visibileTo:'Administrator'},
             	           { text: "Query_Individual_IPT(130)", url: "dss.vector.solutions.query.QueryController.queryIndividualIPT.mojo", visibileTo:'Administrator'}
            	           ]
@@ -187,11 +187,11 @@ var aSubmenuData = [
             	id: "ITN",
             	itemdata: [
             	           { text: "Aggregated_ITN_Data_Distribution", url: "dss.vector.solutions.intervention.monitor.ITNDataController.search.mojo", visibileTo:'Administrator'},
-            	           { text: "Query_Aggregated_ITN_Data_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
+            	           { text: "Query_Aggregated_ITN_Data_Distribution", url: "dss.vector.solutions.query.QueryController.queryAggregatedITN.mojo", visibileTo:'Administrator'},
             	           { text: "ITN_Facility_Distribution", url: "dss.vector.solutions.intervention.monitor.ITNDistributionController.viewAll.mojo", visibileTo:'Administrator'},
-            	           { text: "Query_ITN_Facility_Distribution", disabled: true, url: "#", visibileTo:'Administrator'},
+            	           { text: "Query_ITN_Facility_Distribution", url: "dss.vector.solutions.query.QueryController.queryITNDistribution.mojo", visibileTo:'Administrator'},
             	           { text: "ITN_Community_Distribution", url: "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.viewAll.mojo", visibileTo:'Administrator'},
-            	           { text: "Query_ITN_Community_Distribution", disabled: true, url: "#", visibileTo:'Administrator'}
+            	           { text: "Query_ITN_Community_Distribution", url: "dss.vector.solutions.query.QueryController.queryITNCommunityDistribution.mojo", visibileTo:'Administrator'}
            	           ]
                }
             },
