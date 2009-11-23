@@ -1512,9 +1512,9 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     		"    '"+createdById+"' AS \"owner\",\n" + 
     		"    '"+createdById+"' as lastupdatedby,\n" + 
     		"    paths.parent_id as parentgeoentity, \n" + 
-    		"    geo1.type as parentuniversal,\n" + 
+    		"    SUBSTRING(paths.parent_id,33,32) || '00000000000000000000000000000001',\n" + 
     		"    paths.root_id as childgeoentity, \n" + 
-    		"    geo2.type as childuniversal\n" + 
+    		"    SUBSTRING(paths.root_id,33,32)   || '00000000000000000000000000000001'\n" + 
     		"FROM "+geoEntityTable+" as geo1, "+geoEntityTable+" as geo2,\n" +
     		"(SELECT * FROM quick_paths UNION SELECT id,id,id,NEXTVAL('object_sequence_unique_id') from geoentity ) as paths\n"+
     		"WHERE geo1.id = paths.parent_id AND geo2.id = paths.root_id\n"; 
