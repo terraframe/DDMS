@@ -1,5 +1,6 @@
 package dss.vector.solutions.util;
 
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -101,12 +102,60 @@ public class QueryUtil implements Reloadable
       String[] personAttributes = Term.getTermAttributes(klass);
       String sql = "(" + QueryUtil.getTermSubSelect(klass, personAttributes) + ")";
       String subSelect = klass.replace('.', '_') + "TermSubSel";
-      String personTable = MdBusiness.getMdBusiness(klass).getTableName();
-      valueQuery.AND(new InnerJoinEq("id", personTable, query.getTableAlias(), "id", sql, subSelect));
+      String table = MdBusiness.getMdBusiness(klass).getTableName();
+      valueQuery.AND(new InnerJoinEq("id", table, query.getTableAlias(), "id", sql, subSelect));
     }
     return valueQuery;
 
   }
+
+  public static ValueQuery joinGeoDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
+  {
+    if (query != null)
+    {
+      String[] geoAttributes = GeoEntity.getGeoAttributes(klass);
+      String sql = "(" + QueryUtil.getGeoDisplayLabelSubSelect(klass, geoAttributes) + ")";
+      String subSelect = klass.replace('.', '_') + "GeoSubSel";
+      String table = MdBusiness.getMdBusiness(klass).getTableName();
+      valueQuery.AND(new InnerJoinEq("id", table, query.getTableAlias(), "id", sql, subSelect));
+    }
+    return valueQuery;
+
+  }
+
+  public static ValueQuery getSingleAttribteGridSql(ValueQuery valueQuery, String tableAlias)
+  {
+    for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
+    {
+      while (s instanceof Function)
+      {
+        Function f = (Function) s;
+        s = f.getSelectable();
+      }
+
+      if (s instanceof SelectableSQL)
+      {
+        String gridAlias = s.getUserDefinedAlias();
+        int index1 = gridAlias.indexOf("__");
+        int index2 = gridAlias.lastIndexOf("__");
+        if (index1 > 0 && index2 > 0)
+        {
+          String attrib = gridAlias.substring(0, index1);
+          String klass = gridAlias.substring(index1 + 2, index2).replace("_", ".");
+          String term_id = gridAlias.substring(index2 + 2, gridAlias.length());
+          
+          String table = MdRelationship.getMdEntity(klass).getTableName();
+          
+          String sql = "SELECT " + attrib + " FROM " + table + " WHERE child_id = '" + term_id + "' " + "AND parent_id = " + tableAlias + ".id";
+          
+          ( (SelectableSQL) s ).setSQL(sql);
+        }
+      }
+    }
+    return valueQuery;
+  }
+
+  
 
   public static ValueQuery setTermRestrictions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
   {
@@ -152,10 +201,10 @@ public class QueryUtil implements Reloadable
 
           while (sel instanceof Function)
           {
-            Function f = (Function)sel;
+            Function f = (Function) sel;
             sel = f.getSelectable();
           }
-          
+
           if (value.contains("-"))
           {
             String[] range = value.split("-");
@@ -182,11 +231,11 @@ public class QueryUtil implements Reloadable
           else
           {
             // exact value
-            if (sel instanceof SelectableNumber && ! value.equals("NULL"))
+            if (sel instanceof SelectableNumber && !value.equals("NULL"))
             {
               valueQuery.WHERE(sel.EQ(value));
             }
-            if (sel instanceof SelectableChar && ! value.equals("NULL"))
+            if (sel instanceof SelectableChar && !value.equals("NULL"))
             {
               valueQuery.WHERE( ( (SelectableChar) sel ).LIKE(value));
             }
@@ -223,6 +272,34 @@ public class QueryUtil implements Reloadable
       }
 
       from += " LEFT JOIN " + termTable + " as term" + count + " on " + tableName + "." + attr + " = term" + count + ".id";
+
+      count++;
+    }
+
+    String sql = select + from;
+
+    return sql;
+  }
+
+  public static String getGeoDisplayLabelSubSelect(String className, String... attributes)
+  {
+    String geoView = "geo_displayLabel";
+    String tableName = MdBusiness.getMdBusiness(className).getTableName();
+
+    String select = "SELECT " + tableName + ".id ,";
+    String from = " FROM " + tableName + " as " + tableName;
+
+    int count = 0;
+    for (String attr : attributes)
+    {
+      select += " geo" + count + ".displayLabel as " + attr + "_displayLabel";
+
+      if (count != attributes.length - 1)
+      {
+        select += ",";
+      }
+
+      from += " LEFT JOIN " + geoView + " as geo" + count + " on " + tableName + "." + attr + " = geo" + count + ".id";
 
       count++;
     }
@@ -479,7 +556,7 @@ public class QueryUtil implements Reloadable
       dateObj = queryConfig.getJSONObject(DATE_ATTRIBUTE);
       attributeName = dateObj.getString(DATE_ATTRIBUTE);
       klass = dateObj.getString("klass");
-      if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null") )
+      if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
       {
         start = dateObj.getString("start");
         if (queryMap.containsKey(klass))
@@ -490,7 +567,7 @@ public class QueryUtil implements Reloadable
         }
 
       }
-      if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("start").equals("null") )
+      if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("start").equals("null"))
       {
         end = dateObj.getString("end");
         if (queryMap.containsKey(klass))
