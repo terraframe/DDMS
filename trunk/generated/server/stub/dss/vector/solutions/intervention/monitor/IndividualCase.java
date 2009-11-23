@@ -47,7 +47,12 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
   @Override
   @Transaction
   public void apply()
-  {
+  {    
+    if(this.getProbableSource() == null)
+    {
+      this.setProbableSource(this.getResidence());
+    }
+
     super.apply();
     
     // Truncate the createdByDate and store it in entry date
@@ -60,7 +65,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
       // Divide by the number of milliseconds in a year
       long age = difference / 31556926000l;
       this.setAge((int)age);
-    }
+    }    
     
     super.apply();
 

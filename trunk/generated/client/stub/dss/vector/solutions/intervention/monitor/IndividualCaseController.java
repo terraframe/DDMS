@@ -117,7 +117,8 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     try
     {
       dto.delete();
-      this.viewAll();
+
+      this.newInstance();
     }
     catch (ProblemExceptionDTO e)
     {
