@@ -42,4 +42,10 @@ public class QueryConstants implements Reloadable
   
   public static final String DOB_CRITERIA = "dobCriteria";
   
+  public static final String QUERY_ITN_COMMUNITY_DISTRIBUTION  = "QueryITNCommunityDistribution";
+  
+  public static final String QUERY_ITN_FACILITY_DISTRIBUTION  = "QueryITNFacilityDistribution";
+  
+  public static final String QUERY_AGGREGATED_ITN = "QueryAggregatedITN";
+  
 }
