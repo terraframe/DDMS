@@ -175,7 +175,7 @@ var aSubmenuData = [
             	id: "IPT",
             	itemdata: [
             	           { text: "Enter_Aggregated_IPT_records(069)", url: "dss.vector.solutions.intervention.monitor.AggregatedIPTController.search.mojo", visibileTo:'Administrator'},
-            	           { text: "Query_Aggregated_IPT(131)", url: "dss.vector.solutions.queryqueryAggregatedITNqueryAggregatedIPT.mojo", visibileTo:'Administrator'},
+            	           { text: "Query_Aggregated_IPT(131)", url: "dss.vector.solutions.query.QueryController.queryAggregatedIPT.mojo", visibileTo:'Administrator'},
             	           { text: "Enter_Individual_IPT_records(081)", url: "dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.search.mojo", visibileTo:'Administrator'},
             	           { text: "Query_Individual_IPT(130)", url: "dss.vector.solutions.query.QueryController.queryIndividualIPT.mojo", visibileTo:'Administrator'}
            	           ]
