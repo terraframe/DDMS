@@ -263,6 +263,7 @@
 		<java classname="dss.vector.solutions.util.InstallStoredProcedures" failonerror="true">
 			<arg file="${local.root}/scripts/plsql/postgres_pl_functions.sql" />
             <arg file="${local.root}/scripts/plsql/ddss_ontology.sql" />
+			<arg file="${local.root}/scripts/plsql/geoEntity_Views.sql" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -622,8 +623,6 @@
 	<!-- =================================================================== -->
 	<target name="import_geodata" depends="" description="imports a db of geodata into the db">
 		<diagnostics/>
-		<echoproperties>
-		</echoproperties>
 		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
 			<jvmarg value="-Xmx1024m" />
 
