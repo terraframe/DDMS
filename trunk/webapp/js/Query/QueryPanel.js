@@ -1451,7 +1451,7 @@ MDSS.QueryPanel.prototype = {
       fields: []
     };
 
-    this._dataTable = new YAHOO.widget.DataTable(this.QUERY_DATA_TABLE, [], dataSource,{draggableColumns:true});
+    this._dataTable = new YAHOO.widget.DataTable(this.QUERY_DATA_TABLE, [], dataSource,{draggableColumns:true,resizeableColumns:true});
 
     this._dataTable.render();
 
@@ -1497,6 +1497,7 @@ MDSS.QueryPanel.prototype = {
   insertColumn : function(column, menuBuilder)
   {
     var attrib = column.attribute;
+  	column.resizeable = true;
   	column = this._dataTable.insertColumn(column);
   	column.attribute = attrib;
 

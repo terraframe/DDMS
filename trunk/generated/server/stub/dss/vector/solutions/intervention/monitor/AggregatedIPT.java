@@ -2,7 +2,6 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 
@@ -11,14 +10,10 @@ import org.json.JSONObject;
 
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.Function;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.system.metadata.MdRelationship;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.EpiDate;
@@ -262,26 +257,8 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.m
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, AggregatedIPT.CLASS, AggregatedIPT.GEOENTITY);   
    
     AggregatedIPTQuery aggregatedIPTQuery = (AggregatedIPTQuery) queryMap.get(AggregatedIPT.CLASS);
-
-    for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
-    {
-      while (s instanceof Function)
-      {
-        Function f = (Function)s;
-        s = f.getSelectable();
-      }
-      
-      if (s instanceof SelectableSQL)
-      {       
-        ( (SelectableSQL) s ).setSQL(getGridSql(s.getUserDefinedAlias(), aggregatedIPTQuery.getTableAlias()));
-      }
-      
-      if (s instanceof SelectableSQL)
-      {       
-        ( (SelectableSQL) s ).setSQL(getGridSql(s.getUserDefinedAlias(), aggregatedIPTQuery.getTableAlias()));
-      }
-      
-    }
+    
+    QueryUtil.getSingleAttribteGridSql(valueQuery,aggregatedIPTQuery.getTableAlias());
 
    
     String sd = aggregatedIPTQuery.getStartDate().getQualifiedName();
@@ -289,20 +266,6 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.m
 
     return QueryUtil.setQueryDates(xml, valueQuery, sd, ed);
 
-  }
-  
-  private static String getGridSql(String gridAlias,String parentAlias)
-  {
-    // int firstIndex = gridAlias.indexOf("_", 0);
-    int index1 = gridAlias.indexOf("__");
-    int index2 = gridAlias.lastIndexOf("__");
-    String attrib = gridAlias.substring(0, index1);
-    String klass = gridAlias.substring(index1+2, index2).replace("_", ".");
-    String term_id = gridAlias.substring(index2+2,gridAlias.length());
-    String table = MdRelationship.getMdEntity(klass).getTableName();
-    String sql = "SELECT " + attrib + " FROM " + table + " WHERE child_id = '"+term_id+"' " +
-                 "AND parent_id = " +parentAlias+ ".id";
-    return sql;
   }
   
 }

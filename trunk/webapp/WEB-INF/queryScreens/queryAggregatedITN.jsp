@@ -18,6 +18,8 @@
 <%@page import="dss.vector.solutions.query.RangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
+<%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
+<%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
@@ -38,16 +40,14 @@
 <%@page import="dss.vector.solutions.entomology.MosquitoView"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dss.vector.solutions.intervention.monitor.IndividualCaseDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO"%>
-<%@page import="dss.vector.solutions.surveillance.IndividualCaseSymptomDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.ITNDataDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.ITNDataViewDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.ITNNetDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.ITNServiceDTO"%>
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
-<%@page import="dss.vector.solutions.PersonDTO"%>
 
-
-
-
-<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Individual_Cases"  scope="request"/>
+<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Aggregated_ITN_Data_Distribution"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -56,7 +56,7 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ IndividualCaseDTO.CLASS, IndividualInstanceDTO.CLASS, PersonDTO.CLASS,IndividualCaseSymptomDTO.CLASS};
+    String[] mosquitoTypes = new String[]{ ITNDataDTO.CLASS, ITNDataViewDTO.CLASS, ITNTargetGroupDTO.CLASS, ITNNetDTO.CLASS, ITNServiceDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
     MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
@@ -96,7 +96,7 @@ YAHOO.util.Event.onDOMReady(function(){
         row.attributeName = attrib.attributeName;
         if(attrib.dtoType.contains('AttributeReferenceDTO'))
         {
-          //row.attributeName += '.name';
+          //row.attributeName += '.name'dd;
         }
         if(attrib.dtoType.contains('AttributeEnumerationDTO'))
         {
@@ -112,10 +112,9 @@ YAHOO.util.Event.onDOMReady(function(){
         }
       }else{
         row.attributeName = attribName;
-        row.type = 'sqlcharacter';
+        row.type = 'sqlinteger';
         row.displayLabel = attribName;
         row.key = attribName;
-        row.dtoType = "AttributeCharacterDTO";
 
       }
       return row;
@@ -124,16 +123,11 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var mapMo = function(term,index){
     	var row = {};
-        //row.attributeName = this.relAttribute;
-        //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
-        //row.type = this.relType;
-        row.dtoType = "AttributeBooleanDTO";
+        row.dtoType = "AttributeIntegerDTO";
         row.displayLabel = term.displayLabel;
-        
         row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
-        row.type = 'sqlcharacter';
+        row.type = 'sqlinteger';
         row.attributeName = 'term' + term.MOID.replace(':','');
-        row.dropDownMap = {'true':'Yes','false':'No'};
       return row;
     };
 
@@ -142,88 +136,27 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
-    var instanceMaps = {<%=(String) request.getAttribute("instanceMaps")%>};
-    
-    var personMaps = {};
-
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
-    var individualCase = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualCase();
-    var caseAttribs = ["age","diagnosisDate","caseReportDate","caseEntryDate",
-                           "workplace_displayLabel","workplaceText",
-                           "probableSource_displayLabel","probableSourceText",
-                           "residence_displayLabel","residenceText"];
-    var caseColumns = caseAttribs.map(mapAttribs, {obj:individualCase, suffix:'_case', dropDownMaps:{}});
+    var aggreatedITN = new Mojo.$.dss.vector.solutions.intervention.monitor.ITNData();
     
-
-    var individualInstance = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualInstance();  
-    var instanceAttribs = ["activelyDetected",
-                       "admissionDate","anaemiaPatient","clinicalDiagnosis",
-                       "detectedBy","diedInFacility","facilityVisit",
-                       "patientCategory","pregnant","properlyRelease",
-                       "referralReason","labTestDate","symptomComments",
-                       "releaseDate","sampleType","malariaType",
-                       "testSampleDate","treatment","treatmentMethod",
-                       "treatmentStartDate"];
+    var aITNAttribs = ["startDate","endDate","batchNumber","currencyReceived",
+                       "numberDistributed","numberSold","receivedForCommunityResponse","receivedForTargetGroups"];
     
-    var instanceColumns = instanceAttribs.map(mapAttribs, {obj:individualInstance, suffix:'_ins', dropDownMaps:instanceMaps});
-
-    var person = new Mojo.$.dss.vector.solutions.Person();   
-    var personAttribs = ["dateOfBirth","firstName","lastName","sex"];    
-    var personColumns =  personAttribs.map(mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
-
-
-    var calculations = ([
-                          {
-                           displayLabel:"Instances (GB)",
-                           key:"instances",
-                           type:"sqlinteger",
-                           attributeName:"instances",
-                           isAggregate:true  
-                          },
-                          {
-                           displayLabel:"Cases (GB)",
-                           key:"cases",
-                           type:"sqlinteger",
-                           attributeName:"cases",
-                           isAggregate:true
-                          },
-                          {
-                           displayLabel:"Deaths (GB)",
-                           key:"deaths",
-                           type:"sqlinteger",
-                           attributeName:"deaths",
-                           isAggregate:true
-                          },                       
-                          {
-                            displayLabel:"Incidence (GB)",
-                            key:"incidence",
-                            type:"sqlfloat",
-                            attributeName:"incidence",
-                            dropDownMap:{'100':'1000','1,000':'1000','10,000':'10000','100,000':'100000'},
-                            isAggregate:true
-                          },
-                          {
-                            displayLabel:"CFR (GB)",
-                            key:"cfr",
-                            type:"sqlfloat",
-                            attributeName:"cfr",
-                            isAggregate:true
-                          },
-
-                         ]);
+    var aITNColumns =   aITNAttribs.map(mapAttribs, {obj:aggreatedITN, suffix:'_aitn', dropDownMaps:{}});
     
-    var symptomsColumns = orderedGrids.symptoms.options.map(mapMo, orderedGrids.symptoms);
-     
-    var selectableGroups = [
-              {title:"Case", values:caseColumns, group:"c", klass:individualCase.CLASS},
-              {title:"Patient", values:personColumns, group:"c", klass:individualCase.CLASS},
-              {title:"Instance", values:instanceColumns, group:"c", klass:individualCase.CLASS},
-              {title:"Calculations", values:calculations, group:"c", klass:individualCase.CLASS},
-              {title:"Symptoms", values:symptomsColumns, group:"c", klass:Mojo.$.dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS}
+   var netsColumns = orderedGrids.nets.options.map(mapMo, orderedGrids.nets);
+   var servicesColumns = orderedGrids.services.options.map(mapMo, orderedGrids.services);
+   var targetGroupsColumns = orderedGrids.targetGroups.options.map(mapMo, orderedGrids.targetGroups);
+   
+   var selectableGroups = [
+              {title:"ITN", values:aITNColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNData.CLASS},
+              {title:"Nets", values:netsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNNet.CLASS},
+              {title:"Services", values:servicesColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNService.CLASS},
+              {title:"TargetGroups", values:targetGroupsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNTargetGroup.CLASS},
     ];
 
-    var query = new MDSS.QueryIndividualCases(selectableGroups, queryList);
+    var query = new MDSS.QueryAggreatedITN(selectableGroups, queryList);
     query.render();
 
 });
@@ -231,7 +164,5 @@ YAHOO.util.Event.onDOMReady(function(){
 </script>
 
 <jsp:include page="queryContainer.jsp"></jsp:include>
-
-<textarea id="debug_xml" cols="40" rows="40" style="width:1280px"> </textarea>
 
 <jsp:include page="../templates/footer.jsp"></jsp:include>

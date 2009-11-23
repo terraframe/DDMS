@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1012007668)
+@com.terraframe.mojo.business.ClassSignature(hash = -2060504158)
 public class QueryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.QueryController";
@@ -10,7 +10,7 @@ public class QueryControllerBase implements com.terraframe.mojo.generation.loade
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1012007668;
+  private static final long serialVersionUID = -2060504158;
   
   public QueryControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -334,6 +334,20 @@ public class QueryControllerBase implements com.terraframe.mojo.generation.loade
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void queryAggregatedITN() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.queryAggregatedITN");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failQueryAggregatedITN() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failQueryAggregatedITN");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
   public void queryEfficacyAssay() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
@@ -373,6 +387,34 @@ public class QueryControllerBase implements com.terraframe.mojo.generation.loade
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failQueryIRS");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void queryITNCommunityDistribution() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.queryITNCommunityDistribution");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failQueryITNCommunityDistribution() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failQueryITNCommunityDistribution");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void queryITNDistribution() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.queryITNDistribution");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failQueryITNDistribution() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failQueryITNDistribution");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)

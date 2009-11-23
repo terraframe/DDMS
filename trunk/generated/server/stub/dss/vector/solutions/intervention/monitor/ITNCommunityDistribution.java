@@ -2,13 +2,23 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.terraframe.mojo.dataaccess.MdAttributeBooleanDAOIF;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.RequiredAttributeProblem;
+import dss.vector.solutions.query.ThematicLayer;
+import dss.vector.solutions.util.QueryUtil;
 
 public class ITNCommunityDistribution extends ITNCommunityDistributionBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -308,5 +318,50 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
       p.throwIt();
     }
   }
+  
+
+  /**
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
+   *
+   * @param xml
+   * @return
+   */
+  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry, ThematicLayer thematicLayer)
+  {
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+    
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, AggregatedIPT.CLASS, AggregatedIPT.GEOENTITY);   
+   
+    ITNCommunityDistributionQuery itnQuery = (ITNCommunityDistributionQuery) queryMap.get(ITNCommunityDistribution.CLASS);
+
+    QueryUtil.getSingleAttribteGridSql(valueQuery,itnQuery.getTableAlias());
+    
+    QueryUtil.joinGeoDisplayLabels(valueQuery,ITNCommunityDistribution.CLASS,itnQuery);
+
+   
+    String sd = itnQuery.getStartDate().getQualifiedName();
+    String ed = itnQuery.getEndDate().getQualifiedName();
+
+    return QueryUtil.setQueryDates(xml, valueQuery, sd, ed);
+
+  }
+  
+
+
+
 
 }

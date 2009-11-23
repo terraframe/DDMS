@@ -2,7 +2,6 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -15,18 +14,14 @@ import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.Function;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.SelectableSQLFloat;
 import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.metadata.MdBusiness;
-import com.terraframe.mojo.system.metadata.MdRelationship;
 
 import dss.vector.solutions.Patient;
 import dss.vector.solutions.Person;
@@ -261,6 +256,8 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     
     valueQuery.WHERE(instanceQuery.getIndividualCase().EQ(caseQuery.getId()));
         
+    QueryUtil.joinGeoDisplayLabels(valueQuery,IndividualCase.CLASS,caseQuery);
+    
     QueryUtil.joinTermAllpaths(valueQuery,IndividualInstance.CLASS,instanceQuery);
     
     QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery);
@@ -321,24 +318,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     {
     }
     
-    
-    for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
-    {
-      while (s instanceof Function)
-      {
-        Function f = (Function)s;
-        s = f.getSelectable();
-      }
-      if (s.getUserDefinedAlias().indexOf("__") >= 0)
-      {
-        if (s instanceof SelectableSQL)
-        {       
-          ( (SelectableSQL) s ).setSQL(getGridSql(s.getUserDefinedAlias(), instanceQuery.getTableAlias()));
-        }
-        
-      }
-      
-    }
+    QueryUtil.getSingleAttribteGridSql(valueQuery, instanceQuery.getTableAlias());
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap );
     
@@ -350,20 +330,6 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     
     return valueQuery; 
 
-  }
-  
-  private static String getGridSql(String gridAlias,String parentAlias)
-  {
-    // int firstIndex = gridAlias.indexOf("_", 0);
-    int index1 = gridAlias.indexOf("__");
-    int index2 = gridAlias.lastIndexOf("__");
-    String attrib = gridAlias.substring(0, index1);
-    String klass = gridAlias.substring(index1+2, index2).replace("_", ".");
-    String term_id = gridAlias.substring(index2+2,gridAlias.length());
-    String table = MdRelationship.getMdEntity(klass).getTableName();
-    String sql = "SELECT " + attrib + " FROM " + table + " WHERE child_id = '"+term_id+"' " +
-                 "AND parent_id = " +parentAlias+ ".id";
-    return sql;
   }
 
 }
