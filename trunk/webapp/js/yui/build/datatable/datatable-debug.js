@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 /**
  * Mechanism to execute a series of callbacks in a non-blocking queue.  Each callback is executed via setTimout unless configured with a negative timeout, in which case it is run in blocking mode in the same execution thread as the previous callback.  Callbacks can be function references or object literals with the following keys:
  * <ul>
@@ -17351,4 +17357,4 @@ lang.augmentObject(CE, BCE);
 
 })();
 
-YAHOO.register("datatable", YAHOO.widget.DataTable, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("datatable", YAHOO.widget.DataTable, {version: "2.8.0r4", build: "2449"});

@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 /**
  * Augments the Event Utility with support for the mouseenter and mouseleave 
  * events:  A mouseenter event fires the first time the mouse enters an 
@@ -201,7 +207,7 @@
 				listeners = getListeners.apply(Event, arguments);
 			}
 
-			return listeners.length ? listeners : null;
+            return (listeners && listeners.length) ? listeners : null;
 			
 		}
 		
@@ -210,4 +216,4 @@
 	Event.on = Event.addListener;
 
 }());
-YAHOO.register("event-mouseenter", YAHOO.util.Event, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("event-mouseenter", YAHOO.util.Event, {version: "2.8.0r4", build: "2449"});

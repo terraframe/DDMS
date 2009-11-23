@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 /*extern ActiveXObject, __flash_unloadHandler, __flash_savedUnloadHandler */
 /*!
  * SWFObject v1.5: Flash Player detection and embed - http://blog.deconcept.com/swfobject/
@@ -1060,4 +1066,4 @@ YAHOO.extend(YAHOO.widget.Uploader, YAHOO.widget.FlashAdapter,
 		this._swf.disable();
 	}
 });
-YAHOO.register("uploader", YAHOO.widget.Uploader, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("uploader", YAHOO.widget.Uploader, {version: "2.8.0r4", build: "2449"});

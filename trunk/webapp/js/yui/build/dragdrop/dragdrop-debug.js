@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 /**
  * The drag and drop utility provides a framework for building drag and drop
  * applications.  In addition to enabling drag and drop for specific elements,
@@ -3701,4 +3707,4 @@ YAHOO.extend(YAHOO.util.DDTarget, YAHOO.util.DragDrop, {
         return ("DDTarget " + this.id);
     }
 });
-YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.8.0r4", build: "2449"});

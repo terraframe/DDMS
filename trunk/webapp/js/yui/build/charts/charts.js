@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 /**
  * The Charts widget provides a Flash control for displaying data
  * graphically by series across A-grade browsers with Flash Player installed.
@@ -2051,4 +2057,4 @@ YAHOO.lang.extend(YAHOO.widget.StackedColumnSeries, YAHOO.widget.CartesianSeries
 {
 	type: "stackcolumn"
 });
-YAHOO.register("charts", YAHOO.widget.Chart, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("charts", YAHOO.widget.Chart, {version: "2.8.0r4", build: "2449"});

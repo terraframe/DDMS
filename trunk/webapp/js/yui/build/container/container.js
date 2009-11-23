@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 (function () {
 
     /**
@@ -1413,9 +1419,6 @@
                     oIFrame.style.left = "0";
                     oIFrame.style.top = (-1 * (oIFrame.offsetHeight + Module.RESIZE_MONITOR_BUFFER)) + "px";
                     oIFrame.style.visibility = "visible";
-                    // DARRELL TAYLOR
-                    // FIX TAB INDEX
-                    oIFrame.tabIndex = -1;
 
                     /*
                        Don't open/close the document for Gecko like we used to, since it
@@ -9046,4 +9049,4 @@
     YAHOO.lang.augmentProto(ContainerEffect, YAHOO.util.EventProvider);
 
 })();
-YAHOO.register("container", YAHOO.widget.Module, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("container", YAHOO.widget.Module, {version: "2.8.0r4", build: "2449"});

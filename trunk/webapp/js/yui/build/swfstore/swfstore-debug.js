@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 /**
  * Provides a swf based storage implementation
  *
@@ -460,5 +466,5 @@ YAHOO.extend(YAHOO.util.SWFStore, YAHOO.util.AttributeProvider,
 
 YAHOO.util.SWFStore.SWFURL = "swfstore.swf";
 
-YAHOO.register("swfstore", YAHOO.util.SWFStore, {version: "@VERSION@", build: "@BUILD@"});
-YAHOO.register("swfstore", YAHOO.util.SWFStore, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("swfstore", YAHOO.util.SWFStore, {version: "2.8.0r4", build: "2449"});
+YAHOO.register("swfstore", YAHOO.util.SWFStore, {version: "2.8.0r4", build: "2449"});

@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 /**
 * @module button
 * @description <p>The Button Control enables the creation of rich, graphical 
@@ -4685,4 +4691,4 @@
     });
 
 })();
-YAHOO.register("button", YAHOO.widget.Button, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("button", YAHOO.widget.Button, {version: "2.8.0r4", build: "2449"});

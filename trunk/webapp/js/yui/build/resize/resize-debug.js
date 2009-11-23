@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 /**
  * @description <p>Makes an element resizable</p>
  * @namespace YAHOO.util
@@ -1740,4 +1746,4 @@ var D = YAHOO.util.Dom,
 
 })();
 
-YAHOO.register("resize", YAHOO.util.Resize, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("resize", YAHOO.util.Resize, {version: "2.8.0r4", build: "2449"});

@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 (function () {
 
     /**
@@ -1272,7 +1278,6 @@ Calendar.ONE_CHAR = "1char";
 * literal with a key string property, and a value property, specifying the 
 * default value of the property. To override a default value, you can set
 * the value property, for example, <code>YAHOO.widget.Calendar.DEFAULT_CONFIG.MULTI_SELECT.value = true;</code>
-* <code>
 * 
 * @property YAHOO.widget.Calendar.DEFAULT_CONFIG
 * @static
@@ -7316,4 +7321,4 @@ YAHOO.widget.CalendarNavigator.prototype = {
     __isMac : (navigator.userAgent.toLowerCase().indexOf("macintosh") != -1)
 
 };
-YAHOO.register("calendar", YAHOO.widget.Calendar, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("calendar", YAHOO.widget.Calendar, {version: "2.8.0r4", build: "2449"});

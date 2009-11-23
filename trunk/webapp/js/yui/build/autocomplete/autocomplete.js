@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 /////////////////////////////////////////////////////////////////////////////
 //
 // YAHOO.widget.DataSource Backwards Compatibility
@@ -2957,4 +2963,4 @@ YAHOO.widget.AutoComplete._cloneObject = function(o) {
 
 
 
-YAHOO.register("autocomplete", YAHOO.widget.AutoComplete, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("autocomplete", YAHOO.widget.AutoComplete, {version: "2.8.0r4", build: "2449"});

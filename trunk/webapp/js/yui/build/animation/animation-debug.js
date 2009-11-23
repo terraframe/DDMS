@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 (function() {
 
 var Y = YAHOO.util;
@@ -1387,4 +1393,4 @@ YAHOO.util.Easing = {
 
     Y.Scroll = Scroll;
 })();
-YAHOO.register("animation", YAHOO.util.Anim, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("animation", YAHOO.util.Anim, {version: "2.8.0r4", build: "2449"});

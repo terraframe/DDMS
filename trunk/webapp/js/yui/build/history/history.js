@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 /**
  * The Browser History Manager provides the ability to use the back/forward
  * navigation buttons in a DHTML application. It also allows a DHTML
@@ -794,4 +800,4 @@ YAHOO.util.History = (function () {
     };
 
 })();
-YAHOO.register("history", YAHOO.util.History, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("history", YAHOO.util.History, {version: "2.8.0r4", build: "2449"});

@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 
 /**
  * DOM event simulation utility
@@ -613,4 +619,4 @@ YAHOO.util.UserAction = {
     
 
 };
-YAHOO.register("event-simulate", YAHOO.util.UserAction, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("event-simulate", YAHOO.util.UserAction, {version: "2.8.0r4", build: "2449"});

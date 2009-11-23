@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 /**
 * The datemath module provides utility methods for basic JavaScript Date object manipulation and 
 * comparison. 
@@ -399,4 +405,4 @@ YAHOO.widget.DateMath = {
         return dt;
     }
 };
-YAHOO.register("datemath", YAHOO.widget.DateMath, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("datemath", YAHOO.widget.DateMath, {version: "2.8.0r4", build: "2449"});

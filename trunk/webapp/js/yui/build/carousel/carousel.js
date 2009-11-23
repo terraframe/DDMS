@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 /**
  * The Carousel module provides a widget for browsing among a set of like
  * objects represented pictorially.
@@ -2743,7 +2749,7 @@
                     'selectedItem' : carousel.get('selectedItem')+1,
                     'currentPage' : currentPage,
                     'firstVisible' : firstVisible,
-                    'lastVisible' : carousel.get("lastVisible")
+                    'lastVisible' : carousel.get("lastVisible")+1
                 },
                 cb = pagination.callback || {},
                 scope = cb.scope && cb.obj ? cb.obj : carousel;
@@ -3752,7 +3758,7 @@
         },
 
         /**
-         * Get the last visible item.
+         * Get the index of the last visible item
          *
          * @method _getLastVisible
          * @protected
@@ -3761,7 +3767,7 @@
             var carousel = this;
             return carousel.get("currentPage") + 1 == carousel.get("numPages") ?
                    carousel.get("numItems") - 1:
-                   carousel.get("firstVisible") + carousel.get("numVisible");
+                   carousel.get("firstVisible") + carousel.get("numVisible") - 1;
         },
 
         /**
@@ -4340,4 +4346,4 @@
 ;;  indent-tabs-mode: nil **
 ;;  End: **
 */
-YAHOO.register("carousel", YAHOO.widget.Carousel, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("carousel", YAHOO.widget.Carousel, {version: "2.8.0r4", build: "2449"});

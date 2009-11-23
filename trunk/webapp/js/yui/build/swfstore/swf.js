@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
 YAHOO.namespace("widget");
 
 (function () {
@@ -229,4 +235,4 @@ YAHOO.extend(YAHOO.widget.SWF, YAHOO.util.Element, {
 
 	
 })();
-YAHOO.register("swf", YAHOO.widget.SWF, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("swf", YAHOO.widget.SWF, {version: "2.8.0r4", build: "2449"});
