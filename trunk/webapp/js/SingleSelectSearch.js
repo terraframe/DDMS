@@ -184,7 +184,13 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       this._selectSearch = selectSearch || null; // 101 widget reference
     
       this._geoInput = Mojo.Util.isString(geoInput) ? document.getElementById(geoInput) : geoInput;
-    
+
+      // Some pages also have a field that takes the geoentity id.
+      // Those fields are namespaced as the geo id field+"_geoEntityId",
+      // so a geo input with an id of "geoIdEl" may have another field
+      // called "geoIdEl_geoEntityId".
+      this._geoElement = document.getElementById(this._geoInput.id+'_geoEntityId');
+      
       // Append the globe img to open the geo picker
       this._opener = document.createElement('img');
       this._opener.src = "./imgs/icons/world.png";
@@ -202,7 +208,6 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       geoSearchResults.id = this._geoInput.id +'_results';
       geoSearchResults.className = "yui-panel-container show-scrollbars shadow";
       YAHOO.util.Dom.insertAfter(geoSearchResults,geoInfo);
-  
 
       var dF = Mojo.Util.bind(this, this._displayFunction);
       var iF = Mojo.Util.bind(this, this._idFunction);
@@ -216,7 +221,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       //YAHOO.util.Event.on(geoInput, 'blur', this._checkManualEntry, null, this);
       
       // add generic ajax search
-      this._genericSearch = new MDSS.GenericSearch(this._geoInput, null, lF, dF, iF, sF, sEH);
+      this._genericSearch = new MDSS.GenericSearch(this._geoInput, this._geoElement, lF, dF, iF, sF, sEH);
       YAHOO.util.Event.on(this._geoInput, 'focus', this._setCurrentInput, null, this);
       YAHOO.util.Event.on(this._geoInput, 'keyup', this._genericSearch.performSearch, null, this._genericSearch);
       

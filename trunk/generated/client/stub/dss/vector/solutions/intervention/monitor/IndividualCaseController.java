@@ -171,6 +171,11 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
   {
     try
     {
+      if(dto.getProbableSource() == null)
+      {
+        dto.setProbableSource(dto.getResidence());
+      }
+      
       dto.apply();
       
       ClientRequestIF request = dto.getRequest();
