@@ -202,8 +202,11 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   {
     try
     {
+      String caseId = dto.getIndividualCase().getId();
+      
       dto.delete();
-      this.viewAll();
+
+      new IndividualCaseController(req, resp, isAsynchronous).view(caseId);
     }
     catch (ProblemExceptionDTO e)
     {
