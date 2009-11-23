@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1886354537)
+@com.terraframe.mojo.business.ClassSignature(hash = -576474046)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,10 +21,10 @@ public abstract class ITNDistributionViewBase extends com.terraframe.mojo.busine
   public static java.lang.String ID = "id";
   public static java.lang.String NET = "net";
   public static java.lang.String NUMBERSOLD = "numberSold";
-  public static java.lang.String RECIPIENT = "recipient";
+  public static java.lang.String PERSON = "person";
   public static java.lang.String SERVICE = "service";
   public static java.lang.String TARGETGROUPS = "targetGroups";
-  private static final long serialVersionUID = -1886354537;
+  private static final long serialVersionUID = -576474046;
   
   public ITNDistributionViewBase()
   {
@@ -306,38 +306,38 @@ public abstract class ITNDistributionViewBase extends com.terraframe.mojo.busine
     }
   }
   
-  public dss.vector.solutions.intervention.monitor.ITNRecipient getRecipient()
+  public dss.vector.solutions.Person getPerson()
   {
-    if (getValue(RECIPIENT).trim().equals(""))
+    if (getValue(PERSON).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return dss.vector.solutions.intervention.monitor.ITNRecipient.get(getValue(RECIPIENT));
+      return dss.vector.solutions.Person.get(getValue(PERSON));
     }
   }
   
-  public void validateRecipient()
+  public void validatePerson()
   {
-    this.validateAttribute(RECIPIENT);
+    this.validateAttribute(PERSON);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getRecipientMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getPersonMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDistributionView.CLASS);
-    return mdClassIF.definesAttribute(RECIPIENT);
+    return mdClassIF.definesAttribute(PERSON);
   }
   
-  public void setRecipient(dss.vector.solutions.intervention.monitor.ITNRecipient value)
+  public void setPerson(dss.vector.solutions.Person value)
   {
     if(value == null)
     {
-      setValue(RECIPIENT, "");
+      setValue(PERSON, "");
     }
     else
     {
-      setValue(RECIPIENT, value.getId());
+      setValue(PERSON, value.getId());
     }
   }
   
@@ -455,6 +455,24 @@ public abstract class ITNDistributionViewBase extends com.terraframe.mojo.busine
   {
     ITNDistributionView _instance = ITNDistributionView.get(id);
     return _instance.getDistributionTargetGroups();
+  }
+  
+  public dss.vector.solutions.PersonView getRecipientView()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNDistributionView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.PersonView getRecipientView(java.lang.String id)
+  {
+    ITNDistributionView _instance = ITNDistributionView.get(id);
+    return _instance.getRecipientView();
+  }
+  
+  public static dss.vector.solutions.intervention.monitor.ITNDistributionViewQuery searchHistory(dss.vector.solutions.intervention.monitor.ITNDistributionView view)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNDistributionView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public String toString()

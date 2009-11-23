@@ -7,7 +7,11 @@ import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
 import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
 import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.AND;
+import com.terraframe.mojo.query.Condition;
+import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.Person;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.ontology.Term;
@@ -16,12 +20,12 @@ import dss.vector.solutions.surveillance.GridComparator;
 public class ITNDistributionView extends ITNDistributionViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1255545119443L;
-  
+
   public ITNDistributionView()
   {
     super();
   }
-  
+
   public void populateView(ITNDistribution concrete)
   {
     this.setConcreteId(concrete.getId());
@@ -30,7 +34,7 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
     {
       this.setFacility(concrete.getFacility().getGeoId());
     }
-    
+
     this.setBatchNumber(concrete.getBatchNumber());
     this.setCurrencyReceived(concrete.getCurrencyReceived());
     this.setDistributionDate(concrete.getDistributionDate());
@@ -38,8 +42,8 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
     this.setDistributorSurname(concrete.getDistributorSurname());
     this.setNet(concrete.getNet());
     this.setNumberSold(concrete.getNumberSold());
-    this.setRecipient(concrete.getRecipient());
-    this.setService(concrete.getService());    
+    this.setPerson(concrete.getRecipient().getPerson());
+    this.setService(concrete.getService());
   }
 
   private void populateConcrete(ITNDistribution concrete)
@@ -61,6 +65,22 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
       }
     }
 
+    Person person = this.getPerson();
+
+    ITNRecipient recipient = person.getItnRecipientDelegate();
+
+    if (recipient == null)
+    {
+      recipient = new ITNRecipient();
+      recipient.setPerson(person);
+      recipient.apply();
+
+      person.lock();
+      person.setItnRecipientDelegate(recipient);
+      person.apply();
+    }
+
+    concrete.setRecipient(recipient);
     concrete.setBatchNumber(this.getBatchNumber());
     concrete.setCurrencyReceived(this.getCurrencyReceived());
     concrete.setDistributionDate(this.getDistributionDate());
@@ -68,7 +88,6 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
     concrete.setDistributorSurname(this.getDistributorSurname());
     concrete.setNet(this.getNet());
     concrete.setNumberSold(this.getNumberSold());
-    concrete.setRecipient(this.getRecipient());
     concrete.setService(this.getService());
   }
 
@@ -82,11 +101,12 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
     new AttributeNotificationMap(concrete, ITNDistribution.DISTRIBUTORSURNAME, this, ITNDistributionView.DISTRIBUTORSURNAME);
     new AttributeNotificationMap(concrete, ITNDistribution.NET, this, ITNDistributionView.NET);
     new AttributeNotificationMap(concrete, ITNDistribution.NUMBERSOLD, this, ITNDistributionView.NUMBERSOLD);
-    new AttributeNotificationMap(concrete, ITNDistribution.RECIPIENT, this, ITNDistributionView.RECIPIENT);
+    new AttributeNotificationMap(concrete, ITNDistribution.RECIPIENT, this, ITNDistributionView.PERSON);
     new AttributeNotificationMap(concrete, ITNDistribution.SERVICE, this, ITNDistributionView.SERVICE);
-  } 
+  }
 
   @Override
+  @Transaction
   public void apply()
   {
     ITNDistribution concrete = new ITNDistribution();
@@ -121,7 +141,6 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
   }
 
-  
   @Override
   @Transaction
   public void applyAll(ITNDistributionTargetGroup[] targetGroups)
@@ -134,7 +153,6 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
       targetGroup.apply();
     }
   }
-
 
   @Override
   public ITNDistributionTargetGroup[] getDistributionTargetGroups()
@@ -167,6 +185,38 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
 
     return set.toArray(new ITNDistributionTargetGroup[set.size()]);
   }
-
   
+  public static ITNDistributionViewQuery searchHistory(ITNDistributionView view)
+  {
+    ITNDistributionViewQuery query = new ITNDistributionViewQuery(new QueryFactory());
+
+    Person person = view.getPerson();
+    
+    Condition condition = query.getPerson().EQ(person);
+
+    String facility = view.getFacility();
+    String batchNumber = view.getBatchNumber();
+
+    if (facility != null && !facility.equals(""))
+    {
+      condition = AND.get(condition, query.getFacility().EQ(facility));
+    }
+
+    if (view.getDistributionDate() != null)
+    {
+      condition = AND.get(condition, query.getDistributionDate().EQ(view.getDistributionDate()));
+    }
+
+    if (batchNumber != null && !batchNumber.equals(""))
+    {
+      condition = AND.get(condition, query.getBatchNumber().EQ(batchNumber));
+    }
+
+    query.WHERE(condition);
+    
+    System.out.println(query.getSQL());
+    
+    return query;
+  }
+
 }

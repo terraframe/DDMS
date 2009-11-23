@@ -13,7 +13,6 @@ import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.intervention.monitor.ITNDistributionView;
-import dss.vector.solutions.intervention.monitor.ITNRecipient;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
@@ -36,7 +35,7 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
     view.setFacility(this.getFacility().getGeoId());
     view.setService(Term.validateByDisplayLabel(this.getService(), getServiceMd()));
     view.setBatchNumber(this.getBatchNumber());
-    view.setRecipient(searchForRecipient());
+    view.setPerson(searchForRecipient());
     view.setNet(Term.validateByDisplayLabel(this.getNet(), getNetMd()));
     view.setNumberSold(this.getNumberSold());
     view.setCurrencyReceived(this.getCurrencyReceived());
@@ -45,7 +44,7 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
     view.apply();
   }
   
-  private ITNRecipient searchForRecipient()
+  private Person searchForRecipient()
   {
     String firstName = this.getRecipientFirstName();
     String lastName = this.getRecipientLastName();
@@ -91,17 +90,7 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
     }
     iterator.close();
     
-    ITNRecipient recipient = person.getItnRecipientDelegate();
-    if (recipient==null)
-    {
-      recipient = new ITNRecipient();
-      recipient.setPerson(person);
-      recipient.apply();
-      
-      person.setItnRecipientDelegate(recipient);
-      person.apply();
-    }
-    return recipient;
+    return person;
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)

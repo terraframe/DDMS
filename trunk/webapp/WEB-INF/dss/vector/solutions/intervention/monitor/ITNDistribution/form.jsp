@@ -9,7 +9,7 @@
 
 <mjl:component item="${item}" param="dto">
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}" />
-  <mjl:input type="hidden" param="recipient" />
+  <mjl:input type="hidden" param="person" value="${item.person.id}" />
   <mjl:dt attribute="facility">
     <mjl:input value="${item.facility}" type="text" param="facility" classes="geoInput" id="geoIdEl" />
   </mjl:dt>

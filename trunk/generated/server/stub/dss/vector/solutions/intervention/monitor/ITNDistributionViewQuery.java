@@ -21,9 +21,13 @@ private static final long serialVersionUID = 1255545119458L;
 
   class DefaultITNDistributionViewBuilder extends com.terraframe.mojo.query.ViewQueryBuilder implements com.terraframe.mojo.generation.loader.Reloadable
   {
+    private ITNDistributionQuery query;
+    
     public DefaultITNDistributionViewBuilder(com.terraframe.mojo.query.QueryFactory queryFactory)
     {
       super(queryFactory);
+      
+      query = new ITNDistributionQuery(queryFactory);
     }
 
     protected ITNDistributionViewQuery getViewQuery()
@@ -36,8 +40,19 @@ private static final long serialVersionUID = 1255545119458L;
      */
     protected void buildSelectClause()
     {
-      String errMsg = "buildSelectClause() method in class DefaultITNDistributionViewBuilder needs to be overwritten.";
-      throw new com.terraframe.mojo.query.QueryException(errMsg);
+      ITNDistributionViewQuery vQuery = this.getViewQuery();
+      
+      vQuery.map(ITNDistributionView.CONCRETEID, query.getId());
+      vQuery.map(ITNDistributionView.BATCHNUMBER, query.getBatchNumber());
+      vQuery.map(ITNDistributionView.CURRENCYRECEIVED, query.getCurrencyReceived());
+      vQuery.map(ITNDistributionView.DISTRIBUTIONDATE, query.getDistributionDate());
+      vQuery.map(ITNDistributionView.DISTRIBUTORNAME, query.getDistributorName());
+      vQuery.map(ITNDistributionView.DISTRIBUTORSURNAME, query.getDistributorSurname());
+      vQuery.map(ITNDistributionView.FACILITY, query.getFacility().getGeoId());
+      vQuery.map(ITNDistributionView.NET, query.getNet());
+      vQuery.map(ITNDistributionView.NUMBERSOLD, query.getNumberSold());
+      vQuery.map(ITNDistributionView.PERSON, query.getRecipient().getPerson());
+      vQuery.map(ITNDistributionView.SERVICE, query.getService());
     }
 
     /**

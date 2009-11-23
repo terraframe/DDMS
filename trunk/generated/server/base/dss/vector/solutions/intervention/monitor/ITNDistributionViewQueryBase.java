@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1604528882)
+@com.terraframe.mojo.business.ClassSignature(hash = -1211332821)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class ITNDistributionViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1604528882;
+private static final long serialVersionUID = -1211332821;
 
   public ITNDistributionViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -207,23 +207,23 @@ private static final long serialVersionUID = -1604528882;
 
   }
  
-  public dss.vector.solutions.intervention.monitor.ITNRecipientQuery.ITNRecipientQueryReferenceIF getRecipient()
+  public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson()
   {
-    return getRecipient(null);
+    return getPerson(null);
 
   }
  
-  public dss.vector.solutions.intervention.monitor.ITNRecipientQuery.ITNRecipientQueryReferenceIF getRecipient(String alias)
+  public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias)
   {
 
-    return (dss.vector.solutions.intervention.monitor.ITNRecipientQuery.ITNRecipientQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDistributionView.RECIPIENT, alias, null);
+    return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDistributionView.PERSON, alias, null);
 
   }
  
-  public dss.vector.solutions.intervention.monitor.ITNRecipientQuery.ITNRecipientQueryReferenceIF getRecipient(String alias, String displayLabel)
+  public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias, String displayLabel)
   {
 
-    return (dss.vector.solutions.intervention.monitor.ITNRecipientQuery.ITNRecipientQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDistributionView.RECIPIENT, alias, displayLabel);
+    return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDistributionView.PERSON, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getService()

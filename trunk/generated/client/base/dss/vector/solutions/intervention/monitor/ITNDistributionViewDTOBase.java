@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -497711849)
+@com.terraframe.mojo.business.ClassSignature(hash = -1457478974)
 public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNDistributionView";
-  private static final long serialVersionUID = -497711849;
+  private static final long serialVersionUID = -1457478974;
   
   protected ITNDistributionViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -26,7 +26,7 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
   public static java.lang.String ID = "id";
   public static java.lang.String NET = "net";
   public static java.lang.String NUMBERSOLD = "numberSold";
-  public static java.lang.String RECIPIENT = "recipient";
+  public static java.lang.String PERSON = "person";
   public static java.lang.String SERVICE = "service";
   public static java.lang.String TARGETGROUPS = "targetGroups";
   public String getBatchNumber()
@@ -369,48 +369,48 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERSOLD).getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.intervention.monitor.ITNRecipientDTO getRecipient()
+  public dss.vector.solutions.PersonDTO getPerson()
   {
-    if(getValue(RECIPIENT) == null || getValue(RECIPIENT).trim().equals(""))
+    if(getValue(PERSON) == null || getValue(PERSON).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return dss.vector.solutions.intervention.monitor.ITNRecipientDTO.get(getRequest(), getValue(RECIPIENT));
+      return dss.vector.solutions.PersonDTO.get(getRequest(), getValue(PERSON));
     }
   }
   
-  public void setRecipient(dss.vector.solutions.intervention.monitor.ITNRecipientDTO value)
+  public void setPerson(dss.vector.solutions.PersonDTO value)
   {
     if(value == null)
     {
-      setValue(RECIPIENT, "");
+      setValue(PERSON, "");
     }
     else
     {
-      setValue(RECIPIENT, value.getId());
+      setValue(PERSON, value.getId());
     }
   }
   
-  public boolean isRecipientWritable()
+  public boolean isPersonWritable()
   {
-    return isWritable(RECIPIENT);
+    return isWritable(PERSON);
   }
   
-  public boolean isRecipientReadable()
+  public boolean isPersonReadable()
   {
-    return isReadable(RECIPIENT);
+    return isReadable(PERSON);
   }
   
-  public boolean isRecipientModified()
+  public boolean isPersonModified()
   {
-    return isModified(RECIPIENT);
+    return isModified(PERSON);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getRecipientMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getPersonMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(RECIPIENT).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PERSON).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getService()
@@ -547,6 +547,30 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     Object[] _parameters = new Object[]{id};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "getDistributionTargetGroups", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.PersonViewDTO getRecipientView()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "getRecipientView", _declaredTypes);
+    return (dss.vector.solutions.PersonViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.PersonViewDTO getRecipientView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "getRecipientView", _declaredTypes);
+    return (dss.vector.solutions.PersonViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.ITNDistributionViewQueryDTO searchHistory(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO view)
+  {
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.intervention.monitor.ITNDistributionView"};
+    Object[] _parameters = new Object[]{view};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "searchHistory", _declaredTypes);
+    return (dss.vector.solutions.intervention.monitor.ITNDistributionViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static ITNDistributionViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

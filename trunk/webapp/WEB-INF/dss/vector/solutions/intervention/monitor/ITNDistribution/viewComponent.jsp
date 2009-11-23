@@ -9,8 +9,8 @@
   <mjl:form name="dss.vector.solutions.intervention.monitor.ITNDistribution.form.name" id="dss.vector.solutions.intervention.monitor.ITNDistribution.form.id" method="POST">
     <mjl:input value="${item.concreteId}" type="hidden" param="id" />
     <mjl:component item="${item}" param="dto">
-      <mjl:dt attribute="recipient">
-        ${item.recipient.person}
+      <mjl:dt attribute="person">
+        ${item.person}
       </mjl:dt>
       <mjl:dt attribute="distributionDate">
         <span class="formatDate">
@@ -18,7 +18,7 @@
         </span>
       </mjl:dt>
       <mjl:dt attribute="facility">
-        ${item.facility}
+        ${facility.displayString}
       </mjl:dt>
       <mjl:dt attribute="service">
         <c:if test="${service != null}">
@@ -77,6 +77,6 @@
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.ITNDistributionController.edit.mojo" name="dss.vector.solutions.intervention.monitor.ITNDistribution.form.edit.button" />
   </mjl:form>
 </dl>
-<mjl:commandLink action="dss.vector.solutions.intervention.monitor.ITNDistributionController.viewAll.mojo" name="dss.vector.solutions.intervention.monitor.ITNDistribution.viewAll.link">
-  <fmt:message key="View_All" />
+<mjl:commandLink action="dss.vector.solutions.intervention.monitor.ITNDistributionController.search.mojo" name="dss.vector.solutions.intervention.monitor.ITNDistribution.viewAll.link">
+  <fmt:message key="Search" />
 </mjl:commandLink>

@@ -15,12 +15,12 @@
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="facility">
       <mjl:row>
-        ${item.facility.geoId}
+        ${item.facility}
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="recipient">
+    <mjl:attributeColumn attributeName="person">
       <mjl:row>
-        ${item.recipient.person}
+        ${item.person}
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="batchNumber">
@@ -50,7 +50,7 @@
       <mjl:row>
         <mjl:commandLink action="dss.vector.solutions.intervention.monitor.ITNDistributionController.view.mojo" name="view.link">
           <fmt:message key="View" />
-          <mjl:property value="${item.id}" name="id" />
+          <mjl:property value="${item.concreteId}" name="id" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
@@ -64,5 +64,9 @@
 </mjl:table>
 <br />
 <mjl:commandLink action="dss.vector.solutions.intervention.monitor.ITNDistributionController.newInstance.mojo" name="ITNDistributionController.newInstance">
+  <mjl:property name="person" value="${item.person.id}"/>
+  <mjl:property name="distributionDate" value="${distributionDate}"/>
+  <mjl:property name="facility" value="${facility}"/>
+  <mjl:property name="batchNumber" value="${batchNumber}"/>
   <fmt:message key="Create_a_new_ITN_Distribution" />
 </mjl:commandLink>
