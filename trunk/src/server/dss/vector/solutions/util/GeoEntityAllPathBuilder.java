@@ -34,8 +34,10 @@ public class GeoEntityAllPathBuilder
     MdBusiness mdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);
 
     mdBusiness.deleteAllTableRecords();
+    
+    GeoEntity.buildAllPathsFast();
 
-    updateAllPaths();
+    //updateAllPaths();
   }
 
   public static void updateAllPaths()
@@ -72,7 +74,7 @@ public class GeoEntityAllPathBuilder
       i.close();
     }
   }
-
+  
   @Transaction
   public static int updateBatchOfPaths(List<String> ids, int applyCount) {
 	  for (String id: ids) {
