@@ -1,11 +1,15 @@
 package dss.vector.solutions.geo.generated;
 
 import java.lang.reflect.Constructor;
+import java.security.SecureRandom;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +20,8 @@ import com.terraframe.mojo.business.Business;
 import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.constants.MdBusinessInfo;
 import com.terraframe.mojo.constants.RelationshipInfo;
+import com.terraframe.mojo.constants.ServerConstants;
+import com.terraframe.mojo.constants.ServerProperties;
 import com.terraframe.mojo.dataaccess.InvalidIdException;
 import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
@@ -43,6 +49,10 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.session.Session;
+import com.terraframe.mojo.session.SessionIF;
+import com.terraframe.mojo.session.StartSession;
+import com.terraframe.mojo.system.metadata.MdAttribute;
+import com.terraframe.mojo.system.metadata.MdAttributeReference;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 import com.terraframe.mojo.system.metadata.MdClass;
@@ -1439,52 +1449,96 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     return parentIdList;
   }
   
+  @StartSession
   @Transaction
   public static void buildAllPathsFast()
   {
-    QueryFactory queryFactory = new QueryFactory();
-
-    ValueQuery valueQuery = new ValueQuery(queryFactory);
-
-    valueQuery.SELECT(valueQuery.aSQLCharacter("parent_id", "parent_id"),valueQuery.aSQLCharacter("child_id", "child_id"));
-
     String geoEntityTable = MdBusiness.getMdBusiness(GeoEntity.CLASS).getTableName();
     String locatedInTable = MdRelationship.getMdElement(LocatedIn.CLASS).getTableName();
-    
-    String sql = "( WITH RECURSIVE quick_paths AS ( " + 
-    " SELECT child_id as root_id, child_id, parent_id FROM "+locatedInTable+" locatedin " +
-    " UNION "+
-    " SELECT a.root_id, b.child_id, b.parent_id FROM quick_paths a, "+locatedInTable+" b WHERE b.child_id = a.parent_id)" +
-    " SELECT root_id as child_id, parent_id  FROM quick_paths" +
-    " UNION" +
-    " SELECT id, id FROM "+geoEntityTable+" geoentity)";
-
-    valueQuery.FROM(sql, "all_paths");
-    
-    System.out.println(valueQuery.getSQL());
-
-    List<ValueObject> valueObjectList = valueQuery.getIterator().getAll();
-
-    List<String> parentIdList = new LinkedList<String>();
-
-    for (ValueObject valueObject : valueObjectList)
+    String allPathsTable = MdRelationship.getMdElement(AllPaths.CLASS).getTableName();
+    String allPathsRootTypeId = IdParser.parseRootFromId(MdRelationship.getMdElement(AllPaths.CLASS).getId());
+    SecureRandom random = new SecureRandom();
+    Long randomLong = random.nextLong();
+    String sitemaster = ServerProperties.getDomain();
+    Date transactionDate = new Date();
+    Long createTime = transactionDate.getTime();
+    String createdById;
+    SessionIF sessionIF = Session.getCurrentSession();
+    if (sessionIF != null)
     {
-      String parentId = valueObject.getValue("parent_id");
-      String childId = valueObject.getValue("child_id");
-      
-      MdClassDAOIF childMdClassIF = MdClassDAO.getMdClassByRootId(IdParser.parseMdTypeRootIdFromId(childId));
-      MdClassDAOIF parentMdClassIF = MdClassDAO.getMdClassByRootId(IdParser.parseMdTypeRootIdFromId(parentId));
-      
-      AllPaths allPaths = new AllPaths();
-      allPaths.setValue(AllPaths.PARENTGEOENTITY, parentId);
-      allPaths.setValue(AllPaths.PARENTUNIVERSAL, parentMdClassIF.getId());
-      allPaths.setValue(AllPaths.CHILDGEOENTITY, childId);
-      allPaths.setValue(AllPaths.CHILDUNIVERSAL, childMdClassIF.getId());
-      allPaths.apply();
-      
-      parentIdList.add(parentId);
+      createdById = sessionIF.getUser().getId();
     }
+    else
+    {
+      createdById = ServerConstants.SYSTEM_USER_ID;
+    }
+    
+    String sql = "INSERT INTO "+allPathsTable+" (\n" + 
+    		"  id,\n" + 
+    		"  sitemaster,\n" + 
+    		"  keyname,\n" + 
+    		"  \"type\",\n" + 
+    		"  entitydomain,\n" + 
+    		"  lastupdatedate,\n" + 
+    		"  seq,\n" + 
+    		"  createdby,\n" + 
+    		"  lockedby,\n" + 
+    		"  createdate,\n" + 
+    		"  \"owner\",\n" + 
+    		"  lastupdatedby,\n" + 
+    		"  "+AllPaths.PARENTGEOENTITY+",\n" + 
+    		"  "+AllPaths.PARENTUNIVERSAL+",\n" + 
+    		"  "+AllPaths.CHILDGEOENTITY+",\n" + 
+    		"  "+AllPaths.CHILDUNIVERSAL+"\n" + 
+    		") \n" + 
 
+    		"WITH RECURSIVE quick_paths(root_id, child_id, parent_id, seq) AS ( \n" + 
+    		"    SELECT child_id , child_id, parent_id, NEXTVAL('object_sequence_unique_id')  FROM "+locatedInTable+"  locatedin \n" + 
+    		"    UNION\n" + 
+    		"    SELECT a.root_id, b.child_id, b.parent_id, NEXTVAL('object_sequence_unique_id')  FROM quick_paths a, "+locatedInTable+" b WHERE b.child_id = a.parent_id\n" + 
+    		"    )\n" + 
+
+    		"SELECT  \n" + 
+    		"    md5(geo1.geoId || geo2.geoId ) || '"+allPathsRootTypeId+"',\n" + 
+    		"    '"+sitemaster+"'  as sitemaster,\n" + 
+    		"    geo1.geoId || geo2.geoId as keyname,\n" + 
+    		"    '"+AllPaths.CLASS+"' as \"type\",\n" + 
+    		"    '' as entitydomain,\n" + 
+    		"    NOW() as lastupdatedate,\n" + 
+    		"    paths.seq  AS seq,\n" + 
+    		"    '"+createdById+"'  as createdby,\n" + 
+    		"    null as lockedby,\n" + 
+    		"    NOW() as createdate,\n" + 
+    		"    '"+createdById+"' AS \"owner\",\n" + 
+    		"    '"+createdById+"' as lastupdatedby,\n" + 
+    		"    paths.parent_id as parentgeoentity, \n" + 
+    		"    geo1.type as parentuniversal,\n" + 
+    		"    paths.root_id as childgeoentity, \n" + 
+    		"    geo2.type as childuniversal\n" + 
+    		"FROM "+geoEntityTable+" as geo1, "+geoEntityTable+" as geo2,\n" +
+    		"(SELECT * FROM quick_paths UNION SELECT id,id,id,NEXTVAL('object_sequence_unique_id') from geoentity ) as paths\n"+
+    		"WHERE geo1.id = paths.parent_id AND geo2.id = paths.root_id\n"; 
+    		
+
+    
+    System.out.println(sql);
+    
+    Connection conn = Database.getConnection();
+    
+    try
+    {
+      conn.createStatement().execute("DELETE FROM " + allPathsTable);
+      conn.createStatement().execute(sql);
+    }
+    catch (SQLException e)
+    {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    //ArrayList<String> sqlStmts = new ArrayList<String>();
+    //sqlStmts.add("DELETE FROM " + allPathsTable);
+    //sqlStmts.add(sql);
+    //Database.executeBatch(sqlStmts);
   }
 
 
@@ -1609,4 +1663,27 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     return ResourceBundle.getBundle("MDSS").getString("Outbreak");
   }
+  /**
+   * Returns all attributes that reference the GeoEntity class.
+   *
+   * @param className
+   * @return
+   */
+  public static String[] getGeoAttributes(String className)
+  {
+    MdBusiness md = MdBusiness.getMdBusiness(className);
+    List<String> list = new LinkedList<String>();
+
+    for(MdAttribute mdAttr : md.getAllAttribute())
+    {
+      if(mdAttr instanceof MdAttributeReference
+           && ((MdAttributeReference)mdAttr).getMdBusiness().definesType().equals(GeoEntity.CLASS))
+      {
+        list.add(( (MdAttributeReference) mdAttr ).getAttributeName());
+      }
+    }
+
+    return list.toArray(new String[list.size()]);
+  }
+  
 }
