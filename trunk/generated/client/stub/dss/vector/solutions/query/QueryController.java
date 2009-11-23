@@ -39,6 +39,13 @@ import dss.vector.solutions.intervention.monitor.IPTANCVisitDTO;
 import dss.vector.solutions.intervention.monitor.IPTDoseDTO;
 import dss.vector.solutions.intervention.monitor.IPTPatientsDTO;
 import dss.vector.solutions.intervention.monitor.IPTTreatmentDTO;
+import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO;
+import dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO;
+import dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO;
+import dss.vector.solutions.intervention.monitor.ITNDataViewDTO;
+import dss.vector.solutions.intervention.monitor.ITNNetDTO;
+import dss.vector.solutions.intervention.monitor.ITNServiceDTO;
+import dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTDTO;
 import dss.vector.solutions.intervention.monitor.IndividualInstanceDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
@@ -79,6 +86,12 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   private static final String NEW_QUERY              = "/WEB-INF/queryScreens/newQuery.jsp";
 
   private static final String QUERY_EFFICACY_ASSAY   = "/WEB-INF/queryScreens/queryEfficacyAssay.jsp";
+  
+  private static final String QUERY_ITN_COMMUNITY_DISTRIBUTION  = "/WEB-INF/queryScreens/queryITNCommunityDistribution.jsp";
+  
+  private static final String QUERY_ITN_FACILITY_DISTRIBUTION  = "/WEB-INF/queryScreens/queryITNFacilityDistribution.jsp";
+  
+  private static final String QUERY_AGGREGATED_ITN = "/WEB-INF/queryScreens/queryAggregatedITN.jsp";
 
   public QueryController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -378,6 +391,22 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       }
     }
   }
+  
+  private JSONArray getAllTermsForGrid(ClientRequestIF request ,String klass, String attribute) throws JSONException{
+    JSONArray array =  new JSONArray();
+    for (TermDTO term : TermDTO.getAllTermsForField(request, klass, attribute))
+    {
+      JSONObject option = new JSONObject();
+      option.put("id", term.getId());
+      option.put("displayLabel", term.getDisplayLabel());
+      option.put("MOID", term.getTermId());
+      option.put("optionName", term.getName());
+      option.put("type", TermDTO.CLASS);
+      array.put(option);
+    }
+    return array;
+  }
+  
 
   @Override
   public void newQuery() throws IOException, ServletException
@@ -434,10 +463,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
 
       Map<String, JSONObject> orderedMap = new HashMap<String, JSONObject>();
 
-      // IPTANCVisit[] getIPTANCVisits()
-      // IPTDose[] getIPTDoses()
-      // IPTPatients[] getIPTPatients()
-      // IPTTreatment[] getIPTTreatments()
       AggregatedIPTViewDTO av = new AggregatedIPTViewDTO(request);
 
       // Patients
@@ -446,19 +471,8 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       patients.put("label", localized.getObject("Facility_referred"));
       patients.put("relType", IPTPatientsDTO.CLASS);
       patients.put("relAttribute", IPTPatientsDTO.AMOUNT);
-      patients.put("options", new JSONArray());
-      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYPATIENTS))
-      {
-        JSONObject option = new JSONObject();
-        option.put("id", term.getId());
-        option.put("displayLabel", term.getDisplayLabel());
-        option.put("MOID", term.getTermId());
-        option.put("optionName", term.getName());
-        option.put("type", TermDTO.CLASS);
-        patients.getJSONArray("options").put(option);
-      }
+      patients.put("options",getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYPATIENTS));
       ordered.put("patients", patients);
-      // orderedMap.put("patients", patients);
 
       // Doses
       JSONObject doses = new JSONObject();
@@ -466,20 +480,8 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       doses.put("label", localized.getObject("Diagnostic_methods"));
       doses.put("relType", IPTDoseDTO.CLASS);
       doses.put("relAttribute", IPTDoseDTO.AMOUNT);
-      doses.put("options", new JSONArray());
-      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYDOSE))
-      {
-        JSONObject option = new JSONObject();
-        option.put("id", term.getId());
-        option.put("displayLabel", term.getDisplayLabel());
-        option.put("MOID", term.getTermId());
-        option.put("optionName", term.getName());
-        option.put("type", TermDTO.CLASS);
-        doses.getJSONArray("options").put(option);
-      }
-
+      doses.put("options",getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYDOSE));
       ordered.put("doses", doses);
-      // orderedMap.put("doses", doses);
 
       // Visits
       JSONObject visits = new JSONObject();
@@ -487,19 +489,8 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       visits.put("label", localized.getObject("Treatment_methods"));
       visits.put("relType", IPTANCVisitDTO.CLASS);
       visits.put("relAttribute", IPTANCVisitDTO.AMOUNT);
-      visits.put("options", new JSONArray());
-      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYVISITS))
-      {
-        JSONObject option = new JSONObject();
-        option.put("id", term.getId());
-        option.put("displayLabel", term.getDisplayLabel());
-        option.put("MOID", term.getTermId());
-        option.put("optionName", term.getName());
-        option.put("type", TermDTO.CLASS);
-        visits.getJSONArray("options").put(option);
-      }
+      visits.put("options",getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYVISITS));
       ordered.put("visits", visits);
-      // orderedMap.put("visits", visits);
 
       // Treatment
       JSONObject treatment = new JSONObject();
@@ -507,19 +498,8 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       treatment.put("label", localized.getObject("Treatments"));
       treatment.put("relType", IPTTreatmentDTO.CLASS);
       treatment.put("relAttribute", IPTTreatmentDTO.AMOUNT);
-      treatment.put("options", new JSONArray());
-      for (TermDTO term : TermDTO.getAllTermsForField(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYTREATMENTS))
-      {
-        JSONObject option = new JSONObject();
-        option.put("id", term.getId());
-        option.put("displayLabel", term.getDisplayLabel());
-        option.put("MOID", term.getTermId());
-        option.put("optionName", term.getName());
-        option.put("type", TermDTO.CLASS);
-        treatment.getJSONArray("options").put(option);
-      }
+      treatment.put("options",getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYTREATMENTS));
       ordered.put("treatments", treatment);
-      // orderedMap.put("treatments", treatment);
 
       req.setAttribute("orderedGrids", ordered.toString());
 
@@ -531,7 +511,185 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       throw new ApplicationException(t);
     }
   }
+  
 
+  @Override
+  public void queryAggregatedITN() throws IOException, ServletException
+  {
+    try
+    {
+      // The Earth is the root. FIXME use country's default root
+      ClientRequestIF request = this.getClientRequest();
+
+      // The Earth is the root. FIXME use country's default root
+      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_AGGREGATED_ITN);
+      JSONArray queries = new JSONArray();
+      // Available queries
+      for (SavedSearchViewDTO view : query.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", view.getSavedQueryId());
+        idAndName.put("name", view.getQueryName());
+
+        queries.put(idAndName);
+      }
+
+      req.setAttribute("queryList", queries.toString());
+
+      JSONObject ordered = new JSONObject();
+
+      ITNDataViewDTO itn = new ITNDataViewDTO(request);
+
+      // Nets
+      JSONObject patients = new JSONObject();
+      patients.put("type", TermDTO.CLASS);
+      patients.put("label", itn.getDisplayNetsMd().getDisplayLabel());
+      patients.put("relType", ITNNetDTO.CLASS);
+      patients.put("relAttribute", ITNNetDTO.AMOUNT);
+      patients.put("options",getAllTermsForGrid(request, ITNDataViewDTO.CLASS, ITNDataViewDTO.DISPLAYNETS));
+      ordered.put("nets", patients);
+
+      // Target Groups
+      JSONObject doses = new JSONObject();
+      doses.put("type", TermDTO.CLASS);
+      doses.put("label", itn.getDisplayTargetGroupsMd().getDisplayLabel());
+      doses.put("relType", ITNTargetGroupDTO.CLASS);
+      doses.put("relAttribute", ITNTargetGroupDTO.AMOUNT);
+      doses.put("options",getAllTermsForGrid(request, ITNDataViewDTO.CLASS, ITNDataViewDTO.DISPLAYTARGETGROUPS));
+      ordered.put("targetGroups", doses);
+
+      // Visits
+      JSONObject visits = new JSONObject();
+      visits.put("type", TermDTO.CLASS);
+      visits.put("label", itn.getDisplayServicesMd().getDisplayLabel());
+      visits.put("relType", ITNServiceDTO.CLASS);
+      visits.put("relAttribute", ITNServiceDTO.AMOUNT);
+      visits.put("options",getAllTermsForGrid(request, ITNDataViewDTO.CLASS, ITNDataViewDTO.DISPLAYSERVICES));
+      ordered.put("services", visits);
+
+    
+
+      req.setAttribute("orderedGrids", ordered.toString());
+
+      req.getRequestDispatcher(QUERY_AGGREGATED_ITN).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+  
+  @Override
+  public void queryITNCommunityDistribution() throws IOException, ServletException
+  {
+    try
+    {
+      // The Earth is the root. FIXME use country's default root
+      ClientRequestIF request = this.getClientRequest();
+
+      // The Earth is the root. FIXME use country's default root
+      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_ITN_COMMUNITY_DISTRIBUTION);
+      JSONArray queries = new JSONArray();
+      // Available queries
+      for (SavedSearchViewDTO view : query.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", view.getSavedQueryId());
+        idAndName.put("name", view.getQueryName());
+
+        queries.put(idAndName);
+      }
+
+      req.setAttribute("queryList", queries.toString());   
+
+      JSONObject ordered = new JSONObject();
+
+      ITNCommunityDistributionViewDTO itnView = new ITNCommunityDistributionViewDTO(request);
+      
+      // Load label map 
+      ClassQueryDTO itn = request.getQuery(AggregatedIPTDTO.CLASS);
+      String itnMap = Halp.getDropDownMaps(itn, request, ", ");
+      req.setAttribute("itnMap", itnMap);
+
+      // Nets
+      JSONObject patients = new JSONObject();
+      patients.put("type", TermDTO.CLASS);
+      patients.put("label", itnView.getDisplayNetsMd().getDisplayLabel());
+      patients.put("relType", ITNCommunityNetDTO.CLASS);
+      patients.put("relAttribute", ITNCommunityNetDTO.AMOUNT);
+      patients.put("options",getAllTermsForGrid(request, ITNCommunityDistributionViewDTO.CLASS, ITNCommunityDistributionViewDTO.DISPLAYNETS));
+      ordered.put("nets", patients);
+
+      // Target Groups
+      JSONObject doses = new JSONObject();
+      doses.put("type", TermDTO.CLASS);
+      doses.put("label", itnView.getDisplayTargetGroupsMd().getDisplayLabel());
+      doses.put("relType", ITNCommunityTargetGroupDTO.CLASS);
+      doses.put("relAttribute", ITNCommunityTargetGroupDTO.AMOUNT);
+      doses.put("options",getAllTermsForGrid(request, ITNCommunityDistributionViewDTO.CLASS, ITNCommunityDistributionViewDTO.DISPLAYTARGETGROUPS));
+      ordered.put("targetGroups", doses);
+
+     
+
+      req.setAttribute("orderedGrids", ordered.toString());
+
+      req.getRequestDispatcher(QUERY_ITN_COMMUNITY_DISTRIBUTION).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+  
+
+  @Override
+  public void queryITNDistribution() throws IOException, ServletException
+  {
+    try
+    {
+      // The Earth is the root. FIXME use country's default root
+      ClientRequestIF request = this.getClientRequest();
+
+      // The Earth is the root. FIXME use country's default root
+      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_ITN_FACILITY_DISTRIBUTION);
+      JSONArray queries = new JSONArray();
+      // Available queries
+      for (SavedSearchViewDTO view : query.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", view.getSavedQueryId());
+        idAndName.put("name", view.getQueryName());
+
+        queries.put(idAndName);
+      }
+
+      // Load label map for Adult Discriminating Dose Assay
+      ClassQueryDTO aIPT = request.getQuery(IndividualIPTDTO.CLASS);
+      String iptMap = Halp.getDropDownMaps(aIPT, request, ", ");
+      req.setAttribute("iptMap", iptMap);
+
+      req.setAttribute("queryList", queries.toString());
+
+      req.getRequestDispatcher(QUERY_ITN_FACILITY_DISTRIBUTION).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+  
   /**
    * Creates the screen to query for Entomology (mosquitos).
    */
@@ -646,10 +804,8 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   }
   
   
-  /**
-   * Creates the screen to query for Entomology (mosquitos).
-   */
-//  @Override
+
+  @Override
   public void queryEfficacyAssay() throws IOException, ServletException
   {
     try
