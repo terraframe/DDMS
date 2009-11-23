@@ -18,7 +18,7 @@ public class ThresholdNoPermission extends PermissionTest implements DoNotWeave
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(ThresholdNoPermission.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.MANAGER);
+    return TestFixture.getTestSuite(ThresholdNoPermission.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.MANAGER, MDSSRoleInfo.STOCK_STAFF);
   }
 
   public void testThresholdData()

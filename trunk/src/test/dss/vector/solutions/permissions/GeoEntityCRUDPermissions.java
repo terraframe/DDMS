@@ -142,7 +142,7 @@ public class GeoEntityCRUDPermissions extends PermissionTest implements DoNotWea
     def1.setDescription("New Geo Entity Type Description 1");
     def1.addSpatialType(SpatialTypesDTO.POLYGON);
     def1.setParentGeoHierarchyId(set.get(0).getId());
-    def1.setPopulationAllowed(true);
+    def1.setPopulationAllowed(false);
 
     try
     {
@@ -152,9 +152,9 @@ public class GeoEntityCRUDPermissions extends PermissionTest implements DoNotWea
       {
         GeoHierarchyDTO.lock(request, geoHierarchyId);
         GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(request, geoHierarchyId);
-        view.setPolitical(true);
+        view.setPolitical(false);
         view.setDescription("Test Description 1");
-        view.setPopulationAllowed(true);
+        view.setPopulationAllowed(false);
 
         GeoHierarchyDTO.updateFromView(request, view);
       }

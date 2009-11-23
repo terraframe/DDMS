@@ -125,7 +125,7 @@ public class EntomologyCRUDPermissions extends PermissionTest implements DoNotWe
   public void testMosqutioCollectionPoint()
   {
     Date date = new Date();
-    GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(request, waterGeoId);
+    GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(request, collectionSiteGeoId);
 
     // Create the mosquito collection
     MosquitoCollectionPointViewDTO dto = new MosquitoCollectionPointViewDTO(request);

@@ -26,7 +26,7 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(EntomologyNoPermissions.class, MDSSRoleInfo.OPERATIONAL_MANAGER, MDSSRoleInfo.MANAGER);
+    return TestFixture.getTestSuite(EntomologyNoPermissions.class, MDSSRoleInfo.OPERATIONAL_MANAGER, MDSSRoleInfo.MANAGER, MDSSRoleInfo.STOCK_STAFF);
   }
 
   public void testMosqutioCollection()
@@ -86,7 +86,7 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
   public void testMosqutioCollectionPoint()
   {
     Date date = new Date();
-    GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(request, waterGeoId);
+    GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(request, collectionSiteGeoId);
 
     // Create the mosquito collection
     try

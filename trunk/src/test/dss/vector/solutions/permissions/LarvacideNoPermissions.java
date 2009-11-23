@@ -18,7 +18,7 @@ public class LarvacideNoPermissions extends PermissionTest implements DoNotWeave
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(LarvacideNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER);
+    return TestFixture.getTestSuite(LarvacideNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER, MDSSRoleInfo.STOCK_STAFF);
   }
 
   public void testLarvacide()

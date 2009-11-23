@@ -69,7 +69,12 @@ public class RoleController extends RoleControllerBase implements
         if (revoked.contains(assignedRole))
         {
           revoked.remove(assignedRole);
-          assigned.add(assignedRole);
+          
+          // People cannot have the option to remove the GUI visibility role
+          if(!assignedRole.getRoleName().equals(MDSSRoleInfo.GUI_VISIBILITY))
+          {
+            assigned.add(assignedRole);
+          }
         }
       }
 

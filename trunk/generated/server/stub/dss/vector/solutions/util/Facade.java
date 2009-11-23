@@ -56,7 +56,8 @@ public abstract class Facade extends FacadeBase implements com.terraframe.mojo.g
       Roles.findRoleByName(MDSSRoleInfo.MANAGER),
       Roles.findRoleByName(MDSSRoleInfo.MDSS),
       Roles.findRoleByName(MDSSRoleInfo.MDSS_CORRDINATOR),
-      Roles.findRoleByName(MDSSRoleInfo.OPERATIONAL_MANAGER)
+      Roles.findRoleByName(MDSSRoleInfo.OPERATIONAL_MANAGER),
+      Roles.findRoleByName(MDSSRoleInfo.STOCK_STAFF)
     };
   }
 

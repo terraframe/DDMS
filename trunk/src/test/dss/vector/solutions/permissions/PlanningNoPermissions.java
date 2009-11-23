@@ -34,7 +34,7 @@ public class PlanningNoPermissions extends PermissionTest implements DoNotWeave
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(PlanningNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.MANAGER);
+    return TestFixture.getTestSuite(PlanningNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.MANAGER, MDSSRoleInfo.STOCK_STAFF);
   }
 
   public void testCreateSprayTeam()

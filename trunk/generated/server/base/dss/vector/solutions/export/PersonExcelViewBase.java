@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -440716833)
+@com.terraframe.mojo.business.ClassSignature(hash = -249923259)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,6 @@ public abstract class PersonExcelViewBase extends com.terraframe.mojo.business.V
   public final static String CLASS = "dss.vector.solutions.export.PersonExcelView";
   public static java.lang.String DATEOFBIRTH = "dateOfBirth";
   public static java.lang.String FIRSTNAME = "firstName";
-  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String ISIPTRECIPIENT = "isIPTRecipient";
   public static java.lang.String ISITNRECIPIENT = "isITNRecipient";
@@ -25,9 +24,11 @@ public abstract class PersonExcelViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String LEADERID = "leaderId";
   public static java.lang.String OPERATORID = "operatorId";
   public static java.lang.String PASSWORD = "password";
+  public static java.lang.String RESIDENTIALGEOENTITY = "residentialGeoEntity";
   public static java.lang.String SEX = "sex";
   public static java.lang.String USERNAME = "username";
-  private static final long serialVersionUID = -440716833;
+  public static java.lang.String WORKGEOENTITY = "workGeoEntity";
+  private static final long serialVersionUID = -249923259;
   
   public PersonExcelViewBase()
   {
@@ -87,41 +88,6 @@ public abstract class PersonExcelViewBase extends com.terraframe.mojo.business.V
     else
     {
       setValue(FIRSTNAME, value);
-    }
-  }
-  
-  public dss.vector.solutions.geo.generated.GeoEntity getGeoEntity()
-  {
-    if (getValue(GEOENTITY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITY));
-    }
-  }
-  
-  public void validateGeoEntity()
-  {
-    this.validateAttribute(GEOENTITY);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGeoEntityMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PersonExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
-  }
-  
-  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
-  {
-    if(value == null)
-    {
-      setValue(GEOENTITY, "");
-    }
-    else
-    {
-      setValue(GEOENTITY, value.getId());
     }
   }
   
@@ -421,6 +387,41 @@ public abstract class PersonExcelViewBase extends com.terraframe.mojo.business.V
     }
   }
   
+  public dss.vector.solutions.geo.generated.GeoEntity getResidentialGeoEntity()
+  {
+    if (getValue(RESIDENTIALGEOENTITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(RESIDENTIALGEOENTITY));
+    }
+  }
+  
+  public void validateResidentialGeoEntity()
+  {
+    this.validateAttribute(RESIDENTIALGEOENTITY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getResidentialGeoEntityMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PersonExcelView.CLASS);
+    return mdClassIF.definesAttribute(RESIDENTIALGEOENTITY);
+  }
+  
+  public void setResidentialGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
+  {
+    if(value == null)
+    {
+      setValue(RESIDENTIALGEOENTITY, "");
+    }
+    else
+    {
+      setValue(RESIDENTIALGEOENTITY, value.getId());
+    }
+  }
+  
   public String getSex()
   {
     return getValue(SEX);
@@ -474,6 +475,41 @@ public abstract class PersonExcelViewBase extends com.terraframe.mojo.business.V
     else
     {
       setValue(USERNAME, value);
+    }
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntity getWorkGeoEntity()
+  {
+    if (getValue(WORKGEOENTITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(WORKGEOENTITY));
+    }
+  }
+  
+  public void validateWorkGeoEntity()
+  {
+    this.validateAttribute(WORKGEOENTITY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getWorkGeoEntityMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PersonExcelView.CLASS);
+    return mdClassIF.definesAttribute(WORKGEOENTITY);
+  }
+  
+  public void setWorkGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
+  {
+    if(value == null)
+    {
+      setValue(WORKGEOENTITY, "");
+    }
+    else
+    {
+      setValue(WORKGEOENTITY, value.getId());
     }
   }
   

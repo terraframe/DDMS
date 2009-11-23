@@ -38,12 +38,18 @@ public class AdministrationCRUDPermissions extends PermissionTest implements DoN
 
     String value = property.getPropertyValue();
 
-    property.setPropertyValue("99");
-    property.apply();
+    try
+    {
+      property.setPropertyValue("99");
+      property.apply();
+    }
+    finally
+    {
 
-    property = PropertyDTO.lock(systemRequest, property.getId());
-    property.setPropertyValue(value);
-    property.apply();
+      property = PropertyDTO.lock(systemRequest, property.getId());
+      property.setPropertyValue(value);
+      property.apply();
+    }
   }
 
   public void testCreateMalariaSeason()
@@ -106,7 +112,6 @@ public class AdministrationCRUDPermissions extends PermissionTest implements DoN
     }
   }
 
-
   public void testGUIVisibility()
   {
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
@@ -130,7 +135,7 @@ public class AdministrationCRUDPermissions extends PermissionTest implements DoN
       view.setReadPermission(true);
       view.setAttributeDescription(attributeMd.getDescription());
 
-      ReadableAttributeViewDTO.setActorAttributes(request, MosquitoCollectionDTO.CLASS, MDSSRoleInfo.GUI_VISIBILITY, new ReadableAttributeViewDTO[] { view });
+      ReadableAttributeViewDTO.setActorAttributes(systemRequest, MosquitoCollectionDTO.CLASS, MDSSRoleInfo.GUI_VISIBILITY, new ReadableAttributeViewDTO[] { view });
     }
   }
 
@@ -179,7 +184,6 @@ public class AdministrationCRUDPermissions extends PermissionTest implements DoN
     calendar.set(Calendar.YEAR, 1983);
     calendar.set(Calendar.MONTH, 5);
     calendar.set(Calendar.DAY_OF_YEAR, 11);
-    
 
     PersonViewDTO dto = new PersonViewDTO(systemRequest);
     dto.setFirstName("Test");

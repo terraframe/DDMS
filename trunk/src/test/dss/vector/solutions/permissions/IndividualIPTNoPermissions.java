@@ -20,7 +20,7 @@ public class IndividualIPTNoPermissions extends PermissionTest implements DoNotW
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(IndividualIPTNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER);
+    return TestFixture.getTestSuite(IndividualIPTNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER, MDSSRoleInfo.STOCK_STAFF);
   }
 
   public void testIndividualIPTCase()

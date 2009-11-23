@@ -12,7 +12,7 @@ public class PopulationNoPermission extends PermissionTest
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(PopulationNoPermission.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.MANAGER);
+    return TestFixture.getTestSuite(PopulationNoPermission.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.MANAGER, MDSSRoleInfo.STOCK_STAFF);
   }
 
   public void testPopulationData()

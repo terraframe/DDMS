@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -830701473)
+@com.terraframe.mojo.business.ClassSignature(hash = 1311038149)
 public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.PersonExcelView";
-  private static final long serialVersionUID = -830701473;
+  private static final long serialVersionUID = 1311038149;
   
   protected PersonExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -18,7 +18,6 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
   
   public static java.lang.String DATEOFBIRTH = "dateOfBirth";
   public static java.lang.String FIRSTNAME = "firstName";
-  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String ISIPTRECIPIENT = "isIPTRecipient";
   public static java.lang.String ISITNRECIPIENT = "isITNRecipient";
@@ -30,8 +29,10 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
   public static java.lang.String LEADERID = "leaderId";
   public static java.lang.String OPERATORID = "operatorId";
   public static java.lang.String PASSWORD = "password";
+  public static java.lang.String RESIDENTIALGEOENTITY = "residentialGeoEntity";
   public static java.lang.String SEX = "sex";
   public static java.lang.String USERNAME = "username";
+  public static java.lang.String WORKGEOENTITY = "workGeoEntity";
   public java.util.Date getDateOfBirth()
   {
     return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATEOFBIRTH));
@@ -104,50 +105,6 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getFirstNameMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FIRSTNAME).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
-  {
-    if(getValue(GEOENTITY) == null || getValue(GEOENTITY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
-    }
-  }
-  
-  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
-  {
-    if(value == null)
-    {
-      setValue(GEOENTITY, "");
-    }
-    else
-    {
-      setValue(GEOENTITY, value.getId());
-    }
-  }
-  
-  public boolean isGeoEntityWritable()
-  {
-    return isWritable(GEOENTITY);
-  }
-  
-  public boolean isGeoEntityReadable()
-  {
-    return isReadable(GEOENTITY);
-  }
-  
-  public boolean isGeoEntityModified()
-  {
-    return isModified(GEOENTITY);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public Boolean getIsIPTRecipient()
@@ -520,6 +477,50 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PASSWORD).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getResidentialGeoEntity()
+  {
+    if(getValue(RESIDENTIALGEOENTITY) == null || getValue(RESIDENTIALGEOENTITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(RESIDENTIALGEOENTITY));
+    }
+  }
+  
+  public void setResidentialGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  {
+    if(value == null)
+    {
+      setValue(RESIDENTIALGEOENTITY, "");
+    }
+    else
+    {
+      setValue(RESIDENTIALGEOENTITY, value.getId());
+    }
+  }
+  
+  public boolean isResidentialGeoEntityWritable()
+  {
+    return isWritable(RESIDENTIALGEOENTITY);
+  }
+  
+  public boolean isResidentialGeoEntityReadable()
+  {
+    return isReadable(RESIDENTIALGEOENTITY);
+  }
+  
+  public boolean isResidentialGeoEntityModified()
+  {
+    return isModified(RESIDENTIALGEOENTITY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getResidentialGeoEntityMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(RESIDENTIALGEOENTITY).getAttributeMdDTO();
+  }
+  
   public String getSex()
   {
     return getValue(SEX);
@@ -592,6 +593,50 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getUsernameMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(USERNAME).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getWorkGeoEntity()
+  {
+    if(getValue(WORKGEOENTITY) == null || getValue(WORKGEOENTITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(WORKGEOENTITY));
+    }
+  }
+  
+  public void setWorkGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  {
+    if(value == null)
+    {
+      setValue(WORKGEOENTITY, "");
+    }
+    else
+    {
+      setValue(WORKGEOENTITY, value.getId());
+    }
+  }
+  
+  public boolean isWorkGeoEntityWritable()
+  {
+    return isWritable(WORKGEOENTITY);
+  }
+  
+  public boolean isWorkGeoEntityReadable()
+  {
+    return isReadable(WORKGEOENTITY);
+  }
+  
+  public boolean isWorkGeoEntityModified()
+  {
+    return isModified(WORKGEOENTITY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getWorkGeoEntityMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WORKGEOENTITY).getAttributeMdDTO();
   }
   
   public static PersonExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

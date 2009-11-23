@@ -20,7 +20,7 @@ public class AggregatedIPTNoPermissions extends PermissionTest implements DoNotW
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(AggregatedIPTNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER);
+    return TestFixture.getTestSuite(AggregatedIPTNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER, MDSSRoleInfo.STOCK_STAFF);
   }
 
   public void testAncientCase()

@@ -13,14 +13,15 @@ import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.general.PopulationData;
+import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSiteDTO;
 import dss.vector.solutions.geo.generated.SprayZone;
+import dss.vector.solutions.geo.generated.StockDepot;
 import dss.vector.solutions.geo.generated.Surface;
-import dss.vector.solutions.geo.generated.WaterBody;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.permissions.PermissionTest;
@@ -113,14 +114,14 @@ public class TestFixture
     return site;
   }
 
-  public static WaterBody createRandomWaterBody()
+  public static CollectionSite createRandomWaterBody()
   {
-    WaterBody body = new WaterBody();
-    body.setGeoId(TestFixture.getRandomGeoId());
-    body.setEntityName("Test Site");
-    body.apply();
+    CollectionSite site = new CollectionSite();
+    site.setGeoId(TestFixture.getRandomGeoId());
+    site.setEntityName("Test Site");
+    site.apply();
 
-    return body;
+    return site;
   }
 
   public static HealthFacility createRandomFacility()
@@ -143,7 +144,6 @@ public class TestFixture
     return surface;
   }
 
-
   public static SprayZone createRandomZone()
   {
     SprayZone sprayZone = new SprayZone();
@@ -152,6 +152,16 @@ public class TestFixture
     sprayZone.apply();
 
     return sprayZone;
+  }
+
+  public static StockDepot createRandomDepot()
+  {
+    StockDepot depot = new StockDepot();
+    depot.setGeoId(TestFixture.getRandomGeoId());
+    depot.setEntityName("Test Depot");
+    depot.apply();
+
+    return depot;
   }
 
   public static TermDTO createRandomTerm(ClientRequestIF request)
@@ -199,7 +209,7 @@ public class TestFixture
 
     return person;
   }
-  
+
   public static StockStaffDTO createTestStaff(ClientRequestIF request, TermDTO sex)
   {
     Calendar calendar = Calendar.getInstance();
@@ -221,8 +231,8 @@ public class TestFixture
 
     person.lock();
     person.setStockStaffDelegate(staff);
-    person.apply();    
-    
+    person.apply();
+
     return staff;
   }
 
@@ -247,13 +257,13 @@ public class TestFixture
 
     sex.delete();
   }
-  
+
   public static void delete(PersonDTO person)
   {
     TermDTO sex = person.getSex();
-    
+
     person.delete();
-    
+
     sex.delete();
   }
 
@@ -281,14 +291,14 @@ public class TestFixture
     data.setYearOfData(year);
     data.setEstimated(estimated);
 
-    if(population != null)
+    if (population != null)
     {
       data.setPopulation(population);
     }
 
-    if(rate != null)
+    if (rate != null)
     {
-     data.setGrowthRate(rate);
+      data.setGrowthRate(rate);
     }
 
     data.apply();

@@ -27,7 +27,7 @@ public class SurveyNoPermissions extends PermissionTest implements DoNotWeave
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(SurveyNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER);
+    return TestFixture.getTestSuite(SurveyNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER, MDSSRoleInfo.STOCK_STAFF);
   }
 
   public void testSurveyPoint()

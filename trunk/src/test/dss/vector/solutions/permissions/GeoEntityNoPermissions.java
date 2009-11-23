@@ -23,7 +23,7 @@ public class GeoEntityNoPermissions extends PermissionTest implements DoNotWeave
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(GeoEntityNoPermissions.class, MDSSRoleInfo.OPERATIONAL_MANAGER, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.MANAGER);
+    return TestFixture.getTestSuite(GeoEntityNoPermissions.class, MDSSRoleInfo.OPERATIONAL_MANAGER, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.MANAGER, MDSSRoleInfo.STOCK_STAFF);
   }
 
   public void testGeoEntity() 

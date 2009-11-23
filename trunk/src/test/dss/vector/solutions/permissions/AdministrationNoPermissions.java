@@ -27,7 +27,7 @@ public class AdministrationNoPermissions extends PermissionTest implements DoNot
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(AdministrationNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.MANAGER, MDSSRoleInfo.OPERATIONAL_MANAGER);
+    return TestFixture.getTestSuite(AdministrationNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.MANAGER, MDSSRoleInfo.OPERATIONAL_MANAGER, MDSSRoleInfo.STOCK_STAFF);
   }
 
   public void testUpdateProperty()

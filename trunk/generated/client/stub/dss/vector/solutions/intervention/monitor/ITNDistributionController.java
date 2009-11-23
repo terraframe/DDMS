@@ -289,8 +289,8 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   {
     try
     {
-      recipient.applyAsITNRecipient();
-      itn.setRecipient(PersonDTO.get(super.getClientRequest(), recipient.getPersonId()).getItnRecipientDelegate());
+//      recipient.applyAsITNRecipient();
+//      itn.setRecipient(PersonDTO.get(super.getClientRequest(), recipient.getPersonId()).getItnRecipientDelegate());
 
       renderCreate(itn, itn.getDistributionTargetGroups());
     }

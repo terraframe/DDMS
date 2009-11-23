@@ -32,7 +32,7 @@ public class PopulationCRUDPermission extends PermissionTest
       {
         PopulationDataViewDTO edit = PopulationDataDTO.getView(request, view.getConcreteId());
         edit.setPopulation(20L);
-        edit.setGrowthRate(14.3D);
+        edit.setGrowthRate(16D);
         edit.apply();
 
         PopulationDataViewDTO test = PopulationDataDTO.getView(request, view.getConcreteId());

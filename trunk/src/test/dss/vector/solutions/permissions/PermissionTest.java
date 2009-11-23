@@ -14,11 +14,12 @@ import com.terraframe.mojo.web.WebClientSession;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.TestFixture;
+import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.geo.generated.SprayZone;
-import dss.vector.solutions.geo.generated.WaterBody;
+import dss.vector.solutions.geo.generated.StockDepot;
 import dss.vector.solutions.ontology.Term;
 
 public abstract class PermissionTest extends TestCase implements DoNotWeave
@@ -35,13 +36,15 @@ public abstract class PermissionTest extends TestCase implements DoNotWeave
 
   protected static String          facilityGeoId;
 
-  protected static String          waterGeoId;
+  protected static String          collectionSiteGeoId;
 
   protected static String          siteGeoId;
 
   protected static String          termId;
-  
+
   protected static String          zoneGeoId;
+
+  protected static String          depotGeoId;
 
   private static Person            person;
 
@@ -57,9 +60,11 @@ public abstract class PermissionTest extends TestCase implements DoNotWeave
 
   private static HealthFacility    facility;
 
-  private static WaterBody         water;
+  private static CollectionSite    collectionSite;
 
   private static SprayZone         sprayZone;
+  
+  private static StockDepot        depot;
 
   private static Term              term;
 
@@ -85,16 +90,18 @@ public abstract class PermissionTest extends TestCase implements DoNotWeave
     country = TestFixture.createRandomCountry();
     site = TestFixture.createRandomSite();
     facility = TestFixture.createRandomFacility();
-    water = TestFixture.createRandomWaterBody();
+    collectionSite = TestFixture.createRandomWaterBody();
     sprayZone = TestFixture.createRandomZone();
+    depot = TestFixture.createRandomDepot();
     term = TestFixture.createRandomTerm();
 
     termId = term.getId();
     countryGeoId = country.getGeoId();
     siteGeoId = site.getGeoId();
     facilityGeoId = facility.getGeoId();
-    waterGeoId = water.getGeoId();
+    collectionSiteGeoId = collectionSite.getGeoId();
     zoneGeoId = sprayZone.getGeoId();
+    depotGeoId = depot.getGeoId();
   }
 
   protected static void classTearDown()
@@ -113,9 +120,10 @@ public abstract class PermissionTest extends TestCase implements DoNotWeave
     site.delete();
     facility.delete();
     country.delete();
-    water.delete();
+    collectionSite.delete();
     sprayZone.delete();
-    
+    depot.delete();
+
     TestFixture.delete(person);
   }
 

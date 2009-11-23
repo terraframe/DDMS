@@ -18,7 +18,7 @@ public class ITNCommunityDistributionNoPermissions extends PermissionTest implem
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(ITNCommunityDistributionNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER);
+    return TestFixture.getTestSuite(ITNCommunityDistributionNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER, MDSSRoleInfo.STOCK_STAFF);
   }
 
   public void testITNCommunityDistribution()

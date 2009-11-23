@@ -17,4 +17,6 @@ public interface MDSSRoleInfo extends Reloadable
   public static final String MANAGER             = "mdss.manager";
 
   public static final String OPERATIONAL_MANAGER = "mdss.operationalManager";
+
+  public static final String STOCK_STAFF         = "mdss.stockStaff";
 }

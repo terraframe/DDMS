@@ -6,6 +6,8 @@ import java.util.Date;
 import junit.framework.Test;
 
 import com.terraframe.mojo.DoNotWeave;
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.TestFixture;
@@ -22,7 +24,7 @@ public class StockCRUDPermissions extends PermissionTest implements DoNotWeave
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(StockCRUDPermissions.class, MDSSRoleInfo.MDSS_CORRDINATOR, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.OPERATIONAL_MANAGER, MDSSRoleInfo.DATACAPTURER);
+    return TestFixture.getTestSuite(StockCRUDPermissions.class, MDSSRoleInfo.MDSS_CORRDINATOR, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.OPERATIONAL_MANAGER, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.STOCK_STAFF);
   }
 
   public void testCreateStockItem()
@@ -78,7 +80,7 @@ public class StockCRUDPermissions extends PermissionTest implements DoNotWeave
         dto.setEventDate(new Date());
         dto.setItem(StockItemDTO.get(request, item.getConcreteId()));
         dto.setQuantity(5);
-        dto.setStockDepot(GeoEntityDTO.searchByGeoId(request, siteGeoId));
+        dto.setStockDepot(GeoEntityDTO.searchByGeoId(request, depotGeoId));
         dto.setStaff(staff);
         dto.apply();
         
@@ -106,6 +108,13 @@ public class StockCRUDPermissions extends PermissionTest implements DoNotWeave
           dto.deleteConcrete();
         }        
       }
+      catch(ProblemExceptionDTO e)
+      {
+        for(ProblemDTOIF p : e.getProblems())
+        {
+          fail(p.getMessage());
+        }
+      }      
       finally
       {
         staff.getPerson().delete();

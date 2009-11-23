@@ -16,7 +16,7 @@ public class PersonNoPermissions extends PermissionTest implements DoNotWeave
 {
   public static Test suite()
   {
-    return TestFixture.getTestSuite(PersonNoPermissions.class, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.MANAGER);
+    return TestFixture.getTestSuite(PersonNoPermissions.class, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.MANAGER, MDSSRoleInfo.STOCK_STAFF);
   }
 
   public void testPeople()
