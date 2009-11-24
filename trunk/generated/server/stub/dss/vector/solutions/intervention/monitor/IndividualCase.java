@@ -59,7 +59,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     this.setCaseEntryDate(DateUtils.truncate(this.getCreateDate(), Calendar.DATE));
     
     // If no age is specified, calculate it
-    if (this.getAge()==null)
+    if (this.getAge()==null && this.getDiagnosisDate() != null && this.getPatient() != null)
     {
       long difference = this.getDiagnosisDate().getTime() - this.getPatient().getPerson().getDateOfBirth().getTime();
       // Divide by the number of milliseconds in a year
@@ -135,6 +135,11 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
 
   public static IndividualCase searchForExistingCase(Date diagnosisDate, String personId)
   {
+    if(diagnosisDate == null)
+    {
+      diagnosisDate = new Date();
+    }
+    
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(diagnosisDate);
     calendar.add(Calendar.DAY_OF_MONTH, -28);

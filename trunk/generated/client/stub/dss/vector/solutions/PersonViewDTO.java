@@ -9,4 +9,10 @@ public class PersonViewDTO extends PersonViewDTOBase
     super(clientRequest);
   }
   
+  @Override
+  public String toString()
+  {
+    return this.getFirstName() + " " + this.getLastName();
+  }
+  
 }

@@ -1,18 +1,22 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.PersonDTO;
+import dss.vector.solutions.surveillance.RequiredDiagnosisDateProblemDTO;
+import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -44,17 +48,54 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
   public void search(Date diagnosisDate, Date caseReportDate, String personId) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = getClientRequest();
-    IndividualCaseDTO individualCase = IndividualCaseDTO.searchForExistingCase(clientRequest, diagnosisDate, personId);
-    if (individualCase.isNewInstance())
+    try
     {
-      individualCase.setDiagnosisDate(diagnosisDate);
-      individualCase.setCaseReportDate(caseReportDate);
-      renderCreate(individualCase, personId);
+      validateSearchCriteria(diagnosisDate, caseReportDate, personId);
+      
+      ClientRequestIF clientRequest = getClientRequest();
+      IndividualCaseDTO individualCase = IndividualCaseDTO.searchForExistingCase(clientRequest, diagnosisDate, personId);
+      if (individualCase.isNewInstance())
+      {
+        individualCase.setDiagnosisDate(diagnosisDate);
+        individualCase.setCaseReportDate(caseReportDate);
+        renderCreate(individualCase, personId);
+      }
+      else
+      {
+        renderView(individualCase);
+      }
     }
-    else
+    catch (ProblemExceptionDTO e)
     {
-      renderView(individualCase);
+      ErrorUtility.prepareProblems(e, req);
+      
+      String failDiagnosis = (diagnosisDate != null ? new DefaultConverter(Date.class).format(diagnosisDate, req.getLocale()): null);
+      String failCase = (caseReportDate != null ? new DefaultConverter(Date.class).format(caseReportDate, req.getLocale()): null);
+      
+      this.failSearch(failDiagnosis, failCase, personId);
+    }
+    catch (Throwable t)
+    {
+      String failDiagnosis = (diagnosisDate != null ? new DefaultConverter(Date.class).format(diagnosisDate, req.getLocale()): null);
+      String failCase = (caseReportDate != null ? new DefaultConverter(Date.class).format(caseReportDate, req.getLocale()): null);
+      
+      this.failSearch(failDiagnosis, failCase, personId);
+    }
+  }
+
+  private void validateSearchCriteria(Date diagnosisDate, Date caseReportDate, String personId)
+  {
+    List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
+
+    if (diagnosisDate == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredDiagnosisDateProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if (problems.size() > 0)
+    {
+      throw new ProblemExceptionDTO("", problems);
     }
   }
 
@@ -65,18 +106,18 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     render("createComponent.jsp");
   }
 
-  public void failSearch(String diagnosisDate, String patientId) throws IOException, ServletException
+  @Override
+  public void failSearch(String diagnosisDate, String caseReportDate, String personId) throws IOException, ServletException
   {
-    IndividualCaseDTO dto = new IndividualCaseDTO(getClientRequest());
-    try
+    req.setAttribute("diagnosisDate", diagnosisDate);
+    req.setAttribute("caseReportDate", caseReportDate);
+    
+    if(personId != null && !personId.equals(""))
     {
-      dto.setDiagnosisDate(DateFormat.getDateInstance(DateFormat.SHORT, getRequest().getLocale()).parse(diagnosisDate));
+      req.setAttribute("person", PersonDTO.getView(this.getClientRequest(), personId));
     }
-    catch (ParseException e)
-    {
-      // We tried to preserve the date but failed.  Keep going anyway.
-    }
-    renderSearch(dto);
+
+    renderSearch(new IndividualCaseDTO(getClientRequest()));
   }
 
   public void cancel(IndividualCaseDTO dto) throws IOException, ServletException
@@ -94,16 +135,16 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
   {
     renderView(IndividualCaseDTO.get(super.getClientRequest(), id));
   }
-  
+
   private void renderView(IndividualCaseDTO individualCaseDTO) throws IOException, ServletException
   {
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", individualCaseDTO.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    
+
     req.setAttribute("query", individualCaseDTO.getInstances());
     req.setAttribute("item", individualCaseDTO);
-    
+
     render("viewComponent.jsp");
   }
 
@@ -171,17 +212,17 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
   {
     try
     {
-      if(dto.getProbableSource() == null)
+      if (dto.getProbableSource() == null)
       {
         dto.setProbableSource(dto.getResidence());
       }
-      
+
       dto.apply();
-      
+
       ClientRequestIF request = dto.getRequest();
 
       ErrorUtility.prepareInformation(request.getInformation(), req);
-            
+
       this.view(dto.getId());
     }
     catch (ProblemExceptionDTO e)
@@ -207,7 +248,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     IndividualCaseDTO dto = new IndividualCaseDTO(clientRequest);
     renderSearch(dto);
   }
-  
+
   private void renderSearch(IndividualCaseDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
@@ -224,11 +265,11 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     try
     {
       dto.applyWithPersonId(personId);
-      
+
       ClientRequestIF request = dto.getRequest();
 
       ErrorUtility.prepareInformation(request.getInformation(), req);
-      
+
       renderView(dto);
     }
     catch (ProblemExceptionDTO e)

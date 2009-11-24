@@ -26,28 +26,37 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%=HealthFacilityDTO.CLASS%>*');
 	    <label> ${item.caseReportDateMd.displayLabel} </label>
 	  </dt>
 	  <dd>
-	    <mjl:input type="text" param="caseReportDate" classes="DatePick" id="caseReportDate"/>
+	    <mjl:input type="text" param="caseReportDate" classes="DatePick" id="caseReportDate" value="${caseReportDate != null ? caseReportDate : ''}"/>
+	    <mjl:messages attribute="caseReportDate">
+	      <mjl:message/>
+	    </mjl:messages>
 	  </dd>
 	  <dt>
 	    <label> ${item.diagnosisDateMd.displayLabel} </label>
 	  </dt>
 	  <dd>
-	    <mjl:input type="text" param="diagnosisDate" classes="DatePick" id="diagnosisDate"/>
+	    <mjl:input type="text" param="diagnosisDate" classes="DatePick" id="diagnosisDate" value="${diagnosisDate != null ? diagnosisDate : ''}"/>
+	    <mjl:messages attribute="diagnosisDate">
+	      <mjl:message/>
+	    </mjl:messages>
 	  </dd>
 	  <dt>
 	    <label> ${item.patientMd.displayLabel} </label>
 	  </dt>
 	  <dd>
-        <mjl:input type="text" param="patientDisplay" id="patientDisplay" />
-        <mjl:input type="hidden" param="personId" id="patient"/>
-        <span class="clickable" id="recipient.span">
-          <span id="createPatient">
-            <fmt:message key="Create_new_Patient"/>        
-          </span>
-          <span id="editPatient" >
-            <fmt:message key="Edit_Patient"/>        
-          </span>
+      <mjl:input type="text" param="patientDisplay" id="patientDisplay" value="${person != null ? person : ''}" />
+      <mjl:input type="hidden" param="personId" id="patient" value="${person != null ? person.personId : ''}"/>
+      <span class="clickable" id="recipient.span">
+        <span id="createPatient">
+          <fmt:message key="Create_new_Patient"/>        
         </span>
+        <span id="editPatient" >
+          <fmt:message key="Edit_Patient"/>        
+        </span>
+      </span>
+     <mjl:messages attribute="personId">
+	    <mjl:message/>
+	  </mjl:messages>
 	  </dd>
 
 		<mjl:command name="searchPatient.button" value="Search"	action="dss.vector.solutions.intervention.monitor.IndividualCaseController.search.mojo" id="button.id" />
