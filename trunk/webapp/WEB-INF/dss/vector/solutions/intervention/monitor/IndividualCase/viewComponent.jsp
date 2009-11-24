@@ -130,6 +130,6 @@
 </mjl:commandLink>
 </dl>
 
-<mjl:commandLink action="dss.vector.solutions.intervention.monitor.IndividualCaseController.viewAll.mojo" name="dss.vector.solutions.intervention.monitor.IndividualCase.viewAll.link">
-  <fmt:message key="View_All" />
+<mjl:commandLink action="dss.vector.solutions.intervention.monitor.IndividualCaseController.newInstance.mojo" name="dss.vector.solutions.intervention.monitor.IndividualCase.viewAll.link">
+  <fmt:message key="Search" />
 </mjl:commandLink>

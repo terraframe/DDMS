@@ -297,4 +297,21 @@
       </mjl:commandLink>
     </dd>    
   </dl>
+  <dl>
+    <dt><label><f:message key="Individual_Cases"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Individual_Cases"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualCase">
+        <f:message key="Individual_Cases"/>
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mjl:commandLink
+        name="Individual_Instance"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualInstance">
+        <f:message key="Individual_Instance"/>
+      </mjl:commandLink>
+    </dd>    
+  </dl>
 
