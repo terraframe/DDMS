@@ -383,6 +383,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       String search = this.searchValue + "%";
+      search = search.replace(" ", "% ");      
       query.WHERE(OR.get(termQuery.getName().LIKEi(search), termQuery.getTermId().LIKEi(search)));
 
       if(this.parentIds.length > 0)
