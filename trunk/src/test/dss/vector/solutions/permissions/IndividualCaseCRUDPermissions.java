@@ -75,7 +75,7 @@ public class IndividualCaseCRUDPermissions extends PermissionTest implements DoN
     }
   }
 
-  public void testIptCase()
+  public void testIndividualCase()
   {
     TermDTO term = TermDTO.get(request, termId);
     GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(request, facilityGeoId);
@@ -157,7 +157,7 @@ public class IndividualCaseCRUDPermissions extends PermissionTest implements DoN
 
   }
 
-  public void testIndividualIPT()
+  public void testIndividualInstance()
   {
     TermDTO term = TermDTO.get(request, termId);
     HealthFacilityDTO entity = (HealthFacilityDTO) GeoEntityDTO.searchByGeoId(request, facilityGeoId);
