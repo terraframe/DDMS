@@ -41,9 +41,11 @@
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dss.vector.solutions.intervention.monitor.ITNDistributionDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.ITNRecipientDTO"%>
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
+<%@page import="dss.vector.solutions.PersonDTO"%>
 
 <%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_ITN_Facility_Distribution"  scope="request"/>
 
@@ -54,7 +56,7 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ ITNDistributionDTO.CLASS, ITNDistributionViewDTO.CLASS, ITNRecipientDTO.CLASS};
+    String[] mosquitoTypes = new String[]{PersonDTO.CLASS, ITNDistributionDTO.CLASS,ITNDistributionTargetGroupDTO.CLASS, ITNDistributionViewDTO.CLASS, ITNRecipientDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
     MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
@@ -136,26 +138,33 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
-    var aggreatedITN = new Mojo.$.dss.vector.solutions.intervention.monitor.ITNData();
+    var itnMaps = {<%=(String) request.getAttribute("itnMap")%>};
+
+    var itn = new Mojo.$.dss.vector.solutions.intervention.monitor.ITNDistribution();    
     
-    var aITNAttribs = ["distributionDate","facility","batchNumber","currencyReceived",
-                       "distributorName","distributorSurname",
-                       "net","numberSold","service"];
+    var ITNAttribs = ["batchNumber","facility","service",
+                       "distributionDate","distributorName","distributorSurname",
+                       "net","numberSold","currencyReceived"];
     
-    var aITNColumns =   aITNAttribs.map(mapAttribs, {obj:aggreatedITN, suffix:'_aitn', dropDownMaps:{}});
+    var ITNColumns =   ITNAttribs.map(mapAttribs, {obj:itn, suffix:'_itn', dropDownMaps:{}});
     
-   var netsColumns = orderedGrids.nets.options.map(mapMo, orderedGrids.nets);
-   var servicesColumns = orderedGrids.services.options.map(mapMo, orderedGrids.services);
    var targetGroupsColumns = orderedGrids.targetGroups.options.map(mapMo, orderedGrids.targetGroups);
+
+   var person = new Mojo.$.dss.vector.solutions.Person();
+   
+   var personAttribs = ["dateOfBirth","firstName","lastName","sex","age",
+                        "residentialGeoEntity","residentialInformation","workGeoEntity","workInformation"];
+   
+   var personColumns =  personAttribs.map(mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
+
    
    var selectableGroups = [
-              {title:"ITN", values:aITNColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNData.CLASS},
-              {title:"Nets", values:netsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNNet.CLASS},
-              {title:"Services", values:servicesColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNService.CLASS},
-              {title:"TargetGroups", values:targetGroupsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNTargetGroup.CLASS},
+              {title:"ITN", values:ITNColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNDistribution.CLASS},
+              {title:"Recipient", values:personColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.Person.CLASSS},
+              {title:"TargetGroups", values:targetGroupsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup.CLASS},
     ];
 
-    var query = new MDSS.QueryAggreatedITN(selectableGroups, queryList);
+    var query = new MDSS.QueryITNFacilityDistribution(selectableGroups, queryList);
     query.render();
 
 });

@@ -2,10 +2,22 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.QueryException;
+import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQLInteger;
+import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.query.ThematicLayer;
+import dss.vector.solutions.util.QueryUtil;
 
 public class ITNDistribution extends ITNDistributionBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -83,4 +95,68 @@ public class ITNDistribution extends ITNDistributionBase implements com.terrafra
     }
     return this.getId();
   }
+  
+  
+  /**
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
+   *
+   * @param xml
+   * @return
+   */
+  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry, ThematicLayer thematicLayer)
+  {
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+    
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, AggregatedIPT.CLASS, AggregatedIPT.GEOENTITY);   
+   
+    ITNDistributionQuery itnQuery = (ITNDistributionQuery) queryMap.get(ITNDistribution.CLASS);
+    
+    QueryUtil.joinGeoDisplayLabels(valueQuery,ITNDistribution.CLASS,itnQuery);
+    QueryUtil.joinTermAllpaths(valueQuery,ITNDistribution.CLASS,itnQuery);
+    QueryUtil.getSingleAttribteGridSql(valueQuery,itnQuery.getTableAlias());
+    
+    
+    dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
+    valueQuery.WHERE(personQuery.getItnRecipientDelegate().EQ(itnQuery.getRecipient()));
+    QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery);
+    QueryUtil.joinGeoDisplayLabels(valueQuery,dss.vector.solutions.Person.CLASS,personQuery);
+    
+    try
+    {
+      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable("age");
+
+      String personTableAlias = personQuery.getTableAlias();
+      String sql = "EXTRACT(year from AGE(NOW(), " + personTableAlias + ".dateofbirth))";
+      dobSel.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+      // Person.DOB not included in query.
+    }
+
+    
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    
+    QueryUtil.setTermRestrictions(valueQuery, queryMap);
+   
+    String sd = itnQuery.getDistributionDate().getQualifiedName();
+
+    return QueryUtil.setQueryDates(xml, valueQuery, sd);
+
+  }
+  
 }

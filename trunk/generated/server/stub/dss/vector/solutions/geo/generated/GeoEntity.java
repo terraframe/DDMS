@@ -1676,10 +1676,19 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     for(MdAttribute mdAttr : md.getAllAttribute())
     {
-      if(mdAttr instanceof MdAttributeReference
-           && ((MdAttributeReference)mdAttr).getMdBusiness().definesType().equals(GeoEntity.CLASS))
+      if(mdAttr instanceof MdAttributeReference)
       {
-        list.add(( (MdAttributeReference) mdAttr ).getAttributeName());
+        String clazz =((MdAttributeReference)mdAttr).getMdBusiness().definesType();
+        try
+        {
+          if (GeoEntity.class.isAssignableFrom(Class.forName(clazz)))
+          {
+            list.add( ( (MdAttributeReference) mdAttr ).getAttributeName());
+          }
+        }
+        catch (ClassNotFoundException e)
+        {
+        }     
       }
     }
 
