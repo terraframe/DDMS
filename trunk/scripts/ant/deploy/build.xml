@@ -470,7 +470,6 @@
 				<arg value="-Droot.pass=${root.pass}" />
 				<arg value="-Dgeodata.db=${geodata.db}" />
 				<arg value="import_ontology" />
-				<arg value="import_ontology_roots" />
 			</java>
 		</target>
 
