@@ -141,3 +141,14 @@
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.IndividualInstanceController.edit.mojo" name="dss.vector.solutions.intervention.monitor.IndividualInstance.form.edit.button" />
   </mjl:form>
 </dl>
+
+<mjl:commandLink name="viewCase.link" action="dss.vector.solutions.intervention.monitor.IndividualCaseController.view.mojo">
+  <fmt:message key="View_Case_Instances" />
+  <mjl:property name="id" value="${item.individualCase.id}"/>    
+</mjl:commandLink>
+
+<br />
+
+<mjl:commandLink name="search.link" action="dss.vector.solutions.intervention.monitor.IndividualCaseController.newInstance.mojo">
+  <fmt:message key="Search_another_Individual_Case" />
+</mjl:commandLink>

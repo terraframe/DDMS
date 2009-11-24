@@ -5,7 +5,7 @@
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 
 <mjl:component item="${item}" param="dto">
-  <mjl:input type="hidden" param="individualCase" value="${item.individualCase}"/>
+  <mjl:input type="hidden" param="individualCase" value="${item.individualCase.id}"/>
   <mjl:dt attribute="activelyDetected">
     <mjl:boolean param="activelyDetected" />
   </mjl:dt>
