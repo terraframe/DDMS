@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
@@ -77,6 +78,16 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
   {
     new AttributeNotificationMap(concrete, IndividualIPTCase.PATIENT, this, IndividualIPTCaseView.PATIENT);
     new AttributeNotificationMap(concrete, IndividualIPTCase.RESIDENTIALLOCATION, this, IndividualIPTCaseView.RESIDENTIALLOCATION);
+  }
+  
+  @Override
+  @Transaction
+  public void applyWithInstance(IndividualIPTView instance)
+  {
+    this.apply();
+    
+    instance.setIptCase(IndividualIPTCase.get(this.getConcreteId()));
+    instance.apply();
   }
 
   @Override

@@ -8,6 +8,7 @@
 <dl>
   <mjl:form id="dss.vector.solutions.intervention.monitor.IndividualIPTCase.form.id" name="dss.vector.solutions.intervention.monitor.IndividualIPTCase.form.name" method="POST">
     <%@include file="form.jsp" %>
-    <mjl:command name="dss.vector.solutions.intervention.monitor.IndividualIPTCase.form.create.button" value="Create" action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.create.mojo" />
+    <%@include file="../IndividualIPT/instanceForm.jsp" %>
+    <mjl:command name="create.button" value="Create" action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.createCaseAndInstance.mojo" />
   </mjl:form>
 </dl>

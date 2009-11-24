@@ -109,6 +109,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     dto.setResidentialLocation(view.getResidentialGeoId());
 
     req.setAttribute("item", dto);
+    req.setAttribute("instance", new IndividualIPTViewDTO(clientRequest));
     render("createComponent.jsp");
   }
 
@@ -135,6 +136,35 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
       ErrorUtility.prepareThrowable(t, req);
       this.failCreate(dto);
     }
+  }
+  
+  @Override
+  public void createCaseAndInstance(IndividualIPTCaseViewDTO dto, IndividualIPTViewDTO instance) throws IOException, ServletException
+  {
+    try
+    {
+      dto.applyWithInstance(instance);
+      
+      this.view(dto);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failCreateCaseAndInstance(dto, instance);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failCreateCaseAndInstance(dto, instance);
+    }    
+  }
+  
+  @Override
+  public void failCreateCaseAndInstance(IndividualIPTCaseViewDTO dto, IndividualIPTViewDTO instance) throws IOException, ServletException
+  {
+    req.setAttribute("instance", instance);
+    req.setAttribute("item", dto);
+    render("createComponent.jsp");    
   }
 
   public void failCreate(IndividualIPTCaseViewDTO dto) throws IOException, ServletException
