@@ -82,9 +82,11 @@ MDSS.Calendar = {};
     }
 
     var var_to_date = function(date_str) {
+    	date_str = date_str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    	
     	if(date_str instanceof Date) return date_str;
     	
-    	if(date_str == null) return date_str; 
+    	if(date_str == null || date_str == '') return date_str; 
 
     	var date = parseISO8601(date_str);
     	if(date == null) date = Date.parseString(date_str,java_date_format);
@@ -99,7 +101,7 @@ MDSS.Calendar = {};
 
     var var_to_db_string = function(date_str) {
     	var date = var_to_date(date_str);
-    	if(date == null) return null;
+    	if(date == null || date == '') return null;
     	return date.format(db_date_format);
     }
 
@@ -107,7 +109,7 @@ MDSS.Calendar = {};
 
     var var_to_localized_string = function(date_str) {
     	var date = var_to_date(date_str);
-    	if(date == null) return null;
+    	if(date == null  || date == '') return null;
     	return date.format(java_date_format);
     }
 
