@@ -1,5 +1,7 @@
 package dss.vector.solutions.intervention.monitor;
 
+import dss.vector.solutions.Person;
+
 
 public class IndividualIPTCase extends IndividualIPTCaseBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -14,6 +16,22 @@ public class IndividualIPTCase extends IndividualIPTCaseBase implements com.terr
   protected String buildKey()
   {
     return this.getId();
+  }
+  
+  @Override
+  public void apply()
+  {
+    super.apply();
+    
+    // As per ticket #890 we must update the patients residential information
+    if(this.getResidentialLocation() != null)
+    {
+      Person person = this.getPatient().getPerson();
+      
+      person.lock();
+      person.setResidentialGeoEntity(this.getResidentialLocation());
+      person.apply();
+    }
   }
   
   public static IndividualIPTCaseView getView(String id)
