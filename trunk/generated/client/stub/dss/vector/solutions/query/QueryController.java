@@ -39,10 +39,13 @@ import dss.vector.solutions.intervention.monitor.IPTANCVisitDTO;
 import dss.vector.solutions.intervention.monitor.IPTDoseDTO;
 import dss.vector.solutions.intervention.monitor.IPTPatientsDTO;
 import dss.vector.solutions.intervention.monitor.IPTTreatmentDTO;
+import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionDTO;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO;
 import dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO;
 import dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO;
 import dss.vector.solutions.intervention.monitor.ITNDataViewDTO;
+import dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO;
+import dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO;
 import dss.vector.solutions.intervention.monitor.ITNNetDTO;
 import dss.vector.solutions.intervention.monitor.ITNServiceDTO;
 import dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO;
@@ -614,7 +617,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       ITNCommunityDistributionViewDTO itnView = new ITNCommunityDistributionViewDTO(request);
       
       // Load label map 
-      ClassQueryDTO itn = request.getQuery(AggregatedIPTDTO.CLASS);
+      ClassQueryDTO itn = request.getQuery(ITNCommunityDistributionDTO.CLASS);
       String itnMap = Halp.getDropDownMaps(itn, request, ", ");
       req.setAttribute("itnMap", itnMap);
 
@@ -674,12 +677,31 @@ public class QueryController extends QueryControllerBase implements com.terrafra
         queries.put(idAndName);
       }
 
-      // Load label map for Adult Discriminating Dose Assay
-      ClassQueryDTO aIPT = request.getQuery(IndividualIPTDTO.CLASS);
-      String iptMap = Halp.getDropDownMaps(aIPT, request, ", ");
-      req.setAttribute("iptMap", iptMap);
-
       req.setAttribute("queryList", queries.toString());
+      
+      JSONObject ordered = new JSONObject();
+
+      ITNDistributionViewDTO itnView = new ITNDistributionViewDTO(request);
+      
+      // Load label map 
+      ClassQueryDTO itn = request.getQuery(ITNDistributionTargetGroupDTO.CLASS);
+      String itnMap = Halp.getDropDownMaps(itn, request, ", ");
+      req.setAttribute("itnMap", itnMap);
+
+
+
+      // Target Groups
+      JSONObject doses = new JSONObject();
+      doses.put("type", TermDTO.CLASS);
+      doses.put("label", itnView.getTargetGroupsMd().getDisplayLabel());
+      doses.put("relType", ITNDistributionTargetGroupDTO.CLASS);
+      doses.put("relAttribute", ITNDistributionTargetGroupDTO.AMOUNT);
+      doses.put("options",getAllTermsForGrid(request, ITNDistributionViewDTO.CLASS, ITNDistributionViewDTO.TARGETGROUPS));
+      ordered.put("targetGroups", doses);
+
+     
+
+      req.setAttribute("orderedGrids", ordered.toString());
 
       req.getRequestDispatcher(QUERY_ITN_FACILITY_DISTRIBUTION).forward(req, resp);
 
