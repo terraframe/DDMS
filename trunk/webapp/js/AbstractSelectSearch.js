@@ -843,13 +843,13 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
      */
     formatDisplay : function(geoEntityView)
     {
-      return MDSS.AbstractSelectSearch.formatDisplay2(geoEntityView.getEntityName(), 
-        geoEntityView.getTypeDisplayLabel(), geoEntityView.getGeoId(), geoEntityView.getMoSubType());
+	  // IMPORTANT: Don't include the moSubType because geoEntityView.getTypeDisplayLabel() already appends the mo sub type	  
+      return MDSS.AbstractSelectSearch.formatDisplay2(geoEntityView.getEntityName(), geoEntityView.getTypeDisplayLabel(), geoEntityView.getGeoId(), null);
     },
     
     formatDisplay2 : function(entityName, typeDisplayLabel, geoId, moSubType)
     {
-      var mo = moSubType != null && moSubType.length > 0 ? " - "+moSubType : '';
+      var mo = moSubType != null && moSubType.length > 0 ? " : "+moSubType : '';
       return entityName + ' ('+typeDisplayLabel+mo+') - ' + geoId;
     }
   }

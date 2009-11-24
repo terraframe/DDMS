@@ -10,8 +10,8 @@
     <mjl:boolean param="activelyDetected" />
   </mjl:dt>
   <mjl:dt attribute="healthFacility">
-    <mjl:input value="${individualCase.healthFacility != null ? individualCase.healthFacility.geoId : ''}" type="text" param="healthFacilityId" classes="geoInput" id="healthFacilityGeoId" />
-    <mjl:input type="hidden" param="healthFacility" id="healthFacilityGeoId_geoEntityId" />
+    <mjl:input value="${healthFacility != null ? healthFacility.geoId : ''}" type="text" param="healthFacilityId" classes="geoInput" id="healthFacilityGeoId" />
+    <mjl:input type="hidden" param="healthFacility" id="healthFacilityGeoId_geoEntityId" value="${healthFacility != null ? healthFacility.id : ''}" />
   </mjl:dt>
   <mjl:dt attribute="detectedBy">
     <span class="clickable browserLauncher" id="detectedByBtn"> <fmt:message key="Browser"/></span>

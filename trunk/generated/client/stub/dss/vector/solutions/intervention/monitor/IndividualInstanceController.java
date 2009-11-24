@@ -137,6 +137,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   private void renderEdit(IndividualInstanceDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
+    req.setAttribute("healthFacility", dto.getHealthFacility());
     req.setAttribute("symptoms", Arrays.asList(dto.getSymptoms()));
     render("editComponent.jsp");
   }
@@ -190,6 +191,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   private void prepareCreateReq(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms)
   {
     req.setAttribute("item", dto);
+    req.setAttribute("healthFacility", dto.getHealthFacility());
     req.setAttribute("symptoms", Arrays.asList(symptoms));
   }
 
