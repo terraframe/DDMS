@@ -81,11 +81,12 @@ MDSS.Calendar = {};
       return tempDate;
     }
 
-    var var_to_date = function(date_str) {
-    	date_str = date_str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-    	
+    var var_to_date = function(date_str) {    	
     	if(date_str instanceof Date) return date_str;
     	
+    	if(Mojo.Util.isString(date_str)) {
+          date_str = date_str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    	}
     	if(date_str == null || date_str == '') return date_str; 
 
     	var date = parseISO8601(date_str);
