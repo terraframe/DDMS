@@ -18,6 +18,7 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.RequiredAttributeProblemDTO;
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -79,6 +80,13 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
     ClientRequestIF request = this.getClientRequest();
 
+    String location = view.getResidentialLocation();
+    
+    if(location != null && !location.equals(""))
+    {
+      req.setAttribute("residentialLocation", GeoEntityDTO.searchByGeoId(request, location));
+    }
+    
     req.setAttribute("query", IndividualIPTViewDTO.getCaseInstances(request, sortAttribute, isAscending, pageSize, pageNumber, view.getConcreteId()));
     req.setAttribute("item", view);
     render("viewComponent.jsp");
@@ -137,7 +145,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
   public void edit(String id) throws IOException, ServletException
   {
-    IndividualIPTCaseDTO dto = IndividualIPTCaseDTO.lock(super.getClientRequest(), id);
+    IndividualIPTCaseViewDTO dto = IndividualIPTCaseDTO.lockView(super.getClientRequest(), id);
 
     req.setAttribute("item", dto);
     render("editComponent.jsp");
