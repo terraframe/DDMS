@@ -183,7 +183,7 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
 
   public void cancel(IndividualIPTViewDTO dto) throws IOException, ServletException
   {
-    IndividualIPTViewDTO view = IndividualIPTDTO.lockView(this.getClientRequest(), dto.getConcreteId());
+    IndividualIPTViewDTO view = IndividualIPTDTO.unlockView(this.getClientRequest(), dto.getConcreteId());
 
     this.view(view);
   }

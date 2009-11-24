@@ -214,8 +214,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
   public void cancel(IndividualIPTCaseViewDTO dto) throws IOException, ServletException
   {
-    IndividualIPTCaseDTO.lockView(this.getClientRequest(), dto.getConcreteId());
-    this.view(dto.getId());
+    this.view(IndividualIPTCaseDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
   }
 
   public void failCancel(IndividualIPTCaseViewDTO dto) throws IOException, ServletException
