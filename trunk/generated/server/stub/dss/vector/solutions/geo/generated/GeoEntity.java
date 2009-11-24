@@ -508,7 +508,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     String termId = this.getValue(GeoEntity.TERM);
     if(termId != null && termId.trim().length() > 0)
     {
-      display += " - "+this.getTerm().getDisplay(); 
+      display += " : "+this.getTerm().getDisplay(); 
     }
     
     return display;
