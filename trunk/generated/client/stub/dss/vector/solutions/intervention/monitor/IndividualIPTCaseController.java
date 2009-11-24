@@ -71,6 +71,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   {
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", view.getConcreteId());
+    utility.put("serviceDate", req.getParameter("serviceDate"));
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     String sortAttribute = IndividualIPTViewDTO.ADMINISTRATORNAME;
@@ -86,7 +87,8 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     {
       req.setAttribute("residentialLocation", GeoEntityDTO.searchByGeoId(request, location));
     }
-    
+        
+    req.setAttribute("serviceDate", req.getParameter("serviceDate"));
     req.setAttribute("query", IndividualIPTViewDTO.getCaseInstances(request, sortAttribute, isAscending, pageSize, pageNumber, view.getConcreteId()));
     req.setAttribute("item", view);
     render("viewComponent.jsp");
@@ -107,9 +109,18 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     IndividualIPTCaseViewDTO dto = new IndividualIPTCaseViewDTO(clientRequest);
     dto.setValue(IndividualIPTCaseViewDTO.PATIENT, view.getPersonId());
     dto.setResidentialLocation(view.getResidentialGeoId());
+    
+    IndividualIPTViewDTO instance = new IndividualIPTViewDTO(clientRequest);
+    
+    String serviceDate = req.getParameter("serviceDate");
+    
+    if(serviceDate != null && !serviceDate.equals(""))
+    {
+      instance.setServiceDate((Date) new DefaultConverter(Date.class).parse(serviceDate, req.getLocale()));
+    }
 
     req.setAttribute("item", dto);
-    req.setAttribute("instance", new IndividualIPTViewDTO(clientRequest));
+    req.setAttribute("instance", instance);
     render("createComponent.jsp");
   }
 
@@ -176,7 +187,9 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   public void edit(String id) throws IOException, ServletException
   {
     IndividualIPTCaseViewDTO dto = IndividualIPTCaseDTO.lockView(super.getClientRequest(), id);
+    String serviceDate = req.getParameter("serviceDate");
 
+    req.setAttribute("serviceDate", serviceDate);
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -252,9 +265,10 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   {
     if (!this.isAsynchronous())
     {
-      new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "search");
+//      new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "search");
 
       req.setAttribute("item", new IndividualIPTCaseViewDTO(this.getClientRequest()));
+      req.setAttribute("serviceDate", req.getParameter("serviceDate"));      
       render("searchComponent.jsp");
     }
   }

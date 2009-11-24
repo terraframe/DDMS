@@ -11,15 +11,17 @@
 <%@page import="dss.vector.solutions.ontology.BrowserRootDTO"%>
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
+
+<c:set var="healthFacility" scope="request"><%=HealthFacilityDTO.CLASS%></c:set>
 
 <script type="text/javascript">
 MDSS.AbstractSelectSearch.Political = true;
 MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
 </script>
-
 <mjl:component param="dto" item="${item}">
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
   <mjl:input param="iptCase" type="hidden" value="${item.iptCase.id}" />

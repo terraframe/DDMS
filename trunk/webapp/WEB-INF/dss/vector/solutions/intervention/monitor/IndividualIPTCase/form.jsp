@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 
+<input type="hidden" name="serviceDate" value="${serviceDate}"/>
 <mjl:component param="dto" item="${item}">
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
   <mjl:dt attribute="patient">

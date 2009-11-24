@@ -1,6 +1,7 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.geo.generated.HealthFacilityDTO;
+import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -88,8 +89,14 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
       dto.setValue(IndividualIPTViewDTO.IPTCASE, view.getConcreteId());
 
       this.setupRequest(dto);
+      
+      String serviceDate = req.getParameter("serviceDate");
+      
+      if(serviceDate != null && !serviceDate.equals(""))
+      {
+        dto.setServiceDate((Date) new DefaultConverter(Date.class).parse(serviceDate, req.getLocale()));
+      }
 
-      req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
       req.setAttribute("item", dto);
       render("createComponent.jsp");
     }

@@ -8,6 +8,7 @@
 <dl>
   <mjl:form id="dss.vector.solutions.intervention.monitor.IndividualIPTCase.form.id" name="dss.vector.solutions.intervention.monitor.IndividualIPTCase.form.name" method="POST">
     <mjl:input param="id" value="${item.concreteId}" type="hidden" />
+    <mjl:input param="serviceDate" value="${serviceDate}" type="hidden"/>    
     <mjl:component param="dto" item="${item}">
       <mjl:dt attribute="patient">
         ${item.patient.firstName} ${item.patient.lastName}
@@ -90,6 +91,7 @@
   <mjl:commandLink name="IndividualIPTController.newInstance" action="dss.vector.solutions.intervention.monitor.IndividualIPTController.newInstance.mojo">
     <fmt:message key="Create_a_new_Individual_IPT_Instance" />
     <mjl:property name="caseId" value="${item.concreteId}"/>
+    <mjl:property name="serviceDate" value="${serviceDate}"/>    
 </mjl:commandLink>  
 </dl>
 

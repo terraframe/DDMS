@@ -14,16 +14,9 @@
 
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 
-<script type="text/javascript">
-MDSS.AbstractSelectSearch.Political = true;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
-</script>
-
 <mjl:component param="instance" item="${instance}">
   <mjl:input type="hidden" param="concreteId" value="${instance.concreteId}"/>
   <mjl:dt attribute="facility">
-    <input type="hidden" id="typeSearchFilter" value="${healthFacility}" />      
     <mjl:input classes="geoInput" id="facilityIdEl" param="facility" type="text" />
   </mjl:dt>
   <mjl:dt attribute="serviceDate" classes="DatePick" id="serviceDate" type="text"/>  

@@ -28,6 +28,7 @@
         <mjl:commandLink name="view.link" action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.view.mojo">
           <fmt:message key="View" />
           <mjl:property name="id" value="${current.concreteId}" />
+          <mjl:property name="serviceDate" value="${serviceDate}"/>
         </mjl:commandLink>
       </td>
     </tr>
