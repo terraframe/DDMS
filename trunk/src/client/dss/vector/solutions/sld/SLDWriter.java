@@ -10,14 +10,10 @@ import com.terraframe.mojo.constants.LocalProperties;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.util.FileIO;
 
-import dss.vector.solutions.query.GeometryStyleDTO;
 import dss.vector.solutions.query.LayerDTO;
 import dss.vector.solutions.query.QueryConstants;
-import dss.vector.solutions.query.TextStyleDTO;
-import dss.vector.solutions.query.ThematicLayerDTO;
-import dss.vector.solutions.query.UniversalLayerDTO;
 
-public abstract class SLDWriter implements Reloadable
+public class SLDWriter implements Reloadable
 {
   private LayerDTO      layer;
 
@@ -28,7 +24,7 @@ public abstract class SLDWriter implements Reloadable
    * 
    * @param layer
    */
-  protected SLDWriter(LayerDTO layer)
+  public SLDWriter(LayerDTO layer)
   {
     this.layer = layer;
     builder = new StringBuilder();
@@ -43,14 +39,18 @@ public abstract class SLDWriter implements Reloadable
   {
     this.layer.lock();
 
-    GeometryStyleDTO geoStyle = layer.getGeometryStyle();
+    /* FIXME MAP
+    
     TextStyleDTO textStyle = layer.getTextStyle();
+    GeometryStyleDTO geoStyle = layer.getGeometryStyle();
+    
 
     String viewName = layer.getViewName();
     writeHeader(viewName);
     writeGeometryStyle(geoStyle);
     writeTextStyle(textStyle);
     writeFooter();
+    */
 
     ClientRequestIF requestIF = this.layer.getRequest();
     
@@ -119,17 +119,19 @@ public abstract class SLDWriter implements Reloadable
     writeln("<FeatureTypeStyle>");
   }
 
+  /*
   private void writeGeometryStyle(GeometryStyleDTO geoStyle)
   {
     Symbolizer symbolizer = Symbolizer.getGeometrySymbolizer(layer, geoStyle);
     symbolizer.write(this);
   }
 
-  protected void writeTextStyle(TextStyleDTO textStyle)
+  private void writeTextStyle(TextStyleDTO textStyle)
   {
     TextSymbolizer textSymbolizer = new TextSymbolizer(layer, textStyle);
     textSymbolizer.write(this);
   }
+  */
 
   private void writeFooter()
   {
@@ -147,17 +149,5 @@ public abstract class SLDWriter implements Reloadable
   protected void writeln(String line)
   {
     builder.append(line + "\n");
-  }
-
-  public static SLDWriter getSLDWriter(LayerDTO layer)
-  {
-    if (layer instanceof ThematicLayerDTO)
-    {
-      return new ThematicSLDWriter((ThematicLayerDTO) layer);
-    }
-    else
-    {
-      return new UniversalSLDWriter((UniversalLayerDTO) layer);
-    }
   }
 }

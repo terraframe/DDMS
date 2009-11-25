@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -837132499)
+@com.terraframe.mojo.business.ClassSignature(hash = 1460801639)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public class MosquitoQueryDTO extends dss.vector.solutions.entomology.TrueSpecieEntityQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -837132499;
+private static final long serialVersionUID = 1460801639;
 
   protected MosquitoQueryDTO(String type)
   {

@@ -32,7 +32,6 @@ import dss.vector.solutions.general.OutbreakCalculation;
 import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.util.QueryUtil;
 
 public class IndividualCase extends IndividualCaseBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -238,7 +237,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry, ThematicLayer thematicLayer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
   {
     JSONObject queryConfig;
     try
@@ -255,7 +254,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, IndividualIPT.CLASS, IndividualIPT.FACILITY);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, IndividualIPT.CLASS, IndividualIPT.FACILITY);
 
     IndividualCaseQuery caseQuery = (IndividualCaseQuery) queryMap.get(IndividualCase.CLASS);
     IndividualInstanceQuery instanceQuery = (IndividualInstanceQuery) queryMap.get(IndividualInstance.CLASS);

@@ -12,15 +12,8 @@
 <%@page import="dss.vector.solutions.query.QueryController"%>
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
-<%@page import="dss.vector.solutions.query.MappingController"%>
-<%@page import="dss.vector.solutions.query.RangeCategoryDTO"%>
-<%@page import="dss.vector.solutions.query.NonRangeCategoryDTO"%>
-<%@page import="dss.vector.solutions.query.RangeCategoryController"%>
-<%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
-<%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
-<%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
@@ -37,10 +30,6 @@
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeConcreteInfo"%>
-<%@page import="com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF"%>
-<%@page import="com.terraframe.mojo.dataaccess.metadata.MdAttributeConcreteDAO"%>
-<%@page import="com.terraframe.mojo.dataaccess.MdBusinessDAOIF"%>
-<%@page import="com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
 <%@page import="dss.vector.solutions.query.LayerViewDTO"%>
 <%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
@@ -93,7 +82,7 @@
     //OperatorSprayStatusViewDTO.CLASS,OperatorSprayViewDTO.CLASS,
     //HouseholdSprayStatusViewDTO.CLASS,
     };
-    String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
+    String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
 
 
     List<String> loadables = new ArrayList<String>();

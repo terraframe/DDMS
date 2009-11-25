@@ -41,7 +41,6 @@ import com.terraframe.mojo.query.SelectableSQLDate;
 import com.terraframe.mojo.query.SelectableSingle;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryParser;
-import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdEntity;
 import com.terraframe.mojo.system.metadata.MdRelationship;
@@ -52,15 +51,12 @@ import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoEntityView;
-import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
-import dss.vector.solutions.query.ThematicLayer;
-import dss.vector.solutions.query.ThematicVariable;
 
 public class QueryUtil implements Reloadable
 {
@@ -322,7 +318,7 @@ public class QueryUtil implements Reloadable
    * @param selectedUniversals
    * @return
    */
-  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory, ValueQuery valueQuery, String xml, JSONObject config, ThematicLayer thematicLayer, boolean includeGeometry, String generatedQueryClass,
+  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory, ValueQuery valueQuery, String xml, JSONObject config, boolean includeGeometry, String generatedQueryClass,
       String geoEntityAttribute)
   {
     ValueQueryParser valueQueryParser;
@@ -348,6 +344,7 @@ public class QueryUtil implements Reloadable
     }
 
     // include the thematic variable (if applicable).
+    /* FIXME MAP
     if (thematicLayer != null)
     {
       ThematicVariable thematicVariable = thematicLayer.getThematicVariable();
@@ -363,12 +360,10 @@ public class QueryUtil implements Reloadable
     // FIXME does not take into account multiple geo attributes
     if (includeGeometry)
     {
-      /*
-       * Note that the mapping query does not need to perform the complex left
-       * join logic. This is because the entity name, geo id selectables on
-       * different universal types will not affect the mapping result, so they
-       * are omitted.
-       */
+      // Note that the mapping query does not need to perform the complex left
+      // join logic. This is because the entity name, geo id selectables on
+      // different universal types will not affect the mapping result, so they
+      // are omitted.
 
       MdBusiness geoEntityMd = thematicLayer.getGeoHierarchy().getGeoEntityClass();
       String thematicLayerType = geoEntityMd.definesType();
@@ -423,7 +418,7 @@ public class QueryUtil implements Reloadable
       }
 
     }
-    else
+    else*/
     {
       // Normal query (non-mapping)
       Map<String, List<ValueQuery>> attributeKeysAndJoins = new HashMap<String, List<ValueQuery>>();

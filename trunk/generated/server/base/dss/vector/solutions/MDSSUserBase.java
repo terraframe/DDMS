@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1045837663)
+@com.terraframe.mojo.business.ClassSignature(hash = 1021152016)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,15 +11,51 @@ package dss.vector.solutions;
 public abstract class MDSSUserBase extends com.terraframe.mojo.system.Users implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.MDSSUser";
+  public static java.lang.String DEFAULTMAP = "defaultMap";
   public static java.lang.String DEFAULTSEARCH = "defaultSearch";
   public static java.lang.String GEOROOT = "geoRoot";
   public static java.lang.String PERSON = "person";
   public static java.lang.String ROOTGEOENTITY = "rootGeoEntity";
-  private static final long serialVersionUID = -1045837663;
+  private static final long serialVersionUID = 1021152016;
   
   public MDSSUserBase()
   {
     super();
+  }
+  
+  public dss.vector.solutions.query.DefaultSavedMap getDefaultMap()
+  {
+    if (getValue(DEFAULTMAP).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.query.DefaultSavedMap.get(getValue(DEFAULTMAP));
+    }
+  }
+  
+  public void validateDefaultMap()
+  {
+    this.validateAttribute(DEFAULTMAP);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getDefaultMapMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.MDSSUser.CLASS);
+    return mdClassIF.definesAttribute(DEFAULTMAP);
+  }
+  
+  public void setDefaultMap(dss.vector.solutions.query.DefaultSavedMap value)
+  {
+    if(value == null)
+    {
+      setValue(DEFAULTMAP, "");
+    }
+    else
+    {
+      setValue(DEFAULTMAP, value.getId());
+    }
   }
   
   public dss.vector.solutions.query.SavedSearch getDefaultSearch()

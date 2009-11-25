@@ -13,8 +13,9 @@ import org.json.JSONObject;
 import com.terraframe.mojo.business.rbac.UserDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
-import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
@@ -56,15 +57,10 @@ public class SavedSearch extends SavedSearchBase implements
     // make sure search name is unique for this user for the given query.
     QueryFactory f = new QueryFactory();
     SavedSearchQuery searchQuery = new SavedSearchQuery(f);
-//    PersistsSearchQuery persistsQuery = new PersistsSearchQuery(f);
-
-    // restrict by user
-//    persistsQuery.WHERE(persistsQuery.parentId().EQ(user.getId()));
-//    persistsQuery.WHERE(persistsQuery.hasChild(searchQuery));
 
     // restrict by type and search name
     searchQuery.WHERE(searchQuery.getQueryName().EQ(searchName));
-    searchQuery.WHERE(searchQuery.getQueryType().EQ(this.getQueryType()));
+//    searchQuery.WHERE(searchQuery.getQueryType().EQ(this.getQueryType()));
     searchQuery.WHERE(searchQuery.getQueryType().NEi(DefaultSavedSearch.DEFAULT));
 
     if (searchQuery.getCount() > 0)
@@ -73,6 +69,20 @@ public class SavedSearch extends SavedSearchBase implements
       UniqueSearchNameException ex = new UniqueSearchNameException(error);
       throw ex;
     }
+  }
+  
+  /**
+   * Fetches all SavedSearches that can be mapped.
+   * 
+   * @return
+   */
+  public static SavedSearchViewQuery getMappableSearches()
+  {
+    QueryFactory f = new QueryFactory();
+    MappableSearchBuilder builder = new MappableSearchBuilder(f);
+    SavedSearchViewQuery q = new SavedSearchViewQuery(f, builder);
+    
+    return q;
   }
 
   /**
@@ -176,11 +186,6 @@ public class SavedSearch extends SavedSearchBase implements
 
     checkUniqueness(name, mdssUser);
 
-    // Create the thematic layer if it does not exist
-    String thematicLayerType = view.getThematicLayer();
-    ThematicLayer thematicLayer = ThematicLayer.newInstance(thematicLayerType);
-    this.setThematicLayer(thematicLayer);
-
     this.apply();
 
     if(asDefault)
@@ -202,16 +207,6 @@ public class SavedSearch extends SavedSearchBase implements
     view.setQueryName(this.getQueryName());
     view.setSavedQueryId(this.getId());
 
-    ThematicLayer layer = this.getThematicLayer();
-    if(layer != null)
-    {
-      String layerId = layer.getId();
-      view.setThematicLayerId(layerId);
-
-      String thematicLayerId = view.getThematicLayerId();
-      System.out.println(thematicLayerId);
-    }
-
     if(includeXML)
     {
       view.setQueryXml(this.getQueryXml());
@@ -226,7 +221,6 @@ public class SavedSearch extends SavedSearchBase implements
         // Dereference all MO Terms in the configuration
         config = new JSONObject(this.getConfig());
         JSONObject terms = config.getJSONObject("terms");
-//        JSONObject terms = config.getJSONObject("_config").getJSONObject("terms");
 
         Map<String, List<JSONObject>> termIds = new HashMap<String, List<JSONObject>>();
         List<String> ids = new LinkedList<String>();
@@ -295,34 +289,6 @@ public class SavedSearch extends SavedSearchBase implements
     return view;
   }
 
-  public LayerView[] getAllLayers()
-  {
-    List<LayerView> views = new LinkedList<LayerView>();
-
-    OIterator<? extends UniversalLayer> iter = this.getAllDefinesLayers();
-
-    try
-    {
-      while(iter.hasNext())
-      {
-        views.add(iter.next().getAsView());
-      }
-    }
-    finally
-    {
-      iter.close();
-    }
-
-
-    ThematicLayer thematicLayer = this.getThematicLayer();
-    if(thematicLayer != null)
-    {
-      views.add(thematicLayer.getAsView());
-    }
-
-    return views.toArray(new LayerView[views.size()]);
-  }
-
   public InputStream getTemplateStream()
   {
     String template = this.getTemplateFile();
@@ -365,9 +331,6 @@ public class SavedSearch extends SavedSearchBase implements
   @Transaction
   public static SavedSearchView loadDefaultSearch(SavedSearchView view)
   {
-    // This is an entry point common to all query screens, so we take this opportunity to clear out old views
-    cleanOldViews();
-
     SavedSearch search = new DefaultSavedSearch();
 
     search.create(view, true);
@@ -375,31 +338,42 @@ public class SavedSearch extends SavedSearchBase implements
     return search.getAsView(false, false);
   }
 
-  /**
-   * Cleans up all views older than an hour.
-   */
-  private static void cleanOldViews()
+  private static class MappableSearchBuilder extends com.terraframe.mojo.query.ViewQueryBuilder implements Reloadable
   {
-    long anHourAgo = System.currentTimeMillis() - (60 * 60 * 1000);
-    List<String> viewsToDelete = new LinkedList<String>();
-    for (String viewName : Database.getViewsByPrefix(ThematicLayer.GEO_VIEW_PREFIX))
+    private SavedSearchQuery searchQuery;
+    
+    private MappableSearchBuilder(QueryFactory f)
     {
-      String next = viewName;
-      try
-      {
-        long parseLong = Long.parseLong(next.substring(ThematicLayer.GEO_VIEW_PREFIX.length()));
-        if (parseLong < anHourAgo)
-        {
-          // This view is old.  Add it to the deletion list
-          viewsToDelete.add(viewName);
-        }
-      }
-      catch (NumberFormatException e)
-      {
-        // This can happen if there's a view that matches the prefix but doesn't have the timestamp.  Just ignore it.
-      }
+      super(f);
+      
+      this.searchQuery = new SavedSearchQuery(f);
     }
-    // Perform the actual drop commands
-    Database.dropViews(viewsToDelete);
+    
+    @Override
+    protected void buildSelectClause()
+    {
+      GeneratedViewQuery viewQuery = this.getViewQuery();
+      
+      viewQuery.map(SavedSearchView.QUERYNAME, searchQuery.getQueryName());
+      viewQuery.map(SavedSearchView.SAVEDQUERYID, searchQuery.getId());
+      viewQuery.map(SavedSearchView.QUERYTYPE, searchQuery.getQueryType()); 
+    }
+
+    @Override
+    protected void buildWhereClause()
+    {
+      GeneratedViewQuery viewQuery = this.getViewQuery();
+      
+      viewQuery.WHERE(this.searchQuery.getQueryType().NE(DefaultSavedSearch.DEFAULT));
+//      viewQuery.AND(this.searchQuery.getMappable().EQ(true));
+      viewQuery.ORDER_BY_ASC(searchQuery.getQueryName());
+    }
+    
+  }
+  
+  @Override
+  public String toString()
+  {
+    return this.getQueryName();
   }
 }

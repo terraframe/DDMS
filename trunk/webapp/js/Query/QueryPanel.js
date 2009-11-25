@@ -12,7 +12,6 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
   var pWidth =  (window.innerWidth - 30) > minWidth ? (window.innerWidth - 30) : minWidth;
   var pHeight = (window.innerHeight - 160) > minHeight ? (window.innerHeight -160) : minHeight;
 
-
   this._queryLayout = new YAHOO.widget.Layout(queryPanelId, {
     height: pHeight,
     width: pWidth,
@@ -24,18 +23,6 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
         { position: 'right', width: 150, body: '<div style="margin-left: 10px" id="'+this.QUERY_SUMMARY+'"></div>', resize: true, scroll: true, gutter: '0 5 0 2'}
     ]
   });
-
-/* FIXME MAP
-  this._mapLayout = new YAHOO.widget.Layout(mapPanelId, {
-    height: pHeight,
-    width: pWidth,
-    units: [
-        { position: 'left', width: 300, resize: false, body: '', gutter: '0 5 0 2', scroll: true },
-        { position: 'bottom', height: 40, body: '', gutter: '2' },
-        { position: 'center', body: '<div id="'+this.MAP_CONTAINER+'"></div>', gutter: '0 2 0 0', scroll: true }
-    ]
-  });
-*/
 
   this._pWidth = pWidth;
   this._pHeight = pHeight;
@@ -57,10 +44,6 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
   this._qCenterUnit = null;
   this._qRightUnit = null;
 
-  this._mLeftUnit = null;
-  this._mBottomUnit = null;
-  this._mCenterUnit = null;
-
   this._querySummary = null;
 
   // reference to the reusable modal for file uploading
@@ -74,13 +57,6 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
   // Obj representing a SavedSearchView
   this._currentSavedSearch = null;
 
-  // The current ThematicVarible object that is used for mapping.
-  this._currentThematicVariable = null;
-
-  // the current layers in the map. If this._currentSavedSearch
-  // is not null, then these layers belong to that SavedSearch.
-  this._layers = [];
-
   this._map = null;
 
   // map between header ids (TH tags) and context menu builder functions
@@ -88,34 +64,13 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
 
   // map between query list entries (LI tags) and context menu builder functions
   this._queryMenuBuilders = {};
-
-  // The button that adds a new layer when clicked
-  this._addLayerButton = null;
-
-  // a map of ThematicVariable objects
-  this._thematicVariables = {};
-  this._thematicLayers = [];
-
-  this._annotation = new MDSS.Annotation(this);
 };
 
 MDSS.QueryPanel.prototype = {
 
-  ANNOTATIONS : "annotations",
-
-  CATEGORY_LIST : "categoryList",
-
-  MAP_CONTAINER : "mapContainer",
-
   QUERY_ITEMS : "queryItemsList",
 
-  THEMATIC_VARIABLES_LIST : "thematicVariablesList",
-
-  DEFINED_LAYERS_LIST : "definedLayersList",
-
   AVAILABLE_QUERY_LIST : "availableQueryList",
-
-  AVAILABLE_LAYERS_LIST : "availableLayersList",
 
   QUERY_DATA_TABLE : "queryDataTable",
 
@@ -135,7 +90,6 @@ MDSS.QueryPanel.prototype = {
 
   QUERY_SUMMARY : "querySummary",
 
-  THEMATIC_LAYERS_SELECT : "thematicLayersSelect",
 
   EDIT_VARIABLE_STYLE : "editVariableStyle",
 
@@ -147,7 +101,6 @@ MDSS.QueryPanel.prototype = {
   setCurrentSavedSearch : function(savedSearch)
   {
     this._currentSavedSearch = savedSearch;
-    this._resetThematicOptions();
   },
 
   /**
@@ -158,22 +111,6 @@ MDSS.QueryPanel.prototype = {
   getCurrentSavedSearch : function()
   {
     return this._currentSavedSearch;
-  },
-
-  /**
-   * Sets the current ThematicVariable instance.
-   */
-  setCurrentThematicVariable : function(thematicVar)
-  {
-    this._currentThematicVariable = thematicVar;
-  },
-
-  /**
-   * Returns the curren ThematicVariable instance.
-   */
-  getCurrentThematicVariable : function(thematicVar)
-  {
-    return this._currentThematicVariable;
   },
 
   /**
@@ -549,22 +486,6 @@ MDSS.QueryPanel.prototype = {
     menu.subscribe("triggerContextMenu", this._queryMenuTrigger, {thisRef:this});
   },
 
-  getQueryTopUnit : function() { return this._qTopUnit; },
-
-  getQueryLeftUnit : function() { return this._qLeftUnit; },
-
-  getQueryBottomUnit : function() { return this._qBottomUnit; },
-
-  getQueryCenterUnit : function() { return this._qCenterUnit; },
-
-  getQueryRightUnit : function() { return this._qRightUnit; },
-
-  getMapLeftUnit : function() { return this._mLeftUnit; },
-
-  getMapBottomUnit : function() { return this._mBottomUnit; },
-
-  getMapCenterUnit : function() { return this._mCenterUnit; },
-
   /**
    * Should be called after QueryPanel has been rendered.
    */
@@ -588,10 +509,6 @@ MDSS.QueryPanel.prototype = {
 
     YAHOO.util.Event.on(this.PAGINATION_SECTION, 'click', this._paginationHandler, null, this);
 
-/* FIXME MAP
-    this._buildUniversalList();
-    */
-
     // let the query panels perform their own post-render logic
     if(Mojo.Util.isFunction(this._config.postRender))
     {
@@ -611,342 +528,6 @@ MDSS.QueryPanel.prototype = {
 
     var querySummary = document.getElementById(this.QUERY_SUMMARY);
     querySummary.innerHTML = html;
-  },
-
-  /**
-   * Sets the selected thematic layer. Note that this should be called
-   * after this.setAvailableThematicLayers().
-   */
-  setSelectedThematicLayer : function(layer)
-  {
-    var select = document.getElementById(this.THEMATIC_LAYERS_SELECT);
-    var options = select.options;
-
-    for(var i=0; i<options.length; i++)
-    {
-
-      var option = options[i];
-      if(option.value === layer)
-      {
-        select.selectedIndex = i;
-        break;
-      }
-    }
-  },
-
-  setAvailableThematicLayers : function(layers)
-  {
-    this._thematicLayers = layers;
-    this._resetThematicOptions();
-  },
-
-  _resetThematicOptions : function()
-  {
-    var select = document.getElementById(this.THEMATIC_LAYERS_SELECT);
-    if(select)
-    {
-      var oldSelected = select.selectedIndex != -1 ? select.options[select.selectedIndex].value : null;
-      var startIndex = null;
-      select.innerHTML = '<option value="">&nbsp;</value>';
-      for(var i=0; i<this._thematicLayers.length; i++)
-      {
-        var layer = this._thematicLayers[i];
-
-        var option = document.createElement('option');
-        option.value = layer;
-        option.innerHTML = MDSS.GeoTreeSelectables.types[layer].label;
-
-        select.appendChild(option);
-
-        if(oldSelected != null && oldSelected === layer)
-        {
-          startIndex = i;
-        }
-      }
-
-      select.selectedIndex = startIndex != null ? startIndex + 1 : 0;
-    }
-  },
-
-  _thematicLayerSelected : function(e)
-  {
-    if(Mojo.Util.isFunction(this._config.thematicLayerSelected))
-    {
-      var select = e.target;
-      var option = select.options[select.selectedIndex];
-
-      this._config.thematicLayerSelected.call(this._queryClass, option.value);
-    }
-  },
-
-  toggleThematicSettings : function(enabled)
-  {
-    document.getElementById(this.EDIT_DEFAULT_STYLE).disabled = !enabled;
-    document.getElementById(this.EDIT_VARIABLE_STYLE).disabled = !enabled;
-  },
-
-  /**
-   * Returns the currently selected thematic layer in the drop down list
-   * of available thematic layers.
-   */
-  getCurrentThematicLayer : function()
-  {
-    var select = document.getElementById(this.THEMATIC_LAYERS_SELECT);
-    return select.options[select.selectedIndex].value;
-  },
-
-  /**
-   * Builds a list of possible universal layers
-   * that can be selected.
-   */
-  _buildUniversalList : function()
-  {
-    // list thematic variables
-    var thematicDiv = new YAHOO.util.Element(document.createElement('div'));
-
-    var thematicLayerDiv = document.createElement('div');
-
-    var html = MDSS.Localized.Thematic.Layer+"<br />";
-    html += "<select style='margin: 3px 0px; min-width: 220px;' id='"+this.THEMATIC_LAYERS_SELECT+"'>";
-    html += "<option value=''></option>";
-    html += "</select>";
-    thematicLayerDiv.innerHTML = html;
-
-    // edit default style
-    var editDefaultStyle = new YAHOO.util.Element(document.createElement('input'));
-    editDefaultStyle.set('type', 'button');
-    editDefaultStyle.set('id', this.EDIT_DEFAULT_STYLE);
-    editDefaultStyle.set('disabled', true);
-    editDefaultStyle.set('value', MDSS.Localized.Thematic.Edit_Default_Style);
-    editDefaultStyle.on('click', function(e){
-      var search = this._currentSavedSearch;
-      var layerId = search != null ? search.getThematicLayerId() : '';
-      this._editDefinedLayer(e, {layerId:layerId});
-    }, null, this);
-
-    var editVariableStyles = new YAHOO.util.Element(document.createElement('input'));
-    editVariableStyles.set('type', 'button');
-    editVariableStyles.set('id', this.EDIT_VARIABLE_STYLE);
-    editVariableStyles.set('disabled', true);
-    editVariableStyles.set('value', MDSS.Localized.Thematic.Edit_Variable_Styles);
-    editVariableStyles.on('click', this._editVariableStyles, null, this);
-
-    thematicDiv.appendChild(thematicLayerDiv);
-    thematicDiv.appendChild(editDefaultStyle);
-    thematicDiv.appendChild(editVariableStyles);
-
-    var availableSpan = document.createElement('span');
-    YAHOO.util.Dom.setStyle(availableSpan, 'display', 'block');
-    availableSpan.innerHTML = MDSS.Localized.Available_Layers;
-
-    // this data structure is defined by
-    // the GeoEntity tree for use case 111.
-    // (We're just stealing it for our own use here.)
-    var types = MDSS.GeoTreeSelectables.types;
-    var typeNames = Mojo.Util.getKeys(types);
-    typeNames.sort();
-
-    var universalListDiv = new YAHOO.util.Element(document.createElement('div'));
-    YAHOO.util.Dom.addClass(universalListDiv, 'universalList');
-    var layers = document.createElement('select');
-    YAHOO.util.Dom.setAttribute(layers, 'id', this.AVAILABLE_LAYERS_LIST);
-
-    for(var i=0; i<typeNames.length; i++)
-    {
-      var type = typeNames[i];
-      var displayLabel = types[type].label;
-
-      var option = document.createElement('option');
-      YAHOO.util.Dom.setAttribute(option, 'value', type);
-      YAHOO.util.Dom.setAttribute(option, 'id', type+"_available");
-      option.innerHTML = displayLabel;
-
-      layers.appendChild(option);
-    }
-
-    universalListDiv.appendChild(availableSpan);
-    universalListDiv.appendChild(layers);
-
-    // add container for user defined layers
-    var layersListDiv = document.createElement('div');
-    YAHOO.util.Dom.addClass(layersListDiv, 'definedLayers');
-
-    var definedSpan = document.createElement('span');
-    definedSpan.innerHTML = MDSS.Localized.Defined_Layers;
-
-    var ul = document.createElement('ul');
-    YAHOO.util.Dom.setAttribute(ul, 'id', this.DEFINED_LAYERS_LIST);
-
-    var ulDiv = document.createElement('div');
-    ulDiv.appendChild(ul);
-
-    layersListDiv.appendChild(definedSpan);
-    layersListDiv.appendChild(ulDiv);
-
-    // add button for new layer
-    this._addLayerButton = new YAHOO.util.Element(document.createElement('input'));
-    this._addLayerButton.set('type', 'button');
-    this._addLayerButton.set('value', MDSS.Localized.Add);
-    this._addLayerButton.on('click', this._addLayer, null, this);
-
-    universalListDiv.appendChild(this._addLayerButton);
-
-    var wrapper = new YAHOO.util.Element(document.createElement('div'));
-    YAHOO.util.Dom.addClass(wrapper, 'layersWrapper');
-    wrapper.appendChild(thematicDiv);
-    wrapper.appendChild(universalListDiv);
-    wrapper.appendChild(layersListDiv);
-
-    // clear any prior HTML
-    this._mLeftUnit.body.innerHTML = '';
-    var body = new YAHOO.util.Element(this._mLeftUnit.body);
-    body.appendChild(wrapper);
-
-    var thematicSelect = document.getElementById(this.THEMATIC_LAYERS_SELECT);
-    thematicSelect.selectedIndex = 0;
-
-    YAHOO.util.Event.on(thematicSelect, 'change', this._thematicLayerSelected, null, this);
-  },
-
-  /**
-   * Adds a thematic variable to the map.
-   */
-  _editVariableStyles : function(e)
-  {
-    if(Mojo.Util.isFunction(this._config.editVariableStyles))
-    {
-      this._config.editVariableStyles.call(this._queryClass);
-    }
-  },
-
-  /**
-   * Called when a user makes a request to edit a layer.
-   */
-  _editDefinedLayer : function(e, obj)
-  {
-    if(Mojo.Util.isFunction(this._config.editLayer))
-    {
-      this._config.editLayer.call(this._queryClass, obj.layerId);
-    }
-  },
-
-  _deleteDefinedLayer : function(e, obj)
-  {
-    if(Mojo.Util.isFunction(this._config.deleteLayer))
-    {
-      this._config.deleteLayer.call(this._queryClass, obj.layerId, obj.type);
-    }
-  },
-
-  /**
-   * Removes all currently defined layers (from the DOM, it doesn't
-   * delete them), and also re-enables all disabled options in the
-   * available layers list.
-   */
-  clearAllDefinedLayers : function()
-  {
-    //var ul = document.getElementById(this.DEFINED_LAYERS_LIST);
-   // ul.innerHTML = '';
-
-   // var select = document.getElementById(this.AVAILABLE_LAYERS_LIST);
-   // var options = select.options;
-   // for(var i=0; i<options.length; i++)
-   // {
-   //   options[i].disabled = false;
-   // }
-  },
-
-  removeDefinedLayer : function(layerId, type)
-  {
-    var li = document.getElementById(layerId+'_defined');
-    li.parentNode.removeChild(li);
-
-    // enable the option in the available list
-    document.getElementById(type+"_available").disabled = false;
-  },
-
-  /**
-   * Adds a user defined layer to the right panel
-   * of the map screen. The entry for the universal
-   * with the given type is removed as an "available"
-   * layer to add.
-   */
-  addDefinedLayer : function(layerId, type)
-  {
-    var li = document.createElement('li');
-    YAHOO.util.Dom.setAttribute(li, 'id', layerId+"_defined")
-
-    var layerObj = {
-      layerId: layerId,
-      type: type
-    }
-
-    var del = document.createElement('img');
-    YAHOO.util.Dom.setAttribute(del, 'src', 'imgs/icons/delete.png');
-    YAHOO.util.Event.on(del, 'click', this._deleteDefinedLayer, layerObj, this);
-
-    var edit = document.createElement('img');
-    YAHOO.util.Dom.setAttribute(edit, 'src', 'imgs/icons/wand.png');
-    YAHOO.util.Event.on(edit, 'click', this._editDefinedLayer, layerObj, this);
-
-    var check = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
-    YAHOO.util.Dom.setAttribute(check, 'value', layerId);
-
-    var span = document.createElement('span');
-    var types = MDSS.GeoTreeSelectables.types; // defined by 111
-    span.innerHTML = types[type].label;
-
-    li.appendChild(del);
-    li.appendChild(edit);
-    li.appendChild(check);
-    li.appendChild(span);
-
-    var ul = document.getElementById(this.DEFINED_LAYERS_LIST);
-    ul.appendChild(li);
-
-    // disable the option in the available list (can't have duplicate layers)
-    document.getElementById(type+"_available").disabled = true;
-  },
-
-  /**
-   * Returns all selected layers to include in the map.
-   */
-  getSelectedLayers : function()
-  {
-    var layers = [];
-
-    var ul = document.getElementById(this.DEFINED_LAYERS_LIST);
-    var checks = YAHOO.util.Selector.query('input', ul);
-    for(var i=0; i<checks.length; i++)
-    {
-      var check = checks[i];
-      if(check.checked)
-      {
-        layers.push(check.value);
-      }
-    }
-
-    return layers;
-  },
-
-  /**
-   * Handler for when a new layer is added.
-   */
-  _addLayer : function()
-  {
-    if(Mojo.Util.isFunction(this._config.addLayer))
-    {
-      var layersList = document.getElementById(this.AVAILABLE_LAYERS_LIST);
-      var options = layersList.options;
-      var selected = options[layersList.selectedIndex];
-
-      if(selected && selected.value)
-      {
-        var type = selected.value;
-        this._config.addLayer.call(this._queryClass, type);
-      }
-    }
   },
 
   _exportXLS : function(e, obj)
@@ -1272,33 +853,6 @@ MDSS.QueryPanel.prototype = {
     var qBottom = new YAHOO.util.Element(this._qBottomUnit.body);
     qBottom.appendChild(leftDiv);
     qBottom.appendChild(rightDiv);
-
-    // map panel buttons
-    var mapButtonDiv = new YAHOO.util.Element(document.createElement('div'));
-    mapButtonDiv.setStyle('float', 'right');
-
-    // annotation
-    var annotation = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(annotation, 'type', 'button');
-    YAHOO.util.Dom.setAttribute(annotation, 'id', this.ANNOTATIONS);
-    YAHOO.util.Dom.setAttribute(annotation, 'value', MDSS.Localized.Annotations);
-    YAHOO.util.Dom.addClass(annotation, 'queryButton');
-    YAHOO.util.Event.on(annotation, 'click', this._annotation.showModal, null, this._annotation);
-    annotation.disabled = true;
-    mapButtonDiv.appendChild(annotation);
-
-    var refreshMapButton = new YAHOO.util.Element(document.createElement('input'));
-    refreshMapButton.set('type', 'button');
-    refreshMapButton.set('value', MDSS.Localized.Query.Refresh);
-    refreshMapButton.set('id', this.REFRESH_MAP_BUTTON);
-    refreshMapButton.addClass('queryButton');
-    refreshMapButton.on('click', this._mapQuery, {}, this);
-    mapButtonDiv.appendChild(refreshMapButton);
-
-/*
-    var mBottom = new YAHOO.util.Element(this._mBottomUnit.body);
-    mBottom.appendChild(mapButtonDiv);
-    */ 
   },
 
   /**
@@ -1513,86 +1067,6 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   * Adds to the list of possible thematic variables a user can
-   * choose from.
-   */
-  addThematicVariable : function(entityAlias, attributeName, userAlias, displayLabel)
-  {
-    var thematicVar = new Mojo.$.dss.vector.solutions.query.ThematicVariable();
-    thematicVar.setEntityAlias(entityAlias);
-    thematicVar.setAttributeName(attributeName);
-    thematicVar.setUserAlias(userAlias);
-    // thematicVar.setDisplayLabel(displayLabel); obsolete because display will be cached
-
-  	this._thematicVariables[userAlias] = thematicVar;
-  },
-
-  /**
-   * Removes the given thematic variable.
-   */
-  removeThematicVariable : function(userAlias)
-  {
-    delete this._thematicVariables[userAlias];
-  },
-
-  getThematicVariables : function()
-  {
-  	return Mojo.Util.getValues(this._thematicVariables);
-  },
-
-  /**
-   * Scraps the category list HTML and creates new instances
-   * of AbstractCategor.
-   */
-  scrapeCategories : function()
-  {
-  	var categories = [];
-
-    var categoryList = document.getElementById(this.CATEGORY_LIST);
-    var dds = YAHOO.util.Selector.query('dd', categoryList);
-    for(var i=0; i<dds.length; i++)
-    {
-      var dd = dds[i];
-      var inputs = YAHOO.util.Selector.query('input', dd);
-
-      var type = inputs[0].value;
-      var thematicColor = inputs[1].value;
-
-      var construct = Mojo.Meta.findClass(type);
-      var category = new construct();
-      category.setThematicColor(thematicColor);
-
-      if(type === Mojo.$.dss.vector.solutions.query.RangeCategory.CLASS)
-      {
-        var lowerBound = inputs[2].value;
-        var upperBound = inputs[3].value;
-
-        category.setLowerBound(lowerBound);
-        category.setUpperBound(upperBound);
-      }
-      else
-      {
-      	var exactValue = inputs[2].value;
-
-      	category.setExactValue(exactValue);
-      }
-
-      categories.push(category);
-    }
-
-    return categories;
-  },
-
-  addCategoryHTML : function(html)
-  {
-    var categoryList = document.getElementById(this.CATEGORY_LIST);
-    var li = document.createElement('li');
-    li.innerHTML = html;
-
-    categoryList.appendChild(li);
-  },
-
-  /**
    * Removes the specified column from the table.
    */
   removeColumn : function(column)
@@ -1632,94 +1106,6 @@ MDSS.QueryPanel.prototype = {
   clearAllRecords : function()
   {
     this._dataTable.deleteRows(0, this._dataTable.getRecordSet().getLength());
-  },
-
-  /**
-   * Adds a map with the given configuration.
-   */
-  createMap : function(layers)
-  {
-    var baseLayer = layers[0];
-    var geoServerPath = baseLayer.geoserverURL;
-
-    // clear any previous map
-    //document.getElementById(this.MAP_CONTAINER).innerHTML = '';
-    if(this._map != null)
-    {
-      this._map.destroy();
-      this._annotation.hideAll();
-    }
-
-    // pink tile avoidance
-    OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
-    // make OL compute scale according to WMS spec
-    OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
-
-    var bbox = baseLayer.bbox;
-    var bounds = new OpenLayers.Bounds(bbox[0], bbox[1], bbox[2], bbox[3]);
-    var options = {
-        controls: [],
-        projection: "EPSG:4326",
-        units: 'degrees'
-    };
-
-
-    this._map = new OpenLayers.Map(this.MAP_CONTAINER, options);
-
-    // setup base tiled layer
-    var mapLayers = [];
-    var tiled = new OpenLayers.Layer.WMS(
-        "", geoServerPath+"/wms",
-        {
-            srs: 'EPSG:4326',
-            layers: baseLayer.view,
-            styles: '',
-            format: 'image/png',
-            sld: Mojo.ClientSession.getBaseEndpoint()+baseLayer.sld,
-            tiled: 'true'
-        },
-        {
-          buffer: 0,
-          opacity: 1.0,
-          isBaseLayer: true
-        }
-    );
-    mapLayers.push(tiled);
-
-    for(var i=1; i<layers.length; i++)
-    {
-      var layerName = layers[i];
-        var extraLayer = new OpenLayers.Layer.WMS(
-        "", geoServerPath+"/wms",
-        {
-            srs: 'EPSG:4326',
-            layers: layerName.view,
-            styles: '',
-            format: 'image/png',
-            sld: Mojo.ClientSession.getBaseEndpoint()+layerName.sld,
-            transparent: true,
-            tiled: 'true'
-        },
-        {
-          buffer: 0,
-          opacity: 0.5
-        }
-    );
-
-         mapLayers.push(extraLayer);
-    }
-
-
-
-    this._map.addLayers(mapLayers);
-
-    // build up all controls
-    this._map.addControl(new OpenLayers.Control.PanZoomBar({
-        position: new OpenLayers.Pixel(2, 15)
-    }));
-    this._map.addControl(new OpenLayers.Control.Navigation());
-    //this._map.addControl(new OpenLayers.Control.ScaleLine());
-    this._map.zoomToExtent(bounds);
   },
 
   /**
@@ -1806,19 +1192,6 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   * Creates the map
-   */
-  _mapQuery : function()
-  {
-    if(Mojo.Util.isFunction(this._config.mapQuery))
-    {
-      this._config.mapQuery.call(this._queryClass);
-
-      document.getElementById(this.ANNOTATIONS).disabled = false;
-    }
-  },
-
-  /**
    * Executes the Query by calling the user-defined
    * handler.
    */
@@ -1892,9 +1265,6 @@ MDSS.QueryPanel.prototype = {
   {
     this._queryLayout.render();
     
-    /* FIXME MAP
-    this._mapLayout.render();
-    */ 
     this._postRender();
   }
 };
@@ -2113,363 +1483,5 @@ MDSS.Pagination.Page.prototype = {
   isCurrentPage : function() { return this._isCurrent; },
 
   getPageNumber : function() { return this._pageNumber; },
-
-};
-
-MDSS.Annotation = function(queryPanel)
-{
-  this._queryPanel = queryPanel;
-
-  this._modal = null;
-};
-
-MDSS.Annotation.prototype = {
-
-  showModal : function()
-  {
-
-    if(this._modal == null)
-    {
-      this._modal = new YAHOO.widget.Panel("editAnnotations", {
-        width:"400px",
-        height: "400px",
-        fixedcenter:true,
-        close: true,
-        draggable:false,
-        zindex:4,
-        modal:true,
-        visible:true
-      });
-
-      // wrap content in divs
-      var outer = document.createElement('div');
-
-      var header = document.createElement('div');
-      header.innerHTML = '<h3>'+MDSS.Localized.Annotations+'</h3><hr />';
-      outer.appendChild(header);
-
-      var html = '';
-      html += '<dl>';
-      html += '  <dt>';
-      html += '    '+MDSS.Localized.Title+'&nbsp;<input id="titleInput" type="text" />';
-      html += '  </dt>';
-      html += '  <dd>';
-      html += '    <input type="checkbox" id="titleAnnotationCheck" />&nbsp;'+MDSS.Localized.Enable;
-      html += '  </dd>';
-      html += '  <dt>';
-      html += '    '+MDSS.Localized.NorthArrow;
-      html += '  </dt>';
-      html += '  <dd>';
-      html += '    <input type="checkbox" id="arrowAnnotationCheck" />&nbsp;'+MDSS.Localized.Enable;
-      html += '  </dd>';
-      html += '  <dt>';
-      html += '   '+MDSS.Localized.Legend;
-      html += '  </dt>';
-      html += '  <dd>';
-      html += '    <input type="checkbox" id="legendAnnotationCheck" />&nbsp;'+MDSS.Localized.Enable;
-      html += '  </dd>';
-      html += '  <dt>';
-      html += '   Scale';
-      html += '  </dt>';
-      html += '  <dd>';
-      html += '    <input type="checkbox" id="scaleAnnotationCheck" />&nbsp;'+MDSS.Localized.Enable;
-      html += '  </dd>';
-      html += '</dl>';
-      html += '<input type="button" id="updateAnnotations" value="'+MDSS.Localized.Update+'" />';
-
-      var contentDiv = document.createElement('div');
-      YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
-      contentDiv.innerHTML = html;
-      outer.appendChild(contentDiv);
-
-      this._modal.setBody(outer);
-      this._modal.render(document.body);
-
-      header = null; // cleanup
-      contentDiv = null;
-
-      YAHOO.util.Event.on('updateAnnotations', 'click', this.updateAnnotations, null, this);
-    }
-    else
-    {
-      this._modal.show();
-      this._modal.bringToTop();
-    }
-
-  },
-
-  updateAnnotations : function()
-  {
-    var titleC = document.getElementById('titleAnnotationCheck');
-    if(titleC.checked)
-    {
-      this.showTitle();
-    }
-    else
-    {
-      this.hideTitle();
-    }
-
-    var arrowC = document.getElementById('arrowAnnotationCheck');
-    if(arrowC.checked)
-    {
-      this.showArrow();
-    }
-    else
-    {
-      this.hideArrow();
-    }
-
-    var legendC = document.getElementById('legendAnnotationCheck');
-    if(legendC.checked)
-    {
-      this.showLegend();
-    }
-    else
-    {
-      this.hideLegend();
-    }
-
-    try
-    {
-    var scaleC = document.getElementById('scaleAnnotationCheck');
-    if(scaleC.checked)
-    {
-      this.showScale();
-    }
-    else
-    {
-      this.hideScale();
-    }
-    }
-    catch(e){alert(e);}
-
-    this.hideModal();
-  },
-
-  hideModal : function()
-  {
-    this._modal.hide();
-  },
-
-  showScale : function()
-  {
-    var scaleDiv = document.getElementById('scaleDiv');
-    if(scaleDiv == null)
-    {
-      scaleDiv = document.createElement('div');
-      scaleDiv.id = 'scaleDiv';
-
-      this.addDragDrop(scaleDiv);
-    }
-
-    // always clear the div just to be safe
-    scaleDiv.innerHTML = '';
-
-    if(this._queryPanel._map != null)
-    {
-      this._queryPanel._map.addControl(new OpenLayers.Control.ScaleLine({'div':scaleDiv}));
-    }
-
-    this.position(scaleDiv, -100, -100);
-  },
-
-  hideScale : function()
-  {
-    var scaleDiv = document.getElementById('scaleDiv');
-    if(scaleDiv)
-    {
-      YAHOO.util.Dom.setStyle(scaleDiv, 'display', 'none');
-    }
-  },
-
-  showTitle : function()
-  {
-    var titleDiv = document.getElementById('titleDiv');
-    if(titleDiv == null)
-    {
-      titleDiv = document.createElement('div');
-      titleDiv.id = 'titleDiv';
-
-      this.addDragDrop(titleDiv);
-    }
-
-    var title = document.getElementById('titleInput').value;
-    titleDiv.innerHTML = title;
-
-
-    this.position(titleDiv, 100, -100);
-  },
-
-  hideAll : function()
-  {
-    this.hideTitle();
-    this.hideScale();
-    this.hideLegend();
-    this.hideArrow();
-  },
-
-  hideTitle : function()
-  {
-    var titleDiv = document.getElementById('titleDiv');
-    if(titleDiv)
-    {
-      YAHOO.util.Dom.setStyle(titleDiv, 'display', 'none');
-      document.getElementById('titleInput').value = '';
-    }
-  },
-
-  position : function(div, leftOffset, topOffset)
-  {
-    YAHOO.util.Dom.setStyle(div, 'display', 'block');
-
-    var mapDiv = document.getElementById('mapContainer');
-
-    var xy = YAHOO.util.Dom.getXY(mapDiv);
-
-    var mWidth = parseInt(YAHOO.util.Dom.getStyle(mapDiv, 'width'), 10);
-    var mHeight = parseInt(YAHOO.util.Dom.getStyle(mapDiv, 'height'), 10);
-
-    var dWidth = parseInt(YAHOO.util.Dom.getStyle(div, 'width'), 10);
-    var dHeight = parseInt(YAHOO.util.Dom.getStyle(div, 'height'), 10);
-
-    var center = [xy[0] + (mWidth/2) - (dWidth/2) + leftOffset,
-      xy[1] + (mHeight/2) - (dHeight/2) + topOffset];
-
-    YAHOO.util.Dom.setXY(div, center);
-
-    var region = YAHOO.util.Region.getRegion(mapDiv);
-    xy = YAHOO.util.Dom.getXY(div);
-
-    //Set left to x minus left
-    var left = xy[0] - region.left;
-
-    //Set right to right minus x minus width
-    var right = region.right - xy[0] - dWidth;
-
-    //Set top to y minus top
-    var top = xy[1] - region.top;
-
-    //Set bottom to bottom minus y minus height
-    var bottom = region.bottom - xy[1] - dHeight;
-
-    //Set the constraints based on the above calculations
-    var dd = YAHOO.util.DragDropMgr.getDDById(div.id);
-    dd.setXConstraint(left, right);
-    dd.setYConstraint(top, bottom);
-  },
-
-  addDragDrop : function(div)
-  {
-    var mapDiv = document.getElementById('mapPanel');
-    var region = YAHOO.util.Region.getRegion(mapDiv);
-
-    YAHOO.util.Dom.setStyle(div, 'position', 'absolute');
-    YAHOO.util.Dom.setStyle(div, 'display', 'block');
-
-    mapDiv.appendChild(div);
-
-    var dd = new YAHOO.util.DD(div, {
-      dragOnly : true
-    });
-  },
-
-  showArrow : function()
-  {
-    var arrowDiv = document.getElementById('arrowDiv');
-    if(arrowDiv == null)
-    {
-      arrowDiv = document.createElement('div');
-      arrowDiv.id = 'arrowDiv';
-      arrowDiv.innerHTML = '<img src="imgs/northArrow.png" style="width: 50px; height: 50px;" />';
-
-      this.addDragDrop(arrowDiv);
-    }
-
-    this.position(arrowDiv, -100, 100);
-  },
-
-  hideArrow : function()
-  {
-    var arrowDiv = document.getElementById('arrowDiv');
-    if(arrowDiv)
-    {
-      YAHOO.util.Dom.setStyle(arrowDiv, 'display', 'none');
-    }
-  },
-
-  hideLegend : function()
-  {
-    var legendDiv = document.getElementById('legendDiv');
-    if(legendDiv)
-    {
-      YAHOO.util.Dom.setStyle(legendDiv, 'display', 'none');
-    }
-  },
-
-  showLegend : function()
-  {
-    var request = new MDSS.Request({
-      thisRef : this,
-      onSuccess : function(legendJSON)
-      {
-        var legendDiv = document.getElementById('legendDiv');
-
-        legendJSON = MDSS.util.stripWhitespace(legendJSON);
-        if(legendJSON.indexOf('{') == -1)
-        {
-          new MDSS.ErrorModal(legendJSON);
-        }
-        else if(legendDiv == null)
-        {
-          legendDiv = document.createElement('div');
-          legendDiv.id = 'legendDiv';
-          this.thisRef.addDragDrop(legendDiv);
-        }
-
-        var table = '<table>';
-
-        var legend = Mojo.Util.getObject(legendJSON);
-        table += '<tr><td colspan="2">'+legend.thematicVariable+'</td></tr>';
-
-        var categories = legend.categories;
-        for(var i=0; i<categories.length; i++)
-        {
-          var category = categories[i];
-          var color = category.color;
-          var values = category.values;
-
-          table += '<tr>';
-
-          if(values.length == 1)
-          {
-            // exact value
-              table += '<td>'+values[0]+'</td>';
-          }
-          else
-          {
-            // range
-            table += '<td>'+values[0]+'  -  '+values[1]+'</td>';
-          }
-
-          table += '<td><div class="colorPickerValue" style="background-color: '+color+'">&nbsp;</div></td>';
-
-
-          table += '</tr>';
-        }
-
-        table += '</table>';
-
-        legendDiv.innerHTML = table;
-
-        this.thisRef.position(legendDiv, 100, 100);
-      }
-
-    });
-
-    var savedSearchView = this._queryPanel.getCurrentSavedSearch();
-    var savedSearchId = savedSearchView.getSavedQueryId();
-    Mojo.$.dss.vector.solutions.query.MappingController.getLegend(request, savedSearchId);
-  },
 
 };

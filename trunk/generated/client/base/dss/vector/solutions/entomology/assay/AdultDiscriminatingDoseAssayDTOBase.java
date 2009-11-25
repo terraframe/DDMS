@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1627344032)
+@com.terraframe.mojo.business.ClassSignature(hash = 2066559274)
 public abstract class AdultDiscriminatingDoseAssayDTOBase extends dss.vector.solutions.entomology.assay.AdultAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay";
-  private static final long serialVersionUID = -1627344032;
+  private static final long serialVersionUID = 2066559274;
   
   protected AdultDiscriminatingDoseAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -325,10 +325,10 @@ public abstract class AdultDiscriminatingDoseAssayDTOBase extends dss.vector.sol
     return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO xmlToValueQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry, dss.vector.solutions.query.ThematicLayerDTO thematicLayer)
+  public static final com.terraframe.mojo.business.ValueQueryDTO xmlToValueQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;", "java.lang.Boolean", "dss.vector.solutions.query.ThematicLayer"};
-    Object[] _parameters = new Object[]{xml, selectedUniversals, includeGeometry, thematicLayer};
+    String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{xml, selectedUniversals, includeGeometry};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "xmlToValueQuery", _declaredTypes);
     return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

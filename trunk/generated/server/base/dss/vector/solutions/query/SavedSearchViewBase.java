@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2008562035)
+@com.terraframe.mojo.business.ClassSignature(hash = -328843504)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,9 +17,7 @@ public abstract class SavedSearchViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String QUERYTYPE = "queryType";
   public static java.lang.String QUERYXML = "queryXml";
   public static java.lang.String SAVEDQUERYID = "savedQueryId";
-  public static java.lang.String THEMATICLAYER = "thematicLayer";
-  public static java.lang.String THEMATICLAYERID = "thematicLayerId";
-  private static final long serialVersionUID = -2008562035;
+  private static final long serialVersionUID = -328843504;
   
   public SavedSearchViewBase()
   {
@@ -179,62 +177,6 @@ public abstract class SavedSearchViewBase extends com.terraframe.mojo.business.V
     else
     {
       setValue(SAVEDQUERYID, value);
-    }
-  }
-  
-  public String getThematicLayer()
-  {
-    return getValue(THEMATICLAYER);
-  }
-  
-  public void validateThematicLayer()
-  {
-    this.validateAttribute(THEMATICLAYER);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getThematicLayerMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
-    return mdClassIF.definesAttribute(THEMATICLAYER);
-  }
-  
-  public void setThematicLayer(String value)
-  {
-    if(value == null)
-    {
-      setValue(THEMATICLAYER, "");
-    }
-    else
-    {
-      setValue(THEMATICLAYER, value);
-    }
-  }
-  
-  public String getThematicLayerId()
-  {
-    return getValue(THEMATICLAYERID);
-  }
-  
-  public void validateThematicLayerId()
-  {
-    this.validateAttribute(THEMATICLAYERID);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getThematicLayerIdMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
-    return mdClassIF.definesAttribute(THEMATICLAYERID);
-  }
-  
-  public void setThematicLayerId(String value)
-  {
-    if(value == null)
-    {
-      setValue(THEMATICLAYERID, "");
-    }
-    else
-    {
-      setValue(THEMATICLAYERID, value);
     }
   }
   

@@ -4,25 +4,24 @@ import java.util.List;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.PointStyleDTO;
 import dss.vector.solutions.query.AbstractCategoryDTO;
 import dss.vector.solutions.query.LayerDTO;
 import dss.vector.solutions.query.NonRangeCategoryDTO;
 import dss.vector.solutions.query.RangeCategoryDTO;
-import dss.vector.solutions.query.ThematicLayerDTO;
 import dss.vector.solutions.query.WellKnownNamesDTO;
 
 public class PointSymbolizer extends Symbolizer implements Reloadable
 {
 
-  protected PointSymbolizer(LayerDTO layer, PointStyleDTO styleRule)
+  protected PointSymbolizer(LayerDTO layer)
   {
-    super(layer, styleRule);
+    super(layer);
   }
 
   @Override
   protected void write(SLDWriter writer)
   {
+    /*
     PointStyleDTO style = this.getStyleRule();
     String stroke = style.getStroke();
     String strokeWidth = style.getStrokeWidth().toString();
@@ -30,52 +29,43 @@ public class PointSymbolizer extends Symbolizer implements Reloadable
     String wkn = wknDTO.name().toLowerCase();
 
     LayerDTO layer = this.getLayer();
-    if (layer instanceof ThematicLayerDTO)
-    {
-      ThematicLayerDTO tLayer = (ThematicLayerDTO) layer;
-      List<? extends AbstractCategoryDTO> categories = tLayer.getAllDefinesCategory();
+    
+    List<? extends AbstractCategoryDTO> categories = layer.getAllDefinesCategory();
 
-      for (AbstractCategoryDTO category : categories)
-      {
-        writer.writeln("<Rule>");
+     for (AbstractCategoryDTO category : categories)
+     {
+       writer.writeln("<Rule>");
 
-        Filter filter;
-        if (category instanceof RangeCategoryDTO)
-        {
-          filter = new RangeFilter((RangeCategoryDTO) category);
-        }
-        else
-        {
-          filter = new NonRangeFilter((NonRangeCategoryDTO) category);
-        }
+       Filter filter;
+       if (category instanceof RangeCategoryDTO)
+       {
+         filter = new RangeFilter((RangeCategoryDTO) category);
+       }
+       else
+       {
+         filter = new NonRangeFilter((NonRangeCategoryDTO) category);
+       }
 
-        filter.write(writer);
+       filter.write(writer);
 
-        // The stroke color becomes the thematic color
-        String thematicColor = category.getThematicColor();
-        writeSymbolizer(writer, wkn, strokeWidth, thematicColor);
-        writer.writeln("</Rule>");
-      }
+       // The stroke color becomes the thematic color
+       String thematicColor = category.getThematicColor();
+       writeSymbolizer(writer, wkn, strokeWidth, thematicColor);
+       writer.writeln("</Rule>");
+     }
 
-      // write default style (with Else Filter if other filters exist).
-      writer.writeln("<Rule>");
+     // write default style (with Else Filter if other filters exist).
+     writer.writeln("<Rule>");
 
-      if (categories.size() > 0)
-      {
-        ElseFilter elseFilter = new ElseFilter();
-        elseFilter.write(writer);
-      }
+     if (categories.size() > 0)
+     {
+       ElseFilter elseFilter = new ElseFilter();
+       elseFilter.write(writer);
+     }
 
-      writeSymbolizer(writer, wkn, strokeWidth, stroke);
-      writer.writeln("</Rule>");
-    }
-    else
-    {
-      // write default style
-      writer.writeln("<Rule>");
-      writeSymbolizer(writer, wkn, strokeWidth, stroke);
-      writer.writeln("</Rule>");
-    }
+     writeSymbolizer(writer, wkn, strokeWidth, stroke);
+     writer.writeln("</Rule>");
+     */
   }
 
   private void writeSymbolizer(SLDWriter writer, String wkn, String strokeWidth, String stroke)
@@ -91,12 +81,6 @@ public class PointSymbolizer extends Symbolizer implements Reloadable
     writer.writeln("</Mark><Size>12</Size><Rotation>0</Rotation>");
     writer.writeln("</Graphic>");
     writer.writeln("</PointSymbolizer>");
-  }
-
-  @Override
-  protected PointStyleDTO getStyleRule()
-  {
-    return (PointStyleDTO) super.getStyleRule();
   }
 
 }

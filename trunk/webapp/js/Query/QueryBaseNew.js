@@ -420,12 +420,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       column = this._queryPanel.insertColumn(column);
 
       this._visibleSelectables[attribute.getKey()] = selectable;
-
-      // ADD THEMATIC VARIABLE
-     // if(attribute.getDtoType != 'undefined' && attribute.getDtoType().contains('AttributeIntegerDTO'))
-     // {
-       // this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
-      //}
     },
 
 
@@ -433,7 +427,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     /**
      * Removes an attribute as a selectable and column.
      */
-    _removeVisibleAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
+    _removeVisibleAttribute : function(attribute, removeColumn, removeSelectable)
     {
       var attributeName = attribute.getAttributeName();
       var key = attribute.getKey();
@@ -451,11 +445,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         var column = this._queryPanel.getColumn(key);
         this._queryPanel.removeColumn(column);
       }
-
-     if(removeThematic)
-     {
-        this._queryPanel.removeThematicVariable(attribute.getKey());
-     }
     },
 
 
@@ -531,9 +520,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         this._countSelectable = aggSelectable;
 
         this._queryPanel.insertColumn(attribute.getColumnObject());
-
-        // ADD THEMATIC VARIABLE
-        this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
       }
       else
       {
@@ -541,8 +527,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         this._queryPanel.removeColumn(column);
 
         this._countSelectable = null;
-
-        this._queryPanel.removeThematicVariable(attribute.getKey());
       }
     },
 
@@ -562,9 +546,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         this._ratioSelectable = selectable;
 
         this._queryPanel.insertColumn(column);
-
-        // ADD THEMATIC VARIABLE
-        this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
       }
       else
       {
@@ -572,8 +553,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         this._queryPanel.removeColumn(column);
 
         this._countSelectable = null;
-
-        this._queryPanel.removeThematicVariable(attribute.getKey());
       }
     },
 

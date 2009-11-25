@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1561433130)
+@com.terraframe.mojo.business.ClassSignature(hash = -309373474)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,9 +22,10 @@ public abstract class AbstractCategoryBase extends com.terraframe.mojo.business.
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String STYLES = "styles";
   public static java.lang.String THEMATICCOLOR = "thematicColor";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1561433130;
+  private static final long serialVersionUID = -309373474;
   
   public AbstractCategoryBase()
   {
@@ -278,6 +279,41 @@ public abstract class AbstractCategoryBase extends com.terraframe.mojo.business.
     return mdClassIF.definesAttribute(SITEMASTER);
   }
   
+  public dss.vector.solutions.query.Styles getStyles()
+  {
+    if (getValue(STYLES).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.query.Styles.get(getValue(STYLES));
+    }
+  }
+  
+  public void validateStyles()
+  {
+    this.validateAttribute(STYLES);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getStylesMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.AbstractCategory.CLASS);
+    return mdClassIF.definesAttribute(STYLES);
+  }
+  
+  public void setStyles(dss.vector.solutions.query.Styles value)
+  {
+    if(value == null)
+    {
+      setValue(STYLES, "");
+    }
+    else
+    {
+      setValue(STYLES, value.getId());
+    }
+  }
+  
   public String getThematicColor()
   {
     return getValue(THEMATICCOLOR);
@@ -332,34 +368,6 @@ public abstract class AbstractCategoryBase extends com.terraframe.mojo.business.
     AbstractCategoryQuery query = new AbstractCategoryQuery(new com.terraframe.mojo.query.QueryFactory());
     com.terraframe.mojo.business.Entity.getAllInstances(query, sortAttribute, ascending, pageSize, pageNumber);
     return query;
-  }
-  
-  public dss.vector.solutions.query.DefinesCategories addFromThematicLayer(dss.vector.solutions.query.ThematicLayer thematicLayer)
-  {
-    return (dss.vector.solutions.query.DefinesCategories) addParent(thematicLayer, dss.vector.solutions.query.DefinesCategories.CLASS);
-  }
-  
-  public void removeFromThematicLayer(dss.vector.solutions.query.ThematicLayer thematicLayer)
-  {
-    removeAllParents(thematicLayer, dss.vector.solutions.query.DefinesCategories.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.ThematicLayer> getAllFromThematicLayer()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.ThematicLayer>) getParents(dss.vector.solutions.query.DefinesCategories.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.DefinesCategories> getAllFromThematicLayerRel()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.DefinesCategories>) getParentRelationships(dss.vector.solutions.query.DefinesCategories.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.DefinesCategories> getFromThematicLayerRel(dss.vector.solutions.query.ThematicLayer thematicLayer)
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.DefinesCategories>) getRelationshipsWithParent(thematicLayer, dss.vector.solutions.query.DefinesCategories.CLASS);
   }
   
   public static AbstractCategory get(String id)

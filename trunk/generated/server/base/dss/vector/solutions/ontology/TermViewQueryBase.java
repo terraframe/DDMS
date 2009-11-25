@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1131855165)
+@com.terraframe.mojo.business.ClassSignature(hash = 1532356456)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  abstract  class TermViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1131855165;
+private static final long serialVersionUID = 1532356456;
 
   public TermViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -41,6 +41,24 @@ private static final long serialVersionUID = -1131855165;
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.ontology.TermView.ID, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getSelectable()
+  {
+    return getSelectable(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getSelectable(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.ontology.TermView.SELECTABLE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getSelectable(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.ontology.TermView.SELECTABLE, alias, displayLabel);
 
   }
  

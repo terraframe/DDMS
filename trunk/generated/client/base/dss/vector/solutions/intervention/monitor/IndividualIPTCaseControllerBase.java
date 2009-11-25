@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1951417340)
+@com.terraframe.mojo.business.ClassSignature(hash = -1240555623)
 public class IndividualIPTCaseControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.intervention.monitor.IndividualIPTCaseController";
@@ -10,7 +10,7 @@ public class IndividualIPTCaseControllerBase implements com.terraframe.mojo.gene
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1951417340;
+  private static final long serialVersionUID = -1240555623;
   
   public IndividualIPTCaseControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -93,20 +93,6 @@ public class IndividualIPTCaseControllerBase implements com.terraframe.mojo.gene
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.failCreate");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO:dto, dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO:instance", post=true)
-  public void createCaseAndInstance(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO dto, dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO instance) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.createCaseAndInstance");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO:dto, dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO:instance", post=true)
-  public void failCreateCaseAndInstance(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO dto, dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO instance) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.failCreateCaseAndInstance");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO:dto", post=true)

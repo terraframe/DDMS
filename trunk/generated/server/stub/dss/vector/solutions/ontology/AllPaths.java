@@ -50,6 +50,7 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
   /**
    * Only one thread can rebuild this table at a time.
    */
+  @Transaction
   public synchronized static void rebuildAllPaths()
   {
     MdBusiness mdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);

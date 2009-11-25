@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1054001189)
+@com.terraframe.mojo.business.ClassSignature(hash = -1539655717)
 public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.AggregatedCase";
-  private static final long serialVersionUID = 1054001189;
+  private static final long serialVersionUID = -1539655717;
   
   protected AggregatedCaseDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -2034,14 +2034,6 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return (dss.vector.solutions.surveillance.AggregatedCaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.lang.String mapQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String thematicLayerType, java.lang.String[] universalLayers, java.lang.String savedSearchId)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "[Ljava.lang.String;", "java.lang.String"};
-    Object[] _parameters = new Object[]{queryXML, thematicLayerType, universalLayers, savedSearchId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "mapQuery", _declaredTypes);
-    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
   public static final com.terraframe.mojo.business.ValueQueryDTO queryAggregatedCase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String config, java.lang.Integer pageNumber, java.lang.Integer pageSize)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Integer", "java.lang.Integer"};
@@ -2074,10 +2066,10 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return (dss.vector.solutions.surveillance.AggregatedCaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO xmlToValueQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry, dss.vector.solutions.query.ThematicLayerDTO thematicLayer)
+  public static final com.terraframe.mojo.business.ValueQueryDTO xmlToValueQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;", "java.lang.Boolean", "dss.vector.solutions.query.ThematicLayer"};
-    Object[] _parameters = new Object[]{xml, selectedUniversals, includeGeometry, thematicLayer};
+    String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{xml, selectedUniversals, includeGeometry};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "xmlToValueQuery", _declaredTypes);
     return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

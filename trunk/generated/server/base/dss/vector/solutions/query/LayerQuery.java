@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -552875345)
+@com.terraframe.mojo.business.ClassSignature(hash = -1470634248)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  class LayerQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -552875345;
+private static final long serialVersionUID = -1470634248;
 
   public LayerQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -68,6 +68,29 @@ private static final long serialVersionUID = -552875345;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles()
+  {
+    return getDefaultStyles(null);
+
+  }
+ 
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("defaultStyles");
+
+    return (dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.DEFAULTSTYLES, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("defaultStyles");
+
+    return (dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.DEFAULTSTYLES, mdAttributeIF, this, alias, displayLabel);
+
+  }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
   {
     return getEntityDomain(null);
@@ -112,29 +135,6 @@ private static final long serialVersionUID = -552875345;
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("geoHierarchy");
 
     return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.GEOHIERARCHY, mdAttributeIF, this, alias, displayLabel);
-
-  }
-  public dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReferenceIF getGeometryStyle()
-  {
-    return getGeometryStyle(null);
-
-  }
- 
-  public dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReferenceIF getGeometryStyle(String alias)
-  {
-
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("geometryStyle");
-
-    return (dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.GEOMETRYSTYLE, mdAttributeIF, this, alias, null);
-
-  }
- 
-  public dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReferenceIF getGeometryStyle(String alias, String displayLabel)
-  {
-
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("geometryStyle");
-
-    return (dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.GEOMETRYSTYLE, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -211,6 +211,23 @@ private static final long serialVersionUID = -552875345;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.LASTUPDATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeChar getLayerName()
+  {
+    return getLayerName(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLayerName(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Layer.LAYERNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLayerName(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Layer.LAYERNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
@@ -255,6 +272,29 @@ private static final long serialVersionUID = -552875345;
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("owner");
 
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.OWNER, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch()
+  {
+    return getSavedSearch(null);
+
+  }
+ 
+  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("savedSearch");
+
+    return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.SAVEDSEARCH, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("savedSearch");
+
+    return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.SAVEDSEARCH, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -308,27 +348,27 @@ private static final long serialVersionUID = -552875345;
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Layer.SLDFILE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
-  public dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReferenceIF getTextStyle()
+  public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable()
   {
-    return getTextStyle(null);
+    return getThematicVariable(null);
 
   }
  
-  public dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReferenceIF getTextStyle(String alias)
+  public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable(String alias)
   {
 
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("textStyle");
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("thematicVariable");
 
-    return (dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.TEXTSTYLE, mdAttributeIF, this, alias, null);
+    return (dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.THEMATICVARIABLE, mdAttributeIF, this, alias, null);
 
   }
  
-  public dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReferenceIF getTextStyle(String alias, String displayLabel)
+  public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable(String alias, String displayLabel)
   {
 
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("textStyle");
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("thematicVariable");
 
-    return (dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.TEXTSTYLE, mdAttributeIF, this, alias, displayLabel);
+    return (dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.THEMATICVARIABLE, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -346,6 +386,23 @@ private static final long serialVersionUID = -552875345;
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Layer.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeBoolean getViewCreated()
+  {
+    return getViewCreated(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Layer.VIEWCREATED, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Layer.VIEWCREATED, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getViewName()
@@ -373,6 +430,10 @@ private static final long serialVersionUID = -552875345;
     {
        return new com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals("defaultStyles")) 
+    {
+       return new dss.vector.solutions.query.StylesQuery.StylesQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals("entityDomain")) 
     {
        return new com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -380,10 +441,6 @@ private static final long serialVersionUID = -552875345;
     else if (name.equals("geoHierarchy")) 
     {
        return new dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals("geometryStyle")) 
-    {
-       return new dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals("lastUpdatedBy")) 
     {
@@ -397,9 +454,13 @@ private static final long serialVersionUID = -552875345;
     {
        return new com.terraframe.mojo.system.ActorQuery.ActorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("textStyle")) 
+    else if (name.equals("savedSearch")) 
     {
-       return new dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("thematicVariable")) 
+    {
+       return new dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -432,6 +493,122 @@ private static final long serialVersionUID = -552875345;
   }
 
 
+  public com.terraframe.mojo.query.Condition map()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasLayers.CLASS);
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition map(dss.vector.solutions.query.HasLayersQuery hasLayersQuery)
+  {
+    return this.getBusinessQuery().isChildIn(hasLayersQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition map(dss.vector.solutions.query.SavedMapQuery savedMapQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasLayers.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(savedMapQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition map(dss.vector.solutions.query.SavedMapQuery savedMapQuery, dss.vector.solutions.query.HasLayersQuery hasLayersQuery)
+  {
+    hasLayersQuery.AND(hasLayersQuery.hasParent(savedMapQuery));
+    return this.getBusinessQuery().isChildIn(hasLayersQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_map()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasLayers.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_map(dss.vector.solutions.query.HasLayersQuery hasLayersQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn(hasLayersQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_map(dss.vector.solutions.query.SavedMapQuery savedMapQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasLayers.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(savedMapQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_map(dss.vector.solutions.query.SavedMapQuery savedMapQuery, dss.vector.solutions.query.HasLayersQuery hasLayersQuery)
+  {
+    hasLayersQuery.AND(hasLayersQuery.hasParent(savedMapQuery));
+    return this.getBusinessQuery().isNotChildIn(hasLayersQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition hasCategory()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition hasCategory(dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery)
+  {
+    return this.getBusinessQuery().isParentIn(hasCategoriesQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition hasCategory(dss.vector.solutions.query.AbstractCategoryQuery abstractCategoryQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(abstractCategoryQuery));
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition hasCategory(dss.vector.solutions.query.AbstractCategoryQuery abstractCategoryQuery, dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery)
+  {
+    hasCategoriesQuery.AND(hasCategoriesQuery.hasChild(abstractCategoryQuery));
+    return this.getBusinessQuery().isParentIn(hasCategoriesQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_hasCategory()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_hasCategory(dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn(hasCategoriesQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_hasCategory(dss.vector.solutions.query.AbstractCategoryQuery abstractCategoryQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(abstractCategoryQuery));
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_hasCategory(dss.vector.solutions.query.AbstractCategoryQuery abstractCategoryQuery, dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery)
+  {
+    hasCategoriesQuery.AND(hasCategoriesQuery.hasChild(abstractCategoryQuery));
+    return this.getBusinessQuery().isNotParentIn(hasCategoriesQuery);
+  }
+
+
 /**
  * Interface that masks all type unsafe query methods and defines all type safe methods.
  * This type is used when a join is performed on this class as a reference.
@@ -445,15 +622,15 @@ private static final long serialVersionUID = -552875345;
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles();
+    public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles(String alias);
+    public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles(String alias, String displayLabel);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
     public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getGeoHierarchy();
     public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getGeoHierarchy(String alias);
     public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getGeoHierarchy(String alias, String displayLabel);
-    public dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReferenceIF getGeometryStyle();
-    public dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReferenceIF getGeometryStyle(String alias);
-    public dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReferenceIF getGeometryStyle(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeChar getId();
     public com.terraframe.mojo.query.AttributeChar getId(String alias);
     public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel);
@@ -466,12 +643,18 @@ private static final long serialVersionUID = -552875345;
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getLayerName();
+    public com.terraframe.mojo.query.AttributeChar getLayerName(String alias);
+    public com.terraframe.mojo.query.AttributeChar getLayerName(String alias, String displayLabel);
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch();
+    public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias);
+    public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeLong getSeq();
     public com.terraframe.mojo.query.AttributeLong getSeq(String alias);
     public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel);
@@ -481,12 +664,15 @@ private static final long serialVersionUID = -552875345;
     public com.terraframe.mojo.query.AttributeChar getSldFile();
     public com.terraframe.mojo.query.AttributeChar getSldFile(String alias);
     public com.terraframe.mojo.query.AttributeChar getSldFile(String alias, String displayLabel);
-    public dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReferenceIF getTextStyle();
-    public dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReferenceIF getTextStyle(String alias);
-    public dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReferenceIF getTextStyle(String alias, String displayLabel);
+    public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable();
+    public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable(String alias);
+    public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeChar getType();
     public com.terraframe.mojo.query.AttributeChar getType(String alias);
     public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeBoolean getViewCreated();
+    public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias);
+    public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeChar getViewName();
     public com.terraframe.mojo.query.AttributeChar getViewName(String alias);
     public com.terraframe.mojo.query.AttributeChar getViewName(String alias, String displayLabel);
@@ -494,6 +680,32 @@ private static final long serialVersionUID = -552875345;
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.query.Layer layer);
 
     public com.terraframe.mojo.query.BasicCondition NE(dss.vector.solutions.query.Layer layer);
+
+
+  public com.terraframe.mojo.query.Condition hasCategory();
+
+  public com.terraframe.mojo.query.Condition hasCategory(dss.vector.solutions.query.AbstractCategoryQuery abstractCategoryQuery);
+
+  public com.terraframe.mojo.query.Condition hasCategory(dss.vector.solutions.query.AbstractCategoryQuery abstractCategoryQuery, dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery);
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_hasCategory();
+
+  public com.terraframe.mojo.query.Condition NOT_IN_hasCategory(dss.vector.solutions.query.AbstractCategoryQuery abstractCategoryQuery);
+
+  public com.terraframe.mojo.query.Condition NOT_IN_hasCategory(dss.vector.solutions.query.AbstractCategoryQuery abstractCategoryQuery, dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery);
+
+
+  public com.terraframe.mojo.query.Condition map();
+  public com.terraframe.mojo.query.Condition map(dss.vector.solutions.query.SavedMapQuery savedMapQuery);
+
+  public com.terraframe.mojo.query.Condition map(dss.vector.solutions.query.SavedMapQuery savedMapQuery, dss.vector.solutions.query.HasLayersQuery hasLayersQuery);
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_map();
+  public com.terraframe.mojo.query.Condition NOT_IN_map(dss.vector.solutions.query.SavedMapQuery savedMapQuery);
+
+  public com.terraframe.mojo.query.Condition NOT_IN_map(dss.vector.solutions.query.SavedMapQuery savedMapQuery, dss.vector.solutions.query.HasLayersQuery hasLayersQuery);
 
   }
 
@@ -505,7 +717,7 @@ private static final long serialVersionUID = -552875345;
  implements LayerQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1831674193;
+private static final long serialVersionUID = -1840712422;
 
   public LayerQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -558,6 +770,23 @@ private static final long serialVersionUID = 1831674193;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
 
   }
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles()
+  {
+    return getDefaultStyles(null);
+
+  }
+ 
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles(String alias)
+  {
+    return (dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF)this.attributeFactory("defaultStyles", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF)this.attributeFactory("defaultStyles", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
   {
     return getEntityDomain(null);
@@ -590,23 +819,6 @@ private static final long serialVersionUID = 1831674193;
   public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getGeoHierarchy(String alias, String displayLabel)
   {
     return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.attributeFactory("geoHierarchy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
-
-  }
-  public dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReferenceIF getGeometryStyle()
-  {
-    return getGeometryStyle(null);
-
-  }
- 
-  public dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReferenceIF getGeometryStyle(String alias)
-  {
-    return (dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReferenceIF)this.attributeFactory("geometryStyle", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
-
-  }
- 
-  public dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReferenceIF getGeometryStyle(String alias, String displayLabel)
-  {
-    return (dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReferenceIF)this.attributeFactory("geometryStyle", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -677,6 +889,23 @@ private static final long serialVersionUID = 1831674193;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeChar getLayerName()
+  {
+    return getLayerName(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLayerName(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("layerName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLayerName(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("layerName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
@@ -709,6 +938,23 @@ private static final long serialVersionUID = 1831674193;
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+
+  }
+  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch()
+  {
+    return getSavedSearch(null);
+
+  }
+ 
+  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias)
+  {
+    return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.attributeFactory("savedSearch", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.attributeFactory("savedSearch", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -762,21 +1008,21 @@ private static final long serialVersionUID = 1831674193;
     return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("sldFile", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
-  public dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReferenceIF getTextStyle()
+  public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable()
   {
-    return getTextStyle(null);
+    return getThematicVariable(null);
 
   }
  
-  public dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReferenceIF getTextStyle(String alias)
+  public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable(String alias)
   {
-    return (dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReferenceIF)this.attributeFactory("textStyle", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF)this.attributeFactory("thematicVariable", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
 
   }
  
-  public dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReferenceIF getTextStyle(String alias, String displayLabel)
+  public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReferenceIF)this.attributeFactory("textStyle", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF)this.attributeFactory("thematicVariable", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -796,6 +1042,23 @@ private static final long serialVersionUID = 1831674193;
     return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeBoolean getViewCreated()
+  {
+    return getViewCreated(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("viewCreated", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("viewCreated", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeChar getViewName()
   {
     return getViewName(null);
@@ -813,6 +1076,102 @@ private static final long serialVersionUID = 1831674193;
     return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("viewName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
+
+  public com.terraframe.mojo.query.Condition hasCategory()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
+
+    return this.isParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition hasCategory(dss.vector.solutions.query.AbstractCategoryQuery abstractCategoryQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(abstractCategoryQuery));
+
+    return this.isParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition hasCategory(dss.vector.solutions.query.AbstractCategoryQuery abstractCategoryQuery, dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery)
+  {
+    hasCategoriesQuery.AND(hasCategoriesQuery.hasChild(abstractCategoryQuery));
+    return this.isParentIn(hasCategoriesQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_hasCategory()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_hasCategory(dss.vector.solutions.query.AbstractCategoryQuery abstractCategoryQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(abstractCategoryQuery));
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_hasCategory(dss.vector.solutions.query.AbstractCategoryQuery abstractCategoryQuery, dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery)
+  {
+    hasCategoriesQuery.AND(hasCategoriesQuery.hasChild(abstractCategoryQuery));
+    return this.isNotParentIn(hasCategoriesQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition map()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasLayers.CLASS);
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition map(dss.vector.solutions.query.SavedMapQuery savedMapQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasLayers.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(savedMapQuery));
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition map(dss.vector.solutions.query.SavedMapQuery savedMapQuery, dss.vector.solutions.query.HasLayersQuery hasLayersQuery)
+  {
+    hasLayersQuery.AND(hasLayersQuery.hasParent(savedMapQuery));
+    return this.isChildIn(hasLayersQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_map()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasLayers.CLASS);
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_map(dss.vector.solutions.query.SavedMapQuery savedMapQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasLayers.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(savedMapQuery));
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_map(dss.vector.solutions.query.SavedMapQuery savedMapQuery, dss.vector.solutions.query.HasLayersQuery hasLayersQuery)
+  {
+    hasLayersQuery.AND(hasLayersQuery.hasParent(savedMapQuery));
+    return this.isNotChildIn(hasLayersQuery);
+  }
+
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();
@@ -821,6 +1180,10 @@ private static final long serialVersionUID = 1831674193;
     {
        return new com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals("defaultStyles")) 
+    {
+       return new dss.vector.solutions.query.StylesQuery.StylesQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals("entityDomain")) 
     {
        return new com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -828,10 +1191,6 @@ private static final long serialVersionUID = 1831674193;
     else if (name.equals("geoHierarchy")) 
     {
        return new dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals("geometryStyle")) 
-    {
-       return new dss.vector.solutions.query.GeometryStyleQuery.GeometryStyleQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals("lastUpdatedBy")) 
     {
@@ -845,9 +1204,13 @@ private static final long serialVersionUID = 1831674193;
     {
        return new com.terraframe.mojo.system.ActorQuery.ActorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("textStyle")) 
+    else if (name.equals("savedSearch")) 
     {
-       return new dss.vector.solutions.query.TextStyleQuery.TextStyleQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("thematicVariable")) 
+    {
+       return new dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {

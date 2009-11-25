@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1818374624)
+@com.terraframe.mojo.business.ClassSignature(hash = -1555697750)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,7 +18,7 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
   public static java.lang.String MORTALITY = "mortality";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYLIVE = "quantityLive";
-  private static final long serialVersionUID = 1818374624;
+  private static final long serialVersionUID = -1555697750;
   
   public AdultDiscriminatingDoseAssayBase()
   {
@@ -267,7 +267,7 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static com.terraframe.mojo.query.ValueQuery xmlToValueQuery(java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry, dss.vector.solutions.query.ThematicLayer thematicLayer)
+  public static com.terraframe.mojo.query.ValueQuery xmlToValueQuery(java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

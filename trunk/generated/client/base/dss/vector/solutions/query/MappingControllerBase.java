@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -161875082)
+@com.terraframe.mojo.business.ClassSignature(hash = -733115451)
 public class MappingControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.MappingController";
@@ -10,7 +10,7 @@ public class MappingControllerBase implements com.terraframe.mojo.generation.loa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -161875082;
+  private static final long serialVersionUID = -733115451;
   
   public MappingControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -247,20 +247,6 @@ public class MappingControllerBase implements com.terraframe.mojo.generation.loa
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapSurveyQuery");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.GeometryStyleDTO:geometryStyle, dss.vector.solutions.query.TextStyleDTO:textStyle, java.lang.String:layerId", post=true)
-  public void updateLayer(dss.vector.solutions.query.GeometryStyleDTO geometryStyle, dss.vector.solutions.query.TextStyleDTO textStyle, java.lang.String layerId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.updateLayer");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.GeometryStyleDTO:geometryStyle, dss.vector.solutions.query.TextStyleDTO:textStyle, java.lang.String:layerId", post=true)
-  public void failUpdateLayer(dss.vector.solutions.query.GeometryStyleDTO geometryStyle, dss.vector.solutions.query.TextStyleDTO textStyle, java.lang.String layerId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failUpdateLayer");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId, dss.vector.solutions.query.ThematicVariableDTO:thematicVariable, [Ldss.vector.solutions.query.AbstractCategoryDTO;:categories", post=true)

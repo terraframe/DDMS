@@ -16,7 +16,6 @@
 <%@page import="dss.vector.solutions.query.NonRangeCategoryDTO"%>
 <%@page import="dss.vector.solutions.query.RangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
-<%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
 <%@page import="dss.vector.solutions.query.LayerViewDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
@@ -38,7 +37,7 @@
   <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-    String[] types = new String[]{EpiDateDTO.CLASS, ThematicLayerDTO.CLASS, LayerViewDTO.CLASS, ThematicVariableDTO.CLASS, AggregatedCaseDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
+    String[] types = new String[]{EpiDateDTO.CLASS, AggregatedCaseDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
     String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 
     out.print(js);

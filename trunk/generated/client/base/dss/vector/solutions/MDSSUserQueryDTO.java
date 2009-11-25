@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1785051050)
+@com.terraframe.mojo.business.ClassSignature(hash = 1928909081)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public class MDSSUserQueryDTO extends com.terraframe.mojo.system.UsersQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1785051050;
+private static final long serialVersionUID = 1928909081;
 
   protected MDSSUserQueryDTO(String type)
   {

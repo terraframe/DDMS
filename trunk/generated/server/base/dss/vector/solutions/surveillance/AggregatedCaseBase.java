@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1503610459)
+@com.terraframe.mojo.business.ClassSignature(hash = 871360859)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -65,7 +65,7 @@ public abstract class AggregatedCaseBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String STILLBIRTHS = "stillBirths";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1503610459;
+  private static final long serialVersionUID = 871360859;
   
   public AggregatedCaseBase()
   {
@@ -1810,12 +1810,6 @@ public abstract class AggregatedCaseBase extends com.terraframe.mojo.business.Bu
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static java.lang.String mapQuery(java.lang.String queryXML, java.lang.String thematicLayerType, java.lang.String[] universalLayers, java.lang.String savedSearchId)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
   public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(java.lang.String queryXML, java.lang.String config, java.lang.Integer pageNumber, java.lang.Integer pageSize)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
@@ -1840,7 +1834,7 @@ public abstract class AggregatedCaseBase extends com.terraframe.mojo.business.Bu
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static com.terraframe.mojo.query.ValueQuery xmlToValueQuery(java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry, dss.vector.solutions.query.ThematicLayer thematicLayer)
+  public static com.terraframe.mojo.query.ValueQuery xmlToValueQuery(java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

@@ -12,13 +12,6 @@
 <%@page import="dss.vector.solutions.query.QueryController"%>
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
-<%@page import="dss.vector.solutions.query.MappingController"%>
-<%@page import="dss.vector.solutions.query.RangeCategoryDTO"%>
-<%@page import="dss.vector.solutions.query.NonRangeCategoryDTO"%>
-<%@page import="dss.vector.solutions.query.RangeCategoryController"%>
-<%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
-<%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
-<%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
@@ -28,10 +21,6 @@
 <%@page import="org.json.JSONException"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeConcreteInfo"%>
-<%@page import="com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF"%>
-<%@page import="com.terraframe.mojo.dataaccess.metadata.MdAttributeConcreteDAO"%>
-<%@page import="com.terraframe.mojo.dataaccess.MdBusinessDAOIF"%>
-<%@page import="com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
 <%@page import="dss.vector.solutions.query.LayerViewDTO"%>
 <%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
@@ -57,7 +46,7 @@
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
     String[] mosquitoTypes = new String[]{ IndividualCaseDTO.CLASS, IndividualInstanceDTO.CLASS, PersonDTO.CLASS,IndividualCaseSymptomDTO.CLASS};
-    String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
+    String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
     MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
 

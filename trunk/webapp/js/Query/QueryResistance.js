@@ -374,12 +374,6 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       column = this._queryPanel.insertColumn(column);
 
       this._visibleSelectables[attribute.getKey()] = selectable;
-
-      // ADD THEMATIC VARIABLE
-      if(Mojo.Util.isFunction(attribute.getDtoType()) && attribute.getDtoType().contains('AttributeIntegerDTO'))
-      {
-        this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
-      }
     },
 
 
@@ -387,7 +381,7 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
     /**
      * Removes an attribute as a selectable and column.
      */
-    _removeVisibleAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
+    _removeVisibleAttribute : function(attribute, removeColumn, removeSelectable)
     {
       var attributeName = attribute.getAttributeName();
       var key = attribute.getKey();
@@ -406,11 +400,6 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
         var column = this._queryPanel.getColumn(key);
         this._queryPanel.removeColumn(column);
       }
-
-     if(removeThematic)
-     {
-        this._queryPanel.removeThematicVariable(attribute.getKey());
-     }
     },
 
 
@@ -431,7 +420,7 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       }
       else
       {
-        this._removeVisibleAttribute(attribute, true, true, true);
+        this._removeVisibleAttribute(attribute, true, true);
         var select = check.nextSibling;
         select.selectedIndex = 0;
         select.disabled = true;
@@ -485,9 +474,6 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
         this._countSelectable = aggSelectable;
 
         this._queryPanel.insertColumn(attribute.getColumnObject());
-
-        // ADD THEMATIC VARIABLE
-        this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
       }
       else
       {
@@ -495,8 +481,6 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
         this._queryPanel.removeColumn(column);
 
         this._countSelectable = null;
-
-        this._queryPanel.removeThematicVariable(attribute.getKey());
       }
     },
 
@@ -516,9 +500,6 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
         this._ratioSelectable = selectable;
 
         this._queryPanel.insertColumn(column);
-
-        // ADD THEMATIC VARIABLE
-        this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
       }
       else
       {
@@ -526,8 +507,6 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
         this._queryPanel.removeColumn(column);
 
         this._countSelectable = null;
-
-        this._queryPanel.removeThematicVariable(attribute.getKey());
       }
     },
 
@@ -550,7 +529,7 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       if(func === '')
       {
         // Use regular selectable (this is just here for clarity).
-        this._removeVisibleAttribute(attribute, false, true, false);
+        this._removeVisibleAttribute(attribute, false, true);
         this._visibleSelectables[attribute.getKey()] = selectable;
 
         return;
@@ -576,7 +555,7 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
         aggFunc = new MDSS.QueryXML.AVG(selectable, key, displayLabel);
       }
 
-      this._removeVisibleAttribute(attribute, false, true, false);
+      this._removeVisibleAttribute(attribute, false, true);
 
       var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
       this._visibleAggregateSelectables[attribute.getKey()] = aggSelectable;

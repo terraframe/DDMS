@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -132554359)
+@com.terraframe.mojo.business.ClassSignature(hash = -9769805)
 public abstract class SurveyPointDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.SurveyPoint";
-  private static final long serialVersionUID = -132554359;
+  private static final long serialVersionUID = -9769805;
   
   protected SurveyPointDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -483,14 +483,6 @@ public abstract class SurveyPointDTOBase extends com.terraframe.mojo.business.Bu
     return (dss.vector.solutions.intervention.monitor.SurveyPointViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.lang.String mapQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String config, java.lang.String[] universalLayers, java.lang.String savedSearchId)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "[Ljava.lang.String;", "java.lang.String"};
-    Object[] _parameters = new Object[]{queryXML, config, universalLayers, savedSearchId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointDTO.CLASS, "mapQuery", _declaredTypes);
-    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
   public static final com.terraframe.mojo.business.ValueQueryDTO querySurvey(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String config, java.lang.Integer pageNumber, java.lang.Integer pageSize)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Integer", "java.lang.Integer"};
@@ -523,10 +515,10 @@ public abstract class SurveyPointDTOBase extends com.terraframe.mojo.business.Bu
     return (dss.vector.solutions.intervention.monitor.SurveyPointViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO xmlToValueQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry, dss.vector.solutions.query.ThematicLayerDTO thematicLayer, java.lang.String dobCriteria)
+  public static final com.terraframe.mojo.business.ValueQueryDTO xmlToValueQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry, java.lang.String dobCriteria)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;", "java.lang.Boolean", "dss.vector.solutions.query.ThematicLayer", "java.lang.String"};
-    Object[] _parameters = new Object[]{xml, selectedUniversals, includeGeometry, thematicLayer, dobCriteria};
+    String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;", "java.lang.Boolean", "java.lang.String"};
+    Object[] _parameters = new Object[]{xml, selectedUniversals, includeGeometry, dobCriteria};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointDTO.CLASS, "xmlToValueQuery", _declaredTypes);
     return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

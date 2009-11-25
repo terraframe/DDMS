@@ -2,6 +2,8 @@
 // FIXME replace JSON with latest from crockford's site
 // FIXME Enforce that a non-abstract subclass implements abstract methods from its parent 
 // always use getMethod() instead of grabbing the prototype copy? This could cause as many problems as it solves so be careful.
+// Use getGlobal = function(){return (function(){ return this; })();}; because not everything has the window object (non-browser)
+  // - maybe set the above as a reference: Mojo.global when init the library
 
 /**
  * Terraframe Mojo Javascript library.

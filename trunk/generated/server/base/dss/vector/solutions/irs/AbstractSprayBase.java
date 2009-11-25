@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -750924762)
+@com.terraframe.mojo.business.ClassSignature(hash = 1489274928)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class AbstractSprayBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SPRAYDATA = "sprayData";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -750924762;
+  private static final long serialVersionUID = 1489274928;
   
   public AbstractSprayBase()
   {
@@ -375,19 +375,13 @@ public abstract class AbstractSprayBase extends com.terraframe.mojo.business.Bus
     return _instance.getStatusViews();
   }
   
-  public static java.lang.String mapQuery(java.lang.String queryXML, java.lang.String thematicLayerType, java.lang.String[] universalLayers, java.lang.String savedSearchId)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.AbstractSpray.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
   public static com.terraframe.mojo.query.ValueQuery queryIRS(java.lang.String queryXML, java.lang.String config, java.lang.String sortBy, java.lang.Boolean ascending, java.lang.Integer pageNumber, java.lang.Integer pageSize)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.AbstractSpray.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static com.terraframe.mojo.query.ValueQuery xmlToValueQuery(java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry, dss.vector.solutions.query.ThematicLayer thematicLayer)
+  public static com.terraframe.mojo.query.ValueQuery xmlToValueQuery(java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.AbstractSpray.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

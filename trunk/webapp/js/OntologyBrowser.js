@@ -87,6 +87,18 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       this._focusSearch();
     },
     
+    getDisplay : function(termId)
+    {
+      if(this._cache[termId])
+      {
+        return this.constructor.formatLabel(this._cache[termId]);
+      }
+      else
+      {
+        return null;
+      }
+    },
+    
     /**
      * Puts focus on the search input and clears any previous value.
      */

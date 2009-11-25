@@ -47,30 +47,6 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
 
     return this.toView();
   }
-  
-  public static BrowserRootView[] getDefaultGeoRoots(String universalType)
-  {
-    GeoHierarchy geoH = GeoHierarchy.getGeoHierarchyFromType(universalType);
-    String termId = geoH.getValue(GeoHierarchy.TERM);
-    if(termId != null && termId.length() > 0)
-    {
-      TermViewQuery q = Term.getByIds(new String[]{termId});
-      OIterator<? extends TermView> iter = q.getIterator();
-      try
-      {
-        BrowserRootView view = toView(iter.next());
-        return new BrowserRootView[]{view};
-      }
-      finally
-      {
-        iter.close();
-      }
-    }
-    else
-    {
-      return new BrowserRootView[0];
-    }
-  }
 
   /**
    * Fetches the default root, which is the Term
@@ -100,6 +76,31 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     }
 
     return views.toArray(new BrowserRootView[views.size()]);
+  }
+  
+  
+  public static BrowserRootView[] getDefaultGeoRoots(String universalType)
+  {
+    GeoHierarchy geoH = GeoHierarchy.getGeoHierarchyFromType(universalType);
+    String termId = geoH.getValue(GeoHierarchy.TERM);
+    if(termId != null && termId.length() > 0)
+    {
+      TermViewQuery q = Term.getByIds(new String[]{termId});
+      OIterator<? extends TermView> iter = q.getIterator();
+      try
+      {
+        BrowserRootView view = toView(iter.next());
+        return new BrowserRootView[]{view};
+      }
+      finally
+      {
+        iter.close();
+      }
+    }
+    else
+    {
+      return new BrowserRootView[0];
+    }
   }
 
   /**
@@ -139,19 +140,51 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
 
     List<BrowserRootView> views = new LinkedList<BrowserRootView>();
 
-    OIterator<? extends BrowserRoot> iter = field.getAllroot();
+    QueryFactory f = new QueryFactory();
+    BrowserRootQuery rootQ = new BrowserRootQuery(f);
+    BrowserFieldQuery fieldQ = new BrowserFieldQuery(f);
+    
+    fieldQ.AND(fieldQ.getId().EQ(field.getId()));
+
+    rootQ.WHERE(rootQ.getTerm().getObsolete().EQ(false));
+    rootQ.AND(rootQ.field(fieldQ));
+    
+    OIterator<? extends BrowserRoot> iter = rootQ.getIterator();
+    
     try
     {
       while(iter.hasNext())
       {
-        views.add(iter.next().toView());
+        BrowserRoot root = iter.next();
+        views.add(root.toView());
       }
     }
     finally
     {
       iter.close();
     }
-
+    
+    // Ticket #848: Return a roots children if only one root
+    // exists that is not selectable.
+    if(views.size() == 1 && !views.get(0).getSelectable())
+    {
+      TermViewQuery query = Term.getOntologyChildren(views.get(0).getTermId(), true);
+      
+      views = new LinkedList<BrowserRootView>();
+      OIterator<? extends TermView> iter2 = query.getIterator();
+      try
+      {
+        while(iter2.hasNext())
+        {
+          views.add(toView(iter2.next()));
+        }
+      }
+      finally
+      {
+        iter2.close();
+      }
+    }
+    
     return views.toArray(new BrowserRootView[views.size()]);
   }
 
@@ -159,8 +192,8 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
   {
     BrowserRootView view = new BrowserRootView();
     view.setTermId(termView.getTermId());
-    view.setTermName(termView.getTermName());
-    view.setSelectable(true);
+    view.setTermName(termView.getTermName()); // The view's term name is the display
+    view.setSelectable(termView.getSelectable());
     view.setTermOntologyId(termView.getTermOntologyId());
 
     return view;

@@ -56,44 +56,6 @@ private static final long serialVersionUID = 2096961861;
  * 
  **/
 
-  public com.terraframe.mojo.query.Condition enum_Sex()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery("com.terraframe.mojo.system.metadata.EnumerationAttributeItem");
-
-    com.terraframe.mojo.business.BusinessQuery businessQuery = queryFactory.businessQuery("com.terraframe.mojo.system.metadata.MdEnumeration");
-    com.terraframe.mojo.dataaccess.MdEnumerationDAOIF mdEnumerationIF = com.terraframe.mojo.dataaccess.metadata.MdEnumerationDAO.getMdEnumerationDAO("dss.vector.solutions.entomology.Sex"); 
-    businessQuery.WHERE(businessQuery.id().EQ(mdEnumerationIF.getId()));
-
-    relationshipQuery.WHERE(relationshipQuery.hasParent(businessQuery));
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-
-/**
- * 
- **/
-
-  public com.terraframe.mojo.query.Condition notEnum_Sex()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery("com.terraframe.mojo.system.metadata.EnumerationAttributeItem");
-
-    com.terraframe.mojo.business.BusinessQuery businessQuery = queryFactory.businessQuery("com.terraframe.mojo.system.metadata.MdEnumeration");
-    com.terraframe.mojo.dataaccess.MdEnumerationDAOIF mdEnumerationIF = com.terraframe.mojo.dataaccess.metadata.MdEnumerationDAO.getMdEnumerationDAO("dss.vector.solutions.entomology.Sex"); 
-    businessQuery.WHERE(businessQuery.id().EQ(mdEnumerationIF.getId()));
-
-    relationshipQuery.WHERE(relationshipQuery.hasParent(businessQuery));
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-
-/**
- * 
- **/
-
   public com.terraframe.mojo.query.Condition enum_AssaySex()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -120,6 +82,44 @@ private static final long serialVersionUID = 2096961861;
 
     com.terraframe.mojo.business.BusinessQuery businessQuery = queryFactory.businessQuery("com.terraframe.mojo.system.metadata.MdEnumeration");
     com.terraframe.mojo.dataaccess.MdEnumerationDAOIF mdEnumerationIF = com.terraframe.mojo.dataaccess.metadata.MdEnumerationDAO.getMdEnumerationDAO("dss.vector.solutions.entomology.AssaySex"); 
+    businessQuery.WHERE(businessQuery.id().EQ(mdEnumerationIF.getId()));
+
+    relationshipQuery.WHERE(relationshipQuery.hasParent(businessQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+
+/**
+ * 
+ **/
+
+  public com.terraframe.mojo.query.Condition enum_Sex()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery("com.terraframe.mojo.system.metadata.EnumerationAttributeItem");
+
+    com.terraframe.mojo.business.BusinessQuery businessQuery = queryFactory.businessQuery("com.terraframe.mojo.system.metadata.MdEnumeration");
+    com.terraframe.mojo.dataaccess.MdEnumerationDAOIF mdEnumerationIF = com.terraframe.mojo.dataaccess.metadata.MdEnumerationDAO.getMdEnumerationDAO("dss.vector.solutions.entomology.Sex"); 
+    businessQuery.WHERE(businessQuery.id().EQ(mdEnumerationIF.getId()));
+
+    relationshipQuery.WHERE(relationshipQuery.hasParent(businessQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+
+/**
+ * 
+ **/
+
+  public com.terraframe.mojo.query.Condition notEnum_Sex()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery("com.terraframe.mojo.system.metadata.EnumerationAttributeItem");
+
+    com.terraframe.mojo.business.BusinessQuery businessQuery = queryFactory.businessQuery("com.terraframe.mojo.system.metadata.MdEnumeration");
+    com.terraframe.mojo.dataaccess.MdEnumerationDAOIF mdEnumerationIF = com.terraframe.mojo.dataaccess.metadata.MdEnumerationDAO.getMdEnumerationDAO("dss.vector.solutions.entomology.Sex"); 
     businessQuery.WHERE(businessQuery.id().EQ(mdEnumerationIF.getId()));
 
     relationshipQuery.WHERE(relationshipQuery.hasParent(businessQuery));
@@ -199,19 +199,6 @@ private static final long serialVersionUID = 935881589;
   }
 
 /**
- * Specifies type safe query methods for the enumeration dss.vector.solutions.entomology.Sex.
- * This type is used when a join is performed on this class as an enumeration.
- **/
-  public interface SexQueryIF extends com.terraframe.mojo.generation.loader.Reloadable, SexMasterQueryEnumerationIF  {
-
-    public com.terraframe.mojo.query.Condition containsAny(dss.vector.solutions.entomology.Sex ... sex);
-    public com.terraframe.mojo.query.Condition notContainsAny(dss.vector.solutions.entomology.Sex ... sex);
-    public com.terraframe.mojo.query.Condition containsAll(dss.vector.solutions.entomology.Sex ... sex);
-    public com.terraframe.mojo.query.Condition notContainsAll(dss.vector.solutions.entomology.Sex ... sex);
-    public com.terraframe.mojo.query.Condition containsExactly(dss.vector.solutions.entomology.Sex ... sex);
-  }
-
-/**
  * Specifies type safe query methods for the enumeration dss.vector.solutions.entomology.AssaySex.
  * This type is used when a join is performed on this class as an enumeration.
  **/
@@ -225,77 +212,18 @@ private static final long serialVersionUID = 935881589;
   }
 
 /**
- * Implements type safe query methods for the enumeration dss.vector.solutions.entomology.Sex.
+ * Specifies type safe query methods for the enumeration dss.vector.solutions.entomology.Sex.
  * This type is used when a join is performed on this class as an enumeration.
  **/
-  public static class SexQuery extends SexMasterQueryEnumeration implements  SexQueryIF, com.terraframe.mojo.generation.loader.Reloadable
-  {
-  public SexQuery(com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.terraframe.mojo.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
-  {
-    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterMdBusinessIF, masterTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+  public interface SexQueryIF extends com.terraframe.mojo.generation.loader.Reloadable, SexMasterQueryEnumerationIF  {
 
+    public com.terraframe.mojo.query.Condition containsAny(dss.vector.solutions.entomology.Sex ... sex);
+    public com.terraframe.mojo.query.Condition notContainsAny(dss.vector.solutions.entomology.Sex ... sex);
+    public com.terraframe.mojo.query.Condition containsAll(dss.vector.solutions.entomology.Sex ... sex);
+    public com.terraframe.mojo.query.Condition notContainsAll(dss.vector.solutions.entomology.Sex ... sex);
+    public com.terraframe.mojo.query.Condition containsExactly(dss.vector.solutions.entomology.Sex ... sex);
   }
 
-    public com.terraframe.mojo.query.Condition containsAny(dss.vector.solutions.entomology.Sex ... sex)  {
-
-      String[] enumIdArray = new String[sex.length]; 
-
-      for (int i=0; i<sex.length; i++)
-      {
-        enumIdArray[i] = sex[i].getId();
-      }
-
-      return this.containsAny(enumIdArray);
-  }
-
-    public com.terraframe.mojo.query.Condition notContainsAny(dss.vector.solutions.entomology.Sex ... sex)  {
-
-      String[] enumIdArray = new String[sex.length]; 
-
-      for (int i=0; i<sex.length; i++)
-      {
-        enumIdArray[i] = sex[i].getId();
-      }
-
-      return this.notContainsAny(enumIdArray);
-  }
-
-    public com.terraframe.mojo.query.Condition containsAll(dss.vector.solutions.entomology.Sex ... sex)  {
-
-      String[] enumIdArray = new String[sex.length]; 
-
-      for (int i=0; i<sex.length; i++)
-      {
-        enumIdArray[i] = sex[i].getId();
-      }
-
-      return this.containsAll(enumIdArray);
-  }
-
-    public com.terraframe.mojo.query.Condition notContainsAll(dss.vector.solutions.entomology.Sex ... sex)  {
-
-      String[] enumIdArray = new String[sex.length]; 
-
-      for (int i=0; i<sex.length; i++)
-      {
-        enumIdArray[i] = sex[i].getId();
-      }
-
-      return this.notContainsAll(enumIdArray);
-  }
-
-    public com.terraframe.mojo.query.Condition containsExactly(dss.vector.solutions.entomology.Sex ... sex)  {
-
-      String[] enumIdArray = new String[sex.length]; 
-
-      for (int i=0; i<sex.length; i++)
-      {
-        enumIdArray[i] = sex[i].getId();
-      }
-
-      return this.containsExactly(enumIdArray);
-  }
-  }
 /**
  * Implements type safe query methods for the enumeration dss.vector.solutions.entomology.AssaySex.
  * This type is used when a join is performed on this class as an enumeration.
@@ -363,6 +291,78 @@ private static final long serialVersionUID = 935881589;
       for (int i=0; i<assaySex.length; i++)
       {
         enumIdArray[i] = assaySex[i].getId();
+      }
+
+      return this.containsExactly(enumIdArray);
+  }
+  }
+/**
+ * Implements type safe query methods for the enumeration dss.vector.solutions.entomology.Sex.
+ * This type is used when a join is performed on this class as an enumeration.
+ **/
+  public static class SexQuery extends SexMasterQueryEnumeration implements  SexQueryIF, com.terraframe.mojo.generation.loader.Reloadable
+  {
+  public SexQuery(com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.terraframe.mojo.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterMdBusinessIF, masterTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+    public com.terraframe.mojo.query.Condition containsAny(dss.vector.solutions.entomology.Sex ... sex)  {
+
+      String[] enumIdArray = new String[sex.length]; 
+
+      for (int i=0; i<sex.length; i++)
+      {
+        enumIdArray[i] = sex[i].getId();
+      }
+
+      return this.containsAny(enumIdArray);
+  }
+
+    public com.terraframe.mojo.query.Condition notContainsAny(dss.vector.solutions.entomology.Sex ... sex)  {
+
+      String[] enumIdArray = new String[sex.length]; 
+
+      for (int i=0; i<sex.length; i++)
+      {
+        enumIdArray[i] = sex[i].getId();
+      }
+
+      return this.notContainsAny(enumIdArray);
+  }
+
+    public com.terraframe.mojo.query.Condition containsAll(dss.vector.solutions.entomology.Sex ... sex)  {
+
+      String[] enumIdArray = new String[sex.length]; 
+
+      for (int i=0; i<sex.length; i++)
+      {
+        enumIdArray[i] = sex[i].getId();
+      }
+
+      return this.containsAll(enumIdArray);
+  }
+
+    public com.terraframe.mojo.query.Condition notContainsAll(dss.vector.solutions.entomology.Sex ... sex)  {
+
+      String[] enumIdArray = new String[sex.length]; 
+
+      for (int i=0; i<sex.length; i++)
+      {
+        enumIdArray[i] = sex[i].getId();
+      }
+
+      return this.notContainsAll(enumIdArray);
+  }
+
+    public com.terraframe.mojo.query.Condition containsExactly(dss.vector.solutions.entomology.Sex ... sex)  {
+
+      String[] enumIdArray = new String[sex.length]; 
+
+      for (int i=0; i<sex.length; i++)
+      {
+        enumIdArray[i] = sex[i].getId();
       }
 
       return this.containsExactly(enumIdArray);

@@ -11,17 +11,8 @@
 <%@page import="dss.vector.solutions.query.QueryController"%>
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
-<%@page import="dss.vector.solutions.query.MappingController"%>
-<%@page import="dss.vector.solutions.query.RangeCategoryDTO"%>
-<%@page import="dss.vector.solutions.query.NonRangeCategoryDTO"%>
-<%@page import="dss.vector.solutions.query.RangeCategoryController"%>
-<%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
 <%@page import="dss.vector.solutions.intervention.monitor.SurveyPointDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.HouseholdDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.PersonDTO"%>
-<%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
-<%@page import="dss.vector.solutions.query.LayerViewDTO"%>
-<%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 
@@ -38,7 +29,7 @@
   <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-    String[] types = new String[]{SurveyPointDTO.CLASS, HouseholdDTO.CLASS, PersonDTO.CLASS, EpiDateDTO.CLASS, ThematicLayerDTO.CLASS, LayerViewDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
+    String[] types = new String[]{SurveyPointDTO.CLASS, HouseholdDTO.CLASS, EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
     String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 
     out.print(js);

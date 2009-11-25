@@ -22,11 +22,11 @@ import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
 
 import dss.vector.solutions.ontology.AllPathsQuery;
+import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.MapUtil;
 import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
-import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.util.QueryUtil;
 
 public abstract class AbstractSpray extends AbstractSprayBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -85,7 +85,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
    * @return
    */
   @Authenticate
-  public static ValueQuery xmlToValueQuery(String xml, String config, boolean includeGeometry, ThematicLayer thematicLayer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, boolean includeGeometry)
   {
     JSONObject queryConfig;
     try
@@ -102,7 +102,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, SprayData.CLASS, SprayData.GEOENTITY);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, SprayData.CLASS, SprayData.GEOENTITY);
 
     SprayStatusQuery sprayStatusQuery = (SprayStatusQuery) queryMap.get(SprayStatus.CLASS);
 
@@ -130,7 +130,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
       valueQuery.WHERE(abstractSprayQuery.getId().EQ(actorSprayQuery.getId()));
     }
 
-    String viewName = ThematicLayer.GEO_VIEW_PREFIX + System.currentTimeMillis();
+    String viewName = Layer.GEO_VIEW_PREFIX + System.currentTimeMillis();
     ResourceTarget.createDatabaseView(viewName);
     
     for(Entry<String, GeneratedEntityQuery> e : queryMap.entrySet()) {
@@ -196,50 +196,13 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
   @Authenticate
   public static com.terraframe.mojo.query.ValueQuery queryIRS(String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
-    ValueQuery valueQuery = xmlToValueQuery(queryXML, config, false, null);
+    ValueQuery valueQuery = xmlToValueQuery(queryXML, config, false);
 
     valueQuery.restrictRows(pageSize, pageNumber);
 
     System.out.println(valueQuery.getSQL());
 
     return valueQuery;
-  }
-
-  @Transaction
-  public static String mapQuery(String xml, String config, String[] universalLayers, String savedSearchId)
-  {
-    if (savedSearchId == null || savedSearchId.trim().length() == 0)
-    {
-      String error = "Cannot map a query without a current SavedSearch instance.";
-      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
-      throw ex;
-    }
-
-    SavedSearch search = SavedSearch.get(savedSearchId);
-    ThematicLayer thematicLayer = search.getThematicLayer();
-
-    if (thematicLayer == null || thematicLayer.getGeoHierarchy() == null)
-    {
-      String error = "Cannot create a map for search [" + search.getQueryName() + "] without having selected a thematic layer.";
-      NoThematicLayerException ex = new NoThematicLayerException(error);
-      throw ex;
-    }
-
-    // Update ThematicLayer if the thematic layer type has changed or
-    // if one has not yet been defined.
-    String thematicLayerType = thematicLayer.getGeoHierarchy().getGeoEntityClass().definesType();
-    if (thematicLayer.getGeometryStyle() == null || !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
-    {
-      thematicLayer.changeLayerType(thematicLayerType);
-    }
-
-    ValueQuery query = xmlToValueQuery(xml, config, true, thematicLayer);
-
-    System.out.println(query.getSQL());
-
-    String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
-
-    return layers;
   }
 
   @Transaction
@@ -254,7 +217,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    ValueQuery query = xmlToValueQuery(queryXML, config, false, null);
+    ValueQuery query = xmlToValueQuery(queryXML, config, false);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
@@ -270,7 +233,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
       throw ex;
     }
 
-    ValueQuery query = xmlToValueQuery(queryXML, config, false, null);
+    ValueQuery query = xmlToValueQuery(queryXML, config, false);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();

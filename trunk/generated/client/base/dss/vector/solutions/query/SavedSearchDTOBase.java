@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -111561813)
+@com.terraframe.mojo.business.ClassSignature(hash = -1953373226)
 public abstract class SavedSearchDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearch";
-  private static final long serialVersionUID = -111561813;
+  private static final long serialVersionUID = -1953373226;
   
   protected SavedSearchDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -37,6 +37,7 @@ public abstract class SavedSearchDTOBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String MAPPABLE = "mappable";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String QUERYNAME = "queryName";
   public static java.lang.String QUERYTYPE = "queryType";
@@ -44,7 +45,6 @@ public abstract class SavedSearchDTOBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TEMPLATEFILE = "templateFile";
-  public static java.lang.String THEMATICLAYER = "thematicLayer";
   public static java.lang.String TYPE = "type";
   public String getConfig()
   {
@@ -337,6 +337,43 @@ public abstract class SavedSearchDTOBase extends com.terraframe.mojo.business.Bu
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
+  public Boolean getMappable()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(MAPPABLE));
+  }
+  
+  public void setMappable(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(MAPPABLE, "");
+    }
+    else
+    {
+      setValue(MAPPABLE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isMappableWritable()
+  {
+    return isWritable(MAPPABLE);
+  }
+  
+  public boolean isMappableReadable()
+  {
+    return isReadable(MAPPABLE);
+  }
+  
+  public boolean isMappableModified()
+  {
+    return isModified(MAPPABLE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getMappableMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(MAPPABLE).getAttributeMdDTO();
+  }
+  
   public com.terraframe.mojo.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
@@ -579,66 +616,6 @@ public abstract class SavedSearchDTOBase extends com.terraframe.mojo.business.Bu
     return (com.terraframe.mojo.transport.metadata.AttributeFileMdDTO) getAttributeDTO(TEMPLATEFILE).getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.query.ThematicLayerDTO getThematicLayer()
-  {
-    if(getValue(THEMATICLAYER) == null || getValue(THEMATICLAYER).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.query.ThematicLayerDTO.get(getRequest(), getValue(THEMATICLAYER));
-    }
-  }
-  
-  public void setThematicLayer(dss.vector.solutions.query.ThematicLayerDTO value)
-  {
-    if(value == null)
-    {
-      setValue(THEMATICLAYER, "");
-    }
-    else
-    {
-      setValue(THEMATICLAYER, value.getId());
-    }
-  }
-  
-  public boolean isThematicLayerWritable()
-  {
-    return isWritable(THEMATICLAYER);
-  }
-  
-  public boolean isThematicLayerReadable()
-  {
-    return isReadable(THEMATICLAYER);
-  }
-  
-  public boolean isThematicLayerModified()
-  {
-    return isModified(THEMATICLAYER);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getThematicLayerMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(THEMATICLAYER).getAttributeMdDTO();
-  }
-  
-  public final dss.vector.solutions.query.LayerViewDTO[] getAllLayers()
-  {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "getAllLayers", _declaredTypes);
-    return (dss.vector.solutions.query.LayerViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final dss.vector.solutions.query.LayerViewDTO[] getAllLayers(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "getAllLayers", _declaredTypes);
-    return (dss.vector.solutions.query.LayerViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
   public final dss.vector.solutions.query.SavedSearchViewDTO getAsView(java.lang.Boolean includeXML, java.lang.Boolean includeConfig)
   {
     String[] _declaredTypes = new String[]{"java.lang.Boolean", "java.lang.Boolean"};
@@ -653,6 +630,14 @@ public abstract class SavedSearchDTOBase extends com.terraframe.mojo.business.Bu
     Object[] _parameters = new Object[]{id, includeXML, includeConfig};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "getAsView", _declaredTypes);
     return (dss.vector.solutions.query.SavedSearchViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.query.SavedSearchViewQueryDTO getMappableSearches(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "getMappableSearches", _declaredTypes);
+    return (dss.vector.solutions.query.SavedSearchViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.query.SavedSearchViewQueryDTO getSearchesForType(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String searchType)
@@ -709,60 +694,6 @@ public abstract class SavedSearchDTOBase extends com.terraframe.mojo.business.Bu
     Object[] _parameters = new Object[]{savedSearchView};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "updateSearch", _declaredTypes);
     return (dss.vector.solutions.query.SavedSearchViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.query.UniversalLayerDTO> getAllDefinesLayers()
-  {
-    return (java.util.List<? extends dss.vector.solutions.query.UniversalLayerDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.query.DefinesLayersDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.query.UniversalLayerDTO> getAllDefinesLayers(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.query.UniversalLayerDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.query.DefinesLayersDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.query.DefinesLayersDTO> getAllDefinesLayersRelationships()
-  {
-    return (java.util.List<? extends dss.vector.solutions.query.DefinesLayersDTO>) getRequest().getChildRelationships(this.getId(), dss.vector.solutions.query.DefinesLayersDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.query.DefinesLayersDTO> getAllDefinesLayersRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.query.DefinesLayersDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.query.DefinesLayersDTO.CLASS);
-  }
-  
-  public dss.vector.solutions.query.DefinesLayersDTO addDefinesLayers(dss.vector.solutions.query.UniversalLayerDTO child)
-  {
-    return (dss.vector.solutions.query.DefinesLayersDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.query.DefinesLayersDTO.CLASS);
-  }
-  
-  public static dss.vector.solutions.query.DefinesLayersDTO addDefinesLayers(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.query.UniversalLayerDTO child)
-  {
-    return (dss.vector.solutions.query.DefinesLayersDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.query.DefinesLayersDTO.CLASS);
-  }
-  
-  public void removeDefinesLayers(dss.vector.solutions.query.DefinesLayersDTO relationship)
-  {
-    getRequest().deleteChild(relationship.getId());
-  }
-  
-  public static void removeDefinesLayers(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.query.DefinesLayersDTO relationship)
-  {
-    clientRequestIF.deleteChild(relationship.getId());
-  }
-  
-  public void removeAllDefinesLayers()
-  {
-    getRequest().deleteChildren(this.getId(), dss.vector.solutions.query.DefinesLayersDTO.CLASS);
-  }
-  
-  public static void removeAllDefinesLayers(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    clientRequestIF.deleteChildren(id, dss.vector.solutions.query.DefinesLayersDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")

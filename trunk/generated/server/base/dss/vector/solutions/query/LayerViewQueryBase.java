@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -908627429)
+@com.terraframe.mojo.business.ClassSignature(hash = -71531241)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  abstract  class LayerViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -908627429;
+private static final long serialVersionUID = -71531241;
 
   public LayerViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -44,24 +44,6 @@ private static final long serialVersionUID = -908627429;
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIsThematic()
-  {
-    return getIsThematic(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getIsThematic(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.query.LayerView.ISTHEMATIC, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getIsThematic(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.query.LayerView.ISTHEMATIC, alias, displayLabel);
-
-  }
- 
   public com.terraframe.mojo.query.AttributeChar getLayerId()
   {
     return getLayerId(null);
@@ -80,21 +62,39 @@ private static final long serialVersionUID = -908627429;
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getThematicType()
+  public com.terraframe.mojo.query.AttributeChar getLayerName()
   {
-    return getThematicType(null);
+    return getLayerName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getThematicType(String alias)
+  public com.terraframe.mojo.query.AttributeChar getLayerName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.LayerView.THEMATICTYPE, alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getThematicType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeChar getLayerName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.LayerView.THEMATICTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERNAME, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLayerPosition()
+  {
+    return getLayerPosition(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLayerPosition(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERPOSITION, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLayerPosition(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERPOSITION, alias, displayLabel);
 
   }
  

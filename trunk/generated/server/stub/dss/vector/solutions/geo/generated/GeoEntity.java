@@ -110,6 +110,21 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   @Transaction
   private Set<String> applyInternal()
   {
+    /*
+    GeometryHelper geometryHelper = new GeometryHelper();
+    WKTReader r = new WKTReader();
+    try {
+        Geometry g = r.read(wktString);
+        if (g != null) {
+            geoEntity.setGeoPoint(geometryHelper.getGeoPoint(g));
+            geoEntity.setGeoMultiPolygon(geometryHelper.getGeoMultiPolygon(g));
+        } else {
+            // NO ENTITY RETURNED
+        }
+    } catch (ParseException e) {
+        // FAILED TO PARSE
+    }*/
+    
     Set<String> ids = new HashSet<String>();
 
     if (this.isModified(GeoEntity.ACTIVATED))

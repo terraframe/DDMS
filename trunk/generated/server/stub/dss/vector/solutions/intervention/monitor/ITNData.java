@@ -18,7 +18,6 @@ import com.terraframe.mojo.query.ValueQuery;
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.surveillance.PeriodType;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -251,7 +250,7 @@ public class ITNData extends ITNDataBase implements com.terraframe.mojo.generati
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry, ThematicLayer thematicLayer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
   {
     JSONObject queryConfig;
     try
@@ -268,7 +267,7 @@ public class ITNData extends ITNDataBase implements com.terraframe.mojo.generati
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, AggregatedIPT.CLASS, AggregatedIPT.GEOENTITY);   
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, AggregatedIPT.CLASS, AggregatedIPT.GEOENTITY);   
    
     ITNDataQuery itnQuery = (ITNDataQuery) queryMap.get(ITNData.CLASS);
 

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1462504176)
+@com.terraframe.mojo.business.ClassSignature(hash = -1983243765)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,6 +16,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ENTITYNAME = "entityName";
+  public static java.lang.String GEODATA = "geoData";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String GEOMULTIPOLYGON = "geoMultiPolygon";
   public static java.lang.String GEOPOINT = "geoPoint";
@@ -29,7 +30,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1462504176;
+  private static final long serialVersionUID = -1983243765;
   
   public GeoEntityBase()
   {
@@ -163,6 +164,34 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
     else
     {
       setValue(ENTITYNAME, value);
+    }
+  }
+  
+  public String getGeoData()
+  {
+    return getValue(GEODATA);
+  }
+  
+  public void validateGeoData()
+  {
+    this.validateAttribute(GEODATA);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGeoDataMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.generated.GeoEntity.CLASS);
+    return mdClassIF.definesAttribute(GEODATA);
+  }
+  
+  public void setGeoData(String value)
+  {
+    if(value == null)
+    {
+      setValue(GEODATA, "");
+    }
+    else
+    {
+      setValue(GEODATA, value);
     }
   }
   

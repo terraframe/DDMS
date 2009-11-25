@@ -24,7 +24,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     super();
   }
   
-  private static ValueQuery getValueQuery(String queryClass, String queryXML, String config, Boolean includeGeometry, ThematicLayer thematicLayer) 
+  private static ValueQuery getValueQuery(String queryClass, String queryXML, String config, Boolean includeGeometry)
   {
     
     Class<?> clazz = null;
@@ -35,8 +35,8 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     try
     {
       clazz = Class.forName(queryClass);
-      xmlToValueQuery = clazz.getMethod("xmlToValueQuery",String.class, String.class, Boolean.class, ThematicLayer.class );
-      valueQuery = (ValueQuery) xmlToValueQuery.invoke(clazz, queryXML, config, includeGeometry, thematicLayer);
+      xmlToValueQuery = clazz.getMethod("xmlToValueQuery",String.class, String.class, Boolean.class);
+      valueQuery = (ValueQuery) xmlToValueQuery.invoke(clazz, queryXML, config, includeGeometry);
       System.out.println(valueQuery.getSQL());
       
     }
@@ -90,53 +90,13 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
   @Authenticate
   public static com.terraframe.mojo.query.ValueQuery getQueryResults(String queryClass, String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize) 
   {
-    ValueQuery valueQuery = getValueQuery(queryClass, queryXML, config, false, null);
+    ValueQuery valueQuery = getValueQuery(queryClass, queryXML, config, false);
 
     valueQuery.restrictRows(pageSize, pageNumber);
 
     System.out.println(valueQuery.getSQL());
 
     return valueQuery;
-  }
-
-  @Transaction
-  public static String mapQuery(String queryClass, String xml, String config, String[] universalLayers, String savedSearchId)
-  {
-    if (savedSearchId == null || savedSearchId.trim().length() == 0)
-    {
-      String error = "Cannot map a query without a current SavedSearch instance.";
-      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
-      throw ex;
-    }
-
-    SavedSearch search = SavedSearch.get(savedSearchId);
-
-    ThematicLayer thematicLayer = search.getThematicLayer();
-
-    if (thematicLayer == null || thematicLayer.getGeoHierarchy() == null)
-    {
-      String error = "Cannot create a map for search [" + search.getQueryName()
-          + "] without having selected a thematic layer.";
-      NoThematicLayerException ex = new NoThematicLayerException(error);
-      throw ex;
-    }
-
-    // Update ThematicLayer if the thematic layer type has changed or
-    // if one has not yet been defined.
-    String thematicLayerType = thematicLayer.getGeoHierarchy().getGeoEntityClass().definesType();
-    if (thematicLayer.getGeometryStyle() == null
-        || !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
-    {
-      thematicLayer.changeLayerType(thematicLayerType);
-    }
-
-    ValueQuery query = getValueQuery(queryClass,xml, config, true, thematicLayer);
-
-    System.out.println(query.getSQL());
-
-    String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
-
-    return layers;
   }
 
 
@@ -152,7 +112,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    ValueQuery query = getValueQuery(queryClass, queryXML, config, false, null);
+    ValueQuery query = getValueQuery(queryClass, queryXML, config, false);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
@@ -168,7 +128,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
       throw ex;
     }
 
-    ValueQuery query = getValueQuery(queryClass, queryXML, config, false, null);
+    ValueQuery query = getValueQuery(queryClass, queryXML, config, false);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();

@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1895292016)
+@com.terraframe.mojo.business.ClassSignature(hash = 854629259)
 public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
-  private static final long serialVersionUID = -1895292016;
+  private static final long serialVersionUID = 854629259;
   
   protected GeoEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -32,6 +32,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ENTITYNAME = "entityName";
+  public static java.lang.String GEODATA = "geoData";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String GEOMULTIPOLYGON = "geoMultiPolygon";
   public static java.lang.String GEOPOINT = "geoPoint";
@@ -218,6 +219,43 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYNAME).getAttributeMdDTO();
+  }
+  
+  public String getGeoData()
+  {
+    return getValue(GEODATA);
+  }
+  
+  public void setGeoData(String value)
+  {
+    if(value == null)
+    {
+      setValue(GEODATA, "");
+    }
+    else
+    {
+      setValue(GEODATA, value);
+    }
+  }
+  
+  public boolean isGeoDataWritable()
+  {
+    return isWritable(GEODATA);
+  }
+  
+  public boolean isGeoDataReadable()
+  {
+    return isReadable(GEODATA);
+  }
+  
+  public boolean isGeoDataModified()
+  {
+    return isModified(GEODATA);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getGeoDataMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(GEODATA).getAttributeMdDTO();
   }
   
   public String getGeoId()

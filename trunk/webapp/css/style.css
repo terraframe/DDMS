@@ -320,6 +320,7 @@ span.linkify:hover {
 	width: 520px;
 	height: 620px;
 	border: 1px solid black;
+	margin-left: 5px;
 }
 
 ul#queryItemsList li {
@@ -365,15 +366,19 @@ fieldset
 	padding-right: 1em;
 }
 
-input.queryButton, select.queryList {
+input.queryButton, select.queryList, select#mapList {
 	/*float: right;*/
 	margin-top: 5px;
 	margin-right: 10px;
 }
 
-select.queryList {
+select.queryList, select#mapList {
 	width: 100px;
 	margin-left: 10px;
+}
+
+select#mapList {
+  float: left;
 }
 
 .fldContainer
@@ -889,6 +894,18 @@ input.browserOpenBtn {
 
 .defaultFieldTerm {
   margin: 5px 0px;
+}
+
+#availableLayers {
+  cursor: move;
+}
+
+.baseLayer {
+  background-color: white;
+}
+
+#leftColumn {
+  margin: 5px;
 }
 
 /*---------------------------------------------------------------*/

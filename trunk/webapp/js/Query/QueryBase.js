@@ -17,20 +17,14 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     {
       this._queryPanel = new MDSS.QueryPanel(this, 'queryPanel', 'mapPanel', {
         executeQuery: this.executeQuery,
-        mapQuery: this.mapQuery,
         saveQuery: this.saveQuery,
         saveQueryAs: this.saveQueryAs,
         loadQuery: this.loadQuery,
-        addLayer: this.addLayer,
-        editLayer: this.editLayer,
-        deleteLayer: this.deleteLayer,
-        editVariableStyles: this.editVariableStyles,
         exportXLS : this.exportXLS,
         exportCSV : this.exportCSV,
         exportReport : this.exportReport,
         paginationHandler : this.paginationHandler,
-        postRender : this.postRender,
-        thematicLayerSelected :this.thematicLayerSelected
+        postRender : this.postRender
       });
       
       // Map of attribute key to display label
@@ -594,29 +588,6 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       IsAbstract : true
     },
   
-    /**
-     * Handler for when a new thematic layer type is selected.
-     */
-    thematicLayerSelected : function(layerType)
-    {
-      // Update the thematic layer for mapping. This is the only forced
-      // save due to required artifact dependencies.
-      var request = new MDSS.Request({
-        thisRef : this,
-        layerType : layerType,
-        onSuccess : function()
-        {
-          var enable = this.layerType != null && this.layerType !== '';
-          this.thisRef._queryPanel.toggleThematicSettings(enable);
-        }
-      });
-  
-      var savedSearchView = this._queryPanel.getCurrentSavedSearch();
-      var thematicLayerId = (savedSearchView != null ? savedSearchView.getThematicLayerId() : "");
-  
-      Mojo.$.dss.vector.solutions.query.ThematicLayer.changeLayerType(request, thematicLayerId, layerType);
-    },
-  
     _reconstructSearch : function(view)
     {
       // check all selected universals for every geo attribute
@@ -868,51 +839,11 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           this.thisRef._resetToDefault();
           this.thisRef._config = new MDSS.Query.Config(savedSearchView.getConfig()); 
           
-          
-          this.thisRef._queryPanel.clearAllDefinedLayers();
-  
           this.thisRef._queryPanel.setCurrentSavedSearch(savedSearchView);
           this.thisRef._reconstructSearch(savedSearchView);
   
           // set the XML and config
           this.thisRef._loadQueryState(savedSearchView);
-  
-          // set the layers
-            /* FIXME MAP
-          var request2 = new MDSS.Request({
-            thisRef : this.thisRef,
-            onSend : function(){},
-            onSuccess : function(layerViews){
-  
-              for(var i=0; i<layerViews.length; i++)
-              {
-                var layerView = layerViews[i];
-  
-                if(layerView.getIsThematic())
-                {
-                  var type = layerView.getThematicType();
-                  var valid = type != null && type !== '';
-                  if(valid)
-                  {
-                    // set the selected thematic layer (the list will be populatd by now)
-                    this.thisRef._queryPanel.setSelectedThematicLayer(type);
-                  }
-  
-                  this.thisRef._queryPanel.toggleThematicSettings(valid);
-                }
-                else
-                {
-                  var layerId = layerView.getLayerId();
-                  var type = layerView.getUniversalType();
-  
-                  this.thisRef._queryPanel.addDefinedLayer(layerId, type);
-                }
-              }
-            }
-          });
-  
-          Mojo.$.dss.vector.solutions.query.SavedSearch.getAllLayers(request2, this.savedSearchId);
-              */
         }
       });
   
@@ -1026,7 +957,6 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       view.setQueryXml(xml);
       view.setConfig(this._config.getJSON());
-      view.setThematicLayer('');
       /* FIXME MAP
       view.setThematicLayer(this._queryPanel.getCurrentThematicLayer());
       */ 
@@ -1267,7 +1197,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         this._config.addSelectedUniversal(currentAttribute, geoEntityView.getEntityType());
       }
   
+  /* FIXME MAP
       this._queryPanel.setAvailableThematicLayers(selectedUniversals);
+      */
   
       this._criteriaEntities[currentAttribute] = criteriaEntities;
       
@@ -1406,195 +1338,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       modal.bringToTop();
   
       return modal;
-    },
-  
-  
-    /**
-     * Adds a layer of the given type to the map.
-     * The map is not refreshed.
-     */
-    addLayer : function(type)
-    {
-      var request = new MDSS.Request({
-        type: type,
-        thisRef: this,
-        onSuccess: function(layerId){
-  
-          layerId = MDSS.util.stripWhitespace(layerId);
-          this.thisRef._queryPanel.addDefinedLayer(layerId, this.type);
-        }
-      });
-  
-      var savedSearchView = this._queryPanel.getCurrentSavedSearch();
-      var savedSearchId = savedSearchView.getSavedQueryId();
-      Mojo.$.dss.vector.solutions.query.MappingController.createLayer(request, savedSearchId, type);
-    },
-  
-    /**
-     * Locks a layer and its components to put them
-     * in edit mode.
-     */
-    editLayer : function(layerId)
-    {
-      var controller = Mojo.$.dss.vector.solutions.query.MappingController;
-  
-      var request = new MDSS.Request({
-        thisRef: this,
-        layerId: layerId,
-        controller: controller,
-        onSuccess: function(html){
-  
-          var modal = this.thisRef._createModal(html, MDSS.Localized.Update, true);
-  
-          var update = Mojo.Util.bind(this.thisRef, this.thisRef._updateLayerListener, modal);
-          var canceled = Mojo.Util.bind(this.thisRef, this.thisRef._cancelLayerListener, modal, layerId, true);
-          this.controller.setUpdateLayerListener(update);
-          this.controller.setCancelLayerListener(canceled);
-        }
-      });
-  
-      controller.editLayer(request, layerId);
-    },
-  
-    _updateLayerListener : function(modal, params, action)
-    {
-      var request = new MDSS.Request({
-        modal: modal,
-        onSuccess: function(){
-  
-          this.modal.destroy();
-        }
-      });
-  
-      return request;
-    },
-  
-    _cancelLayerListener : function(modal, layerId, unlock)
-    {
-      var request = new MDSS.Request({
-        modal: modal,
-        onSuccess: function(){
-          this.modal.destroy();
-        }
-      });
-  
-      Mojo.$.dss.vector.solutions.query.MappingController.cancelLayer(request, layerId, unlock);
-    },
-  
-    /**
-     *
-     */
-    deleteLayer : function(layerId, type)
-    {
-      var request = new MDSS.Request({
-        thisRef : this,
-        layerId : layerId,
-        type : type,
-        onSuccess : function()
-        {
-          this.thisRef._queryPanel.removeDefinedLayer(this.layerId, this.type);
-        }
-      });
-  
-      Mojo.$.dss.vector.solutions.query.MappingController.deleteLayer(request, layerId);
-    },
-  
-    /**
-     * Listener for when a use requesets a new AbstractCategory.
-     * The returned HTML form is appended to the list of editable
-     * categories.
-     */
-    _newCategoryListener : function(params, action)
-    {
-      var request = new MDSS.Request({
-        thisRef: this,
-        onSuccess: function(html)
-        {
-          this.thisRef._queryPanel.addCategoryHTML(html);
-        }
-      });
-  
-      return request;
-    },
-  
-    _editThematicVariable : function(modal, layerId, params, action)
-    {
-      var request = new MDSS.Request({
-        modal: modal,
-        onSuccess: function()
-        {
-          this.modal.destroy();
-        }
-      });
-  
-  
-      var thematicVarStr = params['variable'][0];
-      var thematicVar;
-      if(thematicVarStr !== '')
-      {
-        // The string values are set in editVariableStyles.jsp
-        thematicVar = new Mojo.$.dss.vector.solutions.query.ThematicVariable();
-        var pieces = thematicVarStr.split('_-_');
-        thematicVar.setEntityAlias(pieces[0]);
-        thematicVar.setAttributeName(pieces[1]);
-        thematicVar.setUserAlias(pieces[2]);
-  
-        var display = this._queryPanel.getSelectedDisplayLabel(pieces[2]);
-        thematicVar.setDisplayLabel(display);
-      }
-      else
-      {
-        thematicVar = null;
-      }
-  
-      this._queryPanel.setCurrentThematicVariable(thematicVar);
-  
-      var categories = this._queryPanel.scrapeCategories();
-      Mojo.$.dss.vector.solutions.query.ThematicLayer.updateThematicVariable(request, layerId, thematicVar, categories);
-    },
-  
-    /**
-     * Handler to edit the styles associated with a thematic variable.
-     */
-    editVariableStyles : function()
-    {
-      var controller = Mojo.$.dss.vector.solutions.query.MappingController;
-      var savedSearchView = this._queryPanel.getCurrentSavedSearch();
-      var thematicLayerId = savedSearchView.getThematicLayerId();
-  
-      var request = new MDSS.Request({
-        thisRef: this,
-        controller: controller,
-        thematicLayerId: thematicLayerId,
-        onSuccess: function(html){
-  
-          var modal = this.thisRef._createModal(html, MDSS.Localized.Update);
-  
-          var update = Mojo.Util.bind(this.thisRef, this.thisRef._editThematicVariable, modal, this.thematicLayerId);
-          var canceled = Mojo.Util.bind(this.thisRef, this.thisRef._cancelLayerListener, modal, this.thematicLayerId,true);
-          var newCategory = Mojo.Util.bind(this.thisRef, this.thisRef._newCategoryListener);
-  
-          this.controller.setUpdateThematicVariableListener(update);
-          this.controller.setCancelLayerListener(canceled);
-  
-          Mojo.$.dss.vector.solutions.query.RangeCategoryController.setNewInstanceListener(newCategory);
-          Mojo.$.dss.vector.solutions.query.NonRangeCategoryController.setNewInstanceListener(newCategory);
-        }
-      });
-  
-      var thematicVars = this._queryPanel.getThematicVariables();
-      for(var i=0; i<thematicVars.length; i++)
-      {
-        // grab the most recent version of the display
-        // label (taking aggregate functions into account)
-        var thematic = thematicVars[i];
-  
-        var display = this._queryPanel.getSelectedDisplayLabel(thematic.getUserAlias());
-        thematic.setDisplayLabel(display);
-      }
-  
-      controller.editThematicLayer(request, thematicLayerId, thematicVars);
     }
+  
     
   }
 });
@@ -1793,7 +1538,15 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
     
     getDisplay : function(termId)
     {
-      return this._query._config.getTermDisplay(this._attribute.getKey(), termId);
+      var display = this._browser.getDisplay(termId)
+      if(display)
+      {
+        return display;
+      }
+      else
+      {
+        return this._query._config.getTermDisplay(this._attribute.getKey(), termId);
+      }
     },
     
     /**

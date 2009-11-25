@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1350351993)
+@com.terraframe.mojo.business.ClassSignature(hash = 945791618)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo.generated;
 public  class GeoEntityQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1350351993;
+private static final long serialVersionUID = 945791618;
 
   public GeoEntityQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -123,6 +123,23 @@ private static final long serialVersionUID = 1350351993;
   public com.terraframe.mojo.query.AttributeChar getEntityName(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getGeoData()
+  {
+    return getGeoData(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getGeoData(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.generated.GeoEntity.GEODATA, "com.terraframe.mojo.system.metadata.MdAttributeText", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getGeoData(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.generated.GeoEntity.GEODATA, "com.terraframe.mojo.system.metadata.MdAttributeText", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getGeoId()
@@ -625,6 +642,9 @@ private static final long serialVersionUID = 1350351993;
     public com.terraframe.mojo.query.AttributeChar getEntityName();
     public com.terraframe.mojo.query.AttributeChar getEntityName(String alias);
     public com.terraframe.mojo.query.AttributeChar getEntityName(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getGeoData();
+    public com.terraframe.mojo.query.AttributeChar getGeoData(String alias);
+    public com.terraframe.mojo.query.AttributeChar getGeoData(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeChar getGeoId();
     public com.terraframe.mojo.query.AttributeChar getGeoId(String alias);
     public com.terraframe.mojo.query.AttributeChar getGeoId(String alias, String displayLabel);
@@ -719,7 +739,7 @@ private static final long serialVersionUID = 1350351993;
  implements GeoEntityQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1427396197;
+private static final long serialVersionUID = -846193888;
 
   public GeoEntityQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -821,6 +841,23 @@ private static final long serialVersionUID = -1427396197;
   public com.terraframe.mojo.query.AttributeChar getEntityName(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("entityName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getGeoData()
+  {
+    return getGeoData(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getGeoData(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("geoData", "com.terraframe.mojo.system.metadata.MdAttributeText", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getGeoData(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("geoData", "com.terraframe.mojo.system.metadata.MdAttributeText", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getGeoId()

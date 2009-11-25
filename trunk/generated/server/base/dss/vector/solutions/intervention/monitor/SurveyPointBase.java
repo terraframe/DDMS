@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 999215881)
+@com.terraframe.mojo.business.ClassSignature(hash = 1379420979)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class SurveyPointBase extends com.terraframe.mojo.business.Busin
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SURVEYDATE = "surveyDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 999215881;
+  private static final long serialVersionUID = 1379420979;
   
   public SurveyPointBase()
   {
@@ -453,12 +453,6 @@ public abstract class SurveyPointBase extends com.terraframe.mojo.business.Busin
     return _instance.lockView();
   }
   
-  public static java.lang.String mapQuery(java.lang.String queryXML, java.lang.String config, java.lang.String[] universalLayers, java.lang.String savedSearchId)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.SurveyPoint.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
   public static com.terraframe.mojo.query.ValueQuery querySurvey(java.lang.String queryXML, java.lang.String config, java.lang.Integer pageNumber, java.lang.Integer pageSize)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.SurveyPoint.java";
@@ -483,7 +477,7 @@ public abstract class SurveyPointBase extends com.terraframe.mojo.business.Busin
     return _instance.unlockView();
   }
   
-  public static com.terraframe.mojo.query.ValueQuery xmlToValueQuery(java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry, dss.vector.solutions.query.ThematicLayer thematicLayer, java.lang.String dobCriteria)
+  public static com.terraframe.mojo.query.ValueQuery xmlToValueQuery(java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry, java.lang.String dobCriteria)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.SurveyPoint.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

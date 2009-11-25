@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1347676705)
+@com.terraframe.mojo.business.ClassSignature(hash = 1786129552)
 public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.MDSSUser";
-  private static final long serialVersionUID = 1347676705;
+  private static final long serialVersionUID = 1786129552;
   
   protected MDSSUserDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -27,10 +27,55 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
     return CLASS;
   }
   
+  public static java.lang.String DEFAULTMAP = "defaultMap";
   public static java.lang.String DEFAULTSEARCH = "defaultSearch";
   public static java.lang.String GEOROOT = "geoRoot";
   public static java.lang.String PERSON = "person";
   public static java.lang.String ROOTGEOENTITY = "rootGeoEntity";
+  public dss.vector.solutions.query.DefaultSavedMapDTO getDefaultMap()
+  {
+    if(getValue(DEFAULTMAP) == null || getValue(DEFAULTMAP).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.query.DefaultSavedMapDTO.get(getRequest(), getValue(DEFAULTMAP));
+    }
+  }
+  
+  public void setDefaultMap(dss.vector.solutions.query.DefaultSavedMapDTO value)
+  {
+    if(value == null)
+    {
+      setValue(DEFAULTMAP, "");
+    }
+    else
+    {
+      setValue(DEFAULTMAP, value.getId());
+    }
+  }
+  
+  public boolean isDefaultMapWritable()
+  {
+    return isWritable(DEFAULTMAP);
+  }
+  
+  public boolean isDefaultMapReadable()
+  {
+    return isReadable(DEFAULTMAP);
+  }
+  
+  public boolean isDefaultMapModified()
+  {
+    return isModified(DEFAULTMAP);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDefaultMapMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DEFAULTMAP).getAttributeMdDTO();
+  }
+  
   public dss.vector.solutions.query.SavedSearchDTO getDefaultSearch()
   {
     if(getValue(DEFAULTSEARCH) == null || getValue(DEFAULTSEARCH).trim().equals(""))

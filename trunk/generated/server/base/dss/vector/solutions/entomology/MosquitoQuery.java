@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -210517157)
+@com.terraframe.mojo.business.ClassSignature(hash = 1169807993)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public  class MosquitoQuery extends dss.vector.solutions.entomology.TrueSpecieEntityQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -210517157;
+private static final long serialVersionUID = 1169807993;
 
   public MosquitoQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -470,7 +470,7 @@ private static final long serialVersionUID = -210517157;
  implements MosquitoQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 419932409;
+private static final long serialVersionUID = 1686410523;
 
   public MosquitoQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -196746908)
+@com.terraframe.mojo.business.ClassSignature(hash = 601756128)
 public abstract class LayerViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.LayerView";
-  private static final long serialVersionUID = -196746908;
+  private static final long serialVersionUID = 601756128;
   
   protected LayerViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -17,47 +17,10 @@ public abstract class LayerViewDTOBase extends com.terraframe.mojo.business.View
   }
   
   public static java.lang.String ID = "id";
-  public static java.lang.String ISTHEMATIC = "isThematic";
   public static java.lang.String LAYERID = "layerId";
-  public static java.lang.String THEMATICTYPE = "thematicType";
+  public static java.lang.String LAYERNAME = "layerName";
+  public static java.lang.String LAYERPOSITION = "layerPosition";
   public static java.lang.String UNIVERSALTYPE = "universalType";
-  public Boolean getIsThematic()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISTHEMATIC));
-  }
-  
-  public void setIsThematic(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(ISTHEMATIC, "");
-    }
-    else
-    {
-      setValue(ISTHEMATIC, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isIsThematicWritable()
-  {
-    return isWritable(ISTHEMATIC);
-  }
-  
-  public boolean isIsThematicReadable()
-  {
-    return isReadable(ISTHEMATIC);
-  }
-  
-  public boolean isIsThematicModified()
-  {
-    return isModified(ISTHEMATIC);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsThematicMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISTHEMATIC).getAttributeMdDTO();
-  }
-  
   public String getLayerId()
   {
     return getValue(LAYERID);
@@ -95,41 +58,78 @@ public abstract class LayerViewDTOBase extends com.terraframe.mojo.business.View
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERID).getAttributeMdDTO();
   }
   
-  public String getThematicType()
+  public String getLayerName()
   {
-    return getValue(THEMATICTYPE);
+    return getValue(LAYERNAME);
   }
   
-  public void setThematicType(String value)
+  public void setLayerName(String value)
   {
     if(value == null)
     {
-      setValue(THEMATICTYPE, "");
+      setValue(LAYERNAME, "");
     }
     else
     {
-      setValue(THEMATICTYPE, value);
+      setValue(LAYERNAME, value);
     }
   }
   
-  public boolean isThematicTypeWritable()
+  public boolean isLayerNameWritable()
   {
-    return isWritable(THEMATICTYPE);
+    return isWritable(LAYERNAME);
   }
   
-  public boolean isThematicTypeReadable()
+  public boolean isLayerNameReadable()
   {
-    return isReadable(THEMATICTYPE);
+    return isReadable(LAYERNAME);
   }
   
-  public boolean isThematicTypeModified()
+  public boolean isLayerNameModified()
   {
-    return isModified(THEMATICTYPE);
+    return isModified(LAYERNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getThematicTypeMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLayerNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THEMATICTYPE).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERNAME).getAttributeMdDTO();
+  }
+  
+  public Integer getLayerPosition()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LAYERPOSITION));
+  }
+  
+  public void setLayerPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LAYERPOSITION, "");
+    }
+    else
+    {
+      setValue(LAYERPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isLayerPositionWritable()
+  {
+    return isWritable(LAYERPOSITION);
+  }
+  
+  public boolean isLayerPositionReadable()
+  {
+    return isReadable(LAYERPOSITION);
+  }
+  
+  public boolean isLayerPositionModified()
+  {
+    return isModified(LAYERPOSITION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLayerPositionMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LAYERPOSITION).getAttributeMdDTO();
   }
   
   public String getUniversalType()

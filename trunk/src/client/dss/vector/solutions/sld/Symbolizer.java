@@ -2,27 +2,23 @@ package dss.vector.solutions.sld;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.LineStyleDTO;
-import dss.vector.solutions.PointStyleDTO;
-import dss.vector.solutions.PolygonStyleDTO;
-import dss.vector.solutions.query.GeometryStyleDTO;
 import dss.vector.solutions.query.LayerDTO;
-import dss.vector.solutions.query.StyleRuleDTO;
+import dss.vector.solutions.query.StylesDTO;
 
 public abstract class Symbolizer implements Reloadable
 {
   private LayerDTO layer;
-  private StyleRuleDTO styleRule;
+  private StylesDTO styles;
 
-  protected Symbolizer(LayerDTO layer, StyleRuleDTO styleRule)
+  protected Symbolizer(LayerDTO layer)
   {
     this.layer = layer;
-    this.styleRule = styleRule;
+    this.styles = null;
   }
 
-  protected StyleRuleDTO getStyleRule()
+  protected StylesDTO getStyles()
   {
-    return styleRule;
+    return styles;
   }
 
   protected LayerDTO getLayer()
@@ -35,27 +31,4 @@ public abstract class Symbolizer implements Reloadable
    * @param writer
    */
   protected abstract void write(SLDWriter writer);
-
-  /**
-   * Returns the concrete Symbolizer subclass for use with the given
-   * StyleRuleDTO.
-   *
-   * @param style
-   * @return
-   */
-  protected static Symbolizer getGeometrySymbolizer(LayerDTO layer, GeometryStyleDTO style)
-  {
-    if(style instanceof PointStyleDTO)
-    {
-      return new PointSymbolizer(layer, (PointStyleDTO) style);
-    }
-    else if(style instanceof LineStyleDTO)
-    {
-      return new LineSymbolizer(layer, (LineStyleDTO) style);
-    }
-    else
-    {
-      return new PolygonSymbolizer(layer, (PolygonStyleDTO) style);
-    }
-  }
 }

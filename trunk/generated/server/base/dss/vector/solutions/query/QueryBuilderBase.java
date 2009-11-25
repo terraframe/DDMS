@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1376646673)
+@com.terraframe.mojo.business.ClassSignature(hash = -1789158697)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class QueryBuilderBase extends com.terraframe.mojo.business.View
 {
   public final static String CLASS = "dss.vector.solutions.query.QueryBuilder";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1376646673;
+  private static final long serialVersionUID = -1789158697;
   
   public QueryBuilderBase()
   {
@@ -64,12 +64,6 @@ public abstract class QueryBuilderBase extends com.terraframe.mojo.business.View
   }
   
   public static com.terraframe.mojo.query.ValueQuery getTextAttributeSugestions(java.lang.String match, java.lang.String klass, java.lang.String attribute)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryBuilder.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static java.lang.String mapQuery(java.lang.String queryType, java.lang.String queryXML, java.lang.String thematicLayerType, java.lang.String[] universalLayers, java.lang.String savedSearchId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryBuilder.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

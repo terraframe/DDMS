@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -111488906)
+@com.terraframe.mojo.business.ClassSignature(hash = 1344643001)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  abstract  class SavedSearchViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -111488906;
+private static final long serialVersionUID = 1344643001;
 
   public SavedSearchViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -131,42 +131,6 @@ private static final long serialVersionUID = -111488906;
   public com.terraframe.mojo.query.AttributeChar getSavedQueryId(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.SAVEDQUERYID, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getThematicLayer()
-  {
-    return getThematicLayer(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getThematicLayer(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.THEMATICLAYER, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getThematicLayer(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.THEMATICLAYER, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getThematicLayerId()
-  {
-    return getThematicLayerId(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getThematicLayerId(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.THEMATICLAYERID, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getThematicLayerId(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.THEMATICLAYERID, alias, displayLabel);
 
   }
  

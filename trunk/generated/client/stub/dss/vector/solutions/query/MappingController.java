@@ -10,16 +10,10 @@ import javax.servlet.ServletException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
-import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
-import dss.vector.solutions.PolygonStyleDTO;
-import dss.vector.solutions.entomology.MosquitoDTO;
-import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
-import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.sld.SLDWriter;
-import dss.vector.solutions.surveillance.AggregatedCaseDTO;
 
 public class MappingController extends MappingControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -31,6 +25,8 @@ public class MappingController extends MappingControllerBase implements
   public static final String  EDIT_LAYER           = JSP_DIR + "editLayer.jsp";
 
   public static final String  EDIT_VARIABLE_STYLES = JSP_DIR + "editVariableStyles.jsp";
+  
+  public static final String NEW_MAP = JSP_DIR + "newMap.jsp";
   
   public static final String GENERATE_MAPS = JSP_DIR+"generateMaps.jsp";
 
@@ -83,9 +79,70 @@ public class MappingController extends MappingControllerBase implements
   
   public void generateMaps() throws IOException, ServletException
   {
-    //
-    
-    this.req.getRequestDispatcher(GENERATE_MAPS).forward(req, resp);
+    try
+    {
+      SavedMapDTO.cleanOldViews(this.getClientRequest());
+
+      // fetch queries
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getMappableSearches(this.getClientRequest());
+      JSONArray queries = new JSONArray();
+      for (SavedSearchViewDTO view : query.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", view.getSavedQueryId());
+        idAndName.put("name", view.getQueryName());
+
+        queries.put(idAndName);
+      }
+      this.req.setAttribute("queryList", queries.toString());
+      
+      // fetch maps
+      SavedMapQueryDTO mapQuery = SavedMapDTO.getAllSavedMaps(this.getClientRequest());
+      JSONArray maps = new JSONArray();
+      for (SavedMapDTO map : mapQuery.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", map.getId());
+        idAndName.put("name", map.getMapName());
+        
+        maps.put(idAndName);
+      }
+      this.req.setAttribute("mapList", maps.toString());
+      
+      this.req.getRequestDispatcher(GENERATE_MAPS).forward(req, resp);
+    } 
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+  
+  @Override
+  public void newMap() throws IOException
+  {
+    try
+    {
+      this.req.setAttribute("savedMap", new SavedMapDTO(this.getClientRequest()));
+      this.req.getRequestDispatcher(NEW_MAP).forward(this.req, this.resp);
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+  }
+  
+  @Override
+  public void cancelMap() throws IOException, ServletException
+  {
+    // taken care of in JavaScript
+  }
+  
+  @Override
+  public void deleteMap() throws IOException, ServletException
+  {
+    // taken care of in JavaScript
   }
   
   /**
@@ -93,13 +150,14 @@ public class MappingController extends MappingControllerBase implements
    * 
    */
   @Override
-  public void getLegend(String savedSearchId) throws IOException, ServletException
+  public void getLegend(String savedMapId) throws IOException, ServletException
   {
     try
     {
-      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+      SavedMapDTO savedMap = SavedMapDTO.get(this.getClientRequest(), savedMapId);
 
-      ThematicLayerDTO thematic = search.getThematicLayer();
+      LayerDTO thematic = null; // FIXME MAP more than one thematic layer
+//      LayerDTO thematic = search.getThematicLayer();
 
       ThematicVariableDTO variable = thematic.getThematicVariable();
       if (variable != null)
@@ -110,7 +168,7 @@ public class MappingController extends MappingControllerBase implements
         legend.put("thematicVariable", variable.getDisplayLabel());
         legend.put("categories", categoriesArr);
         
-        List<? extends AbstractCategoryDTO> categories = thematic.getAllDefinesCategory();
+        List<? extends AbstractCategoryDTO> categories = thematic.getAllHasCategory();
         Collections.sort(categories, new CategoryComparator());
         
         for(AbstractCategoryDTO category : categories)
@@ -155,14 +213,14 @@ public class MappingController extends MappingControllerBase implements
    * 
    * @param savedSearchId
    */
-  private void writeLayers(String savedSearchId)
+  private void writeLayers(String savedMapId)
   {
-    SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-    List<? extends LayerDTO> layers = search.getAllDefinesLayers();
+    SavedMapDTO savedMap = SavedMapDTO.get(this.getClientRequest(), savedMapId);
+    List<? extends LayerDTO> layers = savedMap.getAllLayer();
 
-    // Check that a thematic layer has been defined with valid a valid geometry
-    // style.
-    ThematicLayerDTO thematicLayerDTO = search.getThematicLayer();
+    // Check that a thematic layer has been defined with valid a valid geometry style
+    /* FIXME MAP
+    LayerDTO thematicLayerDTO = savedMap.getThematicLayer();
     if (thematicLayerDTO.getGeometryStyle() == null)
     {
       NoThematicLayerExceptionDTO ex = new NoThematicLayerExceptionDTO(this.getClientRequest(), this.req
@@ -172,165 +230,24 @@ public class MappingController extends MappingControllerBase implements
 
     SLDWriter sldWriter = SLDWriter.getSLDWriter(thematicLayerDTO);
     sldWriter.write();
+     */
 
     for (LayerDTO layer : layers)
     {
-      SLDWriter layerWriter = SLDWriter.getSLDWriter(layer);
+      SLDWriter layerWriter = new SLDWriter(layer);
       layerWriter.write();
     }
 
   }
 
   @Override
-  public void mapSurveyQuery(String queryXML, String config, String[] universalLayers,
-      String savedSearchId) throws IOException, ServletException
-  {
-    try
-    {
-      // must write layers first so the mapping has valid SLD files to
-      // reference. If
-      // the search id is null, skip this step so control flow continues and the
-      // proper
-      // error can be thrown.
-      if (savedSearchId != null && savedSearchId.trim().length() > 0)
-      {
-        writeLayers(savedSearchId);
-      }
-
-      String layers = SurveyPointDTO.mapQuery(this.getClientRequest(), queryXML, config,
-          universalLayers, savedSearchId);
-
-      resp.getWriter().print(layers);
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-  }
-
-  @Override
-  public void mapIRSQuery(String queryXML, String config, String[] universalLayers,
-      String savedSearchId) throws IOException, ServletException
-  {
-    try
-    {
-      // must write layers first so the mapping has valid SLD files to reference. If
-      // the search id is null, skip this step so control flow continues and the proper
-      // error can be thrown.
-      if(savedSearchId != null && savedSearchId.trim().length() > 0)
-      {
-        writeLayers(savedSearchId);
-      }
-
-      String layers = AbstractSprayDTO.mapQuery(this.getClientRequest(), queryXML, config,
-          universalLayers, savedSearchId);
-
-      resp.getWriter().print(layers);
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-  }
-
-  @Override
-  public void mapAggregatedCaseQuery(String queryXML, String config,
-      String[] universalLayers, String savedSearchId) throws IOException, ServletException
-  {
-    try
-    {
-      // must write layers first so the mapping has valid SLD files to
-      // reference. If
-      // the search id is null, skip this step so control flow continues and the
-      // proper
-      // error can be thrown.
-      if (savedSearchId != null && savedSearchId.trim().length() > 0)
-      {
-        writeLayers(savedSearchId);
-      }
-
-      String layers = AggregatedCaseDTO.mapQuery(this.getClientRequest(), queryXML, config,
-          universalLayers, savedSearchId);
-
-      resp.getWriter().print(layers);
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-  }
-
-  @Override
-  public void mapEntomologyQuery(String queryXML, String config, String[] universalLayers,
-      String savedSearchId) throws IOException, ServletException
-  {
-    try
-    {
-      // must write layers first so the mapping has valid SLD files to
-      // reference. If
-      // the search id is null, skip this step so control flow continues and the
-      // proper
-      // error can be thrown.
-      if (savedSearchId != null && savedSearchId.trim().length() > 0)
-      {
-        writeLayers(savedSearchId);
-      }
-
-      String layers = MosquitoDTO.mapQuery(this.getClientRequest(), queryXML, config, universalLayers,
-          savedSearchId);
-
-      resp.getWriter().print(layers);
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-  }
-
-  @Override
-  public void mapResistanceQuery(String queryXML, String config, String[] universalLayers,
-      String savedSearchId) throws IOException, ServletException
-  {
-    try
-    {
-      // must write layers first so the mapping has valid SLD files to
-      // reference. If
-      // the search id is null, skip this step so control flow continues and the
-      // proper
-      // error can be thrown.
-      if (savedSearchId != null && savedSearchId.trim().length() > 0)
-      {
-        writeLayers(savedSearchId);
-      }
-
-      String layers = MosquitoDTO.mapQuery(this.getClientRequest(), queryXML, config, universalLayers,
-          savedSearchId);
-
-      resp.getWriter().print(layers);
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-  }
-
-  @Override
   public void editThematicLayer(String thematicLayerId, ThematicVariableDTO[] thematicVariables)
       throws IOException, ServletException
   {
+    /* FIXME MAP
     try
     {
-      ThematicLayerDTO layer = ThematicLayerDTO.lock(this.getClientRequest(), thematicLayerId);
+      LayerDTO layer = ThematicLayerDTO.lock(this.getClientRequest(), thematicLayerId);
 
       List<? extends AbstractCategoryDTO> categories = layer.getAllDefinesCategory();
       Collections.sort(categories, new CategoryComparator());
@@ -349,15 +266,17 @@ public class MappingController extends MappingControllerBase implements
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
+    */
   }
 
   @Override
   public void updateThematicVariable(String layerId, ThematicVariableDTO thematicVariable,
       AbstractCategoryDTO[] categories) throws IOException, ServletException
   {
+    /* FIXME MAP
     try
     {
-      ThematicLayerDTO.updateThematicVariable(this.getClientRequest(), layerId, thematicVariable,
+      LayerDTO.updateThematicVariable(this.getClientRequest(), layerId, thematicVariable,
           categories);
     }
     catch (ProblemExceptionDTO e)
@@ -372,6 +291,7 @@ public class MappingController extends MappingControllerBase implements
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
+    */
   }
 
   public void viewLayer(java.lang.String layerId) throws java.io.IOException,
@@ -386,51 +306,15 @@ public class MappingController extends MappingControllerBase implements
   }
 
   /**
-   * Updates the layer summary layer (the style components).
-   */
-  public void updateLayer(dss.vector.solutions.query.GeometryStyleDTO geometryStyle,
-      dss.vector.solutions.query.TextStyleDTO textStyle, String layerId) throws java.io.IOException,
-      javax.servlet.ServletException
-  {
-    try
-    {
-      LayerDTO layer = LayerDTO.updateLayer(this.getClientRequest(), geometryStyle, textStyle, layerId);
-
-      // SLDWriter sldWriter = SLDWriter.getSLDWriter(layer);
-      // sldWriter.write();
-
-      resp.getWriter().print(layer.getId());
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-  }
-
-  public void failUpdateLayer(dss.vector.solutions.query.GeometryStyleDTO geometryStyle,
-      dss.vector.solutions.query.TextStyleDTO textStyle) throws java.io.IOException,
-      javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-
-  /**
    * Creates a Layer with default styles.
    */
   public void createLayer(java.lang.String savedSearchId, java.lang.String layerClass)
       throws java.io.IOException, javax.servlet.ServletException
   {
+    /* FIXME MAP
     try
     {
-      LayerDTO layer = UniversalLayerDTO.createLayer(this.getClientRequest(), savedSearchId, layerClass);
+      LayerDTO layer = LayerDTO.createLayer(this.getClientRequest(), savedSearchId, layerClass);
 
       // SLDWriter sldWriter = SLDWriter.getSLDWriter(layer);
       // sldWriter.write();
@@ -445,6 +329,7 @@ public class MappingController extends MappingControllerBase implements
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
+    */
   }
 
   public void failCreateLayer(java.lang.String savedSearchId, java.lang.String layerClass)
@@ -460,6 +345,7 @@ public class MappingController extends MappingControllerBase implements
   public void editLayer(java.lang.String layerId) throws java.io.IOException,
       javax.servlet.ServletException
   {
+    /* FIXME MAP
     try
     {
       LayerDTO layer = LayerDTO.lock(this.getClientRequest(), layerId);
@@ -479,6 +365,7 @@ public class MappingController extends MappingControllerBase implements
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
+    */
   }
 
   public void failEditLayer(java.lang.String layerId) throws java.io.IOException,

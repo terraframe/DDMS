@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -137249860)
+@com.terraframe.mojo.business.ClassSignature(hash = 1687494642)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.surveillance;
 public class AggregatedCaseQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -137249860;
+private static final long serialVersionUID = 1687494642;
 
   protected AggregatedCaseQueryDTO(String type)
   {

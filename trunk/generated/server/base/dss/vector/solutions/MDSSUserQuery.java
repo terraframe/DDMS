@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1657382056)
+@com.terraframe.mojo.business.ClassSignature(hash = -1804532025)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  class MDSSUserQuery extends com.terraframe.mojo.system.UsersQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1657382056;
+private static final long serialVersionUID = -1804532025;
 
   public MDSSUserQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -27,6 +27,29 @@ private static final long serialVersionUID = -1657382056;
   public String getClassType()
   {
     return dss.vector.solutions.MDSSUser.CLASS;
+  }
+  public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap()
+  {
+    return getDefaultMap(null);
+
+  }
+ 
+  public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("defaultMap");
+
+    return (dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.MDSSUser.DEFAULTMAP, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("defaultMap");
+
+    return (dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.MDSSUser.DEFAULTMAP, mdAttributeIF, this, alias, displayLabel);
+
   }
   public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch()
   {
@@ -118,7 +141,11 @@ private static final long serialVersionUID = -1657382056;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("defaultSearch")) 
+    if (name.equals("defaultMap")) 
+    {
+       return new dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("defaultSearch")) 
     {
        return new dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -225,6 +252,9 @@ private static final long serialVersionUID = -1657382056;
   public interface MDSSUserQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF
   {
 
+    public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap();
+    public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap(String alias);
+    public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap(String alias, String displayLabel);
     public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch();
     public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch(String alias);
     public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch(String alias, String displayLabel);
@@ -266,7 +296,7 @@ private static final long serialVersionUID = -1657382056;
  implements MDSSUserQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1106019210;
+private static final long serialVersionUID = 1976715749;
 
   public MDSSUserQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -285,6 +315,23 @@ private static final long serialVersionUID = -1106019210;
       return this.NE(mDSSUser.getId());
     }
 
+  public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap()
+  {
+    return getDefaultMap(null);
+
+  }
+ 
+  public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap(String alias)
+  {
+    return (dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF)this.attributeFactory("defaultMap", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF)this.attributeFactory("defaultMap", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+
+  }
   public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch()
   {
     return getDefaultSearch(null);
@@ -405,7 +452,11 @@ private static final long serialVersionUID = -1106019210;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("defaultSearch")) 
+    if (name.equals("defaultMap")) 
+    {
+       return new dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("defaultSearch")) 
     {
        return new dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

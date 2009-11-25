@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1576814692)
+@com.terraframe.mojo.business.ClassSignature(hash = -1486185904)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,7 +15,7 @@ public abstract class MosquitoBase extends dss.vector.solutions.entomology.TrueS
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String SEX = "sex";
   public static java.lang.String TESTDATE = "testDate";
-  private static final long serialVersionUID = 1576814692;
+  private static final long serialVersionUID = -1486185904;
   
   public MosquitoBase()
   {
@@ -384,12 +384,6 @@ public abstract class MosquitoBase extends dss.vector.solutions.entomology.TrueS
     return _instance.lockView();
   }
   
-  public static java.lang.String mapQuery(java.lang.String queryXML, java.lang.String config, java.lang.String[] universalLayers, java.lang.String savedSearchId)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.Mosquito.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
   public static com.terraframe.mojo.query.ValueQuery queryEntomology(java.lang.String queryXML, java.lang.String config, java.lang.String sortBy, java.lang.Boolean ascending, java.lang.Integer pageNumber, java.lang.Integer pageSize)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.Mosquito.java";
@@ -408,7 +402,7 @@ public abstract class MosquitoBase extends dss.vector.solutions.entomology.TrueS
     return _instance.unlockView();
   }
   
-  public static com.terraframe.mojo.query.ValueQuery xmlToValueQuery(java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry, dss.vector.solutions.query.ThematicLayer thematicLayer)
+  public static com.terraframe.mojo.query.ValueQuery xmlToValueQuery(java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.Mosquito.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

@@ -37,11 +37,8 @@ import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.TermQuery;
-import dss.vector.solutions.query.MapUtil;
-import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
-import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.util.QueryUtil;
 
 public class AggregatedCase extends AggregatedCaseBase implements
@@ -396,7 +393,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
    */
   @Authenticate
   public static ValueQuery xmlToValueQuery(String xml, String config,
-      boolean includeGeometry, ThematicLayer thematicLayer)
+      boolean includeGeometry)
   {
     JSONObject queryConfig;
     try
@@ -414,7 +411,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     // IMPORTANT: Required call for all query screens.
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
-        valueQuery, xml, queryConfig, thematicLayer, includeGeometry, AggregatedCase.CLASS, AggregatedCase.GEOENTITY);
+        valueQuery, xml, queryConfig, includeGeometry, AggregatedCase.CLASS, AggregatedCase.GEOENTITY);
 
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
 
@@ -461,6 +458,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
     String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
 
     return QueryUtil.setQueryDates(xml, valueQuery, sd, ed);
+    
   }
 
 
@@ -487,55 +485,11 @@ public class AggregatedCase extends AggregatedCaseBase implements
   public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String config,
       Integer pageNumber, Integer pageSize)
   {
-    ValueQuery valueQuery = xmlToValueQuery(xml, config, false, null);
+    ValueQuery valueQuery = xmlToValueQuery(xml, config, false);
 
     valueQuery.restrictRows(pageSize, pageNumber);
 
     return valueQuery;
-  }
-
-  /**
-   * Creates a
-   *
-   * @param xml
-   * @return
-   */
-  @Transaction
-  public static String mapQuery(String xml, String config, String[] universalLayers, String savedSearchId)
-  {
-    if (savedSearchId == null || savedSearchId.trim().length() == 0)
-    {
-      String error = "Cannot map a query without a current SavedSearch instance.";
-      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
-      throw ex;
-    }
-
-    SavedSearch search = SavedSearch.get(savedSearchId);
-
-    ThematicLayer thematicLayer = search.getThematicLayer();
-
-    if (thematicLayer == null || thematicLayer.getGeoHierarchy() == null)
-    {
-      String error = "Cannot create a map for search [" + search.getQueryName()
-          + "] without having selected a thematic layer.";
-      NoThematicLayerException ex = new NoThematicLayerException(error);
-      throw ex;
-    }
-
-    // Update ThematicLayer if the thematic layer type has changed or
-    // if one has not yet been defined.
-    String thematicLayerType = thematicLayer.getGeoHierarchy().getGeoEntityClass().definesType();
-    if (thematicLayer.getGeometryStyle() == null
-        || !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
-    {
-      thematicLayer.changeLayerType(thematicLayerType);
-    }
-
-    ValueQuery query = xmlToValueQuery(xml, config, true, thematicLayer);
-
-    String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
-
-    return layers;
   }
 
   @Transaction
@@ -550,7 +504,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    ValueQuery query = xmlToValueQuery(queryXML, config, false, null);
+    ValueQuery query = xmlToValueQuery(queryXML, config, false);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
@@ -566,7 +520,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
       throw ex;
     }
 
-    ValueQuery query = xmlToValueQuery(queryXML, config, false, null);
+    ValueQuery query = xmlToValueQuery(queryXML, config, false);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();

@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -845086748)
+@com.terraframe.mojo.business.ClassSignature(hash = 333377632)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,11 +12,11 @@ public abstract class LayerViewBase extends com.terraframe.mojo.business.View im
 {
   public final static String CLASS = "dss.vector.solutions.query.LayerView";
   public static java.lang.String ID = "id";
-  public static java.lang.String ISTHEMATIC = "isThematic";
   public static java.lang.String LAYERID = "layerId";
-  public static java.lang.String THEMATICTYPE = "thematicType";
+  public static java.lang.String LAYERNAME = "layerName";
+  public static java.lang.String LAYERPOSITION = "layerPosition";
   public static java.lang.String UNIVERSALTYPE = "universalType";
-  private static final long serialVersionUID = -845086748;
+  private static final long serialVersionUID = 333377632;
   
   public LayerViewBase()
   {
@@ -37,34 +37,6 @@ public abstract class LayerViewBase extends com.terraframe.mojo.business.View im
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.LayerView.CLASS);
     return mdClassIF.definesAttribute(ID);
-  }
-  
-  public Boolean getIsThematic()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISTHEMATIC));
-  }
-  
-  public void validateIsThematic()
-  {
-    this.validateAttribute(ISTHEMATIC);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getIsThematicMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.LayerView.CLASS);
-    return mdClassIF.definesAttribute(ISTHEMATIC);
-  }
-  
-  public void setIsThematic(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(ISTHEMATIC, "");
-    }
-    else
-    {
-      setValue(ISTHEMATIC, java.lang.Boolean.toString(value));
-    }
   }
   
   public String getLayerId()
@@ -95,31 +67,59 @@ public abstract class LayerViewBase extends com.terraframe.mojo.business.View im
     }
   }
   
-  public String getThematicType()
+  public String getLayerName()
   {
-    return getValue(THEMATICTYPE);
+    return getValue(LAYERNAME);
   }
   
-  public void validateThematicType()
+  public void validateLayerName()
   {
-    this.validateAttribute(THEMATICTYPE);
+    this.validateAttribute(LAYERNAME);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getThematicTypeMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLayerNameMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.LayerView.CLASS);
-    return mdClassIF.definesAttribute(THEMATICTYPE);
+    return mdClassIF.definesAttribute(LAYERNAME);
   }
   
-  public void setThematicType(String value)
+  public void setLayerName(String value)
   {
     if(value == null)
     {
-      setValue(THEMATICTYPE, "");
+      setValue(LAYERNAME, "");
     }
     else
     {
-      setValue(THEMATICTYPE, value);
+      setValue(LAYERNAME, value);
+    }
+  }
+  
+  public Integer getLayerPosition()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LAYERPOSITION));
+  }
+  
+  public void validateLayerPosition()
+  {
+    this.validateAttribute(LAYERPOSITION);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLayerPositionMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.LayerView.CLASS);
+    return mdClassIF.definesAttribute(LAYERPOSITION);
+  }
+  
+  public void setLayerPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LAYERPOSITION, "");
+    }
+    else
+    {
+      setValue(LAYERPOSITION, java.lang.Integer.toString(value));
     }
   }
   

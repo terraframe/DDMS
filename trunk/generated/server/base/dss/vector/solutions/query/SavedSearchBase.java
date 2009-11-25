@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -908144085)
+@com.terraframe.mojo.business.ClassSignature(hash = -303586730)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,6 +21,7 @@ public abstract class SavedSearchBase extends com.terraframe.mojo.business.Busin
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String MAPPABLE = "mappable";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String QUERYNAME = "queryName";
   public static java.lang.String QUERYTYPE = "queryType";
@@ -28,9 +29,8 @@ public abstract class SavedSearchBase extends com.terraframe.mojo.business.Busin
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TEMPLATEFILE = "templateFile";
-  public static java.lang.String THEMATICLAYER = "thematicLayer";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -908144085;
+  private static final long serialVersionUID = -303586730;
   
   public SavedSearchBase()
   {
@@ -273,6 +273,34 @@ public abstract class SavedSearchBase extends com.terraframe.mojo.business.Busin
     return mdClassIF.definesAttribute(LOCKEDBY);
   }
   
+  public Boolean getMappable()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(MAPPABLE));
+  }
+  
+  public void validateMappable()
+  {
+    this.validateAttribute(MAPPABLE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getMappableMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearch.CLASS);
+    return mdClassIF.definesAttribute(MAPPABLE);
+  }
+  
+  public void setMappable(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(MAPPABLE, "");
+    }
+    else
+    {
+      setValue(MAPPABLE, java.lang.Boolean.toString(value));
+    }
+  }
+  
   public com.terraframe.mojo.system.Actor getOwner()
   {
     if (getValue(OWNER).trim().equals(""))
@@ -452,41 +480,6 @@ public abstract class SavedSearchBase extends com.terraframe.mojo.business.Busin
     }
   }
   
-  public dss.vector.solutions.query.ThematicLayer getThematicLayer()
-  {
-    if (getValue(THEMATICLAYER).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.query.ThematicLayer.get(getValue(THEMATICLAYER));
-    }
-  }
-  
-  public void validateThematicLayer()
-  {
-    this.validateAttribute(THEMATICLAYER);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getThematicLayerMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearch.CLASS);
-    return mdClassIF.definesAttribute(THEMATICLAYER);
-  }
-  
-  public void setThematicLayer(dss.vector.solutions.query.ThematicLayer value)
-  {
-    if(value == null)
-    {
-      setValue(THEMATICLAYER, "");
-    }
-    else
-    {
-      setValue(THEMATICLAYER, value.getId());
-    }
-  }
-  
   public String getType()
   {
     return getValue(TYPE);
@@ -513,34 +506,6 @@ public abstract class SavedSearchBase extends com.terraframe.mojo.business.Busin
     SavedSearchQuery query = new SavedSearchQuery(new com.terraframe.mojo.query.QueryFactory());
     com.terraframe.mojo.business.Entity.getAllInstances(query, sortAttribute, ascending, pageSize, pageNumber);
     return query;
-  }
-  
-  public dss.vector.solutions.query.DefinesLayers addDefinesLayers(dss.vector.solutions.query.UniversalLayer universalLayer)
-  {
-    return (dss.vector.solutions.query.DefinesLayers) addChild(universalLayer, dss.vector.solutions.query.DefinesLayers.CLASS);
-  }
-  
-  public void removeDefinesLayers(dss.vector.solutions.query.UniversalLayer universalLayer)
-  {
-    removeAllChildren(universalLayer, dss.vector.solutions.query.DefinesLayers.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.UniversalLayer> getAllDefinesLayers()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.UniversalLayer>) getChildren(dss.vector.solutions.query.DefinesLayers.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.DefinesLayers> getAllDefinesLayersRel()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.DefinesLayers>) getChildRelationships(dss.vector.solutions.query.DefinesLayers.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.DefinesLayers> getDefinesLayersRel(dss.vector.solutions.query.UniversalLayer universalLayer)
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.DefinesLayers>) getRelationshipsWithChild(universalLayer, dss.vector.solutions.query.DefinesLayers.CLASS);
   }
   
   public dss.vector.solutions.query.PersistsSearch addPersistedBy(dss.vector.solutions.MDSSUser mDSSUser)
@@ -581,18 +546,6 @@ public abstract class SavedSearchBase extends com.terraframe.mojo.business.Busin
     return (SavedSearch) com.terraframe.mojo.business.Business.get(CLASS, key);
   }
   
-  public dss.vector.solutions.query.LayerView[] getAllLayers()
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedSearch.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final dss.vector.solutions.query.LayerView[] getAllLayers(java.lang.String id)
-  {
-    SavedSearch _instance = SavedSearch.get(id);
-    return _instance.getAllLayers();
-  }
-  
   public dss.vector.solutions.query.SavedSearchView getAsView(java.lang.Boolean includeXML, java.lang.Boolean includeConfig)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedSearch.java";
@@ -603,6 +556,12 @@ public abstract class SavedSearchBase extends com.terraframe.mojo.business.Busin
   {
     SavedSearch _instance = SavedSearch.get(id);
     return _instance.getAsView(includeXML, includeConfig);
+  }
+  
+  public static dss.vector.solutions.query.SavedSearchViewQuery getMappableSearches()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedSearch.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static dss.vector.solutions.query.SavedSearchViewQuery getSearchesForType(java.lang.String searchType)

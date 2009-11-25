@@ -370,12 +370,6 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
       column = this._queryPanel.insertColumn(column);
 
       this._visibleSelectables[attribute.getKey()] = selectable;
-
-      // ADD THEMATIC VARIABLE
-      if(Mojo.Util.isFunction(attribute.getDtoType()) && attribute.getDtoType().contains('AttributeIntegerDTO'))
-      {
-        this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
-      }
     },
 
 
@@ -383,7 +377,7 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
     /**
      * Removes an attribute as a selectable and column.
      */
-    _removeVisibleAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
+    _removeVisibleAttribute : function(attribute, removeColumn, removeSelectable)
     {
       var attributeName = attribute.getAttributeName();
       var key = attribute.getKey();
@@ -402,14 +396,7 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
         var column = this._queryPanel.getColumn(key);
         this._queryPanel.removeColumn(column);
       }
-
-     if(removeThematic)
-     {
-        this._queryPanel.removeThematicVariable(attribute.getKey());
-     }
     },
-
-
 
     /**
      * Handler to toggle visible attributes as selectables
@@ -477,9 +464,6 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
         this._countSelectable = aggSelectable;
 
         this._queryPanel.insertColumn(attribute.getColumnObject());
-
-        // ADD THEMATIC VARIABLE
-        this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
       }
       else
       {
@@ -487,8 +471,6 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
         this._queryPanel.removeColumn(column);
 
         this._countSelectable = null;
-
-        this._queryPanel.removeThematicVariable(attribute.getKey());
       }
     },
 
@@ -508,9 +490,6 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
         this._ratioSelectable = selectable;
 
         this._queryPanel.insertColumn(column);
-
-        // ADD THEMATIC VARIABLE
-        this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
       }
       else
       {
@@ -518,8 +497,6 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
         this._queryPanel.removeColumn(column);
 
         this._countSelectable = null;
-
-        this._queryPanel.removeThematicVariable(attribute.getKey());
       }
     },
 
@@ -542,7 +519,7 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
       if(func === '')
       {
         // Use regular selectable (this is just here for clarity).
-        this._removeVisibleAttribute(attribute, false, true, false);
+        this._removeVisibleAttribute(attribute, false, true);
         this._visibleSelectables[attribute.getKey()] = selectable;
 
         return;
@@ -568,7 +545,7 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
         aggFunc = new MDSS.QueryXML.AVG(selectable, key, displayLabel);
       }
 
-      this._removeVisibleAttribute(attribute, false, true, false);
+      this._removeVisibleAttribute(attribute, false, true);
 
       var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
       this._visibleAggregateSelectables[attribute.getKey()] = aggSelectable;

@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 918241829)
+@com.terraframe.mojo.business.ClassSignature(hash = -1028746533)
 public abstract class IndividualIPTCaseViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualIPTCaseView";
-  private static final long serialVersionUID = 918241829;
+  private static final long serialVersionUID = -1028746533;
   
   protected IndividualIPTCaseViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -212,22 +212,6 @@ public abstract class IndividualIPTCaseViewDTOBase extends com.terraframe.mojo.b
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getServiceDateMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SERVICEDATE).getAttributeMdDTO();
-  }
-  
-  public final void applyWithInstance(dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO instance)
-  {
-    String[] _declaredTypes = new String[]{"dss.vector.solutions.intervention.monitor.IndividualIPTView"};
-    Object[] _parameters = new Object[]{instance};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "applyWithInstance", _declaredTypes);
-    getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final void applyWithInstance(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO instance)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.intervention.monitor.IndividualIPTView"};
-    Object[] _parameters = new Object[]{id, instance};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "applyWithInstance", _declaredTypes);
-    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final void deleteConcrete()

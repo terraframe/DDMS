@@ -3,27 +3,19 @@ package dss.vector.solutions.sld;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.query.LayerDTO;
-import dss.vector.solutions.query.QueryConstants;
-import dss.vector.solutions.query.TextStyleDTO;
-import dss.vector.solutions.query.ThematicLayerDTO;
 
 public class TextSymbolizer extends Symbolizer implements Reloadable
 {
 
-  protected TextSymbolizer(LayerDTO layer, TextStyleDTO styleRule)
+  protected TextSymbolizer(LayerDTO layer)
   {
-    super(layer, styleRule);
-  }
-
-  @Override
-  protected TextStyleDTO getStyleRule()
-  {
-    return (TextStyleDTO) super.getStyleRule();
+    super(layer);
   }
 
   @Override
   protected void write(SLDWriter writer)
   {
+    /*
     LayerDTO layer = this.getLayer();
 
     TextStyleDTO style = this.getStyleRule();
@@ -34,8 +26,8 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
 
 
 
-    if(layer instanceof ThematicLayerDTO
-        && ((ThematicLayerDTO)layer).getThematicVariable() != null)
+    String thematicVar = layer.getValue(LayerDTO.THEMATICVARIABLE);
+    if(thematicVar != null && thematicVar.length() > 0)
     {
       writer.writeln("<Rule>");
       writer.writeln("<Filter>");
@@ -95,7 +87,7 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
       writer.writeln("</Displacement>");
       writer.writeln("</PointPlacement>");
       writer.writeln("</LabelPlacement>");
-      writer.writeln("<Opacity>1.0</Opacity>");
+      writer.writeln("<VendorOption name=\"spaceAround\">-100</VendorOption>");
       writer.writeln("</TextSymbolizer>");
       writer.writeln("</Rule>");
     }
@@ -122,13 +114,12 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
       writer.writeln("</Displacement>");
       writer.writeln("</PointPlacement>");
       writer.writeln("</LabelPlacement>");
-//      writer.writeln("<VendorOption name=\"conflictResolution\">true</VendorOption>");
-//      writer.writeln("<VendorOption name=\"group\">true</VendorOption>");
       writer.writeln("<VendorOption name=\"spaceAround\">-100</VendorOption>");
       writer.writeln("</TextSymbolizer>");
       writer.writeln("</Rule>");
 
     }
+    */
   }
 
 }

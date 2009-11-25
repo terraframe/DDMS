@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -458869491)
+@com.terraframe.mojo.business.ClassSignature(hash = -501510768)
 public abstract class SavedSearchViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearchView";
-  private static final long serialVersionUID = -458869491;
+  private static final long serialVersionUID = -501510768;
   
   protected SavedSearchViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -22,8 +22,6 @@ public abstract class SavedSearchViewDTOBase extends com.terraframe.mojo.busines
   public static java.lang.String QUERYTYPE = "queryType";
   public static java.lang.String QUERYXML = "queryXml";
   public static java.lang.String SAVEDQUERYID = "savedQueryId";
-  public static java.lang.String THEMATICLAYER = "thematicLayer";
-  public static java.lang.String THEMATICLAYERID = "thematicLayerId";
   public String getConfig()
   {
     return getValue(CONFIG);
@@ -207,80 +205,6 @@ public abstract class SavedSearchViewDTOBase extends com.terraframe.mojo.busines
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSavedQueryIdMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SAVEDQUERYID).getAttributeMdDTO();
-  }
-  
-  public String getThematicLayer()
-  {
-    return getValue(THEMATICLAYER);
-  }
-  
-  public void setThematicLayer(String value)
-  {
-    if(value == null)
-    {
-      setValue(THEMATICLAYER, "");
-    }
-    else
-    {
-      setValue(THEMATICLAYER, value);
-    }
-  }
-  
-  public boolean isThematicLayerWritable()
-  {
-    return isWritable(THEMATICLAYER);
-  }
-  
-  public boolean isThematicLayerReadable()
-  {
-    return isReadable(THEMATICLAYER);
-  }
-  
-  public boolean isThematicLayerModified()
-  {
-    return isModified(THEMATICLAYER);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getThematicLayerMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THEMATICLAYER).getAttributeMdDTO();
-  }
-  
-  public String getThematicLayerId()
-  {
-    return getValue(THEMATICLAYERID);
-  }
-  
-  public void setThematicLayerId(String value)
-  {
-    if(value == null)
-    {
-      setValue(THEMATICLAYERID, "");
-    }
-    else
-    {
-      setValue(THEMATICLAYERID, value);
-    }
-  }
-  
-  public boolean isThematicLayerIdWritable()
-  {
-    return isWritable(THEMATICLAYERID);
-  }
-  
-  public boolean isThematicLayerIdReadable()
-  {
-    return isReadable(THEMATICLAYERID);
-  }
-  
-  public boolean isThematicLayerIdModified()
-  {
-    return isModified(THEMATICLAYERID);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getThematicLayerIdMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THEMATICLAYERID).getAttributeMdDTO();
   }
   
   public static SavedSearchViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

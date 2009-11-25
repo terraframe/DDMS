@@ -401,6 +401,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
         // allowed without roots.
         query.AND(termQuery.getId().EQ(""));
       }
+      
+      query.AND(termQuery.getObsolete().EQ(false));
 
       query.ORDER_BY_ASC(this.termQuery.getDisplay());
     }

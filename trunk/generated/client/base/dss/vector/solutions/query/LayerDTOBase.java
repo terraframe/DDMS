@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1558674182)
+@com.terraframe.mojo.business.ClassSignature(hash = 1425035663)
 public abstract class LayerDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Layer";
-  private static final long serialVersionUID = 1558674182;
+  private static final long serialVersionUID = 1425035663;
   
   protected LayerDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -29,20 +29,23 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DEFAULTSTYLES = "defaultStyles";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String GEOHIERARCHY = "geoHierarchy";
-  public static java.lang.String GEOMETRYSTYLE = "geometryStyle";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
+  public static java.lang.String LAYERNAME = "layerName";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String SAVEDSEARCH = "savedSearch";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SLDFILE = "sldFile";
-  public static java.lang.String TEXTSTYLE = "textStyle";
+  public static java.lang.String THEMATICVARIABLE = "thematicVariable";
   public static java.lang.String TYPE = "type";
+  public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
   public java.util.Date getCreateDate()
   {
@@ -99,6 +102,50 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.query.StylesDTO getDefaultStyles()
+  {
+    if(getValue(DEFAULTSTYLES) == null || getValue(DEFAULTSTYLES).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.query.StylesDTO.get(getRequest(), getValue(DEFAULTSTYLES));
+    }
+  }
+  
+  public void setDefaultStyles(dss.vector.solutions.query.StylesDTO value)
+  {
+    if(value == null)
+    {
+      setValue(DEFAULTSTYLES, "");
+    }
+    else
+    {
+      setValue(DEFAULTSTYLES, value.getId());
+    }
+  }
+  
+  public boolean isDefaultStylesWritable()
+  {
+    return isWritable(DEFAULTSTYLES);
+  }
+  
+  public boolean isDefaultStylesReadable()
+  {
+    return isReadable(DEFAULTSTYLES);
+  }
+  
+  public boolean isDefaultStylesModified()
+  {
+    return isModified(DEFAULTSTYLES);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDefaultStylesMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DEFAULTSTYLES).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
@@ -187,50 +234,6 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoHierarchyMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOHIERARCHY).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.query.GeometryStyleDTO getGeometryStyle()
-  {
-    if(getValue(GEOMETRYSTYLE) == null || getValue(GEOMETRYSTYLE).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.query.GeometryStyleDTO.get(getRequest(), getValue(GEOMETRYSTYLE));
-    }
-  }
-  
-  public void setGeometryStyle(dss.vector.solutions.query.GeometryStyleDTO value)
-  {
-    if(value == null)
-    {
-      setValue(GEOMETRYSTYLE, "");
-    }
-    else
-    {
-      setValue(GEOMETRYSTYLE, value.getId());
-    }
-  }
-  
-  public boolean isGeometryStyleWritable()
-  {
-    return isWritable(GEOMETRYSTYLE);
-  }
-  
-  public boolean isGeometryStyleReadable()
-  {
-    return isReadable(GEOMETRYSTYLE);
-  }
-  
-  public boolean isGeometryStyleModified()
-  {
-    return isModified(GEOMETRYSTYLE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeometryStyleMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOMETRYSTYLE).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -327,6 +330,43 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
+  public String getLayerName()
+  {
+    return getValue(LAYERNAME);
+  }
+  
+  public void setLayerName(String value)
+  {
+    if(value == null)
+    {
+      setValue(LAYERNAME, "");
+    }
+    else
+    {
+      setValue(LAYERNAME, value);
+    }
+  }
+  
+  public boolean isLayerNameWritable()
+  {
+    return isWritable(LAYERNAME);
+  }
+  
+  public boolean isLayerNameReadable()
+  {
+    return isReadable(LAYERNAME);
+  }
+  
+  public boolean isLayerNameModified()
+  {
+    return isModified(LAYERNAME);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLayerNameMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERNAME).getAttributeMdDTO();
+  }
+  
   public com.terraframe.mojo.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
@@ -401,6 +441,50 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.query.SavedSearchDTO getSavedSearch()
+  {
+    if(getValue(SAVEDSEARCH) == null || getValue(SAVEDSEARCH).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.query.SavedSearchDTO.get(getRequest(), getValue(SAVEDSEARCH));
+    }
+  }
+  
+  public void setSavedSearch(dss.vector.solutions.query.SavedSearchDTO value)
+  {
+    if(value == null)
+    {
+      setValue(SAVEDSEARCH, "");
+    }
+    else
+    {
+      setValue(SAVEDSEARCH, value.getId());
+    }
+  }
+  
+  public boolean isSavedSearchWritable()
+  {
+    return isWritable(SAVEDSEARCH);
+  }
+  
+  public boolean isSavedSearchReadable()
+  {
+    return isReadable(SAVEDSEARCH);
+  }
+  
+  public boolean isSavedSearchModified()
+  {
+    return isModified(SAVEDSEARCH);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSavedSearchMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SAVEDSEARCH).getAttributeMdDTO();
   }
   
   public Long getSeq()
@@ -490,48 +574,85 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SLDFILE).getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.query.TextStyleDTO getTextStyle()
+  public dss.vector.solutions.query.ThematicVariableDTO getThematicVariable()
   {
-    if(getValue(TEXTSTYLE) == null || getValue(TEXTSTYLE).trim().equals(""))
+    if(getValue(THEMATICVARIABLE) == null || getValue(THEMATICVARIABLE).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return dss.vector.solutions.query.TextStyleDTO.get(getRequest(), getValue(TEXTSTYLE));
+      return dss.vector.solutions.query.ThematicVariableDTO.get(getRequest(), getValue(THEMATICVARIABLE));
     }
   }
   
-  public void setTextStyle(dss.vector.solutions.query.TextStyleDTO value)
+  public void setThematicVariable(dss.vector.solutions.query.ThematicVariableDTO value)
   {
     if(value == null)
     {
-      setValue(TEXTSTYLE, "");
+      setValue(THEMATICVARIABLE, "");
     }
     else
     {
-      setValue(TEXTSTYLE, value.getId());
+      setValue(THEMATICVARIABLE, value.getId());
     }
   }
   
-  public boolean isTextStyleWritable()
+  public boolean isThematicVariableWritable()
   {
-    return isWritable(TEXTSTYLE);
+    return isWritable(THEMATICVARIABLE);
   }
   
-  public boolean isTextStyleReadable()
+  public boolean isThematicVariableReadable()
   {
-    return isReadable(TEXTSTYLE);
+    return isReadable(THEMATICVARIABLE);
   }
   
-  public boolean isTextStyleModified()
+  public boolean isThematicVariableModified()
   {
-    return isModified(TEXTSTYLE);
+    return isModified(THEMATICVARIABLE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTextStyleMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getThematicVariableMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TEXTSTYLE).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(THEMATICVARIABLE).getAttributeMdDTO();
+  }
+  
+  public Boolean getViewCreated()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(VIEWCREATED));
+  }
+  
+  public void setViewCreated(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(VIEWCREATED, "");
+    }
+    else
+    {
+      setValue(VIEWCREATED, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isViewCreatedWritable()
+  {
+    return isWritable(VIEWCREATED);
+  }
+  
+  public boolean isViewCreatedReadable()
+  {
+    return isReadable(VIEWCREATED);
+  }
+  
+  public boolean isViewCreatedModified()
+  {
+    return isModified(VIEWCREATED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getViewCreatedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(VIEWCREATED).getAttributeMdDTO();
   }
   
   public String getViewName()
@@ -571,12 +692,112 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(VIEWNAME).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.query.LayerDTO updateLayer(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.query.GeometryStyleDTO geometryStyle, dss.vector.solutions.query.TextStyleDTO textStyle, java.lang.String layerId)
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.query.AbstractCategoryDTO> getAllHasCategory()
   {
-    String[] _declaredTypes = new String[]{"dss.vector.solutions.query.GeometryStyle", "dss.vector.solutions.query.TextStyle", "java.lang.String"};
-    Object[] _parameters = new Object[]{geometryStyle, textStyle, layerId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "updateLayer", _declaredTypes);
-    return (dss.vector.solutions.query.LayerDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (java.util.List<? extends dss.vector.solutions.query.AbstractCategoryDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.query.AbstractCategoryDTO> getAllHasCategory(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.AbstractCategoryDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.query.HasCategoriesDTO> getAllHasCategoryRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.HasCategoriesDTO>) getRequest().getChildRelationships(this.getId(), dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.query.HasCategoriesDTO> getAllHasCategoryRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.HasCategoriesDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.query.HasCategoriesDTO addHasCategory(dss.vector.solutions.query.AbstractCategoryDTO child)
+  {
+    return (dss.vector.solutions.query.HasCategoriesDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.query.HasCategoriesDTO addHasCategory(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.query.AbstractCategoryDTO child)
+  {
+    return (dss.vector.solutions.query.HasCategoriesDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  public void removeHasCategory(dss.vector.solutions.query.HasCategoriesDTO relationship)
+  {
+    getRequest().deleteChild(relationship.getId());
+  }
+  
+  public static void removeHasCategory(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.query.HasCategoriesDTO relationship)
+  {
+    clientRequestIF.deleteChild(relationship.getId());
+  }
+  
+  public void removeAllHasCategory()
+  {
+    getRequest().deleteChildren(this.getId(), dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  public static void removeAllHasCategory(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteChildren(id, dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.query.SavedMapDTO> getAllMap()
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.SavedMapDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.query.HasLayersDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.query.SavedMapDTO> getAllMap(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.SavedMapDTO>) clientRequestIF.getParents(id, dss.vector.solutions.query.HasLayersDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.query.HasLayersDTO> getAllMapRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.HasLayersDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.query.HasLayersDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.query.HasLayersDTO> getAllMapRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.HasLayersDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.query.HasLayersDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.query.HasLayersDTO addMap(dss.vector.solutions.query.SavedMapDTO parent)
+  {
+    return (dss.vector.solutions.query.HasLayersDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.query.HasLayersDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.query.HasLayersDTO addMap(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.query.SavedMapDTO parent)
+  {
+    return (dss.vector.solutions.query.HasLayersDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.query.HasLayersDTO.CLASS);
+  }
+  
+  public void removeMap(dss.vector.solutions.query.HasLayersDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removeMap(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.query.HasLayersDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllMap()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.query.HasLayersDTO.CLASS);
+  }
+  
+  public static void removeAllMap(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.query.HasLayersDTO.CLASS);
   }
   
   public static dss.vector.solutions.query.LayerDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

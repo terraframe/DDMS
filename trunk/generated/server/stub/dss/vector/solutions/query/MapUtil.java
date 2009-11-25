@@ -26,6 +26,7 @@ import com.terraframe.mojo.constants.LocalProperties;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DatabaseException;
+import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.WebFile;
@@ -64,8 +65,9 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
   * @param thematicLayer
   * @return
   */
- public static String generateLayers(String[] universalLayers, ValueQuery valueQuery, SavedSearch savedSearch, ThematicLayer thematicLayer)
+ public static String generateLayers(ValueQuery valueQuery, SavedMap savedMap)
  {
+   /* FIXME MAP
    if(valueQuery.getCount() == 0)
    {
      String error = "The thematic layer doesn't contain spatial data.";
@@ -75,6 +77,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
    String sql = valueQuery.getSQL();
 
    // reload the view for the thematic layer
+   
    String viewName = thematicLayer.getViewName();
 
    try
@@ -205,6 +208,9 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
    thematicLayer.apply();
 
    return layers.toString();
+   */
+   
+   return null;
  }
 
  /**

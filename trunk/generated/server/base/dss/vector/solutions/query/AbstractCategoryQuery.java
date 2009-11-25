@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1271233761)
+@com.terraframe.mojo.business.ClassSignature(hash = 1047394503)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  class AbstractCategoryQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1271233761;
+private static final long serialVersionUID = 1047394503;
 
   public AbstractCategoryQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -245,6 +245,29 @@ private static final long serialVersionUID = 1271233761;
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.AbstractCategory.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getStyles()
+  {
+    return getStyles(null);
+
+  }
+ 
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getStyles(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("styles");
+
+    return (dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.AbstractCategory.STYLES, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getStyles(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("styles");
+
+    return (dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.AbstractCategory.STYLES, mdAttributeIF, this, alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeChar getThematicColor()
   {
     return getThematicColor(null);
@@ -303,6 +326,10 @@ private static final long serialVersionUID = 1271233761;
     {
        return new com.terraframe.mojo.system.ActorQuery.ActorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals("styles")) 
+    {
+       return new dss.vector.solutions.query.StylesQuery.StylesQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else 
     {
       String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
@@ -334,61 +361,61 @@ private static final long serialVersionUID = 1271233761;
   }
 
 
-  public com.terraframe.mojo.query.Condition fromThematicLayer()
+  public com.terraframe.mojo.query.Condition fromLayer()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesCategories.CLASS);
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
 
     return this.getBusinessQuery().isChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition fromThematicLayer(dss.vector.solutions.query.DefinesCategoriesQuery definesCategoriesQuery)
+  public com.terraframe.mojo.query.Condition fromLayer(dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery)
   {
-    return this.getBusinessQuery().isChildIn(definesCategoriesQuery);
+    return this.getBusinessQuery().isChildIn(hasCategoriesQuery);
   }
 
-  public com.terraframe.mojo.query.Condition fromThematicLayer(dss.vector.solutions.query.ThematicLayerQuery thematicLayerQuery)
+  public com.terraframe.mojo.query.Condition fromLayer(dss.vector.solutions.query.LayerQuery layerQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesCategories.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(thematicLayerQuery));
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(layerQuery));
 
     return this.getBusinessQuery().isChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition fromThematicLayer(dss.vector.solutions.query.ThematicLayerQuery thematicLayerQuery, dss.vector.solutions.query.DefinesCategoriesQuery definesCategoriesQuery)
+  public com.terraframe.mojo.query.Condition fromLayer(dss.vector.solutions.query.LayerQuery layerQuery, dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery)
   {
-    definesCategoriesQuery.AND(definesCategoriesQuery.hasParent(thematicLayerQuery));
-    return this.getBusinessQuery().isChildIn(definesCategoriesQuery);
+    hasCategoriesQuery.AND(hasCategoriesQuery.hasParent(layerQuery));
+    return this.getBusinessQuery().isChildIn(hasCategoriesQuery);
   }
 
 
-  public com.terraframe.mojo.query.Condition NOT_IN_fromThematicLayer()
+  public com.terraframe.mojo.query.Condition NOT_IN_fromLayer()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesCategories.CLASS);
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
 
     return this.getBusinessQuery().isNotChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition NOT_IN_fromThematicLayer(dss.vector.solutions.query.DefinesCategoriesQuery definesCategoriesQuery)
+  public com.terraframe.mojo.query.Condition NOT_IN_fromLayer(dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery)
   {
-    return this.getBusinessQuery().isNotChildIn(definesCategoriesQuery);
+    return this.getBusinessQuery().isNotChildIn(hasCategoriesQuery);
   }
 
-  public com.terraframe.mojo.query.Condition NOT_IN_fromThematicLayer(dss.vector.solutions.query.ThematicLayerQuery thematicLayerQuery)
+  public com.terraframe.mojo.query.Condition NOT_IN_fromLayer(dss.vector.solutions.query.LayerQuery layerQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesCategories.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(thematicLayerQuery));
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(layerQuery));
 
     return this.getBusinessQuery().isNotChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition NOT_IN_fromThematicLayer(dss.vector.solutions.query.ThematicLayerQuery thematicLayerQuery, dss.vector.solutions.query.DefinesCategoriesQuery definesCategoriesQuery)
+  public com.terraframe.mojo.query.Condition NOT_IN_fromLayer(dss.vector.solutions.query.LayerQuery layerQuery, dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery)
   {
-    definesCategoriesQuery.AND(definesCategoriesQuery.hasParent(thematicLayerQuery));
-    return this.getBusinessQuery().isNotChildIn(definesCategoriesQuery);
+    hasCategoriesQuery.AND(hasCategoriesQuery.hasParent(layerQuery));
+    return this.getBusinessQuery().isNotChildIn(hasCategoriesQuery);
   }
 
 
@@ -432,6 +459,9 @@ private static final long serialVersionUID = 1271233761;
     public com.terraframe.mojo.query.AttributeChar getSiteMaster();
     public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias);
     public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel);
+    public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getStyles();
+    public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getStyles(String alias);
+    public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getStyles(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeChar getThematicColor();
     public com.terraframe.mojo.query.AttributeChar getThematicColor(String alias);
     public com.terraframe.mojo.query.AttributeChar getThematicColor(String alias, String displayLabel);
@@ -444,16 +474,16 @@ private static final long serialVersionUID = 1271233761;
     public com.terraframe.mojo.query.BasicCondition NE(dss.vector.solutions.query.AbstractCategory abstractCategory);
 
 
-  public com.terraframe.mojo.query.Condition fromThematicLayer();
-  public com.terraframe.mojo.query.Condition fromThematicLayer(dss.vector.solutions.query.ThematicLayerQuery thematicLayerQuery);
+  public com.terraframe.mojo.query.Condition fromLayer();
+  public com.terraframe.mojo.query.Condition fromLayer(dss.vector.solutions.query.LayerQuery layerQuery);
 
-  public com.terraframe.mojo.query.Condition fromThematicLayer(dss.vector.solutions.query.ThematicLayerQuery thematicLayerQuery, dss.vector.solutions.query.DefinesCategoriesQuery definesCategoriesQuery);
+  public com.terraframe.mojo.query.Condition fromLayer(dss.vector.solutions.query.LayerQuery layerQuery, dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery);
 
 
-  public com.terraframe.mojo.query.Condition NOT_IN_fromThematicLayer();
-  public com.terraframe.mojo.query.Condition NOT_IN_fromThematicLayer(dss.vector.solutions.query.ThematicLayerQuery thematicLayerQuery);
+  public com.terraframe.mojo.query.Condition NOT_IN_fromLayer();
+  public com.terraframe.mojo.query.Condition NOT_IN_fromLayer(dss.vector.solutions.query.LayerQuery layerQuery);
 
-  public com.terraframe.mojo.query.Condition NOT_IN_fromThematicLayer(dss.vector.solutions.query.ThematicLayerQuery thematicLayerQuery, dss.vector.solutions.query.DefinesCategoriesQuery definesCategoriesQuery);
+  public com.terraframe.mojo.query.Condition NOT_IN_fromLayer(dss.vector.solutions.query.LayerQuery layerQuery, dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery);
 
   }
 
@@ -465,7 +495,7 @@ private static final long serialVersionUID = 1271233761;
  implements AbstractCategoryQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -2082657793;
+private static final long serialVersionUID = -1846643479;
 
   public AbstractCategoryQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -671,6 +701,23 @@ private static final long serialVersionUID = -2082657793;
     return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getStyles()
+  {
+    return getStyles(null);
+
+  }
+ 
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getStyles(String alias)
+  {
+    return (dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF)this.attributeFactory("styles", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getStyles(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF)this.attributeFactory("styles", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeChar getThematicColor()
   {
     return getThematicColor(null);
@@ -706,51 +753,51 @@ private static final long serialVersionUID = -2082657793;
 
   }
 
-  public com.terraframe.mojo.query.Condition fromThematicLayer()
+  public com.terraframe.mojo.query.Condition fromLayer()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesCategories.CLASS);
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
 
     return this.isChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition fromThematicLayer(dss.vector.solutions.query.ThematicLayerQuery thematicLayerQuery)
+  public com.terraframe.mojo.query.Condition fromLayer(dss.vector.solutions.query.LayerQuery layerQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesCategories.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(thematicLayerQuery));
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(layerQuery));
 
     return this.isChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition fromThematicLayer(dss.vector.solutions.query.ThematicLayerQuery thematicLayerQuery, dss.vector.solutions.query.DefinesCategoriesQuery definesCategoriesQuery)
+  public com.terraframe.mojo.query.Condition fromLayer(dss.vector.solutions.query.LayerQuery layerQuery, dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery)
   {
-    definesCategoriesQuery.AND(definesCategoriesQuery.hasParent(thematicLayerQuery));
-    return this.isChildIn(definesCategoriesQuery);
+    hasCategoriesQuery.AND(hasCategoriesQuery.hasParent(layerQuery));
+    return this.isChildIn(hasCategoriesQuery);
   }
 
 
-  public com.terraframe.mojo.query.Condition NOT_IN_fromThematicLayer()
+  public com.terraframe.mojo.query.Condition NOT_IN_fromLayer()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesCategories.CLASS);
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
 
     return this.isNotChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition NOT_IN_fromThematicLayer(dss.vector.solutions.query.ThematicLayerQuery thematicLayerQuery)
+  public com.terraframe.mojo.query.Condition NOT_IN_fromLayer(dss.vector.solutions.query.LayerQuery layerQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesCategories.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(thematicLayerQuery));
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasCategories.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(layerQuery));
 
     return this.isNotChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition NOT_IN_fromThematicLayer(dss.vector.solutions.query.ThematicLayerQuery thematicLayerQuery, dss.vector.solutions.query.DefinesCategoriesQuery definesCategoriesQuery)
+  public com.terraframe.mojo.query.Condition NOT_IN_fromLayer(dss.vector.solutions.query.LayerQuery layerQuery, dss.vector.solutions.query.HasCategoriesQuery hasCategoriesQuery)
   {
-    definesCategoriesQuery.AND(definesCategoriesQuery.hasParent(thematicLayerQuery));
-    return this.isNotChildIn(definesCategoriesQuery);
+    hasCategoriesQuery.AND(hasCategoriesQuery.hasParent(layerQuery));
+    return this.isNotChildIn(hasCategoriesQuery);
   }
 
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -776,6 +823,10 @@ private static final long serialVersionUID = -2082657793;
     else if (name.equals("owner")) 
     {
        return new com.terraframe.mojo.system.ActorQuery.ActorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("styles")) 
+    {
+       return new dss.vector.solutions.query.StylesQuery.StylesQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {

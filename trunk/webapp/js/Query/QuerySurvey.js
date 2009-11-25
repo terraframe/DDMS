@@ -985,12 +985,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       var selectable = attribute.getSelectable(true);
   
       this._householdSelectables[attribute.getKey()] = selectable;
-  
-      // ADD THEMATIC VARIABLE
-      if(this._household.getAttributeDTO(attributeName) instanceof AttributeNumberDTO)
-      {
-        this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
-      }
     },
     
     /**
@@ -1006,15 +1000,12 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       var selectable = attribute.getSelectable(true);
   
       this._netSelectables[attribute.getKey()] = selectable;
-  
-      // ADD THEMATIC VARIABLE
-      this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
     },
   
     /**
      * Removes an attribute as a selectable and column.
      */
-    _removeHouseholdAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
+    _removeHouseholdAttribute : function(attribute, removeColumn, removeSelectable)
     {
       var attributeName = attribute.getAttributeName();
       var key = attribute.getKey();
@@ -1032,18 +1023,12 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         var column = this._queryPanel.getColumn(key);
         this._queryPanel.removeColumn(column);
       }
-  
-      if(removeThematic &&
-        this._household.getAttributeDTO(attributeName) instanceof AttributeNumberDTO)
-      {
-        this._queryPanel.removeThematicVariable(attribute.getKey());
-      }
     },
     
     /**
      * Removes an attribute as a selectable and column.
      */
-    _removeNetAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
+    _removeNetAttribute : function(attribute, removeColumn, removeSelectable)
     {
       var attributeName = attribute.getAttributeName();
       var key = attribute.getKey();
@@ -1060,11 +1045,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       {
         var column = this._queryPanel.getColumn(key);
         this._queryPanel.removeColumn(column);
-      }
-  
-      if(removeThematic)
-      {
-        this._queryPanel.removeThematicVariable(attribute.getKey());
       }
     },
     
@@ -1096,19 +1076,12 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       
   
       this._personSelectables[attribute.getKey()] = selectable;
-  
-      // ADD THEMATIC VARIABLE
-      if(this._person.getAttributeDTO(attributeName) instanceof AttributeNumberDTO ||
-        attributeName === this._Person.DOB)
-      {
-        this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
-      }
     },
   
     /**
      * Removes an attribute as a selectable and column.
      */
-    _removePersonAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
+    _removePersonAttribute : function(attribute, removeColumn, removeSelectable)
     {
       var attributeName = attribute.getAttributeName();
       var key = attribute.getKey();
@@ -1126,13 +1099,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         var column = this._queryPanel.getColumn(key);
         this._queryPanel.removeColumn(column);
       }
-  
-      if(removeThematic && (
-        this._person.getAttributeDTO(attributeName) instanceof AttributeNumberDTO ||
-        attributeName === this._Person.DOB))
-      {
-        this._queryPanel.removeThematicVariable(key);
-      }
     },
     
     _setPrevalence : function(doSet)
@@ -1142,36 +1108,30 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       if(doSet)
       {
         var useDefault = true;
-        var menuKeys = Mojo.Util.getKeys(this._menuItems);
-        for(var i=0; i<menuKeys.length; i++)
+        var browser = this.getBrowser(this._rdtResultKey);
+        var terms = browser.getTerms();
+        for(var i=0; i<terms.length; i++)
         {
-          var menuKey = menuKeys[i];
-          if(menuKey.indexOf(this._rdtResultKey) != -1)
+          var value = terms[i];
+          var name = "prevalence_"+value;  // name == key == userAlias == enum id
+          
+          // the option must be a positive result
+          /* FIXME what to do with this._rdtResult.items?
+          if(!this._contains(this._rdtResult.items, value))
           {
-            var menuItem = this._menuItems[menuKey];
-            if(menuItem.checked)
-            {
-              var value = menuItem.onclick.obj.value;
-              var name = "prevalence_"+value;  // name == key == userAlias == enum id
-              
-              // the option must be a positive result
-              if(!this._contains(this._rdtResult.items, value))
-              {
-                continue;
-              }
-  
-              useDefault = false;
-              var display = menuItem.onclick.obj.display + " " + MDSS.Localized.Prevalence;
-          
-              var sqlDouble = new MDSS.QueryXML.Sqldouble(this._Person.CLASS, name, name, display, true);
-              var selectable = new MDSS.QueryXML.Selectable(sqlDouble);
-          
-              this._queryPanel.insertColumn({key:name,label:display});
-          
-              this._prevalenceSelectables[name] = selectable;
-              this._queryPanel.addThematicVariable(this._Person.CLASS, sqlDouble.getName(), sqlDouble.getUserAlias(), display);
-            }
+            continue;
           }
+          */
+          
+          useDefault = false;
+          var display = browser.getDisplay(value);
+      
+          var sqlDouble = new MDSS.QueryXML.Sqldouble(this._Person.CLASS, name, name, display, true);
+          var selectable = new MDSS.QueryXML.Selectable(sqlDouble);
+      
+          this._queryPanel.insertColumn({key:name,label:display});
+      
+          this._prevalenceSelectables[name] = selectable;
         }
         
         if(useDefault)
@@ -1185,7 +1145,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
           this._queryPanel.insertColumn({key:name,label:display});
           
           this._prevalenceSelectables[name] = selectable;
-          this._queryPanel.addThematicVariable(this._Person.CLASS, sqlDouble.getName(), sqlDouble.getUserAlias(), display);
         }
       }
       else
@@ -1197,7 +1156,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
           var key = keys[i];
           var column = this._queryPanel.getColumn(key);
           this._queryPanel.removeColumn(column);
-          this._queryPanel.removeThematicVariable(key);
         }
         
         this._prevalenceSelectables = {};
@@ -1238,7 +1196,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       }
       else
       {
-        this._removeNetAttribute(attribute, true, true, true);
+        this._removeNetAttribute(attribute, true, true);
   
         var select = check.nextSibling;
         if(select && select.nodeName == 'SELECT' && select.disabled === false)
@@ -1269,7 +1227,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       if(func === '')
       {
         // Use regular selectable (this is just here for clarity).
-        this._removeNetAttribute(attribute, false, true, false);
+        this._removeNetAttribute(attribute, false, true);
         this._netSelectables[attribute.getKey()] = selectable;
   
   
@@ -1296,7 +1254,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         aggFunc = new MDSS.QueryXML.AVG(selectable, key, displayLabel);
       }
   
-      this._removeNetAttribute(attribute, false, true, false);
+      this._removeNetAttribute(attribute, false, true);
   
       var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
       this._netAggregateSelectables[attribute.getKey()] = aggSelectable;
@@ -1320,7 +1278,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       }
       else
       {
-        this._removeHouseholdAttribute(attribute, true, true, true);
+        this._removeHouseholdAttribute(attribute, true, true);
   
         // Clear any criteria since criteria cannot exist
         // without the attribute as a selectable.
@@ -1356,7 +1314,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       }
       else
       {
-        this._removePersonAttribute(attribute, true, true, true);
+        this._removePersonAttribute(attribute, true, true);
         
         // Clear any criteria since criteria cannot exist
         // without the attribute as a selectable.
@@ -1407,7 +1365,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       if(func === '')
       {
         // Use regular selectable (this is just here for clarity).
-        this._removeHouseholdAttribute(attribute, false, true, false);
+        this._removeHouseholdAttribute(attribute, false, true);
         this._householdSelectables[attribute.getKey()] = selectable;
   
         return;
@@ -1421,7 +1379,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         aggFunc = new MDSS.QueryXML.SUM(selectable, key, displayLabel);
       }
   
-      this._removeHouseholdAttribute(attribute, false, true, false);
+      this._removeHouseholdAttribute(attribute, false, true);
   
       var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
       this._householdAggregateSelectables[attribute.getKey()] = aggSelectable;
@@ -1440,10 +1398,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         this._countSelectable = aggSelectable;
   
         this._queryPanel.insertColumn(attribute.getColumnObject());
-  
-        
-        // ADD THEMATIC VARIABLE
-        this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
       }
       else
       {
@@ -1451,8 +1405,6 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         this._queryPanel.removeColumn(column);
   
         this._countSelectable = null;
-  
-        this._queryPanel.removeThematicVariable(attribute.getKey());
       }
     },   
     

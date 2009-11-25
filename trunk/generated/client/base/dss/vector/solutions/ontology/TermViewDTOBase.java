@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -386883686)
+@com.terraframe.mojo.business.ClassSignature(hash = -1249922305)
 public abstract class TermViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.TermView";
-  private static final long serialVersionUID = -386883686;
+  private static final long serialVersionUID = -1249922305;
   
   protected TermViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -17,9 +17,47 @@ public abstract class TermViewDTOBase extends com.terraframe.mojo.business.ViewD
   }
   
   public static java.lang.String ID = "id";
+  public static java.lang.String SELECTABLE = "selectable";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TERMNAME = "termName";
   public static java.lang.String TERMONTOLOGYID = "termOntologyId";
+  public Boolean getSelectable()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SELECTABLE));
+  }
+  
+  public void setSelectable(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SELECTABLE, "");
+    }
+    else
+    {
+      setValue(SELECTABLE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isSelectableWritable()
+  {
+    return isWritable(SELECTABLE);
+  }
+  
+  public boolean isSelectableReadable()
+  {
+    return isReadable(SELECTABLE);
+  }
+  
+  public boolean isSelectableModified()
+  {
+    return isModified(SELECTABLE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getSelectableMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SELECTABLE).getAttributeMdDTO();
+  }
+  
   public String getTermId()
   {
     return getValue(TERMID);

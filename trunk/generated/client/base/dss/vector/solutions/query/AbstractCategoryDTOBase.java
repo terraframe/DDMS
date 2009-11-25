@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1661121962)
+@com.terraframe.mojo.business.ClassSignature(hash = 202654814)
 public abstract class AbstractCategoryDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.AbstractCategory";
-  private static final long serialVersionUID = 1661121962;
+  private static final long serialVersionUID = 202654814;
   
   protected AbstractCategoryDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -38,6 +38,7 @@ public abstract class AbstractCategoryDTOBase extends com.terraframe.mojo.busine
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String STYLES = "styles";
   public static java.lang.String THEMATICCOLOR = "thematicColor";
   public static java.lang.String TYPE = "type";
   public java.util.Date getCreateDate()
@@ -361,6 +362,50 @@ public abstract class AbstractCategoryDTOBase extends com.terraframe.mojo.busine
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.query.StylesDTO getStyles()
+  {
+    if(getValue(STYLES) == null || getValue(STYLES).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.query.StylesDTO.get(getRequest(), getValue(STYLES));
+    }
+  }
+  
+  public void setStyles(dss.vector.solutions.query.StylesDTO value)
+  {
+    if(value == null)
+    {
+      setValue(STYLES, "");
+    }
+    else
+    {
+      setValue(STYLES, value.getId());
+    }
+  }
+  
+  public boolean isStylesWritable()
+  {
+    return isWritable(STYLES);
+  }
+  
+  public boolean isStylesReadable()
+  {
+    return isReadable(STYLES);
+  }
+  
+  public boolean isStylesModified()
+  {
+    return isModified(STYLES);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getStylesMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(STYLES).getAttributeMdDTO();
+  }
+  
   public String getThematicColor()
   {
     return getValue(THEMATICCOLOR);
@@ -398,59 +443,6 @@ public abstract class AbstractCategoryDTOBase extends com.terraframe.mojo.busine
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THEMATICCOLOR).getAttributeMdDTO();
   }
   
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.query.ThematicLayerDTO> getAllFromThematicLayer()
-  {
-    return (java.util.List<? extends dss.vector.solutions.query.ThematicLayerDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.query.DefinesCategoriesDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.query.ThematicLayerDTO> getAllFromThematicLayer(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.query.ThematicLayerDTO>) clientRequestIF.getParents(id, dss.vector.solutions.query.DefinesCategoriesDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.query.DefinesCategoriesDTO> getAllFromThematicLayerRelationships()
-  {
-    return (java.util.List<? extends dss.vector.solutions.query.DefinesCategoriesDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.query.DefinesCategoriesDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.query.DefinesCategoriesDTO> getAllFromThematicLayerRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.query.DefinesCategoriesDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.query.DefinesCategoriesDTO.CLASS);
-  }
-  
-  public dss.vector.solutions.query.DefinesCategoriesDTO addFromThematicLayer(dss.vector.solutions.query.ThematicLayerDTO parent)
-  {
-    return (dss.vector.solutions.query.DefinesCategoriesDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.query.DefinesCategoriesDTO.CLASS);
-  }
-  
-  public static dss.vector.solutions.query.DefinesCategoriesDTO addFromThematicLayer(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.query.ThematicLayerDTO parent)
-  {
-    return (dss.vector.solutions.query.DefinesCategoriesDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.query.DefinesCategoriesDTO.CLASS);
-  }
-  
-  public void removeFromThematicLayer(dss.vector.solutions.query.DefinesCategoriesDTO relationship)
-  {
-    getRequest().deleteParent(relationship.getId());
-  }
-  
-  public static void removeFromThematicLayer(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.query.DefinesCategoriesDTO relationship)
-  {
-    clientRequestIF.deleteParent(relationship.getId());
-  }
-  
-  public void removeAllFromThematicLayer()
-  {
-    getRequest().deleteParents(this.getId(), dss.vector.solutions.query.DefinesCategoriesDTO.CLASS);
-  }
-  
-  public static void removeAllFromThematicLayer(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    clientRequestIF.deleteParents(id, dss.vector.solutions.query.DefinesCategoriesDTO.CLASS);
-  }
   
   public static dss.vector.solutions.query.AbstractCategoryDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
   {

@@ -34,11 +34,8 @@ import dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResul
 import dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult;
 import dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult;
 import dss.vector.solutions.ontology.AllPathsQuery;
-import dss.vector.solutions.query.MapUtil;
-import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
-import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.util.QueryUtil;
 
 public class Mosquito extends MosquitoBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -131,7 +128,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    * @return
    */
   @Authenticate
-  public static ValueQuery xmlToValueQuery(String xml, String config, boolean includeGeometry, ThematicLayer thematicLayer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, boolean includeGeometry)
   {
     JSONObject queryConfig;
     try
@@ -149,7 +146,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
     // IMPORTANT: Required call for all query screens.
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
-        valueQuery, xml, queryConfig, thematicLayer, includeGeometry, MosquitoCollection.CLASS, MosquitoCollection.GEOENTITY);
+        valueQuery, xml, queryConfig, includeGeometry, MosquitoCollection.CLASS, MosquitoCollection.GEOENTITY);
 
     MosquitoQuery mosquitoQuery = (MosquitoQuery) queryMap.get(Mosquito.CLASS);
 
@@ -274,45 +271,6 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
      return valueQuery;
    }
 
-   @Transaction
-   public static String mapQuery(String xml, String config, String[] universalLayers, String savedSearchId)
-   {
-     if (savedSearchId == null || savedSearchId.trim().length() == 0)
-     {
-       String error = "Cannot map a query without a current SavedSearch instance.";
-       SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
-       throw ex;
-     }
-
-     SavedSearch search = SavedSearch.get(savedSearchId);
-     ThematicLayer thematicLayer = search.getThematicLayer();
-
-     if (thematicLayer == null || thematicLayer.getGeoHierarchy() == null)
-     {
-       String error = "Cannot create a map for search [" + search.getQueryName()
-           + "] without having selected a thematic layer.";
-       NoThematicLayerException ex = new NoThematicLayerException(error);
-       throw ex;
-     }
-
-     // Update ThematicLayer if the thematic layer type has changed or
-     // if one has not yet been defined.
-     String thematicLayerType = thematicLayer.getGeoHierarchy().getGeoEntityClass().definesType();
-     if (thematicLayer.getGeometryStyle() == null
-         || !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
-     {
-       thematicLayer.changeLayerType(thematicLayerType);
-     }
-
-     ValueQuery query = xmlToValueQuery(xml, config, true, thematicLayer);
-
-     System.out.println(query.getSQL());
-
-     String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
-
-     return layers;
-   }
-
    /**
    * Queries for Mosquitos.
    *
@@ -322,7 +280,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
   @Authenticate
   public static com.terraframe.mojo.query.ValueQuery queryEntomology(String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
-    ValueQuery valueQuery = xmlToValueQuery(queryXML, config, false, null);
+    ValueQuery valueQuery = xmlToValueQuery(queryXML, config, false);
 
     valueQuery.restrictRows(pageSize, pageNumber);
 
@@ -343,7 +301,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    ValueQuery query = xmlToValueQuery(queryXML, config, false, null);
+    ValueQuery query = xmlToValueQuery(queryXML, config, false);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
@@ -359,7 +317,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       throw ex;
     }
 
-    ValueQuery query = xmlToValueQuery(queryXML, config, false, null);
+    ValueQuery query = xmlToValueQuery(queryXML, config, false);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();

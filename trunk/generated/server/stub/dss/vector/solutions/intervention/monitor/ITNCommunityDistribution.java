@@ -17,7 +17,6 @@ import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.RequiredAttributeProblem;
-import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.util.QueryUtil;
 
 public class ITNCommunityDistribution extends ITNCommunityDistributionBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -327,7 +326,7 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry, ThematicLayer thematicLayer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
   {
     JSONObject queryConfig;
     try
@@ -344,7 +343,7 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, thematicLayer, includeGeometry, AggregatedIPT.CLASS, AggregatedIPT.GEOENTITY);   
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, AggregatedIPT.CLASS, AggregatedIPT.GEOENTITY);   
    
     ITNCommunityDistributionQuery itnQuery = (ITNCommunityDistributionQuery) queryMap.get(ITNCommunityDistribution.CLASS);
 

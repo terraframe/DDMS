@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1521013018)
+@com.terraframe.mojo.business.ClassSignature(hash = -1413823361)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,10 +12,11 @@ public abstract class TermViewBase extends com.terraframe.mojo.business.View imp
 {
   public final static String CLASS = "dss.vector.solutions.ontology.TermView";
   public static java.lang.String ID = "id";
+  public static java.lang.String SELECTABLE = "selectable";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TERMNAME = "termName";
   public static java.lang.String TERMONTOLOGYID = "termOntologyId";
-  private static final long serialVersionUID = 1521013018;
+  private static final long serialVersionUID = -1413823361;
   
   public TermViewBase()
   {
@@ -36,6 +37,34 @@ public abstract class TermViewBase extends com.terraframe.mojo.business.View imp
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.TermView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public Boolean getSelectable()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SELECTABLE));
+  }
+  
+  public void validateSelectable()
+  {
+    this.validateAttribute(SELECTABLE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSelectableMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.TermView.CLASS);
+    return mdClassIF.definesAttribute(SELECTABLE);
+  }
+  
+  public void setSelectable(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SELECTABLE, "");
+    }
+    else
+    {
+      setValue(SELECTABLE, java.lang.Boolean.toString(value));
+    }
   }
   
   public String getTermId()

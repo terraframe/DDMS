@@ -10,7 +10,6 @@ public class SavedSearchViewQuery extends dss.vector.solutions.query.SavedSearch
 private static final long serialVersionUID = 1240879208564L;
 
   private SavedSearchQuery searchQuery;
-//  private PersistsSearchQuery persistQuery;
   private boolean includeXML;
   private boolean includeConfig;
   private String queryType;
@@ -25,7 +24,6 @@ private static final long serialVersionUID = 1240879208564L;
   {
     super(queryFactory);
     this.searchQuery = new SavedSearchQuery(queryFactory);
-//    this.persistQuery = new PersistsSearchQuery(queryFactory);
     this.includeXML = includeXML;
     this.includeConfig = includeConfig;
     this.queryType = queryType;
@@ -69,11 +67,6 @@ private static final long serialVersionUID = 1240879208564L;
       {
         viewQuery.map(SavedSearchView.CONFIG, searchQuery.getConfig());
       }
-
-      // FIXME, is this ever needed when simply loading views to display available queries?
-//      CONCAT c = F.CONCAT(searchQuery.getThematicLayer().getGeoHierarchy().getGeoEntityClass().getPackageName(),
-//          F.CONCAT(".", searchQuery.getThematicLayer().getGeoHierarchy().getGeoEntityClass().getTypeName()));
-//      viewQuery.map(SavedSearchView.THEMATICLAYER, c);
     }
 
     /**
@@ -82,11 +75,6 @@ private static final long serialVersionUID = 1240879208564L;
     protected void buildWhereClause()
     {
       SavedSearchViewQuery viewQuery = this.getViewQuery();
-
-      // limit search instances to the current user.
-//      UserDAOIF user = Session.getCurrentSession().getUser();
-//      viewQuery.WHERE(persistQuery.parentId().EQ(user.getId()));
-//      viewQuery.WHERE(searchQuery.persistedBy(persistQuery));
       
       viewQuery.WHERE(searchQuery.getQueryType().EQ(queryType));
 

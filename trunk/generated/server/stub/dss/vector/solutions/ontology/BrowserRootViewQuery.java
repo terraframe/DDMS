@@ -21,7 +21,7 @@ private static final long serialVersionUID = 1252959712966L;
     super(queryFactory, viewQueryBuilder);
   }
 
-  class DefaultBrowserRootViewBuilder extends com.terraframe.mojo.query.ViewQueryBuilder implements com.terraframe.mojo.generation.loader.Reloadable
+  public class DefaultBrowserRootViewBuilder extends com.terraframe.mojo.query.ViewQueryBuilder implements com.terraframe.mojo.generation.loader.Reloadable
   {
     private BrowserRootQuery browserRootQuery;
     private TermQuery termQuery;

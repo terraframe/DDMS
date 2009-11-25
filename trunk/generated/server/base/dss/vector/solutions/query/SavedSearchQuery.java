@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1834074014)
+@com.terraframe.mojo.business.ClassSignature(hash = -48704435)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  class SavedSearchQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1834074014;
+private static final long serialVersionUID = -48704435;
 
   public SavedSearchQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -228,6 +228,23 @@ private static final long serialVersionUID = -1834074014;
     return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.SavedSearch.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeBoolean getMappable()
+  {
+    return getMappable(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getMappable(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.SavedSearch.MAPPABLE, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getMappable(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.SavedSearch.MAPPABLE, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
   {
     return getOwner(null);
@@ -359,29 +376,6 @@ private static final long serialVersionUID = -1834074014;
     return (com.terraframe.mojo.system.VaultFileQuery.VaultFileQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.SavedSearch.TEMPLATEFILE, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReferenceIF getThematicLayer()
-  {
-    return getThematicLayer(null);
-
-  }
- 
-  public dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReferenceIF getThematicLayer(String alias)
-  {
-
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("thematicLayer");
-
-    return (dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.SavedSearch.THEMATICLAYER, mdAttributeIF, this, alias, null);
-
-  }
- 
-  public dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReferenceIF getThematicLayer(String alias, String displayLabel)
-  {
-
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("thematicLayer");
-
-    return (dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.SavedSearch.THEMATICLAYER, mdAttributeIF, this, alias, displayLabel);
-
-  }
   public com.terraframe.mojo.query.AttributeChar getType()
   {
     return getType(null);
@@ -430,10 +424,6 @@ private static final long serialVersionUID = -1834074014;
     else if (name.equals("templateFile")) 
     {
        return new com.terraframe.mojo.system.VaultFileQuery.VaultFileQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals("thematicLayer")) 
-    {
-       return new dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -524,64 +514,6 @@ private static final long serialVersionUID = -1834074014;
   }
 
 
-  public com.terraframe.mojo.query.Condition definesLayers()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesLayers.CLASS);
-
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition definesLayers(dss.vector.solutions.query.DefinesLayersQuery definesLayersQuery)
-  {
-    return this.getBusinessQuery().isParentIn(definesLayersQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition definesLayers(dss.vector.solutions.query.UniversalLayerQuery universalLayerQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesLayers.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(universalLayerQuery));
-
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition definesLayers(dss.vector.solutions.query.UniversalLayerQuery universalLayerQuery, dss.vector.solutions.query.DefinesLayersQuery definesLayersQuery)
-  {
-    definesLayersQuery.AND(definesLayersQuery.hasChild(universalLayerQuery));
-    return this.getBusinessQuery().isParentIn(definesLayersQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_definesLayers()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesLayers.CLASS);
-
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_definesLayers(dss.vector.solutions.query.DefinesLayersQuery definesLayersQuery)
-  {
-    return this.getBusinessQuery().isNotParentIn(definesLayersQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_definesLayers(dss.vector.solutions.query.UniversalLayerQuery universalLayerQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesLayers.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(universalLayerQuery));
-
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_definesLayers(dss.vector.solutions.query.UniversalLayerQuery universalLayerQuery, dss.vector.solutions.query.DefinesLayersQuery definesLayersQuery)
-  {
-    definesLayersQuery.AND(definesLayersQuery.hasChild(universalLayerQuery));
-    return this.getBusinessQuery().isNotParentIn(definesLayersQuery);
-  }
-
-
 /**
  * Interface that masks all type unsafe query methods and defines all type safe methods.
  * This type is used when a join is performed on this class as a reference.
@@ -616,6 +548,9 @@ private static final long serialVersionUID = -1834074014;
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeBoolean getMappable();
+    public com.terraframe.mojo.query.AttributeBoolean getMappable(String alias);
+    public com.terraframe.mojo.query.AttributeBoolean getMappable(String alias, String displayLabel);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -634,9 +569,6 @@ private static final long serialVersionUID = -1834074014;
     public com.terraframe.mojo.query.AttributeChar getSiteMaster();
     public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias);
     public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel);
-    public dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReferenceIF getThematicLayer();
-    public dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReferenceIF getThematicLayer(String alias);
-    public dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReferenceIF getThematicLayer(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeChar getType();
     public com.terraframe.mojo.query.AttributeChar getType(String alias);
     public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel);
@@ -644,20 +576,6 @@ private static final long serialVersionUID = -1834074014;
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.query.SavedSearch savedSearch);
 
     public com.terraframe.mojo.query.BasicCondition NE(dss.vector.solutions.query.SavedSearch savedSearch);
-
-
-  public com.terraframe.mojo.query.Condition definesLayers();
-
-  public com.terraframe.mojo.query.Condition definesLayers(dss.vector.solutions.query.UniversalLayerQuery universalLayerQuery);
-
-  public com.terraframe.mojo.query.Condition definesLayers(dss.vector.solutions.query.UniversalLayerQuery universalLayerQuery, dss.vector.solutions.query.DefinesLayersQuery definesLayersQuery);
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_definesLayers();
-
-  public com.terraframe.mojo.query.Condition NOT_IN_definesLayers(dss.vector.solutions.query.UniversalLayerQuery universalLayerQuery);
-
-  public com.terraframe.mojo.query.Condition NOT_IN_definesLayers(dss.vector.solutions.query.UniversalLayerQuery universalLayerQuery, dss.vector.solutions.query.DefinesLayersQuery definesLayersQuery);
 
 
   public com.terraframe.mojo.query.Condition persistedBy();
@@ -681,7 +599,7 @@ private static final long serialVersionUID = -1834074014;
  implements SavedSearchQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1011282048;
+private static final long serialVersionUID = -1060382741;
 
   public SavedSearchQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -870,6 +788,23 @@ private static final long serialVersionUID = 1011282048;
     return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeBoolean getMappable()
+  {
+    return getMappable(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getMappable(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("mappable", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getMappable(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("mappable", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
   {
     return getOwner(null);
@@ -989,23 +924,6 @@ private static final long serialVersionUID = 1011282048;
     return (com.terraframe.mojo.system.VaultFileQuery.VaultFileQueryReferenceIF)this.attributeFactory("templateFile", "com.terraframe.mojo.system.metadata.MdAttributeFile", alias, displayLabel);
 
   }
-  public dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReferenceIF getThematicLayer()
-  {
-    return getThematicLayer(null);
-
-  }
- 
-  public dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReferenceIF getThematicLayer(String alias)
-  {
-    return (dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReferenceIF)this.attributeFactory("thematicLayer", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
-
-  }
- 
-  public dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReferenceIF getThematicLayer(String alias, String displayLabel)
-  {
-    return (dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReferenceIF)this.attributeFactory("thematicLayer", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
-
-  }
   public com.terraframe.mojo.query.AttributeChar getType()
   {
     return getType(null);
@@ -1023,54 +941,6 @@ private static final long serialVersionUID = 1011282048;
     return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
-
-  public com.terraframe.mojo.query.Condition definesLayers()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesLayers.CLASS);
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition definesLayers(dss.vector.solutions.query.UniversalLayerQuery universalLayerQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesLayers.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(universalLayerQuery));
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition definesLayers(dss.vector.solutions.query.UniversalLayerQuery universalLayerQuery, dss.vector.solutions.query.DefinesLayersQuery definesLayersQuery)
-  {
-    definesLayersQuery.AND(definesLayersQuery.hasChild(universalLayerQuery));
-    return this.isParentIn(definesLayersQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_definesLayers()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesLayers.CLASS);
-
-    return this.isNotParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_definesLayers(dss.vector.solutions.query.UniversalLayerQuery universalLayerQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.DefinesLayers.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(universalLayerQuery));
-
-    return this.isNotParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_definesLayers(dss.vector.solutions.query.UniversalLayerQuery universalLayerQuery, dss.vector.solutions.query.DefinesLayersQuery definesLayersQuery)
-  {
-    definesLayersQuery.AND(definesLayersQuery.hasChild(universalLayerQuery));
-    return this.isNotParentIn(definesLayersQuery);
-  }
-
 
   public com.terraframe.mojo.query.Condition persistedBy()
   {
@@ -1150,10 +1020,6 @@ private static final long serialVersionUID = 1011282048;
     else if (name.equals("templateFile")) 
     {
        return new com.terraframe.mojo.system.VaultFileQuery.VaultFileQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals("thematicLayer")) 
-    {
-       return new dss.vector.solutions.query.ThematicLayerQuery.ThematicLayerQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {

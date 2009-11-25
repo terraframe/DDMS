@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 29125766)
+@com.terraframe.mojo.business.ClassSignature(hash = -1022303473)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,22 +13,25 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public final static String CLASS = "dss.vector.solutions.query.Layer";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DEFAULTSTYLES = "defaultStyles";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String GEOHIERARCHY = "geoHierarchy";
-  public static java.lang.String GEOMETRYSTYLE = "geometryStyle";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
+  public static java.lang.String LAYERNAME = "layerName";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String SAVEDSEARCH = "savedSearch";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SLDFILE = "sldFile";
-  public static java.lang.String TEXTSTYLE = "textStyle";
+  public static java.lang.String THEMATICVARIABLE = "thematicVariable";
   public static java.lang.String TYPE = "type";
+  public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
-  private static final long serialVersionUID = 29125766;
+  private static final long serialVersionUID = -1022303473;
   
   public LayerBase()
   {
@@ -72,6 +75,41 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
     return mdClassIF.definesAttribute(CREATEDBY);
+  }
+  
+  public dss.vector.solutions.query.Styles getDefaultStyles()
+  {
+    if (getValue(DEFAULTSTYLES).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.query.Styles.get(getValue(DEFAULTSTYLES));
+    }
+  }
+  
+  public void validateDefaultStyles()
+  {
+    this.validateAttribute(DEFAULTSTYLES);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getDefaultStylesMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(DEFAULTSTYLES);
+  }
+  
+  public void setDefaultStyles(dss.vector.solutions.query.Styles value)
+  {
+    if(value == null)
+    {
+      setValue(DEFAULTSTYLES, "");
+    }
+    else
+    {
+      setValue(DEFAULTSTYLES, value.getId());
+    }
   }
   
   public com.terraframe.mojo.system.metadata.MdDomain getEntityDomain()
@@ -141,41 +179,6 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     else
     {
       setValue(GEOHIERARCHY, value.getId());
-    }
-  }
-  
-  public dss.vector.solutions.query.GeometryStyle getGeometryStyle()
-  {
-    if (getValue(GEOMETRYSTYLE).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.query.GeometryStyle.get(getValue(GEOMETRYSTYLE));
-    }
-  }
-  
-  public void validateGeometryStyle()
-  {
-    this.validateAttribute(GEOMETRYSTYLE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGeometryStyleMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(GEOMETRYSTYLE);
-  }
-  
-  public void setGeometryStyle(dss.vector.solutions.query.GeometryStyle value)
-  {
-    if(value == null)
-    {
-      setValue(GEOMETRYSTYLE, "");
-    }
-    else
-    {
-      setValue(GEOMETRYSTYLE, value.getId());
     }
   }
   
@@ -262,6 +265,34 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     return mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
+  public String getLayerName()
+  {
+    return getValue(LAYERNAME);
+  }
+  
+  public void validateLayerName()
+  {
+    this.validateAttribute(LAYERNAME);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLayerNameMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(LAYERNAME);
+  }
+  
+  public void setLayerName(String value)
+  {
+    if(value == null)
+    {
+      setValue(LAYERNAME, "");
+    }
+    else
+    {
+      setValue(LAYERNAME, value);
+    }
+  }
+  
   public com.terraframe.mojo.system.Users getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
@@ -317,6 +348,41 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     else
     {
       setValue(OWNER, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.query.SavedSearch getSavedSearch()
+  {
+    if (getValue(SAVEDSEARCH).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.query.SavedSearch.get(getValue(SAVEDSEARCH));
+    }
+  }
+  
+  public void validateSavedSearch()
+  {
+    this.validateAttribute(SAVEDSEARCH);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSavedSearchMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(SAVEDSEARCH);
+  }
+  
+  public void setSavedSearch(dss.vector.solutions.query.SavedSearch value)
+  {
+    if(value == null)
+    {
+      setValue(SAVEDSEARCH, "");
+    }
+    else
+    {
+      setValue(SAVEDSEARCH, value.getId());
     }
   }
   
@@ -380,38 +446,38 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     }
   }
   
-  public dss.vector.solutions.query.TextStyle getTextStyle()
+  public dss.vector.solutions.query.ThematicVariable getThematicVariable()
   {
-    if (getValue(TEXTSTYLE).trim().equals(""))
+    if (getValue(THEMATICVARIABLE).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return dss.vector.solutions.query.TextStyle.get(getValue(TEXTSTYLE));
+      return dss.vector.solutions.query.ThematicVariable.get(getValue(THEMATICVARIABLE));
     }
   }
   
-  public void validateTextStyle()
+  public void validateThematicVariable()
   {
-    this.validateAttribute(TEXTSTYLE);
+    this.validateAttribute(THEMATICVARIABLE);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getTextStyleMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getThematicVariableMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(TEXTSTYLE);
+    return mdClassIF.definesAttribute(THEMATICVARIABLE);
   }
   
-  public void setTextStyle(dss.vector.solutions.query.TextStyle value)
+  public void setThematicVariable(dss.vector.solutions.query.ThematicVariable value)
   {
     if(value == null)
     {
-      setValue(TEXTSTYLE, "");
+      setValue(THEMATICVARIABLE, "");
     }
     else
     {
-      setValue(TEXTSTYLE, value.getId());
+      setValue(THEMATICVARIABLE, value.getId());
     }
   }
   
@@ -429,6 +495,34 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
     return mdClassIF.definesAttribute(TYPE);
+  }
+  
+  public Boolean getViewCreated()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(VIEWCREATED));
+  }
+  
+  public void validateViewCreated()
+  {
+    this.validateAttribute(VIEWCREATED);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getViewCreatedMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(VIEWCREATED);
+  }
+  
+  public void setViewCreated(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(VIEWCREATED, "");
+    }
+    else
+    {
+      setValue(VIEWCREATED, java.lang.Boolean.toString(value));
+    }
   }
   
   public String getViewName()
@@ -471,6 +565,62 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     return query;
   }
   
+  public dss.vector.solutions.query.HasCategories addHasCategory(dss.vector.solutions.query.AbstractCategory abstractCategory)
+  {
+    return (dss.vector.solutions.query.HasCategories) addChild(abstractCategory, dss.vector.solutions.query.HasCategories.CLASS);
+  }
+  
+  public void removeHasCategory(dss.vector.solutions.query.AbstractCategory abstractCategory)
+  {
+    removeAllChildren(abstractCategory, dss.vector.solutions.query.HasCategories.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.AbstractCategory> getAllHasCategory()
+  {
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.AbstractCategory>) getChildren(dss.vector.solutions.query.HasCategories.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.HasCategories> getAllHasCategoryRel()
+  {
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.HasCategories>) getChildRelationships(dss.vector.solutions.query.HasCategories.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.HasCategories> getHasCategoryRel(dss.vector.solutions.query.AbstractCategory abstractCategory)
+  {
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.HasCategories>) getRelationshipsWithChild(abstractCategory, dss.vector.solutions.query.HasCategories.CLASS);
+  }
+  
+  public dss.vector.solutions.query.HasLayers addMap(dss.vector.solutions.query.SavedMap savedMap)
+  {
+    return (dss.vector.solutions.query.HasLayers) addParent(savedMap, dss.vector.solutions.query.HasLayers.CLASS);
+  }
+  
+  public void removeMap(dss.vector.solutions.query.SavedMap savedMap)
+  {
+    removeAllParents(savedMap, dss.vector.solutions.query.HasLayers.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.SavedMap> getAllMap()
+  {
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.SavedMap>) getParents(dss.vector.solutions.query.HasLayers.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.HasLayers> getAllMapRel()
+  {
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.HasLayers>) getParentRelationships(dss.vector.solutions.query.HasLayers.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.HasLayers> getMapRel(dss.vector.solutions.query.SavedMap savedMap)
+  {
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.HasLayers>) getRelationshipsWithParent(savedMap, dss.vector.solutions.query.HasLayers.CLASS);
+  }
+  
   public static Layer get(String id)
   {
     return (Layer) com.terraframe.mojo.business.Business.get(id);
@@ -479,12 +629,6 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public static Layer getByKey(String key)
   {
     return (Layer) com.terraframe.mojo.business.Business.get(CLASS, key);
-  }
-  
-  public static dss.vector.solutions.query.Layer updateLayer(dss.vector.solutions.query.GeometryStyle geometryStyle, dss.vector.solutions.query.TextStyle textStyle, java.lang.String layerId)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.Layer.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static Layer lock(java.lang.String id)
