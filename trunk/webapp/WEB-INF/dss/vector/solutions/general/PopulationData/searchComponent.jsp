@@ -27,3 +27,7 @@
     <mjl:command classes="submitButton" action="dss.vector.solutions.general.PopulationDataController.searchForPopulationData.mojo" name="search" value="Search" id="search"/>
   </dl>
 </mjl:form>
+
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.PopulationDataExcelView" name="excelType"/>
+</jsp:include>
