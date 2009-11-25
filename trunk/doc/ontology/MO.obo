@@ -1,7 +1,9 @@
 format-version: 1.2
-date: 19:10:2009 17:57
+date: 23:11:2009 16:08
+saved-by: slozano
 auto-generated-by: OBO-Edit 2.0
 default-namespace: mdss_namespace
+idspace: span http://www.ifomis.org/bfo/1.1/span#
 remark: alpha-version: please send comments to slozano[at]colostate.edu
 ﻿format-version: 1.2
 
@@ -335,6 +337,7 @@ synonym: "Tresochin" EXACT []
 synonym: "Trochin" EXACT []
 xref: CheBI:newdbxref3638
 is_a: IDOMAL:0000204 ! 4-aminoquinoline
+is_a: MDSS:0000009 ! brand of antimicrobial formulation
 created_by: louis
 creation_date: 2008-05-15T07:46:25Z
 
@@ -386,6 +389,7 @@ synonym: "Cyclomycin" EXACT []
 synonym: "Polycycline" EXACT []
 synonym: "Tetracyn" EXACT []
 is_a: IDOMAL:0000209 ! tetracycline antibiotic
+is_a: MDSS:0000009 ! brand of antimicrobial formulation
 created_by: louis
 creation_date: 2008-05-15T08:16:34Z
 
@@ -400,6 +404,7 @@ synonym: "Nordox" EXACT []
 synonym: "Vibramycin" EXACT []
 synonym: "Vibramycin-D" EXACT []
 is_a: IDOMAL:0000209 ! tetracycline antibiotic
+is_a: MDSS:0000009 ! brand of antimicrobial formulation
 created_by: louis
 creation_date: 2008-05-15T08:16:34Z
 
@@ -460,6 +465,7 @@ synonym: "Quinimax" EXACT []
 synonym: "Quinoctal" EXACT []
 synonym: "Quinoforme" EXACT []
 synonym: "Quinsan" EXACT []
+is_a: IDOMAL:0000209 ! tetracycline antibiotic
 is_a: IDOMAL:0000616 ! quinoline methanol
 created_by: louis
 creation_date: 2008-05-15T08:27:58Z
@@ -2246,7 +2252,7 @@ creation_date: 2009-08-12T10:54:44Z
 id: MDSS:0000010
 name: brand of insecticide formulation
 def: "Needs a definition." [SLF:SLF]
-is_obsolete: true
+is_a: IDOMAL:0000672 ! chemical compound
 created_by: Saul
 creation_date: 2009-08-12T10:56:10Z
 
@@ -2997,7 +3003,7 @@ creation_date: 2009-08-14T04:21:08Z
 [Term]
 id: MDSS:0000113
 name: block
-is_a: MDSS:0000111 ! administrative area
+is_a: MDSS:0000391 ! settlement subdivision
 created_by: Saul
 creation_date: 2009-08-14T04:22:11Z
 
@@ -3032,14 +3038,14 @@ creation_date: 2009-08-14T04:22:11Z
 [Term]
 id: MDSS:0000118
 name: neighborhood
-is_a: MDSS:0000111 ! administrative area
+is_a: MDSS:0000391 ! settlement subdivision
 created_by: Saul
 creation_date: 2009-08-14T04:22:11Z
 
 [Term]
 id: MDSS:0000119
 name: premises
-is_a: MDSS:0000111 ! administrative area
+is_a: MDSS:0000391 ! settlement subdivision
 created_by: Saul
 creation_date: 2009-08-14T04:22:11Z
 
@@ -4758,6 +4764,9 @@ creation_date: 2009-09-18T03:42:56Z
 id: MDSS:0000360
 name: yes
 is_a: MDSS:0000356 ! answer type 0
+is_a: MDSS:0000357 ! answer type 1
+is_a: MDSS:0000358 ! answer type 2
+is_a: MDSS:0000363 ! generic answers
 created_by: Saul
 creation_date: 2009-09-18T03:43:22Z
 
@@ -4765,6 +4774,9 @@ creation_date: 2009-09-18T03:43:22Z
 id: MDSS:0000361
 name: no
 is_a: MDSS:0000356 ! answer type 0
+is_a: MDSS:0000357 ! answer type 1
+is_a: MDSS:0000358 ! answer type 2
+is_a: MDSS:0000363 ! generic answers
 created_by: Saul
 creation_date: 2009-09-18T03:43:22Z
 
@@ -4772,44 +4784,48 @@ creation_date: 2009-09-18T03:43:22Z
 id: MDSS:0000362
 name: do not know
 is_a: MDSS:0000357 ! answer type 1
+is_a: MDSS:0000363 ! generic answers
 is_a: MDSS:0000397 ! answer type 4
 created_by: Saul
 creation_date: 2009-09-18T03:43:57Z
 
 [Term]
 id: MDSS:0000363
-name: no
-is_a: MDSS:0000357 ! answer type 1
+name: generic answers
+is_a: MDSS:0000355 ! quality of survey answer
 created_by: Saul
-creation_date: 2009-09-18T03:43:57Z
+creation_date: 2009-11-12T09:23:53Z
 
 [Term]
 id: MDSS:0000364
-name: yes
-is_a: MDSS:0000357 ! answer type 1
+name: answer type 6
+is_a: MDSS:0000355 ! quality of survey answer
 created_by: Saul
-creation_date: 2009-09-18T03:43:57Z
+creation_date: 2009-11-12T09:47:14Z
 
 [Term]
 id: MDSS:0000365
-name: no
-is_a: MDSS:0000358 ! answer type 2
+name: maybe
+is_a: MDSS:0000363 ! generic answers
 created_by: Saul
-creation_date: 2009-09-18T03:44:12Z
+creation_date: 2009-11-12T09:31:02Z
 
 [Term]
 id: MDSS:0000366
 name: refused
 is_a: MDSS:0000358 ! answer type 2
+is_a: MDSS:0000359 ! answer type 3
+is_a: MDSS:0000363 ! generic answers
+is_a: MDSS:0000447 ! answer type 5
 created_by: Saul
 creation_date: 2009-09-18T03:44:12Z
 
 [Term]
 id: MDSS:0000367
-name: yes
-is_a: MDSS:0000358 ! answer type 2
+name: clothing
+is_a: MDSS:0000364 ! answer type 6
 created_by: Saul
-creation_date: 2009-09-18T03:44:12Z
+creation_date: 2009-11-12T09:48:15Z
 
 [Term]
 id: MDSS:0000368
@@ -4827,10 +4843,10 @@ creation_date: 2009-09-18T03:44:51Z
 
 [Term]
 id: MDSS:0000370
-name: refused
-is_a: MDSS:0000359 ! answer type 3
+name: crop cover
+is_a: MDSS:0000364 ! answer type 6
 created_by: Saul
-creation_date: 2009-09-18T03:44:51Z
+creation_date: 2009-11-12T09:48:40Z
 
 [Term]
 id: MDSS:0000371
@@ -5105,6 +5121,489 @@ name: health services facility
 is_a: MDSS:0000392 ! ITN source
 created_by: Saul
 creation_date: 2009-10-07T09:44:03Z
+
+[Term]
+id: MDSS:0000410
+name: collection site
+def: "Needs definition." [SLF:SLF]
+is_a: MDSS:0000112 ! functional area
+created_by: Saul
+creation_date: 2009-11-12T09:14:54Z
+
+[Term]
+id: MDSS:0000411
+name: trap collection site
+is_a: MDSS:0000410 ! collection site
+created_by: Saul
+creation_date: 2009-11-12T09:17:08Z
+
+[Term]
+id: MDSS:0000412
+name: building collection site
+is_a: MDSS:0000410 ! collection site
+created_by: Saul
+creation_date: 2009-11-12T09:17:56Z
+
+[Term]
+id: MDSS:0000413
+name: sentinel site
+is_a: MDSS:0000112 ! functional area
+created_by: Saul
+creation_date: 2009-11-12T09:19:31Z
+
+[Term]
+id: MDSS:0000414
+name: drying fish
+is_a: MDSS:0000364 ! answer type 6
+created_by: Saul
+creation_date: 2009-11-12T09:48:55Z
+
+[Term]
+id: MDSS:0000415
+name: fencing
+is_a: MDSS:0000364 ! answer type 6
+created_by: Saul
+creation_date: 2009-11-12T09:50:05Z
+
+[Term]
+id: MDSS:0000416
+name: fishing
+is_a: MDSS:0000364 ! answer type 6
+created_by: Saul
+creation_date: 2009-11-12T09:50:19Z
+
+[Term]
+id: MDSS:0000417
+name: furniture cover
+is_a: MDSS:0000364 ! answer type 6
+created_by: Saul
+creation_date: 2009-11-12T09:50:49Z
+
+[Term]
+id: MDSS:0000418
+name: window screen
+is_a: MDSS:0000364 ! answer type 6
+created_by: Saul
+creation_date: 2009-11-12T09:51:08Z
+
+[Term]
+id: MDSS:0000419
+name: CooperNet
+is_a: MDSS:0000237 ! brand of conventional treated insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:04:15Z
+
+[Term]
+id: MDSS:0000420
+name: DawaNet
+is_a: MDSS:0000237 ! brand of conventional treated insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:04:15Z
+
+[Term]
+id: MDSS:0000421
+name: Fennet
+is_a: MDSS:0000237 ! brand of conventional treated insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:04:15Z
+
+[Term]
+id: MDSS:0000422
+name: Iconet
+is_a: MDSS:0000237 ! brand of conventional treated insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:04:15Z
+
+[Term]
+id: MDSS:0000423
+name: K-O Net
+is_a: MDSS:0000237 ! brand of conventional treated insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:04:15Z
+
+[Term]
+id: MDSS:0000424
+name: K-Othrine treated net
+is_a: MDSS:0000237 ! brand of conventional treated insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:04:15Z
+
+[Term]
+id: MDSS:0000425
+name: Other ITN brand
+is_a: MDSS:0000237 ! brand of conventional treated insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:04:15Z
+
+[Term]
+id: MDSS:0000426
+name: Safinet
+is_a: MDSS:0000237 ! brand of conventional treated insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:04:15Z
+
+[Term]
+id: MDSS:0000427
+name: Salam Enkilfe
+is_a: MDSS:0000237 ! brand of conventional treated insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:04:15Z
+
+[Term]
+id: MDSS:0000428
+name: Sleepnet
+is_a: MDSS:0000237 ! brand of conventional treated insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:04:15Z
+
+[Term]
+id: MDSS:0000429
+name: DawaPlus
+is_a: MDSS:0000238 ! brand of long-lasting insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:14:03Z
+
+[Term]
+id: MDSS:0000430
+name: Duranet
+is_a: MDSS:0000238 ! brand of long-lasting insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:14:03Z
+
+[Term]
+id: MDSS:0000431
+name: IconMaxx
+is_a: MDSS:0000238 ! brand of long-lasting insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:14:03Z
+
+[Term]
+id: MDSS:0000432
+name: Interceptor
+is_a: MDSS:0000238 ! brand of long-lasting insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:14:03Z
+
+[Term]
+id: MDSS:0000433
+name: K-O Tab 123 treated net
+is_a: MDSS:0000238 ! brand of long-lasting insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:14:03Z
+
+[Term]
+id: MDSS:0000434
+name: Netprotect
+is_a: MDSS:0000238 ! brand of long-lasting insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:14:03Z
+
+[Term]
+id: MDSS:0000435
+name: Olyset
+is_a: MDSS:0000238 ! brand of long-lasting insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:14:03Z
+
+[Term]
+id: MDSS:0000436
+name: Other LLITN brand
+is_a: MDSS:0000238 ! brand of long-lasting insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:14:03Z
+
+[Term]
+id: MDSS:0000437
+name: PermaNet
+is_a: MDSS:0000238 ! brand of long-lasting insecticidal net
+created_by: Saul
+creation_date: 2009-11-12T10:14:03Z
+
+[Term]
+id: MDSS:0000438
+name: PermaNet 2.0
+is_a: MDSS:0000437 ! PermaNet
+created_by: Saul
+creation_date: 2009-11-12T10:14:03Z
+
+[Term]
+id: MDSS:0000439
+name: PermaNet 3.0
+is_a: MDSS:0000437 ! PermaNet
+created_by: Saul
+creation_date: 2009-11-12T10:14:03Z
+
+[Term]
+id: MDSS:0000440
+name: brand of long-lasting insecticidal curtain
+is_a: MDSS:0000236 ! quality of netting material
+created_by: Saul
+creation_date: 2009-11-12T10:14:53Z
+
+[Term]
+id: MDSS:0000441
+name: PermaNet curtain
+is_a: MDSS:0000440 ! brand of long-lasting insecticidal curtain
+created_by: Saul
+creation_date: 2009-11-12T10:15:46Z
+
+[Term]
+id: MDSS:0000442
+name: day
+namespace: 
+is_a: MDSS:0000462 ! time period
+created_by: Saul
+creation_date: 2009-11-16T09:51:34Z
+
+[Term]
+id: MDSS:0000443
+name: month
+namespace: 
+is_a: MDSS:0000462 ! time period
+created_by: Saul
+creation_date: 2009-11-16T09:51:34Z
+
+[Term]
+id: MDSS:0000444
+name: quarter
+namespace: 
+is_a: MDSS:0000462 ! time period
+created_by: Saul
+creation_date: 2009-11-16T09:51:34Z
+
+[Term]
+id: MDSS:0000445
+name: week
+namespace: 
+is_a: MDSS:0000462 ! time period
+created_by: Saul
+creation_date: 2009-11-16T09:51:34Z
+
+[Term]
+id: MDSS:0000446
+name: year
+namespace: 
+is_a: MDSS:0000462 ! time period
+created_by: Saul
+creation_date: 2009-11-16T09:51:34Z
+
+[Term]
+id: MDSS:0000447
+name: answer type 5
+is_a: MDSS:0000355 ! quality of survey answer
+created_by: Saul
+creation_date: 2009-11-16T10:02:12Z
+
+[Term]
+id: MDSS:0000448
+name: not present
+is_a: MDSS:0000447 ! answer type 5
+created_by: Saul
+creation_date: 2009-11-16T10:03:00Z
+
+[Term]
+id: MDSS:0000449
+name: other reason
+is_a: MDSS:0000447 ! answer type 5
+created_by: Saul
+creation_date: 2009-11-16T10:03:00Z
+
+[Term]
+id: MDSS:0000450
+name: answer type 7
+is_a: MDSS:0000355 ! quality of survey answer
+created_by: Saul
+creation_date: 2009-11-16T10:04:00Z
+
+[Term]
+id: MDSS:0000451
+name: Malariae positive
+is_a: MDSS:0000450 ! answer type 7
+created_by: Saul
+creation_date: 2009-11-16T10:04:45Z
+
+[Term]
+id: MDSS:0000452
+name: Mixed positive
+is_a: MDSS:0000450 ! answer type 7
+created_by: Saul
+creation_date: 2009-11-16T10:04:45Z
+
+[Term]
+id: MDSS:0000453
+name: NEGATIVE
+is_a: MDSS:0000450 ! answer type 7
+created_by: Saul
+creation_date: 2009-11-16T10:04:45Z
+
+[Term]
+id: MDSS:0000454
+name: NOT VALID
+is_a: MDSS:0000450 ! answer type 7
+created_by: Saul
+creation_date: 2009-11-16T10:04:45Z
+
+[Term]
+id: MDSS:0000455
+name: Ovale positive
+is_a: MDSS:0000450 ! answer type 7
+created_by: Saul
+creation_date: 2009-11-16T10:04:45Z
+
+[Term]
+id: MDSS:0000456
+name: Pf positive
+is_a: MDSS:0000450 ! answer type 7
+created_by: Saul
+creation_date: 2009-11-16T10:04:45Z
+
+[Term]
+id: MDSS:0000457
+name: Vivax positive
+is_a: MDSS:0000450 ! answer type 7
+created_by: Saul
+creation_date: 2009-11-16T10:04:45Z
+
+[Term]
+id: MDSS:0000458
+name: Artemether-lumefantrine
+is_a: MDSS:0000009 ! brand of antimicrobial formulation
+created_by: Saul
+creation_date: 2009-11-16T10:11:52Z
+
+[Term]
+id: MDSS:0000459
+name: Artesunate and amodiaquine
+is_a: MDSS:0000009 ! brand of antimicrobial formulation
+created_by: Saul
+creation_date: 2009-11-16T10:11:52Z
+
+[Term]
+id: MDSS:0000460
+name: Artesunate and sulfadoxine-pyrimethamine
+is_a: MDSS:0000009 ! brand of antimicrobial formulation
+created_by: Saul
+creation_date: 2009-11-16T10:11:52Z
+
+[Term]
+id: MDSS:0000461
+name: Artesunate and mefloquine
+is_a: MDSS:0000009 ! brand of antimicrobial formulation
+created_by: Saul
+creation_date: 2009-11-16T10:11:52Z
+
+[Term]
+id: MDSS:0000462
+name: time period
+namespace: 
+is_a: span:TemporalInterval ! temporal_interval
+created_by: Saul
+creation_date: 2009-11-16T11:42:56Z
+
+[Term]
+id: MDSS:0000463
+name: volume or weight unit
+is_a: MDSS:0000375 ! quality of chemical compound
+created_by: Saul
+creation_date: 2009-11-18T10:21:16Z
+
+[Term]
+id: MDSS:0000464
+name: g
+is_a: MDSS:0000463 ! volume or weight unit
+created_by: Saul
+creation_date: 2009-11-18T10:22:45Z
+
+[Term]
+id: MDSS:0000465
+name: kg
+is_a: MDSS:0000463 ! volume or weight unit
+created_by: Saul
+creation_date: 2009-11-18T10:22:45Z
+
+[Term]
+id: MDSS:0000466
+name: l
+is_a: MDSS:0000463 ! volume or weight unit
+created_by: Saul
+creation_date: 2009-11-18T10:22:45Z
+
+[Term]
+id: MDSS:0000467
+name: mg
+is_a: MDSS:0000463 ! volume or weight unit
+created_by: Saul
+creation_date: 2009-11-18T10:22:45Z
+
+[Term]
+id: MDSS:0000468
+name: ml
+is_a: MDSS:0000463 ! volume or weight unit
+created_by: Saul
+creation_date: 2009-11-18T10:22:45Z
+
+[Term]
+id: MDSS:0000469
+name: malaria vector control method
+is_a: IDOMAL:0000158 ! malaria control
+created_by: Saul
+creation_date: 2009-11-18T10:29:48Z
+
+[Term]
+id: MDSS:0000470
+name: spraying with handheld sprayers
+is_a: MDSS:0000469 ! malaria vector control method
+created_by: Saul
+creation_date: 2009-11-18T10:41:33Z
+
+[Term]
+id: MDSS:0000471
+name: spraying with truck-mounted sprayers
+is_a: MDSS:0000469 ! malaria vector control method
+created_by: Saul
+creation_date: 2009-11-18T10:41:33Z
+
+[Term]
+id: MDSS:0000472
+name: spraying with air plane-mounted sprayers
+is_a: MDSS:0000469 ! malaria vector control method
+created_by: Saul
+creation_date: 2009-11-18T10:41:33Z
+
+[Term]
+id: MDSS:0000473
+name: distribution of granular insecticide
+is_a: MDSS:0000469 ! malaria vector control method
+created_by: Saul
+creation_date: 2009-11-18T10:41:33Z
+
+[Term]
+id: MDSS:0000474
+name: introduction of predators
+is_a: MDSS:0000469 ! malaria vector control method
+created_by: Saul
+creation_date: 2009-11-18T10:41:33Z
+
+[Term]
+id: MDSS:0000475
+name: environmental management
+is_a: MDSS:0000469 ! malaria vector control method
+created_by: Saul
+creation_date: 2009-11-18T10:41:33Z
+
+[Term]
+id: MDSS:0000476
+name: K-othrine WG 250
+is_a: MDSS:0000010 ! brand of insecticide formulation
+created_by: slozano
+creation_date: 2009-11-23T04:07:17Z
+
+[Term]
+id: MDSS:0000477
+name: DDT WP 75
+is_a: MDSS:0000010 ! brand of insecticide formulation
+created_by: slozano
+creation_date: 2009-11-23T04:07:17Z
 
 [Term]
 id: MIRO:00000001
@@ -36147,6 +36646,25 @@ def: "An independent continuant [snap:IndependentContinuant] consisting of a cha
 comment: Comment: An instance of Site [snap:Site] is a mixture of independent continuant [snap:IndependentContinuant] entities which act as surrounding environments for other independent continuant [snap:IndependentContinuant] entities, most importantly for instances of object [snap:Object]. A site [snap:Site] is typically made of object [snap:Object] or fiat object part [snap:FiatObjectPart] entities and a surrounding medium in which is found an object [snap:Object] occupying the site [snap:Site]. Independent continuant [snap:IndependentContinuant] entities may be associated with others (which, then, are site [snap:Site] entities) through a relation of "occupation". That relation is connected to, but distinct from, the relation of spatial location. Site [snap:Site] entities are not to be confused with spatial region [snap:SpatialRegion] entities. In BFO, site [snap:Site] allows for a so-called relational view of space which is different from the view corresponding to the class spatial region [snap:SpatialRegion] (see the comment on this class).\nDefinition: An independent continuant [snap:IndependentContinuant] consisting of a characteristic spatial shape in relation to some arrangement of other continuant [snap:Continuant] entities and of the medium which is enclosed in whole or in part by this characteristic spatial shape. Site [snap:Site] entities are entities that can be occupied by other continuant [snap:Continuant] entities.\nExamples: a particular room in a particular hospital, Maria's nostril or her intestines for a variety of bacteria.
 property_value: has_example "Maria's nostril or her intestines for a variety of bacteria." xsd:string
 property_value: has_example "a particular room in a particular hospital" xsd:string
+
+[Term]
+id: span:TemporalInstant
+name: temporal_instant
+namespace: 
+def: "A connected temporal region [span:ConnectedTemporalRegion] comprising a single moment of time." [bfo:span]
+comment: Definition: A connected temporal region [span:ConnectedTemporalRegion] comprising a single moment of time.\nExamples: right now, the moment at which a finger is detached in an industrial accident, the moment at which a child is born, the moment of death
+property_value: has_example "right now" xsd:string
+property_value: has_example "the moment at which a child is born" xsd:string
+property_value: has_example "the moment at which a finger is detached in an industrial accident" xsd:string
+property_value: has_example "the moment of death" xsd:string
+
+[Term]
+id: span:TemporalInterval
+name: temporal_interval
+namespace: 
+def: "A connected temporal region [span:ConnectedTemporalRegion] lasting for more than a single moment of time." [bfo:span]
+comment: Definition: A connected temporal region [span:ConnectedTemporalRegion] lasting for more than a single moment of time.\nExamples: any continuous temporal duration during which a process occurs
+property_value: has_example "any continuous temporal duration during which a process occurs" xsd:string
 
 [Term]
 id: TGMA:0000002
