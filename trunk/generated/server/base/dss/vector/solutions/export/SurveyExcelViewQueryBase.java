@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 29551446)
+@com.terraframe.mojo.business.ClassSignature(hash = -764320832)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class SurveyExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 29551446;
+private static final long serialVersionUID = -764320832;
 
   public SurveyExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -26,6 +26,24 @@ private static final long serialVersionUID = 29551446;
   {
     return dss.vector.solutions.export.SurveyExcelView.CLASS;
   }
+  public com.terraframe.mojo.query.AttributeInteger getAge()
+  {
+    return getAge(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getAge(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.AGE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getAge(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.AGE, alias, displayLabel);
+
+  }
+ 
   public com.terraframe.mojo.query.AttributeChar getAnaemiaTreatment()
   {
     return getAnaemiaTreatment(null);
@@ -44,21 +62,93 @@ private static final long serialVersionUID = 29551446;
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getBloodslide()
+  public com.terraframe.mojo.query.AttributeChar getBloodslideDetail()
   {
-    return getBloodslide(null);
+    return getBloodslideDetail(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getBloodslide(String alias)
+  public com.terraframe.mojo.query.AttributeChar getBloodslideDetail(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.BLOODSLIDE, alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.BLOODSLIDEDETAIL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getBloodslide(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeChar getBloodslideDetail(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.BLOODSLIDE, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.BLOODSLIDEDETAIL, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getBloodslideReason()
+  {
+    return getBloodslideReason(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getBloodslideReason(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.BLOODSLIDEREASON, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getBloodslideReason(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.BLOODSLIDEREASON, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getBloodslideResult()
+  {
+    return getBloodslideResult(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getBloodslideResult(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.BLOODSLIDERESULT, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getBloodslideResult(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.BLOODSLIDERESULT, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getDamaged()
+  {
+    return getDamaged(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getDamaged(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.DAMAGED, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getDamaged(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.DAMAGED, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getDob()
+  {
+    return getDob(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getDob(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.DOB, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getDob(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.DOB, alias, displayLabel);
 
   }
  
@@ -77,24 +167,6 @@ private static final long serialVersionUID = 29551446;
   public com.terraframe.mojo.query.AttributeChar getFever(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.FEVER, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getFeverTreatement()
-  {
-    return getFeverTreatement(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getFeverTreatement(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.FEVERTREATEMENT, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getFeverTreatement(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.FEVERTREATEMENT, alias, displayLabel);
 
   }
  
@@ -117,6 +189,78 @@ private static final long serialVersionUID = 29551446;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.GEOENTITY, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeDecimal getHaemoglobin()
+  {
+    return getHaemoglobin(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeDecimal getHaemoglobin(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HAEMOGLOBIN, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeDecimal getHaemoglobin(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HAEMOGLOBIN, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getHaemoglobinMeasured()
+  {
+    return getHaemoglobinMeasured(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getHaemoglobinMeasured(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HAEMOGLOBINMEASURED, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getHaemoglobinMeasured(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HAEMOGLOBINMEASURED, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getHanging()
+  {
+    return getHanging(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getHanging(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HANGING, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getHanging(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HANGING, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getHasBeenSprayed()
+  {
+    return getHasBeenSprayed(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getHasBeenSprayed(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HASBEENSPRAYED, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getHasBeenSprayed(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HASBEENSPRAYED, alias, displayLabel);
+
+  }
+ 
   public com.terraframe.mojo.query.AttributeBoolean getHasWindows()
   {
     return getHasWindows(null);
@@ -132,6 +276,24 @@ private static final long serialVersionUID = 29551446;
   public com.terraframe.mojo.query.AttributeBoolean getHasWindows(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HASWINDOWS, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getHeadOfHousehold()
+  {
+    return getHeadOfHousehold(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getHeadOfHousehold(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HEADOFHOUSEHOLD, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getHeadOfHousehold(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.HEADOFHOUSEHOLD, alias, displayLabel);
 
   }
  
@@ -171,6 +333,42 @@ private static final long serialVersionUID = 29551446;
 
   }
  
+  public com.terraframe.mojo.query.AttributeChar getImmuneCompromised()
+  {
+    return getImmuneCompromised(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getImmuneCompromised(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.IMMUNECOMPROMISED, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getImmuneCompromised(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.IMMUNECOMPROMISED, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getIron()
+  {
+    return getIron(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getIron(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.IRON, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getIron(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.IRON, alias, displayLabel);
+
+  }
+ 
   public com.terraframe.mojo.query.AttributeInteger getLastSprayed()
   {
     return getLastSprayed(null);
@@ -207,21 +405,93 @@ private static final long serialVersionUID = 29551446;
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMalariaTreatment()
+  public com.terraframe.mojo.query.AttributeChar getMalariaConformationTechnique()
   {
-    return getMalariaTreatment(null);
+    return getMalariaConformationTechnique(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMalariaTreatment(String alias)
+  public com.terraframe.mojo.query.AttributeChar getMalariaConformationTechnique(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MALARIATREATMENT, alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MALARIACONFORMATIONTECHNIQUE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMalariaTreatment(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeChar getMalariaConformationTechnique(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MALARIATREATMENT, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MALARIACONFORMATIONTECHNIQUE, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getMonthRecieved()
+  {
+    return getMonthRecieved(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getMonthRecieved(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MONTHRECIEVED, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getMonthRecieved(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MONTHRECIEVED, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getMonthRetreated()
+  {
+    return getMonthRetreated(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getMonthRetreated(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MONTHRETREATED, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getMonthRetreated(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MONTHRETREATED, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getNetBrand()
+  {
+    return getNetBrand(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getNetBrand(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.NETBRAND, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getNetBrand(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.NETBRAND, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getNetId()
+  {
+    return getNetId(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getNetId(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.NETID, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getNetId(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.NETID, alias, displayLabel);
 
   }
  
@@ -240,6 +510,42 @@ private static final long serialVersionUID = 29551446;
   public com.terraframe.mojo.query.AttributeInteger getNets(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.NETS, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getNotUsedForSleeping()
+  {
+    return getNotUsedForSleeping(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getNotUsedForSleeping(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.NOTUSEDFORSLEEPING, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getNotUsedForSleeping(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.NOTUSEDFORSLEEPING, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getObtained()
+  {
+    return getObtained(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getObtained(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.OBTAINED, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getObtained(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.OBTAINED, alias, displayLabel);
 
   }
  
@@ -279,6 +585,24 @@ private static final long serialVersionUID = 29551446;
 
   }
  
+  public com.terraframe.mojo.query.AttributeBoolean getPerformedBloodslide()
+  {
+    return getPerformedBloodslide(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getPerformedBloodslide(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PERFORMEDBLOODSLIDE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getPerformedBloodslide(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PERFORMEDBLOODSLIDE, alias, displayLabel);
+
+  }
+ 
   public com.terraframe.mojo.query.AttributeChar getPerformedRDT()
   {
     return getPerformedRDT(null);
@@ -297,6 +621,132 @@ private static final long serialVersionUID = 29551446;
 
   }
  
+  public com.terraframe.mojo.query.AttributeChar getPersonId()
+  {
+    return getPersonId(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getPersonId(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PERSONID, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getPersonId(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PERSONID, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getPregnant()
+  {
+    return getPregnant(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getPregnant(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PREGNANT, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getPregnant(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PREGNANT, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeDecimal getPrice()
+  {
+    return getPrice(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeDecimal getPrice(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PRICE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeDecimal getPrice(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PRICE, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getPurpose()
+  {
+    return getPurpose(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getPurpose(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PURPOSE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getPurpose(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PURPOSE, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getPurposeComments()
+  {
+    return getPurposeComments(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getPurposeComments(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PURPOSECOMMENTS, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getPurposeComments(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.PURPOSECOMMENTS, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getRdtDetail()
+  {
+    return getRdtDetail(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getRdtDetail(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.RDTDETAIL, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getRdtDetail(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.RDTDETAIL, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getRdtResult()
+  {
+    return getRdtResult(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getRdtResult(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.RDTRESULT, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getRdtResult(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.RDTRESULT, alias, displayLabel);
+
+  }
+ 
   public com.terraframe.mojo.query.AttributeChar getRdtTreatment()
   {
     return getRdtTreatment(null);
@@ -312,6 +762,24 @@ private static final long serialVersionUID = 29551446;
   public com.terraframe.mojo.query.AttributeChar getRdtTreatment(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.RDTTREATMENT, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getReteated()
+  {
+    return getReteated(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getReteated(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.RETEATED, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getReteated(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.RETEATED, alias, displayLabel);
 
   }
  
@@ -387,6 +855,42 @@ private static final long serialVersionUID = 29551446;
 
   }
  
+  public com.terraframe.mojo.query.AttributeLong getSleptUnderNet()
+  {
+    return getSleptUnderNet(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeLong getSleptUnderNet(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeLong)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.SLEPTUNDERNET, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeLong getSleptUnderNet(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeLong)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.SLEPTUNDERNET, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getSleptUnderNetId()
+  {
+    return getSleptUnderNetId(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getSleptUnderNetId(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.SLEPTUNDERNETID, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getSleptUnderNetId(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.SLEPTUNDERNETID, alias, displayLabel);
+
+  }
+ 
   public com.terraframe.mojo.query.AttributeMoment getSurveyDate()
   {
     return getSurveyDate(null);
@@ -459,6 +963,60 @@ private static final long serialVersionUID = 29551446;
 
   }
  
+  public com.terraframe.mojo.query.AttributeInteger getWashFrequency()
+  {
+    return getWashFrequency(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getWashFrequency(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.WASHFREQUENCY, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getWashFrequency(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.WASHFREQUENCY, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getWashPeriod()
+  {
+    return getWashPeriod(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getWashPeriod(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.WASHPERIOD, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getWashPeriod(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.WASHPERIOD, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getWashed()
+  {
+    return getWashed(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getWashed(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.WASHED, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getWashed(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.WASHED, alias, displayLabel);
+
+  }
+ 
   public com.terraframe.mojo.query.AttributeChar getWindowType()
   {
     return getWindowType(null);
@@ -474,6 +1032,42 @@ private static final long serialVersionUID = 29551446;
   public com.terraframe.mojo.query.AttributeChar getWindowType(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.WINDOWTYPE, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getYearRecieved()
+  {
+    return getYearRecieved(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getYearRecieved(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.YEARRECIEVED, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getYearRecieved(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.YEARRECIEVED, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getYearRetreated()
+  {
+    return getYearRetreated(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getYearRetreated(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.YEARRETREATED, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getYearRetreated(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.YEARRETREATED, alias, displayLabel);
 
   }
  
