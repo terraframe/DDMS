@@ -17,7 +17,6 @@
 <%@page import="dss.vector.solutions.query.NonRangeCategoryDTO"%>
 <%@page import="dss.vector.solutions.query.RangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
-<%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
@@ -57,7 +56,7 @@
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
     String[] mosquitoTypes = new String[]{ ITNDataDTO.CLASS, ITNDataViewDTO.CLASS, ITNTargetGroupDTO.CLASS, ITNNetDTO.CLASS, ITNServiceDTO.CLASS};
-    String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
+    String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
     MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
 
