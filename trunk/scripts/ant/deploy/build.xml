@@ -33,14 +33,14 @@
 	<!-- =================================================================== -->
 	<!-- PRECONDITIONS:                                                      -->
 	<!-- you must set the auth method for 127.0.0.1/32 to "trust" in pg_hba.conf -->
-	<!-- so that posgres does not require a password from localhost         -->
+	<!-- so that posgres does not require a password from localhost  -->
 	<!-- Also check that "postgres.bin" is set to the location of psql and pg_dump -->
 	<!-- =================================================================== -->
 	<target name="fast_build" depends="alert_status,kill_tomcat,remove_generated_universals,copy_country_schema,develop_rebuild_import" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="Build part 1 complete, please refresh and clean" />
 	</target>
-
-	<target name="fast_build_2" depends="alert_status,deploy_all,import_geodata,develop_build_all_paths_geodata,import_ontology,develop_build_all_paths_ontology,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
+		
+	<target name="fast_build_2" depends="alert_status,deploy_all,import_ontology,import_ontology_roots,develop_build_all_paths_ontology,import_geodata,develop_build_all_paths_geodata,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="The build is complete, please start tomcat" />
 	</target>
 
