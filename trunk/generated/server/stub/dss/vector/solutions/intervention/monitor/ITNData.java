@@ -274,6 +274,10 @@ public class ITNData extends ITNDataBase implements com.terraframe.mojo.generati
     QueryUtil.getSingleAttribteGridSql(valueQuery,itnQuery.getTableAlias());
     
     QueryUtil.joinGeoDisplayLabels(valueQuery,ITNData.CLASS,itnQuery);
+    
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    
+    QueryUtil.setTermRestrictions(valueQuery, queryMap);
    
     String sd = itnQuery.getStartDate().getQualifiedName();
     String ed = itnQuery.getEndDate().getQualifiedName();

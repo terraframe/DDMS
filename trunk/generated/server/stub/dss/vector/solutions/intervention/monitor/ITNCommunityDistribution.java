@@ -350,6 +350,10 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
     QueryUtil.getSingleAttribteGridSql(valueQuery,itnQuery.getTableAlias());
     
     QueryUtil.joinGeoDisplayLabels(valueQuery,ITNCommunityDistribution.CLASS,itnQuery);
+    
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    
+    QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
    
     String sd = itnQuery.getStartDate().getQualifiedName();

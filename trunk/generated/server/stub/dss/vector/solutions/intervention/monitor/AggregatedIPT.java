@@ -258,6 +258,10 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.m
     AggregatedIPTQuery aggregatedIPTQuery = (AggregatedIPTQuery) queryMap.get(AggregatedIPT.CLASS);
     
     QueryUtil.getSingleAttribteGridSql(valueQuery,aggregatedIPTQuery.getTableAlias());
+    
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    
+    QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
    
     String sd = aggregatedIPTQuery.getStartDate().getQualifiedName();
