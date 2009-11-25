@@ -330,7 +330,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     {
       var request = new MDSS.Request({
         that: this,
-        mapName: params['savedMap.mapName'],
+        mapName: params['dto.mapName'],
         onSuccess : function(mapId)
         {
           // insert the new map into the select box
@@ -360,7 +360,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       option.value = mapId;
       option.innerHTML = mapName;
       
-      var mapList = document.getElementById(MDSS.MapPanel);
+      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
       mapList.appendChild(option);
       mapList.selectedIndex = mapList.options.length-1;
       
