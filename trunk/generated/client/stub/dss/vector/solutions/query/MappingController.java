@@ -26,8 +26,6 @@ public class MappingController extends MappingControllerBase implements
 
   public static final String  EDIT_VARIABLE_STYLES = JSP_DIR + "editVariableStyles.jsp";
   
-  public static final String NEW_MAP = JSP_DIR + "newMap.jsp";
-  
   public static final String GENERATE_MAPS = JSP_DIR+"generateMaps.jsp";
 
   public MappingController(javax.servlet.http.HttpServletRequest req,
@@ -115,34 +113,6 @@ public class MappingController extends MappingControllerBase implements
     {
       throw new ApplicationException(t);
     }
-  }
-  
-  @Override
-  public void newMap() throws IOException
-  {
-    try
-    {
-      this.req.setAttribute("savedMap", new SavedMapDTO(this.getClientRequest()));
-      this.req.getRequestDispatcher(NEW_MAP).forward(this.req, this.resp);
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-  }
-  
-  @Override
-  public void cancelMap() throws IOException, ServletException
-  {
-    // taken care of in JavaScript
-  }
-  
-  @Override
-  public void deleteMap() throws IOException, ServletException
-  {
-    // taken care of in JavaScript
   }
   
   /**
