@@ -12,6 +12,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.terraframe.mojo.business.Mutable;
 import com.terraframe.mojo.business.generation.GenerationUtil;
+import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
 import com.terraframe.mojo.dataaccess.io.ExcelExportListener;
 import com.terraframe.mojo.dataaccess.io.excel.ExcelColumn;
 import com.terraframe.mojo.dataaccess.io.excel.ImportListener;
@@ -127,8 +128,10 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
 
     Class<?> excelClass = LoaderDecorator.load(excelType);
 
-    String accessorName = GenerationUtil.upperFirstCharacter(instance.getMdAttributeDAO(attributeName).getAccessorName());
-    excelClass.getMethod("set" + accessorName, GeoEntity.class).invoke(instance, geoEntity);
+    MdAttributeReferenceDAOIF mdAttributeDAO = (MdAttributeReferenceDAOIF)instance.getMdAttributeDAO(attributeName).getMdAttributeConcrete();
+    Class<?> parameterClass = LoaderDecorator.load(mdAttributeDAO.getReferenceMdBusinessDAO().definesType());
+    String accessorName = GenerationUtil.upperFirstCharacter(mdAttributeDAO.getAccessorName());
+    excelClass.getMethod("set" + accessorName, parameterClass).invoke(instance, geoEntity);
   }
 
   private String getExcelAttribute(MdBusiness geoEntityClass)
