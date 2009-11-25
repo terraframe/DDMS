@@ -53,3 +53,7 @@
 <mjl:commandLink action="dss.vector.solutions.intervention.monitor.LarvacideController.newInstance.mojo" name="LarvacideController.newInstance">
   <fmt:message key="Create_a_new_Larvacide" />
 </mjl:commandLink>
+
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.LarvacideExcelView" name="excelType"/>
+</jsp:include>
