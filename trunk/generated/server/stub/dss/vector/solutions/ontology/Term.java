@@ -1,6 +1,9 @@
 package dss.vector.solutions.ontology;
 
 import java.sql.Savepoint;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +31,7 @@ import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.query.ActionNotAllowedException;
+import dss.vector.solutions.surveillance.OptionComparator;
 import dss.vector.solutions.surveillance.OptionIF;
 
 public class Term extends TermBase implements Reloadable, OptionIF
@@ -669,8 +673,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
         children.add(child);
       }
     }
+    
+    List<Term> sorted = new ArrayList<Term>(children);
+    Collections.sort(sorted, new OptionComparator());
 
-    return children.toArray(new Term[children.size()]);
+    return sorted.toArray(new Term[sorted.size()]);
   }
 
   /**
