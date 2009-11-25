@@ -38,11 +38,11 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
     view.setIptCase(searchForCase());
     view.setFacility(this.getFacility().getGeoId());
     view.setServiceDate(this.getServiceDate());
-    view.setPatientType(Term.validateByDisplayLabel(this.getPatientType(), getPatientTypeMd()));
+    view.setPatientType(Term.validateByDisplayLabel(this.getPatientType(), IndividualIPTView.getPatientTypeMd()));
     view.setIsANCVisit(this.getIsANCVisit());
-    view.setVisitNumber(Term.validateByDisplayLabel(this.getVisitNumber(), getVisitNumberMd()));
-    view.setDoseNumber(Term.validateByDisplayLabel(this.getDoseNumber(), getDoseNumberMd()));
-    view.setDoseType(Term.validateByDisplayLabel(this.getDoseType(), getDoseTypeMd()));
+    view.setVisitNumber(Term.validateByDisplayLabel(this.getVisitNumber(), IndividualIPTView.getVisitNumberMd()));
+    view.setDoseNumber(Term.validateByDisplayLabel(this.getDoseNumber(), IndividualIPTView.getDoseNumberMd()));
+    view.setDoseType(Term.validateByDisplayLabel(this.getDoseType(), IndividualIPTView.getDoseTypeMd()));
     view.setRecievedSupplement(this.getRecievedSupplement());
     view.setRecievedITN(this.getRecievedITN());
     view.setNumberOfRecievedITNs(this.getNumberOfRecievedITNs());

@@ -48,6 +48,10 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%=HealthFacilityDTO.CLASS%>*');
 	</mjl:form>
 </dl>
 
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.IndividualIPTExcelView" name="excelType"/>
+</jsp:include>
+
 <%=Halp.loadTypes(Arrays.asList(new String[]{PersonDTO.CLASS, PersonController.CLASS, PersonViewDTO.CLASS}))%>
 
 <script type="text/javascript" >

@@ -195,7 +195,7 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
 
-  private PeriodType getPeriodTypeByLabel(String label)
+  public static PeriodType getPeriodTypeByLabel(String label)
   {
     if (label == null || label.equals(""))
     {
@@ -204,7 +204,8 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
 
     for (PeriodType e : PeriodType.values())
     {
-      if (e.getDisplayLabel().equals(label))
+      if (e.getDisplayLabel().equalsIgnoreCase(label) ||
+          e.getEnumName().equalsIgnoreCase(label))
       {
         return e;
       }
