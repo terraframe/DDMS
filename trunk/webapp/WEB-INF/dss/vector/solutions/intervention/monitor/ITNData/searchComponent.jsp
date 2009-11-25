@@ -59,6 +59,10 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
   </dl>
 </mjl:form>
 
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.AggregatedITNExcelView" name="excelType"/>
+</jsp:include>
+
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{AggregatedCaseViewDTO.CLASS}))%>
 
 <script type="text/javascript" defer="defer">
