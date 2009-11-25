@@ -47,3 +47,7 @@
 <mjl:commandLink name="ITNCommunityDistributionController.newInstance" action="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.newInstance.mojo">
   <fmt:message key="Create_a_new_ITN_community_distribution_data" />
 </mjl:commandLink>
+
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.ITNCommunityExcelView" name="excelType"/>
+</jsp:include>
