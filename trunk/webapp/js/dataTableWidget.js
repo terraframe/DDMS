@@ -83,10 +83,18 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 				    fields : this.tableData.fields
 				  };
 				
-				  // FIXME: figure out how to set a max width
-				  this.myDataTable = new YAHOO.widget.ScrollingDataTable(this.tableData.div_id, this.tableData.columnDefs, this.myDataSource, {
-				    width : this.tableData.width
-				  });
+				  // Scrolling Data Table is slow, so we use regular data table if possible
+				  if(this.tableData.width){
+				  	 this.myDataTable = new YAHOO.widget.ScrollingDataTable(this.tableData.div_id, this.tableData.columnDefs, this.myDataSource, {
+						    width : this.tableData.width
+						  });
+				  }
+				  else
+				  {
+				  	 this.myDataTable = new YAHOO.widget.DataTable(this.tableData.div_id, this.tableData.columnDefs, this.myDataSource, {});
+				  }
+				  
+				 
 				  
 				  //set this so it accessable by other methods in the jsp
 				  this.tableData.myDataTable = this.myDataTable;
@@ -423,7 +431,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
         this.tableData.after_row_edit(record);
       }
 
-      this._sumColumn(oArgs);
+      this._sumColumn.apply(this,[oArgs]);
 
       //this.myDataTable.unselectCell(editor.getTdEl());
       //YAHOO.log("Saved Cell:" + editor._oColumn.label, "warn", "Widget");
@@ -439,6 +447,8 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
         var lastRecord = this.myDataTable.getRecord(lastIndex);
         var editor = oArgs.editor;
         var index = this.myDataTable.getRecordIndex(record);
+        var dt = this.myDataTable;
+        var manualLastRowData = this.tableData.rows[lastIndex][editor.getColumn().key];
         var lastTd = this.myDataTable.getTdEl( {
           record : lastRecord,
           column : editor.getColumn()
@@ -448,12 +458,6 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
           record : record,
           column : editor.getColumn()
         });
-
-        //no calculation is done if number is entered manualy
-        if(this.tableData.rows[lastIndex][editor.getColumn().key])
-        {
-        	return;
-        }
         
         //no calculation is done if cell was tabbed past
         if(!(oArgs.newData || oArgs.oldData ))
@@ -475,20 +479,28 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 
         var newTotal = oldTotal + newData - oldData;
 
-        if (index !== lastIndex) {
-          this.myDataTable.updateCell(lastRecord, editor.getColumn(), newTotal);
+        //no calculation is done if number is entered manualy
+        if (index !== lastIndex  && (! manualLastRowData)) {
+          dt.updateCell(lastRecord, editor.getColumn(), newTotal);
+          YAHOO.util.Dom.addClass(this.myDataTable.getTdLinerEl(lastTd), "calculated");
           //we do not save autocalculated values
           //this.tableData.rows[lastIndex][editor.getColumn().key] = newTotal;
         }
 
         var sum = 0;
 
-        this.myDataTable.getRecordSet().getRecords().map( function(row) {
+        dt.getRecordSet().getRecords().map( function(row) {
           var x = parseInt(row.getData(editor.getColumn().key),10);
-          if (x && this.myDataTable.getRecordIndex(row) !== lastIndex){
+          if (x && dt.getRecordIndex(row) !== lastIndex){
             sum += x;
           }
         });
+        
+        //redo calculation is done if manualy entered number is deleted
+        if (index == lastIndex  && oArgs.newData == '') {
+          dt.updateCell(lastRecord, editor.getColumn(), sum);
+          YAHOO.util.Dom.addClass(this.myDataTable.getTdLinerEl(lastTd), "calculated");
+        }
 
         if (parseInt(lastRecord.getData(editor.getColumn().key),10) != sum) {
           YAHOO.util.Dom.addClass(lastTd, "dataTableSumError");
