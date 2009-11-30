@@ -9,8 +9,12 @@ import com.terraframe.mojo.constants.ElementInfo;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
+import com.terraframe.mojo.dataaccess.MdClassDAOIF;
 import com.terraframe.mojo.dataaccess.MdEntityDAOIF;
+import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
 import com.terraframe.mojo.generation.loader.Reloadable;
+
+import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class MDSSFormListener extends FormListener implements ContentListener, Reloadable
 {
@@ -36,6 +40,8 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
   protected void writeIncludes()
   {
     super.writeIncludes();
+    
+    getWriter().writeValue("<%@ taglib uri=\"/WEB-INF/tlds/mdssLib.tld\" prefix=\"mdss\"%>");
 
     getWriter().writeValue("<%@ taglib uri=\"http://java.sun.com/jsp/jstl/fmt\" prefix=\"fmt\"%>");
 
@@ -84,78 +90,22 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
 
     //    <mjl:dt attribute="generation">
     writeDT(attributeName);
-    
-    HashMap<String, String> spanMap = new HashMap<String, String>();
-    spanMap.put("class", "clickable browserLauncher");
-    spanMap.put("id", attributeName + "Btn");
-    
-    //    <span class="clickable" id="generationBtn"> 
-    getWriter().openTag("span", spanMap);
 
-    HashMap<String, String> messageMap = new HashMap<String, String>();
-    messageMap.put("key", "Browser");
+    //    <mdss:mo param="term" value="${term}" script="false"/>    
+    HashMap<String, String> moMap = new HashMap<String, String>();
+    moMap.put("param", attributeName);
+    moMap.put("value", "${" + attributeName + "}");
     
-    //    <fmt:message key="Browser"/>
-    getWriter().writeEmptyTag("fmt:message", messageMap);
+    MdClassDAOIF mdClass = mdAttribute.definedByClass();
+    MdClassDAOIF mdGeoEntity = MdClassDAO.getMdClassDAO(GeoEntity.CLASS);
     
-    // CLOSING SPAN
-    //    </span>
-    getWriter().closeTag();
+    if(mdClass.getSuperClasses().contains(mdGeoEntity))
+    {
+      moMap.put("script", "false");
+    }
     
-    HashMap<String, String> divMap = new HashMap<String, String>();
-    divMap.put("class", "ontologyDisplay");
-    divMap.put("id", attributeName + "Display");
+    getWriter().writeEmptyTag("mdss:mo", moMap);
 
-    //    <div id="generationDisplay" class="ontologyDisplay">
-    getWriter().openTag("div", divMap);
-    
-//    <c:choose> 
-    getWriter().openTag("c:choose");
-    
-//    <c:when test="${bloodslide != null}">
-    HashMap<String, String> whenMap = new HashMap<String, String>();
-    whenMap.put("test", "${" + attributeName + " != null}");
-    
-    getWriter().openTag("c:when", whenMap);
-    
-//      ${bloodslide.displayLabel}
-    String display = "${" + attributeName + ".displayLabel}";
-    getWriter().writeValue(display);
-
-//    </c:when>
-    getWriter().closeTag();
-    
-//    <c:otherwise>
-    getWriter().openTag("c:otherwise");
-    
-//      <fmt:message key="no_value" />
-    HashMap<String, String> noValueMap = new HashMap<String, String>();
-    noValueMap.put("key", "no_value");
-    
-    getWriter().writeEmptyTag("fmt:message", noValueMap);    
-    
-//    </c:otherwise>
-    getWriter().closeTag();
-    
-//  </c:choose>
-    getWriter().closeTag();
-
-    //CLOSING DIV
-    //    </div>
-    getWriter().closeTag();
-        
-    // <mjl:input type="hidden" param="generation" id="generation" value="${generation != null ? generation.id : ''}" />
-    String value = "${" + attributeName + " != null ? " + attributeName + ".id : ''}";
-
-    HashMap<String, String> inputMap = new HashMap<String, String>();
-    inputMap.put("param", attributeName);
-    inputMap.put("type", "hidden");
-    inputMap.put("id", attributeName);
-    inputMap.put("value", value);
-
-    getWriter().writeEmptyTag(INPUT_TAG, inputMap);
-
-    // CLOSING DT Tag
     //    </mjl:dt>      
     getWriter().closeTag();
     

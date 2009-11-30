@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 <%@page import="dss.vector.solutions.PropertyDTO"%>
 <%@page import="java.util.Arrays"%>
@@ -15,20 +16,7 @@
     <mjl:input param="netId" type="text" id="netId" /><a href="#" id="getUniqueId"><fmt:message key="Get_Unique_Id"/></a>
   </mjl:dt>  
   <mjl:dt attribute="netBrand">
-    <span id="netBrandBtn" class="clickable browserLauncher">
-      <fmt:message key="Browser" />
-    </span>
-    <div id="netBrandDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${netBrand != null}">
-          ${netBrand.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input id="netBrand" param="netBrand" value="${netBrand != null ? netBrand.id : ''}" type="hidden" />
+    <mdss:mo param="netBrand" value="${netBrand}"/>
   </mjl:dt>  
   <mjl:dt attribute="monthRecieved">
     <mjl:select param="monthRecieved" items="${monthRecieved}" var="current" valueAttribute="enumName" includeBlank="true">
@@ -41,20 +29,7 @@
     <mjl:input param="yearRecieved" type="text" id="yearRecieved" />
   </mjl:dt>  
   <mjl:dt attribute="obtained">
-    <span id="obtainedBtn" class="clickable browserLauncher">
-      <fmt:message key="Browser" />
-    </span>
-    <div id="obtainedDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${obtained != null}">
-          ${obtained.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input id="obtained" param="obtained" value="${obtained != null ? obtained.id : ''}" type="hidden" />
+    <mdss:mo param="obtained" value="${obtained}"/>
   </mjl:dt>
   <mjl:dt attribute="price">
     <mjl:input param="price" type="text" />
@@ -77,56 +52,17 @@
     </mjl:dt>
   </div>
   <mjl:dt attribute="damaged">
-    <span id="damagedBtn" class="clickable browserLauncher">
-      <fmt:message key="Browser" />
-    </span>
-    <div id="damagedDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${damaged != null}">
-          ${damaged.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input id="damaged" param="damaged" value="${damaged != null ? damaged.id : ''}" type="hidden" />
+    <mdss:mo param="damaged" value="${damaged}"/>
   </mjl:dt>  
   <mjl:dt attribute="hanging">
-    <span id="hangingBtn" class="clickable browserLauncher">
-      <fmt:message key="Browser" />
-    </span>
-    <div id="hangingDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${hanging != null}">
-          ${hanging.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input id="hanging" param="hanging" value="${hanging != null ? hanging.id : ''}" type="hidden" />
+    <mdss:mo param="hanging" value="${hanging}"/>
   </mjl:dt>
   <mjl:dt attribute="notUsedForSleeping">
     <mjl:boolean param="notUsedForSleeping" id="notUsedForSleeping" />
   </mjl:dt>
   <div class="purpose">
     <mjl:dt attribute="purpose">
-      <span id="purposeBtn" class="clickable browserLauncher">
-        <fmt:message key="Browser" />
-      </span>
-      <div id="purposeDisplay" class="ontologyDisplay">
-        <c:choose>
-          <c:when test="${purpose != null}">
-            ${purpose.displayLabel}
-          </c:when>
-          <c:otherwise>
-            <fmt:message key="no_value" />
-          </c:otherwise>
-        </c:choose>
-      </div>
-      <mjl:input id="purpose" param="purpose" value="${purpose != null ? purpose.id : ''}" type="hidden" />
+      <mdss:mo param="purpose" value="${purpose}"/>
     </mjl:dt>
   </div>
   <div class="purposeComments">
@@ -148,20 +84,7 @@
   </div>
   <div class="washPeriod">
     <mjl:dt attribute="washPeriod">
-      <span id="washPeriodBtn" class="clickable browserLauncher">
-        <fmt:message key="Browser" />
-      </span>
-      <div id="washPeriodDisplay" class="ontologyDisplay">
-        <c:choose>
-          <c:when test="${washPeriod != null}">
-            ${washPeriod.displayLabel}
-          </c:when>
-          <c:otherwise>
-            <fmt:message key="no_value" />
-          </c:otherwise>
-        </c:choose>
-      </div>
-      <mjl:input id="washPeriod" param="washPeriod" value="${washPeriod != null ? washPeriod.id : ''}" type="hidden" />    
+      <mdss:mo param="washPeriod" value="${washPeriod}"/>
     </mjl:dt>
   </div>
   <mjl:dt attribute="sleptUnderNet">
@@ -261,20 +184,6 @@
       });
       Mojo.$.dss.vector.solutions.Property.getNextId(request);
     });
-
-    //**********************************************************
-    // SETUP MO BROWSERS
-    //**********************************************************    
-    var attributes = [
-      {attributeName:'netBrand'},
-      {attributeName:'obtained'},
-      {attributeName:'damaged'},
-      {attributeName:'hanging'},
-      {attributeName:'purpose'},
-      {attributeName:'washPeriod'}
-    ];
-    
-    new MDSS.GenericOntologyBrowser("<%=ITNInstanceViewDTO.CLASS%>", attributes);
   })
 })();
 </script>

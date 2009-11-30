@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 
 <%@page import="dss.vector.solutions.irs.AbstractSprayViewDTO"%><jsp:include page="/WEB-INF/selectSearch.jsp" />
@@ -29,33 +30,10 @@
         </mjl:radioGroup>      
       </mjl:dt>      
       <mjl:dt attribute="surfaceType">
-        <span class="clickable browserLauncher" id="surfaceTypeBtn"> <fmt:message key="Browser"/></span>
-        <div id="surfaceTypeDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${surfaceType != null}">
-              ${surfaceType.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="surfaceType" id="surfaceType" value="${surfaceType != null ? surfaceType.id : ''}" />
+        <mdss:mo param="surfaceType" value="${surfaceType}"/>
       </mjl:dt>                  
       <mjl:dt attribute="sprayWeek" type="text"/>
       <mjl:dt attribute="supervisorName" type="text"/>
       <mjl:dt attribute="supervisorSurname" type="text"/>
       <mjl:dt attribute="target" type="text"/>
     </mjl:component>
-
-<script type="text/javascript">
-(function(){
-  YAHOO.util.Event.onDOMReady(function(){   
-    var attributes = [
-         {attributeName:'surfaceType'}
-    ];
-    
-    new MDSS.GenericOntologyBrowser("<%=AbstractSprayViewDTO.CLASS%>", attributes);
-  })
-})();
-</script>

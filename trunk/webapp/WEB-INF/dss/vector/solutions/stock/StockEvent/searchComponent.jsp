@@ -1,11 +1,14 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
+
+
 <%@page import="dss.vector.solutions.stock.StockEventDTO"%>
-
-
 <%@page import="dss.vector.solutions.stock.StockItemViewDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.StockDepotDTO"%><c:set var="page_title" value="Stock_Detail"  scope="request"/>
+<%@page import="dss.vector.solutions.geo.generated.StockDepotDTO"%>
+
+<c:set var="page_title" value="Stock_Detail"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
@@ -14,6 +17,7 @@
 </mjl:messages>
 
 <c:set var="StockDepot" scope="request"><%=StockDepotDTO.CLASS%></c:set>
+<c:set var="StockItemView" scope="request"><%=StockItemViewDTO.CLASS%></c:set>
 
 <mjl:form name="StockDetail.search.mojo" method="POST">
   <dl>
@@ -28,18 +32,7 @@
       <label> ${view.itemMd.displayLabel} </label>
     </dt>
     <dd>
-      <span class="clickable browserLauncher" id="itemNameBtn"> <fmt:message key="Browser"/></span>
-      <div id="itemNameDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${item != null}">
-              ${item.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-      </div>
-      <mjl:input type="hidden" param="item.componentId" id="itemName" value="${item != null ? item.id : ''}" />
+      <mdss:mo param="item.componentId" id="itemName" browserClass="${StockItemView}" browserAttribute="itemName" value="${item}"/>
     </dd>
     <dt>
       <label> ${view.eventDateMd.displayLabel} </label>
@@ -58,15 +51,3 @@
     <mjl:command classes="submitButton" action="dss.vector.solutions.stock.StockEventController.searchPage.mojo" name="searchPage" value="Search" id="searchPage"/>    
   </dl>
 </mjl:form>
-<script type="text/javascript">  
-(function(){
-  YAHOO.util.Event.onDOMReady(function(){   
-    var attributes = [
-         {attributeName:'itemName'}
-    ];
-    
-    new MDSS.GenericOntologyBrowser("<%=StockItemViewDTO.CLASS%>", attributes);
-  })
-})();
-</script>
-

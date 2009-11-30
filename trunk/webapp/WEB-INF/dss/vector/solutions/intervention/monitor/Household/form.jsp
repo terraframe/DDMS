@@ -1,14 +1,13 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
+
 <%@page import="dss.vector.solutions.PropertyDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
 <%@page import="dss.vector.solutions.intervention.monitor.HouseholdDTO"%>
-
-
-
 <%@page import="dss.vector.solutions.intervention.monitor.HouseholdViewDTO"%>
 
     <mjl:component item="${item}" param="dto">
@@ -28,18 +27,7 @@
       </mjl:dt>
 
       <mjl:dt attribute="wall">
-        <span class="clickable browserLauncher" id="wallBtn"> <fmt:message key="Browser"/></span>
-        <div id="wallDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${wall != null}">
-              ${wall.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="wall" id="wall" value="${wall != null ? wall.id : ''}" />
+        <mdss:mo param="wall" value="${wall}"/>
       </mjl:dt>
 
       <mjl:dt attribute="wallInfo">
@@ -47,18 +35,7 @@
       </mjl:dt>
 
       <mjl:dt attribute="roof">
-        <span class="clickable browserLauncher" id="roofBtn"> <fmt:message key="Browser"/></span>
-        <div id="roofDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${roof != null}">
-              ${roof.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="roof" id="roof" value="${roof != null ? roof.id : ''}" />
+        <mdss:mo param="roof" value="${roof}"/>
       </mjl:dt>
 
       <mjl:dt attribute="roofInfo">
@@ -71,18 +48,7 @@
       
       <div class="windowType">
         <mjl:dt attribute="windowType">
-          <span class="clickable browserLauncher" id="windowTypeBtn"> <fmt:message key="Browser"/></span>
-          <div id="windowTypeDisplay" class="ontologyDisplay">
-            <c:choose>
-              <c:when test="${windowType != null}">
-                ${windowType.displayLabel}
-              </c:when>
-              <c:otherwise>
-                <fmt:message key="no_value" />
-              </c:otherwise>
-            </c:choose>
-          </div>
-          <mjl:input type="hidden" param="windowType" id="windowType" value="${windowType != null ? windowType.id : ''}" />
+          <mdss:mo param="windowType" value="${windowType}"/>
         </mjl:dt>
       </div>
 
@@ -143,17 +109,6 @@
       });
       Mojo.$.dss.vector.solutions.Property.getNextId(request);
     });
-
-    //**********************************************************
-    // SETUP MO BROWSERS
-    //**********************************************************    
-    var attributes = [
-      {attributeName:'wall'},
-      {attributeName:'roof'},
-      {attributeName:'windowType'}
-    ];
-  
-    new MDSS.GenericOntologyBrowser("<%=HouseholdViewDTO.CLASS%>", attributes);
   })
 })();
 </script>

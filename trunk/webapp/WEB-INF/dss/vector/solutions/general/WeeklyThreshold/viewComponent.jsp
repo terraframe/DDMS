@@ -1,22 +1,22 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:set var="page_title" value="View_WeeklyThreshold" scope="request" />
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set scope="request" var="page_title" value="View_WeeklyThreshold" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 <dl>
-  <mjl:form name="dss.vector.solutions.general.WeeklyThreshold.form.name" id="dss.vector.solutions.general.WeeklyThreshold.form.id" method="POST">
-    <mjl:input value="${item.id}" type="hidden" param="id" />
-    <mjl:component item="${item}" param="dto">
+  <mjl:form id="dss.vector.solutions.general.WeeklyThreshold.form.id" name="dss.vector.solutions.general.WeeklyThreshold.form.name" method="POST">
+    <mjl:input param="id" value="${item.id}" type="hidden" />
+    <mjl:component param="dto" item="${item}">
       <dt>
         <label>
           Population Data
         </label>
       </dt>
       <dd>
-        <mjl:commandLink display="${item.parent.keyName}" action="dss.vector.solutions.general.ThresholdDataController.view.mojo" name="dss.vector.solutions.general.ThresholdData.form.view.link">
-          <mjl:property value="${item.parentId}" name="id" />
+        <mjl:commandLink name="dss.vector.solutions.general.ThresholdData.form.view.link" action="dss.vector.solutions.general.ThresholdDataController.view.mojo" display="${item.parent.keyName}">
+          <mjl:property name="id" value="${item.parentId}" />
         </mjl:commandLink>
       </dd>
       <dt>
@@ -25,8 +25,8 @@
         </label>
       </dt>
       <dd>
-        <mjl:commandLink display="${item.parent.keyName}" action="dss.vector.solutions.general.EpiWeekController.view.mojo" name="dss.vector.solutions.general.EpiWeek.form.view.link">
-          <mjl:property value="${item.parentId}" name="id" />
+        <mjl:commandLink name="dss.vector.solutions.general.EpiWeek.form.view.link" action="dss.vector.solutions.general.EpiWeekController.view.mojo" display="${item.parent.keyName}">
+          <mjl:property name="id" value="${item.parentId}" />
         </mjl:commandLink>
       </dd>
       <mjl:dt attribute="identification">
@@ -42,9 +42,9 @@
         ${item.notification}
       </mjl:dt>
     </mjl:component>
-    <mjl:command value="Edit" action="dss.vector.solutions.general.WeeklyThresholdController.edit.mojo" name="dss.vector.solutions.general.WeeklyThreshold.form.edit.button" />
+    <mjl:command name="dss.vector.solutions.general.WeeklyThreshold.form.edit.button" value="Edit" action="dss.vector.solutions.general.WeeklyThresholdController.edit.mojo" />
   </mjl:form>
 </dl>
-<mjl:commandLink action="dss.vector.solutions.general.WeeklyThresholdController.viewAll.mojo" name="dss.vector.solutions.general.WeeklyThreshold.viewAll.link">
+<mjl:commandLink name="dss.vector.solutions.general.WeeklyThreshold.viewAll.link" action="dss.vector.solutions.general.WeeklyThresholdController.viewAll.mojo">
   <fmt:message key="View_All" />
 </mjl:commandLink>

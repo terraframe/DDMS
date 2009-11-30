@@ -1,11 +1,11 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:set var="page_title" value="View_All_WeeklyThreshold" scope="request" />
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set scope="request" var="page_title" value="View_All_WeeklyThreshold" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table var="item" query="${query}" odd="oddRow" classes="displayTable" even="evenRow">
+<mjl:table classes="displayTable" var="item" query="${query}" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.general.WeeklyThresholdController.viewPage.mojo" />
   <mjl:columns>
     <mjl:freeColumn>
@@ -13,9 +13,9 @@
         Population Data
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink action="dss.vector.solutions.general.ThresholdDataController.view.mojo" name="parent.link">
+        <mjl:commandLink name="parent.link" action="dss.vector.solutions.general.ThresholdDataController.view.mojo">
           <fmt:message key="${item.parent.keyName}" />
-          <mjl:property value="${item.parentId}" name="id" />
+          <mjl:property name="id" value="${item.parentId}" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
@@ -27,9 +27,9 @@
         Epi Week
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink action="dss.vector.solutions.general.EpiWeekController.view.mojo" name="child.link">
+        <mjl:commandLink name="child.link" action="dss.vector.solutions.general.EpiWeekController.view.mojo">
           <fmt:message key="${item.child.keyName}" />
-          <mjl:property value="${item.childId}" name="id" />
+          <mjl:property name="id" value="${item.childId}" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
@@ -55,9 +55,9 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink action="dss.vector.solutions.general.WeeklyThresholdController.view.mojo" name="view.link">
+        <mjl:commandLink name="view.link" action="dss.vector.solutions.general.WeeklyThresholdController.view.mojo">
           <fmt:message key="View" />
-          <mjl:property value="${item.id}" name="id" />
+          <mjl:property name="id" value="${item.id}" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
@@ -70,6 +70,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink action="dss.vector.solutions.general.WeeklyThresholdController.newRelationship.mojo" name="WeeklyThresholdController.newRelationship">
+<mjl:commandLink name="WeeklyThresholdController.newRelationship" action="dss.vector.solutions.general.WeeklyThresholdController.newRelationship.mojo">
   <fmt:message key="Create_a_new_" />
 </mjl:commandLink>

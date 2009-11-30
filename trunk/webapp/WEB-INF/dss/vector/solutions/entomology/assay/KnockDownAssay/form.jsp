@@ -1,7 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
     
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
@@ -26,77 +26,22 @@
         <mjl:input type="text" param="testDate" id="testDate" classes="DatePick NoFuture" />
       </mjl:dt>
       <mjl:dt attribute="testMethod">
-        <span class="clickable browserLauncher" id="testMethodBtn"> <fmt:message key="Browser"/></span>
-        <div id="testMethodDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${testMethod != null}">
-              ${testMethod.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="testMethod" id="testMethod" value="${testMethod != null ? testMethod.id : ''}" />
+        <mdss:mo param="testMethod" value="${testMethod}"/>
       </mjl:dt>      
       <mjl:dt attribute="generation">
-        <span class="clickable browserLauncher" id="generationBtn"> <fmt:message key="Browser"/></span>
-        <div id="generationDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${generation != null}">
-              ${generation.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="generation" id="generation" value="${generation != null ? generation.id : ''}" />
+        <mdss:mo param="generation" value="${generation}"/>
       </mjl:dt>      
       <mjl:dt attribute="isofemale">
         <mjl:boolean param="isofemale" />
       </mjl:dt>
       <mjl:dt attribute="sex">
-        <span class="clickable browserLauncher" id="sexBtn"> <fmt:message key="Browser"/></span>
-        <div id="sexDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${sex != null}">
-              ${sex.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="sex" id="sex" value="${sex != null ? sex.id : ''}" />
+        <mdss:mo param="sex" value="${sex}"/>
       </mjl:dt>      
       <mjl:dt attribute="specie">
-        <span class="clickable browserLauncher" id="specieBtn"> <fmt:message key="Browser"/></span>
-        <div id="specieDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${specie != null}">
-              ${specie.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="specie" id="specie" value="${specie != null ? specie.id : ''}" />
+        <mdss:mo param="specie" value="${specie}"/>
       </mjl:dt>      
       <mjl:dt attribute="identificationMethod">
-        <span class="clickable browserLauncher" id="identificationMethodBtn"> <fmt:message key="Browser"/></span>
-        <div id="identificationMethodDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${identificationMethod != null}">
-              ${identificationMethod.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="identificationMethod" id="identificationMethod" value="${identificationMethod != null ? identificationMethod.id : ''}" />
+        <mdss:mo param="identificationMethod" value="${identificationMethod}"/>
       </mjl:dt>      
       <mjl:dt attribute="ageRange">
       <dl>
@@ -149,18 +94,9 @@
 <script type="text/javascript">  
 (function(){
   YAHOO.util.Event.onDOMReady(function(){   
-    var attributes = [
-         {attributeName:'testMethod', className:'<%=CollectionAssayDTO.CLASS%>'},
-         {attributeName:'generation', className:'<%=CollectionAssayDTO.CLASS%>'},
-         {attributeName:'sex', className:'<%=AdultAssayDTO.CLASS%>'},
-         {attributeName:'specie', className:'<%=AbstractAssayDTO.CLASS%>'},
-         {attributeName:'identificationMethod', className:'<%=CollectionAssayDTO.CLASS%>'}
-    ];
-    
-    new MDSS.GenericOntologyBrowser("<%=KnockDownAssayDTO.CLASS%>", attributes);
 
     MDSS.collectionSearch({search:'collectionInput', concrete:'collectionId', type:'<%=MosquitoCollectionDTO.CLASS%>'});
   })
 })();
 
-</script>    
+</script>

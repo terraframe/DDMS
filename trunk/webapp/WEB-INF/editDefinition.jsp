@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -56,20 +58,7 @@
         </label>
       </dt>
       <dd>
-        <span class="clickable browserLauncher" id="termBtn">
-          <fmt:message key="Browser" />
-        </span>
-        <div class="ontologyDisplay" id="termDisplay">
-          <c:choose>
-            <c:when test="${term != null}">
-              ${term.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input value="${term != null ? term.id : ''}" type="hidden" param="term" id="term" />
+        <mdss:mo param="term" value="${term}" script="false"/>
       </dd>
       <dt>
         <label>

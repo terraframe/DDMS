@@ -1,5 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 <%@page import="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO"%>
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
@@ -14,18 +16,7 @@
     <mjl:input type="hidden" param="healthFacility" id="healthFacilityGeoId_geoEntityId" value="${healthFacility != null ? healthFacility.id : ''}" />
   </mjl:dt>
   <mjl:dt attribute="detectedBy">
-    <span class="clickable browserLauncher" id="detectedByBtn"> <fmt:message key="Browser"/></span>
-    <div id="detectedByDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${detectedBy != null}">
-          ${detectedBy.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input type="hidden" param="detectedBy" id="detectedBy" value="${detectedBy != null ? detectedBy.id : ''}" />
+    <mdss:mo param="detectedBy" value="${detectedBy}"/>
   </mjl:dt>
   
   <h2><fmt:message key="Basic_Case_Information" /></h2>
@@ -35,18 +26,7 @@
   <mjl:dt type="text" attribute="symptomOnset" classes="DatePick" />
   <mjl:dt type="text" attribute="facilityVisit" classes="DatePick" />
   <mjl:dt attribute="patientCategory">
-    <span class="clickable browserLauncher" id="patientCategoryBtn"> <fmt:message key="Browser"/></span>
-    <div id="patientCategoryDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${patientCategory != null}">
-          ${patientCategory.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input type="hidden" param="patientCategory" id="patientCategory" value="${patientCategory != null ? patientCategory.id : ''}" />
+    <mdss:mo param="patientCategory" value="${patientCategory}"/>
   </mjl:dt>
   <mjl:dt type="text" attribute="admissionDate" classes="DatePick" />
   <mjl:dt type="text" attribute="releaseDate" classes="DatePick" />
@@ -71,94 +51,28 @@
     <mjl:boolean param="referredFrom" />
   </mjl:dt>
   <mjl:dt attribute="referralReason">
-    <span class="clickable browserLauncher" id="referralReasonBtn"> <fmt:message key="Browser"/></span>
-    <div id="referralReasonDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${referralReason != null}">
-          ${referralReason.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input type="hidden" param="referralReason" id="referralReason" value="${referralReason != null ? referralReason.id : ''}" />
+    <mdss:mo param="referralReason" value="${referralReason}"/>
   </mjl:dt>
 
   <h2><fmt:message key="Laboratory_Testing" /></h2>
   <mjl:dt attribute="sampleType">
-    <span class="clickable browserLauncher" id="sampleTypeBtn"> <fmt:message key="Browser"/></span>
-    <div id="sampleTypeDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${sampleType != null}">
-          ${sampleType.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input type="hidden" param="sampleType" id="sampleType" value="${sampleType != null ? sampleType.id : ''}" />
+    <mdss:mo param="sampleType" value="${sampleType}"/>
   </mjl:dt>
   <mjl:dt attribute="labTest">
-    <span class="clickable browserLauncher" id="labTestBtn"> <fmt:message key="Browser"/></span>
-    <div id="labTestDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${labTest != null}">
-          ${labTest.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input type="hidden" param="labTest" id="labTest" value="${labTest != null ? labTest.id : ''}" />
+    <mdss:mo param="labTest" value="${labTest}"/>
   </mjl:dt>
   <mjl:dt type="text" attribute="testSampleDate" classes="DatePick" />
   <mjl:dt type="text" attribute="labTestDate" classes="DatePick" />
   <mjl:dt attribute="malariaType">
-    <span class="clickable browserLauncher" id="malariaTypeBtn"> <fmt:message key="Browser"/></span>
-    <div id="malariaTypeDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${malariaType != null}">
-          ${malariaType.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input type="hidden" param="malariaType" id="malariaType" value="${malariaType != null ? malariaType.id : ''}" />
+    <mdss:mo param="malariaType" value="${malariaType}"/>
   </mjl:dt>
 
   <h2><fmt:message key="Treatment" /></h2>
   <mjl:dt attribute="treatmentMethod">
-    <span class="clickable browserLauncher" id="treatmentMethodBtn"> <fmt:message key="Browser"/></span>
-    <div id="treatmentMethodDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${treatmentMethod != null}">
-          ${treatmentMethod.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input type="hidden" param="treatmentMethod" id="treatmentMethod" value="${treatmentMethod != null ? treatmentMethod.id : ''}" />
+    <mdss:mo param="treatmentMethod" value="${treatmentMethod}"/>
   </mjl:dt>
   <mjl:dt attribute="treatment">
-    <span class="clickable browserLauncher" id="treatmentBtn"> <fmt:message key="Browser"/></span>
-    <div id="treatmentDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${treatment != null}">
-          ${treatment.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input type="hidden" param="treatment" id="treatment" value="${treatment != null ? treatment.id : ''}" />
+    <mdss:mo param="treatment" value="${treatment}"/>
   </mjl:dt>
   <mjl:dt type="text" attribute="treatmentStartDate" classes="DatePick" />
   
@@ -196,20 +110,3 @@
       </mjl:components>
     </table>
   </dd>
-  
-<script type="text/javascript">  
-  YAHOO.util.Event.onDOMReady(function(){   
-    var attributes = [
-         {attributeName:'detectedBy'},
-         {attributeName:'sampleType'},
-         {attributeName:'labTest'},
-         {attributeName:'malariaType'},
-         {attributeName:'patientCategory'},
-         {attributeName:'referralReason'},
-         {attributeName:'treatment'},
-         {attributeName:'treatmentMethod'}
-    ];
-    
-    new MDSS.GenericOntologyBrowser("<%=IndividualInstanceDTO.CLASS%>", attributes);
-    });
-</script>

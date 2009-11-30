@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 
 <%@page import="dss.vector.solutions.PersonViewDTO"%>
@@ -30,18 +31,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
         <mjl:input type="text" param="dateOfBirth" id="dateOfBirth" classes="DatePick NoFuture"/>
       </mjl:dt>
       <mjl:dt attribute="sex">
-        <span class="clickable browserLauncher" id="sexBtn"> <fmt:message key="Browser"/></span>
-        <div id="sexDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${sex != null}">
-              ${sex.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="sex" id="sex" value="${sex != null ? sex.id : ''}" />
+        <mdss:mo param="sex" value="${sex}"/>
       </mjl:dt>            
       <dt>
         <label>

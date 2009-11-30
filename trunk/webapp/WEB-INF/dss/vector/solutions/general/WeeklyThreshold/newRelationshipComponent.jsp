@@ -1,6 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<mjl:form name="dss.vector.solutions.general.WeeklyThreshold.form.name" id="dss.vector.solutions.general.WeeklyThreshold.form.id" method="POST">
+<mjl:form id="dss.vector.solutions.general.WeeklyThreshold.form.id" name="dss.vector.solutions.general.WeeklyThreshold.form.name" method="POST">
   <dl>
     <dt>
       <label>
@@ -8,7 +8,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:select var="current" valueAttribute="id" items="${parentList}" param="parentId">
+      <mjl:select param="parentId" items="${parentList}" var="current" valueAttribute="id">
         <mjl:option>
           ${current.keyName}
         </mjl:option>
@@ -20,12 +20,12 @@
       </label>
     </dt>
     <dd>
-      <mjl:select var="current" valueAttribute="id" items="${childList}" param="childId">
+      <mjl:select param="childId" items="${childList}" var="current" valueAttribute="id">
         <mjl:option>
           ${current.keyName}
         </mjl:option>
       </mjl:select>
     </dd>
-    <mjl:command value="New Instance" action="dss.vector.solutions.general.WeeklyThresholdController.newInstance.mojo" name="dss.vector.solutions.general.WeeklyThreshold.form.newInstance.button" />
+    <mjl:command name="dss.vector.solutions.general.WeeklyThreshold.form.newInstance.button" value="New_Instance" action="dss.vector.solutions.general.WeeklyThresholdController.newInstance.mojo" />
   </dl>
 </mjl:form>

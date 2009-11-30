@@ -1,7 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
     
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
@@ -27,91 +27,25 @@
         <mjl:input type="text" param="testDate" classes="DatePick NoFuture" id="testDate" />
       </mjl:dt>
       <mjl:dt attribute="specie">
-        <span class="clickable browserLauncher" id="specieBtn"> <fmt:message key="Browser"/></span>
-        <div id="specieDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${specie != null}">
-              ${specie.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="specie" id="specie" value="${specie != null ? specie.id : ''}" />
+        <mdss:mo param="specie" value="${specie}"/>
       </mjl:dt>
       <mjl:dt attribute="identificationMethod">
-        <span class="clickable browserLauncher" id="identificationMethodBtn"> <fmt:message key="Browser"/></span>
-        <div id="identificationMethodDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${identificationMethod != null}">
-              ${identificationMethod.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="identificationMethod" id="identificationMethod" value="${identificationMethod != null ? identificationMethod.id : ''}" />
+        <mdss:mo param="identificationMethod" value="${identificationMethod}"/>
       </mjl:dt>      
       <mjl:dt attribute="testMethod">
-        <span class="clickable browserLauncher" id="testMethodBtn"> <fmt:message key="Browser"/></span>
-        <div id="testMethodDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${testMethod != null}">
-              ${testMethod.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="testMethod" id="testMethod" value="${testMethod != null ? testMethod.id : ''}" />
+        <mdss:mo param="testMethod" value="${testMethod}"/>
       </mjl:dt>      
       <mjl:dt attribute="generation">
-        <span class="clickable browserLauncher" id="generationBtn"> <fmt:message key="Browser"/></span>
-        <div id="generationDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${generation != null}">
-              ${generation.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="generation" id="generation" value="${generation != null ? generation.id : ''}" />
+        <mdss:mo param="generation" value="${generation}"/>
       </mjl:dt>      
       <mjl:dt attribute="isofemale">
         <mjl:boolean param="isofemale" />
       </mjl:dt>
       <mjl:dt attribute="startPoint">
-        <span class="clickable browserLauncher" id="startPointBtn"> <fmt:message key="Browser"/></span>
-        <div id="startPointDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${startPoint != null}">
-              ${startPoint.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="startPoint" id="startPoint" value="${startPoint != null ? startPoint.id : ''}" />
+        <mdss:mo param="startPoint" value="${startPoint}"/>
       </mjl:dt>      
       <mjl:dt attribute="endPoint">
-        <span class="clickable browserLauncher" id="endPointBtn"> <fmt:message key="Browser"/></span>
-        <div id="endPointDisplay" class="ontologyDisplay">
-          <c:choose>
-            <c:when test="${endPoint != null}">
-              ${endPoint.displayLabel}
-            </c:when>
-            <c:otherwise>
-              <fmt:message key="no_value" />
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <mjl:input type="hidden" param="endPoint" id="endPoint" value="${endPoint != null ? endPoint.id : ''}" />
+        <mdss:mo param="endPoint" value="${endPoint}"/>
       </mjl:dt>      
       <mjl:dt attribute="insecticide">
         <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide">
@@ -156,17 +90,6 @@
 <script type="text/javascript">  
 (function(){
   YAHOO.util.Event.onDOMReady(function(){   
-    var attributes = [
-         {attributeName:'testMethod', className:'<%=CollectionAssayDTO.CLASS%>'},
-         {attributeName:'generation', className:'<%=CollectionAssayDTO.CLASS%>'},
-         {attributeName:'specie', className:'<%=AbstractAssayDTO.CLASS%>'},
-         {attributeName:'identificationMethod', className:'<%=CollectionAssayDTO.CLASS%>'},
-         {attributeName:'startPoint', className:'<%=LarvaeAssayDTO.CLASS%>'},
-         {attributeName:'endPoint', className:'<%=LarvaeAssayDTO.CLASS%>'}
-    ];
-    
-    new MDSS.GenericOntologyBrowser("<%=LarvaeDiscriminatingDoseAssay.CLASS%>", attributes);
-
     MDSS.collectionSearch({search:'collectionInput', concrete:'collectionId', type:'<%=MosquitoCollectionDTO.CLASS%>'});
   })
 })();

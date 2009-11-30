@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
@@ -31,65 +32,21 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
   </mjl:dt>
   <mjl:dt attribute="serviceDate" classes="DatePick" id="serviceDate" type="text"/>  
   <mjl:dt attribute="patientType">
-    <span class="clickable browserLauncher" id="patientTypeBtn"> <fmt:message key="Browser"/></span>
-    <div id="patientTypeDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${patientType != null}">
-          ${patientType.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input type="hidden" param="patientType" id="patientType" value="${patientType != null ? patientType.id : ''}" />
+    <mdss:mo param="patientType" value="${patientType}"/>
   </mjl:dt>
   <mjl:dt attribute="isANCVisit">
     <mjl:boolean param="isANCVisit" id="isANCVisit" />
   </mjl:dt>
   <div class="visitNumber">
     <mjl:dt attribute="visitNumber">
-      <span class="clickable browserLauncher" id="visitNumberBtn"> <fmt:message key="Browser"/></span>
-      <div id="visitNumberDisplay" class="ontologyDisplay">
-        <c:choose>
-          <c:when test="${visitNumber != null}">
-            ${visitNumber.displayLabel}
-          </c:when>
-          <c:otherwise>
-            <fmt:message key="no_value" />
-          </c:otherwise>
-        </c:choose>
-      </div>
-      <mjl:input type="hidden" param="visitNumber" id="visitNumber" classes="visitNumber" value="${visitNumber != null ? visitNumber.id : ''}" />
+      <mdss:mo param="visitNumber" value="${visitNumber}"/>
     </mjl:dt>
   </div>
   <mjl:dt attribute="doseNumber">
-    <span class="clickable browserLauncher" id="doseNumberBtn"> <fmt:message key="Browser"/></span>
-    <div id="doseNumberDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${doseNumber != null}">
-          ${doseNumber.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input type="hidden" param="doseNumber" id="doseNumber" value="${doseNumber != null ? doseNumber.id : ''}" />
+    <mdss:mo param="doseNumber" value="${doseNumber}"/>
   </mjl:dt>
   <mjl:dt attribute="doseType">
-    <span class="clickable browserLauncher" id="doseTypeBtn"> <fmt:message key="Browser"/></span>
-    <div id="doseTypeDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${doseType != null}">
-          ${doseType.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input type="hidden" param="doseType" id="doseType" value="${doseType != null ? doseType.id : ''}" />
+    <mdss:mo param="doseType" value="${doseType}"/>
   </mjl:dt>
   <mjl:dt attribute="recievedSupplement">
     <mjl:boolean param="recievedSupplement" />
@@ -113,10 +70,6 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
 <script type="text/javascript">
 (function(){
   YAHOO.util.Event.onDOMReady(function(){
-    var attrs = [{attributeName:'patientType'}, {attributeName:'visitNumber'}, {attributeName:'doseNumber'}, {attributeName:'doseType'}];
-
-    new MDSS.GenericOntologyBrowser("<%=IndividualIPTViewDTO.CLASS%>", attrs);
-
     MDSS.ElementHandler.setupBooleanHandler('isANCVisit.positive', 'isANCVisit.negative', MDSS.HiddenInputElement.toArray(['visitNumber']));
     MDSS.ElementHandler.setupBooleanHandler('recievedITN.positive', 'recievedITN.negative', MDSS.HiddenInputElement.toArray(['numberOfRecievedITNs']));    
   })

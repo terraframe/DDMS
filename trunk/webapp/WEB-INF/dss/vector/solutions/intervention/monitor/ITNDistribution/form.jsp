@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 <%@page import="dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO"%>
 
@@ -17,18 +18,7 @@
     <mjl:input type="text" param="distributionDate" id="distributionDate" classes="DatePick NoFuture"/>
   </mjl:dt>
   <mjl:dt attribute="service">
-    <span class="clickable browserLauncher" id="serviceBtn"> <fmt:message key="Browser"/></span>
-    <div id="serviceDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${service != null}">
-          ${service.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input type="hidden" param="service" id="service" value="${service != null ? service.id : ''}" />
+    <mdss:mo param="service" value="${service}"/>
   </mjl:dt>
   <mjl:dt attribute="batchNumber">
     <mjl:input type="text" param="batchNumber" />
@@ -62,18 +52,7 @@
   </c:if>
   
   <mjl:dt attribute="net">
-    <span class="clickable browserLauncher" id="netBtn"> <fmt:message key="Browser"/></span>
-    <div id="netDisplay" class="ontologyDisplay">
-      <c:choose>
-        <c:when test="${net != null}">
-          ${net.displayLabel}
-        </c:when>
-        <c:otherwise>
-          <fmt:message key="no_value" />
-        </c:otherwise>
-      </c:choose>
-    </div>
-    <mjl:input type="hidden" param="net" id="net" value="${net != null ? net.id : ''}" />
+    <mdss:mo param="net" value="${net}"/>
   </mjl:dt>
   <mjl:dt attribute="numberSold">
     <mjl:input type="text" param="numberSold" />
@@ -88,16 +67,3 @@
     <mjl:input type="text" param="distributorSurname" />
   </mjl:dt>
 </mjl:component>
-
-<script type="text/javascript">
-(function(){
-  YAHOO.util.Event.onDOMReady(function(){
-    var attrs = [
-      {attributeName:'service'},
-      {attributeName:'net'}
-    ];
-
-    new MDSS.GenericOntologyBrowser("<%=ITNDistributionViewDTO.CLASS%>", attrs);
-  })
-})();
-</script>
