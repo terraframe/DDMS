@@ -530,6 +530,8 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
       }
       
       this.minLength = (Mojo.Util.isNumber(prop.minLength * 1) ? prop.minLength * 1 : 2);
+      
+      YAHOO.util.Event.on(this.displayElement, 'keyup', this.keyHandler, this, this);
     },
     
     hide : function()
@@ -580,30 +582,31 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
       }
     },
     
+    keyHandler : function(oData) {
+      var value = this.getDisplayElement().value;
+        
+      // must have at least 2 characters ready
+      if(value.length >= this.minLength || oData.keyCode === 40) {
+        this.performSearch();
+      }    
+    },
+    
     performSearch : function() {
       MDSS.GenericSearch.setElementValue(this.getConcreteElement(), '');
       
       var value = this.getDisplayElement().value;
         
-      // must have at least 2 characters ready
-      if(value.length < this.minLength)
-      {
-        return;
-      }
-
       var request = MDSS.GenericSearch.createSearchRequest(this);
 
       if(this.getParameters()) {
-      	if(Mojo.Util.isArray(this.getParameters()))
-      	{
-      		var args = [request,value];
-      		args = args.concat(this.getParameters());
-      		this.searchFunction.apply(this,args);
-      	}
-      	else      	
-    		{
-        		this.searchFunction(request, value, this.getParameters());
-      	}
+        if(Mojo.Util.isArray(this.getParameters())) {
+          var args = [request,value];
+          args = args.concat(this.getParameters());
+         this.searchFunction.apply(this,args);
+        }
+        else {
+          this.searchFunction(request, value, this.getParameters());
+        }
       }
       else {
         this.searchFunction(request, value);  

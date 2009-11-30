@@ -3,7 +3,6 @@ package dss.vector.solutions.ontology;
 import java.sql.Savepoint;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -344,6 +343,54 @@ public class Term extends TermBase implements Reloadable, OptionIF
         query.WHERE(termQuery.getId().IN(""));
       }
     }
+  }
+  
+  private static class SearchRootQueryBuilder extends ViewQueryBuilder implements Reloadable
+  {
+    private TermQuery termQuery;
+
+    // AllPaths is used to restrict the query by parent term Ids.
+    private AllPathsQuery pathsQuery;
+    
+    private BrowserRootQuery rootQuery;
+
+    private String    searchValue;
+
+    protected SearchRootQueryBuilder(QueryFactory queryFactory, String searchValue, BrowserRootQuery rootQuery)
+    {
+      super(queryFactory);
+
+      this.rootQuery = rootQuery;
+      this.searchValue = searchValue;
+      this.termQuery = new TermQuery(queryFactory);
+      this.pathsQuery= new AllPathsQuery(queryFactory);
+    }
+
+    @Override
+    protected void buildSelectClause()
+    {
+      GeneratedViewQuery query = this.getViewQuery();
+
+      query.map(TermView.TERMID, termQuery.getId());
+      query.map(TermView.TERMNAME, termQuery.getDisplay());
+      query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
+    }
+
+    @Override
+    protected void buildWhereClause()
+    {
+      GeneratedViewQuery query = this.getViewQuery();
+
+      String search = "%" + this.searchValue + "%";
+      search = search.replace(" ", "% ");      
+      query.WHERE(OR.get(termQuery.getName().LIKEi(search), termQuery.getTermId().LIKEi(search)));
+      query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
+      query.AND(this.pathsQuery.getParentTerm().EQ(rootQuery.getTerm()));
+      query.AND(termQuery.getObsolete().EQ(false));
+
+      query.ORDER_BY_ASC(this.termQuery.getDisplay());
+    }
+    
   }
 
   /**
@@ -750,4 +797,18 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   }
 
+  public static TermViewQuery searchTermsWithRoots(String value, String[] parameters)
+  {
+    QueryFactory f = new QueryFactory();
+
+    BrowserRootQuery rootQuery = BrowserRoot.getAttributeRoots(parameters[0], parameters[1], f);
+    SearchRootQueryBuilder builder = new SearchRootQueryBuilder(f, value, rootQuery);
+    
+    TermViewQuery q = new TermViewQuery(f, builder);
+    q.ORDER_BY_ASC(q.getTermName());
+
+    q.restrictRows(15, 1);
+
+    return q;
+  }
 }

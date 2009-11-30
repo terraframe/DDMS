@@ -214,7 +214,7 @@ public class MultiMOTagSupport extends SimpleTagSupport implements Reloadable
       out.write("<script type=\"text/javascript\">\n");
       out.write("(function(){\n");
       out.write("YAHOO.util.Event.onDOMReady(function(){\n");
-      out.write("new MDSS.GenericOntologyBrowser('" + _browserClass + "', [{attributeName:'" + _id + "', browserField:'" + _browserAttribute + "', multipleSelect:true}]);\n");
+      out.write("new MDSS.GenericMultiOntologyBrowser('" + _browserClass + "', [{attributeName:'" + _id + "', browserField:'" + _browserAttribute + "', multipleSelect:true}]);\n");
       out.write("})\n");
       out.write("})();\n");
       out.write("</script>\n");

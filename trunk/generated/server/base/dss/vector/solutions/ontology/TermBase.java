@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1372268183)
+@com.terraframe.mojo.business.ClassSignature(hash = 1877051004)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,7 +31,7 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1372268183;
+  private static final long serialVersionUID = 1877051004;
   
   public TermBase()
   {
@@ -1616,6 +1616,12 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
   }
   
   public static dss.vector.solutions.ontology.TermViewQuery searchTerms(java.lang.String searchValue, java.lang.String[] parentTermIds)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static dss.vector.solutions.ontology.TermViewQuery searchTermsWithRoots(java.lang.String value, java.lang.String[] parameters)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

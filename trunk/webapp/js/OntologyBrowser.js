@@ -774,61 +774,41 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
     
       Mojo.Iter.forEach(configs, function(config){
         var attributeName = config.attributeName;
-        var multipleSelect = Mojo.Util.isBoolean(config.multipleSelect) ? config.multipleSelect : false;
         var attributeClass = Mojo.Util.isString(config.className) ? config.className : className;
         var browserField = Mojo.Util.isString(config.browserField) ? config.browserField : config.attributeName;        
         
-        var browser = new MDSS.OntologyBrowser(multipleSelect, attributeClass, browserField);
-            
-        browser.setHandler(Mojo.Util.curry(this.setField, attributeName));
-     
+        var attributeEl = document.getElementById(attributeName);
+        var displayEl = document.getElementById(attributeName + 'Display');        
+       
+        // Setup the ontology browser
+        var browser = new MDSS.OntologyBrowser(false, attributeClass, browserField);            
+        browser.setHandler(Mojo.Util.curry(this.setField, attributeName));     
         YAHOO.util.Event.on(attributeName + 'Btn', "click", this.openBrowser, {browser:browser, attributeName:attributeName});
-        YAHOO.util.Event.on(attributeName + 'Display', "click", this.openBrowser, {browser:browser, attributeName:attributeName});
+        
+        // Setup the ontology search
+        var searchFunction = function(request, value) {
+          var parameters = [attributeClass, attributeName]
+          Mojo.$.dss.vector.solutions.ontology.Term.searchTermsWithRoots(request, value, parameters);
+        }        
+        
+        this._attachSearch(attributeEl, displayEl, searchFunction);
       }, this);    
     },
 
     setField : function(attribute, selected) {
-      // this: the browser instances
-    	
-      var attributeEl = document.getElementById(attribute);        
+      // this: the browser instances    
+      var attributeEl = document.getElementById(attribute);
       var displayEl = document.getElementById(attribute + 'Display');        
 
-      if(this.isMultiSelect()) {
-          if(selected.length > 0) {
-            var innerHTML = '';
-            var displayHTML = '';
-
-        	for(var i = 0; i < selected.length; i++) {
-        	  var sel = selected[i];
-        	  var component = attribute + '_' + i;
-        		
-        	  innerHTML += '<input type="hidden" class="' + attribute + '" name="' + component + '.componentId" value="' + sel.getTermId() + '" />\n';
-        	  innerHTML += '<input type="hidden" name="' + component + '.isNew" value="false" />\n';
-        	  
-        	  displayHTML += MDSS.OntologyBrowser.formatLabel(sel) + '\n';
-        	}
-        	
-        	attributeEl.innerHTML = innerHTML;
-        	displayEl.innerHTML = displayHTML;
-          }
-          else
-          {
-            attributeEl.innerHTML = '';
-            displayEl.innerHTML = MDSS.Localized.no_value;
-          }    	  
+      if(selected.length > 0) {
+        var sel = selected[0];
+        attributeEl.value = sel.getTermId();
+        displayEl.value = MDSS.OntologyBrowser.formatLabel(sel);
       }
-      else {
-    	  if(selected.length > 0)
-    	  {
-    		  var sel = selected[0];
-    		  attributeEl.value = sel.getTermId();
-    		  displayEl.innerHTML = MDSS.OntologyBrowser.formatLabel(sel);
-    	  }
-    	  else
-    	  {
-    		  attributeEl.value = '';
-    		  displayEl.innerHTML = MDSS.Localized.no_value;
-    	  }
+      else
+      {
+        attributeEl.value = '';
+        displayEl.value = '';
       }
     },
     
@@ -837,26 +817,11 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       var browser = config.browser;
       var selected = [];
       var attributeName = config.attributeName;
-      
-      if(browser.isMultiSelect()) {
-        var terms = YAHOO.util.Selector.query('.' + attributeName);
-        
-        for(var i = 0; i < terms.length; i++) {
-          var termId = terms[i].value;
-        	
-          if(termId != null && termId !== '')
-          {
-            selected.push(termId); 
-          }
-        }
-      }
-      else {
-        var termId = document.getElementById(attributeName).value;
+      var termId = document.getElementById(attributeName).value;
 
-        if(termId != null && termId !== '')
-        {
-          selected.push(termId); 
-        }
+      if(termId != null && termId !== '')
+      {
+        selected.push(termId); 
       }
       
       if(browser.isRendered()) {
@@ -867,6 +832,108 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
         browser.render();
       }
       
+      browser.setSelection(selected); 
+    },
+    
+    _displayFunction : function(view)
+    {
+      return view.getTermName() + ' ('+view.getTermOntologyId()+')';
+    },
+    
+    _listFunction : function(view)
+    {
+      return view.getTermName() + ' ('+view.getTermOntologyId()+')';
+    },
+    
+    _idFunction : function(view)
+    {
+      return view.getTermId();
+    },
+        
+    _attachSearch : function(attributeElement, displayElement, searchFunction)
+    {
+      var dF = Mojo.Util.bind(this, this._displayFunction);
+      var iF = Mojo.Util.bind(this, this._idFunction);
+      var lF = Mojo.Util.bind(this, this._listFunction);
+      
+      var search = new MDSS.GenericSearch(displayElement, attributeElement, lF, dF, iF, searchFunction, null);      
+    },
+    
+  }
+});
+
+Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
+  Instance : {
+    initialize : function(className, configs) {
+      configs = Mojo.Util.isArray(configs) ? configs : [configs];
+
+      Mojo.Iter.forEach(configs, function(config){
+        var attributeName = config.attributeName;
+        var attributeClass = Mojo.Util.isString(config.className) ? config.className : className;
+        var browserField = Mojo.Util.isString(config.browserField) ? config.browserField : config.attributeName;        
+
+        var browser = new MDSS.OntologyBrowser(true, attributeClass, browserField);
+
+        browser.setHandler(Mojo.Util.curry(this.setField, attributeName));
+
+        YAHOO.util.Event.on(attributeName + 'Btn', "click", this.openBrowser, {browser:browser, attributeName:attributeName});
+        YAHOO.util.Event.on(attributeName + 'Display', "click", this.openBrowser, {browser:browser, attributeName:attributeName});
+      }, this);    
+    },
+
+    setField : function(attribute, selected) {
+      // this: the browser instances
+
+      var attributeEl = document.getElementById(attribute);        
+      var displayEl = document.getElementById(attribute + 'Display');        
+
+      if(selected.length > 0) {
+        var innerHTML = '';
+        var displayHTML = '';
+
+        for(var i = 0; i < selected.length; i++) {
+          var sel = selected[i];
+          var component = attribute + '_' + i;
+
+          innerHTML += '<input type="hidden" class="' + attribute + '" name="' + component + '.componentId" value="' + sel.getTermId() + '" />\n';
+          innerHTML += '<input type="hidden" name="' + component + '.isNew" value="false" />\n';
+
+          displayHTML += MDSS.OntologyBrowser.formatLabel(sel) + '\n';
+        }
+
+        attributeEl.innerHTML = innerHTML;
+        displayEl.innerHTML = displayHTML;
+      }
+      else {
+        attributeEl.innerHTML = '';
+        displayEl.innerHTML = MDSS.Localized.no_value;
+      }      
+    },
+
+    openBrowser : function(e, config) {
+      // set the default selection (if it exists)
+      var browser = config.browser;
+      var selected = [];
+      var attributeName = config.attributeName;
+
+      var terms = YAHOO.util.Selector.query('.' + attributeName);
+
+      for(var i = 0; i < terms.length; i++) {
+        var termId = terms[i].value;
+
+        if(termId != null && termId !== '') {
+          selected.push(termId); 
+        }
+      }
+
+      if(browser.isRendered()) {
+        browser.show();
+        browser.reset();
+      }
+      else {
+        browser.render();
+      }
+
       browser.setSelection(selected); 
     }
   }
@@ -951,13 +1018,13 @@ focus : function() {
   // get existing term id from cell and put it into the selected array
   if(this.tableData)
   {
-	  var termId = this.tableData.rows[this.getRecord().getCount()][this.getColumn().getField()];
-	  var selected = [];
-	  if(Mojo.Util.isString(termId) && termId !== '')
-	  {
-	  	selected.push(termId);
-	  }
-	  this._browser.setSelection(selected);
+  var termId = this.tableData.rows[this.getRecord().getCount()][this.getColumn().getField()];
+  var selected = [];
+  if(Mojo.Util.isString(termId) && termId !== '')
+  {
+  selected.push(termId);
+  }
+  this._browser.setSelection(selected);
   }
 },
 

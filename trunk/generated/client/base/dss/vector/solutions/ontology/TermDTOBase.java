@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1058866455)
+@com.terraframe.mojo.business.ClassSignature(hash = 1512600828)
 public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = -1058866455;
+  private static final long serialVersionUID = 1512600828;
   
   protected TermDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -772,6 +772,14 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{searchValue, parentTermIds};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "searchTerms", _declaredTypes);
+    return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.ontology.TermViewQueryDTO searchTermsWithRoots(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String[] parameters)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;"};
+    Object[] _parameters = new Object[]{value, parameters};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "searchTermsWithRoots", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

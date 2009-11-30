@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1374756750)
+@com.terraframe.mojo.business.ClassSignature(hash = -76753453)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public class TermQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1374756750;
+private static final long serialVersionUID = -76753453;
 
   protected TermQueryDTO(String type)
   {

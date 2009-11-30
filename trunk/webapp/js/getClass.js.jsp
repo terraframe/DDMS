@@ -1,4 +1,6 @@
-<%@page import="org.json.JSONArray"%>
+
+<%@page import="dss.vector.solutions.ontology.TermViewDTO"%>
+<%@page import="dss.vector.solutions.ontology.TermDTO"%><%@page import="org.json.JSONArray"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="dss.vector.solutions.geo.generated.EarthDTO"%>
 <%@page import="dss.vector.solutions.MDSSInfo"%>
@@ -44,6 +46,9 @@ if(includeUniversalTypes != null)
     toLoad.add(type);
     toLoad.add(type+"Controller");
   }
+  
+  toLoad.add(TermViewDTO.CLASS);
+  toLoad.add(TermDTO.CLASS);
 
   types_to_load = toLoad.toArray(new String[toLoad.size()]);
 }

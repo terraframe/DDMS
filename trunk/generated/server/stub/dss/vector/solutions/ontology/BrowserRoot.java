@@ -102,6 +102,28 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
       return new BrowserRootView[0];
     }
   }
+  
+  public static BrowserRootQuery getAttributeRoots(String className, String attribute, QueryFactory factory)
+  {
+    BrowserFieldQuery fieldQuery;
+
+    if(className.length() == 0)
+    {
+      fieldQuery = new BrowserFieldQuery(factory);
+      
+      fieldQuery.WHERE(fieldQuery.getMdAttribute().EQ(attribute));      
+    }
+    else
+    {
+      fieldQuery = BrowserField.getFieldForAttribute(className, attribute, factory);
+    }
+    
+    BrowserRootQuery rootQuery = new BrowserRootQuery(factory);
+    rootQuery.WHERE(rootQuery.getTerm().getObsolete().EQ(false));
+    rootQuery.AND(rootQuery.field(fieldQuery));
+
+    return rootQuery;
+  }
 
   /**
    * Gets all roots for the given class name and attribute name. Because overloading
@@ -114,40 +136,9 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
    */
   public static BrowserRootView[] getAttributeRoots(String className, String attribute)
   {
-    // retrieve by MdAttributeId
-    BrowserField field;
-    if(className.length() == 0)
-    {
-      QueryFactory f = new QueryFactory();
-      BrowserFieldQuery q = new BrowserFieldQuery(f);
-      
-      q.WHERE(q.getMdAttribute().EQ(attribute));
-      
-      OIterator<? extends BrowserField> iter = q.getIterator();
-      try
-      {
-        field = iter.next(); 
-      }
-      finally
-      {
-        iter.close();
-      }
-    }
-    else
-    {
-      field = BrowserField.getFieldForAttribute(className, attribute);
-    }
-
     List<BrowserRootView> views = new LinkedList<BrowserRootView>();
-
-    QueryFactory f = new QueryFactory();
-    BrowserRootQuery rootQ = new BrowserRootQuery(f);
-    BrowserFieldQuery fieldQ = new BrowserFieldQuery(f);
     
-    fieldQ.AND(fieldQ.getId().EQ(field.getId()));
-
-    rootQ.WHERE(rootQ.getTerm().getObsolete().EQ(false));
-    rootQ.AND(rootQ.field(fieldQ));
+    BrowserRootQuery rootQ = BrowserRoot.getAttributeRoots(className, attribute, new QueryFactory());
     
     OIterator<? extends BrowserRoot> iter = rootQ.getIterator();
     

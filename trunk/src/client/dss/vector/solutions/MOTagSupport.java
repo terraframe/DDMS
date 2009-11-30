@@ -2,6 +2,7 @@ package dss.vector.solutions;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -11,6 +12,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import com.terraframe.mojo.business.MutableDTO;
 import com.terraframe.mojo.controller.DTOFacade;
 import com.terraframe.mojo.controller.tag.ComponentMarkerIF;
+import com.terraframe.mojo.controller.tag.InputTagSupport;
 import com.terraframe.mojo.controller.tag.develop.AttributeAnnotation;
 import com.terraframe.mojo.controller.tag.develop.TLDGenerator;
 import com.terraframe.mojo.controller.tag.develop.TagAnnotation;
@@ -142,7 +144,7 @@ public class MOTagSupport extends SimpleTagSupport implements Reloadable
     String _param = this.getParam();
     TermDTO _value = this.getValue();
 
-    String _Id = ( this.getId() != null ) ? this.getId() : this.getParam();
+    String _id = ( this.getId() != null ) ? this.getId() : this.getParam();
     String _browserClass = this.getBrowserClass();
     String _browserAttribute = ( this.getBrowserAttribute() != null ) ? this.getBrowserAttribute() : this.getParam();
     Boolean _script = ( this.getScript() != null ) ? this.getScript() : new Boolean(true);
@@ -180,27 +182,49 @@ public class MOTagSupport extends SimpleTagSupport implements Reloadable
         _browserClass = item.getType();
       }
     }
+    
+    //<mjl:input id="collectionMethod" param="collectionMethod.componentId" type="hidden"/>
+    InputTagSupport attributeInput = new InputTagSupport();
+    attributeInput.setJspBody(this.getJspBody());
+    attributeInput.setJspContext(this.getJspContext());
+    attributeInput.setId(_id);
+    attributeInput.setType("hidden");
+    attributeInput.setParam(_param);
+    
+    if(_value != null)
+    {
+      attributeInput.setValue(_value.getId());
+    }   
+    
+    attributeInput.doTag();
 
-    out.write("<div class=\"ontologyDisplay\" id=\"" + _Id + "Display\">");
-    if (_value != null)
-    {
-      out.write(_value.getDisplayLabel());
-    }
-    else
-    {
-      out.write("No Value");
-    }
-    out.write("</div>\n");
+    //<mjl:input id="collectionMethodDisplay" param="#_collectionMethodDisplay" type="text"/>
+    InputTagSupport displayInput = new InputTagSupport();
+    displayInput.setJspBody(this.getJspBody());
+    displayInput.setJspContext(this.getJspContext());
+    displayInput.setId(_id + "Display");
+    displayInput.setType("text");
+    displayInput.setParam("#_" + _id);
 
-    out.write("<input type=\"hidden\" name=\"" + _param + "\" id=\"" + _Id + "\"");
-    if (_value != null)
+    if(_value != null)
     {
-      out.write(" value=\"" + _value.getId() + "\"");
+      displayInput.setValue(_value.getName() + "(" + _value.getTermId() + ")");
     }
-    out.write(" />\n");
+    
+    displayInput.doTag();
+    
+//    <span id="collectionMethodBtn" class="clickable">
+//      <img alt="Browser" src="./imgs/icons/tree.png" class="ontologyOpener">
+//    </span>
+    ResourceBundle localized = ResourceBundle.getBundle("MDSS");
+
+    String title = localized.getString("Browser");
+    out.write("<span id=\"" + _id + "Btn\" class=\"clickable\">\n");
+    out.write("<img alt=\"" + title + "\" title=\"" + title + "\" src=\"./imgs/icons/tree.png\" class=\"ontologyOpener\">\n");
+    out.write("</span>\n");
 
     if (_script)
-    {
+    {      
       out.write("<script type=\"text/javascript\">\n");
       out.write("(function(){\n");
       out.write("YAHOO.util.Event.onDOMReady(function(){\n");
