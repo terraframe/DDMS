@@ -1,0 +1,179 @@
+package dss.vector.solutions.export;
+
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
+import com.terraframe.mojo.dataaccess.io.ExcelExporter;
+import com.terraframe.mojo.dataaccess.io.ExcelImporter;
+import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
+
+import dss.vector.solutions.general.MalariaSeason;
+import dss.vector.solutions.general.MalariaSeasonQuery;
+import dss.vector.solutions.general.PopulationData;
+import dss.vector.solutions.general.ThresholdDataView;
+import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.util.HierarchyBuilder;
+
+public class ThresholdDataExcelView extends ThresholdDataExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+{
+  private static final long serialVersionUID = 631784904;
+  
+  public ThresholdDataExcelView()
+  {
+    super();
+  }
+  
+  @Override
+  public void apply()
+  {
+    ThresholdDataView view = new ThresholdDataView();
+    view.setGeoEntity(this.getGeoEntity().getGeoId());
+    
+    MalariaSeasonQuery query = new MalariaSeasonQuery(new QueryFactory());
+    query.WHERE(query.getStartDate().EQ(this.getStartDate()));
+    query.WHERE(query.getEndDate().EQ(this.getEndDate()));
+    query.WHERE(query.getSeasonName().EQ(this.getSeasonName()));
+    
+    OIterator<? extends MalariaSeason> iterator = query.getIterator();
+    if (iterator.hasNext())
+    {
+      view.setSeason(iterator.next());
+      iterator.close();
+    }
+    else
+    {
+      throw new DataNotFoundException("Malaria season not found", MdTypeDAO.getMdTypeDAO(MalariaSeason.CLASS));
+    }
+    
+    view.setIdentification_0(this.getIdentification_0());
+    view.setIdentification_1(this.getIdentification_1());
+    view.setIdentification_2(this.getIdentification_2());
+    view.setIdentification_3(this.getIdentification_3());
+    view.setIdentification_4(this.getIdentification_4());
+    view.setIdentification_5(this.getIdentification_5());
+    view.setIdentification_6(this.getIdentification_6());
+    view.setIdentification_7(this.getIdentification_7());
+    view.setIdentification_8(this.getIdentification_8());
+    view.setIdentification_9(this.getIdentification_9());
+    view.setIdentification_10(this.getIdentification_10());
+    view.setIdentification_11(this.getIdentification_11());
+    view.setIdentification_12(this.getIdentification_12());
+    view.setIdentification_13(this.getIdentification_13());
+    view.setIdentification_14(this.getIdentification_14());
+    view.setIdentification_15(this.getIdentification_15());
+    view.setIdentification_16(this.getIdentification_16());
+    view.setIdentification_17(this.getIdentification_17());
+    view.setIdentification_18(this.getIdentification_18());
+    view.setIdentification_19(this.getIdentification_19());
+    view.setIdentification_20(this.getIdentification_20());
+    view.setIdentification_21(this.getIdentification_21());
+    view.setIdentification_22(this.getIdentification_22());
+    view.setIdentification_23(this.getIdentification_23());
+    view.setIdentification_24(this.getIdentification_24());
+    view.setIdentification_25(this.getIdentification_25());
+    view.setIdentification_26(this.getIdentification_26());
+    view.setIdentification_27(this.getIdentification_27());
+    view.setIdentification_28(this.getIdentification_28());
+    view.setIdentification_29(this.getIdentification_29());
+    view.setIdentification_30(this.getIdentification_30());
+    view.setIdentification_31(this.getIdentification_31());
+    view.setIdentification_32(this.getIdentification_32());
+    view.setIdentification_33(this.getIdentification_33());
+    view.setIdentification_34(this.getIdentification_34());
+    view.setIdentification_35(this.getIdentification_35());
+    view.setIdentification_36(this.getIdentification_36());
+    view.setIdentification_37(this.getIdentification_37());
+    view.setIdentification_38(this.getIdentification_38());
+    view.setIdentification_39(this.getIdentification_39());
+    view.setIdentification_40(this.getIdentification_40());
+    view.setIdentification_41(this.getIdentification_41());
+    view.setIdentification_42(this.getIdentification_42());
+    view.setIdentification_43(this.getIdentification_43());
+    view.setIdentification_44(this.getIdentification_44());
+    view.setIdentification_45(this.getIdentification_45());
+    view.setIdentification_46(this.getIdentification_46());
+    view.setIdentification_47(this.getIdentification_47());
+    view.setIdentification_48(this.getIdentification_48());
+    view.setIdentification_49(this.getIdentification_49());
+    view.setIdentification_50(this.getIdentification_50());
+    view.setIdentification_51(this.getIdentification_51());
+    view.setIdentification_52(this.getIdentification_52());
+    view.setOutbreak_0(this.getOutbreak_0());
+    view.setOutbreak_1(this.getOutbreak_1());
+    view.setOutbreak_2(this.getOutbreak_2());
+    view.setOutbreak_3(this.getOutbreak_3());
+    view.setOutbreak_4(this.getOutbreak_4());
+    view.setOutbreak_5(this.getOutbreak_5());
+    view.setOutbreak_6(this.getOutbreak_6());
+    view.setOutbreak_7(this.getOutbreak_7());
+    view.setOutbreak_8(this.getOutbreak_8());
+    view.setOutbreak_9(this.getOutbreak_9());
+    view.setOutbreak_10(this.getOutbreak_10());
+    view.setOutbreak_11(this.getOutbreak_11());
+    view.setOutbreak_12(this.getOutbreak_12());
+    view.setOutbreak_13(this.getOutbreak_13());
+    view.setOutbreak_14(this.getOutbreak_14());
+    view.setOutbreak_15(this.getOutbreak_15());
+    view.setOutbreak_16(this.getOutbreak_16());
+    view.setOutbreak_17(this.getOutbreak_17());
+    view.setOutbreak_18(this.getOutbreak_18());
+    view.setOutbreak_19(this.getOutbreak_19());
+    view.setOutbreak_20(this.getOutbreak_20());
+    view.setOutbreak_21(this.getOutbreak_21());
+    view.setOutbreak_22(this.getOutbreak_22());
+    view.setOutbreak_23(this.getOutbreak_23());
+    view.setOutbreak_24(this.getOutbreak_24());
+    view.setOutbreak_25(this.getOutbreak_25());
+    view.setOutbreak_26(this.getOutbreak_26());
+    view.setOutbreak_27(this.getOutbreak_27());
+    view.setOutbreak_28(this.getOutbreak_28());
+    view.setOutbreak_29(this.getOutbreak_29());
+    view.setOutbreak_30(this.getOutbreak_30());
+    view.setOutbreak_31(this.getOutbreak_31());
+    view.setOutbreak_32(this.getOutbreak_32());
+    view.setOutbreak_33(this.getOutbreak_33());
+    view.setOutbreak_34(this.getOutbreak_34());
+    view.setOutbreak_35(this.getOutbreak_35());
+    view.setOutbreak_36(this.getOutbreak_36());
+    view.setOutbreak_37(this.getOutbreak_37());
+    view.setOutbreak_38(this.getOutbreak_38());
+    view.setOutbreak_39(this.getOutbreak_39());
+    view.setOutbreak_40(this.getOutbreak_40());
+    view.setOutbreak_41(this.getOutbreak_41());
+    view.setOutbreak_42(this.getOutbreak_42());
+    view.setOutbreak_43(this.getOutbreak_43());
+    view.setOutbreak_44(this.getOutbreak_44());
+    view.setOutbreak_45(this.getOutbreak_45());
+    view.setOutbreak_46(this.getOutbreak_46());
+    view.setOutbreak_47(this.getOutbreak_47());
+    view.setOutbreak_48(this.getOutbreak_48());
+    view.setOutbreak_49(this.getOutbreak_49());
+    view.setOutbreak_50(this.getOutbreak_50());
+    view.setOutbreak_51(this.getOutbreak_51());
+    view.setOutbreak_52(this.getOutbreak_52());
+    view.apply();
+  }
+  
+  public static void setupExportListener(ExcelExporter exporter, String...params)
+  {
+    exporter.addListener(createExcelGeoListener());
+  }
+
+  public static void setupImportListener(ExcelImporter importer, String... params)
+  {
+    importer.addListener(createExcelGeoListener());
+  }
+  
+  private static DynamicGeoColumnListener createExcelGeoListener()
+  {
+    HierarchyBuilder builder = new HierarchyBuilder();
+    OIterator<? extends GeoHierarchy> iterator = PopulationData.getValidGeoHierarchies().getIterator();
+    while (iterator.hasNext())
+    {
+      builder.add(iterator.next());
+    }
+    iterator.close();
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
+  }
+  
+}

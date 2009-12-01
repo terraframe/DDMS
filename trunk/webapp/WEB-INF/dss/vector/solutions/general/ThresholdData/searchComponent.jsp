@@ -31,3 +31,7 @@
     <mjl:command classes="submitButton" action="dss.vector.solutions.general.ThresholdDataController.searchForThresholdData.mojo" name="search" value="Search" id="search"/>
   </dl>
 </mjl:form>
+
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.ThresholdDataExcelView" name="excelType"/>
+</jsp:include>
