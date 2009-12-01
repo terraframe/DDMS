@@ -629,6 +629,12 @@ div.scrollable {
 	cursor:pointer;
 }
 
+.ontologyOpener{
+	padding-left:5px;
+	vertical-align:-35%;
+	cursor:pointer;
+}
+
 #dateGroupBy{
 	float:right;
 }
