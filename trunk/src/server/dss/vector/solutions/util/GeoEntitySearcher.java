@@ -32,7 +32,6 @@ import dss.vector.solutions.AmbigiousGeoEntityException;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.export.ExcelReadException;
 import dss.vector.solutions.geo.AllPathsQuery;
-import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoSynonymQuery;
 import dss.vector.solutions.geo.UnknownGeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -404,13 +403,13 @@ public class GeoEntitySearcher implements Reloadable
     else
     {
       GeoSynonymQuery geoSynonymQuery = new GeoSynonymQuery(qf);
-      geoSynonymQuery.WHERE(geoSynonymQuery.getEntityName().EQ(childGeoEntityName));
+      geoSynonymQuery.WHERE(geoSynonymQuery.getEntityName().EQi(childGeoEntityName));
 
       geoEntityIdQuery.
       WHERE(
           OR.get(
           // Check for a name match
-          childGeoEntityQuery.getEntityName().EQ(childGeoEntityName),
+          childGeoEntityQuery.getEntityName().EQi(childGeoEntityName),
           // OR check for a GeoId Match
           childGeoEntityQuery.getGeoId().EQ(childGeoEntityName),
           // Or check for a synonym match
@@ -435,13 +434,13 @@ public class GeoEntitySearcher implements Reloadable
       String parentGeoEntityName = parentGeoEntityMap.get(parentEntityType);
 
       GeoSynonymQuery geoSynonymQuery = new GeoSynonymQuery(qf);
-      geoSynonymQuery.WHERE(geoSynonymQuery.getEntityName().EQ(parentGeoEntityName));
+      geoSynonymQuery.WHERE(geoSynonymQuery.getEntityName().EQi(parentGeoEntityName));
 
       GeoEntityQuery parentGeoEntityQuery = new GeoEntityQuery(qf);
 
       parentGeoEntityQuery.
       WHERE(
-          OR.get(parentGeoEntityQuery.getEntityName().EQ(parentGeoEntityName),
+          OR.get(parentGeoEntityQuery.getEntityName().EQi(parentGeoEntityName),
               parentGeoEntityQuery.synonyms(geoSynonymQuery)));
 
       geoEntityIdQuery.
