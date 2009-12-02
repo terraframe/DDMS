@@ -765,23 +765,6 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       }, searchObject, searchObject);
     },
     
-    createSearchRequest : function(searchObject) {
-        var request = new MDSS.Request({
-          searchObject : searchObject,
-          
-          // don't paint a loading bar. It's too slow for this type of call
-          onSend: function(){},
-          onComplete: function(){},
-          onSuccess: function(query) {
-            var resultSet = query.getResultSet();
-                
-            this.searchObject.displayResults(resultSet);
-          }
-        });
-        
-        return request;
-    },
-    
     setElementValue : function(element, value) {
       if(element) {
         if(value) {
