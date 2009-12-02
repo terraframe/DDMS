@@ -502,7 +502,64 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
   }
 });
 
-Mojo.Meta.newClass('MDSS.GenericSearch', {
+Mojo.Meta.newClass('MDSS.DataSource', {
+  Instance : {
+    initialize : function(callback, searchFunction) {
+      this.callback = callback;
+      this.searchFunction = searchFunction;
+      this.requestCount = 0;
+      this.currentRequest = 0;
+    },
+    
+    nextNumber : function() {
+      return ++this.requestCount;
+    },
+    
+    retrievedResults : function(value, requestNumber, results) {
+      // IMPORTANT : This check then act has a race condition, however I do not if semaphores exit in javascript 
+      if(requestNumber > this.currentRequest) {
+        this.currentRequest = requestNumber;
+        
+        this.callback.displayResults(results);
+      }
+    },
+    
+    getResults : function(value, parameters) {
+      var requestNumber = this.nextNumber();
+
+      // Create the MDSS request
+      var request = new MDSS.Request({
+        that : this,
+        value : value,
+        requestNumber : requestNumber,
+        onSend: function(){},
+        onComplete: function(){},
+        onSuccess: function(query) {
+          var results = query.getResultSet();
+          
+          this.that.retrievedResults(this.value, this.requestNumber, results);
+        }
+      });
+        
+      if(parameters) {
+        if(Mojo.Util.isArray(parameters)) {
+          var args = [request,value];
+          args = args.concat(this.getParameters());
+          
+          this.searchFunction.apply(this,args);
+        }
+        else {
+          this.searchFunction(request, value, parameters);
+        }
+      }
+      else {
+        this.searchFunction(request, value);  
+      }        
+    }        
+  }
+});
+
+Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
   Instance: {
     initialize: function(displayElement, concreteElement, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler, prop) {
   
@@ -514,9 +571,9 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
       this.displayFunction = displayFunction;        // Function which accepts a valueObject and returns the value for 'displayElement'
       this.idFunction = idFunction;                  // Function which accepts a valueObject and returns the value for 'concreteElement' 
       this.selectEventHandler = selectEventHandler;  // Optional function which is called after an option has been selected
-
-      this.searchFunction = searchFunction;          // AJAX function which calls a static method on the server
       
+      this.dataSource = new MDSS.DataSource(this, searchFunction);
+
       this.parameters = null;
       
       this.panel = MDSS.GenericSearch.initializePanel(displayElement);  // Result panel
@@ -570,6 +627,40 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
     getId : function(valueObject) {
       return this.idFunction(valueObject);
     },
+    
+    displayResults : function(results) {
+      var outer = document.createElement('div');
+      var inner = document.createElement('div');
+      var ul = document.createElement('ul');
+
+      MDSS.GenericSearch.createResultList(this, outer, inner, ul);
+        
+      var searchValue = this.getDisplayElement().value;
+
+      for(var i=0; i<results.length; i++)
+      {
+        var valueObj = results[i];
+        var displayStr = this.getListDisplay(valueObj);
+        var matched = displayStr.replace(new RegExp("(.*?)(" + searchValue + ")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
+
+        var li = document.createElement('li');              
+        li.id = this.getId(valueObj);              
+        li.label = this.getDisplay(valueObj);
+        li.innerHTML = matched;              
+          
+        ul.appendChild(li);
+      }
+
+      inner.appendChild(ul);
+
+      this.panel.setBody(outer);
+      this.panel.render();
+      this.panel.show();
+      this.panel.bringToTop();
+
+      // refocus the input field
+      this.getDisplayElement().focus();    
+    },
         
     selectHandler : function(selected) {
       if(selected) {
@@ -595,22 +686,9 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
       MDSS.GenericSearch.setElementValue(this.getConcreteElement(), '');
       
       var value = this.getDisplayElement().value;
+      var parameters = this.getParameters();
         
-      var request = MDSS.GenericSearch.createSearchRequest(this);
-
-      if(this.getParameters()) {
-        if(Mojo.Util.isArray(this.getParameters())) {
-          var args = [request,value];
-          args = args.concat(this.getParameters());
-         this.searchFunction.apply(this,args);
-        }
-        else {
-          this.searchFunction(request, value, this.getParameters());
-        }
-      }
-      else {
-        this.searchFunction(request, value);  
-      }
+      this.dataSource.getResults(value, parameters);
     }
   },
   
@@ -695,43 +773,11 @@ Mojo.Meta.newClass('MDSS.GenericSearch', {
           onSend: function(){},
           onComplete: function(){},
           onSuccess: function(query) {
-                var resultSet = query.getResultSet();
+            var resultSet = query.getResultSet();
                 
-                var outer = document.createElement('div');
-                var inner = document.createElement('div');
-                var ul = document.createElement('ul');
-
-                MDSS.GenericSearch.createResultList(this.searchObject, outer, inner, ul);
-                
-                var searchValue = this.searchObject.getDisplayElement().value;
-
-                for(var i=0; i<resultSet.length; i++)
-                {
-                  var valueObj = resultSet[i];
-                  var displayStr = this.searchObject.getListDisplay(valueObj);
-                  var matched = displayStr.replace(new RegExp("(.*?)(" + searchValue + ")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
-
-                  var li = document.createElement('li');              
-                  li.id = this.searchObject.getId(valueObj);              
-                  li.label = this.searchObject.getDisplay(valueObj);
-                  li.innerHTML = matched;              
-                  
-                  ul.appendChild(li);
-                }
-
-                inner.appendChild(ul);
-
-                var panel = this.searchObject.getPanel();
-                
-                panel.setBody(outer);
-                panel.render();
-                panel.show();
-                panel.bringToTop();
-
-                // refocus the input field
-                this.searchObject.getDisplayElement().focus();
-              }
-            });
+            this.searchObject.displayResults(resultSet);
+          }
+        });
         
         return request;
     },
