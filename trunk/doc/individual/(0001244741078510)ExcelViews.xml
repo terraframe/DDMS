@@ -665,13 +665,16 @@
           <!-- AggregatedCase Attributes -->
           <integer
             name="cases"
-            label="Cases"/>
+            label="Cases"
+            description="The total number of cases (integer)"/>
           <integer
             name="casesFemale"
-            label="Cases Female"/>
+            label="Cases Female"
+            description="The total number of cases that were female (integer)"/>
           <integer
             name="casesMale"
-            label="Cases Male"/>
+            label="Cases Male"
+            description="The total number of cases that were male (integer)"/>
           <integer
             name="casesPregnant"
             label="Cases Pregnant"/>

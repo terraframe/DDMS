@@ -27,7 +27,8 @@
           <char
             name="geoType"
             label="Geo Entity Type"
-            size="255" />
+            size="255" 
+            required="true"/>
           <text
             name="geometryWKT"
             label="Well Known Text"/>
