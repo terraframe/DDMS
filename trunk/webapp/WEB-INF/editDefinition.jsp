@@ -90,20 +90,6 @@
           <mjl:message />
         </mjl:messages>
       </dd>
-      <dt>
-        <label>
-          ${definition.spatialTypeMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <ul>
-          <c:forEach var="enumName" items="${definition.spatialTypeEnumNames}">
-            <li>
-              ${definition.spatialTypeMd.enumItems[enumName]}
-            </li>
-          </c:forEach>
-        </ul>            
-      </dd>      
     </mjl:component>
     <mjl:command value="Update" action="dss.vector.solutions.geo.GeoEntityTypeController.updateDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.updateDefinition.button" />
     <mjl:command value="Cancel" action="dss.vector.solutions.geo.GeoEntityTypeController.cancelUpdateDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.cancelUpdateDefinition.button" />
