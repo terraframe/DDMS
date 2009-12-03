@@ -1,23 +1,6 @@
 <version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <update>
-      <mdView
-        name="dss.vector.solutions.entomology.MosquitoView">
-        <create>
-        <mdMethod
-            name="getAccessors"
-            returnType="com.terraframe.mojo.system.metadata.MdAttributeVirtual[]"
-            label="Get Target Site Accessors"
-            static="true"
-            description="Returns a list of the target site accessor names" >
-            <mdParameter
-              name="className"
-              order="0"
-              type="java.lang.String"/>
-            </mdMethod>
-
-        </create>
-      </mdView>
     </update>
   </doIt>
   <undoIt>

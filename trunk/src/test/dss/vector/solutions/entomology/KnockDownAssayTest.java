@@ -449,7 +449,7 @@ public class KnockDownAssayTest extends TestCase
 
       assertEquals(assay.getId(), problem.getComponentId());
       assertEquals(date, problem.getTestDate());
-      assertEquals(assay.getCollection().getDateCollected(), problem.getCollectionDate());
+      assertEquals(assay.getCollection().getCollectionDate(), problem.getCollectionDate());
     }
     finally
     {

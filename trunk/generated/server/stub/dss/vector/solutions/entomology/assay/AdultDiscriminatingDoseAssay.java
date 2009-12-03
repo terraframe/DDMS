@@ -26,8 +26,6 @@ import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
-import dss.vector.solutions.entomology.ConcreteMosquitoCollection;
-import dss.vector.solutions.entomology.ConcreteMosquitoCollectionQuery;
 import dss.vector.solutions.entomology.ControlMortalityException;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
@@ -201,10 +199,10 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       joinResults = collectionAssayQuery;
     }
 
-    SelectableMoment dateAttribute = mosquitoCollectionQuery.getDateCollected();
+    SelectableMoment dateAttribute = mosquitoCollectionQuery.getCollectionDate();
 
     // this ensures that the date attribute is joined correctly
-    ConcreteMosquitoCollectionQuery concreteCollectionQuery = (ConcreteMosquitoCollectionQuery) queryMap.get(ConcreteMosquitoCollection.CLASS);
+    MosquitoCollectionQuery concreteCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
     if (concreteCollectionQuery == null)
     {
       for (Join join : dateAttribute.getJoinStatements())

@@ -95,7 +95,7 @@ public class AdministrationNoPermissions extends PermissionTest implements DoNot
   public void testGUIVisibility()
   {
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(systemRequest);
-    AttributeDateMdDTO attributeMd = dto.getDateCollectedMd();
+    AttributeDateMdDTO attributeMd = dto.getCollectionDateMd();
 
     try
     {

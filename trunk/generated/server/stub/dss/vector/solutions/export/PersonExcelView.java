@@ -1,13 +1,10 @@
 package dss.vector.solutions.export;
 
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
-import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.PersonView;
-import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SettlementSubdivision;
@@ -81,23 +78,5 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
     HierarchyBuilder builder = new HierarchyBuilder();
     builder.add(GeoHierarchy.getGeoHierarchyFromType(SettlementSubdivision.CLASS));
     return new DynamicGeoColumnListener(CLASS, attributeName, builder);
-  }
-
-  public static Sex getSexByLabel(String label)
-  {
-    if(label == null || label == "")
-    {
-      return null;
-    }
-
-    for (Sex e : Sex.values())
-    {
-      if (e.getDisplayLabel().equals(label))
-      {
-        return e;
-      }
-    }
-    String message = "[" + label + "] is not a valid display label for [" + Sex.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(Sex.CLASS));
   }
 }

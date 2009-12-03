@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
-import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -165,9 +164,11 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     ClientRequestIF clientRequest = super.getClientRequest();
     AdultDiscriminatingDoseAssayDTO dto = new AdultDiscriminatingDoseAssayDTO(clientRequest);
 
-    if (req.getParameter("collection_id") != null)
+    String collectionId = req.getParameter("collection_id");
+
+    if (collectionId != null && !collectionId.equals(""))
     {
-      dto.setCollection(MosquitoCollectionDTO.get(clientRequest, req.getParameter("collection_id")));
+      dto.setValue(AdultDiscriminatingDoseAssayDTO.COLLECTION, collectionId);
     }
 
     this.setupRequest();

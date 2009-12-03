@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -425484955)
+@com.terraframe.mojo.business.ClassSignature(hash = -53895335)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  class TermQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -425484955;
+private static final long serialVersionUID = -53895335;
 
   public TermQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -1043,180 +1043,6 @@ private static final long serialVersionUID = -425484955;
   }
 
 
-  public com.terraframe.mojo.query.Condition mosquitosWithBiochemicalResults()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.BiochemicalTestResult.CLASS);
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.assay.BiochemicalTestResultQuery biochemicalTestResultQuery)
-  {
-    return this.getBusinessQuery().isChildIn(biochemicalTestResultQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.BiochemicalTestResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(mosquitoQuery));
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.BiochemicalTestResultQuery biochemicalTestResultQuery)
-  {
-    biochemicalTestResultQuery.AND(biochemicalTestResultQuery.hasParent(mosquitoQuery));
-    return this.getBusinessQuery().isChildIn(biochemicalTestResultQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithBiochemicalResults()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.BiochemicalTestResult.CLASS);
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.assay.BiochemicalTestResultQuery biochemicalTestResultQuery)
-  {
-    return this.getBusinessQuery().isNotChildIn(biochemicalTestResultQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.BiochemicalTestResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(mosquitoQuery));
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.BiochemicalTestResultQuery biochemicalTestResultQuery)
-  {
-    biochemicalTestResultQuery.AND(biochemicalTestResultQuery.hasParent(mosquitoQuery));
-    return this.getBusinessQuery().isNotChildIn(biochemicalTestResultQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition mosquitosWithInfectivityResults()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.InfectivityTestResult.CLASS);
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithInfectivityResults(dss.vector.solutions.entomology.assay.InfectivityTestResultQuery infectivityTestResultQuery)
-  {
-    return this.getBusinessQuery().isChildIn(infectivityTestResultQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithInfectivityResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.InfectivityTestResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(mosquitoQuery));
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithInfectivityResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.InfectivityTestResultQuery infectivityTestResultQuery)
-  {
-    infectivityTestResultQuery.AND(infectivityTestResultQuery.hasParent(mosquitoQuery));
-    return this.getBusinessQuery().isChildIn(infectivityTestResultQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithInfectivityResults()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.InfectivityTestResult.CLASS);
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithInfectivityResults(dss.vector.solutions.entomology.assay.InfectivityTestResultQuery infectivityTestResultQuery)
-  {
-    return this.getBusinessQuery().isNotChildIn(infectivityTestResultQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithInfectivityResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.InfectivityTestResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(mosquitoQuery));
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithInfectivityResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.InfectivityTestResultQuery infectivityTestResultQuery)
-  {
-    infectivityTestResultQuery.AND(infectivityTestResultQuery.hasParent(mosquitoQuery));
-    return this.getBusinessQuery().isNotChildIn(infectivityTestResultQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition mosquitosWithTargetSiteResults()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.TargetSiteTestResult.CLASS);
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.assay.TargetSiteTestResultQuery targetSiteTestResultQuery)
-  {
-    return this.getBusinessQuery().isChildIn(targetSiteTestResultQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.TargetSiteTestResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(mosquitoQuery));
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.TargetSiteTestResultQuery targetSiteTestResultQuery)
-  {
-    targetSiteTestResultQuery.AND(targetSiteTestResultQuery.hasParent(mosquitoQuery));
-    return this.getBusinessQuery().isChildIn(targetSiteTestResultQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithTargetSiteResults()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.TargetSiteTestResult.CLASS);
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.assay.TargetSiteTestResultQuery targetSiteTestResultQuery)
-  {
-    return this.getBusinessQuery().isNotChildIn(targetSiteTestResultQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.TargetSiteTestResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(mosquitoQuery));
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.TargetSiteTestResultQuery targetSiteTestResultQuery)
-  {
-    targetSiteTestResultQuery.AND(targetSiteTestResultQuery.hasParent(mosquitoQuery));
-    return this.getBusinessQuery().isNotChildIn(targetSiteTestResultQuery);
-  }
-
-
   public com.terraframe.mojo.query.Condition parentTerm()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -1944,24 +1770,6 @@ private static final long serialVersionUID = -425484955;
   public com.terraframe.mojo.query.Condition individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery, dss.vector.solutions.surveillance.IndividualCaseSymptomQuery individualCaseSymptomQuery);
 
 
-  public com.terraframe.mojo.query.Condition mosquitosWithBiochemicalResults();
-  public com.terraframe.mojo.query.Condition mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery);
-
-  public com.terraframe.mojo.query.Condition mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.BiochemicalTestResultQuery biochemicalTestResultQuery);
-
-
-  public com.terraframe.mojo.query.Condition mosquitosWithInfectivityResults();
-  public com.terraframe.mojo.query.Condition mosquitosWithInfectivityResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery);
-
-  public com.terraframe.mojo.query.Condition mosquitosWithInfectivityResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.InfectivityTestResultQuery infectivityTestResultQuery);
-
-
-  public com.terraframe.mojo.query.Condition mosquitosWithTargetSiteResults();
-  public com.terraframe.mojo.query.Condition mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery);
-
-  public com.terraframe.mojo.query.Condition mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.TargetSiteTestResultQuery targetSiteTestResultQuery);
-
-
   public com.terraframe.mojo.query.Condition parentTerm();
   public com.terraframe.mojo.query.Condition parentTerm(dss.vector.solutions.ontology.TermQuery termQuery);
 
@@ -2076,24 +1884,6 @@ private static final long serialVersionUID = -425484955;
   public com.terraframe.mojo.query.Condition NOT_IN_individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery, dss.vector.solutions.surveillance.IndividualCaseSymptomQuery individualCaseSymptomQuery);
 
 
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithBiochemicalResults();
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery);
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.BiochemicalTestResultQuery biochemicalTestResultQuery);
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithInfectivityResults();
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithInfectivityResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery);
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithInfectivityResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.InfectivityTestResultQuery infectivityTestResultQuery);
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithTargetSiteResults();
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery);
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.TargetSiteTestResultQuery targetSiteTestResultQuery);
-
-
   public com.terraframe.mojo.query.Condition NOT_IN_parentTerm();
   public com.terraframe.mojo.query.Condition NOT_IN_parentTerm(dss.vector.solutions.ontology.TermQuery termQuery);
 
@@ -2157,7 +1947,7 @@ private static final long serialVersionUID = -425484955;
  implements TermQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1827488135;
+private static final long serialVersionUID = -793137417;
 
   public TermQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -2805,78 +2595,6 @@ private static final long serialVersionUID = 1827488135;
   }
 
 
-  public com.terraframe.mojo.query.Condition mosquitosWithBiochemicalResults()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.BiochemicalTestResult.CLASS);
-
-    return this.isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.BiochemicalTestResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(mosquitoQuery));
-
-    return this.isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.BiochemicalTestResultQuery biochemicalTestResultQuery)
-  {
-    biochemicalTestResultQuery.AND(biochemicalTestResultQuery.hasParent(mosquitoQuery));
-    return this.isChildIn(biochemicalTestResultQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition mosquitosWithInfectivityResults()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.InfectivityTestResult.CLASS);
-
-    return this.isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithInfectivityResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.InfectivityTestResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(mosquitoQuery));
-
-    return this.isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithInfectivityResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.InfectivityTestResultQuery infectivityTestResultQuery)
-  {
-    infectivityTestResultQuery.AND(infectivityTestResultQuery.hasParent(mosquitoQuery));
-    return this.isChildIn(infectivityTestResultQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition mosquitosWithTargetSiteResults()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.TargetSiteTestResult.CLASS);
-
-    return this.isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.TargetSiteTestResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(mosquitoQuery));
-
-    return this.isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.TargetSiteTestResultQuery targetSiteTestResultQuery)
-  {
-    targetSiteTestResultQuery.AND(targetSiteTestResultQuery.hasParent(mosquitoQuery));
-    return this.isChildIn(targetSiteTestResultQuery);
-  }
-
-
   public com.terraframe.mojo.query.Condition parentTerm()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -3330,78 +3048,6 @@ private static final long serialVersionUID = 1827488135;
   {
     individualCaseSymptomQuery.AND(individualCaseSymptomQuery.hasParent(individualInstanceQuery));
     return this.isNotChildIn(individualCaseSymptomQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithBiochemicalResults()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.BiochemicalTestResult.CLASS);
-
-    return this.isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.BiochemicalTestResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(mosquitoQuery));
-
-    return this.isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithBiochemicalResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.BiochemicalTestResultQuery biochemicalTestResultQuery)
-  {
-    biochemicalTestResultQuery.AND(biochemicalTestResultQuery.hasParent(mosquitoQuery));
-    return this.isNotChildIn(biochemicalTestResultQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithInfectivityResults()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.InfectivityTestResult.CLASS);
-
-    return this.isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithInfectivityResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.InfectivityTestResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(mosquitoQuery));
-
-    return this.isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithInfectivityResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.InfectivityTestResultQuery infectivityTestResultQuery)
-  {
-    infectivityTestResultQuery.AND(infectivityTestResultQuery.hasParent(mosquitoQuery));
-    return this.isNotChildIn(infectivityTestResultQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithTargetSiteResults()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.TargetSiteTestResult.CLASS);
-
-    return this.isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.assay.TargetSiteTestResult.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(mosquitoQuery));
-
-    return this.isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_mosquitosWithTargetSiteResults(dss.vector.solutions.entomology.MosquitoQuery mosquitoQuery, dss.vector.solutions.entomology.assay.TargetSiteTestResultQuery targetSiteTestResultQuery)
-  {
-    targetSiteTestResultQuery.AND(targetSiteTestResultQuery.hasParent(mosquitoQuery));
-    return this.isNotChildIn(targetSiteTestResultQuery);
   }
 
 

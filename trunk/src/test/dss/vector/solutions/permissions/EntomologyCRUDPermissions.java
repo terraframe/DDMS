@@ -10,12 +10,7 @@ import com.terraframe.mojo.business.ProblemDTOIF;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.TestFixture;
-import dss.vector.solutions.entomology.MorphologicalSpecieGroupDTO;
-import dss.vector.solutions.entomology.MorphologicalSpecieGroupViewDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
-import dss.vector.solutions.entomology.MosquitoCollectionPointViewDTO;
-import dss.vector.solutions.entomology.MosquitoDTO;
-import dss.vector.solutions.entomology.MosquitoViewDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
@@ -38,7 +33,7 @@ public class EntomologyCRUDPermissions extends PermissionTest implements DoNotWe
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
     dto.setCollectionMethod(TermDTO.get(request, termId));
     dto.setGeoEntity(GeoEntityDTO.searchByGeoId(request, siteGeoId));
-    dto.setDateCollected(new Date());
+    dto.setCollectionDate(new Date());
     dto.apply();
 
     try
@@ -54,7 +49,7 @@ public class EntomologyCRUDPermissions extends PermissionTest implements DoNotWe
 
       assertEquals(dto.getGeoEntity().getId(), test.getGeoEntity().getId());
       assertEquals(dto.getCollectionMethod().getId(), test.getCollectionMethod().getId());
-      assertEquals(dto.getDateCollected(), test.getDateCollected());
+      assertEquals(dto.getCollectionDate(), test.getCollectionDate());
       assertEquals(dto.getCollectionId(), test.getCollectionId());
     }
     catch (ProblemExceptionDTO e)
@@ -71,185 +66,6 @@ public class EntomologyCRUDPermissions extends PermissionTest implements DoNotWe
     }
   }
 
-  public void testMorphologicalSpecieGroup()
-  {
-    // Create the mosquito collection
-    MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
-    dto.setCollectionMethod(TermDTO.get(request, termId));
-    dto.setGeoEntity(GeoEntityDTO.searchByGeoId(request, siteGeoId));
-    dto.setDateCollected(new Date());
-    dto.apply();
-
-    try
-    {
-      // Create the specie group
-      MorphologicalSpecieGroupViewDTO view = new MorphologicalSpecieGroupViewDTO(request);
-      view.setSpecie(TermDTO.get(request, termId));
-      view.setIdentificationMethod(TermDTO.get(request, termId));
-      view.setQuantity(5);
-      view.setQuantityFemale(2);
-      view.setQuantityMale(3);
-      view.setCollection(dto);
-      view.apply();
-
-      try
-      {
-        // Update the mosquito collection
-        MorphologicalSpecieGroupViewDTO update = MorphologicalSpecieGroupDTO.lockView(request, view.getGroupId());
-        update.setQuantity(10);
-        update.setQuantityFemale(5);
-        update.setQuantityMale(5);
-        update.apply();
-
-        // Read the mosquito collection
-        MorphologicalSpecieGroupViewDTO test = MorphologicalSpecieGroupDTO.getView(request, view.getGroupId());
-
-        assertEquals(update.getIdentificationMethod().getId(), test.getIdentificationMethod().getId());
-        assertEquals(update.getSpecie().getId(), test.getSpecie().getId());
-        assertEquals(update.getQuantity(), test.getQuantity());
-        assertEquals(update.getQuantityFemale(), test.getQuantityFemale());
-        assertEquals(update.getQuantityMale(), test.getQuantityMale());
-      }
-      finally
-      {
-        view.deleteConcrete();
-      }
-    }
-    finally
-    {
-      // delete the mosquito collection
-      dto.delete();
-    }
-  }
-
-  public void testMosqutioCollectionPoint()
-  {
-    Date date = new Date();
-    GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(request, collectionSiteGeoId);
-
-    // Create the mosquito collection
-    MosquitoCollectionPointViewDTO dto = new MosquitoCollectionPointViewDTO(request);
-    dto.setGeoEntity(geoEntity);
-    dto.setDateCollected(date);
-    dto.setIdentificationMethod(TermDTO.get(request, termId));
-    dto.setSpecie(TermDTO.get(request, termId));
-    dto.setQuantity(24);
-    dto.apply();
-
-    try
-    {
-      // Update the mosquito collection
-      MosquitoCollectionPointViewDTO update = MosquitoCollectionPointViewDTO.lockView(request, dto.getGroupId());
-      update.setQuantity(10);
-      update.setQuantityFemale(5);
-      update.setQuantityMale(5);
-      update.apply();
-
-      // Read the mosquito collection
-      MosquitoCollectionPointViewDTO test = MosquitoCollectionPointViewDTO.getView(request, dto.getGroupId());
-
-      assertEquals(update.getGeoEntity().getId(), test.getGeoEntity().getId());
-      assertEquals(update.getDateCollected(), test.getDateCollected());
-      assertEquals(update.getIdentificationMethod().getId(), test.getIdentificationMethod().getId());
-      assertEquals(update.getSpecie().getId(), test.getSpecie().getId());
-      assertEquals(update.getQuantity(), test.getQuantity());
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
-    finally
-    {
-      try
-      {
-        dto.getCollection().delete();
-      }
-      catch (Exception e)
-      {
-        e.printStackTrace();
-      }
-    }
-  }
-
-  public void testMosquito()
-  {
-    Date date = new Date();
-
-    // Create the mosquito collection
-    MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
-    dto.setCollectionMethod(TermDTO.get(request, termId));
-    dto.setGeoEntity(GeoEntityDTO.searchByGeoId(request, siteGeoId));
-    dto.setDateCollected(new Date());
-    dto.apply();
-
-    try
-    {
-
-      MosquitoViewDTO view = new MosquitoViewDTO(request);
-      view.setSpecie(TermDTO.get(request, termId));
-      view.setCollection(dto);
-      view.setGeneration(TermDTO.get(request, termId));
-      view.setIsofemale(false);
-      view.setSampleId("0");
-      view.setIdentificationMethod(TermDTO.get(request, termId));
-      view.setSex(TermDTO.get(request, termId));
-      view.setTestDate(date);
-      view.setP450(true);
-      view.setIAcHE(TermDTO.get(request, termId));
-      view.setIAcHEMethod(TermDTO.get(request, termId));
-      view.setAAcetate(false);
-      view.setPMalariae(true);
-      view.setPMalariaeMethod(TermDTO.get(request, termId));
-      view.setMixed(true);
-      view.setMixedMethod(TermDTO.get(request, termId));
-      view.apply();
-
-      try
-      {
-        MosquitoViewDTO update = MosquitoDTO.lockView(request, view.getMosquitoId());
-        update.setSpecie(TermDTO.get(request, termId));
-        update.setGeneration(TermDTO.get(request, termId));
-        update.setIdentificationMethod(TermDTO.get(request, termId));
-        update.setP450(false);
-        update.setIAcHE(TermDTO.get(request, termId));
-        update.setIAcHEMethod(TermDTO.get(request, termId));
-        update.setAAcetate(true);
-        update.setPMalariae(false);
-        update.setPMalariaeMethod(TermDTO.get(request, termId));
-        update.setMixed(false);
-        update.setMixedMethod(TermDTO.get(request, termId));
-        update.apply();
-
-        MosquitoViewDTO test = MosquitoDTO.getView(request, view.getMosquitoId());
-
-        assertEquals(update.getSpecie().getId(), test.getSpecie().getId());
-        assertEquals(update.getGeneration().getId(), test.getGeneration().getId());
-        assertEquals(update.getIdentificationMethod().getId(), test.getIdentificationMethod().getId());
-        assertEquals(update.getSex(), test.getSex());
-        assertEquals(update.getTestDate(), test.getTestDate());
-        assertEquals(update.getIsofemale(), test.getIsofemale());
-        assertEquals(update.getP450(), test.getP450());
-        assertEquals(update.getIAcHE().getId(), test.getIAcHE().getId());
-        assertEquals(update.getIAcHEMethod().getId(), test.getIAcHEMethod().getId());
-        assertEquals(update.getAAcetate(), test.getAAcetate());
-        assertEquals(update.getPMalariae(), test.getPMalariae());
-        assertEquals(update.getPMalariaeMethod().getId(), test.getPMalariaeMethod().getId());
-        assertEquals(update.getMixed(), test.getMixed());
-        assertEquals(update.getMixedMethod().getId(), test.getMixedMethod().getId());
-        assertNull(update.getEKDR());
-      }
-      finally
-      {
-        view.deleteConcrete();
-      }
-    }
-    finally
-    {
-      dto.delete();
-    }
-
-  }
-
   public void testADA()
   {
     TermDTO term = TermDTO.get(request, termId);
@@ -260,7 +76,7 @@ public class EntomologyCRUDPermissions extends PermissionTest implements DoNotWe
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
     dto.setCollectionMethod(TermDTO.get(request, termId));
     dto.setGeoEntity(GeoEntityDTO.searchByGeoId(request, siteGeoId));
-    dto.setDateCollected(new Date());
+    dto.setCollectionDate(new Date());
     dto.apply();
 
     try
@@ -342,7 +158,7 @@ public class EntomologyCRUDPermissions extends PermissionTest implements DoNotWe
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
     dto.setCollectionMethod(TermDTO.get(request, termId));
     dto.setGeoEntity(GeoEntityDTO.searchByGeoId(request, siteGeoId));
-    dto.setDateCollected(new Date());
+    dto.setCollectionDate(new Date());
     dto.apply();
 
     try
@@ -420,7 +236,7 @@ public class EntomologyCRUDPermissions extends PermissionTest implements DoNotWe
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
     dto.setCollectionMethod(TermDTO.get(request, termId));
     dto.setGeoEntity(GeoEntityDTO.searchByGeoId(request, siteGeoId));
-    dto.setDateCollected(new Date());
+    dto.setCollectionDate(new Date());
     dto.apply();
 
     try

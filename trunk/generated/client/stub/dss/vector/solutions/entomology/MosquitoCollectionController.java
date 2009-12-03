@@ -5,29 +5,25 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.dataaccess.InvalidIdExceptionDTO;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
+import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
-import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQueryDTO;
-import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
+import dss.vector.solutions.entomology.assay.CollectionAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO;
-import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO;
-import dss.vector.solutions.geo.generated.GeoEntityDTO;
-import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.ColumnSetup;
+import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
-import dss.vector.solutions.util.Halp;
-import dss.vector.solutions.util.RedirectUtility;
 
 public class MosquitoCollectionController extends MosquitoCollectionControllerBase implements Reloadable
 {
@@ -35,48 +31,187 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public static final String LAYOUT           = "/layout.jsp";
 
-  private static final long  serialVersionUID = 1235073590401L;
+  public static final String ITEM             = "item";
+
+  public static final String ROWS             = "rows";
+
+  public static final String KEYS             = "keys";
+
+  public static final String COLUMNS          = "columns";
+  
+  public static final String COLLECTION       = "collection";
+
+  private static final long  serialVersionUID = -579744080;
 
   public MosquitoCollectionController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  public void delete(MosquitoCollectionDTO dto) throws IOException, ServletException
+  public void cancel(MosquitoCollectionViewDTO dto) throws IOException, ServletException
+  {
+    this.create(MosquitoCollectionDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
+  }
+
+  public void failCancel(MosquitoCollectionViewDTO dto) throws IOException, ServletException
+  {
+    this.edit(dto.getId());
+  }
+
+  @Override
+  public void update(MosquitoCollectionViewDTO dto) throws IOException, ServletException
   {
     try
     {
-      dto.delete();
+      dto.apply();
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      if (this.isAsynchronous())
+      {
+        JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+        resp.setStatus(500);
+        resp.getWriter().print(jsonE.getJSON());
+      }
+    }
+    catch (Throwable t)
+    {
+      if (this.isAsynchronous())
+      {
+        JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+        resp.setStatus(500);
+        resp.getWriter().print(jsonE.getJSON());
+      }
+    }
+
+  }
+
+  public void create(MosquitoCollectionViewDTO dto) throws IOException, ServletException
+  {
+    if(dto.getLifeStage().size() == 0)
+    {
+      dto.addLifeStage(LifeStageDTO.ADULT);
+    }
+    
+    AdultDiscriminatingDoseAssayQueryDTO ada = this.getADA(dto);
+    LarvaeDiscriminatingDoseAssayQueryDTO lda = this.getLDA(dto);
+    KnockDownAssayQueryDTO kda = this.getKDA(dto);
+    
+    this.create(dto, ada, lda, kda);    
+  }
+
+  private void create(MosquitoCollectionViewDTO dto, AdultDiscriminatingDoseAssayQueryDTO ada, LarvaeDiscriminatingDoseAssayQueryDTO lda, KnockDownAssayQueryDTO kda) throws IOException, ServletException
+  {
+    this.setupReferences(dto);
+    
+    req.setAttribute(ROWS, dto.getSubCollections());
+    req.setAttribute(COLLECTION, new SubCollectionViewDTO(this.getClientRequest()));
+    req.setAttribute(KEYS, this.getKeys());
+    req.setAttribute(COLUMNS, this.getColumns(dto));   
+    req.setAttribute("ada", ada);
+    req.setAttribute("lda", lda);
+    req.setAttribute("kda", kda);
+    req.setAttribute("item", dto);
+    
+    render("viewComponent.jsp");
+  }
+  
+  private Map<String, ColumnSetup> getColumns(MosquitoCollectionViewDTO dto)
+  {
+    List<LifeStageDTO> stage = dto.getLifeStage();
+    
+    boolean adult = stage.contains(LifeStageDTO.ADULT);
+    boolean immature = stage.contains(LifeStageDTO.IMMATURE);
+    boolean egg = stage.contains(LifeStageDTO.EGG);
+    
+    Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+    map.put("ConcreteId", new ColumnSetup(true, false));
+    map.put("Collection", new ColumnSetup(true, false));
+    map.put("SubCollectionId", new ColumnSetup(false, true));
+    map.put("IdentMethod", new ColumnSetup(false, true));
+    map.put("Taxon", new ColumnSetup(false, true));
+    map.put("Male", new ColumnSetup(!adult, true));
+    map.put("Female", new ColumnSetup(!adult, true));
+    map.put("Larvae", new ColumnSetup(!immature, true));
+    map.put("Pupae", new ColumnSetup(!immature, true));
+    map.put("Unknowns", new ColumnSetup(!immature, true));
+    map.put("Eggs", new ColumnSetup(!egg, true));
+    map.put("Total", new ColumnSetup(false, false));
+
+    return map;
+  }
+
+  private String[] getKeys()
+  {
+    List<String> list = new LinkedList<String>();
+    list.add("ConcreteId");
+    list.add("Collection");
+    list.add("SubCollectionId");
+    list.add("IdentMethod");
+    list.add("Taxon");
+    list.add("Female");
+    list.add("Male");
+    list.add("Larvae");
+    list.add("Pupae");
+    list.add("Unknowns");
+    list.add("Eggs");
+    list.add("Total");
+
+    return list.toArray(new String[list.size()]);
+  }
+
+
+
+  public void failCreate(MosquitoCollectionViewDTO dto) throws IOException, ServletException
+  {
+    setupReferences(dto);
+    req.setAttribute("item", dto);
+    render("createComponent.jsp");
+  }
+
+  public void delete(MosquitoCollectionViewDTO dto) throws IOException, ServletException
+  {
+    try
+    {
+      dto.deleteConcrete();
       this.search();
     }
     catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-
       this.failDelete(dto);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
-
       this.failDelete(dto);
     }
   }
 
-  public void failDelete(MosquitoCollectionDTO dto) throws IOException, ServletException
+  public void failDelete(MosquitoCollectionViewDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("item", dto);
+    this.create(dto);
+  }
 
+  public void edit(String id) throws IOException, ServletException
+  {
+    MosquitoCollectionViewDTO dto = MosquitoCollectionDTO.lockView(super.getClientRequest(), id);
+    setupReferences(dto);
+    req.setAttribute("item", dto);
     render("editComponent.jsp");
+  }
+
+  public void failEdit(String id) throws IOException, ServletException
+  {
+    this.view(id);
   }
 
   public void newInstance() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-
-    MosquitoCollectionDTO dto = new MosquitoCollectionDTO(clientRequest);
+    MosquitoCollectionViewDTO dto = new MosquitoCollectionViewDTO(clientRequest);
+    setupReferences(dto);
     req.setAttribute("item", dto);
-
     render("createComponent.jsp");
   }
 
@@ -85,159 +220,44 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     this.viewAll();
   }
 
-  public void update(MosquitoCollectionDTO dto) throws IOException, ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failUpdate(dto);
-    }
-    catch (Throwable t)
-    {
-      ErrorUtility.prepareThrowable(t, req);
-
-      this.failUpdate(dto);
-    }
-  }
-
-  public void failUpdate(MosquitoCollectionDTO dto) throws IOException, ServletException
-  {
-    req.setAttribute("item", dto);
-
-    render("editComponent.jsp");
-  }
-
-  public void failSearchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, String collectionDate) throws IOException, ServletException
-  {
-    resp.sendError(500);
-  }
-
   public void view(String id) throws IOException, ServletException
   {
-    // if this method is being accessed from create or edit, redirect so the url
-    // will be correct and refresh will
-    // not create a new object
-
-    view(MosquitoCollectionDTO.get(super.getClientRequest(), id));
+    this.create(MosquitoCollectionDTO.getView(super.getClientRequest(), id));
   }
 
-  public void view(MosquitoCollectionDTO dto) throws IOException, ServletException
+  private void setupReferences(SearchMosquitoCollectionViewDTO dto)
   {
-    RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("id", dto.getId());
-    utility.checkURL(this.getClass().getSimpleName(), "view");
+    this.setupReferences((MosquitoCollectionViewDTO) dto);
 
-    AdultDiscriminatingDoseAssayQueryDTO ada = dto.getAdultDoseAssays(AdultDiscriminatingDoseAssayDTO.TESTDATE, true, 5, 1);
-    LarvaeDiscriminatingDoseAssayQueryDTO lda = dto.getLarvaeDoseAssays(LarvaeDiscriminatingDoseAssayDTO.TESTDATE, true, 5, 1);
-    KnockDownAssayQueryDTO kda = dto.getKnockDownAssays(KnockDownAssayDTO.TESTDATE, true, 5, 1);
-
-    req.setAttribute("ada", ada);
-    req.setAttribute("lda", lda);
-    req.setAttribute("kda", kda);
-    req.setAttribute("item", dto);
-
-    this.setupMO(dto);
-    
-    render("viewComponent.jsp");
-  }
-
-  public void viewADAPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String collectionId) throws IOException, ServletException
-  {
-    MosquitoCollectionDTO dto = MosquitoCollectionDTO.get(super.getClientRequest(), collectionId);
-
-    AdultDiscriminatingDoseAssayQueryDTO ada = dto.getAdultDoseAssays(sortAttribute, isAscending, pageSize, pageNumber);
-    LarvaeDiscriminatingDoseAssayQueryDTO lda = dto.getLarvaeDoseAssays(LarvaeDiscriminatingDoseAssayDTO.TESTDATE, true, 5, 1);
-    KnockDownAssayQueryDTO kda = dto.getKnockDownAssays(KnockDownAssayDTO.TESTDATE, true, 5, 1);
-
-    req.setAttribute("ada", ada);
-    req.setAttribute("lda", lda);
-    req.setAttribute("kda", kda);
-    req.setAttribute("item", dto);
-
-    render("viewComponent.jsp");
-  }
-
-  public void viewLDAPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String collectionId) throws IOException, ServletException
-  {
-    MosquitoCollectionDTO dto = MosquitoCollectionDTO.get(super.getClientRequest(), collectionId);
-
-    AdultDiscriminatingDoseAssayQueryDTO ada = dto.getAdultDoseAssays(AdultDiscriminatingDoseAssayDTO.TESTDATE, true, 5, 1);
-    KnockDownAssayQueryDTO kda = dto.getKnockDownAssays(KnockDownAssayDTO.TESTDATE, true, 5, 1);
-    LarvaeDiscriminatingDoseAssayQueryDTO lda = dto.getLarvaeDoseAssays(sortAttribute, isAscending, pageSize, pageNumber);
-
-    req.setAttribute("ada", ada);
-    req.setAttribute("lda", lda);
-    req.setAttribute("kda", kda);
-    req.setAttribute("item", dto);
-
-    render("viewComponent.jsp");
-  }
-
-  public void viewKDAPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String collectionId) throws IOException, ServletException
-  {
-    MosquitoCollectionDTO dto = MosquitoCollectionDTO.get(super.getClientRequest(), collectionId);
-
-    AdultDiscriminatingDoseAssayQueryDTO ada = dto.getAdultDoseAssays(AdultDiscriminatingDoseAssayDTO.TESTDATE, true, 5, 1);
-    LarvaeDiscriminatingDoseAssayQueryDTO lda = dto.getLarvaeDoseAssays(LarvaeDiscriminatingDoseAssayDTO.TESTDATE, true, 5, 1);
-    KnockDownAssayQueryDTO kda = dto.getKnockDownAssays(sortAttribute, isAscending, pageSize, pageNumber);
-
-    req.setAttribute("ada", ada);
-    req.setAttribute("lda", lda);
-    req.setAttribute("kda", kda);
-    req.setAttribute("item", dto);
-
-    render("viewComponent.jsp");
-  }
-
-  public void viewAssays(String id) throws IOException, ServletException
-  {
-    RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("id", id);
-    utility.checkURL(this.getClass().getSimpleName(), "viewAssays");
-
-    try
+    if (dto.getStartDate() != null)
     {
-      ClientRequestIF request = super.getClientRequest();
-
-      try
-      {
-        MosquitoViewDTO view = new MosquitoViewDTO(request);
-        HashMap<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-
-        req.setAttribute("editors", Halp.getEditorDefinitions(view, map));
-        req.setAttribute("item", ConcreteMosquitoCollectionDTO.get(request, id));
-
-        render("viewAssaysComponent.jsp");
-      }
-      catch (InvalidIdExceptionDTO e)
-      {
-        throw new UnknownCollectionDTO(request, req.getLocale());
-      }
+      String startDate = new DefaultConverter(Date.class).format(dto.getStartDate(), req.getLocale());
+      req.setAttribute("startDate", startDate);
     }
-    catch (ProblemExceptionDTO e)
+    else if (dto.getCollectionDate() != null)
     {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failViewAssays(id);
+      String startDate = new DefaultConverter(Date.class).format(dto.getCollectionDate(), req.getLocale());
+      req.setAttribute("startDate", startDate);
     }
-    catch (Throwable t)
-    {
-      ErrorUtility.prepareThrowable(t, req);
 
-      this.failViewAssays(id);
+    if (dto.getEndDate() != null)
+    {
+      String endDate = new DefaultConverter(Date.class).format(dto.getEndDate(), req.getLocale());
+      req.setAttribute("endDate", endDate);
     }
   }
 
-  @Override
-  public void failViewAssays(String id) throws IOException, ServletException
+  private void setupReferences(MosquitoCollectionViewDTO dto)
   {
-    render("searchAssaysComponent.jsp");
+    List<LifeStageDTO> stage = dto.getLifeStage();
+
+    if (stage.size() > 0)
+    {
+      req.setAttribute("currentLifeStage", stage.get(0).getName());
+    }
+
+    req.setAttribute("collectionMethod", dto.getCollectionMethod());
+    req.setAttribute("lifeStage", LifeStageDTO.allItems(super.getClientSession().getRequest()));
   }
 
   public void failView(String id) throws IOException, ServletException
@@ -245,243 +265,143 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     this.viewAll();
   }
 
-  public void cancel(MosquitoCollectionDTO dto) throws IOException, ServletException
-  {
-    dto.unlock();
-    this.view(dto.getId());
-  }
-
-  public void failCancel(MosquitoCollectionDTO dto) throws IOException, ServletException
-  {
-    this.edit(dto.getId());
-  }
-
-  public void viewAll() throws IOException, ServletException
-  {
-    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
-
-    ClientRequestIF clientRequest = super.getClientRequest();
-    MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, null, true, 20, 1);
-    req.setAttribute("query", query);
-
-    render("viewAllComponent.jsp");
-  }
-
-  public void failViewAll() throws IOException, ServletException
-  {
-    resp.sendError(500);
-  }
-
-  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
-  {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
-    req.setAttribute("query", query);
-
-    render("viewAllComponent.jsp");
-  }
-
-  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
-  {
-    resp.sendError(500);
-  }
-
-  public void edit(String id) throws IOException, ServletException
-  {
-    try
-    {
-      MosquitoCollectionDTO dto = MosquitoCollectionDTO.lock(super.getClientRequest(), id);
-      req.setAttribute("item", dto);
-      
-      this.setupMO(dto);
-
-      render("editComponent.jsp");
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
-    catch (Throwable t)
-    {
-      ErrorUtility.prepareThrowable(t, req);
-
-      this.failEdit(id);
-    }
-  }
-
-  public void failEdit(String id) throws IOException, ServletException
-  {
-    this.view(id);
-  }
-
-  public void create(MosquitoCollectionDTO dto) throws IOException, ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto);
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreate(dto);
-    }
-    catch (Throwable t)
-    {
-      ErrorUtility.prepareThrowable(t, req);
-
-      this.failCreate(dto);
-    }
-  }
-
-  public void failCreate(MosquitoCollectionDTO dto) throws IOException, ServletException
-  {
-    req.setAttribute("item", dto);
-
-    render("createComponent.jsp");
-  }
-
   @Override
-  public void searchByGeoIdAndDate(String geoId, Date collectionDate, TermDTO collectionMethod) throws IOException, ServletException
-  {
-    try
-    {
-      validateParameters(geoId, collectionDate, collectionMethod);
-
-      GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(super.getClientRequest(), geoId);
-
-      this.searchByGeoEntityAndDate(geoEntity, collectionDate, collectionMethod);
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String failDate = ( collectionDate == null ) ? null : collectionDate.toString();
-      String failGeoId = ( geoId == null ) ? null : geoId.toString();
-
-      this.failSearchByGeoIdAndDate(failGeoId, failDate, collectionMethod);
-    }
-    catch (Throwable t)
-    {
-      ErrorUtility.prepareThrowable(t, req);
-
-      String failDate = ( collectionDate == null ) ? null : collectionDate.toString();
-      String failGeoId = ( geoId == null ) ? null : geoId.toString();
-
-      this.failSearchByGeoIdAndDate(failGeoId, failDate, collectionMethod);
-    }
-  }
-
-  public void failSearchByGeoIdAndDate(String geoId, String collectionDate, TermDTO collectionMethod) throws IOException, ServletException
-  {
-    this.search();
-  }
-
   public void search() throws IOException, ServletException
   {
-    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "search");
+    ClientRequestIF request = this.getClientRequest();
 
-    ClientRequestIF clientRequest = super.getClientSession().getRequest();
-    MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, "createDate", false, 10, 1);
+    MosquitoCollectionViewQueryDTO query = MosquitoCollectionViewDTO.getMostRecent(request);
+    SearchMosquitoCollectionViewDTO view = new SearchMosquitoCollectionViewDTO(request);
 
+    this.setupReferences(view);
     req.setAttribute("query", query);
+    req.setAttribute("item", view);
 
     render("searchComponent.jsp");
   }
 
-  public void searchAssays() throws IOException, ServletException
+  @Override
+  public void searchByDTO(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, SearchMosquitoCollectionViewDTO dto) throws IOException, ServletException
   {
-    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "searchAssays");
+    isAscending = ( isAscending == null ? true : isAscending );
+    pageSize = ( pageSize == null ? 15 : pageSize );
+    pageNumber = ( pageNumber == null ? 1 : pageNumber );
 
-    render("searchAssaysComponent.jsp");
+    ClientRequestIF request = this.getClientRequest();
+
+    MosquitoCollectionViewQueryDTO query = MosquitoCollectionViewDTO.searchCollections(request, dto, sortAttribute, isAscending, pageSize, pageNumber);
+
+    this.setupReferences(dto);
+    req.setAttribute("query", query);
+    req.setAttribute("item", dto);
+
+    render("searchComponent.jsp");
   }
 
   @Override
-  public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, Date collectionDate, TermDTO collectionMethod) throws IOException, ServletException
+  public void searchByParameters(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, Date startDate, Date endDate, String collectionMethod, String geoEntity, String collectionId, Boolean abundance, String lifeStage) throws IOException, ServletException
+  {
+    SearchMosquitoCollectionViewDTO view = new SearchMosquitoCollectionViewDTO(this.getClientRequest());
+    view.setCollectionDate(startDate);
+    view.setEndDate(endDate);
+    view.setCollectionId(collectionId);
+    view.setValue(SearchMosquitoCollectionViewDTO.GEOENTITY, geoEntity);
+    view.setValue(SearchMosquitoCollectionViewDTO.COLLECTIONMETHOD, collectionMethod);
+    view.setAbundance(abundance);
+
+    if (lifeStage != null && !lifeStage.equals(""))
+    {
+      view.addLifeStage(LifeStageDTO.valueOf(lifeStage));
+    }
+
+    this.searchByDTO(sortAttribute, isAscending, pageSize, pageNumber, view);
+  }
+  
+  @Override
+  public void forward(MosquitoCollectionViewDTO dto) throws IOException, ServletException
   {
     try
     {
-      ClientRequestIF request = super.getClientRequest();
-
-      MosquitoCollectionDTO collection = MosquitoCollectionDTO.searchByGeoEntityAndDateAndCollectionMethod(request, geoEntity, collectionDate, collectionMethod);
-
-      if (collection == null)
-      {
-        collection = new MosquitoCollectionDTO(request);
-        collection.setDateCollected(collectionDate);
-        collection.setGeoEntity(geoEntity);
-        collection.setCollectionMethod(collectionMethod);
-
-        req.setAttribute("item", collection);
-        
-        this.setupMO(collection);
-        
-        render("createComponent.jsp");
-      }
-      else
-      {
-        this.setupMO(collection);
-        
-        this.view(collection);
-      }
+      this.create(MosquitoCollectionViewDTO.getCollection(this.getClientRequest(), dto));
     }
     catch (ProblemExceptionDTO e)
     {
-      String failDate = collectionDate == null ? null : collectionDate.toString();
-
       ErrorUtility.prepareProblems(e, req);
-
-      this.failSearchByGeoEntityAndDate(geoEntity, failDate, collectionMethod);
+      this.failForward(dto);
     }
     catch (Throwable t)
     {
-      String failDate = collectionDate == null ? null : collectionDate.toString();
-
       ErrorUtility.prepareThrowable(t, req);
-
-      this.failSearchByGeoEntityAndDate(geoEntity, failDate, collectionMethod);
+      this.failForward(dto);
     }
   }
-
-  private void setupMO(MosquitoCollectionDTO dto)
-  {
-    req.setAttribute("collectionMethod", dto.getCollectionMethod());
-  }
-
+  
   @Override
-  public void failSearchByGeoEntityAndDate(GeoEntityDTO geoEntity, String collectionDate, TermDTO collectionMethod) throws IOException, ServletException
+  public void failForward(MosquitoCollectionViewDTO dto) throws IOException, ServletException
   {
-    this.search();
+    this.create(dto);
+  }
+  
+  @Override
+  public void sortAssays(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String collectionId, String assayType) throws IOException, ServletException
+  {
+    MosquitoCollectionViewDTO dto = MosquitoCollectionDTO.getView(super.getClientRequest(), collectionId);
+        
+    AdultDiscriminatingDoseAssayQueryDTO ada = this.getADA(sortAttribute, isAscending, pageSize, pageNumber, assayType, dto);
+    LarvaeDiscriminatingDoseAssayQueryDTO lda = getLDA(sortAttribute, isAscending, pageSize, pageNumber, assayType, dto);
+    KnockDownAssayQueryDTO kda = getKDA(sortAttribute, isAscending, pageSize, pageNumber, assayType, dto);
+    
+    this.create(dto, ada, lda, kda);
+  }
+  
+  private KnockDownAssayQueryDTO getKDA(MosquitoCollectionViewDTO dto)
+  {
+    return dto.getKnockDownAssays(CollectionAssayDTO.TESTDATE, true, 5, 1);
+  }
+  
+  private LarvaeDiscriminatingDoseAssayQueryDTO getLDA(MosquitoCollectionViewDTO dto)
+  {
+    return dto.getLarvaeDoseAssays(CollectionAssayDTO.TESTDATE, true, 5, 1);
   }
 
-  private void validateParameters(String geoId, Date collectionDate, TermDTO collectionMethod)
+  private AdultDiscriminatingDoseAssayQueryDTO getADA(MosquitoCollectionViewDTO dto)
   {
-    List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
+    return dto.getAdultDoseAssays(CollectionAssayDTO.TESTDATE, true, 5, 1);
+  }  
 
-    if (geoId == null)
+  private KnockDownAssayQueryDTO getKDA(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String assayType, MosquitoCollectionViewDTO dto)
+  {
+    if(assayType.equals("kda"))
     {
-      ClientRequestIF request = this.getClientSession().getRequest();
-      problems.add(new RequiredGeoIdProblemDTO(request, req.getLocale()));
+      return dto.getKnockDownAssays(sortAttribute, isAscending, pageSize, pageNumber);
     }
-
-    if (collectionDate == null)
+    else
     {
-      ClientRequestIF request = this.getClientSession().getRequest();
-      problems.add(new RequiredCollectionDateProblemDTO(request, req.getLocale()));
+      return this.getKDA(dto);      
     }
+  }
 
-    if (collectionMethod == null)
+  private LarvaeDiscriminatingDoseAssayQueryDTO getLDA(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String assayType, MosquitoCollectionViewDTO dto)
+  {
+    if(assayType.equals("lda"))
     {
-      ClientRequestIF request = this.getClientSession().getRequest();
-      problems.add(new RequiredCollectionMethodProblemDTO(request, req.getLocale()));
+      return dto.getLarvaeDoseAssays(sortAttribute, isAscending, pageSize, pageNumber);
     }
-
-    if (problems.size() > 0)
+    else
     {
-      throw new ProblemExceptionDTO("", problems);
+      return this.getLDA(dto);      
+    }
+  }
+
+  private AdultDiscriminatingDoseAssayQueryDTO getADA(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String assayType, MosquitoCollectionViewDTO dto)
+  {
+    if(assayType.equals("ada"))
+    {
+      return dto.getAdultDoseAssays(sortAttribute, isAscending, pageSize, pageNumber);
+    }
+    else
+    {
+      return this.getADA(dto);      
     }
   }
 }

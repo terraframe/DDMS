@@ -4,9 +4,10 @@ import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.entomology.MosquitoCollection;
+import dss.vector.solutions.entomology.MosquitoCollectionView;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.KnockDownAssay;
-import dss.vector.solutions.export.entomology.MosquitoCollectionView;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.SentinelSite;
@@ -29,8 +30,8 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
     KnockDownAssay kda = new KnockDownAssay();
     
     MosquitoCollectionView mosquitoCollectionView = new MosquitoCollectionView();
-    mosquitoCollectionView.setCollectionMethod(this.getCollectionMethod());
-    mosquitoCollectionView.setDateCollected(this.getDateCollected());
+    mosquitoCollectionView.setCollectionMethod(Term.validateByDisplayLabel(this.getCollectionMethod(), MosquitoCollection.getCollectionMethodMd()));
+    mosquitoCollectionView.setCollectionDate(this.getDateCollected());
     mosquitoCollectionView.setGeoEntity(this.getGeoEntity());
     kda.setCollection(mosquitoCollectionView.findMatch());
     

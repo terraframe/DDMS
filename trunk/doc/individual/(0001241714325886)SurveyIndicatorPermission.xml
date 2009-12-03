@@ -66,11 +66,6 @@
             <operation name="READ_CHILD" />
             <operation name="READ_ALL_ATTRIBUTES" />
           </mdRelationshipPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.entomology.SexMaster">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.HouseholdPerson">
             <operation name="READ" />

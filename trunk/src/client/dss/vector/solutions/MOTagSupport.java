@@ -220,7 +220,7 @@ public class MOTagSupport extends SimpleTagSupport implements Reloadable
 
     String title = localized.getString("Browser");
     out.write("<span id=\"" + _id + "Btn\" class=\"clickable\">\n");
-    out.write("<img alt=\"" + title + "\" title=\"" + title + "\" src=\"./imgs/icons/tree.png\" class=\"ontologyOpener\">\n");
+    out.write("<img alt=\"" + title + "\" title=\"" + title + "\" src=\"./imgs/icons/term.png\" class=\"ontologyOpener\">\n");
     out.write("</span>\n");
 
     if (_script)
@@ -240,7 +240,7 @@ public class MOTagSupport extends SimpleTagSupport implements Reloadable
     try
     {
       // Generate mojo form tags
-      new TLDGenerator(new File(args[0]), new Class<?>[] { MOTagSupport.class, MultiMOTagSupport.class }, "MDSS lib").generate();
+      new TLDGenerator(new File(args[0]), new Class<?>[] { MOTagSupport.class, MultiMOTagSupport.class, BooleanListTagSupport.class }, "MDSS lib").generate();
     }
     catch (IOException e)
     {

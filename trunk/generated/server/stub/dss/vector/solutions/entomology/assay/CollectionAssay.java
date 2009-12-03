@@ -64,7 +64,7 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
     {
       super.validateTestDate();
 
-      Date collectionDate = this.getCollection().getDateCollected();
+      Date collectionDate = this.getCollection().getCollectionDate();
 
       if (this.getTestDate().before(collectionDate))
       {

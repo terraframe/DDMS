@@ -1,55 +1,57 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-<c:set var="page_title" value="View_All_Mosquito_Collections"  scope="request"/>
-<fmt:setLocale value="<%=request.getLocale()%>" />
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set scope="request" var="page_title" value="View_All_MosquitoCollection" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-
-<mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
+<mjl:table classes="displayTable" var="item" query="${query}" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.entomology.MosquitoCollectionController.viewPage.mojo" />
   <mjl:columns>
-    <mjl:attributeColumn attributeName="collectionMethod">
-      <mjl:header>
-        Collection Method
-      </mjl:header>
+    <mjl:attributeColumn attributeName="abundance">
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="collectionDate">
       <mjl:row>
-        ${item.collectionMethod.termName}
+        <fmt:formatDate pattern="${dateFormatPattern}" value="${item.collectionDate}" />
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="dateCollected">
-      <mjl:header>
-        Date Collected
-      </mjl:header>
+    <mjl:attributeColumn attributeName="collectionId">
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="collectionMethod">
       <mjl:row>
-        <fmt:formatDate value="${item.dateCollected}" pattern="${dateFormatPattern}"  />
+        ${item.collectionMethod.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoEntity">
-      <mjl:header>
-        Geo Entity
-      </mjl:header>
       <mjl:row>
-        ${item.geoEntity.displayString} 
+        ${item.geoEntity.geoId}
       </mjl:row>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="lifeStage">
+      <mjl:row>
+        <ul>
+          <c:forEach items="${item.lifeStageEnumNames}" var="enumName">
+            <li>
+              ${item.lifeStageMd.enumItems[enumName]}
+            </li>
+          </c:forEach>
+        </ul>
+      </mjl:row>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="lifeStageName">
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
-
+        
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" name="view.link">
-          <mjl:property value="${item.id}" name="id" />
-        </mjl:commandLink>
-        <mjl:commandLink display="ViewAssays" action="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo" name="viewAssays.link">
-          <mjl:property value="${item.id}" name="id" />
+        <mjl:commandLink name="view.link" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo">
+          <fmt:message key="View" />
+          <mjl:property name="id" value="${item.id}" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
+        
       </mjl:footer>
     </mjl:freeColumn>
   </mjl:columns>
@@ -58,7 +60,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Mosquito Collection" action="dss.vector.solutions.entomology.MosquitoCollectionController.newInstance.mojo" name="MosquitoCollectionController.newInstance" />
-<mjl:commandLink display="View Mosquito Collection Report" action="dss.vector.solutions.report.ReportController.report.mojo" name="MosquitoCollection.viewReport">
-  <mjl:property name="reportName" value="collection.rptdesign" />
+<mjl:commandLink name="MosquitoCollectionController.newInstance" action="dss.vector.solutions.entomology.MosquitoCollectionController.newInstance.mojo">
+  <fmt:message key="Create_a_new_Mosquito_Collection" />
 </mjl:commandLink>

@@ -20,11 +20,6 @@
             type="dss.vector.solutions.entomology.assay.KnockDownAssay">
             <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
-          <mdViewPermission
-            type="dss.vector.solutions.entomology.MosquitoView">
-            <operation name="READ_ALL_ATTRIBUTES" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-          </mdViewPermission>
         </grant>
       </role>
 

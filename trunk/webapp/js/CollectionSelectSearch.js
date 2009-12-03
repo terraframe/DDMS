@@ -51,7 +51,6 @@ MDSS.collectionSearch = function(config) {
     Mojo.$.dss.vector.solutions.entomology.ConcreteMosquitoCollection.getByCollectionId(request, searchEl.value);
   }
 
-  YAHOO.util.Event.on(searchEl, 'keyup', search.performSearch, search, search);
   YAHOO.util.Event.on(searchEl, 'blur', checkManualEntry, null, null);     
 }
 

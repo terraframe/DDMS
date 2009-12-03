@@ -26,7 +26,6 @@ import com.terraframe.mojo.transport.attributes.AttributeReferenceDTO;
 import com.terraframe.mojo.transport.attributes.AttributeStructDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 
-import dss.vector.solutions.entomology.MosquitoDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
@@ -1167,35 +1166,35 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   @Override
   public void exportEntomologyQueryToCSV(String queryXML, String geoEntityType, String savedSearchId) throws IOException, ServletException
   {
-    try
-    {
-      InputStream stream = MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
-
-      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
-      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
-    }
-    catch (Throwable t)
-    {
-      resp.getWriter().write(t.getLocalizedMessage());
-    }
+//    try
+//    {
+//      InputStream stream = MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
+//
+//      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+//
+//      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
+//    }
+//    catch (Throwable t)
+//    {
+//      resp.getWriter().write(t.getLocalizedMessage());
+//    }
   }
 
   @Override
   public void exportEntomologyQueryToExcel(String queryXML, String geoEntityType, String savedSearchId) throws IOException, ServletException
   {
-    try
-    {
-      InputStream stream = MosquitoDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
-
-      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
-      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
-    }
-    catch (Throwable t)
-    {
-      resp.getWriter().write(t.getLocalizedMessage());
-    }
+//    try
+//    {
+//      InputStream stream = MosquitoDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
+//
+//      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+//
+//      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
+//    }
+//    catch (Throwable t)
+//    {
+//      resp.getWriter().write(t.getLocalizedMessage());
+//    }
   }
 
   @Override

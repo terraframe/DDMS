@@ -29,6 +29,4 @@ MDSS.leaderSearch = function(config) {
   var selectEventHandler = function() {};
    
   var search = new MDSS.GenericSearch(searchEl, concreteEl, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler);
-
-  YAHOO.util.Event.on(searchEl, 'keyup', search.performSearch, search, search);
 }

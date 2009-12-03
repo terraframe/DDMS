@@ -818,66 +818,6 @@
           returnType="com.terraframe.mojo.system.metadata.MdClassQuery">
         </mdMethod>
       </mdBusiness>
-      <mdBusiness
-        removable="true"
-        isAbstract="true"
-        cacheAlgorithm="nothing"
-        extendable="true"
-        label="Abstract Mosquito Collection"
-        description="This is a group of mosquitos of varing species that were collected via a certian techinque at a certian point in space and time"
-        cacheSize="0"
-        name="dss.vector.solutions.entomology.AbstractMosquitoCollection"
-        generateController="false">
-        <mdMethod
-          name="getMosquitos"
-          label="Get Mosquitos"
-          description="Returns a list of all mosquitos contained within this abstract mosquito collection"
-          static="false"
-          returnType="dss.vector.solutions.entomology.MosquitoView[]">
-        </mdMethod>
-        <mdMethod
-          name="getUninterestingSpecieGroups"
-          label="Get Uninteresting Specie Groups"
-          description="Returns a list of all uninteresting true specie groups which are contained within this abstract mosquito collection"
-          static="false"
-          returnType="dss.vector.solutions.entomology.UninterestingSpecieGroupView[]">
-        </mdMethod>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
-        isAbstract="true"
-        label="Concrete Mosquito Collection"
-        generateController="false"
-        extendable="true"
-        extends="dss.vector.solutions.entomology.AbstractMosquitoCollection">
-        <attributes>
-          <date
-            name="dateCollected"
-            label="Collection Date"
-            description="The date these specimans were collected in the feild."
-            required="true" />
-          <reference
-            name="geoEntity"
-            required="true"
-            label="Geo Entity"
-            type="dss.vector.solutions.geo.generated.GeoEntity" />
-          <char
-            name="collectionId"
-            required="false"
-            label="Collection ID"
-            unique="true"
-            size="8"
-            description="A globaly unique, human readable ID." />
-        </attributes>
-        <mdMethod
-          name="getMorphologicalSpecieGroups"
-          label="Get Morphological Specie Groups"
-          description="Returns all morphological specie groups of this collection"
-          returnType="dss.vector.solutions.entomology.MorphologicalSpecieGroupView[]"
-          static="false">
-        </mdMethod>
-      </mdBusiness>
 
       <mdProblem
         name="dss.vector.solutions.NotificationProblem"
@@ -913,81 +853,287 @@
         </attributes>
       </mdProblem>
 
+      <enumerationMaster
+        name="dss.vector.solutions.entomology.LifeStageMaster"
+        label="Life Stage Master"
+        generateController="false" />
+
+      <object
+        key="ADULT"
+        type="dss.vector.solutions.entomology.LifeStageMaster">
+        <attribute
+          name="enumName"
+          value="ADULT" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Adult" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="IMMATURE"
+        type="dss.vector.solutions.entomology.LifeStageMaster">
+        <attribute
+          name="enumName"
+          value="IMMATURE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Immature" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="EGG"
+        type="dss.vector.solutions.entomology.LifeStageMaster">
+        <attribute
+          name="enumName"
+          value="EGG" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Egg" />
+        </attributeStruct>
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.entomology.LifeStage"
+        type="dss.vector.solutions.entomology.LifeStageMaster"
+        label="Life Stage">
+        <includeAll />
+      </mdEnumeration>
+
       <mdBusiness
         name="dss.vector.solutions.entomology.MosquitoCollection"
-        description="A mosqitio collection from a Sentinel or non sental site, these are usualy collected only once from a given point, this is not for permenant traps"
         label="Mosquito Collection"
-        extends="dss.vector.solutions.entomology.ConcreteMosquitoCollection">
+        generateController="true">
         <attributes>
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            required="true" />
+          <date
+            name="collectionDate"
+            label="Collection Date"
+            required="true" />
+          <boolean
+            name="abundance"
+            label="Available for abundance calculations"
+            positiveLabel="Yes"
+            negativeLabel="No"
+            required="true" />
           <reference
             name="collectionMethod"
             label="Collection Method"
             type="dss.vector.solutions.ontology.Term"
             required="true" />
+          <enumeration
+            name="lifeStage"
+            label="Life Stage"
+            type="dss.vector.solutions.entomology.LifeStage"
+            selectMultiple="false"
+            required="true" />
+          <char
+            name="lifeStageName"
+            label="Life Stage Name"
+            size="255"
+            required="true" />
+          <char
+            name="collectionId"
+            label="Collection Id"
+            size="255"
+            required="true"
+            indexType="unique index" />
         </attributes>
         <mdMethod
-          name="searchByGeoEntityAndDate"
-          label="Search By GeoEntity and Date"
-          description="Searches for a Mosquito collection with the given geo entity and date"
-          static="true"
-          returnType="dss.vector.solutions.entomology.MosquitoCollection">
-          <mdParameter
-            name="geoEntity"
-            label="Geo Entity"
-            type="dss.vector.solutions.geo.generated.GeoEntity"
-            order="0"
-            description="GeoEntity" />
-          <mdParameter
-            name="collectionDate"
-            label="Colllection Date"
-            type="java.util.Date"
-            order="1" />
-        </mdMethod>
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.entomology.MosquitoCollectionView"
+          static="false" />
         <mdMethod
-          name="searchByGeoEntityAndDateAndCollectionMethod"
-          label="Search By GeoEntity and Date"
-          description="Searches for a Mosquito collection with the given geo entity and date"
-          static="true"
-          returnType="dss.vector.solutions.entomology.MosquitoCollection">
-          <mdParameter
-            name="geoEntity"
-            label="Geo Entity"
-            type="dss.vector.solutions.geo.generated.GeoEntity"
-            order="0"
-            description="GeoEntity" />
-          <mdParameter
-            name="collectionDate"
-            label="Colllection Date"
-            type="java.util.Date"
-            order="1" />
-          <mdParameter
-            name="collectionMethod"
-            label="Colllection Method"
-            type="dss.vector.solutions.ontology.Term"
-            order="2" />
-        </mdMethod>
+          name="lockView"
+          label="lock View"
+          returnType="dss.vector.solutions.entomology.MosquitoCollectionView"
+          static="false" />
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.entomology.MosquitoCollectionView"
+          static="false" />
       </mdBusiness>
 
       <mdView
-        name="dss.vector.solutions.export.entomology.MosquitoCollectionView"
-        label="Mosquito Collection View"
-        description="View for importing/exporting human readable mosquito collections">
+        name="dss.vector.solutions.entomology.MosquitoCollectionView"
+        label="Mosquito Collection">
         <attributes>
           <char
-            name="collectionMethod"
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <virtual
+            concrete="geoEntity"
+            type="dss.vector.solutions.entomology.MosquitoCollection" />
+          <virtual
+            concrete="collectionDate"
+            type="dss.vector.solutions.entomology.MosquitoCollection" />
+          <virtual
+            concrete="abundance"
+            type="dss.vector.solutions.entomology.MosquitoCollection" />
+          <virtual
+            concrete="collectionMethod"
+            type="dss.vector.solutions.entomology.MosquitoCollection" />
+          <virtual
+            concrete="lifeStage"
+            type="dss.vector.solutions.entomology.MosquitoCollection" />
+          <virtual
+            concrete="collectionId"
+            type="dss.vector.solutions.entomology.MosquitoCollection" />
+          <char
+            name="geoEntityLabel"
+            label="Geo Entity"
+            size="255"
+            required="true" />
+          <char
+            name="collectionMethodLabel"
             label="Collection Method"
+            size="255"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.entomology.SubCollection"
+        label="Sub Collection"
+        generateController="false">
+        <attributes>
+          <char
+            name="subCollectionId"
+            label="Sub-Collection Id"
+            size="255"
             required="true"
-            size="255" />
-          <date
-            name="dateCollected"
-            label="Collection Date"
+            indexType="unique index" />
+          <reference
+            name="collection"
+            label="Collection"
+            type="dss.vector.solutions.entomology.MosquitoCollection"
             required="true" />
           <reference
-            name="geoEntity"
-            label="Geo Entity"
-            type="dss.vector.solutions.geo.generated.GeoEntity" />
+            name="taxon"
+            label="Taxon"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <reference
+            name="identMethod"
+            label="ID Method"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <integer
+            name="male"
+            label="# Male"
+            rejectNegative="true" />
+          <integer
+            name="female"
+            label="# Female"
+            rejectNegative="true" />
+          <integer
+            name="larvae"
+            label="# Larvae"
+            rejectNegative="true" />
+          <integer
+            name="pupae"
+            label="# Pupae"
+            rejectNegative="true" />
+          <integer
+            name="unknowns"
+            label="# Unknown"
+            rejectNegative="true" />
+          <integer
+            name="eggs"
+            label="# Eggs"
+            rejectNegative="true" />
+          <integer
+            name="total"
+            label="Total"
+            rejectNegative="true" />
         </attributes>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.entomology.SubCollectionView"
+          static="false" />
+        <mdMethod
+          name="lockView"
+          label="lock View"
+          returnType="dss.vector.solutions.entomology.SubCollectionView"
+          static="false" />
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.entomology.SubCollectionView"
+          static="false" />
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.entomology.SubCollectionView"
+        label="Sub Collection">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <virtual
+            concrete="subCollectionId"
+            type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual
+            concrete="collection"
+            type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual
+            concrete="taxon"
+            type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual
+            concrete="identMethod"
+            type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual
+            concrete="male"
+            type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual
+            concrete="female"
+            type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual
+            concrete="larvae"
+            type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual
+            concrete="pupae"
+            type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual
+            concrete="unknowns"
+            type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual
+            concrete="eggs"
+            type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual
+            concrete="total"
+            type="dss.vector.solutions.entomology.SubCollection" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
       </mdView>
+
 
       <mdException
         name="dss.vector.solutions.entomology.InvalidMosquitoCollectionGeoEntityException"
@@ -1006,61 +1152,8 @@
       <mdException
         name="dss.vector.solutions.entomology.MosquitoCollectionAllreadyExistsException"
         label="Invalid Mosquito Collection"
-        description="Exception thrown when a Mosquito Collection allready exists for its date, GeoEntinty, and optional collection method">
+        description="Exception thrown when a Mosquito Collection already exists for its date, GeoEntinty, and optional collection method">
       </mdException>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.MosquitoCollectionPoint"
-        label="Mosquito Collection Point"
-        extends="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
-        description="This a collection of mosquitos from a permanant trap or water body, the trap is checked on a routine basis">
-        <mdMethod
-          name="searchByGeoEntityAndDate"
-          label="Search By GeoEntity and Date"
-          description="Searches for all morphological specie group views on any mosquito collection between the given start and end date for a given geo entity"
-          static="true"
-          returnType="dss.vector.solutions.entomology.MorphologicalSpecieGroupView[]">
-          <mdParameter
-            name="geoEntity"
-            label="Geo Entity"
-            type="dss.vector.solutions.geo.generated.GeoEntity"
-            order="0"
-            description="GeoEntity" />
-          <mdParameter
-            name="startDate"
-            label="Start Date"
-            type="java.util.Date"
-            order="1" />
-          <mdParameter
-            name="endDate"
-            label="End Date"
-            type="java.util.Date"
-            order="2" />
-        </mdMethod>
-        <mdMethod
-          name="searchByGeoEntityAndDateAndCollectionMethod"
-          label="Search By GeoEntity and Date"
-          description="Searches for a Mosquito collection with the given geo entity and date"
-          static="true"
-          returnType="dss.vector.solutions.entomology.MosquitoCollectionPoint">
-          <mdParameter
-            name="geoEntity"
-            label="Geo Entity"
-            type="dss.vector.solutions.geo.generated.GeoEntity"
-            order="0"
-            description="GeoEntity" />
-          <mdParameter
-            name="collectionDate"
-            label="Colllection Date"
-            type="java.util.Date"
-            order="1" />
-          <mdParameter
-            name="collectionMethod"
-            label="Colllection Method"
-            type="dss.vector.solutions.ontology.Term"
-            order="2" />
-        </mdMethod>
-      </mdBusiness>
 
       <mdException
         name="dss.vector.solutions.geo.LocatedInException"
@@ -1176,67 +1269,6 @@
         </attributes>
       </mdException>
 
-      <mdBusiness
-        name="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
-        label="Morphological Specie Group"
-        description="This is a row that records the quantity of a species and its identification method."
-        generateController="false">
-        <attributes>
-          <integer
-            name="quantity"
-            label="Total Number"
-            rejectNegative="true"
-            required="true" />
-          <integer
-            name="quantityFemale"
-            label="Number Female"
-            rejectNegative="true"
-            required="false" />
-          <integer
-            name="quantityMale"
-            label="Number Male"
-            rejectNegative="true"
-            required="false" />
-          <reference
-            name="specie"
-            label="Species"
-            type="dss.vector.solutions.ontology.Term"
-            required="false" />
-          <reference
-            name="identificationMethod"
-            label="Identification Method"
-            type="dss.vector.solutions.ontology.Term"
-            required="false" />
-          <reference
-            name="collection"
-            label="MosquitoCollection"
-            required="true"
-            type="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
-            immutable="true" />
-        </attributes>
-        <mdMethod
-          name="lockView"
-          label="Lock View"
-          static="false"
-          returnType="dss.vector.solutions.entomology.MorphologicalSpecieGroupView" />
-        <mdMethod
-          name="unlockView"
-          label="Unlock View"
-          static="false"
-          returnType="dss.vector.solutions.entomology.MorphologicalSpecieGroupView" />
-        <mdMethod
-          name="getView"
-          label="Get View"
-          static="true"
-          returnType="dss.vector.solutions.entomology.MorphologicalSpecieGroupView">
-          <mdParameter
-            name="id"
-            label="Id"
-            order="0"
-            type="java.lang.String" />
-        </mdMethod>
-      </mdBusiness>
-
       <mdProblem
         name="dss.vector.solutions.entomology.InvalidFemaleQuantityProblem"
         label="Invalid Female Quantity"
@@ -1325,360 +1357,6 @@
         description="A morphological specie group cannot have an identification method or specie if the quantity is zero"
         extends="dss.vector.solutions.NotificationProblem" />
 
-      <mdView
-        name="dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
-        label="Morphological Specie Group View"
-        description="View for morphological specie groups"
-        extendable="true">
-        <attributes>
-          <virtual
-            name="specie"
-            type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
-            concrete="specie" />
-          <virtual
-            name="identificationMethod"
-            type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
-            concrete="identificationMethod" />
-          <virtual
-            name="quantity"
-            type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
-            concrete="quantity"
-            required="true" />
-          <virtual
-            name="quantityMale"
-            type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
-            concrete="quantityMale" />
-          <virtual
-            name="quantityFemale"
-            type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
-            concrete="quantityFemale" />
-          <virtual
-            name="collection"
-            required="false"
-            label="Assays"
-            type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
-            concrete="collection" />
-          <char
-            name="groupId"
-            label="Morphological Group Id"
-            required="true"
-            size="255" />
-        </attributes>
-        <mdMethod
-          name="deleteConcrete"
-          label="Delete Concrete"
-          returnType="void"
-          static="false" />
-        <mdMethod
-          name="saveAll"
-          label="Save All"
-          returnType="dss.vector.solutions.entomology.MorphologicalSpecieGroupView[]"
-          static="true"
-          description="Saves an array of MorphologicalSpecieGroupView in a single transaction">
-          <mdParameter
-            name="array"
-            label="Array"
-            description="Array of objects to save"
-            order="0"
-            type="dss.vector.solutions.entomology.MorphologicalSpecieGroupView[]" />
-        </mdMethod>
-      </mdView>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.TrueSpecieEntity"
-        label="True Specie Collection"
-        isAbstract="true"
-        extendable="true"
-        generateController="false">
-        <attributes>
-          <reference
-            name="specie"
-            label="Species"
-            type="dss.vector.solutions.ontology.Term"
-            required="false"
-            description="The true specie of the collection" />
-          <reference
-            name="identificationMethod"
-            label="Identification Method"
-            type="dss.vector.solutions.ontology.Term"
-            description="Method used to indentify the true specie collection" />
-          <reference
-            name="collection"
-            label="Mosquito Collection"
-            required="true"
-            type="dss.vector.solutions.entomology.AbstractMosquitoCollection"
-            description="References to the mosquito collection from which the true specie sample came." />
-          <char
-            name="sampleId"
-            label="Sample Id"
-            required="true"
-            size="255"
-            description="The id the entomologist gives to a sample when its true specie is determined." />
-        </attributes>
-      </mdBusiness>
-
-      <mdIndex
-        type="dss.vector.solutions.entomology.TrueSpecieEntity"
-        label="True Specie Entity Index"
-        active="true"
-        unique="true"
-        description="Enforces a unique index between a collection and its sample id">
-        <attribute
-          name="sampleId"
-          indexOrder="0" />
-        <attribute
-          name="collection"
-          indexOrder="1" />
-      </mdIndex>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.UninterestingSpecieGroup"
-        label="Uninteresting Specie"
-        extends="dss.vector.solutions.entomology.TrueSpecieEntity"
-        generateController="false">
-        <attributes>
-          <integer
-            name="quantity"
-            label="Quanity"
-            rejectNegative="true"
-            rejectZero="true"
-            required="true" />
-        </attributes>
-      </mdBusiness>
-
-      <mdView
-        name="dss.vector.solutions.entomology.UninterestingSpecieGroupView"
-        label="Uninteresting Specie Group View"
-        description="View for Uninteresting Speice groups">
-        <attributes>
-          <char
-            name="groupId"
-            label="Group Id"
-            size="255"
-            description="The id of the Uninteresting Specie Group, if this is left blank then the View represents a new UninterestingSpecieGroup" />
-          <virtual
-            name="collection"
-            type="dss.vector.solutions.entomology.TrueSpecieEntity"
-            concrete="collection"
-            required="true" />
-          <virtual
-            name="specie"
-            type="dss.vector.solutions.entomology.TrueSpecieEntity"
-            required="true"
-            concrete="specie" />
-          <virtual
-            name="identificationMethod"
-            type="dss.vector.solutions.entomology.TrueSpecieEntity"
-            concrete="identificationMethod"
-            required="true" />
-          <virtual
-            name="quantity"
-            type="dss.vector.solutions.entomology.UninterestingSpecieGroup"
-            concrete="quantity"
-            required="true" />
-          <virtual
-            name="sampleId"
-            type="dss.vector.solutions.entomology.TrueSpecieEntity"
-            concrete="sampleId"
-            required="true" />
-        </attributes>
-        <mdMethod
-          name="saveAll"
-          label="Save All"
-          returnType="dss.vector.solutions.entomology.UninterestingSpecieGroupView[]"
-          static="true"
-          description="Saves an array of MosquitoViews in a single transaction">
-          <mdParameter
-            name="array"
-            label="Array"
-            description="Array of objects to save"
-            order="0"
-            type="dss.vector.solutions.entomology.UninterestingSpecieGroupView[]" />
-        </mdMethod>
-      </mdView>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.Mosquito"
-        label="Mosquito"
-        extends="dss.vector.solutions.entomology.TrueSpecieEntity"
-        generateController="false">
-        <attributes>
-          <date
-            name="testDate"
-            label="Test Date"
-            required="true"
-            description="The date the tests were performed on the misquito" />
-          <boolean
-            name="isofemale"
-            label="Isofemale"
-            required="true"
-            defaultValue="false"
-            description="Flag denoting if this mosquito is from the iso-female line"
-            positiveLabel="Yes"
-            negativeLabel="No" />
-          <reference
-            name="sex"
-            label="Sex"
-            required="true"
-            description="The sex of the mosquito"
-            type="dss.vector.solutions.ontology.Term" />
-          <reference
-            name="generation"
-            label="Generation"
-            required="true"
-            description="The generation of the mosquito"
-            type="dss.vector.solutions.ontology.Term" />
-        </attributes>
-        <mdMethod
-          name="queryEntomology"
-          label="Query Entomology"
-          description="Query Entomology"
-          static="true"
-          returnType="com.terraframe.mojo.query.ValueQuery">
-          <mdParameter
-            name="queryXML"
-            label="Query XML"
-            description="Query XML"
-            order="0"
-            type="java.lang.String" />
-          <mdParameter
-            name="config"
-            label="config"
-            description="JSON config"
-            order="1"
-            type="java.lang.String" />
-          <mdParameter
-            name="sortBy"
-            label="Sort By"
-            type="java.lang.String"
-            order="2" />
-          <mdParameter
-            name="ascending"
-            label="Ascending"
-            type="java.lang.Boolean"
-            order="3" />
-          <mdParameter
-            name="pageNumber"
-            label="Page Number"
-            type="java.lang.Integer"
-            order="4" />
-        </mdMethod>
-        <mdMethod
-          name="mapQuery"
-          label="Map Query"
-          description="Map Query"
-          static="true"
-          returnType="java.lang.String">
-          <mdParameter
-            name="queryXML"
-            label="Query XML"
-            description="Query XML"
-            order="0"
-            type="java.lang.String" />
-          <mdParameter
-            name="config"
-            label="Query Configuration"
-            description="The query configuration"
-            order="1"
-            type="java.lang.String" />
-          <mdParameter
-            name="universalLayers"
-            label="Universal Layers"
-            description="The universal types that will act as additional layers"
-            order="2"
-            type="java.lang.String[]" />
-          <mdParameter
-            name="savedSearchId"
-            label="SavedSearch Id"
-            description="The id of the SavedSearch for which the map will be generated."
-            order="3"
-            type="java.lang.String" />
-        </mdMethod>
-      </mdBusiness>
-
-      <enumerationMaster
-        name="dss.vector.solutions.entomology.SexMaster"
-        label="Sex Master"
-        description="Master list of all possible mosquito sexes"
-        generateController="false" />
-
-      <object
-        type="dss.vector.solutions.entomology.SexMaster"
-        key="dss.vector.solutions.entomology.SexMaster.MALE">
-        <attribute
-          name="enumName"
-          value="MALE" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="Male" />
-        </attributeStruct>
-      </object>
-
-      <object
-        type="dss.vector.solutions.entomology.SexMaster"
-        key="dss.vector.solutions.entomology.SexMaster.FEMALE">
-        <attribute
-          name="enumName"
-          value="FEMALE" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="Female" />
-        </attributeStruct>
-      </object>
-
-      <object
-        type="dss.vector.solutions.entomology.SexMaster"
-        key="dss.vector.solutions.entomology.SexMaster.MIXED">
-        <attribute
-          name="enumName"
-          value="MIXED" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="Mixed" />
-        </attributeStruct>
-      </object>
-
-      <object
-        type="dss.vector.solutions.entomology.SexMaster"
-        key="dss.vector.solutions.entomology.SexMaster.UNKNOWN">
-        <attribute
-          name="enumName"
-          value="UNKNOWN" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="Unknown" />
-        </attributeStruct>
-      </object>
-
-      <mdEnumeration
-        name="dss.vector.solutions.entomology.Sex"
-        type="dss.vector.solutions.entomology.SexMaster"
-        label="Sex"
-        description="List of all possible single mosquito sex options">
-        <addEnumItem
-          name="MALE" />
-        <addEnumItem
-          name="FEMALE" />
-        <addEnumItem
-          name="UNKNOWN" />
-      </mdEnumeration>
-
-      <mdEnumeration
-        name="dss.vector.solutions.entomology.AssaySex"
-        type="dss.vector.solutions.entomology.SexMaster"
-        label="Sex"
-        description="List of all possible mosquito assay sex options">
-        <includeAll />
-      </mdEnumeration>
-
       <!--
         ***************************************************** Start of
         MIRO enumerations. These enumerations will change onces the MIRO
@@ -1694,142 +1372,6 @@
         **************************************************************
       -->
     </create>
-    <update>
-      <mdController
-        name="dss.vector.solutions.entomology.MosquitoCollectionPointController">
-        <create>
-          <mdAction
-            name="searchByGeoEntityAndDate"
-            label="Search By Geo Entity And Date"
-            isPost="true"
-            description="Searches for a single mosquito collection with the given GeoEntity and Collection Date">
-            <mdParameter
-              name="geoEntity"
-              label="Geo Entity"
-              order="0"
-              type="dss.vector.solutions.geo.generated.GeoEntity"
-              description="GeoEntity to search" />
-            <mdParameter
-              name="startDate"
-              label="Start Date"
-              type="java.util.Date"
-              order="1" />
-            <mdParameter
-              name="endDate"
-              label="End Date"
-              type="java.util.Date"
-              order="2" />
-          </mdAction>
-          <mdAction
-            name="searchByGeoIdAndDate"
-            label="Search By Geo Id And Date"
-            isPost="true"
-            description="Searches for a single mosquito collection with the given Geo Id and Collection Date">
-            <mdParameter
-              name="geoId"
-              label="Geo Id"
-              order="0"
-              type="java.lang.String"
-              description="GeoId to search" />
-            <mdParameter
-              name="startDate"
-              label="Start Date"
-              type="java.util.Date"
-              order="1" />
-            <mdParameter
-              name="endDate"
-              label="End Date"
-              type="java.util.Date"
-              order="2" />
-          </mdAction>
-          <mdAction
-            name="search"
-            description="Forwards the user to the search page"
-            isPost="false"
-            label="Search"
-            isQuery="false" />
-        </create>
-      </mdController>
-      <mdController
-        name="dss.vector.solutions.entomology.MosquitoCollectionController">
-        <create>
-          <mdAction
-            name="searchByGeoEntityAndDate"
-            label="Search By Geo Entity And Date"
-            isPost="true"
-            description="Searches for a single mosquito collection with the given GeoEntity and Collection Date">
-            <mdParameter
-              name="geoEntity"
-              label="Geo Entity"
-              order="0"
-              type="dss.vector.solutions.geo.generated.GeoEntity"
-              description="GeoEntity to search" />
-            <mdParameter
-              name="collectionDate"
-              label="Collection Date"
-              description="The date the mosquito collection was collected"
-              order="1"
-              type="java.util.Date" />
-            <mdParameter
-              name="collectionMethod"
-              label="Colllection Method"
-              description="The method used to collect these mosquitos"
-              type="dss.vector.solutions.ontology.Term"
-              order="2" />
-          </mdAction>
-          <mdAction
-            name="searchByGeoIdAndDate"
-            label="Search By Geo Id And Date"
-            isPost="true"
-            description="Searches for a single mosquito collection with the given Geo Id and Collection Date">
-            <mdParameter
-              name="geoId"
-              label="Geo Id"
-              order="0"
-              type="java.lang.String"
-              description="GeoId to search" />
-            <mdParameter
-              name="collectionDate"
-              label="Collection Date"
-              description="The date the mosquito collection was collected"
-              order="1"
-              type="java.util.Date" />
-            <mdParameter
-              name="collectionMethod"
-              label="Colllection Method"
-              type="dss.vector.solutions.ontology.Term"
-              description="The method used to collect these mosquitos"
-              order="2" />
-          </mdAction>
-          <mdAction
-            name="search"
-            description="Forwards the user to the search page"
-            isPost="false"
-            label="Search"
-            isQuery="false" />
-          <mdAction
-            name="searchAssays"
-            label="Search Assays"
-            isPost="false"
-            isQuery="false"
-            description="Action which forwards the user to a page where they enter in a collection id to use for view mosquito assays" />
-          <mdAction
-            name="viewAssays"
-            description="Shows all the assays for this Mosquito collection"
-            isPost="false"
-            label="View Assays"
-            isQuery="false">
-            <mdParameter
-              name="id"
-              label="Collection Id"
-              order="0"
-              type="java.lang.String"
-              description="Id of Mosquito collection" />
-          </mdAction>
-        </create>
-      </mdController>
-
-    </update>
 
     <!--
       ********************************** Adult Discriminating Dose Assay
@@ -1837,117 +1379,6 @@
     -->
 
     <create>
-
-      <enumerationMaster
-        name="dss.vector.solutions.entomology.assay.UnitMaster"
-        label="Unit Master"
-        description="Master list of all concentration units"
-        generateController="false" />
-
-      <object
-        type="dss.vector.solutions.entomology.assay.UnitMaster"
-        key="dss.vector.solutions.entomology.assay.UnitMaster.MICROGRAM_PER_MILLILITER">
-        <attribute
-          name="enumName"
-          value="MICROGRAM_PER_MILLILITER" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="µg/ml" />
-        </attributeStruct>
-      </object>
-
-      <object
-        type="dss.vector.solutions.entomology.assay.UnitMaster"
-        key="dss.vector.solutions.entomology.assay.UnitMaster.PERCENT">
-        <attribute
-          name="enumName"
-          value="PERCENT" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="%" />
-        </attributeStruct>
-      </object>
-
-      <object
-        type="dss.vector.solutions.entomology.assay.UnitMaster"
-        key="dss.vector.solutions.entomology.assay.UnitMaster.PICOGRAM_PER_MILLILITER">
-        <attribute
-          name="enumName"
-          value="PICOGRAM_PER_MILLILITER" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="pg/ml" />
-        </attributeStruct>
-      </object>
-
-      <object
-        type="dss.vector.solutions.entomology.assay.UnitMaster"
-        key="dss.vector.solutions.entomology.assay.UnitMaster.MILLIGRAM_PER_MILLILITER">
-        <attribute
-          name="enumName"
-          value="MILLIGRAM_PER_MILLILITER" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="mg/ml" />
-        </attributeStruct>
-      </object>
-
-      <object
-        type="dss.vector.solutions.entomology.assay.UnitMaster"
-        key="dss.vector.solutions.entomology.assay.UnitMaster.PICOGRAM_PER_LITER">
-        <attribute
-          name="enumName"
-          value="PICOGRAM_PER_LITER" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="pg/l" />
-        </attributeStruct>
-      </object>
-
-      <object
-        type="dss.vector.solutions.entomology.assay.UnitMaster"
-        key="dss.vector.solutions.entomology.assay.UnitMaster.MILLIGRAM_PER_LITER">
-        <attribute
-          name="enumName"
-          value="MILLIGRAM_PER_LITER" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="mg/l" />
-        </attributeStruct>
-      </object>
-
-      <object
-        type="dss.vector.solutions.entomology.assay.UnitMaster"
-        key="dss.vector.solutions.entomology.assay.UnitMaster.MICROGRAM_PER_LITER">
-        <attribute
-          name="enumName"
-          value="MICROGRAM_PER_LITER" />
-        <attributeStruct
-          name="displayLabel">
-          <attribute
-            name="defaultLocale"
-            value="µg/l" />
-        </attributeStruct>
-      </object>
-
-      <mdEnumeration
-        name="dss.vector.solutions.entomology.assay.Unit"
-        type="dss.vector.solutions.entomology.assay.UnitMaster"
-        label="Unit">
-        <includeAll />
-      </mdEnumeration>
 
       <mdStruct
         name="dss.vector.solutions.entomology.assay.AdultAgeRange"
@@ -3480,697 +2911,6 @@
 
     <create>
 
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.AssayTestResult"
-        label="Assay Test Result"
-        extendable="true"
-        isAbstract="true"
-        generateController="false">
-        <attributes>
-          <reference
-            name="mosquito"
-            label="Mosquito"
-            required="true"
-            indexType="non-unique index"
-            immutable="true"
-            description="The mosquito on which the W-KDR test was performed"
-            type="dss.vector.solutions.entomology.Mosquito" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-        label="Molecular Assay Test Result"
-        isAbstract="true"
-        extendable="true"
-        generateController="false"
-        extends="dss.vector.solutions.entomology.assay.AssayTestResult">
-        <attributes>
-          <reference
-            type="dss.vector.solutions.ontology.Term"
-            name="testMethod"
-            label="Test Methodology"
-            required="false"
-            description="The test methodology use for the gene mutation assay" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.molecular.WKDRTestResult"
-        label="Kdr L104F (west)"
-        extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-        description="W-KDR test result."
-        generateController="false">
-        <attributes>
-          <reference
-            name="testResult"
-            label="Kdr L104F (west)"
-            required="false"
-            description="Molecular assay result"
-            type="dss.vector.solutions.ontology.Term" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.molecular.EKDRTestResult"
-        label="Kdr L104S (east)"
-        extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-        description="E-KDR test result."
-        generateController="false">
-        <attributes>
-          <reference
-            name="testResult"
-            label="Kdr L104S (east)"
-            required="false"
-            description="Molecular assay result"
-            type="dss.vector.solutions.ontology.Term" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.molecular.IAcHETestResult"
-        label="Insensitive AChE"
-        extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-        description="AcHE test result."
-        generateController="false">
-        <attributes>
-          <reference
-            name="testResult"
-            label="Insensitive AChE"
-            required="false"
-            description="Molecular assay result"
-            type="dss.vector.solutions.ontology.Term" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.molecular.AcHEVTestResult"
-        label="AChE F290V"
-        extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-        description="AcHE test result."
-        generateController="false">
-        <attributes>
-          <reference
-            name="testResult"
-            label="AChE F290V"
-            required="false"
-            description="Molecular assay result"
-            type="dss.vector.solutions.ontology.Term" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.molecular.AcHEWTestResult"
-        label="AChE F331W"
-        extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-        description="AcHE test result."
-        generateController="false">
-        <attributes>
-          <reference
-            name="testResult"
-            label="AChE F331W"
-            required="false"
-            description="Molecular assay result"
-            type="dss.vector.solutions.ontology.Term" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.molecular.AcHESTestResult"
-        label="AChE G119S"
-        extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-        description="AcHE test result."
-        generateController="false">
-        <attributes>
-          <reference
-            name="testResult"
-            label="AChE G119S"
-            required="false"
-            description="Molecular assay result"
-            type="dss.vector.solutions.ontology.Term" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.molecular.GABAGTestResult"
-        label="GABA Rdl A296G"
-        extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-        description="GABA test result."
-        generateController="false">
-        <attributes>
-          <reference
-            name="testResult"
-            label="GABA Rdl A296G"
-            required="false"
-            description="Molecular assay result"
-            type="dss.vector.solutions.ontology.Term" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.molecular.GABASTestResult"
-        label="GABA Rdl A296S"
-        extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-        description="GABA test result."
-        generateController="false">
-        <attributes>
-          <reference
-            name="testResult"
-            label="GABA Rdl A296S"
-            required="false"
-            description="Molecular assay result"
-            type="dss.vector.solutions.ontology.Term" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
-        label="Metabolic Resistance Assay"
-        isAbstract="true"
-        extendable="true"
-        extends="dss.vector.solutions.entomology.assay.AssayTestResult"
-        generateController="false">
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult"
-        label="α-napthyl acetate assay"
-        extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
-        description="α-Esterase test result."
-        generateController="false">
-        <attributes>
-          <boolean
-            name="testResult"
-            label="α-napthyl acetate assay"
-            required="false"
-            description="assay result"
-            negativeLabel="Not Elevated"
-            positiveLabel="Elevated" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.biochemical.BAcetateTestResult"
-        label="β-napthyl acetate assay"
-        extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
-        description="β-napthyl acetate assay test result."
-        generateController="false">
-        <attributes>
-          <boolean
-            name="testResult"
-            label="β-napthyl acetate assay"
-            required="false"
-            description="assay result"
-            negativeLabel="Not Elevated"
-            positiveLabel="Elevated" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.biochemical.PNPATestResult"
-        label="pNPA assay"
-        extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
-        description="PNPA test result."
-        generateController="false">
-        <attributes>
-          <boolean
-            name="testResult"
-            label="pNPA assay"
-            required="false"
-            description="assay result"
-            negativeLabel="Not Elevated"
-            positiveLabel="Elevated" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.biochemical.GSTCDNBTestResult"
-        label="GST CDNB rate reaction assay"
-        extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
-        description="GST CDNB rate reaction assay test result."
-        generateController="false">
-        <attributes>
-          <boolean
-            name="testResult"
-            label="GST CDNB rate reaction assay"
-            required="false"
-            description="assay result"
-            negativeLabel="Not Elevated"
-            positiveLabel="Elevated" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.biochemical.GSTDCNBTestResult"
-        label="GST DCNB rate reaction assay"
-        extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
-        description="GST DCNB rate reaction assay test result."
-        generateController="false">
-        <attributes>
-          <boolean
-            name="testResult"
-            label="GST DCNB rate reaction assay"
-            required="false"
-            description="assay result"
-            negativeLabel="Not Elevated"
-            positiveLabel="Elevated" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.biochemical.HemeTestResult"
-        label="heme content"
-        extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
-        description="Heme test result."
-        generateController="false">
-        <attributes>
-          <boolean
-            name="testResult"
-            label="heme content"
-            required="false"
-            description="assay result"
-            negativeLabel="Not Elevated"
-            positiveLabel="Elevated" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.biochemical.P450TestResult"
-        label="p450 activity assay"
-        extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
-        description="p450 activity assay test result."
-        generateController="false">
-        <attributes>
-          <boolean
-            name="testResult"
-            label="p450 activity assay"
-            required="false"
-            description="p450 activity assay result"
-            negativeLabel="Not Elevated"
-            positiveLabel="Elevated" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-        label="Infectivity Assay Test Result"
-        isAbstract="true"
-        extendable="true"
-        extends="dss.vector.solutions.entomology.assay.AssayTestResult"
-        generateController="false">
-        <attributes>
-          <reference
-            type="dss.vector.solutions.ontology.Term"
-            name="testMethod"
-            label="Test Methodology"
-            required="false"
-            description="The test methodologyd use for the infectivity assay" />
-        </attributes>
-        <mdMethod
-          name="getInfectivityAssays"
-          label="Get Infectivity Assays"
-          returnType="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-          static="true">
-        </mdMethod>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.infectivity.PFalciparumTestResult"
-        label="P. falciparum"
-        extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-        description="P. falciparum"
-        generateController="false">
-        <attributes>
-          <boolean
-            name="testResult"
-            label="P. falciparum"
-            required="false"
-            description="assay result"
-            positiveLabel="Positive"
-            negativeLabel="Negative" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.infectivity.POvaleTestResult"
-        label="P. Ovale"
-        extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-        description="P. Ovale test result."
-        generateController="false">
-        <attributes>
-          <boolean
-            name="testResult"
-            label="P. Ovale"
-            required="false"
-            description="assay result"
-            positiveLabel="Positive"
-            negativeLabel="Negative" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResult"
-        label="P. Malariae"
-        extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-        description="P. Malariae test result."
-        generateController="false">
-        <attributes>
-          <boolean
-            name="testResult"
-            label="P. Malariae"
-            required="false"
-            description="assay result"
-            positiveLabel="Positive"
-            negativeLabel="Negative" />
-        </attributes>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult"
-        label="P. Vivax"
-        extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-        description="P. Vivax test result."
-        generateController="false">
-        <attributes>
-          <boolean
-            name="testResult"
-            label="P. Vivax"
-            required="false"
-            description="assay result"
-            positiveLabel="Positive"
-            negativeLabel="Negative" />
-        </attributes>
-      </mdBusiness>
-
-      <mdTree
-        name="dss.vector.solutions.entomology.assay.TargetSiteTestResult"
-        label="Target Site Test Result"
-        generateController="false">
-        <attributes>
-          <reference
-            type="dss.vector.solutions.ontology.Term"
-            name="testMethod"
-            label="Test Methodology"
-            required="false"
-            description="The test methodology use for the target site assay" />
-          <reference
-            name="testResult"
-            label="Test Result"
-            required="false"
-            description="Target Site assay result"
-            type="dss.vector.solutions.ontology.Term" />
-        </attributes>
-        <parent
-          cardinality="*"
-          name="dss.vector.solutions.entomology.Mosquito"
-          method="MosquitosWithTargetSiteResults" />
-        <child
-          cardinality="*"
-          name="dss.vector.solutions.ontology.Term"
-          method="TargetSiteResults" />
-      </mdTree>
-
-      <mdTree
-        name="dss.vector.solutions.entomology.assay.InfectivityTestResult"
-        label="Infectivity Test Result"
-        generateController="false">
-        <attributes>
-          <reference
-            type="dss.vector.solutions.ontology.Term"
-            name="testMethod"
-            label="Test Methodology"
-            required="false"
-            description="The test methodology use for the infectivity assay" />
-          <boolean
-            name="testResult"
-            label="Test Result"
-            required="false"
-            description="Infectivity test result"
-            negativeLabel="Not Elevated"
-            positiveLabel="Elevated" />
-        </attributes>
-        <parent
-          cardinality="*"
-          name="dss.vector.solutions.entomology.Mosquito"
-          method="MosquitosWithInfectivityResults" />
-        <child
-          cardinality="*"
-          name="dss.vector.solutions.ontology.Term"
-          method="InfectivityResults" />
-      </mdTree>
-
-      <mdTree
-        name="dss.vector.solutions.entomology.assay.BiochemicalTestResult"
-        label="Biochemical Test Result"
-        generateController="false">
-        <attributes>
-          <boolean
-            name="testResult"
-            label="Test Result"
-            required="false"
-            description="Biochemical test result"
-            negativeLabel="Not Elevated"
-            positiveLabel="Elevated" />
-        </attributes>
-        <parent
-          cardinality="*"
-          name="dss.vector.solutions.entomology.Mosquito"
-          method="MosquitosWithBiochemicalResults" />
-        <child
-          cardinality="*"
-          name="dss.vector.solutions.ontology.Term"
-          method="BiochemicalResults" />
-      </mdTree>
-
-      <mdView
-        name="dss.vector.solutions.entomology.MosquitoView"
-        label="Mosquito Assay View"
-        description="A view of a mosquito reference and all of its assays">
-        <attributes>
-          <char
-            name="mosquitoId"
-            size="255"
-            label="Mosquito Id"
-            description="The id of the mosquito, if the Id is blank then it is assumed the mosquito is new"
-            required="true" />
-          <virtual
-            name="sampleId"
-            type="dss.vector.solutions.entomology.TrueSpecieEntity"
-            concrete="sampleId"
-            required="true" />
-          <virtual
-            name="collection"
-            type="dss.vector.solutions.entomology.TrueSpecieEntity"
-            concrete="collection"
-            required="true" />
-          <virtual
-            name="specie"
-            type="dss.vector.solutions.entomology.TrueSpecieEntity"
-            required="true"
-            concrete="specie" />
-          <virtual
-            name="identificationMethod"
-            type="dss.vector.solutions.entomology.TrueSpecieEntity"
-            concrete="identificationMethod"
-            required="true" />
-          <virtual
-            name="testDate"
-            type="dss.vector.solutions.entomology.Mosquito"
-            concrete="testDate"
-            required="true" />
-          <virtual
-            name="isofemale"
-            type="dss.vector.solutions.entomology.Mosquito"
-            concrete="isofemale"
-            required="true" />
-          <virtual
-            name="sex"
-            type="dss.vector.solutions.entomology.Mosquito"
-            concrete="sex"
-            required="true" />
-          <virtual
-            name="generation"
-            type="dss.vector.solutions.entomology.Mosquito"
-            concrete="generation"
-            required="true" />
-          <virtual
-            name="wKDR"
-            type="dss.vector.solutions.entomology.assay.molecular.WKDRTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="wKDRMethod"
-            label="WKDR Method"
-            type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-            concrete="testMethod"
-            required="false" />
-          <virtual
-            name="eKDR"
-            type="dss.vector.solutions.entomology.assay.molecular.EKDRTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="eKDRMethod"
-            label="EKDR Method"
-            type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-            concrete="testMethod"
-            required="false" />
-          <virtual
-            name="iAcHE"
-            type="dss.vector.solutions.entomology.assay.molecular.IAcHETestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="iAcHEMethod"
-            label="IACHE Method"
-            type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-            concrete="testMethod"
-            required="false" />
-          <virtual
-            name="acHEV"
-            type="dss.vector.solutions.entomology.assay.molecular.AcHEVTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="acHEVMethod"
-            label="ACHE V Method"
-            type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-            concrete="testMethod"
-            required="false" />
-          <virtual
-            name="acHEW"
-            type="dss.vector.solutions.entomology.assay.molecular.AcHEWTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="acHEWMethod"
-            label="ACHE W Method"
-            type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-            concrete="testMethod"
-            required="false" />
-          <virtual
-            name="acHES"
-            type="dss.vector.solutions.entomology.assay.molecular.AcHESTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="acHESMethod"
-            label="ACHE S Method"
-            type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-            concrete="testMethod"
-            required="false" />
-          <virtual
-            name="gABAG"
-            type="dss.vector.solutions.entomology.assay.molecular.GABAGTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="gABAGMethod"
-            label="GABA G Method"
-            type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-            concrete="testMethod"
-            required="false" />
-          <virtual
-            name="gABAS"
-            type="dss.vector.solutions.entomology.assay.molecular.GABASTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="gABASMethod"
-            label="GABA S Method"
-            type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
-            concrete="testMethod"
-            required="false" />
-          <virtual
-            name="aAcetate"
-            type="dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="bAcetate"
-            type="dss.vector.solutions.entomology.assay.biochemical.BAcetateTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="pNPA"
-            type="dss.vector.solutions.entomology.assay.biochemical.PNPATestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="gSTCDNB"
-            type="dss.vector.solutions.entomology.assay.biochemical.GSTCDNBTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="gSTDCNB"
-            type="dss.vector.solutions.entomology.assay.biochemical.GSTDCNBTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="heme"
-            type="dss.vector.solutions.entomology.assay.biochemical.HemeTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="p450"
-            type="dss.vector.solutions.entomology.assay.biochemical.P450TestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="pFalciparum"
-            type="dss.vector.solutions.entomology.assay.infectivity.PFalciparumTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="pFalciparumMethod"
-            type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-            concrete="testMethod"
-            required="false" />
-          <virtual
-            name="pOvale"
-            type="dss.vector.solutions.entomology.assay.infectivity.POvaleTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="pOvaleMethod"
-            type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-            concrete="testMethod"
-            required="false" />
-          <virtual
-            name="pMalariae"
-            type="dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="pMalariaeMethod"
-            type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-            concrete="testMethod"
-            required="false" />
-          <virtual
-            name="pVivax"
-            type="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult"
-            concrete="testResult"
-            required="false" />
-          <virtual
-            name="pVivaxMethod"
-            type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-            concrete="testMethod"
-            required="false" />
-        </attributes>
-        <mdMethod
-          name="saveAll"
-          label="Save All"
-          returnType="dss.vector.solutions.entomology.MosquitoView[]"
-          static="true"
-          description="Saves an array of MosquitoViews in a single transaction">
-          <mdParameter
-            name="array"
-            label="Array"
-            description="Array of objects to save"
-            order="0"
-            type="dss.vector.solutions.entomology.MosquitoView[]" />
-        </mdMethod>
-      </mdView>
     </create>
 
     <create>

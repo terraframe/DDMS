@@ -481,8 +481,6 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       
       this._searchPanel = new MDSS.GenericSearch(displayElement, null, lF, dF, iF, sF, sEH);
       
-      YAHOO.util.Event.on(this._searchInput, 'keyup', this._searchPanel.performSearch, null, this._searchPanel); 
-      
       // hide the search panel when the main panel is hidden.
       var that = this;
       this._panel.subscribe('beforeHide', function(){

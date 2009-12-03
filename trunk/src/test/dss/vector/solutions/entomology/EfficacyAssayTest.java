@@ -716,8 +716,6 @@ public class EfficacyAssayTest extends TestCase
 
       assertEquals(specie.getId(), assay2.getSpecie().getId());
       assertEquals(date, assay2.getTestDate());
-      assertEquals(AssaySex.FEMALE, assay2.getSex());
-
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(10), assay2.getFed());
       assertEquals(new Integer(10), assay2.getGravid());
@@ -775,8 +773,6 @@ public class EfficacyAssayTest extends TestCase
 
       assertEquals(specie.getId(), assay2.getSpecie().getId());
       assertEquals(date, assay2.getTestDate());
-      assertEquals(AssaySex.FEMALE, assay2.getSex());
-
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(10), assay2.getFed());
       assertEquals(new Integer(10), assay2.getGravid());

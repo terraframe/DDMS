@@ -2,58 +2,7 @@
   xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <create>
-      <mdBusiness
-        name="dss.vector.solutions.entomology.assay.infectivity.MixedTestResult"
-        label="Mixed"
-        extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-        description="Mixed assay"
-        generateController="false">
-        <attributes>
-          <boolean
-            name="testResult"
-            label="Mixed"
-            required="false"
-            description="assay result"
-            positiveLabel="Positive"
-            negativeLabel="Negative" />
-        </attributes>
-      </mdBusiness>
-    </create>
     <update>
-      <mdView
-        name="dss.vector.solutions.export.MosquitoExcelView">
-        <create>
-          <attributes>
-            <char
-              name="mixed"
-              label="Mixed"
-              size="255" />
-            <char
-              name="mixedMethod"
-              label="Mixed Method"
-              size="255" />
-          </attributes>
-        </create>
-      </mdView>
-      <mdView
-        name="dss.vector.solutions.entomology.MosquitoView">
-        <create>
-          <attributes>
-            <virtual
-              name="mixed"
-              type="dss.vector.solutions.entomology.assay.infectivity.MixedTestResult"
-              concrete="testResult"
-              required="false" />
-            <virtual
-              name="mixedMethod"
-              type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-              label="Mixed Method"
-              concrete="testMethod"
-              required="false" />
-          </attributes>
-        </create>
-      </mdView>
     </update>
   </doIt>
   <undoIt>

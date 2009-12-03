@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1845798188)
+@com.terraframe.mojo.business.ClassSignature(hash = -1273907636)
 public class MosquitoCollectionControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionController";
@@ -10,7 +10,7 @@ public class MosquitoCollectionControllerBase implements com.terraframe.mojo.gen
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1845798188;
+  private static final long serialVersionUID = -1273907636;
   
   public MosquitoCollectionControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -67,43 +67,43 @@ public class MosquitoCollectionControllerBase implements com.terraframe.mojo.gen
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionDTO:dto", post=true)
-  public void cancel(dss.vector.solutions.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionViewDTO:dto", post=true)
+  public void cancel(dss.vector.solutions.entomology.MosquitoCollectionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.cancel");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionDTO:dto", post=true)
-  public void failCancel(dss.vector.solutions.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionViewDTO:dto", post=true)
+  public void failCancel(dss.vector.solutions.entomology.MosquitoCollectionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failCancel");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionDTO:dto", post=true)
-  public void create(dss.vector.solutions.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionViewDTO:dto", post=true)
+  public void create(dss.vector.solutions.entomology.MosquitoCollectionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.create");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionDTO:dto", post=true)
-  public void failCreate(dss.vector.solutions.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionViewDTO:dto", post=true)
+  public void failCreate(dss.vector.solutions.entomology.MosquitoCollectionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failCreate");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionDTO:dto", post=true)
-  public void delete(dss.vector.solutions.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionViewDTO:dto", post=true)
+  public void delete(dss.vector.solutions.entomology.MosquitoCollectionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.delete");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionDTO:dto", post=true)
-  public void failDelete(dss.vector.solutions.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionViewDTO:dto", post=true)
+  public void failDelete(dss.vector.solutions.entomology.MosquitoCollectionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failDelete");
@@ -121,6 +121,20 @@ public class MosquitoCollectionControllerBase implements com.terraframe.mojo.gen
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failEdit");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionViewDTO:dto", post=true)
+  public void forward(dss.vector.solutions.entomology.MosquitoCollectionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.forward");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionViewDTO:dto", post=true)
+  public void failForward(dss.vector.solutions.entomology.MosquitoCollectionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failForward");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
@@ -151,57 +165,57 @@ public class MosquitoCollectionControllerBase implements com.terraframe.mojo.gen
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failSearch");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void searchAssays() throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber, dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO:dto", post=false)
+  public void searchByDTO(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber, dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.searchAssays");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.searchByDTO");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failSearchAssays() throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber, dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO:dto", post=false)
+  public void failSearchByDTO(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber, dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failSearchAssays");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failSearchByDTO");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.GeoEntityDTO:geoEntity, java.util.Date:collectionDate, dss.vector.solutions.ontology.TermDTO:collectionMethod", post=true)
-  public void searchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, java.util.Date collectionDate, dss.vector.solutions.ontology.TermDTO collectionMethod) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber, java.util.Date:startDate, java.util.Date:endDate, java.lang.String:collectionMethod, java.lang.String:geoEntity, java.lang.String:collectionId, java.lang.Boolean:abundance, java.lang.String:lifeStage", post=false)
+  public void searchByParameters(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber, java.util.Date startDate, java.util.Date endDate, java.lang.String collectionMethod, java.lang.String geoEntity, java.lang.String collectionId, java.lang.Boolean abundance, java.lang.String lifeStage) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.searchByGeoEntityAndDate");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.searchByParameters");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.GeoEntityDTO:geoEntity, java.lang.String:collectionDate, dss.vector.solutions.ontology.TermDTO:collectionMethod", post=true)
-  public void failSearchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, java.lang.String collectionDate, dss.vector.solutions.ontology.TermDTO collectionMethod) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber, java.lang.String:startDate, java.lang.String:endDate, java.lang.String:collectionMethod, java.lang.String:geoEntity, java.lang.String:collectionId, java.lang.String:abundance, java.lang.String:lifeStage", post=false)
+  public void failSearchByParameters(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber, java.lang.String startDate, java.lang.String endDate, java.lang.String collectionMethod, java.lang.String geoEntity, java.lang.String collectionId, java.lang.String abundance, java.lang.String lifeStage) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failSearchByGeoEntityAndDate");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failSearchByParameters");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoId, java.util.Date:collectionDate, dss.vector.solutions.ontology.TermDTO:collectionMethod", post=true)
-  public void searchByGeoIdAndDate(java.lang.String geoId, java.util.Date collectionDate, dss.vector.solutions.ontology.TermDTO collectionMethod) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber, java.lang.String:collectionId, java.lang.String:assayType", post=false)
+  public void sortAssays(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber, java.lang.String collectionId, java.lang.String assayType) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.searchByGeoIdAndDate");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.sortAssays");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoId, java.lang.String:collectionDate, dss.vector.solutions.ontology.TermDTO:collectionMethod", post=true)
-  public void failSearchByGeoIdAndDate(java.lang.String geoId, java.lang.String collectionDate, dss.vector.solutions.ontology.TermDTO collectionMethod) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber, java.lang.String:collectionId, java.lang.String:assayType", post=false)
+  public void failSortAssays(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber, java.lang.String collectionId, java.lang.String assayType) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failSearchByGeoIdAndDate");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failSortAssays");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionDTO:dto", post=true)
-  public void update(dss.vector.solutions.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionViewDTO:dto", post=true)
+  public void update(dss.vector.solutions.entomology.MosquitoCollectionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.update");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionDTO:dto", post=true)
-  public void failUpdate(dss.vector.solutions.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.MosquitoCollectionViewDTO:dto", post=true)
+  public void failUpdate(dss.vector.solutions.entomology.MosquitoCollectionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failUpdate");
@@ -221,20 +235,6 @@ public class MosquitoCollectionControllerBase implements com.terraframe.mojo.gen
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failView");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber, java.lang.String:collectionId", post=false)
-  public void viewADAPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber, java.lang.String collectionId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.viewADAPage");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber, java.lang.String:collectionId", post=false)
-  public void failViewADAPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber, java.lang.String collectionId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failViewADAPage");
-  }
-  
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -247,48 +247,6 @@ public class MosquitoCollectionControllerBase implements com.terraframe.mojo.gen
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failViewAll");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void viewAssays(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void failViewAssays(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failViewAssays");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber, java.lang.String:collectionId", post=false)
-  public void viewKDAPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber, java.lang.String collectionId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.viewKDAPage");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber, java.lang.String:collectionId", post=false)
-  public void failViewKDAPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber, java.lang.String collectionId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failViewKDAPage");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber, java.lang.String:collectionId", post=false)
-  public void viewLDAPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber, java.lang.String collectionId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.viewLDAPage");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber, java.lang.String:collectionId", post=false)
-  public void failViewLDAPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber, java.lang.String collectionId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failViewLDAPage");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)

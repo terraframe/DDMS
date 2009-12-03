@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public class MosquitoCollectionAllreadyExistsExceptionDTO extends MosquitoCollectionAllreadyExistsExceptionDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1242086816977L;
+  private static final long serialVersionUID = -419779112;
   
   public MosquitoCollectionAllreadyExistsExceptionDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

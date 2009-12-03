@@ -115,7 +115,7 @@ public class AdministrationCRUDPermissions extends PermissionTest implements DoN
   public void testGUIVisibility()
   {
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
-    AttributeDateMdDTO attributeMd = dto.getDateCollectedMd();
+    AttributeDateMdDTO attributeMd = dto.getCollectionDateMd();
 
     ReadableAttributeViewDTO view = new ReadableAttributeViewDTO(request);
     view.setAttributeName(attributeMd.getName());

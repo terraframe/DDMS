@@ -5,7 +5,6 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.RequiredAttributeException;
-import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.ontology.Term;
 
 public class Insecticide extends InsecticideBase implements
@@ -86,17 +85,5 @@ public class Insecticide extends InsecticideBase implements
     {
       iterator.close();
     }    
-  }
-  
-  public static Unit getUnitByLabel(String label)
-  {
-    for (Unit e : Unit.values())
-    {
-      if (e.getDisplayLabel().equals(label))
-      {
-        return e;
-      }
-    }
-    return null;
-  }
+  }  
 }

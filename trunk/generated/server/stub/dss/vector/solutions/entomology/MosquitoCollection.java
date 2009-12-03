@@ -1,188 +1,120 @@
 package dss.vector.solutions.entomology;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
-import com.terraframe.mojo.business.Entity;
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQuery;
-import dss.vector.solutions.entomology.assay.KnockDownAssayQuery;
-import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQuery;
-import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.Property;
+import dss.vector.solutions.entomology.assay.CollectionAssay;
+import dss.vector.solutions.entomology.assay.CollectionAssayQuery;
 
-public class MosquitoCollection extends MosquitoCollectionBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class MosquitoCollection extends MosquitoCollectionBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1234285245712L;
-
+  private static final long serialVersionUID = 1894808272;
+  
   public MosquitoCollection()
   {
     super();
   }
-
+  
   @Override
   protected String buildKey()
   {
-    if(this.getGeoEntity() != null && this.getCollectionMethod() != null && this.getDateCollected() != null)
-    {
-      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
-
-      return this.getGeoEntity().getGeoId() + "." + this.getCollectionMethod().getName() + "." + format.format(this.getDateCollected());
-    }
-
     return this.getId();
   }
-
+  
+  @Override
+  @Transaction
+  public void delete()
+  {
+    // Delete all of the sub collections
+    SubCollectionView[] collections = this.getView().getSubCollections();
+    
+    for(SubCollectionView collection : collections)
+    {
+      collection.deleteConcrete();
+    }
+    
+    // Delete all of the Assays
+    List<? extends CollectionAssay> list = this.getAssays();
+    
+    for(CollectionAssay assay : list)
+    {
+      assay.delete();
+    }
+    
+    super.delete();
+  }
+  
+  private List<? extends CollectionAssay> getAssays()
+  {
+    CollectionAssayQuery query = new CollectionAssayQuery(new QueryFactory());    
+    query.WHERE(query.getCollection().EQ(this));
+    OIterator<? extends CollectionAssay> it = query.getIterator();
+    
+    try
+    {
+      return it.getAll();
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+  
   @Override
   public void apply()
   {
-    validateGeoEntity();
-    validateUniqueness();
-
+    this.populateCollectionId();
+    this.populateLifeStageName();
+    
     super.apply();
   }
 
-  @Override
-  public void validateGeoEntity()
+  private void populateLifeStageName()
   {
-    super.validateGeoEntity();
-
-    if (! ( this.getGeoEntity() instanceof SentinelSite ))
+    for(LifeStage stage  : this.getLifeStage())
     {
-      String msg = "The geoEntity of a mosquito collection must be a (non)sentinel site";
-
-      InvalidMosquitoCollectionGeoEntityException e = new InvalidMosquitoCollectionGeoEntityException(
-          msg);
-      e.setGeoId(this.getGeoEntity().getGeoId());
-      e.apply();
-
-      throw e;
+      this.setLifeStageName(stage.getEnumName());
     }
   }
 
-  public void validateUniqueness()
+  private void populateCollectionId()
   {
-    if (this.getGeoEntity() != null && this.getCollectionMethod() != null)
+    if(this.getCollectionId() == null || this.getCollectionId().equals(""))
     {
-      MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
-
-      query.AND(query.getGeoEntity().EQ(this.getGeoEntity()));
-      query.AND(query.getDateCollected().EQ(this.getDateCollected()));
-      query.AND(query.getCollectionMethod().EQ(this.getCollectionMethod()));
-
-      if (this.getId() != null)
-      {
-        query.AND(query.getId().NE(this.getId()));
-      }
-
-      OIterator<? extends MosquitoCollection> iterator = query.getIterator();
-
-      try
-      {
-        if (iterator.hasNext())
-        {
-          MosquitoCollection collection = iterator.next();
-
-          String msg = "This mosquito collection already exists with the id [" + collection.getId()
-              + "]";
-          MosquitoCollectionAllreadyExistsException e = new MosquitoCollectionAllreadyExistsException(
-              msg);
-          e.apply();
-          throw e;
-        }
-
-      }
-      finally
-      {
-        iterator.close();
-      }
+      this.setCollectionId(Property.getNextId());
     }
-  }
-
-  public AdultDiscriminatingDoseAssayQuery getAdultDoseAssays(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
-  {
-    AdultDiscriminatingDoseAssayQuery query = new AdultDiscriminatingDoseAssayQuery(new QueryFactory());
-    query.WHERE(query.getCollection().EQ(this));
-
-    Entity.getAllInstances(query, sortAttribute, isAscending, pageSize, pageNumber);
-
-    return query;
-  }
-
-  public LarvaeDiscriminatingDoseAssayQuery getLarvaeDoseAssays(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
-  {
-    LarvaeDiscriminatingDoseAssayQuery query = new LarvaeDiscriminatingDoseAssayQuery(new QueryFactory());
-    query.WHERE(query.getCollection().EQ(this));
-
-    Entity.getAllInstances(query, sortAttribute, isAscending, pageSize, pageNumber);
-
-    return query;
   }
 
   @Override
-  public KnockDownAssayQuery getKnockDownAssays(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+  @Transaction
+  public MosquitoCollectionView lockView()
   {
-    KnockDownAssayQuery query = new KnockDownAssayQuery(new QueryFactory());
-    query.WHERE(query.getCollection().EQ(this));
+    this.lock();
 
-    Entity.getAllInstances(query, sortAttribute, isAscending, pageSize, pageNumber);
-
-    return query;
+    return this.getView();
   }
 
-  public static dss.vector.solutions.entomology.MosquitoCollection searchByGeoEntityAndDate(GeoEntity geoEntity, Date collectionDate)
+  @Override
+  @Transaction
+  public MosquitoCollectionView unlockView()
   {
-    QueryFactory factory = new QueryFactory();
-    MosquitoCollectionQuery query = new MosquitoCollectionQuery(factory);
+    this.unlock();
 
-    query.AND(query.getGeoEntity().getId().EQ(geoEntity.getId()));
-    query.AND(query.getDateCollected().EQ(collectionDate));
-
-    OIterator<? extends MosquitoCollection> iterator = query.getIterator();
-
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-
-      return null;
-    }
-    finally
-    {
-      iterator.close();
-    }
+    return this.getView();
   }
 
-  public static MosquitoCollection searchByGeoEntityAndDateAndCollectionMethod(GeoEntity geoEntity, Date collectionDate, Term collectionMethod)
+  public MosquitoCollectionView getView()
   {
-    QueryFactory factory = new QueryFactory();
-    MosquitoCollectionQuery query = new MosquitoCollectionQuery(factory);
+    MosquitoCollectionView view = new MosquitoCollectionView();
 
-    query.AND(query.getGeoEntity().getId().EQ(geoEntity.getId()));
-    query.AND(query.getDateCollected().EQ(collectionDate));
-    query.AND(query.getCollectionMethod().EQ(collectionMethod));
+    view.populateView(this);
 
-    OIterator<? extends MosquitoCollection> iterator = query.getIterator();
-
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-
-      return null;
-    }
-    finally
-    {
-      iterator.close();
-    }
+    return view;
   }
+  
+
 }

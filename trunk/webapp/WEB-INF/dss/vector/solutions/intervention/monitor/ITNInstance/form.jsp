@@ -155,7 +155,6 @@
       var element = document.getElementById(elementId);
       var search = new MDSS.GenericSearch(element, null, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler, {minLength:0});
 
-      YAHOO.util.Event.on(element, 'keyup', search.performSearch, search, search);
       YAHOO.util.Event.on(element, 'focus', search.performSearch, search, search);  
     };
 

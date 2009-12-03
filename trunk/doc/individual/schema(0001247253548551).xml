@@ -41,24 +41,7 @@
             order="3" />           
         </mdMethod>
        </create>
-      </mdBusiness>
-      
-      <mdView
-        name="dss.vector.solutions.entomology.MosquitoView">
-        <create>
-          <mdMethod
-            name="getAssayColumns"
-            returnType="java.lang.String"
-            label="Get Assay Json Columns"
-            static="true"
-            description="Returns a json string of the asssay colums for the query screen">
-            <mdParameter
-              name="className"
-              order="0"
-              type="java.lang.String"/>
-          </mdMethod>
-        </create>
-      </mdView>
+      </mdBusiness>      
     </update>
   </doIt>
   <undoIt>

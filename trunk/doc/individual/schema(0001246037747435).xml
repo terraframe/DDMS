@@ -3,20 +3,6 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <update>
-      <mdBusiness
-        name="dss.vector.solutions.entomology.Mosquito">
-        <mdMethod
-          name="queryEntomology">
-          <create>
-            <mdParameter
-              name="pageSize"
-              label="Page Size"
-              type="java.lang.Integer"
-              order="5"/>
-          </create>
-        </mdMethod>
-      </mdBusiness>
-      
       <mdController name="dss.vector.solutions.query.QueryController">
         <create>
           <mdAction

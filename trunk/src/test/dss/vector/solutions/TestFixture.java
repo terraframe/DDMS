@@ -278,7 +278,7 @@ public class TestFixture
     MosquitoCollection collection = new MosquitoCollection();
     collection.setGeoEntity(geoEntity);
     collection.setCollectionMethod(collectionMethod);
-    collection.setDateCollected(calendar.getTime());
+    collection.setCollectionDate(calendar.getTime());
     collection.apply();
 
     return collection;

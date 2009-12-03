@@ -1,85 +1,66 @@
 <%@ include file="/WEB-INF/templates/jsp_includes.jsp"%>
-<%@page import="dss.vector.solutions.geo.GeoHierarchyDTO"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
-<%@page import="org.json.JSONObject"%>
-<%@page import="org.json.JSONArray"%>
-<%@page import="com.terraframe.mojo.web.json.JSONController"%>
-<%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
-<%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 
-
-<%@page import="dss.vector.solutions.export.entomology.MosquitoCollectionViewDTO"%><c:set var="page_title" value="Search_Mosquito_Collections"  scope="request"/>
-
-<jsp:include page="/WEB-INF/selectSearch.jsp"/>
-
-
-
-<%
-  request.setAttribute("SentinelSiteClass", SentinelSiteDTO.CLASS);
-%>
-
-<script type="text/javascript">
-  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= SentinelSiteDTO.CLASS %>*');
-</script>
-
-<c:set scope="request" var="MosquitoCollection"><%=MosquitoCollectionDTO.CLASS%></c:set>
-
-<mjl:form name="dss.vector.solutions.entomology.MosquitoCollection.search" method="POST" id ="searchMosquitoCollections">
-  <mjl:input type="hidden" param="type" value="<%=MosquitoCollectionViewDTO.CLASS%>"/>
-  <dl>
-    <dt><fmt:message key="Filter"/></dt>
-    <dd>
-<%--
-      <input type="radio" name="filterType" class="filterType" value="${CollectionSiteClass}" checked="checked" />&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
-      <input type="radio" name="filterType" value="${NonSentinelSiteClass}" class="filterType" />&nbsp;<fmt:message key="Non_Sentinel_Site"/>
---%>
-      <input type="radio" name="filterType" value="${SentinelSiteClass}" class="filterType" checked="checked"/>&nbsp;<fmt:message key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp;
-    </dd>
-    <dt> <label> <fmt:message key="Geo_Entity"/> </label></dt>
-    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput"/></dd>
-    <dt> <label> <fmt:message key="Date_Collected"/> </label></dt>
-    <dd> <mjl:input param="collectionDate" type="text" classes="DatePick NoFuture" id="collectionDate"/></dd>
-    <dt> <label> <fmt:message key="Collection_Method"/> </label> </dt>
-    <dd>
-      <mdss:mo param="collectionMethod.componentId" id="collectionMethod" browserClass="${MosquitoCollection}"  browserAttribute="collectionMethod" value="${collectionMethod}"/>
-    </dd>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionController.searchByGeoIdAndDate.mojo" name="search.button" value="Search"/>
-  </dl>
-</mjl:form>
-
-<jsp:include page="/WEB-INF/excelButtons.jsp">
-  <jsp:param value="dss.vector.solutions.export.entomology.MosquitoCollectionView" name="excelType"/>
-</jsp:include>
-
-
+<c:set var="page_title" value="Search_Mosquito_Collection"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 
-<br />
-<br />
-<br />
-<fmt:message key="Recently_Created_Collections"/>
+<mjl:form name="MosquitoCollection.search" method="POST" id ="searchMosquitoCollections">
+  <dl>
+    <%@ include file="searchForm.jsp"%>
 
-<mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
-  <mjl:context action="dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo" />
+    <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionController.searchByDTO.mojo" name="search.button" value="Search"/>
+    <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionController.forward.mojo" name="create.button" value="Create"/>
+  </dl>
+</mjl:form>
+
+<h2><fmt:message key="Results"/></h2>
+
+<mjl:table var="current" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
+  <mjl:context action="dss.vector.solutions.entomology.MosquitoCollectionController.searchByParameters.mojo">  
+    <mjl:property name="startDate" value="${startDate}"/>
+    <mjl:property name="endDate" value="${endDate}"/>
+    <mjl:property name="collectionMethod" value="${item.collectionMethod.id}"/>
+    <mjl:property name="geoEntity" value="${item.geoEntity.id}"/>
+    <mjl:property name="collectionId" value="${item.collectionId}"/>
+    <mjl:property name="abundance" value="${item.abundance}"/>
+    <mjl:property name="lifeStage" value="${currentLifeStage}"/>
+  </mjl:context>
   <mjl:columns>
     <mjl:attributeColumn attributeName="collectionMethod">
       <mjl:row>
-        ${item.collectionMethod.displayLabel}
+        ${current.collectionMethodLabel}
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="dateCollected">
+    <mjl:attributeColumn attributeName="collectionDate">
       <mjl:row>
-        <fmt:formatDate value="${item.dateCollected}" pattern="${dateFormatPattern}"  />
+        <fmt:formatDate value="${current.collectionDate}" pattern="${dateFormatPattern}"  />
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoEntity">
       <mjl:row>
-        ${item.geoEntity.displayString} <!--  FIXME needs to use a view -->
+        ${current.geoEntity.displayString}
+      </mjl:row>
+    </mjl:attributeColumn>    
+    <mjl:attributeColumn attributeName="collectionId">
+      <mjl:row>
+        ${current.collectionId}
+      </mjl:row>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="abundance">
+      <mjl:row>
+        ${current.abundance ? current.abundanceMd.positiveDisplayLabel : current.abundanceMd.negativeDisplayLabel}
+      </mjl:row>    
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="lifeStage">
+      <mjl:row>
+        <ul>
+          <c:forEach items="${current.lifeStageEnumNames}" var="enumName">
+            <li>
+              ${current.lifeStageMd.enumItems[enumName]}
+            </li>
+          </c:forEach>
+        </ul>
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
@@ -88,15 +69,14 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" name="view.link">
-          <mjl:property value="${item.id}" name="id" />
-        </mjl:commandLink>
-        <mjl:commandLink display="ViewAssays" action="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo" name="viewAssays.link">
-          <mjl:property value="${item.id}" name="id" />
+          <mjl:property value="${current.concreteId}" name="id" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
       </mjl:footer>
     </mjl:freeColumn>
   </mjl:columns>
+  <mjl:pagination>
+    <mjl:page />
+  </mjl:pagination>  
 </mjl:table>
-<br />

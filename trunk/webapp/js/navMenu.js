@@ -67,9 +67,7 @@ var aSubmenuData = [
     {
       id: "Entomology_Surveillance",
       itemdata: [
-          { text: "Search_For_Collections(024)", url: "dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo", visibleTo:'Administrator' },
-          { text: "Search_For_Collection_Points(016)", url: "dss.vector.solutions.entomology.MosquitoCollectionPointController.search.mojo", visibleTo:'Administrator' },
-          { text: "Mosquito_Assays(012)", url: "dss.vector.solutions.entomology.MosquitoCollectionController.searchAssays.mojo", visibleTo:'Administrator' },
+          { text: "Search_For_Collections(017)", url: "dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo", visibleTo:'Administrator' },
           { text: "Query_Entomology(145)", url: "dss.vector.solutions.query.QueryController.queryEntomology.mojo" , visibleTo:'Administrator'},
           {
             text: "Resistance_Monitoring",

@@ -446,43 +446,6 @@
         </attributes>
       </mdView>
       <mdView
-        name="dss.vector.solutions.export.MorphologicalSpecieGroupExcelView"
-        label="Adult Discriminating Dose Assay"
-        description="Excel View for abstract assays which can be performed on a group of adult mosquitos">
-        <attributes>
-          <!-- Mosquito Collection Point -->
-          <date
-            name="dateCollected"
-            label="Collection Date"
-            required="true" />
-          <reference
-            name="geoEntity"
-            label="Geo Entity"
-            type="dss.vector.solutions.geo.generated.GeoEntity"/>
-          <!-- MorphologicalSpecieGroup -->
-          <char
-            name="specie"
-            label="Species"
-            size="255"/>
-          <char
-            name="identificationMethod"
-            label="Identification Method"
-            size="255"/>
-          <virtual
-            name="quantity"
-            concrete="quantity"
-            type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"/>
-          <virtual
-            name="quantityMale"
-            concrete="quantityMale"
-            type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"/>
-          <virtual
-            name="quantityFemale"
-            concrete="quantityFemale"
-            type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"/>
-        </attributes>
-      </mdView>
-      <mdView
         name="dss.vector.solutions.export.PersonExcelView"
         label="Person Excel View"
         description="Excel View for people">
@@ -918,9 +881,6 @@
         type="com.terraframe.mojo.system.metadata.MdView"/>
       <object
         key="dss.vector.solutions.export.KnockDownAssayExcelView"
-        type="com.terraframe.mojo.system.metadata.MdView"/>
-      <object
-        key="dss.vector.solutions.export.MorphologicalSpecieGroupExcelView"
         type="com.terraframe.mojo.system.metadata.MdView"/>
       <object
         key="dss.vector.solutions.export.PersonExcelView"

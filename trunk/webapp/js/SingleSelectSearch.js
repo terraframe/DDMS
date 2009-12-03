@@ -223,7 +223,6 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       // add generic ajax search
       this._genericSearch = new MDSS.GenericSearch(this._geoInput, this._geoElement, lF, dF, iF, sF, sEH);
       YAHOO.util.Event.on(this._geoInput, 'focus', this._setCurrentInput, null, this);
-      YAHOO.util.Event.on(this._geoInput, 'keyup', this._genericSearch.performSearch, null, this._genericSearch);
       
       // 
       var GeoEntity = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity
@@ -253,7 +252,6 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
     {
       YAHOO.util.Event.removeListener(this._opener, 'click', this._openPicker);
       YAHOO.util.Event.removeListener(this._geoInput, 'focus', this._setCurrentInput);
-      YAHOO.util.Event.removeListener(this._geoInput, 'keyup', this._genericSearch.performSearch);
       
       this._opener = null;
       this._geoInput = null;

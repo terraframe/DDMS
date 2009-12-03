@@ -9,7 +9,6 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
-import dss.vector.solutions.entomology.SexDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -411,9 +410,6 @@ public class PersonController extends PersonControllerBase implements com.terraf
   @Override
   public void failUpdateRecipient(PersonViewDTO patient) throws IOException, ServletException
   {
-    ClientRequestIF request = this.getClientRequest();
-
-    req.setAttribute("sex", SexDTO.allItems(request));
     req.setAttribute("item", patient);
 
     render("editRecipientComponent.jsp");

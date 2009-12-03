@@ -44,7 +44,6 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.util.FileIO;
 
 import dss.vector.solutions.QueryTypeDTO;
-import dss.vector.solutions.entomology.MosquitoDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.irs.AbstractSprayDTO;
@@ -90,7 +89,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
     }
     else if(type.equals(QueryTypeDTO.ENTOMOLOGY))
     {
-      return MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
+//      return MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
     }
     else if(type.equals(QueryTypeDTO.RESISTANCE))
     {

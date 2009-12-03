@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1877051004)
+@com.terraframe.mojo.business.ClassSignature(hash = 717346658)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,7 +31,7 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1877051004;
+  private static final long serialVersionUID = 717346658;
   
   public TermBase()
   {
@@ -1000,135 +1000,6 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
   public dss.vector.solutions.surveillance.IndividualCaseSymptom getIndividualInstanceRel(dss.vector.solutions.intervention.monitor.IndividualInstance individualInstance)
   {
     com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.surveillance.IndividualCaseSymptom> iterator = (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.surveillance.IndividualCaseSymptom>) getRelationshipsWithParent(individualInstance, dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
-  public dss.vector.solutions.entomology.assay.BiochemicalTestResult addMosquitosWithBiochemicalResults(dss.vector.solutions.entomology.Mosquito mosquito)
-  {
-    return (dss.vector.solutions.entomology.assay.BiochemicalTestResult) addParent(mosquito, dss.vector.solutions.entomology.assay.BiochemicalTestResult.CLASS);
-  }
-  
-  public void removeMosquitosWithBiochemicalResults(dss.vector.solutions.entomology.Mosquito mosquito)
-  {
-    removeAllParents(mosquito, dss.vector.solutions.entomology.assay.BiochemicalTestResult.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.Mosquito> getAllMosquitosWithBiochemicalResults()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.Mosquito>) getParents(dss.vector.solutions.entomology.assay.BiochemicalTestResult.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.assay.BiochemicalTestResult> getAllMosquitosWithBiochemicalResultsRel()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.assay.BiochemicalTestResult>) getParentRelationships(dss.vector.solutions.entomology.assay.BiochemicalTestResult.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.entomology.assay.BiochemicalTestResult getMosquitosWithBiochemicalResultsRel(dss.vector.solutions.entomology.Mosquito mosquito)
-  {
-    com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.assay.BiochemicalTestResult> iterator = (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.assay.BiochemicalTestResult>) getRelationshipsWithParent(mosquito, dss.vector.solutions.entomology.assay.BiochemicalTestResult.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
-  public dss.vector.solutions.entomology.assay.InfectivityTestResult addMosquitosWithInfectivityResults(dss.vector.solutions.entomology.Mosquito mosquito)
-  {
-    return (dss.vector.solutions.entomology.assay.InfectivityTestResult) addParent(mosquito, dss.vector.solutions.entomology.assay.InfectivityTestResult.CLASS);
-  }
-  
-  public void removeMosquitosWithInfectivityResults(dss.vector.solutions.entomology.Mosquito mosquito)
-  {
-    removeAllParents(mosquito, dss.vector.solutions.entomology.assay.InfectivityTestResult.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.Mosquito> getAllMosquitosWithInfectivityResults()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.Mosquito>) getParents(dss.vector.solutions.entomology.assay.InfectivityTestResult.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.assay.InfectivityTestResult> getAllMosquitosWithInfectivityResultsRel()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.assay.InfectivityTestResult>) getParentRelationships(dss.vector.solutions.entomology.assay.InfectivityTestResult.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.entomology.assay.InfectivityTestResult getMosquitosWithInfectivityResultsRel(dss.vector.solutions.entomology.Mosquito mosquito)
-  {
-    com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.assay.InfectivityTestResult> iterator = (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.assay.InfectivityTestResult>) getRelationshipsWithParent(mosquito, dss.vector.solutions.entomology.assay.InfectivityTestResult.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
-  public dss.vector.solutions.entomology.assay.TargetSiteTestResult addMosquitosWithTargetSiteResults(dss.vector.solutions.entomology.Mosquito mosquito)
-  {
-    return (dss.vector.solutions.entomology.assay.TargetSiteTestResult) addParent(mosquito, dss.vector.solutions.entomology.assay.TargetSiteTestResult.CLASS);
-  }
-  
-  public void removeMosquitosWithTargetSiteResults(dss.vector.solutions.entomology.Mosquito mosquito)
-  {
-    removeAllParents(mosquito, dss.vector.solutions.entomology.assay.TargetSiteTestResult.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.Mosquito> getAllMosquitosWithTargetSiteResults()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.Mosquito>) getParents(dss.vector.solutions.entomology.assay.TargetSiteTestResult.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.assay.TargetSiteTestResult> getAllMosquitosWithTargetSiteResultsRel()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.assay.TargetSiteTestResult>) getParentRelationships(dss.vector.solutions.entomology.assay.TargetSiteTestResult.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.entomology.assay.TargetSiteTestResult getMosquitosWithTargetSiteResultsRel(dss.vector.solutions.entomology.Mosquito mosquito)
-  {
-    com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.assay.TargetSiteTestResult> iterator = (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.entomology.assay.TargetSiteTestResult>) getRelationshipsWithParent(mosquito, dss.vector.solutions.entomology.assay.TargetSiteTestResult.CLASS);
     try
     {
       if (iterator.hasNext())

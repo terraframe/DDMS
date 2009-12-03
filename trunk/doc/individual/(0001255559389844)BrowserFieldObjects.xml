@@ -39,13 +39,6 @@
           key="dss.vector.solutions.intervention.monitor.IndividualIPTView.doseType" />
       </object>
       <object
-        key="Ontology__dss.vector.solutions.entomology.MosquitoCollection.collectionMethod"
-        type="dss.vector.solutions.ontology.BrowserField">
-        <attributeReference
-          name="mdAttribute"
-          key="dss.vector.solutions.entomology.MosquitoCollection.collectionMethod" />
-      </object>
-      <object
         key="Ontology__dss.vector.solutions.general.Insecticide.activeIngredient"
         type="dss.vector.solutions.ontology.BrowserField">
         <attributeReference
@@ -413,9 +406,6 @@
         type="dss.vector.solutions.ontology.BrowserField" />
       <object
         key="Ontology__dss.vector.solutions.intervention.monitor.IndividualIPTView.doseType"
-        type="dss.vector.solutions.ontology.BrowserField" />
-      <object
-        key="Ontology__dss.vector.solutions.entomology.MosquitoCollection.collectionMethod"
         type="dss.vector.solutions.ontology.BrowserField" />
       <object
         key="Ontology__dss.vector.solutions.general.Insecticide.activeIngredient"
