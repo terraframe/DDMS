@@ -509,6 +509,7 @@ Mojo.Meta.newClass('MDSS.DataSource', {
       this.searchFunction = searchFunction;
       this.requestCount = 0;
       this.currentRequest = 0;
+      this.cache = {};
     },
     
     nextNumber : function() {
@@ -517,6 +518,8 @@ Mojo.Meta.newClass('MDSS.DataSource', {
     
     retrievedResults : function(value, requestNumber, results) {
       // IMPORTANT : This check then act has a race condition, however I do not if semaphores exit in javascript 
+      this.cache[value] = results;
+      
       if(requestNumber > this.currentRequest) {
         this.currentRequest = requestNumber;
         
@@ -524,7 +527,7 @@ Mojo.Meta.newClass('MDSS.DataSource', {
       }
     },
     
-    getResults : function(value, parameters) {
+    getResultsFromServer : function(value, parameters) {
       var requestNumber = this.nextNumber();
 
       // Create the MDSS request
@@ -540,12 +543,12 @@ Mojo.Meta.newClass('MDSS.DataSource', {
           this.that.retrievedResults(this.value, this.requestNumber, results);
         }
       });
-        
+          
       if(parameters) {
         if(Mojo.Util.isArray(parameters)) {
           var args = [request,value];
           args = args.concat(this.getParameters());
-          
+           
           this.searchFunction.apply(this,args);
         }
         else {
@@ -555,6 +558,16 @@ Mojo.Meta.newClass('MDSS.DataSource', {
       else {
         this.searchFunction(request, value);  
       }        
+    },
+    
+    getResults : function(value, parameters) {
+      if(this.cache[value]) {
+        var requestNumber = this.nextNumber();
+        this.retrievedResults(value, requestNumber, this.cache[value]);
+      }
+      else {
+        this.getResultsFromServer(value, parameters);
+      }
     }        
   }
 });
