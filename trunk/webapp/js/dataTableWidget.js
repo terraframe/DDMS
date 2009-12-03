@@ -230,6 +230,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 		    if (this.tableData.after_row_load) {
 		      this.tableData.after_row_load(this.record);
 		    }
+		    this.recordIndex++;
 		  },this);
     	this.record = null;
     	this.recordIndex  = null;
