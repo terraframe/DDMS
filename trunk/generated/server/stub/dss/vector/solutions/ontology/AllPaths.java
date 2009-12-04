@@ -1,21 +1,24 @@
 package dss.vector.solutions.ontology;
 
-import java.security.SecureRandom;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Savepoint;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.terraframe.mojo.constants.ComponentInfo;
+import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.constants.ServerConstants;
 import com.terraframe.mojo.constants.ServerProperties;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
+import com.terraframe.mojo.dataaccess.database.general.PostgreSQL;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -24,8 +27,8 @@ import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.session.SessionIF;
 import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.terraframe.mojo.system.metadata.MdRelationship;
 import com.terraframe.mojo.util.IdParser;
-
 
 public class AllPaths extends AllPathsBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -57,9 +60,234 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
 
     mdBusiness.deleteAllTableRecords();
 
-//    updateAllPaths();
+    buildAllPathsFast();
+  }
 
-    updateAllPathsStoredProc();
+  @Transaction
+  public static void buildAllPathsFast()
+  {
+    String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
+    String termRelationshipTable = MdRelationship.getMdElement(TermRelationship.CLASS).getTableName();
+    String allPathsTable = MdBusiness.getMdBusiness(AllPaths.CLASS).getTableName();
+    String allPathsRootTypeId = IdParser.parseRootFromId(MdBusiness.getMdBusiness(AllPaths.CLASS).getId());
+    String sitemaster = ServerProperties.getDomain();
+    Date transactionDate = new Date();
+    String createdById;
+    SessionIF sessionIF = Session.getCurrentSession();
+    if (sessionIF != null)
+    {
+      createdById = sessionIF.getUser().getId();
+    }
+    else
+    {
+      createdById = ServerConstants.SYSTEM_USER_ID;
+    }
+
+    QueryFactory qf = new QueryFactory();
+    OntologyRelationshipQuery orQ = new OntologyRelationshipQuery(qf);
+
+    for (OntologyRelationship ontologyRelationship : orQ.getIterator())
+    {
+      String sql = "INSERT INTO "+allPathsTable+" (\n" +
+      "  "+AllPaths.getIdMd().definesAttribute().toLowerCase()+",\n" +
+      "  "+AllPaths.getSiteMasterMd().definesAttribute().toLowerCase()+",\n" +
+      "  "+AllPaths.getKeyNameMd().definesAttribute().toLowerCase()+",\n" +
+      "  "+AllPaths.getTypeMd().definesAttribute().toLowerCase()+",\n" +
+      "  "+AllPaths.getEntityDomainMd().definesAttribute().toLowerCase()+",\n" +
+      "  "+AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase()+",\n" +
+      "  "+AllPaths.getSeqMd().definesAttribute().toLowerCase()+",\n" +
+      "  "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
+      "  "+AllPaths.getLockedByMd().definesAttribute().toLowerCase()+",\n" +
+      "  "+AllPaths.getCreateDateMd().definesAttribute().toLowerCase()+",\n" +
+      "  "+AllPaths.getOwnerMd().definesAttribute().toLowerCase()+",\n" +
+      "  "+AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase()+",\n" +
+      "  "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+",\n" +
+      "  "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+",\n" +
+      "  "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+"\n" +
+      ") \n" +
+
+      "SELECT  \n" +
+      "    md5(term1."+AllPaths.getIdMd().definesAttribute().toLowerCase()+" || term2."+AllPaths.getIdMd().definesAttribute().toLowerCase()+" ) || '"+allPathsRootTypeId+"',\n" +
+      "    '"+sitemaster+"'                                       AS "+AllPaths.getSiteMasterMd().definesAttribute().toLowerCase()+",\n" +
+      "    md5(term1."+AllPaths.getIdMd().definesAttribute().toLowerCase()+" || term2."+AllPaths.getIdMd().definesAttribute().toLowerCase()+" ) || '"+allPathsRootTypeId+"' AS "+AllPaths.getKeyNameMd().definesAttribute().toLowerCase()+",\n" +
+      "    '"+AllPaths.CLASS+"'                                   AS \""+AllPaths.getTypeMd().definesAttribute().toLowerCase()+"\",\n" +
+      "    ''                                                     AS "+AllPaths.getEntityDomainMd().definesAttribute().toLowerCase()+",\n" +
+      "    ?                                                      AS "+AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase()+",\n" +
+      "    NEXTVAL('"+PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE+"')    AS "+AllPaths.getSeqMd().definesAttribute().toLowerCase()+",\n" +
+      "    '"+createdById+"'                                      AS "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
+      "    null                                                   AS "+AllPaths.getLockedByMd().definesAttribute().toLowerCase()+",\n" +
+      "    ?                                                      AS "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
+      "    '"+createdById+"'                                      AS \""+AllPaths.getOwnerMd().definesAttribute().toLowerCase()+"\",\n" +
+      "    '"+createdById+"'                                      AS "+AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase()+",\n" +
+      "    recurs_rel."+RelationshipInfo.PARENT_ID+"              AS "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+", \n" +
+      "    recurs_rel.root_id                                     AS "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+", \n" +
+      "    '"+ontologyRelationship.getId()+"                      AS "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" \n" +
+
+      "FROM "+termTable+" as term1, "+termTable+" as term2,\n" +
+      " (SELECT root_id, "+RelationshipInfo.PARENT_ID+", "+RelationshipInfo.CHILD_ID+" \n"+
+      " FROM \n"+
+      "  ( WITH RECURSIVE quick_paths AS \n"+
+      "    ( SELECT "+RelationshipInfo.CHILD_ID+" AS root_id, "+RelationshipInfo.CHILD_ID+", "+RelationshipInfo.PARENT_ID+" \n"+
+      "      FROM "+termRelationshipTable+" \n" +
+      "      WHERE "+termRelationshipTable+"."+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" = '"+ontologyRelationship.getId()+"' \n"+
+      "      UNION \n"+
+      "      SELECT a.root_id, b."+RelationshipInfo.CHILD_ID+", b."+RelationshipInfo.PARENT_ID+" \n"+
+      "      FROM quick_paths a, "+termRelationshipTable+" b \n"+
+      "      WHERE b."+RelationshipInfo.CHILD_ID+" = a."+RelationshipInfo.PARENT_ID+" \n"+
+      "      AND b."+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" = '"+ontologyRelationship.getId()+"' \n"+
+      "    ) \n"+
+      "    SELECT root_id, root_id as "+RelationshipInfo.CHILD_ID+", "+RelationshipInfo.PARENT_ID+" \n"+
+      "    FROM quick_paths \n"+
+      "    UNION \n"+
+      "    SELECT "+AllPaths.getIdMd().definesAttribute().toLowerCase()+", "+AllPaths.getIdMd().definesAttribute().toLowerCase()+", "+AllPaths.getIdMd().definesAttribute().toLowerCase()+" \n"+
+      "    FROM "+termTable+" \n"+
+      "    WHERE "+AllPaths.getIdMd().definesAttribute().toLowerCase()+" IN \n"+
+      "      (SELECT "+RelationshipInfo.PARENT_ID+" \n"+
+      "       FROM "+termRelationshipTable+" \n"+
+      "       WHERE "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" = '"+ontologyRelationship.getId()+"' \n"+
+      "      ) \n"+
+      "     OR "+AllPaths.getIdMd().definesAttribute().toLowerCase()+" IN \n"+
+      "      (SELECT "+RelationshipInfo.CHILD_ID+" \n"+
+      "       FROM "+termRelationshipTable+" \n"+
+      "       WHERE "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" = '"+ontologyRelationship.getId()+"' \n"+
+      "      )\n"+
+      "  ) AS inner_recurs_rel) AS recurs_rel \n" +
+      "WHERE term1."+AllPaths.getIdMd().definesAttribute().toLowerCase()+" = recurs_rel."+RelationshipInfo.PARENT_ID+" AND term2."+AllPaths.getIdMd().definesAttribute().toLowerCase()+" = recurs_rel.root_id\n";
+
+      Connection conn = Database.getConnection();
+
+      PreparedStatement prepared = null;
+
+      try
+      {
+        prepared = conn.prepareStatement(sql);
+        prepared.setTimestamp(1, new Timestamp(transactionDate.getTime()));
+        prepared.setTimestamp(2, new Timestamp(transactionDate.getTime()));
+        prepared.executeUpdate();
+      }
+      catch (SQLException e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
+      finally
+      {
+        if (prepared != null)
+        {
+          try
+          {
+            prepared.close();
+          }
+          catch (SQLException e)
+          {
+            throw new ProgrammingErrorException(e);
+          }
+        }
+      }
+
+    }
+  }
+
+
+  @Transaction
+  public static void copyTermFast(String newParentTermId, String childTermId, String ontologyRelationshipId)
+  {
+    String allPathsTable = MdBusiness.getMdBusiness(AllPaths.CLASS).getTableName();
+    String allPathsRootTypeId = IdParser.parseRootFromId(MdBusiness.getMdBusiness(AllPaths.CLASS).getId());
+    String sitemaster = ServerProperties.getDomain();
+    Date transactionDate = new Date();
+    String createdById;
+    SessionIF sessionIF = Session.getCurrentSession();
+    if (sessionIF != null)
+    {
+      createdById = sessionIF.getUser().getId();
+    }
+    else
+    {
+      createdById = ServerConstants.SYSTEM_USER_ID;
+    }
+
+    String sql = "INSERT INTO "+allPathsTable+" (\n" +
+    "  "+AllPaths.getIdMd().definesAttribute().toLowerCase()+",\n" +
+    "  "+AllPaths.getSiteMasterMd().definesAttribute().toLowerCase()+",\n" +
+    "  "+AllPaths.getKeyNameMd().definesAttribute().toLowerCase()+",\n" +
+    "  "+AllPaths.getTypeMd().definesAttribute().toLowerCase()+",\n" +
+    "  "+AllPaths.getEntityDomainMd().definesAttribute().toLowerCase()+",\n" +
+    "  "+AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase()+",\n" +
+    "  "+AllPaths.getSeqMd().definesAttribute().toLowerCase()+",\n" +
+    "  "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
+    "  "+AllPaths.getLockedByMd().definesAttribute().toLowerCase()+",\n" +
+    "  "+AllPaths.getCreateDateMd().definesAttribute().toLowerCase()+",\n" +
+    "  "+AllPaths.getOwnerMd().definesAttribute().toLowerCase()+",\n" +
+    "  "+AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase()+",\n" +
+    "  "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+",\n" +
+    "  "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+",\n" +
+    "  "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+"\n" +
+    ") \n" +
+    " SELECT \n"+
+    "   MD5(allpaths_parent."+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" || allpaths_child."+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+" ) || '"+allPathsRootTypeId+"' AS newId,\n" +
+    "    '"+sitemaster+"'                                       AS "+AllPaths.getSiteMasterMd().definesAttribute().toLowerCase()+",\n" +
+    "   MD5(allpaths_parent."+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" || allpaths_child."+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+" ) || '"+allPathsRootTypeId+"' AS newKey,\n" +
+    "    '"+AllPaths.CLASS+"'                                   AS \""+AllPaths.getTypeMd().definesAttribute().toLowerCase()+"\",\n" +
+    "    ''                                                     AS "+AllPaths.getEntityDomainMd().definesAttribute().toLowerCase()+",\n" +
+    "    ?                                                      AS "+AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase()+",\n" +
+    "    NEXTVAL('"+PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE+"')    AS "+AllPaths.getSeqMd().definesAttribute().toLowerCase()+",\n" +
+    "    '"+createdById+"'                                      AS "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
+    "    NULL                                                   AS "+AllPaths.getLockedByMd().definesAttribute().toLowerCase()+",\n" +
+    "    ?                                                      AS "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
+    "    '"+createdById+"'                                      AS \""+AllPaths.getOwnerMd().definesAttribute().toLowerCase()+"\",\n" +
+    "    '"+createdById+"'                                      AS "+AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase()+",\n" +
+    "    allpaths_parent."+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" AS "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+", \n" +
+    "    allpaths_child."+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+"   AS "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+", \n" +
+    "    '"+ontologyRelationshipId+"'                           AS "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" \n" +
+    " FROM \n"+
+    // Fech all of the recursive children of the given child term, including the child term itself.
+    "  (SELECT "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+" \n"+
+    "    FROM "+allPathsTable+" \n"+
+    "     WHERE "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" = '"+childTermId+"' \n"+
+    "       AND "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" = '"+ontologyRelationshipId+"') AS allpaths_child, \n"+
+    // Fech all of the recursive parents of the given new parent term, including the new parent term itself.
+    "  (SELECT "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" \n"+
+    "     FROM "+allPathsTable+" \n"+
+    "    WHERE "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+" = '"+newParentTermId+"' \n"+
+    "      AND "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" = '"+ontologyRelationshipId+"' \n"+
+    "    ) AS allpaths_parent \n"+
+    // Since a term can have multiple parents, a path to one of the new parent's parents may already exist
+    " WHERE allpaths_parent."+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" NOT IN \n"+
+    "   (SELECT "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" \n"+
+    "      FROM "+allPathsTable+" \n"+
+    "     WHERE "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" = allpaths_parent."+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" \n"+
+    "      AND "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+" = allpaths_child."+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+" \n"+
+    "      AND "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" = '"+ontologyRelationshipId+"') \n";
+
+    Connection conn = Database.getConnection();
+
+    PreparedStatement prepared = null;
+
+    try
+    {
+      prepared = conn.prepareStatement(sql);
+      prepared.setTimestamp(1, new Timestamp(transactionDate.getTime()));
+      prepared.setTimestamp(2, new Timestamp(transactionDate.getTime()));
+      prepared.executeUpdate();
+    }
+    catch (SQLException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    finally
+    {
+      if (prepared != null)
+      {
+        try
+        {
+          prepared.close();
+        }
+        catch (SQLException e)
+        {
+          throw new ProgrammingErrorException(e);
+        }
+      }
+    }
   }
 
 
@@ -105,145 +333,150 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
     }
   }
 
-  @Transaction
-  public static void updateAllPathsStoredProc()
-  {
-    Connection conn = Database.getConnection();
+  //Heads up: clean up?
+//  @Transaction
+//  public static void updateAllPathsStoredProc()
+//  {
+//    Connection conn = Database.getConnection();
+//
+//    MdBusiness mdBussinessAllPaths = MdBusiness.getMdBusiness(AllPaths.CLASS);
+//
+//    String allPathsRootTypeId = IdParser.parseRootFromId(mdBussinessAllPaths.getId());
+//    SecureRandom random = new SecureRandom();
+//    long randomLong = random.nextLong();
+//    String domain = ServerProperties.getDomain();
+//
+//    String createdById;
+//    SessionIF sessionIF = Session.getCurrentSession();
+//    if (sessionIF != null)
+//    {
+//      createdById = sessionIF.getUser().getId();
+//    }
+//    else
+//    {
+//      createdById = ServerConstants.SYSTEM_USER_ID;
+//    }
+//    Date transactionDate = new Date();
+//    QueryFactory qf = new QueryFactory();
+//    OntologyRelationshipQuery orQ = new OntologyRelationshipQuery(qf);
+//
+//    for (OntologyRelationship ontologyRelationship : orQ.getIterator())
+//    {
+//      String ontologyRelationshipId = ontologyRelationship.getId();
+//      String procCallString = "{ call dss_ontology_build_allpaths(?, ?, ?, ?, ?, ?)}";
+//
+//      CallableStatement procCall = null;
+//
+//      try
+//      {
+//        procCall = conn.prepareCall(procCallString);
+//        procCall.setString(1, allPathsRootTypeId);
+//        procCall.setLong(2, randomLong);
+//        procCall.setString(3, domain);
+//        procCall.setString(4, createdById);
+//        procCall.setDate(5, new java.sql.Date(transactionDate.getTime()));
+//        procCall.setString(6, ontologyRelationshipId);
+//        procCall.execute();
+//      }
+//      catch (SQLException e)
+//      {
+//        throw new ProgrammingErrorException(e);
+//      }
+//      finally
+//      {
+//        if (procCall != null)
+//        {
+//          try
+//          {
+//            procCall.close();
+//          }
+//          catch (SQLException e2)
+//          {
+//            throw new ProgrammingErrorException(e2);
+//          }
+//        }
+//      }
+//    }
+//
+//  }
+//
+//  public static void copyTermStoredProc(String newParentTermId, String childTermId, String ontologyRelationshipId)
+//  {
+//    Connection conn = Database.getConnection();
+//
+//    MdBusiness mdBussinessAllPaths = MdBusiness.getMdBusiness(AllPaths.CLASS);
+//
+//    String allPathsRootTypeId = IdParser.parseRootFromId(mdBussinessAllPaths.getId());
+//    SecureRandom random = new SecureRandom();
+//    long randomLong = random.nextLong();
+//    String domain = ServerProperties.getDomain();
+//
+//    String createdById;
+//    SessionIF sessionIF = Session.getCurrentSession();
+//    if (sessionIF != null)
+//    {
+//      createdById = sessionIF.getUser().getId();
+//    }
+//    else
+//    {
+//      createdById = ServerConstants.SYSTEM_USER_ID;
+//    }
+//    Date transactionDate = new Date();
+//
+//    String procCallString = "{ call dss_ontology_copy_term(?, ?, ?, ?, ?, ?, ?, ?)}";
+//
+//    CallableStatement procCall = null;
+//
+//    try
+//    {
+//      procCall = conn.prepareCall(procCallString);
+//      procCall.setString(1, allPathsRootTypeId);
+//      procCall.setLong(2, randomLong);
+//      procCall.setString(3, domain);
+//      procCall.setString(4, createdById);
+//      procCall.setDate(5, new java.sql.Date(transactionDate.getTime()));
+//      procCall.setString(6, newParentTermId);
+//      procCall.setString(7, childTermId);
+//      procCall.setString(8, ontologyRelationshipId);
+//      procCall.execute();
+//
+//      /*
+//      _allPathsRootTypeId     VARCHAR,
+//      _random                 BIGINT,
+//      _sitemaster             allpaths.sitemaster%TYPE,
+//      _createdById            allpaths.id%TYPE,
+//      _transactionDate        allpaths.createdate%TYPE,
+//      _newParentTerm          allpaths.parentterm%TYPE,
+//      _childTerm              allpaths.childterm%TYPE,
+//      _ontologyRelationshipId allpaths.ontologyrelationship%TYPE
+//    */
+//    }
+//    catch (SQLException e)
+//    {
+//      throw new ProgrammingErrorException(e);
+//    }
+//    finally
+//    {
+//      if (procCall != null)
+//      {
+//        try
+//        {
+//          procCall.close();
+//        }
+//        catch (SQLException e2)
+//        {
+//          throw new ProgrammingErrorException(e2);
+//        }
+//      }
+//    }
+//
+//  }
 
-    MdBusiness mdBussinessAllPaths = MdBusiness.getMdBusiness(AllPaths.CLASS);
 
-    String allPathsRootTypeId = IdParser.parseRootFromId(mdBussinessAllPaths.getId());
-    SecureRandom random = new SecureRandom();
-    long randomLong = random.nextLong();
-    String domain = ServerProperties.getDomain();
-
-    String createdById;
-    SessionIF sessionIF = Session.getCurrentSession();
-    if (sessionIF != null)
-    {
-      createdById = sessionIF.getUser().getId();
-    }
-    else
-    {
-      createdById = ServerConstants.SYSTEM_USER_ID;
-    }
-    Date transactionDate = new Date();
-    QueryFactory qf = new QueryFactory();
-    OntologyRelationshipQuery orQ = new OntologyRelationshipQuery(qf);
-
-    for (OntologyRelationship ontologyRelationship : orQ.getIterator())
-    {
-      String ontologyRelationshipId = ontologyRelationship.getId();
-      String procCallString = "{ call dss_ontology_build_allpaths(?, ?, ?, ?, ?, ?)}";
-
-      CallableStatement procCall = null;
-
-      try
-      {
-        procCall = conn.prepareCall(procCallString);
-        procCall.setString(1, allPathsRootTypeId);
-        procCall.setLong(2, randomLong);
-        procCall.setString(3, domain);
-        procCall.setString(4, createdById);
-        procCall.setDate(5, new java.sql.Date(transactionDate.getTime()));
-        procCall.setString(6, ontologyRelationshipId);
-        procCall.execute();
-      }
-      catch (SQLException e)
-      {
-        throw new ProgrammingErrorException(e);
-      }
-      finally
-      {
-        if (procCall != null)
-        {
-          try
-          {
-            procCall.close();
-          }
-          catch (SQLException e2)
-          {
-            throw new ProgrammingErrorException(e2);
-          }
-        }
-      }
-    }
-
-  }
-
-  public static void copyTerm(String newParentTermId, String childTerm, String ontologyRelationshipId)
-  {
-    Connection conn = Database.getConnection();
-
-    MdBusiness mdBussinessAllPaths = MdBusiness.getMdBusiness(AllPaths.CLASS);
-
-    String allPathsRootTypeId = IdParser.parseRootFromId(mdBussinessAllPaths.getId());
-    SecureRandom random = new SecureRandom();
-    long randomLong = random.nextLong();
-    String domain = ServerProperties.getDomain();
-
-    String createdById;
-    SessionIF sessionIF = Session.getCurrentSession();
-    if (sessionIF != null)
-    {
-      createdById = sessionIF.getUser().getId();
-    }
-    else
-    {
-      createdById = ServerConstants.SYSTEM_USER_ID;
-    }
-    Date transactionDate = new Date();
-
-    String procCallString = "{ call dss_ontology_copy_term(?, ?, ?, ?, ?, ?, ?, ?)}";
-
-    CallableStatement procCall = null;
-
-    try
-    {
-      procCall = conn.prepareCall(procCallString);
-      procCall.setString(1, allPathsRootTypeId);
-      procCall.setLong(2, randomLong);
-      procCall.setString(3, domain);
-      procCall.setString(4, createdById);
-      procCall.setDate(5, new java.sql.Date(transactionDate.getTime()));
-      procCall.setString(6, newParentTermId);
-      procCall.setString(7, childTerm);
-      procCall.setString(8, ontologyRelationshipId);
-      procCall.execute();
-
-      /*
-      _allPathsRootTypeId     VARCHAR,
-      _random                 BIGINT,
-      _sitemaster             allpaths.sitemaster%TYPE,
-      _createdById            allpaths.id%TYPE,
-      _transactionDate        allpaths.createdate%TYPE,
-      _newParentTerm          allpaths.parentterm%TYPE,
-      _childTerm              allpaths.childterm%TYPE,
-      _ontologyRelationshipId allpaths.ontologyrelationship%TYPE
-    */
-    }
-    catch (SQLException e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
-    finally
-    {
-      if (procCall != null)
-      {
-        try
-        {
-          procCall.close();
-        }
-        catch (SQLException e2)
-        {
-          throw new ProgrammingErrorException(e2);
-        }
-      }
-    }
-
-  }
-
-
+  /**
+   * This procedure rebuilds the allpaths table using the object API.  It is much slower than
+   * using a database stored procedure or some SQL wizardry.
+   */
   public static void updateAllPaths()
   {
     OntologyRelationship ontologyRelationship_IsA = OntologyRelationship.getByKey(OBO.IS_A);
