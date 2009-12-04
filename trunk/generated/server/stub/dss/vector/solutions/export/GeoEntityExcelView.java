@@ -1,9 +1,12 @@
 package dss.vector.solutions.export;
 
 import com.terraframe.mojo.business.BusinessFacade;
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
+import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.metadata.MdBusiness;
@@ -28,6 +31,9 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.te
   public void apply()
   {
     String entityType = getEntityType();
+    if (entityType == null) {
+    	throw new DataNotFoundException("Invalid value: " + this.getGeoType(), MdTypeDAO.getMdTypeDAO(GeoHierarchy.CLASS));
+    }
     GeoEntity entity = (GeoEntity) BusinessFacade.newBusiness(entityType);
     entity.setEntityName(this.getEntityName());
     entity.setActivated(this.getActivated() != null && this.getActivated());
@@ -42,13 +48,20 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.te
   {
     String fullGeoType = this.getGeoType();
     int lastDot = fullGeoType.lastIndexOf('.');
-    String geoPackage = fullGeoType.substring(0, lastDot);
-    String geoType = fullGeoType.substring(lastDot+1);
+    
+    String geoPackage = null;
+    String geoType = null;
+    if (lastDot > 0) {
+    	geoPackage = fullGeoType.substring(0, lastDot);
+    	geoType = fullGeoType.substring(lastDot+1);
+    } else {
+        geoPackage = "dss.vector.solutions.geo.generated";
+        geoType = fullGeoType;
+    }
     
     MdBusinessQuery query = new MdBusinessQuery(new QueryFactory());
-//    query.WHERE(query.getDisplayLabel().currentLocale().EQ(this.getGeoType()));
     query.WHERE(query.getPackageName().EQ(geoPackage));
-    query.WHERE(query.getTypeName().EQ(geoType));
+    query.AND(OR.get(query.getTypeName().EQ(geoType), query.getDisplayLabel().currentLocale().EQ(geoType)));
     OIterator<? extends MdBusiness> iterator = query.getIterator();
     try
     {
@@ -68,7 +81,7 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.te
   public String getGeoId()
   {
     String superId = super.getGeoId();
-    return superId.split("\\.")[0];
+    return superId; //.split("\\.")[0];
   }
   
   public static void setupImportListener(ExcelImporter importer, String... params)
