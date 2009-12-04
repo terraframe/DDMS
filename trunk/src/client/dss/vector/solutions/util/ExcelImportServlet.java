@@ -7,7 +7,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -39,8 +38,6 @@ public class ExcelImportServlet extends HttpServlet
   @SuppressWarnings("unchecked")
   protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
   {
-    ResourceBundle localized = ResourceBundle.getBundle("MDSS");
-
     if (!ServletFileUpload.isMultipartContent(req))
     {
       req.setAttribute(TYPE, req.getParameter(TYPE));
@@ -87,7 +84,7 @@ public class ExcelImportServlet extends HttpServlet
       // No file was uploaded
       if (size==0)
       {
-        req.setAttribute(ErrorUtility.ERROR_MESSAGE, localized.getString("File_Upload_Blank"));
+        req.setAttribute(ErrorUtility.ERROR_MESSAGE, MDSSProperties.getString("File_Upload_Blank"));
         req.setAttribute(TYPE, fields.get(TYPE));
         req.getRequestDispatcher("/WEB-INF/excelImport.jsp").forward(req, res);
         return;
@@ -110,7 +107,7 @@ public class ExcelImportServlet extends HttpServlet
         {
           res.setContentType("text/html;charset=UTF-8");
           res.setCharacterEncoding("UTF-8");
-          res.getWriter().write(localized.getString("File_Required"));
+          res.getWriter().write(MDSSProperties.getString("File_Required"));
 
           return; // error case
         }
@@ -169,7 +166,7 @@ public class ExcelImportServlet extends HttpServlet
     {
       res.setContentType("text/html;charset=UTF-8");
       res.setCharacterEncoding("UTF-8");
-      res.getWriter().write(localized.getString("File_Upload_Success"));
+      res.getWriter().write(MDSSProperties.getString("File_Upload_Success"));
     }
     else
     {

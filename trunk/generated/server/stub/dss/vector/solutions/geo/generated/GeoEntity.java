@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 import com.terraframe.mojo.business.Business;
@@ -80,6 +79,7 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.ActionNotAllowedException;
 import dss.vector.solutions.util.GeoEntityImporter;
+import dss.vector.solutions.util.MDSSProperties;
 
 public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -1670,13 +1670,13 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
           if (GeoHierarchy.isAncestor(this.getType(), universalType))
           {
-            return ResourceBundle.getBundle("MDSS").getString("Epidemic");
+            return MDSSProperties.getString("Epidemic");
           }
         }
       }
     }
 
-    return ResourceBundle.getBundle("MDSS").getString("Outbreak");
+    return MDSSProperties.getString("Outbreak");
   }
   /**
    * Returns all attributes that reference the GeoEntity class.

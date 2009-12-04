@@ -2,7 +2,6 @@ package dss.vector.solutions;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ResourceBundle;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -19,6 +18,7 @@ import com.terraframe.mojo.controller.tag.develop.TagAnnotation;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.ontology.TermDTO;
+import dss.vector.solutions.util.MDSSProperties;
 
 @TagAnnotation(name = "mo", bodyContent = "empty", description = "MO input tag")
 public class MOTagSupport extends SimpleTagSupport implements Reloadable
@@ -216,9 +216,8 @@ public class MOTagSupport extends SimpleTagSupport implements Reloadable
 //    <span id="collectionMethodBtn" class="clickable">
 //      <img alt="Browser" src="./imgs/icons/tree.png" class="ontologyOpener">
 //    </span>
-    ResourceBundle localized = ResourceBundle.getBundle("MDSS");
-
-    String title = localized.getString("Browser");
+    
+    String title = MDSSProperties.getString("Browser");
     out.write("<span id=\"" + _id + "Btn\" class=\"clickable\">\n");
     out.write("<img alt=\"" + title + "\" title=\"" + title + "\" src=\"./imgs/icons/term.png\" class=\"ontologyOpener\">\n");
     out.write("</span>\n");

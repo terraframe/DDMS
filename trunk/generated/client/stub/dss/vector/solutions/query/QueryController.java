@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 
@@ -64,6 +63,7 @@ import dss.vector.solutions.surveillance.ChildCaseViewDTO;
 import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.Halp;
+import dss.vector.solutions.util.MDSSProperties;
 
 public class QueryController extends QueryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -167,8 +167,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   @Override
   public void uploadTemplate(String savedSearchId) throws IOException, ServletException
   {
-    ResourceBundle localized = ResourceBundle.getBundle("MDSS");
-
     String message = "";
 
     try
@@ -204,7 +202,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
 
       if (file == null)
       {
-        message = localized.getString("File_Required");
+        message = MDSSProperties.getString("File_Required");
         return;
       }
 
@@ -229,7 +227,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       search.setTemplateFile(templateDTO.getId());
       search.apply();
 
-      message = localized.getString("File_Upload_Success");
+      message = MDSSProperties.getString("File_Upload_Success");
     }
     catch (Throwable e)
     {
@@ -309,13 +307,12 @@ public class QueryController extends QueryControllerBase implements com.terrafra
 
       req.setAttribute("visibleAttributes", visible.toString());
 
-      ResourceBundle localized = ResourceBundle.getBundle("MDSS");
       JSONArray ordered = new JSONArray();
 
       // Referral
       JSONObject referral = new JSONObject();
       referral.put("type", TermDTO.CLASS);
-      referral.put("label", localized.getObject("Facility_referred"));
+      referral.put("label", MDSSProperties.getObject("Facility_referred"));
       referral.put("relType", CaseReferralDTO.CLASS);
       referral.put("relAttribute", CaseReferralDTO.AMOUNT);
       referral.put("options", new JSONArray());
@@ -324,7 +321,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       // Diagnostic
       JSONObject diagnostic = new JSONObject();
       diagnostic.put("type", TermDTO.CLASS);
-      diagnostic.put("label", localized.getObject("Diagnostic_methods"));
+      diagnostic.put("label", MDSSProperties.getObject("Diagnostic_methods"));
       diagnostic.put("relType", CaseDiagnosticDTO.CLASS);
       diagnostic.put("relAttribute", CaseDiagnosticDTO.AMOUNT);
       diagnostic.put("relAttributeTwo", CaseDiagnosticDTO.AMOUNTPOSITIVE);
@@ -334,7 +331,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       // TreatmentMethod
       JSONObject treatmentMethod = new JSONObject();
       treatmentMethod.put("type", TermDTO.CLASS);
-      treatmentMethod.put("label", localized.getObject("Treatment_methods"));
+      treatmentMethod.put("label", MDSSProperties.getObject("Treatment_methods"));
       treatmentMethod.put("relType", CaseTreatmentMethodDTO.CLASS);
       treatmentMethod.put("relAttribute", CaseTreatmentMethodDTO.AMOUNT);
       treatmentMethod.put("options", new JSONArray());
@@ -343,7 +340,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       // Treatment
       JSONObject treatment = new JSONObject();
       treatment.put("type", TermDTO.CLASS);
-      treatment.put("label", localized.getObject("Treatments"));
+      treatment.put("label", MDSSProperties.getObject("Treatments"));
       treatment.put("relType", CaseTreatmentDTO.CLASS);
       treatment.put("relAttribute", CaseTreatmentDTO.AMOUNT);
       treatment.put("options", new JSONArray());
@@ -352,7 +349,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       // CaseTreatmentStock
       JSONObject caseTreatmentStock = new JSONObject();
       caseTreatmentStock.put("type", TermDTO.CLASS);
-      caseTreatmentStock.put("label", localized.getObject("Treatment_out_of_Stock"));
+      caseTreatmentStock.put("label", MDSSProperties.getObject("Treatment_out_of_Stock"));
       caseTreatmentStock.put("relType", CaseTreatmentStockDTO.CLASS);
       caseTreatmentStock.put("relAttribute", CaseTreatmentStockDTO.OUTOFSTOCK);
       caseTreatmentStock.put("options", new JSONArray());
@@ -460,7 +457,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
 
       req.setAttribute("queryList", queries.toString());
 
-      ResourceBundle localized = ResourceBundle.getBundle("MDSS");
       JSONObject ordered = new JSONObject();
 
       Map<String, JSONObject> orderedMap = new HashMap<String, JSONObject>();
@@ -470,7 +466,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       // Patients
       JSONObject patients = new JSONObject();
       patients.put("type", TermDTO.CLASS);
-      patients.put("label", localized.getObject("Facility_referred"));
+      patients.put("label", MDSSProperties.getObject("Facility_referred"));
       patients.put("relType", IPTPatientsDTO.CLASS);
       patients.put("relAttribute", IPTPatientsDTO.AMOUNT);
       patients.put("options",getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYPATIENTS));
@@ -479,7 +475,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       // Doses
       JSONObject doses = new JSONObject();
       doses.put("type", TermDTO.CLASS);
-      doses.put("label", localized.getObject("Diagnostic_methods"));
+      doses.put("label", MDSSProperties.getObject("Diagnostic_methods"));
       doses.put("relType", IPTDoseDTO.CLASS);
       doses.put("relAttribute", IPTDoseDTO.AMOUNT);
       doses.put("options",getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYDOSE));
@@ -488,7 +484,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       // Visits
       JSONObject visits = new JSONObject();
       visits.put("type", TermDTO.CLASS);
-      visits.put("label", localized.getObject("Treatment_methods"));
+      visits.put("label", MDSSProperties.getObject("Treatment_methods"));
       visits.put("relType", IPTANCVisitDTO.CLASS);
       visits.put("relAttribute", IPTANCVisitDTO.AMOUNT);
       visits.put("options",getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYVISITS));
@@ -497,7 +493,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       // Treatment
       JSONObject treatment = new JSONObject();
       treatment.put("type", TermDTO.CLASS);
-      treatment.put("label", localized.getObject("Treatments"));
+      treatment.put("label", MDSSProperties.getObject("Treatments"));
       treatment.put("relType", IPTTreatmentDTO.CLASS);
       treatment.put("relAttribute", IPTTreatmentDTO.AMOUNT);
       treatment.put("options",getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYTREATMENTS));
@@ -788,14 +784,13 @@ public class QueryController extends QueryControllerBase implements com.terrafra
 
       req.setAttribute("queryList", queries.toString());
 
-      ResourceBundle localized = ResourceBundle.getBundle("MDSS");
       JSONObject ordered = new JSONObject();
       
 
       // Treatment
       JSONObject symptoms = new JSONObject();
       symptoms.put("type", TermDTO.CLASS);
-      symptoms.put("label", localized.getObject("Malaria_Symptom"));
+      symptoms.put("label", MDSSProperties.getObject("Malaria_Symptom"));
       symptoms.put("relType", IndividualCaseSymptomDTO.CLASS);
       symptoms.put("relAttribute", IndividualCaseSymptomDTO.HASSYMPTOM);
       symptoms.put("options", new JSONArray());

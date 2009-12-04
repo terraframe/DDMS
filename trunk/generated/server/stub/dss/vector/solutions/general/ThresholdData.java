@@ -2,7 +2,6 @@ package dss.vector.solutions.general;
 
 import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.ValueObject;
@@ -15,6 +14,7 @@ import com.terraframe.mojo.session.Session;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.util.MDSSProperties;
 
 public class ThresholdData extends ThresholdDataBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -289,7 +289,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
       if (!threshold.performedNotificationAlert())
       {
         String alertType = entity.getOutbreakAlert();
-        String thresholdType = ResourceBundle.getBundle("MDSS").getString("Alert");
+        String thresholdType = MDSSProperties.getString("Alert");
         String label = entity.getLabel();
 
         OutbreakAlert alert = new OutbreakAlert();
@@ -319,7 +319,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
       if (!!threshold.performedIdentificationAlert())
       {
         String alertType = entity.getOutbreakAlert();
-        String thresholdType = ResourceBundle.getBundle("MDSS").getString("Identification");
+        String thresholdType = MDSSProperties.getString("Identification");
         String label = entity.getLabel();
 
         OutbreakAlert alert = new OutbreakAlert();
