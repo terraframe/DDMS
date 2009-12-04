@@ -43,12 +43,6 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
-import com.terraframe.mojo.system.gis.metadata.MdAttributeLineString;
-import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiLineString;
-import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPoint;
-import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPolygon;
-import com.terraframe.mojo.system.gis.metadata.MdAttributePoint;
-import com.terraframe.mojo.system.gis.metadata.MdAttributePolygon;
 import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
@@ -585,11 +579,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   private static String defineGeoEntityInternal(GeoEntityDefinition definition)
   {
     boolean definesGeometry = false;
-    List<SpatialTypes> spatialTypes = definition.getSpatialType();
-    if (spatialTypes != null && spatialTypes.size() > 0)
-    {
-      definesGeometry = true;
-    }
 
     // define the new MdBusiness
     String typeName = definition.getTypeName();
@@ -611,52 +600,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     GeoHierarchy geoEntityH = GeoHierarchy.getGeoHierarchyFromType(GeoEntity.CLASS);
 
     String parentTypeGeoHierarchyId = definition.getParentTypeGeoHierarchyId();
-    MdBusiness parent;
-    GeoHierarchy parentH;
-    if (parentTypeGeoHierarchyId != null && parentTypeGeoHierarchyId.trim().length() > 0 && !parentTypeGeoHierarchyId.equals(geoEntityH.getId()))
-    {
-      parentH = GeoHierarchy.get(parentTypeGeoHierarchyId);
-      parent = parentH.getGeoEntityClass();
 
-      // make sure the user isn't trying to override the parent geometry.
-      if (definesGeometry)
-      {
-        // A parent in this case, which is not GeoEntity, MUST define an
-        // MdAttributeGeometry
-        // either itself or via one of its parents. If not, we have some
-        // problems ...
-        MdAttributeGeometry geoAttrMd = getGeometry(parent);
 
-        String geoLabel = geoAttrMd.getDisplayLabel().getValue();
-
-        String error = "Cannot define a geometry type because the parent [" + parent.getDisplayLabel().getValue() + "] already " + "defines the geometry [" + geoLabel + "].";
-        SpatialTypeDefinedException ex = new SpatialTypeDefinedException(error);
-        ex.setIsAParentLabel(parent.getDisplayLabel().getValue());
-        ex.setSpatialLabel(geoLabel);
-        throw ex;
-      }
-    }
-    else
-    {
-      if (!definesGeometry)
-      {
-        String error = "The universal [" + definition.getDisplayLabel() + "] must define a geometry attribute";
-        SpatialTypeRequiredException ex = new SpatialTypeRequiredException(error);
-        throw ex;
-      }
-
-      parent = geoEntityH.getGeoEntityClass();
-      parentH = geoEntityH;
-    }
-
+    MdBusiness parent = MdBusiness.getMdBusiness(GeoEntity.CLASS);
     mdGeoEntity.setSuperMdBusiness(parent);
     mdGeoEntity.apply();
-
-    // add the spatial attribute to the MdBusiness
-    if (definesGeometry)
-    {
-      addGeometryAttribute(mdGeoEntity, spatialTypes.get(0));
-    }
 
     // Define permissions on the new Universal
     RoleDAO guiVisibility = RoleDAO.findRole(MDSSRoleInfo.GUI_VISIBILITY).getBusinessDAO();
@@ -690,24 +638,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
 
     GeoHierarchy allowedIn = GeoHierarchy.get(definition.getParentGeoHierarchyId());
     geoHierarchy.addAllowedInGeoEntity(allowedIn).apply();
-
-    // copy the parent's allowed_in relationships
-    if (!parent.definesType().equals(GeoEntity.CLASS))
-    {
-      for (GeoHierarchy allowedInParent : parentH.getImmediateParents())
-      {
-        // avoid a duplicate with parent passed in via the GeoEntityDefinition
-        if (!allowedInParent.equals(allowedIn))
-        {
-          geoHierarchy.addAllowedInGeoEntity(allowedInParent).apply();
-        }
-      }
-
-      for (GeoHierarchy allowedInChild : parentH.getImmediateChildren())
-      {
-        geoHierarchy.addAcceptsGeoEntity(allowedInChild).apply();
-      }
-    }
 
     geoHierarchy.validateConsistentHierarchy();
 
@@ -779,69 +709,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     }
   }
 
-  /**
-   * Adds a Geometric attribute to the given MdBusiness.
-   * 
-   * @param mdGeoEntity
-   * @param spatialType
-   */
-  @Transaction
-  private static void addGeometryAttribute(MdBusiness mdGeoEntity, SpatialTypes spatialType)
-  {
-
-    MdAttributeGeometry attr;
-    if (spatialType == SpatialTypes.POINT)
-    {
-      attr = new MdAttributePoint();
-      attr.setAttributeName("point");
-    }
-    else if (spatialType == SpatialTypes.LINE)
-    {
-      attr = new MdAttributeLineString();
-      attr.setAttributeName("lineString");
-    }
-    else if (spatialType == SpatialTypes.POLYGON)
-    {
-      attr = new MdAttributePolygon();
-      attr.setAttributeName("polygon");
-    }
-    else if (spatialType == SpatialTypes.MULTI_POINT)
-    {
-      attr = new MdAttributeMultiPoint();
-      attr.setAttributeName("multiPoint");
-    }
-    else if (spatialType == SpatialTypes.MULTI_LINE)
-    {
-      attr = new MdAttributeMultiLineString();
-      attr.setAttributeName("multiLineString");
-    }
-    else if (spatialType == SpatialTypes.MULTI_POLYGON)
-    {
-      attr = new MdAttributeMultiPolygon();
-      attr.setAttributeName("multiPolygon");
-    }
-    else
-    {
-      String error = "The geometry type [" + spatialType.getDisplayLabel() + "] is not supported.";
-      throw new ProgrammingErrorException(error);
-    }
-
-    String attrDisplayLabel = spatialType.getDisplayLabel();
-
-    // if (!attrDisplayLabel.trim().equals(""))
-    // {
-    attr.getDisplayLabel().setDefaultValue(attrDisplayLabel);
-    // }
-
-    attr.setDefiningMdClass(mdGeoEntity);
-    attr.setSrid(SRID);
-    attr.apply();
-  }
 
   public GeoEntityDefinition getGeoEntityDefinition()
   {
     GeoEntityDefinition definition = new GeoEntityDefinition();
-    SpatialTypes spatialType = this.getSpatialType();
     MdBusiness mdBusiness = this.getGeoEntityClass();
     MdBusiness superMdBusiness = mdBusiness.getSuperMdBusiness();
 
@@ -853,11 +724,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     definition.setSprayTargetAllowed(this.getSprayTargetAllowed());
     definition.setPopulationAllowed(this.getPopulationAllowed());
 
-    if (spatialType != null)
-    {
-      definition.addSpatialType(spatialType);
-    }
-
     if (superMdBusiness != null)
     {
       String superId = superMdBusiness.getId();
@@ -867,37 +733,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     return definition;
   }
 
-  public SpatialTypes getSpatialType()
-  {
-    MdAttributeGeometry geometry = this.getGeometry();
-
-    if (geometry instanceof MdAttributePoint)
-    {
-      return SpatialTypes.POINT;
-    }
-    else if (geometry instanceof MdAttributeLineString)
-    {
-      return SpatialTypes.LINE;
-    }
-    else if (geometry instanceof MdAttributePolygon)
-    {
-      return SpatialTypes.POLYGON;
-    }
-    else if (geometry instanceof MdAttributeMultiPoint)
-    {
-      return SpatialTypes.MULTI_POINT;
-    }
-    else if (geometry instanceof MdAttributeMultiLineString)
-    {
-      return SpatialTypes.MULTI_LINE;
-    }
-    else if (geometry instanceof MdAttributeMultiPolygon)
-    {
-      return SpatialTypes.MULTI_POLYGON;
-    }
-
-    return null;
-  }
 
   /**
    * Locks this object and the MdBusiness which represents a GeoEntity subtype.

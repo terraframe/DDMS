@@ -14,7 +14,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
   
     initialize : function()
     {
-      var prefix = this.$class.getQualifiedName()+'_';
+      var prefix = this.getMetaClass().getQualifiedName()+'_';
       
       this._mainWindowId = prefix+'mainWindow';
       this._mainMinId = prefix+'mainMin';
@@ -65,7 +65,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
     
     addNewClass : function(inspector, args, returnObj, klass, method)
     {
-      var className = returnObj.$class.getQualifiedName();
+      var className = returnObj.getMetaClass().getQualifiedName();
       var r = '^'+className.replace('.', '\\.')+'$';
       var re = new RegExp(r);
       var methodRE = /^(?!toString).*$/;
@@ -499,14 +499,14 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Content', {
     
     viewClassAction : function(klass, content)
     {
-      var className = klass.$class.getQualifiedName();
+      var className = klass.getMetaClass().getQualifiedName();
       return com.terraframe.mojo.inspector.Content.makeA((content ? content : className), 'viewClass:'+className);
     },
   
     viewMethodAction : function(klass, method)
     {
       var m = method.getName();
-      return com.terraframe.mojo.inspector.Content.makeA(m, 'viewMethod:'+klass.$class.getQualifiedName() + '.' + m); 
+      return com.terraframe.mojo.inspector.Content.makeA(m, 'viewMethod:'+klass.getMetaClass().getQualifiedName() + '.' + m); 
     },
     
     viewTracerAction : function(id)
@@ -533,7 +533,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
     {
       this.$initialize(mainWin, tabId, contentId);
       
-      var prefix = this.$class.getQualifiedName()+'_';
+      var prefix = this.getMetaClass().getQualifiedName()+'_';
       this._classList = prefix+'classList';
       this._definition = prefix+'definition';
       this._method = prefix+'method';
@@ -568,7 +568,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
         var className = classes[i];
         var klass = Mojo.Meta.findClass(className);
         
-        var pckName = klass.$class.getPackage();
+        var pckName = klass.getMetaClass().getPackage();
         if(pckName !== '' && !pcks[pckName])
         {
           var a = this.constructor.makeA(pckName, pckName, true);
@@ -626,9 +626,9 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
         node += '|--'+that.constructor.viewClassAction(parent);
         node += '<ul style="margin:0px; padding-left:1em">';
 	
-        var subs = parent.$class.getSubClasses();
+        var subs = parent.getMetaClass().getSubClasses();
         subs.sort(function(c1, c2){
-          var n1 = c1.$class.getQualifiedName(), n2 = c2.$class.getQualifiedName();
+          var n1 = c1.getMetaClass().getQualifiedName(), n2 = c2.getMetaClass().getQualifiedName();
           if(n1 === n2)
           {
             return 0;
@@ -671,7 +671,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
       var methodName = qualifiedMethod.substring(ind+1);
       
       var klass = Mojo.Meta.findClass(className);
-      var method = klass.$class.getMethod(methodName);
+      var method = klass.getMetaClass().getMethod(methodName);
       
       var back = this.constructor.viewClassAction(klass, '&#8656;');
       
@@ -701,16 +701,16 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
     {
     
       var klass = Mojo.Meta.findClass(qualifiedName);
-      var $class = klass.$class;
+      var meta = klass.getMetaClass();
     
       var html = '';
       html += '<div style="margin: 10px">';
-      html += '<div style="font-weight: bold;">'+$class.toString()+'</div><hr />';
+      html += '<div style="font-weight: bold;">'+meta.toString()+'</div><hr />';
       
       var extendsName;
-      if($class.getSuperClass() !== Object)
+      if(meta.getSuperClass() !== Object)
       {
-        extendsName = this.constructor.viewClassAction($class.getSuperClass());
+        extendsName = this.constructor.viewClassAction(meta.getSuperClass());
       }
       else
       {
@@ -720,14 +720,14 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
       var tAttrs = 'cellpadding="3" cellspacing="0" border="1" style="font-size: 10pt; margin-bottom: 15px; white-space: nowrap; border-collapse: collapse"';
       var cellStyle = 'style="padding: 3px;"';
       
-      var pckName = $class.getPackage();
+      var pckName = meta.getPackage();
       if(pckName === '')
       {
         pckName = '&nbsp;';
       }
       
-      var alias = $class.getAlias();
-      var subclasses = $class.getSubClasses();
+      var alias = meta.getAlias();
+      var subclasses = meta.getSubClasses();
       var sublinks = [];
       for(var i=0; i<subclasses.length; i++)
       {
@@ -739,9 +739,9 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
       table = new com.terraframe.mojo.inspector.Table();
       table.setHeaders('Property', 'Value');
       table.addRow(['Package', pckName]);
-      table.addRow(['Class Name', $class.getName()]);
-      table.addRow(['Abstract', $class.isAbstract()]);
-      table.addRow(['Singleton', $class.isSingleton()]);
+      table.addRow(['Class Name', meta.getName()]);
+      table.addRow(['Abstract', meta.isAbstract()]);
+      table.addRow(['Singleton', meta.isSingleton()]);
       table.addRow(['Extends', extendsName]);
       table.addRow(['Sub Classes', (sublinks.length > 0 ? sublinks.join('<br />') : '&nbsp;')]);
       
@@ -753,7 +753,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
       table.setHeaders('Name', 'Value', 'Defined On');
       
       
-      var constants = $class.getConstants();
+      var constants = meta.getConstants();
       constants.sort(function(c1, c2){
         var n1 = c1.getName(), n2 = c2.getName();
         if(n1 === n2)
@@ -852,7 +852,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
       table = new com.terraframe.mojo.inspector.Table();
       table.setHeaders('Name', 'Abstract', 'Override', 'Arity', 'Defined On', 'Aspects');
       
-      methodsToRows(table, $class.getInstanceMethods(), this, false);
+      methodsToRows(table, meta.getInstanceMethods(), this, false);
       
       html += 'Instance Methods:<br />';
       html += table.getHTML();
@@ -862,7 +862,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
       table = new com.terraframe.mojo.inspector.Table();
       table.setHeaders('Name', 'Hiding', 'Arity', 'Defined On', 'Aspects');
       
-      methodsToRows(table, $class.getStaticMethods(), this, true);
+      methodsToRows(table, meta.getStaticMethods(), this, true);
       
       html += 'Static Methods:<br />';
       html += table.getHTML();
@@ -947,7 +947,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Logger', {
       var logger = new com.terraframe.mojo.inspector.LoggerImpl(this);
       Mojo.log.LogManager.addLogger(logger);
       
-      this._logTable = this.$class.getQualifiedName()+'_logTable';
+      this._logTable = this.getMetaClass().getQualifiedName()+'_logTable';
       this._table = null;
       this._errorBuffer = [];
     },
@@ -1030,7 +1030,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
       this.$initialize(mainWin, tabId, contentId);
       
       this._logger = logger;
-      this._tracerTable = this.$class.getQualifiedName()+'_tracerTable';
+      this._tracerTable = this.getMetaClass().getQualifiedName()+'_tracerTable';
       this._table = null;
     },
     

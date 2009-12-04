@@ -7,8 +7,9 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
     ROW_SUFFIX : "_row",
     TERM_SUFFIX : "_term",
     TERMNAME_SUFFIX : "_termName",
-    DEFAULT_DISPLAY_SUFFIX : "_defaultDisplay",
-    DEFAULT_TERM_SUFFIX : "_defaultTerm"
+    DEFAULT_DISPLAY_SUFFIX : "_defaultTermDisplay",
+    DEFAULT_TERM_SUFFIX : "_defaultTerm",
+    DEFAULT_TERM_BUTTON_SUFFIX : "_defaultTermBtn",
   },
   
   Instance : {
@@ -18,21 +19,19 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       // listen for all click events on main div.
       YAHOO.util.Event.on(this.constructor.DIV_ID, 'click', this._handleClick, null, this);
       
-      // Create the one instance of the OntologyBrowser that will
-      // be shared by all BrowserRoots. This is done because only one
-      // BrowserRoot can be edited at a time.
-      this._rootBrowser = new MDSS.OntologyBrowser(false);
-      this._rootBrowser.setHandler(this._setField, this);
-      
-      // Browser to be shared by all fields for setting a default Term
-      this._defaultBrowser = new MDSS.OntologyBrowser(false);
-      this._defaultBrowser.setHandler(this._setDefault, this);
-      
       // These fields point to the edit window/fields for the
       // BrowserRoot that is currently being edited.
       this._currentModal = null;
       this._currentRootInput = 'term';
       this._currentRootDisplay = 'termDisplay';
+      this._currentRootBtn = 'termBtn';
+
+      // Create the one instance of the OntologyBrowser that will
+      // be shared by all BrowserRoots. This is done because only one
+      // BrowserRoot can be edited at a time.
+      this._rootBrowser = new MDSS.OntologyBrowser(false);
+      this._rootBrowser.setHandler(this._setField, this);
+      this._rootSearch = null; // reference to current MO inline search panel
 
       // The id of the currently selected MdAttribute (field) in which a default term is being set.
       this._currentDefaultInput = null;
@@ -49,17 +48,72 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       this._rootController.setUpdateListener(updateB);
       
       // add events to open the browser to set the default field terms
-      var defaultTerms = YAHOO.util.Selector.query('.defaultTermBrowser');
+      var defaultTerms = YAHOO.util.Selector.query('div.defaultFieldTerm span');;
       Mojo.Iter.forEach(defaultTerms, function(defaultTerm){
       
-        var mdAttributeId = defaultTerm.id.replace(this.constructor.DEFAULT_DISPLAY_SUFFIX, '')
+        var mdAttributeId = defaultTerm.id.replace(this.constructor.DEFAULT_TERM_BUTTON_SUFFIX, '');
         var browser = new MDSS.OntologyBrowser(false, mdAttributeId);
         
         browser.setHandler(this._setDefault, this);
       
-        YAHOO.util.Event.on(defaultTerm, 'click', this._openDefaultBrowser, browser, this);
+        var obj = {browser: browser, mdAttributeId: mdAttributeId};
+        YAHOO.util.Event.on(defaultTerm, 'click', this._openDefaultBrowser, obj, this);
+          
+        // add event to open the browser for roots
+        var dF = Mojo.Util.bind(this, this._displayFunction);
+        var iF = Mojo.Util.bind(this, this._idFunction);
+        var lF = Mojo.Util.bind(this, this._listFunction);
+        var sF = Mojo.Util.bind(this, this._defaultSearch, mdAttributeId);
+        var sEH = Mojo.Util.bind(this, this._selectEventHandler, mdAttributeId);
+      
+        var display = mdAttributeId+this.constructor.DEFAULT_DISPLAY_SUFFIX;
+        var input = mdAttributeId+this.constructor.DEFAULT_TERM_SUFFIX;
+      
+        new MDSS.GenericSearch(display, input, lF, dF, iF, sF, sEH);
+          
       }, this);
     },
+    
+    _selectEventHandler : function(mdAttributeId, selected)
+    {
+      var view = new Mojo.$.dss.vector.solutions.ontology.FieldDefaultView();
+      view.setMdAttribute(mdAttributeId);
+
+      var request = new MDSS.Request({
+        onSuccess : function(){}
+      });
+
+      // set the default term
+      view.setDefaultValue(selected.id);
+      view.applyDefaultValue(request);
+    },
+    
+    _defaultSearch : function(mdAttributeId, request, value)
+    {
+      var params = [null, mdAttributeId];
+      Mojo.$.dss.vector.solutions.ontology.Term.searchTermsWithRoots(request, value, params);
+    },
+    
+    _displayFunction : function(view)
+    {
+      return MDSS.OntologyBrowser.formatLabel(view);
+    },
+    
+    _listFunction : function(view)
+    {
+      return MDSS.OntologyBrowser.formatLabel(view);
+    },
+    
+    _idFunction : function(view)
+    {
+      return view.getTermId();
+    },
+    
+    _searchFunction : function(request, value)
+    {
+      var params = [null, null];
+      Mojo.$.dss.vector.solutions.ontology.Term.searchTermsWithRoots(request, value, params);
+    },    
     
     _createModal : function(html, closeWin)
     {
@@ -79,8 +133,15 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       modal.bringToTop();
       
       // add event to open the browser for roots
-      YAHOO.util.Event.on('termBtn', 'click', this._openBrowser, null, this);
-      YAHOO.util.Event.on('termDisplay', 'click', this._openBrowser, null, this);
+      var dF = Mojo.Util.bind(this, this._displayFunction);
+      var iF = Mojo.Util.bind(this, this._idFunction);
+      var lF = Mojo.Util.bind(this, this._listFunction);
+      var sF = Mojo.Util.bind(this, this._searchFunction);
+      
+      this._rootSearch = new MDSS.GenericSearch(this._currentRootDisplay, this._currentRootInput,
+        lF, dF, iF, sF);
+
+      YAHOO.util.Event.on(this._currentRootBtn, 'click', this._openBrowser, null, this);
       
       return modal;
     },
@@ -107,11 +168,13 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       }
     },
     
-    _openDefaultBrowser : function(e, browser)
+    _openDefaultBrowser : function(e, obj)
     {
-      this._currentDefaultDisplay = e.target.id;
-      this._currentDefaultInput = 
-        this._currentDefaultDisplay.replace(this.constructor.DEFAULT_DISPLAY_SUFFIX, this.constructor.DEFAULT_TERM_SUFFIX);
+      var browser = obj.browser;
+      var mdAttributeId = obj.mdAttributeId;
+      
+      this._currentDefaultDisplay = mdAttributeId + this.constructor.DEFAULT_DISPLAY_SUFFIX;
+      this._currentDefaultInput = mdAttributeId + this.constructor.DEFAULT_TERM_SUFFIX;
       
       this._launchBrowser(browser, this._currentDefaultInput);
     },
@@ -181,12 +244,12 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       {
         var sel = selected[0];
         el.value = sel.getTermId();
-        dEl.innerHTML = MDSS.OntologyBrowser.formatLabel(sel);
+        dEl.value = MDSS.OntologyBrowser.formatLabel(sel);
       }
       else
       {
         el.value = '';
-        dEl.innerHTML = MDSS.Localized.no_value;
+        dEl.value = '';
       }
     },
     

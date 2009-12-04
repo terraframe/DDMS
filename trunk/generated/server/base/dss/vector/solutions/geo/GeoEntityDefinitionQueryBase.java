@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1530097743)
+@com.terraframe.mojo.business.ClassSignature(hash = -86247403)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo;
 public  abstract  class GeoEntityDefinitionQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1530097743;
+private static final long serialVersionUID = -86247403;
 
   public GeoEntityDefinitionQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -152,23 +152,6 @@ private static final long serialVersionUID = -1530097743;
 
   }
  
-  public dss.vector.solutions.geo.SpatialMasterQuery.SpatialTypesQueryIF getSpatialType()
-  {
-    return getSpatialType(null);
-
-  }
- 
-  public dss.vector.solutions.geo.SpatialMasterQuery.SpatialTypesQueryIF getSpatialType(String alias)
-  {
-    return (dss.vector.solutions.geo.SpatialMasterQuery.SpatialTypesQueryIF)this.getSelectable(dss.vector.solutions.geo.GeoEntityDefinition.SPATIALTYPE, alias, null);
-
-  }
- 
-  public dss.vector.solutions.geo.SpatialMasterQuery.SpatialTypesQueryIF getSpatialType(String alias, String displayLabel)
-  {
-    return (dss.vector.solutions.geo.SpatialMasterQuery.SpatialTypesQueryIF)this.getSelectable(dss.vector.solutions.geo.GeoEntityDefinition.SPATIALTYPE, alias, displayLabel);
-
-  }
   public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed()
   {
     return getSprayTargetAllowed(null);

@@ -290,6 +290,53 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
       }
     }
   }
+  
+  /**
+   * Removes all AllPaths entries where the given term is a parent or child.
+   * 
+   * @param termId
+   */
+  public static void deleteTermFromAllPaths(String termId)
+  {
+    MdBusiness mdBusinessAllPaths = MdBusiness.getMdBusiness(AllPaths.CLASS);
+
+    String tableName = mdBusinessAllPaths.getTableName();
+
+    String childTermColumn = AllPaths.getChildTermMd().definesAttribute();
+    String parentTermColumn = AllPaths.getParentTermMd().definesAttribute();
+
+    String procCallString = "DELETE FROM "+tableName+" WHERE "+childTermColumn+" = ? "
+      + " OR "+parentTermColumn+" = ?";
+
+    Connection conn = Database.getConnection();
+    CallableStatement procCall = null;
+
+    try
+    {
+      procCall = conn.prepareCall(procCallString);
+      procCall.setString(1, termId);
+      procCall.setString(2, termId);
+      procCall.execute();
+    }
+    catch (SQLException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    finally
+    {
+      if (procCall != null)
+      {
+        try
+        {
+          procCall.close();
+        }
+        catch (SQLException e2)
+        {
+          throw new ProgrammingErrorException(e2);
+        }
+      }
+    }    
+  }
 
 
   /**

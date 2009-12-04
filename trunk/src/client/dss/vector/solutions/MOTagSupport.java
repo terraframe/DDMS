@@ -17,6 +17,7 @@ import com.terraframe.mojo.controller.tag.develop.TLDGenerator;
 import com.terraframe.mojo.controller.tag.develop.TagAnnotation;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.ontology.TermComponentIF;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.MDSSProperties;
 
@@ -51,7 +52,7 @@ public class MOTagSupport extends SimpleTagSupport implements Reloadable
   /**
    * Current value term
    */
-  private TermDTO value;
+  private TermComponentIF value;
 
   /**
    * Flag indicating if javascript should be generated for this MO field
@@ -114,11 +115,16 @@ public class MOTagSupport extends SimpleTagSupport implements Reloadable
   }
 
   @AttributeAnnotation(required = false, rtexprvalue = true, description = "Current value for the MO input")
-  public TermDTO getValue()
+  public TermComponentIF getValue()
   {
     return value;
   }
 
+  public void setValue(TermComponentIF value)
+  {
+    this.value = value;
+  }
+  
   public void setValue(TermDTO value)
   {
     this.value = value;
@@ -142,7 +148,7 @@ public class MOTagSupport extends SimpleTagSupport implements Reloadable
     JspTag parent = findAncestorWithClass(this, ComponentMarkerIF.class);
 
     String _param = this.getParam();
-    TermDTO _value = this.getValue();
+    TermComponentIF _value = this.getValue();
 
     String _id = ( this.getId() != null ) ? this.getId() : this.getParam();
     String _browserClass = this.getBrowserClass();
@@ -193,7 +199,8 @@ public class MOTagSupport extends SimpleTagSupport implements Reloadable
     
     if(_value != null)
     {
-      attributeInput.setValue(_value.getId());
+//      attributeInput.setValue(_value.getId());
+      attributeInput.setValue(_value.getTermComponentId());
     }   
     
     attributeInput.doTag();
@@ -208,7 +215,8 @@ public class MOTagSupport extends SimpleTagSupport implements Reloadable
 
     if(_value != null)
     {
-      displayInput.setValue(_value.getName() + "(" + _value.getTermId() + ")");
+//      displayInput.setValue(_value.getName() + "(" + _value.getTermId() + ")");
+      displayInput.setValue(_value.getTermComponentDisplay());
     }
     
     displayInput.doTag();

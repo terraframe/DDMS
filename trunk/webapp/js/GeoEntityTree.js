@@ -33,6 +33,7 @@ MDSS.GeoEntityTree = (function(){
   // Map between universal type and Browser
   var _browsers = {};
   var _currentBrowser = null;
+  var _currentType = null;
   
   /**
    * Action to upload a template file.
@@ -215,50 +216,13 @@ MDSS.GeoEntityTree = (function(){
     var activatedVal = params['dto.activated'];
     var term = document.getElementById('term').value;
     var activated = (activatedVal === "true") ? true : false;
-
-    var geoSetter = null;
-    var geoValue = '';
-    if('setPoint' in geoEntity)
-    {
-      geoSetter = 'setPoint';
-      geoValue = params['dto.point'];
-    }
-    else if('setLineString' in geoEntity)
-    {
-      geoSetter = 'setLineString';
-      geoValue = params['dto.lineString'];
-    }
-    else if('setPolygon' in geoEntity)
-    {
-      geoSetter = 'setPolygon';
-      geoValue = params['dto.polygon'];
-    }
-    else if('setMultiPoint' in geoEntity)
-    {
-      geoSetter = 'setMultiPoint';
-      geoValue = params['dto.multiPoint'];
-    }
-    else if('setMultiLineString' in geoEntity)
-    {
-      geoSetter = 'setMultiLineString';
-      geoValue = params['dto.multiLineString'];
-    }
-    else if('setMultiPolygon' in geoEntity)
-    {
-      geoSetter = 'setMultiPolygon';
-      geoValue = params['dto.multiPolygon'];
-    }
+    var geoData = params['dto.geoData'];
 
     geoEntity.setEntityName(entityName);
     geoEntity.setGeoId(geoId);
     geoEntity.setActivated(activated);
     geoEntity.setTerm(term);
-
-    // Earth doesn't have a geoSetter
-    if(geoSetter != null)
-    {
-      geoEntity[geoSetter](geoValue);
-    }
+    geoEntity.setGeoData(geoData);
   }
 
   /**
@@ -351,7 +315,6 @@ MDSS.GeoEntityTree = (function(){
           el.innerHTML = div;
         }
 
-        // update mapping FIXME (needed?)
         _setMapping(_selectedNode, view);
 
         _updateActivatedOnNodes(ids, geoEntity.getActivated());
@@ -392,6 +355,7 @@ MDSS.GeoEntityTree = (function(){
     }
     
     _currentBrowser = _browsers[type];
+    _currentType = type;
   }
 
   /**
@@ -423,8 +387,9 @@ MDSS.GeoEntityTree = (function(){
 
         _modal.setBody(outer);
         
+        // FIXME
         YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
-        YAHOO.util.Event.on('termDisplay', 'click', _openBrowser);
+        new MDSS.GenericSearch('termDisplay', 'term', _listFunction, _displayFunction, _idFunction, _searchFunction);
 
         eval(executable);
       }
@@ -443,12 +408,12 @@ MDSS.GeoEntityTree = (function(){
     {
       var sel = selected[0];
       el.value = sel.getTermId();
-      dEl.innerHTML = MDSS.OntologyBrowser.formatLabel(sel);
+      dEl.value = MDSS.OntologyBrowser.formatLabel(sel);
     }
     else
     {
       el.value = '';
-      dEl.innerHTML = MDSS.Localized.no_value;
+      dEl.value = '';
     }
   }
   
@@ -929,7 +894,7 @@ MDSS.GeoEntityTree = (function(){
         _createModal(outer, false);
         
         YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
-        YAHOO.util.Event.on('termDisplay', 'click', _openBrowser);
+        new MDSS.GenericSearch('termDisplay', 'term', _listFunction, _displayFunction, _idFunction, _searchFunction);        
 
         eval(executable);
       }
@@ -941,6 +906,27 @@ MDSS.GeoEntityTree = (function(){
     controller.setCancelListener(_cancelNode);
     controller.edit(request, geoEntityView.getGeoEntityId());
   }
+  
+  function  _displayFunction(view)
+  {
+    return MDSS.OntologyBrowser.formatLabel(view);
+  }
+  
+  function  _listFunction(view)
+  {
+    return MDSS.OntologyBrowser.formatLabel(view);
+  }
+    
+  function  _idFunction(view)
+  {
+    return view.getTermId();
+  }
+    
+  function _searchFunction(request, value)
+  {
+    var params = [_currentType, null];
+    Mojo.$.dss.vector.solutions.ontology.Term.searchTermsWithRoots(request, value, params);
+  }  
 
   /**
    * Deletes the selected node from the tree.

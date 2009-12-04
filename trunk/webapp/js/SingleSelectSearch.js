@@ -48,7 +48,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
           var expectedKlass = Mojo.Meta.findClass(currentFilter);
           var givenKlass = Mojo.Meta.findClass(selected.getEntityType());
 
-          valid = givenKlass.$class.isSubClassOf(expectedKlass);
+          valid = givenKlass.getMetaClass().isSubClassOf(expectedKlass);
         }
 
       }

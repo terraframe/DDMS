@@ -164,9 +164,9 @@ public class Universal {
 		// TODO - Remove the next line once GeoEntities have no is_a
         sb.append("   "+XMLTags.EXTENDS_ATTRIBUTE+"=\"" + "dss.vector.solutions.geo.generated.GeoEntity" + "\">\n");
         // TODO - Remove the next three lines once the geotype and associated attribute are removed!
-       	sb.append("   <"+XMLTags.ATTRIBUTES_TAG+">\n");
-       	sb.append("      " + geometryXML + "\n");
-       	sb.append("   </"+XMLTags.ATTRIBUTES_TAG+">\n");
+       	//sb.append("   <"+XMLTags.ATTRIBUTES_TAG+">\n");
+       	//sb.append("      " + geometryXML + "\n");
+       	//sb.append("   </"+XMLTags.ATTRIBUTES_TAG+">\n");
 		sb.append("</"+XMLTags.MD_BUSINESS_TAG+">\n");
 		return sb.toString();
 	}

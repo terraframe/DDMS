@@ -105,20 +105,42 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
   
   public static BrowserRootQuery getAttributeRoots(String className, String attribute, QueryFactory factory)
   {
+    BrowserRootQuery rootQuery = new BrowserRootQuery(factory);
     BrowserFieldQuery fieldQuery;
 
-    if(className.length() == 0)
+    // Default search: everything included
+    if(className == null && attribute == null)
+    {
+      fieldQuery = new BrowserFieldQuery(factory);
+    }
+    // Geo subtype searching
+    else if(attribute == null || attribute.length() == 0)
+    {
+      fieldQuery = new BrowserFieldQuery(factory);
+      BrowserRootView[] views = getDefaultGeoRoots(className);
+      
+      if(views.length == 1)
+      {
+        rootQuery.WHERE(rootQuery.getTerm().EQ(views[0].getTermId()));
+      }
+      else
+      {
+        rootQuery.WHERE(rootQuery.getTerm().EQ(""));
+      }
+    }
+    // restricted by MdAttributeId
+    else if(className == null || className.length() == 0)
     {
       fieldQuery = new BrowserFieldQuery(factory);
       
       fieldQuery.WHERE(fieldQuery.getMdAttribute().EQ(attribute));      
     }
+    // restricted by list of parents term ids
     else
     {
       fieldQuery = BrowserField.getFieldForAttribute(className, attribute, factory);
     }
     
-    BrowserRootQuery rootQuery = new BrowserRootQuery(factory);
     rootQuery.WHERE(rootQuery.getTerm().getObsolete().EQ(false));
     rootQuery.AND(rootQuery.field(fieldQuery));
 

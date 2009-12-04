@@ -13,6 +13,7 @@ import com.terraframe.mojo.dataaccess.MdClassDAOIF;
 import com.terraframe.mojo.dataaccess.MdEntityDAOIF;
 import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.gis.dataaccess.MdAttributeGeometryDAOIF;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 
@@ -33,6 +34,16 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
     if (!attributeName.equals(ElementInfo.KEY))
     {
       super.attribute(event);
+    }
+  }
+  
+  @Override
+  protected void generateAttribute(MdAttributeDAOIF attribute)
+  {
+    // don't generate anything for spatial attributes
+    if(!(attribute instanceof MdAttributeGeometryDAOIF))
+    {
+      super.generateAttribute(attribute);
     }
   }
   

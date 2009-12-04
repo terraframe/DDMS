@@ -1,7 +1,6 @@
 package dss.vector.solutions.geo;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -10,9 +9,6 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.MdBusinessInfo;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
-import com.terraframe.mojo.web.json.JSONSmartExceptionDTO;
-
-import dss.vector.solutions.ontology.TermDTO;
 
 public class GeoEntityTypeController extends GeoEntityTypeControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -49,10 +45,10 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
 
       GeoHierarchyViewQueryDTO query = GeoHierarchyDTO.getGeoEntityHierarchyViews(this
           .getClientRequest(), MdBusinessInfo.DISPLAY_LABEL, true, null, null);
-      List<SpatialMasterDTO> types = SpatialTypesDTO.allItems(this.getClientRequest());
+//      List<SpatialMasterDTO> types = SpatialTypesDTO.allItems(this.getClientRequest());
 
       req.setAttribute("availableParents", query.getResultSet());
-      req.setAttribute("types", types);
+//      req.setAttribute("types", types);
       req.setAttribute("definition", def);
       
       req.getRequestDispatcher(NEW_DEFINITION_JSP).forward(req, resp);
@@ -86,18 +82,6 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
       JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
-    }
-    catch (SpatialTypeDefinedExceptionDTO e)
-    {
-      JSONSmartExceptionDTO ex = new JSONSmartExceptionDTO(e);
-      resp.setStatus(500);
-      resp.getWriter().print(ex.getJSON());
-    }
-    catch (SpatialTypeRequiredExceptionDTO e)
-    {
-      JSONSmartExceptionDTO ex = new JSONSmartExceptionDTO(e);
-      resp.setStatus(500);
-      resp.getWriter().print(ex.getJSON());
     }
     catch (Throwable t)
     {

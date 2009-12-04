@@ -43,7 +43,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
           if(this.parentNode.dynamicLoadComplete)
           {
             // append the child (non-Ajax)
-            var node = this._createNode(view);
+            var node = this.that._createNode(view);
             this.parentNode.appendChild(node);
             
             // BUG FIX: The element that contains the children is hidden
@@ -84,14 +84,8 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
     
       var childId = params['childId'];
       var parentId = params['parentId'];
-      this._Term.applyWithParent(request, childId, parentId, cloneOperation);
-    },
-    
-    /**
-     * Adds 
-     */
-    _addChildToParent: function(childNode, parentNode)
-    {
+      var oldParentId = childNode.parent.data.termId;
+      this._Term.applyWithParent(request, childId, parentId, cloneOperation, oldParentId);
     },
     
     /**
@@ -167,7 +161,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       
       var term = this._getTermFromParams(params);
       
-      term.applyWithParent(request, parentId, false);
+      term.applyWithParent(request, parentId, false, null);
     },
     
     /**
@@ -366,19 +360,118 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
      */
     _deleteNodeHandler : function()
     {
+      var termId = this._selectedNode.data.termId;
+      var parentId = this._selectedNode.parent.data.termId;    
+    
       var request = new MDSS.Request({
         that: this,
         onSuccess: function()
         {
           var that = this.that;
           that._tree.removeNode(that._selectedNode, true);
-        }
+        },
+        onConfirmDeleteTermException : function(e)
+        {
+          var modal = new YAHOO.widget.Panel("confirmDelete", {
+            fixedcenter: true,
+            width: '300px',
+            visible: true,
+            draggable: false,
+            zindex: 8000,
+            modal:true
+          });
+  
+          var upperDiv = document.createElement('div');
+          YAHOO.util.Dom.addClass(upperDiv, 'modalAlertBox');
+
+          var message = document.createElement('span');
+          message.innerHTML = e.getLocalizedMessage();
+          upperDiv.appendChild(message);
+  
+          // yes/no buttons
+          var lowerDiv = document.createElement('div');
+          YAHOO.util.Dom.addClass(lowerDiv, 'modalAlertBox');
+  
+          var that = this.that;
+  
+          var delObj = {
+            deleteTerm:true,
+            childId:termId,
+            parentId:parentId,
+            modal:modal
+          }
+          var delTerm = document.createElement('input');
+          YAHOO.util.Dom.setAttribute(delTerm, 'type', 'button');
+          YAHOO.util.Dom.setAttribute(delTerm, 'value', MDSS.localize('Delete_Term'));
+          YAHOO.util.Event.on(delTerm, 'click', that._deleteAfterConfirmation, delObj, that);
+          lowerDiv.appendChild(delTerm);
+  
+          delObj = {
+            deleteTerm:false,
+            childId:termId,
+            parentId:parentId,
+            modal:modal
+          };
+          
+          var delRel = document.createElement('input');
+          YAHOO.util.Dom.setAttribute(delRel, 'type', 'button');
+          YAHOO.util.Dom.setAttribute(delRel, 'value', MDSS.Localized.Delete_Relationship);
+          YAHOO.util.Event.on(delRel, 'click', that._deleteAfterConfirmation, delObj, that);
+          lowerDiv.appendChild(delRel);
+  
+          var wrapperDiv = document.createElement('div');
+          wrapperDiv.appendChild(upperDiv);
+          wrapperDiv.appendChild(lowerDiv);
+  
+          modal.bringToTop();
+          modal.setBody(wrapperDiv);
+          modal.render(document.body);
+        },
       });
     
-      var termId = this._selectedNode.data.termId;
-      var parentId = this._selectedNode.parent.data.termId;
-      
       this._Term.confirmDeleteTerm(request, termId, parentId);
+    },
+    
+    _deleteAfterConfirmation : function(e, obj)
+    {
+      var childId = obj.childId;
+      var parentId = obj.parentId;
+      var deleteTerm = obj.deleteTerm;
+      var modal = obj.modal;
+      
+      var request = new MDSS.Request({
+        that : this,
+        onSuccess : function()
+        {
+          var that = this.that;
+          
+          // Remove the node(s) associated with the Term
+          if(deleteTerm)
+          {
+            var nodes = this.that._tree.getNodesByProperty('termId', childId);
+              Mojo.Iter.forEach(nodes, function(node){
+            
+                that._tree.removeNode(node, true);
+            }, that);
+          }
+          else
+          {
+            // remove the node from the old parent
+            that._tree.removeNode(that._selectedNode, true);   
+          }
+
+          modal.destroy();
+        }
+      });
+      
+      if(deleteTerm)
+      {
+        Mojo.$.dss.vector.solutions.ontology.Term.deleteTerm(request, childId);
+      }
+      else
+      {
+        Mojo.$.dss.vector.solutions.ontology.Term.deleteRelationship(request, childId, parentId);
+      }
     },
     
     /**

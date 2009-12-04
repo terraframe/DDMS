@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -292181958)
+@com.terraframe.mojo.business.ClassSignature(hash = -1633006306)
 public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoEntityDefinition";
-  private static final long serialVersionUID = -292181958;
+  private static final long serialVersionUID = -1633006306;
   
   protected GeoEntityDefinitionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -23,7 +23,6 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
   public static java.lang.String PARENTTYPEGEOHIERARCHYID = "parentTypeGeoHierarchyId";
   public static java.lang.String POLITICAL = "political";
   public static java.lang.String POPULATIONALLOWED = "populationAllowed";
-  public static java.lang.String SPATIALTYPE = "spatialType";
   public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPENAME = "typeName";
@@ -247,52 +246,6 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPopulationAllowedMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POPULATIONALLOWED).getAttributeMdDTO();
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<dss.vector.solutions.geo.SpatialTypesDTO> getSpatialType()
-  {
-    return (java.util.List<dss.vector.solutions.geo.SpatialTypesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.geo.SpatialTypes", getEnumNames(SPATIALTYPE));
-  }
-  
-  public java.util.List<String> getSpatialTypeEnumNames()
-  {
-    return getEnumNames(SPATIALTYPE);
-  }
-  
-  public void addSpatialType(dss.vector.solutions.geo.SpatialTypesDTO enumDTO)
-  {
-    addEnumItem(SPATIALTYPE, enumDTO.toString());
-  }
-  
-  public void removeSpatialType(dss.vector.solutions.geo.SpatialTypesDTO enumDTO)
-  {
-    removeEnumItem(SPATIALTYPE, enumDTO.toString());
-  }
-  
-  public void clearSpatialType()
-  {
-    clearEnum(SPATIALTYPE);
-  }
-  
-  public boolean isSpatialTypeWritable()
-  {
-    return isWritable(SPATIALTYPE);
-  }
-  
-  public boolean isSpatialTypeReadable()
-  {
-    return isReadable(SPATIALTYPE);
-  }
-  
-  public boolean isSpatialTypeModified()
-  {
-    return isModified(SPATIALTYPE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSpatialTypeMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(SPATIALTYPE).getAttributeMdDTO();
   }
   
   public Boolean getSprayTargetAllowed()

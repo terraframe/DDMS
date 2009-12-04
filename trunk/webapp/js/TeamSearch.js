@@ -150,9 +150,9 @@ Mojo.Meta.newClass('MDSS.ElementCondition', {
       return this.condition;
     },  
 
-    evaluate : function () { //AbstractMethod
-      throw new Error('Unsupported operationon an abstract class.');      
-    } 
+    evaluate : {
+      IsAbstract : true
+    }
   }
 });
 
@@ -577,8 +577,14 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
     initialize: function(displayElement, concreteElement, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler, prop) {
   
       // Constructor code
-      this.displayElement = displayElement;          // DOM element where the search is inputed and the selected result is displayed
-      this.concreteElement = concreteElement;        // DOM element where the id of the selected result is stored
+
+      // DOM element where the search is inputed and the selected result is displayed
+      this.displayElement = Mojo.Util.isString(displayElement) 
+        ? document.getElementById(displayElement) : displayElement;
+      
+      // DOM element where the id of the selected result is stored
+      this.concreteElement = Mojo.Util.isString(concreteElement) 
+        ? document.getElementById(concreteElement) : concreteElement;        
       
       this.listFunction = listFunction;              // Function which accepts a valueObject and returns a formatted string for a single result 
       this.displayFunction = displayFunction;        // Function which accepts a valueObject and returns the value for 'displayElement'

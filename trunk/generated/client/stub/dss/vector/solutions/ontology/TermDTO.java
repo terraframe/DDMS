@@ -1,7 +1,7 @@
 package dss.vector.solutions.ontology;
 
 public class TermDTO extends TermDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.terraframe.mojo.generation.loader.Reloadable, TermComponentIF {
   private static final long serialVersionUID = 1253040032600L;
 
   public TermDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -29,5 +29,15 @@ public class TermDTO extends TermDTOBase
   public static String getFieldKeyName(String className, String attributeName)
   {
     return className+"."+attributeName;
+  }
+
+  public String getTermComponentDisplay()
+  {
+    return getDisplayLabel();
+  }
+
+  public String getTermComponentId()
+  {
+    return getId();
   }
 }

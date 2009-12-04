@@ -57,6 +57,9 @@ import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 import com.terraframe.mojo.system.metadata.MdClass;
 import com.terraframe.mojo.system.metadata.MdRelationship;
 import com.terraframe.mojo.util.IdParser;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.io.ParseException;
+import com.vividsolutions.jts.io.WKTReader;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.Property;
@@ -79,6 +82,7 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.ActionNotAllowedException;
 import dss.vector.solutions.util.GeoEntityImporter;
+import dss.vector.solutions.util.GeometryHelper;
 import dss.vector.solutions.util.MDSSProperties;
 
 public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -106,24 +110,37 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
    * children if the status has changed on the parent.
    * 
    * @return
+   * @throws ParseException 
    */
   @Transaction
   private Set<String> applyInternal()
   {
-    /*
     GeometryHelper geometryHelper = new GeometryHelper();
     WKTReader r = new WKTReader();
-    try {
-        Geometry g = r.read(wktString);
-        if (g != null) {
-            geoEntity.setGeoPoint(geometryHelper.getGeoPoint(g));
-            geoEntity.setGeoMultiPolygon(geometryHelper.getGeoMultiPolygon(g));
-        } else {
-            // NO ENTITY RETURNED
-        }
-    } catch (ParseException e) {
-        // FAILED TO PARSE
-    }*/
+    String geoData = this.getGeoData();
+    if(geoData != null && geoData.length() > 0)
+    {
+      Geometry geo;
+      try
+      {
+        geo = r.read(geoData);
+      }
+      catch (ParseException e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
+      
+      this.setGeoPoint(geometryHelper.getGeoPoint(geo));
+      this.setGeoMultiPolygon(geometryHelper.getGeoMultiPolygon(geo));
+    }
+    // allow new instances to set geoPoint and geoMultiPolygon directly because the
+    // values may have been set via the geo entity importer. Otherwise, null the values
+    // out if geoData is empty.
+    else if(!this.isNew())
+    {
+      this.setGeoPoint(null);
+      this.setGeoMultiPolygon(null);
+    }
     
     Set<String> ids = new HashSet<String>();
 

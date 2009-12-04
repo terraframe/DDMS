@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 717346658)
+@com.terraframe.mojo.business.ClassSignature(hash = 1620309855)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,7 +31,7 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 717346658;
+  private static final long serialVersionUID = 1620309855;
   
   public TermBase()
   {
@@ -1414,16 +1414,16 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
     return (Term) com.terraframe.mojo.business.Business.get(CLASS, key);
   }
   
-  public dss.vector.solutions.ontology.TermView applyWithParent(java.lang.String parentTermId, java.lang.Boolean cloneOperation)
+  public dss.vector.solutions.ontology.TermView applyWithParent(java.lang.String parentTermId, java.lang.Boolean cloneOperation, java.lang.String oldParentId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final dss.vector.solutions.ontology.TermView applyWithParent(java.lang.String id, java.lang.String parentTermId, java.lang.Boolean cloneOperation)
+  public static final dss.vector.solutions.ontology.TermView applyWithParent(java.lang.String id, java.lang.String parentTermId, java.lang.Boolean cloneOperation, java.lang.String oldParentId)
   {
     Term _instance = Term.get(id);
-    return _instance.applyWithParent(parentTermId, cloneOperation);
+    return _instance.applyWithParent(parentTermId, cloneOperation, oldParentId);
   }
   
   public void confirmChangeParent(java.lang.String parentId)
@@ -1448,6 +1448,30 @@ public abstract class TermBase extends com.terraframe.mojo.business.Business imp
   {
     Term _instance = Term.get(id);
     _instance.confirmDeleteTerm(parentId);
+  }
+  
+  public void deleteRelationship(java.lang.String parentId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void deleteRelationship(java.lang.String id, java.lang.String parentId)
+  {
+    Term _instance = Term.get(id);
+    _instance.deleteRelationship(parentId);
+  }
+  
+  public void deleteTerm()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void deleteTerm(java.lang.String id)
+  {
+    Term _instance = Term.get(id);
+    _instance.deleteTerm();
   }
   
   public static dss.vector.solutions.ontology.Term[] getAllTermsForField(java.lang.String className, java.lang.String attributeName)

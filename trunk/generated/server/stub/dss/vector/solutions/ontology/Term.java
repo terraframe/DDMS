@@ -29,7 +29,6 @@ import com.terraframe.mojo.system.metadata.MdAttributeReference;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.UnknownTermProblem;
-import dss.vector.solutions.query.ActionNotAllowedException;
 import dss.vector.solutions.surveillance.OptionComparator;
 import dss.vector.solutions.surveillance.OptionIF;
 
@@ -67,6 +66,72 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     throw ex;
   }
+  
+  private boolean hasMultipleParents()
+  {
+    QueryFactory f = new QueryFactory();
+    TermRelationshipQuery q = new TermRelationshipQuery(f);
+    q.WHERE(q.childId().EQ(this.getId()));
+    
+    return q.getCount() > 1;
+  }
+  
+  @Override
+  @Transaction
+  public void deleteTerm()
+  {
+    OntologyRelationship rel = OntologyRelationship.getByKey(OBO.IS_A);    
+    
+    // Rebuild the all paths
+    if(!this.hasMultipleParents() && this.isLeafNode(rel.getId()))
+    {
+      AllPaths.deleteLeafFromAllPaths(this.getId()); 
+      
+      this.delete();
+    }
+    else
+    {
+      // This must be called before deleting the Term
+      // to avoid exceptions with required reference attributes.
+      AllPaths.deleteTermFromAllPaths(this.getId());
+      
+      this.delete();
+      
+      AllPaths.rebuildAllPaths();   
+    }
+  }
+  
+  /**
+   * Deletes the TermRElationship between this Term and the Term with
+   * the given parent id. This method should only be called if
+   * this Term has more than one parent.
+   */
+  @Override
+  @Transaction
+  public void deleteRelationship(String parentId)
+  {
+    QueryFactory f = new QueryFactory();
+    TermRelationshipQuery q = new TermRelationshipQuery(f);
+    
+    q.WHERE(q.childId().EQ(this.getId()));
+    q.AND(q.parentId().EQ(parentId));
+    
+    OIterator<? extends TermRelationship> iter = q.getIterator();
+    
+    try
+    {
+      while(iter.hasNext())
+      {
+        iter.next().delete();
+      }
+    }
+    finally
+    {
+      iter.close();
+      
+      AllPaths.rebuildAllPaths();
+    }
+  }
 
   /**
    * Throws an exception to alert the user before they try to delete a Term.
@@ -76,19 +141,29 @@ public class Term extends TermBase implements Reloadable, OptionIF
    * @throws
    */
   @Override
+  @Transaction
   public void confirmDeleteTerm(String parentId)
   {
-    // V1 Restriction
-    throw new ActionNotAllowedException();
-
-    /*
-     * List<GeoEntity> parents = this.getImmediateParents(); if (parents.size()
-     * > 1) { GeoEntity parent = GeoEntity.get(parentId);
-     * ConfirmDeleteEntityException ex = new ConfirmDeleteEntityException();
-     * ex.setEntityName(parent.getEntityName());
-     *
-     * throw ex; } else { this.delete(); }
-     */
+    QueryFactory f = new QueryFactory();
+    TermRelationshipQuery q = new TermRelationshipQuery(f);
+    
+    q.WHERE(q.childId().EQ(this.getId()));
+    q.AND(q.parentId().NE(parentId));
+    
+    if(q.getCount() > 0)
+    {
+      // The Term has more than one parent, so prompt the user to delete either the
+      // Term or just the relationship with the current parent.
+      Term parent = Term.get(parentId);
+      
+      ConfirmDeleteTermException ex = new ConfirmDeleteTermException();
+      ex.setTerm(parent.getDisplay());
+      throw ex;
+    }
+    else
+    {
+      this.deleteTerm();
+    }
   }
 
   @Override
@@ -150,8 +225,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   @Override
   @Transaction
-  public TermView applyWithParent(String parentTermId, Boolean cloneOperation)
+  public TermView applyWithParent(String parentTermId, Boolean cloneOperation, String oldParentId)
   {
+    OntologyRelationship ontRel = OntologyRelationship.getByKey(OBO.IS_A);
     Term parent = Term.get(parentTermId);
 
     boolean isNew = this.isNew();
@@ -172,16 +248,26 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     if (!cloneOperation)
     {
-      // V1 Restriction
-      if (!isNew)
+      // Remove the old relationship on this Term and parent
+      QueryFactory f = new QueryFactory();
+      TermRelationshipQuery q = new TermRelationshipQuery(f);
+      
+      q.WHERE(q.parentId().EQ(oldParentId));
+      q.AND(q.childId().EQ(this.getId()));
+      
+      OIterator<? extends TermRelationship> iter = q.getIterator();
+      
+      try
       {
-        throw new ActionNotAllowedException();
+        while(iter.hasNext())
+        {
+          iter.next().delete();
+        }
       }
-      /*
-       * OIterator<? extends LocatedIn> iter =
-       * this.getAllLocatedInGeoEntityRel(); try { while (iter.hasNext()) {
-       * iter.next().delete(); } } finally { iter.close(); }
-       */
+      finally
+      {
+        iter.close();
+      }
     }
     else
     {
@@ -209,7 +295,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
 
     TermRelationship termRelationship = this.addParentTerm(parent);
-    termRelationship.setOntologyRelationship(OntologyRelationship.getByKey(OBO.IS_A));
+    termRelationship.setOntologyRelationship(ontRel);
 
     // create save point
     Savepoint savepoint = Database.setSavepoint();
@@ -226,7 +312,17 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       Database.releaseSavepoint(savepoint);
     }
-
+    
+    // update the AllPaths table
+    if(cloneOperation)
+    {
+      AllPaths.copyTermFast(parentTermId, this.getId(), ontRel.getId());
+    }
+    else if(!isNew)
+    {
+      AllPaths.rebuildAllPaths();
+    }
+    
     TermViewQuery query = getByIds(new String[] { this.getId() });
     OIterator<? extends TermView> iter = query.getIterator();
 
@@ -433,16 +529,20 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       GeneratedViewQuery query = this.getViewQuery();
 
-      String search = this.searchValue + "%";
+      String search = "%"+ this.searchValue + "%";
       search = search.replace(" ", "% ");      
       query.WHERE(OR.get(termQuery.getName().LIKEi(search), termQuery.getTermId().LIKEi(search)));
 
-      if(this.parentIds.length > 0)
+      // Restrict the search by parent terms. There are three options:
+      // 1) If the parentIds array is null, don't restrict anything
+      // 2) If the parentIds array is empty, don't allow searching
+      // 3) If the parentIds array has ids, restrict by those ids
+      if(this.parentIds != null && this.parentIds.length > 0)
       {
         query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
         query.AND(this.pathsQuery.getParentTerm().IN(this.parentIds));
       }
-      else
+      else if(this.parentIds != null)
       {
         // There are no Parent terms meaning no roots have been set. Searching is not
         // allowed without roots.

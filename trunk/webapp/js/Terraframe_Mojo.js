@@ -1,6 +1,5 @@
 // FIXME use special Error subclass that automatically logs messages to the Logger
 // FIXME replace JSON with latest from crockford's site
-// FIXME Enforce that a non-abstract subclass implements abstract methods from its parent 
 // always use getMethod() instead of grabbing the prototype copy? This could cause as many problems as it solves so be careful.
 // Use getGlobal = function(){return (function(){ return this; })();}; because not everything has the window object (non-browser)
   // - maybe set the above as a reference: Mojo.global when init the library
@@ -55,7 +54,7 @@ var Mojo = {
         if(re.test(className))
         {
           var klass = Mojo.Meta._classes[className];
-          anchorObj[klass.$class.getName()] = klass;
+          anchorObj[klass.getMetaClass().getName()] = klass;
         }
       }
     },
@@ -74,8 +73,8 @@ var Mojo = {
         if(re.test(className))
         {
           var klass = Mojo.Meta._classes[className];
-          var namespace = Mojo.Meta._buildPackage(klass.$class.getPackage(), anchorObj);
-          namespace[klass.$class.getName()] = klass;
+          var namespace = Mojo.Meta._buildPackage(klass.getMetaClass().getPackage(), anchorObj);
+          namespace[klass.getMetaClass().getName()] = klass;
         }
       }
     },
@@ -133,7 +132,7 @@ var Mojo = {
       var sInitialize = klass.prototype.initialize;
       klass.prototype.initialize = function(){
      
-        throw Error("Cannot instantiate the singleton class ["+this.$class.getQualifiedName()+"]. " +
+        throw Error("Cannot instantiate the singleton class ["+this.getMetaClass().getQualifiedName()+"]. " +
           "Use the static [getInstance()] method instead.");
       };
       
@@ -146,7 +145,7 @@ var Mojo = {
           if(instance == null)
           {
             // FIXME avoid this swapping mechanism. (probably need magic in initialize closure
-            // to check for $class.isSingleton() with getInstance sending special args
+            // to check for __metaClass.isSingleton() with getInstance sending special args
             var temp = klass.prototype.initialize;
             klass.prototype.initialize = sInit;
             instance = new klass();
@@ -165,9 +164,9 @@ var Mojo = {
     {
       return function(){
       
-        if(Mojo.Meta._isInitialized && this.$class.isAbstract())
+        if(Mojo.Meta._isInitialized && this.getMetaClass().isAbstract())
         {
-          var msg = "Cannot instantiate the abstract class ["+this.$class.getQualifiedName()+"].";
+          var msg = "Cannot instantiate the abstract class ["+this.getMetaClass().getQualifiedName()+"].";
           var error = new Error(msg);
           Mojo.log.LogManager.writeError(msg, error);
           throw error;
@@ -210,8 +209,8 @@ var Mojo = {
               this.__context__[m] = execStack;
             }
             
-            var currentKlass = execStack.length === 0 ? this.$class.getSuperClass()
-              : execStack[execStack.length-1].$class.getSuperClass();            
+            var currentKlass = execStack.length === 0 ? this.getMetaClass().getSuperClass()
+              : execStack[execStack.length-1].getMetaClass().getSuperClass();            
             
             execStack.push(currentKlass);
             
@@ -362,16 +361,16 @@ var Mojo = {
       if(definition.Native)
       {
         // Class will be constructed later to complete bootstrapping
-        klass.$class = config;
-        klass.prototype.$class = config;
+        klass.__metaClass = config;
+        klass.prototype.__metaClass = config;
         Mojo.Meta._native.push(klass);
       }
       else
       {
         var cKlass = Mojo.$.com.terraframe.mojo.Class;
         
-        klass.$class = new cKlass(config);
-        klass.prototype.$class = klass.$class;
+        klass.__metaClass = new cKlass(config);
+        klass.prototype.__metaClass = klass.__metaClass;
       }
       
       return klass;
@@ -426,12 +425,12 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Base', {
   
     clone : function()
     {
-      return Mojo.Meta.newInstance(this.$class.getQualifiedName(), [].splice.call(arguments, 0));
+      return Mojo.Meta.newInstance(this.getMetaClass().getQualifiedName(), [].splice.call(arguments, 0));
     },
     
     toString : function()
     {
-      return '['+this.$class.getQualifiedName()+'] instance';
+      return '['+this.getMetaClass().getQualifiedName()+'] instance';
     }
   }
 });
@@ -467,7 +466,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       if(notBase)
       {
         // instance methods will be copied via prototype
-        var pInstances = this._superClass.$class.getInstanceMethods(true);
+        var pInstances = this._superClass.getMetaClass().getInstanceMethods(true);
         for(var i in pInstances)
         {
           var method = pInstances[i];
@@ -489,7 +488,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
         if(this._instanceMethods.hasOwnProperty(i))
         {
           var overridden = this._instanceMethods[i];
-          definition.overrideClass = definition.klass;
+          definition.overrideKlass = definition.klass;
           definition.klass = overridden.getDefiningClass();
         }
         
@@ -526,7 +525,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       if(notBase)
       {
         // static methods must be explicitly copied
-        var pStatics = this._superClass.$class.getStaticMethods(true);
+        var pStatics = this._superClass.getMetaClass().getStaticMethods(true);
         for(var i in pStatics)
         {
           var mStatic = pStatics[i];
@@ -544,7 +543,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
         if(this._staticMethods.hasOwnProperty(i))
         {
           var overridden = this._staticMethods[i];
-          definition.overrideClass = definition.klass;
+          definition.overrideKlass = definition.klass;
           definition.klass = overridden.getDefiningClass();
         }
         
@@ -559,7 +558,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       var cKlass = Mojo.$.com.terraframe.mojo.Constant;
       if(notBase)
       {
-        var pConstants = this._superClass.$class.getConstants(true);
+        var pConstants = this._superClass.getMetaClass().getConstants(true);
         for(var i in pConstants)
         {
           if(pConstants.hasOwnProperty(i))
@@ -590,19 +589,45 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       
       if(notBase)
       {
-        this._superClass.$class._addSubClass(this._qualifiedName, this._klass);
+        this._superClass.getMetaClass()._addSubClass(this._qualifiedName, this._klass);
       }
+      
+      this._addMetaClassMethod();
+    },
+    
+    _addMetaClassMethod : function()
+    {
+      var mName = 'getMetaClass';
       
       // Each class constructor function and instance gets
       // a method to return this Class instance.
-      // FIXME add method metadata for getMetaClass
-      this._klass.getMetaClass = (function(metaClass){
+      this._klass[mName] = (function(metaClass){
         return function() {
           return metaClass;
         };
       })(this);
       
-      this._klass.prototype.getMetaClass = this._klass.getMetaClass;
+      this._klass.prototype[mName] = this._klass[mName];
+      
+      this._instanceMethods[mName] = new Mojo.$.com.terraframe.mojo.Method({
+        name : mName,
+        isStatic : false,
+        isAbstract : false, 
+        isConstructor : false,
+        method : this._klass[mName],
+        klass: this._klass,
+        overrideKlass : this._klass
+      }, this);
+      
+     this._staticMethods[mName] = new Mojo.$.com.terraframe.mojo.Method({
+        name : mName,
+        isStatic : true,
+        isAbstract : false, 
+        isConstructor : false,
+        method : this._klass[mName],
+        klass: this._klass,
+        overrideKlass : this._klass
+      }, this);
     },
     
     _addSubClass : function(qualifiedName, klass)
@@ -761,14 +786,14 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       }
       else if(Mojo.Util.isFunction(klass) || klass instanceof Mojo.$.com.terraframe.mojo.Base)
       {
-        return klass.$class;
+        return klass.getMetaClass();
       }
       else if(Mojo.Util.isString(klass))
       {
         var foundClass = Mojo.Meta.findClass(klass);
         if(foundClass)
         {
-          return foundClass.$class;
+          return foundClass.getMetaClass();
         }
         else
         {
@@ -793,12 +818,12 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       var superClass = classObj.getSuperClass();
       while(superClass !== Object)
       {
-        if(superClass.$class === this)
+        if(superClass.getMetaClass() === this)
         {
           return true;
         }
         
-        superClass = superClass.$class.getSuperClass();
+        superClass = superClass.getMetaClass().getSuperClass();
       }
       
       return false;
@@ -926,7 +951,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
         method = (function(name){
           return function(){
  
-            var definingClass = this.$class.getMethod(name).getDefiningClass().$class.getQualifiedName();
+            var definingClass = this.getMetaClass().getMethod(name).getDefiningClass().getMetaClass().getQualifiedName();
  
             var msg = "Cannot invoke the abstract method ["+name+"] on ["+definingClass+"].";
             var error = new Error(msg);
@@ -1026,11 +1051,11 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
   {
     var bootstrapped = Mojo.Meta._native[i];
     
-    // Convert the JSON config $class into a Class instance
+    // Convert the JSON config __metaClass into a Class instance
     // and re-attach the metadata to the class definition.
-    var cClass = new klass(bootstrapped.$class);
-    bootstrapped.$class = cClass
-    bootstrapped.prototype.$class = cClass;
+    var cClass = new klass(bootstrapped.__metaClass);
+    bootstrapped.__metaClass = cClass
+    bootstrapped.prototype.__metaClass = cClass;
   }
   
   // convert the Meta object to a class
@@ -1965,13 +1990,13 @@ Mojo.Meta.newClass('Mojo.aspect.Advice', {
           switch(this._matchOn)
           {
             case Mojo.aspect.Advice.MATCH_ALL:
-              methods = klass.$class.getMethods();
+              methods = klass.getMetaClass().getMethods();
               break;
             case Mojo.aspect.Advice.MATCH_INSTANCE:
-              methods = klass.$class.getInstanceMethods();
+              methods = klass.getMetaClass().getInstanceMethods();
               break;
             case Mojo.aspect.Advice.MATCH_STATIC:
-              methods = klass.$class.getStaticMethods();
+              methods = klass.getMetaClass().getStaticMethods();
               break;
             default:
               methods = [];
@@ -1993,13 +2018,14 @@ Mojo.Meta.newClass('Mojo.aspect.Advice', {
       return matched;
     },
     
-    // FIXME make abstract
-    execute : function(){},
+    execute : {
+      IsAbstract : true
+    },
     
     toString : function()
     {
       var str = '';
-      str += '['+this.$class.getName()+'] ';
+      str += '['+this.getMetaClass().getName()+'] ';
       
       var matchesOn;
       if(this._matchOn === this.constructor.MATCH_INSTANCE)
@@ -4563,7 +4589,7 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO', {
       this.modified = obj.modified;
       
       // instantiate the MdDTO version of this attribute
-      var mdDtoType = this.$class.getName().replace('DTO', 'MdDTO');
+      var mdDtoType = this.getMetaClass().getName().replace('DTO', 'MdDTO');
       var mdKlass = Mojo.Meta.findClass(Mojo.MD_DTO_PACKAGE+ mdDtoType);
 
       if(!mdKlass)

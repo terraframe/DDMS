@@ -20,7 +20,6 @@ import dss.vector.solutions.geo.GeoEntityDefinitionDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyQueryDTO;
 import dss.vector.solutions.geo.GeoHierarchyViewDTO;
-import dss.vector.solutions.geo.SpatialTypesDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.ontology.TermDTO;
 
@@ -102,7 +101,6 @@ public class GeoEntityCRUDPermissions extends PermissionTest implements DoNotWea
     def1.setSprayTargetAllowed(false);
     def1.setDisplayLabel("New Geo Entity Type 1");
     def1.setDescription("New Geo Entity Type Description 1");
-    def1.addSpatialType(SpatialTypesDTO.POLYGON);
     def1.setParentGeoHierarchyId(set.get(0).getId());
     def1.setPopulationAllowed(true);
 
@@ -140,7 +138,6 @@ public class GeoEntityCRUDPermissions extends PermissionTest implements DoNotWea
     def1.setSprayTargetAllowed(false);
     def1.setDisplayLabel("New Geo Entity Type 1");
     def1.setDescription("New Geo Entity Type Description 1");
-    def1.addSpatialType(SpatialTypesDTO.POLYGON);
     def1.setParentGeoHierarchyId(set.get(0).getId());
     def1.setPopulationAllowed(false);
 

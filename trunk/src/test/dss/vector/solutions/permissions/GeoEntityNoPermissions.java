@@ -16,7 +16,6 @@ import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.GeoEntityDefinitionDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyQueryDTO;
-import dss.vector.solutions.geo.SpatialTypesDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 
 public class GeoEntityNoPermissions extends PermissionTest implements DoNotWeave
@@ -83,7 +82,6 @@ public class GeoEntityNoPermissions extends PermissionTest implements DoNotWeave
     def1.setSprayTargetAllowed(false);
     def1.setDisplayLabel("New Geo Entity Type 1");
     def1.setDescription("New Geo Entity Type Description 1");
-    def1.addSpatialType(SpatialTypesDTO.POLYGON);
     def1.setParentGeoHierarchyId(set.get(0).getId());
 
     try

@@ -16,6 +16,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     
     initialize : function(multipleSelect)
     {
+
       // map of termId, termName
       this._cache = {};
       
@@ -366,7 +367,8 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         });
   
         var pck = 'dss.vector.solutions.ontology.';
-        var types = [pck+'BrowserRoot', pck+'BrowserRootView', pck+'TermView', pck+'Term', pck+'FieldDefaultView'];
+//        var types = [pck+'BrowserRoot', pck+'BrowserRootView', pck+'TermView', pck+'Term', pck+'FieldDefaultView'];
+        var types = [pck+'BrowserRoot', pck+'BrowserRootView'];
         Mojo.Facade.importTypes(request, types, {autoEval:true});
         return;
       }
@@ -835,12 +837,12 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
     
     _displayFunction : function(view)
     {
-      return view.getTermName() + ' ('+view.getTermOntologyId()+')';
+      return MDSS.OntologyBrowser.formatLabel(view);
     },
     
     _listFunction : function(view)
     {
-      return view.getTermName() + ' ('+view.getTermOntologyId()+')';
+      return MDSS.OntologyBrowser.formatLabel(view);
     },
     
     _idFunction : function(view)

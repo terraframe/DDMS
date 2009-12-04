@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 468313786)
+@com.terraframe.mojo.business.ClassSignature(hash = -548811874)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,11 +18,10 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
   public static java.lang.String PARENTTYPEGEOHIERARCHYID = "parentTypeGeoHierarchyId";
   public static java.lang.String POLITICAL = "political";
   public static java.lang.String POPULATIONALLOWED = "populationAllowed";
-  public static java.lang.String SPATIALTYPE = "spatialType";
   public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPENAME = "typeName";
-  private static final long serialVersionUID = 468313786;
+  private static final long serialVersionUID = -548811874;
   
   public GeoEntityDefinitionBase()
   {
@@ -211,44 +210,6 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
     {
       setValue(POPULATIONALLOWED, java.lang.Boolean.toString(value));
     }
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<dss.vector.solutions.geo.SpatialTypes> getSpatialType()
-  {
-    return (java.util.List<dss.vector.solutions.geo.SpatialTypes>) getEnumValues(SPATIALTYPE);
-  }
-  
-  public void addSpatialType(dss.vector.solutions.geo.SpatialTypes value)
-  {
-    if(value != null)
-    {
-      addEnumItem(SPATIALTYPE, value.getId());
-    }
-  }
-  
-  public void removeSpatialType(dss.vector.solutions.geo.SpatialTypes value)
-  {
-    if(value != null)
-    {
-      removeEnumItem(SPATIALTYPE, value.getId());
-    }
-  }
-  
-  public void clearSpatialType()
-  {
-    clearEnum(SPATIALTYPE);
-  }
-  
-  public void validateSpatialType()
-  {
-    this.validateAttribute(SPATIALTYPE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSpatialTypeMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
-    return mdClassIF.definesAttribute(SPATIALTYPE);
   }
   
   public Boolean getSprayTargetAllowed()
