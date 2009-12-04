@@ -16,7 +16,8 @@
 
 
 
-<mjl:component item="${item}" param="dto">
+
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%><mjl:component item="${item}" param="dto">
       <mjl:dt attribute="collection">
         <mjl:input id="collectionInput" param="collectionInput" type="text" value="${item.collection != null ? item.collection.collectionId : ''}"/>
         <mjl:input id="collectionId" param="collection" type="hidden" value="${item.collection != null ? item.collection.id : ''}" />        
@@ -79,7 +80,7 @@
       </mjl:dt>      
     </mjl:component>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionDTO.CLASS, GeoEntityViewDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionViewDTO.CLASS}))%>
 
 
 <script type="text/javascript">  

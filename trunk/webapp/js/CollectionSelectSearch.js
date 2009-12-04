@@ -2,30 +2,22 @@ MDSS.collectionSearch = function(config) {
   var searchEl = Mojo.Util.isString(config.search) ? document.getElementById(config.search) : config.search;
   var concreteEl = Mojo.Util.isString(config.concrete) ? document.getElementById(config.concrete) : config.concrete;
 
-  var listFunction = function(valueObject) {    
-    var entityName = Mojo.$.dss.vector.solutions.geo.GeoEntityView.ENTITYNAME;
-    var geoId = Mojo.$.dss.vector.solutions.geo.GeoEntityView.GEOID;
-    var collectionId = Mojo.$.dss.vector.solutions.entomology.ConcreteMosquitoCollection.COLLECTIONID;
-    var dateCollected = Mojo.$.dss.vector.solutions.entomology.ConcreteMosquitoCollection.DATECOLLECTED;
+  var listFunction = function(view) {    
 
-    var formattedDate = MDSS.Calendar.getLocalizedString(valueObject.getValue(dateCollected));
+    var formattedDate = MDSS.Calendar.getLocalizedString(view.getCollectionDate());
 
-    return valueObject.getValue(entityName) + '('+ valueObject.getValue(geoId) + '), ' + formattedDate + ' - ' + valueObject.getValue(collectionId);
+    return view.getGeoEntityLabel() + ', ' + formattedDate + ' - ' + view.getCollectionId();
   };
 
-  var idFunction = function(valueObject) {
-    var id = Mojo.$.dss.vector.solutions.geo.GeoEntityView.ID;
-
-    return valueObject.getValue(id);
+  var idFunction = function(view) {
+    return view.getConcreteId();
   };
 
-  var displayFunction = function(valueObject) {    
-    var collectionId = Mojo.$.dss.vector.solutions.entomology.ConcreteMosquitoCollection.COLLECTIONID;
-
-    return valueObject.getValue(collectionId);
+  var displayFunction = function(view) {    
+    return view.getCollectionId();
   };
 
-  var searchFunction = Mojo.$.dss.vector.solutions.entomology.AbstractMosquitoCollection.searchByCollectionId;
+  var searchFunction = Mojo.$.dss.vector.solutions.entomology.MosquitoCollectionView.searchCollection;
 
   var selectEventHandler = function() {};
    
@@ -48,7 +40,7 @@ MDSS.collectionSearch = function(config) {
       }
     });
 
-    Mojo.$.dss.vector.solutions.entomology.ConcreteMosquitoCollection.getByCollectionId(request, searchEl.value);
+//    Mojo.$.dss.vector.solutions.entomology.ConcreteMosquitoCollection.getByCollectionId(request, searchEl.value);
   }
 
   YAHOO.util.Event.on(searchEl, 'blur', checkManualEntry, null, null);     

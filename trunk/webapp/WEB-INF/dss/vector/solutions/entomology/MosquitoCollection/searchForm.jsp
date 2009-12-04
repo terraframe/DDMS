@@ -13,10 +13,10 @@
     <mdss:mo param="collectionMethod" value="${collectionMethod}"/>
   </mjl:dt>
   <mjl:dt attribute="startDate">
-    <mjl:input param="collectionDate" type="text" classes="DatePick" id="collectionDate"/>
+    <mjl:input param="collectionDate" type="text" classes="DatePick NoFuture" id="collectionDate"/>
   </mjl:dt>
   <mjl:dt attribute="endDate">
-    <mjl:input param="endDate" type="text" classes="DatePick" id="endDate"/>
+    <mjl:input param="endDate" type="text" classes="DatePick NoFuture" id="endDate"/>
   </mjl:dt>
   <mjl:dt attribute="geoEntity">
     <mjl:input value="${entity != null ? entity.geoId : ''}" type="text" param="geoEntityId" classes="geoInput" id="geoEntity" />

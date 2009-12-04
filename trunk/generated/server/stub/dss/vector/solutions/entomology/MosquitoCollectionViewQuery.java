@@ -4,7 +4,10 @@ import java.util.List;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.AND;
+import com.terraframe.mojo.query.CONCAT;
 import com.terraframe.mojo.query.Condition;
+import com.terraframe.mojo.query.F;
+import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 
@@ -56,9 +59,13 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
 
 //      SelectableSQLCharacter label = labelQuery.aSQLCharacter("displayLabel", "displayLabel");
       
+      CONCAT entityLabel = F.CONCAT(query.getGeoEntity().getEntityName(), " (");
+      entityLabel = F.CONCAT(entityLabel, query.getGeoEntity().getGeoId());
+      entityLabel = F.CONCAT(entityLabel, ")");
+      
       vQuery.map(MosquitoCollectionView.CONCRETEID, query.getId());
       vQuery.map(MosquitoCollectionView.GEOENTITY, query.getGeoEntity());
-      vQuery.map(MosquitoCollectionView.GEOENTITYLABEL, query.getGeoEntity().getEntityName());
+      vQuery.map(MosquitoCollectionView.GEOENTITYLABEL, entityLabel);
       vQuery.map(MosquitoCollectionView.COLLECTIONDATE, query.getCollectionDate());
       vQuery.map(MosquitoCollectionView.COLLECTIONID, query.getCollectionId());
       vQuery.map(MosquitoCollectionView.COLLECTIONMETHOD, query.getCollectionMethod());
@@ -176,13 +183,16 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
     @Override
     protected void buildWhereClause()
     {
-      super.buildWhereClause();
+      MosquitoCollectionViewQuery vQuery = this.getViewQuery();
 
       String search = "%" + this.value + "%";
       search = search.replace(" ", "% ");
 
-      MosquitoCollectionViewQuery vQuery = this.getViewQuery();
-      vQuery.WHERE(vQuery.getCollectionId().LIKEi(search));
+      Condition condition = vQuery.getCollectionId().LIKEi(search);
+      condition = OR.get(condition, vQuery.getGeoEntity().getEntityName().LIKEi(search));
+      condition = OR.get(condition, vQuery.getGeoEntity().getGeoId().LIKEi(search));
+      
+      vQuery.WHERE(condition);
     }
   }
 
