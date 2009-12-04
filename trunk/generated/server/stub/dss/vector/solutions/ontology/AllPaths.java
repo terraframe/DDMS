@@ -121,7 +121,7 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
       "    '"+createdById+"'                                      AS "+AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase()+",\n" +
       "    recurs_rel."+RelationshipInfo.PARENT_ID+"              AS "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+", \n" +
       "    recurs_rel.root_id                                     AS "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+", \n" +
-      "    '"+ontologyRelationship.getId()+"                      AS "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" \n" +
+      "    '"+ontologyRelationship.getId()+"'                      AS "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" \n" +
 
       "FROM "+termTable+" as term1, "+termTable+" as term2,\n" +
       " (SELECT root_id, "+RelationshipInfo.PARENT_ID+", "+RelationshipInfo.CHILD_ID+" \n"+
@@ -160,6 +160,7 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
 
       try
       {
+        System.out.println(sql);
         prepared = conn.prepareStatement(sql);
         prepared.setTimestamp(1, new Timestamp(transactionDate.getTime()));
         prepared.setTimestamp(2, new Timestamp(transactionDate.getTime()));
