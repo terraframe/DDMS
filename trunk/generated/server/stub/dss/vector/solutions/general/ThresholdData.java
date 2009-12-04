@@ -318,7 +318,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
   private static void performAlert(String alertKey, GeoEntity entity, int threshold, long count) {
   	SystemAlert systemAlert = SystemAlert.getByKey(alertKey);
     String alertType = entity.getOutbreakAlert();
-    String thresholdType = ResourceBundle.getBundle("MDSS").getString(alertKey);
+    String thresholdType = MDSSProperties.getString(alertKey);
     String label = entity.getLabel();
 
 	if (systemAlert.getIsEmailActive())
