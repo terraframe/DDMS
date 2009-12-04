@@ -259,7 +259,7 @@
             isQuery="false" />
           <mdAction
             name="searchByDTO"
-            isPost="false"
+            isPost="true"
             isQuery="true">
             <mdParameter
               name="dto"
