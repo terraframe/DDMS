@@ -1,0 +1,62 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <permissions>
+      <role roleName="mdss.GUIVisibility">
+        <grant>
+          <mdBusinessPermission type="dss.vector.solutions.entomology.LifeStageMaster">
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+          </mdBusinessPermission>
+          <mdBusinessPermission type="dss.vector.solutions.entomology.MosquitoCollection">
+            <operation name="READ"/>
+          </mdBusinessPermission>
+          <mdBusinessPermission type="dss.vector.solutions.entomology.SubCollection">
+            <operation name="READ"/>
+          </mdBusinessPermission>
+          <mdViewPermission type="dss.vector.solutions.entomology.MosquitoCollectionView">
+            <operation name="CREATE"/>
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+            <operation name="WRITE"/>
+            <operation name="WRITE_ALL_ATTRIBUTES"/>
+            <operation name="DELETE"/>
+          </mdViewPermission>
+          <mdViewPermission type="dss.vector.solutions.entomology.SearchMosquitoCollectionView">
+            <operation name="CREATE"/>
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+            <operation name="WRITE"/>
+            <operation name="WRITE_ALL_ATTRIBUTES"/>
+            <operation name="DELETE"/>
+          </mdViewPermission>
+          <mdViewPermission type="dss.vector.solutions.entomology.SubCollectionView">
+            <operation name="CREATE"/>
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+            <operation name="WRITE"/>
+            <operation name="WRITE_ALL_ATTRIBUTES"/>
+            <operation name="DELETE"/>
+          </mdViewPermission>
+        </grant>
+      </role>
+      <role roleName="mdss.coordinator, mdss.entomologist, mdss.dataCapturer">
+        <grant>
+          <mdBusinessPermission type="dss.vector.solutions.entomology.MosquitoCollection">
+            <operation name="CREATE"/>
+            <operation name="WRITE"/>
+            <operation name="WRITE_ALL_ATTRIBUTES"/>
+            <operation name="DELETE"/>
+          </mdBusinessPermission>
+          <mdBusinessPermission type="dss.vector.solutions.entomology.SubCollection">
+            <operation name="CREATE"/>
+            <operation name="WRITE"/>
+            <operation name="WRITE_ALL_ATTRIBUTES"/>
+            <operation name="DELETE"/>
+          </mdBusinessPermission>          
+        </grant>
+      </role>
+    </permissions>
+  </doIt>
+  <undoIt>
+  </undoIt>
+</version>

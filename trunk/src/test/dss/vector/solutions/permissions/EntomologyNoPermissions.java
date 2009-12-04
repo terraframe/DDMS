@@ -10,6 +10,8 @@ import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
+import dss.vector.solutions.entomology.MosquitoCollectionViewDTO;
+import dss.vector.solutions.entomology.SubCollectionViewDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
@@ -30,13 +32,14 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
   {  
     try
     {
-      MosquitoCollectionDTO dto = new MosquitoCollectionDTO(request);
-      dto.setCollectionMethod(TermDTO.get(request, termId));
-      dto.setGeoEntity(GeoEntityDTO.searchByGeoId(request, siteGeoId));
-      dto.setCollectionDate(new Date());
-      dto.apply();
+      TermDTO term = TermDTO.get(request, termId);
+      
+      GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, siteGeoId);    
+      
+      MosquitoCollectionViewDTO dto = TestFixture.createCollection(request, term, entity);    
+      dto.applyAll(new SubCollectionViewDTO[]{TestFixture.createSubCollection(request, term)});
 
-      dto.delete();
+      dto.deleteConcrete();
       
       fail("Able to create a mosquito collection without permissions");
     }
@@ -53,11 +56,9 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
     Date date = new Date();
 
     // Create the mosquito collection
-    MosquitoCollectionDTO dto = new MosquitoCollectionDTO(systemRequest);
-    dto.setCollectionMethod(TermDTO.get(request, termId));
-    dto.setGeoEntity(GeoEntityDTO.searchByGeoId(request, siteGeoId));
-    dto.setCollectionDate(new Date());
-    dto.apply();
+    GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, siteGeoId);    
+    MosquitoCollectionViewDTO dto = TestFixture.createCollection(systemRequest, term, entity);    
+    dto.applyAll(new SubCollectionViewDTO[]{});
 
     try
     {
@@ -72,7 +73,7 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
       {
         AdultDiscriminatingDoseAssayDTO assay = new AdultDiscriminatingDoseAssayDTO(request);
         assay.setSex(TermDTO.get(request, termId));
-        assay.setCollection(dto);
+        assay.setCollection(MosquitoCollectionDTO.get(request, dto.getConcreteId()));
         assay.setControlTestMortality(2.5F);
         assay.setFed(30);
         assay.setGravid(30);
@@ -102,7 +103,7 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
     }
     finally
     {
-      dto.delete();
+      dto.deleteConcrete();
     }
   }
 
@@ -113,11 +114,9 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
     Date date = new Date();
 
     // Create the mosquito collection
-    MosquitoCollectionDTO dto = new MosquitoCollectionDTO(systemRequest);
-    dto.setCollectionMethod(TermDTO.get(request, termId));
-    dto.setGeoEntity(GeoEntityDTO.searchByGeoId(request, siteGeoId));
-    dto.setCollectionDate(new Date());
-    dto.apply();
+    GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, siteGeoId);    
+    MosquitoCollectionViewDTO dto = TestFixture.createCollection(systemRequest, term, entity);    
+    dto.applyAll(new SubCollectionViewDTO[]{});
 
     try
     {
@@ -130,7 +129,7 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
       try
       {
         LarvaeDiscriminatingDoseAssayDTO assay = new LarvaeDiscriminatingDoseAssayDTO(request);
-        assay.setCollection(dto);
+        assay.setCollection(MosquitoCollectionDTO.get(request, dto.getConcreteId()));
         assay.setControlTestMortality(2.5F);
         assay.setExposureTime(60);
         assay.setIntervalTime(10);
@@ -158,7 +157,7 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
     }
     finally
     {
-      dto.delete();
+      dto.deleteConcrete();
     }
   }
 
@@ -169,11 +168,9 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
     Date date = new Date();
 
     // Create the mosquito collection
-    MosquitoCollectionDTO dto = new MosquitoCollectionDTO(systemRequest);
-    dto.setCollectionMethod(TermDTO.get(request, termId));
-    dto.setGeoEntity(GeoEntityDTO.searchByGeoId(request, siteGeoId));
-    dto.setCollectionDate(new Date());
-    dto.apply();
+    GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, siteGeoId);    
+    MosquitoCollectionViewDTO dto = TestFixture.createCollection(systemRequest, term, entity);    
+    dto.applyAll(new SubCollectionViewDTO[]{});
 
     try
     {
@@ -187,7 +184,7 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
       {
         KnockDownAssayDTO assay = new KnockDownAssayDTO(request);
         assay.setSex(TermDTO.get(request, termId));
-        assay.setCollection(dto);
+        assay.setCollection(MosquitoCollectionDTO.get(request, dto.getConcreteId()));
         assay.setFed(30);
         assay.setGravid(30);
         assay.setExposureTime(60);
@@ -214,7 +211,7 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
     }
     finally
     {
-      dto.delete();
+      dto.deleteConcrete();
     }
   }
 

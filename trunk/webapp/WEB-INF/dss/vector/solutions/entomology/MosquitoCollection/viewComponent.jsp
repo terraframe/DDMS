@@ -222,6 +222,8 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
     var lda_button = document.getElementById('lda.button');
     var kda_button = document.getElementById('kda.button');
     var delete_button = document.getElementById('delete.button');
+    var collectionId = document.getElementById('collectionId');
+    var abundance = document.getElementById('abundance');
 
     // BUTTON HANDLER: DISABLES LINK BUTTONS WHEN THE MOSQUITO COLLECTION HAS NOT BEEN APPLIED
     var buttonHandler = function() {
@@ -267,8 +269,8 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
         collection.addLifeStage(document.getElementById('original.lifeStage').value);         
       }
 
-      collection.setCollectionId(document.getElementById('collectionId').value);        
-      collection.setAbundance(document.getElementById('abundance').value);        
+      collection.setCollectionId(collectionId.value);        
+      collection.setAbundance(abundance.value);        
 
       return collection;
     }
@@ -330,13 +332,26 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
       saveFunction:"applyAll",
       excelButtons:false,
       addButton:true,
-      reloadKeys : ["SubCollectionId"],      
+      reloadKeys : ["SubCollectionId"],
+      saveLabelKey : "Save_Collection",
       saveHandler : saveCollection,
       after_row_edit:function(record){this.myDataTable.updateCell(record, 'Total', calculateTotal(record))}
     };        
  
     var grid = MojoGrid.createDataTable(data);
 
+    // SETUP SUBMIT BUTTON HANDLERS
+    enableSave = function() {
+      grid.enableSaveButton();      
+    }
+
+    YAHOO.util.Event.on(collectionId, 'change', enableSave);   
+    YAHOO.util.Event.on(abundance, 'change', enableSave);   
+
+    if(concreteId.value == '') {
+      enableSave();
+    }
+    
     // INITIALIZE THE BUTTONS
     buttonHandler();
 

@@ -9,13 +9,17 @@ import com.terraframe.mojo.business.rbac.RoleDAO;
 import com.terraframe.mojo.business.rbac.UserDAO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
+import dss.vector.solutions.entomology.LifeStageDTO;
 import dss.vector.solutions.entomology.MosquitoCollection;
+import dss.vector.solutions.entomology.MosquitoCollectionViewDTO;
+import dss.vector.solutions.entomology.SubCollectionViewDTO;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSiteDTO;
@@ -327,4 +331,30 @@ public class TestFixture
 
     return season;
   }
+  
+  public static MosquitoCollectionViewDTO createCollection(ClientRequestIF request, TermDTO term, GeoEntityDTO entity)
+  {
+    MosquitoCollectionViewDTO view = new MosquitoCollectionViewDTO(request);
+    view.setAbundance(true);
+    view.setCollectionDate(new Date());
+    view.setCollectionId(TestFixture.getRandomGeoId());
+    view.setCollectionMethod(term);
+    view.setGeoEntity(entity);
+    view.addLifeStage(LifeStageDTO.EGG);
+    
+    return view;
+  }
+  
+  public static SubCollectionViewDTO createSubCollection(ClientRequestIF request, TermDTO term)
+  {
+    SubCollectionViewDTO view = new SubCollectionViewDTO(request);
+    view.setEggs(45);
+    view.setIdentMethod(term);
+    view.setTaxon(term);
+    view.setSubCollectionId(TestFixture.getRandomGeoId());
+    
+    return view;
+  }
+
+
 }
