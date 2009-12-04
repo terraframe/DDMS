@@ -1,6 +1,7 @@
 package dss.vector.solutions.general;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
@@ -288,19 +289,8 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
 
       if (!threshold.performedNotificationAlert())
       {
-        String alertType = entity.getOutbreakAlert();
-        String thresholdType = MDSSProperties.getString("Alert");
-        String label = entity.getLabel();
-
-        OutbreakAlert alert = new OutbreakAlert();
-        alert.setAlertType(alertType);
-        alert.setThresholdType(thresholdType);
-        alert.setEntityLabel(label);
-        alert.setThreshold(notification);
-        alert.setTotalCases(count);
-        alert.apply();
-
-        alert.throwIt();
+    	// Perform the alert
+      	performAlert("Notification", entity, notification, count);
 
         threshold.updateLastNotification();
       }
@@ -316,24 +306,44 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
         threshold.apply();
       }
 
-      if (!!threshold.performedIdentificationAlert())
+      if (!threshold.performedIdentificationAlert())
       {
-        String alertType = entity.getOutbreakAlert();
-        String thresholdType = MDSSProperties.getString("Identification");
-        String label = entity.getLabel();
+    	performAlert("Identification", entity, identification, count);
+
+        threshold.updateLastIdentification();
+      }
+    }
+  }
+  
+  private static void performAlert(String alertKey, GeoEntity entity, int threshold, long count) {
+  	SystemAlert systemAlert = SystemAlert.getByKey(alertKey);
+    String alertType = entity.getOutbreakAlert();
+    String thresholdType = ResourceBundle.getBundle("MDSS").getString(alertKey);
+    String label = entity.getLabel();
+
+	if (systemAlert.getIsEmailActive())
+	{
+		HashMap<String,Object> data = new HashMap<String,Object>();
+        data.put("alertType", alertType);
+        data.put("thresholdType", thresholdType);
+        data.put("entityLabel", label);
+        data.put("threshold", threshold);
+        data.put("totalCases", count);
+		systemAlert.sendEmail(data);
+	}
+	
+	if (systemAlert.getIsOnscreenActive())
+	{
 
         OutbreakAlert alert = new OutbreakAlert();
         alert.setAlertType(alertType);
         alert.setThresholdType(thresholdType);
         alert.setEntityLabel(label);
-        alert.setThreshold(identification);
+        alert.setThreshold(threshold);
         alert.setTotalCases(count);
         alert.apply();
 
         alert.throwIt();
-
-        threshold.updateLastIdentification();
-      }
-    }
+	}
   }
 }
