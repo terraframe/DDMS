@@ -261,8 +261,6 @@
 	<target name="install_db_procedures" description="Installs Dabase Procedures" depends="">
 		<echo message="Install Database Stored Procedures:" />
 		<java classname="dss.vector.solutions.util.InstallStoredProcedures" failonerror="true">
-			<arg file="${local.root}/scripts/plsql/postgres_pl_functions.sql" />
-            <arg file="${local.root}/scripts/plsql/ddss_ontology.sql" />
 			<arg file="${local.root}/scripts/plsql/geoEntity_Views.sql" />
 			<classpath>
 				<path refid="framework.classpath" />

@@ -66,27 +66,18 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     throw ex;
   }
-  
-  private boolean hasMultipleParents()
-  {
-    QueryFactory f = new QueryFactory();
-    TermRelationshipQuery q = new TermRelationshipQuery(f);
-    q.WHERE(q.childId().EQ(this.getId()));
-    
-    return q.getCount() > 1;
-  }
-  
+
   @Override
   @Transaction
   public void deleteTerm()
   {
-    OntologyRelationship rel = OntologyRelationship.getByKey(OBO.IS_A);    
-    
+    OntologyRelationship rel = OntologyRelationship.getByKey(OBO.IS_A);
+
     // Rebuild the all paths
-    if(!this.hasMultipleParents() && this.isLeafNode(rel.getId()))
+    if(this.isSingleLeafNode(rel.getId()))
     {
-      AllPaths.deleteLeafFromAllPaths(this.getId()); 
-      
+      AllPaths.deleteLeafFromAllPaths(this.getId());
+
       this.delete();
     }
     else
@@ -94,13 +85,13 @@ public class Term extends TermBase implements Reloadable, OptionIF
       // This must be called before deleting the Term
       // to avoid exceptions with required reference attributes.
       AllPaths.deleteTermFromAllPaths(this.getId());
-      
+
       this.delete();
-      
-      AllPaths.rebuildAllPaths();   
+
+      AllPaths.rebuildAllPaths();
     }
   }
-  
+
   /**
    * Deletes the TermRElationship between this Term and the Term with
    * the given parent id. This method should only be called if
@@ -112,12 +103,12 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     QueryFactory f = new QueryFactory();
     TermRelationshipQuery q = new TermRelationshipQuery(f);
-    
+
     q.WHERE(q.childId().EQ(this.getId()));
     q.AND(q.parentId().EQ(parentId));
-    
+
     OIterator<? extends TermRelationship> iter = q.getIterator();
-    
+
     try
     {
       while(iter.hasNext())
@@ -128,7 +119,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     finally
     {
       iter.close();
-      
+
       AllPaths.rebuildAllPaths();
     }
   }
@@ -146,16 +137,16 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     QueryFactory f = new QueryFactory();
     TermRelationshipQuery q = new TermRelationshipQuery(f);
-    
+
     q.WHERE(q.childId().EQ(this.getId()));
     q.AND(q.parentId().NE(parentId));
-    
+
     if(q.getCount() > 0)
     {
       // The Term has more than one parent, so prompt the user to delete either the
       // Term or just the relationship with the current parent.
       Term parent = Term.get(parentId);
-      
+
       ConfirmDeleteTermException ex = new ConfirmDeleteTermException();
       ex.setTerm(parent.getDisplay());
       throw ex;
@@ -251,12 +242,12 @@ public class Term extends TermBase implements Reloadable, OptionIF
       // Remove the old relationship on this Term and parent
       QueryFactory f = new QueryFactory();
       TermRelationshipQuery q = new TermRelationshipQuery(f);
-      
+
       q.WHERE(q.parentId().EQ(oldParentId));
       q.AND(q.childId().EQ(this.getId()));
-      
+
       OIterator<? extends TermRelationship> iter = q.getIterator();
-      
+
       try
       {
         while(iter.hasNext())
@@ -312,7 +303,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       Database.releaseSavepoint(savepoint);
     }
-    
+
     // update the AllPaths table
     if(cloneOperation)
     {
@@ -322,7 +313,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       AllPaths.rebuildAllPaths();
     }
-    
+
     TermViewQuery query = getByIds(new String[] { this.getId() });
     OIterator<? extends TermView> iter = query.getIterator();
 
@@ -440,14 +431,14 @@ public class Term extends TermBase implements Reloadable, OptionIF
       }
     }
   }
-  
+
   private static class SearchRootQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
     private TermQuery termQuery;
 
     // AllPaths is used to restrict the query by parent term Ids.
     private AllPathsQuery pathsQuery;
-    
+
     private BrowserRootQuery rootQuery;
 
     private String    searchValue;
@@ -478,7 +469,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       String search = "%" + this.searchValue + "%";
-      search = search.replace(" ", "% ");      
+      search = search.replace(" ", "% ");
       query.WHERE(OR.get(termQuery.getName().LIKEi(search), termQuery.getTermId().LIKEi(search)));
       query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
       query.AND(this.pathsQuery.getParentTerm().EQ(rootQuery.getTerm()));
@@ -486,7 +477,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
       query.ORDER_BY_ASC(this.termQuery.getDisplay());
     }
-    
+
   }
 
   /**
@@ -530,7 +521,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       String search = "%"+ this.searchValue + "%";
-      search = search.replace(" ", "% ");      
+      search = search.replace(" ", "% ");
       query.WHERE(OR.get(termQuery.getName().LIKEi(search), termQuery.getTermId().LIKEi(search)));
 
       // Restrict the search by parent terms. There are three options:
@@ -548,7 +539,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
         // allowed without roots.
         query.AND(termQuery.getId().EQ(""));
       }
-      
+
       query.AND(termQuery.getObsolete().EQ(false));
 
       query.ORDER_BY_ASC(this.termQuery.getDisplay());
@@ -674,22 +665,22 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       return null;
     }
-    
+
     QueryFactory factory = new QueryFactory();
-    
+
     BrowserFieldQuery bfq = new BrowserFieldQuery(factory);
     bfq.WHERE(bfq.getMdAttribute().EQ(mdAttribute));
-    
+
     BrowserRootQuery brq = new BrowserRootQuery(factory);
     brq.WHERE(brq.field(bfq));
-    
+
     AllPathsQuery apq = new AllPathsQuery(factory);
     apq.WHERE(apq.getParentTerm().EQ(brq.getTerm()));
-    
+
     TermQuery tq = new TermQuery(factory);
     tq.WHERE(tq.getName().EQi(displayLabel));
     tq.WHERE(tq.getId().EQ(apq.getChildTerm().getId()));
-    
+
     OIterator<? extends Term> iterator = tq.getIterator();
 
     try
@@ -822,7 +813,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
         children.add(child);
       }
     }
-    
+
     List<Term> sorted = new ArrayList<Term>(children);
     Collections.sort(sorted, new OptionComparator());
 
@@ -874,27 +865,23 @@ public class Term extends TermBase implements Reloadable, OptionIF
     return list.toArray(new String[list.size()]);
   }
 
-
-  public boolean isLeafNode(String ontologyRelationshipId)
+  /**
+   * A single leaf node has no children and has one or fewer parents.
+   * @param ontologyRelationshipId
+   * @return true if a single leaf node, false otherwise.
+   */
+  public boolean isSingleLeafNode(String ontologyRelationshipId)
   {
-    QueryFactory qf = new QueryFactory();
-
-    AllPathsQuery apQ = new AllPathsQuery(qf);
-    apQ.WHERE(apQ.getParentTerm().EQ(this).
-        // Exclude the row where the term is both the parent and the child
-        AND(apQ.getParentTerm().NE(apQ.getChildTerm()).
-        AND(apQ.getOntologyRelationship().EQ(ontologyRelationshipId))));
-
-    // This node is a parent, so it is not a leaf
-    if (apQ.getCount() > 0)
-    {
-      return false;
-    }
-    else
+    // It is a leaf node if the term has no children and only has one parent.
+    if (this.getAllChildTerm().getAll().size() == 0 &&
+        this.getAllParentTerm().getAll().size() <= 1)
     {
       return true;
     }
-
+    else
+    {
+      return false;
+    }
   }
 
   public static TermViewQuery searchTermsWithRoots(String value, String[] parameters)
@@ -903,7 +890,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     BrowserRootQuery rootQuery = BrowserRoot.getAttributeRoots(parameters[0], parameters[1], f);
     SearchRootQueryBuilder builder = new SearchRootQueryBuilder(f, value, rootQuery);
-    
+
     TermViewQuery q = new TermViewQuery(f, builder);
     q.ORDER_BY_ASC(q.getTermName());
 
