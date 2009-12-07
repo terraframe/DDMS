@@ -55,7 +55,7 @@ public class Email extends EmailBase implements com.terraframe.mojo.generation.l
 	}
 
 	@Transaction
-	public boolean send(String smtp, EmailProtocol protocol, String userid, String password) {
+	public synchronized boolean send(String smtp, EmailProtocol protocol, String userid, String password) {
 		boolean sent = false;
 		Properties props = new Properties();
 		int port = 25;
@@ -118,7 +118,7 @@ public class Email extends EmailBase implements com.terraframe.mojo.generation.l
 			this.apply();
 			sent = true;
 		} catch (Exception e) {
-			this.setError(e.getLocalizedMessage());
+			this.setError(new Date() + ": " + e.getLocalizedMessage());
 			this.apply();
 		}
 		

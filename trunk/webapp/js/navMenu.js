@@ -48,6 +48,16 @@ var aSubmenuData = [
             	     ]
                    }
                },
+               { text: "Alerts",
+            	   submenu: {
+          	     id: "Alerts",
+          	     itemdata: [
+          	       { text: "View_All_SystemAlert", url: "dss.vector.solutions.general.SystemAlertController.viewAll.mojo", visibleTo:'Administrator'},
+          	       { text: "View_All_EmailConfiguration", url: "dss.vector.solutions.general.EmailConfigurationController.viewAll.mojo", visibleTo:'Administrator'},
+          	       { text: "View_All_Email", url: "dss.vector.solutions.general.EmailController.viewAll.mojo", visibleTo:'Administrator'}
+          	     ]
+                 }
+             },
                { text: "Configure_Catalogues_and_Grids(103)", url: "dss.vector.solutions.util.ConfigurableListController.viewAll.mojo" , visibleTo:'Administrator'},
                { text: "User_Administration",
                  submenu: {

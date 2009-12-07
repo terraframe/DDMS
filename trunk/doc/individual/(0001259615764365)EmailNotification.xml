@@ -57,7 +57,7 @@
 			<mdBusiness
 				name="dss.vector.solutions.general.Email"
 				label="Email"
-				generateController="false">
+				generateController="true">
 				<attributes>
 					<text
 						size=""
@@ -92,7 +92,7 @@
 			<mdBusiness
 				name="dss.vector.solutions.general.EmailConfiguration"
 				label="Email Configuration"
-				generateController="false">
+				generateController="true">
 				<attributes>
 					<char 
 						name="emailServer"
@@ -154,16 +154,20 @@
 			<mdBusiness
 				name="dss.vector.solutions.general.SystemAlert"
 				label="Email"
-				generateController="false">
+				generateController="true">
 				<attributes>
          			 <boolean
 			            name="isOnscreenActive"
             			label="Is Onscreen Active"
+            			positiveLabel="Active"
+            			negativeLabel="Inactive"
             			required="true"
             			defaultValue="true" />
          			 <boolean
 			            name="isEmailActive"
             			label="Is Email Active"
+            			positiveLabel="Active"
+            			negativeLabel="Inactive"
             			required="true"
             			defaultValue="true" />
 					<text 
