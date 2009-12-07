@@ -417,13 +417,12 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
       	this.tableData.rows[index][oArgs.editor.getColumn().key] = oArgs.newData ;
         if (editor instanceof YAHOO.widget.DropdownCellEditor) {
           //When an item is selected YUI displays the value instead of the label, so we fix this.
-          editor.dropdownOptions.map( function(opt) {
+          Mojo.Iter.forEach(editor.dropdownOptions, function(opt){
             if (oArgs.newData === opt.value){
               this.myDataTable.updateCell(record, editor.getColumn(), opt.label);
             }
-          });
+          }, this);        	
         }
-
       }
 
       this.tableData.dirty = true;
