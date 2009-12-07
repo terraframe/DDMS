@@ -982,16 +982,22 @@ focus : function() {
     this._browser.render();
   }
   
+  this.tableData = this.getDataTable().tableData;
+  
   // get existing term id from cell and put it into the selected array
   if(this.tableData)
-  {
-  var termId = this.tableData.rows[this.getRecord().getCount()][this.getColumn().getField()];
-  var selected = [];
-  if(Mojo.Util.isString(termId) && termId !== '')
-  {
-  selected.push(termId);
-  }
-  this._browser.setSelection(selected);
+  {    
+    var row  = this.getDataTable().getTrIndex(this.getRecord());
+    var column = this.getColumn().getField();
+	
+    var termId = this.tableData.rows[row][column];
+    var selected = [];
+    
+    if(Mojo.Util.isString(termId) && termId !== '') {
+      selected.push(termId);
+    }
+    
+    this._browser.setSelection(selected);
   }
 },
 
