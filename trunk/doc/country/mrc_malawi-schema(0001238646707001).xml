@@ -13,16 +13,6 @@
 				description="Country"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -31,16 +21,6 @@
 				description="Region"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -49,16 +29,6 @@
 				description="Railway"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -67,16 +37,6 @@
 				description="Reserve"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -85,16 +45,6 @@
 				description="Road"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -103,16 +53,6 @@
 				description="District"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -121,16 +61,6 @@
 				description="Spray Zone"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -139,16 +69,6 @@
 				description="Spray Area"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -157,16 +77,6 @@
 				description="Traditional Authority"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -175,16 +85,6 @@
 				description="Settlement"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -193,16 +93,6 @@
 				description="Settlement Subdivision"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -211,16 +101,6 @@
 				description="Premises"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -229,16 +109,6 @@
 				description="Building"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -247,16 +117,6 @@
 				description="Health Facility"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -265,16 +125,6 @@
 				description="Stock Depot"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -283,16 +133,6 @@
 				description="Sentinel Site"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -301,16 +141,6 @@
 				description="Water Body"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -319,16 +149,6 @@
 				description="Collection Site"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -337,16 +157,6 @@
 				description="Surface"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 			<mdBusiness
@@ -355,16 +165,6 @@
 				description="Health Facility Catchment Area"
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
-				<attributes>
-					<multipolygon
-						name="multiPolygon"
-						label="Multi Polygon"
-						description="Multi Polygon"
-						removable="false"
-						required="false"
-						srid="4326"
-						dimension="2" />
-				</attributes>
 			</mdBusiness>
 
 		</create>
