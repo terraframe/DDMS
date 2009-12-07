@@ -361,7 +361,6 @@ public class GeoEntityImporter {
 					if (g != null) {
 						geoEntity.setGeoPoint(geometryHelper.getGeoPoint(g));
 						geoEntity.setGeoMultiPolygon(geometryHelper.getGeoMultiPolygon(g));
-						System.out.println("Just Work");
 						//businessClass.getMethod("setMultiPolygon", MultiPolygon.class).invoke(geoEntity, geometryHelper.getGeoMultiPolygon(g));
 					}
 				} catch (Exception e) {
