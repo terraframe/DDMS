@@ -356,23 +356,6 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     
     render : function()
     {
-      if(!this.constructor.typesImported)
-      {
-        var request = new MDSS.Request({
-          that: this,
-          onSuccess : function(){
-            this.that.constructor.typesImported = true;
-            this.that.render(); // now we can safely render the browser
-          }
-        });
-  
-        var pck = 'dss.vector.solutions.ontology.';
-//        var types = [pck+'BrowserRoot', pck+'BrowserRootView', pck+'TermView', pck+'Term', pck+'FieldDefaultView'];
-        var types = [pck+'BrowserRoot', pck+'BrowserRootView'];
-        Mojo.Facade.importTypes(request, types, {autoEval:true});
-        return;
-      }
-      
       // add an artificial TermView as the root
       var rootView = new Mojo.$.dss.vector.solutions.ontology.TermView();
       rootView.setTermId(this._ROOT);
@@ -575,22 +558,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
           }
         });
         
-        // wait for the types to be imported
-        if(!this.constructor.typesImported)
-        {
-          var that = this;
-          var intervalId = setInterval(function(){
-            if(that.constructor.typesImported)
-            {
-              clearInterval(intervalId);
-              Mojo.$.dss.vector.solutions.ontology.Term.getByIds(request, toFetch);
-            }
-          }, 200);
-        }
-        else
-        {
-          Mojo.$.dss.vector.solutions.ontology.Term.getByIds(request, toFetch);
-        }
+        Mojo.$.dss.vector.solutions.ontology.Term.getByIds(request, toFetch);
       }
       else
       {
@@ -750,7 +718,6 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
   },
   Static : {
   
-    typesImported : false, 
     formatLabel : function(term)
     {
       return term.getTermName() + ' ('+term.getTermOntologyId()+')';

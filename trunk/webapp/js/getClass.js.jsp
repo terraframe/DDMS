@@ -1,4 +1,6 @@
 
+<%@page import="dss.vector.solutions.ontology.BrowserRootViewDTO"%>
+<%@page import="dss.vector.solutions.ontology.BrowserRootDTO"%>
 <%@page import="dss.vector.solutions.ontology.TermViewDTO"%>
 <%@page import="dss.vector.solutions.ontology.TermDTO"%><%@page import="org.json.JSONArray"%>
 <%@page import="org.json.JSONObject"%>
@@ -49,6 +51,8 @@ if(includeUniversalTypes != null)
   
   toLoad.add(TermViewDTO.CLASS);
   toLoad.add(TermDTO.CLASS);
+  toLoad.add(BrowserRootDTO.CLASS);
+  toLoad.add(BrowserRootViewDTO.CLASS);
 
   types_to_load = toLoad.toArray(new String[toLoad.size()]);
 }
