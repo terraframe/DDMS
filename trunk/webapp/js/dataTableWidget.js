@@ -92,11 +92,10 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 				  else
 				  {
 				  	 this.myDataTable = new YAHOO.widget.DataTable(this.tableData.div_id, this.tableData.columnDefs, this.myDataSource, {});
-				  }
-				  
-				 
-				  
+				  }				  
+				 				  
 				  //set this so it accessable by other methods in the jsp
+				  this.myDataTable.tableData = this.tableData;				  
 				  this.tableData.myDataTable = this.myDataTable;
 				  
 				  // the data comes from the server as ids, we need to set the labels
@@ -179,7 +178,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 	  },
     
     _mapRecords : function() {
-	  	  this.recordIndex = 0;
+	    this.recordIndex = 0;
     	this.myDataTable.getRecordSet().getRecords().map( function(record) {
     		this.record = record;
 		    this.tableData.columnDefs.map( function(feild) {
@@ -674,8 +673,8 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
       }
 
       // FIREFOX ONLY
-      var new_data_row = eval(uneval(this.tableData.defaults));
-      var new_label_row = eval(uneval(this.tableData.defaults));
+      var new_data_row =  this.getDefaultValues();
+      var new_label_row = this.getDefaultLabels();
       if (this.tableData.rows.length > 0) {
         var last_row_index = this.tableData.rows.length - 1;
         this.tableData.copy_from_above.map( function(feild) {
@@ -688,7 +687,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
       this.tableData.rows.push(new_data_row);
       this.myDataTable.addRow(new_label_row);
       this.tableData.dirty = true;
-      this.toggleSaveButton(this._getDisableButton());
+      this.enableSaveButton();
 
   	// Execute after row add
       if(typeof afterRowAdd !== 'undefined' && Mojo.Util.isFunction(afterRowAdd))
@@ -697,6 +696,42 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
       	afterRowAdd(this.myDataTable.getRecord(index), index);
       }
     },
+    
+    getDefaultValues : function() {
+      var row = new Object();
+      var defaults = this.tableData.defaults;
+      
+      var keys = Mojo.Util.getKeys(defaults);
+      
+      for(var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+        
+        var value = ((defaults[key].value != null) ? defaults[key].value : defaults[key]) ;
+        
+        row[key] = value;
+      }
+      
+      return row;
+    },
+    
+    getDefaultLabels : function() {
+      var row = new Object();
+      var defaults = this.tableData.defaults;
+        
+      var keys = Mojo.Util.getKeys(defaults);
+        
+      for(var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+          
+        var value = ((defaults[key].value != null) ? defaults[key].value : defaults[key]) ;
+        var label = defaults[key].label;
+          
+        row[key] = ((label != null )?label:value);
+      }
+      
+      return row;
+    },
+    
     
     onCellClick : function(oArgs) {
       var target = oArgs.target;
