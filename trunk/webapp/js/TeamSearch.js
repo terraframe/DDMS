@@ -592,6 +592,7 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       this.selectEventHandler = selectEventHandler;  // Optional function which is called after an option has been selected
       
       this.dataSource = new MDSS.DataSource(this, searchFunction);
+      this.hidden = true;
 
       this.parameters = null;
       
@@ -610,9 +611,14 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       YAHOO.util.Event.on(this.displayElement, 'keyup', this.keyHandler, this, this);
     },
     
-    hide : function()
-    {
+    hide : function() {
+      this.hidden = true;
       this.panel.hide();
+    },
+    
+    show : function() {
+      this.hidden = false;
+      this.panel.show();
     },
     
     getDisplayElement : function() {
@@ -659,14 +665,9 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       for(var i=0; i<results.length; i++)
       {
         var valueObj = results[i];
-        var displayStr = this.getListDisplay(valueObj);
-        var matched = displayStr.replace(new RegExp("(.*?)(" + searchValue + ")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
 
-        var li = document.createElement('li');              
-        li.id = this.getId(valueObj);              
-        li.label = this.getDisplay(valueObj);
-        li.innerHTML = matched;              
-          
+        var li = this._constructOption(valueObj, searchValue);
+                  
         ul.appendChild(li);
       }
 
@@ -674,11 +675,23 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
 
       this.panel.setBody(outer);
       this.panel.render();
-      this.panel.show();
+      this.show();
       this.panel.bringToTop();
 
       // refocus the input field
       this.getDisplayElement().focus();    
+    },
+    
+    _constructOption : function(valueObj, searchValue) {
+      var displayStr = this.getListDisplay(valueObj);
+      var matched = displayStr.replace(new RegExp("(.*?)(" + searchValue + ")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
+        
+      var li = document.createElement('li');      
+      li.id = this.getId(valueObj);              
+      li.label = this.getDisplay(valueObj);
+      li.innerHTML = matched;
+      
+      return li;
     },
         
     selectHandler : function(selected) {
@@ -695,10 +708,22 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
     keyHandler : function(oData) {
       var value = this.getDisplayElement().value;
         
-      // must have at least 2 characters ready
-      if(value.length >= this.minLength || oData.keyCode === 40) {
+      if(oData.keyCode === 40) {
+        if(this.hidden) {
+          this.performSearch();
+        }
+        else {
+          
+        }
+      }
+      
+      if(oData.keyCode === 27) {
+        this.hide();
+      }      
+      else if(value.length >= this.minLength) {
         this.performSearch();
-      }    
+      }
+      
     },
     
     performSearch : function() {
@@ -778,9 +803,26 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
           return;
         }
 
-        this.getPanel().hide();
+        this.hide();
         this.selectHandler(li);
 
+      }, searchObject, searchObject);
+      
+      YAHOO.util.Event.on(ul, 'keyUp', function(e, obj){
+        var li = e.target;
+        var ul = e.currentTarget;
+      
+        if(li.nodeName === 'SPAN') {
+          li = li.parentNode;
+        }
+      
+        if(li.nodeName !== 'LI') {
+          return;
+        }
+      
+        this.hide();
+        this.selectHandler(li);
+      
       }, searchObject, searchObject);
     },
     

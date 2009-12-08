@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 983765495)
+@com.terraframe.mojo.business.ClassSignature(hash = -989631849)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,7 +21,7 @@ public abstract class MosquitoCollectionViewBase extends com.terraframe.mojo.bus
   public static java.lang.String GEOENTITYLABEL = "geoEntityLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String LIFESTAGE = "lifeStage";
-  private static final long serialVersionUID = 983765495;
+  private static final long serialVersionUID = -989631849;
   
   public MosquitoCollectionViewBase()
   {
@@ -372,6 +372,18 @@ public abstract class MosquitoCollectionViewBase extends com.terraframe.mojo.bus
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
+  public dss.vector.solutions.entomology.InfectionAssayView[] getInfectionAssays()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.entomology.InfectionAssayView[] getInfectionAssays(java.lang.String id)
+  {
+    MosquitoCollectionView _instance = MosquitoCollectionView.get(id);
+    return _instance.getInfectionAssays();
+  }
+  
   public dss.vector.solutions.entomology.assay.KnockDownAssayQuery getKnockDownAssays(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionView.java";
@@ -400,6 +412,18 @@ public abstract class MosquitoCollectionViewBase extends com.terraframe.mojo.bus
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionView.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public dss.vector.solutions.entomology.PooledInfectionAssayView[] getPooledInfectionAssays()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.entomology.PooledInfectionAssayView[] getPooledInfectionAssays(java.lang.String id)
+  {
+    MosquitoCollectionView _instance = MosquitoCollectionView.get(id);
+    return _instance.getPooledInfectionAssays();
   }
   
   public dss.vector.solutions.entomology.SubCollectionView[] getSubCollections()

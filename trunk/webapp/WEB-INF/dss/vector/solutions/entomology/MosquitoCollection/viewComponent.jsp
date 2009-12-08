@@ -63,6 +63,7 @@
     <mjl:command name="ada.button" id="ada.button" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo" value="Adult_DDA"/>
     <mjl:command name="lda.button" id="lda.button" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" value="Larvae_DDA"/>
     <mjl:command name="kda.button" id="kda.button" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" value="Knock_Down_Assay"/>
+    <mjl:command name="ia.button" id="ia.button" action="dss.vector.solutions.entomology.AssayController.getInfectionAssays.mojo" value="Infection_Assay"/>
     <mjl:command name="delete" id="delete.button" action="dss.vector.solutions.entomology.MosquitoCollectionController.delete.mojo" value="Delete"/>
   </mjl:form>
 </dl>
@@ -221,6 +222,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
     var ada_button = document.getElementById('ada.button');
     var lda_button = document.getElementById('lda.button');
     var kda_button = document.getElementById('kda.button');
+    var ia_button = document.getElementById('ia.button');
     var delete_button = document.getElementById('delete.button');
     var collectionId = document.getElementById('collectionId');
     var abundance = document.getElementById('abundance');
@@ -232,6 +234,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
         ada_button.disabled = false;        
         lda_button.disabled = false;        
         kda_button.disabled = false;        
+        ia_button.disabled = false;        
         delete_button.disabled = false;        
       }
       else {
@@ -239,6 +242,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
         ada_button.disabled = true;        
         lda_button.disabled = true;        
         kda_button.disabled = true;        
+        ia_button.disabled = true;        
         delete_button.disabled = true;        
       }     
     }

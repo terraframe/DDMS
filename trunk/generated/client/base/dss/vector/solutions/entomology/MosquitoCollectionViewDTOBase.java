@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1251983241)
+@com.terraframe.mojo.business.ClassSignature(hash = -901310185)
 public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionView";
-  private static final long serialVersionUID = -1251983241;
+  private static final long serialVersionUID = -901310185;
   
   protected MosquitoCollectionViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -438,6 +438,22 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
     return (dss.vector.solutions.entomology.MosquitoCollectionViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final dss.vector.solutions.entomology.InfectionAssayViewDTO[] getInfectionAssays()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getInfectionAssays", _declaredTypes);
+    return (dss.vector.solutions.entomology.InfectionAssayViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.entomology.InfectionAssayViewDTO[] getInfectionAssays(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getInfectionAssays", _declaredTypes);
+    return (dss.vector.solutions.entomology.InfectionAssayViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public final dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO getKnockDownAssays(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
@@ -476,6 +492,22 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
     Object[] _parameters = new Object[]{};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getMostRecent", _declaredTypes);
     return (dss.vector.solutions.entomology.MosquitoCollectionViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.entomology.PooledInfectionAssayViewDTO[] getPooledInfectionAssays()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getPooledInfectionAssays", _declaredTypes);
+    return (dss.vector.solutions.entomology.PooledInfectionAssayViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.entomology.PooledInfectionAssayViewDTO[] getPooledInfectionAssays(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getPooledInfectionAssays", _declaredTypes);
+    return (dss.vector.solutions.entomology.PooledInfectionAssayViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final dss.vector.solutions.entomology.SubCollectionViewDTO[] getSubCollections()

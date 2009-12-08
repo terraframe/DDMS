@@ -163,6 +163,56 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
     return new SubCollectionView[0];
   }
+  
+  @Override
+  public InfectionAssayView[] getInfectionAssays()
+  {
+    if (this.hasConcrete())
+    {
+      InfectionAssayViewQuery query = new InfectionAssayViewQuery(new QueryFactory());
+      query.WHERE(query.getCollection().EQ(this.getConcreteId()));
+
+      OIterator<? extends InfectionAssayView> it = query.getIterator();
+
+      try
+      {
+        List<? extends InfectionAssayView> list = it.getAll();
+
+        return list.toArray(new InfectionAssayView[list.size()]);
+      }
+      finally
+      {
+        it.close();
+      }
+    }
+
+    return new InfectionAssayView[0];
+  }
+  
+  @Override
+  public PooledInfectionAssayView[] getPooledInfectionAssays()
+  {
+    if (this.hasConcrete())
+    {
+      PooledInfectionAssayViewQuery query = new PooledInfectionAssayViewQuery(new QueryFactory());
+      query.WHERE(query.getCollection().EQ(this.getConcreteId()));
+
+      OIterator<? extends PooledInfectionAssayView> it = query.getIterator();
+
+      try
+      {
+        List<? extends PooledInfectionAssayView> list = it.getAll();
+
+        return list.toArray(new PooledInfectionAssayView[list.size()]);
+      }
+      finally
+      {
+        it.close();
+      }
+    }
+
+    return new PooledInfectionAssayView[0];
+  }
 
   public AdultDiscriminatingDoseAssayQuery getAdultDoseAssays(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
@@ -209,7 +259,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
       
       if (sortAttribute.equalsIgnoreCase(MosquitoCollectionView.GEOENTITY))
       {
-        attribute = query.getGeoEntityLabel();
+        attribute = query.getGeoEntity().getEntityName();
       }
       else if (sortAttribute.equalsIgnoreCase(MosquitoCollectionView.COLLECTIONMETHOD))
       {

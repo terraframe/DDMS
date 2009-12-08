@@ -55,28 +55,16 @@
   <dl>
     <dt><label><f:message key="Mosquito_Collection_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.entomology.MosquitoCollection" class="roleLink"><f:message key="Mosquito_Collection"/></span>
+      <span id="dss.vector.solutions.entomology.SearchMosquitoCollectionView" class="roleLink"><f:message key="Mosquito_Collection"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.entomology.MorphologicalSpecieGroupView" class="roleLink"><f:message key="Morphological_Specie_Group"/></span>
-    </dd>
-  </dl>
-  <dl>
-    <dt><label><f:message key="Mosquito_Collection_Point_Management"/></label></dt>
-    <dd>
-      <span id="dss.vector.solutions.entomology.MosquitoCollectionPoint" class="roleLink"><f:message key="Mosquito_Collection_Point"/></span>
+      <span id="dss.vector.solutions.entomology.SubCollectionView" class="roleLink"><f:message key="Sub_Collection"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.entomology.MorphologicalSpecieGroupView" class="roleLink"><f:message key="Morphological_Specie_Group"/></span>
+      <span id="dss.vector.solutions.entomology.InfectionAssayView" class="roleLink"><f:message key="Infection_Assay"/></span>
     </dd>
-  </dl>
-  <dl>
-    <dt><label><f:message key="Species_Identification_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.entomology.MosquitoView" class="roleLink"><f:message key="Mosquito"/></span>
-    </dd>
-    <dd>        
-      <span id="dss.vector.solutions.entomology.UninterestingSpecieGroupView" class="roleLink"><f:message key="Uninteresting_Specie_Group"/></span>
+      <span id="dss.vector.solutions.entomology.PooledInfectionAssayView" class="roleLink"><f:message key="Pooled_Infection_Assay"/></span>
     </dd>
   </dl>
   <dl>
