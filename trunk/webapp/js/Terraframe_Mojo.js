@@ -1,8 +1,6 @@
 // FIXME use special Error subclass that automatically logs messages to the Logger
 // FIXME replace JSON with latest from crockford's site
 // always use getMethod() instead of grabbing the prototype copy? This could cause as many problems as it solves so be careful.
-// Use getGlobal = function(){return (function(){ return this; })();}; because not everything has the window object (non-browser)
-  // - maybe set the above as a reference: Mojo.global when init the library
 
 /**
  * Terraframe Mojo Javascript library.
@@ -42,7 +40,7 @@ var Mojo = {
     
     shorthand : function(pattern, attachTo)
     {
-      var anchorObj = attachTo || window;
+      var anchorObj = attachTo || Mojo.GLOBAL;
       
       var r = '^'+pattern.replace(/\./g, '\\.').replace(/\*/g, '.*')+'$';
       var re = new RegExp(r);
@@ -61,7 +59,7 @@ var Mojo = {
     
     alias : function(pattern, attachTo)
     {
-      var anchorObj = attachTo || window;
+      var anchorObj = attachTo || Mojo.GLOBAL;
       
       var r = '^'+pattern.replace(/\./g, '\\.').replace(/\*/g, '.*')+'$';
       var re = new RegExp(r);
@@ -286,7 +284,7 @@ var Mojo = {
       var klass = metaRef._createConstructor();
       
       // always add the namespace to the window
-      var namespace = metaRef._buildPackage(packageName, window);
+      var namespace = metaRef._buildPackage(packageName, Mojo.GLOBAL);
       namespace[className] = klass;
        
       if(alias !== null)
@@ -397,7 +395,8 @@ var Mojo = {
   IS_STRING_TO_STRING : Object.prototype.toString.call(''),
   IS_NUMBER_TO_STRING : Object.prototype.toString.call(0),
   IS_BOOLEAN_TO_STRING : Object.prototype.toString.call(true),
-  emptyFunction : function(){}
+  emptyFunction : function(){},
+  GLOBAL : (function(){ return this; })()
 };
 
 Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Base', {
@@ -1528,8 +1527,6 @@ Mojo.Meta.newClass('Mojo.Util', {
 
     convertToType : function(value)
     {
-      // FIXME types now match those of java, so reflect directly on the type
-    
       // void/null returns
       if(value == null)
       {
@@ -1881,19 +1878,16 @@ Mojo.Meta.newClass("Mojo.log.Logger", {
     {
     },
     
-    writeInfo : function(msg)
-    {
-     // FIXME make abstract
+    writeInfo : {
+      IsAbstract : true
     },
     
-    writeWarning : function(msg)
-    {
-     // FIXME make abstract
+    writeWarning : {
+      IsAbstract : true
     },
     
-    writeError : function(msg, error)
-    {
-     // FIXME make abstract
+    writeError : {
+      IsAbstract : true
     },
   
   },
@@ -1929,10 +1923,29 @@ Mojo.Meta.newClass('Mojo.Iter', {
     forEach : function(obj, func, context)
     {
       var bound = Mojo.Util.bind((context || this), func);
-      for(var i=0; i<obj.length; i++)
+      if(Mojo.Util.isNumber(obj))
       {
-        var item = obj[i];
-        bound(item, i);
+        for(var i=0; i<obj; i++)
+        {
+          bound(i); 
+        }
+      }
+      else if(Mojo.Util.isArray(obj))
+      {
+        for(var i=0; i<obj.length; i++)
+        {
+          var item = obj[i];
+          bound(item, i);
+        }
+      }
+      else if(Mojo.Util.isObject(obj))
+      {
+        var keys = Mojo.Util.getKeys(obj);
+        for(var i=0; i<keys.length; i++)
+        {
+          var key = keys[i];
+          bound(obj[key], key);
+        }
       }
     },
     
@@ -2072,7 +2085,7 @@ Mojo.Meta.newClass('Mojo.aspect.BeforeAdvice', {
         
           var args = [].splice.call(arguments, 0);
         
-          var context = (m.isStatic() ? window : this);
+          var context = (m.isStatic() ? Mojo.GLOBAL : this);
           b.execute(context, args, k, m);
         
           return o.apply(context, args);
@@ -2109,7 +2122,7 @@ Mojo.Meta.newClass('Mojo.aspect.AfterAdvice', {
         return function(){
         
           var args = [].splice.call(arguments, 0);
-          var context = (m.isStatic() ? window : this);
+          var context = (m.isStatic() ? Mojo.GLOBAL : this);
         
           var obj = o.apply(context, args);
 
@@ -2149,7 +2162,7 @@ Mojo.Meta.newClass('Mojo.aspect.AroundAdvice', {
         return function(){
         
           var args = [].splice.call(arguments, 0);
-          var context = (m.isStatic() ? window : this);
+          var context = (m.isStatic() ? Mojo.GLOBAL : this);
         
           var proceed = (function(oP, c){
           
@@ -2205,6 +2218,8 @@ Mojo.Meta.newClass('Mojo.ClientRequest', {
 
 Mojo.Meta.newClass('Mojo.ClientSession', {
 
+  IsAbstract : true,
+
   Static : {
 
     getBaseEndpoint : function() { return Mojo.ClientSession._baseEndpoint; },
@@ -2214,20 +2229,18 @@ Mojo.Meta.newClass('Mojo.ClientSession', {
     getDefaultOptions : function() { return Mojo.Util.copy(Mojo.ClientSession._defaultOptions, {}); },
     
     setDefaultOptions : function(defaultOptions) { Mojo.Util.copy(defaultOptions, Mojo.ClientSession._defaultOptions); },
-
+    
+    _baseEndpoint : (Mojo.GLOBAL.location.protocol + "//" + Mojo.GLOBAL.location.host  +'/'+ Mojo.GLOBAL.location.pathname.split( '/' )[1] +'/'),
+    
+    _defaultOptions : {
+      'method':'post',
+      'contentType':'application/x-www-form-urlencoded',
+      'encoding':'UTF-8',
+      'asynchronous':true,
+      'successRange':[200,299]
+    }    
   }
 });
-// FIXME allow static props
-Mojo.ClientSession._baseEndpoint = (window.location.protocol + "//" + window.location.host  +'/'+ window.location.pathname.split( '/' )[1] +'/');
-
-Mojo.ClientSession._defaultOptions = {
-  'method':'post',
-  'contentType':'application/x-www-form-urlencoded',
-  'encoding':'UTF-8',
-  'asynchronous':true,
-  'successRange':[200,299]
-};
-
 
 Mojo.Meta.newClass('Mojo.AjaxCall', {
 
@@ -2384,33 +2397,34 @@ Mojo.Meta.newClass('Mojo.Facade', {
       {
         if(Mojo.Util.isObject(options))
         {
-          if(options.autoEval === true)
+          if(options.autoEval)
           {
             eval(jsSource);
           }
           else if('appendTo' in options)
           {
-            var appendTo = options.appendTo;
-            var parentEl = (Mojo.Util.isString(appendTo)) ? document.getElementById(appendTo) : appendTo;
-  
             var script = document.createElement("script");
             script.type = "text/javascript";
   
-            if('textContent' in script)
+            try
             {
-              script.textContent = jsSource;
+              script.appendChild(document.createTextNode(jsSource));
             }
-            else
+            catch(e)
             {
-              script.text = jsSource;
+              script.text = jsSource; // IE
             }
   
+            var appendTo = options.appendTo;
+            var parentEl = Mojo.Util.isString(appendTo) ? document.getElementById(appendTo) : appendTo;
             parentEl.appendChild(script);
           }
         }
   
         if(Mojo.Util.isFunction(onSuccessRef))
+        {
           onSuccessRef.call(clientRequest, jsSource);
+        }
       };
       clientRequest.onSuccess = importCallback;
   
