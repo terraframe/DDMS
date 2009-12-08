@@ -9,7 +9,9 @@ import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.TestFixture;
+import dss.vector.solutions.entomology.BiochemicalAssayViewDTO;
 import dss.vector.solutions.entomology.InfectionAssayViewDTO;
+import dss.vector.solutions.entomology.MolecularAssayViewDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionViewDTO;
 import dss.vector.solutions.entomology.PooledInfectionAssayViewDTO;
@@ -125,6 +127,83 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
       dto.deleteConcrete();
     }
   }
+
+  public void testBiochemicalAssay()
+  {
+    TermDTO term = TermDTO.get(request, termId);
+    
+    // Create the mosquito collection
+    GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, siteGeoId);
+    MosquitoCollectionViewDTO dto = TestFixture.createCollection(systemRequest, term, entity);
+    dto.applyAll(new SubCollectionViewDTO[] {});
+
+    try
+    {
+      BiochemicalAssayViewDTO view = new BiochemicalAssayViewDTO(request);
+      view.setCollection(MosquitoCollectionDTO.get(request, dto.getConcreteId()));
+      view.setIdentMethod(term);
+      view.setIsofemale(true);
+      view.setNumberElevated(23);
+      view.setNumberTested(45);
+      view.setGeneration(term);
+      view.setSex(term);
+      view.setSpecies(term);
+      view.setAssay(term);
+      view.apply();
+      
+      view.deleteConcrete();
+      
+      fail("Able to create an Biochemical without permissions");      
+    }
+    catch(CreatePermissionExceptionDTO e)
+    {
+      //This is expected
+    }
+    finally
+    {
+      dto.deleteConcrete();
+    }
+  }
+  
+  public void testMolecularAssay()
+  {
+    TermDTO term = TermDTO.get(request, termId);
+    
+    // Create the mosquito collection
+    GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, siteGeoId);
+    MosquitoCollectionViewDTO dto = TestFixture.createCollection(systemRequest, term, entity);
+    dto.applyAll(new SubCollectionViewDTO[] {});
+    
+    try
+    {
+      MolecularAssayViewDTO view = new MolecularAssayViewDTO(request);
+      view.setCollection(MosquitoCollectionDTO.get(request, dto.getConcreteId()));
+      view.setIdentMethod(term);
+      view.setIsofemale(true);
+      view.setNumberRR(23);
+      view.setNumberRS(23);
+      view.setNumberSS(23);
+      view.setGeneration(term);
+      view.setSex(term);
+      view.setSpecies(term);
+      view.setAssayMethod(term);
+      view.setTarget(term);
+      view.apply();
+      
+      view.deleteConcrete();
+      
+      fail("Able to create an Molecular assay without permissions");      
+    }
+    catch(CreatePermissionExceptionDTO e)
+    {
+      //This is expected
+    }
+    finally
+    {
+      dto.deleteConcrete();
+    }
+  }
+  
 
 
   public void testADA()

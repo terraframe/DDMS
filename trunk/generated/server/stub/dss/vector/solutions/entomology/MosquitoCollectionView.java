@@ -163,7 +163,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
     return new SubCollectionView[0];
   }
-  
+
   @Override
   public InfectionAssayView[] getInfectionAssays()
   {
@@ -188,7 +188,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
     return new InfectionAssayView[0];
   }
-  
+
   @Override
   public PooledInfectionAssayView[] getPooledInfectionAssays()
   {
@@ -212,6 +212,56 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     }
 
     return new PooledInfectionAssayView[0];
+  }
+
+  @Override
+  public BiochemicalAssayView[] getBiochemicalAssays()
+  {
+    if (this.hasConcrete())
+    {
+      BiochemicalAssayViewQuery query = new BiochemicalAssayViewQuery(new QueryFactory());
+      query.WHERE(query.getCollection().EQ(this.getConcreteId()));
+
+      OIterator<? extends BiochemicalAssayView> it = query.getIterator();
+
+      try
+      {
+        List<? extends BiochemicalAssayView> list = it.getAll();
+
+        return list.toArray(new BiochemicalAssayView[list.size()]);
+      }
+      finally
+      {
+        it.close();
+      }
+    }
+
+    return new BiochemicalAssayView[0];
+  }
+
+  @Override
+  public MolecularAssayView[] getMolecularAssays()
+  {
+    if (this.hasConcrete())
+    {
+      MolecularAssayViewQuery query = new MolecularAssayViewQuery(new QueryFactory());
+      query.WHERE(query.getCollection().EQ(this.getConcreteId()));
+
+      OIterator<? extends MolecularAssayView> it = query.getIterator();
+
+      try
+      {
+        List<? extends MolecularAssayView> list = it.getAll();
+
+        return list.toArray(new MolecularAssayView[list.size()]);
+      }
+      finally
+      {
+        it.close();
+      }
+    }
+
+    return new MolecularAssayView[0];
   }
 
   public AdultDiscriminatingDoseAssayQuery getAdultDoseAssays(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
@@ -256,7 +306,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     if (sortAttribute != null)
     {
       SelectablePrimitive attribute;
-      
+
       if (sortAttribute.equalsIgnoreCase(MosquitoCollectionView.GEOENTITY))
       {
         attribute = query.getGeoEntity().getEntityName();

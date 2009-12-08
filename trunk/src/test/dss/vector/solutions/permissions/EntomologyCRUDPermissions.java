@@ -8,8 +8,12 @@ import com.terraframe.mojo.DoNotWeave;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.TestFixture;
+import dss.vector.solutions.entomology.BiochemicalAssayDTO;
+import dss.vector.solutions.entomology.BiochemicalAssayViewDTO;
 import dss.vector.solutions.entomology.InfectionAssayDTO;
 import dss.vector.solutions.entomology.InfectionAssayViewDTO;
+import dss.vector.solutions.entomology.MolecularAssayDTO;
+import dss.vector.solutions.entomology.MolecularAssayViewDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionViewDTO;
 import dss.vector.solutions.entomology.PooledInfectionAssayDTO;
@@ -175,6 +179,121 @@ public class EntomologyCRUDPermissions extends PermissionTest implements DoNotWe
         assertEquals(edit.getNumberPositive(), test.getNumberPositive());
         assertEquals(edit.getPoolsTested(), test.getPoolsTested());
         assertEquals(edit.getMosquitosTested(), test.getMosquitosTested());
+      }
+      finally
+      {
+        view.deleteConcrete();
+      }
+    }
+    finally
+    {
+      dto.deleteConcrete();
+    }
+  }
+  
+  public void testBiochemicalAssay()
+  {
+    TermDTO term = TermDTO.get(request, termId);
+    
+    // Create the mosquito collection
+    GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, siteGeoId);
+    MosquitoCollectionViewDTO dto = TestFixture.createCollection(request, term, entity);
+    dto.applyAll(new SubCollectionViewDTO[] {});
+
+    try
+    {
+      BiochemicalAssayViewDTO view = new BiochemicalAssayViewDTO(request);
+      view.setCollection(MosquitoCollectionDTO.get(request, dto.getConcreteId()));
+      view.setIdentMethod(term);
+      view.setIsofemale(true);
+      view.setNumberElevated(23);
+      view.setNumberTested(45);
+      view.setGeneration(term);
+      view.setSex(term);
+      view.setSpecies(term);
+      view.setAssay(term);
+      view.apply();
+      
+      try
+      {
+        BiochemicalAssayViewDTO edit = BiochemicalAssayDTO.lockView(request, view.getConcreteId());
+        edit.setIsofemale(false);
+        edit.setNumberElevated(1);
+        edit.setNumberTested(1);
+        edit.apply();
+        
+        BiochemicalAssayViewDTO test = BiochemicalAssayDTO.getView(request, view.getConcreteId());
+        
+        assertEquals(edit.getMosquitoId(), test.getMosquitoId());
+        assertEquals(edit.getCollection().getId(), test.getCollection().getId());
+        assertEquals(edit.getIdentMethod().getId(), test.getIdentMethod().getId());
+        assertEquals(edit.getGeneration().getId(), test.getGeneration().getId());
+        assertEquals(edit.getSex().getId(), test.getSex().getId());
+        assertEquals(edit.getSpecies().getId(), test.getSpecies().getId());
+        assertEquals(edit.getAssay().getId(), test.getAssay().getId());
+        assertEquals(edit.getIsofemale(), test.getIsofemale());
+        assertEquals(edit.getNumberElevated(), test.getNumberElevated());
+        assertEquals(edit.getNumberTested(), test.getNumberTested());
+      }
+      finally
+      {
+        view.deleteConcrete();
+      }
+    }
+    finally
+    {
+      dto.deleteConcrete();
+    }
+  }  
+ 
+  public void testMolecularAssay()
+  {
+    TermDTO term = TermDTO.get(request, termId);
+    
+    // Create the mosquito collection
+    GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, siteGeoId);
+    MosquitoCollectionViewDTO dto = TestFixture.createCollection(request, term, entity);
+    dto.applyAll(new SubCollectionViewDTO[] {});
+
+    try
+    {
+      MolecularAssayViewDTO view = new MolecularAssayViewDTO(request);
+      view.setCollection(MosquitoCollectionDTO.get(request, dto.getConcreteId()));
+      view.setIdentMethod(term);
+      view.setIsofemale(true);
+      view.setNumberRR(23);
+      view.setNumberRS(23);
+      view.setNumberSS(23);
+      view.setGeneration(term);
+      view.setSex(term);
+      view.setSpecies(term);
+      view.setAssayMethod(term);
+      view.setTarget(term);
+      view.apply();
+      
+      try
+      {
+        MolecularAssayViewDTO edit = MolecularAssayDTO.lockView(request, view.getConcreteId());
+        edit.setIsofemale(false);
+        edit.setNumberRR(1);
+        edit.setNumberRS(0);
+        edit.setNumberSS(0);
+        edit.apply();
+        
+        MolecularAssayViewDTO test = MolecularAssayDTO.getView(request, view.getConcreteId());
+        
+        assertEquals(edit.getMosquitoId(), test.getMosquitoId());
+        assertEquals(edit.getCollection().getId(), test.getCollection().getId());
+        assertEquals(edit.getIdentMethod().getId(), test.getIdentMethod().getId());
+        assertEquals(edit.getGeneration().getId(), test.getGeneration().getId());
+        assertEquals(edit.getSex().getId(), test.getSex().getId());
+        assertEquals(edit.getSpecies().getId(), test.getSpecies().getId());
+        assertEquals(edit.getAssayMethod().getId(), test.getAssayMethod().getId());
+        assertEquals(edit.getTarget().getId(), test.getTarget().getId());
+        assertEquals(edit.getIsofemale(), test.getIsofemale());
+        assertEquals(edit.getNumberRR(), test.getNumberRR());
+        assertEquals(edit.getNumberRS(), test.getNumberRS());
+        assertEquals(edit.getNumberSS(), test.getNumberSS());
       }
       finally
       {

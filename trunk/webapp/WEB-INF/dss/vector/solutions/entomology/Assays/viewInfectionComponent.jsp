@@ -83,6 +83,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
           'Infected':{'value':'<%=infected%>', 'label':'<%=infectedLabel%>'}
       },
       reloadKeys: ['MosquitoId'],
+      copy_from_above : ['IdentMethod'],
       div_id: "InfectionAssay",
       data_type: "Mojo.$.<%=InfectionAssayViewDTO.CLASS%>",
       saveFunction:"applyAll",
@@ -101,7 +102,8 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
           'Sex':{'value':'<%=pooledSexId%>', 'label':'<%=pooledSexLabel%>'},
           'Infected':{'value':'<%=pooledInfected%>', 'label':'<%=pooledInfectedLabel%>'}
       },
-      reloadKeys: ['PoolId'],      
+      reloadKeys: ['PoolId'],
+      copy_from_above : ['IdentMethod'],      
       div_id: "PooledInfectionAssay",
       data_type: "Mojo.$.<%=PooledInfectionAssayViewDTO.CLASS%>",
       saveFunction:"applyAll",

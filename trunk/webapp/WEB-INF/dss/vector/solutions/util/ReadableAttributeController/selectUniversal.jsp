@@ -66,6 +66,12 @@
     <dd>
       <span id="dss.vector.solutions.entomology.PooledInfectionAssayView" class="roleLink"><f:message key="Pooled_Infection_Assay"/></span>
     </dd>
+    <dd>
+      <span id="dss.vector.solutions.entomology.BiochemicalAssayView" class="roleLink"><f:message key="Biochemical_Assay"/></span>
+    </dd>
+    <dd>
+      <span id="dss.vector.solutions.entomology.MolecularAssayView" class="roleLink"><f:message key="Molecular_Assay"/></span>
+    </dd>
   </dl>
   <dl>
     <dt><label><f:message key="Adult_Diagnostic_Assay_Management"/></label></dt>

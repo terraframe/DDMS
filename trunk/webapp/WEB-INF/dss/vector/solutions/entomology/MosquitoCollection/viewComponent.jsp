@@ -63,7 +63,8 @@
     <mjl:command name="ada.button" id="ada.button" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo" value="Adult_DDA"/>
     <mjl:command name="lda.button" id="lda.button" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" value="Larvae_DDA"/>
     <mjl:command name="kda.button" id="kda.button" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" value="Knock_Down_Assay"/>
-    <mjl:command name="ia.button" id="ia.button" action="dss.vector.solutions.entomology.AssayController.getInfectionAssays.mojo" value="Infection_Assay"/>
+    <mjl:command name="ia.button" id="ia.button" action="dss.vector.solutions.entomology.AssayController.getInfectionAssays.mojo" value="Infection_Assays"/>
+    <mjl:command name="ma.button" id="ma.button" action="dss.vector.solutions.entomology.AssayController.getMechanismAssays.mojo" value="Mechanism_Assays"/>
     <mjl:command name="delete" id="delete.button" action="dss.vector.solutions.entomology.MosquitoCollectionController.delete.mojo" value="Delete"/>
   </mjl:form>
 </dl>
@@ -219,13 +220,15 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
 	  // SETUP THE DOM ELEMENTS
     var concreteId = document.getElementById('concreteId');
     var collection_id = document.getElementById('collection_id');
+    var collectionId = document.getElementById('collectionId');
+    var abundance = document.getElementById('abundance');
+
     var ada_button = document.getElementById('ada.button');
     var lda_button = document.getElementById('lda.button');
     var kda_button = document.getElementById('kda.button');
-    var ia_button = document.getElementById('ia.button');
-    var delete_button = document.getElementById('delete.button');
-    var collectionId = document.getElementById('collectionId');
-    var abundance = document.getElementById('abundance');
+    var ia_button = document.getElementById('ia.button');    
+    var ma_button = document.getElementById('ma.button');    
+    var delete_button = document.getElementById('delete.button');    
 
     // BUTTON HANDLER: DISABLES LINK BUTTONS WHEN THE MOSQUITO COLLECTION HAS NOT BEEN APPLIED
     var buttonHandler = function() {
@@ -235,6 +238,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
         lda_button.disabled = false;        
         kda_button.disabled = false;        
         ia_button.disabled = false;        
+        ma_button.disabled = false;        
         delete_button.disabled = false;        
       }
       else {
@@ -243,6 +247,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
         lda_button.disabled = true;        
         kda_button.disabled = true;        
         ia_button.disabled = true;        
+        ma_button.disabled = true;        
         delete_button.disabled = true;        
       }     
     }

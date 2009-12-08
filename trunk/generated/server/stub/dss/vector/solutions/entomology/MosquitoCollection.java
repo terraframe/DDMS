@@ -60,8 +60,22 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     for(PooledInfectionAssayView assay : pooledInfectionAssays)
     {
       assay.deleteConcrete();
-    }
+    }    
     
+    // DELETE ALL MECHANISM ASSAYS
+    BiochemicalAssayView[] biochemicalAssays = view.getBiochemicalAssays();
+    
+    for(BiochemicalAssayView assay : biochemicalAssays)
+    {
+      assay.deleteConcrete();
+    }
+        
+    MolecularAssayView[] molecularAssays = view.getMolecularAssays();
+    
+    for(MolecularAssayView assay : molecularAssays)
+    {
+      assay.deleteConcrete();
+    }
     
     super.delete();
   }
