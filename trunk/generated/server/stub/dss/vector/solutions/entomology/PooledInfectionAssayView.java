@@ -85,7 +85,7 @@ public class PooledInfectionAssayView extends PooledInfectionAssayViewBase imple
   {
     if (this.hasConcrete())
     {
-      InfectionAssay.get(this.getConcreteId()).delete();
+      PooledInfectionAssay.get(this.getConcreteId()).delete();
     }
   }
 

@@ -9,8 +9,10 @@ import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.TestFixture;
+import dss.vector.solutions.entomology.InfectionAssayViewDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionViewDTO;
+import dss.vector.solutions.entomology.PooledInfectionAssayViewDTO;
 import dss.vector.solutions.entomology.SubCollectionViewDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
@@ -48,6 +50,82 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
       // This is expected
     }
   }
+  
+  public void testInfectionAssay()
+  {
+    TermDTO term = TermDTO.get(request, termId);
+    
+    // Create the mosquito collection
+    GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, siteGeoId);
+    MosquitoCollectionViewDTO dto = TestFixture.createCollection(systemRequest, term, entity);
+    dto.applyAll(new SubCollectionViewDTO[] {});
+
+    try
+    {
+      InfectionAssayViewDTO view = new InfectionAssayViewDTO(request);
+      view.setCollection(MosquitoCollectionDTO.get(request, dto.getConcreteId()));
+      view.setIdentMethod(term);
+      view.setInfected(true);
+      view.setNumberPositive(23);
+      view.setNumberTested(45);
+      view.setParasite(term);
+      view.setSex(term);
+      view.setSpecies(term);
+      view.setTestMethod(term);
+      view.apply();
+      
+      view.deleteConcrete();
+      
+      fail("Able to create an Infection Assay without permissions");      
+    }
+    catch(CreatePermissionExceptionDTO e)
+    {
+      //This is expected
+    }
+    finally
+    {
+      dto.deleteConcrete();
+    }
+  }
+  
+  public void testPooledInfectionAssay()
+  {
+    TermDTO term = TermDTO.get(request, termId);
+    
+    // Create the mosquito collection
+    GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, siteGeoId);
+    MosquitoCollectionViewDTO dto = TestFixture.createCollection(systemRequest, term, entity);
+    dto.applyAll(new SubCollectionViewDTO[] {});
+    
+    try
+    {
+      PooledInfectionAssayViewDTO view = new PooledInfectionAssayViewDTO(request);
+      view.setCollection(MosquitoCollectionDTO.get(request, dto.getConcreteId()));
+      view.setIdentMethod(term);
+      view.setInfected(true);
+      view.setNumberPositive(23);
+      view.setPoolsTested(34);
+      view.setMosquitosTested(234);
+      view.setParasite(term);
+      view.setSex(term);
+      view.setSpecies(term);
+      view.setTestMethod(term);
+      view.apply();
+      
+      view.deleteConcrete();
+      
+      fail("Able to create a Pooled Infection Assay without permissions");      
+    }
+    catch(CreatePermissionExceptionDTO e)
+    {
+      //This is expected
+    }
+    finally
+    {
+      dto.deleteConcrete();
+    }
+  }
+
 
   public void testADA()
   {

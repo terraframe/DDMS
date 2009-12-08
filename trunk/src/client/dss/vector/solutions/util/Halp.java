@@ -196,14 +196,19 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
               value = value.replaceAll("\\[", "").replaceAll("\\]", "");
               break;
             case REFERENCE:
-              value = (String) ( (ComponentDTO) c.getMethod("get" + attrib).invoke(row) ).getId();
-              
-              Class<?> returnType = c.getMethod("get" + attrib).getReturnType();
-              if (returnType.isAssignableFrom(TermDTO.class))
-              {
-                TermDTO term = (TermDTO) c.getMethod("get" + attrib).invoke(row);
-                value = term.getDisplayLabel()+"^^^^"+value;
+              ComponentDTO componentDTO = (ComponentDTO) c.getMethod("get" + attrib).invoke(row);
+
+              if (componentDTO instanceof TermDTO)
+              {                
+                TermDTO term = (TermDTO) componentDTO;
+                
+                value = Halp.getTermIdWithDisplayLabel(term);
               }
+              else
+              {
+                value = componentDTO.getId();                
+              }
+              
               break;
           }
           element.put(attrib, value);
@@ -236,6 +241,11 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       map.put(element);
     }
     return map.toString();// .replaceAll(",", ",\n");
+  }
+
+  public static String getTermIdWithDisplayLabel(TermDTO term)
+  {
+    return term.getDisplayLabel() + "^^^^" + term.getId();
   }
 
   public static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows,

@@ -30,7 +30,9 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
   public void delete()
   {
     // Delete all of the sub collections
-    SubCollectionView[] collections = this.getView().getSubCollections();
+    MosquitoCollectionView view = this.getView();
+    
+    SubCollectionView[] collections = view.getSubCollections();
     
     for(SubCollectionView collection : collections)
     {
@@ -44,6 +46,22 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     {
       assay.delete();
     }
+    
+    // Delete all infection and pooled infection assays
+    InfectionAssayView[] infectionAssays = view.getInfectionAssays();
+    
+    for(InfectionAssayView assay : infectionAssays)
+    {
+      assay.deleteConcrete();
+    }
+    
+    PooledInfectionAssayView[] pooledInfectionAssays = view.getPooledInfectionAssays();
+    
+    for(PooledInfectionAssayView assay : pooledInfectionAssays)
+    {
+      assay.deleteConcrete();
+    }
+    
     
     super.delete();
   }
