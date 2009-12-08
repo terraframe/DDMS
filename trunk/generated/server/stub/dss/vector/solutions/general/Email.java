@@ -1,5 +1,6 @@
 package dss.vector.solutions.general;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
@@ -15,6 +16,7 @@ import javax.mail.internet.MimeMessage;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.session.StartSession;
 
 public class Email extends EmailBase implements com.terraframe.mojo.generation.loader.Reloadable {
 	private static final long serialVersionUID = -1506997120;
@@ -30,10 +32,68 @@ public class Email extends EmailBase implements com.terraframe.mojo.generation.l
 		this.setSubject(subject);
 		this.setBody(body);
 	}
+	
+	private static class EmailDaemon implements Runnable, com.terraframe.mojo.generation.loader.Reloadable {
+		private static final long MINUTE_IN_MILLISECONDS = 60000;
+		private long lastRun = 0;
+		private boolean running = false;
+
+		@StartSession
+	    public void run() {
+			while (running) {
+				try {
+					long current = System.currentTimeMillis();
+					EmailConfiguration config = EmailConfiguration.getDefault();
+					if (this.lastRun == 0 || (current >= (this.lastRun + (config.getRetry() * MINUTE_IN_MILLISECONDS)))) {
+						Email.sendAll(config);
+						this.lastRun = current;
+					}
+				} catch (Throwable t) {
+					// 	Catch all errors and try again
+					System.err.println(t);
+				}
+				try {
+					Thread.sleep(MINUTE_IN_MILLISECONDS);
+				} catch (InterruptedException e) {
+					// Do nothing
+				}
+			}
+	    }
+		
+		public void start() {
+			if (!running) {
+				Thread t = new Thread(this, "MDSS Email Daemon");
+				this.running = true;
+				t.start();
+			}
+		}
+		
+		public void stop() {
+			this.running = false;
+		}
+	}
+
+	private static EmailDaemon daemon = new EmailDaemon();
+
+	public static void startDaemon() {
+		daemon.start();
+	}
+	
+	public static void stopDaemon() {
+		daemon.stop();
+	}
 
 	public static void sendAll() {
+		sendAll(EmailConfiguration.getDefault());
+	}
+	
+	public static void sendAll(EmailConfiguration config) {
+		Calendar cutoff = Calendar.getInstance();
+		cutoff.add(Calendar.DAY_OF_MONTH, -1 * config.getTimeout());
+		
 		EmailQuery query = new EmailQuery(new QueryFactory());
 		query.WHERE(query.getSentDate().EQ((Date) null));
+		query.WHERE(query.getCreateDate().GE(cutoff.getTime()));
 		query.ORDER_BY_DESC(query.getCreateDate());
 
 		OIterator<? extends Email> iterator = query.getIterator();
@@ -41,7 +101,7 @@ public class Email extends EmailBase implements com.terraframe.mojo.generation.l
 		try {
 			while (iterator.hasNext()) {
 				Email email = iterator.next();
-				email.send();
+				email.send(config);
 			}
 		} finally {
 			iterator.close();
@@ -50,7 +110,11 @@ public class Email extends EmailBase implements com.terraframe.mojo.generation.l
 
 	@Transaction
 	public boolean send() {
-		EmailConfiguration emailConfig = EmailConfiguration.getDefault();
+		return this.send(EmailConfiguration.getDefault());
+	}
+	
+	@Transaction
+	public boolean send(EmailConfiguration emailConfig) {
 		return this.send(emailConfig.getEmailServer(), emailConfig.getProtocol().get(0), emailConfig.getEmailUserid(), emailConfig.getEmailPassword());
 	}
 
