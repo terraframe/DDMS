@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -989631849)
+@com.terraframe.mojo.business.ClassSignature(hash = 1007568215)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,7 +21,7 @@ public abstract class MosquitoCollectionViewBase extends com.terraframe.mojo.bus
   public static java.lang.String GEOENTITYLABEL = "geoEntityLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String LIFESTAGE = "lifeStage";
-  private static final long serialVersionUID = -989631849;
+  private static final long serialVersionUID = 1007568215;
   
   public MosquitoCollectionViewBase()
   {
@@ -366,6 +366,18 @@ public abstract class MosquitoCollectionViewBase extends com.terraframe.mojo.bus
     return _instance.getAdultDoseAssays(sortAttribute, isAscending, pageSize, pageNumber);
   }
   
+  public dss.vector.solutions.entomology.BiochemicalAssayView[] getBiochemicalAssays()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.entomology.BiochemicalAssayView[] getBiochemicalAssays(java.lang.String id)
+  {
+    MosquitoCollectionView _instance = MosquitoCollectionView.get(id);
+    return _instance.getBiochemicalAssays();
+  }
+  
   public static dss.vector.solutions.entomology.MosquitoCollectionView getCollection(dss.vector.solutions.entomology.MosquitoCollectionView collection)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionView.java";
@@ -406,6 +418,18 @@ public abstract class MosquitoCollectionViewBase extends com.terraframe.mojo.bus
   {
     MosquitoCollectionView _instance = MosquitoCollectionView.get(id);
     return _instance.getLarvaeDoseAssays(sortAttribute, isAscending, pageSize, pageNumber);
+  }
+  
+  public dss.vector.solutions.entomology.MolecularAssayView[] getMolecularAssays()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.entomology.MolecularAssayView[] getMolecularAssays(java.lang.String id)
+  {
+    MosquitoCollectionView _instance = MosquitoCollectionView.get(id);
+    return _instance.getMolecularAssays();
   }
   
   public static dss.vector.solutions.entomology.MosquitoCollectionViewQuery getMostRecent()

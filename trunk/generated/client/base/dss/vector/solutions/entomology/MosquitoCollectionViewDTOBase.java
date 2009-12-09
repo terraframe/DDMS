@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -901310185)
+@com.terraframe.mojo.business.ClassSignature(hash = 615445463)
 public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionView";
-  private static final long serialVersionUID = -901310185;
+  private static final long serialVersionUID = 615445463;
   
   protected MosquitoCollectionViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -430,6 +430,22 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
     return (dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final dss.vector.solutions.entomology.BiochemicalAssayViewDTO[] getBiochemicalAssays()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getBiochemicalAssays", _declaredTypes);
+    return (dss.vector.solutions.entomology.BiochemicalAssayViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.entomology.BiochemicalAssayViewDTO[] getBiochemicalAssays(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getBiochemicalAssays", _declaredTypes);
+    return (dss.vector.solutions.entomology.BiochemicalAssayViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final dss.vector.solutions.entomology.MosquitoCollectionViewDTO getCollection(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.MosquitoCollectionViewDTO collection)
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.entomology.MosquitoCollectionView"};
@@ -484,6 +500,22 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
     Object[] _parameters = new Object[]{id, sortAttribute, isAscending, pageSize, pageNumber};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getLarvaeDoseAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.entomology.MolecularAssayViewDTO[] getMolecularAssays()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getMolecularAssays", _declaredTypes);
+    return (dss.vector.solutions.entomology.MolecularAssayViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.entomology.MolecularAssayViewDTO[] getMolecularAssays(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getMolecularAssays", _declaredTypes);
+    return (dss.vector.solutions.entomology.MolecularAssayViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.entomology.MosquitoCollectionViewQueryDTO getMostRecent(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

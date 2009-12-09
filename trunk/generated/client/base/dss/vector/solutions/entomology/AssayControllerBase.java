@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -531908233)
+@com.terraframe.mojo.business.ClassSignature(hash = -1203252631)
 public class AssayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.entomology.AssayController";
@@ -10,7 +10,7 @@ public class AssayControllerBase implements com.terraframe.mojo.generation.loade
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -531908233;
+  private static final long serialVersionUID = -1203252631;
   
   public AssayControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -81,6 +81,20 @@ public class AssayControllerBase implements com.terraframe.mojo.generation.loade
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.AssayController.failGetInfectionAssays");
   }
   
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:collectionId", post=false)
+  public void getMechanismAssays(java.lang.String collectionId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AssayController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.AssayController.getMechanismAssays");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:collectionId", post=false)
+  public void failGetMechanismAssays(java.lang.String collectionId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AssayController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.AssayController.failGetMechanismAssays");
+  }
+  
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
   public void searchInfectionAssay() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -93,6 +107,20 @@ public class AssayControllerBase implements com.terraframe.mojo.generation.loade
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AssayController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.AssayController.failSearchInfectionAssay");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void searchMechanismAssay() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AssayController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.AssayController.searchMechanismAssay");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failSearchMechanismAssay() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AssayController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.AssayController.failSearchMechanismAssay");
   }
   
 }

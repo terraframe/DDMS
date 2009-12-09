@@ -490,7 +490,7 @@ ul.selectableList {
 }
 
 li.currentSelection {
-	background-color: white;
+	background-color: lightblue;
 }
 
 div.entitySearchResults {

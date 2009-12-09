@@ -572,6 +572,196 @@ Mojo.Meta.newClass('MDSS.DataSource', {
   }
 });
 
+Mojo.Meta.newClass('MDSS.ResultPanel', {
+  Instance: {
+    initialize: function(autocomplete, element) {
+      this._autocomplete = autocomplete; 
+      
+      this.ul = document.createElement('ul');
+      this.ul.id = element.id + '_results_ul';
+      this.index = 0;
+
+      var resultsDiv = document.createElement('div');
+      resultsDiv.id = element.id + '_results';
+      resultsDiv.className = "yui-panel-container show-scrollbars shadow";
+    
+      YAHOO.util.Dom.insertAfter(resultsDiv,element);
+
+      this.panel = new YAHOO.widget.Panel(resultsDiv, {
+        width:'400px',
+        zindex:15,
+        draggable: false,
+        close: true,
+        visible: false
+      });    
+      
+      var listener = new YAHOO.util.KeyListener(document, {keys:27}, {fn:this.panel.hide, scope:this.panel, correctScope:true }, "keyup" );
+
+      this.panel.cfg.queueProperty("keylisteners", listener);
+    
+      var outer = document.createElement('div');
+      var inner = document.createElement('div');
+
+      outer.appendChild(inner);      
+      inner.appendChild(this.ul);
+
+      this.panel.setBody(outer);
+      outer.appendChild(inner);
+
+      YAHOO.util.Dom.addClass(this.ul, 'selectableList')
+
+      YAHOO.util.Event.on(this.ul, 'mouseover', function(e, obj){
+        var li = e.target; 
+        var ul = e.currentTarget;
+        
+        if(li.nodeName === 'SPAN') {
+          li = li.parentNode;
+        }
+
+        if(li.nodeName !== 'LI') {
+          return;
+        }
+        
+        this.selectOption(li.index);
+
+      }, this, this);
+
+      YAHOO.util.Event.on(this.ul, 'click', function(e, obj){
+        var li = e.target;
+        var ul = e.currentTarget;
+          
+        if(li.nodeName === 'SPAN')
+        {
+          li = li.parentNode;
+        }
+
+        if(li.nodeName !== 'LI')
+        {
+          return;
+        }
+
+        this._autocomplete.selectHandler(li);
+
+      }, this, this);
+    },
+    
+    _getOption : function(i) {
+      return this.ul.children[i];
+    },
+    
+    _unselectOption : function(i) {
+      var option = this._getOption(i);
+      YAHOO.util.Dom.removeClass(option, 'currentSelection');    
+    },
+    
+    _selectOption : function(i) {
+      var option = this._getOption(i);
+      YAHOO.util.Dom.addClass(option, 'currentSelection');    
+    },
+
+    setOptions : function(options) {
+      this.index = null;
+      this.ul.innerHTML = '';
+      
+      this.ul.appendChild(options);
+
+      this.panel.render();
+      this.show();
+      this.panel.bringToTop();
+    },
+    
+    show : function() {
+      this.panel.show();
+    },
+    
+    hide : function() {
+      this.panel.hide();
+    },
+
+    isVisible : function() {
+      return this.panel.cfg.getProperty("visible");    
+    },
+    
+    selectOption : function(i) {
+      if(this.index != null) {
+        this._unselectOption(this.index);
+      }      
+
+      if(i < this.ul.children.length && i >= 0) {
+        this.index = i;
+   	    this._selectOption(this.index);
+      }
+    },
+    
+    selectPrevious : function() {
+      if(this.index != null) {
+        var i = (this.index - 1 >= 0) ? this.index - 1 : this.ul.children.length - 1;
+        
+        this.selectOption(i);
+      }      
+      else {
+        this.selectOption(this.ul.children.length - 1);        
+      }
+    },
+    
+    selectNext : function() {
+      if(this.index != null) {
+    	// Get the next index
+        var i = (this.index + 1 < this.ul.children.length) ? this.index + 1 : 0;
+
+        this.selectOption(i);
+      }      
+      else {
+    	this.selectOption(0);
+      }
+    },
+    
+    
+    selectCurrent : function() {
+      if(this.index != null) {
+        var option = this._getOption(this.index);
+        
+        this._autocomplete.selectHandler(option);
+      }
+    }
+  }
+});
+
+Mojo.Meta.newClass('MDSS.OptionBuilder', {
+  Instance: {
+    initialize: function(listFunction, displayFunction, idFunction) {
+      this.listFunction = listFunction;              // Function which accepts a valueObject and returns a formatted string for a single result 
+      this.displayFunction = displayFunction;        // Function which accepts a valueObject and returns the value for 'displayElement'
+      this.idFunction = idFunction;                  // Function which accepts a valueObject and returns the value for 'concreteElement' 
+    },
+    
+    createOption : function(valueObj, searchValue, index) {
+      var displayStr = this.getListDisplay(valueObj);
+      var matched = displayStr.replace(new RegExp("(.*?)(" + searchValue + ")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
+            
+      var li = document.createElement('li');      
+      li.value = this.getId(valueObj);              
+      li.label = this.getDisplay(valueObj);
+      li.innerHTML = matched;
+      li.index = index;
+          
+      return li;
+    },
+
+    getDisplay : function(valueObject) {
+      return this.displayFunction(valueObject);
+    },
+      
+    getListDisplay : function(valueObject) {
+      return this.listFunction(valueObject);
+    },
+      
+    getId : function(valueObject) {
+      return this.idFunction(valueObject);
+    },
+  }
+});
+
 Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
   Instance: {
     initialize: function(displayElement, concreteElement, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler, prop) {
@@ -579,24 +769,19 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       // Constructor code
 
       // DOM element where the search is inputed and the selected result is displayed
-      this.displayElement = Mojo.Util.isString(displayElement) 
-        ? document.getElementById(displayElement) : displayElement;
+      this.displayElement = Mojo.Util.isString(displayElement) ? document.getElementById(displayElement) : displayElement;
       
       // DOM element where the id of the selected result is stored
-      this.concreteElement = Mojo.Util.isString(concreteElement) 
-        ? document.getElementById(concreteElement) : concreteElement;        
-      
-      this.listFunction = listFunction;              // Function which accepts a valueObject and returns a formatted string for a single result 
-      this.displayFunction = displayFunction;        // Function which accepts a valueObject and returns the value for 'displayElement'
-      this.idFunction = idFunction;                  // Function which accepts a valueObject and returns the value for 'concreteElement' 
-      this.selectEventHandler = selectEventHandler;  // Optional function which is called after an option has been selected
+      this.concreteElement = Mojo.Util.isString(concreteElement) ? document.getElementById(concreteElement) : concreteElement;        
+
+      // Optional function which is called after an option has been selected
+      this.selectEventHandler = selectEventHandler;
       
       this.dataSource = new MDSS.DataSource(this, searchFunction);
-      this.hidden = true;
-
-      this.parameters = null;
+      this.optionBuilder = new MDSS.OptionBuilder(listFunction, displayFunction, idFunction);      
+      this.panel = new MDSS.ResultPanel(this, this.displayElement);
       
-      this.panel = MDSS.GenericSearch.initializePanel(displayElement);  // Result panel
+      this.parameters = null;
       
       // Disable the browser autocomplete function for the element we provide an auto-complete
       this.displayElement.setAttribute("autocomplete", "off");
@@ -612,12 +797,10 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
     },
     
     hide : function() {
-      this.hidden = true;
       this.panel.hide();
     },
     
     show : function() {
-      this.hidden = false;
       this.panel.show();
     },
     
@@ -641,85 +824,71 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       this.parameters = parameter;
     },
 
-    getDisplay : function(valueObject) {
-      return this.displayFunction(valueObject);
-    },
-    
-    getListDisplay : function(valueObject) {
-      return this.listFunction(valueObject);
-    },
-    
-    getId : function(valueObject) {
-      return this.idFunction(valueObject);
-    },
-    
     displayResults : function(results) {
-      var outer = document.createElement('div');
-      var inner = document.createElement('div');
-      var ul = document.createElement('ul');
-
-      MDSS.GenericSearch.createResultList(this, outer, inner, ul);
-        
       var searchValue = this.getDisplayElement().value;
 
+      var options = document.createDocumentFragment();
       for(var i=0; i<results.length; i++)
       {
-        var valueObj = results[i];
-
-        var li = this._constructOption(valueObj, searchValue);
-                  
-        ul.appendChild(li);
+        var result = results[i];
+        
+        var option = this.optionBuilder.createOption(result, searchValue, i); 
+        
+        options.appendChild(option);
       }
-
-      inner.appendChild(ul);
-
-      this.panel.setBody(outer);
-      this.panel.render();
-      this.show();
-      this.panel.bringToTop();
+      
+      this.panel.setOptions(options);
 
       // refocus the input field
       this.getDisplayElement().focus();    
     },
-    
-    _constructOption : function(valueObj, searchValue) {
-      var displayStr = this.getListDisplay(valueObj);
-      var matched = displayStr.replace(new RegExp("(.*?)(" + searchValue + ")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
-        
-      var li = document.createElement('li');      
-      li.id = this.getId(valueObj);              
-      li.label = this.getDisplay(valueObj);
-      li.innerHTML = matched;
-      
-      return li;
-    },
-        
+                
     selectHandler : function(selected) {
       if(selected) {
         MDSS.GenericSearch.setElementValue(this.getDisplayElement(), selected.label);
-        MDSS.GenericSearch.setElementValue(this.getConcreteElement(), selected.id);
+        MDSS.GenericSearch.setElementValue(this.getConcreteElement(), selected.value);
         
         if(Mojo.Util.isFunction(this.selectEventHandler)) {
           this.selectEventHandler(selected);
         }
       }
+      
+      this.hide();
     },
     
     keyHandler : function(oData) {
       var value = this.getDisplayElement().value;
+
+      // Handle the 'down' arrow key
+      if(oData.keyCode === 40) {    
+        var visible = this.panel.isVisible();
         
-      if(oData.keyCode === 40) {
-        if(this.hidden) {
+        if(!visible) {
           this.performSearch();
         }
         else {
-          
+          this.panel.selectNext();
         }
       }
+      // Handle the 'up' arrow key
+      else if (oData.keyCode === 38) {
+        var visible = this.panel.isVisible();
       
-      if(oData.keyCode === 27) {
+        if(!visible) {
+          this.performSearch();
+        }
+        else {
+          this.panel.selectPrevious();
+        }
+      }      
+      // Handle the 'esc' key
+      else if(oData.keyCode === 27) {
         this.hide();
       }      
+      // Handle the 'enter' key
+      else if (oData.keyCode === 13) {
+        this.panel.selectCurrent();
+      }
       else if(value.length >= this.minLength) {
         this.performSearch();
       }
@@ -735,97 +904,9 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       this.dataSource.getResults(value, parameters);
     }
   },
-  
+    
   Static: {
-    initializePanel : function(element) {
-      var resultsDiv = document.createElement('div');
-      resultsDiv.id = element.id + '_results';
-      resultsDiv.className = "yui-panel-container show-scrollbars shadow";
-    
-      YAHOO.util.Dom.insertAfter(resultsDiv,element);
-
-      var panel = new YAHOO.widget.Panel(resultsDiv, {
-        width:'400px',
-        height:'200px',
-        zindex:15,
-        draggable: false,
-        close: true
-      });    
-      
-      return panel;
-    },
-    
-    createResultList : function (searchObject, outer, inner, ul) {
-
-      //var header = document.createElement('div');
-      //header.innerHTML = '<h3>'+MDSS.Localized.Search_Results+'</h3><hr />';
-      //outer.appendChild(header);
-
-      YAHOO.util.Dom.addClass(inner, 'entitySearchResults');
-      outer.appendChild(inner);
-
-      YAHOO.util.Dom.addClass(ul, 'selectableList')
-
-      YAHOO.util.Event.on(ul, 'mouseover', function(e, obj){
-        var li = e.target; 
-        var ul = e.currentTarget;
-      
-        if(li.nodeName === 'SPAN') {
-          li = li.parentNode;
-        }
-
-        if(li.nodeName !== 'LI') {
-          return;
-        }
-
-        // clear all lis of their current class
-        var lis = YAHOO.util.Selector.query('li.currentSelection', ul);
-
-        for(var i=0; i<lis.length; i++)
-        {
-          YAHOO.util.Dom.removeClass(lis[i], 'currentSelection');
-        }
-
-        YAHOO.util.Dom.addClass(li, 'currentSelection');
-      });
-
-      YAHOO.util.Event.on(ul, 'click', function(e, obj){
-        var li = e.target;
-        var ul = e.currentTarget;
-        
-        if(li.nodeName === 'SPAN')
-        {
-          li = li.parentNode;
-        }
-
-        if(li.nodeName !== 'LI')
-        {
-          return;
-        }
-
-        this.hide();
-        this.selectHandler(li);
-
-      }, searchObject, searchObject);
-      
-      YAHOO.util.Event.on(ul, 'keyUp', function(e, obj){
-        var li = e.target;
-        var ul = e.currentTarget;
-      
-        if(li.nodeName === 'SPAN') {
-          li = li.parentNode;
-        }
-      
-        if(li.nodeName !== 'LI') {
-          return;
-        }
-      
-        this.hide();
-        this.selectHandler(li);
-      
-      }, searchObject, searchObject);
-    },
-    
+       
     setElementValue : function(element, value) {
       if(element) {
         if(value) {
