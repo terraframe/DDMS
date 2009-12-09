@@ -128,7 +128,7 @@ public class EmailController extends EmailControllerBase implements com.terrafra
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.general.EmailQueryDTO query = dss.vector.solutions.general.EmailDTO.getAllInstances(clientRequest, Email.CREATEDATE, false, 20, 1);
+    dss.vector.solutions.general.EmailQueryDTO query = dss.vector.solutions.general.EmailDTO.getAllInstances(clientRequest, dss.vector.solutions.general.EmailDTO.CREATEDATE, false, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
