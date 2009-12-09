@@ -217,7 +217,8 @@
         extendable="false"
         isAbstract="false"
         publish="false"
-        generateController="false">
+        generateController="false"
+        table="allpaths_ontology">
         <attributes>
           <reference
             name="parentTerm"

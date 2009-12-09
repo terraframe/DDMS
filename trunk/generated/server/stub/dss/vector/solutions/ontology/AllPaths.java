@@ -160,7 +160,6 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
 
       try
       {
-        System.out.println(sql);
         prepared = conn.prepareStatement(sql);
         prepared.setTimestamp(1, new Timestamp(transactionDate.getTime()));
         prepared.setTimestamp(2, new Timestamp(transactionDate.getTime()));
@@ -290,10 +289,10 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
       }
     }
   }
-  
+
   /**
    * Removes all AllPaths entries where the given term is a parent or child.
-   * 
+   *
    * @param termId
    */
   public static void deleteTermFromAllPaths(String termId)
@@ -335,7 +334,7 @@ public class AllPaths extends AllPathsBase implements com.terraframe.mojo.genera
           throw new ProgrammingErrorException(e2);
         }
       }
-    }    
+    }
   }
 
 

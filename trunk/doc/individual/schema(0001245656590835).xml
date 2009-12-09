@@ -7,7 +7,8 @@
         description="Contains recursive relationships for all paths within the table."
         extendable="false"
         isAbstract="false"
-        generateController="false">
+        generateController="false"
+        table="allpaths_geo">
         <attributes>
           <reference
             name="parentGeoEntity"
