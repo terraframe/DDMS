@@ -740,7 +740,7 @@ Mojo.Meta.newClass('MDSS.OptionBuilder', {
       var matched = displayStr.replace(new RegExp("(.*?)(" + searchValue + ")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
             
       var li = document.createElement('li');      
-      li.value = this.getId(valueObj);              
+      li.id = this.getId(valueObj);              
       li.label = this.getDisplay(valueObj);
       li.innerHTML = matched;
       li.index = index;
@@ -846,7 +846,7 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
     selectHandler : function(selected) {
       if(selected) {
         MDSS.GenericSearch.setElementValue(this.getDisplayElement(), selected.label);
-        MDSS.GenericSearch.setElementValue(this.getConcreteElement(), selected.value);
+        MDSS.GenericSearch.setElementValue(this.getConcreteElement(), selected.id);
         
         if(Mojo.Util.isFunction(this.selectEventHandler)) {
           this.selectEventHandler(selected);
