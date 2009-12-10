@@ -1,6 +1,22 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.util.List;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
+import com.terraframe.mojo.query.AttributeMoment;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.QueryException;
+import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQLInteger;
+import com.terraframe.mojo.query.SelectableSingle;
+import com.terraframe.mojo.query.ValueQuery;
+
+import dss.vector.solutions.Person;
+import dss.vector.solutions.util.QueryUtil;
 
 public class Larvacide extends LarvacideBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -24,5 +40,71 @@ public class Larvacide extends LarvacideBase implements com.terraframe.mojo.gene
     }
     
     return views;
+  }
+  
+  /**
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
+   * 
+   * @param xml
+   * @return
+   */
+  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
+  {
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, Larvacide.CLASS, Larvacide.GEOENTITY);
+
+    LarvacideQuery larvacideQuery = (LarvacideQuery) queryMap.get(Larvacide.CLASS);
+    LarvacideInstanceQuery larvacideInstanceQuery = (LarvacideInstanceQuery) queryMap.get(LarvacideInstance.CLASS);
+    dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
+    
+    LarvacideAssociationQuery larvacideAssQuery = new LarvacideAssociationQuery(queryFactory);
+
+    valueQuery.WHERE(larvacideAssQuery.parentId().EQ(larvacideQuery.getId()));
+    valueQuery.WHERE(larvacideAssQuery.childId().EQ(larvacideInstanceQuery.getId()));
+
+    valueQuery.WHERE(larvacideQuery.getTeamLeader(Larvacide.TEAMLEADER).LEFT_JOIN_EQ((SelectableSingle) personQuery.getSprayLeaderDelegate(Person.SPRAYLEADERDELEGATE)));
+
+    try
+    {
+      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable("age");
+
+      String personTableAlias = personQuery.getTableAlias();
+      String sql = "EXTRACT(year from AGE(NOW(), " + personTableAlias + ".dateofbirth))";
+      dobSel.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+      // Person.DOB not included in query.
+    }
+
+    //QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery);
+    
+    QueryUtil.joinGeoDisplayLabels(valueQuery,Larvacide.CLASS,larvacideQuery);
+    
+    QueryUtil.joinTermAllpaths(valueQuery,LarvacideInstance.CLASS,larvacideInstanceQuery);  
+
+    QueryUtil.setTermRestrictions(valueQuery, queryMap );    
+    
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+
+    AttributeMoment dateAttribute = larvacideQuery.getStartDate();
+
+    return QueryUtil.setQueryDates(xml, valueQuery, dateAttribute);
+
   }
 }
