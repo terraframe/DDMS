@@ -1,0 +1,27 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <permissions>
+      <role roleName="mdss.coordinator">
+        <grant>
+          <mdViewPermission type="dss.vector.solutions.ontology.FieldDefaultView">
+            <operation name="CREATE"/>
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+            <operation name="WRITE"/>
+            <operation name="WRITE_ALL_ATTRIBUTES"/>
+            <operation name="DELETE"/>
+            <mdMethodPermission methodName="applyDefaultValue">
+              <operation name="EXECUTE"/>
+            </mdMethodPermission>
+            <mdMethodPermission methodName="deleteConcrete">
+              <operation name="EXECUTE"/>
+            </mdMethodPermission>
+          </mdViewPermission>
+        </grant>
+      </role>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
