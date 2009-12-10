@@ -4,10 +4,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
-import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -56,6 +54,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     }
     
     IndividualInstance instance = new IndividualInstance();
+    instance.setIndividualCase(individualCase);
     instance.setActivelyDetected(this.getActivelyDetected());
     instance.setHealthFacility(this.getHealthFacility());
     instance.setDetectedBy(Term.validateByDisplayLabel(this.getDetectedBy(), IndividualInstance.getDetectedByMd()));
@@ -94,6 +93,11 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     instance.applyAll(symptomArray);
   }
 
+  /**
+   * Searches for a Person with the given attributes, but creates one if none is found.
+   * 
+   * @return
+   */
   private Person getPerson()
   {
     String fName = this.getFirstName();
@@ -110,8 +114,13 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     
     if (!iterator.hasNext())
     {
-      String error = "No person found with name [" + fName + " " + lName + ", date of birth [" + dob + "], and sex [" + sexTerm.getName() + "]";
-      throw new DataNotFoundException(error, MdTypeDAO.getMdTypeDAO(Person.CLASS));
+      Person person = new Person();
+      person.setFirstName(fName);
+      person.setLastName(lName);
+      person.setDateOfBirth(dob);
+      person.setSex(sexTerm);
+      person.apply();
+      return person;
     }
     
     Person person = iterator.next();
