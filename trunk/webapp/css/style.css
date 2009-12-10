@@ -323,7 +323,7 @@ span.linkify:hover {
 	margin-left: 5px;
 }
 
-ul#queryItemsList li {
+ul#queryItemsList > li {
   background-color: white;
   border: 1px solid black;
   padding: 5px 0px 0px 5px;
