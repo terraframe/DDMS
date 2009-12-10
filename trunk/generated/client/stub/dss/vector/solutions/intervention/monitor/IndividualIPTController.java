@@ -11,6 +11,8 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.PersonViewDTO;
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -76,7 +78,7 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
   {
     this.viewAll();
   }
-  
+
   @Override
   public void newInstance(String caseId) throws IOException, ServletException
   {
@@ -85,14 +87,14 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
       ClientRequestIF request = super.getClientRequest();
       IndividualIPTCaseViewDTO view = IndividualIPTCaseDTO.getView(request, caseId);
 
-      IndividualIPTViewDTO dto = new IndividualIPTViewDTO(request);      
+      IndividualIPTViewDTO dto = new IndividualIPTViewDTO(request);
       dto.setValue(IndividualIPTViewDTO.IPTCASE, view.getConcreteId());
 
       this.setupRequest(dto);
-      
+
       String serviceDate = req.getParameter("serviceDate");
-      
-      if(serviceDate != null && !serviceDate.equals(""))
+
+      if (serviceDate != null && !serviceDate.equals(""))
       {
         dto.setServiceDate((Date) new DefaultConverter(Date.class).parse(serviceDate, req.getLocale()));
       }
@@ -113,7 +115,7 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
       this.failNewInstance(caseId);
     }
   }
-  
+
   @Override
   public void failNewInstance(String caseId) throws IOException, ServletException
   {
@@ -205,7 +207,7 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
     try
     {
       String caseId = dto.getIptCase().getId();
-      
+
       dto.deleteConcrete();
 
       new IndividualIPTCaseController(req, resp, isAsynchronous).view(caseId);
@@ -231,9 +233,24 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
 
   private void setupRequest(IndividualIPTViewDTO dto)
   {
+    ClientRequestIF request = this.getClientRequest();
+
+    IndividualIPTCaseViewDTO c = IndividualIPTCaseDTO.getView(request, dto.getValue(IndividualIPTViewDTO.IPTCASE));
+    PersonViewDTO person = c.getPatientView();
+
+    GeoEntityDTO residential = GeoEntityDTO.searchByGeoId(request, person.getResidentialGeoId());
+
+    req.setAttribute("residential", residential);
+    req.setAttribute("person", person);
     req.setAttribute("patientType", dto.getPatientType());
     req.setAttribute("doseNumber", dto.getDoseNumber());
     req.setAttribute("doseType", dto.getDoseType());
     req.setAttribute("visitNumber", dto.getVisitNumber());
+
+    if (dto.getConcreteId() != null && !dto.getConcreteId().equals(""))
+    {
+      GeoEntityDTO facility = GeoEntityDTO.searchByGeoId(request, dto.getFacility());
+      req.setAttribute("facility", facility);
+    }
   }
 }

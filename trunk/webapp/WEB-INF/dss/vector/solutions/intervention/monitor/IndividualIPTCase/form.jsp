@@ -3,12 +3,10 @@
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 
 <input type="hidden" name="serviceDate" value="${serviceDate}"/>
+<%@include file="personHeader.jsp" %>
 <mjl:component param="dto" item="${item}">
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
-  <mjl:dt attribute="patient">
-    ${item.patient.firstName} ${item.patient.lastName}
-    <mjl:input type="hidden" param="patient" value="${item.patient.id}"/>
-  </mjl:dt>
+  <mjl:input type="hidden" param="patient" value="${item.patient.id}"/>
   <mjl:dt attribute="residentialLocation">
     <mjl:input classes="geoInput" id="geoIdEl" param="residentialLocation" type="text" />
   </mjl:dt>

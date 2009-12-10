@@ -87,7 +87,10 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     {
       req.setAttribute("residentialLocation", GeoEntityDTO.searchByGeoId(request, location));
     }
-        
+    
+    PersonViewDTO person = view.getPatientView();
+    
+    req.setAttribute("person", person);
     req.setAttribute("serviceDate", req.getParameter("serviceDate"));
     req.setAttribute("query", IndividualIPTViewDTO.getCaseInstances(request, sortAttribute, isAscending, pageSize, pageNumber, view.getConcreteId()));
     req.setAttribute("item", view);
@@ -118,9 +121,11 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     {
       instance.setServiceDate((Date) new DefaultConverter(Date.class).parse(serviceDate, req.getLocale()));
     }
-
+    
+    
     req.setAttribute("item", dto);
     req.setAttribute("instance", instance);
+    req.setAttribute("person", view);
     render("createComponent.jsp");
   }
 
@@ -189,6 +194,9 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     IndividualIPTCaseViewDTO dto = IndividualIPTCaseDTO.lockView(super.getClientRequest(), id);
     String serviceDate = req.getParameter("serviceDate");
 
+    PersonViewDTO person = dto.getPatientView();
+    
+    req.setAttribute("person", person);
     req.setAttribute("serviceDate", serviceDate);
     req.setAttribute("item", dto);
     render("editComponent.jsp");
@@ -290,6 +298,11 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     IndividualIPTCaseViewDTO[] cases = IndividualIPTCaseViewDTO.searchCases(request, serviceDate, patientId);
     String formatDate = new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
     
+    PersonViewDTO person = PersonDTO.getView(request, patientId);
+    GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, person.getResidentialGeoId());
+    
+    req.setAttribute("person", person);
+    req.setAttribute("residential", entity);
     req.setAttribute("view", new IndividualIPTCaseViewDTO(request));
     req.setAttribute("serviceDate", formatDate);
     req.setAttribute("patientId", patientId);

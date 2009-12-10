@@ -6,11 +6,12 @@
   <mjl:message />
 </mjl:messages>
 <dl>
+  <%@include file="personHeader.jsp" %>
   <mjl:form id="dss.vector.solutions.intervention.monitor.IndividualIPT.form.id" name="dss.vector.solutions.intervention.monitor.IndividualIPT.form.name" method="POST">
     <mjl:input param="id" value="${item.concreteId}" type="hidden" />
     <mjl:component param="dto" item="${item}">
       <mjl:dt attribute="facility">
-        ${item.facility}
+        ${facility.displayString}
       </mjl:dt>
       <mjl:dt attribute="serviceDate">
         <span class="formatDate">${item.serviceDate}</span>

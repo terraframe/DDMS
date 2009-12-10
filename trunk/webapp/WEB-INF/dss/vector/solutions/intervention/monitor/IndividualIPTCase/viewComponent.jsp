@@ -9,10 +9,8 @@
   <mjl:form id="dss.vector.solutions.intervention.monitor.IndividualIPTCase.form.id" name="dss.vector.solutions.intervention.monitor.IndividualIPTCase.form.name" method="POST">
     <mjl:input param="id" value="${item.concreteId}" type="hidden" />
     <mjl:input param="serviceDate" value="${serviceDate}" type="hidden"/>    
+    <%@include file="personHeader.jsp" %>    
     <mjl:component param="dto" item="${item}">
-      <mjl:dt attribute="patient">
-        ${item.patient.firstName} ${item.patient.lastName}
-      </mjl:dt>      
       <mjl:dt attribute="residentialLocation">
         ${residentialLocation.displayString}
       </mjl:dt>      
