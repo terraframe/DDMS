@@ -793,7 +793,16 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       
       this.minLength = (Mojo.Util.isNumber(prop.minLength * 1) ? prop.minLength * 1 : 2);
       
+      YAHOO.util.Event.on(this.displayElement, 'keypress', this.preventFormSubmit, null, this);
       YAHOO.util.Event.on(this.displayElement, 'keyup', this.keyHandler, this, this);
+    },
+    
+    preventFormSubmit : function(e)
+    {
+      if((e.keyCode || e.charCode) === 13)
+      {
+        YAHOO.util.Event.preventDefault(e);
+      }    
     },
     
     hide : function() {
