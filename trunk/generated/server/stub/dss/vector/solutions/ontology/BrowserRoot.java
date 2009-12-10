@@ -76,8 +76,7 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     }
 
     return views.toArray(new BrowserRootView[views.size()]);
-  }
-  
+  } 
   
   public static BrowserRootView[] getDefaultGeoRoots(String universalType)
   {
@@ -113,8 +112,9 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     {
       fieldQuery = new BrowserFieldQuery(factory);
     }
+        
     // Geo subtype searching
-    else if(attribute == null || attribute.length() == 0)
+    if(attribute == null || attribute.length() == 0)
     {
       fieldQuery = new BrowserFieldQuery(factory);
       BrowserRootView[] views = getDefaultGeoRoots(className);

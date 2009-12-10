@@ -26,7 +26,7 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%=HealthFacilityDTO.CLASS%>*');
 	    <label> ${item.caseReportDateMd.displayLabel} </label>
 	  </dt>
 	  <dd>
-	    <mjl:input type="text" param="caseReportDate" classes="DatePick" id="caseReportDate" value="${caseReportDate != null ? caseReportDate : ''}"/>
+	    <mjl:input type="text" param="caseReportDate" classes="DatePick NoFuture" id="caseReportDate" value="${caseReportDate != null ? caseReportDate : ''}"/>
 	    <mjl:messages attribute="caseReportDate">
 	      <mjl:message/>
 	    </mjl:messages>
@@ -35,7 +35,7 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%=HealthFacilityDTO.CLASS%>*');
 	    <label> ${item.diagnosisDateMd.displayLabel} </label>
 	  </dt>
 	  <dd>
-	    <mjl:input type="text" param="diagnosisDate" classes="DatePick" id="diagnosisDate" value="${diagnosisDate != null ? diagnosisDate : ''}"/>
+	    <mjl:input type="text" param="diagnosisDate" classes="DatePick NoFuture" id="diagnosisDate" value="${diagnosisDate != null ? diagnosisDate : ''}"/>
 	    <mjl:messages attribute="diagnosisDate">
 	      <mjl:message/>
 	    </mjl:messages>

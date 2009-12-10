@@ -23,13 +23,13 @@
   <mjl:dt attribute="clinicalDiagnosis">
     <mjl:boolean param="clinicalDiagnosis" />
   </mjl:dt>
-  <mjl:dt type="text" attribute="symptomOnset" classes="DatePick" />
-  <mjl:dt type="text" attribute="facilityVisit" classes="DatePick" />
+  <mjl:dt type="text" attribute="symptomOnset" classes="DatePick  NoFuture" />
+  <mjl:dt type="text" attribute="facilityVisit" classes="DatePick  NoFuture" />
   <mjl:dt attribute="patientCategory">
     <mdss:mo param="patientCategory" value="${patientCategory}"/>
   </mjl:dt>
-  <mjl:dt type="text" attribute="admissionDate" classes="DatePick" />
-  <mjl:dt type="text" attribute="releaseDate" classes="DatePick" />
+  <mjl:dt type="text" attribute="admissionDate" classes="DatePick  NoFuture" />
+  <mjl:dt type="text" attribute="releaseDate" classes="DatePick  NoFuture" />
   <mjl:dt attribute="anaemiaPatient">
     <mjl:boolean param="anaemiaPatient" />
   </mjl:dt>
@@ -61,8 +61,8 @@
   <mjl:dt attribute="labTest">
     <mdss:mo param="labTest" value="${labTest}"/>
   </mjl:dt>
-  <mjl:dt type="text" attribute="testSampleDate" classes="DatePick" />
-  <mjl:dt type="text" attribute="labTestDate" classes="DatePick" />
+  <mjl:dt type="text" attribute="testSampleDate" classes="DatePick  NoFuture" />
+  <mjl:dt type="text" attribute="labTestDate" classes="DatePick  NoFuture" />
   <mjl:dt attribute="malariaType">
     <mdss:mo param="malariaType" value="${malariaType}"/>
   </mjl:dt>
@@ -74,7 +74,7 @@
   <mjl:dt attribute="treatment">
     <mdss:mo param="treatment" value="${treatment}"/>
   </mjl:dt>
-  <mjl:dt type="text" attribute="treatmentStartDate" classes="DatePick" />
+  <mjl:dt type="text" attribute="treatmentStartDate" classes="DatePick  NoFuture" />
   
   <h2><fmt:message key="Clinical_Findings" /></h2>
   <mjl:dt attribute="symptomComments">

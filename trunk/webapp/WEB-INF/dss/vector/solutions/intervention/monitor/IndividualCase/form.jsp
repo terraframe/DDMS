@@ -2,8 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 <mjl:component item="${individualCase}" param="dto">
-  <mjl:dt type="text" attribute="caseReportDate" classes="DatePick" />
-  <mjl:dt type="text" attribute="diagnosisDate" classes="DatePick" />
+  <mjl:dt type="text" attribute="caseReportDate" classes="DatePick NoFuture" />
+  <mjl:dt type="text" attribute="diagnosisDate" classes="DatePick NoFuture" />
   <mjl:dt attribute="residence">
     <mjl:input value="${individualCase.residence != null ? individualCase.residence.geoId : ''}" type="text" param="residenceId" classes="geoInput" id="residenceGeoId" />
     <mjl:input type="hidden" param="residence" id="residenceGeoId_geoEntityId" />
