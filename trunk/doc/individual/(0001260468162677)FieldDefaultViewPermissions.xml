@@ -19,6 +19,18 @@
           </mdViewPermission>
         </grant>
       </role>
+      <role roleName="mdss.GUIVisibility">
+        <grant>
+          <mdBusinessPermission type="dss.vector.solutions.general.EpiWeek">
+            <operation name="CREATE"/>
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+            <operation name="WRITE"/>
+            <operation name="WRITE_ALL_ATTRIBUTES"/>
+            <operation name="DELETE"/>
+          </mdBusinessPermission>
+        </grant>
+      </role>      
     </permissions>
   </doIt>
   <undoIt>
