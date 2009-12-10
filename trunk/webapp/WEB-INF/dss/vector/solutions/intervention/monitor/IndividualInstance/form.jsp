@@ -5,7 +5,7 @@
 
 <%@page import="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO"%>
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
-
+<%@include file="../IndividualCase/personHeader.jsp" %>
 <mjl:component item="${item}" param="dto">
   <mjl:input type="hidden" param="individualCase" value="${item.individualCase.id}"/>
   <mjl:dt attribute="activelyDetected">

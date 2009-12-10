@@ -11,6 +11,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -136,6 +137,8 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   private void renderEdit(IndividualInstanceDTO dto) throws IOException, ServletException
   {
+    PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
+    req.setAttribute("person", person);
     req.setAttribute("item", dto);
     req.setAttribute("healthFacility", dto.getHealthFacility());
     req.setAttribute("symptoms", Arrays.asList(dto.getSymptoms()));
@@ -184,6 +187,10 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   private void renderCreate(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms, String caseId) throws IOException, ServletException
   {
     prepareCreateReq(dto, symptoms);
+    
+    PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
+
+    req.setAttribute("person", person);
     req.setAttribute("caseId", caseId);
     render("createComponent.jsp");
   }
@@ -234,6 +241,9 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     utility.checkURL(this.getClass().getSimpleName(), "view");
     
     IndividualInstanceDTO dto = IndividualInstanceDTO.get(super.getClientRequest(), id);
+    PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
+
+    req.setAttribute("person", person);
     req.setAttribute("item", dto);
     req.setAttribute("symptoms", Arrays.asList(dto.getSymptoms()));
     render("viewComponent.jsp");

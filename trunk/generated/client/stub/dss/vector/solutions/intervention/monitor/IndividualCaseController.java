@@ -15,6 +15,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonDTO;
+import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.surveillance.RequiredDiagnosisDateProblemDTO;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
@@ -101,6 +102,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
   private void renderCreate(IndividualCaseDTO individualCase, String personId) throws IOException, ServletException
   {
+    req.setAttribute("person", PersonDTO.getView(this.getClientRequest(), personId));
     req.setAttribute("individualCase", individualCase);
     req.setAttribute("personId", personId);
     render("createComponent.jsp");
@@ -142,6 +144,9 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     utility.put("id", individualCaseDTO.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
+    PersonViewDTO person = individualCaseDTO.getPatient().getPerson().getView();
+    
+    req.setAttribute("person", person);
     req.setAttribute("query", individualCaseDTO.getInstances());
     req.setAttribute("item", individualCaseDTO);
 
@@ -186,6 +191,9 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
   private void renderEdit(IndividualCaseDTO dto) throws IOException, ServletException
   {
+    PersonViewDTO person = dto.getPatient().getPerson().getView();
+
+    req.setAttribute("person", person);
     req.setAttribute("individualCase", dto);
     render("editComponent.jsp");
   }

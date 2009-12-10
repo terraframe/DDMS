@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
+<%@include file="personHeader.jsp" %>
 <mjl:component item="${individualCase}" param="dto">
   <mjl:dt type="text" attribute="caseReportDate" classes="DatePick NoFuture" />
   <mjl:dt type="text" attribute="diagnosisDate" classes="DatePick NoFuture" />

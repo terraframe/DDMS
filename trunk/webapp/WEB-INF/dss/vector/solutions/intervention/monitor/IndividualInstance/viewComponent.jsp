@@ -7,6 +7,7 @@
 </mjl:messages>
 <dl>
   <mjl:form name="dss.vector.solutions.intervention.monitor.IndividualInstance.form.name" id="dss.vector.solutions.intervention.monitor.IndividualInstance.form.id" method="POST">
+    <%@include file="../IndividualCase/personHeader.jsp" %>
     <mjl:input value="${item.id}" type="hidden" param="id" />
     <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="activelyDetected">
