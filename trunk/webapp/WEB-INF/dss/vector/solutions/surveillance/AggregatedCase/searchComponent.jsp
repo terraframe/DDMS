@@ -65,15 +65,22 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
 
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{AggregatedCaseViewDTO.CLASS}))%>
 
-<script type="text/javascript" defer="defer">
-  var form = document.getElementById('searchAggregatedCase');
+<script type="text/javascript">
+(function(){
+	YAHOO.util.Event.onDOMReady(function(){
 
-  var periodType = form.periodType;
-  var button = document.getElementById('button.id');
+    MDSS.GenericSearch.createYearSearch('year');
 
-  var geoId = document.getElementById('geoIdEl');	  
-  var year = document.getElementById('year');
-  var period = document.getElementById('period');
+    var form = document.getElementById('searchAggregatedCase');
 
-  MDSS.validateEpiDate(button, geoId, year, period, periodType);
+    var periodType = form.periodType;
+    var button = document.getElementById('button.id');
+
+    var geoId = document.getElementById('geoIdEl');	  
+    var year = document.getElementById('year');
+    var period = document.getElementById('period');
+
+    MDSS.validateEpiDate(button, geoId, year, period, periodType);
+  })
+})();  
 </script>

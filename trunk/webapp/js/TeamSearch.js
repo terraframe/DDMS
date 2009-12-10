@@ -935,6 +935,58 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
            element.value = '';
         }
       }  
+    },
+  
+    createYearSearch : function(element) {
+      element = Mojo.Util.isString(element) ? document.getElementById(element) : element;
+    	
+      var years = new Array();
+      var d = new Date();
+      var year = d.getFullYear();
+
+      for(var i = 0; i < 10; i++) {
+        years.push(year + '');
+        year--;
+      } 
+        
+      var listFunction = function(valueObject) {
+        return valueObject;
+      };
+
+      var idFunction = function(valueObject) {
+      };
+
+      var displayFunction = function(valueObject) {    
+        return valueObject;
+      };
+
+      var searchFunction = function(request, value) {
+        var filtered = [];
+        var searchText = value.toUpperCase();
+
+        for(var i=0; i < years.length; i++) {
+          var element = years[i];
+          var text = element.toUpperCase();
+              
+          if(text.search(searchText) !== -1 || value === '') {
+            filtered.push(element);
+          }
+        }
+        
+        var query = {
+          resultSet : filtered,
+          getResultSet : function(){
+            return this.resultSet;
+          }
+        };        
+        request.onSuccess(query);        
+      };
+
+      var selectEventHandler = function() {};
+
+      var search = new MDSS.GenericSearch(element, null, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler, {minLength:0});
+
+      YAHOO.util.Event.on(element, 'focus', search.performSearch, search, search);  
     }
   }  
 });
