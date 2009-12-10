@@ -49,9 +49,10 @@ import dss.vector.solutions.intervention.monitor.ITNServiceDTO;
 import dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTDTO;
 import dss.vector.solutions.intervention.monitor.IndividualInstanceDTO;
+import dss.vector.solutions.intervention.monitor.LarvacideDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
-import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.ontology.TermDTO;
+import dss.vector.solutions.stock.StockEventDTO;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
 import dss.vector.solutions.surveillance.AggregatedCaseDTO;
 import dss.vector.solutions.surveillance.CaseDiagnosticDTO;
@@ -84,6 +85,10 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   private static final String QUERY_INDIVIDUAL_CASES = "/WEB-INF/queryScreens/queryIndividualCases.jsp";
 
   private static final String QUERY_SURVEY           = "/WEB-INF/queryScreens/querySurvey.jsp";
+  
+  private static final String QUERY_STOCK            = "/WEB-INF/queryScreens/queryStock.jsp";
+  
+  private static final String QUERY_LARVACIDE        = "/WEB-INF/queryScreens/queryLarvacide.jsp";
 
   private static final String NEW_QUERY              = "/WEB-INF/queryScreens/newQuery.jsp";
 
@@ -708,7 +713,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   }
   
   /**
-   * Creates the screen to query for Entomology (mosquitos).
+   * Creates the screen to query IndividualIPT
    */
   @Override
   public void queryIndividualIPT() throws IOException, ServletException
@@ -750,6 +755,95 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     }
   }
 
+  
+  /**
+   * Creates the screen to query stock
+   */
+  @Override
+  public void queryStock() throws IOException, ServletException
+  {
+    try
+    {
+      // The Earth is the root. FIXME use country's default root
+      ClientRequestIF request = this.getClientRequest();
+
+      // The Earth is the root. FIXME use country's default root
+      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_STOCK);
+      JSONArray queries = new JSONArray();
+      // Available queries
+      for (SavedSearchViewDTO view : query.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", view.getSavedQueryId());
+        idAndName.put("name", view.getQueryName());
+
+        queries.put(idAndName);
+      }
+
+      // Load label map for Adult Discriminating Dose Assay
+      ClassQueryDTO stock = request.getQuery(StockEventDTO.CLASS);
+      String map = Halp.getDropDownMaps(stock, request, ", ");
+      req.setAttribute("stockMap", map);
+
+      req.setAttribute("queryList", queries.toString());
+
+      req.getRequestDispatcher(QUERY_STOCK).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+  
+
+  /**
+   * Creates the screen to query larvacide
+   */
+  @Override
+  public void queryLarvacide() throws IOException, ServletException
+  {
+    try
+    {
+      // The Earth is the root. FIXME use country's default root
+      ClientRequestIF request = this.getClientRequest();
+
+      // The Earth is the root. FIXME use country's default root
+      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_LARVACIDE);
+      JSONArray queries = new JSONArray();
+      // Available queries
+      for (SavedSearchViewDTO view : query.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", view.getSavedQueryId());
+        idAndName.put("name", view.getQueryName());
+
+        queries.put(idAndName);
+      }
+
+      // Load label map for Adult Discriminating Dose Assay
+      ClassQueryDTO larvacide = request.getQuery(LarvacideDTO.CLASS);
+      String map = Halp.getDropDownMaps(larvacide, request, ", ");
+      req.setAttribute("larvacideMap", map);
+
+      req.setAttribute("queryList", queries.toString());
+
+      req.getRequestDispatcher(QUERY_LARVACIDE).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+  
+  
   /**
    * Creates the screen to query for Entomology (mosquitos).
    */
@@ -1074,23 +1168,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   }
 
   @Override
-  public void exportAggregatedIPTQueryToExcel(String queryXML, String config, String savedSearchId) throws IOException, ServletException
-  {
-    try
-    {
-      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, config, savedSearchId);
-
-      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
-      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
-    }
-    catch (Throwable t)
-    {
-      resp.getWriter().write(t.getLocalizedMessage());
-    }
-  }
-
-  @Override
   public void exportSurveyQueryToCSV(String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
@@ -1124,107 +1201,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     }
   }
 
-  @Override
-  public void exportIRSQueryToCSV(String queryXML, String geoEntityType, String savedSearchId) throws IOException, ServletException
-  {
-    try
-    {
-      InputStream stream = AbstractSprayDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
-
-      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
-      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
-    }
-    catch (Throwable t)
-    {
-      resp.getWriter().write(t.getLocalizedMessage());
-    }
-  }
-
-  @Override
-  public void exportIRSQueryToExcel(String queryXML, String geoEntityType, String savedSearchId) throws IOException, ServletException
-  {
-    try
-    {
-      InputStream stream = AbstractSprayDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
-
-      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
-      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
-    }
-    catch (Throwable t)
-    {
-      resp.getWriter().write(t.getLocalizedMessage());
-    }
-  }
-
-  @Override
-  public void exportEntomologyQueryToCSV(String queryXML, String geoEntityType, String savedSearchId) throws IOException, ServletException
-  {
-//    try
-//    {
-//      InputStream stream = MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
-//
-//      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-//
-//      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
-//    }
-//    catch (Throwable t)
-//    {
-//      resp.getWriter().write(t.getLocalizedMessage());
-//    }
-  }
-
-  @Override
-  public void exportEntomologyQueryToExcel(String queryXML, String geoEntityType, String savedSearchId) throws IOException, ServletException
-  {
-//    try
-//    {
-//      InputStream stream = MosquitoDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
-//
-//      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-//
-//      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
-//    }
-//    catch (Throwable t)
-//    {
-//      resp.getWriter().write(t.getLocalizedMessage());
-//    }
-  }
-
-  @Override
-  public void exportResistanceQueryToCSV(String queryXML, String geoEntityType, String savedSearchId) throws IOException, ServletException
-  {
-    try
-    {
-      InputStream stream = AdultDiscriminatingDoseAssayDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
-
-      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
-      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
-    }
-    catch (Throwable t)
-    {
-      resp.getWriter().write(t.getLocalizedMessage());
-    }
-  }
-
-  @Override
-  public void exportResistanceQueryToExcel(String queryXML, String geoEntityType, String savedSearchId) throws IOException, ServletException
-  {
-    try
-    {
-      InputStream stream = AdultDiscriminatingDoseAssayDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
-
-      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
-      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
-    }
-    catch (Throwable t)
-    {
-      resp.getWriter().write(t.getLocalizedMessage());
-    }
-  }
 
   @Override
   public void cancelQuery(SavedSearchViewDTO savedQueryView) throws IOException, ServletException
