@@ -547,7 +547,7 @@ Mojo.Meta.newClass('MDSS.DataSource', {
       if(parameters) {
         if(Mojo.Util.isArray(parameters)) {
           var args = [request,value];
-          args = args.concat(this.getParameters());
+          args = args.concat(parameters);
            
           this.searchFunction.apply(this,args);
         }
@@ -757,7 +757,7 @@ Mojo.Meta.newClass('MDSS.OptionBuilder', {
       
     getId : function(valueObject) {
       return this.idFunction(valueObject);
-    },
+    }
   }
 });
 
