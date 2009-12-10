@@ -1267,6 +1267,13 @@ if (!YAHOO.util.Event) {
              * @static
              */
             resolveTextNode: function(n) {
+	            	if(!n){
+	            		return;
+	            	}
+	            	var s = HTMLElement.prototype.toString.call(n);
+	            	if(s == '[xpconnect wrapped native prototype]' || s == '[object XULElement]'){
+	            		return;
+	            	}
                 try {
                     if (n && 3 == n.nodeType) {
                         return n.parentNode;
