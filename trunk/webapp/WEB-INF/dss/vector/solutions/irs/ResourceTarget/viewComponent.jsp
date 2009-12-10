@@ -7,6 +7,9 @@
 <%@page import="dss.vector.solutions.irs.ResourceTargetDTO"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.Map"%>
+<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -14,77 +17,82 @@
 <div id="ResourceTargets"></div>
 <br/>
 
+<style type="text/css">
+.yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
+{
+  vertical-align:bottom;
+  background-color:#DDDDDD;
+  background:none;
+}
+
+.yui-dt-label
+{
+  /*writing-mode: tb-rl;*/
+  -moz-transform: rotate(-90deg);
+  width:10px;
+  height:240px;
+  display:block;
+  position:relative;
+  top:110px;
+  left:110px;
+}
+</style>
 <%
 String sum = request.getAttribute("sumLastRow").toString();
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-ResourceTargetViewDTO[] rows = (ResourceTargetViewDTO[]) request.getAttribute("resourceTargetViews");
-String[] attribs = {"TargetId","TargetYear","Targeter"};
-ResourceTargetViewDTO mdView = new ResourceTargetViewDTO(clientRequest);
 ResourceTargetDTO item = new ResourceTargetDTO(clientRequest) ;
 
-String delete_row = "";
 
-String colConfig = "{key:'TargetId',label:'TargetId',hidden:true}";
-colConfig += "\n,{key:'Season',label:'Season',hidden:true}";
-colConfig += "\n,{key:'Targeter',label:'" + "Targeter" + "',hidden:true}";
-colConfig += "\n,{key:'TargeterName',label:'" + "Name" + "',resizeable:true}";
+ResourceTargetViewDTO mdView = (ResourceTargetViewDTO) request.getAttribute("item");
+ResourceTargetViewDTO[] rows = (ResourceTargetViewDTO[]) request.getAttribute("resourceTargetViews");
 
-
-for(int i = 0;i<=52;i++)
-{
-    colConfig += ",\n{sum:" + sum  + ", key:'Target_" + i + "',label:'" + (i+1) + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
-}
-
+String[] keys = (String[]) request.getAttribute("keys");
+Map<String, ColumnSetup> map = (Map<String, ColumnSetup>) request.getAttribute("columns");
 %>
 
-<script type="text/javascript" defer="defer">
+<%=Halp.loadTypes(Arrays.asList(new String[]{ResourceTargetViewDTO.CLASS}))%>
 
-ResourceTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
-       columnDefs: [<%=colConfig%>],
-       defaults:<%=Halp.getDefaultValues(mdView, attribs)%>,
-              div_id: "ResourceTargets",
-              data_type: "Mojo.$.dss.vector.solutions.irs.ResourceTargetView",
-              saveFunction: "applyAll",
-              width:"75em",
-              addButton:false,
-              excelButtons:false
-          };
-         MojoGrid.createDataTable(ResourceTargetData);
+<script type="text/javascript">
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){ 
+    ResourceTargetData = {
+      rows:<%=Halp.getDataMap(rows, keys, mdView)%>,
+      columnDefs:<%=Halp.getColumnSetup(mdView, keys, "", true, map)%>,
+      defaults:<%=Halp.getDefaultValues(mdView, keys)%>,
+      div_id: "ResourceTargets",
+      data_type: "Mojo.$.dss.vector.solutions.irs.ResourceTargetView",
+      saveFunction: "applyAll",
+      addButton:false,
+      excelButtons:false
+    };
+    
+    MojoGrid.createDataTable(ResourceTargetData);
 
+    var dt = ResourceTargetData.myDataTable;
+    var numRows = dt.getRecordSet().getLength();
+    var lastRow =  dt.getRecordSet().getRecord(numRows-1);
+
+    for (var i =0; i<53 ;i++) {        
+      if(! lastRow.getData('Target_'+i)) {
+        var sum = 0;
         
+        for(var j=0; j < numRows - 1 ;j++) {
+          var value = dt.getRecordSet().getRecord(j).getData('Target_'+i);          
 
-         var dt = ResourceTargetData.myDataTable;
-
-         var numRows = dt.getRecordSet().getLength();
-
-         var lastRow =  dt.getRecordSet().getRecord(numRows-1);
-
-         for (var i =0; i<53 ;i++)
-         {        
-           if(! lastRow.getData('Target_'+i))
-           {
-             var sum = 0;
-             for(var j=0; j < numRows - 1 ;j++)
-             {
-               var value = dt.getRecordSet().getRecord(j).getData('Target_'+i);          
-               if(value)
-               {
-                 sum += parseInt(value,10);
-               }
-             }
-             if(sum > 0)
-             {
-                dt.updateCell(lastRow, 'Target_'+i,'<span class="calculated">' + sum + '</span>');
-             }
-           }
-         }
-         
+          if(value) {
+            sum += parseInt(value,10);
+          }
+        }
+        
+        if(sum > 0) {
+          dt.updateCell(lastRow, 'Target_'+i,'<span class="calculated">' + sum + '</span>');
+        }
+      }
+    }
+  });
+})();                  
 </script>
+
 <mjl:commandLink action="dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo" name="dss.vector.solutions.irs.ResourceTarget.viewAll.link" >
   <fmt:message key="Back_To_Search"/>
-</mjl:commandLink>  
-
-
-
-<%String[] types_to_load ={"dss.vector.solutions.irs.ResourceTargetView"}; %>
-<%=Halp.loadTypes((List<String>) Arrays.asList(types_to_load))%>
+</mjl:commandLink>
