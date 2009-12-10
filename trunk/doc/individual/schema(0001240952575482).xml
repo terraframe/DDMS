@@ -102,7 +102,7 @@
             required="true" />
           <decimal
             name="weight"
-            label="Weight (g)"
+            label="Sachet Weight (g)"
             length="6"
             decimal="2"
             rejectNegative="true"
