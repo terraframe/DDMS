@@ -99,7 +99,7 @@ String deleteColumn = "";
     var data = {
       rows:<%=Halp.getDataMap(rows, attributes, view)%>,
       columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-      defaults: {},
+      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
       div_id: "ThresholdData",
       data_type: "Mojo.$.<%=ThresholdDataViewDTO.CLASS%>",
       saveFunction:"applyAll",

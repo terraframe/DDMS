@@ -1112,9 +1112,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     	  var search = new MDSS.GenericSearch(searchEl, null, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler);
     	  
     	  search.addParameter([attribute.getType(),attribute.getAttributeName()]);
-
-    	  YAHOO.util.Event.on(searchEl, 'keyup', search.performSearch, search, search);
-    	
     },
     
     _buildDateAttributesSelect : function(div)

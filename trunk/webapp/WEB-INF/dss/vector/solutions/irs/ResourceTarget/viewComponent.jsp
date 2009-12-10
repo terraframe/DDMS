@@ -41,7 +41,7 @@ for(int i = 0;i<=52;i++)
 
 ResourceTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
        columnDefs: [<%=colConfig%>],
-              defaults: {},
+       defaults:<%=Halp.getDefaultValues(mdView, attribs)%>,
               div_id: "ResourceTargets",
               data_type: "Mojo.$.dss.vector.solutions.irs.ResourceTargetView",
               saveFunction: "applyAll",

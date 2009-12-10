@@ -115,7 +115,7 @@ map.put("UnitsPerDay",  new ColumnSetup(false, true, "validateUnitsPerDay", null
     var data = {
       rows:<%=Halp.getDataMap(rows, attributes, view)%>,
       columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-      defaults: {},
+      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
       div_id: "InterventionPlanning",
       data_type: "Mojo.$.<%=OperatorInterventionPlanningViewDTO.CLASS%>",
       saveFunction:"calculate",

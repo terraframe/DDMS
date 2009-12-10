@@ -41,27 +41,11 @@ InfectionAssayViewDTO[] infectionRows = (InfectionAssayViewDTO[]) request.getAtt
 String[] infectionKeys = (String[]) request.getAttribute(AssayController.INFECTION_KEYS);
 Map<String, ColumnSetup> infectionMap = (Map<String, ColumnSetup>) request.getAttribute(AssayController.INFECTION_COLUMNS);
 
-TermDTO sex = (TermDTO) request.getAttribute(AssayController.INFECTION_SEX);
-String sexId = (sex != null) ? sex.getId() : "";
-String sexLabel = (sex != null) ? sex.getDisplayLabel() : "";
-
-AttributeBooleanMdDTO infectedMd = infection.getInfectedMd();
-Boolean infected = (Boolean) request.getAttribute(AssayController.INFECTION_INFECTED);
-String infectedLabel = infected ? infectedMd.getPositiveDisplayLabel() : infectedMd.getNegativeDisplayLabel();
-
 PooledInfectionAssayViewDTO pooled = (PooledInfectionAssayViewDTO) request.getAttribute(AssayController.POOLED);
 PooledInfectionAssayViewDTO[] pooledRows = (PooledInfectionAssayViewDTO[]) request.getAttribute(AssayController.POOLED_ROWS);
 
 String[] pooledKeys = (String[]) request.getAttribute(AssayController.POOLED_KEYS);
 Map<String, ColumnSetup> pooledMap = (Map<String, ColumnSetup>) request.getAttribute(AssayController.POOLED_COLUMNS);
-
-TermDTO pooledSex = (TermDTO) request.getAttribute(AssayController.POOLED_SEX);
-String pooledSexId = (pooledSex != null) ? pooledSex.getId() : "";
-String pooledSexLabel = (pooledSex != null) ? pooledSex.getDisplayLabel() : "";
-
-AttributeBooleanMdDTO pooledMd = pooled.getInfectedMd();
-Boolean pooledInfected = (Boolean) request.getAttribute(AssayController.POOLED_INFECTED);
-String pooledInfectedLabel = pooledInfected ? pooledMd.getPositiveDisplayLabel() : pooledMd.getNegativeDisplayLabel();
 
 String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
 %>
@@ -77,11 +61,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
     var infectionData = {
       rows:<%=Halp.getDataMap(infectionRows, infectionKeys, infection)%>,
       columnDefs:<%=Halp.getColumnSetup(infection, infectionKeys, deleteColumn, true, infectionMap)%>,
-      defaults: {
-          'Collection':'<%=infection.getValue(InfectionAssayViewDTO.COLLECTION)%>',
-          'Sex':{'value':'<%=sexId%>', 'label':'<%=sexLabel%>'},
-          'Infected':{'value':'<%=infected%>', 'label':'<%=infectedLabel%>'}
-      },
+      defaults:<%=Halp.getDefaultValues(infection, infectionKeys)%>,
       reloadKeys: ['MosquitoId'],
       copy_from_above : ['IdentMethod'],
       div_id: "InfectionAssay",
@@ -97,11 +77,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
     var pooledData = {
       rows:<%=Halp.getDataMap(pooledRows, pooledKeys, pooled)%>,
       columnDefs:<%=Halp.getColumnSetup(pooled, pooledKeys, deleteColumn, true, pooledMap)%>,
-      defaults: {
-          'Collection':'<%=pooled.getValue(PooledInfectionAssayViewDTO.COLLECTION)%>',
-          'Sex':{'value':'<%=pooledSexId%>', 'label':'<%=pooledSexLabel%>'},
-          'Infected':{'value':'<%=pooledInfected%>', 'label':'<%=pooledInfectedLabel%>'}
-      },
+      defaults:<%=Halp.getDefaultValues(pooled, pooledKeys)%>,
       reloadKeys: ['PoolId'],
       copy_from_above : ['IdentMethod'],      
       div_id: "PooledInfectionAssay",

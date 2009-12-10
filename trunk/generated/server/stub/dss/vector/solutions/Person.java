@@ -8,8 +8,10 @@ import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.ValueQuery;
 
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
 import dss.vector.solutions.intervention.monitor.ITNRecipient;
 import dss.vector.solutions.irs.SprayLeader;
@@ -421,6 +423,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
 
     // The person must be a IPT Recipient
     valueQuery.WHERE(or);
+    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(Person.FIRSTNAME));
 
     valueQuery.restrictRows(20, 1);
 

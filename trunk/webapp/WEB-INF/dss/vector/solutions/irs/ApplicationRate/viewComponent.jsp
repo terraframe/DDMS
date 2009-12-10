@@ -115,7 +115,7 @@
     brandData = {
               rows:<%=Halp.getDataMap(brandRows, brandAttributes, brandDTO)%>,
               columnDefs:<%=Halp.getColumnSetup(brandDTO, brandAttributes, deleteColumn, true, brandMap)%>,
-              defaults: {"Enabled":"true"},
+              defaults:<%=Halp.getDefaultValues(brandDTO, brandAttributes)%>,
               copy_from_above: [],
               div_id: "InsecticideBrand",
               data_type: "Mojo.$.<%=InsecticideBrandViewDTO.CLASS%>",
@@ -130,7 +130,7 @@
     nozzleData = {
               rows:<%=Halp.getDataMap(nozzleRows, nozzleAttributes, nozzleDTO)%>,
               columnDefs:<%=Halp.getColumnSetup(nozzleDTO, nozzleAttributes, deleteColumn, true)%>,
-              defaults: {"Enabled":"true"},
+              defaults:<%=Halp.getDefaultValues(nozzleDTO, nozzleAttributes)%>,
               copy_from_above: [],
               div_id: "Nozzle",
               data_type: "Mojo.$.<%=NozzleViewDTO.CLASS%>",
@@ -145,7 +145,7 @@
     insecticideNozzleData = {
               rows:<%=Halp.getDataMap(insecticideNozzleRows, insecticideNozzleAttributes, insecticideNozzleDTO)%>,
               columnDefs:<%=Halp.getColumnSetup(insecticideNozzleDTO, insecticideNozzleAttributes, deleteColumn, true, configurationMap)%>,
-              defaults: {"Enabled":"true"},
+              defaults:<%=Halp.getDefaultValues(insecticideNozzleDTO, insecticideNozzleAttributes)%>,
               copy_from_above: [],
               div_id: "InsecticideNozzle",
               excelButtons:false,

@@ -90,7 +90,7 @@ map.put("UnitsUsed", new ColumnSetup(false, true));
     var data = {
       rows:<%=Halp.getDataMap(rows, attributes, view)%>,
       columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-      defaults: {ControlId:"<%=control.getId()%>"},
+      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
       div_id: "LaravacideInstance",
       data_type: "Mojo.$.<%=LarvacideInstanceViewDTO.CLASS%>",
       saveFunction:"applyAll",

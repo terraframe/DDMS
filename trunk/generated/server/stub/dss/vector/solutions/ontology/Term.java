@@ -468,8 +468,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       GeneratedViewQuery query = this.getViewQuery();
 
-      String search = "%" + this.searchValue + "%";
-      search = search.replace(" ", "% ");
+      String search = this.searchValue.replace(" ", "% ") + "%";
+      
       query.WHERE(OR.get(termQuery.getName().LIKEi(search), termQuery.getTermId().LIKEi(search)));
       query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
       query.AND(this.pathsQuery.getParentTerm().EQ(rootQuery.getTerm()));
@@ -520,8 +520,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       GeneratedViewQuery query = this.getViewQuery();
 
-      String search = "%"+ this.searchValue + "%";
-      search = search.replace(" ", "% ");
+      String search = this.searchValue.replace(" ", "% ") + "%";
+      
       query.WHERE(OR.get(termQuery.getName().LIKEi(search), termQuery.getTermId().LIKEi(search)));
 
       // Restrict the search by parent terms. There are three options:

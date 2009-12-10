@@ -115,7 +115,7 @@ map.put("Quantity", new ColumnSetup(false, true));
     var data = {
       rows:<%=Halp.getDataMap(rows, attributes, view)%>,
       columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-      defaults: {},
+      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
       div_id: "StockEvent",
       data_type: "Mojo.$.<%=StockEventViewDTO.CLASS%>",
       saveFunction:"applyAll",

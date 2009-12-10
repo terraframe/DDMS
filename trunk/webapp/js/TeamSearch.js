@@ -689,7 +689,7 @@ Mojo.Meta.newClass('MDSS.ResultPanel', {
 
       if(i < this.ul.children.length && i >= 0) {
         this.index = i;
-   	    this._selectOption(this.index);
+        this._selectOption(this.index);
       }
     },
     
@@ -706,16 +706,15 @@ Mojo.Meta.newClass('MDSS.ResultPanel', {
     
     selectNext : function() {
       if(this.index != null) {
-    	// Get the next index
+        // Get the next index
         var i = (this.index + 1 < this.ul.children.length) ? this.index + 1 : 0;
 
         this.selectOption(i);
       }      
       else {
-    	this.selectOption(0);
+        this.selectOption(0);
       }
-    },
-    
+    },   
     
     selectCurrent : function() {
       if(this.index != null) {
@@ -871,6 +870,7 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       // Handle the 'down' arrow key
       if(oData.keyCode === 40) {    
         var visible = this.panel.isVisible();
+        YAHOO.util.Event.preventDefault(oData);      
         
         if(!visible) {
           this.performSearch();
@@ -882,6 +882,7 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       // Handle the 'up' arrow key
       else if (oData.keyCode === 38) {
         var visible = this.panel.isVisible();
+        YAHOO.util.Event.preventDefault(oData);      
       
         if(!visible) {
           this.performSearch();

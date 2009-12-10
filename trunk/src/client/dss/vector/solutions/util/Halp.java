@@ -30,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.business.BusinessDTO;
 import com.terraframe.mojo.business.ClassQueryDTO;
 import com.terraframe.mojo.business.ComponentDTO;
@@ -37,6 +38,7 @@ import com.terraframe.mojo.business.ViewDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.Constants;
 import com.terraframe.mojo.controller.DTOFacade;
+import com.terraframe.mojo.dataaccess.attributes.ClientReadAttributePermissionException;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.system.EnumerationMasterDTO;
 import com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO;
@@ -46,6 +48,7 @@ import com.terraframe.mojo.transport.metadata.AttributeMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO;
 
 import dss.vector.solutions.LabeledDTO;
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.ontology.TermDTO;
 
 public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
@@ -79,8 +82,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     {
       try
       {
-        attributeType = attributeType.substring(attributeType.lastIndexOf(".MdAttribute") + 12)
-            .toUpperCase();
+        attributeType = attributeType.substring(attributeType.lastIndexOf(".MdAttribute") + 12).toUpperCase();
         return valueOf(attributeType);
       }
       catch (Exception ex)
@@ -181,8 +183,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         {
           String value = (String) c.getMethod("get" + attrib).invoke(row).toString();
 
-          String attributeType = view.getAttributeType(attrib.substring(0, 1).toLowerCase()
-              + attrib.substring(1));
+          String attributeType = view.getAttributeType(attrib.substring(0, 1).toLowerCase() + attrib.substring(1));
 
           SimpleDateFormat df = new SimpleDateFormat(Constants.DATETIME_FORMAT);
 
@@ -199,16 +200,16 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
               ComponentDTO componentDTO = (ComponentDTO) c.getMethod("get" + attrib).invoke(row);
 
               if (componentDTO instanceof TermDTO)
-              {                
+              {
                 TermDTO term = (TermDTO) componentDTO;
-                
+
                 value = Halp.getTermIdWithDisplayLabel(term);
               }
               else
               {
-                value = componentDTO.getId();                
+                value = componentDTO.getId();
               }
-              
+
               break;
           }
           element.put(attrib, value);
@@ -248,15 +249,12 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return term.getDisplayLabel() + "^^^^" + term.getId();
   }
 
-  public static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows,
-      ClientRequestIF clientRequest) throws JSONException
+  public static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows, ClientRequestIF clientRequest) throws JSONException
   {
-    return Halp
-        .getDropdownSetup(view, attribs, extra_rows, clientRequest, new HashMap<String, String>());
+    return Halp.getDropdownSetup(view, attribs, extra_rows, clientRequest, new HashMap<String, String>());
   }
 
-  public static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows,
-      ClientRequestIF clientRequest, Map<String, String> map) throws JSONException
+  public static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows, ClientRequestIF clientRequest, Map<String, String> map) throws JSONException
   {
     Class<?> v = view.getClass();
     ArrayList<String> ordered_attribs = new ArrayList<String>(Arrays.asList(attribs));
@@ -287,8 +285,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
           if (LabeledDTO.class.isAssignableFrom(clazz))
           {
-            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAllActive",
-                new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
+            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAllActive", new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
             dropdownbuff.add(getDisplayLabels(terms, attrib));
           }
         }
@@ -308,8 +305,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return Halp.getDropDownMaps(view, clientRequest, "\n");
   }
 
-  public static String getDropDownMaps(ViewDTO view, ClientRequestIF clientRequest, String delimeter)
-      throws JSONException
+  public static String getDropDownMaps(ViewDTO view, ClientRequestIF clientRequest, String delimeter) throws JSONException
   {
     List<AttributeMdDTO> list = new LinkedList<AttributeMdDTO>();
 
@@ -331,8 +327,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return Halp.getDropDownMaps(list, clientRequest, delimeter);
   }
 
-  public static String getDropDownMaps(ClassQueryDTO query, ClientRequestIF clientRequest,
-      String delimeter) throws JSONException
+  public static String getDropDownMaps(ClassQueryDTO query, ClientRequestIF clientRequest, String delimeter) throws JSONException
   {
     List<AttributeMdDTO> list = new LinkedList<AttributeMdDTO>();
 
@@ -354,8 +349,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return Halp.getDropDownMaps(list, clientRequest, delimeter);
   }
 
-  public static String getDropDownMaps(List<AttributeMdDTO> list, ClientRequestIF request,
-      String delimeter)
+  public static String getDropDownMaps(List<AttributeMdDTO> list, ClientRequestIF request, String delimeter)
   {
     ArrayList<String> dropdownbuff = new ArrayList<String>();
 
@@ -416,10 +410,8 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       }
       else if (md instanceof AttributeBooleanMdDTO)
       {
-        String positiveLabel = ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'",
-            "\\\\'");
-        String negativeLabel = ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'",
-            "\\\\'");
+        String positiveLabel = ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'", "\\\\'");
+        String negativeLabel = ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'", "\\\\'");
 
         return "{'true':'" + positiveLabel + "', 'false':'" + negativeLabel + "'}";
       }
@@ -432,14 +424,12 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     }
   }
 
-  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload)
-      throws JSONException
+  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload) throws JSONException
   {
     return getColumnSetup(view, attribs, extra_rows, autoload, 1);
   }
 
-  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows,
-      boolean autoload, int num_to_hide) throws JSONException
+  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload, int num_to_hide) throws JSONException
   {
     ArrayList<Integer> no_edit_cols = new ArrayList<Integer>();
     ArrayList<Integer> no_show_cols = new ArrayList<Integer>();
@@ -453,8 +443,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return getColumnSetup(view, attribs, extra_rows, autoload, no_edit_cols, no_show_cols);
   }
 
-  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows,
-      boolean autoload, List<Integer> no_show, List<Integer> no_edit) throws JSONException
+  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload, List<Integer> no_show, List<Integer> no_edit) throws JSONException
   {
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
 
@@ -487,8 +476,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return getColumnSetup(view, attribs, extra_rows, autoload, map);
   }
 
-  public static String getColumnSetup(ViewDTO view, String[] attributes, String extra_rows,
-      boolean autoload, Map<String, ColumnSetup> map) throws JSONException
+  public static String getColumnSetup(ViewDTO view, String[] attributes, String extra_rows, boolean autoload, Map<String, ColumnSetup> map) throws JSONException
   {
     List<String> list = Arrays.asList(attributes);
 
@@ -530,8 +518,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return ( "[" + Halp.join(columns, ",\n") + "]" );
   }
 
-  public static String getEditorDefinitions(ViewDTO view, Map<String, ColumnSetup> map)
-      throws JSONException
+  public static String getEditorDefinitions(ViewDTO view, Map<String, ColumnSetup> map) throws JSONException
   {
     JSONObject json = new JSONObject();
 
@@ -571,24 +558,23 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       AttributeMdDTO md = new DTOFacade(attrib, view).getAttributeMdDTO();
 
       String label = md.getDisplayLabel();
-      
-      if(setup.getLabel() != null)
+
+      if (setup.getLabel() != null)
       {
         label = setup.getLabel();
       }
 
-
       buff.add("key:'" + attrib + "'");
       buff.add("label:'" + label.replaceAll("'", "\\\\'") + "'");
-      
-      if(setup.isSum())
+
+      if (setup.isSum())
       {
         buff.add("sum:true");
       }
-      
-      if(setup.getTitle() != null)
+
+      if (setup.getTitle() != null)
       {
-        buff.add("title:'" + setup.getTitle() +"'");
+        buff.add("title:'" + setup.getTitle() + "'");
       }
 
       if (setup.isHidden())
@@ -599,8 +585,8 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       {
         buff.add(Halp.generateFormatter(md));
         buff.add(Halp.generateSaveFlag(md));
-        
-        if(setup.isEditable())
+
+        if (setup.isEditable())
         {
           buff.add(Halp.generateEditor(view, attrib, md, setup));
         }
@@ -666,10 +652,8 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
     if (md instanceof AttributeBooleanMdDTO)
     {
-      String positiveLabel = ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'",
-          "\\\\'");
-      String negativeLabel = ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'",
-          "\\\\'");
+      String positiveLabel = ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'", "\\\\'");
+      String negativeLabel = ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'", "\\\\'");
 
       List<String> radioOptions = new LinkedList<String>();
       radioOptions.add("{label:'" + positiveLabel + "', value:'true'}");
@@ -712,9 +696,9 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
           editor = DROPDOWN_EDITOR;
         }
         if (TermDTO.class.isAssignableFrom(refrenced_class))
-        {        
+        {
           options.add("klass:'" + view.getType() + "'");
-          options.add("attribute:'" + attrib + "'");                   
+          options.add("attribute:'" + attrib + "'");
           editor = TERM_EDITOR;
         }
       }
@@ -728,52 +712,35 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
   public static void sendErrorMail(Throwable exception, HttpServletRequest request, String text)
   {
-   /*
-    String from = "MDSSS-no-reply@terraframe.com";
-    String to = EMAIL_ERRORS_TO;
-    String subject = "MDSS has produced an uncaught exception";
-    if (text == null)
-    {
-      text = "Requested url: ";
-      text += request.getAttribute("javax.servlet.forward.request_uri") + "\n\n";
-      text += "Error in class: ";
-      text += exception.getClass().getName() + "\n\n";
-      text += "Error in class: ";
-      text += exception.getClass().getName() + "\n\n";
-      text += exception.getLocalizedMessage() + "\n\n";
-      text += request.getQueryString() + "\n\n";
-      final Writer result = new StringWriter();
-      final PrintWriter printWriter = new PrintWriter(result);
-      exception.printStackTrace(printWriter);
-      text += result.toString() + "\n\n";
-    }
-    //
-    // A properties to store mail server smtp information such as the host
-    // name and the port number. With this properties we create a Session
-    // object from which we'll create the Message object.
-    //
-    Properties properties = new Properties();
-    properties.put("mail.smtp.host", "terraframe.com");
-    properties.put("mail.smtp.port", "25");
-    properties.put("mail.smtp.auth", true);
-    Session session = Session.getDefaultInstance(properties, null);
-
-    try
-    {
-
-      Message message = new MimeMessage(session);
-      message.setFrom(new InternetAddress(from));
-      message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
-      message.setSubject(subject);
-      message.setText(text);
-      // Send the message to the recipient.
-      Transport.send(message);
-    }
-    catch (MessagingException e)
-    {
-      e.printStackTrace();
-    }
-    */
+    /*
+     * String from = "MDSSS-no-reply@terraframe.com"; String to =
+     * EMAIL_ERRORS_TO; String subject =
+     * "MDSS has produced an uncaught exception"; if (text == null) { text =
+     * "Requested url: "; text +=
+     * request.getAttribute("javax.servlet.forward.request_uri") + "\n\n"; text
+     * += "Error in class: "; text += exception.getClass().getName() + "\n\n";
+     * text += "Error in class: "; text += exception.getClass().getName() +
+     * "\n\n"; text += exception.getLocalizedMessage() + "\n\n"; text +=
+     * request.getQueryString() + "\n\n"; final Writer result = new
+     * StringWriter(); final PrintWriter printWriter = new PrintWriter(result);
+     * exception.printStackTrace(printWriter); text += result.toString() +
+     * "\n\n"; } // // A properties to store mail server smtp information such
+     * as the host // name and the port number. With this properties we create a
+     * Session // object from which we'll create the Message object. //
+     * Properties properties = new Properties();
+     * properties.put("mail.smtp.host", "terraframe.com");
+     * properties.put("mail.smtp.port", "25"); properties.put("mail.smtp.auth",
+     * true); Session session = Session.getDefaultInstance(properties, null);
+     * 
+     * try {
+     * 
+     * Message message = new MimeMessage(session); message.setFrom(new
+     * InternetAddress(from)); message.setRecipient(Message.RecipientType.TO,
+     * new InternetAddress(to)); message.setSubject(subject);
+     * message.setText(text); // Send the message to the recipient.
+     * Transport.send(message); } catch (MessagingException e) {
+     * e.printStackTrace(); }
+     */
   }
 
   class MyAuth extends Authenticator
@@ -784,8 +751,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     }
   }
 
-  public static ByteArrayOutputStream renderJspToByteArray(HttpServletRequest request,
-      HttpServletResponse response, String jsp_to_render) throws ServletException, IOException
+  public static ByteArrayOutputStream renderJspToByteArray(HttpServletRequest request, HttpServletResponse response, String jsp_to_render) throws ServletException, IOException
   {
 
     // create an output stream - to file, to memory...
@@ -798,8 +764,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     dummyResponse = new RedirectingServletResponse(response, out);
 
     // get the path to the calling jsp's folder
-    String current_path = request.getServletPath().substring(0,
-        request.getServletPath().lastIndexOf("/") + 1);
+    String current_path = request.getServletPath().substring(0, request.getServletPath().lastIndexOf("/") + 1);
 
     // in same folder jsp_to_render.contains(current_path)
     if (jsp_to_render.contains("/") && !jsp_to_render.startsWith("/"))
@@ -831,8 +796,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
   // This renders a jsp to a string, usefull for emails and inside out
   // rendering
-  public static String renderJspToString(HttpServletRequest request, HttpServletResponse response,
-      String jsp_to_render)
+  public static String renderJspToString(HttpServletRequest request, HttpServletResponse response, String jsp_to_render)
   {
     // we are rendering inside out, so we have to set the date format here,
     // because the header has not been rendered yet.
@@ -858,6 +822,86 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
       return text;
     }
+  }
 
+  public static String getDefaultValues(ViewDTO view, String[] keys)
+  {
+    List<String> defaults = new LinkedList<String>();
+
+    for (String key : keys)
+    {
+      try
+      {
+        DTOFacade facade = new DTOFacade(key, view);
+        Object value = facade.getValue();
+        if (value != null)
+        {
+          if (value instanceof LabeledDTO)
+          {
+            LabeledDTO dto = (LabeledDTO) value;
+            defaults.add(Halp.getDefaultValue(key, dto.getOptionId(), dto.getLabel()));
+          }
+          else if (value instanceof List<?>)
+          {
+            // This is an enumeration attribute: Do nothing
+          }
+          else if (value instanceof GeoEntityDTO)
+          {
+            GeoEntityDTO dto = (GeoEntityDTO) value;
+            defaults.add(Halp.getDefaultValue(key, dto.getId(), dto.getDisplayString()));
+          }
+          else if (value instanceof TermDTO)
+          {
+            TermDTO dto = (TermDTO) value;
+            defaults.add(Halp.getDefaultValue(key, dto.getId(), dto.getDisplayLabel()));
+          }
+          else if (value instanceof ComponentDTO)
+          {
+            ComponentDTO dto = (ComponentDTO) value;
+            defaults.add(Halp.getDefaultValue(key, dto.getId()));
+          }
+          else if (value instanceof Boolean)
+          {
+            Boolean booleanValue = (Boolean) value;
+            AttributeBooleanMdDTO attributeBooleanMd = (AttributeBooleanMdDTO) facade.getAttributeMdDTO();
+
+            String objectValue = booleanValue.toString();
+            String objectLabel = attributeBooleanMd.getNegativeDisplayLabel();
+
+            if (booleanValue)
+            {
+              objectLabel = attributeBooleanMd.getPositiveDisplayLabel();
+            }
+
+            defaults.add(Halp.getDefaultValue(key, objectValue, objectLabel));
+          }
+          else if(!value.toString().equals(""))
+          {
+            defaults.add(Halp.getDefaultValue(key, value.toString()));
+          }
+
+        }
+      }
+      catch (ClientReadAttributePermissionException e)
+      {
+        // Do nothing
+      }
+      catch (Exception e)
+      {
+        throw new ApplicationException(e);
+      }
+    }
+
+    return "{" + Halp.join(defaults, ",") + "}";
+  }
+
+  private static String getDefaultValue(String key, String value)
+  {
+    return "'" + key + "':'" + value +"'";
+  }
+
+  private static String getDefaultValue(String key, String objectValue, String objectLabel)
+  {
+    return "'" + key + "':{'value':'" + objectValue + "','label':'" + objectLabel + "'}";
   }
 }

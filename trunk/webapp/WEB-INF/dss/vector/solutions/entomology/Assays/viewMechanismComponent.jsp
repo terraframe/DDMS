@@ -59,9 +59,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
     var biochemicalData = {
       rows:<%=Halp.getDataMap(infectionRows, infectionKeys, infection)%>,
       columnDefs:<%=Halp.getColumnSetup(infection, infectionKeys, deleteColumn, true, infectionMap)%>,
-      defaults: {
-          'Collection':'<%=infection.getValue(BiochemicalAssayViewDTO.COLLECTION)%>'
-      },
+      defaults:<%=Halp.getDefaultValues(infection, infectionKeys)%>,
       reloadKeys: ['MosquitoId'],
       copy_from_above : ['IdentMethod'],      
       div_id: "BiochemicalAssay",
@@ -77,9 +75,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
     var molecularData = {
       rows:<%=Halp.getDataMap(pooledRows, pooledKeys, pooled)%>,
       columnDefs:<%=Halp.getColumnSetup(pooled, pooledKeys, deleteColumn, true, pooledMap)%>,
-      defaults: {
-          'Collection':'<%=pooled.getValue(MolecularAssayViewDTO.COLLECTION)%>'
-      },
+      defaults:<%=Halp.getDefaultValues(pooled, pooledKeys)%>,
       reloadKeys: ['MosquitoId'],
       copy_from_above : ['IdentMethod'],  
       div_id: "MolecularAssay",

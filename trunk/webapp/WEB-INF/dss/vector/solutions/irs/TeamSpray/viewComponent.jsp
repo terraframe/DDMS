@@ -5,9 +5,11 @@
 <%
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-  OperatorSprayStatusViewDTO view = new OperatorSprayStatusViewDTO(clientRequest);
-
   TeamSprayViewDTO spray = ((TeamSprayViewDTO) request.getAttribute("item"));  
+  
+  OperatorSprayStatusViewDTO view = new OperatorSprayStatusViewDTO(clientRequest);
+  view.setValue(OperatorSprayStatusViewDTO.SPRAYDATA, spray.getSprayData().getId());
+
   OperatorSprayStatusViewDTO[] rows = (OperatorSprayStatusViewDTO[]) request.getAttribute("status");
   
   String[] attributes = {"StatusId", "SprayData", "SprayOperator", "OperatorSprayWeek", "Received",
@@ -128,7 +130,7 @@
     data = {
               rows:<%=Halp.getDataMap(rows, attributes, view)%>,
               columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-              defaults: {"SprayData":'<%= spray.getSprayData().getId()%>'},
+              defaults:<%=Halp.getDefaultValues(view, attributes)%>,
               div_id: "Status",
               data_type: "Mojo.$.<%=OperatorSprayStatusViewDTO.CLASS%>",
               saveFunction:"applyAll",

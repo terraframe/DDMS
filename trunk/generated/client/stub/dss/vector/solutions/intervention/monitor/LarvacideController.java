@@ -89,8 +89,11 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
     ClientRequestIF clientRequest = super.getClientRequest();
     LarvacideDTO dto = LarvacideDTO.get(clientRequest, id);
 
+    LarvacideInstanceViewDTO view = new LarvacideInstanceViewDTO(clientRequest);
+    view.setValue(LarvacideInstanceViewDTO.CONTROLID, dto.getId());
+    
     req.setAttribute("rows", dto.getInstanceViews());
-    req.setAttribute("view", new LarvacideInstanceViewDTO(clientRequest));
+    req.setAttribute("view", view);
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }

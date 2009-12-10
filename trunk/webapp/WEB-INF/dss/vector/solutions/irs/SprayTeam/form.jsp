@@ -115,64 +115,49 @@
     
     <%=Halp.loadTypes(Arrays.asList(new String[]{SprayOperatorViewDTO.CLASS, SprayLeaderDTO.CLASS, PersonViewDTO.CLASS}))%>
 
-    <script type="text/javascript" defer="defer">  
-      onTeam = document.getElementById('onTeam');      
-      notOnTeam = document.getElementById('notOnTeam');   
-      onOtherTeam = document.getElementById('onOtherTeam');   
+<script type="text/javascript">
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){       
+    var teamId = document.getElementById('teamId').value;   
 
-      availableButton = document.getElementById('available.button.id');
-      availableInput = document.getElementById('availableInput');   
-      availableId = document.getElementById('availableId');   
+    MDSS.operatorSearch({to:'onTeam', from:'notOnTeam', button:'available.button.id', display:'availableInput', id:'availableId'});       
+    MDSS.operatorSearch({to:'onTeam', from:'onOtherTeam', button:'assigned.button.id', display:'assignedInput', id:'assignedId'});       
       
-      assignButton = document.getElementById('assigned.button.id');
-      assignInput = document.getElementById('assignedInput');   
-      assignId = document.getElementById('assignedId');   
-      
-      var teamId = document.getElementById('teamId').value;   
+    MDSS.leaderSearch({search:'leaderInput', concrete:'leaderId'});       
 
-      MDSS.operatorSearch(onTeam, notOnTeam, availableButton, availableInput, availableId);       
-      MDSS.operatorSearch(onTeam, onOtherTeam, assignButton, assignInput, assignId);
-      
-      MDSS.leaderSearch({search:'leaderInput', concrete:'leaderId'});       
+    var loadAssignedOperators = function(geoId) {
+      var request = new MDSS.Request({
+        onSend: function(){},
+        onComplete: function(){},
+        onSuccess: function(operators) {
+          // Remove all options
+          Selectbox.removeAllOptions(onOtherTeam);
+          Selectbox.removeAllQualifiedOptions(onTeam, teamRegex);
 
-      var loadAssignedOperators = function(geoId)
-      {
-        var request = new MDSS.Request({
-            onSend: function(){},
-            onComplete: function(){},
-            onSuccess: function(operators)
-            {
-                // Remove all options
-            	Selectbox.removeAllOptions(onOtherTeam);
-            	Selectbox.removeAllQualifiedOptions(onTeam, teamRegex);
+          // Add new options to the select list
+          for(var i = 0; i < operators.length; i++) {
+            var operator = operators[i];
+            var team = operator.getTeamId();
+            var value = operator.getActorId();
+            var text = '[' + team + '] ' + operator.getFirstName() + ' ' + operator.getLastName() + ' - ' + operator.getOperatorId();
 
-            	// Add new options to the select list
-            	for(var i = 0; i < operators.length; i++)
-            	{
-                    var operator = operators[i];
-                	var team = operator.getTeamId();
-                	var value = operator.getActorId();
-                	var text = '[' + team + '] ' + operator.getFirstName() + ' ' + operator.getLastName() + ' - ' + operator.getOperatorId();
-
-                	if(teamId !== team)
-                	{
-                	  Selectbox.addOption(onOtherTeam,text,value,false);
-                	}
-            	}
+            if(teamId !== team) {
+              Selectbox.addOption(onOtherTeam,text,value,false);
             }
-          });
+          }
+        }
+      });
 
-        Mojo.$.dss.vector.solutions.irs.SprayOperatorView.getAllForLocation(request, geoId);
-      }        
+      Mojo.$.dss.vector.solutions.irs.SprayOperatorView.getAllForLocation(request, geoId);
+    }        
 
-	  var onValidGeoEntitySelected = function()
-	  {
-	    var geoId = document.getElementById('geoIdEl');
+    Mojo.GLOBAL.onValidGeoEntitySelected = function() {
+      var geoId = document.getElementById('geoIdEl');
 
-	    if(geoId.value != null)
-	    {
-	    	loadAssignedOperators(geoId.value);
-	    }
-	  }		  
-               
-    </script>    
+      if(geoId.value != null) {
+        loadAssignedOperators(geoId.value);
+      }
+    }  
+  });
+})();               
+</script>    

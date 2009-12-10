@@ -5,10 +5,11 @@
 <%
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-  HouseholdSprayStatusViewDTO view = new HouseholdSprayStatusViewDTO(clientRequest);
-
   OperatorSprayViewDTO spray = ((OperatorSprayViewDTO) request.getAttribute("item"));
+
   HouseholdSprayStatusViewDTO[] rows = (HouseholdSprayStatusViewDTO[]) request.getAttribute("status");
+  HouseholdSprayStatusViewDTO view = new HouseholdSprayStatusViewDTO(clientRequest);
+  view.setValue(HouseholdSprayStatusViewDTO.SPRAY, spray.getSprayId());
 
   // If the order of these attributes are changed, you need to change the javascript indexes at the bottom!
   String[] attributes = {"StatusId", "Spray", "HouseholdId", "StructureId", "Households", "Structures",
@@ -201,7 +202,7 @@
     data = {
               rows:<%=Halp.getDataMap(rows, attributes, view)%>,
               columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-              defaults: {"Spray":'<%=spray.getSprayId()%>'},
+              defaults:<%=Halp.getDefaultValues(view, attributes)%>,
               div_id: "Status",
               data_type: "Mojo.$.<%=HouseholdSprayStatusViewDTO.CLASS%>",
               saveFunction:"applyAll",

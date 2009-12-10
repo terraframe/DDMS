@@ -123,7 +123,7 @@ while(i<54)
 
 GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
        columnDefs: [<%=colConfig%>],
-              defaults: {},
+       defaults:<%=Halp.getDefaultValues(mdView, attribs)%>,
               div_id: "GeoTargets",
               data_type: "Mojo.$.dss.vector.solutions.irs.GeoTargetView",
               saveFunction: "applyAll",
