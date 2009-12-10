@@ -168,8 +168,9 @@ initialize : function(element, recipientIdEl, calendarIdEl) {
      }
  
      var search = new MDSS.GenericSearch(searchConfig.searchEl, searchConfig.idEl, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler);
+     search.addListener(showCreatePatient);
 
-     YAHOO.util.Event.on(searchConfig.searchEl, 'keyup', showCreatePatient, null, null);
+//     YAHOO.util.Event.on(searchConfig.searchEl, 'keyup', showCreatePatient, null, null);
 
      var modal = new MDSS.PersonModal(modalConfig.modalEl, searchConfig.idEl, modalConfig.calendarEl);
 

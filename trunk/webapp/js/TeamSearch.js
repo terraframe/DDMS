@@ -780,6 +780,7 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       this.optionBuilder = new MDSS.OptionBuilder(listFunction, displayFunction, idFunction);      
       this.panel = new MDSS.ResultPanel(this, this.displayElement);
       
+      this.listeners = [];
       this.parameters = null;
       
       // Disable the browser autocomplete function for the element we provide an auto-complete
@@ -830,6 +831,10 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
     
     addParameter : function(parameter) {
       this.parameters = parameter;
+    },
+    
+    addListener : function(listener) {
+      this.listeners.push(listener);
     },
 
     displayResults : function(results) {
@@ -907,9 +912,13 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
     
     performSearch : function() {
       MDSS.GenericSearch.setElementValue(this.getConcreteElement(), '');
-      
+            
       var value = this.getDisplayElement().value;
       var parameters = this.getParameters();
+
+      for(var i = 0; i < this.listeners.length; i++) {
+        this.listeners[i](value);
+      }
         
       this.dataSource.getResults(value, parameters);
     }
