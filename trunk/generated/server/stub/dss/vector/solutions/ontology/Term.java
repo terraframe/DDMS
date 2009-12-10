@@ -50,7 +50,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   /**
    * Throws a localized Exception to alert the user that he is trying to modify
    * the parent of a Term.
-   *
+   * 
    * @throws ConfirmParentChangeException
    *           always.
    */
@@ -74,7 +74,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     OntologyRelationship rel = OntologyRelationship.getByKey(OBO.IS_A);
 
     // Rebuild the all paths
-    if(this.isSingleLeafNode(rel.getId()))
+    if (this.isSingleLeafNode(rel.getId()))
     {
       AllPaths.deleteLeafFromAllPaths(this.getId());
 
@@ -93,9 +93,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Deletes the TermRElationship between this Term and the Term with
-   * the given parent id. This method should only be called if
-   * this Term has more than one parent.
+   * Deletes the TermRElationship between this Term and the Term with the given
+   * parent id. This method should only be called if this Term has more than one
+   * parent.
    */
   @Override
   @Transaction
@@ -111,7 +111,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     try
     {
-      while(iter.hasNext())
+      while (iter.hasNext())
       {
         iter.next().delete();
       }
@@ -126,7 +126,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * Throws an exception to alert the user before they try to delete a Term.
-   *
+   * 
    * @throws ConfirmDeleteTermException
    *           If the Term has more than one parent.
    * @throws
@@ -141,9 +141,10 @@ public class Term extends TermBase implements Reloadable, OptionIF
     q.WHERE(q.childId().EQ(this.getId()));
     q.AND(q.parentId().NE(parentId));
 
-    if(q.getCount() > 0)
+    if (q.getCount() > 0)
     {
-      // The Term has more than one parent, so prompt the user to delete either the
+      // The Term has more than one parent, so prompt the user to delete either
+      // the
       // Term or just the relationship with the current parent.
       Term parent = Term.get(parentId);
 
@@ -161,8 +162,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
   public void apply()
   {
     // Use the name as the display label if no value is given
-    String display= this.getDisplay();
-    if(display== null || display.length() == 0)
+    String display = this.getDisplay();
+    if (display == null || display.length() == 0)
     {
       this.setDisplay(this.getName());
     }
@@ -170,16 +171,16 @@ public class Term extends TermBase implements Reloadable, OptionIF
     // If this is new, set the Ontology value to the MO ontology.
     // FIXME this will be removed once Term subclasses are refactored
     // out and Term will be come concrete.
-    if(this.isNew())
+    if (this.isNew())
     {
       Ontology moOntology = Ontology.getByKey(MO.KEY);
-      // There WILL be one record; otherwise, the application was not set up properly
+      // There WILL be one record; otherwise, the application was not set up
+      // properly
       this.setOntology(moOntology);
     }
 
     super.apply();
   }
-
 
   public String toString()
   {
@@ -188,7 +189,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * Gets all the TermRelationship children of this Term.
-   *
+   * 
    * FIXME parameterize to pass in the relationship type.
    */
   @Override
@@ -250,7 +251,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
       try
       {
-        while(iter.hasNext())
+        while (iter.hasNext())
         {
           iter.next().delete();
         }
@@ -262,14 +263,14 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
     else
     {
-      // Heads up: is this check even necessary?  Doesn't the Graph already enforce this?
+      // Heads up: is this check even necessary? Doesn't the Graph already
+      // enforce this?
 
       // confirm this entity can't be applied to the same
       // parent more than once.
       QueryFactory f = new QueryFactory();
       TermRelationshipQuery q = new TermRelationshipQuery(f);
-      q.WHERE(q.childId().EQ(this.getId()).
-          AND(q.parentId().EQ(parentTermId)));
+      q.WHERE(q.childId().EQ(this.getId()).AND(q.parentId().EQ(parentTermId)));
 
       if (q.getCount() > 0)
       {
@@ -296,7 +297,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
     catch (DuplicateGraphPathException e)
     {
-      // a relationship between this typedef and the parent and the child already exists
+      // a relationship between this typedef and the parent and the child
+      // already exists
       Database.rollbackSavepoint(savepoint);
     }
     finally
@@ -305,11 +307,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
 
     // update the AllPaths table
-    if(cloneOperation)
+    if (cloneOperation)
     {
       AllPaths.copyTermFast(parentTermId, this.getId(), ontRel.getId());
     }
-    else if(!isNew)
+    else if (!isNew)
     {
       AllPaths.rebuildAllPaths();
     }
@@ -328,10 +330,10 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Returns all default roots (Terms without parents). This method
-   * WILL return all Terms regardless of obsolete status. To return the
-   * terms with obsolete marked as false, use BrowserRoot.getDefaultRoot().
-   *
+   * Returns all default roots (Terms without parents). This method WILL return
+   * all Terms regardless of obsolete status. To return the terms with obsolete
+   * marked as false, use BrowserRoot.getDefaultRoot().
+   * 
    * @param filterObsolete
    * @return
    */
@@ -342,8 +344,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   public static TermViewQuery getDefaultRoots(boolean filterObsolete)
   {
-    QueryFactory f = new QueryFactory();
+    return Term.getDefaultRoots(new QueryFactory(), filterObsolete);
+  }
 
+  private static TermViewQuery getDefaultRoots(QueryFactory f, boolean filterObsolete)
+  {
     // FIXME pass in the ontology and rel and switch on that
     TermQuery termQuery;
     TermRelationshipQuery termRelQuery;
@@ -409,7 +414,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       query.map(TermView.TERMID, termQuery.getId());
-//      query.map(TermView.TERMNAME, termQuery.getName());
+      // query.map(TermView.TERMNAME, termQuery.getName());
       query.map(TermView.TERMNAME, termQuery.getDisplay());
       query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
     }
@@ -420,7 +425,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       // restrict by the term ids (ordering will be done client-side)
-      if(this.termIds != null && this.termIds.length > 0)
+      if (this.termIds != null && this.termIds.length > 0)
       {
         query.WHERE(termQuery.getId().IN(this.termIds));
       }
@@ -434,14 +439,14 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   private static class SearchRootQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
-    private TermQuery termQuery;
+    private TermQuery        termQuery;
 
     // AllPaths is used to restrict the query by parent term Ids.
-    private AllPathsQuery pathsQuery;
+    private AllPathsQuery    pathsQuery;
 
     private BrowserRootQuery rootQuery;
 
-    private String    searchValue;
+    private String           searchValue;
 
     protected SearchRootQueryBuilder(QueryFactory queryFactory, String searchValue, BrowserRootQuery rootQuery)
     {
@@ -450,7 +455,17 @@ public class Term extends TermBase implements Reloadable, OptionIF
       this.rootQuery = rootQuery;
       this.searchValue = searchValue;
       this.termQuery = new TermQuery(queryFactory);
-      this.pathsQuery= new AllPathsQuery(queryFactory);
+      this.pathsQuery = new AllPathsQuery(queryFactory);
+    }
+
+    protected SearchRootQueryBuilder(QueryFactory queryFactory, String searchValue)
+    {
+      super(queryFactory);
+
+      this.rootQuery = null;
+      this.searchValue = searchValue;
+      this.termQuery = new TermQuery(queryFactory);
+      this.pathsQuery = new AllPathsQuery(queryFactory);
     }
 
     @Override
@@ -469,10 +484,15 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       String search = this.searchValue.replace(" ", "% ") + "%";
-      
+
       query.WHERE(OR.get(termQuery.getName().LIKEi(search), termQuery.getTermId().LIKEi(search)));
-      query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
-      query.AND(this.pathsQuery.getParentTerm().EQ(rootQuery.getTerm()));
+
+      if (this.rootQuery != null)
+      {
+        query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
+        query.AND(this.pathsQuery.getParentTerm().EQ(rootQuery.getTerm()));
+      }
+      
       query.AND(termQuery.getObsolete().EQ(false));
 
       query.ORDER_BY_ASC(this.termQuery.getDisplay());
@@ -485,14 +505,14 @@ public class Term extends TermBase implements Reloadable, OptionIF
    */
   private static class SearchQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
-    private String[] parentIds;
+    private String[]      parentIds;
 
-    private TermQuery termQuery;
+    private TermQuery     termQuery;
 
     // AllPaths is used to restrict the query by parent term Ids.
     private AllPathsQuery pathsQuery;
 
-    private String    searchValue;
+    private String        searchValue;
 
     protected SearchQueryBuilder(QueryFactory queryFactory, String searchValue, String[] parentIds)
     {
@@ -501,7 +521,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       this.parentIds = parentIds;
       this.searchValue = searchValue;
       this.termQuery = new TermQuery(queryFactory);
-      this.pathsQuery= new AllPathsQuery(queryFactory);
+      this.pathsQuery = new AllPathsQuery(queryFactory);
     }
 
     @Override
@@ -510,7 +530,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       query.map(TermView.TERMID, termQuery.getId());
-//      query.map(TermView.TERMNAME, termQuery.getName());
+      // query.map(TermView.TERMNAME, termQuery.getName());
       query.map(TermView.TERMNAME, termQuery.getDisplay());
       query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
     }
@@ -521,21 +541,22 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       String search = this.searchValue.replace(" ", "% ") + "%";
-      
+
       query.WHERE(OR.get(termQuery.getName().LIKEi(search), termQuery.getTermId().LIKEi(search)));
 
       // Restrict the search by parent terms. There are three options:
       // 1) If the parentIds array is null, don't restrict anything
       // 2) If the parentIds array is empty, don't allow searching
       // 3) If the parentIds array has ids, restrict by those ids
-      if(this.parentIds != null && this.parentIds.length > 0)
+      if (this.parentIds != null && this.parentIds.length > 0)
       {
         query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
         query.AND(this.pathsQuery.getParentTerm().IN(this.parentIds));
       }
-      else if(this.parentIds != null)
+      else if (this.parentIds != null)
       {
-        // There are no Parent terms meaning no roots have been set. Searching is not
+        // There are no Parent terms meaning no roots have been set. Searching
+        // is not
         // allowed without roots.
         query.AND(termQuery.getId().EQ(""));
       }
@@ -557,7 +578,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     private TermRelationshipQuery termRelQuery;
 
-    private Boolean filterObsolete;
+    private Boolean               filterObsolete;
 
     protected GetChildrenQueryBuilder(QueryFactory queryFactory, Term parent, Boolean filterObsolete)
     {
@@ -575,7 +596,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       query.map(TermView.TERMID, termQuery.getId());
-//      query.map(TermView.TERMNAME, termQuery.getName());
+      // query.map(TermView.TERMNAME, termQuery.getName());
       query.map(TermView.TERMNAME, termQuery.getDisplay());
       query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
     }
@@ -589,12 +610,12 @@ public class Term extends TermBase implements Reloadable, OptionIF
       query.AND(termQuery.parentTerm(this.termRelQuery)); // FIXME parent-child
       // label reversed
 
-      if(this.filterObsolete)
+      if (this.filterObsolete)
       {
         query.AND(termQuery.getObsolete().EQ(false));
       }
 
-//      query.ORDER_BY_ASC(this.termQuery.getName());
+      // query.ORDER_BY_ASC(this.termQuery.getName());
       query.ORDER_BY_ASC(this.termQuery.getDisplay());
     }
 
@@ -611,7 +632,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     private TermRelationshipQuery termRelQuery;
 
-    private boolean filterObsolete;
+    private boolean               filterObsolete;
 
     protected DefaultRootQueryBuilder(QueryFactory queryFactory, TermQuery termQuery, TermRelationshipQuery termRelQuery, boolean filterObsolete)
     {
@@ -629,7 +650,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       query.map(TermView.TERMID, this.termQuery.getId());
-//      query.map(TermView.TERMNAME, this.termQuery.getName());
+      // query.map(TermView.TERMNAME, this.termQuery.getName());
       query.map(TermView.TERMNAME, termQuery.getDisplay());
       query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
     }
@@ -647,12 +668,12 @@ public class Term extends TermBase implements Reloadable, OptionIF
       // this.valueQuery));
       query.WHERE(this.termQuery.getId().SUBSELECT_NOT_IN(this.valueQuery));
 
-      if(this.filterObsolete)
+      if (this.filterObsolete)
       {
         query.AND(termQuery.getObsolete().EQ(false));
       }
 
-//      query.ORDER_BY_ASC(this.termQuery.getName());
+      // query.ORDER_BY_ASC(this.termQuery.getName());
       query.ORDER_BY_ASC(this.termQuery.getDisplay());
     }
   }
@@ -660,8 +681,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
   @Transaction
   public static Term validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
-    // No value means they didn't specify one.  Don't throw a problem; just return null
-    if (displayLabel.trim().length()==0)
+    // No value means they didn't specify one. Don't throw a problem; just
+    // return null
+    if (displayLabel.trim().length() == 0)
     {
       return null;
     }
@@ -698,7 +720,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
       e.setAttributeLabel(attributeLabel);
       e.throwIt();
 
-      // We expect to return nothing, as we're throwing a problem, but include this to satisfy the compile time requirement
+      // We expect to return nothing, as we're throwing a problem, but include
+      // this to satisfy the compile time requirement
       return null;
     }
     finally
@@ -762,13 +785,12 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * Gets all selectable Term objects that are the first descendents of the
-   * field described by the given class and attribute names. Inheritance is already
-   * factored into the method such that if B extends A and A defines attribute m, the
-   * following calls are valid:
-   *
-   * 1) Term.getAllTermsForField("A", "m")
-   * 2) Term.getAllTermsForField("B", "m")
-   *
+   * field described by the given class and attribute names. Inheritance is
+   * already factored into the method such that if B extends A and A defines
+   * attribute m, the following calls are valid:
+   * 
+   * 1) Term.getAllTermsForField("A", "m") 2) Term.getAllTermsForField("B", "m")
+   * 
    * @param className
    * @param attributeName
    * @return
@@ -844,7 +866,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * Returns all attributes that reference the Term class.
-   *
+   * 
    * @param className
    * @return
    */
@@ -853,12 +875,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
     MdBusiness md = MdBusiness.getMdBusiness(className);
     List<String> list = new LinkedList<String>();
 
-    for(MdAttribute mdAttr : md.getAllAttribute())
+    for (MdAttribute mdAttr : md.getAllAttribute())
     {
-      if(mdAttr instanceof MdAttributeReference
-           && ((MdAttributeReference)mdAttr).getMdBusiness().definesType().equals(Term.CLASS))
+      if (mdAttr instanceof MdAttributeReference && ( (MdAttributeReference) mdAttr ).getMdBusiness().definesType().equals(Term.CLASS))
       {
-        list.add(( (MdAttributeReference) mdAttr ).getAttributeName());
+        list.add( ( (MdAttributeReference) mdAttr ).getAttributeName());
       }
     }
 
@@ -867,14 +888,14 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * A single leaf node has no children and has one or fewer parents.
+   * 
    * @param ontologyRelationshipId
    * @return true if a single leaf node, false otherwise.
    */
   public boolean isSingleLeafNode(String ontologyRelationshipId)
   {
     // It is a leaf node if the term has no children and only has one parent.
-    if (this.getAllChildTerm().getAll().size() == 0 &&
-        this.getAllParentTerm().getAll().size() <= 1)
+    if (this.getAllChildTerm().getAll().size() == 0 && this.getAllParentTerm().getAll().size() <= 1)
     {
       return true;
     }
@@ -888,8 +909,19 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     QueryFactory f = new QueryFactory();
 
-    BrowserRootQuery rootQuery = BrowserRoot.getAttributeRoots(parameters[0], parameters[1], f);
-    SearchRootQueryBuilder builder = new SearchRootQueryBuilder(f, value, rootQuery);
+    String className = parameters[0];
+    String attribute = parameters[1];
+    SearchRootQueryBuilder builder = null;
+
+    if (className == null && attribute == null)
+    {
+      builder = new SearchRootQueryBuilder(f, value);
+    }
+    else
+    {
+      BrowserRootQuery rootQuery = BrowserRoot.getAttributeRoots(className, attribute, f);
+      builder = new SearchRootQueryBuilder(f, value, rootQuery);
+    }
 
     TermViewQuery q = new TermViewQuery(f, builder);
     q.ORDER_BY_ASC(q.getTermName());
@@ -897,5 +929,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
     q.restrictRows(15, 1);
 
     return q;
+
   }
 }
