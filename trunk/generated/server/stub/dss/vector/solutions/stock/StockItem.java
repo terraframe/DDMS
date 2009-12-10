@@ -2,12 +2,24 @@ package dss.vector.solutions.stock;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
+import com.terraframe.mojo.query.AttributeMoment;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQLInteger;
+import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
+import dss.vector.solutions.util.QueryUtil;
 
 /**
  * @author jsmethie
@@ -130,5 +142,81 @@ public class StockItem extends StockItemBase implements com.terraframe.mojo.gene
   public String getLabel()
   {
     return this.getItemId() + " - " + this.getItemName().getName() + " " + this.getQuantity() + " " + this.getUnit().getName();
+  }
+  
+  /**
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
+   * 
+   * @param xml
+   * @return
+   */
+  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
+  {
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, StockEvent.CLASS, StockEvent.STOCKDEPOT);
+
+    StockItemQuery stockItemQuery = (StockItemQuery) queryMap.get(StockItem.CLASS);
+    
+    StockEventQuery stockEventQuery = (StockEventQuery) queryMap.get(StockEvent.CLASS);
+
+    dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
+    
+    if(stockEventQuery != null)
+    {
+      valueQuery.WHERE(stockEventQuery.getItem().EQ(stockItemQuery.getId()));
+      
+      AttributeMoment dateAttribute = stockEventQuery.getEventDate();
+
+      QueryUtil.setQueryDates(xml, valueQuery, dateAttribute);
+      
+      QueryUtil.joinGeoDisplayLabels(valueQuery,StockEvent.CLASS,stockEventQuery);
+      
+      if(personQuery != null)
+      {
+        valueQuery.WHERE(stockEventQuery.getStaff().EQ(personQuery.getStockStaffDelegate()));
+      }
+    }
+    
+    try
+    {
+      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable("quanity_instock");
+
+      String tableAlias = stockItemQuery.getTableAlias();
+      
+      String eventTable = MdBusiness.getMdBusiness(StockEvent.CLASS).getTableName();
+      
+      String sql = "(SELECT SUM("
+      +"CASE et."+StockEvent.TRANSACTIONTYPE+"_c WHEN '"+EventOption.STOCK_IN.getId()+"' THEN "+StockEvent.QUANTITY
+      +" ELSE "+StockEvent.QUANTITY+" * -1 END) FROM "
+      +eventTable+" et WHERE et.item = "+tableAlias+".id GROUP BY et.item)"; 
+      
+      dobSel.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+    }
+
+    QueryUtil.joinTermAllpaths(valueQuery,StockItem.CLASS,stockItemQuery);  
+
+    QueryUtil.setTermRestrictions(valueQuery, queryMap );    
+    
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+
+    return valueQuery;
   }
 }
