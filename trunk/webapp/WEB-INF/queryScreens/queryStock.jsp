@@ -8,7 +8,6 @@
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
-<%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.query.QueryController"%>
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
@@ -17,8 +16,6 @@
 <%@page import="dss.vector.solutions.query.NonRangeCategoryDTO"%>
 <%@page import="dss.vector.solutions.query.RangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
-<%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
-<%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
@@ -28,23 +25,20 @@
 <%@page import="org.json.JSONException"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeConcreteInfo"%>
-<%@page import="com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF"%>
-<%@page import="com.terraframe.mojo.dataaccess.metadata.MdAttributeConcreteDAO"%>
-<%@page import="com.terraframe.mojo.dataaccess.MdBusinessDAOIF"%>
-<%@page import="com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
 <%@page import="dss.vector.solutions.query.LayerViewDTO"%>
 <%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dss.vector.solutions.intervention.monitor.ITNDataDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.ITNDataViewDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.ITNNetDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.ITNServiceDTO"%>
+<%@page import="dss.vector.solutions.stock.StockItemDTO"%>
+<%@page import="dss.vector.solutions.stock.StockEventDTO"%>
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
+<%@page import="dss.vector.solutions.PersonDTO"%>
 
-<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Aggregated_ITN_Data_Distribution"  scope="request"/>
+
+
+
+<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Stock"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -53,7 +47,7 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ ITNDataDTO.CLASS, ITNDataViewDTO.CLASS, ITNTargetGroupDTO.CLASS, ITNNetDTO.CLASS, ITNServiceDTO.CLASS};
+    String[] mosquitoTypes = new String[]{ StockItemDTO.CLASS, StockEventDTO.CLASS, PersonDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
     List<String> loadables = new ArrayList<String>();
@@ -91,12 +85,20 @@ YAHOO.util.Event.onDOMReady(function(){
         row.attributeName = attrib.attributeName;
         if(attrib.dtoType.contains('AttributeReferenceDTO'))
         {
-          //row.attributeName += '.name'dd;
+          if(attrib.getAttributeMdDTO().getReferencedMdBusiness().contains('GeoEntity'))
+          {
+            row.attributeName = attribName; //;+ '_displayLabel';
+            row.type = 'sqlcharacter';
+            row.displayLabel = attrib.attributeMdDTO.displayLabel;
+            row.key = attribName;
+            row.dtoType = "AttributeCharacterDTO";
+          }
         }
         if(attrib.dtoType.contains('AttributeEnumerationDTO'))
         {
           row.attributeName += '.displayLabel.currentValue';
         }
+       
         row.key = attrib.attributeName + this.suffix;
         row.type = this.obj.getType();
         row.dtoType = attrib.dtoType;
@@ -110,6 +112,7 @@ YAHOO.util.Event.onDOMReady(function(){
         row.type = 'sqlinteger';
         row.displayLabel = attribName;
         row.key = attribName;
+        row.dtoType = "AttributeIntegerDTO";
 
       }
       return row;
@@ -118,11 +121,16 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var mapMo = function(term,index){
     	var row = {};
+        //row.attributeName = this.relAttribute;
+        //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
+        //row.type = this.relType;
         row.dtoType = "AttributeIntegerDTO";
         row.displayLabel = term.displayLabel;
+        
         row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
         row.type = 'sqlinteger';
         row.attributeName = 'term' + term.MOID.replace(':','');
+        
       return row;
     };
 
@@ -131,33 +139,52 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
-    var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
+    var stockMaps = {<%=(String) request.getAttribute("stockMap")%>};
+    
+    var personMaps = {};
 
-    var aggreatedITN = new Mojo.$.dss.vector.solutions.intervention.monitor.ITNData();
+    var stockEvent = new Mojo.$.dss.vector.solutions.stock.StockEvent();
+
+    var stockEventAttribs = ['cost','eventDate','otherParty','quantity','stockDepot','transactionType'];
     
-    var aITNAttribs = ["startDate","endDate","batchNumber","currencyReceived",
-                       "numberDistributed","numberSold","receivedForCommunityResponse","receivedForTargetGroups"];
+    var stockEventColumns =   stockEventAttribs.map(mapAttribs, {obj:stockEvent, suffix:'_stockEvent', dropDownMaps:stockMaps});
+
+    var stockItem = new Mojo.$.dss.vector.solutions.stock.StockItem();
+
+    var stockItemAttribs = ['itemId','itemName','quantity','unit'];
     
-    var aITNColumns =   aITNAttribs.map(mapAttribs, {obj:aggreatedITN, suffix:'_aitn', dropDownMaps:{}});
+    var stockItemColumns =   stockItemAttribs.map(mapAttribs, {obj:stockItem, suffix:'_stockItem', dropDownMaps:stockMaps});
+
+    stockItemColumns = stockItemColumns.concat([
+
+                                          {
+                                             displayLabel:"Quanity In Stock",
+                                             key:"quanity_instock",
+                                             type:"sqlinteger",
+                                             attributeName:"quanity_instock"
+                                           }]);
+
+    var person = new Mojo.$.dss.vector.solutions.Person();
     
-   var netsColumns = orderedGrids.nets.options.map(mapMo, orderedGrids.nets);
-   var servicesColumns = orderedGrids.services.options.map(mapMo, orderedGrids.services);
-   var targetGroupsColumns = orderedGrids.targetGroups.options.map(mapMo, orderedGrids.targetGroups);
-   
-   var selectableGroups = [
-              {title:"ITN", values:aITNColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNData.CLASS},
-              {title:"Nets", values:netsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNNet.CLASS},
-              {title:"Services", values:servicesColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNService.CLASS},
-              {title:"TargetGroups", values:targetGroupsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNTargetGroup.CLASS},
+    var personAttribs = ["firstName","lastName"];
+    
+    var personColumns =  personAttribs.map(mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
+
+    var selectableGroups = [
+              {title:"StockItems", values:stockItemColumns, group:"s", klass:stockEvent.CLASS},
+              {title:"StockEvents", values:stockEventColumns, group:"s", klass:stockEvent.CLASS},
+              {title:"Staff", values:personColumns, group:"s", klass:stockEvent.CLASS}
     ];
 
-    var query = new MDSS.QueryAggreatedITN(selectableGroups, queryList);
+    var query = new MDSS.QueryStock(selectableGroups, queryList);
     query.render();
 
 });
 
 </script>
-
 <jsp:include page="queryContainer.jsp"></jsp:include>
+
+
+<textarea id="debug_xml" cols="40" rows="40" style="width:1280px"> </textarea>
 
 <jsp:include page="../templates/footer.jsp"></jsp:include>

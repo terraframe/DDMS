@@ -23,7 +23,6 @@
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoViewDTO"%>
 <%@page import="org.json.JSONArray"%>
 <%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
 <%@page import="org.json.JSONException"%>
@@ -36,7 +35,6 @@
 <%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
 <%@page import="dss.vector.solutions.query.LayerViewDTO"%>
 <%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoView"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dss.vector.solutions.intervention.monitor.ITNDistributionDTO"%>
@@ -58,7 +56,6 @@
     String[] mosquitoTypes = new String[]{PersonDTO.CLASS, ITNDistributionDTO.CLASS,ITNDistributionTargetGroupDTO.CLASS, ITNDistributionViewDTO.CLASS, ITNRecipientDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
-    MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
 
     List<String> loadables = new ArrayList<String>();
     loadables.addAll(Arrays.asList(mosquitoTypes));

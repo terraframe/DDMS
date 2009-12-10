@@ -17,8 +17,6 @@
 <%@page import="dss.vector.solutions.query.NonRangeCategoryDTO"%>
 <%@page import="dss.vector.solutions.query.RangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
-<%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
-<%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
@@ -28,23 +26,18 @@
 <%@page import="org.json.JSONException"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeConcreteInfo"%>
-<%@page import="com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF"%>
-<%@page import="com.terraframe.mojo.dataaccess.metadata.MdAttributeConcreteDAO"%>
-<%@page import="com.terraframe.mojo.dataaccess.MdBusinessDAOIF"%>
-<%@page import="com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
 <%@page import="dss.vector.solutions.query.LayerViewDTO"%>
 <%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dss.vector.solutions.intervention.monitor.ITNDataDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.ITNDataViewDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.ITNNetDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.ITNServiceDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.LarvacideDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.LarvacideInstanceDTO"%>
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
+<%@page import="dss.vector.solutions.PersonDTO"%>
 
-<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Aggregated_ITN_Data_Distribution"  scope="request"/>
+
+<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Control_of_Immatures"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -53,8 +46,9 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ ITNDataDTO.CLASS, ITNDataViewDTO.CLASS, ITNTargetGroupDTO.CLASS, ITNNetDTO.CLASS, ITNServiceDTO.CLASS};
+    String[] mosquitoTypes = new String[]{ LarvacideDTO.CLASS, LarvacideInstanceDTO.CLASS, PersonDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
+
 
     List<String> loadables = new ArrayList<String>();
     loadables.addAll(Arrays.asList(mosquitoTypes));
@@ -91,7 +85,7 @@ YAHOO.util.Event.onDOMReady(function(){
         row.attributeName = attrib.attributeName;
         if(attrib.dtoType.contains('AttributeReferenceDTO'))
         {
-          //row.attributeName += '.name'dd;
+          //row.attributeName += '.name';
         }
         if(attrib.dtoType.contains('AttributeEnumerationDTO'))
         {
@@ -110,6 +104,7 @@ YAHOO.util.Event.onDOMReady(function(){
         row.type = 'sqlinteger';
         row.displayLabel = attribName;
         row.key = attribName;
+        row.dtoType = "AttributeIntegerDTO";
 
       }
       return row;
@@ -118,11 +113,16 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var mapMo = function(term,index){
     	var row = {};
+        //row.attributeName = this.relAttribute;
+        //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
+        //row.type = this.relType;
         row.dtoType = "AttributeIntegerDTO";
         row.displayLabel = term.displayLabel;
+        
         row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
         row.type = 'sqlinteger';
         row.attributeName = 'term' + term.MOID.replace(':','');
+        
       return row;
     };
 
@@ -131,33 +131,45 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
+    var larvacideMaps = {<%=(String) request.getAttribute("larvacideMap")%>};
+    
+    var personMaps = {};
+
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
-    var aggreatedITN = new Mojo.$.dss.vector.solutions.intervention.monitor.ITNData();
+    var larvacide = new Mojo.$.dss.vector.solutions.intervention.monitor.Larvacide();
+
+    var larvacideAttribs = [ "startDate","completionDate","geoDescription","geoEntity","natureOfControl", "personCount"];
     
-    var aITNAttribs = ["startDate","endDate","batchNumber","currencyReceived",
-                       "numberDistributed","numberSold","receivedForCommunityResponse","receivedForTargetGroups"];
+    var larvacideColumns =   larvacideAttribs.map(mapAttribs, {obj:larvacide, suffix:'_lar', dropDownMaps:larvacideMaps});
+
+    var larvacideInstance = new Mojo.$.dss.vector.solutions.intervention.monitor.LarvacideInstance();
     
-    var aITNColumns =   aITNAttribs.map(mapAttribs, {obj:aggreatedITN, suffix:'_aitn', dropDownMaps:{}});
+    var larvacideInstanceAttribs = ["controlMethod","target","treated","unit","unitsUsed"];
     
-   var netsColumns = orderedGrids.nets.options.map(mapMo, orderedGrids.nets);
-   var servicesColumns = orderedGrids.services.options.map(mapMo, orderedGrids.services);
-   var targetGroupsColumns = orderedGrids.targetGroups.options.map(mapMo, orderedGrids.targetGroups);
-   
-   var selectableGroups = [
-              {title:"ITN", values:aITNColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNData.CLASS},
-              {title:"Nets", values:netsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNNet.CLASS},
-              {title:"Services", values:servicesColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNService.CLASS},
-              {title:"TargetGroups", values:targetGroupsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNTargetGroup.CLASS},
+    var larvacideInstanceColumns =   larvacideInstanceAttribs.map(mapAttribs, {obj:larvacideInstance, suffix:'_lar', dropDownMaps:larvacideMaps});
+
+    var person = new Mojo.$.dss.vector.solutions.Person();
+    
+    var personAttribs = ["firstName","lastName"];
+    
+    var personColumns =  personAttribs.map(mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
+
+    var selectableGroups = [
+              {title:"Spray", values:larvacideColumns, group:"l", klass:larvacide.CLASS},
+              {title:"Details", values:larvacideInstanceColumns, group:"l", klass:larvacide.CLASS},
+              {title:"Leader", values:personColumns, group:"l", klass:larvacide.CLASS}
     ];
 
-    var query = new MDSS.QueryAggreatedITN(selectableGroups, queryList);
+    var query = new MDSS.QueryLarvacide(selectableGroups, queryList);
     query.render();
 
 });
 
 </script>
-
 <jsp:include page="queryContainer.jsp"></jsp:include>
+
+
+<textarea id="debug_xml" cols="40" rows="40" style="width:1280px"> </textarea>
 
 <jsp:include page="../templates/footer.jsp"></jsp:include>
