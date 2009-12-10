@@ -184,16 +184,10 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       var queryXML = MDSS.QueryBase.prototype._constructQuery.call(this,formapping); // super
 
       var mainQuery = new MDSS.QueryXML.Entity(this._mainQueryClass, this._mainQueryClass);
-      queryXML.addEntity(mainQuery);
 
-
-      //add the common alaies
-      //the first common query holds the date attrib
-      var commonQueries = this._commonQueryClasses.map(function(klass){
-        var query = new MDSS.QueryXML.Entity(klass, klass);
-        queryXML.addEntity(query);
-        return query;
-       },this);
+      var addedEntities = [this._mainQueryClass];
+  
+      addedEntities.concat(this._commonQueryClasses);
 
       var conditions = [];
 
@@ -216,11 +210,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
             n = selectable.attribute.getAttributeName().replace(/_defaultLocale/,'');
             k = selectable.attribute.getKey().replace(/_defaultLocale/,'');
             var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', n, k));
-            //add entity for assay if this selectable is an assay
-             //if(t.indexOf('.assay.') > 0 )
-            //{
-              //queryXML.addEntity(new MDSS.QueryXML.Entity(t,t));
-            //}
           }else if(t == 'sqlfloat')
           {
             var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlfloat('', n, k));
@@ -233,6 +222,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           }else
           {
             var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(t,n,k));
+            if (addedEntities.indexOf(t) < 0) {
+              var query = new MDSS.QueryXML.Entity(t, t);
+              queryXML.addEntity(query);
+            	addedEntities.concat(t);
+						}
           }
 
 
@@ -240,7 +234,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
           if(items)
           {
-          if(selectable.attribute.getDtoType() == 'AttributeEnumerationDTO')
+          if(selectable.attribute.getDtoType().contains('AttributeEnumeration'))
           {
             var enumIds = items.filter(
                 function(a){return a.checked;}).map(
@@ -335,8 +329,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         	dateAnd.addCondition(('EndDateRange'), this._endDate );
         }
         var composite = new MDSS.QueryXML.CompositeCondition(dateAnd);
-        //the first common query holds the date attrib
-        //commonQueries[0].setCondition(composite);
         conditions.push(composite);
       }
 
@@ -373,7 +365,13 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         var composite = new MDSS.QueryXML.CompositeCondition(where);
         mainQuery.setCondition(composite);
       }
-
+      
+      queryXML.addEntity(mainQuery);
+      addedEntities.map(function(klass){
+        var query = new MDSS.QueryXML.Entity(klass, klass);
+        queryXML.addEntity(query);
+      },this);
+      
       return queryXML;
     },
 
@@ -1109,9 +1107,10 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     	  	queryObject._setNumberCriteria(null,obj);	
     	  };
     	   
-    	  var search = new MDSS.GenericSearch(searchEl, null, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler);
+    	  var search = new MDSS.GenericSearch(searchEl, null, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler, {minLength:0});
     	  
     	  search.addParameter([attribute.getType(),attribute.getAttributeName()]);
+    	  
     },
     
     _buildDateAttributesSelect : function(div)
