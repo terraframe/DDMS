@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1755296662)
+@com.terraframe.mojo.business.ClassSignature(hash = 1039258148)
 public abstract class GeoEntityExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.GeoEntityExcelView";
-  private static final long serialVersionUID = -1755296662;
+  private static final long serialVersionUID = 1039258148;
   
   protected GeoEntityExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -22,6 +22,7 @@ public abstract class GeoEntityExcelViewDTOBase extends com.terraframe.mojo.busi
   public static java.lang.String GEOTYPE = "geoType";
   public static java.lang.String GEOMETRYWKT = "geometryWKT";
   public static java.lang.String ID = "id";
+  public static java.lang.String SUBTYPE = "subType";
   public Boolean getActivated()
   {
     return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ACTIVATED));
@@ -205,6 +206,43 @@ public abstract class GeoEntityExcelViewDTOBase extends com.terraframe.mojo.busi
   public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getGeometryWKTMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(GEOMETRYWKT).getAttributeMdDTO();
+  }
+  
+  public String getSubType()
+  {
+    return getValue(SUBTYPE);
+  }
+  
+  public void setSubType(String value)
+  {
+    if(value == null)
+    {
+      setValue(SUBTYPE, "");
+    }
+    else
+    {
+      setValue(SUBTYPE, value);
+    }
+  }
+  
+  public boolean isSubTypeWritable()
+  {
+    return isWritable(SUBTYPE);
+  }
+  
+  public boolean isSubTypeReadable()
+  {
+    return isReadable(SUBTYPE);
+  }
+  
+  public boolean isSubTypeModified()
+  {
+    return isModified(SUBTYPE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSubTypeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SUBTYPE).getAttributeMdDTO();
   }
   
   public static GeoEntityExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

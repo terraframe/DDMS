@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1426301462)
+@com.terraframe.mojo.business.ClassSignature(hash = 87270308)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,7 +17,8 @@ public abstract class GeoEntityExcelViewBase extends com.terraframe.mojo.busines
   public static java.lang.String GEOTYPE = "geoType";
   public static java.lang.String GEOMETRYWKT = "geometryWKT";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1426301462;
+  public static java.lang.String SUBTYPE = "subType";
+  private static final long serialVersionUID = 87270308;
   
   public GeoEntityExcelViewBase()
   {
@@ -178,6 +179,34 @@ public abstract class GeoEntityExcelViewBase extends com.terraframe.mojo.busines
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.GeoEntityExcelView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public String getSubType()
+  {
+    return getValue(SUBTYPE);
+  }
+  
+  public void validateSubType()
+  {
+    this.validateAttribute(SUBTYPE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSubTypeMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.GeoEntityExcelView.CLASS);
+    return mdClassIF.definesAttribute(SUBTYPE);
+  }
+  
+  public void setSubType(String value)
+  {
+    if(value == null)
+    {
+      setValue(SUBTYPE, "");
+    }
+    else
+    {
+      setValue(SUBTYPE, value);
+    }
   }
   
   protected String getDeclaredType()

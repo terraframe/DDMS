@@ -1,6 +1,7 @@
 package dss.vector.solutions.export;
 
 import com.terraframe.mojo.business.BusinessFacade;
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
@@ -8,12 +9,19 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 
+import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.AllPathsQuery;
+import dss.vector.solutions.ontology.BrowserFieldQuery;
+import dss.vector.solutions.ontology.BrowserRootQuery;
+import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermQuery;
 
 public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -38,6 +46,7 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.te
     entity.setEntityName(this.getEntityName());
     entity.setActivated(this.getActivated() != null && this.getActivated());
     entity.setGeoId(this.getGeoId());
+    entity.setTerm(this.validateGeoSubtypeByDisplayLabel(entity, this.getSubType(), GeoEntity.getTermMd()));
     
     MdAttributeGeometry geometry = GeoHierarchy.getGeometry(entityType);
     entity.setValue(geometry.getAttributeName(), this.getGeometryWKT());
@@ -97,5 +106,53 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.te
   public void setParentGeoEntityId(String parentGeoEntityId)
   {
     this.parentGeoEntityId = parentGeoEntityId;
+  }
+  
+  @Transaction
+  public Term validateGeoSubtypeByDisplayLabel(GeoEntity entity, String displayLabel, MdAttributeDAOIF mdAttribute)
+  {
+    // No value means they didn't specify one.  Don't throw a problem; just return null
+    if (displayLabel.trim().length()==0)
+    {
+      return null;
+    }
+
+    QueryFactory factory = new QueryFactory();
+    
+    String type = entity.getType();
+    GeoHierarchy universal = GeoHierarchy.getGeoHierarchyFromType(type);
+    Term universalMoRoot = universal.getTerm();
+
+    AllPathsQuery apq = new AllPathsQuery(factory);
+    apq.WHERE(apq.getParentTerm().EQ(universalMoRoot));
+
+    TermQuery tq = new TermQuery(factory);
+    tq.WHERE(tq.getName().EQi(displayLabel));
+    tq.WHERE(tq.getId().EQ(apq.getChildTerm().getId()));
+
+    OIterator<? extends Term> iterator = tq.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+
+      String attributeLabel = mdAttribute.getDisplayLabel(Session.getCurrentLocale());
+      String msg = "Unknown " + attributeLabel + " with the given name [" + displayLabel + "]";
+
+      UnknownTermProblem e = new UnknownTermProblem(msg);
+      e.setTermName(displayLabel);
+      e.setAttributeLabel(attributeLabel);
+      e.throwIt();
+
+      // We expect to return nothing, as we're throwing a problem, but include this to satisfy the compile time requirement
+      return null;
+    }
+    finally
+    {
+      iterator.close();
+    }
   }
 }

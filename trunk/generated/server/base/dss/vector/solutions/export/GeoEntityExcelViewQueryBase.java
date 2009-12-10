@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -663566637)
+@com.terraframe.mojo.business.ClassSignature(hash = -1593889011)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class GeoEntityExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -663566637;
+private static final long serialVersionUID = -1593889011;
 
   public GeoEntityExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -131,6 +131,24 @@ private static final long serialVersionUID = -663566637;
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.ID, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getSubType()
+  {
+    return getSubType(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getSubType(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.SUBTYPE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getSubType(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.SUBTYPE, alias, displayLabel);
 
   }
  
