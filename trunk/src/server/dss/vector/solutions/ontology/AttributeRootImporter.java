@@ -99,6 +99,10 @@ public class AttributeRootImporter
     if (cell != null && cell.getCellType() == HSSFCell.CELL_TYPE_STRING)
     {
       String termId = cell.getRichStringCellValue().getString();
+      if (termId.length()==0)
+      {
+        return;
+      }
       Term term = Term.getByTermId(termId);
 
 //      FieldDefaultView view = new FieldDefaultView();
