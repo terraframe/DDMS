@@ -1547,9 +1547,9 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     		"    '"+createdById+"' AS \""+AllPaths.getOwnerMd().definesAttribute().toLowerCase()+"\",\n" +
     		"    '"+createdById+"' AS "+AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase()+",\n" +
     		"    paths."+RelationshipInfo.PARENT_ID+" AS "+AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase()+", \n" +
-    		"    SUBSTRING(paths."+RelationshipInfo.PARENT_ID+","+DatabaseInfo.ROOT_ID_SIZE+1+","+DatabaseInfo.ROOT_ID_SIZE+") || '"+MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE))+"',\n" +
+    		"    SUBSTRING(paths."+RelationshipInfo.PARENT_ID+","+DatabaseInfo.ROOT_ID_SIZE+"+1,"+DatabaseInfo.ROOT_ID_SIZE+") || '"+MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE))+"',\n" +
     		"    paths.root_id as "+AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase()+", \n" +
-    		"    SUBSTRING(paths.root_id,"+DatabaseInfo.ROOT_ID_SIZE+1+","+DatabaseInfo.ROOT_ID_SIZE+")   || '"+MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE))+"'\n" +
+    		"    SUBSTRING(paths.root_id,"+DatabaseInfo.ROOT_ID_SIZE+"+1,"+DatabaseInfo.ROOT_ID_SIZE+")   || '"+MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE))+"'\n" +
     		"FROM "+geoEntityTable+" as geo1, "+geoEntityTable+" as geo2,\n" +
     		"(SELECT * FROM quick_paths UNION SELECT "+GeoEntity.getIdMd().definesAttribute().toLowerCase()+","+GeoEntity.getIdMd().definesAttribute().toLowerCase()+","+GeoEntity.getIdMd().definesAttribute().toLowerCase()+",NEXTVAL('"+PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE+"') FROM "+geoEntityTable+" ) as paths\n"+
     		"WHERE geo1."+GeoEntity.getIdMd().definesAttribute().toLowerCase()+" = paths."+RelationshipInfo.PARENT_ID+" AND geo2."+GeoEntity.getIdMd().definesAttribute().toLowerCase()+" = paths.root_id\n";
