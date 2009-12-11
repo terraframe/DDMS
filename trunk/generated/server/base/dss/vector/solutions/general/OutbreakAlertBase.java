@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -468891551)
+@com.terraframe.mojo.business.ClassSignature(hash = 2115832046)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,12 +12,13 @@ public abstract class OutbreakAlertBase extends com.terraframe.mojo.business.Inf
 {
   public final static String CLASS = "dss.vector.solutions.general.OutbreakAlert";
   public static java.lang.String ALERTTYPE = "alertType";
+  public static java.lang.String EMAILFAILURE = "emailFailure";
   public static java.lang.String ENTITYLABEL = "entityLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String THRESHOLD = "threshold";
   public static java.lang.String THRESHOLDTYPE = "thresholdType";
   public static java.lang.String TOTALCASES = "totalCases";
-  private static final long serialVersionUID = -468891551;
+  private static final long serialVersionUID = 2115832046;
   
   public OutbreakAlertBase()
   {
@@ -49,6 +50,34 @@ public abstract class OutbreakAlertBase extends com.terraframe.mojo.business.Inf
     else
     {
       setValue(ALERTTYPE, value);
+    }
+  }
+  
+  public Boolean getEmailFailure()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(EMAILFAILURE));
+  }
+  
+  public void validateEmailFailure()
+  {
+    this.validateAttribute(EMAILFAILURE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getEmailFailureMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.OutbreakAlert.CLASS);
+    return mdClassIF.definesAttribute(EMAILFAILURE);
+  }
+  
+  public void setEmailFailure(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(EMAILFAILURE, "");
+    }
+    else
+    {
+      setValue(EMAILFAILURE, java.lang.Boolean.toString(value));
     }
   }
   
@@ -214,6 +243,7 @@ public abstract class OutbreakAlertBase extends com.terraframe.mojo.business.Inf
   {
     message = super.localize(locale, message);
     message = replace(message, "{alertType}", this.getAlertType());
+    message = replace(message, "{emailFailure}", this.getEmailFailure());
     message = replace(message, "{entityLabel}", this.getEntityLabel());
     message = replace(message, "{id}", this.getId());
     message = replace(message, "{threshold}", this.getThreshold());

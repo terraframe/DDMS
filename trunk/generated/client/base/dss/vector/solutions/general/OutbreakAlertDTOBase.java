@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 66267617)
+@com.terraframe.mojo.business.ClassSignature(hash = -2049706130)
 public abstract class OutbreakAlertDTOBase extends com.terraframe.mojo.business.InformationDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.OutbreakAlert";
-  private static final long serialVersionUID = 66267617;
+  private static final long serialVersionUID = -2049706130;
   
   public OutbreakAlertDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {
@@ -17,6 +17,7 @@ public abstract class OutbreakAlertDTOBase extends com.terraframe.mojo.business.
   }
   
   public static java.lang.String ALERTTYPE = "alertType";
+  public static java.lang.String EMAILFAILURE = "emailFailure";
   public static java.lang.String ENTITYLABEL = "entityLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String THRESHOLD = "threshold";
@@ -57,6 +58,43 @@ public abstract class OutbreakAlertDTOBase extends com.terraframe.mojo.business.
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAlertTypeMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ALERTTYPE).getAttributeMdDTO();
+  }
+  
+  public Boolean getEmailFailure()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(EMAILFAILURE));
+  }
+  
+  public void setEmailFailure(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(EMAILFAILURE, "");
+    }
+    else
+    {
+      setValue(EMAILFAILURE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEmailFailureWritable()
+  {
+    return isWritable(EMAILFAILURE);
+  }
+  
+  public boolean isEmailFailureReadable()
+  {
+    return isReadable(EMAILFAILURE);
+  }
+  
+  public boolean isEmailFailureModified()
+  {
+    return isModified(EMAILFAILURE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getEmailFailureMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(EMAILFAILURE).getAttributeMdDTO();
   }
   
   public String getEntityLabel()

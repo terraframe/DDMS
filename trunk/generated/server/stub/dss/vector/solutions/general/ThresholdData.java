@@ -320,6 +320,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
     String alertType = entity.getOutbreakAlert();
     String thresholdType = MDSSProperties.getString(alertKey);
     String label = entity.getLabel();
+    boolean emailSent = false;
 
 	if (systemAlert.getIsEmailActive())
 	{
@@ -329,18 +330,20 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
         data.put("entityLabel", label);
         data.put("threshold", threshold);
         data.put("totalCases", count);
-		systemAlert.sendEmail(data);
+		emailSent = systemAlert.sendEmail(data);
 	}
 	
 	if (systemAlert.getIsOnscreenActive())
 	{
-
         OutbreakAlert alert = new OutbreakAlert();
         alert.setAlertType(alertType);
         alert.setThresholdType(thresholdType);
         alert.setEntityLabel(label);
         alert.setThreshold(threshold);
         alert.setTotalCases(count);
+        if (systemAlert.getIsEmailActive() & !emailSent) {
+        	alert.setEmailFailure(true);
+        }
         alert.apply();
 
         alert.throwIt();

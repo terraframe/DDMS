@@ -4,6 +4,7 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.general.OutbreakAlert">
   <!--
     - {alertType} alertType
+    - {emailFailure} emailFailure
     - {entityLabel} entityLabel
     - {id} id
     - {threshold} threshold
