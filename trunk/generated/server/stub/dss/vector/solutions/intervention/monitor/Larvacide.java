@@ -2,6 +2,8 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,27 +23,27 @@ import dss.vector.solutions.util.QueryUtil;
 public class Larvacide extends LarvacideBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1257372022458L;
-  
+
   public Larvacide()
   {
     super();
   }
-  
+
   @Override
   public LarvacideInstanceView[] getInstanceViews()
   {
     List<? extends LarvacideInstance> instances = this.getAllInstances().getAll();
     LarvacideInstanceView[] views = new LarvacideInstanceView[instances.size()];
-    int i=0;
-    
+    int i = 0;
+
     for (LarvacideInstance instance : instances)
     {
       views[i++] = instance.getView();
     }
-    
+
     return views;
   }
-  
+
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
@@ -71,13 +73,30 @@ public class Larvacide extends LarvacideBase implements com.terraframe.mojo.gene
     LarvacideQuery larvacideQuery = (LarvacideQuery) queryMap.get(Larvacide.CLASS);
     LarvacideInstanceQuery larvacideInstanceQuery = (LarvacideInstanceQuery) queryMap.get(LarvacideInstance.CLASS);
     dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
-    
+
     LarvacideAssociationQuery larvacideAssQuery = new LarvacideAssociationQuery(queryFactory);
 
     valueQuery.WHERE(larvacideAssQuery.parentId().EQ(larvacideQuery.getId()));
-    valueQuery.WHERE(larvacideAssQuery.childId().EQ(larvacideInstanceQuery.getId()));
 
-    valueQuery.WHERE(larvacideQuery.getTeamLeader(Larvacide.TEAMLEADER).LEFT_JOIN_EQ((SelectableSingle) personQuery.getSprayLeaderDelegate(Person.SPRAYLEADERDELEGATE)));
+    if (larvacideInstanceQuery != null)
+    {
+      valueQuery.WHERE(larvacideAssQuery.childId().EQ(larvacideInstanceQuery.getId()));
+      if (personQuery != null)
+      {
+        Pattern pattern = Pattern.compile("("+Person.FIRSTNAME+"|"+Person.LASTNAME+")[a-zA-z_]+Criteria");
+        Matcher matcher = pattern.matcher(config);
+        // if there is no restriction on person, we left join, otherwise we inner join
+        if (! matcher.find())
+        {
+          valueQuery.WHERE(larvacideQuery.getTeamLeader(Larvacide.TEAMLEADER).LEFT_JOIN_EQ((SelectableSingle) personQuery.getSprayLeaderDelegate(Person.SPRAYLEADERDELEGATE)));
+        }
+        else
+        {
+          valueQuery.WHERE(larvacideQuery.getTeamLeader(Larvacide.TEAMLEADER).EQ(personQuery.getSprayLeaderDelegate(Person.SPRAYLEADERDELEGATE)));
+        }
+      }
+
+    }
 
     try
     {
@@ -92,14 +111,14 @@ public class Larvacide extends LarvacideBase implements com.terraframe.mojo.gene
       // Person.DOB not included in query.
     }
 
-    //QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery);
-    
-    QueryUtil.joinGeoDisplayLabels(valueQuery,Larvacide.CLASS,larvacideQuery);
-    
-    QueryUtil.joinTermAllpaths(valueQuery,LarvacideInstance.CLASS,larvacideInstanceQuery);  
+    // QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery);
 
-    QueryUtil.setTermRestrictions(valueQuery, queryMap );    
-    
+    QueryUtil.joinGeoDisplayLabels(valueQuery, Larvacide.CLASS, larvacideQuery);
+
+    QueryUtil.joinTermAllpaths(valueQuery, LarvacideInstance.CLASS, larvacideInstanceQuery);
+
+    QueryUtil.setTermRestrictions(valueQuery, queryMap);
+
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
     AttributeMoment dateAttribute = larvacideQuery.getStartDate();
