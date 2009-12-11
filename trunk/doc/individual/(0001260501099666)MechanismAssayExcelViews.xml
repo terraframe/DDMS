@@ -46,7 +46,7 @@
       </mdView>
       <mdView
         name="dss.vector.solutions.export.MolecularAssayExcelView"
-        label="Pooled Infection Assay Excel View">
+        label="Molecular Assay Excel View">
         <attributes>
           <virtual
             concrete="collectionId"

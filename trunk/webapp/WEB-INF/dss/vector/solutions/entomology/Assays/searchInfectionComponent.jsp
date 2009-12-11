@@ -36,4 +36,14 @@
   })
 })();
 
-</script>    
+</script>
+
+<h1><fmt:message key="Import_Export_Infection_Assays"/></h1>
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.InfectionAssayExcelView" name="excelType"/>
+</jsp:include>
+
+<h1><fmt:message key="Import_Export_Pooled_Infection_Assays"/></h1>
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.PooledInfectionAssayExcelView" name="excelType"/>
+</jsp:include>
