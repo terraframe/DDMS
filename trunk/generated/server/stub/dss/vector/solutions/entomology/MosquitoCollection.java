@@ -3,6 +3,8 @@ package dss.vector.solutions.entomology;
 import java.util.Date;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
+import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -166,5 +168,21 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
 
     return view;
   }
-
+  
+  public static MosquitoCollection getByCollectionId(String collectionId)
+  {
+    MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
+    query.WHERE(query.getCollectionId().EQ(collectionId));
+    OIterator<? extends MosquitoCollection> iterator = query.getIterator();
+    if (iterator.hasNext())
+    {
+      MosquitoCollection collection = iterator.next();
+      iterator.close();
+      return collection;
+    }
+    else
+    {
+      throw new DataNotFoundException("No mosquito collection with collection id [" + collectionId + "] found", MdTypeDAO.getMdTypeDAO(CLASS));
+    }
+  }
 }
