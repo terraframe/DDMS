@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import org.apache.velocity.runtime.RuntimeConstants;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
@@ -54,6 +55,9 @@ public class SystemAlert extends SystemAlertBase implements com.terraframe.mojo.
 		Writer out = new StringWriter();
 
 		Velocity.setProperty("directive.foreach.counter.initial.value", "0");
+	    Velocity.setProperty( RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "org.apache.velocity.runtime.log.Log4JLogChute" );
+	    Velocity.setProperty("runtime.log.logsystem.log4j.logger", "velocity");
+
 		try {
 			Velocity.init();
 			VelocityContext context = new VelocityContext(data);
