@@ -11,5 +11,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {thresholdType} thresholdType
     - {totalCases} totalCases
     -->
-  <locale language="en">{thresholdType} of {alertType} at [{entityLabel}].  Total Cases: [{totalCases}], Threshold: [{threshold}] </locale>
+  <locale language="en">{thresholdType} of {alertType} at [{entityLabel}].  Total Cases: [{totalCases}], Threshold: [{threshold}].  {emailFailure}</locale>
 </exception>
