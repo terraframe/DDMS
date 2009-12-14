@@ -99,7 +99,7 @@ while(i<startWeek)
 for (EpiDateDTO epiWeek : weeks){
   String startDate = Halp.getFormatedDate(request,epiWeek.getStartDate());
   String endDate = Halp.getFormatedDate(request,epiWeek.getEndDate());
-  colConfig += ",\n{sum:true, key:'Target_" + i%numWeeks + "',label:'" + ((epiWeek.getPeriod()%numWeeks)+1) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
+  colConfig += ",\n{width:20, sum:true, key:'Target_" + i%numWeeks + "',label:'" + ((epiWeek.getPeriod()%numWeeks)+1) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
   i++;
 }
 while(i<54)
@@ -127,9 +127,12 @@ GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
               div_id: "GeoTargets",
               data_type: "Mojo.$.dss.vector.solutions.irs.GeoTargetView",
               saveFunction: "applyAll",
-              width:"75em",
+              //width:"75em",
               addButton:false,
               excelButtons:false,
+              after_row_edit:function(record){
+      	         setRowCaluatedValues(record);
+              },
               after_row_load:function(record){
                 if(record.getCount() < (GeoTargetData.rows.length - 1))
                 {
@@ -148,7 +151,7 @@ GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
 
     var dt = GeoTargetData.myDataTable;
 
-    dt.getRecordSet().getRecords().map( function(row) {
+    var setRowCaluatedValues = function(row) {
       var calulated = calculatedTargets[row.getData('GeoEntity')];
       if(calulated && calulated != '')
       {  
@@ -170,7 +173,9 @@ GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
           }
         }
       }
-    });
+    }
+
+    dt.getRecordSet().getRecords().map(setRowCaluatedValues);
     
 
     
