@@ -176,34 +176,19 @@ public class Sandbox
 
     ValueQuery[] valueQueryArray = new ValueQuery[tokenArray.length];
 
-    for (int i=0; i<tokenArray.length; i++)
+    if (tokenArray.length > 1)
     {
-      String token = tokenArray[i].toLowerCase();
-      ValueQuery vQ = qf.valueQuery();
-
-      // Build select clause.  This would be cleaner if the API supported incrementally adding
-      // to the select clause.  One day that will be supported.
-      Selectable[] selectClauseArray = new Selectable[selectableArray.length + 1];
-      for (int k=0; k<selectableArray.length; k++)
+      for (int i=0; i<tokenArray.length; i++)
       {
-        selectClauseArray[k] = selectableArray[k];
+        String token = tokenArray[i].toLowerCase();
+        valueQueryArray[i] = buildQueryForToken(qf, token, selectableArray, conditionArray, WEIGHT, i);
       }
-      selectClauseArray[selectableArray.length] =
-        vQ.aSQLLong("weight", "1.0 / ("+Math.pow(WEIGHT, i)+" * STRPOS(" + concatenate(selectableArray) + ", ' "+token+"'))");
-
-      vQ.SELECT(selectClauseArray);
-      vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(selectableArray)).LIKE("% "+token+"%"));
-
-      for (Condition condition : conditionArray)
-      {
-        vQ.AND(condition);
-      }
-
-      valueQueryArray[i] = vQ;
+      uQ.UNION(valueQueryArray);
     }
-
-    uQ.UNION(valueQueryArray);
-
+    else
+    {
+      uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), selectableArray, conditionArray, WEIGHT, 0);
+    }
 
     // Build outermost select clause.  This would be cleaner if the API supported incrementally adding
     // to the select clause.  One day that will be supported.
@@ -235,6 +220,31 @@ public class Sandbox
     return resultQuery;
   }
 
+  private static ValueQuery buildQueryForToken(QueryFactory qf, String token,
+      SelectablePrimitive[] selectableArray, Condition[] conditionArray, long WEIGHT, int i)
+  {
+    ValueQuery vQ = qf.valueQuery();
+
+    // Build select clause.  This would be cleaner if the API supported incrementally adding
+    // to the select clause.  One day that will be supported.
+    Selectable[] selectClauseArray = new Selectable[selectableArray.length + 1];
+    for (int k=0; k<selectableArray.length; k++)
+    {
+      selectClauseArray[k] = selectableArray[k];
+    }
+    selectClauseArray[selectableArray.length] =
+      vQ.aSQLLong("weight", "1.0 / ("+Math.pow(WEIGHT, i)+" * STRPOS(" + concatenate(selectableArray) + ", ' "+token+"'))");
+
+    vQ.SELECT(selectClauseArray);
+    vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(selectableArray)).LIKE("% "+token+"%"));
+
+    for (Condition condition : conditionArray)
+    {
+      vQ.AND(condition);
+    }
+    return vQ;
+  }
+
   @StartSession
   public static void testNoLogin()
   {
@@ -250,7 +260,9 @@ public class Sandbox
 */
 
 
-    String[] tokenArray = new String[]{"Plasmodium", "falciparum"};
+    String[] tokenArray = new String[]{"Plasmodium"};
+//    String[] tokenArray = new String[]{"Plasmodium", "falciparum"};
+
 
     QueryFactory qf = new QueryFactory();
     TermQuery tQ = new TermQuery(qf);
@@ -261,11 +273,10 @@ public class Sandbox
     selectableArray[1] = tQ.getTermId();
 
     // This is a COMPLETELY contrived example that makes no sense in real ife.
-    Condition joinCondition = tQ.getName().EQ(gQ.getEntityName());
+//    Condition joinCondition = tQ.getName().EQ(gQ.getEntityName());
+//    textLookup(qf, tokenArray, selectableArray, new Condition[]{joinCondition});
 
-
-    textLookup(qf, tokenArray, selectableArray, new Condition[]{joinCondition});
-
+    textLookup(qf, tokenArray, selectableArray, new Condition[]{});
 
 
 
