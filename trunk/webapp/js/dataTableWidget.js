@@ -1,4 +1,3 @@
-
 var MojoGrid = YAHOO.namespace('MojoGrid');
 MojoGrid.cellLock = false;
 MojoGrid.limitTab = false;
@@ -442,6 +441,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 
       if (oArgs.editor.getColumn().sum  && this.tableData.rows.length > 1) {
       	var record = oArgs.editor.getRecord();
+      	var cellValue = record.getData(oArgs.editor.getColumn().key);
         var lastIndex = this.tableData.rows.length - 1;
         var lastRecord = this.myDataTable.getRecord(lastIndex);
         var editor = oArgs.editor;
@@ -479,7 +479,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
         var newTotal = oldTotal + newData - oldData;
 
         //no calculation is done if number is entered manualy
-        if (index !== lastIndex  && (! manualLastRowData)) {
+        if (index !== lastIndex  && (! manualLastRowData) && (oArgs.newData != '' || cellValue == '')) {
           dt.updateCell(lastRecord, editor.getColumn(), newTotal);
           YAHOO.util.Dom.addClass(this.myDataTable.getTdLinerEl(lastTd), "calculated");
           //we do not save autocalculated values
@@ -496,11 +496,13 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
         });
         
         //redo calculation is done if manualy entered number is deleted
-        if (index == lastIndex  && oArgs.newData == '') {
-          dt.updateCell(lastRecord, editor.getColumn(), sum);
-          YAHOO.util.Dom.addClass(this.myDataTable.getTdLinerEl(lastTd), "calculated");
-        }
+        //if (index == lastIndex  && oArgs.newData == '' && cellValue) {
+     //     dt.updateCell(lastRecord, editor.getColumn(), sum);
+     //     YAHOO.util.Dom.addClass(this.myDataTable.getTdLinerEl(lastTd), "calculated");
+     //   }
 
+        
+        
         if (parseInt(lastRecord.getData(editor.getColumn().key),10) != sum) {
           YAHOO.util.Dom.addClass(lastTd, "dataTableSumError");
         } else {
