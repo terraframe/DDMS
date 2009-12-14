@@ -884,6 +884,10 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
           this.panel.selectNext();
         }
       }
+      // Handle the 'tab' key
+      else if (oData.keyCode == 9) {
+        // DO NOTHING
+      }
       // Handle the 'up' arrow key
       else if (oData.keyCode === 38) {
         var visible = this.panel.isVisible();
@@ -939,7 +943,7 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
   
     createYearSearch : function(element) {
       element = Mojo.Util.isString(element) ? document.getElementById(element) : element;
-    	
+    
       var years = new Array();
       var d = new Date();
       var year = d.getFullYear();
