@@ -233,7 +233,7 @@ public class Sandbox
       selectClauseArray[k] = selectableArray[k];
     }
     selectClauseArray[selectableArray.length] =
-      vQ.aSQLLong("weight", "1.0 / ("+Math.pow(WEIGHT, i)+" * STRPOS(" + concatenate(selectableArray) + ", ' "+token+"'))");
+      vQ.aSQLDouble("weight", "1.0 / ("+Math.pow(WEIGHT, i)+" * STRPOS(" + concatenate(selectableArray) + ", ' "+token+"'))");
 
     vQ.SELECT(selectClauseArray);
     vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(selectableArray)).LIKE("% "+token+"%"));
