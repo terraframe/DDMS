@@ -1,14 +1,9 @@
 package dss.vector.solutions;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.BusinessQuery;
 import com.terraframe.mojo.constants.ComponentInfo;
 import com.terraframe.mojo.constants.RelationshipInfo;
@@ -16,8 +11,12 @@ import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.AttributePrimitive;
+import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.system.metadata.MdBusiness;
@@ -26,10 +25,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.ontology.BrowserField;
-import dss.vector.solutions.ontology.BrowserFieldView;
-import dss.vector.solutions.ontology.BrowserFieldViewQuery;
-import dss.vector.solutions.util.GeoEntitySearcher;
+import dss.vector.solutions.ontology.TermQuery;
 
 public class Sandbox
 {
@@ -39,26 +35,26 @@ public class Sandbox
 
   public static void main(String[] args) throws Exception
   {
-    
-    
-//    testNoLogin();
-try
-{
-    ClientSession session = ClientSession.createUserSession("MDSS", "mdsstest2", Locale.ENGLISH);
-    gogo(session.getSessionId(), session);
-//    OntologyDefinitionDTO od = new OntologyDefinitionDTO(session.getRequest());
-//    od.setOntologyName("MO");
-//    od.setNamespace("dss.vector.solutions.ontology");
-//    od.apply();
-    
 
-    
-    
-}
-catch(ProblemExceptionDTO e)
-{
-}
-    
+
+    testNoLogin();
+//try
+//{
+//    ClientSession session = ClientSession.createUserSession("MDSS", "mdsstest2", Locale.ENGLISH);
+//    gogo(session.getSessionId(), session);
+////    OntologyDefinitionDTO od = new OntologyDefinitionDTO(session.getRequest());
+////    od.setOntologyName("MO");
+////    od.setNamespace("dss.vector.solutions.ontology");
+////    od.apply();
+//
+//
+//
+//
+//}
+//catch(ProblemExceptionDTO e)
+//{
+//}
+
     //
     // String temp = "CaseTreatmentStock_SP_TreatmentGrid";
     //
@@ -104,24 +100,26 @@ catch(ProblemExceptionDTO e)
 
     // testAllPaths();
   }
-  
+
   @StartSession
   private static void gogo(String sessionId, ClientSession session)
   {
+//    AllPaths.get("2d3373900f3c9635c73f7b50b126220c0ng41xiuq0nzo8wjdn1v9cunh9f1icac").printAttributes();
+
 //    QueryFactory queryFactory = new QueryFactory();
-//    
+//
 //    MdClassQuery mdClassQuery;
 //    mdClassQuery = new MdClassQuery(queryFactory);
-//    
+//
 //    MdAttributeConcreteQuery mdConcreteQuery = new MdAttributeConcreteQuery(queryFactory);
-//    
+//
 //    ValueQuery concreteQuery = new ValueQuery(queryFactory);
 //    ValueQuery virtualQuery = new ValueQuery(queryFactory);
-//    
+//
 //    ValueQuery unioned = new ValueQuery(queryFactory);
-//    
+//
 //    MdAttributeVirtualQuery mdVirtualQuery = new MdAttributeVirtualQuery(queryFactory);
-//    
+//
 //    // join concrete attribute with display labels
 //    concreteQuery.SELECT(mdClassQuery.getId("classId"),
 //        mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
@@ -129,21 +127,21 @@ catch(ProblemExceptionDTO e)
 //        mdConcreteQuery.getDisplayLabel().currentLocale("attributeLabel"),
 //        mdConcreteQuery.getDefiningMdClass().getId("definingMdClass"));
 //    concreteQuery.WHERE(mdConcreteQuery.getDefiningMdClass().EQ(mdClassQuery));
-//    
+//
 //    virtualQuery.SELECT(mdClassQuery.getId("classId"),
 //        mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
 //        mdVirtualQuery.getId("attributeId"),
 //        mdVirtualQuery.getDisplayLabel().currentLocale("attributeLabel"),
 //        mdVirtualQuery.getDefiningMdView().getId("definingMdClass"));
 //    virtualQuery.WHERE(mdVirtualQuery.getDefiningMdView().EQ(mdClassQuery));
-//    
+//
 //    unioned.UNION(concreteQuery, virtualQuery);
-//    
+//
 //  for(ValueObject valueObject : unioned.getIterator())
 //  {
 //    valueObject.printAttributes();
 //  }
-    
+
     try
     {
     }
@@ -153,22 +151,135 @@ catch(ProblemExceptionDTO e)
     }
   }
 
+  private static String concatenate(Selectable[] selectableArray)
+  {
+    StringBuilder sb = new StringBuilder();
+    sb.append("LOWER(' ' || ");
+    for (int i=0; i < selectableArray.length; i++)
+    {
+        if (i > 0)
+        {
+            sb.append(" || ' ' || ");
+        }
+        sb.append(selectableArray[i].getQualifiedName());
+    }
+    sb.append(")");
+    return sb.toString();
+}
+
+  private static ValueQuery textLookup(QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray)
+  {
+    long WEIGHT = 256;
+
+    ValueQuery uQ = qf.valueQuery();
+
+    ValueQuery[] valueQueryArray = new ValueQuery[tokenArray.length];
+
+    for (int i=0; i<tokenArray.length; i++)
+    {
+      String token = tokenArray[i].toLowerCase();
+      ValueQuery vQ = qf.valueQuery();
+
+      // Build select clause.  This would be cleaner if the API supported incrementally adding
+      // to the select clause.  One day that will be supported.
+      Selectable[] selectClauseArray = new Selectable[selectableArray.length + 1];
+      for (int k=0; k<selectableArray.length; k++)
+      {
+        selectClauseArray[k] = selectableArray[k];
+      }
+      selectClauseArray[selectableArray.length] =
+        vQ.aSQLLong("weight", "1.0 / ("+Math.pow(WEIGHT, i)+" * STRPOS(" + concatenate(selectableArray) + ", ' "+token+"'))");
+
+      vQ.SELECT(selectClauseArray);
+      vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(selectableArray)).LIKE("% "+token+"%"));
+
+      valueQueryArray[i] = vQ;
+    }
+
+    uQ.UNION(valueQueryArray);
+
+
+    // Build outermost select clause.  This would be cleaner if the API supported incrementally adding
+    // to the select clause.  One day that will be supported.
+    ValueQuery resultQuery = qf.valueQuery();
+    Selectable[] selectClauseArray = new Selectable[selectableArray.length + 2];
+    for (int k=0; k<selectableArray.length; k++)
+    {
+      selectClauseArray[k] = uQ.aAttribute(selectableArray[k].getResultAttributeName());
+    }
+    selectClauseArray[selectableArray.length] = F.COUNT(uQ.aAttribute("weight"), "weight");
+    selectClauseArray[selectableArray.length + 1] = F.SUM(uQ.aAttribute("weight"), "sum");
+
+    resultQuery.SELECT(selectClauseArray);
+    resultQuery.ORDER_BY_DESC(F.COUNT(uQ.aAttribute("weight"), "weight"));
+    resultQuery.ORDER_BY_DESC(F.SUM(uQ.aAttribute("weight"), "sum"));
+    for (SelectablePrimitive selectable : selectableArray)
+    {
+      resultQuery.ORDER_BY_ASC((AttributePrimitive)uQ.aAttribute(selectable.getResultAttributeName()));
+    }
+    resultQuery.HAVING(F.COUNT(uQ.aAttribute("weight")).EQ(tokenArray.length));
+    System.out.println(resultQuery.getSQL());
+
+
+    for (ValueObject valueObject : resultQuery.getIterator())
+    {
+      valueObject.printAttributes();
+    }
+
+    return resultQuery;
+  }
+
   @StartSession
   public static void testNoLogin()
   {
+    /*
+    select name, count(weight) c, sum(weight) s from (
+        select name, 1.0 / (1.0 * strpos(lower(' ' || name), ' b')) as weight from term where lower(' ' || name) like '% b%'
+         union all
+        select name, 1.0 / (256.0 * strpos(lower(' ' || name), ' a')) as weight from term where lower(' ' || name) like '% a%'
+        ) as foo
+        group by name
+        --having count(weight) = 2
+        order by c desc, s desc, name
+*/
 
-    try
-    {
-      FileInputStream fileInputStream = new FileInputStream(new File("/Users/nathan/workspace3.4/MDSS/PersonExcelView.xls"));
 
-      GeoEntitySearcher geoSynonymMatcher = new GeoEntitySearcher();
-      geoSynonymMatcher.checkExcelGeoHierarchy(fileInputStream);
-    }
-    catch (FileNotFoundException e)
-    {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    String[] tokenArray = new String[]{"Plasmodium", "falciparum"};
+
+    QueryFactory qf = new QueryFactory();
+    TermQuery tQ = new TermQuery(qf);
+
+    SelectablePrimitive[] selectableArray = new SelectablePrimitive[2];
+    selectableArray[0] = tQ.getName();
+    selectableArray[1] = tQ.getTermId();
+
+    textLookup(qf, tokenArray, selectableArray);
+
+
+
+
+//    GeoEntity.buildAllPathsFast();
+
+//    GeoEntity.copyTermFast("xs8cxvues3ab3m879rgl4tu70gy0s3r72a0u0u4o9c8ol44kb9vl8tf3ieviu8co", "rekttx1h9ehy40ubzbxg2fd044owmwzp2a0u0u4o9c8ol44kb9vl8tf3ieviu8co");
+
+//    AllPaths.rebuildAllPaths();
+
+//    AllPaths.copyTermFast("05brck3zaer5w5vbcee16ry28lzao1e3xeklfgy3bklheiiulqszhfay163qlpta",
+//        "zbdda5r3mmkkwyuhla67ymkn551jmtpnxeklfgy3bklheiiulqszhfay163qlpta",
+//        "05kt1jddumk5qm8juvcxseyist5klwhrzm1g3udb394gw9tn8ca9qvefl9ncyubd");
+
+//    try
+//    {
+//      FileInputStream fileInputStream = new FileInputStream(new File("/Users/nathan/workspace3.4/MDSS/PersonExcelView.xls"));
+//
+//      GeoEntitySearcher geoSynonymMatcher = new GeoEntitySearcher();
+//      geoSynonymMatcher.checkExcelGeoHierarchy(fileInputStream);
+//    }
+//    catch (FileNotFoundException e)
+//    {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    }
 /*
  Mocambique
  Mozambique
