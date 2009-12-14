@@ -28,9 +28,10 @@
 </mjl:component>
 <jsp:include page="../Styles/form.jsp"></jsp:include>
 
-<c:if test="${!isNewInstance}">
-  <div id="categories">
-  <fmt:message key="Add_Category" />:
+<div id="categories">
+<fmt:message key="Add_Category" />: 
+<c:choose>
+<c:when test="${!isNewInstance}">
   <mjl:command value="Exact_Category" action="dss.vector.solutions.query.NonRangeCategoryController.newInstance.mojo" name="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo.button" />
   <mjl:command value="Range_Category" action="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo" name="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo.button" />
   <ul id="categoryList">
@@ -48,5 +49,9 @@
     </li>
     </c:forEach>
   </ul>
-  </div>
-</c:if>
+</c:when>
+<c:otherwise>
+ <i>*Layer Must Be Created First</i>
+</c:otherwise>
+</c:choose>
+</div>
