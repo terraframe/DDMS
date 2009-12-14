@@ -38,7 +38,6 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       this._exclusionClasses = [];
 
       this._dataQueryFunction = Mojo.$.dss.vector.solutions.irs.AbstractSpray.queryIRS;
-      this._mapQueryFunction  = Mojo.$.dss.vector.solutions.query.MappingController.mapIRSQuery;
       // END: query objects
 
       // Key/value where key is attribute.getKey() + "_li"
