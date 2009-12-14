@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1425035663)
+@com.terraframe.mojo.business.ClassSignature(hash = 2141750167)
 public abstract class LayerDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Layer";
-  private static final long serialVersionUID = 1425035663;
+  private static final long serialVersionUID = 2141750167;
   
   protected LayerDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -31,13 +31,13 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DEFAULTSTYLES = "defaultStyles";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
-  public static java.lang.String GEOHIERARCHY = "geoHierarchy";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LAYERNAME = "layerName";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String OPACITY = "opacity";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SAVEDSEARCH = "savedSearch";
   public static java.lang.String SEQ = "seq";
@@ -190,50 +190,6 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.geo.GeoHierarchyDTO getGeoHierarchy()
-  {
-    if(getValue(GEOHIERARCHY) == null || getValue(GEOHIERARCHY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.GeoHierarchyDTO.get(getRequest(), getValue(GEOHIERARCHY));
-    }
-  }
-  
-  public void setGeoHierarchy(dss.vector.solutions.geo.GeoHierarchyDTO value)
-  {
-    if(value == null)
-    {
-      setValue(GEOHIERARCHY, "");
-    }
-    else
-    {
-      setValue(GEOHIERARCHY, value.getId());
-    }
-  }
-  
-  public boolean isGeoHierarchyWritable()
-  {
-    return isWritable(GEOHIERARCHY);
-  }
-  
-  public boolean isGeoHierarchyReadable()
-  {
-    return isReadable(GEOHIERARCHY);
-  }
-  
-  public boolean isGeoHierarchyModified()
-  {
-    return isModified(GEOHIERARCHY);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoHierarchyMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOHIERARCHY).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -397,6 +353,43 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+  }
+  
+  public java.math.BigDecimal getOpacity()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(OPACITY));
+  }
+  
+  public void setOpacity(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(OPACITY, "");
+    }
+    else
+    {
+      setValue(OPACITY, value.toString());
+    }
+  }
+  
+  public boolean isOpacityWritable()
+  {
+    return isWritable(OPACITY);
+  }
+  
+  public boolean isOpacityReadable()
+  {
+    return isReadable(OPACITY);
+  }
+  
+  public boolean isOpacityModified()
+  {
+    return isModified(OPACITY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getOpacityMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OPACITY).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.ActorDTO getOwner()
@@ -690,6 +683,22 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getViewNameMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(VIEWNAME).getAttributeMdDTO();
+  }
+  
+  public final void applyWithStyles(dss.vector.solutions.query.StylesDTO styles, java.lang.String savedMapId)
+  {
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.query.Styles", "java.lang.String"};
+    Object[] _parameters = new Object[]{styles, savedMapId};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "applyWithStyles", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void applyWithStyles(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.query.StylesDTO styles, java.lang.String savedMapId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.query.Styles", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, styles, savedMapId};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "applyWithStyles", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   @SuppressWarnings("unchecked")

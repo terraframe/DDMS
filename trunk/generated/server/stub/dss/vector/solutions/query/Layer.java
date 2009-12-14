@@ -23,16 +23,39 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
     super();
   }
   
+  /**
+   * Applies this Layer along with its Styles.
+   */
+  @Override
+  @Transaction
+  public void applyWithStyles(Styles styles, String savedMapId)
+  {
+    styles.apply();
+    
+    boolean isNew = this.isNew();
+    
+    if(isNew)
+    {
+      this.setDefaultStyles(styles);
+    }
+    
+    this.apply();
+    
+    if(isNew)
+    {
+      SavedMap map = SavedMap.get(savedMapId);
+      
+      HasLayers rel = this.addMap(map);
+      rel.setLayerPosition((int)map.getLayerCount());
+      rel.apply();
+    }
+  }
+  
   @Override
   public void apply()
   {
-    // give the new instance some basic defaults
     if(this.isNew())
     {
-      Styles styles = new Styles();
-      styles.apply();
-      this.setDefaultStyles(styles);
-      
       String name = GEO_VIEW_PREFIX + System.currentTimeMillis();
       this.setViewName(name);
     }
@@ -201,7 +224,7 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
     for(int i=0; i<categories.length; i++)
     {
       AbstractCategory category = categories[i];
-      ranges[i] = category.getAsNumberRange();
+      //ranges[i] = category.getAsNumberRange();
     }
 
     for(int i=0; i<ranges.length; i++)

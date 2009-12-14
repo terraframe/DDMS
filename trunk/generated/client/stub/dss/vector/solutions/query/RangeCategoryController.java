@@ -1,9 +1,15 @@
 package dss.vector.solutions.query;
 
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
+import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
+
 public class RangeCategoryController extends RangeCategoryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/query/RangeCategory/";
   public static final String LAYOUT = "/layout.jsp";
+  
+  public static final String SUMMARY_VIEW = JSP_DIR+"summaryView.jsp";  
   
   private static final long serialVersionUID = 1241158114860L;
   
@@ -62,10 +68,26 @@ public class RangeCategoryController extends RangeCategoryControllerBase impleme
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.query.RangeCategoryDTO dto = dss.vector.solutions.query.RangeCategoryDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit RangeCategoryController");
-    render("editComponent.jsp");
+    try
+    {
+      RangeCategoryDTO category = RangeCategoryDTO.lock(super.getClientRequest(), id);
+      category.lock();
+      AbstractCategoryController.populateRequestForCategory(req, category, category.getStyles());
+    
+      render("editComponent.jsp");
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -112,11 +134,27 @@ public class RangeCategoryController extends RangeCategoryControllerBase impleme
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.query.RangeCategoryDTO dto = new dss.vector.solutions.query.RangeCategoryDTO(clientRequest);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create RangeCategoryController");
-    render("createComponent.jsp");
+    try
+    {
+      AbstractCategoryDTO category = new RangeCategoryDTO(this.getClientRequest());
+      StylesDTO styles = new StylesDTO(this.getClientRequest());
+
+      AbstractCategoryController.populateRequestForCategory(this.req, category, styles);
+      
+      render("createComponent.jsp");
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
   {

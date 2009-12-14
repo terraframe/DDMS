@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 202654814)
+@com.terraframe.mojo.business.ClassSignature(hash = 613001931)
 public abstract class AbstractCategoryDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.AbstractCategory";
-  private static final long serialVersionUID = 202654814;
+  private static final long serialVersionUID = 613001931;
   
   protected AbstractCategoryDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -443,6 +443,91 @@ public abstract class AbstractCategoryDTOBase extends com.terraframe.mojo.busine
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THEMATICCOLOR).getAttributeMdDTO();
   }
   
+  public final void applyWithStyles(dss.vector.solutions.query.StylesDTO styles, java.lang.String layerId)
+  {
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.query.Styles", "java.lang.String"};
+    Object[] _parameters = new Object[]{styles, layerId};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.AbstractCategoryDTO.CLASS, "applyWithStyles", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void applyWithStyles(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.query.StylesDTO styles, java.lang.String layerId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.query.Styles", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, styles, layerId};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.AbstractCategoryDTO.CLASS, "applyWithStyles", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final void saveCategory(dss.vector.solutions.query.StylesDTO styles)
+  {
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.query.Styles"};
+    Object[] _parameters = new Object[]{styles};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.AbstractCategoryDTO.CLASS, "saveCategory", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void saveCategory(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.query.StylesDTO styles)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.query.Styles"};
+    Object[] _parameters = new Object[]{id, styles};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.AbstractCategoryDTO.CLASS, "saveCategory", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.query.LayerDTO> getAllFromLayer()
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.LayerDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.query.LayerDTO> getAllFromLayer(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.LayerDTO>) clientRequestIF.getParents(id, dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.query.HasCategoriesDTO> getAllFromLayerRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.HasCategoriesDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.query.HasCategoriesDTO> getAllFromLayerRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.HasCategoriesDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.query.HasCategoriesDTO addFromLayer(dss.vector.solutions.query.LayerDTO parent)
+  {
+    return (dss.vector.solutions.query.HasCategoriesDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.query.HasCategoriesDTO addFromLayer(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.query.LayerDTO parent)
+  {
+    return (dss.vector.solutions.query.HasCategoriesDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  public void removeFromLayer(dss.vector.solutions.query.HasCategoriesDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removeFromLayer(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.query.HasCategoriesDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllFromLayer()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
+  
+  public static void removeAllFromLayer(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.query.HasCategoriesDTO.CLASS);
+  }
   
   public static dss.vector.solutions.query.AbstractCategoryDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
   {

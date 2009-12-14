@@ -34,46 +34,7 @@ public class MappingController extends MappingControllerBase implements
     super(req, resp, isAsynchronous);
   }
   
-  private class CategoryComparator implements Comparator<AbstractCategoryDTO>, com.terraframe.mojo.generation.loader.Reloadable
-  {
-
-    public int compare(AbstractCategoryDTO c1, AbstractCategoryDTO c2)
-    {
-      Double min1;
-      if(c1 instanceof RangeCategoryDTO)
-      {
-        min1 = ((RangeCategoryDTO)c1).getLowerBound();
-      }
-      else
-      {
-        min1 = ((NonRangeCategoryDTO)c1).getExactValue();
-      }
-      
-      Double min2;
-      if(c2 instanceof RangeCategoryDTO)
-      {
-        min2 = ((RangeCategoryDTO)c2).getLowerBound();
-      }
-      else
-      {
-        min2 = ((NonRangeCategoryDTO)c2).getExactValue();
-      }
-      
-      if(min1 == min2)
-      {
-        return 0;
-      }
-      else if(min1 > min2)
-      {
-        return 1;
-      }
-      else
-      {
-        return -1;
-      }
-    }
-    
-  }
+ 
   
   public void generateMaps() throws IOException, ServletException
   {
@@ -81,19 +42,6 @@ public class MappingController extends MappingControllerBase implements
     {
       SavedMapDTO.cleanOldViews(this.getClientRequest());
 
-      // fetch queries
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getMappableSearches(this.getClientRequest());
-      JSONArray queries = new JSONArray();
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
-      this.req.setAttribute("queryList", queries.toString());
-      
       // fetch maps
       SavedMapQueryDTO mapQuery = SavedMapDTO.getAllSavedMaps(this.getClientRequest());
       JSONArray maps = new JSONArray();
@@ -139,19 +87,20 @@ public class MappingController extends MappingControllerBase implements
         legend.put("categories", categoriesArr);
         
         List<? extends AbstractCategoryDTO> categories = thematic.getAllHasCategory();
-        Collections.sort(categories, new CategoryComparator());
+        //Collections.sort(categories, new CategoryComparator());
+        // FIXME need sorting again
         
         for(AbstractCategoryDTO category : categories)
         {
           JSONArray values = new JSONArray();
           if(category instanceof NonRangeCategoryDTO)
           {
-            values.put(( (NonRangeCategoryDTO) category ).getExactValue());
+            values.put(( (NonRangeCategoryDTO) category ).getExactValueStr());
           }
           else
           {
-            values.put(( (RangeCategoryDTO) category ).getLowerBound());
-            values.put(( (RangeCategoryDTO) category ).getUpperBound());
+            values.put(( (RangeCategoryDTO) category ).getLowerBoundStr());
+            values.put(( (RangeCategoryDTO) category ).getUpperBoundStr());
           }
 
           JSONObject categoryObj = new JSONObject();
@@ -275,68 +224,6 @@ public class MappingController extends MappingControllerBase implements
     resp.sendError(500);
   }
 
-  /**
-   * Creates a Layer with default styles.
-   */
-  public void createLayer(java.lang.String savedSearchId, java.lang.String layerClass)
-      throws java.io.IOException, javax.servlet.ServletException
-  {
-    /* FIXME MAP
-    try
-    {
-      LayerDTO layer = LayerDTO.createLayer(this.getClientRequest(), savedSearchId, layerClass);
-
-      // SLDWriter sldWriter = SLDWriter.getSLDWriter(layer);
-      // sldWriter.write();
-
-      resp.getWriter().print(layer.getId());
-    }
-    catch (Throwable t)
-    {
-      // FIXME roll back file changes and delete Layer
-
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-    */
-  }
-
-  public void failCreateLayer(java.lang.String savedSearchId, java.lang.String layerClass)
-      throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-
-  /**
-   * Edits the layer summary by locking all of its style components and
-   * providing a jsp where their values can be edited.
-   */
-  public void editLayer(java.lang.String layerId) throws java.io.IOException,
-      javax.servlet.ServletException
-  {
-    /* FIXME MAP
-    try
-    {
-      LayerDTO layer = LayerDTO.lock(this.getClientRequest(), layerId);
-
-      GeometryStyleDTO geoStyle = layer.getGeometryStyle();
-      req.setAttribute("hasFill", geoStyle.hasAttribute(PolygonStyleDTO.FILL));
-
-      req.setAttribute("layerId", layerId);
-      req.setAttribute("geoStyle", geoStyle);
-      req.setAttribute("textStyle", layer.getTextStyle());
-
-      req.getRequestDispatcher(EDIT_LAYER).forward(req, resp);
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-    */
-  }
 
   public void failEditLayer(java.lang.String layerId) throws java.io.IOException,
       javax.servlet.ServletException

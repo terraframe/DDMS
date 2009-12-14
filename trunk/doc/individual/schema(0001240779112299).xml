@@ -288,7 +288,7 @@
         name="dss.vector.solutions.query.Layer"
         label="Layer"
         description="A layer in a map."
-        isAbstract="true">
+        isAbstract="false">
         <attributes>
           <reference
             name="geoHierarchy"

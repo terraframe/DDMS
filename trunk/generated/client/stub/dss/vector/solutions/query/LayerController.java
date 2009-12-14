@@ -1,8 +1,16 @@
 package dss.vector.solutions.query;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
-import dss.vector.solutions.util.ErrorUtility;
+import javax.servlet.ServletException;
+
+import com.terraframe.mojo.ApplicationException;
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
+import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
 public class LayerController extends LayerControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -18,6 +26,155 @@ public class LayerController extends LayerControllerBase implements
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
+  
+  private class CategoryComparator implements Comparator<AbstractCategoryDTO>, com.terraframe.mojo.generation.loader.Reloadable
+  {
+
+    public int compare(AbstractCategoryDTO c1, AbstractCategoryDTO c2)
+    {
+      Double min1;
+      if(c1 instanceof RangeCategoryDTO)
+      {
+        min1 = Double.valueOf(((RangeCategoryDTO)c1).getLowerBoundStr());
+      }
+      else
+      {
+        min1 = Double.valueOf(((NonRangeCategoryDTO)c1).getExactValueStr());
+      }
+      
+      Double min2;
+      if(c2 instanceof RangeCategoryDTO)
+      {
+        min2 = Double.valueOf(((RangeCategoryDTO)c2).getLowerBoundStr());
+      }
+      else
+      {
+        min2 = Double.valueOf(((NonRangeCategoryDTO)c2).getExactValueStr());
+      }
+      
+      if(min1 == min2)
+      {
+        return 0;
+      }
+      else if(min1 > min2)
+      {
+        return 1;
+      }
+      else
+      {
+        return -1;
+      }
+    }
+    
+  }
+  
+  private void populateRequestForLayer(LayerDTO layer, StylesDTO styles)
+  {
+    try
+    {
+      req.setAttribute("layer", layer);
+      req.setAttribute("styles", styles);
+      req.setAttribute("isNewInstance", layer.isNewInstance());
+      
+      // fetch queries
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getMappableSearches(this.getClientRequest());
+      
+      this.req.setAttribute("queryList", query.getResultSet());
+      this.req.setAttribute("pointMarker", dss.vector.solutions.query.WellKnownNamesDTO.allItems(this.getClientRequest()));      
+      
+      // fetch categories
+      if(layer.isNewInstance())
+      {
+        req.setAttribute("categories", null); 
+      }
+      else
+      {
+        List<? extends AbstractCategoryDTO> categories = layer.getAllHasCategory();
+        //Collections.sort(categories, new CategoryComparator());
+        
+        req.setAttribute("categories", categories);
+      }
+    }
+    catch(Throwable e)
+    {
+      throw new ApplicationException(e);
+    }
+  }
+  
+  @Override
+  public void newInstance() throws IOException, ServletException
+  {
+    try
+    {
+      LayerDTO layer = new LayerDTO(this.getClientRequest());
+      StylesDTO styles = new StylesDTO(this.getClientRequest());
+
+      this.populateRequestForLayer(layer, styles);
+      
+      render("createComponent.jsp");
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+  }
+  
+  @Override
+  public void saveLayer(LayerDTO layer, StylesDTO styles, String savedMapId) throws IOException, ServletException
+  {
+    try
+    {
+      layer.applyWithStyles(styles, savedMapId);
+      
+      resp.getWriter().print(layer.getId());
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+  }
+  
+  @Override
+  public void edit(String id) throws IOException, ServletException
+  {
+    try
+    {
+      LayerDTO layer = LayerDTO.lock(this.getClientRequest(), id);
+      StylesDTO styles = layer.getDefaultStyles();
+
+      this.populateRequestForLayer(layer, styles);
+      
+      render("editComponent.jsp");
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+  }  
 
   public void delete(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
@@ -56,8 +213,7 @@ public class LayerController extends LayerControllerBase implements
   {
     this.viewAll();
   }
-
-
+  
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.view(id);
@@ -86,8 +242,22 @@ public class LayerController extends LayerControllerBase implements
   public void cancel(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    try
+    {
+      dto.unlock();
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
 
   public void failCancel(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException,
@@ -110,18 +280,24 @@ public class LayerController extends LayerControllerBase implements
     }
   }
 
-
   public void create(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
   {
     try
     {
       dto.apply();
-      this.view(dto.getId());
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(ProblemExceptionDTO e)
     {
-      this.failCreate(dto);
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
     }
   }
 }

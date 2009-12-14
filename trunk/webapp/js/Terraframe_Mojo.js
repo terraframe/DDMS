@@ -1,4 +1,4 @@
-// FIXME use special Error subclass that automatically logs messages to the Logger
+// FIXME use special Error subclass that automatically logs messages to the Logger and extends Error
 // FIXME replace JSON with latest from crockford's site
 // always use getMethod() instead of grabbing the prototype copy? This could cause as many problems as it solves so be careful.
 
@@ -1163,7 +1163,7 @@ Mojo.Meta.newClass('Mojo.Util', {
     
       return function() {
         
-        var args = Array.prototype.splice.call(arguments, 0);
+        var args = [].splice.call(arguments, 0);
         if(func.memoCache[args])
         {
           return func.memoCache[args];
@@ -1946,6 +1946,17 @@ Mojo.Meta.newClass('Mojo.Iter', {
           var key = keys[i];
           bound(obj[key], key);
         }
+      }
+      else if('length' in obj)
+      {
+        for(var i=0; i<obj.length; i++)
+        {
+          bound(obj[i], i);
+        }
+      }
+      else
+      {
+        throw Error('The object cannot be iterated over.');
       }
     },
     

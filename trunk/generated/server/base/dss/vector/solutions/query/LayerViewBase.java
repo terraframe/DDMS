@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 333377632)
+@com.terraframe.mojo.business.ClassSignature(hash = -888413295)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,8 +15,7 @@ public abstract class LayerViewBase extends com.terraframe.mojo.business.View im
   public static java.lang.String LAYERID = "layerId";
   public static java.lang.String LAYERNAME = "layerName";
   public static java.lang.String LAYERPOSITION = "layerPosition";
-  public static java.lang.String UNIVERSALTYPE = "universalType";
-  private static final long serialVersionUID = 333377632;
+  private static final long serialVersionUID = -888413295;
   
   public LayerViewBase()
   {
@@ -120,34 +119,6 @@ public abstract class LayerViewBase extends com.terraframe.mojo.business.View im
     else
     {
       setValue(LAYERPOSITION, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public String getUniversalType()
-  {
-    return getValue(UNIVERSALTYPE);
-  }
-  
-  public void validateUniversalType()
-  {
-    this.validateAttribute(UNIVERSALTYPE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getUniversalTypeMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.LayerView.CLASS);
-    return mdClassIF.definesAttribute(UNIVERSALTYPE);
-  }
-  
-  public void setUniversalType(String value)
-  {
-    if(value == null)
-    {
-      setValue(UNIVERSALTYPE, "");
-    }
-    else
-    {
-      setValue(UNIVERSALTYPE, value);
     }
   }
   

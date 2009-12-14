@@ -82,7 +82,6 @@ public class GeoHierarchyTest extends GeoTest
     def.setDisplayLabel("New Geo Entity Type");
     def.setDescription("New Geo Entity Type Description");
     def.setParentGeoHierarchyId(countryH.getId());
-    def.setParentTypeGeoHierarchyId(geoEntityH.getId());
 
     GeoHierarchy.defineGeoEntity(def);
   }
@@ -151,7 +150,7 @@ public class GeoHierarchyTest extends GeoTest
       geo.setEntityName("New Type 1");
       geo.setActivated(true);
       geo.setGeoId(genGeoId());
-      geo.applyWithParent(country.getId(), false);
+      geo.applyWithParent(country.getId(), false, null);
       testEntities.add(geo);
 
       // check that Country 1 is the only parent
@@ -193,7 +192,6 @@ public class GeoHierarchyTest extends GeoTest
       def.setDisplayLabel("New Geo Entity Type");
       def.setDescription("New Geo Entity Type Description");
       def.setParentGeoHierarchyId(earthH.getId());
-      def.setParentTypeGeoHierarchyId(newType.getId());
 
       String geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
 
@@ -246,7 +244,6 @@ public class GeoHierarchyTest extends GeoTest
       def.setDisplayLabel("New Geo Entity Type");
       def.setDescription("New Geo Entity Type Description");
       def.setParentGeoHierarchyId(earthH.getId());
-      def.setParentTypeGeoHierarchyId(newType.getId());
       geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
 
       GeoHierarchy.applyExistingWithParent(geoHierarchyId, geoHierarchyId, false);
@@ -283,7 +280,6 @@ public class GeoHierarchyTest extends GeoTest
       def.setDisplayLabel("New Geo Entity Type");
       def.setDescription("New Geo Entity Type Description");
       def.setParentGeoHierarchyId(earthH.getId());
-      def.setParentTypeGeoHierarchyId(newType.getId());
       geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
       
       GeoHierarchy.applyExistingWithParent(geoHierarchyId, earthH.getId(), false);
@@ -326,7 +322,7 @@ public class GeoHierarchyTest extends GeoTest
       country.setEntityName("Country 1");
       country.setActivated(true);
       country.setGeoId(genGeoId());
-      country.applyWithParent(geo.getId(), false);
+      country.applyWithParent(geo.getId(), false, null);
       testEntities.add(country);
 
       fail("Added Country as a child of [" + NEW_TYPE_NAME + "] which is not allowed by the hierarchy");
@@ -364,7 +360,6 @@ public class GeoHierarchyTest extends GeoTest
       def.setDisplayLabel("New Geo Entity Type");
       def.setDescription("New Geo Entity Type Description");
       def.setParentGeoHierarchyId(countryH.getId());
-      def.setParentTypeGeoHierarchyId(geoEntityH.getId());
 
       String geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
       GeoHierarchyView view = GeoHierarchy.getViewForGeoHierarchy(geoHierarchyId);
@@ -421,7 +416,6 @@ public class GeoHierarchyTest extends GeoTest
       def.setDisplayLabel("New Geo Entity Type");
       def.setDescription("New Geo Entity Type Description");
       def.setParentGeoHierarchyId(countryH.getId());
-      def.setParentTypeGeoHierarchyId(null);
 
       String geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
       GeoHierarchyView view = GeoHierarchy.getViewForGeoHierarchy(geoHierarchyId);
@@ -433,7 +427,7 @@ public class GeoHierarchyTest extends GeoTest
       geo.setEntityName("New Type 1");
       geo.setActivated(true);
       geo.setGeoId(genGeoId());
-      geo.applyWithParent(earth.getId(), false);
+      geo.applyWithParent(earth.getId(), false, null);
       testEntities.add(geo);
 
       // move TempType to NewGEType
@@ -487,7 +481,6 @@ public class GeoHierarchyTest extends GeoTest
       def1.setDisplayLabel("New Geo Entity Type 1");
       def1.setDescription("New Geo Entity Type Description 1");
       def1.setParentGeoHierarchyId(countryH.getId());
-      def1.setParentTypeGeoHierarchyId(geoEntityH.getId());
 
       String geoHierarchyId = GeoHierarchy.defineGeoEntity(def1);
       GeoHierarchyView view = GeoHierarchy.getViewForGeoHierarchy(geoHierarchyId);
@@ -500,7 +493,6 @@ public class GeoHierarchyTest extends GeoTest
       def2.setDisplayLabel("New Geo Entity Type 2");
       def2.setDescription("New Geo Entity Type Description 2");
       def2.setParentGeoHierarchyId(view.getGeoHierarchyId());
-      def2.setParentTypeGeoHierarchyId(geoEntityH.getId());
 
       GeoHierarchy.defineGeoEntity(def2);
 
@@ -511,14 +503,14 @@ public class GeoHierarchyTest extends GeoTest
       type1Instance.setEntityName("Type 1");
       type1Instance.setGeoId(genGeoId());
       type1Instance.setActivated(true);
-      type1Instance.applyWithParent(earth.getId(), false);
+      type1Instance.applyWithParent(earth.getId(), false, null);
 
       Class<?> type2Class = LoaderDecorator.load(tempType2);
       GeoEntity type2Instance = (GeoEntity) type2Class.newInstance();
       type2Instance.setEntityName("Type 2");
       type2Instance.setGeoId(genGeoId());
       type2Instance.setActivated(true);
-      type2Instance.applyWithParent(earth.getId(), false);
+      type2Instance.applyWithParent(earth.getId(), false, null);
 
       // make sure neither parent nor child exist after deletion
       GeoHierarchy toDelete = GeoHierarchy.getGeoHierarchyFromType(tempType1);

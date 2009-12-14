@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -86247403)
+@com.terraframe.mojo.business.ClassSignature(hash = -1245458674)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo;
 public  abstract  class GeoEntityDefinitionQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -86247403;
+private static final long serialVersionUID = -1245458674;
 
   public GeoEntityDefinitionQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -95,24 +95,6 @@ private static final long serialVersionUID = -86247403;
   public com.terraframe.mojo.query.AttributeChar getParentGeoHierarchyId(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.geo.GeoEntityDefinition.PARENTGEOHIERARCHYID, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getParentTypeGeoHierarchyId()
-  {
-    return getParentTypeGeoHierarchyId(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getParentTypeGeoHierarchyId(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.geo.GeoEntityDefinition.PARENTTYPEGEOHIERARCHYID, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getParentTypeGeoHierarchyId(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.geo.GeoEntityDefinition.PARENTTYPEGEOHIERARCHYID, alias, displayLabel);
 
   }
  

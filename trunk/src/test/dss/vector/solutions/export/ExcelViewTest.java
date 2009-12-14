@@ -146,7 +146,7 @@ public class ExcelViewTest extends TestCase
       surface = new Surface();
       surface.setGeoId("TestSurfaceId");
       surface.setEntityName("Test Surface");
-      surface.applyWithParent(GeoEntity.searchByGeoId("700701103030").getId(), false);
+      surface.applyWithParent(GeoEntity.searchByGeoId("700701103030").getId(), false, null);
     }
   }
 

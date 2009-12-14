@@ -46,14 +46,6 @@
       </dd>
       <dt>
         <label>
-          ${definition.parentTypeGeoHierarchyIdMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        ${parentLabel}
-      </dd>
-      <dt>
-        <label>
         ${definition.termMd.displayLabel}
         </label>
       </dt>

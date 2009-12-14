@@ -20,10 +20,10 @@ public class RangeFilter extends Filter implements Reloadable
     writer.writeln("<ogc:PropertyIsBetween>");
     writer.writeln("<ogc:PropertyName>"+QueryConstants.THEMATIC_DATA_COLUMN+"</ogc:PropertyName>");
     writer.writeln("<ogc:LowerBoundary>");
-    writer.writeln("<ogc:Literal>"+category.getLowerBound().doubleValue()+"</ogc:Literal>");
+    writer.writeln("<ogc:Literal>"+category.getLowerBoundStr()+"</ogc:Literal>");
     writer.writeln("</ogc:LowerBoundary>");
     writer.writeln("<ogc:UpperBoundary>");
-    writer.writeln("<ogc:Literal>"+category.getUpperBound().doubleValue()+"</ogc:Literal>");
+    writer.writeln("<ogc:Literal>"+category.getUpperBoundStr()+"</ogc:Literal>");
     writer.writeln("</ogc:UpperBoundary>");
     writer.writeln("</ogc:PropertyIsBetween>");
     writer.writeln("</Filter>");

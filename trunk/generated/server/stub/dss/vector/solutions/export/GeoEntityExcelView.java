@@ -50,7 +50,7 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.te
     
     MdAttributeGeometry geometry = GeoHierarchy.getGeometry(entityType);
     entity.setValue(geometry.getAttributeName(), this.getGeometryWKT());
-    entity.applyWithParent(parentGeoEntityId, false);
+    entity.applyWithParent(parentGeoEntityId, false, null);
   }
 
   private String getEntityType()

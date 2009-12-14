@@ -597,11 +597,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     mdGeoEntity.setExtendable(true);
     mdGeoEntity.setPublish(true);
 
-    GeoHierarchy geoEntityH = GeoHierarchy.getGeoHierarchyFromType(GeoEntity.CLASS);
-
-    String parentTypeGeoHierarchyId = definition.getParentTypeGeoHierarchyId();
-
-
     MdBusiness parent = MdBusiness.getMdBusiness(GeoEntity.CLASS);
     mdGeoEntity.setSuperMdBusiness(parent);
     mdGeoEntity.apply();
@@ -714,7 +709,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   {
     GeoEntityDefinition definition = new GeoEntityDefinition();
     MdBusiness mdBusiness = this.getGeoEntityClass();
-    MdBusiness superMdBusiness = mdBusiness.getSuperMdBusiness();
 
     definition.setTypeName(mdBusiness.getTypeName());
     definition.setDisplayLabel(mdBusiness.getDisplayLabel().getValue());
@@ -723,12 +717,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     definition.setPolitical(this.getPolitical());
     definition.setSprayTargetAllowed(this.getSprayTargetAllowed());
     definition.setPopulationAllowed(this.getPopulationAllowed());
-
-    if (superMdBusiness != null)
-    {
-      String superId = superMdBusiness.getId();
-      definition.setParentTypeGeoHierarchyId(superId);
-    }
 
     return definition;
   }

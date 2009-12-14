@@ -20,7 +20,7 @@ public class NonRangeFilter extends Filter implements Reloadable
     writer.writeln("<Filter>");
     writer.writeln("<ogc:PropertyIsEqualTo>");
     writer.writeln("<ogc:PropertyName>"+QueryConstants.THEMATIC_DATA_COLUMN+"</ogc:PropertyName>");
-    writer.writeln("<ogc:Literal>"+category.getExactValue().doubleValue()+"</ogc:Literal>");
+    writer.writeln("<ogc:Literal>"+category.getExactValueStr()+"</ogc:Literal>");
     writer.writeln("</ogc:PropertyIsEqualTo>");
     writer.writeln("</Filter>");
   }

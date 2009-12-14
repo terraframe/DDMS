@@ -14,20 +14,6 @@ public class NonRangeCategory extends NonRangeCategoryBase implements com.terraf
   }
 
   @Override
-  public NumberRange getAsNumberRange()
-  {
-    this.validateExactValue();
-    return getNumberRange();
-  }
-  
-  @AbortIfProblem
-  private NumberRange getNumberRange()
-  {
-    return new NumberRange(this.getExactValue());
-  }
-  
-  
-  @Override
   protected String buildKey()
   {
     //TODO: Naifeh needs to define this key

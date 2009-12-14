@@ -232,6 +232,11 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       {
         var termId = el.id.replace(this.constructor.SELECT_SUFFIX, '');
         this._addToSelection(termId);
+        
+        if(!this.isMultiSelect())
+        {
+          this._save();
+        }
       }
     },
     
@@ -240,6 +245,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       if(this._selection[termId])
       {
         // term has already been added
+        this.hide();
         return;
       }
       
@@ -265,6 +271,12 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       {
         divParent.scrollTop = sHeight - oHeight;
       }
+      
+      
+      if(!this.isMultiSelect())
+      {
+        //this._save();
+      }      
     },
     
     _doTermSelect : function(termId, dontAdd)
@@ -448,6 +460,11 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       document.getElementById(this._searchInput).value = '';
 
       this._addToSelection(termId);
+      
+      if(!this.isMultiSelect())
+      {
+        this._save();
+      }
     },
     
     _searchFunction : function(request, value)

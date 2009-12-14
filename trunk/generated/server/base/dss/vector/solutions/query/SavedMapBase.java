@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1106712263)
+@com.terraframe.mojo.business.ClassSignature(hash = 2047833955)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class SavedMapBase extends com.terraframe.mojo.business.Business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1106712263;
+  private static final long serialVersionUID = 2047833955;
   
   public SavedMapBase()
   {
@@ -372,22 +372,22 @@ public abstract class SavedMapBase extends com.terraframe.mojo.business.Business
     return (SavedMap) com.terraframe.mojo.business.Business.get(CLASS, key);
   }
   
-  public dss.vector.solutions.query.LayerView addLayerToMap(java.lang.String savedSearchId)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final dss.vector.solutions.query.LayerView addLayerToMap(java.lang.String id, java.lang.String savedSearchId)
-  {
-    SavedMap _instance = SavedMap.get(id);
-    return _instance.addLayerToMap(savedSearchId);
-  }
-  
   public static void cleanOldViews()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public dss.vector.solutions.query.LayerViewQuery createFromExisting(java.lang.String existingMapId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.query.LayerViewQuery createFromExisting(java.lang.String id, java.lang.String existingMapId)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    return _instance.createFromExisting(existingMapId);
   }
   
   public void deleteLayerFromMap(java.lang.String layerId)

@@ -13,15 +13,18 @@
 <%@page import="dss.vector.solutions.query.DefaultSavedMapDTO"%>
 
 
-<%@page import="dss.vector.solutions.query.SavedMapController"%><jsp:include page="../templates/header.jsp"></jsp:include>
+<%@page import="dss.vector.solutions.query.SavedMapController"%>
+<%@page import="dss.vector.solutions.query.LayerDTO"%>
+<%@page import="dss.vector.solutions.query.LayerController"%>
+<%@page import="dss.vector.solutions.query.AbstractCategoryController"%><jsp:include page="../templates/header.jsp"></jsp:include>
 
 <script type="text/javascript">
 <%
 ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-String[] types = new String[]{DefaultSavedMapDTO.CLASS, SavedMapController.CLASS, LayerViewDTO.CLASS,
+String[] types = new String[]{DefaultSavedMapDTO.CLASS, SavedMapController.CLASS, LayerViewDTO.CLASS, LayerDTO.CLASS,
     ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS,
-    NonRangeCategoryController.CLASS, MappingController.CLASS};
+    NonRangeCategoryController.CLASS, MappingController.CLASS, LayerController.CLASS, AbstractCategoryController.CLASS};
 
 String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 out.print(js);
@@ -30,10 +33,10 @@ out.print(js);
 
 YAHOO.util.Event.onDOMReady(function(){
 
-  var queryList = <%= (String) request.getAttribute("queryList") %>;
   var mapList = <%= (String) request.getAttribute("mapList") %>
+
 	
-  new MDSS.MapPanel('mapPanel', queryList, mapList).render();
+  new MDSS.MapPanel('mapPanel', mapList).render();
 	  
 });
 </script>

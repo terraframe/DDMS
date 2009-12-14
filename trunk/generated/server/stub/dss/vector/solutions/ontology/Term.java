@@ -82,16 +82,42 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
     else
     {
-      // This must be called before deleting the Term
-      // to avoid exceptions with required reference attributes.
-      AllPaths.deleteTermFromAllPaths(this.getId());
-
+      MdBusiness mdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);
+      mdBusiness.deleteAllTableRecords();
+      
       this.delete();
 
       AllPaths.rebuildAllPaths();
     }
   }
 
+  @Override
+  @Transaction
+  public void delete()
+  {
+    List<? extends Term> children = this.getAllChildTerm().getAll();
+    
+    for(Term child : children)
+    {
+      if(child.hasSingleParent())
+      {
+        child.delete();
+      }
+    }
+    
+    super.delete();
+  }
+  
+  private boolean hasSingleParent()
+  {
+    QueryFactory f = new QueryFactory();
+    TermRelationshipQuery q = new TermRelationshipQuery(f);
+    
+    q.WHERE(q.childId().EQ(this.getId()));
+    
+    return q.getCount() == 1;
+  }
+  
   /**
    * Deletes the TermRElationship between this Term and the Term with the given
    * parent id. This method should only be called if this Term has more than one
@@ -238,7 +264,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       throw e;
     }
 
-    if (!cloneOperation)
+    if (!cloneOperation && !isNew)
     {
       // Remove the old relationship on this Term and parent
       QueryFactory f = new QueryFactory();
@@ -261,7 +287,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
         iter.close();
       }
     }
-    else
+    else if(!isNew)
     {
       // Heads up: is this check even necessary? Doesn't the Graph already
       // enforce this?
@@ -270,7 +296,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
       // parent more than once.
       QueryFactory f = new QueryFactory();
       TermRelationshipQuery q = new TermRelationshipQuery(f);
-      q.WHERE(q.childId().EQ(this.getId()).AND(q.parentId().EQ(parentTermId)));
+      q.WHERE(q.childId().EQ(this.getId()));
+      q.AND(q.parentId().EQ(parentTermId));
 
       if (q.getCount() > 0)
       {

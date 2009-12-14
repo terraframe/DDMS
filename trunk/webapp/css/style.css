@@ -914,6 +914,10 @@ input.browserOpenBtn {
   margin: 5px;
 }
 
+#categoryList {
+  margin: 10px 2px;
+}
+
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
 /*---------------------------------------------------------------*/

@@ -25,26 +25,11 @@ public class SavedMapController extends SavedMapControllerBase implements com.te
   {
     this.edit(dto.getId());
   }
+  
+  @Override
   public void create(dss.vector.solutions.query.SavedMapDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    try
-    {
-      dto.apply();
-      
-      resp.getWriter().write(dto.getId());
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
+    // not used
   }
   public void failCreate(dss.vector.solutions.query.SavedMapDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -88,10 +73,25 @@ public class SavedMapController extends SavedMapControllerBase implements com.te
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.query.SavedMapDTO dto = new dss.vector.solutions.query.SavedMapDTO(clientRequest);
-    req.setAttribute("item", dto);
-    render("createComponent.jsp");
+    try
+    {
+      com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+      dss.vector.solutions.query.SavedMapDTO dto = new dss.vector.solutions.query.SavedMapDTO(clientRequest);
+      req.setAttribute("item", dto);
+      render("createComponent.jsp");
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
   {

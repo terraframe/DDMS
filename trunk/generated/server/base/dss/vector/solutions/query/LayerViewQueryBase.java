@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -71531241)
+@com.terraframe.mojo.business.ClassSignature(hash = 882262024)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  abstract  class LayerViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -71531241;
+private static final long serialVersionUID = 882262024;
 
   public LayerViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -95,24 +95,6 @@ private static final long serialVersionUID = -71531241;
   public com.terraframe.mojo.query.AttributeInteger getLayerPosition(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERPOSITION, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getUniversalType()
-  {
-    return getUniversalType(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getUniversalType(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.LayerView.UNIVERSALTYPE, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getUniversalType(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.LayerView.UNIVERSALTYPE, alias, displayLabel);
 
   }
  

@@ -1,6 +1,14 @@
 package dss.vector.solutions.query;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
+import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
+import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.util.ErrorUtility;
 
@@ -10,13 +18,61 @@ public class AbstractCategoryController extends AbstractCategoryControllerBase i
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/query/AbstractCategory/";
 
   public static final String LAYOUT           = "/layout.jsp";
-
+  
   private static final long  serialVersionUID = 1241158216846L;
 
   public AbstractCategoryController(javax.servlet.http.HttpServletRequest req,
       javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
+  }
+  
+  protected static void populateRequestForCategory(HttpServletRequest req, AbstractCategoryDTO category, StylesDTO styles)
+  {
+    try
+    {
+      req.setAttribute("category", category);
+      req.setAttribute("styles", styles);
+     
+      req.setAttribute("pointMarker", dss.vector.solutions.query.WellKnownNamesDTO.allItems(category.getRequest()));      
+    }
+    catch(Throwable e)
+    {
+      throw new ApplicationException(e);
+    }
+  }  
+  
+  @Override
+  public void saveCategory(AbstractCategoryDTO category, StylesDTO styles, String layerId) throws IOException,
+      ServletException
+  {
+    try
+    {
+      category.applyWithStyles(styles, layerId);
+      
+      req.setAttribute("category", category);
+      
+      if(category instanceof NonRangeCategoryDTO)
+      {
+        req.getRequestDispatcher(NonRangeCategoryController.SUMMARY_VIEW).forward(req, resp);
+      }
+      else
+      {
+        req.getRequestDispatcher(RangeCategoryController.SUMMARY_VIEW).forward(req, resp);
+      }
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
 
   public void create(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException,

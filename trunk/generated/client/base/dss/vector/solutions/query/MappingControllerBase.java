@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -733115451)
+@com.terraframe.mojo.business.ClassSignature(hash = 1449986082)
 public class MappingControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.MappingController";
@@ -10,7 +10,7 @@ public class MappingControllerBase implements com.terraframe.mojo.generation.loa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -733115451;
+  private static final long serialVersionUID = 1449986082;
   
   public MappingControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -95,20 +95,6 @@ public class MappingControllerBase implements com.terraframe.mojo.generation.loa
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failCancelLayer");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:savedSearchId, java.lang.String:layerClass", post=true)
-  public void createLayer(java.lang.String savedSearchId, java.lang.String layerClass) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.createLayer");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:savedSearchId, java.lang.String:layerClass", post=true)
-  public void failCreateLayer(java.lang.String savedSearchId, java.lang.String layerClass) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failCreateLayer");
-  }
-  
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId", post=true)
   public void deleteLayer(java.lang.String layerId) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -121,20 +107,6 @@ public class MappingControllerBase implements com.terraframe.mojo.generation.loa
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failDeleteLayer");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId", post=true)
-  public void editLayer(java.lang.String layerId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.editLayer");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId", post=true)
-  public void failEditLayer(java.lang.String layerId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failEditLayer");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:thematicLayerId, [Ldss.vector.solutions.query.ThematicVariableDTO;:thematicVariables", post=true)

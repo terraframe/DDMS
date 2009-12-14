@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 756001465)
+@com.terraframe.mojo.business.ClassSignature(hash = 917657827)
 public abstract class SavedMapDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedMap";
-  private static final long serialVersionUID = 756001465;
+  private static final long serialVersionUID = 917657827;
   
   protected SavedMapDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -398,28 +398,28 @@ public abstract class SavedMapDTOBase extends com.terraframe.mojo.business.Busin
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public final dss.vector.solutions.query.LayerViewDTO addLayerToMap(java.lang.String savedSearchId)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{savedSearchId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "addLayerToMap", _declaredTypes);
-    return (dss.vector.solutions.query.LayerViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final dss.vector.solutions.query.LayerViewDTO addLayerToMap(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String savedSearchId)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{id, savedSearchId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "addLayerToMap", _declaredTypes);
-    return (dss.vector.solutions.query.LayerViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
   public static final void cleanOldViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "cleanOldViews", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.query.LayerViewQueryDTO createFromExisting(java.lang.String existingMapId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{existingMapId};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "createFromExisting", _declaredTypes);
+    return (dss.vector.solutions.query.LayerViewQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.query.LayerViewQueryDTO createFromExisting(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String existingMapId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, existingMapId};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "createFromExisting", _declaredTypes);
+    return (dss.vector.solutions.query.LayerViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final void deleteLayerFromMap(java.lang.String layerId)

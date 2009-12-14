@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1772569366)
+@com.terraframe.mojo.business.ClassSignature(hash = 2040751220)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  class RangeCategoryQuery extends dss.vector.solutions.query.AbstractCategoryQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1772569366;
+private static final long serialVersionUID = 2040751220;
 
   public RangeCategoryQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -28,38 +28,38 @@ private static final long serialVersionUID = -1772569366;
   {
     return dss.vector.solutions.query.RangeCategory.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeDouble getLowerBound()
+  public com.terraframe.mojo.query.AttributeChar getLowerBoundStr()
   {
-    return getLowerBound(null);
+    return getLowerBoundStr(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getLowerBound(String alias)
+  public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.RangeCategory.LOWERBOUND, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getLowerBound(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.RangeCategory.LOWERBOUND, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeDouble getUpperBound()
+  public com.terraframe.mojo.query.AttributeChar getUpperBoundStr()
   {
-    return getUpperBound(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeDouble getUpperBound(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.RangeCategory.UPPERBOUND, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return getUpperBoundStr(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getUpperBound(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.RangeCategory.UPPERBOUND, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
   /**  
@@ -93,12 +93,12 @@ private static final long serialVersionUID = -1772569366;
   public interface RangeCategoryQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, dss.vector.solutions.query.AbstractCategoryQuery.AbstractCategoryQueryReferenceIF
   {
 
-    public com.terraframe.mojo.query.AttributeDouble getLowerBound();
-    public com.terraframe.mojo.query.AttributeDouble getLowerBound(String alias);
-    public com.terraframe.mojo.query.AttributeDouble getLowerBound(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeDouble getUpperBound();
-    public com.terraframe.mojo.query.AttributeDouble getUpperBound(String alias);
-    public com.terraframe.mojo.query.AttributeDouble getUpperBound(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getLowerBoundStr();
+    public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias);
+    public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getUpperBoundStr();
+    public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias);
+    public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.query.RangeCategory rangeCategory);
 
@@ -114,7 +114,7 @@ private static final long serialVersionUID = -1772569366;
  implements RangeCategoryQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1236827384;
+private static final long serialVersionUID = 1861479826;
 
   public RangeCategoryQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -133,38 +133,38 @@ private static final long serialVersionUID = -1236827384;
       return this.NE(rangeCategory.getId());
     }
 
-  public com.terraframe.mojo.query.AttributeDouble getLowerBound()
+  public com.terraframe.mojo.query.AttributeChar getLowerBoundStr()
   {
-    return getLowerBound(null);
+    return getLowerBoundStr(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getLowerBound(String alias)
+  public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("lowerBound", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("lowerBoundStr", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getLowerBound(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("lowerBound", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("lowerBoundStr", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeDouble getUpperBound()
+  public com.terraframe.mojo.query.AttributeChar getUpperBoundStr()
   {
-    return getUpperBound(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeDouble getUpperBound(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("upperBound", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return getUpperBoundStr(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getUpperBound(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("upperBound", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("upperBoundStr", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("upperBoundStr", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
   }

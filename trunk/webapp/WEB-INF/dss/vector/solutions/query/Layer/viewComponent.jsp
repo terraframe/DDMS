@@ -1,53 +1,42 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:set var="page_title" value="View_Layer" scope="request" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:form name="dss.vector.solutions.query.Layer.form.name" id="dss.vector.solutions.query.Layer.form.id" method="POST">
-  <mjl:input value="${item.id}" type="hidden" param="id" />
-  <dl>
-    <dt>
-      <label>
-        ${item.geoHierarchyMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.geoHierarchy.keyName}" action="dss.vector.solutions.geo.GeoHierarchyController.view.mojo" name="dss.vector.solutions.geo.GeoHierarchy.form.view.link">
-        <mjl:property value="${item.geoHierarchy.id}" name="id" />
-      </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.geometryStyleMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.geometryStyle.keyName}" action="dss.vector.solutions.query.GeometryStyleController.view.mojo" name="dss.vector.solutions.query.GeometryStyle.form.view.link">
-        <mjl:property value="${item.geometryStyle.id}" name="id" />
-      </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.sldFileMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.sldFile}
-    </dd>
-    <dt>
-      <label>
-        ${item.textStyleMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.textStyle.keyName}" action="dss.vector.solutions.query.TextStyleController.view.mojo" name="dss.vector.solutions.query.TextStyle.form.view.link">
-        <mjl:property value="${item.textStyle.id}" name="id" />
-      </mjl:commandLink>
-    </dd>
-  </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.query.LayerController.edit.mojo" name="dss.vector.solutions.query.Layer.form.edit.button" />
-  <br />
-</mjl:form>
 <dl>
+  <mjl:form name="dss.vector.solutions.query.Layer.form.name" id="dss.vector.solutions.query.Layer.form.id" method="POST">
+    <mjl:input value="${item.id}" type="hidden" param="id" />
+    <mjl:component item="${item}" param="dto">
+      <mjl:dt attribute="defaultStyles">
+        ${item.defaultStyles.id}
+      </mjl:dt>
+      <mjl:dt attribute="geoHierarchy">
+        ${item.geoHierarchy.id}
+      </mjl:dt>
+      <mjl:dt attribute="layerName">
+        ${item.layerName}
+      </mjl:dt>
+      <mjl:dt attribute="savedSearch">
+        ${item.savedSearch.id}
+      </mjl:dt>
+      <mjl:dt attribute="sldFile">
+        ${item.sldFile}
+      </mjl:dt>
+      <mjl:dt attribute="thematicVariable">
+        ${item.thematicVariable.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="viewCreated">
+        ${item.viewCreated ? item.viewCreatedMd.positiveDisplayLabel : item.viewCreatedMd.negativeDisplayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="viewName">
+        ${item.viewName}
+      </mjl:dt>
+    </mjl:component>
+    <mjl:command value="Edit" action="dss.vector.solutions.query.LayerController.edit.mojo" name="dss.vector.solutions.query.Layer.form.edit.button" />
+  </mjl:form>
 </dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.query.LayerController.viewAll.mojo" name="dss.vector.solutions.query.Layer.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.query.LayerController.viewAll.mojo" name="dss.vector.solutions.query.Layer.viewAll.link">
+  <fmt:message key="View_All" />
+</mjl:commandLink>

@@ -275,7 +275,7 @@ MDSS.GeoEntityTree = (function(){
     });
 
     var parentGeoEntityView = _getGeoEntityView(_selectedNode);
-    geoEntity.applyWithParent(request, parentGeoEntityView.getGeoEntityId(), false);
+    geoEntity.applyWithParent(request, parentGeoEntityView.getGeoEntityId(), false, null);
   }
 
   function _copyEntityToView(geoEntity)
@@ -747,7 +747,7 @@ MDSS.GeoEntityTree = (function(){
 
   	if(obj.deleteEntity)
   	{
-  	  geoEntity.remove(request);
+  	  geoEntity.deleteEntity(request);
   	}
   	else
   	{
@@ -1078,7 +1078,10 @@ MDSS.GeoEntityTree = (function(){
 
     var childId = childGeoEntityView.getGeoEntityId();
     var parentId = parentGeoEntityView.getGeoEntityId();
-    Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.applyWithParent(request, childId, parentId, obj.clone);
+
+    var oldParentId = _getGeoEntityView(obj.references.ddThis.node.parent).getGeoEntityId();
+    
+    Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.applyWithParent(request, childId, parentId, obj.clone, oldParentId);
 
     obj.references.modal.destroy();
   }

@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1577049395)
+@com.terraframe.mojo.business.ClassSignature(hash = 1660378941)
 public abstract class RangeCategoryDTOBase extends dss.vector.solutions.query.AbstractCategoryDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.RangeCategory";
-  private static final long serialVersionUID = 1577049395;
+  private static final long serialVersionUID = 1660378941;
   
   protected RangeCategoryDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -27,80 +27,80 @@ public abstract class RangeCategoryDTOBase extends dss.vector.solutions.query.Ab
     return CLASS;
   }
   
-  public static java.lang.String LOWERBOUND = "lowerBound";
-  public static java.lang.String UPPERBOUND = "upperBound";
-  public Double getLowerBound()
+  public static java.lang.String LOWERBOUNDSTR = "lowerBoundStr";
+  public static java.lang.String UPPERBOUNDSTR = "upperBoundStr";
+  public String getLowerBoundStr()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(LOWERBOUND));
+    return getValue(LOWERBOUNDSTR);
   }
   
-  public void setLowerBound(Double value)
+  public void setLowerBoundStr(String value)
   {
     if(value == null)
     {
-      setValue(LOWERBOUND, "");
+      setValue(LOWERBOUNDSTR, "");
     }
     else
     {
-      setValue(LOWERBOUND, java.lang.Double.toString(value));
+      setValue(LOWERBOUNDSTR, value);
     }
   }
   
-  public boolean isLowerBoundWritable()
+  public boolean isLowerBoundStrWritable()
   {
-    return isWritable(LOWERBOUND);
+    return isWritable(LOWERBOUNDSTR);
   }
   
-  public boolean isLowerBoundReadable()
+  public boolean isLowerBoundStrReadable()
   {
-    return isReadable(LOWERBOUND);
+    return isReadable(LOWERBOUNDSTR);
   }
   
-  public boolean isLowerBoundModified()
+  public boolean isLowerBoundStrModified()
   {
-    return isModified(LOWERBOUND);
+    return isModified(LOWERBOUNDSTR);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getLowerBoundMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLowerBoundStrMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(LOWERBOUND).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LOWERBOUNDSTR).getAttributeMdDTO();
   }
   
-  public Double getUpperBound()
+  public String getUpperBoundStr()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(UPPERBOUND));
+    return getValue(UPPERBOUNDSTR);
   }
   
-  public void setUpperBound(Double value)
+  public void setUpperBoundStr(String value)
   {
     if(value == null)
     {
-      setValue(UPPERBOUND, "");
+      setValue(UPPERBOUNDSTR, "");
     }
     else
     {
-      setValue(UPPERBOUND, java.lang.Double.toString(value));
+      setValue(UPPERBOUNDSTR, value);
     }
   }
   
-  public boolean isUpperBoundWritable()
+  public boolean isUpperBoundStrWritable()
   {
-    return isWritable(UPPERBOUND);
+    return isWritable(UPPERBOUNDSTR);
   }
   
-  public boolean isUpperBoundReadable()
+  public boolean isUpperBoundStrReadable()
   {
-    return isReadable(UPPERBOUND);
+    return isReadable(UPPERBOUNDSTR);
   }
   
-  public boolean isUpperBoundModified()
+  public boolean isUpperBoundStrModified()
   {
-    return isModified(UPPERBOUND);
+    return isModified(UPPERBOUNDSTR);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getUpperBoundMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getUpperBoundStrMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(UPPERBOUND).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UPPERBOUNDSTR).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.query.RangeCategoryDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

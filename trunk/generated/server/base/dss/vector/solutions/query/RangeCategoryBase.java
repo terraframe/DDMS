@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1044216755)
+@com.terraframe.mojo.business.ClassSignature(hash = -281330243)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,68 +11,68 @@ package dss.vector.solutions.query;
 public abstract class RangeCategoryBase extends dss.vector.solutions.query.AbstractCategory implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.RangeCategory";
-  public static java.lang.String LOWERBOUND = "lowerBound";
-  public static java.lang.String UPPERBOUND = "upperBound";
-  private static final long serialVersionUID = 1044216755;
+  public static java.lang.String LOWERBOUNDSTR = "lowerBoundStr";
+  public static java.lang.String UPPERBOUNDSTR = "upperBoundStr";
+  private static final long serialVersionUID = -281330243;
   
   public RangeCategoryBase()
   {
     super();
   }
   
-  public Double getLowerBound()
+  public String getLowerBoundStr()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(LOWERBOUND));
+    return getValue(LOWERBOUNDSTR);
   }
   
-  public void validateLowerBound()
+  public void validateLowerBoundStr()
   {
-    this.validateAttribute(LOWERBOUND);
+    this.validateAttribute(LOWERBOUNDSTR);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLowerBoundMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLowerBoundStrMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.RangeCategory.CLASS);
-    return mdClassIF.definesAttribute(LOWERBOUND);
+    return mdClassIF.definesAttribute(LOWERBOUNDSTR);
   }
   
-  public void setLowerBound(Double value)
+  public void setLowerBoundStr(String value)
   {
     if(value == null)
     {
-      setValue(LOWERBOUND, "");
+      setValue(LOWERBOUNDSTR, "");
     }
     else
     {
-      setValue(LOWERBOUND, java.lang.Double.toString(value));
+      setValue(LOWERBOUNDSTR, value);
     }
   }
   
-  public Double getUpperBound()
+  public String getUpperBoundStr()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(UPPERBOUND));
+    return getValue(UPPERBOUNDSTR);
   }
   
-  public void validateUpperBound()
+  public void validateUpperBoundStr()
   {
-    this.validateAttribute(UPPERBOUND);
+    this.validateAttribute(UPPERBOUNDSTR);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getUpperBoundMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getUpperBoundStrMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.RangeCategory.CLASS);
-    return mdClassIF.definesAttribute(UPPERBOUND);
+    return mdClassIF.definesAttribute(UPPERBOUNDSTR);
   }
   
-  public void setUpperBound(Double value)
+  public void setUpperBoundStr(String value)
   {
     if(value == null)
     {
-      setValue(UPPERBOUND, "");
+      setValue(UPPERBOUNDSTR, "");
     }
     else
     {
-      setValue(UPPERBOUND, java.lang.Double.toString(value));
+      setValue(UPPERBOUNDSTR, value);
     }
   }
   

@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2103162253)
+@com.terraframe.mojo.business.ClassSignature(hash = 1267960882)
 public abstract class NonRangeCategoryDTOBase extends dss.vector.solutions.query.AbstractCategoryDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.NonRangeCategory";
-  private static final long serialVersionUID = 2103162253;
+  private static final long serialVersionUID = 1267960882;
   
   protected NonRangeCategoryDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -27,42 +27,42 @@ public abstract class NonRangeCategoryDTOBase extends dss.vector.solutions.query
     return CLASS;
   }
   
-  public static java.lang.String EXACTVALUE = "exactValue";
-  public Double getExactValue()
+  public static java.lang.String EXACTVALUESTR = "exactValueStr";
+  public String getExactValueStr()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(EXACTVALUE));
+    return getValue(EXACTVALUESTR);
   }
   
-  public void setExactValue(Double value)
+  public void setExactValueStr(String value)
   {
     if(value == null)
     {
-      setValue(EXACTVALUE, "");
+      setValue(EXACTVALUESTR, "");
     }
     else
     {
-      setValue(EXACTVALUE, java.lang.Double.toString(value));
+      setValue(EXACTVALUESTR, value);
     }
   }
   
-  public boolean isExactValueWritable()
+  public boolean isExactValueStrWritable()
   {
-    return isWritable(EXACTVALUE);
+    return isWritable(EXACTVALUESTR);
   }
   
-  public boolean isExactValueReadable()
+  public boolean isExactValueStrReadable()
   {
-    return isReadable(EXACTVALUE);
+    return isReadable(EXACTVALUESTR);
   }
   
-  public boolean isExactValueModified()
+  public boolean isExactValueStrModified()
   {
-    return isModified(EXACTVALUE);
+    return isModified(EXACTVALUESTR);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getExactValueMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getExactValueStrMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(EXACTVALUE).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(EXACTVALUESTR).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.query.NonRangeCategoryDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

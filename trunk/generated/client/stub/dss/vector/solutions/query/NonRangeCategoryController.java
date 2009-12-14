@@ -1,9 +1,15 @@
 package dss.vector.solutions.query;
 
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
+import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
+
 public class NonRangeCategoryController extends NonRangeCategoryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/query/NonRangeCategory/";
   public static final String LAYOUT = "/layout.jsp";
+  
+  public static final String SUMMARY_VIEW = JSP_DIR+"summaryView.jsp";
   
   private static final long serialVersionUID = 1241158170601L;
   
@@ -88,11 +94,27 @@ public class NonRangeCategoryController extends NonRangeCategoryControllerBase i
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.query.NonRangeCategoryDTO dto = new dss.vector.solutions.query.NonRangeCategoryDTO(clientRequest);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create NonRangeCategoryController");
-    render("createComponent.jsp");
+    try
+    {
+      AbstractCategoryDTO category = new NonRangeCategoryDTO(this.getClientRequest());
+      StylesDTO styles = new StylesDTO(this.getClientRequest());
+
+      AbstractCategoryController.populateRequestForCategory(this.req, category, styles);
+      
+      render("createComponent.jsp");
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -124,10 +146,26 @@ public class NonRangeCategoryController extends NonRangeCategoryControllerBase i
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.query.NonRangeCategoryDTO dto = dss.vector.solutions.query.NonRangeCategoryDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit NonRangeCategoryController");
-    render("editComponent.jsp");
+    try
+    {
+      NonRangeCategoryDTO category = NonRangeCategoryDTO.lock(super.getClientRequest(), id);
+      category.lock();
+      AbstractCategoryController.populateRequestForCategory(req, category, category.getStyles());
+    
+      render("editComponent.jsp");
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {

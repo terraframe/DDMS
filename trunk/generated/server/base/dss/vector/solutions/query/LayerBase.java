@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1022303473)
+@com.terraframe.mojo.business.ClassSignature(hash = 1558086167)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,13 +15,13 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DEFAULTSTYLES = "defaultStyles";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
-  public static java.lang.String GEOHIERARCHY = "geoHierarchy";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LAYERNAME = "layerName";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String OPACITY = "opacity";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SAVEDSEARCH = "savedSearch";
   public static java.lang.String SEQ = "seq";
@@ -31,7 +31,7 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
-  private static final long serialVersionUID = -1022303473;
+  private static final long serialVersionUID = 1558086167;
   
   public LayerBase()
   {
@@ -144,41 +144,6 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     else
     {
       setValue(ENTITYDOMAIN, value.getId());
-    }
-  }
-  
-  public dss.vector.solutions.geo.GeoHierarchy getGeoHierarchy()
-  {
-    if (getValue(GEOHIERARCHY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.GeoHierarchy.get(getValue(GEOHIERARCHY));
-    }
-  }
-  
-  public void validateGeoHierarchy()
-  {
-    this.validateAttribute(GEOHIERARCHY);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGeoHierarchyMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(GEOHIERARCHY);
-  }
-  
-  public void setGeoHierarchy(dss.vector.solutions.geo.GeoHierarchy value)
-  {
-    if(value == null)
-    {
-      setValue(GEOHIERARCHY, "");
-    }
-    else
-    {
-      setValue(GEOHIERARCHY, value.getId());
     }
   }
   
@@ -314,6 +279,34 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
     return mdClassIF.definesAttribute(LOCKEDBY);
+  }
+  
+  public java.math.BigDecimal getOpacity()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(OPACITY));
+  }
+  
+  public void validateOpacity()
+  {
+    this.validateAttribute(OPACITY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getOpacityMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(OPACITY);
+  }
+  
+  public void setOpacity(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(OPACITY, "");
+    }
+    else
+    {
+      setValue(OPACITY, value.toString());
+    }
   }
   
   public com.terraframe.mojo.system.Actor getOwner()
@@ -629,6 +622,18 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public static Layer getByKey(String key)
   {
     return (Layer) com.terraframe.mojo.business.Business.get(CLASS, key);
+  }
+  
+  public void applyWithStyles(dss.vector.solutions.query.Styles styles, java.lang.String savedMapId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.Layer.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void applyWithStyles(java.lang.String id, dss.vector.solutions.query.Styles styles, java.lang.String savedMapId)
+  {
+    Layer _instance = Layer.get(id);
+    _instance.applyWithStyles(styles, savedMapId);
   }
   
   public static Layer lock(java.lang.String id)

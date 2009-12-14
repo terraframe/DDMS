@@ -30,38 +30,66 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
   @Override
   public LayerViewQuery getAllLayers()
   {
-    return null; // FIXME MAP
+    QueryFactory f = new QueryFactory();
+    LayerViewQuery q = new LayerViewQuery(f, this.getId());
+    
+    return q;
   }
   
   /**
-   * Creates a new layer that represents the given SavedSearch.
+   * Creates a SavedMap and clones the given layers to be
+   * applied as layers on the created SavedMap.
    */
   @Override
   @Transaction
-  public LayerView addLayerToMap(String savedSearchId)
+  public LayerViewQuery createFromExisting(String existingMapId)
   {
-    long count = this.getLayerCount();
+    this.apply();
+    
+    // copy the layers from the existing map
+    SavedMap existingMap = SavedMap.get(existingMapId);
+    for(HasLayers existingRel : existingMap.getAllLayerRel().getAll())
+    {
+      Layer existingLayer = existingRel.getChild();
+      Layer layer = new Layer();
+      
+      // TODO assign an sld file
+      layer.setLayerName(existingLayer.getLayerName());
+      layer.setSavedSearch(existingLayer.getSavedSearch());
+      
+      // copy the styles
+      Styles existingStyles = existingLayer.getDefaultStyles();
+      Styles styles = new Styles();
+      
+      styles.setFill(existingStyles.getFill());
+      styles.setFontFamily(existingStyles.getFontFamily());
+      styles.setFontSize(existingStyles.getFontSize());
+      styles.setFontStyle(existingStyles.getFontStyle());
+      
+      styles.setPointStroke(existingStyles.getPointStroke());
+      styles.setPointWidth(existingStyles.getPointWidth());
+      
+      styles.setPolygonFill(existingStyles.getPolygonFill());
+      styles.setPolygonStroke(existingStyles.getPolygonStroke());
+      styles.setPolygonWidth(existingStyles.getPolygonWidth());
+      
+      styles.addPointMarker(existingStyles.getPointMarker().get(0));
+      
+      styles.apply();
+      
+      layer.setDefaultStyles(styles);
+      layer.apply();
 
-    SavedSearch search = SavedSearch.get(savedSearchId);
-    Layer layer = new Layer();
+      // copy the relationship      
+      HasLayers rel = this.addLayer(layer);
+      rel.setLayerPosition(existingRel.getLayerPosition());
+      rel.apply();
+    }
     
-    // by default, set the layer name to that of the SavedSearch
-    String name = search.getQueryName();
-    layer.setLayerName(name);
-    layer.setSavedSearch(search);
-    layer.apply();
-    
-    HasLayers hasLayers = this.addLayer(layer);
-    hasLayers.setLayerPosition((int)count);
-    hasLayers.apply();
-    
-    LayerView view = new LayerView();
-    view.setLayerId(layer.getId());
-    view.setLayerName(layer.getLayerName());
-    view.setLayerPosition((int) count);
-    
-    return view;
+    return this.getAllLayers();
   }
+  
+  
   
   /**
    * Removes the given layer from this SavedMap and reorders

@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 158476919)
+@com.terraframe.mojo.business.ClassSignature(hash = 1114504973)
 public class AbstractCategoryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.AbstractCategoryController";
@@ -10,7 +10,7 @@ public class AbstractCategoryControllerBase implements com.terraframe.mojo.gener
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 158476919;
+  private static final long serialVersionUID = 1114504973;
   
   public AbstractCategoryControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -121,6 +121,20 @@ public class AbstractCategoryControllerBase implements com.terraframe.mojo.gener
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.failEdit");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.AbstractCategoryDTO:category, dss.vector.solutions.query.StylesDTO:styles, java.lang.String:layerId", post=true)
+  public void saveCategory(dss.vector.solutions.query.AbstractCategoryDTO category, dss.vector.solutions.query.StylesDTO styles, java.lang.String layerId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.saveCategory");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.AbstractCategoryDTO:category, dss.vector.solutions.query.StylesDTO:styles, java.lang.String:layerId", post=true)
+  public void failSaveCategory(dss.vector.solutions.query.AbstractCategoryDTO category, dss.vector.solutions.query.StylesDTO styles, java.lang.String layerId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.AbstractCategoryController.failSaveCategory");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.AbstractCategoryDTO:dto", post=true)

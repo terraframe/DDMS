@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -309373474)
+@com.terraframe.mojo.business.ClassSignature(hash = 25782603)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class AbstractCategoryBase extends com.terraframe.mojo.business.
   public static java.lang.String STYLES = "styles";
   public static java.lang.String THEMATICCOLOR = "thematicColor";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -309373474;
+  private static final long serialVersionUID = 25782603;
   
   public AbstractCategoryBase()
   {
@@ -370,6 +370,34 @@ public abstract class AbstractCategoryBase extends com.terraframe.mojo.business.
     return query;
   }
   
+  public dss.vector.solutions.query.HasCategories addFromLayer(dss.vector.solutions.query.Layer layer)
+  {
+    return (dss.vector.solutions.query.HasCategories) addParent(layer, dss.vector.solutions.query.HasCategories.CLASS);
+  }
+  
+  public void removeFromLayer(dss.vector.solutions.query.Layer layer)
+  {
+    removeAllParents(layer, dss.vector.solutions.query.HasCategories.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.Layer> getAllFromLayer()
+  {
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.Layer>) getParents(dss.vector.solutions.query.HasCategories.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.HasCategories> getAllFromLayerRel()
+  {
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.HasCategories>) getParentRelationships(dss.vector.solutions.query.HasCategories.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.HasCategories> getFromLayerRel(dss.vector.solutions.query.Layer layer)
+  {
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.query.HasCategories>) getRelationshipsWithParent(layer, dss.vector.solutions.query.HasCategories.CLASS);
+  }
+  
   public static AbstractCategory get(String id)
   {
     return (AbstractCategory) com.terraframe.mojo.business.Business.get(id);
@@ -378,6 +406,30 @@ public abstract class AbstractCategoryBase extends com.terraframe.mojo.business.
   public static AbstractCategory getByKey(String key)
   {
     return (AbstractCategory) com.terraframe.mojo.business.Business.get(CLASS, key);
+  }
+  
+  public void applyWithStyles(dss.vector.solutions.query.Styles styles, java.lang.String layerId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategory.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void applyWithStyles(java.lang.String id, dss.vector.solutions.query.Styles styles, java.lang.String layerId)
+  {
+    AbstractCategory _instance = AbstractCategory.get(id);
+    _instance.applyWithStyles(styles, layerId);
+  }
+  
+  public void saveCategory(dss.vector.solutions.query.Styles styles)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategory.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void saveCategory(java.lang.String id, dss.vector.solutions.query.Styles styles)
+  {
+    AbstractCategory _instance = AbstractCategory.get(id);
+    _instance.saveCategory(styles);
   }
   
   public static AbstractCategory lock(java.lang.String id)

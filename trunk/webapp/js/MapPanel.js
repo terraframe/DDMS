@@ -49,17 +49,18 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     CATEGORY_LIST : "categoryList",
     LEFT_COLUMN : "leftColumn",
     QUERY_LIST : "queryList",
-    ADD_AS_LAYER_BUTTON : "addAsLayerBtn",
+    ADD_LAYER_BUTTON : "addLayerBtn",
     AVAILABLE_LAYERS : "availableLayers",
     DELETE_SUFFIX : "_delete",
-    MAP_LIST : "mapList"
+    EDIT_SUFFIX : "_edit",
+    MAP_LIST : "mapList",
+    LAYER_NAME_SUFFIX : "_layerName"
   },
   
   Instance : {
     
-    initialize : function(mapPanelId, queryList, mapList)
+    initialize : function(mapPanelId, mapList)
     {
-      this._queryList = queryList;
       this._mapList = mapList;
     
       var minWidth = 1250;
@@ -96,11 +97,26 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._annotation = new MDSS.Annotation(this);
       
       this._currentModal = null;
+      this._secondaryModal = null;
       
       this._SavedMapController = Mojo.$.dss.vector.solutions.query.SavedMapController;
-      this._SavedMapController.setCreateListener(Mojo.Util.bind(this, this._createListener));
-      this._SavedMapController.setCancelListener(Mojo.Util.bind(this, this._cancelListener));
-//      this._SavedMapController.setDeleteListener(Mojo.Util.bind(this, this._deleteListener));
+      this._SavedMapController.setCreateListener(Mojo.Util.bind(this, this._mapCreateListener));
+      this._SavedMapController.setCancelListener(Mojo.Util.bind(this, this._mapCancelListener));
+
+      this._LayerController = Mojo.$.dss.vector.solutions.query.LayerController;
+      this._LayerController.setSaveLayerListener(Mojo.Util.bind(this, this._saveLayerListener));
+      this._LayerController.setCancelListener(Mojo.Util.bind(this, this._layerCancelListener));
+      
+      this._AbstractCategoryController = Mojo.$.dss.vector.solutions.query.AbstractCategoryController;
+      this._AbstractCategoryController.setSaveCategoryListener(Mojo.Util.bind(this, this._saveCategoryListener));
+      
+      this._RangeController = Mojo.$.dss.vector.solutions.query.RangeCategoryController;
+      this._RangeController.setNewInstanceListener(Mojo.Util.bind(this, this._categoryNewInstanceListener));
+      this._RangeController.setCancelListener(Mojo.Util.bind(this, this._categoryCancelListener));
+      
+      this._NonRangeController = Mojo.$.dss.vector.solutions.query.NonRangeCategoryController;
+      this._NonRangeController.setNewInstanceListener(Mojo.Util.bind(this, this._categoryNewInstanceListener));
+      this._NonRangeController.setCancelListener(Mojo.Util.bind(this, this._categoryCancelListener));
     },
     
     render : function()
@@ -118,7 +134,12 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         that: this,
         onSuccess : function(defaultMap)
         {
-          MDSS.MapPanel.setCurrentMap(defaultMap.getId()); 
+          this.that._clearLayers();
+        
+          MDSS.MapPanel.setCurrentMap(defaultMap.getId());
+          
+          // reset the select list index of maps to the first element
+          document.getElementById(MDSS.MapPanel.MAP_LIST).selectedIndex = 0;
         }
       });
       
@@ -130,6 +151,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var html = '';
       html += '<div id="'+MDSS.MapPanel.LEFT_COLUMN+'">';
       
+      /* 
       // Query List
       html += MDSS.Localized.Available_Queries+':<br />';
       
@@ -137,14 +159,15 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       html += Mojo.Iter.map(this._queryList, function(query){
         return '<option value="'+query.id+'">'+query.name+'</option>'; 
       }).join('');
+      */ 
       
       // Add query button
-      html += '<input type="button" id="'+MDSS.MapPanel.ADD_AS_LAYER_BUTTON+'" value="'+MDSS.localize('Add_As_Layer')+'">';
+      html += MDSS.localize('Available_Layers')+':&nbsp;';
+      html += '<input type="button" id="'+MDSS.MapPanel.ADD_LAYER_BUTTON+'" value="'+MDSS.localize('Add_Layer')+'">';
       html += '<br />';
       
       // layers
       html += '<div style="margin-top: 5px">';
-      html += MDSS.localize('Available_Layers')+':<br />';
       html += '<ul id="'+MDSS.MapPanel.AVAILABLE_LAYERS+'">';
       html += '</ul>';
       
@@ -155,7 +178,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       left.body.innerHTML = html;
       
       // Event to add a query to the selected queries
-      YAHOO.util.Event.on(MDSS.MapPanel.ADD_AS_LAYER_BUTTON, 'click', this._addAsLayer, null, this);
+      YAHOO.util.Event.on(MDSS.MapPanel.ADD_LAYER_BUTTON, 'click', this._addLayer, null, this);
       
       // Make the selected queries a drag target and use it as a
       // click event delegater since the drag and drop operations
@@ -173,7 +196,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         return;
       }
       
-      if(id.indexOf(MDSS.MapPanel.DELETE_SUFFIX) != 1)
+      if(id.indexOf(MDSS.MapPanel.DELETE_SUFFIX) != -1)
       {
         var layerId = id.replace(MDSS.MapPanel.DELETE_SUFFIX, '');
         
@@ -190,39 +213,219 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         var mapId = this.constructor.getCurrentMap();
         Mojo.$.dss.vector.solutions.query.SavedMap.deleteLayerFromMap(request, mapId, layerId);
       }
+      else if(id.indexOf(MDSS.MapPanel.EDIT_SUFFIX) != -1)
+      {
+        var layerId = id.replace(MDSS.MapPanel.EDIT_SUFFIX, '');
+        
+        var request = new MDSS.Request({
+          that: this,
+          onSuccess : function(html)
+          {
+            var that = this.that;          
+            that._createModal(html, '', true);
+            
+            // Use the UL#categoryList as a delegate for
+            // all edit/delete events on individual categories
+            YAHOO.util.Event.on('categoryList', 'click', that._handleCategoryClick, null, that); 
+          }
+        });
+        
+        this._LayerController.edit(request, layerId);
+      }
     },
     
-    _addAsLayer : function()
+    /**
+     * Handles any edit/delete request on an AbstractCategory instance.
+     */
+    _handleCategoryClick : function(e)
     {
-      var select = document.getElementById(MDSS.MapPanel.QUERY_LIST);
-      var savedSearchId = select.options[select.selectedIndex].value;
+      var el = e.target;
       
-      var request = new MDSS.Request({
-        that: this,
-        onSuccess : function(layerView)
+      if(!el.id)
+      {
+        return;
+      }
+      
+      var id = el.id;
+      if(id.indexOf(MDSS.MapPanel.DELETE_SUFFIX) != -1)
+      {
+        var categoryId = id.replace(MDSS.MapPanel.DELETE_SUFFIX, '');
+        
+        var request = new MDSS.Request({
+          onSuccess : function()
+          {
+            // remove the category from the list
+            var li = document.getElementById(categoryId+"_div").parentNode;
+            li.parentNode.removeChild(li);
+          }
+        });
+        
+        Mojo.Facade.deleteEntity(request, categoryId);
+      }
+      else if(id.indexOf(MDSS.MapPanel.EDIT_SUFFIX) != -1)
+      {
+        var categoryId = id.replace(MDSS.MapPanel.EDIT_SUFFIX, '');
+        var type = document.getElementById(categoryId+"_type").value;
+        
+        var request = new MDSS.Request({
+          that: this,
+          onSuccess : function(html)
+          {
+            this.that._createModalSec(html, '');
+          }
+        });
+        
+        if(type === Mojo.$.dss.vector.solutions.query.RangeCategory.CLASS)
         {
-          // add a draggable list item for the new layer
-          var li = document.createElement('li');
-          li.id = layerView.getLayerId();
+          this._RangeController.edit(request, categoryId);
+        }
+        else
+        {
+          this._NonRangeController.edit(request, categoryId);
+        }
+      }
+    },
+    
+    _saveCategoryListener : function(params)
+    {
+      // Add the layer id so the relationship between Layer and
+      // Category can be made in the business layer.
+      params['layerId'] = document.getElementById('layerId').value;
+    
+      var request = new MDSS.Request({
+        that : this,
+        isNew : (params['category.isNew'] === 'true'),
+        categoryId : params['category.componentId'],
+        onSuccess : function(html)
+        {
+          if(this.isNew)
+          {
+            var li = document.createElement('li');
+            li.innerHTML = html;
           
-          var html = '<span style="font-weight: bold"></span>';
-          html += '<img class="clickable" style="margin-right: 5px" src="imgs/icons/delete.png" id="'
-            +li.id+MDSS.MapPanel.DELETE_SUFFIX+'" />';
-          html += layerView.getLayerName();
+            document.getElementById(MDSS.MapPanel.CATEGORY_LIST).appendChild(li);
+          }
+          else
+          {
+            var div = document.getElementById(this.categoryId+'_div');
+            div.parentNode.innerHTML = html;
+          }
           
-          li.innerHTML = html;
-          
-          var ul = document.getElementById(MDSS.MapPanel.AVAILABLE_LAYERS);
-          ul.appendChild(li);
-          
-          new MDSS.SelectedQueryDD(li.id);
-          
-          MDSS.MapPanel.toggleBaseLayer();
-        } 
+          this.that._destroyModalSec();
+        }
       });
       
-      var mapId = this.constructor.getCurrentMap();
-      Mojo.$.dss.vector.solutions.query.SavedMap.addLayerToMap(request, mapId, savedSearchId);
+      return request;
+    },
+    
+    _categoryCancelListener : function(params)
+    {
+      if(params['category.isNew'] === 'true')
+      {
+        this._destroyModalSec();
+      }
+      else
+      {
+        var request = new MDSS.Request({
+          that: this,
+          onSuccess : function()
+          {
+            this.that._destroyModalSec();
+          }
+        });
+        
+        Mojo.$.dss.vector.solutions.query.AbstractCategory.unlock(request, params['category.componentId']);
+      }
+    },
+    
+    _categoryNewInstanceListener : function(params)
+    {
+      var request = new MDSS.Request({
+        that: this,
+        onSuccess : function(html){
+          
+          var that = this.that;
+          
+          that._createModalSec(html, ''); 
+        }
+      });
+      
+      return request;
+    },
+    
+    _layerCancelListener : function(params)
+    {
+      if(params['layer.isNew'] === 'true')
+      {
+        this._destroyModal();
+      }
+      else
+      {
+        var request = new MDSS.Request({
+          that: this,
+          onSuccess : function()
+          {
+            this.that._destroyModal();
+          }
+        });
+        
+        Mojo.$.dss.vector.solutions.query.Layer.unlock(request, params['layer.componentId']);
+      }
+    },
+    
+    _saveLayerListener : function(params)
+    {
+      // IMPORTANT: The value of Layer.savedSearch is submitted as an array
+      // because it is a select list on the form. But we want to submit it as 
+      // a single value because savedSearch is just a reference attribute.
+      if(params['layer.savedSearch'].length > 0)
+      {
+        params['layer.savedSearch'] = params['layer.savedSearch'][0];
+      }
+      
+      params['savedMapId'] = MDSS.MapPanel.getCurrentMap();
+    
+      var request = new MDSS.Request({
+        isNew : (params['layer.isNew'] === 'true'),
+        that : this,
+        layerName : params['layer.layerName'],
+        onSuccess : function(layerId)
+        {
+          var that = this.that;
+          that._destroyModal();
+          
+          // add a draggable list item for the new layer
+          if(this.isNew)
+          {
+            var li = that._createLayerLI(layerId, this.layerName);
+            
+            var ul = document.getElementById(MDSS.MapPanel.AVAILABLE_LAYERS);
+            ul.appendChild(li);
+            
+            
+            MDSS.MapPanel.toggleBaseLayer();
+          }
+          else
+          {
+            document.getElementById(layerId+MDSS.MapPanel.LAYER_NAME_SUFFIX).innerHTML = this.layerName;
+          }
+        }
+      });
+      
+      return request;
+    },
+    
+    _addLayer : function()
+    {
+      var request = new MDSS.Request({
+        that : this,
+        onSuccess : function(html)
+        {
+          this.that._createModal(html, '', true);
+        }
+      });
+      
+      this._LayerController.newInstance(request);
     },
     
     _createBottomRow : function()
@@ -326,32 +529,59 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._SavedMapController.newInstance(request);
     },
     
-    _createListener : function(params)
+    _mapCreateListener : function(params)
     {
       var request = new MDSS.Request({
         that: this,
-        mapName: params['dto.mapName'],
-        onSuccess : function(mapId)
+        onSuccess : function(query, savedMap)
         {
+          var mapId = savedMap.getId();
+        
           // insert the new map into the select box
           var that = this.that;
           mapId = Mojo.Util.trim(mapId);
           
-          that._addSavedMap(mapId, this.mapName);
+          that._addSavedMap(mapId, savedMap.getMapName());
+          that._setLayers(query.getResultSet());          
+          
           that._destroyModal();
         }
       });
+
+      var existingMapId = MDSS.MapPanel.getCurrentMap();
       
-      return request;
+      var map = new Mojo.$.dss.vector.solutions.query.SavedMap();
+      map.setMapName(params['dto.mapName']);
+      map.createFromExisting(request, existingMapId);
     },
     
-    _cancelListener : function(params)
+    _mapCancelListener : function(params)
     {
       this._destroyModal();
     },
     
     _deleteMap : function()
     {
+      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+      if(mapList.selectedIndex !== 0)
+      {
+        var option = mapList.options[mapList.selectedIndex];
+        var mapId = option.value;
+        
+        var request = new MDSS.Request({
+          that : this,
+          onSuccess : function(){
+
+            // remove the option node for the deleted map
+            mapList.removeChild(option);
+            mapList.selectedIndex = 0;
+            
+            this.that._loadDefaultMap();
+          }
+        });
+        
+        Mojo.Facade.deleteEntity(request, mapId);
+      }
     },
     
     _addSavedMap : function(mapId, mapName)
@@ -368,9 +598,74 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       MDSS.MapPanel.setCurrentMap(mapId);
     },
     
+    _clearLayers : function()
+    {
+      // clear the old layers
+      document.getElementById(MDSS.MapPanel.AVAILABLE_LAYERS).innerHTML = '';
+    },
+    
     _loadMap : function(e)
     {
-      alert(e);
+      var mapId = document.getElementById(MDSS.MapPanel.MAP_LIST).value;
+      
+      if(mapId === '')
+      {
+        this._loadDefaultMap(); // this will reset the current default map
+      }
+      else
+      {
+        var request = new MDSS.Request({
+          mapId : mapId,
+          that : this,
+          onSuccess : function(query)
+          {
+            MDSS.MapPanel.setCurrentMap(this.mapId);
+            var that = this.that;
+          
+            // repopulate the map list with the layers
+            that._setLayers(query.getResultSet());
+          }
+        });
+
+        Mojo.$.dss.vector.solutions.query.SavedMap.getAllLayers(request, mapId);        
+      }
+    },
+    
+    _setLayers : function(layerViews)
+    {
+      this._clearLayers();
+    
+      var frag = document.createDocumentFragment();
+      Mojo.Iter.forEach(layerViews, function(view){
+        
+        var li = this._createLayerLI(view.getLayerId(), view.getLayerName());
+        frag.appendChild(li);
+      }, this);
+      
+      document.getElementById(MDSS.MapPanel.AVAILABLE_LAYERS).appendChild(frag);
+      MDSS.MapPanel.toggleBaseLayer();
+    },
+    
+    /**
+     * Creates the HTML for one layer
+     */
+    _createLayerLI : function(layerId, layerName)
+    {
+      var li = document.createElement('li');
+      li.id = Mojo.Util.trim(layerId);
+            
+      var html = '';
+      html += '<img class="clickable" style="margin-right: 5px" src="imgs/icons/wand.png" id="'
+        +li.id+MDSS.MapPanel.EDIT_SUFFIX+'" />';
+      html += '<img class="clickable" style="margin-right: 5px" src="imgs/icons/delete.png" id="'
+        +li.id+MDSS.MapPanel.DELETE_SUFFIX+'" />';
+      html += '<span style="font-weight: bold"></span>';
+      html += '<span id="'+li.id+MDSS.MapPanel.LAYER_NAME_SUFFIX+'">'+layerName+'</span>';
+      new MDSS.SelectedQueryDD(li.id);
+      
+      li.innerHTML = html;
+      
+      return li;
     },
     
     /**
@@ -390,6 +685,13 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     
     _destroyModal : function()
     {
+      // Cleanup event handler for the category list delegate
+      var categoryList = document.getElementById('categoryList');
+      if(categoryList)
+      {
+        YAHOO.util.Event.removeListener(categoryList, 'click');
+      }
+    
       if(this._currentModal)
       {
         this._currentModal.destroy();
@@ -398,22 +700,28 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._currentModal = null;
     },
     
-    /**
-     * Creates a modal with the given HTML as its body and the given title
-     * as the modal title, wrapped in an H3.
-     */
-    _createModal : function(html, title, useLarge)
+    _destroyModalSec : function()
+    {
+      if(this._secondaryModal)
+      {
+        this._secondaryModal.destroy();
+      }
+      
+      this._secondaryModal = null;
+    },
+    
+    _createModalInternal : function(html, title, useLarge)
     {
       var executable = MDSS.util.extractScripts(html);
       var html = MDSS.util.removeScripts(html);
   
-      var modal = new YAHOO.widget.Panel("editQuery", {
+      var modal = new YAHOO.widget.Panel("modal_"+MDSS.MapPanel.zIndex, {
         width: "400px",
         height: useLarge ? "530px" : "400px",
         fixedcenter:true,
         close: false,
         draggable:false,
-        zindex:4,
+        zindex:MDSS.MapPanel.zIndex++,
         modal:true,
         visible:true
       });
@@ -436,90 +744,22 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       eval(executable);
   
       modal.bringToTop();
-  
-      this._currentModal = modal;
-    },
-    
-    /**
-     * Scraps the category list HTML and creates new instances
-     * of AbstractCategor.
-     */
-    scrapeCategories : function()
-    {
-      var categories = [];
-  
-      var categoryList = document.getElementById(this.CATEGORY_LIST);
-      var dds = YAHOO.util.Selector.query('dd', categoryList);
-      for(var i=0; i<dds.length; i++)
-      {
-        var dd = dds[i];
-        var inputs = YAHOO.util.Selector.query('input', dd);
-  
-        var type = inputs[0].value;
-        var thematicColor = inputs[1].value;
-  
-        var construct = Mojo.Meta.findClass(type);
-        var category = new construct();
-        category.setThematicColor(thematicColor);
-  
-        if(type === Mojo.$.dss.vector.solutions.query.RangeCategory.CLASS)
-        {
-          var lowerBound = inputs[2].value;
-          var upperBound = inputs[3].value;
-  
-          category.setLowerBound(lowerBound);
-          category.setUpperBound(upperBound);
-        }
-        else
-        {
-          var exactValue = inputs[2].value;
-  
-          category.setExactValue(exactValue);
-        }
-  
-        categories.push(category);
-      }
-  
-      return categories;
-    },
-  
-    addCategoryHTML : function(html)
-    {
-      var categoryList = document.getElementById(this.CATEGORY_LIST);
-      var li = document.createElement('li');
-      li.innerHTML = html;
-  
-      categoryList.appendChild(li);
-    },
       
-    /**
-     * Adds a thematic variable to the map.
-     */
-    _editVariableStyles : function(e)
-    {
-      if(Mojo.Util.isFunction(this._config.editVariableStyles))
-      {
-        this._config.editVariableStyles.call(this._queryClass);
-      }
+      return modal;
     },
     
-
-    /**
-     * Returns the currently selected thematic layer in the drop down list
-     * of available thematic layers.
-     */
-    getCurrentThematicLayer : function()
+    _createModalSec : function(html, title, useLarge)
     {
-      var select = document.getElementById(this.THEMATIC_LAYERS_SELECT);
-      return select.options[select.selectedIndex].value;
+      this._secondaryModal = this._createModalInternal(html, title, useLarge);
     },
     
     /**
-     * Sets the current ThematicVariable instance.
+     * Creates a modal with the given HTML as its body and the given title
+     * as the modal title, wrapped in an H3.
      */
-    setCurrentThematicVariable : function(thematicVar)
+    _createModal : function(html, title, useLarge)
     {
-      this._currentThematicVariable = thematicVar;
+      this._currentModal = this._createModalInternal(html, title, useLarge);
     },
   
     /**
@@ -623,25 +863,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       return layers;
     },
   
-    /**
-     * Handler for when a new layer is added.
-     */
-    _addLayer : function()
-    {
-      if(Mojo.Util.isFunction(this._config.addLayer))
-      {
-        var layersList = document.getElementById(this.AVAILABLE_LAYERS_LIST);
-        var options = layersList.options;
-        var selected = options[layersList.selectedIndex];
-  
-        if(selected && selected.value)
-        {
-          var type = selected.value;
-          this._config.addLayer.call(this._queryClass, type);
-        }
-      }
-    },
-      
     /**
      * Sets the selected thematic layer. Note that this should be called
      * after this.setAvailableThematicLayers().
@@ -767,119 +988,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
-     * Builds a list of possible universal layers
-     * that can be selected.
-     */
-    _buildUniversalList : function()
-    {
-      // list thematic variables
-      var thematicDiv = new YAHOO.util.Element(document.createElement('div'));
-  
-      var thematicLayerDiv = document.createElement('div');
-  
-      var html = MDSS.Localized.Thematic.Layer+"<br />";
-      html += "<select style='margin: 3px 0px; min-width: 220px;' id='"+this.THEMATIC_LAYERS_SELECT+"'>";
-      html += "<option value=''></option>";
-      html += "</select>";
-      thematicLayerDiv.innerHTML = html;
-  
-      // edit default style
-      var editDefaultStyle = new YAHOO.util.Element(document.createElement('input'));
-      editDefaultStyle.set('type', 'button');
-      editDefaultStyle.set('id', this.EDIT_DEFAULT_STYLE);
-      editDefaultStyle.set('disabled', true);
-      editDefaultStyle.set('value', MDSS.Localized.Thematic.Edit_Default_Style);
-      editDefaultStyle.on('click', function(e){
-        var search = this._currentSavedSearch;
-        var layerId = search != null ? search.getThematicLayerId() : '';
-        this._editDefinedLayer(e, {layerId:layerId});
-      }, null, this);
-  
-      var editVariableStyles = new YAHOO.util.Element(document.createElement('input'));
-      editVariableStyles.set('type', 'button');
-      editVariableStyles.set('id', this.EDIT_VARIABLE_STYLE);
-      editVariableStyles.set('disabled', true);
-      editVariableStyles.set('value', MDSS.Localized.Thematic.Edit_Variable_Styles);
-      editVariableStyles.on('click', this._editVariableStyles, null, this);
-  
-      thematicDiv.appendChild(thematicLayerDiv);
-      thematicDiv.appendChild(editDefaultStyle);
-      thematicDiv.appendChild(editVariableStyles);
-  
-      var availableSpan = document.createElement('span');
-      YAHOO.util.Dom.setStyle(availableSpan, 'display', 'block');
-      availableSpan.innerHTML = MDSS.Localized.Available_Layers;
-  
-      // this data structure is defined by
-      // the GeoEntity tree for use case 111.
-      // (We're just stealing it for our own use here.)
-      var types = MDSS.GeoTreeSelectables.types;
-      var typeNames = Mojo.Util.getKeys(types);
-      typeNames.sort();
-  
-      var universalListDiv = new YAHOO.util.Element(document.createElement('div'));
-      YAHOO.util.Dom.addClass(universalListDiv, 'universalList');
-      var layers = document.createElement('select');
-      YAHOO.util.Dom.setAttribute(layers, 'id', this.AVAILABLE_LAYERS_LIST);
-  
-      for(var i=0; i<typeNames.length; i++)
-      {
-        var type = typeNames[i];
-        var displayLabel = types[type].label;
-  
-        var option = document.createElement('option');
-        YAHOO.util.Dom.setAttribute(option, 'value', type);
-        YAHOO.util.Dom.setAttribute(option, 'id', type+"_available");
-        option.innerHTML = displayLabel;
-  
-        layers.appendChild(option);
-      }
-  
-      universalListDiv.appendChild(availableSpan);
-      universalListDiv.appendChild(layers);
-  
-      // add container for user defined layers
-      var layersListDiv = document.createElement('div');
-      YAHOO.util.Dom.addClass(layersListDiv, 'definedLayers');
-  
-      var definedSpan = document.createElement('span');
-      definedSpan.innerHTML = MDSS.Localized.Defined_Layers;
-  
-      var ul = document.createElement('ul');
-      YAHOO.util.Dom.setAttribute(ul, 'id', this.DEFINED_LAYERS_LIST);
-  
-      var ulDiv = document.createElement('div');
-      ulDiv.appendChild(ul);
-  
-      layersListDiv.appendChild(definedSpan);
-      layersListDiv.appendChild(ulDiv);
-  
-      // add button for new layer
-      this._addLayerButton = new YAHOO.util.Element(document.createElement('input'));
-      this._addLayerButton.set('type', 'button');
-      this._addLayerButton.set('value', MDSS.Localized.Add);
-      this._addLayerButton.on('click', this._addLayer, null, this);
-  
-      universalListDiv.appendChild(this._addLayerButton);
-  
-      var wrapper = new YAHOO.util.Element(document.createElement('div'));
-      YAHOO.util.Dom.addClass(wrapper, 'layersWrapper');
-      wrapper.appendChild(thematicDiv);
-      wrapper.appendChild(universalListDiv);
-      wrapper.appendChild(layersListDiv);
-  
-      // clear any prior HTML
-      this._mLeftUnit.body.innerHTML = '';
-      var body = new YAHOO.util.Element(this._mLeftUnit.body);
-      body.appendChild(wrapper);
-  
-      var thematicSelect = document.getElementById(this.THEMATIC_LAYERS_SELECT);
-      thematicSelect.selectedIndex = 0;
-  
-      YAHOO.util.Event.on(thematicSelect, 'change', this._thematicLayerSelected, null, this);
-    },
-    
-    /**
      * Adds a map with the given configuration.
      */
     createMap : function(layers)
@@ -963,10 +1071,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._map.zoomToExtent(bounds);
     }, 
     
-    /**
-     * Adds a layer of the given type to the map.
-     * The map is not refreshed.
-     */
+    /* FIXME MAP
     addLayer : function(type)
     {
       var request = new MDSS.Request({
@@ -984,10 +1089,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       Mojo.$.dss.vector.solutions.query.MappingController.createLayer(request, savedSearchId, type);
     },
   
-    /**
-     * Locks a layer and its components to put them
-     * in edit mode.
-     */
     editLayer : function(layerId)
     {
       var controller = Mojo.$.dss.vector.solutions.query.MappingController;
@@ -1009,6 +1110,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
   
       controller.editLayer(request, layerId);
     },
+     */
   
     _updateLayerListener : function(modal, params, action)
     {
@@ -1191,7 +1293,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
             layerCount = MDSS.localize('Layer')+' '+index+': ';
           }
           
-          child.firstChild.innerHTML = layerCount;
+          child.childNodes[2].innerHTML = layerCount;
           
           if(dom.hasClass(child, 'baseLayer'))
           {
@@ -1201,7 +1303,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         
         dom.addClass(children[0], 'baseLayer');
       }
-    }
+    },
+    
+    zIndex : 10 // starting zIndex of Modals
   }
   
 });
@@ -1738,3 +1842,104 @@ YAHOO.extend(MDSS.SelectedQueryDD, YAHOO.util.DDProxy, {
     }
 });
 })();
+
+Mojo.Meta.newClass("MDSS.ColorPicker", {
+
+  IsSingleton: true,
+  
+  Instance : {
+    
+    initialize : function()
+    {
+      this._dialog = null;
+      this._picker = null;
+    },
+    
+    /**
+     * Attaches the picker to the element of the given id such
+     * that a click event on the element will render the picker.
+     */
+    attach : function(openerId, inputId)
+    {
+      YAHOO.util.Event.removeListener(openerId, 'click', this._renderDialog);
+  
+      var obj = {
+        openerId : openerId,
+        inputId : inputId
+      };
+  
+      var openerEl = document.getElementById(openerId);
+      YAHOO.util.Event.on(openerEl, 'click', this._renderDialog, obj, this);
+    },
+  
+    /**
+     * Handles the submit click after
+     * selecting a color.
+     */
+    _handleSubmit: function()
+    {
+      var openerEl = document.getElementById(this._openerId);
+  
+      var sColor = "#" + this._picker.get("hex");
+      document.getElementById(this._inputId).value = sColor;
+      YAHOO.util.Dom.setStyle(openerEl, 'background-color', sColor);
+  
+      this._dialog.hide();
+    },
+  
+    /**
+     * Cancels selecting a color and
+     * closes the dialog.
+     */
+    _handleCancel: function()
+    {
+      this._dialog.hide();
+    },
+  
+    _renderDialog : function(e, obj)
+    {
+      this._openerId = obj.openerId;
+      this._inputId = obj.inputId;
+  
+      if(this._dialog == null)
+      {
+        var sBound = Mojo.Util.bind(this, this._handleSubmit);
+        var cBound = Mojo.Util.bind(this, this._handleCancel);
+  
+        this._dialog = new YAHOO.widget.Dialog("singleton_pickerPanel", {
+          width : "400px",
+          height: "250px",
+          fixedcenter : true,
+          visible : true,
+          constraintoviewport : true,
+          draggable: false,
+          close: false,
+          zindex: 200,
+          buttons : [ { text: MDSS.Localized.Submit, handler:sBound, isDefault:true },
+              { text: MDSS.Localized.Cancel, handler:cBound } ]
+        });
+  
+        this._dialog.setBody('<div class="yui-picker" id="singleton_picker"></div>');
+        this._dialog.render(document.body);
+        this._dialog.bringToTop();
+  
+        this._picker = new YAHOO.widget.ColorPicker("singleton_picker", {
+          container: this._dialog,
+          showcontrols: false,
+          images: {
+            PICKER_THUMB: "js/yui/build/colorpicker/assets/picker_thumb.png"
+          },
+        });
+      }
+      else
+      {
+        this._dialog.show();
+        this._dialog.bringToTop();
+      }
+      
+      var val = document.getElementById(this._inputId).value.substring(1);      
+      this._picker.set('hex', val);
+    }    
+  }
+
+});

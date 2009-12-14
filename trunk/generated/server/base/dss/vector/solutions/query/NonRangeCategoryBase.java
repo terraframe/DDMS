@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1855600883)
+@com.terraframe.mojo.business.ClassSignature(hash = 1831501234)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,39 +11,39 @@ package dss.vector.solutions.query;
 public abstract class NonRangeCategoryBase extends dss.vector.solutions.query.AbstractCategory implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.NonRangeCategory";
-  public static java.lang.String EXACTVALUE = "exactValue";
-  private static final long serialVersionUID = -1855600883;
+  public static java.lang.String EXACTVALUESTR = "exactValueStr";
+  private static final long serialVersionUID = 1831501234;
   
   public NonRangeCategoryBase()
   {
     super();
   }
   
-  public Double getExactValue()
+  public String getExactValueStr()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(EXACTVALUE));
+    return getValue(EXACTVALUESTR);
   }
   
-  public void validateExactValue()
+  public void validateExactValueStr()
   {
-    this.validateAttribute(EXACTVALUE);
+    this.validateAttribute(EXACTVALUESTR);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getExactValueMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getExactValueStrMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.NonRangeCategory.CLASS);
-    return mdClassIF.definesAttribute(EXACTVALUE);
+    return mdClassIF.definesAttribute(EXACTVALUESTR);
   }
   
-  public void setExactValue(Double value)
+  public void setExactValueStr(String value)
   {
     if(value == null)
     {
-      setValue(EXACTVALUE, "");
+      setValue(EXACTVALUESTR, "");
     }
     else
     {
-      setValue(EXACTVALUE, java.lang.Double.toString(value));
+      setValue(EXACTVALUESTR, value);
     }
   }
   

@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1633006306)
+@com.terraframe.mojo.business.ClassSignature(hash = -1566390939)
 public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoEntityDefinition";
-  private static final long serialVersionUID = -1633006306;
+  private static final long serialVersionUID = -1566390939;
   
   protected GeoEntityDefinitionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -20,7 +20,6 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTGEOHIERARCHYID = "parentGeoHierarchyId";
-  public static java.lang.String PARENTTYPEGEOHIERARCHYID = "parentTypeGeoHierarchyId";
   public static java.lang.String POLITICAL = "political";
   public static java.lang.String POPULATIONALLOWED = "populationAllowed";
   public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
@@ -135,43 +134,6 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getParentGeoHierarchyIdMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PARENTGEOHIERARCHYID).getAttributeMdDTO();
-  }
-  
-  public String getParentTypeGeoHierarchyId()
-  {
-    return getValue(PARENTTYPEGEOHIERARCHYID);
-  }
-  
-  public void setParentTypeGeoHierarchyId(String value)
-  {
-    if(value == null)
-    {
-      setValue(PARENTTYPEGEOHIERARCHYID, "");
-    }
-    else
-    {
-      setValue(PARENTTYPEGEOHIERARCHYID, value);
-    }
-  }
-  
-  public boolean isParentTypeGeoHierarchyIdWritable()
-  {
-    return isWritable(PARENTTYPEGEOHIERARCHYID);
-  }
-  
-  public boolean isParentTypeGeoHierarchyIdReadable()
-  {
-    return isReadable(PARENTTYPEGEOHIERARCHYID);
-  }
-  
-  public boolean isParentTypeGeoHierarchyIdModified()
-  {
-    return isModified(PARENTTYPEGEOHIERARCHYID);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getParentTypeGeoHierarchyIdMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PARENTTYPEGEOHIERARCHYID).getAttributeMdDTO();
   }
   
   public Boolean getPolitical()

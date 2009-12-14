@@ -1,10 +1,11 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<mjl:component param="dto" item="${item}">
-  <mjl:dt attribute="exactValue">
-    <mjl:input param="exactValue" type="text" />
+
+<mjl:component item="${category}" param="category">
+  <mjl:dt attribute="exactValueStr">
+    <mjl:input param="exactValueStr" type="text" />
   </mjl:dt>
-  <mjl:dt attribute="thematicColor">
-    <mjl:input param="thematicColor" type="text" />
-  </mjl:dt>
-</mjl:component>
+</mjl:component>  
+
+<jsp:include page="../Styles/form.jsp"></jsp:include>
+  

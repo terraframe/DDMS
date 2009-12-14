@@ -69,6 +69,7 @@ import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
+import dss.vector.solutions.geo.ConfirmDeleteEntityException;
 import dss.vector.solutions.geo.ConfirmParentChangeException;
 import dss.vector.solutions.geo.DuplicateParentException;
 import dss.vector.solutions.geo.GeoEntityView;
@@ -83,7 +84,7 @@ import dss.vector.solutions.geo.NoCompatibleTypesException;
 import dss.vector.solutions.geo.SearchParameter;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
-import dss.vector.solutions.query.ActionNotAllowedException;
+import dss.vector.solutions.ontology.TermRelationshipQuery;
 import dss.vector.solutions.util.GeoEntityImporter;
 import dss.vector.solutions.util.GeometryHelper;
 import dss.vector.solutions.util.MDSSProperties;
@@ -333,17 +334,23 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   @Override
   public void confirmDeleteEntity(String parentId)
   {
-    // V1 Restriction
-    throw new ActionNotAllowedException();
-
-    /*
-     * List<GeoEntity> parents = this.getImmediateParents(); if (parents.size()
-     * > 1) { GeoEntity parent = GeoEntity.get(parentId);
-     * ConfirmDeleteEntityException ex = new ConfirmDeleteEntityException();
-     * ex.setEntityName(parent.getEntityName());
-     *
-     * throw ex; } else { this.delete(); }
-     */
+     QueryFactory f = new QueryFactory();
+     LocatedInQuery q = new LocatedInQuery(f);
+     
+     q.WHERE(q.childId().EQ(this.getId()));
+     q.AND(q.parentId().NE(parentId));
+    
+     if (q.getCount() > 0)
+     {
+       GeoEntity parent = GeoEntity.get(parentId);
+       ConfirmDeleteEntityException ex = new ConfirmDeleteEntityException();
+       ex.setEntityName(parent.getEntityName());
+       throw ex;
+     }
+     else
+     {
+       this.deleteEntity();
+     }
   }
 
   @Override
@@ -366,6 +373,29 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     finally
     {
       iter.close();
+      
+      buildAllPathsFast();
+    }
+  }
+  
+  @Override
+  @Transaction
+  public void deleteEntity()
+  {
+    if(this.isSingleLeafNode())
+    {
+      deleteLeafFromAllPaths(this.getId());
+      
+      this.delete();
+    }
+    else
+    {
+      MdBusiness mdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);
+      mdBusiness.deleteAllTableRecords();
+      
+      this.delete();
+      
+      buildAllPathsFast();
     }
   }
 
@@ -380,24 +410,23 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     for (GeoEntity child : children)
     {
-      child.delete();
+      if(child.hasSingleParent())
+      {
+        child.delete();
+      }
     }
 
-    /*
-     * // DO NO CLEANUP FOR V1 AND LET A REQUIRED REFERENCE ERROR BE THROWN //
-     * clean up the paths table. This will invalidate the paths table
-     * QueryFactory f = new QueryFactory(); AllPathsQuery pathsQuery = new
-     * AllPathsQuery(f);
-     *
-     * pathsQuery.WHERE(OR.get(pathsQuery.getChildGeoEntity().EQ(this),
-     * pathsQuery.getParentGeoEntity().EQ(this)));
-     *
-     * OIterator<? extends AllPaths> iter = pathsQuery.getIterator(); try {
-     * while(iter.hasNext()) { iter.next().delete(); } } finally { iter.close();
-     * }
-     */
-
     super.delete();
+  }
+  
+  private boolean hasSingleParent()
+  {
+    QueryFactory f = new QueryFactory();
+    LocatedInQuery q = new LocatedInQuery(f);
+    
+    q.WHERE(q.childId().EQ(this.getId()));
+    
+    return q.getCount() == 1;
   }
 
   /**
@@ -988,7 +1017,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
    */
   @Override
   @Transaction
-  public String[] applyWithParent(String parentGeoEntityId, Boolean cloneOperation)
+  public String[] applyWithParent(String parentGeoEntityId, Boolean cloneOperation, String oldParentId)
   {
     GeoEntity parent = GeoEntity.get(parentGeoEntityId);
 
@@ -1014,16 +1043,26 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     if (!cloneOperation)
     {
-      // V1 Restriction
-      if (!isNew)
+      // Remove the old relationship on this GeoEntity and parent.
+      QueryFactory f = new QueryFactory();
+      LocatedInQuery q = new LocatedInQuery(f);
+      
+      q.WHERE(q.parentId().EQ(oldParentId));
+      q.AND(q.childId().EQ(this.getId()));
+      
+      OIterator<? extends LocatedIn> iter = q.getIterator();
+      
+      try
       {
-        throw new ActionNotAllowedException();
+        while(iter.hasNext())
+        {
+          iter.next().delete();
+        }
       }
-      /*
-       * OIterator<? extends LocatedIn> iter =
-       * this.getAllLocatedInGeoEntityRel(); try { while (iter.hasNext()) {
-       * iter.next().delete(); } } finally { iter.close(); }
-       */
+      finally
+      {
+        iter.close();
+      }
     }
     else
     {
@@ -1050,6 +1089,15 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     this.addLocatedInGeoEntity(parent).apply();
 
+    if(cloneOperation)
+    {
+      copyTermFast(parentGeoEntityId, this.getId());
+    }
+    else if(!isNew)
+    {
+      buildAllPathsFast();
+    }
+    
     // update this GeoEntity and all its
     // children with the parent's active status.
     boolean parentActivated = parent.getActivated();
@@ -1882,6 +1930,53 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     {
       procCall = conn.prepareCall(procCallString);
       procCall.setString(1, leafTermId);
+      procCall.execute();
+    }
+    catch (SQLException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    finally
+    {
+      if (procCall != null)
+      {
+        try
+        {
+          procCall.close();
+        }
+        catch (SQLException e2)
+        {
+          throw new ProgrammingErrorException(e2);
+        }
+      }
+    }
+  }
+  
+  /**
+   * Removes all AllPaths entries where the given term is a parent or child.
+   *
+   * @param termId
+   */
+  public static void deleteEntityFromAllPaths(String entityId)
+  {
+    MdBusiness mdBusinessAllPaths = MdBusiness.getMdBusiness(AllPaths.CLASS);
+
+    String tableName = mdBusinessAllPaths.getTableName();
+
+    String childColumn = AllPaths.getChildGeoEntityMd().definesAttribute();
+    String parentColumn = AllPaths.getParentGeoEntityMd().definesAttribute();
+
+    String procCallString = "DELETE FROM "+tableName+" WHERE "+childColumn+" = ? "
+      + " OR "+parentColumn+" = ?";
+
+    Connection conn = Database.getConnection();
+    CallableStatement procCall = null;
+
+    try
+    {
+      procCall = conn.prepareCall(procCallString);
+      procCall.setString(1, entityId);
+      procCall.setString(2, entityId);
       procCall.execute();
     }
     catch (SQLException e)

@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 601756128)
+@com.terraframe.mojo.business.ClassSignature(hash = -1704696559)
 public abstract class LayerViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.LayerView";
-  private static final long serialVersionUID = 601756128;
+  private static final long serialVersionUID = -1704696559;
   
   protected LayerViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -20,7 +20,6 @@ public abstract class LayerViewDTOBase extends com.terraframe.mojo.business.View
   public static java.lang.String LAYERID = "layerId";
   public static java.lang.String LAYERNAME = "layerName";
   public static java.lang.String LAYERPOSITION = "layerPosition";
-  public static java.lang.String UNIVERSALTYPE = "universalType";
   public String getLayerId()
   {
     return getValue(LAYERID);
@@ -130,43 +129,6 @@ public abstract class LayerViewDTOBase extends com.terraframe.mojo.business.View
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLayerPositionMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LAYERPOSITION).getAttributeMdDTO();
-  }
-  
-  public String getUniversalType()
-  {
-    return getValue(UNIVERSALTYPE);
-  }
-  
-  public void setUniversalType(String value)
-  {
-    if(value == null)
-    {
-      setValue(UNIVERSALTYPE, "");
-    }
-    else
-    {
-      setValue(UNIVERSALTYPE, value);
-    }
-  }
-  
-  public boolean isUniversalTypeWritable()
-  {
-    return isWritable(UNIVERSALTYPE);
-  }
-  
-  public boolean isUniversalTypeReadable()
-  {
-    return isReadable(UNIVERSALTYPE);
-  }
-  
-  public boolean isUniversalTypeModified()
-  {
-    return isModified(UNIVERSALTYPE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getUniversalTypeMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNIVERSALTYPE).getAttributeMdDTO();
   }
   
   public static LayerViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

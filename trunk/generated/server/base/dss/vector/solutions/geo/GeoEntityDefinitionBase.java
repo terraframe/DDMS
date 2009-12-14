@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -548811874)
+@com.terraframe.mojo.business.ClassSignature(hash = 865515237)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,13 +15,12 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTGEOHIERARCHYID = "parentGeoHierarchyId";
-  public static java.lang.String PARENTTYPEGEOHIERARCHYID = "parentTypeGeoHierarchyId";
   public static java.lang.String POLITICAL = "political";
   public static java.lang.String POPULATIONALLOWED = "populationAllowed";
   public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPENAME = "typeName";
-  private static final long serialVersionUID = -548811874;
+  private static final long serialVersionUID = 865515237;
   
   public GeoEntityDefinitionBase()
   {
@@ -125,34 +124,6 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
     else
     {
       setValue(PARENTGEOHIERARCHYID, value);
-    }
-  }
-  
-  public String getParentTypeGeoHierarchyId()
-  {
-    return getValue(PARENTTYPEGEOHIERARCHYID);
-  }
-  
-  public void validateParentTypeGeoHierarchyId()
-  {
-    this.validateAttribute(PARENTTYPEGEOHIERARCHYID);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getParentTypeGeoHierarchyIdMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
-    return mdClassIF.definesAttribute(PARENTTYPEGEOHIERARCHYID);
-  }
-  
-  public void setParentTypeGeoHierarchyId(String value)
-  {
-    if(value == null)
-    {
-      setValue(PARENTTYPEGEOHIERARCHYID, "");
-    }
-    else
-    {
-      setValue(PARENTTYPEGEOHIERARCHYID, value);
     }
   }
   
