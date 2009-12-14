@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
@@ -16,7 +18,13 @@
 <%@page import="dss.vector.solutions.query.SavedMapController"%>
 <%@page import="dss.vector.solutions.query.LayerDTO"%>
 <%@page import="dss.vector.solutions.query.LayerController"%>
-<%@page import="dss.vector.solutions.query.AbstractCategoryController"%><jsp:include page="../templates/header.jsp"></jsp:include>
+<%@page import="dss.vector.solutions.query.AbstractCategoryController"%>
+
+<c:set var="page_title" value="Generate_Maps"  scope="request"/>
+
+<jsp:include page="../templates/header.jsp"></jsp:include>
+
+
 
 <script type="text/javascript">
 <%
