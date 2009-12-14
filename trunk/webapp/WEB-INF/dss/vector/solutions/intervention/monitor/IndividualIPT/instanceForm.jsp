@@ -19,7 +19,7 @@
   <mjl:input type="hidden" param="concreteId" value="${instance.concreteId}"/>
   <mjl:dt attribute="facility">
     <input type="hidden" id="typeSearchFilter" value="${healthFacility}" />      
-    <mjl:input classes="geoInput" id="geoIdEl" param="facility" type="text" />
+    <mjl:input classes="geoInput" id="geoIdElFacility" param="facility" type="text" />
   </mjl:dt>
   <mjl:dt attribute="serviceDate" classes="DatePick" id="serviceDate" type="text"/>  
   <mjl:dt attribute="patientType">
