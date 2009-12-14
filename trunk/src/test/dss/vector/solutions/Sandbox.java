@@ -12,6 +12,7 @@ import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AttributePrimitive;
+import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -167,7 +168,7 @@ public class Sandbox
     return sb.toString();
 }
 
-  private static ValueQuery textLookup(QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray)
+  private static ValueQuery textLookup(QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)
   {
     long WEIGHT = 256;
 
@@ -192,6 +193,11 @@ public class Sandbox
 
       vQ.SELECT(selectClauseArray);
       vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(selectableArray)).LIKE("% "+token+"%"));
+
+      for (Condition condition : conditionArray)
+      {
+        vQ.AND(condition);
+      }
 
       valueQueryArray[i] = vQ;
     }
@@ -248,12 +254,17 @@ public class Sandbox
 
     QueryFactory qf = new QueryFactory();
     TermQuery tQ = new TermQuery(qf);
+    GeoEntityQuery gQ = new GeoEntityQuery(qf);
 
     SelectablePrimitive[] selectableArray = new SelectablePrimitive[2];
     selectableArray[0] = tQ.getName();
     selectableArray[1] = tQ.getTermId();
 
-    textLookup(qf, tokenArray, selectableArray);
+    // This is a COMPLETELY contrived example that makes no sense in real ife.
+    Condition joinCondition = tQ.getName().EQ(gQ.getEntityName());
+
+
+    textLookup(qf, tokenArray, selectableArray, new Condition[]{joinCondition});
 
 
 
