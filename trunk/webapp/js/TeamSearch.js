@@ -722,6 +722,10 @@ Mojo.Meta.newClass('MDSS.ResultPanel', {
         
         this._autocomplete.selectHandler(option);
       }
+    },
+    
+    hasOptions : function() {
+      return this.ul.children.length > 0;
     }
   }
 });
@@ -877,7 +881,7 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
         var visible = this.panel.isVisible();
         YAHOO.util.Event.preventDefault(oData);      
         
-        if(!visible) {
+        if(!visible || !this.panel.hasOptions()) {
           this.performSearch();
         }
         else {
@@ -893,7 +897,7 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
         var visible = this.panel.isVisible();
         YAHOO.util.Event.preventDefault(oData);      
       
-        if(!visible) {
+        if(!visible || !this.panel.hasOptions()) {
           this.performSearch();
         }
         else {
