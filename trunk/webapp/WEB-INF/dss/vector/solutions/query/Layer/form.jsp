@@ -35,6 +35,7 @@
   <mjl:command value="Range_Category" action="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo" name="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo.button" />
   <ul id="categoryList">
     <c:forEach items="${categories}" var="category">
+      <li>
       <c:set var="category" value="${category}" scope="request"></c:set>
       <c:choose>
         <c:when test="${category.type == RangeClass}">
@@ -44,6 +45,7 @@
           <jsp:include page="../NonRangeCategory/summaryView.jsp"></jsp:include>
         </c:otherwise>
       </c:choose>
+    </li>
     </c:forEach>
   </ul>
   </div>
