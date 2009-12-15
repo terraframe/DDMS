@@ -78,7 +78,8 @@ DECLARE
 BEGIN
 
   SELECT population , yearofdata, growthrate FROM populationdata pd 
-    WHERE pd.yearofdata  <= _year AND pd.geoentity = _geoEntityId  
+    WHERE pd.yearofdata  <= _year AND pd.geoentity = _geoEntityId 
+    ORDER BY pd.yearofdata DESC
     LIMIT 1
     INTO _population, _prevYear, _growth;
     
