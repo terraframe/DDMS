@@ -11,12 +11,6 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.ValueQuery;
 
-import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.intervention.monitor.IPTRecipient;
-import dss.vector.solutions.intervention.monitor.ITNRecipient;
-import dss.vector.solutions.irs.SprayLeader;
-import dss.vector.solutions.irs.SprayOperator;
-
 public class Person extends PersonBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240792902476L;
@@ -238,98 +232,8 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   {
     // Set the person's base attributes
     PersonView view = new PersonView();
-    view.setPersonId(this.getId());
-    view.setFirstName(this.getFirstName());
-    view.setLastName(this.getLastName());
-    view.setSex(this.getSex());
-
-    view.setDateOfBirth(this.getDateOfBirth());
-
-    if (this.getDateOfBirth() != null)
-    {
-      view.setAge(Math.max(0, new AgeConverter(this.getDateOfBirth()).getAge()));
-    }
-
-    if (this.getResidentialGeoEntity() != null)
-    {
-      view.setResidentialGeoId(this.getResidentialGeoEntity().getGeoId());
-    }
-
-    view.setResidentialInformation(this.getResidentialInformation());
-
-    if (this.getWorkGeoEntity() != null)
-    {
-      view.setWorkGeoId(this.getWorkGeoEntity().getGeoId());
-    }
-
-    view.setWorkInformation(this.getWorkInformation());
-
-    // Set the person's delegate attributes
-
-    MDSSUser user = this.getUserDelegate();
-    if (user == null)
-    {
-      view.setIsMDSSUser(false);
-    }
-    else
-    {
-      view.setIsMDSSUser(true);
-      view.setUsername(user.getUsername());
-    }
-
-    Patient patient = this.getPatientDelegate();
-    if (patient == null)
-    {
-      view.setIsPatient(false);
-    }
-    else
-    {
-      view.setIsPatient(true);
-    }
-
-    ITNRecipient itnRecipient = this.getItnRecipientDelegate();
-    if (itnRecipient == null)
-    {
-      view.setIsITNRecipient(false);
-    }
-    else
-    {
-      view.setIsITNRecipient(true);
-    }
-
-    IPTRecipient iptRecipient = this.getIptRecipientDelegate();
-    if (iptRecipient == null)
-    {
-      view.setIsIPTRecipient(false);
-    }
-    else
-    {
-      view.setIsIPTRecipient(true);
-    }
-
-    SprayOperator sprayOperator = this.getSprayOperatorDelegate();
-    if (sprayOperator == null)
-    {
-      view.setIsSprayOperator(false);
-    }
-    else
-    {
-      view.setIsSprayOperator(true);
-      view.setOperatorId(sprayOperator.getOperatorId());
-    }
-
-    SprayLeader sprayLeader = this.getSprayLeaderDelegate();
-    if (sprayLeader == null)
-    {
-      view.setIsSprayLeader(false);
-    }
-    else
-    {
-      view.setIsSprayLeader(true);
-      view.setLeaderId(sprayLeader.getLeaderId());
-    }
-
-    view.setIsStockStaff(this.getStockStaffDelegate() != null);
+    
+    view.populateView(this);
 
     return view;
   }

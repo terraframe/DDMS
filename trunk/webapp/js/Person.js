@@ -1,78 +1,106 @@
 // Author: Justin Smethie
 Mojo.Meta.newClass('MDSS.PersonModal', {
   Instance: {
-initialize : function(element, recipientIdEl, calendarIdEl) {
-  this.element = (Mojo.Util.isString(element) ? document.getElementById(element) : element);
-  this.recipientIdEl = (Mojo.Util.isString(recipientIdEl) ? document.getElementById(recipientIdEl) : recipientIdEl);
+    initialize : function(prop) {
+      this._recipientIdEl = (Mojo.Util.isString(prop.concrete) ? document.getElementById(prop.concrete) : prop.concrete);      
+      this._clickable = (Mojo.Util.isString(prop.clickable) ? document.getElementById(prop.clickable) : prop.clickable);
+      this._button = (Mojo.Util.isString(prop.button) ? document.getElementById(prop.button) : prop.button);
+      this._elements = prop.elements;
+      
+      // Make it so the clickable span is in the tab index
+      YAHOO.util.Dom.setAttribute(this._clickable, 'tabindex', '0');
   
-  // IMPORTANT: calendarIdEl may not be in the DOM yet because it should appear on the modal page
-  this.calendarIdEl = calendarIdEl;
+      // IMPORTANT: calendarIdEl may not be in the DOM yet because it should appear on the modal page
+      this._calendarIdEl = prop.calendar;
+      this._firstName = prop.firstName;
+      this._lastName = prop.lastName;
 
-  this.currentModal = null;
-  this._id = new String(Math.random()).substring(2);    
-  this.controller = Mojo.$.dss.vector.solutions.PersonController;
+      this._currentModal = null;
+      this._id = new String(Math.random()).substring(2);    
+      this.controller = Mojo.$.dss.vector.solutions.PersonController;
   
       var updateListener = Mojo.Util.bind(this, this.updateListener);
       var cancelListener = Mojo.Util.bind(this, this.cancelListener);
 
-    this.controller.setUpdateRecipientListener(updateListener);
-    this.controller.setViewAllListener(cancelListener);
+      this.controller.setUpdateRecipientListener(updateListener);
+      this.controller.setViewAllListener(cancelListener);
   
-  // Setup the element events
-  YAHOO.util.Event.on(this.element, 'click', this.handleClick, null, this);  
-  
-  // the SingleSelectSearch used by all geo input fields
-  this._selectSearch = new MDSS.SingleSelectSearch();
+      // Setup the element events
+      YAHOO.util.Event.on(this._clickable, 'click', this.handleClick, null, this);
+      YAHOO.util.Event.on(this._clickable, 'keyup', this.handleKeyup, null, this);
+   
+      // the SingleSelectSearch used by all geo input fields
+      this._selectSearch = new MDSS.SingleSelectSearch();
       
       this._residentialGeoSearch = null;
       this._workGeoSearch = null;
     },
     
     updateListener : function(params) {
-        var request = new MDSS.Request({
+      var request = new MDSS.Request({
         that : this,
-            onSuccess: function() {
+        onSuccess: function(personId) {
           this.that.destroyModal();
-            }
-        });
+          
+          // Set the id of the newly created person
+          var id = Mojo.Util.trim(personId);
+          this.that._recipientIdEl.value = id;
+          
+          // Submit the form
+          this.that._button.onclick();
+        }
+      });
 
-        return request;
+      return request;
     },
     
     cancelListener : function(params) {
-        var request = new MDSS.Request({
+      var request = new MDSS.Request({
         that : this,
-            onSuccess: function() {
+        onSuccess: function() {
           this.that.destroyModal();
-            }
-        });
+        }
+      });
 
-        return request;
+      return request;
      },
     
     handleClick : function (e) {
-        var request = new MDSS.Request({
+      var request = new MDSS.Request({
         that : this,
-            onSuccess: function(html) {        
-        
+        onSuccess: function(html) {                
           this.that.createModal(html);
         }
-        });
+      });
         
-        var id = this.recipientIdEl.value;
+      var id = this._recipientIdEl.value;
 
-        this.controller.editRecipient(request, id);
+      this.controller.editRecipient(request, id);
     },
     
-    createModal : function (html) {
+    handleKeyup : function (e) {
+      if(e.keyCode === 13) {
+        var request = new MDSS.Request({
+          that : this,
+          onSuccess: function(html) {                
+            this.that.createModal(html);
+          }
+        });
     
+        var id = this._recipientIdEl.value;
+    
+        this.controller.editRecipient(request, id);
+      }
+    },
+    
+    createModal : function (html) {    
       var executable = MDSS.util.extractScripts(html);
           
       html = MDSS.util.removeScripts(html);    
     
-      this.currentModal = new YAHOO.widget.Panel(this._id,  {
+      this._currentModal = new YAHOO.widget.Panel(this._id,  {
          width: '400px',
-         height: '550px',
+         height: '600px',
          fixedcenter:true,
          close:false,
          draggable:false,
@@ -81,11 +109,11 @@ initialize : function(element, recipientIdEl, calendarIdEl) {
          visible:true
        });
 
-      this.currentModal.setBody(html);
-      this.currentModal.render(document.body);
-      this.currentModal.bringToTop();
+      this._currentModal.setBody(html);
+      this._currentModal.render(document.body);
+      this._currentModal.bringToTop();
       
-      var calendar = document.getElementById(this.calendarIdEl);
+      var calendar = document.getElementById(this._calendarIdEl);
       MDSS.Calendar.addCalendarListeners(calendar);
           
       eval(executable);
@@ -99,17 +127,24 @@ initialize : function(element, recipientIdEl, calendarIdEl) {
        * 
        * TODO unregister the focus handlers in a more official way.
        */
-      this.currentModal._removeFocusHandlers();
+      this._currentModal._removeFocusHandlers();
       
       // now attach geo searching to each geo input
       this._residentialGeoSearch = new MDSS.GeoSearch('residentialGeoId', this._selectSearch);
       this._workGeoSearch = new MDSS.GeoSearch('workGeoId', this._selectSearch);
+      
+      // Populate the first and last name values
+      if(this._recipientIdEl != '') {
+        // This is a hack
+        document.getElementById(this._firstName).value = document.getElementById(this._elements[0]).value;
+        document.getElementById(this._lastName).value = document.getElementById(this._elements[1]).value;
+      }
     },
     
     destroyModal : function()
     {
-      this.currentModal.destroy();
-      this.currentModal = null;
+      this._currentModal.destroy();
+      this._currentModal = null;
       
       this._residentialGeoSearch.destroy();
       this._workGeoSearch.destroy();
@@ -120,14 +155,11 @@ initialize : function(element, recipientIdEl, calendarIdEl) {
   },
   
   Static : {
-    setUpPersonModal : function(searchConfig, modalConfig, formConfig) {
-      searchConfig.searchEl = (Mojo.Util.isString(searchConfig.searchEl) ? document.getElementById(searchConfig.searchEl) : searchConfig.searchEl);
-      searchConfig.idEl = (Mojo.Util.isString(searchConfig.idEl) ? document.getElementById(searchConfig.idEl) : searchConfig.idEl);
-
-      modalConfig.createLink = (Mojo.Util.isString(modalConfig.createLink) ? document.getElementById(modalConfig.createLink) : modalConfig.createLink);
-      modalConfig.editLink = (Mojo.Util.isString(modalConfig.editLink) ? document.getElementById(modalConfig.editLink) : modalConfig.editLink);
-
-      formConfig.button = (Mojo.Util.isString(formConfig.button) ? document.getElementById(formConfig.button) : formConfig.button);
+    setUpPersonModal : function(prop) {
+	  prop.concrete = (Mojo.Util.isString(prop.concrete) ? document.getElementById(prop.concrete) : prop.concrete);
+      prop.createLink = (Mojo.Util.isString(prop.createLink) ? document.getElementById(prop.createLink) : prop.createLink);
+      prop.editLink = (Mojo.Util.isString(prop.editLink) ? document.getElementById(prop.editLink) : prop.editLink);
+      prop.button = (Mojo.Util.isString(prop.button) ? document.getElementById(prop.button) : prop.button);
  
       var listFunction = function(valueObject) {
         var firstName = Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME;
@@ -149,30 +181,49 @@ initialize : function(element, recipientIdEl, calendarIdEl) {
      var displayFunction = function(valueObject) {
        var firstName = Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME;
        var lastName = Mojo.$.dss.vector.solutions.PersonView.LASTNAME;
+       var firstNameKey = prop.elements[0];
+       var lastNameKey = prop.elements[1];
+       
+       var map = {};
+              
+       map[firstNameKey] = valueObject.getValue(firstName);
+       map[lastNameKey] = valueObject.getValue(lastName);
 
-       return valueObject.getValue(firstName) + ' ' + valueObject.getValue(lastName);
+       return map;
      };
 
      var searchFunction = Mojo.$.dss.vector.solutions.Person.searchForPerson;
 
      var selectEventHandler = function() {
-       modalConfig.createLink.style.display = "none";      
-       modalConfig.editLink.style.display = "inline";
-       formConfig.button.disabled=false;
+       prop.createLink.style.display = "none";      
+       prop.editLink.style.display = "inline";
+       prop.button.disabled=false;
      };
 
      var showCreatePatient = function() {
-       modalConfig.editLink.style.display = "none";
-       modalConfig.createLink.style.display = "inline";
-       formConfig.button.disabled=true;
+       prop.editLink.style.display = "none";
+       prop.createLink.style.display = "inline";
+       prop.button.disabled=true;
      }
+     
+     var autocomplete = {
+       elements:prop.elements,
+       concrete:prop.concrete, 
+       list:listFunction, 
+       display:displayFunction, 
+       id:idFunction, 
+       search:searchFunction,
+       selectEventHandler:selectEventHandler,
+       minLength:2
+     };
  
-     var search = new MDSS.GenericSearch(searchConfig.searchEl, searchConfig.idEl, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler);
+     var search = new MDSS.MultiInputAutoComplete(autocomplete);
      search.addListener(showCreatePatient);
 
-     var modal = new MDSS.PersonModal(modalConfig.modalEl, searchConfig.idEl, modalConfig.calendarEl);
+     
+     var modal = new MDSS.PersonModal(prop);
 
-     if(searchConfig.idEl.value != '') {
+     if(prop.concrete.value != '') {
        selectEventHandler();
      }
      else {

@@ -18,33 +18,35 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%=HealthFacilityDTO.CLASS%>*');
 </script>
 
 <mjl:messages>
-	<mjl:message />
+<mjl:message />
 </mjl:messages>
 <dl>
-	<mjl:form id="form.id" name="IndividualCase.form.name" method="GET">
-	  <dt>
-	    <label> ${item.caseReportDateMd.displayLabel} </label>
-	  </dt>
-	  <dd>
-	    <mjl:input type="text" param="caseReportDate" classes="DatePick NoFuture" id="caseReportDate" value="${caseReportDate != null ? caseReportDate : ''}"/>
-	    <mjl:messages attribute="caseReportDate">
-	      <mjl:message/>
-	    </mjl:messages>
-	  </dd>
-	  <dt>
-	    <label> ${item.diagnosisDateMd.displayLabel} </label>
-	  </dt>
-	  <dd>
-	    <mjl:input type="text" param="diagnosisDate" classes="DatePick NoFuture" id="diagnosisDate" value="${diagnosisDate != null ? diagnosisDate : ''}"/>
-	    <mjl:messages attribute="diagnosisDate">
-	      <mjl:message/>
-	    </mjl:messages>
-	  </dd>
-	  <dt>
-	    <label> ${item.patientMd.displayLabel} </label>
-	  </dt>
-	  <dd>
-      <mjl:input type="text" param="patientDisplay" id="patientDisplay" value="${person != null ? person : ''}" />
+<mjl:form id="form.id" name="IndividualCase.form.name" method="GET">
+  <dt>
+    <label> ${item.caseReportDateMd.displayLabel} </label>
+  </dt>
+  <dd>
+    <mjl:input type="text" param="caseReportDate" classes="DatePick NoFuture" id="caseReportDate" value="${caseReportDate != null ? caseReportDate : ''}"/>
+    <mjl:messages attribute="caseReportDate">
+      <mjl:message/>
+    </mjl:messages>
+  </dd>
+  <dt>
+    <label> ${item.diagnosisDateMd.displayLabel} </label>
+  </dt>
+  <dd>
+    <mjl:input type="text" param="diagnosisDate" classes="DatePick NoFuture" id="diagnosisDate" value="${diagnosisDate != null ? diagnosisDate : ''}"/>
+    <mjl:messages attribute="diagnosisDate">
+      <mjl:message/>
+    </mjl:messages>
+  </dd>
+  <dt>
+    <label> ${item.patientMd.displayLabel} </label>
+  </dt>
+  <dd>
+      <mjl:input type="text" param="firstName.search" id="firstName.search" value="${person != null ? person.firstName : ''}" />
+      <mjl:input type="text" param="lastName.search" id="lastName.search" value="${person != null ? person.lastName : ''}" />
+      
       <mjl:input type="hidden" param="personId" id="patient" value="${person != null ? person.personId : ''}"/>
       <span class="clickable" id="recipient.span">
         <span id="createPatient">
@@ -55,12 +57,12 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%=HealthFacilityDTO.CLASS%>*');
         </span>
       </span>
      <mjl:messages attribute="personId">
-	    <mjl:message/>
-	  </mjl:messages>
-	  </dd>
+    <mjl:message/>
+  </mjl:messages>
+  </dd>
 
-		<mjl:command name="searchPatient.button" value="Search"	action="dss.vector.solutions.intervention.monitor.IndividualCaseController.search.mojo" id="button.id" />
-	</mjl:form>
+<mjl:command name="searchPatient.button" value="Search"action="dss.vector.solutions.intervention.monitor.IndividualCaseController.search.mojo" id="button.id" />
+</mjl:form>
 </dl>
 
 <jsp:include page="/WEB-INF/excelButtons.jsp">
@@ -71,12 +73,20 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%=HealthFacilityDTO.CLASS%>*');
 
 <script type="text/javascript" >
 (function(){
-	  YAHOO.util.Event.onDOMReady(function(){
-		  
-    MDSS.PersonModal.setUpPersonModal(
-    	    { searchEl : 'patientDisplay', idEl : 'patient'},
-    	    { createLink : 'createPatient', editLink : 'editPatient', modalEl : 'recipient.span', calendarEl : 'dateOfBirth'},
-    	    { button : 'button.id'} );
+  YAHOO.util.Event.onDOMReady(function(){
+    var prop = {
+      elements : ['firstName.search', 'lastName.search'],
+      concrete : 'patient',
+      createLink : 'createPatient',
+      editLink : 'editPatient', 
+      clickable : 'recipient.span', 
+      calendar : 'dateOfBirth', 
+      firstName: 'firstName', 
+      lastName: 'lastName',
+      button : 'button.id'
+    };
+  
+    MDSS.PersonModal.setUpPersonModal(prop);
   });
 })();
 </script>

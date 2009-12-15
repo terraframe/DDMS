@@ -591,7 +591,7 @@ Mojo.Meta.newClass('MDSS.ResultPanel', {
         width:'400px',
         zindex:15,
         draggable: false,
-        close: true,
+        close: false,
         visible: false
       });    
       
@@ -665,9 +665,11 @@ Mojo.Meta.newClass('MDSS.ResultPanel', {
       
       this.ul.appendChild(options);
 
-      this.panel.render();
-      this.show();
-      this.panel.bringToTop();
+      if(this.ul.children.length > 0) {
+        this.panel.render();
+        this.show();
+        this.panel.bringToTop();
+      }
     },
     
     show : function() {
@@ -765,42 +767,28 @@ Mojo.Meta.newClass('MDSS.OptionBuilder', {
   }
 });
 
-Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
+Mojo.Meta.newClass('MDSS.AutoComplete', {
+  IsAbstract : true,
   Instance: {
-    initialize: function(displayElement, concreteElement, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler, prop) {
-  
-      // Constructor code
-
-      // DOM element where the search is inputed and the selected result is displayed
-      this.displayElement = Mojo.Util.isString(displayElement) ? document.getElementById(displayElement) : displayElement;
-      
-      // DOM element where the id of the selected result is stored
-      this.concreteElement = Mojo.Util.isString(concreteElement) ? document.getElementById(concreteElement) : concreteElement;        
-
+    initialize: function(dataSource, optionBuilder, panel, selectEventHandler, prop) {
       // Optional function which is called after an option has been selected
-      this.selectEventHandler = selectEventHandler;
-      
-      this.dataSource = new MDSS.DataSource(this, searchFunction);
-      this.optionBuilder = new MDSS.OptionBuilder(listFunction, displayFunction, idFunction);      
-      this.panel = new MDSS.ResultPanel(this, this.displayElement);
+      this._selectEventHandler = selectEventHandler;
+      this._dataSource = dataSource;
+      this._optionBuilder = optionBuilder;
+      this._panel = panel;
+      this._hasChanged = false;
       
       this.listeners = [];
       this.parameters = null;
       
-      // Disable the browser autocomplete function for the element we provide an auto-complete
-      this.displayElement.setAttribute("autocomplete", "off");
-
       // Create the default properties object
       if(prop == null) {
         prop = {minLength:2};
       }
       
       this.minLength = (Mojo.Util.isNumber(prop.minLength * 1) ? prop.minLength * 1 : 2);
-      
-      YAHOO.util.Event.on(this.displayElement, 'keypress', this.preventFormSubmit, null, this);
-      YAHOO.util.Event.on(this.displayElement, 'keyup', this.keyHandler, this, this);
     },
-    
+
     preventFormSubmit : function(e)
     {
       if((e.keyCode || e.charCode) === 13)
@@ -810,98 +798,98 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
     },
     
     hide : function() {
-      this.panel.hide();
+      this._panel.hide();
     },
     
     show : function() {
-      this.panel.show();
+      this._panel.show();
     },
-    
-    getDisplayElement : function() {
-      return this.displayElement;
-    },
-    
-    getConcreteElement : function() {
-      return this.concreteElement;
-    },
-    
+
     getPanel : function() {
-      return this.panel;
+      return this._panel;
     },
 
     getParameters : function() {
       return this.parameters;
     },
-    
+      
     addParameter : function(parameter) {
       this.parameters = parameter;
     },
-    
+      
     addListener : function(listener) {
-      this.listeners.push(listener);
+       this.listeners.push(listener);
     },
 
     displayResults : function(results) {
-      var searchValue = this.getDisplayElement().value;
+      var searchValue = this.getValue();
 
       var options = document.createDocumentFragment();
-      for(var i=0; i<results.length; i++)
-      {
+
+      for(var i=0; i<results.length; i++) {
         var result = results[i];
-        
-        var option = this.optionBuilder.createOption(result, searchValue, i); 
-        
+          
+        var option = this._optionBuilder.createOption(result, searchValue, i); 
+          
         options.appendChild(option);
       }
+        
+      this._panel.setOptions(options);
       
-      this.panel.setOptions(options);
-
-      // refocus the input field
-      this.getDisplayElement().focus();    
+      this.focus();
     },
-                
+                  
     selectHandler : function(selected) {
       if(selected) {
-        MDSS.GenericSearch.setElementValue(this.getDisplayElement(), selected.label);
-        MDSS.GenericSearch.setElementValue(this.getConcreteElement(), selected.id);
-        
-        if(Mojo.Util.isFunction(this.selectEventHandler)) {
-          this.selectEventHandler(selected);
+        this.setOption(selected);
+          
+        if(Mojo.Util.isFunction(this._selectEventHandler)) {
+          this._selectEventHandler(selected);
         }
       }
-      
+        
       this.hide();
     },
-    
+      
     keyHandler : function(oData) {
-      var value = this.getDisplayElement().value;
+      var value = this.getValue();
 
       // Handle the 'down' arrow key
       if(oData.keyCode === 40) {    
-        var visible = this.panel.isVisible();
+        var visible = this._panel.isVisible();
         YAHOO.util.Event.preventDefault(oData);      
-        
-        if(!visible || !this.panel.hasOptions()) {
-          this.performSearch();
+          
+        if(!visible || !this._panel.hasOptions()) {
+          if(this._hasChanged) {
+            this.performSearch(value);
+          }
+          else {
+            this.performSearch('');
+          }
         }
         else {
-          this.panel.selectNext();
+          this._panel.selectNext();
         }
       }
-      // Handle the 'tab' key
-      else if (oData.keyCode == 9) {
+      // Handle the 'tab', 'left', 'right' key
+      else if (oData.keyCode == 9 || oData.keyCode == 39 || oData.keyCode == 37) {
         // DO NOTHING
       }
       // Handle the 'up' arrow key
       else if (oData.keyCode === 38) {
-        var visible = this.panel.isVisible();
-        YAHOO.util.Event.preventDefault(oData);      
-      
-        if(!visible || !this.panel.hasOptions()) {
-          this.performSearch();
+        var visible = this._panel.isVisible();
+        YAHOO.util.Event.preventDefault(oData);     
+        
+        if(!visible || !this._panel.hasOptions()) {
+          if(this._hasChanged) {
+            this.performSearch(value);
+          }
+          else {
+            this.performSearch('');
+          }
         }
         else {
-          this.panel.selectPrevious();
+          this._panel.selectPrevious();
         }
       }      
       // Handle the 'esc' key
@@ -910,30 +898,26 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       }      
       // Handle the 'enter' key
       else if (oData.keyCode === 13) {
-        this.panel.selectCurrent();
+        this._panel.selectCurrent();
       }
       else if(value.length >= this.minLength) {
-        this.performSearch();
+        this._hasChanged = true;      
+        this.performSearch(value);
       }
-      
     },
-    
-    performSearch : function() {
-      MDSS.GenericSearch.setElementValue(this.getConcreteElement(), '');
-            
-      var value = this.getDisplayElement().value;
+      
+    performSearch : function(value) {
+      this.resetSelected();
+              
       var parameters = this.getParameters();
 
       for(var i = 0; i < this.listeners.length; i++) {
         this.listeners[i](value);
       }
         
-      this.dataSource.getResults(value, parameters);
-    }
-  },
+      this._dataSource.getResults(value, parameters);
+    },
     
-  Static: {
-       
     setElementValue : function(element, value) {
       if(element) {
         if(value) {
@@ -942,9 +926,78 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
         else {
            element.value = '';
         }
-      }  
+      } 
     },
+    
+    focus : function () {
+      IsAbstract : true
+    },
+    
+    getValue : function () {
+      IsAbstract : true
+    },
+    
+    setOption : function (selected) {
+      IsAbstract : true
+    },
+    
+    resetSelected : function() {
+      IsAbstract : true
+    }
+  }
+});
+
+Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
+  Extends : MDSS.AutoComplete,
+  Instance: {
+    initialize: function(displayElement, concreteElement, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler, prop) {
+      // DOM element where the search is inputed and the selected result is displayed
+      this._displayElement = Mojo.Util.isString(displayElement) ? document.getElementById(displayElement) : displayElement;
+    
+      // DOM element where the id of the selected result is stored
+      this._concreteElement = Mojo.Util.isString(concreteElement) ? document.getElementById(concreteElement) : concreteElement;       
   
+      var dataSource = new MDSS.DataSource(this, searchFunction);
+      var optionBuilder = new MDSS.OptionBuilder(listFunction, displayFunction, idFunction);      
+      var panel = new MDSS.ResultPanel(this, this._displayElement);
+
+      this.$initialize(dataSource, optionBuilder, panel, selectEventHandler, prop);
+
+      // Disable the browser autocomplete function for the element we provide an auto-complete
+      this._displayElement.setAttribute("autocomplete", "off");
+      
+      YAHOO.util.Event.on(this._displayElement, 'keypress', this.preventFormSubmit, null, this);
+      YAHOO.util.Event.on(this._displayElement, 'keyup', this.keyHandler, this, this);
+    },
+    
+    getDisplayElement : function() {
+      return this._displayElement;
+    },
+    
+    getConcreteElement : function() {
+      return this._concreteElement;
+    },
+    
+    focus : function() {
+      // refocus the input field
+      this.getDisplayElement().focus();
+    },
+    
+    getValue : function () {
+      return this._displayElement.value;
+    },
+      
+    setOption : function (selected) {
+      this.setElementValue(this.getDisplayElement(), selected.label);
+      this.setElementValue(this.getConcreteElement(), selected.id);
+    },
+    
+    resetSelected : function () {
+      this.setElementValue(this.getConcreteElement(), '');
+    }
+  },
+    
+  Static: {         
     createYearSearch : function(element) {
       element = Mojo.Util.isString(element) ? document.getElementById(element) : element;
     
@@ -997,4 +1050,89 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       YAHOO.util.Event.on(element, 'focus', search.performSearch, search, search);  
     }
   }  
+});
+
+Mojo.Meta.newClass('MDSS.MultiInputAutoComplete', { // Implements CallBack
+  Extends : MDSS.AutoComplete,
+  Instance: {
+    initialize: function(prop) {
+      this._concreteElement = Mojo.Util.isString(prop.concrete) ? document.getElementById(prop.concrete) : prop.concrete;       
+      this._elements = [];
+      this._focusElement = null;
+
+      if(Mojo.Util.isArray(prop.elements)) {  
+        for(var i = 0; i < prop.elements.length; i++) {
+          this._initializeElement(prop.elements[i]);
+        }
+      }
+      else {
+        this._initializeElement(prop.elements);
+      }
+    
+      if(this._elements.length > 0) {
+        var dataSource = new MDSS.DataSource(this, prop.search);
+        var optionBuilder = new MDSS.OptionBuilder(prop.list, prop.display, prop.id);
+        var panel = new MDSS.ResultPanel(this, this._elements[0]);
+      
+        this.$initialize(dataSource, optionBuilder, panel, prop.selectEventHandler, prop);
+      }
+    },
+    
+    _initializeElement : function(elementId) {
+      var element = Mojo.Util.isString(elementId) ? document.getElementById(elementId) : elementId;
+    
+      this._elements.push(element);      
+        
+      element.setAttribute("autocomplete", "off");
+      YAHOO.util.Event.on(element, 'keypress', this.preventFormSubmit, null, this);
+      YAHOO.util.Event.on(element, 'keyup', this.keyHandler, this, this);    
+    },
+    
+    keyHandler : function(oData) {
+      var target = oData.originalTarget;    	
+      
+      this._focusElement = target;
+      
+      this.$keyHandler(oData);
+    },
+        
+    focus : function() {
+      if(this._focusElement) {
+        // refocus the input field
+        this._focusElement.focus();
+      }
+    },
+    
+    getValue : function () {
+      var value = "";
+      
+      for(var i = 0; i < this._elements.length; i++) {
+        var element = this._elements[i];
+        
+        value += element.value + " ";
+      }
+      
+      // trim the search value before returning it
+      return value.replace(/^\s+|\s+$/g,"");
+    },
+      
+    setOption : function (selected) {
+      // IMPORTANT: IT IS EXPECTED THAT selected.label IS A MAP WHERE
+      //            MAP[ELEMENT.ID] = LABEL FOR ALL OF THE ELEMENTS
+
+      for(var i = 0; i < this._elements.length; i++) {
+        var element = this._elements[i];
+        var id = element.id;
+        var label = selected.label[id];
+      
+        this.setElementValue(element, label);
+      }
+        
+      this.setElementValue(this._concreteElement, selected.id);
+    },
+    
+    resetSelected : function () {
+      this.setElementValue(this._concreteElement, '');
+    }
+  }
 });

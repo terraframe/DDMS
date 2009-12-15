@@ -376,6 +376,12 @@ public class PersonController extends PersonControllerBase implements com.terraf
       {
         this.viewAll();
       }
+      else
+      {
+        String id = patient.getPersonId();
+        
+        resp.getWriter().print(id);
+      }
     }
     catch (ProblemExceptionDTO e)
     {

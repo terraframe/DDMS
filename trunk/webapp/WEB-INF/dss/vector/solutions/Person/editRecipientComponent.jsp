@@ -17,10 +17,10 @@
     <mjl:component item="${item}" param="patient">
       <mjl:input type="hidden" param="personId"/>
       <mjl:dt attribute="firstName">
-        <mjl:input type="text" param="firstName" />
+        <mjl:input type="text" param="firstName" id="firstName" />
       </mjl:dt>
       <mjl:dt attribute="lastName">
-        <mjl:input type="text" param="lastName" />
+        <mjl:input type="text" param="lastName" id="lastName"/>
       </mjl:dt>
       <mjl:dt attribute="dateOfBirth" >
         <mjl:input type="text" param="dateOfBirth" id="dateOfBirth" classes="DatePick NoFuture"/>

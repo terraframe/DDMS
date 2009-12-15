@@ -23,6 +23,102 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
   {
     super();
   }
+  
+  public void populateView(Person concrete)
+  {
+    this.setPersonId(concrete.getId());
+    this.setFirstName(concrete.getFirstName());
+    this.setLastName(concrete.getLastName());
+    this.setSex(concrete.getSex());
+
+    this.setDateOfBirth(concrete.getDateOfBirth());
+
+    if (concrete.getDateOfBirth() != null)
+    {
+      this.setAge(Math.max(0, new AgeConverter(concrete.getDateOfBirth()).getAge()));
+    }
+
+    if (concrete.getResidentialGeoEntity() != null)
+    {
+      this.setResidentialGeoId(concrete.getResidentialGeoEntity().getGeoId());
+    }
+
+    this.setResidentialInformation(concrete.getResidentialInformation());
+
+    if (concrete.getWorkGeoEntity() != null)
+    {
+      this.setWorkGeoId(concrete.getWorkGeoEntity().getGeoId());
+    }
+
+    this.setWorkInformation(concrete.getWorkInformation());
+
+    // Set the person's delegate attributes
+
+    MDSSUser user = concrete.getUserDelegate();
+    if (user == null)
+    {
+      this.setIsMDSSUser(false);
+    }
+    else
+    {
+      this.setIsMDSSUser(true);
+      this.setUsername(user.getUsername());
+    }
+
+    Patient patient = concrete.getPatientDelegate();
+    if (patient == null)
+    {
+      this.setIsPatient(false);
+    }
+    else
+    {
+      this.setIsPatient(true);
+    }
+
+    ITNRecipient itnRecipient = concrete.getItnRecipientDelegate();
+    if (itnRecipient == null)
+    {
+      this.setIsITNRecipient(false);
+    }
+    else
+    {
+      this.setIsITNRecipient(true);
+    }
+
+    IPTRecipient iptRecipient = concrete.getIptRecipientDelegate();
+    if (iptRecipient == null)
+    {
+      this.setIsIPTRecipient(false);
+    }
+    else
+    {
+      this.setIsIPTRecipient(true);
+    }
+
+    SprayOperator sprayOperator = concrete.getSprayOperatorDelegate();
+    if (sprayOperator == null)
+    {
+      this.setIsSprayOperator(false);
+    }
+    else
+    {
+      this.setIsSprayOperator(true);
+      this.setOperatorId(sprayOperator.getOperatorId());
+    }
+
+    SprayLeader sprayLeader = concrete.getSprayLeaderDelegate();
+    if (sprayLeader == null)
+    {
+      this.setIsSprayLeader(false);
+    }
+    else
+    {
+      this.setIsSprayLeader(true);
+      this.setLeaderId(sprayLeader.getLeaderId());
+    }
+
+    this.setIsStockStaff(concrete.getStockStaffDelegate() != null);
+  }
 
   @Override
   public void validateOperatorId()
@@ -223,7 +319,9 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
   @Override
   public void applyNonDelegates()
   {
-    this.applyPerson();
+    Person concrete = this.applyPerson();
+    
+    this.populateView(concrete);
   }
   
 

@@ -36,13 +36,16 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
         <mjl:input type="text" param="batchNumber" />
       </mjl:dt>
       <mjl:dt attribute="person">
-        <mjl:input type="text" param="personDisplay" id="personDisplay" />
+        <mjl:input type="text" param="firstName.search" id="firstName.search" value="${person != null ? person.firstName : ''}" />
+        <mjl:input type="text" param="lastName.search" id="lastName.search" value="${person != null ? person.lastName : ''}" />
+
         <mjl:input type="hidden" param="person" id="person"/>
+
         <span class="clickable" id="person.span">
-          <span id="createperson">
+          <span id="createPerson">
             <fmt:message key="Create_new_recipient"/>        
           </span>
-          <span id="editperson" >
+          <span id="editPerson" >
             <fmt:message key="Edit_recipient"/>        
           </span>
         </span>
@@ -57,12 +60,20 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
 
 <script type="text/javascript" >
 (function(){
-    YAHOO.util.Event.onDOMReady(function(){
-      
-    MDSS.PersonModal.setUpPersonModal(
-          { searchEl : 'personDisplay', idEl : 'person'},
-          { createLink : 'createperson', editLink : 'editperson', modalEl : 'person.span', calendarEl : 'dateOfBirth'},
-          { button : 'button.id'} );
+  YAHOO.util.Event.onDOMReady(function(){
+    var prop = {
+      elements : ['firstName.search', 'lastName.search'],
+      concrete : 'person',
+      createLink : 'createPerson',
+      editLink : 'editPerson', 
+      clickable : 'person.span', 
+      calendar : 'dateOfBirth', 
+      firstName: 'firstName', 
+      lastName: 'lastName',
+      button : 'button.id'
+    };
+  
+    MDSS.PersonModal.setUpPersonModal(prop);
   });
 })();
 </script>

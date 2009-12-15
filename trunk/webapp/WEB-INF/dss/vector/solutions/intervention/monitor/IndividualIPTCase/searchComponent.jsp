@@ -18,34 +18,37 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%=HealthFacilityDTO.CLASS%>*');
 </script>
 
 <mjl:messages>
-	<mjl:message />
+<mjl:message />
 </mjl:messages>
 <dl>
-	<mjl:form id="form.id" name="IndividualIPT.form.name" method="GET">
-	  <dt>
-	    <label> ${item.serviceDateMd.displayLabel} </label>
-	  </dt>
-	  <dd>
-	    <mjl:input type="text" param="serviceDate" classes="DatePick" id="serviceDate"/>
-	  </dd>
-	  <dt>
-	    <label> ${item.patientMd.displayLabel} </label>
-	  </dt>
-	  <dd>
-        <mjl:input type="text" param="patientDisplay" id="patientDisplay" />
-        <mjl:input type="hidden" param="patientId" id="patient"/>
-        <span class="clickable" id="recipient.span">
-          <span id="createPatient">
-            <fmt:message key="Create_new_Patient"/>        
-          </span>
-          <span id="editPatient" >
-            <fmt:message key="Edit_Patient"/>        
-          </span>
-        </span>
-	  </dd>
+<mjl:form id="form.id" name="IndividualIPT.form.name" method="GET">
+  <dt>
+    <label> ${item.serviceDateMd.displayLabel} </label>
+  </dt>
+  <dd>
+    <mjl:input type="text" param="serviceDate" classes="DatePick" id="serviceDate"/>
+  </dd>
+  <dt>
+    <label> ${item.patientMd.displayLabel} </label>
+  </dt>
+  <dd>
+    <mjl:input type="text" param="firstName.search" id="firstName.search" value="${person != null ? person.firstName : ''}" />
+    <mjl:input type="text" param="lastName.search" id="lastName.search" value="${person != null ? person.lastName : ''}" />
+    
+    <mjl:input type="hidden" param="patientId" id="patient"/>
+        
+    <span class="clickable" id="recipient.span">
+      <span id="createPatient">
+        <fmt:message key="Create_new_Patient"/>        
+      </span>
+      <span id="editPatient" >
+        <fmt:message key="Edit_Patient"/>        
+      </span>
+    </span>
+  </dd>
 
-		<mjl:command name="searchPatient.button" value="Search"	action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.viewCasePage.mojo" id="button.id" />
-	</mjl:form>
+<mjl:command name="searchPatient.button" value="Search"action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.viewCasePage.mojo" id="button.id" />
+</mjl:form>
 </dl>
 
 <jsp:include page="/WEB-INF/excelButtons.jsp">
@@ -56,12 +59,20 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%=HealthFacilityDTO.CLASS%>*');
 
 <script type="text/javascript" >
 (function(){
-	  YAHOO.util.Event.onDOMReady(function(){
-		  
-    MDSS.PersonModal.setUpPersonModal(
-    	    { searchEl : 'patientDisplay', idEl : 'patient'},
-    	    { createLink : 'createPatient', editLink : 'editPatient', modalEl : 'recipient.span', calendarEl : 'dateOfBirth'},
-    	    { button : 'button.id'} );
+  YAHOO.util.Event.onDOMReady(function(){
+    var prop = {
+      elements : ['firstName.search', 'lastName.search'],
+      concrete : 'patient',
+      createLink : 'createPatient',
+      editLink : 'editPatient', 
+      clickable : 'recipient.span', 
+      calendar : 'dateOfBirth', 
+      firstName: 'firstName', 
+      lastName: 'lastName',
+      button : 'button.id'
+    };
+  
+    MDSS.PersonModal.setUpPersonModal(prop);
   });
 })();
 </script>
