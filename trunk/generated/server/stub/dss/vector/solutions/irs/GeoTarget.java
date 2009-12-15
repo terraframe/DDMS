@@ -5,6 +5,7 @@ import java.util.List;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
@@ -110,7 +111,7 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
    * @param date
    *          Date
    * 
-   * @return A calulated value for outbreak
+   * @return A calulated value for geoTarget
    */
   public static Integer getCalculatedValue(String geoid, String malariaSeasonId, String attribute)
   {
@@ -127,24 +128,25 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
     sql += " recursive_rollup AS ( \n";
     sql += " SELECT child_id, parent_id ,\n";
     // this is the table with the sumable value
-    sql += " (SELECT " + attribute + " FROM geotarget \n";
-    sql += "    WHERE geotarget.season = '" + malariaSeasonId + "'\n";
-    sql += "    AND geotarget.geoentity = locatedin.child_id\n";
-    sql += "  ) as sumvalue\n";
-    sql += "  FROM locatedin\n";
+    sql += " " + attribute + " as sumvalue\n";
+    sql += "  FROM locatedin LEFT JOIN geotarget ON geotarget.geoentity = locatedin.child_id\n";
+    sql += "  WHERE geotarget.season = '" + malariaSeasonId + "'\n";
     // the root geoentity
-    sql += " WHERE parent_id = '" + geoid + "'\n";
-    //this is the recursive case
+    sql += " AND parent_id = '" + geoid + "'\n";
+    // filter to just those branches that lead somewhere
+    // sql +=
+    // " AND child_id IN (SELECT childgeoentity FROM allpaths0 join geotarget ON geoentity = childgeoentity";
+    // sql += " WHERE parentgeoentity = '" + geoid +
+    // "' AND geotarget.season = '" + malariaSeasonId + "')";
+    // this is the recursive case
     sql += " UNION\n";
     sql += " SELECT b.child_id, b.parent_id, \n";
-    sql += " (SELECT " + attribute + " FROM geotarget \n";
-    sql += "    WHERE geotarget.season = '" + malariaSeasonId + "'\n";
-    sql += "    AND geotarget.geoentity = b.child_id\n";
-    sql += "  ) as sumvalue\n";
-    sql += " FROM recursive_rollup a, locatedin b \n";
+    sql += " COALESCE(sumvalue," + attribute + ") as sumvalue\n";
+    sql += " FROM recursive_rollup a, locatedin b LEFT JOIN geotarget ON geotarget.geoentity = b.child_id\n";
     sql += " WHERE a.child_id = b.parent_id\n";
+    sql += " AND geotarget.season = '" + malariaSeasonId + "'\n";
     // --this will stop the recursion as soon as sumvalue is not null\n";
-    sql += " AND a.sumvalue IS NULL\n";
+    // sql += " AND a.sumvalue IS NULL\n";
     sql += " )\n";
     sql += " select sum(sumvalue) as summed_value from recursive_rollup \n";
     sql += " )\n";
@@ -175,10 +177,63 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
   {
 
     Integer[] results = new Integer[53];
+    SelectableInteger[] selectables = new SelectableInteger[53];
 
-    for (int i = 0; i < 53; i++)
+    QueryFactory queryFactory = new QueryFactory();
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    String geoTarget = MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName();
+
+    String baseValue = "";
+
+    String recursiveValue = "";
+
+    String sums = "";
+
+    for (int i = 0; i < selectables.length; i++)
     {
-      results[i] = getCalculatedValue(geoid, malariaSeasonId, "target_" + i);
+      baseValue += ", gt.target_" + i + "\n";
+      recursiveValue += ", COALESCE(a.target_" + i + " * 0, gt.target_" + i + ")\n";
+      sums += ",SUM(target_" + i + ") AS target_" + i;
+      selectables[i] = valueQuery.aSQLInteger("target_" + i, "target_" + i);
+
+    }
+
+    sums = sums.substring(1);
+
+    valueQuery.SELECT(selectables);
+
+    String sql = "(WITH RECURSIVE \n";
+    sql += " recursive_rollup AS ( \n";
+    sql += " SELECT child_id, parent_id \n";
+    sql += baseValue;
+    sql += "  FROM locatedin LEFT JOIN " + geoTarget + " gt ON gt.geoentity = locatedin.child_id\n";
+    sql += "  WHERE gt.season = '" + malariaSeasonId + "'\n";
+    sql += " AND parent_id = '" + geoid + "'\n";
+    // this is the recursive case
+    sql += " UNION\n";
+    sql += " SELECT b.child_id, b.parent_id \n";
+    sql += recursiveValue;
+    sql += " FROM recursive_rollup a, locatedin b LEFT JOIN " + geoTarget + " gt ON gt.geoentity = b.child_id\n";
+    sql += " WHERE a.child_id = b.parent_id\n";
+    sql += " AND gt.season = '" + malariaSeasonId + "'\n";
+    sql += " )\n";
+    sql += " select " + sums + " from recursive_rollup \n";
+    sql += " )\n";
+
+   // System.out.println(sql);
+
+    valueQuery.FROM(sql, "rr");
+
+    ValueObject valueObject = valueQuery.getIterator().next();
+
+    for (int i = 0; i < selectables.length; i++)
+    {
+      String value = valueObject.getValue("target_" + i);
+      if (!value.equals(""))
+      {
+        results[i] = Integer.parseInt(value);
+      }
     }
 
     return results;

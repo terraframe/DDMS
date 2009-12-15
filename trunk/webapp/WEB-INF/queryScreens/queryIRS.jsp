@@ -10,6 +10,7 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.query.QueryController"%>
+<%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
@@ -28,10 +29,6 @@
 <%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
-<%@page import="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO"%>
-<%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayDTO"%>
-<%@page import="dss.vector.solutions.entomology.assay.KnockDownAssayDTO"%>
 <%@page import="dss.vector.solutions.general.InsecticideDTO"%>
 <%@page import="com.terraframe.mojo.business.BusinessDTO"%>
 <%@page import="dss.vector.solutions.irs.ActorSprayStatusDTO"%>
@@ -74,7 +71,7 @@
     //OperatorSprayStatusViewDTO.CLASS,OperatorSprayViewDTO.CLASS,
     //HouseholdSprayStatusViewDTO.CLASS,
     };
-    String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
+    String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
 
     List<String> loadables = new ArrayList<String>();
@@ -125,7 +122,7 @@ YAHOO.util.Event.onDOMReady(function(){
         row.attributeName = attrib.attributeName;
         if(attrib.dtoType.contains('AttributeReferenceDTO'))
         {
-          row.attributeName += '.name';
+          //row.attributeName += '.name';
         }
         if(attrib.dtoType.contains('AttributeEnumerationDTO'))
         {
@@ -143,7 +140,6 @@ YAHOO.util.Event.onDOMReady(function(){
         row.type = 'sqlcharacter';
         row.displayLabel = attribName;
         row.key = attribName;
-
       }
       return row;
     }
@@ -157,7 +153,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var insectcideAttribs = ["brandName","activeIngredient","amount","weight","sachetsPerRefill"];
     var actorSprayAtribs = ["refills","received","used","returned"];
 
-    var Insecticide_Details = insectcideAttribs.map(mapAttribs, {obj:insectcide, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.InsecticideBrand'});
+    var Insecticide_Details = insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.InsecticideBrand'});
     Insecticide_Details = Insecticide_Details.concat([
 
                                                       {
@@ -192,7 +188,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                                        }
                                                     ]);
 
-     Insecticide_Details = Insecticide_Details.concat(actorSprayAtribs.map(mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.ActorSpray'}));
+     Insecticide_Details = Insecticide_Details.concat(actorSprayAtribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.ActorSpray'}));
 
     var Spray_Details = ([
                           {
@@ -209,12 +205,12 @@ YAHOO.util.Event.onDOMReady(function(){
     var sprayDataAttribs = ["sprayDate", "sprayMethod", "surfaceType"];
     var sprayStatusAttribs = ["households","structures","rooms","sprayedHouseholds","sprayedStructures","sprayedRooms","locked","refused","other"];
 
-    Spray_Details = Spray_Details.concat(sprayDataAttribs.map(mapAttribs, {obj:sprayData, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayData'}));
-    Spray_Details = Spray_Details.concat(sprayStatusAttribs.map(mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayStatus'}));
+    Spray_Details = Spray_Details.concat(sprayDataAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:sprayData, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayData'}));
+    Spray_Details = Spray_Details.concat(sprayStatusAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayStatus'}));
 
 
     var netAttribs = ["people","roomsWithBedNets","bedNets","prevSprayedHouseholds","prevSprayedStructures"];
-    var HouseHold_Structure_Detail = netAttribs.map(mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayStatus'});
+    var HouseHold_Structure_Detail = netAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayStatus'});
 
 
      var Planed_Targets = [
@@ -454,5 +450,6 @@ YAHOO.util.Event.onDOMReady(function(){
 </script>
 
 <jsp:include page="queryContainer.jsp"></jsp:include>
+<textarea id="debug_xml" cols="40" rows="40" style="width:1280px"> </textarea>
 
 <jsp:include page="../templates/footer.jsp"></jsp:include>

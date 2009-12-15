@@ -78,61 +78,6 @@ YAHOO.util.Event.onDOMReady(function(){
 
     }, null, this);
 
-    var mapAttribs = function(attribName,index){
-      var attrib = this.obj.attributeMap[attribName];
-      var row = {};
-      if(attrib){
-        row.attributeName = attrib.attributeName;
-        if(attrib.dtoType.contains('AttributeReferenceDTO'))
-        {
-          if(attrib.getAttributeMdDTO().getReferencedMdBusiness().contains('GeoEntity'))
-          {
-            row.attributeName = attribName; //;+ '_displayLabel';
-            row.type = 'sqlcharacter';
-            row.displayLabel = attrib.attributeMdDTO.displayLabel;
-            row.key = attribName;
-            row.dtoType = "AttributeCharacterDTO";
-          }
-        }
-        if(attrib.dtoType.contains('AttributeEnumerationDTO'))
-        {
-          row.attributeName += '.displayLabel.currentValue';
-        }
-       
-        row.key = attrib.attributeName + this.suffix;
-        row.type = this.obj.getType();
-        row.dtoType = attrib.dtoType;
-        row.displayLabel = attrib.attributeMdDTO.displayLabel;
-        var uppFirst = attrib.attributeName.slice(0,1).toUpperCase() + attrib.attributeName.slice(1);
-        if(this.dropDownMaps[uppFirst]){
-          row.dropDownMap = this.dropDownMaps[uppFirst];
-        }
-      }else{
-        row.attributeName = attribName;
-        row.type = 'sqlinteger';
-        row.displayLabel = attribName;
-        row.key = attribName;
-        row.dtoType = "AttributeIntegerDTO";
-
-      }
-      return row;
-    };
-
-
-    var mapMo = function(term,index){
-    	var row = {};
-        //row.attributeName = this.relAttribute;
-        //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
-        //row.type = this.relType;
-        row.dtoType = "AttributeIntegerDTO";
-        row.displayLabel = term.displayLabel;
-        
-        row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
-        row.type = 'sqlinteger';
-        row.attributeName = 'term' + term.MOID.replace(':','');
-        
-      return row;
-    };
 
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
@@ -147,13 +92,13 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var stockEventAttribs = ['cost','eventDate','otherParty','quantity','stockDepot','transactionType'];
     
-    var stockEventColumns =   stockEventAttribs.map(mapAttribs, {obj:stockEvent, suffix:'_stockEvent', dropDownMaps:stockMaps});
+    var stockEventColumns =   stockEventAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stockEvent, suffix:'_stockEvent', dropDownMaps:stockMaps});
 
     var stockItem = new Mojo.$.dss.vector.solutions.stock.StockItem();
 
     var stockItemAttribs = ['itemId','itemName','quantity','unit'];
     
-    var stockItemColumns =   stockItemAttribs.map(mapAttribs, {obj:stockItem, suffix:'_stockItem', dropDownMaps:stockMaps});
+    var stockItemColumns =   stockItemAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stockItem, suffix:'_stockItem', dropDownMaps:stockMaps});
 
     stockItemColumns = stockItemColumns.concat([
 
@@ -171,9 +116,9 @@ YAHOO.util.Event.onDOMReady(function(){
     var personColumns =  personAttribs.map(mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
 
     var selectableGroups = [
-              {title:"StockItems", values:stockItemColumns, group:"s", klass:stockEvent.CLASS},
+              {title:"StockItems", values:stockItemColumns, group:"s", klass:stockItem.CLASS},
               {title:"StockEvents", values:stockEventColumns, group:"s", klass:stockEvent.CLASS},
-              {title:"Staff", values:personColumns, group:"s", klass:stockEvent.CLASS}
+              {title:"Staff", values:personColumns, group:"s", klass:person.CLASS}
     ];
 
     var query = new MDSS.QueryStock(selectableGroups, queryList);

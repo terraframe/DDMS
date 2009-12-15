@@ -1,7 +1,7 @@
 Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
   Extends: MDSS.QueryBase,
-  
+
   Instance : {
   
     initialize : function(selectableGroups, queryList)
@@ -187,7 +187,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
       var addedEntities = [this._mainQueryClass];
   
-      addedEntities.concat(this._commonQueryClasses);
+      addedEntities = addedEntities.concat(this._commonQueryClasses);
 
       var conditions = [];
 
@@ -234,7 +234,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
           if(items)
           {
-          if(selectable.attribute.getDtoType().contains('AttributeEnumeration'))
+          if(selectable.attribute.getDtoType() && selectable.attribute.getDtoType().contains('AttributeEnumeration'))
           {
             var enumIds = items.filter(
                 function(a){return a.checked;}).map(
@@ -403,6 +403,12 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     	}else
       if(attribute.getType() == 'sqlfloat'){
         var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlfloat('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
+        selectable.attribute = attribute;
+        var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+         column.attribute = attribute;
+      }else
+      if(attribute.getType() == 'sqldouble'){
+        var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
         selectable.attribute = attribute;
         var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
          column.attribute = attribute;
@@ -889,13 +895,12 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           this._menus[li.id] = items;
         }
         else //Mo terms
-          if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeReferenceDTO'))
-          {
-          	attribute.setTerm(true);
-          	li.id = attribute.getKey()+'_li';
-          	var n =  attribute.getAttributeName().replace(/.name/,'');
-            this._attachBrowser(li.id, this._genericBrowserHandler, attribute, visibleObj.type + "View", n, true);
-          }
+        if(attribute.getTerm())
+        {
+        	li.id = attribute.getKey()+'_li';
+        	var n =  attribute.getAttributeName().replace(/.name/,'');
+          this._attachBrowser(li.id, this._genericBrowserHandler, attribute, visibleObj.type + "View", n, true);
+        }
 
         visibleUl.appendChild(li);
       }
@@ -1362,6 +1367,77 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         this._queryPanel.addWhereCriteria(attribute.getKey(), value, value);
       }
      
-    },
-  }
+    }
+  },
+  Static : {
+      mapAttribs : function(attribName,index){
+       var attrib = this.obj.attributeMap[attribName];
+       var row = {};
+       if(attrib){
+         row.attributeName = attrib.attributeName;
+         if(attrib.dtoType.contains('AttributeReferenceDTO'))
+         {
+           if(attrib.getAttributeMdDTO().getReferencedMdBusiness().contains('Term'))
+           {
+             row.isTerm = true;
+           }
+           
+           if(attrib.getAttributeMdDTO().getReferencedMdBusiness().contains('dss.vector.solutions.geo.generated'))
+           {
+             row.attributeName = attribName + '_displayLabel';
+             row.type = 'sqlcharacter';
+             row.displayLabel = attrib.attributeMdDTO.displayLabel;
+             row.key = attribName;
+             row.dtoType = "AttributeCharacterDTO";
+             row.isGeoEntity = true;
+             return row;
+           }
+
+         }
+         if(attrib.dtoType.contains('AttributeEnumerationDTO'))
+         {
+           row.attributeName += '.displayLabel.currentValue';
+         }
+        
+         row.key = attrib.attributeName + this.suffix;
+         //sometimes we need to override the type, like if we want labels from the view but data from the concrete
+         if(this.type)
+         {
+        	 row.type = this.type;
+         }else
+         {
+        	 row.type = this.obj.getType();
+         }
+         row.dtoType = attrib.dtoType;
+         row.displayLabel = attrib.attributeMdDTO.displayLabel;
+         var uppFirst = attrib.attributeName.slice(0,1).toUpperCase() + attrib.attributeName.slice(1);
+         if(this.dropDownMaps[uppFirst]){
+           row.dropDownMap = this.dropDownMaps[uppFirst];
+         }
+       }else{
+         row.attributeName = attribName;
+         row.type = 'sqlinteger';
+         row.displayLabel = attribName;
+         row.key = attribName;
+         row.dtoType = "AttributeIntegerDTO";
+
+       }
+       return row;
+     },
+     mapMo : function(term,index){
+     	 var row = {};
+         //row.attributeName = this.relAttribute;
+         //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
+         //row.type = this.relType;
+         row.dtoType = "AttributeIntegerDTO";
+         row.displayLabel = term.displayLabel;
+         
+         row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
+         row.type = 'sqlinteger';
+         row.attributeName = 'term' + term.MOID.replace(':','');
+         
+        return row;
+      }
+
+   }
 });

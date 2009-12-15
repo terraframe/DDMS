@@ -1,10 +1,22 @@
 package dss.vector.solutions.irs;
 
 import java.util.List;
+import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.database.Database;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.InnerJoinEq;
+import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdBusiness;
+
+import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.util.QueryUtil;
 
 public class SprayStatus extends SprayStatusBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -333,6 +345,8 @@ public class SprayStatus extends SprayStatusBase implements com.terraframe.mojo.
     select += "((CAST(refills AS float) * (spraystatus.sprayedrooms / room_total)) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / NULLIF(spraystatus.sprayedrooms      * areastandards.room, 0) AS room_application_ratio,\n";
     select += "((CAST(refills AS float) * (spraystatus.sprayedstructures/structure_total)) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / NULLIF(spraystatus.sprayedstructures * areastandards.structurearea, 0) AS structure_application_ratio,\n";
     select += "((CAST(refills AS float) * (spraystatus.sprayedhouseholds/ household_total)) * areastandards.unitnozzleareacoverage * active_ingredient_per_can_view.nozzle_ratio) / NULLIF(spraystatus.sprayedhouseholds * areastandards.household, 0) AS household_application_ratio,\n";
+    
+    
 
     // --operational coverage is:\n";
     // --(Total units sprayed / Total units available) *100 (to calculate
@@ -372,6 +386,92 @@ public class SprayStatus extends SprayStatusBase implements com.terraframe.mojo.
     where = "WHERE " + where.substring(3, where.length() - 2);
 
     return select + "\n" + from + "\n" + where;
+  }
+  
+  /**
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
+   * 
+   * @param xml
+   * @return
+   */
+  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
+  {
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+    
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, SprayData.CLASS, SprayData.GEOENTITY);
+
+    SprayStatusQuery sprayStatusQuery = (SprayStatusQuery) queryMap.get(SprayStatus.CLASS);
+
+    AbstractSprayQuery abstractSprayQuery = (AbstractSprayQuery) queryMap.get(AbstractSpray.CLASS);
+    
+    SprayDataQuery sprayDataQuery = (SprayDataQuery) queryMap.get(SprayData.CLASS);
+    
+    InsecticideBrandQuery insecticideQuery = (InsecticideBrandQuery) queryMap.get(InsecticideBrand.CLASS);
+
+    ActorSprayQuery actorSprayQuery = (ActorSprayQuery) queryMap.get(ActorSpray.CLASS);
+    
+    
+    if (abstractSprayQuery != null)
+    {
+      valueQuery.WHERE(sprayStatusQuery.getSpray().EQ(abstractSprayQuery));
+
+      if (sprayDataQuery != null)
+      {
+        valueQuery.WHERE(abstractSprayQuery.getSprayData().EQ(sprayDataQuery));
+        QueryUtil.joinTermAllpaths(valueQuery,SprayData.CLASS,sprayDataQuery); 
+        
+        if (insecticideQuery != null)
+        {
+          valueQuery.WHERE(sprayDataQuery.getBrand().EQ(insecticideQuery));
+          QueryUtil.joinTermAllpaths(valueQuery,InsecticideBrand.CLASS,insecticideQuery); 
+        }
+        
+      }
+ 
+      if (actorSprayQuery != null)
+      {
+        valueQuery.WHERE(abstractSprayQuery.getId().EQ(actorSprayQuery.getId()));
+      }
+      
+    }
+
+
+    String viewName = Layer.GEO_VIEW_PREFIX + System.currentTimeMillis();
+    ResourceTarget.createDatabaseView(viewName);
+    
+
+    String coverageCalculationsView = "spray_data_view";
+    String sprayCaluclationsSQL = "(" + SprayStatus.getTempTableSQL() + ")";
+    valueQuery.FROM(sprayCaluclationsSQL, coverageCalculationsView);
+    valueQuery.WHERE(new InnerJoinEq("id", sprayStatusQuery.getMdClassIF().getTableName(), sprayStatusQuery.getTableAlias(), "id", sprayCaluclationsSQL, coverageCalculationsView));
+
+    String unionView = "all_levels_spray_view";
+    String unionSQL = "(" + AbstractSpray.getSubquerySql(viewName) + ")";
+    valueQuery.FROM(unionSQL, unionView);
+    valueQuery.WHERE(new InnerJoinEq("id", sprayStatusQuery.getMdClassIF().getTableName(), sprayStatusQuery.getTableAlias(), "id", unionSQL, unionView));
+    
+    
+    QueryUtil.setTermRestrictions(valueQuery, queryMap );    
+    
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    
+    valueQuery = QueryUtil.setQueryDates(xml, valueQuery, SprayData.SPRAYDATE);
+    valueQuery = QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
+    return valueQuery;
   }
 
 }

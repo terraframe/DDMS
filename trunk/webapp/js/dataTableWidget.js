@@ -494,14 +494,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
             sum += x;
           }
         });
-        
-        //redo calculation is done if manualy entered number is deleted
-        //if (index == lastIndex  && oArgs.newData == '' && cellValue) {
-     //     dt.updateCell(lastRecord, editor.getColumn(), sum);
-     //     YAHOO.util.Dom.addClass(this.myDataTable.getTdLinerEl(lastTd), "calculated");
-     //   }
-
-        
+                
         
         if (parseInt(lastRecord.getData(editor.getColumn().key),10) != sum) {
           YAHOO.util.Dom.addClass(lastTd, "dataTableSumError");

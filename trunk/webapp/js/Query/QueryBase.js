@@ -1361,6 +1361,10 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
       this._whereValues = [];
       this._isAggregate = obj.isAggregate || false;
       this._isTerm = false;
+      
+      if(obj.isTerm){
+      	this._isTerm = obj.isTerm;
+      }
   
       if(obj.key)
       {
@@ -1375,6 +1379,11 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
     setTerm : function(isTerm)
     {
       this._isTerm = isTerm;
+    },
+    
+    getTerm : function()
+    {
+      return this._isTerm;
     },
     
     _genKey : function()

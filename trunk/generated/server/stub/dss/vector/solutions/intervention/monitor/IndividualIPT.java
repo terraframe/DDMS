@@ -18,6 +18,7 @@ import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.Person;
 import dss.vector.solutions.util.QueryUtil;
 
 public class IndividualIPT extends IndividualIPTBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -152,9 +153,20 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
     IndividualIPTCaseQuery individualIPTCaseQuery = (IndividualIPTCaseQuery) queryMap.get(IndividualIPTCase.CLASS);
     dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
 
-    valueQuery.WHERE(individualIPTQuery.getIptCase().EQ(individualIPTCaseQuery.getId()));
-
-    valueQuery.WHERE(personQuery.getIptRecipientDelegate().EQ(individualIPTCaseQuery.getPatient()));
+    if(individualIPTCaseQuery != null)
+    {
+      valueQuery.WHERE(individualIPTQuery.getIptCase().EQ(individualIPTCaseQuery.getId()));
+      
+      if (personQuery != null)
+      {
+        valueQuery.WHERE(personQuery.getIptRecipientDelegate().EQ(individualIPTCaseQuery.getPatient()));
+        QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery);
+        
+        QueryUtil.joinGeoDisplayLabels(valueQuery,Person.CLASS,personQuery); 
+      }
+      
+    }
+    
 
     try
     {
@@ -169,7 +181,7 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
       // Person.DOB not included in query.
     }
 
-    QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery);
+    QueryUtil.joinGeoDisplayLabels(valueQuery,IndividualIPT.CLASS,individualIPTQuery);
     
     QueryUtil.joinTermAllpaths(valueQuery,IndividualIPT.CLASS,individualIPTQuery);  
 
