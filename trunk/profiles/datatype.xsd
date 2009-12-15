@@ -871,12 +871,6 @@
   -->
   <xs:attributeGroup name="attributeReference">
     <xs:attributeGroup ref="attribute" />
-    <!--
-      defaultValueKey: The value of the attribute if no other value is
-      specified
-    -->
-    <xs:attribute name="defaultValueKey" type="xs:string" />
-
     <!--The fully qualified path of Object being referenced-->
     <xs:attribute name="type" type="xs:string" />
   </xs:attributeGroup>
