@@ -162,14 +162,15 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
       prop.button = (Mojo.Util.isString(prop.button) ? document.getElementById(prop.button) : prop.button);
  
       var listFunction = function(valueObject) {
-        var firstName = Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME;
-        var lastName = Mojo.$.dss.vector.solutions.PersonView.LASTNAME;
-        var dateOfBirth = Mojo.$.dss.vector.solutions.PersonView.DATEOFBIRTH;
-        var sex = Mojo.$.dss.vector.solutions.PersonView.SEX;
+        var firstName = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME);
+        var lastName = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.LASTNAME);
+        var dateOfBirth = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.DATEOFBIRTH);
+        var sex = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.SEX);
+        var residential = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.RESIDENTIALGEOID);
 
-        var formattedDateOfBirth = MDSS.Calendar.getLocalizedString(valueObject.getValue(dateOfBirth));
+        var formattedDateOfBirth = MDSS.Calendar.getLocalizedString(dateOfBirth);
 
-       return valueObject.getValue(firstName) + ' ' + valueObject.getValue(lastName) + ' (' + valueObject.getValue(sex) + '), DOB: ' + formattedDateOfBirth;
+       return  firstName + ' ' + lastName  + ' (' + sex + '), DOB: ' + formattedDateOfBirth + ', ' + residential;
      };
 
      var idFunction = function(valueObject) {

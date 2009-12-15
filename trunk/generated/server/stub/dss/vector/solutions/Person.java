@@ -11,6 +11,8 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.ValueQuery;
 
+import dss.vector.solutions.util.QueryUtil;
+
 public class Person extends PersonBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240792902476L;
@@ -306,11 +308,22 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     PersonQuery personQuery = new PersonQuery(f);
     ValueQuery valueQuery = new ValueQuery(f);
 
-    Selectable[] selectables = new Selectable[] { personQuery.getId(Person.ID), personQuery.getFirstName(Person.FIRSTNAME), personQuery.getLastName(Person.LASTNAME), personQuery.getDateOfBirth(Person.DATEOFBIRTH), personQuery.getResidentialGeoEntity(Person.RESIDENTIALGEOENTITY),
-        personQuery.getSex().getName(Person.SEX) };
+    String residentialLabel = Person.RESIDENTIALGEOENTITY + QueryUtil.DISPLAY_LABEL_SUFFIX;
+    
+    Selectable[] selectables = new Selectable[] {
+        personQuery.getId(PersonView.ID),
+        personQuery.getFirstName(PersonView.FIRSTNAME),
+        personQuery.getLastName(PersonView.LASTNAME),
+        personQuery.getDateOfBirth(PersonView.DATEOFBIRTH),
+        personQuery.getSex().getName(PersonView.SEX),
+        valueQuery.aSQLCharacter(PersonView.RESIDENTIALGEOID, residentialLabel),
+    };
 
     valueQuery.SELECT(selectables);
 
+    
+    QueryUtil.joinGeoDisplayLabels(valueQuery, Person.CLASS, personQuery);
+    
     String statement = "%" + value + "%";
 
     // Search conditions
@@ -331,6 +344,8 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
 
     valueQuery.restrictRows(20, 1);
 
+    System.out.println(valueQuery.getSQL());
+    
     return valueQuery;
   }
 

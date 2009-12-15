@@ -588,7 +588,7 @@ Mojo.Meta.newClass('MDSS.ResultPanel', {
       YAHOO.util.Dom.insertAfter(resultsDiv,element);
 
       this.panel = new YAHOO.widget.Panel(resultsDiv, {
-        width:'400px',
+//        width:'400px',
         zindex:15,
         draggable: false,
         close: false,
@@ -669,6 +669,9 @@ Mojo.Meta.newClass('MDSS.ResultPanel', {
         this.panel.render();
         this.show();
         this.panel.bringToTop();
+      }
+      else {
+        this.hide();
       }
     },
     
