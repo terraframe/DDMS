@@ -26,6 +26,7 @@ import com.terraframe.mojo.constants.ServerConstants;
 import com.terraframe.mojo.constants.ServerProperties;
 import com.terraframe.mojo.dataaccess.InvalidIdException;
 import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
+import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.MdClassDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
@@ -49,12 +50,11 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.session.SessionIF;
-import com.terraframe.mojo.system.metadata.MdAttribute;
-import com.terraframe.mojo.system.metadata.MdAttributeReference;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 import com.terraframe.mojo.system.metadata.MdClass;
@@ -84,7 +84,6 @@ import dss.vector.solutions.geo.NoCompatibleTypesException;
 import dss.vector.solutions.geo.SearchParameter;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
-import dss.vector.solutions.ontology.TermRelationshipQuery;
 import dss.vector.solutions.util.GeoEntityImporter;
 import dss.vector.solutions.util.GeometryHelper;
 import dss.vector.solutions.util.MDSSProperties;
@@ -295,18 +294,19 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     valueQuery.SELECT(selectables);
 
-    String searchable = name + "%";
+    String searchable = name.replace(" ", "% ") + "%";
 
     Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
 
     valueQuery.WHERE(or);
     valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
     valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
+    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(GeoEntity.ENTITYNAME));
 
     valueQuery.restrictRows(20, 1);
 
-    String sql = valueQuery.getSQL();
-    System.out.println(sql);
+//    String sql = valueQuery.getSQL();
+//    System.out.println(sql);
 
     return valueQuery;
   }
@@ -1867,19 +1867,23 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
    */
   public static String[] getGeoAttributes(String className)
   {
-    MdBusiness md = MdBusiness.getMdBusiness(className);
+    MdBusinessDAOIF md = MdBusinessDAO.getMdBusinessDAO(className);
+    
     List<String> list = new LinkedList<String>();
 
-    for(MdAttribute mdAttr : md.getAllAttribute())
+    for(MdAttributeConcreteDAOIF mdAttr : md.definesAttributes())
     {
-      if(mdAttr instanceof MdAttributeReference)
+      if(mdAttr instanceof MdAttributeReferenceDAOIF)
       {
-        String clazz =((MdAttributeReference)mdAttr).getMdBusiness().definesType();
+        MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) mdAttr;
+        
+        String reference = mdAttributeReference.javaType(false);
+        
         try
         {
-          if (GeoEntity.class.isAssignableFrom(Class.forName(clazz)))
+          if (GeoEntity.class.isAssignableFrom(Class.forName(reference)))
           {
-            list.add( ( (MdAttributeReference) mdAttr ).getAttributeName());
+            list.add( mdAttributeReference.definesAttribute());
           }
         }
         catch (ClassNotFoundException e)
