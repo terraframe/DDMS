@@ -74,53 +74,6 @@ YAHOO.util.Event.onDOMReady(function(){
 
     }, null, this);
 
-    var mapAttribs = function(attribName,index){
-      var attrib = this.obj.attributeMap[attribName];
-      var row = {};
-      if(attrib){
-        row.attributeName = attrib.attributeName;
-        if(attrib.dtoType.contains('AttributeReferenceDTO'))
-        {
-          //row.attributeName += '.name';
-        }
-        if(attrib.dtoType.contains('AttributeEnumerationDTO'))
-        {
-          row.attributeName += '.displayLabel.currentValue';
-        }
-        row.key = attrib.attributeName + this.suffix;
-        row.type = this.obj.getType();
-        row.dtoType = attrib.dtoType;
-        row.displayLabel = attrib.attributeMdDTO.displayLabel;
-        var uppFirst = attrib.attributeName.slice(0,1).toUpperCase() + attrib.attributeName.slice(1);
-        if(this.dropDownMaps[uppFirst]){
-          row.dropDownMap = this.dropDownMaps[uppFirst];
-        }
-      }else{
-        row.attributeName = attribName;
-        row.type = 'sqlcharacter';
-        row.displayLabel = attribName;
-        row.key = attribName;
-        row.dtoType = "AttributeCharacterDTO";
-
-      }
-      return row;
-    };
-
-
-    var mapMo = function(term,index){
-    	var row = {};
-        //row.attributeName = this.relAttribute;
-        //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
-        //row.type = this.relType;
-        row.dtoType = "AttributeBooleanDTO";
-        row.displayLabel = term.displayLabel;
-        
-        row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
-        row.type = 'sqlcharacter';
-        row.attributeName = 'term' + term.MOID.replace(':','');
-        row.dropDownMap = {'true':'Yes','false':'No'};
-      return row;
-    };
 
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
@@ -135,10 +88,10 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var individualCase = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualCase();
     var caseAttribs = ["age","diagnosisDate","caseReportDate","caseEntryDate",
-                           "workplace_displayLabel","workplaceText",
-                           "probableSource_displayLabel","probableSourceText",
-                           "residence_displayLabel","residenceText"];
-    var caseColumns = caseAttribs.map(mapAttribs, {obj:individualCase, suffix:'_case', dropDownMaps:{}});
+                           "workplace","workplaceText",
+                           "probableSource","probableSourceText",
+                           "residence","residenceText"];
+    var caseColumns = caseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualCase, suffix:'_case', dropDownMaps:{}});
     
 
     var individualInstance = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualInstance();  
@@ -151,11 +104,11 @@ YAHOO.util.Event.onDOMReady(function(){
                        "testSampleDate","treatment","treatmentMethod",
                        "treatmentStartDate"];
     
-    var instanceColumns = instanceAttribs.map(mapAttribs, {obj:individualInstance, suffix:'_ins', dropDownMaps:instanceMaps});
+    var instanceColumns = instanceAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualInstance, suffix:'_ins', dropDownMaps:instanceMaps});
 
     var person = new Mojo.$.dss.vector.solutions.Person();   
     var personAttribs = ["dateOfBirth","firstName","lastName","sex"];    
-    var personColumns =  personAttribs.map(mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
+    var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
 
 
     var calculations = ([
