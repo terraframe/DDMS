@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -946928174)
+@com.terraframe.mojo.business.ClassSignature(hash = -1581117855)
 public abstract class LarvacideInstanceViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.LarvacideInstanceView";
-  private static final long serialVersionUID = -946928174;
+  private static final long serialVersionUID = -1581117855;
   
   protected LarvacideInstanceViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -20,6 +20,7 @@ public abstract class LarvacideInstanceViewDTOBase extends com.terraframe.mojo.b
   public static java.lang.String CONTROLID = "controlId";
   public static java.lang.String CONTROLMETHOD = "controlMethod";
   public static java.lang.String ID = "id";
+  public static java.lang.String SUBSTANCE = "substance";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TREATED = "treated";
   public static java.lang.String UNIT = "unit";
@@ -140,6 +141,50 @@ public abstract class LarvacideInstanceViewDTOBase extends com.terraframe.mojo.b
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getControlMethodMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CONTROLMETHOD).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getSubstance()
+  {
+    if(getValue(SUBSTANCE) == null || getValue(SUBSTANCE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SUBSTANCE));
+    }
+  }
+  
+  public void setSubstance(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(SUBSTANCE, "");
+    }
+    else
+    {
+      setValue(SUBSTANCE, value.getId());
+    }
+  }
+  
+  public boolean isSubstanceWritable()
+  {
+    return isWritable(SUBSTANCE);
+  }
+  
+  public boolean isSubstanceReadable()
+  {
+    return isReadable(SUBSTANCE);
+  }
+  
+  public boolean isSubstanceModified()
+  {
+    return isModified(SUBSTANCE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSubstanceMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SUBSTANCE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getTarget()

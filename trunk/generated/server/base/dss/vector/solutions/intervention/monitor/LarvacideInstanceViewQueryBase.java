@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -737325175)
+@com.terraframe.mojo.business.ClassSignature(hash = -466667830)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class LarvacideInstanceViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -737325175;
+private static final long serialVersionUID = -466667830;
 
   public LarvacideInstanceViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -99,6 +99,25 @@ private static final long serialVersionUID = -737325175;
 
   }
  
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance()
+  {
+    return getSubstance(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance(String alias)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.SUBSTANCE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.SUBSTANCE, alias, displayLabel);
+
+  }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTarget()
   {
     return getTarget(null);

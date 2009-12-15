@@ -46,6 +46,7 @@ public class LarvacideInstanceView extends LarvacideInstanceViewBase implements 
     new AttributeNotificationMap(concrete, LarvacideInstance.CONTROLMETHOD, this, LarvacideInstanceView.CONTROLMETHOD);
     new AttributeNotificationMap(concrete, LarvacideInstance.UNIT, this, LarvacideInstanceView.UNIT);
     new AttributeNotificationMap(concrete, LarvacideInstance.UNITSUSED, this, LarvacideInstanceView.UNITSUSED);
+    new AttributeNotificationMap(concrete, LarvacideInstance.SUBSTANCE, this, LarvacideInstanceView.SUBSTANCE);
   }
 
   private boolean hasConcrete()
@@ -69,6 +70,7 @@ public class LarvacideInstanceView extends LarvacideInstanceViewBase implements 
     this.setControlMethod(concrete.getControlMethod());
     this.setUnit(concrete.getUnit());
     this.setUnitsUsed(concrete.getUnitsUsed());
+    this.setSubstance(concrete.getSubstance());
   }
   
   private void populateConcrete(LarvacideInstance concrete)
@@ -78,6 +80,7 @@ public class LarvacideInstanceView extends LarvacideInstanceViewBase implements 
     concrete.setControlMethod(this.getControlMethod());
     concrete.setUnit(this.getUnit());
     concrete.setUnitsUsed(this.getUnitsUsed());
+    concrete.setSubstance(this.getSubstance());
   }
   
   @Override

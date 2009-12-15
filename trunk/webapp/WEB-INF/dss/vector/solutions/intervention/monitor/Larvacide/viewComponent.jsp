@@ -19,7 +19,7 @@ LarvacideDTO control = (LarvacideDTO) request.getAttribute("item");
 LarvacideInstanceViewDTO view = (LarvacideInstanceViewDTO) request.getAttribute("view");
 LarvacideInstanceViewDTO[] rows = (LarvacideInstanceViewDTO[]) request.getAttribute("rows");
 
-String[] attributes = {"ConcreteId", "ControlId", "Target", "Treated", "ControlMethod", "Unit", "UnitsUsed"};
+String[] attributes = {"ConcreteId", "ControlId", "Target", "Treated", "ControlMethod", "Substance", "Unit", "UnitsUsed"};
 
 String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
 %>
@@ -76,6 +76,7 @@ map.put("ConcreteId", new ColumnSetup(true, false));
 map.put("ControlId", new ColumnSetup(true, false));
 map.put("Target", new ColumnSetup(false, true));
 map.put("Treated", new ColumnSetup(false, true));
+map.put("Substance", new ColumnSetup(false, true));
 map.put("ControlMethod", new ColumnSetup(false, true));
 map.put("Unit", new ColumnSetup(false, true));
 map.put("UnitsUsed", new ColumnSetup(false, true));

@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1653039380)
+@com.terraframe.mojo.business.ClassSignature(hash = 292288923)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public class LarvacideInstanceQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1653039380;
+private static final long serialVersionUID = 292288923;
 
   protected LarvacideInstanceQueryDTO(String type)
   {

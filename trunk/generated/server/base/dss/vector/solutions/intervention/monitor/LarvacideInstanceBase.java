@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -566832747)
+@com.terraframe.mojo.business.ClassSignature(hash = -1090658862)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,12 +23,13 @@ public abstract class LarvacideInstanceBase extends com.terraframe.mojo.business
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String SUBSTANCE = "substance";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TREATED = "treated";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UNIT = "unit";
   public static java.lang.String UNITSUSED = "unitsUsed";
-  private static final long serialVersionUID = -566832747;
+  private static final long serialVersionUID = -1090658862;
   
   public LarvacideInstanceBase()
   {
@@ -315,6 +316,41 @@ public abstract class LarvacideInstanceBase extends com.terraframe.mojo.business
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
     return mdClassIF.definesAttribute(SITEMASTER);
+  }
+  
+  public dss.vector.solutions.ontology.Term getSubstance()
+  {
+    if (getValue(SUBSTANCE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(SUBSTANCE));
+    }
+  }
+  
+  public void validateSubstance()
+  {
+    this.validateAttribute(SUBSTANCE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSubstanceMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
+    return mdClassIF.definesAttribute(SUBSTANCE);
+  }
+  
+  public void setSubstance(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(SUBSTANCE, "");
+    }
+    else
+    {
+      setValue(SUBSTANCE, value.getId());
+    }
   }
   
   public dss.vector.solutions.ontology.Term getTarget()

@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -10818946)
+@com.terraframe.mojo.business.ClassSignature(hash = 165155785)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  class LarvacideInstanceQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -10818946;
+private static final long serialVersionUID = 165155785;
 
   public LarvacideInstanceQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -268,6 +268,29 @@ private static final long serialVersionUID = -10818946;
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance()
+  {
+    return getSubstance(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("substance");
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.SUBSTANCE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("substance");
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.SUBSTANCE, mdAttributeIF, this, alias, displayLabel);
+
+  }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTarget()
   {
     return getTarget(null);
@@ -392,6 +415,10 @@ private static final long serialVersionUID = -10818946;
     else if (name.equals("owner")) 
     {
        return new com.terraframe.mojo.system.ActorQuery.ActorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("substance")) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals("target")) 
     {
@@ -533,6 +560,9 @@ private static final long serialVersionUID = -10818946;
     public com.terraframe.mojo.query.AttributeChar getSiteMaster();
     public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias);
     public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance(String alias, String displayLabel);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTarget();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTarget(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTarget(String alias, String displayLabel);
@@ -575,7 +605,7 @@ private static final long serialVersionUID = -10818946;
  implements LarvacideInstanceQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1729351008;
+private static final long serialVersionUID = 1895063399;
 
   public LarvacideInstanceQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -798,6 +828,23 @@ private static final long serialVersionUID = -1729351008;
     return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance()
+  {
+    return getSubstance(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("substance", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("substance", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+
+  }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTarget()
   {
     return getTarget(null);
@@ -958,6 +1005,10 @@ private static final long serialVersionUID = -1729351008;
     else if (name.equals("owner")) 
     {
        return new com.terraframe.mojo.system.ActorQuery.ActorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("substance")) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals("target")) 
     {
