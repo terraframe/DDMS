@@ -20,7 +20,7 @@
             required="true"/>
           <integer
             name="epiYear"
-            label="Period"
+            label="Year"
             required="true"/>
           <date
             name="startDate"
