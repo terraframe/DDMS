@@ -80,6 +80,8 @@ public class QueryUtil implements Reloadable
   private static final String DATE_ATTRIBUTE    = "date_attribute";
 
   private static final String DATE_REGEX        = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
+  
+  public static final String DISPLAY_LABEL_SUFFIX = "_displayLabel";
 
   public static String getRelationshipTermSubSelect(String attribute, String parentClass, String relClass)
   {
