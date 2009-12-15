@@ -343,8 +343,6 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(Person.FIRSTNAME));
 
     valueQuery.restrictRows(20, 1);
-
-    System.out.println(valueQuery.getSQL());
     
     return valueQuery;
   }
