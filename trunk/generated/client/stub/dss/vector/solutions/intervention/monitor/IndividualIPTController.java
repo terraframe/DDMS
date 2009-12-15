@@ -237,10 +237,15 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
 
     IndividualIPTCaseViewDTO c = IndividualIPTCaseDTO.getView(request, dto.getValue(IndividualIPTViewDTO.IPTCASE));
     PersonViewDTO person = c.getPatientView();
-
-    GeoEntityDTO residential = GeoEntityDTO.searchByGeoId(request, person.getResidentialGeoId());
-
-    req.setAttribute("residential", residential);
+    
+    String residential = person.getResidentialGeoId();
+    
+    if(residential != null && !residential.equals(""))
+    {
+      GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, residential);
+      req.setAttribute("residential", entity);
+    }
+    
     req.setAttribute("person", person);
     req.setAttribute("patientType", dto.getPatientType());
     req.setAttribute("doseNumber", dto.getDoseNumber());

@@ -299,10 +299,16 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     String formatDate = new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
     
     PersonViewDTO person = PersonDTO.getView(request, patientId);
-    GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, person.getResidentialGeoId());
+    
+    String residential = person.getResidentialGeoId();
+    
+    if(residential != null && !residential.equals(""))
+    {
+      GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, residential);
+      req.setAttribute("residential", entity);
+    }
     
     req.setAttribute("person", person);
-    req.setAttribute("residential", entity);
     req.setAttribute("view", new IndividualIPTCaseViewDTO(request));
     req.setAttribute("serviceDate", formatDate);
     req.setAttribute("patientId", patientId);
