@@ -92,15 +92,15 @@ BEGIN
      _population := 0;
       --check if this branch will lead to any data
       SELECT count(ap.id) FROM allpaths_geo ap
-	JOIN populationdata pd ON ap.childgeoentity = pd.geoentity 
-	WHERE pd.population IS NOT NULL AND ap.parentgeoentity =  _geoEntityId AND pd.yearofdata <= _year
-	INTO _childCount;
+	  JOIN populationdata pd ON ap.childgeoentity = pd.geoentity 
+	  WHERE pd.population IS NOT NULL AND ap.parentgeoentity =  _geoEntityId AND pd.yearofdata <= _year
+      INTO _childCount;
       --continue to recurse if this branch has data
        IF _childCount > 0 THEN
 	      
 	      _sql := 'SELECT child_id  FROM locatedin WHERE parent_id = ' || quote_literal(_geoEntityId);
 	      FOR  rec IN EXECUTE _sql LOOP
-		  _population = _population + get_population(rec.child_id, _year);
+		    _population = _population + get_population(rec.child_id, _year);
 	      END LOOP;
        END IF;
     END IF;
