@@ -81,6 +81,28 @@
           returnType="dss.vector.solutions.PersonWithDelegatesViewQuery" />
       </mdView>
     </update>
+    <permissions>
+      <role roleName="mdss.GUIVisibility">
+        <grant>
+          <mdViewPermission type="dss.vector.solutions.PersonWithDelegatesView">
+            <operation name="CREATE"/>
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+            <operation name="WRITE"/>
+            <operation name="WRITE_ALL_ATTRIBUTES"/>
+            <operation name="DELETE"/>
+          </mdViewPermission>
+          <mdViewPermission type="dss.vector.solutions.PersonView">
+            <operation name="CREATE"/>
+            <operation name="READ"/>
+            <operation name="READ_ALL_ATTRIBUTES"/>
+            <operation name="WRITE"/>
+            <operation name="WRITE_ALL_ATTRIBUTES"/>
+            <operation name="DELETE"/>
+          </mdViewPermission>
+        </grant>
+      </role>
+    </permissions>
   </doIt>
   <undoIt>
     <update>
