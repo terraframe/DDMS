@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 933089194)
+@com.terraframe.mojo.business.ClassSignature(hash = 1782847131)
 public abstract class PersonDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.Person";
-  private static final long serialVersionUID = 933089194;
+  private static final long serialVersionUID = 1782847131;
   
   protected PersonDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -1032,20 +1032,20 @@ public abstract class PersonDTOBase extends com.terraframe.mojo.business.Busines
     return (dss.vector.solutions.PersonViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final dss.vector.solutions.PersonQueryDTO searchForDuplicates()
+  public final dss.vector.solutions.PersonWithDelegatesViewQueryDTO searchForDuplicates()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PersonDTO.CLASS, "searchForDuplicates", _declaredTypes);
-    return (dss.vector.solutions.PersonQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+    return (dss.vector.solutions.PersonWithDelegatesViewQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.PersonQueryDTO searchForDuplicates(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.PersonWithDelegatesViewQueryDTO searchForDuplicates(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PersonDTO.CLASS, "searchForDuplicates", _declaredTypes);
-    return (dss.vector.solutions.PersonQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (dss.vector.solutions.PersonWithDelegatesViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final com.terraframe.mojo.business.ValueQueryDTO searchForPerson(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String value)

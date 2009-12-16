@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2031721950)
+@com.terraframe.mojo.business.ClassSignature(hash = -1047606330)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class PersonViewBase extends com.terraframe.mojo.business.View i
   public static java.lang.String UZERNAME = "uzername";
   public static java.lang.String WORKGEOID = "workGeoId";
   public static java.lang.String WORKINFORMATION = "workInformation";
-  private static final long serialVersionUID = -2031721950;
+  private static final long serialVersionUID = -1047606330;
   
   public PersonViewBase()
   {
@@ -685,25 +685,25 @@ public abstract class PersonViewBase extends com.terraframe.mojo.business.View i
     _instance.applyNonDelegates();
   }
   
-  public dss.vector.solutions.PersonQuery getDuplicatesPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public dss.vector.solutions.PersonWithDelegatesViewQuery getDuplicatesPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PersonView.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final dss.vector.solutions.PersonQuery getDuplicatesPage(java.lang.String id, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.PersonWithDelegatesViewQuery getDuplicatesPage(java.lang.String id, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     PersonView _instance = PersonView.get(id);
     return _instance.getDuplicatesPage(sortAttribute, isAscending, pageSize, pageNumber);
   }
   
-  public dss.vector.solutions.PersonQuery searchForDuplicates()
+  public dss.vector.solutions.PersonWithDelegatesViewQuery searchForDuplicates()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PersonView.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final dss.vector.solutions.PersonQuery searchForDuplicates(java.lang.String id)
+  public static final dss.vector.solutions.PersonWithDelegatesViewQuery searchForDuplicates(java.lang.String id)
   {
     PersonView _instance = PersonView.get(id);
     return _instance.searchForDuplicates();

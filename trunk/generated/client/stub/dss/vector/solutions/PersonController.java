@@ -3,16 +3,19 @@ package dss.vector.solutions;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class PersonController extends PersonControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class PersonController extends PersonControllerBase implements Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/Person/";
 
@@ -20,7 +23,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
 
   private static final long  serialVersionUID = 1240792904565L;
 
-  public PersonController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public PersonController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
@@ -28,7 +31,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
   @Override
   public void search(PersonViewDTO person) throws IOException, ServletException
   {
-    PersonQueryDTO query = person.searchForDuplicates();
+    PersonWithDelegatesViewQueryDTO query = person.searchForDuplicates();
     req.setAttribute("query", query);
     req.setAttribute("newPerson", person);
 
@@ -37,7 +40,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     render("searchResults.jsp");
   }
 
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void newInstance() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     PersonViewDTO view = new PersonViewDTO(clientRequest);
@@ -85,7 +88,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     render("createComponent.jsp");
   }
 
-  public void edit(String id) throws java.io.IOException, javax.servlet.ServletException
+  public void edit(String id) throws IOException, ServletException
   {
     try
     {
@@ -182,38 +185,42 @@ public class PersonController extends PersonControllerBase implements com.terraf
     render("viewComponent.jsp");
   }
 
-  public void viewPage(String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.PersonQueryDTO query = PersonDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+
+    PersonWithDelegatesViewQueryDTO query = PersonWithDelegatesViewDTO.getPage(clientRequest, null, true, 20, 1);
+    
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void viewAll() throws IOException, ServletException
   {
     if (!this.isAsynchronous())
     {
       new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
       ClientRequestIF clientRequest = super.getClientRequest();
-      dss.vector.solutions.PersonQueryDTO query = PersonDTO.getAllInstances(clientRequest, null, true, 20, 1);
+
+      PersonWithDelegatesViewQueryDTO query = PersonWithDelegatesViewDTO.getPage(clientRequest, null, true, 20, 1);
+
       req.setAttribute("query", query);
       render("viewAllComponent.jsp");
     }
   }
 
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void failViewAll() throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
-  public void view(String id) throws java.io.IOException, javax.servlet.ServletException
+  public void view(String id) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     PersonViewDTO view = PersonDTO.getView(clientRequest, id);
@@ -221,17 +228,17 @@ public class PersonController extends PersonControllerBase implements com.terraf
     renderView(view);
   }
 
-  public void failView(String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
   }
 
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void failNewInstance() throws IOException, ServletException
   {
     this.viewAll();
   }
 
-  public void create(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(PersonDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -244,19 +251,19 @@ public class PersonController extends PersonControllerBase implements com.terraf
     }
   }
 
-  public void failCreate(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(PersonDTO dto) throws IOException, ServletException
   {
     this.setupRequest();
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
 
-  public void failEdit(String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failEdit(String id) throws IOException, ServletException
   {
     this.view(id);
   }
 
-  public void update(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(PersonDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -269,25 +276,25 @@ public class PersonController extends PersonControllerBase implements com.terraf
     }
   }
 
-  public void failUpdate(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(PersonDTO dto) throws IOException, ServletException
   {
     this.setupRequest();
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
 
-  public void cancel(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(PersonDTO dto) throws IOException, ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
 
-  public void failCancel(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(PersonDTO dto) throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
-  public void delete(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(PersonDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -308,7 +315,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     }
   }
 
-  public void failDelete(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(PersonDTO dto) throws IOException, ServletException
   {
     this.setupRequest();
 
@@ -320,7 +327,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
   {
   }
 
-  public void failSearch(PersonDTO person) throws java.io.IOException, javax.servlet.ServletException
+  public void failSearch(PersonDTO person) throws IOException, ServletException
   {
     resp.sendError(500);
   }
@@ -379,7 +386,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
       else
       {
         String id = patient.getPersonId();
-        
+
         resp.getWriter().print(id);
       }
     }

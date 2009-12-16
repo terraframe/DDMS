@@ -2,10 +2,8 @@ package dss.vector.solutions;
 
 import java.util.Date;
 
-import com.terraframe.mojo.business.Entity;
 import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
@@ -389,41 +387,40 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
   }
 
   @Override
-  public PersonQuery searchForDuplicates()
+  public PersonWithDelegatesViewQuery searchForDuplicates()
   {
     return getDuplicatesPage(Person.LASTNAME, true, 20, 0);
   }
 
   @Override
-  public PersonQuery getDuplicatesPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+  public PersonWithDelegatesViewQuery getDuplicatesPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
-    PersonQuery query = new PersonQuery(new QueryFactory());
+    PersonWithDelegatesViewQuery query = PersonWithDelegatesView.getPage(sortAttribute, isAscending, pageSize, pageNumber);
 
     String firstName = this.getFirstName();
-    if (firstName.length() > 0)
-      query.WHERE(query.getFirstName().EQ(firstName));
-
     String lastName = this.getLastName();
-    if (lastName.length() > 0)
-      query.WHERE(query.getLastName().EQ(lastName));
-
     Date dob = this.getDateOfBirth();
-    if (dob != null)
-      query.WHERE(query.getDateOfBirth().EQ(dob));
-
-    // We have a default value set, so there is always a value
-    // FIXME MO updated
-    // Sex sex = this.getSex().get(0);
-    // if (!sex.equals(Sex.UNKNOWN))
-    // query.WHERE(query.getSex().containsExactly(sex));
     Term sex = this.getSex();
+    
+    if (firstName.length() > 0)
+    {
+      query.WHERE(query.getFirstName().EQ(firstName));
+    }
 
-    if (sex != null)
+    if (lastName.length() > 0)
+    {
+      query.WHERE(query.getLastName().EQ(lastName));
+    }
+
+    if (dob != null)
+    {
+      query.WHERE(query.getDateOfBirth().EQ(dob));
+    }
+    
+    if(sex != null)
     {
       query.WHERE(query.getSex().EQ(sex));
     }
-
-    Entity.getAllInstances(query, sortAttribute, isAscending, pageSize, pageNumber);
 
     return query;
   }

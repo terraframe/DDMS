@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -705969246)
+@com.terraframe.mojo.business.ClassSignature(hash = -1671705274)
 public abstract class PersonViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PersonView";
-  private static final long serialVersionUID = -705969246;
+  private static final long serialVersionUID = -1671705274;
   
   protected PersonViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -854,36 +854,36 @@ public abstract class PersonViewDTOBase extends com.terraframe.mojo.business.Vie
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final dss.vector.solutions.PersonQueryDTO getDuplicatesPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public final dss.vector.solutions.PersonWithDelegatesViewQueryDTO getDuplicatesPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PersonViewDTO.CLASS, "getDuplicatesPage", _declaredTypes);
-    return (dss.vector.solutions.PersonQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+    return (dss.vector.solutions.PersonWithDelegatesViewQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.PersonQueryDTO getDuplicatesPage(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.PersonWithDelegatesViewQueryDTO getDuplicatesPage(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{id, sortAttribute, isAscending, pageSize, pageNumber};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PersonViewDTO.CLASS, "getDuplicatesPage", _declaredTypes);
-    return (dss.vector.solutions.PersonQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (dss.vector.solutions.PersonWithDelegatesViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final dss.vector.solutions.PersonQueryDTO searchForDuplicates()
+  public final dss.vector.solutions.PersonWithDelegatesViewQueryDTO searchForDuplicates()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PersonViewDTO.CLASS, "searchForDuplicates", _declaredTypes);
-    return (dss.vector.solutions.PersonQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+    return (dss.vector.solutions.PersonWithDelegatesViewQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.PersonQueryDTO searchForDuplicates(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.PersonWithDelegatesViewQueryDTO searchForDuplicates(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PersonViewDTO.CLASS, "searchForDuplicates", _declaredTypes);
-    return (dss.vector.solutions.PersonQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (dss.vector.solutions.PersonWithDelegatesViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static PersonViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

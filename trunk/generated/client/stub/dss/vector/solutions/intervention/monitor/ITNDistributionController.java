@@ -12,8 +12,10 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.PersonQueryDTO;
+import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
+import dss.vector.solutions.PersonWithDelegatesViewDTO;
+import dss.vector.solutions.PersonWithDelegatesViewQueryDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
@@ -148,7 +150,8 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   {
     try
     {
-      PersonQueryDTO query = recipient.searchForDuplicates();
+      PersonWithDelegatesViewQueryDTO query = recipient.searchForDuplicates();
+      
       if (query.getCount() == 0)
       {
         renderConfirm(itn, recipient);
@@ -156,8 +159,9 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
       else if (query.getCount() == 1)
       {
         // Method chaining here is ok because we know there's exactly 1 result
-        PersonViewDTO view = query.getResultSet().get(0).getView();
-        renderConfirm(itn, view);
+        PersonWithDelegatesViewDTO delegates = query.getResultSet().get(0);
+        
+        renderConfirm(itn, PersonDTO.getView(this.getClientRequest(), delegates.getPersonId()));
       }
       else if (query.getCount() > 1)
       {

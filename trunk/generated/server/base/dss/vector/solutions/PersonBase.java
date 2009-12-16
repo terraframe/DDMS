@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -479039958)
+@com.terraframe.mojo.business.ClassSignature(hash = -1284487141)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -38,7 +38,7 @@ public abstract class PersonBase extends com.terraframe.mojo.business.Business i
   public static java.lang.String USERDELEGATE = "userDelegate";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
   public static java.lang.String WORKINFORMATION = "workInformation";
-  private static final long serialVersionUID = -479039958;
+  private static final long serialVersionUID = -1284487141;
   
   public PersonBase()
   {
@@ -844,13 +844,13 @@ public abstract class PersonBase extends com.terraframe.mojo.business.Business i
     return _instance.lockView();
   }
   
-  public dss.vector.solutions.PersonQuery searchForDuplicates()
+  public dss.vector.solutions.PersonWithDelegatesViewQuery searchForDuplicates()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.Person.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final dss.vector.solutions.PersonQuery searchForDuplicates(java.lang.String id)
+  public static final dss.vector.solutions.PersonWithDelegatesViewQuery searchForDuplicates(java.lang.String id)
   {
     Person _instance = Person.get(id);
     return _instance.searchForDuplicates();

@@ -11,6 +11,7 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.ValueQuery;
 
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.QueryUtil;
 
 public class Person extends PersonBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -240,34 +241,34 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     return view;
   }
 
-  public PersonQuery searchForDuplicates()
+  public PersonWithDelegatesViewQuery searchForDuplicates()
   {
-    PersonQuery query = new PersonQuery(new QueryFactory());
+    PersonWithDelegatesViewQuery query = new PersonWithDelegatesViewQuery(new QueryFactory());
 
     String firstName = this.getFirstName();
-    if (firstName.length() > 0)
-      query.WHERE(query.getFirstName().EQ(firstName));
-
     String lastName = this.getLastName();
-    if (lastName.length() > 0)
-      query.WHERE(query.getLastName().EQ(lastName));
-
     Date dob = this.getDateOfBirth();
+    Term sex = this.getSex();
+    
+    if (firstName.length() > 0)
+    {
+      query.WHERE(query.getFirstName().EQ(firstName));
+    }
+
+    if (lastName.length() > 0)
+    {
+      query.WHERE(query.getLastName().EQ(lastName));
+    }
+
     if (dob != null)
+    {
       query.WHERE(query.getDateOfBirth().EQ(dob));
-
-    // We have a default value set, so there is always a value
-    // FIXME MO Upgrade
-    // Sex sex = this.getSex().get(0);
-    // if (!sex.equals(Sex.UNKNOWN))
-    // query.WHERE(query.getSex().containsExactly(sex));
-    query.WHERE(query.getSex().EQ(this.getSex()));
-
-    // SprayOperator sprayDelegate = this.getSprayOperatorDelegate();
-    // if (sprayDelegate==null)
-    // query.WHERE(query.getSprayOperatorDelegate().EQ(""));
-    // else
-    // query.WHERE(query.getSprayOperatorDelegate().NE(""));
+    }
+    
+    if(sex != null)
+    {
+      query.WHERE(query.getSex().EQ(sex));
+    }
 
     return query;
   }

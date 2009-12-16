@@ -2,6 +2,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@page import="com.terraframe.mojo.constants.Constants" %>
+
+
+<%
+  ComponentQueryDTO query = (ComponentQueryDTO) request.getAttribute("query");
+  String userLabel = query.getAttributeDTO(PersonWithDelegatesViewDTO.ISMDSSUSER).getAttributeMdDTO().getDisplayLabel();
+  String sprayOperatorLabel = query.getAttributeDTO(PersonWithDelegatesViewDTO.ISSPRAYOPERATOR).getAttributeMdDTO().getDisplayLabel();
+  String sprayLeaderLabel = query.getAttributeDTO(PersonWithDelegatesViewDTO.ISSPRAYLEADER).getAttributeMdDTO().getDisplayLabel();
+  String stockStaffLabel = query.getAttributeDTO(PersonWithDelegatesViewDTO.ISSTOCKSTAFF).getAttributeMdDTO().getDisplayLabel();
+  
+  request.setAttribute("userLabel", userLabel);
+  request.setAttribute("sprayOperatorLabel", sprayOperatorLabel);
+  request.setAttribute("sprayLeaderLabel", sprayLeaderLabel);
+  request.setAttribute("stockStaffLabel", stockStaffLabel);
+%>
+
+
 <c:set var="page_title" value="Search_Person" scope="request" />
 
 <mjl:messages>
@@ -10,76 +26,7 @@
 <mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.PersonController.viewPage.mojo" />
   <mjl:columns>
-    <mjl:attributeColumn attributeName="firstName">
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="lastName">
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="sex">
-      <mjl:row>
-        ${item.sex.displayLabel}
-      </mjl:row>          
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="dateOfBirth">
-      <mjl:row>
-        <span class="formatDate"> ${item.dateOfBirth} </span>
-      </mjl:row>
-    </mjl:attributeColumn>
-    <mjl:freeColumn>
-      <mjl:header><fmt:message key="User"/></mjl:header>
-      <mjl:row>
-        <c:choose>
-          <c:when test="${item.userDelegate != null}">Yes</c:when>
-          <c:otherwise>No</c:otherwise>
-        </c:choose>
-      </mjl:row>
-    </mjl:freeColumn>
-    <mjl:freeColumn>
-      <mjl:header><fmt:message key="Patient"/></mjl:header>
-      <mjl:row>
-        <c:choose>
-          <c:when test="${item.patientDelegate != null}">Yes</c:when>
-          <c:otherwise>No</c:otherwise>
-        </c:choose>
-      </mjl:row>
-    </mjl:freeColumn>
-    <mjl:freeColumn>
-      <mjl:header><fmt:message key="ITN_Recipient"/></mjl:header>
-      <mjl:row>
-        <c:choose>
-          <c:when test="${item.itnRecipientDelegate != null}">Yes</c:when>
-          <c:otherwise>No</c:otherwise>
-        </c:choose>
-      </mjl:row>
-    </mjl:freeColumn>
-    <mjl:freeColumn>
-      <mjl:header><fmt:message key="IPT_Recipient"/></mjl:header>
-      <mjl:row>
-        <c:choose>
-          <c:when test="${item.iptRecipientDelegate != null}">Yes</c:when>
-          <c:otherwise>No</c:otherwise>
-        </c:choose>
-      </mjl:row>
-    </mjl:freeColumn>
-    <mjl:freeColumn>
-      <mjl:header><fmt:message key="Spray_Operator"/></mjl:header>
-      <mjl:row>
-        <c:choose>
-          <c:when test="${item.sprayOperatorDelegate != null}">Yes</c:when>
-          <c:otherwise>No</c:otherwise>
-        </c:choose>
-      </mjl:row>
-    </mjl:freeColumn>
-    <%-- 5.13.09 - Marlzie says we don't need Spray Leaders
-    --%>
-    <mjl:freeColumn>
-      <mjl:header><fmt:message key="Spray_Leader"/></mjl:header>
-      <mjl:row>
-        <c:choose>
-          <c:when test="${item.sprayLeaderDelegate != null}">Yes</c:when>
-          <c:otherwise>No</c:otherwise>
-        </c:choose>
-      </mjl:row>
-    </mjl:freeColumn>
+    <%@include file="tableComponent.jsp" %>   
     <mjl:freeColumn>
       <mjl:header>
 
@@ -87,7 +34,7 @@
       <mjl:row>
         <mjl:commandLink action="dss.vector.solutions.PersonController.edit.mojo" name="view.link">
           <fmt:message key="Use_This_Person"/>
-          <mjl:property value="${item.id}" name="id" />
+          <mjl:property value="${item.personId}" name="id" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
