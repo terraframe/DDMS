@@ -83,10 +83,6 @@
         <mjl:input type="text" param="controlTestMortality" />
       </mjl:dt>
 
-      <mjl:dt attribute="intervalTime">
-        <mjl:input type="text" param="intervalTime" />
-      </mjl:dt>
-
       <mjl:dt attribute="kd50">
         <mjl:input type="text" param="kd50" />
       </mjl:dt>

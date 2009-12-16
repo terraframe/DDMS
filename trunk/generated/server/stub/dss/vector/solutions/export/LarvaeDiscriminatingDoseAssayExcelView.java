@@ -52,7 +52,6 @@ public class LarvaeDiscriminatingDoseAssayExcelView extends LarvaeDiscriminating
     ldda.setEndPoint(Term.validateByDisplayLabel(this.getEndPoint(), LarvaeDiscriminatingDoseAssay.getEndPointMd()));
     
     ldda.setExposureTime(this.getExposureTime());
-    ldda.setIntervalTime(this.getIntervalTime());
     ldda.setHoldingTime(this.getHoldingTime());
     ldda.setQuantityTested(this.getQuantityTested());
     ldda.setQuantityDead(this.getQuantityDead());

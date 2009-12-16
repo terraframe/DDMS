@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 402652876)
+@com.terraframe.mojo.business.ClassSignature(hash = 1307340337)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology.assay;
 public  class CollectionAssayQuery extends dss.vector.solutions.entomology.assay.AbstractAssayQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 402652876;
+private static final long serialVersionUID = 1307340337;
 
   public CollectionAssayQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -112,23 +112,6 @@ private static final long serialVersionUID = 402652876;
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("identificationMethod");
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD, mdAttributeIF, this, alias, displayLabel);
-
-  }
-  public com.terraframe.mojo.query.AttributeInteger getIntervalTime()
-  {
-    return getIntervalTime(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getIntervalTime(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.INTERVALTIME, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getIntervalTime(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.INTERVALTIME, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeBoolean getIsofemale()
@@ -257,9 +240,6 @@ private static final long serialVersionUID = 402652876;
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getIntervalTime();
-    public com.terraframe.mojo.query.AttributeInteger getIntervalTime(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getIntervalTime(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeBoolean getIsofemale();
     public com.terraframe.mojo.query.AttributeBoolean getIsofemale(String alias);
     public com.terraframe.mojo.query.AttributeBoolean getIsofemale(String alias, String displayLabel);
@@ -284,7 +264,7 @@ private static final long serialVersionUID = 402652876;
  implements CollectionAssayQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 797641322;
+private static final long serialVersionUID = -2030212525;
 
   public CollectionAssayQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -369,23 +349,6 @@ private static final long serialVersionUID = 797641322;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias, String displayLabel)
   {
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("identificationMethod", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
-
-  }
-  public com.terraframe.mojo.query.AttributeInteger getIntervalTime()
-  {
-    return getIntervalTime(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getIntervalTime(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("intervalTime", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getIntervalTime(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("intervalTime", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeBoolean getIsofemale()

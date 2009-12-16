@@ -51,7 +51,6 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
     kda.setFed(this.getFed());
     kda.setGravid(this.getGravid());
     kda.setExposureTime(this.getExposureTime());
-    kda.setIntervalTime(this.getIntervalTime());
     kda.setQuantityTested(this.getQuantityTested());
     
     kda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(), this.getInsecticideUnits(), this.getInsecticideAmount()));

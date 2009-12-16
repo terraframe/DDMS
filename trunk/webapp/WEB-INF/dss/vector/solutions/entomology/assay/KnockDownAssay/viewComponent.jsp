@@ -73,9 +73,6 @@
       <mjl:dt attribute="quantityTested">
         ${item.quantityTested}
       </mjl:dt>
-      <mjl:dt attribute="intervalTime">
-        ${item.intervalTime}
-      </mjl:dt>
       <mjl:dt attribute="kd50">
         ${item.kd50}
       </mjl:dt>

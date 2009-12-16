@@ -22,8 +22,10 @@ import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.AttributeMoment;
+import com.terraframe.mojo.query.AttributePrimitive;
 import com.terraframe.mojo.query.AttributeReference;
 import com.terraframe.mojo.query.Condition;
+import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.Function;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.InnerJoinEq;
@@ -34,6 +36,7 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableChar;
 import com.terraframe.mojo.query.SelectableMoment;
 import com.terraframe.mojo.query.SelectableNumber;
+import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.SelectableReference;
 import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
@@ -89,8 +92,8 @@ public class QueryUtil implements Reloadable
     String relTable = MdEntity.getMdEntity(relClass).getTableName();
     String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
 
-    return "(select pJoin.id AS id, tJoin." + Term.NAME + " as " + attribute + "_displayLabel from" + " " + parentTable + " AS pJoin LEFT JOIN " + relTable + " rJoin ON rJoin." + RelationshipInfo.PARENT_ID + " = pJoin.id" + " LEFT JOIN " + termTable
-        + " tJoin on rJoin." + RelationshipInfo.CHILD_ID + " = tJoin.id)";
+    return "(select pJoin.id AS id, tJoin." + Term.NAME + " as " + attribute + "_displayLabel from" + " " + parentTable + " AS pJoin LEFT JOIN " + relTable + " rJoin ON rJoin." + RelationshipInfo.PARENT_ID + " = pJoin.id" + " LEFT JOIN " + termTable + " tJoin on rJoin." + RelationshipInfo.CHILD_ID
+        + " = tJoin.id)";
   }
 
   public static ValueQuery joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
@@ -141,19 +144,17 @@ public class QueryUtil implements Reloadable
           String attrib = gridAlias.substring(0, index1);
           String klass = gridAlias.substring(index1 + 2, index2).replace("_", ".");
           String term_id = gridAlias.substring(index2 + 2, gridAlias.length());
-          
+
           String table = MdRelationship.getMdEntity(klass).getTableName();
-          
+
           String sql = "SELECT " + attrib + " FROM " + table + " WHERE child_id = '" + term_id + "' " + "AND parent_id = " + tableAlias + ".id";
-          
+
           ( (SelectableSQL) s ).setSQL(sql);
         }
       }
     }
     return valueQuery;
   }
-
-  
 
   public static ValueQuery setTermRestrictions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
   {
@@ -320,8 +321,7 @@ public class QueryUtil implements Reloadable
    * @param selectedUniversals
    * @return
    */
-  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory, ValueQuery valueQuery, String xml, JSONObject config, boolean includeGeometry, String generatedQueryClass,
-      String geoEntityAttribute)
+  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory, ValueQuery valueQuery, String xml, JSONObject config, boolean includeGeometry, String generatedQueryClass, String geoEntityAttribute)
   {
     ValueQueryParser valueQueryParser;
     Map<String, GeneratedEntityQuery> queryMap;
@@ -346,81 +346,79 @@ public class QueryUtil implements Reloadable
     }
 
     // include the thematic variable (if applicable).
-    /* FIXME MAP
-    if (thematicLayer != null)
-    {
-      ThematicVariable thematicVariable = thematicLayer.getThematicVariable();
-      if (thematicVariable != null)
-      {
-        String entityAlias = thematicVariable.getEntityAlias();
-        String userAlias = thematicVariable.getUserAlias();
-
-        valueQueryParser.setColumnAlias(entityAlias, userAlias, QueryConstants.THEMATIC_DATA_COLUMN);
-      }
-    }
-
-    // FIXME does not take into account multiple geo attributes
-    if (includeGeometry)
-    {
-      // Note that the mapping query does not need to perform the complex left
-      // join logic. This is because the entity name, geo id selectables on
-      // different universal types will not affect the mapping result, so they
-      // are omitted.
-
-      MdBusiness geoEntityMd = thematicLayer.getGeoHierarchy().getGeoEntityClass();
-      String thematicLayerType = geoEntityMd.definesType();
-
-      MdAttributeGeometry mdAttrGeo = GeoHierarchy.getGeometry(geoEntityMd);
-      String attributeName = mdAttrGeo.getAttributeName();
-
-      valueQueryParser.addAttributeSelectable(thematicLayerType, attributeName, attributeName, QueryConstants.GEOMETRY_NAME_COLUMN);
-      valueQueryParser.addAttributeSelectable(thematicLayerType, GeoEntity.ENTITYNAME, GeoEntity.ENTITYNAME, QueryConstants.ENTITY_NAME_COLUMN);
-
-      queryMap = valueQueryParser.parse();
-
-      // exclude any entity without spatial data
-      Selectable geometrySelectable = valueQuery.getSelectable(attributeName);
-      valueQuery.AND(geometrySelectable.NE(null));
-
-      AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
-      GeoEntityQuery geoEntityQuery = (GeoEntityQuery) queryMap.get(thematicLayerType);
-      GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
-
-      if (allPathsQuery == null)
-      {
-        // this case is for when they have not restricted to a specific
-        // geoEntity
-        allPathsQuery = new AllPathsQuery(queryFactory);
-
-        // find all the parents that are of the type of the thematicLayer
-        valueQuery.WHERE(allPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
-
-        // find all the rows where the children match geoEntities of the
-        // children we are looking for.
-        valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
-
-      }
-      else
-      {
-
-        // This is the case for where we are restricting by one or more entitys
-
-        // first we make a seond all paths query
-        AllPathsQuery allPathsParent = new AllPathsQuery(queryFactory);
-
-        // we narrow down the secoond all paths table to just rows that match
-        // entity restrictions
-        valueQuery.WHERE(allPathsParent.getParentGeoEntity().EQ(geoEntityQuery));
-        // we join the second all paths to the primary all paths
-        valueQuery.WHERE(allPathsParent.getChildGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
-        // we join the primary all paths to the md business which is located at
-        // a certain geoEntity
-        valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
-
-      }
-
-    }
-    else*/
+    /*
+     * FIXME MAP if (thematicLayer != null) { ThematicVariable thematicVariable
+     * = thematicLayer.getThematicVariable(); if (thematicVariable != null) {
+     * String entityAlias = thematicVariable.getEntityAlias(); String userAlias
+     * = thematicVariable.getUserAlias();
+     * 
+     * valueQueryParser.setColumnAlias(entityAlias, userAlias,
+     * QueryConstants.THEMATIC_DATA_COLUMN); } }
+     * 
+     * // FIXME does not take into account multiple geo attributes if
+     * (includeGeometry) { // Note that the mapping query does not need to
+     * perform the complex left // join logic. This is because the entity name,
+     * geo id selectables on // different universal types will not affect the
+     * mapping result, so they // are omitted.
+     * 
+     * MdBusiness geoEntityMd =
+     * thematicLayer.getGeoHierarchy().getGeoEntityClass(); String
+     * thematicLayerType = geoEntityMd.definesType();
+     * 
+     * MdAttributeGeometry mdAttrGeo = GeoHierarchy.getGeometry(geoEntityMd);
+     * String attributeName = mdAttrGeo.getAttributeName();
+     * 
+     * valueQueryParser.addAttributeSelectable(thematicLayerType, attributeName,
+     * attributeName, QueryConstants.GEOMETRY_NAME_COLUMN);
+     * valueQueryParser.addAttributeSelectable(thematicLayerType,
+     * GeoEntity.ENTITYNAME, GeoEntity.ENTITYNAME,
+     * QueryConstants.ENTITY_NAME_COLUMN);
+     * 
+     * queryMap = valueQueryParser.parse();
+     * 
+     * // exclude any entity without spatial data Selectable geometrySelectable
+     * = valueQuery.getSelectable(attributeName);
+     * valueQuery.AND(geometrySelectable.NE(null));
+     * 
+     * AllPathsQuery allPathsQuery = (AllPathsQuery)
+     * queryMap.get(AllPaths.CLASS); GeoEntityQuery geoEntityQuery =
+     * (GeoEntityQuery) queryMap.get(thematicLayerType); GeneratedEntityQuery
+     * generatedEntityQuery = queryMap.get(generatedQueryClass);
+     * 
+     * if (allPathsQuery == null) { // this case is for when they have not
+     * restricted to a specific // geoEntity allPathsQuery = new
+     * AllPathsQuery(queryFactory);
+     * 
+     * // find all the parents that are of the type of the thematicLayer
+     * valueQuery.WHERE(allPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
+     * 
+     * // find all the rows where the children match geoEntities of the //
+     * children we are looking for. valueQuery.AND( ( (AttributeReference)
+     * generatedEntityQuery.aAttribute(geoEntityAttribute)
+     * ).EQ(allPathsQuery.getChildGeoEntity()));
+     * 
+     * } else {
+     * 
+     * // This is the case for where we are restricting by one or more entitys
+     * 
+     * // first we make a seond all paths query AllPathsQuery allPathsParent =
+     * new AllPathsQuery(queryFactory);
+     * 
+     * // we narrow down the secoond all paths table to just rows that match //
+     * entity restrictions
+     * valueQuery.WHERE(allPathsParent.getParentGeoEntity().EQ(geoEntityQuery));
+     * // we join the second all paths to the primary all paths
+     * valueQuery.WHERE(
+     * allPathsParent.getChildGeoEntity().EQ(allPathsQuery.getChildGeoEntity
+     * ())); // we join the primary all paths to the md business which is
+     * located at // a certain geoEntity valueQuery.AND( ( (AttributeReference)
+     * generatedEntityQuery.aAttribute(geoEntityAttribute)
+     * ).EQ(allPathsQuery.getChildGeoEntity()));
+     * 
+     * }
+     * 
+     * } else
+     */
     {
       // Normal query (non-mapping)
       Map<String, List<ValueQuery>> attributeKeysAndJoins = new HashMap<String, List<ValueQuery>>();
@@ -643,16 +641,16 @@ public class QueryUtil implements Reloadable
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_EPIWEEK);
 
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")"
-          + "THEN to_char(" + sd + ",'IW')" + "ELSE to_char(" + ed + ",'IW') END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")" + "THEN to_char(" + sd + ",'IW')" + "ELSE to_char(" + ed
+          + ",'IW') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
     if (xml.indexOf(DATEGROUP_MONTH) > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_MONTH);
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DAY FROM " + sd + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")"
-          + "THEN to_char(" + sd + ",'MM')" + "ELSE to_char(" + ed + ",'MM') END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DAY FROM " + sd + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")" + "THEN to_char(" + sd + ",'MM')" + "ELSE to_char(" + ed
+          + ",'MM') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
@@ -660,16 +658,16 @@ public class QueryUtil implements Reloadable
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_QUARTER);
 
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + " >  (extract(DOY FROM " + ed
-          + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + "THEN to_char(" + sd + ",'Q')" + "ELSE to_char(" + ed + ",'Q') END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('quarter'," + ed
+          + ")))" + "THEN to_char(" + sd + ",'Q')" + "ELSE to_char(" + ed + ",'Q') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
     if (xml.indexOf(DATEGROUP_YEAR) > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_YEAR);
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed
-          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + "THEN to_char(" + sd + ",'YYYY')" + "ELSE to_char(" + ed + ",'YYYY') END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('year'," + ed + ")))"
+          + "THEN to_char(" + sd + ",'YYYY')" + "ELSE to_char(" + ed + ",'YYYY') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
@@ -730,5 +728,97 @@ public class QueryUtil implements Reloadable
 
     return valueQuery;
 
+  }
+
+  public static ValueQuery textLookup(QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)
+  {
+    long WEIGHT = 256;
+
+    ValueQuery uQ = qf.valueQuery();
+
+    ValueQuery[] valueQueryArray = new ValueQuery[tokenArray.length];
+
+    if (tokenArray.length > 1)
+    {
+      for (int i = 0; i < tokenArray.length; i++)
+      {
+        String token = tokenArray[i].toLowerCase();
+        valueQueryArray[i] = buildQueryForToken(qf, token, selectableArray, conditionArray, WEIGHT, i);
+      }
+      uQ.UNION(valueQueryArray);
+    }
+    else
+    {
+      uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), selectableArray, conditionArray, WEIGHT, 0);
+    }
+
+    // Build outermost select clause. This would be cleaner if the API supported
+    // incrementally adding
+    // to the select clause. One day that will be supported.
+    ValueQuery resultQuery = qf.valueQuery();
+    Selectable[] selectClauseArray = new Selectable[selectableArray.length + 2];
+    for (int k = 0; k < selectableArray.length; k++)
+    {
+      selectClauseArray[k] = uQ.aAttribute(selectableArray[k].getResultAttributeName());
+    }
+    selectClauseArray[selectableArray.length] = F.COUNT(uQ.aAttribute("weight"), "weight");
+    selectClauseArray[selectableArray.length + 1] = F.SUM(uQ.aAttribute("weight"), "sum");
+
+    resultQuery.SELECT(selectClauseArray);
+    resultQuery.ORDER_BY_DESC(F.COUNT(uQ.aAttribute("weight"), "weight"));
+    resultQuery.ORDER_BY_DESC(F.SUM(uQ.aAttribute("weight"), "sum"));
+    for (SelectablePrimitive selectable : selectableArray)
+    {
+      resultQuery.ORDER_BY_ASC((AttributePrimitive) uQ.aAttribute(selectable.getResultAttributeName()));
+    }
+    resultQuery.HAVING(F.COUNT(uQ.aAttribute("weight")).EQ(tokenArray.length));
+    System.out.println(resultQuery.getSQL());
+
+    for (ValueObject valueObject : resultQuery.getIterator())
+    {
+      valueObject.printAttributes();
+    }
+
+    return resultQuery;
+  }
+
+  private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] selectableArray, Condition[] conditionArray, long WEIGHT, int i)
+  {
+    ValueQuery vQ = qf.valueQuery();
+
+    // Build select clause. This would be cleaner if the API supported
+    // incrementally adding
+    // to the select clause. One day that will be supported.
+    Selectable[] selectClauseArray = new Selectable[selectableArray.length + 1];
+    for (int k = 0; k < selectableArray.length; k++)
+    {
+      selectClauseArray[k] = selectableArray[k];
+    }
+    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(WEIGHT, i) + " * STRPOS(" + concatenate(selectableArray) + ", ' " + token + "'))");
+
+    vQ.SELECT(selectClauseArray);
+    vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(selectableArray)).LIKE("% " + token + "%"));
+
+    for (Condition condition : conditionArray)
+    {
+      vQ.AND(condition);
+    }
+    return vQ;
+  }
+
+  private static String concatenate(Selectable[] selectableArray)
+  {
+    StringBuilder sb = new StringBuilder();
+    sb.append("LOWER(' ' || ");
+    for (int i = 0; i < selectableArray.length; i++)
+    {
+      if (i > 0)
+      {
+        sb.append(" || ' ' || ");
+      }
+      sb.append(selectableArray[i].getQualifiedName());
+    }
+    sb.append(")");
+    return sb.toString();
   }
 }

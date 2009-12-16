@@ -59,9 +59,6 @@
       <mjl:dt attribute="exposureTime">
         ${item.exposureTime}
       </mjl:dt>
-      <mjl:dt attribute="intervalTime">
-        ${item.intervalTime}
-      </mjl:dt>
       <mjl:dt attribute="holdingTime">
         ${item.holdingTime}
       </mjl:dt>

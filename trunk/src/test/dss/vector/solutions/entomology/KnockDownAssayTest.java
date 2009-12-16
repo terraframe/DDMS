@@ -271,7 +271,7 @@ public class KnockDownAssayTest extends TestCase
     assay.setFed(10);
     assay.setGravid(10);
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
 
     assay.setIsofemale(false);
     assay.setGeneration(F0);
@@ -297,7 +297,7 @@ public class KnockDownAssayTest extends TestCase
       assertEquals(new Integer(10), assay2.getFed());
       assertEquals(new Integer(10), assay2.getGravid());
       assertEquals(new Integer(60), assay2.getExposureTime());
-      assertEquals(new Integer(10), assay2.getIntervalTime());
+      
 
       assertEquals(new Integer(30), assay2.getQuantityTested());
 
@@ -328,7 +328,7 @@ public class KnockDownAssayTest extends TestCase
     assay.setFed(10);
     assay.setGravid(10);
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
 
     assay.setIsofemale(false);
 
@@ -350,7 +350,7 @@ public class KnockDownAssayTest extends TestCase
       assertEquals(new Integer(10), assay2.getFed());
       assertEquals(new Integer(10), assay2.getGravid());
       assertEquals(new Integer(60), assay2.getExposureTime());
-      assertEquals(new Integer(10), assay2.getIntervalTime());
+      
 
       assertEquals(new Integer(30), assay2.getQuantityTested());
 
@@ -380,7 +380,7 @@ public class KnockDownAssayTest extends TestCase
       assay.setFed(10);
       assay.setGravid(10);
       assay.setExposureTime(60);
-      assay.setIntervalTime(10);
+      
 
       assay.setIsofemale(false);
 
@@ -423,7 +423,7 @@ public class KnockDownAssayTest extends TestCase
       assay.setFed(10);
       assay.setGravid(10);
       assay.setExposureTime(60);
-      assay.setIntervalTime(10);
+      
       assay.setGeneration(F1);
 
       assay.setIsofemale(false);
@@ -478,7 +478,7 @@ public class KnockDownAssayTest extends TestCase
       assay.setFed(10);
       assay.setGravid(10);
       assay.setExposureTime(60);
-      assay.setIntervalTime(10);
+      
       assay.setGeneration(F1);
       assay.setIsofemale(false);
       assay.setQuantityTested(30);
@@ -520,7 +520,7 @@ public class KnockDownAssayTest extends TestCase
     assay.setFed(10);
     assay.setGravid(10);
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
 
     assay.setIsofemale(false);
 
@@ -545,7 +545,7 @@ public class KnockDownAssayTest extends TestCase
       assertEquals(new Integer(10), assay2.getFed());
       assertEquals(new Integer(10), assay2.getGravid());
       assertEquals(new Integer(60), assay2.getExposureTime());
-      assertEquals(new Integer(10), assay2.getIntervalTime());
+      
 
       assertEquals(new Integer(30), assay2.getQuantityTested());
 
@@ -574,7 +574,7 @@ public class KnockDownAssayTest extends TestCase
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
 
     assay.setIsofemale(false);
 
@@ -597,7 +597,7 @@ public class KnockDownAssayTest extends TestCase
       assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(60), assay2.getExposureTime());
-      assertEquals(new Integer(10), assay2.getIntervalTime());
+      
 
       assertEquals(new Integer(30), assay2.getQuantityTested());
 
@@ -626,7 +626,7 @@ public class KnockDownAssayTest extends TestCase
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
 
     assay.setIsofemale(false);
 
@@ -649,7 +649,7 @@ public class KnockDownAssayTest extends TestCase
       assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(60), assay2.getExposureTime());
-      assertEquals(new Integer(10), assay2.getIntervalTime());
+      
 
       assertEquals(new Integer(30), assay2.getQuantityTested());
 
@@ -682,7 +682,7 @@ public class KnockDownAssayTest extends TestCase
       assay.setGravid(10);
       assay.setGeneration(F1);
       assay.setExposureTime(60);
-      assay.setIntervalTime(10);
+      
       assay.setIsofemale(false);
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(2);
@@ -728,7 +728,7 @@ public class KnockDownAssayTest extends TestCase
       assay.setGravid(10);
       assay.setExposureTime(60);
       assay.setGeneration(F1);
-      assay.setIntervalTime(10);
+      
 
       assay.setIsofemale(false);
 
@@ -778,7 +778,7 @@ public class KnockDownAssayTest extends TestCase
       assay.setGravid(10);
       assay.setExposureTime(60);
       assay.setGeneration(F1);
-      assay.setIntervalTime(10);
+      
 
       assay.setIsofemale(false);
 
@@ -832,7 +832,7 @@ public class KnockDownAssayTest extends TestCase
       assay.setGravid(gravid);
       assay.setGeneration(F1);
       assay.setExposureTime(60);
-      assay.setIntervalTime(10);
+      
 
       assay.setIsofemale(false);
 
@@ -880,7 +880,7 @@ public class KnockDownAssayTest extends TestCase
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
     assay.setIsofemale(false);
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
@@ -898,8 +898,7 @@ public class KnockDownAssayTest extends TestCase
       assertEquals(sex, assay2.getSex());
       assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
-      assertEquals(new Integer(60), assay2.getExposureTime());
-      assertEquals(new Integer(10), assay2.getIntervalTime());
+      assertEquals(new Integer(60), assay2.getExposureTime());      
       assertEquals(new Integer(30), assay2.getQuantityTested());
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
@@ -932,10 +931,7 @@ public class KnockDownAssayTest extends TestCase
       assay.setFed(10);
       assay.setGravid(10);
       assay.setExposureTime(exposureTime);
-      assay.setIntervalTime(intervalTime);
-
       assay.setIsofemale(false);
-
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
@@ -985,7 +981,7 @@ public class KnockDownAssayTest extends TestCase
       assay.setFed(10);
       assay.setGravid(10);
       assay.setExposureTime(60);
-      assay.setIntervalTime(10);
+      
       assay.setIsofemale(true);
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(2);
@@ -1030,7 +1026,7 @@ public class KnockDownAssayTest extends TestCase
     assay.setIdentificationMethod(TermDTO.get(clientRequest, identificationMethod.getId()));
     assay.setTestMethod(TermDTO.get(clientRequest, assayMethod.getId()));
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
     assay.setGeneration(TermDTO.get(clientRequest, F1.getId()));
 
     assay.setIsofemale(false);
@@ -1069,7 +1065,7 @@ public class KnockDownAssayTest extends TestCase
     assay.setIdentificationMethod(TermDTO.get(clientRequest, identificationMethod.getId()));
     assay.setTestMethod(TermDTO.get(clientRequest, assayMethod.getId()));
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
     assay.setGeneration(TermDTO.get(clientRequest, F1.getId()));
 
     assay.setIsofemale(false);
@@ -1107,7 +1103,7 @@ public class KnockDownAssayTest extends TestCase
     assay.setIdentificationMethod(TermDTO.get(clientRequest, identificationMethod.getId()));
     assay.setTestMethod(TermDTO.get(clientRequest, assayMethod.getId()));
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
     assay.setGeneration(TermDTO.get(clientRequest, F1.getId()));
     assay.setIsofemale(false);
     assay.setQuantityTested(30);

@@ -42,22 +42,6 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
   }
 
   @Override
-  public void validateIntervalTime()
-  {
-    if (this.getIntervalTime() > this.getExposureTime())
-    {
-      String msg = "It is impossible to have an interval time larger than the exposure time";
-
-      InvalidIntervalTimeProblem p = new InvalidIntervalTimeProblem(msg);
-      p.setIntervalTime(this.getIntervalTime());
-      p.setExposureTime(this.getExposureTime());
-      p.setNotification(this, INTERVALTIME);
-      p.apply();
-      p.throwIt();
-    }
-  }
-
-  @Override
   public void validateTestDate()
   {
     if (this.getTestDate() != null && this.getCollection() != null)
@@ -84,17 +68,8 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
   public void apply()
   {
     validateIsofemale();
-    validateIntervalTime();
 
     super.apply();
-  }
-
-  public Integer calculatePeriod()
-  {
-    double exposureTime = (double) this.getExposureTime();
-    Integer intervalTime = this.getIntervalTime();
-
-    return (int) Math.ceil(exposureTime / intervalTime) + 1;
   }
 
   public static String getCollectionResistanceSQL(String assayTable,String mortality,String resistant, String susceptible, String[] labels)

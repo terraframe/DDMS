@@ -151,7 +151,7 @@ public class LDDATest extends TestCase
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(1.34));
     assay.setIsofemale(false);
@@ -174,7 +174,7 @@ public class LDDATest extends TestCase
       assertEquals(identificationMethod.getId(), test.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), test.getTestMethod().getId());
       assertEquals(new Integer(60), test.getExposureTime());
-      assertEquals(new Integer(10), test.getIntervalTime());
+      
       assertEquals(new Integer(24), test.getHoldingTime());
       assertEquals(new Integer(5), test.getQuantityDead());
       assertEquals(new Integer(30), test.getQuantityTested());
@@ -202,7 +202,7 @@ public class LDDATest extends TestCase
     assay.setTestMethod(assayMethod);
     assay.setGeneration(F1);
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(1.34));
     assay.setIsofemale(false);
@@ -224,7 +224,7 @@ public class LDDATest extends TestCase
       assertEquals(assayMethod.getId(), test.getTestMethod().getId());
 
       assertEquals(new Integer(60), test.getExposureTime());
-      assertEquals(new Integer(10), test.getIntervalTime());
+      
       assertEquals(new Integer(24), test.getHoldingTime());
       assertEquals(new Integer(5), test.getQuantityDead());
       assertEquals(new Integer(30), test.getQuantityTested());
@@ -254,7 +254,7 @@ public class LDDATest extends TestCase
       assay.setTestMethod(assayMethod);
 
       assay.setExposureTime(60);
-      assay.setIntervalTime(10);
+      
       assay.setHoldingTime(24);
       assay.setControlTestMortality(new Float(1.34));
       assay.setIsofemale(false);
@@ -294,7 +294,7 @@ public class LDDATest extends TestCase
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
       assay.setExposureTime(60);
-      assay.setIntervalTime(10);
+      
       assay.setGeneration(F1);
       assay.setHoldingTime(24);
       assay.setControlTestMortality(new Float(1.34));
@@ -344,7 +344,7 @@ public class LDDATest extends TestCase
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
       assay.setExposureTime(60);
-      assay.setIntervalTime(10);
+      
       assay.setGeneration(F1);
       assay.setHoldingTime(24);
       assay.setControlTestMortality(new Float(1.34));
@@ -384,7 +384,7 @@ public class LDDATest extends TestCase
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(1.34));
     assay.setIsofemale(false);
@@ -402,8 +402,7 @@ public class LDDATest extends TestCase
       assertEquals(date, test.getTestDate());
       assertEquals(identificationMethod.getId(), test.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), test.getTestMethod().getId());
-      assertEquals(assay.getExposureTime(), test.getExposureTime());
-      assertEquals(assay.getIntervalTime(), test.getIntervalTime());
+      assertEquals(assay.getExposureTime(), test.getExposureTime());      
       assertEquals(assay.getHoldingTime(), test.getHoldingTime());
       assertEquals(assay.getQuantityDead(), test.getQuantityDead());
       assertEquals(assay.getQuantityTested(), test.getQuantityTested());
@@ -428,7 +427,7 @@ public class LDDATest extends TestCase
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(1.34));
     assay.setIsofemale(false);
@@ -448,7 +447,7 @@ public class LDDATest extends TestCase
       assertEquals(identificationMethod.getId(), test.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), test.getTestMethod().getId());
       assertEquals(new Integer(60), test.getExposureTime());
-      assertEquals(new Integer(10), test.getIntervalTime());
+      
       assertEquals(new Integer(24), test.getHoldingTime());
       assertEquals(new Integer(0), test.getQuantityDead());
       assertEquals(new Integer(30), test.getQuantityTested());
@@ -474,7 +473,7 @@ public class LDDATest extends TestCase
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(1.34));
     assay.setIsofemale(false);
@@ -496,8 +495,7 @@ public class LDDATest extends TestCase
 
       assertEquals(identificationMethod.getId(), test.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), test.getTestMethod().getId());
-      assertEquals(new Integer(60), test.getExposureTime());
-      assertEquals(new Integer(10), test.getIntervalTime());
+      assertEquals(new Integer(60), test.getExposureTime());      
       assertEquals(new Integer(24), test.getHoldingTime());
       assertEquals(new Integer(30), test.getQuantityDead());
       assertEquals(new Integer(30), test.getQuantityTested());
@@ -529,7 +527,7 @@ public class LDDATest extends TestCase
       assay.setTestMethod(assayMethod);
       assay.setGeneration(F1);
       assay.setExposureTime(60);
-      assay.setIntervalTime(10);
+      
       assay.setHoldingTime(24);
       assay.setControlTestMortality(new Float(1.34));
       assay.setIsofemale(false);
@@ -580,9 +578,7 @@ public class LDDATest extends TestCase
       assay.setGeneration(F1);
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
-
-      assay.setExposureTime(exposureTime);
-      assay.setIntervalTime(intervalTime);
+      assay.setExposureTime(exposureTime);      
       assay.setHoldingTime(24);
       assay.setControlTestMortality(new Float(1.34));
       assay.setIsofemale(false);
@@ -633,7 +629,7 @@ public class LDDATest extends TestCase
       assay.setTestMethod(assayMethod);
 
       assay.setExposureTime(60);
-      assay.setIntervalTime(10);
+      
       assay.setHoldingTime(24);
       assay.setControlTestMortality(new Float(1.34));
       assay.setIsofemale(true);
@@ -679,7 +675,7 @@ public class LDDATest extends TestCase
     assay.setIdentificationMethod(TermDTO.get(clientRequest, identificationMethod.getId()));
     assay.setTestMethod(TermDTO.get(clientRequest, assayMethod.getId()));
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
     assay.setGeneration(TermDTO.get(clientRequest, F1.getId()));
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(1.34));
@@ -714,7 +710,7 @@ public class LDDATest extends TestCase
     assay.setIdentificationMethod(TermDTO.get(clientRequest, identificationMethod.getId()));
     assay.setTestMethod(TermDTO.get(clientRequest, assayMethod.getId()));
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
     assay.setGeneration(TermDTO.get(clientRequest, F1.getId()));
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(1.34));
@@ -752,7 +748,7 @@ public class LDDATest extends TestCase
     assay.setIdentificationMethod(TermDTO.get(clientRequest, identificationMethod.getId()));
     assay.setTestMethod(TermDTO.get(clientRequest, assayMethod.getId()));
     assay.setExposureTime(60);
-    assay.setIntervalTime(10);
+    
     assay.setGeneration(TermDTO.get(clientRequest, F1.getId()));
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(1.34));

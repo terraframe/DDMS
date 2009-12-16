@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 613001931)
+@com.terraframe.mojo.business.ClassSignature(hash = 6519080)
 public abstract class AbstractCategoryDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.AbstractCategory";
-  private static final long serialVersionUID = 613001931;
+  private static final long serialVersionUID = 6519080;
   
   protected AbstractCategoryDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -456,22 +456,6 @@ public abstract class AbstractCategoryDTOBase extends com.terraframe.mojo.busine
     String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.query.Styles", "java.lang.String"};
     Object[] _parameters = new Object[]{id, styles, layerId};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.AbstractCategoryDTO.CLASS, "applyWithStyles", _declaredTypes);
-    clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public final void saveCategory(dss.vector.solutions.query.StylesDTO styles)
-  {
-    String[] _declaredTypes = new String[]{"dss.vector.solutions.query.Styles"};
-    Object[] _parameters = new Object[]{styles};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.AbstractCategoryDTO.CLASS, "saveCategory", _declaredTypes);
-    getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final void saveCategory(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.query.StylesDTO styles)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.query.Styles"};
-    Object[] _parameters = new Object[]{id, styles};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.AbstractCategoryDTO.CLASS, "saveCategory", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

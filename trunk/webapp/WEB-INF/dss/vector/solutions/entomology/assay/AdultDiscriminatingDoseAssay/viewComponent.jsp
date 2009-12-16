@@ -88,9 +88,6 @@
       <mjl:dt attribute="mortality">
         ${item.mortality}
       </mjl:dt>
-      <mjl:dt attribute="intervalTime">
-        ${item.intervalTime}
-      </mjl:dt>
       <mjl:dt attribute="kd50">
         ${item.kd50}
       </mjl:dt>

@@ -57,9 +57,6 @@
       <mjl:dt attribute="exposureTime">
         <mjl:input type="text" param="exposureTime" />
       </mjl:dt>
-      <mjl:dt attribute="intervalTime">
-        <mjl:input type="text" param="intervalTime" />
-      </mjl:dt>
       <mjl:dt attribute="holdingTime">
         <mjl:input type="text" param="holdingTime" />
       </mjl:dt>

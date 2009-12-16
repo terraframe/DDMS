@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1895191979)
+@com.terraframe.mojo.business.ClassSignature(hash = 701790664)
 public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomology.assay.AbstractAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.CollectionAssay";
-  private static final long serialVersionUID = -1895191979;
+  private static final long serialVersionUID = 701790664;
   
   protected CollectionAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -31,7 +31,6 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String GENERATION = "generation";
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
-  public static java.lang.String INTERVALTIME = "intervalTime";
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String TESTMETHOD = "testMethod";
@@ -202,43 +201,6 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIdentificationMethodMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IDENTIFICATIONMETHOD).getAttributeMdDTO();
-  }
-  
-  public Integer getIntervalTime()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVALTIME));
-  }
-  
-  public void setIntervalTime(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INTERVALTIME, "");
-    }
-    else
-    {
-      setValue(INTERVALTIME, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isIntervalTimeWritable()
-  {
-    return isWritable(INTERVALTIME);
-  }
-  
-  public boolean isIntervalTimeReadable()
-  {
-    return isReadable(INTERVALTIME);
-  }
-  
-  public boolean isIntervalTimeModified()
-  {
-    return isModified(INTERVALTIME);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getIntervalTimeMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVALTIME).getAttributeMdDTO();
   }
   
   public Boolean getIsofemale()

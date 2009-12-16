@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 222652629)
+@com.terraframe.mojo.business.ClassSignature(hash = -1783657656)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,11 +15,10 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String GENERATION = "generation";
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
-  public static java.lang.String INTERVALTIME = "intervalTime";
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 222652629;
+  private static final long serialVersionUID = -1783657656;
   
   public CollectionAssayBase()
   {
@@ -156,34 +155,6 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
     else
     {
       setValue(IDENTIFICATIONMETHOD, value.getId());
-    }
-  }
-  
-  public Integer getIntervalTime()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVALTIME));
-  }
-  
-  public void validateIntervalTime()
-  {
-    this.validateAttribute(INTERVALTIME);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getIntervalTimeMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.CollectionAssay.CLASS);
-    return mdClassIF.definesAttribute(INTERVALTIME);
-  }
-  
-  public void setIntervalTime(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INTERVALTIME, "");
-    }
-    else
-    {
-      setValue(INTERVALTIME, java.lang.Integer.toString(value));
     }
   }
   

@@ -235,7 +235,7 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
         assay.setFed(30);
         assay.setGravid(30);
         assay.setExposureTime(60);
-        assay.setIntervalTime(10);
+        
         assay.setGeneration(TermDTO.get(request, termId));
         assay.setIdentificationMethod(TermDTO.get(request, termId));
         assay.setIsofemale(false);
@@ -289,7 +289,7 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
         assay.setCollection(MosquitoCollectionDTO.get(request, dto.getConcreteId()));
         assay.setControlTestMortality(2.5F);
         assay.setExposureTime(60);
-        assay.setIntervalTime(10);
+        
         assay.setGeneration(TermDTO.get(request, termId));
         assay.setIdentificationMethod(TermDTO.get(request, termId));
         assay.setIsofemale(false);
@@ -344,8 +344,7 @@ public class EntomologyNoPermissions extends PermissionTest implements DoNotWeav
         assay.setCollection(MosquitoCollectionDTO.get(request, dto.getConcreteId()));
         assay.setFed(30);
         assay.setGravid(30);
-        assay.setExposureTime(60);
-        assay.setIntervalTime(10);
+        assay.setExposureTime(60);        
         assay.setGeneration(TermDTO.get(request, termId));
         assay.setIdentificationMethod(TermDTO.get(request, termId));
         assay.setIsofemale(false);

@@ -59,9 +59,6 @@
       <mjl:dt attribute="exposureTime">
         <mjl:input type="text" param="exposureTime" />
       </mjl:dt>
-      <mjl:dt attribute="intervalTime">
-        <mjl:input type="text" param="intervalTime" />
-      </mjl:dt>
 
       <mjl:dt attribute="insecticide">
         <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide">

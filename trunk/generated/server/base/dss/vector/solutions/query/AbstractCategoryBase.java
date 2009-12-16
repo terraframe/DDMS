@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 25782603)
+@com.terraframe.mojo.business.ClassSignature(hash = 1436645288)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class AbstractCategoryBase extends com.terraframe.mojo.business.
   public static java.lang.String STYLES = "styles";
   public static java.lang.String THEMATICCOLOR = "thematicColor";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 25782603;
+  private static final long serialVersionUID = 1436645288;
   
   public AbstractCategoryBase()
   {
@@ -418,18 +418,6 @@ public abstract class AbstractCategoryBase extends com.terraframe.mojo.business.
   {
     AbstractCategory _instance = AbstractCategory.get(id);
     _instance.applyWithStyles(styles, layerId);
-  }
-  
-  public void saveCategory(dss.vector.solutions.query.Styles styles)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategory.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final void saveCategory(java.lang.String id, dss.vector.solutions.query.Styles styles)
-  {
-    AbstractCategory _instance = AbstractCategory.get(id);
-    _instance.saveCategory(styles);
   }
   
   public static AbstractCategory lock(java.lang.String id)
