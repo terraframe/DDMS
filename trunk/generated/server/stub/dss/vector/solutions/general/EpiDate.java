@@ -130,7 +130,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     cal.setFirstDayOfWeek(startDay);
     // The last day of the first epi week is the first SAT in Jan provided it is
     // 4 or more days in.
-    cal.setMinimalDaysInFirstWeek(4 + startDay);
+    cal.setMinimalDaysInFirstWeek((4 + startDay )% 7);
     cal.set(Calendar.YEAR, year);
     cal.set(Calendar.WEEK_OF_YEAR, 1);
     cal.add(Calendar.DAY_OF_WEEK, 1);
@@ -145,7 +145,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     cal.setFirstDayOfWeek(startDay);
     // The last day of the first epi week is the first SAT in Jan provided it is
     // 4 or more days in.
-    cal.setMinimalDaysInFirstWeek(4 + startDay);
+    cal.setMinimalDaysInFirstWeek((4 + startDay )% 7);
     cal.set(Calendar.YEAR, year);
     cal.set(Calendar.WEEK_OF_YEAR, 1);
     cal.add(Calendar.DAY_OF_WEEK, 1);
