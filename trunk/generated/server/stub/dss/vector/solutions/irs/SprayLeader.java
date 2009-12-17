@@ -9,7 +9,7 @@ import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.UniqueLeaderIdException;
-import dss.vector.solutions.util.QueryUtil;
+import dss.vector.solutions.query.QueryBuilder;
 
 public class SprayLeader extends SprayLeaderBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -73,7 +73,7 @@ public class SprayLeader extends SprayLeaderBase implements com.terraframe.mojo.
 
     Condition[] conditions = new Condition[] { personQuery.getSprayLeaderDelegate().EQ(leaderQuery) };
 
-    ValueQuery valueQuery = QueryUtil.textLookup(f, array, selectables, conditions);
+    ValueQuery valueQuery = QueryBuilder.textLookup(f, array, selectables, conditions);
 
     return valueQuery;
   }
