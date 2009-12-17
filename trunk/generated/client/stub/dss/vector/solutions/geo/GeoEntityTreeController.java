@@ -3,13 +3,15 @@ package dss.vector.solutions.geo;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 
 import dss.vector.solutions.geo.generated.EarthDTO;
 
-public class GeoEntityTreeController extends GeoEntityTreeControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class GeoEntityTreeController extends GeoEntityTreeControllerBase implements Reloadable
 {
   private static final long   serialVersionUID                    = 1236364846909L;
 
@@ -23,8 +25,7 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
 
   public static final String  ROOT_GEO_ENTITY_ID                  = "rootGeoEntityId";
 
-  public GeoEntityTreeController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public GeoEntityTreeController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
   }
@@ -35,7 +36,6 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
     try
     {
       req.setAttribute(ROOT_GEO_ENTITY_ID, rootGeoEntityId);
-
 
       GeoHierarchyViewDTO[] views = GeoHierarchyDTO.collectHierarchies(this.getClientRequest(), rootGeoEntityId, political, sprayZoneAllowed, extraUniversals);
       req.setAttribute("views", views);

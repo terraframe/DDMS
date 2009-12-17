@@ -1212,6 +1212,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   {
     return getGeoHierarchiesByType(geoEntity.getType(), parameter);
   }
+  
+  public static GeoHierarchyView[] getHierarchies(SearchParameter parameter)
+  {
+    return getGeoHierarchiesByType(Earth.CLASS, parameter);    
+  }
 
   /**
    * Returns all GeoHierarchies under and including the given type.
