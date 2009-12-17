@@ -25,6 +25,7 @@ import com.terraframe.mojo.transport.attributes.AttributeReferenceDTO;
 import com.terraframe.mojo.transport.attributes.AttributeStructDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 
+import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
@@ -99,6 +100,8 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   private static final String QUERY_ITN_FACILITY_DISTRIBUTION  = "/WEB-INF/queryScreens/queryITNFacilityDistribution.jsp";
   
   private static final String QUERY_AGGREGATED_ITN = "/WEB-INF/queryScreens/queryAggregatedITN.jsp";
+  
+  private static final String QUERY_MOSQUITO_COLLECTIONS = "/WEB-INF/queryScreens/queryMosquitoCollections.jsp";
 
   public QueryController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -704,6 +707,49 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       req.setAttribute("orderedGrids", ordered.toString());
 
       req.getRequestDispatcher(QUERY_ITN_FACILITY_DISTRIBUTION).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+  
+  @Override
+  public void queryMosquitoCollections() throws IOException, ServletException
+  {
+    try
+    {
+      // The Earth is the root. FIXME use country's default root
+      ClientRequestIF request = this.getClientRequest();
+
+      // The Earth is the root. FIXME use country's default root
+      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_MOSQUITO_COLLECTIONS);
+      JSONArray queries = new JSONArray();
+      // Available queries
+      for (SavedSearchViewDTO view : query.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", view.getSavedQueryId());
+        idAndName.put("name", view.getQueryName());
+
+        queries.put(idAndName);
+      }
+
+      req.setAttribute("queryList", queries.toString());
+      
+      
+
+      // Load label map 
+      ClassQueryDTO collectionQuery = request.getQuery(MosquitoCollectionDTO.CLASS);
+      String collectionMap = Halp.getDropDownMaps(collectionQuery, request, ", ");
+      req.setAttribute("collectionMaps", collectionMap);
+
+
+      req.getRequestDispatcher(QUERY_MOSQUITO_COLLECTIONS).forward(req, resp);
 
     }
     catch (Throwable t)
