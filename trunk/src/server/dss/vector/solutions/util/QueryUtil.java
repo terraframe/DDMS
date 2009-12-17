@@ -22,10 +22,8 @@ import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.AttributeMoment;
-import com.terraframe.mojo.query.AttributePrimitive;
 import com.terraframe.mojo.query.AttributeReference;
 import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.Function;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.InnerJoinEq;
@@ -36,7 +34,6 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableChar;
 import com.terraframe.mojo.query.SelectableMoment;
 import com.terraframe.mojo.query.SelectableNumber;
-import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.SelectableReference;
 import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
@@ -572,6 +569,28 @@ public class QueryUtil implements Reloadable
           valueQuery.AND(dateAttriute.LE(end));
         }
       }
+      
+      // now we set the columns that show the restictions
+      if (xml.indexOf(START_DATE_RANGE) > 0)
+      {
+        SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(START_DATE_RANGE);
+        if (start != null)
+        {
+          dateGroup.setSQL("'" + start + "'");
+        }
+      }
+
+      if (xml.indexOf(END_DATE_RANGE) > 0)
+      {
+        SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(END_DATE_RANGE);
+        dateGroup.setSQL("''");
+        if (end != null)
+        {
+          dateGroup.setSQL("'" + end + "'");
+        }
+      }
+
+      
       return setQueryDates(xml, valueQuery, attributeName);
     }
     catch (JSONException e)
@@ -682,7 +701,6 @@ public class QueryUtil implements Reloadable
     if (xml.indexOf(START_DATE_RANGE) > 0)
     {
       SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(START_DATE_RANGE);
-      dateGroup.setSQL("''");
       Pattern pattern = Pattern.compile("<operator>GE</operator>\\W{1,2}<value>(" + DATE_REGEX + ")</value>");
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
@@ -694,7 +712,6 @@ public class QueryUtil implements Reloadable
     if (xml.indexOf(END_DATE_RANGE) > 0)
     {
       SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(END_DATE_RANGE);
-      dateGroup.setSQL("''");
       Pattern pattern = Pattern.compile("<operator>LE</operator>\\W{1,2}<value>(" + DATE_REGEX + ")</value>");
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
@@ -730,95 +747,5 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static ValueQuery textLookup(QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)
-  {
-    long WEIGHT = 256;
-
-    ValueQuery uQ = qf.valueQuery();
-
-    ValueQuery[] valueQueryArray = new ValueQuery[tokenArray.length];
-
-    if (tokenArray.length > 1)
-    {
-      for (int i = 0; i < tokenArray.length; i++)
-      {
-        String token = tokenArray[i].toLowerCase();
-        valueQueryArray[i] = buildQueryForToken(qf, token, selectableArray, conditionArray, WEIGHT, i);
-      }
-      uQ.UNION(valueQueryArray);
-    }
-    else
-    {
-      uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), selectableArray, conditionArray, WEIGHT, 0);
-    }
-
-    // Build outermost select clause. This would be cleaner if the API supported
-    // incrementally adding
-    // to the select clause. One day that will be supported.
-    ValueQuery resultQuery = qf.valueQuery();
-    Selectable[] selectClauseArray = new Selectable[selectableArray.length + 2];
-    for (int k = 0; k < selectableArray.length; k++)
-    {
-      selectClauseArray[k] = uQ.aAttribute(selectableArray[k].getResultAttributeName());
-    }
-    selectClauseArray[selectableArray.length] = F.COUNT(uQ.aAttribute("weight"), "weight");
-    selectClauseArray[selectableArray.length + 1] = F.SUM(uQ.aAttribute("weight"), "sum");
-
-    resultQuery.SELECT(selectClauseArray);
-    resultQuery.ORDER_BY_DESC(F.COUNT(uQ.aAttribute("weight"), "weight"));
-    resultQuery.ORDER_BY_DESC(F.SUM(uQ.aAttribute("weight"), "sum"));
-    for (SelectablePrimitive selectable : selectableArray)
-    {
-      resultQuery.ORDER_BY_ASC((AttributePrimitive) uQ.aAttribute(selectable.getResultAttributeName()));
-    }
-    resultQuery.HAVING(F.COUNT(uQ.aAttribute("weight")).EQ(tokenArray.length));
-    System.out.println(resultQuery.getSQL());
-
-    for (ValueObject valueObject : resultQuery.getIterator())
-    {
-      valueObject.printAttributes();
-    }
-
-    return resultQuery;
-  }
-
-  private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] selectableArray, Condition[] conditionArray, long WEIGHT, int i)
-  {
-    ValueQuery vQ = qf.valueQuery();
-
-    // Build select clause. This would be cleaner if the API supported
-    // incrementally adding
-    // to the select clause. One day that will be supported.
-    Selectable[] selectClauseArray = new Selectable[selectableArray.length + 1];
-    for (int k = 0; k < selectableArray.length; k++)
-    {
-      selectClauseArray[k] = selectableArray[k];
-    }
-    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(WEIGHT, i) + " * STRPOS(" + concatenate(selectableArray) + ", ' " + token + "'))");
-
-    vQ.SELECT(selectClauseArray);
-    vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(selectableArray)).LIKE("% " + token + "%"));
-
-    for (Condition condition : conditionArray)
-    {
-      vQ.AND(condition);
-    }
-    return vQ;
-  }
-
-  private static String concatenate(Selectable[] selectableArray)
-  {
-    StringBuilder sb = new StringBuilder();
-    sb.append("LOWER(' ' || ");
-    for (int i = 0; i < selectableArray.length; i++)
-    {
-      if (i > 0)
-      {
-        sb.append(" || ' ' || ");
-      }
-      sb.append(selectableArray[i].getQualifiedName());
-    }
-    sb.append(")");
-    return sb.toString();
-  }
+  
 }
