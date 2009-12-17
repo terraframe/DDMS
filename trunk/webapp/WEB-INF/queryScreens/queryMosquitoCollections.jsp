@@ -76,25 +76,19 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var collectionMaps = {<%=(String) request.getAttribute("collectionMaps")%>};
 
-    var collectionAttribs = ["abundance","collectionDate","collectionId","collectionMethod","geoEntity","lifeStage","lifeStageName"];
-
     var mosquitoCollection = new dss.vector.solutions.entomology.MosquitoCollection;
-
-    var subCollection = new dss.vector.solutions.entomology.SubCollection;
+    var collectionAttribs = ["collectionId","collectionMethod","geoEntity","collectionDate","lifeStage","abundance"];
+    collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_mc',dropDownMaps:collectionMaps});
     
 
-    collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_mc',dropDownMaps:collectionMaps});
-
-
-    var subCollectionAttribs = ["subCollectionId","identMethod","taxon","total","eggs","female","male","larvae","pupae","unknowns"];
-
-    subCollectionColumns =   subCollectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:subCollection, suffix:'_mc',dropDownMaps:collectionMaps});
-
+    var subCollection = new dss.vector.solutions.entomology.SubCollection;
+    var subCollectionAttribs = ["subCollectionId","identMethod","taxon","eggs","larvae","pupae","female","male","unknowns","total"];
+    subCollectionColumns =   subCollectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:subCollection, suffix:'_mc',dropDownMaps:{}});
 
 
     var selectableGroups = [
                 {title:"Collection", values:collectionColumns, group:"ipt", klass:mosquitoCollection.CLASS},
-                {title:"Subcollection", values:subCollectionColumns, group:"ipt", klass:subCollection.CLASS}
+                {title:"SubCollection", values:subCollectionColumns, group:"ipt", klass:subCollection.CLASS}
         ];
 
     var query = new MDSS.QueryMosquitoCollections(selectableGroups, queryList);

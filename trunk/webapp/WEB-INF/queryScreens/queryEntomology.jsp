@@ -10,6 +10,7 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.query.QueryController"%>
+<%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
@@ -21,6 +22,11 @@
 <%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
 <%@page import="org.json.JSONException"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
+<%@page import="dss.vector.solutions.entomology.SubCollectionDTO"%>
+<%@page import="dss.vector.solutions.entomology.InfectionAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.PooledInfectionAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.MolecularAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.BiochemicalAssayDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeConcreteInfo"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
@@ -35,8 +41,8 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ MosquitoCollectionDTO.CLASS};
-    String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
+    String[] mosquitoTypes = new String[]{ MosquitoCollectionDTO.CLASS,InfectionAssayDTO.CLASS,PooledInfectionAssayDTO.CLASS,BiochemicalAssayDTO.CLASS,MolecularAssayDTO.CLASS};
+    String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
 
     List<String> loadables = new ArrayList<String>();
@@ -47,6 +53,7 @@
 <%=Halp.loadTypes(loadables)%>
 
 <script type="text/javascript">
+
 
 YAHOO.util.Event.onDOMReady(function(){
 
@@ -66,31 +73,43 @@ YAHOO.util.Event.onDOMReady(function(){
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
-    var queryList = <%= (String) request.getAttribute("queryList") %>;    
+    var queryList = <%= (String) request.getAttribute("queryList") %>;
 
-    var mosquito = new Mojo.$.dss.vector.solutions.entomology.Mosquito();
-    var mosquitoView = new Mojo.$.dss.vector.solutions.entomology.MosquitoView();
-    var mosquitoGroup = new  Mojo.$.dss.vector.solutions.entomology.UninterestingSpecieGroup();
-    var mosquitoCollection = new Mojo.$.dss.vector.solutions.entomology.MosquitoCollection();
+    var collectionMaps = {<%=(String) request.getAttribute("collectionMaps")%>};
+    var mosquitoCollection = new dss.vector.solutions.entomology.MosquitoCollection;
+    var collectionAttribs = ["collectionId","collectionMethod","geoEntity","collectionDate","lifeStage","abundance"];
+    collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_collection',dropDownMaps:collectionMaps});
 
-    var collectionAttribs = ["collectionId","dateCollected"];
-    var collectionColumns = [];
+    var infectionMaps = {<%=(String) request.getAttribute("infectionMaps")%>};
+    var infectionAssay = new dss.vector.solutions.entomology.InfectionAssay;
+    var infectionAttribs = ["mosquitoId","species","identMethod","sex","parasite","testMethod","infected","numberTested","numberPositive"];
+    infectionColumns =   infectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:infectionAssay, suffix:'_infection',dropDownMaps:infectionMaps});
 
+    var pooledInfectionMaps = {<%=(String) request.getAttribute("pooledInfectionMaps")%>};
+    var pooledInfectionAssay = new dss.vector.solutions.entomology.PooledInfectionAssay;
+    var pooledInfectionAttribs = ["poolId","species","identMethod","sex","parasite","testMethod","infected","mosquitosTested","poolsTested","numberPositive"];
+    pooledInfectionColumns =   pooledInfectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:pooledInfectionAssay, suffix:'_pooledInfection',dropDownMaps:pooledInfectionMaps});
 
-    collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_group',dropDownMaps:ddMaps});
-    var groupAttribs = ["sampleId","specie","identificationMethod","quantity"];
-    var groupColumns =  collectionColumns.concat(groupAttribs.map(mapAttribs, {obj:mosquitoGroup, suffix:'_group',dropDownMaps:ddMaps}));
+    var biochemicalMaps = {<%=(String) request.getAttribute("biochemicalMaps")%>};
+    var biochemicalAssay = new dss.vector.solutions.entomology.BiochemicalAssay;
+    var biochemicalAttribs = ["mosquitoId","species","identMethod","sex","generation","isofemale","numberTested","numberElevated"];
+    biochemicalColumns =   biochemicalAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:biochemicalAssay, suffix:'_biochemical',dropDownMaps:biochemicalMaps});
 
-    collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_individual',dropDownMaps:ddMaps});
-    var mosquitoAttribs = ["sampleId","specie","identificationMethod","sex","generation","isofemale","testDate"];
-    var mosquitoColumns =  collectionColumns.concat(mosquitoAttribs.map(mapAttribs, {obj:mosquito, suffix:'_individual',dropDownMaps:ddMaps}));
-    var assays = [];
+    var molecularMaps = {<%=(String) request.getAttribute("molecularMaps")%>};
+    var molecularAssay = new dss.vector.solutions.entomology.MolecularAssay;
 
-    assays.push(mapAssayAttribs(infectivityColumns));
-    assays.push(mapAssayAttribs(targetSiteColumns));
-    assays.push(mapAssayAttribs(metabolicColumns));
+    var molecularAttribs = ["mosquitoId","species","identMethod","sex","generation","isofemale","assayMethod","target","numberRR","numberRS","numberSS"];
+    molecularColumns =   molecularAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:molecularAssay, suffix:'_molecular',dropDownMaps:molecularMaps});
 
-    var query = new MDSS.QueryEntomology(groupColumns,mosquitoColumns, assays, queryList);
+    var selectableGroups = [
+                {title:"Collection", values:collectionColumns, group:"collection", klass:mosquitoCollection.CLASS},
+                {title:"Infection_Assay", values:infectionColumns, group:"infection", klass:infectionAssay.CLASS},
+                {title:"Pooled_Infection_Assay", values:pooledInfectionColumns, group:"pooledInfection", klass:pooledInfectionAssay.CLASS},
+                {title:"Biochemical_Assay", values:biochemicalColumns, group:"biochemical", klass:biochemicalAssay.CLASS},
+                {title:"Molecular_Assay", values:molecularColumns, group:"molecular", klass:molecularAssay.CLASS}
+        ];
+
+    var query = new MDSS.QueryEntomology(selectableGroups, queryList);
     query.render();
 
 });
