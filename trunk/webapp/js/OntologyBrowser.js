@@ -631,7 +631,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       if(view instanceof Mojo.$.dss.vector.solutions.ontology.TermView || view.getSelectable())
       {
         var imgId = view.getTermId()+this.constructor.SELECT_SUFFIX;
-        li = '<li><img src="imgs/icons/add.png" style="margin-right: 5px" id="'+imgId+'" />';
+        li = '<li><img src="imgs/icons/add.png" style="margin-right: 5px;position:relative; top:3px;" id="'+imgId+'" />';
       }
       else
       {
