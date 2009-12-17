@@ -36,6 +36,11 @@
       </mjl:radioGroup>
     </dd>
     <mjl:component item="${thresholdCalculation}" param="thresholdCalculation">
+      <mjl:dt attribute="caseTypes">
+        <mjl:select valueAttribute="enumName" param="caseTypes" items="${thresholdCalculationCaseTypes}" var="current">
+          <mjl:option>${current.displayLabel}</mjl:option>
+        </mjl:select>
+      </mjl:dt>
       <mjl:dt attribute="t1Method">
         <mjl:select valueAttribute="enumName" param="t1Method" items="${thresholdCalculationMethods}" var="current">
           <mjl:option>${current.displayLabel}</mjl:option>

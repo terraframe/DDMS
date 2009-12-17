@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 14311366)
+@com.terraframe.mojo.business.ClassSignature(hash = -1917373993)
 public abstract class ThresholdCalculationTypeViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdCalculationTypeView";
-  private static final long serialVersionUID = 14311366;
+  private static final long serialVersionUID = -1917373993;
   
   protected ThresholdCalculationTypeViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -16,6 +16,7 @@ public abstract class ThresholdCalculationTypeViewDTOBase extends com.terraframe
     return CLASS;
   }
   
+  public static java.lang.String CASETYPES = "caseTypes";
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String ID = "id";
   public static java.lang.String PRIORYEARS = "priorYears";
@@ -33,6 +34,52 @@ public abstract class ThresholdCalculationTypeViewDTOBase extends com.terraframe
   public static java.lang.String WEIGHT7 = "weight7";
   public static java.lang.String WEIGHT8 = "weight8";
   public static java.lang.String WEIGHT9 = "weight9";
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.general.ThresholdCalculationCaseTypesDTO> getCaseTypes()
+  {
+    return (java.util.List<dss.vector.solutions.general.ThresholdCalculationCaseTypesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.general.ThresholdCalculationCaseTypes", getEnumNames(CASETYPES));
+  }
+  
+  public java.util.List<String> getCaseTypesEnumNames()
+  {
+    return getEnumNames(CASETYPES);
+  }
+  
+  public void addCaseTypes(dss.vector.solutions.general.ThresholdCalculationCaseTypesDTO enumDTO)
+  {
+    addEnumItem(CASETYPES, enumDTO.toString());
+  }
+  
+  public void removeCaseTypes(dss.vector.solutions.general.ThresholdCalculationCaseTypesDTO enumDTO)
+  {
+    removeEnumItem(CASETYPES, enumDTO.toString());
+  }
+  
+  public void clearCaseTypes()
+  {
+    clearEnum(CASETYPES);
+  }
+  
+  public boolean isCaseTypesWritable()
+  {
+    return isWritable(CASETYPES);
+  }
+  
+  public boolean isCaseTypesReadable()
+  {
+    return isReadable(CASETYPES);
+  }
+  
+  public boolean isCaseTypesModified()
+  {
+    return isModified(CASETYPES);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getCaseTypesMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(CASETYPES).getAttributeMdDTO();
+  }
+  
   public String getConcreteId()
   {
     return getValue(CONCRETEID);

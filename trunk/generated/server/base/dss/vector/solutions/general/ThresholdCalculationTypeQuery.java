@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -113612045)
+@com.terraframe.mojo.business.ClassSignature(hash = -869533411)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  class ThresholdCalculationTypeQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -113612045;
+private static final long serialVersionUID = -869533411;
 
   public ThresholdCalculationTypeQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -27,6 +27,29 @@ private static final long serialVersionUID = -113612045;
   public String getClassType()
   {
     return dss.vector.solutions.general.ThresholdCalculationType.CLASS;
+  }
+  public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes()
+  {
+    return getCaseTypes(null);
+
+  }
+ 
+  public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("caseTypes");
+
+    return (dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF)this.getComponentQuery().internalAttributeFactory("caseTypes", mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("caseTypes");
+
+    return (dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF)this.getComponentQuery().internalAttributeFactory("caseTypes", mdAttributeIF, this, alias, displayLabel);
+
   }
   public com.terraframe.mojo.query.AttributeMoment getCreateDate()
   {
@@ -564,7 +587,11 @@ private static final long serialVersionUID = -113612045;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("t1Method")) 
+    if (name.equals("caseTypes")) 
+    {
+       return new dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("t1Method")) 
     {
        return new dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -610,6 +637,9 @@ private static final long serialVersionUID = -113612045;
   public interface ThresholdCalculationTypeQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.query.SelectableReference
   {
 
+  public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes();
+  public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes(String alias);
+  public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeMoment getCreateDate();
     public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias);
     public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel);
@@ -706,7 +736,7 @@ private static final long serialVersionUID = -113612045;
  implements ThresholdCalculationTypeQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -415703407;
+private static final long serialVersionUID = 465974207;
 
   public ThresholdCalculationTypeQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -725,6 +755,23 @@ private static final long serialVersionUID = -415703407;
       return this.NE(thresholdCalculationType.getId());
     }
 
+  public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes()
+  {
+    return getCaseTypes(null);
+
+  }
+ 
+  public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes(String alias)
+  {
+    return (dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF)this.attributeFactory("caseTypes", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF)this.attributeFactory("caseTypes", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeMoment getCreateDate()
   {
     return getCreateDate(null);
@@ -1219,7 +1266,11 @@ private static final long serialVersionUID = -415703407;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("t1Method")) 
+    if (name.equals("caseTypes")) 
+    {
+       return new dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("t1Method")) 
     {
        return new dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

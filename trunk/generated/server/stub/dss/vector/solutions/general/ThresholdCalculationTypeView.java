@@ -35,6 +35,12 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
     this.setWeight8(concrete.getWeight8());
     this.setWeight9(concrete.getWeight9());
 
+    this.clearCaseTypes();
+    for (ThresholdCalculationCaseTypes m : concrete.getCaseTypes())
+    {
+      this.addCaseTypes(m);
+    }
+    
     this.clearT1Method();
     for (ThresholdCalculationMethod m : concrete.getT1Method())
     {
@@ -64,6 +70,12 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
       }
     }
 
+    concrete.clearCaseTypes();
+    for (ThresholdCalculationCaseTypes m : this.getCaseTypes())
+    {
+      concrete.addCaseTypes(m);
+    }
+    
     concrete.clearT1Method();
     for (ThresholdCalculationMethod m : this.getT1Method())
     {
@@ -85,6 +97,7 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 
   private void buildAttributeMap(ThresholdCalculationType concrete)
   {
+    new AttributeNotificationMap(concrete, ThresholdCalculationType.CASETYPES, this, ThresholdCalculationTypeView.CASETYPES);
     new AttributeNotificationMap(concrete, ThresholdCalculationType.T1METHOD, this, ThresholdCalculationTypeView.T1METHOD);
     new AttributeNotificationMap(concrete, ThresholdCalculationType.T2METHOD, this, ThresholdCalculationTypeView.T2METHOD);
     new AttributeNotificationMap(concrete, ThresholdCalculationType.WEEKSBEFORE, this, ThresholdCalculationTypeView.WEEKSBEFORE);

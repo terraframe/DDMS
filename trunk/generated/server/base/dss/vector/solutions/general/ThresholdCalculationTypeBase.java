@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1722040572)
+@com.terraframe.mojo.business.ClassSignature(hash = 1636497652)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,6 +11,7 @@ package dss.vector.solutions.general;
 public abstract class ThresholdCalculationTypeBase extends com.terraframe.mojo.business.Business implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdCalculationType";
+  public static java.lang.String CASETYPES = "caseTypes";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
@@ -38,11 +39,49 @@ public abstract class ThresholdCalculationTypeBase extends com.terraframe.mojo.b
   public static java.lang.String WEIGHT7 = "weight7";
   public static java.lang.String WEIGHT8 = "weight8";
   public static java.lang.String WEIGHT9 = "weight9";
-  private static final long serialVersionUID = 1722040572;
+  private static final long serialVersionUID = 1636497652;
   
   public ThresholdCalculationTypeBase()
   {
     super();
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.general.ThresholdCalculationCaseTypes> getCaseTypes()
+  {
+    return (java.util.List<dss.vector.solutions.general.ThresholdCalculationCaseTypes>) getEnumValues(CASETYPES);
+  }
+  
+  public void addCaseTypes(dss.vector.solutions.general.ThresholdCalculationCaseTypes value)
+  {
+    if(value != null)
+    {
+      addEnumItem(CASETYPES, value.getId());
+    }
+  }
+  
+  public void removeCaseTypes(dss.vector.solutions.general.ThresholdCalculationCaseTypes value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(CASETYPES, value.getId());
+    }
+  }
+  
+  public void clearCaseTypes()
+  {
+    clearEnum(CASETYPES);
+  }
+  
+  public void validateCaseTypes()
+  {
+    this.validateAttribute(CASETYPES);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getCaseTypesMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
+    return mdClassIF.definesAttribute(CASETYPES);
   }
   
   public java.util.Date getCreateDate()

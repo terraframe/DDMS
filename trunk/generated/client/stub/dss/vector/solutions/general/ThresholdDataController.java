@@ -245,6 +245,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
       req.setAttribute("views", views);
       req.setAttribute("thresholdCalculation", ThresholdCalculationTypeViewDTO.getCalculationThreshold(request));
       req.setAttribute("thresholdCalculationMethods", ThresholdCalculationMethodDTO.allItems(request));
+      req.setAttribute("thresholdCalculationCaseTypes", ThresholdCalculationCaseTypesDTO.allItems(request));
 
       if (hierarchy != null)
       {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -791308227)
+@com.terraframe.mojo.business.ClassSignature(hash = -1482512256)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  abstract  class ThresholdCalculationTypeViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -791308227;
+private static final long serialVersionUID = -1482512256;
 
   public ThresholdCalculationTypeViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -25,6 +25,23 @@ private static final long serialVersionUID = -791308227;
   public String getClassType()
   {
     return dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS;
+  }
+  public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes()
+  {
+    return getCaseTypes(null);
+
+  }
+ 
+  public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes(String alias)
+  {
+    return (dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.CASETYPES, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.CASETYPES, alias, displayLabel);
+
   }
   public com.terraframe.mojo.query.AttributeChar getConcreteId()
   {
