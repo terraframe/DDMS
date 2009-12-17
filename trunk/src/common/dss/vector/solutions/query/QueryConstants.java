@@ -42,6 +42,8 @@ public class QueryConstants implements Reloadable
 
   public static final String QUERY_EFFICACY_ASSAY = "QueryEfficacyAssay";
   
+  public static final String QUERY_MOSQUITO_COLLECTIONS = "QueryMosquitoCollections";
+  
   public static final String SELECTED_UNIVERSALS = "selectedUniversals";
   
   public static final String DOB_CRITERIA = "dobCriteria";
