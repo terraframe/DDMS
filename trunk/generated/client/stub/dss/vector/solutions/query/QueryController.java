@@ -25,7 +25,11 @@ import com.terraframe.mojo.transport.attributes.AttributeReferenceDTO;
 import com.terraframe.mojo.transport.attributes.AttributeStructDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 
+import dss.vector.solutions.entomology.BiochemicalAssayDTO;
+import dss.vector.solutions.entomology.InfectionAssayDTO;
+import dss.vector.solutions.entomology.MolecularAssayDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
+import dss.vector.solutions.entomology.PooledInfectionAssayDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
@@ -1008,6 +1012,8 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
+      ClientRequestIF request = this.getClientRequest();
+      
       // The Earth is the root. FIXME use country's default root
       EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
@@ -1024,6 +1030,34 @@ public class QueryController extends QueryControllerBase implements com.terrafra
         queries.put(idAndName);
       }
 
+
+      // Load label map 
+      ClassQueryDTO collectionQuery = request.getQuery(MosquitoCollectionDTO.CLASS);
+      String collectionMap = Halp.getDropDownMaps(collectionQuery, request, ", ");
+      req.setAttribute("collectionMaps", collectionMap);
+      
+      
+      // Load label map 
+      ClassQueryDTO infectionQuery = request.getQuery(InfectionAssayDTO.CLASS);
+      String infectionMap = Halp.getDropDownMaps(infectionQuery, request, ", ");
+      req.setAttribute("infectionMaps", infectionMap);
+      
+      // Load label map 
+      ClassQueryDTO pooledInfectionQuery = request.getQuery(PooledInfectionAssayDTO.CLASS);
+      String pooledInfectionMap = Halp.getDropDownMaps(pooledInfectionQuery, request, ", ");
+      req.setAttribute("pooledInfectionMaps", pooledInfectionMap);
+      
+      // Load label map 
+      ClassQueryDTO biochemicalQuery = request.getQuery(BiochemicalAssayDTO.CLASS);
+      String biochemicalMap = Halp.getDropDownMaps(biochemicalQuery, request, ", ");
+      req.setAttribute("biochemicalMaps", biochemicalMap);
+      
+      // Load label map 
+      ClassQueryDTO molecularQuery = request.getQuery(MolecularAssayDTO.CLASS);
+      String molecularMap = Halp.getDropDownMaps(molecularQuery, request, ", ");
+      req.setAttribute("molecularMaps", molecularMap);
+      
+      
       req.setAttribute("queryList", queries.toString());
 
       req.getRequestDispatcher(QUERY_ENTOMOLOGY).forward(req, resp);
