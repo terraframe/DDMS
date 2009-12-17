@@ -16,13 +16,15 @@
   request.setAttribute("entityUniversals", entityUniversals);
 %>
 
+<c:set var="HEALTH_FACILITY" scope="request"><%=HealthFacilityDTO.CLASS%></c:set>
+
 <mjl:component item="${item}" param="dto">
   <mjl:input type="hidden" param="individualCase" value="${item.individualCase.id}"/>
   <mjl:dt attribute="activelyDetected">
     <mjl:boolean param="activelyDetected" />
   </mjl:dt>
   <mjl:dt attribute="healthFacility">
-    <mdss:geo param="healthFacility" value="${healthFacility}" universals="${entityUniversals}" />
+    <mdss:geo param="healthFacility" value="${healthFacility}" filter="${HEALTH_FACILITY}" universals="${entityUniversals}" />
   </mjl:dt>
   <mjl:dt attribute="detectedBy">
     <mdss:mo param="detectedBy" value="${detectedBy}"/>
