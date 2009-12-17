@@ -74,7 +74,7 @@ public class EmailTest extends TestCase {
         data.put("entityLabel", "SecretEntity");
         data.put("threshold", 99);
         data.put("totalCases", 99);
-		SystemAlert alert = SystemAlert.getByKey("Notification");
+		SystemAlert alert = SystemAlert.getByKey("PoliticalOutbreakNotification");
 		if (!alert.sendEmail(data)) {
 			fail();
 		}
@@ -88,7 +88,7 @@ public class EmailTest extends TestCase {
         data.put("entityLabel", "SecretEntity");
         data.put("threshold", 99);
         data.put("totalCases", 99);
-		SystemAlert alert = SystemAlert.getByKey("Identification");
+		SystemAlert alert = SystemAlert.getByKey("PoliticalOutbreakIdentification");
 		if (!alert.sendEmail(data)) {
 			fail();
 		}

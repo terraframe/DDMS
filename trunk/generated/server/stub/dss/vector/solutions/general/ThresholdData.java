@@ -290,7 +290,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
       if (!threshold.performedNotificationAlert())
       {
     	// Perform the alert
-      	performAlert("Notification", entity, notification, count);
+      	performAlert("PoliticalOutbreakNotification", entity, notification, count);
 
         threshold.updateLastNotification();
       }
@@ -308,7 +308,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
 
       if (!threshold.performedIdentificationAlert())
       {
-    	performAlert("Identification", entity, identification, count);
+    	performAlert("PoliticalOutbreakIdentification", entity, identification, count);
 
         threshold.updateLastIdentification();
       }

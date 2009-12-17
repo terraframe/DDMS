@@ -217,9 +217,12 @@
 				<attribute
 					name="emailBody"
 					value="Notification email:  $thresholdType of $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
-				<attribute
-					name="emailTemplateVariables"
-					value="thresholdType, alertType, entityLabel, totalCases, threshold" />
+				<attributeStruct
+					name="emailTemplateVariables">
+          			<attribute
+            			name="defaultLocale"
+            			value="thresholdType, alertType, entityLabel, totalCases, threshold" />
+        		</attributeStruct>
 			</object>
 			
 			<object
@@ -243,9 +246,12 @@
 				<attribute
 					name="emailBody"
 					value="Identification email:  $thresholdType of $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
-				<attribute
-					name="emailTemplateVariables"
-					value="thresholdType, alertType, entityLabel, totalCases, threshold" />
+				<attributeStruct
+					name="emailTemplateVariables">
+          			<attribute
+            			name="defaultLocale"
+            			value="thresholdType, alertType, entityLabel, totalCases, threshold" />
+        		</attributeStruct>
 			</object>
 		</create>
 
