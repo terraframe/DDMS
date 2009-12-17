@@ -425,7 +425,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     
     setPolitical : function(political)
     {
-      this._populated = political;
+      this._political = political;
     },
     
     getPolitical : function()

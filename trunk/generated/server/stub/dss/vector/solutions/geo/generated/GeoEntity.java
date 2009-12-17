@@ -172,7 +172,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     return ids.toArray(new String[ids.size()]);
   }
 
-  public static GeoEntity searchByGeoId(java.lang.String geoId)
+  public static GeoEntity searchByGeoId(String geoId)
   {
     QueryFactory queryFactory = new QueryFactory();
 
@@ -310,7 +310,89 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     return valueQuery;
   }
+  
+  /**
+   * 
+   * @param value   * 
+   * @param filter[0] = political
+   * @param filter[1] = populated
+   * @param filter[2] = spray Target
+   * @param filter[..] = extra universals
+   * @return
+   */
+  public static ValueQuery searchByParameters(String value, String[] filter)
+  {
+    QueryFactory f = new QueryFactory();
+    
+    MdBusinessQuery mdQ = new MdBusinessQuery(f);
+    GeoEntityQuery q = new GeoEntityQuery(f);
+    TermQuery tq = new TermQuery(f);
+    
+    boolean political = Boolean.parseBoolean(filter[0]);
+    boolean populated = Boolean.parseBoolean(filter[1]);
+    boolean sprayTarget = Boolean.parseBoolean(filter[2]);
+    
+    SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, false, false);    
+    GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
+    
+    Selectable[] selectables = new Selectable[] { 
+        q.getId(GeoEntity.ID),
+        q.getEntityName(GeoEntity.ENTITYNAME),
+        q.getGeoId(GeoEntity.GEOID),
+        q.getType(GeoEntity.TYPE),
+        mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL),
+        tq.getName(GeoEntityView.MOSUBTYPE)
+    };
+    
+    Condition condition = null;
+    
+    for(GeoHierarchyView view : views)
+    {
+      String type = view.getGeneratedType();
+      
+      if(condition == null)
+      {
+        condition = q.getType().EQ(type);        
+      }
+      else
+      {
+        condition = OR.get(condition, q.getType().EQ(type));        
+      }
+    }
+    
+    for(int i = 3; i < filter.length; i++)
+    {      
+      if(condition == null)
+      {
+        condition = q.getType().EQ(filter[i]);        
+      }
+      else
+      {
+        condition = OR.get(condition, q.getType().EQ(filter[i]));        
+      }      
+    }
 
+    ValueQuery valueQuery = new ValueQuery(f);
+    valueQuery.SELECT(selectables);
+
+    String searchable = value.replace(" ", "% ") + "%";
+
+    Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
+    Condition and = AND.get(or, condition);
+
+    valueQuery.WHERE(and);
+    valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
+    valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
+    
+    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(GeoEntity.ENTITYNAME));
+    valueQuery.restrictRows(20, 1);
+
+    return valueQuery;    
+  }
+
+  
+  
+  
   /**
    * Throws an exception to alert the user before they change an entity's
    * parent.

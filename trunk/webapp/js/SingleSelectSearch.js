@@ -69,24 +69,25 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
       }
       else
       {
-          if(!ignoreSetting)
-          {
-	        MDSS.GeoSearch.currentGeoIdInput.value = selected.getGeoId();
-	      }
-	      
-	      if(currentgeoEntityIdInput) {
-	        currentgeoEntityIdInput.value = selected.getGeoEntityId();
-	      }
-	      geoInfo.innerHTML = this.constructor.formatDisplay(selected);
-	    }
+        if(!ignoreSetting)
+        {
+          MDSS.GeoSearch.currentGeoIdInput.value = selected.getGeoId();
+        }
+      
+        if(currentgeoEntityIdInput) {
+          currentgeoEntityIdInput.value = selected.getGeoEntityId();
+        }
+      
+        geoInfo.innerHTML = this.constructor.formatDisplay(selected);
+      }
 
       if(valid)
       {
-      	YAHOO.util.Dom.removeClass(geoInfo,'alert');
+        YAHOO.util.Dom.removeClass(geoInfo,'alert');
       }
       else
       {
-      	YAHOO.util.Dom.addClass(geoInfo,'alert');
+        YAHOO.util.Dom.addClass(geoInfo,'alert');
       }
       
       // FIXME: global (and absurdly hacky) method callback
@@ -240,9 +241,9 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
           onComplete: function(){},
           onFailure: function(){},
           onSuccess : function(result){
-         	 this.that.showGeoInfo(result,this.that._geoInput,true);
+            this.that.showGeoInfo(result,this.that._geoInput,true);
           }
-        });
+        });       
 
         Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getViewByGeoId(request, this._geoInput.value);
       }
@@ -304,7 +305,20 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
     _searchFunction : function(request, value)
     {
       var type = this._selectSearch.getFilter();
-      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, type, value);
+      
+      if(Mojo.Util.isString(type) && type != '')
+      {
+        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, type, value);
+      }
+      else 
+      {
+        var political = this._selectSearch.getPolitical();
+        var populated = this._selectSearch.getPopulated();
+        var sprayTarget = this._selectSearch.getSprayTargetAllowed();        
+        var parameters = [political, populated, sprayTarget].concat(this._selectSearch.getExtraUniversals());
+        
+        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByParameters(request, value, parameters);
+      }
     },
     
     showGeoInfo : function(selected,currentGeoIdInput,valid)
@@ -325,20 +339,20 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       }
       else
       {
-	      currentGeoIdInput.value = selected.getGeoId();
-	      if(currentgeoEntityIdInput) {
-	        currentgeoEntityIdInput.value = selected.getGeoEntityId();
-	      }
-	      geoInfo.innerHTML = MDSS.AbstractSelectSearch.formatDisplay(selected);
-	    }
+        currentGeoIdInput.value = selected.getGeoId();
+        if(currentgeoEntityIdInput) {
+          currentgeoEntityIdInput.value = selected.getGeoEntityId();
+        }
+        geoInfo.innerHTML = MDSS.AbstractSelectSearch.formatDisplay(selected);
+      }
 
       if(valid)
       {
-      	YAHOO.util.Dom.removeClass(geoInfo,'alert');
+        YAHOO.util.Dom.removeClass(geoInfo,'alert');
       }
       else
       {
-      	YAHOO.util.Dom.addClass(geoInfo,'alert');
+        YAHOO.util.Dom.addClass(geoInfo,'alert');
       }
     }
     
