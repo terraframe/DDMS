@@ -50,7 +50,7 @@ public class Email extends EmailBase implements com.terraframe.mojo.generation.l
 					}
 				} catch (Throwable t) {
 					// 	Catch all errors and try again
-					System.err.println(t);
+					t.printStackTrace(System.err);
 				}
 				try {
 					Thread.sleep(MINUTE_IN_MILLISECONDS);
