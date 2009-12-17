@@ -5,9 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.lang.time.DateUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,6 +37,7 @@ import dss.vector.solutions.general.OutbreakCalculation;
 import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
 
 public class IndividualCase extends IndividualCaseBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -365,15 +368,55 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
 
     try
     {
+      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectable("incidence");
+      
+      String geoType = null;
+      
+      String attributeKey = null;
+      
+      JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+      Iterator<?> keys = selectedUniMap.keys();
+      while (keys.hasNext())
+      {
+        attributeKey = (String) keys.next();
+
+        JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
+        if (universals.length() > 0 && attributeKey.equals(IndividualCase.CLASS+'.'+IndividualCase.PROBABLESOURCE))
+        {
+          String[] selectedUniversals = new String[universals.length()];
+          for (int i = 0; i < universals.length(); i++)
+          {
+            selectedUniversals[i] = universals.getString(i);
+            
+            geoType =  universals.getString(i);
+            geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
+            geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
+            geoType = geoType.replace('.', '_');
+          }
+
+        }
+      }
+      //dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__country_geoId
+      Selectable s = valueQuery.getSelectable(geoType);
+      ValueQuery q = (ValueQuery) s.getRootQuery();
+      Selectable id = q.getSelectable("child_id");
+      
+      String columnAlias = id.getColumnAlias();
+      
       String tableAlias = caseQuery.getTableAlias();
       String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
-      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectable("incidence");
-      String sql = "SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii.individualcase = " + tableAlias + ".id))";
+      String sql = "SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii.individualcase = " + tableAlias + ".id)) /";
+      sql = " AVG(get_population("+columnAlias+", EXTRACT(year FROM caseReportDate)::int ))";
 
       calc.setSQL(sql);
     }
     catch (QueryException e)
     {
+    }
+    catch (JSONException e)
+    {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
 
     QueryUtil.getSingleAttribteGridSql(valueQuery, instanceQuery.getTableAlias());
