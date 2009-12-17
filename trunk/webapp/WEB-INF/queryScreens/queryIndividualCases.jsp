@@ -151,7 +151,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
                          ]);
     
-    var symptomsColumns = orderedGrids.symptoms.options.map(mapMo, orderedGrids.symptoms);
+    var symptomsColumns = orderedGrids.symptoms.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.symptoms);
      
     var selectableGroups = [
               {title:"Case", values:caseColumns, group:"c", klass:individualCase.CLASS},

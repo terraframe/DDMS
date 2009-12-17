@@ -10,6 +10,7 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.query.QueryController"%>
+<%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
@@ -21,12 +22,13 @@
 <%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
 <%@page import="org.json.JSONException"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
+<%@page import="dss.vector.solutions.entomology.SubCollectionDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeConcreteInfo"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
 <%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
 <%@page import="java.util.Locale"%>
-<%@page import="java.util.ArrayList"%><c:set var="page_title" value="Query_Entomology"  scope="request"/>
+<%@page import="java.util.ArrayList"%><c:set var="page_title" value="Query_Mosquito_Collections"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -35,8 +37,8 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ MosquitoCollectionDTO.CLASS};
-    String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
+    String[] mosquitoTypes = new String[]{ MosquitoCollectionDTO.CLASS,SubCollectionDTO.CLASS};
+    String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
 
     List<String> loadables = new ArrayList<String>();
@@ -72,31 +74,30 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
+    var collectionMaps = {<%=(String) request.getAttribute("collectionMaps")%>};
+
+    var collectionAttribs = ["abundance","collectionDate","collectionId","collectionMethod","geoEntity","lifeStage","lifeStageName"];
+
+    var mosquitoCollection = new dss.vector.solutions.entomology.MosquitoCollection;
+
+    var subCollection = new dss.vector.solutions.entomology.SubCollection;
     
 
-    var mosquito = new Mojo.$.dss.vector.solutions.entomology.Mosquito();
-    var mosquitoView = new Mojo.$.dss.vector.solutions.entomology.MosquitoView();
-    var mosquitoGroup = new  Mojo.$.dss.vector.solutions.entomology.UninterestingSpecieGroup();
-    var mosquitoCollection = new Mojo.$.dss.vector.solutions.entomology.MosquitoCollection();
-
-    var collectionAttribs = ["collectionId","dateCollected"];
-    var collectionColumns = [];
+    collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_mc',dropDownMaps:collectionMaps});
 
 
-    collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_group',dropDownMaps:ddMaps});
-    var groupAttribs = ["sampleId","specie","identificationMethod","quantity"];
-    var groupColumns =  collectionColumns.concat(groupAttribs.map(mapAttribs, {obj:mosquitoGroup, suffix:'_group',dropDownMaps:ddMaps}));
+    var subCollectionAttribs = ["subCollectionId","identMethod","taxon","total","eggs","female","male","larvae","pupae","unknowns"];
 
-    collectionColumns =   collectionAttribs.map(mapAttribs, {obj:mosquitoCollection, suffix:'_individual',dropDownMaps:ddMaps});
-    var mosquitoAttribs = ["sampleId","specie","identificationMethod","sex","generation","isofemale","testDate"];
-    var mosquitoColumns =  collectionColumns.concat(mosquitoAttribs.map(mapAttribs, {obj:mosquito, suffix:'_individual',dropDownMaps:ddMaps}));
-    var assays = [];
+    subCollectionColumns =   subCollectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:subCollection, suffix:'_mc',dropDownMaps:collectionMaps});
 
-    assays.push(mapAssayAttribs(infectivityColumns));
-    assays.push(mapAssayAttribs(targetSiteColumns));
-    assays.push(mapAssayAttribs(metabolicColumns));
 
-    var query = new MDSS.QueryEntomology(groupColumns,mosquitoColumns, assays, queryList);
+
+    var selectableGroups = [
+                {title:"Collection", values:collectionColumns, group:"ipt", klass:mosquitoCollection.CLASS},
+                {title:"Subcollection", values:subCollectionColumns, group:"ipt", klass:subCollection.CLASS}
+        ];
+
+    var query = new MDSS.QueryMosquitoCollections(selectableGroups, queryList);
     query.render();
 
 });
