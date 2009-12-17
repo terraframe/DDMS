@@ -2,17 +2,26 @@ package dss.vector.solutions.entomology;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.entomology.assay.CollectionAssay;
 import dss.vector.solutions.entomology.assay.CollectionAssayQuery;
+import dss.vector.solutions.intervention.monitor.IndividualIPT;
+import dss.vector.solutions.util.QueryUtil;
 
 public class MosquitoCollection extends MosquitoCollectionBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -168,7 +177,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
 
     return view;
   }
-  
+
   public static MosquitoCollection getByCollectionId(String collectionId)
   {
     MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
@@ -184,5 +193,58 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     {
       throw new DataNotFoundException("No mosquito collection with collection id [" + collectionId + "] found", MdTypeDAO.getMdTypeDAO(CLASS));
     }
+  }
+
+  /**
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
+   * 
+   * @param xml
+   * @return
+   */
+  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
+  {
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, IndividualIPT.CLASS, IndividualIPT.FACILITY);
+
+    MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
+    SubCollectionQuery subCollectionQuery = (SubCollectionQuery) queryMap.get(SubCollection.CLASS);
+
+    if (subCollectionQuery != null)
+    {
+      valueQuery.WHERE(subCollectionQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
+
+      QueryUtil.joinTermAllpaths(valueQuery, SubCollection.CLASS, subCollectionQuery);
+
+    }
+
+
+    QueryUtil.joinGeoDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
+
+    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
+
+    QueryUtil.setTermRestrictions(valueQuery, queryMap);
+
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+
+    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
+
+    return valueQuery;
   }
 }
