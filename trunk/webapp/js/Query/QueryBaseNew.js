@@ -16,16 +16,16 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       this._countSelectable = null;
       this._ratioSelectable = null;
 
-      this._specieGroupSelectables = {};
       this._visibleSelectables = {};
       this._whereOptions = {};
       this._visibleAggregateSelectables = {};
+      this._exclusionClasses = [];
 
-      
       this._singleAndRangeAttributes = [];
   
       this._dataQueryFunction = Mojo.$.dss.vector.solutions.query.QueryBuilder.getQueryResults;
       this._mapQueryFunction  = Mojo.$.dss.vector.solutions.query.QueryBuilder.mapQuery;
+      this._xmlToValueQueryClass = this._mainQueryClass;
       // END: query objects
 
       // Key/value where key is attribute.getKey() + "_li"
@@ -87,7 +87,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       xmlInput.innerHTML = xml;
       config.value = this._config.getJSON();
       searchIdInput.value = savedSearchId;
-      queryClassInput.value = this._mainQueryClass;
+      queryClassInput.value = this._xmlToValueQueryClass;
       form.submit();
     },
 
@@ -110,7 +110,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       xmlInput.innerHTML = xml;
       config.value = this._config.getJSON();
       searchIdInput.value = savedSearchId;
-      queryClassInput.value = this._mainQueryClass;
+      queryClassInput.value = this._xmlToValueQueryClass;
       form.submit();
     },
 
@@ -149,7 +149,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       var page = this.getCurrentPage();
 
         // FIXME json conversion below is temporary
-      this._dataQueryFunction(request,this._mainQueryClass, xml, this._config.getJSON(), '', true, page, this.PAGE_SIZE);
+      this._dataQueryFunction(request,this._xmlToValueQueryClass, xml, this._config.getJSON(), '', true, page, this.PAGE_SIZE);
     },
 
     /**
