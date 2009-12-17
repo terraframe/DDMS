@@ -143,25 +143,16 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
   private void generateGeoEntityReference(MdAttributeDAOIF mdAttribute)
   {
     String attributeName = mdAttribute.definesAttribute();
-    String value = "${" + this.getComponentName() + "." + attributeName + " != null ? " + this.getComponentName() + "." + attributeName + ".geoId : ''}";
+    String value = "${" + this.getComponentName() + "." + attributeName + "}";
 
     writeDT(attributeName);
 
-    HashMap<String, String> geoIdMap = new HashMap<String, String>();
-    geoIdMap.put("param", attributeName + "Id");
-    geoIdMap.put("type", "text");
-    geoIdMap.put("id", "geoIdEl");
-    geoIdMap.put("classes", "geoInput");
-    geoIdMap.put("value", value);
+    //    <mdss:geo param="term" value="${term}"/>    
+    HashMap<String, String> map = new HashMap<String, String>();
+    map.put("param", attributeName);
+    map.put("value", value);
 
-    getWriter().writeEmptyEscapedTag(INPUT_TAG, geoIdMap);
-
-    HashMap<String, String> geoEntityMap = new HashMap<String, String>();
-    geoEntityMap.put("param", attributeName);
-    geoEntityMap.put("type", "hidden");
-    geoEntityMap.put("id", "geoEntityId");
-
-    getWriter().writeEmptyEscapedTag(INPUT_TAG, geoEntityMap);
+    getWriter().writeEmptyTag("mdss:geo", map);
 
     // Close the dt tag
     getWriter().closeTag();
