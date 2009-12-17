@@ -41,8 +41,7 @@
         <mjl:input param="collectionDate" type="text" classes="DatePick NoFuture" id="collectionDate"/>
        </mjl:dt>
        <mjl:dt attribute="geoEntity">
-         <mjl:input value="${entity != null ? entity.geoId : ''}" type="text" param="geoEntityId" classes="geoInput" id="geoEntity" />
-         <mjl:input type="hidden" param="geoEntity" id="geoEntity_geoEntityId" value="${entity.id}"/>
+         <mdss:geo param="geoEntity" value="${entity}" />
        </mjl:dt>
        <mjl:dt attribute="lifeStage">
          <mjl:select param="lifeStage" items="${lifeStage}" var="current" valueAttribute="enumName" id="lifeStage">

@@ -13,23 +13,31 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Arrays"%>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 
 <c:set var="healthFacility" scope="request"><%=HealthFacilityDTO.CLASS%></c:set>
+
+<%
+  List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS + "*"}); 
+  request.setAttribute("entityUniversals", entityUniversals);
+%>
+
 
 <script type="text/javascript">
 MDSS.AbstractSelectSearch.Political = true;
 MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
 </script>
+
 <%@include file="personHeader.jsp" %>
 <mjl:component param="dto" item="${item}">
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
   <mjl:input param="iptCase" type="hidden" value="${item.iptCase.id}" />
   <mjl:dt attribute="facility">
-    <input type="hidden" id="typeSearchFilter" value="${healthFacility}" />      
-    <mjl:input classes="geoInput" id="geoIdEl" param="facility" type="text" />
+    <mdss:geo param="facility" concrete="false" universals="${entityUniversals}" filter="${healthFacility}" />
   </mjl:dt>
   <mjl:dt attribute="serviceDate" classes="DatePick" id="serviceDate" type="text"/>  
   <mjl:dt attribute="patientType">

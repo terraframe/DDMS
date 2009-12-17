@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1376080067)
+@com.terraframe.mojo.business.ClassSignature(hash = 203949704)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class KnockDownAssayExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1376080067;
+private static final long serialVersionUID = 203949704;
 
   public KnockDownAssayExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -258,24 +258,6 @@ private static final long serialVersionUID = 1376080067;
   public com.terraframe.mojo.query.AttributeChar getInsecticideUnits(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INSECTICIDEUNITS, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getIntervalTime()
-  {
-    return getIntervalTime(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getIntervalTime(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVALTIME, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getIntervalTime(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVALTIME, alias, displayLabel);
 
   }
  

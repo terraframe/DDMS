@@ -1,6 +1,6 @@
 package dss.vector.solutions.export.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1553803912)
+@com.terraframe.mojo.business.ClassSignature(hash = -596191603)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export.entomology.assay;
 public  abstract  class AdultDiscriminatingDoseAssayExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1553803912;
+private static final long serialVersionUID = -596191603;
 
   public AdultDiscriminatingDoseAssayExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -294,24 +294,6 @@ private static final long serialVersionUID = 1553803912;
   public com.terraframe.mojo.query.AttributeChar getInsecticideUnits(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.INSECTICIDEUNITS, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getIntervalTime()
-  {
-    return getIntervalTime(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getIntervalTime(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.INTERVALTIME, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getIntervalTime(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.INTERVALTIME, alias, displayLabel);
 
   }
  

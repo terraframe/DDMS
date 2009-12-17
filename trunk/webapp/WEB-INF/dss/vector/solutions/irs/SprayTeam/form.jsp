@@ -1,19 +1,21 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@page import="dss.vector.solutions.geo.generated.SprayZoneDTO"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
-
-    
+<%@page import="dss.vector.solutions.geo.generated.SprayZoneDTO"%>    
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.irs.SprayOperatorDTO"%>
 <%@page import="dss.vector.solutions.PersonDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayOperatorViewDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayLeaderDTO"%>
+<%@page import="dss.vector.solutions.PersonViewDTO"%>
+
+<c:set var="SprayZone" scope="request"><%= SprayZoneDTO.CLASS %></c:set>
 
 
-<%@page import="dss.vector.solutions.PersonViewDTO"%><dt><label> ${item.teamIdMd.displayLabel} </label></dt>
+<dt><label> ${item.teamIdMd.displayLabel} </label></dt>
     <dd>
     <mjl:component item="${item}" param="team">
       <mjl:input type="text" param="teamId" id="teamId" />
@@ -24,8 +26,7 @@
     </dd>
     <dt><label> ${item.sprayZoneMd.displayLabel} </label></dt>
     <dd>
-      <mjl:input type="hidden" param="typeSearchFilter" id="typeSearchFilter" value="dss.vector.solutions.geo.generated.SprayZone" />
-      <mjl:input type="text" param="geoId" value="${item.sprayZone.geoId}" id="geoIdEl" classes="geoInput"/>
+      <mdss:geo param="geoId" concrete="false" value="${item.sprayZone}" political="false" spray="true" filter="${SprayZone}" />
     </dd>
     <dt><label> <fmt:message key="Spray_Team_Leader" /> </label></dt>
     <dd>

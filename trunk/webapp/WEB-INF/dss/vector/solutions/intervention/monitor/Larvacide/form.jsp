@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 <%@page import="dss.vector.solutions.irs.SprayLeaderDTO"%>
 <%@page import="dss.vector.solutions.PersonViewDTO"%>
@@ -10,8 +11,7 @@
   <mjl:dt type="text" attribute="startDate" classes="DatePick" />
   <mjl:dt type="text" attribute="completionDate" classes="DatePick" />
   <mjl:dt attribute="geoEntity">
-    <mjl:input value="${item.geoEntity != null ? item.geoEntity.geoId : ''}" type="text" param="geoEntityId" classes="geoInput" id="geoEntityGeoId" />
-    <mjl:input type="hidden" param="geoEntity" id="geoEntityGeoId_geoEntityId" />
+     <mdss:geo param="geoEntity" value="${item.geoEntity}" />
   </mjl:dt>
   <mjl:dt attribute="geoDescription">
     <mjl:textarea param="geoDescription" cols="3" rows="3" />

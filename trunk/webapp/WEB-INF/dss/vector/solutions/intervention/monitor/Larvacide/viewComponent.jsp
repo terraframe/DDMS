@@ -42,7 +42,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
         </span>
       </mjl:dt>
       <mjl:dt attribute="geoEntity">
-        ${item.geoEntity}
+        ${item.geoEntity.displayString}
       </mjl:dt>
       <mjl:dt attribute="geoDescription">
         ${item.geoDescription}

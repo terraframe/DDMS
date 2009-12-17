@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -275607709)
+@com.terraframe.mojo.business.ClassSignature(hash = 1232021118)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,6 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewBase extends com.ter
   public static java.lang.String INSECTICIDEACTIVEINGREDIENT = "insecticideActiveIngredient";
   public static java.lang.String INSECTICIDEAMOUNT = "insecticideAmount";
   public static java.lang.String INSECTICIDEUNITS = "insecticideUnits";
-  public static java.lang.String INTERVALTIME = "intervalTime";
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
@@ -32,7 +31,7 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewBase extends com.ter
   public static java.lang.String STARTPOINT = "startPoint";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = -275607709;
+  private static final long serialVersionUID = 1232021118;
   
   public LarvaeDiscriminatingDoseAssayExcelViewBase()
   {
@@ -395,34 +394,6 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewBase extends com.ter
     else
     {
       setValue(INSECTICIDEUNITS, value);
-    }
-  }
-  
-  public Integer getIntervalTime()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVALTIME));
-  }
-  
-  public void validateIntervalTime()
-  {
-    this.validateAttribute(INTERVALTIME);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getIntervalTimeMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(INTERVALTIME);
-  }
-  
-  public void setIntervalTime(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INTERVALTIME, "");
-    }
-    else
-    {
-      setValue(INTERVALTIME, java.lang.Integer.toString(value));
     }
   }
   

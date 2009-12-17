@@ -4,16 +4,25 @@
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 <%@page import="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
+
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 <%@include file="../IndividualCase/personHeader.jsp" %>
+
+<%
+  List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS + "*"}); 
+  request.setAttribute("entityUniversals", entityUniversals);
+%>
+
 <mjl:component item="${item}" param="dto">
   <mjl:input type="hidden" param="individualCase" value="${item.individualCase.id}"/>
   <mjl:dt attribute="activelyDetected">
     <mjl:boolean param="activelyDetected" />
   </mjl:dt>
   <mjl:dt attribute="healthFacility">
-    <mjl:input value="${healthFacility != null ? healthFacility.geoId : ''}" type="text" param="healthFacilityId" classes="geoInput" id="healthFacilityGeoId" />
-    <mjl:input type="hidden" param="healthFacility" id="healthFacilityGeoId_geoEntityId" value="${healthFacility != null ? healthFacility.id : ''}" />
+    <mdss:geo param="healthFacility" value="${healthFacility}" universals="${entityUniversals}" />
   </mjl:dt>
   <mjl:dt attribute="detectedBy">
     <mdss:mo param="detectedBy" value="${detectedBy}"/>

@@ -32,13 +32,13 @@
         <mdss:mo param="sex" value="${sex}"/>
       </mjl:dt>            
       <mjl:dt attribute="residentialGeoId" >
-        <mjl:input id="residentialGeoId" param="residentialGeoId" type="text" value="${item.residentialGeoId}" maxlength="16" classes="geoInput"/>
+        <mdss:geo param="residentialGeoId" concrete="false" value="${item.residentialGeoId}" />      
       </mjl:dt>
       <mjl:dt attribute="residentialInformation">
         <mjl:input type="text" param="residentialInformation" />
       </mjl:dt>
       <mjl:dt attribute="workGeoId" >
-        <mjl:input id="workGeoId" param="workGeoId" type="text" value="${item.residentialGeoId}" maxlength="16" classes="geoInput"/>
+        <mdss:geo param="workGeoId" concrete="false" value="${item.workGeoId}" />      
       </mjl:dt>
       <mjl:dt attribute="workInformation">
         <mjl:input type="text" param="workInformation" />

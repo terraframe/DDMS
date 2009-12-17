@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -374468326)
+@com.terraframe.mojo.business.ClassSignature(hash = 851725215)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,14 +26,13 @@ public abstract class KnockDownAssayExcelViewBase extends com.terraframe.mojo.bu
   public static java.lang.String INSECTICIDEACTIVEINGREDIENT = "insecticideActiveIngredient";
   public static java.lang.String INSECTICIDEAMOUNT = "insecticideAmount";
   public static java.lang.String INSECTICIDEUNITS = "insecticideUnits";
-  public static java.lang.String INTERVALTIME = "intervalTime";
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = -374468326;
+  private static final long serialVersionUID = 851725215;
   
   public KnockDownAssayExcelViewBase()
   {
@@ -385,34 +384,6 @@ public abstract class KnockDownAssayExcelViewBase extends com.terraframe.mojo.bu
     else
     {
       setValue(INSECTICIDEUNITS, value);
-    }
-  }
-  
-  public Integer getIntervalTime()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVALTIME));
-  }
-  
-  public void validateIntervalTime()
-  {
-    this.validateAttribute(INTERVALTIME);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getIntervalTimeMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.KnockDownAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(INTERVALTIME);
-  }
-  
-  public void setIntervalTime(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INTERVALTIME, "");
-    }
-    else
-    {
-      setValue(INTERVALTIME, java.lang.Integer.toString(value));
     }
   }
   

@@ -25,7 +25,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
       <mjl:dt attribute="firstName" type="text" />
       <mjl:dt attribute="lastName" type="text"/>      
       <mjl:dt attribute="residentialGeoId" >
-        <mjl:input id="geoIdEl" param="residentialGeoId" type="text" value="${item.residentialGeoId}" maxlength="16" classes="geoInput"/>
+        <mdss:geo param="residentialGeoId" concrete="false" value="${item.residentialGeoId}" />      
       </mjl:dt>
       <mjl:dt attribute="dateOfBirth" >
         <mjl:input type="text" param="dateOfBirth" id="dateOfBirth" classes="DatePick NoFuture"/>

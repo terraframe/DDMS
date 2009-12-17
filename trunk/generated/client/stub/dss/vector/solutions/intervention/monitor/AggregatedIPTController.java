@@ -6,10 +6,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.surveillance.PeriodTypeDTO;
@@ -21,8 +24,7 @@ import dss.vector.solutions.surveillance.RequiredYearProblemDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class AggregatedIPTController extends AggregatedIPTControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class AggregatedIPTController extends AggregatedIPTControllerBase implements Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/intervention/monitor/AggregatedIPT/";
 
@@ -30,14 +32,12 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
 
   private static final long  serialVersionUID = 1244737056550L;
 
-  public AggregatedIPTController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public AggregatedIPTController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  public void searchByGeoIdAndPeriod(String geoId, String periodType, java.lang.Integer period,
-      java.lang.Integer year) throws IOException, ServletException
+  public void searchByGeoIdAndPeriod(String geoId, String periodType, Integer period, Integer year) throws IOException, ServletException
   {
     try
     {
@@ -47,8 +47,7 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
       PeriodTypeDTO type = PeriodTypeDTO.valueOf(periodType);
       GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(this.getClientRequest(), geoId);
 
-      AggregatedIPTViewDTO dto = AggregatedIPTDTO.searchByGeoEntityAndEpiDate(request, geoEntity, type,
-          period, year);
+      AggregatedIPTViewDTO dto = AggregatedIPTDTO.searchByGeoEntityAndEpiDate(request, geoEntity, type, period, year);
 
       String jsp = "createComponent.jsp";
 
@@ -85,12 +84,10 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
 
   private void prepareRelationships(AggregatedIPTViewDTO dto)
   {
-    prepareRelationships(dto.getIPTPatients(), dto.getIPTANCVisits(), dto.getIPTDoses(), dto
-        .getIPTTreatments());
+    prepareRelationships(dto.getIPTPatients(), dto.getIPTANCVisits(), dto.getIPTDoses(), dto.getIPTTreatments());
   }
 
-  private void prepareRelationships(IPTPatientsDTO[] patients, IPTANCVisitDTO[] visits,
-      IPTDoseDTO[] doses, IPTTreatmentDTO[] treatments)
+  private void prepareRelationships(IPTPatientsDTO[] patients, IPTANCVisitDTO[] visits, IPTDoseDTO[] doses, IPTTreatmentDTO[] treatments)
   {
     req.setAttribute("patients", Arrays.asList(patients));
     req.setAttribute("visits", Arrays.asList(visits));
@@ -98,8 +95,7 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
     req.setAttribute("treatments", Arrays.asList(treatments));
   }
 
-  public void failSearchByGeoIdAndPeriod(String geoId, String periodType, String period, String year)
-      throws IOException, ServletException
+  public void failSearchByGeoIdAndPeriod(String geoId, String periodType, String period, String year) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
     List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
@@ -107,7 +103,13 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
     req.setAttribute("periodType", allItems);
     req.setAttribute("period", period);
     req.setAttribute("year", year);
-    req.setAttribute("geoId", geoId);
+    
+    if(geoId != null && !geoId.equals(""))
+    {
+      GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(clientRequest, geoId);
+      
+      req.setAttribute("geoId", entity);
+    }
     req.setAttribute("checkedType", periodType);
 
     render("searchComponent.jsp");
@@ -235,8 +237,7 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
     render("editComponent.jsp");
   }
 
-  public void update(AggregatedIPTViewDTO dto, IPTPatientsDTO[] patients, IPTANCVisitDTO[] visits,
-      IPTDoseDTO[] doses, IPTTreatmentDTO[] treatments) throws IOException, ServletException
+  public void update(AggregatedIPTViewDTO dto, IPTPatientsDTO[] patients, IPTANCVisitDTO[] visits, IPTDoseDTO[] doses, IPTTreatmentDTO[] treatments) throws IOException, ServletException
   {
     try
     {
@@ -257,16 +258,14 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
     }
   }
 
-  public void failUpdate(AggregatedIPTViewDTO dto, IPTPatientsDTO[] patients, IPTANCVisitDTO[] visits,
-      IPTDoseDTO[] doses, IPTTreatmentDTO[] treatments) throws IOException, ServletException
+  public void failUpdate(AggregatedIPTViewDTO dto, IPTPatientsDTO[] patients, IPTANCVisitDTO[] visits, IPTDoseDTO[] doses, IPTTreatmentDTO[] treatments) throws IOException, ServletException
   {
     this.prepareRelationships(patients, visits, doses, treatments);
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
 
-  public void create(AggregatedIPTViewDTO dto, IPTPatientsDTO[] patients, IPTANCVisitDTO[] visits,
-      IPTDoseDTO[] doses, IPTTreatmentDTO[] treatments) throws IOException, ServletException
+  public void create(AggregatedIPTViewDTO dto, IPTPatientsDTO[] patients, IPTANCVisitDTO[] visits, IPTDoseDTO[] doses, IPTTreatmentDTO[] treatments) throws IOException, ServletException
   {
     try
     {
@@ -287,8 +286,7 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
     }
   }
 
-  public void failCreate(AggregatedIPTViewDTO dto, IPTPatientsDTO[] patients, IPTANCVisitDTO[] visits,
-      IPTDoseDTO[] doses, IPTTreatmentDTO[] treatments) throws IOException, ServletException
+  public void failCreate(AggregatedIPTViewDTO dto, IPTPatientsDTO[] patients, IPTANCVisitDTO[] visits, IPTDoseDTO[] doses, IPTTreatmentDTO[] treatments) throws IOException, ServletException
   {
     this.prepareRelationships(patients, visits, doses, treatments);
     req.setAttribute("item", dto);

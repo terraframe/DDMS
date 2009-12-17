@@ -25,8 +25,7 @@
       <label> ${view.stockDepotMd.displayLabel} </label>
     </dt>
     <dd>
-      <input type="hidden" name="typeSearchFilter" id="typeSearchFilter" value="${StockDepot}" />
-      <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput" value="${geoId}"/>
+      <mdss:geo param="geoId" concrete="false" value="${geoId}" filter="${StockDepot}" />      
     </dd>
     <dt>
       <label> ${view.itemMd.displayLabel} </label>

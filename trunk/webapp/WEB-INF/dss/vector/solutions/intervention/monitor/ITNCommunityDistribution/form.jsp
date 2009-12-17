@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 
@@ -40,7 +41,7 @@
   </div>
   <div class="householdAddress">
     <mjl:dt attribute="householdAddress">
-      <mjl:input id="householdAddress" param="householdAddress" type="text" classes="geoInput" />
+      <mdss:geo param="householdAddress" concrete="false" />
     </mjl:dt>
   </div>
   <div class="residents">
@@ -51,7 +52,7 @@
   
   <div class="distributionLocation">    
     <mjl:dt attribute="distributionLocation">
-      <mjl:input id="distributionLocation" param="distributionLocation" type="text" classes="geoInput" />
+      <mdss:geo param="distributionLocation" concrete="false" />    
     </mjl:dt>
   </div>
   

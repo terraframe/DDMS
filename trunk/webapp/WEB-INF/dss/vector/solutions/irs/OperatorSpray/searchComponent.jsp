@@ -1,6 +1,8 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
+
 <%@page import="dss.vector.solutions.geo.GeoHierarchyDTO"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
@@ -9,8 +11,6 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
-
-
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
@@ -25,15 +25,12 @@
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
-<script type="text/javascript">
-MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
-</script>
-
 <mjl:form name="search" method="POST" id ="searchOperatorSpray">
   <dl>
     <dt> <fmt:message key="Geo_Id"/> </dt>
-    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" value="${geoId}" maxlength="16" classes="geoInput"/></dd>
+    <dd>
+      <mdss:geo param="geoId" concrete="false" value="${geoId}" political="false" populated="false" spray="true" />
+    </dd>
     <dt> <fmt:message key="Insecticide_Brand"/> </dt>
     <dd>
       <mjl:select var="current" valueAttribute="insecticdeId" items="${brands}" param="brand.componentId" >
@@ -86,7 +83,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
 
 var teamSelect = document.getElementById('teamSelect');
 var operatorSelect = document.getElementById('operatorSelect');
-var geoId = document.getElementById('geoIdEl');
+var geoId = document.getElementById('geoId');
 
 var search = new MDSS.TeamSearch(geoId, teamSelect, operatorSelect, null);
 

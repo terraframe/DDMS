@@ -15,8 +15,7 @@
     <mdss:mo param="collectionMethod" value="${collectionMethod}" />
   </mjl:dt>
   <mjl:dt attribute="geoEntity">
-    <mjl:input classes="geoInput" id="geoIdEl" param="geoEntityId" value="${item.geoEntity != null ? item.geoEntity.geoId : &apos;&apos;}" type="text" />
-    <mjl:input id="geoEntityId" param="geoEntity" type="hidden" />
+    <mdss:geo param="geoEntity" value="${item.geoEntity}" />
   </mjl:dt>
   <mjl:dt attribute="lifeStage">
     <mjl:select param="lifeStage" items="${lifeStage}" var="current" valueAttribute="enumName">

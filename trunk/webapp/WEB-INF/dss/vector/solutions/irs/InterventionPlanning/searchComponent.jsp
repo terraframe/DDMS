@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 <c:set var="page_title" value="Intervention_Planning"  scope="request"/>
 
@@ -24,7 +25,7 @@
       <label><fmt:message key="Geo_Id"/></label>
     </dt>
     <dd>
-      <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput"/>
+      <mdss:geo param="geoId" concrete="false" political="false" populated="false" spray="true" />
     </dd>
     <dt>
       <label> <fmt:message key="Season"/></label>

@@ -1,7 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
@@ -12,10 +12,6 @@
 <c:set var="page_title" value="Search_Spray_Team_Targets" scope="request" />
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
-<script type="text/javascript">
-MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
-</script>
 
 <mjl:messages>
   <mjl:message />
@@ -30,7 +26,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
       <label><fmt:message key="Geo_Id"/></label>
     </dt>
     <dd>
-      <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput"/>
+      <mdss:geo param="geoId" concrete="false"political="false" populated="false" spray="true" />
     </dd>  
     <dt>
       <label> <fmt:message key="Season" /></label>
@@ -62,7 +58,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
 
 <script type="text/javascript">
 onValidGeoEntitySelected = function(){
-    var geoId = document.getElementById('geoIdEl');
+    var geoId = document.getElementById('geoId');
     var teamSelect = document.getElementById('teamSelect');
 
     if(geoId.value != '')

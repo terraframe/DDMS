@@ -1,33 +1,36 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
-<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
 
 <%@page import="dss.vector.solutions.PersonViewDTO"%>
 <%@page import="dss.vector.solutions.PersonController"%>
 <%@page import="dss.vector.solutions.PersonDTO"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.util.Halp"%><c:set var="page_title" value="Search_ITNDistribution" scope="request" />
-<c:set var="healthFacility" value="<%= HealthFacilityDTO.CLASS %>" scope="page"/>
+<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="dss.vector.solutions.util.Halp"%>
+
+<c:set var="healthFacility" scope="page"><%= HealthFacilityDTO.CLASS %></c:set>
+<c:set var="page_title" value="Search_ITNDistribution" scope="request" />
 
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
-<script type="text/javascript">
-MDSS.AbstractSelectSearch.Political = true;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
-</script>
+
+<%
+  List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS + "*"}); 
+  request.setAttribute("entityUniversals", entityUniversals);
+%>
 
 <dl>
   <mjl:form name="dss.vector.solutions.intervention.monitor.ITNDistribution.form.name" id="dss.vector.solutions.intervention.monitor.ITNDistribution.form.id" method="POST">
-    <input type="hidden" id="typeSearchFilter" value="${healthFacility}" />
     <mjl:component item="${item}" param="view">
       <mjl:dt attribute="facility">
-        <mjl:input value="${item.facility}" type="text" param="facility" classes="geoInput" id="geoIdEl" />
+        <mdss:geo param="facility" concrete="false" value="${item.facility}" universals="${entityUniversals}" filter="${healthFacility}" />
       </mjl:dt>
       <mjl:dt attribute="distributionDate" >
         <mjl:input type="text" param="distributionDate" id="distributionDate" classes="DatePick NoFuture"/>

@@ -16,8 +16,7 @@
     <mjl:component item="${item}" param="dto">
       <mjl:input type="hidden" param="sprayId" value="${item.sprayId}" />      
       <mjl:dt attribute="geoEntity">
-        <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput" value="${item.geoEntity.geoId}"/>        
-        <mjl:input id="geoEntityId" param="geoEntity" type="hidden" value="${item.geoEntity.id}"/>        
+        <mdss:geo param="geoEntity" value="${item.geoEntity}" political="false" populated="false" spray="true" />
       </mjl:dt>
       <mjl:dt attribute="brand"> 
         <mjl:select var="current" valueAttribute="insecticdeId" items="${brands}" param="brand" >
@@ -61,10 +60,6 @@
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayOperatorDTO.CLASS}))%>
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayOperatorViewDTO.CLASS}))%>
 
-<script type="text/javascript" defer="defer">
-
-
-</script>
 <script type="text/javascript">
 (function(){
   YAHOO.util.Event.onDOMReady(function(){   

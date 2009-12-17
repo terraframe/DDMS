@@ -1,6 +1,9 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
+
+<jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <c:set var="page_title" value="Search_Geo_Targets"  scope="request"/>
 
@@ -17,8 +20,7 @@
       <label><fmt:message key="Geo_Id"/></label>
     </dt>
     <dd>
-      <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput"/>
-      <mjl:input id="geoIdEl_geoEntityId" param="geoEntity.componentId" type="hidden" />
+      <mdss:geo param="geoEntity.componentId" spray="true" political="false" populated="false" />
     </dd>
     <dt>
       <label> <fmt:message key="Season"/></label>
@@ -34,8 +36,3 @@
   </dl>
 </mjl:form>
 
-<jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
-<script type="text/javascript">
-MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
-</script>

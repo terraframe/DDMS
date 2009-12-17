@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 30653882)
+@com.terraframe.mojo.business.ClassSignature(hash = 1163745685)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public class LarvaeDiscriminatingDoseAssayExcelViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 30653882;
+private static final long serialVersionUID = 1163745685;
 
   protected LarvaeDiscriminatingDoseAssayExcelViewQueryDTO(String type)
   {

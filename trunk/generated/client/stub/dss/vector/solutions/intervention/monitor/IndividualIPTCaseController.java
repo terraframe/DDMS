@@ -120,8 +120,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     if(serviceDate != null && !serviceDate.equals(""))
     {
       instance.setServiceDate((Date) new DefaultConverter(Date.class).parse(serviceDate, req.getLocale()));
-    }
-    
+    }    
     
     req.setAttribute("item", dto);
     req.setAttribute("instance", instance);

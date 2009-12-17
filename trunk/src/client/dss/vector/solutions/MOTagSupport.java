@@ -247,7 +247,7 @@ public class MOTagSupport extends SimpleTagSupport implements Reloadable
     try
     {
       // Generate mojo form tags
-      new TLDGenerator(new File(args[0]), new Class<?>[] { MOTagSupport.class, MultiMOTagSupport.class, BooleanListTagSupport.class }, "MDSS lib").generate();
+      new TLDGenerator(new File(args[0]), new Class<?>[] { MOTagSupport.class, MultiMOTagSupport.class, BooleanListTagSupport.class, GeoTagSupport.class, FilterTagSupport.class }, "MDSS lib").generate();
     }
     catch (IOException e)
     {
