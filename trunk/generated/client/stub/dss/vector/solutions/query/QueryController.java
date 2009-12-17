@@ -715,7 +715,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     }
   }
   
-  @Override
   public void queryMosquitoCollections() throws IOException, ServletException
   {
     try

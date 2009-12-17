@@ -290,7 +290,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     out.write("  YAHOO.util.Event.onDOMReady(function(){\n");
     out.write("    var geoInput = document.getElementById('" + _id + "');\n");
     out.write("    var selectSearch = new MDSS.SingleSelectSearch();\n");
-
+    
     this.writeFilterScript(out);
 
     out.write("    new MDSS.GeoSearch(geoInput, selectSearch);\n");
@@ -306,6 +306,15 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
       out.write("    selectSearch.setFilter('" + this.getFilter() + "');\n");
     }
 
+    out.write("    selectSearch.setPolitical(" + this.getPolitical() + ");\n");
+    out.write("    selectSearch.setPopulated(" + this.getPopulated() + ");\n");
+    out.write("    selectSearch.setSprayTargetAllowed(" + this.getSpray() + ");\n");
+    
+    for(String universal : this.getUniversals())
+    {
+      out.write("    selectSearch.addExtraUniversal('" + universal + "');\n");      
+    }
+    
     for (FilterTagSupport tag : this.radioFilters)
     {
       out.write("    YAHOO.util.Event.on('" + tag.getId() + "', 'click', function(e, obj){\n");
