@@ -47,10 +47,6 @@
 <%=Halp.loadTypes(loadables)%>
 
 <script type="text/javascript">
-// Setting both values to false will select *all* univerals
-MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-
 
 YAHOO.util.Event.onDOMReady(function(){
 
@@ -70,9 +66,7 @@ YAHOO.util.Event.onDOMReady(function(){
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
-    var queryList = <%= (String) request.getAttribute("queryList") %>;
-
-    
+    var queryList = <%= (String) request.getAttribute("queryList") %>;    
 
     var mosquito = new Mojo.$.dss.vector.solutions.entomology.Mosquito();
     var mosquitoView = new Mojo.$.dss.vector.solutions.entomology.MosquitoView();

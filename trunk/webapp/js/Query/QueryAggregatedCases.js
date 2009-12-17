@@ -49,6 +49,12 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
       this._defaultAgeGroups = [];
   
       this._buildQueryItems(ageGroups, visibleAttributes, orderedGrids);
+      
+      var picker = this.getGeoPicker();      
+      picker.setPolitical(true);
+      picker.setSprayTargetAllowed(false);
+      picker.addExtraUniversal('dss.vector.solutions.geo.generated.CollectionSite*');      
+      picker.addExtraUniversal('dss.vector.solutions.geo.generated.HealthFacility*');      
     },
   
     /**

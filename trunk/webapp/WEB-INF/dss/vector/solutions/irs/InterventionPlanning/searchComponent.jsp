@@ -54,9 +54,6 @@
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <script type="text/javascript">
-MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
-
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
     var options = YAHOO.util.Selector.query('.planningOption');

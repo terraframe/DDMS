@@ -88,10 +88,6 @@
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{TeamSprayStatusViewDTO.CLASS}))%>
 
 <script type="text/javascript">
-// Setting both values to false will select *all* univerals
-MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
-//MDSS.AbstractSelectSearch.ExtraUniversals.push('<%=SprayZoneDTO.CLASS %>*');
 
 YAHOO.util.Event.onDOMReady(function(){
 

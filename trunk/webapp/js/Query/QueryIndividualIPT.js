@@ -52,7 +52,10 @@ Mojo.Meta.newClass('MDSS.QueryIndividualIPT', {
       this._reportQueryType = 'QueryIndividualIPT';
       
       this.$initialize(selectableGroups, queryList);   
- 
+
+      var picker = this.getGeoPicker();      
+      picker.setPolitical(false);
+      picker.setSprayTargetAllowed(false);
       }
       
 

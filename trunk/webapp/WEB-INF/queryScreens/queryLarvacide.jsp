@@ -59,9 +59,6 @@
 
 <script type="text/javascript">
 // Setting both values to false will select *all* univerals
-MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-
 
 YAHOO.util.Event.onDOMReady(function(){
 

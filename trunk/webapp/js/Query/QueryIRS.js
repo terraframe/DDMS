@@ -57,6 +57,10 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       
 
       this.$initialize(selectableGroups, queryList); 
+      
+      var picker = this.getGeoPicker();      
+      picker.setPolitical(false);
+      picker.setSprayTargetAllowed(true);
     }
 	}
     

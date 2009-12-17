@@ -13,23 +13,16 @@
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
-<script type="text/javascript">
-MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
-MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= SentinelSiteDTO.CLASS %>');
-</script>
-
 <c:set var="page_title" value="Create_Survey_Point"  scope="request"/>
 
+<%
+  List<String> entityUniversals = Arrays.asList(new String[]{SentinelSiteDTO.CLASS}); 
+  request.setAttribute("entityUniversals", entityUniversals);
+%>
 
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-
-<%
-  request.setAttribute("SentinelSiteClass", SentinelSiteDTO.CLASS);
-  ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-%>
 
 <mjl:form name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.name" id="surveyPointForm" method="POST">
   <dl>

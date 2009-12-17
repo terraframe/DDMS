@@ -47,10 +47,15 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       this._currentSearchType = null;
   
       this._political = true;
+      
+      this._populated = false;
   
       this._sprayTargetAllowed = false;
+
+      // must be set before instantiating a subclass.
+      this._extraUniversals = [],
       
-      this._rendered = false;
+      this._rendered = false;      
     },
     
     /**
@@ -258,7 +263,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       });
   
       var method = this._getControllerAction();
-      method(request, MDSS.SelectSearchRootId, MDSS.AbstractSelectSearch.Political, MDSS.AbstractSelectSearch.SprayTargetAllowed, MDSS.AbstractSelectSearch.ExtraUniversals);
+      method(request, MDSS.SelectSearchRootId, this.getPolitical(), this.getSprayTargetAllowed(), this.getExtraUniversals());
     },
   
     /**
@@ -407,7 +412,47 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     {
       return this._filterType;
     },
+    
+    setPopulated : function(populated)
+    {
+      this._populated = populated;
+    },
+    
+    getPopulated : function()
+    {
+      return this._populated;
+    },
+    
+    setPolitical : function(political)
+    {
+      this._populated = political;
+    },
+    
+    getPolitical : function()
+    {
+      return this._political;
+    },
   
+    setSprayTargetAllowed : function(sprayTargetAllowed)
+    {
+      this._sprayTargetAllowed = sprayTargetAllowed;
+    },
+    
+    getSprayTargetAllowed : function()
+    {
+      return this._sprayTargetAllowed;
+    },
+    
+    addExtraUniversal : function(universal)
+    {
+      this._extraUniversals.push(universal);
+    },
+    
+    getExtraUniversals : function()
+    {
+      return this._extraUniversals;
+    },
+        
     /**
      * Performs the DOM level filtering by hiding/showing
      * the proper select lists.
@@ -834,16 +879,13 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
   Static : {
   
     SelectSearchRootId : null, // must be set before instantiating a subclass.
-    ExtraUniversals : [], // must be set before instantiating a subclass.
-    Political : true,
-    SprayTargetAllowed : false,
     
     /**
      * Formats the given GeoEntityView to a standardized string.
      */
     formatDisplay : function(geoEntityView)
     {
-	  // IMPORTANT: Don't include the moSubType because geoEntityView.getTypeDisplayLabel() already appends the mo sub type	  
+  // IMPORTANT: Don't include the moSubType because geoEntityView.getTypeDisplayLabel() already appends the mo sub type  
       return MDSS.AbstractSelectSearch.formatDisplay2(geoEntityView.getEntityName(), geoEntityView.getTypeDisplayLabel(), geoEntityView.getGeoId(), null);
     },
     

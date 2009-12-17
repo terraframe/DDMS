@@ -43,11 +43,6 @@
     out.print(js);
   %>
 
-MDSS.AbstractSelectSearch.Political = true;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= CollectionSiteDTO.CLASS %>*');
-MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*');
-
 (function(){
 
   YAHOO.util.Event.onDOMReady(function(){

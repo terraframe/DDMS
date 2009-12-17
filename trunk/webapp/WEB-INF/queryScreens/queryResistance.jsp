@@ -20,19 +20,12 @@
 <%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoViewDTO"%>
 <%@page import="org.json.JSONArray"%>
 <%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
 <%@page import="org.json.JSONException"%>
-<%@page import="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"%>
-<%@page import="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"%>
-<%@page import="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"%>
-<%@page import="dss.vector.solutions.entomology.UninterestingSpecieGroupDTO"%>
-<%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeConcreteInfo"%>
@@ -43,7 +36,6 @@
 <%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
 <%@page import="dss.vector.solutions.query.LayerViewDTO"%>
 <%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoView"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
@@ -68,10 +60,10 @@
     String[] mosquitoTypes = new String[]{ MosquitoCollectionDTO.CLASS, AdultDiscriminatingDoseAssayDTO.CLASS, LarvaeDiscriminatingDoseAssayDTO.CLASS, EfficacyAssayDTO.CLASS, KnockDownAssayDTO.CLASS, InsecticideDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, LayerViewDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
-    MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
+//    MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
 
     List<String> loadables = new ArrayList<String>();
-    loadables.addAll(Arrays.asList(mosquitoTypes));
+//    loadables.addAll(Arrays.asList(mosquitoTypes));
     loadables.addAll(Arrays.asList(queryTypes));
 %>
 
@@ -79,9 +71,6 @@
 
 <script type="text/javascript">
 // Setting both values to false will select *all* univerals
-MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-
 
 YAHOO.util.Event.onDOMReady(function(){
 

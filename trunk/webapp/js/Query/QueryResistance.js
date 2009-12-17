@@ -65,6 +65,10 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       this._buildQueryItems(selectableGroups);
 
       this._buildColumns();
+      
+      var picker = this.getGeoPicker();      
+      picker.setPolitical(false);
+      picker.setSprayTargetAllowed(false);
     },
 
     /**

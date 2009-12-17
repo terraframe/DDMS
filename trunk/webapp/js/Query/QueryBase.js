@@ -62,6 +62,11 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       this._browsers = {};
     },
     
+    getGeoPicker : function ()
+    {
+      return this._selectSearch;
+    },
+    
     /**
      * Handler to toggle the visibility of a list.
      */

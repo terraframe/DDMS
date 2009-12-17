@@ -55,8 +55,10 @@ Mojo.Meta.newClass('MDSS.QueryITNFacilityDistribution', {
 
       this._reportQueryType = 'QueryITNFacilityDistribution';
       this.$initialize(selectableGroups, queryList);   
-      
 
+      var picker = this.getGeoPicker();      
+      picker.setPolitical(false);
+      picker.setSprayTargetAllowed(false);
       }
     }
 });

@@ -14,6 +14,12 @@
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
+<%
+  List<String> entityUniversals = Arrays.asList(new String[]{SentinelSiteDTO.CLASS}); 
+  request.setAttribute("entityUniversals", entityUniversals);
+%>
+
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>

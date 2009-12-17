@@ -68,6 +68,11 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
       this._prevalenceCheck = null;
   
       this._buildQueryItems(nets);
+      
+      var picker = this.getGeoPicker();      
+      picker.setPolitical(false);
+      picker.setSprayTargetAllowed(true);
+      picker.addExtraUniversal('dss.vector.solutions.geo.generated.SentinelSite');
     },
   
     /**

@@ -20,13 +20,6 @@
 <%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
-<script type="text/javascript">
-MDSS.AbstractSelectSearch.Political = true;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= CollectionSiteDTO.CLASS %>*');
-MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*');
-</script>
-
 <%
   List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS + "*", CollectionSiteDTO.CLASS + "*"}); 
   request.setAttribute("entityUniversals", entityUniversals);

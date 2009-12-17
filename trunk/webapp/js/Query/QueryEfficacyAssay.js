@@ -52,6 +52,10 @@ Mojo.Meta.newClass('MDSS.QueryEfficacyAssay', {
       
 
       this._reportQueryType = 'QueryEfficacyAssay';
+      
+      var picker = this.getGeoPicker();      
+      picker.setPolitical(false);
+      picker.setSprayTargetAllowed(false);
       }
     }
 });

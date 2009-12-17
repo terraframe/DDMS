@@ -25,13 +25,6 @@
   request.setAttribute("entityUniversals", entityUniversals);
 %>
 
-
-<script type="text/javascript">
-MDSS.AbstractSelectSearch.Political = true;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-MDSS.AbstractSelectSearch.ExtraUniversals.push('${healthFacility}*');
-</script>
-
 <%@include file="personHeader.jsp" %>
 <mjl:component param="dto" item="${item}">
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>

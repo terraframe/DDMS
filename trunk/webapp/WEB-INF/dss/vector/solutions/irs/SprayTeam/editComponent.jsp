@@ -4,14 +4,10 @@
 <c:set var="page_title" value="Spray_Team_Edit" scope="request" />
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
-<script type="text/javascript">
-MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
-</script>
-
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
+
 <mjl:form name="dss.vector.solutions.irs.SprayTeam.form.name" id="dss.vector.solutions.irs.SprayTeam.form.id" method="POST" >
 <mjl:component item="${item}" param="dto">&nbsp;</mjl:component>
   <dl>

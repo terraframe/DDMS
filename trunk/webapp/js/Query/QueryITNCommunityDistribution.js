@@ -54,7 +54,9 @@ Mojo.Meta.newClass('MDSS.QueryITNCommunityDistribution', {
       this._reportQueryType = 'QueryITNCommunityDistribution';
       this.$initialize(selectableGroups, queryList);   
       
-
+      var picker = this.getGeoPicker();      
+      picker.setPolitical(false);
+      picker.setSprayTargetAllowed(false);
       }
     }
 });

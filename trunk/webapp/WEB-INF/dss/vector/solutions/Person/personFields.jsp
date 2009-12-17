@@ -8,10 +8,6 @@
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
-<script type="text/javascript">
-MDSS.AbstractSelectSearch.Political = true;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-</script>
   <mjl:messages>
     <mjl:message />
   </mjl:messages>

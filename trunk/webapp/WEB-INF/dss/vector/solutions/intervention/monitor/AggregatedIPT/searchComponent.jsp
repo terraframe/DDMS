@@ -20,12 +20,6 @@
 
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 
-<script type="text/javascript">
-MDSS.AbstractSelectSearch.Political = true;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*');
-</script>
-
 <%
   List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS + "*"}); 
   request.setAttribute("entityUniversals", entityUniversals);

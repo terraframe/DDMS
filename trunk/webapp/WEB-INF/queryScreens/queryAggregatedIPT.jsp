@@ -33,11 +33,9 @@
 <%@page import="dss.vector.solutions.intervention.monitor.IPTTreatmentDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.IPTPatientsDTO"%>
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
+<%@page import="com.terraframe.mojo.business.BusinessDTO"%>
 
-
-
-
-<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Aggregated_IPT"  scope="request"/>
+<c:set var="page_title" value="Query_Aggregated_IPT"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -49,8 +47,6 @@
     String[] mosquitoTypes = new String[]{ AggregatedIPTDTO.CLASS, IPTANCVisitDTO.CLASS, IPTDoseDTO.CLASS, IPTTreatmentDTO.CLASS, IPTPatientsDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
-    MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
-
     List<String> loadables = new ArrayList<String>();
     loadables.addAll(Arrays.asList(mosquitoTypes));
     loadables.addAll(Arrays.asList(queryTypes));
@@ -59,10 +55,6 @@
 <%=Halp.loadTypes(loadables)%>
 
 <script type="text/javascript">
-// Setting both values to false will select *all* univerals
-MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-
 
 YAHOO.util.Event.onDOMReady(function(){
 

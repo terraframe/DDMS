@@ -59,6 +59,10 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
       this._buildQueryItems(groupAttributes,individualAttributes, orderedGrids);
 
       this._buildColumns();
+      
+      var picker = this.getGeoPicker();      
+      picker.setPolitical(false);
+      picker.setSprayTargetAllowed(false);
     },
 
     /**

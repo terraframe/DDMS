@@ -6,13 +6,17 @@
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Arrays"%>
+
+<c:set scope="request" var="SentinelSite"><%=SentinelSiteDTO.CLASS%></c:set>
 
 <mjl:component item="${item}" param="dto">
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
   <mjl:dt attribute="geoId">
-    <mdss:geo param="geoId" concrete="false">
+    <mdss:geo param="geoId" concrete="false" universals="${entityUniversals}" >
       <mdss:filter universal="" id="all" checked="true">&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;</mdss:filter>
-      <mdss:filter universal="${SentinelSiteClass}" id="sentinel_site">&nbsp;<fmt:message key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp; <br /></mdss:filter>
+      <mdss:filter universal="${SentinelSite}" id="sentinel_site">&nbsp;<fmt:message key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp; <br /></mdss:filter>
     </mdss:geo>
   </mjl:dt>
   <mjl:dt attribute="surveyDate">

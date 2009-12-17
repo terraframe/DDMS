@@ -14,11 +14,9 @@
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoViewDTO"%>
 <%@page import="org.json.JSONArray"%>
 <%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
 <%@page import="org.json.JSONException"%>
@@ -49,7 +47,7 @@
     String[] mosquitoTypes = new String[]{  EfficacyAssayDTO.CLASS, InsecticideDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
-    MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
+//    MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
 
     List<String> loadables = new ArrayList<String>();
     loadables.addAll(Arrays.asList(mosquitoTypes));
@@ -59,10 +57,6 @@
 <%=Halp.loadTypes(loadables)%>
 
 <script type="text/javascript">
-// Setting both values to false will select *all* univerals
-MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-
 
 YAHOO.util.Event.onDOMReady(function(){
 
