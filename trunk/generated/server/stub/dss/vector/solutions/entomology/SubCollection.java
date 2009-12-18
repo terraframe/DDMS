@@ -131,7 +131,7 @@ public class SubCollection extends SubCollectionBase implements com.terraframe.m
     {
       List<LifeStage> lifeStage = this.getCollection().getLifeStage();
       
-      if (!lifeStage.contains(LifeStage.IMMATURE))
+      if (!lifeStage.contains(LifeStage.IMMATURE) || !lifeStage.contains(LifeStage.ADULT))
       {
         String value = ResponseMaster.getValueForErrorMsg(lifeStage);
         

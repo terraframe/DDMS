@@ -135,7 +135,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     map.put("Female", new ColumnSetup(!adult, true));
     map.put("Larvae", new ColumnSetup(!immature, true));
     map.put("Pupae", new ColumnSetup(!immature, true));
-    map.put("Unknowns", new ColumnSetup(!immature, true));
+    map.put("Unknowns", new ColumnSetup((!immature && !adult), true));
     map.put("Eggs", new ColumnSetup(!egg, true));
     map.put("Total", new ColumnSetup(false, false));
 
