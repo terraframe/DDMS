@@ -115,14 +115,34 @@ public class SearchParameter implements Reloadable
     return hierarchy.getImmediateChildren();
   }
 
-  public boolean isValid(GeoHierarchy hierarchy)
-  {
-    if (this.isPolitical() && !hierarchy.getPolitical())
+  /**
+   * Validates that the given GeoHierarchy meets the SearchParameter criteria
+   * only on hierarchy flags (Political, Spray Targets) and any modifier flags (Populated).
+   * 
+   * @param hierarchy
+   * @return
+   */
+  public boolean validateFlagsAndModifiers(GeoHierarchy hierarchy)
+  {    
+    if (this.isPopulated() && !hierarchy.getPopulationAllowed())
     {
       return false;
     }
-
-    if (this.isPopulated() && !hierarchy.getPopulationAllowed())
+    
+    return this.validateFlags(hierarchy);
+  }
+  
+  /**
+   * Validates that the given GeoHierarchy meets the SearchParameter criteria
+   * only on hierarchy flags (Political, Spray Targets).  However, it does not
+   * check any modifier flags (Populated).
+   * 
+   * @param hierarchy
+   * @return
+   */
+  public boolean validateFlags(GeoHierarchy hierarchy)
+  {
+    if (this.isPolitical() && !hierarchy.getPolitical())
     {
       return false;
     }
@@ -131,7 +151,7 @@ public class SearchParameter implements Reloadable
     {
       return false;
     }
-
+    
     return true;
   }
 
@@ -157,7 +177,9 @@ public class SearchParameter implements Reloadable
   {
     List<Condition> conditions = new LinkedList<Condition>();
 
-    for (GeoHierarchyView view : GeoHierarchy.getHierarchies(entity, this))
+    GeoHierarchyView[] views = GeoHierarchy.getHierarchies(entity, this);
+    
+    for (GeoHierarchyView view : views)
     {
       MdClass mdClass = MdClass.getMdClass(view.getGeneratedType());
 

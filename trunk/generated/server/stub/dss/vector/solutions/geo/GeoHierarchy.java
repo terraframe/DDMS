@@ -58,11 +58,11 @@ import dss.vector.solutions.query.QueryConstants;
 
 public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long    serialVersionUID = 1236133816255L;
+  private static final long   serialVersionUID = 1236133816255L;
 
-  private static final Integer SRID             = 4326;
+  public static final Integer SRID             = 4326;
 
-  private static String        allowedInTree    = null;
+  private static String       allowedInTree    = null;
 
   // private static Object lockObj = new Object();
 
@@ -384,11 +384,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       getIsAChildren(types, child);
     }
   }
-  
+
   public String getTypeName()
   {
     MdBusiness md = this.getGeoEntityClass();
-    return md.getTypeName();    
+    return md.getTypeName();
   }
 
   /**
@@ -578,8 +578,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   @AbortIfProblem
   private static String defineGeoEntityInternal(GeoEntityDefinition definition)
   {
-    boolean definesGeometry = false;
-
     // define the new MdBusiness
     String typeName = definition.getTypeName();
     String label = definition.getDisplayLabel();
@@ -704,7 +702,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     }
   }
 
-
   public GeoEntityDefinition getGeoEntityDefinition()
   {
     GeoEntityDefinition definition = new GeoEntityDefinition();
@@ -720,7 +717,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
 
     return definition;
   }
-
 
   /**
    * Locks this object and the MdBusiness which represents a GeoEntity subtype.
@@ -761,105 +757,107 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       allowedInTree = null;
     }
   }
-  
+
   /**
-   * Ensures that the political and spray hierarchy don't have gaps and
-   * that those hierarchies do not branch.
+   * Ensures that the political and spray hierarchy don't have gaps and that
+   * those hierarchies do not branch.
    * 
-   * @throws HierarchyGapException if there is a gap in the political or spray hierarchy.
-   * @throws HierarchyBranchException if the political or spray hierarchy tries to branch.
+   * @throws HierarchyGapException
+   *           if there is a gap in the political or spray hierarchy.
+   * @throws HierarchyBranchException
+   *           if the political or spray hierarchy tries to branch.
    */
   private void validateConsistentHierarchy()
   {
     List<GeoHierarchy> parents = this.getImmediateParents();
     boolean isPolitical = this.getPolitical();
     boolean isSpray = this.getSprayTargetAllowed();
-    
+
     boolean politicalParent = false;
     boolean sprayParent = false;
     boolean politicalChild = false;
     boolean sprayChild = false;
 
-    for(GeoHierarchy parent : parents)
+    for (GeoHierarchy parent : parents)
     {
       // To avoid gaps, we compare this GeoHierarchies political/spray
       // value to that of its parent. One match must exist.
-      if(parent.getPolitical())
+      if (parent.getPolitical())
       {
         politicalParent = true;
       }
-      
-      if(parent.getSprayTargetAllowed())
+
+      if (parent.getSprayTargetAllowed())
       {
         sprayParent = true;
       }
-      
+
       // To avoid branching, we must check the immediate children of each
       // parent and see if the political/spray hierarchy continues.
-      for(GeoHierarchy child : parent.getImmediateChildren())
+      for (GeoHierarchy child : parent.getImmediateChildren())
       {
-        if(child.equals(this))
+        if (child.equals(this))
         {
           continue;
         }
-        
-        if(child.getPolitical())
+
+        if (child.getPolitical())
         {
           politicalChild = true;
         }
-        
-        if(child.getSprayTargetAllowed())
+
+        if (child.getSprayTargetAllowed())
         {
-          sprayChild = true; 
+          sprayChild = true;
         }
       }
     }
-    
+
     // check political hierarchy
-    if(isPolitical && !politicalParent)
+    if (isPolitical && !politicalParent)
     {
-        String msg = "The universal ["+this.getTypeName()+"] attempted to create a"+
-          " gap in the political hierarchy.";
-        HierarchyGapException ex = new HierarchyGapException(msg);
-        throw ex;
+      String msg = "The universal [" + this.getTypeName() + "] attempted to create a" + " gap in the political hierarchy.";
+      HierarchyGapException ex = new HierarchyGapException(msg);
+      throw ex;
     }
-    else if(isPolitical && politicalChild)
+    else if (isPolitical && politicalChild)
     {
-      String msg = "The universal ["+this.getTypeName()+"] attempted to branch the political hierarchy.";
+      String msg = "The universal [" + this.getTypeName() + "] attempted to branch the political hierarchy.";
       HierarchyBranchException ex = new HierarchyBranchException(msg);
       throw ex;
     }
-    else if(!isPolitical)
+    else if (!isPolitical)
     {
       // Political has been set to false, so set all of its children political
-      // flags to false. Since no branching is allowed we can safely modify all children.
-      for(GeoHierarchy child : this.getAllChildren())
+      // flags to false. Since no branching is allowed we can safely modify all
+      // children.
+      for (GeoHierarchy child : this.getAllChildren())
       {
         child.appLock();
         child.setPolitical(false);
         child.apply();
       }
     }
-    
+
     // check spray hierarchy
-    if(isSpray && !sprayParent)
+    if (isSpray && !sprayParent)
     {
-      String msg = "The universal ["+this.getTypeName()+"] attempted to create a"+
-        " gap in the spray hierarchy.";
+      String msg = "The universal [" + this.getTypeName() + "] attempted to create a" + " gap in the spray hierarchy.";
       HierarchyGapException ex = new HierarchyGapException(msg);
       throw ex;
     }
-    else if(isSpray && sprayChild)
+    else if (isSpray && sprayChild)
     {
-      String msg = "The universal ["+this.getTypeName()+"] attempted to branch the spray hierarchy.";
+      String msg = "The universal [" + this.getTypeName() + "] attempted to branch the spray hierarchy.";
       HierarchyBranchException ex = new HierarchyBranchException(msg);
       throw ex;
     }
-    else if(!isSpray)
+    else if (!isSpray)
     {
       // Spray has been set to false, so set all of its children spray
-      // flags to false. Since no branching is allowed we can safely modify all children.
-      for(GeoHierarchy child : this.getAllChildren())
+      // flags to false. Since no branching is allowed we can safely modify all
+      // children.
+      for (GeoHierarchy child : this.getAllChildren())
       {
         child.appLock();
         child.setSprayTargetAllowed(false);
@@ -877,9 +875,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     geoHierarchy.setSprayTargetAllowed(view.getSprayTargetAllowed());
     geoHierarchy.setTerm(view.getTerm());
     geoHierarchy.setPopulationAllowed(view.getPopulationAllowed());
-    
+
     geoHierarchy.validateConsistentHierarchy();
-    
+
     geoHierarchy.apply();
 
     MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();
@@ -976,7 +974,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     }
 
     childGeoHierarchy.addAllowedInGeoEntity(parentGeoHierarchy).apply();
-    
+
     childGeoHierarchy.validateConsistentHierarchy();
   }
 
@@ -1043,19 +1041,19 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
 
     return viewQuery;
   }
-  
+
   public static GeoHierarchyView[] getAllViews()
   {
     List<GeoHierarchyView> list = new LinkedList<GeoHierarchyView>();
-    
+
     GeoHierarchyQuery query = new GeoHierarchyQuery(new QueryFactory());
     query.ORDER_BY_ASC(query.getGeoEntityClass().getTypeName());
-    
+
     OIterator<? extends GeoHierarchy> iterator = query.getIterator();
-    
+
     try
     {
-      while(iterator.hasNext())
+      while (iterator.hasNext())
       {
         list.add(iterator.next().getViewForGeoHierarchy());
       }
@@ -1067,7 +1065,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       iterator.close();
     }
   }
-
 
   /**
    * @return An array of all Geo Hierarchies where SprayTargetAllowed==true
@@ -1212,10 +1209,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   {
     return getGeoHierarchiesByType(geoEntity.getType(), parameter);
   }
-  
+
   public static GeoHierarchyView[] getHierarchies(SearchParameter parameter)
   {
-    return getGeoHierarchiesByType(Earth.CLASS, parameter);    
+    return getGeoHierarchiesByType(Earth.CLASS, parameter);
   }
 
   /**
@@ -1243,7 +1240,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     }
     else
     {
-      treeRecurse(views, hierarchy, parameter);      
+      treeRecurse(views, hierarchy, parameter);
     }
 
     return views.toArray(new GeoHierarchyView[views.size()]);
@@ -1251,14 +1248,23 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
 
   private static void treeRecurse(LinkedHashSet<GeoHierarchyView> views, GeoHierarchy hierarchy, SearchParameter parameter)
   {
-    boolean valid = parameter.isValid(hierarchy);
+    boolean valid = parameter.validateFlagsAndModifiers(hierarchy);
 
     if (valid)
     {
       views.add(hierarchy.getViewForGeoHierarchy());
-    }
+      
+      if(!parameter.isFirst())
+      {
+        List<GeoHierarchy> hierachies = parameter.getHierarchies(hierarchy);
 
-    if (! ( valid && parameter.isFirst() ))
+        for (GeoHierarchy childH : hierachies)
+        {
+          treeRecurse(views, childH, parameter);
+        }
+      }
+    }    
+    else if (parameter.validateFlags(hierarchy))
     {
       List<GeoHierarchy> hierachies = parameter.getHierarchies(hierarchy);
 
