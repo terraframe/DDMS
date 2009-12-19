@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1340618399)
+@com.terraframe.mojo.business.ClassSignature(hash = 59976421)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay;
  */
 public  class AdultAgeRangeQuery extends com.terraframe.mojo.query.GeneratedStructQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1340618399;
+private static final long serialVersionUID = 59976421;
 
   public AdultAgeRangeQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -18,6 +18,17 @@ private static final long serialVersionUID = -1340618399;
     if (this.getComponentQuery() == null)
     {
       com.terraframe.mojo.business.StructQuery structQuery = componentQueryFactory.structQuery(this.getClassType());
+
+       this.setStructQuery(structQuery);
+    }
+  }
+
+  public AdultAgeRangeQuery(com.terraframe.mojo.query.ValueQuery valueQuery)
+  {
+     super();
+    if (this.getComponentQuery() == null)
+    {
+      com.terraframe.mojo.business.StructQuery structQuery = new com.terraframe.mojo.business.StructQuery(valueQuery, this.getClassType());
 
        this.setStructQuery(structQuery);
     }
@@ -120,6 +131,7 @@ private static final long serialVersionUID = -1340618399;
    */
   public com.terraframe.mojo.query.OIterator<? extends AdultAgeRange> getIterator()
   {
+    this.checkNotUsedInValueQuery();
     String sqlStmt;
     if (_limit != null && _skip != null)
     {
@@ -167,7 +179,7 @@ private static final long serialVersionUID = -1340618399;
  **/
   public static class AdultAgeRangeQueryStruct extends com.terraframe.mojo.query.AttributeStruct implements AdultAgeRangeQueryStructIF, com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 639233757;
+private static final long serialVersionUID = 650720865;
 
   public AdultAgeRangeQueryStruct(com.terraframe.mojo.dataaccess.MdAttributeStructDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdStructDAOIF mdStructIF, String structTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {

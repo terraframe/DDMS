@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1656753495)
+@com.terraframe.mojo.business.ClassSignature(hash = 2082175247)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,7 +31,7 @@ public abstract class TeamSprayExcelViewBase extends dss.vector.solutions.export
   public static java.lang.String SPRAYEDROOMS = "sprayedRooms";
   public static java.lang.String SPRAYEDSTRUCTURES = "sprayedStructures";
   public static java.lang.String STRUCTURES = "structures";
-  private static final long serialVersionUID = 1656753495;
+  private static final long serialVersionUID = 2082175247;
   
   public TeamSprayExcelViewBase()
   {

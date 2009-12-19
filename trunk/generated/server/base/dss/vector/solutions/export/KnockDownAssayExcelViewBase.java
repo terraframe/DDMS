@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 851725215)
+@com.terraframe.mojo.business.ClassSignature(hash = 221593446)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class KnockDownAssayExcelViewBase extends com.terraframe.mojo.bu
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 851725215;
+  private static final long serialVersionUID = 221593446;
   
   public KnockDownAssayExcelViewBase()
   {

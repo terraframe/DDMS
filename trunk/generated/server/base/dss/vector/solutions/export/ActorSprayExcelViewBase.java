@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1635803847)
+@com.terraframe.mojo.business.ClassSignature(hash = 1498327385)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -19,7 +19,7 @@ public abstract class ActorSprayExcelViewBase extends dss.vector.solutions.expor
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
   public static java.lang.String USED = "used";
-  private static final long serialVersionUID = -1635803847;
+  private static final long serialVersionUID = 1498327385;
   
   public ActorSprayExcelViewBase()
   {

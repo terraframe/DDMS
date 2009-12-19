@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1555697750)
+@com.terraframe.mojo.business.ClassSignature(hash = -1026339792)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,7 +18,7 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
   public static java.lang.String MORTALITY = "mortality";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYLIVE = "quantityLive";
-  private static final long serialVersionUID = -1555697750;
+  private static final long serialVersionUID = -1026339792;
   
   public AdultDiscriminatingDoseAssayBase()
   {

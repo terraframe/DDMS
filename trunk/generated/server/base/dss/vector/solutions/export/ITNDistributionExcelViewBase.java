@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1820032559)
+@com.terraframe.mojo.business.ClassSignature(hash = 1213585266)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class ITNDistributionExcelViewBase extends com.terraframe.mojo.b
   public static java.lang.String RECIPIENTFIRSTNAME = "recipientFirstName";
   public static java.lang.String RECIPIENTLASTNAME = "recipientLastName";
   public static java.lang.String SERVICE = "service";
-  private static final long serialVersionUID = -1820032559;
+  private static final long serialVersionUID = 1213585266;
   
   public ITNDistributionExcelViewBase()
   {

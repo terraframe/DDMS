@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1436288322)
+@com.terraframe.mojo.business.ClassSignature(hash = -573703610)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,7 +15,7 @@ public abstract class AmbiguousRecipientProblemBase extends com.terraframe.mojo.
   public static java.lang.String FIRSTNAME = "firstName";
   public static java.lang.String ID = "id";
   public static java.lang.String LASTNAME = "lastName";
-  private static final long serialVersionUID = -1436288322;
+  private static final long serialVersionUID = -573703610;
   
   public AmbiguousRecipientProblemBase()
   {

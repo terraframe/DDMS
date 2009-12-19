@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1658375101)
+@com.terraframe.mojo.business.ClassSignature(hash = -61066076)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class LarvacideExcelViewBase extends com.terraframe.mojo.busines
   public static java.lang.String TREATED = "treated";
   public static java.lang.String UNIT = "unit";
   public static java.lang.String UNITSUSED = "unitsUsed";
-  private static final long serialVersionUID = -1658375101;
+  private static final long serialVersionUID = -61066076;
   
   public LarvacideExcelViewBase()
   {

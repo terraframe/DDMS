@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1256916203)
+@com.terraframe.mojo.business.ClassSignature(hash = -1743561493)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class InvalidIntervalTimeProblemBase extends dss.vector.solution
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidIntervalTimeProblem";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String INTERVALTIME = "intervalTime";
-  private static final long serialVersionUID = 1256916203;
+  private static final long serialVersionUID = -1743561493;
   
   public InvalidIntervalTimeProblemBase()
   {

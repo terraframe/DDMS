@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -249923259)
+@com.terraframe.mojo.business.ClassSignature(hash = 1664822977)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,7 @@ public abstract class PersonExcelViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String SEX = "sex";
   public static java.lang.String USERNAME = "username";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
-  private static final long serialVersionUID = -249923259;
+  private static final long serialVersionUID = 1664822977;
   
   public PersonExcelViewBase()
   {

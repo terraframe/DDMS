@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1106008911)
+@com.terraframe.mojo.business.ClassSignature(hash = -1557474670)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class EfficacyAssayExcelViewBase extends com.terraframe.mojo.bus
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TIMEONSURFACE = "timeOnSurface";
-  private static final long serialVersionUID = -1106008911;
+  private static final long serialVersionUID = -1557474670;
   
   public EfficacyAssayExcelViewBase()
   {

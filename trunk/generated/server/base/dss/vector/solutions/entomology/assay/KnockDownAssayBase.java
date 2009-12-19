@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2007890233)
+@com.terraframe.mojo.business.ClassSignature(hash = 1728981725)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class KnockDownAssayBase extends dss.vector.solutions.entomology
   public final static String CLASS = "dss.vector.solutions.entomology.assay.KnockDownAssay";
   public static java.lang.String KD50 = "kd50";
   public static java.lang.String KD95 = "kd95";
-  private static final long serialVersionUID = 2007890233;
+  private static final long serialVersionUID = 1728981725;
   
   public KnockDownAssayBase()
   {

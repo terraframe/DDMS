@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1192411669)
+@com.terraframe.mojo.business.ClassSignature(hash = 1468987629)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -45,7 +45,7 @@ public abstract class IndividualCaseExcelViewBase extends com.terraframe.mojo.bu
   public static java.lang.String TREATMENT = "treatment";
   public static java.lang.String TREATMENTMETHOD = "treatmentMethod";
   public static java.lang.String TREATMENTSTARTDATE = "treatmentStartDate";
-  private static final long serialVersionUID = -1192411669;
+  private static final long serialVersionUID = 1468987629;
   
   public IndividualCaseExcelViewBase()
   {

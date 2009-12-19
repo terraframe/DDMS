@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1010592253)
+@com.terraframe.mojo.business.ClassSignature(hash = 1163313025)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class ResistantCollectionBase extends com.terraframe.mojo.busine
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.ResistantCollection";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1010592253;
+  private static final long serialVersionUID = 1163313025;
   
   public ResistantCollectionBase()
   {

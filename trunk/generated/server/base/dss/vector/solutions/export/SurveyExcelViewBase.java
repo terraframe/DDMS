@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -86723113)
+@com.terraframe.mojo.business.ClassSignature(hash = -2134334006)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -69,7 +69,7 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String WINDOWTYPE = "windowType";
   public static java.lang.String YEARRECIEVED = "yearRecieved";
   public static java.lang.String YEARRETREATED = "yearRetreated";
-  private static final long serialVersionUID = -86723113;
+  private static final long serialVersionUID = -2134334006;
   
   public SurveyExcelViewBase()
   {

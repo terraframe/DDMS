@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1181288253)
+@com.terraframe.mojo.business.ClassSignature(hash = 1884872195)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,7 @@ public abstract class IndividualIPTExcelViewBase extends com.terraframe.mojo.bus
   public static java.lang.String RESIDENTIALLOCATION = "residentialLocation";
   public static java.lang.String SERVICEDATE = "serviceDate";
   public static java.lang.String VISITNUMBER = "visitNumber";
-  private static final long serialVersionUID = 1181288253;
+  private static final long serialVersionUID = 1884872195;
   
   public IndividualIPTExcelViewBase()
   {

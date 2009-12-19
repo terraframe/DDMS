@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1983802066)
+@com.terraframe.mojo.business.ClassSignature(hash = -1479418154)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class InvalidPeriodProblemBase extends dss.vector.solutions.Noti
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidPeriodProblem";
   public static java.lang.String PERIOD = "period";
-  private static final long serialVersionUID = 1983802066;
+  private static final long serialVersionUID = -1479418154;
   
   public InvalidPeriodProblemBase()
   {

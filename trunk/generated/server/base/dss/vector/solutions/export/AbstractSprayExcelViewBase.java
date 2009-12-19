@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1686602119)
+@com.terraframe.mojo.business.ClassSignature(hash = -2071385518)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,7 +17,7 @@ public abstract class AbstractSprayExcelViewBase extends com.terraframe.mojo.bus
   public static java.lang.String SPRAYDATE = "sprayDate";
   public static java.lang.String SPRAYMETHOD = "sprayMethod";
   public static java.lang.String SURFACETYPE = "surfaceType";
-  private static final long serialVersionUID = 1686602119;
+  private static final long serialVersionUID = -2071385518;
   
   public AbstractSprayExcelViewBase()
   {

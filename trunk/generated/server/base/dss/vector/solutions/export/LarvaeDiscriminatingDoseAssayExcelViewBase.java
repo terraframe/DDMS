@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1232021118)
+@com.terraframe.mojo.business.ClassSignature(hash = 1085442899)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,7 +31,7 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewBase extends com.ter
   public static java.lang.String STARTPOINT = "startPoint";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1232021118;
+  private static final long serialVersionUID = 1085442899;
   
   public LarvaeDiscriminatingDoseAssayExcelViewBase()
   {

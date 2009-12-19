@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1793959981)
+@com.terraframe.mojo.business.ClassSignature(hash = -1621827539)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class InvalidKnockDownQuantityProblemBase extends dss.vector.sol
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidKnockDownQuantityProblem";
   public static java.lang.String QUANTITYKNOCKDOWN = "quantityKnockDown";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
-  private static final long serialVersionUID = 1793959981;
+  private static final long serialVersionUID = -1621827539;
   
   public InvalidKnockDownQuantityProblemBase()
   {

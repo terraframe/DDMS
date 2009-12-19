@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -764320832)
+@com.terraframe.mojo.business.ClassSignature(hash = -553999629)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class SurveyExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -764320832;
+private static final long serialVersionUID = -553999629;
 
   public SurveyExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

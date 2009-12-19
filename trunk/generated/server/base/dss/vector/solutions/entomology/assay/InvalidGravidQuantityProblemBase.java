@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1794178195)
+@com.terraframe.mojo.business.ClassSignature(hash = -483642089)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class InvalidGravidQuantityProblemBase extends dss.vector.soluti
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidGravidQuantityProblem";
   public static java.lang.String GRAVID = "gravid";
-  private static final long serialVersionUID = 1794178195;
+  private static final long serialVersionUID = -483642089;
   
   public InvalidGravidQuantityProblemBase()
   {

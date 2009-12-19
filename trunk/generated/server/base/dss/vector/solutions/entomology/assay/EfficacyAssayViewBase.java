@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 58120981)
+@com.terraframe.mojo.business.ClassSignature(hash = 1954768760)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class EfficacyAssayViewBase extends com.terraframe.mojo.business
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TIMEONSURFACE = "timeOnSurface";
-  private static final long serialVersionUID = 58120981;
+  private static final long serialVersionUID = 1954768760;
   
   public EfficacyAssayViewBase()
   {

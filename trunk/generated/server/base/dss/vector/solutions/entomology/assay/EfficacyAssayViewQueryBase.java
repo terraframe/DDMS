@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 790656908)
+@com.terraframe.mojo.business.ClassSignature(hash = -2040256849)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology.assay;
 public  abstract  class EfficacyAssayViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 790656908;
+private static final long serialVersionUID = -2040256849;
 
   public EfficacyAssayViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

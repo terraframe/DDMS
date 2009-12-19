@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1995768596)
+@com.terraframe.mojo.business.ClassSignature(hash = -1520349683)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class LarvacideExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1995768596;
+private static final long serialVersionUID = -1520349683;
 
   public LarvacideExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

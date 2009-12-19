@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1351097450)
+@com.terraframe.mojo.business.ClassSignature(hash = 2098767982)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,7 +16,7 @@ public abstract class AdultAgeRangeBase extends com.terraframe.mojo.business.Str
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String STARTPOINT = "startPoint";
-  private static final long serialVersionUID = 1351097450;
+  private static final long serialVersionUID = 2098767982;
   
   public AdultAgeRangeBase()
   {

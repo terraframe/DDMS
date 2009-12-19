@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1748638375)
+@com.terraframe.mojo.business.ClassSignature(hash = -284530143)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -29,7 +29,7 @@ public abstract class ITNCommunityExcelViewBase extends com.terraframe.mojo.busi
   public static java.lang.String RETRIEVED = "retrieved";
   public static java.lang.String SOLD = "sold";
   public static java.lang.String STARTDATE = "startDate";
-  private static final long serialVersionUID = -1748638375;
+  private static final long serialVersionUID = -284530143;
   
   public ITNCommunityExcelViewBase()
   {

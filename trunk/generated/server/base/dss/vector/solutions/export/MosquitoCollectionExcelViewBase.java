@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1790973191)
+@com.terraframe.mojo.business.ClassSignature(hash = -868491956)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -27,7 +27,7 @@ public abstract class MosquitoCollectionExcelViewBase extends com.terraframe.moj
   public static java.lang.String SUBCOLLECTIONID = "subCollectionId";
   public static java.lang.String TAXON = "taxon";
   public static java.lang.String UNKNOWNS = "unknowns";
-  private static final long serialVersionUID = 1790973191;
+  private static final long serialVersionUID = -868491956;
   
   public MosquitoCollectionExcelViewBase()
   {

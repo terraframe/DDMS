@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -617847751)
+@com.terraframe.mojo.business.ClassSignature(hash = -1222637511)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class InvalidDeadQuantityProblemBase extends dss.vector.solution
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidDeadQuantityProblem";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
-  private static final long serialVersionUID = -617847751;
+  private static final long serialVersionUID = -1222637511;
   
   public InvalidDeadQuantityProblemBase()
   {

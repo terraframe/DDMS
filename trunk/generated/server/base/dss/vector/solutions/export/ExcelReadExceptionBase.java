@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 837768762)
+@com.terraframe.mojo.business.ClassSignature(hash = 448339518)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class ExcelReadExceptionBase extends com.terraframe.mojo.busines
 {
   public final static String CLASS = "dss.vector.solutions.export.ExcelReadException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 837768762;
+  private static final long serialVersionUID = 448339518;
   
   public ExcelReadExceptionBase()
   {

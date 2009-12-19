@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 144501840)
+@com.terraframe.mojo.business.ClassSignature(hash = 1110768617)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 144501840;
+  private static final long serialVersionUID = 1110768617;
   
   public AbstractAssayBase()
   {

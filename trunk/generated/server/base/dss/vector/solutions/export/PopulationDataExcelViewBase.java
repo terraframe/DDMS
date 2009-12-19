@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1216751221)
+@com.terraframe.mojo.business.ClassSignature(hash = 738857750)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,7 +16,7 @@ public abstract class PopulationDataExcelViewBase extends com.terraframe.mojo.bu
   public static java.lang.String ID = "id";
   public static java.lang.String POPULATION = "population";
   public static java.lang.String YEAROFDATA = "yearOfData";
-  private static final long serialVersionUID = 1216751221;
+  private static final long serialVersionUID = 738857750;
   
   public PopulationDataExcelViewBase()
   {

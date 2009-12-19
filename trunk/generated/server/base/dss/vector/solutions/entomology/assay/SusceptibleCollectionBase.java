@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 330530889)
+@com.terraframe.mojo.business.ClassSignature(hash = -173495347)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class SusceptibleCollectionBase extends com.terraframe.mojo.busi
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.SusceptibleCollection";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 330530889;
+  private static final long serialVersionUID = -173495347;
   
   public SusceptibleCollectionBase()
   {

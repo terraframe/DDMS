@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 365986242)
+@com.terraframe.mojo.business.ClassSignature(hash = -399272950)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class ITNCommunityExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 365986242;
+private static final long serialVersionUID = -399272950;
 
   public ITNCommunityExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

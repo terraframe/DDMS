@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1201181150)
+@com.terraframe.mojo.business.ClassSignature(hash = -379944103)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,7 +21,7 @@ public abstract class AggregatedIPTExcelViewBase extends com.terraframe.mojo.bus
   public static java.lang.String PERIODTYPE = "periodType";
   public static java.lang.String PERIODYEAR = "periodYear";
   public static java.lang.String TOTALITN = "totalITN";
-  private static final long serialVersionUID = 1201181150;
+  private static final long serialVersionUID = -379944103;
   
   public AggregatedIPTExcelViewBase()
   {

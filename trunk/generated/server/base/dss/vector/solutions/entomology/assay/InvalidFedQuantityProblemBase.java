@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 548357623)
+@com.terraframe.mojo.business.ClassSignature(hash = -1689763717)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class InvalidFedQuantityProblemBase extends dss.vector.solutions
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidFedQuantityProblem";
   public static java.lang.String FED = "fed";
-  private static final long serialVersionUID = 548357623;
+  private static final long serialVersionUID = -1689763717;
   
   public InvalidFedQuantityProblemBase()
   {

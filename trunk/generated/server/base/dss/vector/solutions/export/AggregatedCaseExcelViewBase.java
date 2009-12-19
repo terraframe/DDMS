@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 141971008)
+@com.terraframe.mojo.business.ClassSignature(hash = -347166803)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -53,7 +53,7 @@ public abstract class AggregatedCaseExcelViewBase extends com.terraframe.mojo.bu
   public static java.lang.String REFERRALSRECEIVED = "referralsReceived";
   public static java.lang.String REFERRALSSENT = "referralsSent";
   public static java.lang.String STILLBIRTHS = "stillBirths";
-  private static final long serialVersionUID = 141971008;
+  private static final long serialVersionUID = -347166803;
   
   public AggregatedCaseExcelViewBase()
   {

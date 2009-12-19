@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1940241394)
+@com.terraframe.mojo.business.ClassSignature(hash = -1750250482)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.terraframe.m
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIES = "species";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = -1940241394;
+  private static final long serialVersionUID = -1750250482;
   
   public PooledInfectionAssayExcelViewBase()
   {

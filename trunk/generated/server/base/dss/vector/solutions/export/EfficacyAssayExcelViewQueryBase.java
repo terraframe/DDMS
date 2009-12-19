@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 716545370)
+@com.terraframe.mojo.business.ClassSignature(hash = -445174021)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class EfficacyAssayExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 716545370;
+private static final long serialVersionUID = -445174021;
 
   public EfficacyAssayExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

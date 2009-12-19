@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1254070788)
+@com.terraframe.mojo.business.ClassSignature(hash = -1502833624)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,7 +22,7 @@ public abstract class BiochemicalAssayExcelViewBase extends com.terraframe.mojo.
   public static java.lang.String NUMBERTESTED = "numberTested";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIES = "species";
-  private static final long serialVersionUID = 1254070788;
+  private static final long serialVersionUID = -1502833624;
   
   public BiochemicalAssayExcelViewBase()
   {

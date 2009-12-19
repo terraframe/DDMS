@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 87270308)
+@com.terraframe.mojo.business.ClassSignature(hash = 1456770872)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,7 +18,7 @@ public abstract class GeoEntityExcelViewBase extends com.terraframe.mojo.busines
   public static java.lang.String GEOMETRYWKT = "geometryWKT";
   public static java.lang.String ID = "id";
   public static java.lang.String SUBTYPE = "subType";
-  private static final long serialVersionUID = 87270308;
+  private static final long serialVersionUID = 1456770872;
   
   public GeoEntityExcelViewBase()
   {

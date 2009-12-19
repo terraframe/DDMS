@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2111610803)
+@com.terraframe.mojo.business.ClassSignature(hash = 1306766302)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,7 +17,7 @@ public abstract class AdultAssayBase extends dss.vector.solutions.entomology.ass
   public static java.lang.String FED = "fed";
   public static java.lang.String GRAVID = "gravid";
   public static java.lang.String SEX = "sex";
-  private static final long serialVersionUID = 2111610803;
+  private static final long serialVersionUID = 1306766302;
   
   public AdultAssayBase()
   {

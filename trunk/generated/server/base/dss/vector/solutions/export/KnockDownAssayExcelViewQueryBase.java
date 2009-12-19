@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 203949704)
+@com.terraframe.mojo.business.ClassSignature(hash = -1010414065)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class KnockDownAssayExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 203949704;
+private static final long serialVersionUID = -1010414065;
 
   public KnockDownAssayExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

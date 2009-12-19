@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1613912348)
+@com.terraframe.mojo.business.ClassSignature(hash = 2088392476)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class InvalidAgeRangeProblemBase extends dss.vector.solutions.No
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem";
   public static java.lang.String ENDPOINT = "endPoint";
   public static java.lang.String STARTPOINT = "startPoint";
-  private static final long serialVersionUID = 1613912348;
+  private static final long serialVersionUID = 2088392476;
   
   public InvalidAgeRangeProblemBase()
   {

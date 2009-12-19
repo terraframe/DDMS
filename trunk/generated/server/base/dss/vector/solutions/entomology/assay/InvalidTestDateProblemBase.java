@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -826524263)
+@com.terraframe.mojo.business.ClassSignature(hash = -503652063)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class InvalidTestDateProblemBase extends dss.vector.solutions.No
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidTestDateProblem";
   public static java.lang.String COLLECTIONDATE = "collectionDate";
   public static java.lang.String TESTDATE = "testDate";
-  private static final long serialVersionUID = -826524263;
+  private static final long serialVersionUID = -503652063;
   
   public InvalidTestDateProblemBase()
   {

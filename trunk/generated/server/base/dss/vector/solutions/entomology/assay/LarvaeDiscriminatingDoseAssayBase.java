@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 357436542)
+@com.terraframe.mojo.business.ClassSignature(hash = -229007996)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,7 +18,7 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends dss.vector.solut
   public static java.lang.String MORTALITY = "mortality";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYLIVE = "quantityLive";
-  private static final long serialVersionUID = 357436542;
+  private static final long serialVersionUID = -229007996;
   
   public LarvaeDiscriminatingDoseAssayBase()
   {
