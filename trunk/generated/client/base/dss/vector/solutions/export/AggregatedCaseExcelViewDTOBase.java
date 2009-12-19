@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -16994368)
+@com.terraframe.mojo.business.ClassSignature(hash = -311105235)
 public abstract class AggregatedCaseExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.AggregatedCaseExcelView";
-  private static final long serialVersionUID = -16994368;
+  private static final long serialVersionUID = -311105235;
   
   protected AggregatedCaseExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

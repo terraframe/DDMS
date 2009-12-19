@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 416450237)
+@com.terraframe.mojo.business.ClassSignature(hash = -1167152487)
 public abstract class MolecularAssayExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.MolecularAssayExcelView";
-  private static final long serialVersionUID = 416450237;
+  private static final long serialVersionUID = -1167152487;
   
   protected MolecularAssayExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1172536760)
+@com.terraframe.mojo.business.ClassSignature(hash = -1373684631)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public class EfficacyAssayExcelViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1172536760;
+private static final long serialVersionUID = -1373684631;
 
   protected EfficacyAssayExcelViewQueryDTO(String type)
   {

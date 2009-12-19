@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1800877127)
+@com.terraframe.mojo.business.ClassSignature(hash = -385755175)
 public abstract class ActorSprayExcelViewDTOBase extends dss.vector.solutions.export.AbstractSprayExcelViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.ActorSprayExcelView";
-  private static final long serialVersionUID = -1800877127;
+  private static final long serialVersionUID = -385755175;
   
   protected ActorSprayExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

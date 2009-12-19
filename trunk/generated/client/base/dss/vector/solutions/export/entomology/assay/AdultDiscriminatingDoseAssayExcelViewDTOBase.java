@@ -1,10 +1,10 @@
 package dss.vector.solutions.export.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2098237226)
+@com.terraframe.mojo.business.ClassSignature(hash = -756514791)
 public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView";
-  private static final long serialVersionUID = -2098237226;
+  private static final long serialVersionUID = -756514791;
   
   protected AdultDiscriminatingDoseAssayExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -200857611)
+@com.terraframe.mojo.business.ClassSignature(hash = -723962730)
 public abstract class PopulationDataExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.PopulationDataExcelView";
-  private static final long serialVersionUID = -200857611;
+  private static final long serialVersionUID = -723962730;
   
   protected PopulationDataExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

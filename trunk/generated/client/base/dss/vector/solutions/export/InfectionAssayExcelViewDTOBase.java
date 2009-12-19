@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2100030716)
+@com.terraframe.mojo.business.ClassSignature(hash = -555928824)
 public abstract class InfectionAssayExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.InfectionAssayExcelView";
-  private static final long serialVersionUID = 2100030716;
+  private static final long serialVersionUID = -555928824;
   
   protected InfectionAssayExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

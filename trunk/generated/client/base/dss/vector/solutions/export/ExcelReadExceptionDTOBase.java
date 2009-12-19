@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1034393530)
+@com.terraframe.mojo.business.ClassSignature(hash = -748150850)
 public abstract class ExcelReadExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.ExcelReadException";
-  private static final long serialVersionUID = 1034393530;
+  private static final long serialVersionUID = -748150850;
   
   public ExcelReadExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

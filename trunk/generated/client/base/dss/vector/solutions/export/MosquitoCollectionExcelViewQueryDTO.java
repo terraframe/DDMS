@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 450871952)
+@com.terraframe.mojo.business.ClassSignature(hash = -1391559403)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public class MosquitoCollectionExcelViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 450871952;
+private static final long serialVersionUID = -1391559403;
 
   protected MosquitoCollectionExcelViewQueryDTO(String type)
   {

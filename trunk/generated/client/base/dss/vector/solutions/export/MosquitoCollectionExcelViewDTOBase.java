@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 236582535)
+@com.terraframe.mojo.business.ClassSignature(hash = -1767498036)
 public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.MosquitoCollectionExcelView";
-  private static final long serialVersionUID = 236582535;
+  private static final long serialVersionUID = -1767498036;
   
   protected MosquitoCollectionExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

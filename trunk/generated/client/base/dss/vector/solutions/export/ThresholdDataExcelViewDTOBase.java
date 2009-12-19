@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 739809067)
+@com.terraframe.mojo.business.ClassSignature(hash = -2075565438)
 public abstract class ThresholdDataExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.ThresholdDataExcelView";
-  private static final long serialVersionUID = 739809067;
+  private static final long serialVersionUID = -2075565438;
   
   protected ThresholdDataExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

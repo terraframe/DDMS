@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1472543263)
+@com.terraframe.mojo.business.ClassSignature(hash = 1070435814)
 public abstract class KnockDownAssayExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.KnockDownAssayExcelView";
-  private static final long serialVersionUID = 1472543263;
+  private static final long serialVersionUID = 1070435814;
   
   protected KnockDownAssayExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

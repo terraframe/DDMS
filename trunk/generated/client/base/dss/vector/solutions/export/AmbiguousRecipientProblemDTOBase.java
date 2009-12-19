@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 782412094)
+@com.terraframe.mojo.business.ClassSignature(hash = -992892730)
 public abstract class AmbiguousRecipientProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.AmbiguousRecipientProblem";
-  private static final long serialVersionUID = 782412094;
+  private static final long serialVersionUID = -992892730;
   
   public AmbiguousRecipientProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

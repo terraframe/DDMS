@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1033132543)
+@com.terraframe.mojo.business.ClassSignature(hash = 687392553)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public class OperatorSprayExcelViewQueryDTO extends dss.vector.solutions.export.ActorSprayExcelViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1033132543;
+private static final long serialVersionUID = 687392553;
 
   protected OperatorSprayExcelViewQueryDTO(String type)
   {

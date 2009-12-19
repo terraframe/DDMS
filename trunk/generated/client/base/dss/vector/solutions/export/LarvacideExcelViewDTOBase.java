@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1876917565)
+@com.terraframe.mojo.business.ClassSignature(hash = -928160988)
 public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.LarvacideExcelView";
-  private static final long serialVersionUID = -1876917565;
+  private static final long serialVersionUID = -928160988;
   
   protected LarvacideExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

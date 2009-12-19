@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -401018018)
+@com.terraframe.mojo.business.ClassSignature(hash = -48053031)
 public abstract class AggregatedIPTExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.AggregatedIPTExcelView";
-  private static final long serialVersionUID = -401018018;
+  private static final long serialVersionUID = -48053031;
   
   protected AggregatedIPTExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

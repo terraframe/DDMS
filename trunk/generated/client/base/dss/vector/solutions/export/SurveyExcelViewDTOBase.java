@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1779620777)
+@com.terraframe.mojo.business.ClassSignature(hash = 471413834)
 public abstract class SurveyExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.SurveyExcelView";
-  private static final long serialVersionUID = -1779620777;
+  private static final long serialVersionUID = 471413834;
   
   protected SurveyExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
