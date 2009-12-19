@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -905585672)
+@com.terraframe.mojo.business.ClassSignature(hash = -2133738756)
 public abstract class NoSearchSpecifiedExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.NoSearchSpecifiedException";
-  private static final long serialVersionUID = -905585672;
+  private static final long serialVersionUID = -2133738756;
   
   public NoSearchSpecifiedExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

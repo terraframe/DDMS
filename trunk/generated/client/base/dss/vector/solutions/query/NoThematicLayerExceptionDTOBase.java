@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1485392376)
+@com.terraframe.mojo.business.ClassSignature(hash = 1359227132)
 public abstract class NoThematicLayerExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.NoThematicLayerException";
-  private static final long serialVersionUID = 1485392376;
+  private static final long serialVersionUID = 1359227132;
   
   public NoThematicLayerExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1641881116)
+@com.terraframe.mojo.business.ClassSignature(hash = -2096167715)
 public abstract class ThematicVariableDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.ThematicVariable";
-  private static final long serialVersionUID = -1641881116;
+  private static final long serialVersionUID = -2096167715;
   
   protected ThematicVariableDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

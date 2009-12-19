@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1592329952)
+@com.terraframe.mojo.business.ClassSignature(hash = 995575334)
 public abstract class AggregatedAgeGroupDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.AggregatedAgeGroup";
-  private static final long serialVersionUID = -1592329952;
+  private static final long serialVersionUID = 995575334;
   
   protected AggregatedAgeGroupDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

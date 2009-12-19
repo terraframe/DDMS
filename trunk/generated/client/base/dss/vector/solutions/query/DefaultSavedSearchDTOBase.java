@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -655777317)
+@com.terraframe.mojo.business.ClassSignature(hash = -1007691661)
 public abstract class DefaultSavedSearchDTOBase extends dss.vector.solutions.query.SavedSearchDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.DefaultSavedSearch";
-  private static final long serialVersionUID = -655777317;
+  private static final long serialVersionUID = -1007691661;
   
   protected DefaultSavedSearchDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

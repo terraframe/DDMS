@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 6519080)
+@com.terraframe.mojo.business.ClassSignature(hash = -755156194)
 public abstract class AbstractCategoryDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.AbstractCategory";
-  private static final long serialVersionUID = 6519080;
+  private static final long serialVersionUID = -755156194;
   
   protected AbstractCategoryDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

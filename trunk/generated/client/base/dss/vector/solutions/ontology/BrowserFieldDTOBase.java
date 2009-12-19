@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -137770459)
+@com.terraframe.mojo.business.ClassSignature(hash = -2106516601)
 public abstract class BrowserFieldDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.BrowserField";
-  private static final long serialVersionUID = -137770459;
+  private static final long serialVersionUID = -2106516601;
   
   protected BrowserFieldDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

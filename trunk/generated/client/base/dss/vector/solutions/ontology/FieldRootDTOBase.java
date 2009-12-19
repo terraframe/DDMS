@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -477019429)
+@com.terraframe.mojo.business.ClassSignature(hash = 1388693500)
 public abstract class FieldRootDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.FieldRoot";
-  private static final long serialVersionUID = -477019429;
+  private static final long serialVersionUID = 1388693500;
   
   public FieldRootDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {

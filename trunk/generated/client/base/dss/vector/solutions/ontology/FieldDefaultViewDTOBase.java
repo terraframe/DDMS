@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 784527586)
+@com.terraframe.mojo.business.ClassSignature(hash = 2066388076)
 public abstract class FieldDefaultViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.FieldDefaultView";
-  private static final long serialVersionUID = 784527586;
+  private static final long serialVersionUID = 2066388076;
   
   protected FieldDefaultViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

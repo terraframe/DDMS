@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -501510768)
+@com.terraframe.mojo.business.ClassSignature(hash = 1319667480)
 public abstract class SavedSearchViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearchView";
-  private static final long serialVersionUID = -501510768;
+  private static final long serialVersionUID = 1319667480;
   
   protected SavedSearchViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 633971571)
+@com.terraframe.mojo.business.ClassSignature(hash = 913906035)
 public abstract class InvalidOBOFormatExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.InvalidOBOFormatException";
-  private static final long serialVersionUID = 633971571;
+  private static final long serialVersionUID = 913906035;
   
   public InvalidOBOFormatExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

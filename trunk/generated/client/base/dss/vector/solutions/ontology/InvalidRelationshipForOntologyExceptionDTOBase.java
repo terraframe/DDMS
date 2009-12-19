@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -888982648)
+@com.terraframe.mojo.business.ClassSignature(hash = -1243704692)
 public abstract class InvalidRelationshipForOntologyExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.InvalidRelationshipForOntologyException";
-  private static final long serialVersionUID = -888982648;
+  private static final long serialVersionUID = -1243704692;
   
   public InvalidRelationshipForOntologyExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

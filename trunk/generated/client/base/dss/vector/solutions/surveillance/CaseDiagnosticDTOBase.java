@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1137239398)
+@com.terraframe.mojo.business.ClassSignature(hash = -785686791)
 public abstract class CaseDiagnosticDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.CaseDiagnostic";
-  private static final long serialVersionUID = 1137239398;
+  private static final long serialVersionUID = -785686791;
   
   public CaseDiagnosticDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {

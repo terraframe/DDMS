@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 268845855)
+@com.terraframe.mojo.business.ClassSignature(hash = 1002623647)
 public abstract class ConfirmDeleteTermExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.ConfirmDeleteTermException";
-  private static final long serialVersionUID = 268845855;
+  private static final long serialVersionUID = 1002623647;
   
   public ConfirmDeleteTermExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

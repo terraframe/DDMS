@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1704696559)
+@com.terraframe.mojo.business.ClassSignature(hash = 576480161)
 public abstract class LayerViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.LayerView";
-  private static final long serialVersionUID = -1704696559;
+  private static final long serialVersionUID = 576480161;
   
   protected LayerViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

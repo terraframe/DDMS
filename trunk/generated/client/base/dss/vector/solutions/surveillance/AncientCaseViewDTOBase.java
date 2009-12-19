@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 895011453)
+@com.terraframe.mojo.business.ClassSignature(hash = -511036399)
 public abstract class AncientCaseViewDTOBase extends dss.vector.solutions.surveillance.AggregatedCaseViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.AncientCaseView";
-  private static final long serialVersionUID = 895011453;
+  private static final long serialVersionUID = -511036399;
   
   protected AncientCaseViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

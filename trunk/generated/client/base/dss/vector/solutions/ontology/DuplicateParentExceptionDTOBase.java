@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -235820801)
+@com.terraframe.mojo.business.ClassSignature(hash = 1057741187)
 public abstract class DuplicateParentExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.DuplicateParentException";
-  private static final long serialVersionUID = -235820801;
+  private static final long serialVersionUID = 1057741187;
   
   public DuplicateParentExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

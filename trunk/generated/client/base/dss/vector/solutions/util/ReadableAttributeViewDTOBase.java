@@ -1,10 +1,10 @@
 package dss.vector.solutions.util;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1945871226)
+@com.terraframe.mojo.business.ClassSignature(hash = -1180848254)
 public abstract class ReadableAttributeViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.util.ReadableAttributeView";
-  private static final long serialVersionUID = 1945871226;
+  private static final long serialVersionUID = -1180848254;
   
   protected ReadableAttributeViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

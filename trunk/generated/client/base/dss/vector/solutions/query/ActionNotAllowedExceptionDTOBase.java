@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 847292252)
+@com.terraframe.mojo.business.ClassSignature(hash = 1270040672)
 public abstract class ActionNotAllowedExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.ActionNotAllowedException";
-  private static final long serialVersionUID = 847292252;
+  private static final long serialVersionUID = 1270040672;
   
   public ActionNotAllowedExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

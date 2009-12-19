@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1016143725)
+@com.terraframe.mojo.business.ClassSignature(hash = 667573015)
 public abstract class DistinctAgeGroupExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.DistinctAgeGroupException";
-  private static final long serialVersionUID = -1016143725;
+  private static final long serialVersionUID = 667573015;
   
   public DistinctAgeGroupExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

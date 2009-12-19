@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -539641417)
+@com.terraframe.mojo.business.ClassSignature(hash = -480353617)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.surveillance;
 public class AggregatedAgeGroupQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -539641417;
+private static final long serialVersionUID = -480353617;
 
   protected AggregatedAgeGroupQueryDTO(String type)
   {

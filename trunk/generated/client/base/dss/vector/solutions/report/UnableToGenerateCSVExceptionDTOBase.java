@@ -1,10 +1,10 @@
 package dss.vector.solutions.report;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -83633724)
+@com.terraframe.mojo.business.ClassSignature(hash = 1691111112)
 public abstract class UnableToGenerateCSVExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.report.UnableToGenerateCSVException";
-  private static final long serialVersionUID = -83633724;
+  private static final long serialVersionUID = 1691111112;
   
   public UnableToGenerateCSVExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

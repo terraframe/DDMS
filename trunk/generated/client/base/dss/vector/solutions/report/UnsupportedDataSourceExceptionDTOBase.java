@@ -1,10 +1,10 @@
 package dss.vector.solutions.report;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 198464717)
+@com.terraframe.mojo.business.ClassSignature(hash = -197832111)
 public abstract class UnsupportedDataSourceExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.report.UnsupportedDataSourceException";
-  private static final long serialVersionUID = 198464717;
+  private static final long serialVersionUID = -197832111;
   
   public UnsupportedDataSourceExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1369481973)
+@com.terraframe.mojo.business.ClassSignature(hash = -1675864967)
 public abstract class RequiredAgeGroupProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.RequiredAgeGroupProblem";
-  private static final long serialVersionUID = 1369481973;
+  private static final long serialVersionUID = -1675864967;
   
   public RequiredAgeGroupProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

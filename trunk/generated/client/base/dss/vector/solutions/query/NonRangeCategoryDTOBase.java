@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1267960882)
+@com.terraframe.mojo.business.ClassSignature(hash = 1674874688)
 public abstract class NonRangeCategoryDTOBase extends dss.vector.solutions.query.AbstractCategoryDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.NonRangeCategory";
-  private static final long serialVersionUID = 1267960882;
+  private static final long serialVersionUID = 1674874688;
   
   protected NonRangeCategoryDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

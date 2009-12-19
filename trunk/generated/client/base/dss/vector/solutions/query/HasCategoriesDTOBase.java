@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2058096695)
+@com.terraframe.mojo.business.ClassSignature(hash = -151803496)
 public abstract class HasCategoriesDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.HasCategories";
-  private static final long serialVersionUID = 2058096695;
+  private static final long serialVersionUID = -151803496;
   
   public HasCategoriesDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {

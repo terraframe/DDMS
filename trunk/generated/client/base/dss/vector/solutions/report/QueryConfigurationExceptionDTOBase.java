@@ -1,10 +1,10 @@
 package dss.vector.solutions.report;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1153127377)
+@com.terraframe.mojo.business.ClassSignature(hash = -1309187243)
 public abstract class QueryConfigurationExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.report.QueryConfigurationException";
-  private static final long serialVersionUID = 1153127377;
+  private static final long serialVersionUID = -1309187243;
   
   public QueryConfigurationExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

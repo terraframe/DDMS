@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -355877213)
+@com.terraframe.mojo.business.ClassSignature(hash = -819183833)
 public abstract class NoColumnsAddedExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.NoColumnsAddedException";
-  private static final long serialVersionUID = -355877213;
+  private static final long serialVersionUID = -819183833;
   
   public NoColumnsAddedExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

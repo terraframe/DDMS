@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1127852248)
+@com.terraframe.mojo.business.ClassSignature(hash = 1447237976)
 public abstract class ConfirmParentChangeExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.ConfirmParentChangeException";
-  private static final long serialVersionUID = 1127852248;
+  private static final long serialVersionUID = 1447237976;
   
   public ConfirmParentChangeExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

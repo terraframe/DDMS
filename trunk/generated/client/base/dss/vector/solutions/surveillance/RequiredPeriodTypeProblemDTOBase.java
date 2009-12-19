@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1489011526)
+@com.terraframe.mojo.business.ClassSignature(hash = -68778818)
 public abstract class RequiredPeriodTypeProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.RequiredPeriodTypeProblem";
-  private static final long serialVersionUID = -1489011526;
+  private static final long serialVersionUID = -68778818;
   
   public RequiredPeriodTypeProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

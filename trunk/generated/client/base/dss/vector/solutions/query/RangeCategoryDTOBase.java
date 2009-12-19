@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1660378941)
+@com.terraframe.mojo.business.ClassSignature(hash = 1943898457)
 public abstract class RangeCategoryDTOBase extends dss.vector.solutions.query.AbstractCategoryDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.RangeCategory";
-  private static final long serialVersionUID = 1660378941;
+  private static final long serialVersionUID = 1943898457;
   
   protected RangeCategoryDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

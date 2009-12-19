@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 391404631)
+@com.terraframe.mojo.business.ClassSignature(hash = 1595056979)
 public abstract class QueryBuilderDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.QueryBuilder";
-  private static final long serialVersionUID = 391404631;
+  private static final long serialVersionUID = 1595056979;
   
   protected QueryBuilderDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

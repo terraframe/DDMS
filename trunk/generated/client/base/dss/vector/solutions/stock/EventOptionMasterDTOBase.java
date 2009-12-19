@@ -1,10 +1,10 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -52274444)
+@com.terraframe.mojo.business.ClassSignature(hash = 1762803483)
 public abstract class EventOptionMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.stock.EventOptionMaster";
-  private static final long serialVersionUID = -52274444;
+  private static final long serialVersionUID = 1762803483;
   
   protected EventOptionMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

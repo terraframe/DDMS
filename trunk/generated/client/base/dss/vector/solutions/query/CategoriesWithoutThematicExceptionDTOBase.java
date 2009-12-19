@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1888228810)
+@com.terraframe.mojo.business.ClassSignature(hash = 1874978254)
 public abstract class CategoriesWithoutThematicExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.CategoriesWithoutThematicException";
-  private static final long serialVersionUID = 1888228810;
+  private static final long serialVersionUID = 1874978254;
   
   public CategoriesWithoutThematicExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

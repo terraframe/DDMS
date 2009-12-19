@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1342247240)
+@com.terraframe.mojo.business.ClassSignature(hash = 59955276)
 public abstract class LegendWithoutVariableExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.LegendWithoutVariableException";
-  private static final long serialVersionUID = 1342247240;
+  private static final long serialVersionUID = 59955276;
   
   public LegendWithoutVariableExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.report;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 950430577)
+@com.terraframe.mojo.business.ClassSignature(hash = -421999883)
 public abstract class DataSourceLimitExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.report.DataSourceLimitException";
-  private static final long serialVersionUID = 950430577;
+  private static final long serialVersionUID = -421999883;
   
   public DataSourceLimitExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

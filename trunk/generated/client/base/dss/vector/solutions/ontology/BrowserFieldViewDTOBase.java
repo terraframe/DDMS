@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1706489522)
+@com.terraframe.mojo.business.ClassSignature(hash = 654032779)
 public abstract class BrowserFieldViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.BrowserFieldView";
-  private static final long serialVersionUID = 1706489522;
+  private static final long serialVersionUID = 654032779;
   
   protected BrowserFieldViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

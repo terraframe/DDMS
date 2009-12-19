@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1930272171)
+@com.terraframe.mojo.business.ClassSignature(hash = -1971666269)
 public abstract class DefaultSavedMapDTOBase extends dss.vector.solutions.query.SavedMapDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.DefaultSavedMap";
-  private static final long serialVersionUID = 1930272171;
+  private static final long serialVersionUID = -1971666269;
   
   protected DefaultSavedMapDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

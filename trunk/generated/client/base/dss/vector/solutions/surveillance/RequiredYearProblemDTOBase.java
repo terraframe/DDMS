@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1308940120)
+@com.terraframe.mojo.business.ClassSignature(hash = 248505948)
 public abstract class RequiredYearProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.RequiredYearProblem";
-  private static final long serialVersionUID = 1308940120;
+  private static final long serialVersionUID = 248505948;
   
   public RequiredYearProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1472304675)
+@com.terraframe.mojo.business.ClassSignature(hash = 1954404007)
 public abstract class UniqueSearchNameExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.UniqueSearchNameException";
-  private static final long serialVersionUID = 1472304675;
+  private static final long serialVersionUID = 1954404007;
   
   public UniqueSearchNameExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

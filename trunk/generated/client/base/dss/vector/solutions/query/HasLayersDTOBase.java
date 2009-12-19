@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -782121057)
+@com.terraframe.mojo.business.ClassSignature(hash = -2076768344)
 public abstract class HasLayersDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.HasLayers";
-  private static final long serialVersionUID = -782121057;
+  private static final long serialVersionUID = -2076768344;
   
   public HasLayersDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {

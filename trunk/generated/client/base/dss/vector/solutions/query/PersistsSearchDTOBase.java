@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -523674444)
+@com.terraframe.mojo.business.ClassSignature(hash = -1108267207)
 public abstract class PersistsSearchDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.PersistsSearch";
-  private static final long serialVersionUID = -523674444;
+  private static final long serialVersionUID = -1108267207;
   
   public PersistsSearchDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {

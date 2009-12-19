@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1521167467)
+@com.terraframe.mojo.business.ClassSignature(hash = 1893659243)
 public abstract class InvalidTermIdExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.InvalidTermIdException";
-  private static final long serialVersionUID = 1521167467;
+  private static final long serialVersionUID = 1893659243;
   
   public InvalidTermIdExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

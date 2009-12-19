@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1539655717)
+@com.terraframe.mojo.business.ClassSignature(hash = 594530588)
 public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.AggregatedCase";
-  private static final long serialVersionUID = -1539655717;
+  private static final long serialVersionUID = 594530588;
   
   protected AggregatedCaseDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

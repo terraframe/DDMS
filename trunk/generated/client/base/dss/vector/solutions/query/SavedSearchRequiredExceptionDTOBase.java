@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1499143567)
+@com.terraframe.mojo.business.ClassSignature(hash = -1357987339)
 public abstract class SavedSearchRequiredExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearchRequiredException";
-  private static final long serialVersionUID = -1499143567;
+  private static final long serialVersionUID = -1357987339;
   
   public SavedSearchRequiredExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

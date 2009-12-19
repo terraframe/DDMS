@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1634756859)
+@com.terraframe.mojo.business.ClassSignature(hash = 315854985)
 public abstract class RequiredGeoIdProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.RequiredGeoIdProblem";
-  private static final long serialVersionUID = -1634756859;
+  private static final long serialVersionUID = 315854985;
   
   public RequiredGeoIdProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

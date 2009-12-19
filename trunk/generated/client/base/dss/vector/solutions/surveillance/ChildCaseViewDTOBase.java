@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -680797055)
+@com.terraframe.mojo.business.ClassSignature(hash = 823223768)
 public abstract class ChildCaseViewDTOBase extends dss.vector.solutions.surveillance.AggregatedCaseViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.ChildCaseView";
-  private static final long serialVersionUID = -680797055;
+  private static final long serialVersionUID = 823223768;
   
   protected ChildCaseViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

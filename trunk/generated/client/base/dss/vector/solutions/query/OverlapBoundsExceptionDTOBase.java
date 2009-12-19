@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -949397347)
+@com.terraframe.mojo.business.ClassSignature(hash = -548311775)
 public abstract class OverlapBoundsExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.OverlapBoundsException";
-  private static final long serialVersionUID = -949397347;
+  private static final long serialVersionUID = -548311775;
   
   public OverlapBoundsExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

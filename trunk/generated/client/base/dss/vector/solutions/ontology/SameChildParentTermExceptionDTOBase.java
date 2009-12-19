@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 472583732)
+@com.terraframe.mojo.business.ClassSignature(hash = 70212276)
 public abstract class SameChildParentTermExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.SameChildParentTermException";
-  private static final long serialVersionUID = 472583732;
+  private static final long serialVersionUID = 70212276;
   
   public SameChildParentTermExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

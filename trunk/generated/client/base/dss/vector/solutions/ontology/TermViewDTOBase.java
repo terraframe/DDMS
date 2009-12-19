@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1249922305)
+@com.terraframe.mojo.business.ClassSignature(hash = 1458092803)
 public abstract class TermViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.TermView";
-  private static final long serialVersionUID = -1249922305;
+  private static final long serialVersionUID = 1458092803;
   
   protected TermViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

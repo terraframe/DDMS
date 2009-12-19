@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -562521198)
+@com.terraframe.mojo.business.ClassSignature(hash = 1386487973)
 public abstract class OntologyHasRelationshipDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.OntologyHasRelationship";
-  private static final long serialVersionUID = -562521198;
+  private static final long serialVersionUID = 1386487973;
   
   public OntologyHasRelationshipDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {

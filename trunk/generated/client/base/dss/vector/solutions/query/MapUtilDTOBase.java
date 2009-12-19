@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2145665418)
+@com.terraframe.mojo.business.ClassSignature(hash = -764210054)
 public abstract class MapUtilDTOBase extends com.terraframe.mojo.business.UtilDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.MapUtil";
-  private static final long serialVersionUID = -2145665418;
+  private static final long serialVersionUID = -764210054;
   
   protected MapUtilDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

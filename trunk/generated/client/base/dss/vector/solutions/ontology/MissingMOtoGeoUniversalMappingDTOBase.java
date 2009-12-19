@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -588428949)
+@com.terraframe.mojo.business.ClassSignature(hash = 170266475)
 public abstract class MissingMOtoGeoUniversalMappingDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.MissingMOtoGeoUniversalMapping";
-  private static final long serialVersionUID = -588428949;
+  private static final long serialVersionUID = 170266475;
   
   public MissingMOtoGeoUniversalMappingDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

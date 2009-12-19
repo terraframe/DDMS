@@ -1,10 +1,10 @@
 package dss.vector.solutions.report;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 195225722)
+@com.terraframe.mojo.business.ClassSignature(hash = 506908798)
 public abstract class BirtConfigurationExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.report.BirtConfigurationException";
-  private static final long serialVersionUID = 195225722;
+  private static final long serialVersionUID = 506908798;
   
   public BirtConfigurationExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

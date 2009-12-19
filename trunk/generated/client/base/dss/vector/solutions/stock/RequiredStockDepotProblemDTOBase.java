@@ -1,10 +1,10 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -55480856)
+@com.terraframe.mojo.business.ClassSignature(hash = 1347421420)
 public abstract class RequiredStockDepotProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.stock.RequiredStockDepotProblem";
-  private static final long serialVersionUID = -55480856;
+  private static final long serialVersionUID = 1347421420;
   
   public RequiredStockDepotProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -182219628)
+@com.terraframe.mojo.business.ClassSignature(hash = 674671000)
 public abstract class RequiredTransactionDateProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.stock.RequiredTransactionDateProblem";
-  private static final long serialVersionUID = -182219628;
+  private static final long serialVersionUID = 674671000;
   
   public RequiredTransactionDateProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

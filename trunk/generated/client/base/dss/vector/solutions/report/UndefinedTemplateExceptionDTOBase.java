@@ -1,10 +1,10 @@
 package dss.vector.solutions.report;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 99716957)
+@com.terraframe.mojo.business.ClassSignature(hash = 663229665)
 public abstract class UndefinedTemplateExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.report.UndefinedTemplateException";
-  private static final long serialVersionUID = 99716957;
+  private static final long serialVersionUID = 663229665;
   
   public UndefinedTemplateExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

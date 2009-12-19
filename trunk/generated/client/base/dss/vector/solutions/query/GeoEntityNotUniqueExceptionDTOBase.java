@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -162739344)
+@com.terraframe.mojo.business.ClassSignature(hash = 1386751600)
 public abstract class GeoEntityNotUniqueExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.GeoEntityNotUniqueException";
-  private static final long serialVersionUID = -162739344;
+  private static final long serialVersionUID = 1386751600;
   
   public GeoEntityNotUniqueExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

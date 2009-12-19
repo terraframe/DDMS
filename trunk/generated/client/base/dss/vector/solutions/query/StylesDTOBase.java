@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1008110541)
+@com.terraframe.mojo.business.ClassSignature(hash = 1118243640)
 public abstract class StylesDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Styles";
-  private static final long serialVersionUID = -1008110541;
+  private static final long serialVersionUID = 1118243640;
   
   protected StylesDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

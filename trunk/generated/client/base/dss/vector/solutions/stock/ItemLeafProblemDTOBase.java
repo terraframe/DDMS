@@ -1,10 +1,10 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1650851089)
+@com.terraframe.mojo.business.ClassSignature(hash = 510897301)
 public abstract class ItemLeafProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.stock.ItemLeafProblem";
-  private static final long serialVersionUID = 1650851089;
+  private static final long serialVersionUID = 510897301;
   
   public ItemLeafProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

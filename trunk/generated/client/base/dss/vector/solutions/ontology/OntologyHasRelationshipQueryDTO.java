@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 218668251)
+@com.terraframe.mojo.business.ClassSignature(hash = 456563566)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public class OntologyHasRelationshipQueryDTO extends com.terraframe.mojo.business.RelationshipQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 218668251;
+private static final long serialVersionUID = 456563566;
 
   protected OntologyHasRelationshipQueryDTO(String type)
   {

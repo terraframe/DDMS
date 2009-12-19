@@ -1,10 +1,10 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1989025067)
+@com.terraframe.mojo.business.ClassSignature(hash = 354086859)
 public abstract class StockItemViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.stock.StockItemView";
-  private static final long serialVersionUID = 1989025067;
+  private static final long serialVersionUID = 354086859;
   
   protected StockItemViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

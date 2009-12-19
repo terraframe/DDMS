@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 565046084)
+@com.terraframe.mojo.business.ClassSignature(hash = -763502504)
 public abstract class InfiantCaseViewDTOBase extends dss.vector.solutions.surveillance.AggregatedCaseViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.InfiantCaseView";
-  private static final long serialVersionUID = 565046084;
+  private static final long serialVersionUID = -763502504;
   
   protected InfiantCaseViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

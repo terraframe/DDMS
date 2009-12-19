@@ -1,10 +1,10 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1107475311)
+@com.terraframe.mojo.business.ClassSignature(hash = -538100007)
 public abstract class StockStaffDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.stock.StockStaff";
-  private static final long serialVersionUID = 1107475311;
+  private static final long serialVersionUID = -538100007;
   
   protected StockStaffDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
