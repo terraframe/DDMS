@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -842985903)
+@com.terraframe.mojo.business.ClassSignature(hash = 680933805)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class PooledInfectionAssayViewBase extends com.terraframe.mojo.b
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIES = "species";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = -842985903;
+  private static final long serialVersionUID = 680933805;
   
   public PooledInfectionAssayViewBase()
   {

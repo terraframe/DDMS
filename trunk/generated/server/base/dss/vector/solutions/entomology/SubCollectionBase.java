@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1566117849)
+@com.terraframe.mojo.business.ClassSignature(hash = -1316791085)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -34,7 +34,7 @@ public abstract class SubCollectionBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String TOTAL = "total";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UNKNOWNS = "unknowns";
-  private static final long serialVersionUID = 1566117849;
+  private static final long serialVersionUID = -1316791085;
   
   public SubCollectionBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 186011777)
+@com.terraframe.mojo.business.ClassSignature(hash = -1895568255)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class SearchMosquitoCollectionViewBase extends dss.vector.soluti
   public final static String CLASS = "dss.vector.solutions.entomology.SearchMosquitoCollectionView";
   public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String STARTDATE = "startDate";
-  private static final long serialVersionUID = 186011777;
+  private static final long serialVersionUID = -1895568255;
   
   public SearchMosquitoCollectionViewBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1092304806)
+@com.terraframe.mojo.business.ClassSignature(hash = 806481322)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class RequiredEndDateProblemBase extends com.terraframe.mojo.bus
 {
   public final static String CLASS = "dss.vector.solutions.entomology.RequiredEndDateProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1092304806;
+  private static final long serialVersionUID = 806481322;
   
   public RequiredEndDateProblemBase()
   {

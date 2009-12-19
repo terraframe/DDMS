@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1877782085)
+@com.terraframe.mojo.business.ClassSignature(hash = -592921025)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class MosquitoCollectionAllreadyExistsExceptionBase extends com.
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionAllreadyExistsException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1877782085;
+  private static final long serialVersionUID = -592921025;
   
   public MosquitoCollectionAllreadyExistsExceptionBase()
   {

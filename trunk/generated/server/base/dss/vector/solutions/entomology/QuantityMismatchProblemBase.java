@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1420949719)
+@com.terraframe.mojo.business.ClassSignature(hash = -209728805)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class QuantityMismatchProblemBase extends dss.vector.solutions.N
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String QUANTITYFEMALE = "quantityFemale";
   public static java.lang.String QUANTITYMALE = "quantityMale";
-  private static final long serialVersionUID = 1420949719;
+  private static final long serialVersionUID = -209728805;
   
   public QuantityMismatchProblemBase()
   {

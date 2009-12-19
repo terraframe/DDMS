@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1852123945)
+@com.terraframe.mojo.business.ClassSignature(hash = -811282345)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class InvalidFemaleQuantityProblemBase extends dss.vector.soluti
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidFemaleQuantityProblem";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String QUANTITYFEMALE = "quantityFemale";
-  private static final long serialVersionUID = -1852123945;
+  private static final long serialVersionUID = -811282345;
   
   public InvalidFemaleQuantityProblemBase()
   {

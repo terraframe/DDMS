@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1215764673)
+@com.terraframe.mojo.business.ClassSignature(hash = -1076976189)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class UnknownCollectionBase extends com.terraframe.mojo.business
 {
   public final static String CLASS = "dss.vector.solutions.entomology.UnknownCollection";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1215764673;
+  private static final long serialVersionUID = -1076976189;
   
   public UnknownCollectionBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -533606460)
+@com.terraframe.mojo.business.ClassSignature(hash = -1173535544)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class ControlMortalityExceptionBase extends com.terraframe.mojo.
 {
   public final static String CLASS = "dss.vector.solutions.entomology.ControlMortalityException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -533606460;
+  private static final long serialVersionUID = -1173535544;
   
   public ControlMortalityExceptionBase()
   {

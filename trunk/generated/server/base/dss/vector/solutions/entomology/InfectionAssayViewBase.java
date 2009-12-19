@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 5553453)
+@com.terraframe.mojo.business.ClassSignature(hash = 1608059069)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class InfectionAssayViewBase extends com.terraframe.mojo.busines
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIES = "species";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 5553453;
+  private static final long serialVersionUID = 1608059069;
   
   public InfectionAssayViewBase()
   {

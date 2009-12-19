@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1593770432)
+@com.terraframe.mojo.business.ClassSignature(hash = 395406)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public  abstract  class MosquitoCollectionViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1593770432;
+private static final long serialVersionUID = 395406;
 
   public MosquitoCollectionViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

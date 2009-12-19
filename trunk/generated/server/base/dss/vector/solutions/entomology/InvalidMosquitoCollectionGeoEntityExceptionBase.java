@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -449834866)
+@com.terraframe.mojo.business.ClassSignature(hash = -1974371954)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class InvalidMosquitoCollectionGeoEntityExceptionBase extends co
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidMosquitoCollectionGeoEntityException";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -449834866;
+  private static final long serialVersionUID = -1974371954;
   
   public InvalidMosquitoCollectionGeoEntityExceptionBase()
   {

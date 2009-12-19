@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 908043236)
+@com.terraframe.mojo.business.ClassSignature(hash = 489290740)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public  abstract  class InfectionAssayViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 908043236;
+private static final long serialVersionUID = 489290740;
 
   public InfectionAssayViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 593160555)
+@com.terraframe.mojo.business.ClassSignature(hash = -702222865)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class RequiredCollectionDateProblemBase extends com.terraframe.m
 {
   public final static String CLASS = "dss.vector.solutions.entomology.RequiredCollectionDateProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 593160555;
+  private static final long serialVersionUID = -702222865;
   
   public RequiredCollectionDateProblemBase()
   {

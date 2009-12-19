@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1007568215)
+@com.terraframe.mojo.business.ClassSignature(hash = -926842203)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,7 +21,7 @@ public abstract class MosquitoCollectionViewBase extends com.terraframe.mojo.bus
   public static java.lang.String GEOENTITYLABEL = "geoEntityLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String LIFESTAGE = "lifeStage";
-  private static final long serialVersionUID = 1007568215;
+  private static final long serialVersionUID = -926842203;
   
   public MosquitoCollectionViewBase()
   {

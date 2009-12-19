@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -225278312)
+@com.terraframe.mojo.business.ClassSignature(hash = 668758210)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class BiochemicalAssayViewBase extends com.terraframe.mojo.busin
   public static java.lang.String NUMBERTESTED = "numberTested";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIES = "species";
-  private static final long serialVersionUID = -225278312;
+  private static final long serialVersionUID = 668758210;
   
   public BiochemicalAssayViewBase()
   {

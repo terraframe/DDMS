@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1833753609)
+@com.terraframe.mojo.business.ClassSignature(hash = -1758453001)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class InvalidMaleQuantityProblemBase extends dss.vector.solution
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidMaleQuantityProblem";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String QUANTITYMALE = "quantityMale";
-  private static final long serialVersionUID = -1833753609;
+  private static final long serialVersionUID = -1758453001;
   
   public InvalidMaleQuantityProblemBase()
   {
