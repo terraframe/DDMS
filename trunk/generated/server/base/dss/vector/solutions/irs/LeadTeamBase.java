@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1645318163)
+@com.terraframe.mojo.business.ClassSignature(hash = 2061505472)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class LeadTeamBase extends com.terraframe.mojo.business.Relation
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1645318163;
+  private static final long serialVersionUID = 2061505472;
   
   public LeadTeamBase(String parentId, String childId)
   {

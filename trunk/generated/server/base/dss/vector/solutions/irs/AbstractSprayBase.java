@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1489274928)
+@com.terraframe.mojo.business.ClassSignature(hash = -849552922)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class AbstractSprayBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SPRAYDATA = "sprayData";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1489274928;
+  private static final long serialVersionUID = -849552922;
   
   public AbstractSprayBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1249630470)
+@com.terraframe.mojo.business.ClassSignature(hash = 501305086)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class BirtConfigurationExceptionBase extends com.terraframe.mojo
 {
   public final static String CLASS = "dss.vector.solutions.report.BirtConfigurationException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1249630470;
+  private static final long serialVersionUID = 501305086;
   
   public BirtConfigurationExceptionBase()
   {

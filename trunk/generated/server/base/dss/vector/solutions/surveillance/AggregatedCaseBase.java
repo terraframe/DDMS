@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 871360859)
+@com.terraframe.mojo.business.ClassSignature(hash = 1280393884)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -65,7 +65,7 @@ public abstract class AggregatedCaseBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String STILLBIRTHS = "stillBirths";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 871360859;
+  private static final long serialVersionUID = 1280393884;
   
   public AggregatedCaseBase()
   {

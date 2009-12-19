@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1420524109)
+@com.terraframe.mojo.business.ClassSignature(hash = -807068625)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class DuplicateRootExceptionBase extends com.terraframe.mojo.bus
   public static java.lang.String BROWSERFIELD = "browserField";
   public static java.lang.String BROWSERROOT = "browserRoot";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1420524109;
+  private static final long serialVersionUID = -807068625;
   
   public DuplicateRootExceptionBase()
   {

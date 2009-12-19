@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2014024795)
+@com.terraframe.mojo.business.ClassSignature(hash = 1891391868)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class FieldRootBase extends com.terraframe.mojo.business.Relatio
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 2014024795;
+  private static final long serialVersionUID = 1891391868;
   
   public FieldRootBase(String parentId, String childId)
   {

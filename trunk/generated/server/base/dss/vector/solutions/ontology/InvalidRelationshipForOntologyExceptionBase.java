@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 339576072)
+@com.terraframe.mojo.business.ClassSignature(hash = 318055436)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class InvalidRelationshipForOntologyExceptionBase extends com.te
   public static java.lang.String ID = "id";
   public static java.lang.String ONTOLOGY = "ontology";
   public static java.lang.String RELATIONSHIP = "relationship";
-  private static final long serialVersionUID = 339576072;
+  private static final long serialVersionUID = 318055436;
   
   public InvalidRelationshipForOntologyExceptionBase()
   {

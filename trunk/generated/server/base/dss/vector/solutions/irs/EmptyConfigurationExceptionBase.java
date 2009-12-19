@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -936485568)
+@com.terraframe.mojo.business.ClassSignature(hash = 328663108)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class EmptyConfigurationExceptionBase extends com.terraframe.moj
 {
   public final static String CLASS = "dss.vector.solutions.irs.EmptyConfigurationException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -936485568;
+  private static final long serialVersionUID = 328663108;
   
   public EmptyConfigurationExceptionBase()
   {

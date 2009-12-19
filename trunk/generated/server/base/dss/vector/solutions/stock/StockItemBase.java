@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1290840602)
+@com.terraframe.mojo.business.ClassSignature(hash = 447686351)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -27,7 +27,7 @@ public abstract class StockItemBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UNIT = "unit";
-  private static final long serialVersionUID = -1290840602;
+  private static final long serialVersionUID = 447686351;
   
   public StockItemBase()
   {

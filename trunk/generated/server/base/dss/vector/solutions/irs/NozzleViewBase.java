@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1413263693)
+@com.terraframe.mojo.business.ClassSignature(hash = -1666394687)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,7 +16,7 @@ public abstract class NozzleViewBase extends com.terraframe.mojo.business.View i
   public static java.lang.String ID = "id";
   public static java.lang.String NOZZLEID = "nozzleId";
   public static java.lang.String RATIO = "ratio";
-  private static final long serialVersionUID = 1413263693;
+  private static final long serialVersionUID = -1666394687;
   
   public NozzleViewBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1522286059)
+@com.terraframe.mojo.business.ClassSignature(hash = -1467120661)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class InvalidTermIdExceptionBase extends com.terraframe.mojo.bus
   public final static String CLASS = "dss.vector.solutions.ontology.InvalidTermIdException";
   public static java.lang.String ID = "id";
   public static java.lang.String TERMID = "termId";
-  private static final long serialVersionUID = 1522286059;
+  private static final long serialVersionUID = -1467120661;
   
   public InvalidTermIdExceptionBase()
   {

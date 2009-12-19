@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1542859630)
+@com.terraframe.mojo.business.ClassSignature(hash = -1017088929)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,7 @@ public abstract class SprayStatusViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String SPRAYEDSTRUCTURES = "sprayedStructures";
   public static java.lang.String STATUSID = "statusId";
   public static java.lang.String STRUCTURES = "structures";
-  private static final long serialVersionUID = 1542859630;
+  private static final long serialVersionUID = -1017088929;
   
   public SprayStatusViewBase()
   {

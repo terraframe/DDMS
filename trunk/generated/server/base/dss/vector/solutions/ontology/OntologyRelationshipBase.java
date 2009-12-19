@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2032112155)
+@com.terraframe.mojo.business.ClassSignature(hash = 243108312)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -36,7 +36,7 @@ public abstract class OntologyRelationshipBase extends com.terraframe.mojo.busin
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 2032112155;
+  private static final long serialVersionUID = 243108312;
   
   public OntologyRelationshipBase()
   {

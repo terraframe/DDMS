@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1521653088)
+@com.terraframe.mojo.business.ClassSignature(hash = 246064294)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,7 @@ public abstract class AggregatedAgeGroupBase extends com.terraframe.mojo.busines
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String STARTAGE = "startAge";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1521653088;
+  private static final long serialVersionUID = 246064294;
   
   public AggregatedAgeGroupBase()
   {

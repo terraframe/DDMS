@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1820252959)
+@com.terraframe.mojo.business.ClassSignature(hash = 592021191)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  class AbstractCategoryQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1820252959;
+private static final long serialVersionUID = 592021191;
 
   public AbstractCategoryQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -19,6 +19,17 @@ private static final long serialVersionUID = 1820252959;
     if (this.getComponentQuery() == null)
     {
       com.terraframe.mojo.business.BusinessQuery businessQuery = componentQueryFactory.businessQuery(this.getClassType());
+
+       this.setBusinessQuery(businessQuery);
+    }
+  }
+
+  public AbstractCategoryQuery(com.terraframe.mojo.query.ValueQuery valueQuery)
+  {
+     super();
+    if (this.getComponentQuery() == null)
+    {
+      com.terraframe.mojo.business.BusinessQuery businessQuery = new com.terraframe.mojo.business.BusinessQuery(valueQuery, this.getClassType());
 
        this.setBusinessQuery(businessQuery);
     }
@@ -345,6 +356,7 @@ private static final long serialVersionUID = 1820252959;
    */
   public com.terraframe.mojo.query.OIterator<? extends AbstractCategory> getIterator()
   {
+    this.checkNotUsedInValueQuery();
     String sqlStmt;
     if (_limit != null && _skip != null)
     {
@@ -495,7 +507,7 @@ private static final long serialVersionUID = 1820252959;
  implements AbstractCategoryQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -431228483;
+private static final long serialVersionUID = -1023437463;
 
   public AbstractCategoryQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {

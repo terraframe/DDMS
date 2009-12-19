@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 381148781)
+@com.terraframe.mojo.business.ClassSignature(hash = 802171889)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class ModifiedSprayZoneExceptionBase extends com.terraframe.mojo
 {
   public final static String CLASS = "dss.vector.solutions.irs.ModifiedSprayZoneException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 381148781;
+  private static final long serialVersionUID = 802171889;
   
   public ModifiedSprayZoneExceptionBase()
   {

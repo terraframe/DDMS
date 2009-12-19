@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -520160641)
+@com.terraframe.mojo.business.ClassSignature(hash = 41249539)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class DuplicateParentExceptionBase extends com.terraframe.mojo.b
   public static java.lang.String CHILDTERM = "childTerm";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTTERM = "parentTerm";
-  private static final long serialVersionUID = -520160641;
+  private static final long serialVersionUID = 41249539;
   
   public DuplicateParentExceptionBase()
   {

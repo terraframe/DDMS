@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -730644772)
+@com.terraframe.mojo.business.ClassSignature(hash = -1862635317)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.stock;
 public  abstract  class StockEventViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -730644772;
+private static final long serialVersionUID = -1862635317;
 
   public StockEventViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

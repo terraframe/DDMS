@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1324806278)
+@com.terraframe.mojo.business.ClassSignature(hash = 1273522542)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class OperatorInterventionPlanningViewBase extends dss.vector.so
   public static java.lang.String NUMBEROFDAYS = "numberofDays";
   public static java.lang.String REQUIREDOPERATORS = "requiredOperators";
   public static java.lang.String UNITSPERDAY = "unitsPerDay";
-  private static final long serialVersionUID = -1324806278;
+  private static final long serialVersionUID = 1273522542;
   
   public OperatorInterventionPlanningViewBase()
   {

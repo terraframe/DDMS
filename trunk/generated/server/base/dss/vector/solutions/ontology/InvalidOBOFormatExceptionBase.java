@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1697087987)
+@com.terraframe.mojo.business.ClassSignature(hash = -458655757)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class InvalidOBOFormatExceptionBase extends com.terraframe.mojo.
   public final static String CLASS = "dss.vector.solutions.ontology.InvalidOBOFormatException";
   public static java.lang.String FILENAME = "fileName";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1697087987;
+  private static final long serialVersionUID = -458655757;
   
   public InvalidOBOFormatExceptionBase()
   {

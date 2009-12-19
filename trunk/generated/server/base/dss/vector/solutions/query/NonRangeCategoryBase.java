@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1831501234)
+@com.terraframe.mojo.business.ClassSignature(hash = 1709551040)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class NonRangeCategoryBase extends dss.vector.solutions.query.Ab
 {
   public final static String CLASS = "dss.vector.solutions.query.NonRangeCategory";
   public static java.lang.String EXACTVALUESTR = "exactValueStr";
-  private static final long serialVersionUID = 1831501234;
+  private static final long serialVersionUID = 1709551040;
   
   public NonRangeCategoryBase()
   {

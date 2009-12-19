@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -624134589)
+@com.terraframe.mojo.business.ClassSignature(hash = 1987397319)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class UniqueOperatorSprayExceptionBase extends dss.vector.soluti
 {
   public final static String CLASS = "dss.vector.solutions.irs.UniqueOperatorSprayException";
   public static java.lang.String SPRAYOPERATOR = "sprayOperator";
-  private static final long serialVersionUID = -624134589;
+  private static final long serialVersionUID = 1987397319;
   
   public UniqueOperatorSprayExceptionBase()
   {

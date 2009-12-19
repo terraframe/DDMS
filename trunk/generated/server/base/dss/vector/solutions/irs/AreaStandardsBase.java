@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1592057223)
+@com.terraframe.mojo.business.ClassSignature(hash = -1916218956)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,7 @@ public abstract class AreaStandardsBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String TARGETUNIT = "targetUnit";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UNITNOZZLEAREACOVERAGE = "unitNozzleAreaCoverage";
-  private static final long serialVersionUID = 1592057223;
+  private static final long serialVersionUID = -1916218956;
   
   public AreaStandardsBase()
   {

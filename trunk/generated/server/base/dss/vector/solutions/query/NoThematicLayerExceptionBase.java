@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 198482808)
+@com.terraframe.mojo.business.ClassSignature(hash = 1695431292)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class NoThematicLayerExceptionBase extends com.terraframe.mojo.b
 {
   public final static String CLASS = "dss.vector.solutions.query.NoThematicLayerException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 198482808;
+  private static final long serialVersionUID = 1695431292;
   
   public NoThematicLayerExceptionBase()
   {

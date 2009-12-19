@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -738965583)
+@com.terraframe.mojo.business.ClassSignature(hash = 789784613)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  abstract  class OperatorInterventionPlanningViewQueryBase extends dss.vector.solutions.irs.InterventionPlanningViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -738965583;
+private static final long serialVersionUID = 789784613;
 
   public OperatorInterventionPlanningViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

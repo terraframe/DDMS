@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 797009257)
+@com.terraframe.mojo.business.ClassSignature(hash = 1520384881)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class ValueProblemBase extends dss.vector.solutions.Notification
   public final static String CLASS = "dss.vector.solutions.irs.ValueProblem";
   public static java.lang.String HOUSEHOLDID = "householdId";
   public static java.lang.String STRUCTUREID = "structureId";
-  private static final long serialVersionUID = 797009257;
+  private static final long serialVersionUID = 1520384881;
   
   public ValueProblemBase()
   {

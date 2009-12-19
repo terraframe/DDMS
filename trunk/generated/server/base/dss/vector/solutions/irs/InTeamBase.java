@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -602215073)
+@com.terraframe.mojo.business.ClassSignature(hash = 1359154994)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class InTeamBase extends com.terraframe.mojo.business.Relationsh
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -602215073;
+  private static final long serialVersionUID = 1359154994;
   
   public InTeamBase(String parentId, String childId)
   {

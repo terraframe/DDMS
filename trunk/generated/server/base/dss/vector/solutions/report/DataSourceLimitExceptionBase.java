@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -289060367)
+@com.terraframe.mojo.business.ClassSignature(hash = 1410394485)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class DataSourceLimitExceptionBase extends com.terraframe.mojo.b
 {
   public final static String CLASS = "dss.vector.solutions.report.DataSourceLimitException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -289060367;
+  private static final long serialVersionUID = 1410394485;
   
   public DataSourceLimitExceptionBase()
   {

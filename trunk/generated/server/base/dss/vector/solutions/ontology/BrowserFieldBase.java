@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -73987931)
+@com.terraframe.mojo.business.ClassSignature(hash = 1064565255)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class BrowserFieldBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -73987931;
+  private static final long serialVersionUID = 1064565255;
   
   public BrowserFieldBase()
   {

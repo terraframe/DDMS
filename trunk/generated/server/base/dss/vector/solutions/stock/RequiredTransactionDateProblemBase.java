@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 269205012)
+@com.terraframe.mojo.business.ClassSignature(hash = 1238211352)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class RequiredTransactionDateProblemBase extends com.terraframe.
 {
   public final static String CLASS = "dss.vector.solutions.stock.RequiredTransactionDateProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 269205012;
+  private static final long serialVersionUID = 1238211352;
   
   public RequiredTransactionDateProblemBase()
   {

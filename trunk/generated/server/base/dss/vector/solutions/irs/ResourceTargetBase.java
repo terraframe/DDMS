@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1982607449)
+@com.terraframe.mojo.business.ClassSignature(hash = -924532352)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -78,7 +78,7 @@ public abstract class ResourceTargetBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String TARGET_9 = "target_9";
   public static java.lang.String TARGETER = "targeter";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1982607449;
+  private static final long serialVersionUID = -924532352;
   
   public ResourceTargetBase()
   {

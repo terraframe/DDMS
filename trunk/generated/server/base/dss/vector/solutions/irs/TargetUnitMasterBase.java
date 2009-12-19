@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -654350174)
+@com.terraframe.mojo.business.ClassSignature(hash = 64025245)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public abstract class TargetUnitMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.TargetUnitMaster";
-  private static final long serialVersionUID = -654350174;
+  private static final long serialVersionUID = 64025245;
   
   public TargetUnitMasterBase()
   {

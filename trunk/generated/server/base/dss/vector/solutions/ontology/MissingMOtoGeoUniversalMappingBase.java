@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -376120597)
+@com.terraframe.mojo.business.ClassSignature(hash = -1729421077)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class MissingMOtoGeoUniversalMappingBase extends com.terraframe.
   public final static String CLASS = "dss.vector.solutions.ontology.MissingMOtoGeoUniversalMapping";
   public static java.lang.String ID = "id";
   public static java.lang.String TERMID = "termId";
-  private static final long serialVersionUID = -376120597;
+  private static final long serialVersionUID = -1729421077;
   
   public MissingMOtoGeoUniversalMappingBase()
   {

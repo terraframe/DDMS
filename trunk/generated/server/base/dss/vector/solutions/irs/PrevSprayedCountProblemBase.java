@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -519887332)
+@com.terraframe.mojo.business.ClassSignature(hash = 1368925984)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class PrevSprayedCountProblemBase extends dss.vector.solutions.N
 {
   public final static String CLASS = "dss.vector.solutions.irs.PrevSprayedCountProblem";
   public static java.lang.String HOUSEHOLDID = "householdId";
-  private static final long serialVersionUID = -519887332;
+  private static final long serialVersionUID = 1368925984;
   
   public PrevSprayedCountProblemBase()
   {

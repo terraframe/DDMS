@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1294971800)
+@com.terraframe.mojo.business.ClassSignature(hash = -1115151508)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class RequiredStockDepotProblemBase extends com.terraframe.mojo.
 {
   public final static String CLASS = "dss.vector.solutions.stock.RequiredStockDepotProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1294971800;
+  private static final long serialVersionUID = -1115151508;
   
   public RequiredStockDepotProblemBase()
   {

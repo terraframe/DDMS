@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1559305318)
+@com.terraframe.mojo.business.ClassSignature(hash = -386600507)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class NozzleBase extends com.terraframe.mojo.business.Business i
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1559305318;
+  private static final long serialVersionUID = -386600507;
   
   public NozzleBase()
   {

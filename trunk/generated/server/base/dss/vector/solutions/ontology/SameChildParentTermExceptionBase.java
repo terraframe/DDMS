@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1571332172)
+@com.terraframe.mojo.business.ClassSignature(hash = -1220989900)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class SameChildParentTermExceptionBase extends com.terraframe.mo
   public final static String CLASS = "dss.vector.solutions.ontology.SameChildParentTermException";
   public static java.lang.String ID = "id";
   public static java.lang.String TERM = "term";
-  private static final long serialVersionUID = -1571332172;
+  private static final long serialVersionUID = -1220989900;
   
   public SameChildParentTermExceptionBase()
   {

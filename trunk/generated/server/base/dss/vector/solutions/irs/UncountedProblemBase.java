@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1355513927)
+@com.terraframe.mojo.business.ClassSignature(hash = -870260021)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class UncountedProblemBase extends dss.vector.solutions.Notifica
 {
   public final static String CLASS = "dss.vector.solutions.irs.UncountedProblem";
   public static java.lang.String HOUSEHOLDID = "householdId";
-  private static final long serialVersionUID = 1355513927;
+  private static final long serialVersionUID = -870260021;
   
   public UncountedProblemBase()
   {

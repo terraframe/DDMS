@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1738296367)
+@com.terraframe.mojo.business.ClassSignature(hash = 1867498325)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class RequiredSprayDateProblemBase extends com.terraframe.mojo.b
 {
   public final static String CLASS = "dss.vector.solutions.irs.RequiredSprayDateProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1738296367;
+  private static final long serialVersionUID = 1867498325;
   
   public RequiredSprayDateProblemBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 675398829)
+@com.terraframe.mojo.business.ClassSignature(hash = -1929591231)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.surveillance;
 public  abstract  class InfiantCaseViewQueryBase extends dss.vector.solutions.surveillance.AggregatedCaseViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 675398829;
+private static final long serialVersionUID = -1929591231;
 
   public InfiantCaseViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -687741615)
+@com.terraframe.mojo.business.ClassSignature(hash = -1482902315)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class QueryConfigurationExceptionBase extends com.terraframe.moj
 {
   public final static String CLASS = "dss.vector.solutions.report.QueryConfigurationException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -687741615;
+  private static final long serialVersionUID = -1482902315;
   
   public QueryConfigurationExceptionBase()
   {

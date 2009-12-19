@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1631236637)
+@com.terraframe.mojo.business.ClassSignature(hash = -1798165171)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class BrowserRootBase extends com.terraframe.mojo.business.Busin
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1631236637;
+  private static final long serialVersionUID = -1798165171;
   
   public BrowserRootBase()
   {

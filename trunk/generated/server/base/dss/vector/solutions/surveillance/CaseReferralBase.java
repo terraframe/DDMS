@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1208195474)
+@com.terraframe.mojo.business.ClassSignature(hash = 621844649)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class CaseReferralBase extends com.terraframe.mojo.business.Rela
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1208195474;
+  private static final long serialVersionUID = 621844649;
   
   public CaseReferralBase(String parentId, String childId)
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 689018679)
+@com.terraframe.mojo.business.ClassSignature(hash = 768017823)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class HouseholdSprayStatusBase extends dss.vector.solutions.irs.
   public final static String CLASS = "dss.vector.solutions.irs.HouseholdSprayStatus";
   public static java.lang.String HOUSEHOLDID = "householdId";
   public static java.lang.String STRUCTUREID = "structureId";
-  private static final long serialVersionUID = 689018679;
+  private static final long serialVersionUID = 768017823;
   
   public HouseholdSprayStatusBase()
   {

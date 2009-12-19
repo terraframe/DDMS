@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1307726669)
+@com.terraframe.mojo.business.ClassSignature(hash = 92049617)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class UnsupportedDataSourceExceptionBase extends com.terraframe.
 {
   public final static String CLASS = "dss.vector.solutions.report.UnsupportedDataSourceException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1307726669;
+  private static final long serialVersionUID = 92049617;
   
   public UnsupportedDataSourceExceptionBase()
   {

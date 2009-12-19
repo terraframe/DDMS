@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 691304731)
+@com.terraframe.mojo.business.ClassSignature(hash = -1519172758)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -78,7 +78,7 @@ public abstract class GeoTargetBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String TARGET_8 = "target_8";
   public static java.lang.String TARGET_9 = "target_9";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 691304731;
+  private static final long serialVersionUID = -1519172758;
   
   public GeoTargetBase()
   {

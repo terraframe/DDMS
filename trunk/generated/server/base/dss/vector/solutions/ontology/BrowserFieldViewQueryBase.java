@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1863907365)
+@com.terraframe.mojo.business.ClassSignature(hash = -291836300)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  abstract  class BrowserFieldViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1863907365;
+private static final long serialVersionUID = -291836300;
 
   public BrowserFieldViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

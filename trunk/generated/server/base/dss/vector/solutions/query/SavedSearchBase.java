@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -303586730)
+@com.terraframe.mojo.business.ClassSignature(hash = 1699117142)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class SavedSearchBase extends com.terraframe.mojo.business.Busin
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TEMPLATEFILE = "templateFile";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -303586730;
+  private static final long serialVersionUID = 1699117142;
   
   public SavedSearchBase()
   {

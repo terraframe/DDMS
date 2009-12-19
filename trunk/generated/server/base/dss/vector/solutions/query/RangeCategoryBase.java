@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -281330243)
+@com.terraframe.mojo.business.ClassSignature(hash = -1402053927)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class RangeCategoryBase extends dss.vector.solutions.query.Abstr
   public final static String CLASS = "dss.vector.solutions.query.RangeCategory";
   public static java.lang.String LOWERBOUNDSTR = "lowerBoundStr";
   public static java.lang.String UPPERBOUNDSTR = "upperBoundStr";
-  private static final long serialVersionUID = -281330243;
+  private static final long serialVersionUID = -1402053927;
   
   public RangeCategoryBase()
   {

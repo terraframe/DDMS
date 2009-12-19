@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1976117530)
+@com.terraframe.mojo.business.ClassSignature(hash = 935530617)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class CaseDiagnosticBase extends com.terraframe.mojo.business.Re
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1976117530;
+  private static final long serialVersionUID = 935530617;
   
   public CaseDiagnosticBase(String parentId, String childId)
   {

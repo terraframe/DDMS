@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1539426520)
+@com.terraframe.mojo.business.ClassSignature(hash = 1218156508)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class RequiredYearProblemBase extends com.terraframe.mojo.busine
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.RequiredYearProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1539426520;
+  private static final long serialVersionUID = 1218156508;
   
   public RequiredYearProblemBase()
   {

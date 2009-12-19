@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1894298505)
+@com.terraframe.mojo.business.ClassSignature(hash = 1694336763)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class RequiredSeasonProblemBase extends com.terraframe.mojo.busi
 {
   public final static String CLASS = "dss.vector.solutions.irs.RequiredSeasonProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1894298505;
+  private static final long serialVersionUID = 1694336763;
   
   public RequiredSeasonProblemBase()
   {

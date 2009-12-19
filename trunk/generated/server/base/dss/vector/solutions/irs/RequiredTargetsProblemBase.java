@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 528591966)
+@com.terraframe.mojo.business.ClassSignature(hash = 2135594594)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class RequiredTargetsProblemBase extends dss.vector.solutions.No
 {
   public final static String CLASS = "dss.vector.solutions.irs.RequiredTargetsProblem";
   public static java.lang.String ENTITYLABEL = "entityLabel";
-  private static final long serialVersionUID = 528591966;
+  private static final long serialVersionUID = 2135594594;
   
   public RequiredTargetsProblemBase()
   {

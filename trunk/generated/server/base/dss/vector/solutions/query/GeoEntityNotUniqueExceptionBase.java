@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1565868816)
+@com.terraframe.mojo.business.ClassSignature(hash = 1787009008)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class GeoEntityNotUniqueExceptionBase extends com.terraframe.moj
   public final static String CLASS = "dss.vector.solutions.query.GeoEntityNotUniqueException";
   public static java.lang.String ENTITYTYPE = "entityType";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1565868816;
+  private static final long serialVersionUID = 1787009008;
   
   public GeoEntityNotUniqueExceptionBase()
   {

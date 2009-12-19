@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 338648061)
+@com.terraframe.mojo.business.ClassSignature(hash = 235767185)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -52,7 +52,7 @@ public abstract class AncientCaseViewBase extends dss.vector.solutions.surveilla
   public static java.lang.String REFERRALSRECEIVED = "referralsReceived";
   public static java.lang.String REFERRALSSENT = "referralsSent";
   public static java.lang.String STILLBIRTHS = "stillBirths";
-  private static final long serialVersionUID = 338648061;
+  private static final long serialVersionUID = 235767185;
   
   public AncientCaseViewBase()
   {

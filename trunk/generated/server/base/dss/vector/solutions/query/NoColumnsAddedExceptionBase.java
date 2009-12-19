@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -535937757)
+@com.terraframe.mojo.business.ClassSignature(hash = -254149209)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class NoColumnsAddedExceptionBase extends com.terraframe.mojo.bu
 {
   public final static String CLASS = "dss.vector.solutions.query.NoColumnsAddedException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -535937757;
+  private static final long serialVersionUID = -254149209;
   
   public NoColumnsAddedExceptionBase()
   {

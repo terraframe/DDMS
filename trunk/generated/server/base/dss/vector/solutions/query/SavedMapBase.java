@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2047833955)
+@com.terraframe.mojo.business.ClassSignature(hash = -1819028790)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class SavedMapBase extends com.terraframe.mojo.business.Business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 2047833955;
+  private static final long serialVersionUID = -1819028790;
   
   public SavedMapBase()
   {

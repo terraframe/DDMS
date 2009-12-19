@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -596426142)
+@com.terraframe.mojo.business.ClassSignature(hash = 1450173932)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class FieldDefaultViewBase extends com.terraframe.mojo.business.
   public static java.lang.String DEFAULTVALUE = "defaultValue";
   public static java.lang.String ID = "id";
   public static java.lang.String MDATTRIBUTE = "mdAttribute";
-  private static final long serialVersionUID = -596426142;
+  private static final long serialVersionUID = 1450173932;
   
   public FieldDefaultViewBase()
   {

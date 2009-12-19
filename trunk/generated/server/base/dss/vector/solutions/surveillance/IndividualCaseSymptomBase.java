@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -413858427)
+@com.terraframe.mojo.business.ClassSignature(hash = 987597352)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class IndividualCaseSymptomBase extends com.terraframe.mojo.busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -413858427;
+  private static final long serialVersionUID = 987597352;
   
   public IndividualCaseSymptomBase(String parentId, String childId)
   {

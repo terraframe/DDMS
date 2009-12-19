@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1173556443)
+@com.terraframe.mojo.business.ClassSignature(hash = 2054745993)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,7 +16,7 @@ public abstract class TeamSprayStatusViewBase extends dss.vector.solutions.irs.A
   public static java.lang.String TEAMLABEL = "teamLabel";
   public static java.lang.String TEAMLEADER = "teamLeader";
   public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
-  private static final long serialVersionUID = -1173556443;
+  private static final long serialVersionUID = 2054745993;
   
   public TeamSprayStatusViewBase()
   {

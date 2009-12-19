@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1777677123)
+@com.terraframe.mojo.business.ClassSignature(hash = 1165815887)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  abstract  class AreaStandardsViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1777677123;
+private static final long serialVersionUID = 1165815887;
 
   public AreaStandardsViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

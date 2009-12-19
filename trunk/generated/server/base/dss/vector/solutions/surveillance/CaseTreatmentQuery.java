@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2113695432)
+@com.terraframe.mojo.business.ClassSignature(hash = 611236943)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -10,7 +10,7 @@ package dss.vector.solutions.surveillance;
  */
 public  class CaseTreatmentQuery extends com.terraframe.mojo.query.GeneratedRelationshipQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -2113695432;
+private static final long serialVersionUID = 611236943;
 
   public CaseTreatmentQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -18,6 +18,17 @@ private static final long serialVersionUID = -2113695432;
     if (this.getComponentQuery() == null)
     {
       com.terraframe.mojo.business.RelationshipQuery relationshipQuery = componentQueryFactory.relationshipQuery(this.getClassType());
+
+       this.setRelationshipQuery(relationshipQuery);
+    }
+  }
+
+  public CaseTreatmentQuery(com.terraframe.mojo.query.ValueQuery valueQuery)
+  {
+     super();
+    if (this.getComponentQuery() == null)
+    {
+      com.terraframe.mojo.business.RelationshipQuery relationshipQuery = new com.terraframe.mojo.business.RelationshipQuery(valueQuery, this.getClassType());
 
        this.setRelationshipQuery(relationshipQuery);
     }
@@ -353,6 +364,7 @@ private static final long serialVersionUID = -2113695432;
    */
   public com.terraframe.mojo.query.OIterator<? extends CaseTreatment> getIterator()
   {
+    this.checkNotUsedInValueQuery();
     String sqlStmt;
     if (_limit != null && _skip != null)
     {

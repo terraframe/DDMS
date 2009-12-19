@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1862301878)
+@com.terraframe.mojo.business.ClassSignature(hash = 562304846)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class CategoriesWithoutThematicExceptionBase extends com.terrafr
 {
   public final static String CLASS = "dss.vector.solutions.query.CategoriesWithoutThematicException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1862301878;
+  private static final long serialVersionUID = 562304846;
   
   public CategoriesWithoutThematicExceptionBase()
   {

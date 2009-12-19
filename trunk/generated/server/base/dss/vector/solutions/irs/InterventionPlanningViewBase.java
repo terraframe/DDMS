@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 753627040)
+@com.terraframe.mojo.business.ClassSignature(hash = 44096588)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,7 +16,7 @@ public abstract class InterventionPlanningViewBase extends com.terraframe.mojo.b
   public static java.lang.String ID = "id";
   public static java.lang.String SEASON = "season";
   public static java.lang.String TARGETS = "targets";
-  private static final long serialVersionUID = 753627040;
+  private static final long serialVersionUID = 44096588;
   
   public InterventionPlanningViewBase()
   {

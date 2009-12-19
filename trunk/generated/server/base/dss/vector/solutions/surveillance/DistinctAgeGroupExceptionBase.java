@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -991890925)
+@com.terraframe.mojo.business.ClassSignature(hash = 364424343)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class DistinctAgeGroupExceptionBase extends com.terraframe.mojo.
   public static java.lang.String ENDAGE = "endAge";
   public static java.lang.String ID = "id";
   public static java.lang.String STARTAGE = "startAge";
-  private static final long serialVersionUID = -991890925;
+  private static final long serialVersionUID = 364424343;
   
   public DistinctAgeGroupExceptionBase()
   {

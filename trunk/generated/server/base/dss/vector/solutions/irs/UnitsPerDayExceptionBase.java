@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1530055759)
+@com.terraframe.mojo.business.ClassSignature(hash = -933408045)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class UnitsPerDayExceptionBase extends com.terraframe.mojo.busin
 {
   public final static String CLASS = "dss.vector.solutions.irs.UnitsPerDayException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1530055759;
+  private static final long serialVersionUID = -933408045;
   
   public UnitsPerDayExceptionBase()
   {

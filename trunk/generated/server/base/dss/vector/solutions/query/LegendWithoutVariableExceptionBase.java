@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1793671880)
+@com.terraframe.mojo.business.ClassSignature(hash = 623495628)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class LegendWithoutVariableExceptionBase extends com.terraframe.
 {
   public final static String CLASS = "dss.vector.solutions.query.LegendWithoutVariableException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1793671880;
+  private static final long serialVersionUID = 623495628;
   
   public LegendWithoutVariableExceptionBase()
   {

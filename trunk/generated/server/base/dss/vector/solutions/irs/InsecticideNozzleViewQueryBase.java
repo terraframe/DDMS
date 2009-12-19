@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1327562243)
+@com.terraframe.mojo.business.ClassSignature(hash = 1524313633)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  abstract  class InsecticideNozzleViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1327562243;
+private static final long serialVersionUID = 1524313633;
 
   public InsecticideNozzleViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

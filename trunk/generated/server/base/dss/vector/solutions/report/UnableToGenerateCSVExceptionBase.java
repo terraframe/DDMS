@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1315997628)
+@com.terraframe.mojo.business.ClassSignature(hash = 600911176)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class UnableToGenerateCSVExceptionBase extends com.terraframe.mo
 {
   public final static String CLASS = "dss.vector.solutions.report.UnableToGenerateCSVException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1315997628;
+  private static final long serialVersionUID = 600911176;
   
   public UnableToGenerateCSVExceptionBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 54034398)
+@com.terraframe.mojo.business.ClassSignature(hash = 176210209)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class OperatorSprayViewBase extends dss.vector.solutions.irs.Act
   public final static String CLASS = "dss.vector.solutions.irs.OperatorSprayView";
   public static java.lang.String OPERATORSPRAYWEEK = "operatorSprayWeek";
   public static java.lang.String SPRAYOPERATOR = "sprayOperator";
-  private static final long serialVersionUID = 54034398;
+  private static final long serialVersionUID = 176210209;
   
   public OperatorSprayViewBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1078534281)
+@com.terraframe.mojo.business.ClassSignature(hash = -889818805)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -29,7 +29,7 @@ public abstract class InsecticideBrandBase extends com.terraframe.mojo.business.
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String WEIGHT = "weight";
-  private static final long serialVersionUID = 1078534281;
+  private static final long serialVersionUID = -889818805;
   
   public InsecticideBrandBase()
   {

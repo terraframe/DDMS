@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1532356456)
+@com.terraframe.mojo.business.ClassSignature(hash = -373880340)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  abstract  class TermViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1532356456;
+private static final long serialVersionUID = -373880340;
 
   public TermViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

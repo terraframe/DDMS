@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1753378487)
+@com.terraframe.mojo.business.ClassSignature(hash = 848676888)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class HasCategoriesBase extends com.terraframe.mojo.business.Rel
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1753378487;
+  private static final long serialVersionUID = 848676888;
   
   public HasCategoriesBase(String parentId, String childId)
   {

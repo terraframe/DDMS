@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1649228872)
+@com.terraframe.mojo.business.ClassSignature(hash = 903294287)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.surveillance;
 public  abstract  class ChildCaseViewQueryBase extends dss.vector.solutions.surveillance.AggregatedCaseViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1649228872;
+private static final long serialVersionUID = 903294287;
 
   public ChildCaseViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

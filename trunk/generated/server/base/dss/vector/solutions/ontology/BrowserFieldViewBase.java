@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -156489678)
+@com.terraframe.mojo.business.ClassSignature(hash = 367038731)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,7 +18,7 @@ public abstract class BrowserFieldViewBase extends com.terraframe.mojo.business.
   public static java.lang.String MDATTRIBUTELABEL = "mdAttributeLabel";
   public static java.lang.String MDCLASSID = "mdClassId";
   public static java.lang.String MDCLASSLABEL = "mdClassLabel";
-  private static final long serialVersionUID = -156489678;
+  private static final long serialVersionUID = 367038731;
   
   public BrowserFieldViewBase()
   {

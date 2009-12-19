@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1527487249)
+@com.terraframe.mojo.business.ClassSignature(hash = 487762065)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class InvalidAgeGroupProblemBase extends dss.vector.solutions.No
   public final static String CLASS = "dss.vector.solutions.surveillance.InvalidAgeGroupProblem";
   public static java.lang.String ENDAGE = "endAge";
   public static java.lang.String STARTAGE = "startAge";
-  private static final long serialVersionUID = 1527487249;
+  private static final long serialVersionUID = 487762065;
   
   public InvalidAgeGroupProblemBase()
   {

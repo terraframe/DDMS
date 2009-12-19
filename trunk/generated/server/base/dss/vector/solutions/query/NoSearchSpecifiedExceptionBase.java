@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -675099272)
+@com.terraframe.mojo.business.ClassSignature(hash = -1164088196)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class NoSearchSpecifiedExceptionBase extends com.terraframe.mojo
 {
   public final static String CLASS = "dss.vector.solutions.query.NoSearchSpecifiedException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -675099272;
+  private static final long serialVersionUID = -1164088196;
   
   public NoSearchSpecifiedExceptionBase()
   {

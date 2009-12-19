@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2024426239)
+@com.terraframe.mojo.business.ClassSignature(hash = 2043314481)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class AllPathsBase extends com.terraframe.mojo.business.Business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 2024426239;
+  private static final long serialVersionUID = 2043314481;
   
   public AllPathsBase()
   {

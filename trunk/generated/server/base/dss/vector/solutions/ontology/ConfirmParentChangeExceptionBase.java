@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1002251688)
+@com.terraframe.mojo.business.ClassSignature(hash = 1208601304)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class ConfirmParentChangeExceptionBase extends com.terraframe.mo
   public final static String CLASS = "dss.vector.solutions.ontology.ConfirmParentChangeException";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTTERM = "parentTerm";
-  private static final long serialVersionUID = -1002251688;
+  private static final long serialVersionUID = 1208601304;
   
   public ConfirmParentChangeExceptionBase()
   {

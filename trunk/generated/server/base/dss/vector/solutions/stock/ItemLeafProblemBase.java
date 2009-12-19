@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1673010065)
+@com.terraframe.mojo.business.ClassSignature(hash = -713094379)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class ItemLeafProblemBase extends dss.vector.solutions.Notificat
 {
   public final static String CLASS = "dss.vector.solutions.stock.ItemLeafProblem";
   public static java.lang.String ITEMNAME = "itemName";
-  private static final long serialVersionUID = 1673010065;
+  private static final long serialVersionUID = -713094379;
   
   public ItemLeafProblemBase()
   {

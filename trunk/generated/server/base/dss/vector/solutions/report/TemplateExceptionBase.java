@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 216591461)
+@com.terraframe.mojo.business.ClassSignature(hash = -159312407)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class TemplateExceptionBase extends com.terraframe.mojo.business
 {
   public final static String CLASS = "dss.vector.solutions.report.TemplateException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 216591461;
+  private static final long serialVersionUID = -159312407;
   
   public TemplateExceptionBase()
   {

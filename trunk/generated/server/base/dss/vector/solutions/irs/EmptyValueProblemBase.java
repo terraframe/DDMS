@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1111847181)
+@com.terraframe.mojo.business.ClassSignature(hash = -1396934793)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class EmptyValueProblemBase extends dss.vector.solutions.Notific
 {
   public final static String CLASS = "dss.vector.solutions.irs.EmptyValueProblem";
   public static java.lang.String ENTITYLABEL = "entityLabel";
-  private static final long serialVersionUID = -1111847181;
+  private static final long serialVersionUID = -1396934793;
   
   public EmptyValueProblemBase()
   {

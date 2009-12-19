@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -147232946)
+@com.terraframe.mojo.business.ClassSignature(hash = 791862350)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class TimeInterventionPlanningViewBase extends dss.vector.soluti
   public final static String CLASS = "dss.vector.solutions.irs.TimeInterventionPlanningView";
   public static java.lang.String OPERATORS = "operators";
   public static java.lang.String REQUIREDDAYS = "requiredDays";
-  private static final long serialVersionUID = -147232946;
+  private static final long serialVersionUID = 791862350;
   
   public TimeInterventionPlanningViewBase()
   {

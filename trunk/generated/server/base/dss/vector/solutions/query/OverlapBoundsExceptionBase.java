@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1268787741)
+@com.terraframe.mojo.business.ClassSignature(hash = 2015657633)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class OverlapBoundsExceptionBase extends com.terraframe.mojo.bus
   public static java.lang.String ID = "id";
   public static java.lang.String RANGEONE = "rangeOne";
   public static java.lang.String RANGETWO = "rangeTwo";
-  private static final long serialVersionUID = 1268787741;
+  private static final long serialVersionUID = 2015657633;
   
   public OverlapBoundsExceptionBase()
   {

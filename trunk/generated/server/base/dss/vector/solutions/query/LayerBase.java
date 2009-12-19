@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1558086167)
+@com.terraframe.mojo.business.ClassSignature(hash = -1108241381)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,7 +31,7 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
-  private static final long serialVersionUID = 1558086167;
+  private static final long serialVersionUID = -1108241381;
   
   public LayerBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 3020395)
+@com.terraframe.mojo.business.ClassSignature(hash = 329423599)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class RequiredOperatorsProblemBase extends dss.vector.solutions.
 {
   public final static String CLASS = "dss.vector.solutions.irs.RequiredOperatorsProblem";
   public static java.lang.String ENTITYLABEL = "entityLabel";
-  private static final long serialVersionUID = 3020395;
+  private static final long serialVersionUID = 329423599;
   
   public RequiredOperatorsProblemBase()
   {

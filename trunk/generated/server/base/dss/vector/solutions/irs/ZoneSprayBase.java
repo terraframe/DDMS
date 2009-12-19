@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1998732751)
+@com.terraframe.mojo.business.ClassSignature(hash = -948130177)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,7 +15,7 @@ public abstract class ZoneSprayBase extends dss.vector.solutions.irs.AbstractSpr
   public static java.lang.String SUPERVISORNAME = "supervisorName";
   public static java.lang.String SUPERVISORSURNAME = "supervisorSurname";
   public static java.lang.String TARGET = "target";
-  private static final long serialVersionUID = 1998732751;
+  private static final long serialVersionUID = -948130177;
   
   public ZoneSprayBase()
   {

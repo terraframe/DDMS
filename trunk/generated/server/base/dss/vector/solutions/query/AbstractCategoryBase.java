@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1436645288)
+@com.terraframe.mojo.business.ClassSignature(hash = 712780958)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class AbstractCategoryBase extends com.terraframe.mojo.business.
   public static java.lang.String STYLES = "styles";
   public static java.lang.String THEMATICCOLOR = "thematicColor";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1436645288;
+  private static final long serialVersionUID = 712780958;
   
   public AbstractCategoryBase()
   {

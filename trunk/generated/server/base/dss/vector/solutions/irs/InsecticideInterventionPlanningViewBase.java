@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 606321320)
+@com.terraframe.mojo.business.ClassSignature(hash = -1937394268)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class InsecticideInterventionPlanningViewBase extends dss.vector
 {
   public final static String CLASS = "dss.vector.solutions.irs.InsecticideInterventionPlanningView";
   public static java.lang.String REQUIREDINSECTICIDE = "requiredInsecticide";
-  private static final long serialVersionUID = 606321320;
+  private static final long serialVersionUID = -1937394268;
   
   public InsecticideInterventionPlanningViewBase()
   {

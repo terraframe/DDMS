@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1518135329)
+@com.terraframe.mojo.business.ClassSignature(hash = 118856767)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,7 +31,7 @@ public abstract class StockEventBase extends com.terraframe.mojo.business.Busine
   public static java.lang.String STOCKDEPOT = "stockDepot";
   public static java.lang.String TRANSACTIONTYPE = "transactionType";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1518135329;
+  private static final long serialVersionUID = 118856767;
   
   public StockEventBase()
   {

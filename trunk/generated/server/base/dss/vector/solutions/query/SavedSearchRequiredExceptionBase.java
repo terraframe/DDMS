@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 954954737)
+@com.terraframe.mojo.business.ClassSignature(hash = -1531702411)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class SavedSearchRequiredExceptionBase extends com.terraframe.mo
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearchRequiredException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 954954737;
+  private static final long serialVersionUID = -1531702411;
   
   public SavedSearchRequiredExceptionBase()
   {

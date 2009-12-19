@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -238301100)
+@com.terraframe.mojo.business.ClassSignature(hash = -40383144)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class RequiredPeriodProblemBase extends com.terraframe.mojo.busi
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.RequiredPeriodProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -238301100;
+  private static final long serialVersionUID = -40383144;
   
   public RequiredPeriodProblemBase()
   {

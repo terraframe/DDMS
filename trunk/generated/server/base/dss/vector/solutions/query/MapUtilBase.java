@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -953336586)
+@com.terraframe.mojo.business.ClassSignature(hash = -1066544390)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class MapUtilBase extends com.terraframe.mojo.business.Util impl
 {
   public final static String CLASS = "dss.vector.solutions.query.MapUtil";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -953336586;
+  private static final long serialVersionUID = -1066544390;
   
   public MapUtilBase()
   {

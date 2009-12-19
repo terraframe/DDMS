@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1215354245)
+@com.terraframe.mojo.business.ClassSignature(hash = 310251273)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class RequiredGeoIdProblemBase extends com.terraframe.mojo.busin
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.RequiredGeoIdProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1215354245;
+  private static final long serialVersionUID = 310251273;
   
   public RequiredGeoIdProblemBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1343812767)
+@com.terraframe.mojo.business.ClassSignature(hash = 1108542495)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class ConfirmDeleteTermExceptionBase extends com.terraframe.mojo
   public final static String CLASS = "dss.vector.solutions.ontology.ConfirmDeleteTermException";
   public static java.lang.String ID = "id";
   public static java.lang.String TERM = "term";
-  private static final long serialVersionUID = 1343812767;
+  private static final long serialVersionUID = 1108542495;
   
   public ConfirmDeleteTermExceptionBase()
   {

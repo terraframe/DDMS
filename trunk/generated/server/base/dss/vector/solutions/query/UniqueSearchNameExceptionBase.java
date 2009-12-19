@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 232813731)
+@com.terraframe.mojo.business.ClassSignature(hash = -508168921)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class UniqueSearchNameExceptionBase extends com.terraframe.mojo.
 {
   public final static String CLASS = "dss.vector.solutions.query.UniqueSearchNameException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 232813731;
+  private static final long serialVersionUID = -508168921;
   
   public UniqueSearchNameExceptionBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1232269585)
+@com.terraframe.mojo.business.ClassSignature(hash = 1632280725)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class UniqueTeamSprayExceptionBase extends dss.vector.solutions.
 {
   public final static String CLASS = "dss.vector.solutions.irs.UniqueTeamSprayException";
   public static java.lang.String SPRAYTEAM = "sprayTeam";
-  private static final long serialVersionUID = 1232269585;
+  private static final long serialVersionUID = 1632280725;
   
   public UniqueTeamSprayExceptionBase()
   {

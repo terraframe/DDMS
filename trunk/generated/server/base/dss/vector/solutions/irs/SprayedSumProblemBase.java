@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 67668097)
+@com.terraframe.mojo.business.ClassSignature(hash = 1764456713)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,7 +15,7 @@ public abstract class SprayedSumProblemBase extends dss.vector.solutions.Notific
   public static java.lang.String OBJECTS = "objects";
   public static java.lang.String SPRAYEDOBJECTLABEL = "sprayedObjectLabel";
   public static java.lang.String SPRAYEDOBJECTS = "sprayedObjects";
-  private static final long serialVersionUID = 67668097;
+  private static final long serialVersionUID = 1764456713;
   
   public SprayedSumProblemBase()
   {

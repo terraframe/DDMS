@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 790804885)
+@com.terraframe.mojo.business.ClassSignature(hash = -800092264)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  abstract  class OperatorSprayViewQueryBase extends dss.vector.solutions.irs.ActorSprayViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 790804885;
+private static final long serialVersionUID = -800092264;
 
   public OperatorSprayViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

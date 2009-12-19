@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1364777214)
+@com.terraframe.mojo.business.ClassSignature(hash = -1274790354)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class TermRelationshipBase extends com.terraframe.mojo.business.
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1364777214;
+  private static final long serialVersionUID = -1274790354;
   
   public TermRelationshipBase(String parentId, String childId)
   {

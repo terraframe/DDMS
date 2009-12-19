@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -807180056)
+@com.terraframe.mojo.business.ClassSignature(hash = 1416073383)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,7 +16,7 @@ public abstract class ActorSprayStatusViewBase extends dss.vector.solutions.irs.
   public static java.lang.String RETURNED = "returned";
   public static java.lang.String SPRAYDATA = "sprayData";
   public static java.lang.String USED = "used";
-  private static final long serialVersionUID = -807180056;
+  private static final long serialVersionUID = 1416073383;
   
   public ActorSprayStatusViewBase()
   {

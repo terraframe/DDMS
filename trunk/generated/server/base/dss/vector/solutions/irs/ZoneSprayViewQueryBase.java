@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 138346544)
+@com.terraframe.mojo.business.ClassSignature(hash = 2036233408)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  abstract  class ZoneSprayViewQueryBase extends dss.vector.solutions.irs.AbstractSprayViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 138346544;
+private static final long serialVersionUID = 2036233408;
 
   public ZoneSprayViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

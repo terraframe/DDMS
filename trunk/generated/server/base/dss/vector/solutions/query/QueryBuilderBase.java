@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1789158697)
+@com.terraframe.mojo.business.ClassSignature(hash = 501424595)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class QueryBuilderBase extends com.terraframe.mojo.business.View
 {
   public final static String CLASS = "dss.vector.solutions.query.QueryBuilder";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1789158697;
+  private static final long serialVersionUID = 501424595;
   
   public QueryBuilderBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -748609388)
+@com.terraframe.mojo.business.ClassSignature(hash = -2112864641)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class InsecticideNozzleBase extends com.terraframe.mojo.business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -748609388;
+  private static final long serialVersionUID = -2112864641;
   
   public InsecticideNozzleBase(String parentId, String childId)
   {
