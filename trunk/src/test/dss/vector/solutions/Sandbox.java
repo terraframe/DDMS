@@ -260,8 +260,8 @@ public class Sandbox
 */
 
 
-    String[] tokenArray = new String[]{"Plasmodium"};
-//    String[] tokenArray = new String[]{"Plasmodium", "falciparum"};
+//    String[] tokenArray = new String[]{"Plasmodium"};
+    String[] tokenArray = new String[]{"Plasmodium", "falciparum"};
 
 
     QueryFactory qf = new QueryFactory();
@@ -273,7 +273,7 @@ public class Sandbox
     selectableArray[1] = tQ.getTermId();
 
     // This is a COMPLETELY contrived example that makes no sense in real ife.
-//    Condition joinCondition = tQ.getName().EQ(gQ.getEntityName());
+   Condition joinCondition = tQ.getName().EQ(gQ.getEntityName());
 //    textLookup(qf, tokenArray, selectableArray, new Condition[]{joinCondition});
 
     textLookup(qf, tokenArray, selectableArray, new Condition[]{});

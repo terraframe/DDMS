@@ -32,15 +32,17 @@ public abstract class Facade extends FacadeBase implements com.terraframe.mojo.g
     elementQuery.WHERE(elementQuery.getIsAbstract().EQ(true));
 
     ValueQuery valueQuery = queryFactory.valueQuery();
-    valueQuery.SELECT(elementQuery.getId());
+    valueQuery.SELECT(elementQuery.getId("id"));
     valueQuery.WHERE(elementQuery.getIsAbstract().EQ(true));
 
     MdClassQuery classQuery = new MdClassQuery(queryFactory);
     classQuery.WHERE(classQuery.getPackageName().LIKEi("dss.vector.solutions.%"));
     Condition or = OR.get(classQuery.getType().EQ(MdBusinessInfo.CLASS), classQuery.getType().EQ(MdViewInfo.CLASS));
     classQuery.WHERE(or);
+// Heads up: clean up?
 //    classQuery.WHERE(classQuery.NOT_IN(classQuery.getId(), valueQuery));
-    classQuery.WHERE(classQuery.getId().SUBSELECT_NOT_IN(valueQuery));
+//    classQuery.WHERE(classQuery.getId().SUBSELECT_NOT_IN(valueQuery));
+    classQuery.WHERE(classQuery.getId().SUBSELECT_NOT_IN(valueQuery.aAttribute("id")));
     classQuery.ORDER_BY_ASC(classQuery.getDisplayLabel().currentLocale());
 
     return classQuery;

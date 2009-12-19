@@ -50,7 +50,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   /**
    * Throws a localized Exception to alert the user that he is trying to modify
    * the parent of a Term.
-   * 
+   *
    * @throws ConfirmParentChangeException
    *           always.
    */
@@ -152,7 +152,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * Throws an exception to alert the user before they try to delete a Term.
-   * 
+   *
    * @throws ConfirmDeleteTermException
    *           If the Term has more than one parent.
    * @throws
@@ -215,7 +215,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * Gets all the TermRelationship children of this Term.
-   * 
+   *
    * FIXME parameterize to pass in the relationship type.
    */
   @Override
@@ -360,7 +360,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
    * Returns all default roots (Terms without parents). This method WILL return
    * all Terms regardless of obsolete status. To return the terms with obsolete
    * marked as false, use BrowserRoot.getDefaultRoot().
-   * 
+   *
    * @param filterObsolete
    * @return
    */
@@ -519,7 +519,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
         query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
         query.AND(this.pathsQuery.getParentTerm().EQ(rootQuery.getTerm()));
       }
-      
+
       query.AND(termQuery.getObsolete().EQ(false));
 
       query.ORDER_BY_ASC(this.termQuery.getDisplay());
@@ -655,7 +655,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     private TermQuery             termQuery;
 
-    private ValueQuery            valueQuery;
+//    private ValueQuery            valueQuery;
 
     private TermRelationshipQuery termRelQuery;
 
@@ -666,7 +666,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       super(queryFactory);
 
       this.termQuery = termQuery;
-      this.valueQuery = queryFactory.valueQuery();
+//      this.valueQuery = queryFactory.valueQuery();
       this.termRelQuery = termRelQuery;
       this.filterObsolete = filterObsolete;
     }
@@ -688,12 +688,14 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       // the root is not a child of any other term
-      Selectable childId = this.termRelQuery.childId();
-      this.valueQuery.SELECT(childId);
+//      Selectable childId = this.termRelQuery.childId();
+//      this.valueQuery.SELECT(childId);
 
       // query.WHERE(this.termQuery.NOT_IN(this.termQuery.getId(),
       // this.valueQuery));
-      query.WHERE(this.termQuery.getId().SUBSELECT_NOT_IN(this.valueQuery));
+// Heads up: clean up?
+//      query.WHERE(this.termQuery.getId().SUBSELECT_NOT_IN(this.valueQuery));
+      query.WHERE(this.termQuery.getId().SUBSELECT_NOT_IN(this.termRelQuery.childId()));
 
       if (this.filterObsolete)
       {
@@ -815,9 +817,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
    * field described by the given class and attribute names. Inheritance is
    * already factored into the method such that if B extends A and A defines
    * attribute m, the following calls are valid:
-   * 
+   *
    * 1) Term.getAllTermsForField("A", "m") 2) Term.getAllTermsForField("B", "m")
-   * 
+   *
    * @param className
    * @param attributeName
    * @return
@@ -893,7 +895,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * Returns all attributes that reference the Term class.
-   * 
+   *
    * @param className
    * @return
    */
@@ -915,7 +917,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * A single leaf node has no children and has one or fewer parents.
-   * 
+   *
    * @param ontologyRelationshipId
    * @return true if a single leaf node, false otherwise.
    */

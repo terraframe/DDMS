@@ -419,7 +419,7 @@ public class GeoEntitySearcher implements Reloadable
 
     // This select clause must be located here and not above the if block, otherwise the
     // joins above will not be proper subselects
-    geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("child_id"));
+    geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("child_id", "child_id"));
 
     for (String parentEntityType : parentGeoEntityMap.keySet())
     {
@@ -451,7 +451,9 @@ public class GeoEntitySearcher implements Reloadable
     }
 
     BusinessQuery resultQuery = qf.businessQuery(childGeoEntityType);
-    resultQuery.WHERE(resultQuery.id().SUBSELECT_IN(geoEntityIdQuery));
+// Heads up: clean up?
+//    resultQuery.WHERE(resultQuery.id().SUBSELECT_IN(geoEntityIdQuery));
+    resultQuery.WHERE(resultQuery.id().SUBSELECT_IN(geoEntityIdQuery.aAttribute("child_id")));
     resultQuery.ORDER_BY_ASC(F.UPPER(resultQuery.aCharacter(GeoEntity.ENTITYNAME)));
 
     OIterator<Business> iterator = resultQuery.getIterator();
@@ -505,7 +507,7 @@ public class GeoEntitySearcher implements Reloadable
       childGeoEntityQuery.WHERE(childGeoEntityQuery.getId().NI(idArray));
     }
 
-    geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("child_id"));
+    geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("child_id", "child_id"));
 
     for (String parentEntityType : parentGeoEntityMap.keySet())
     {
@@ -538,7 +540,10 @@ public class GeoEntitySearcher implements Reloadable
 
 
     BusinessQuery resultQuery = qf.businessQuery(childGeoEntityType);
-    resultQuery.WHERE(resultQuery.id().SUBSELECT_IN(geoEntityIdQuery));
+// Heads up: clean up
+//    resultQuery.WHERE(resultQuery.id().SUBSELECT_IN(geoEntityIdQuery));
+    resultQuery.WHERE(resultQuery.id().SUBSELECT_IN(geoEntityIdQuery.aAttribute("child_id")));
+
     resultQuery.ORDER_BY_ASC(F.UPPER(resultQuery.aCharacter(GeoEntity.ENTITYNAME)));
 
     OIterator<Business> iterator = resultQuery.getIterator();
