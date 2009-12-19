@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1723333204)
+@com.terraframe.mojo.business.ClassSignature(hash = 2015673550)
 public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.WeeklyThreshold";
-  private static final long serialVersionUID = -1723333204;
+  private static final long serialVersionUID = 2015673550;
   
   public WeeklyThresholdDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {

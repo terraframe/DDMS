@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1638700959)
+@com.terraframe.mojo.business.ClassSignature(hash = -1798334253)
 public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.LethalTimeProperty";
-  private static final long serialVersionUID = 1638700959;
+  private static final long serialVersionUID = -1798334253;
   
   protected LethalTimePropertyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

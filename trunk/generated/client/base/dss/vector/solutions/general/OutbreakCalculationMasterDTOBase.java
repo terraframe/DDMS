@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1473789103)
+@com.terraframe.mojo.business.ClassSignature(hash = 450865243)
 public abstract class OutbreakCalculationMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.OutbreakCalculationMaster";
-  private static final long serialVersionUID = 1473789103;
+  private static final long serialVersionUID = 450865243;
   
   protected OutbreakCalculationMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

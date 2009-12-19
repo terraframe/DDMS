@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1375556283)
+@com.terraframe.mojo.business.ClassSignature(hash = 1159353028)
 public abstract class EmailConfigurationDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.EmailConfiguration";
-  private static final long serialVersionUID = 1375556283;
+  private static final long serialVersionUID = 1159353028;
   
   protected EmailConfigurationDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

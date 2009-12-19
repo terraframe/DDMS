@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1554739676)
+@com.terraframe.mojo.business.ClassSignature(hash = -1400084516)
 public abstract class SystemAlertEmailTemplateVariablesDTOBase extends com.terraframe.mojo.business.LocalStructDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlertEmailTemplateVariables";
-  private static final long serialVersionUID = 1554739676;
+  private static final long serialVersionUID = -1400084516;
   
   protected SystemAlertEmailTemplateVariablesDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

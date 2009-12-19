@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1443010585)
+@com.terraframe.mojo.business.ClassSignature(hash = 535434521)
 public abstract class EpiDateDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.EpiDate";
-  private static final long serialVersionUID = 1443010585;
+  private static final long serialVersionUID = 535434521;
   
   protected EpiDateDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

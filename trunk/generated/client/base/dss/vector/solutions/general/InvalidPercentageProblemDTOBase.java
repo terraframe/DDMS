@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 369666006)
+@com.terraframe.mojo.business.ClassSignature(hash = -1018286630)
 public abstract class InvalidPercentageProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.InvalidPercentageProblem";
-  private static final long serialVersionUID = 369666006;
+  private static final long serialVersionUID = -1018286630;
   
   public InvalidPercentageProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2049706130)
+@com.terraframe.mojo.business.ClassSignature(hash = -581498886)
 public abstract class OutbreakAlertDTOBase extends com.terraframe.mojo.business.InformationDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.OutbreakAlert";
-  private static final long serialVersionUID = -2049706130;
+  private static final long serialVersionUID = -581498886;
   
   public OutbreakAlertDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

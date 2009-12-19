@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 359812434)
+@com.terraframe.mojo.business.ClassSignature(hash = 126300886)
 public abstract class MalariaSeasonDateExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.MalariaSeasonDateException";
-  private static final long serialVersionUID = 359812434;
+  private static final long serialVersionUID = 126300886;
   
   public MalariaSeasonDateExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

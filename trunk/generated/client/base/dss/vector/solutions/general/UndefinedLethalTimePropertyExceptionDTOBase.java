@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1595931519)
+@com.terraframe.mojo.business.ClassSignature(hash = -2015033468)
 public abstract class UndefinedLethalTimePropertyExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.UndefinedLethalTimePropertyException";
-  private static final long serialVersionUID = -1595931519;
+  private static final long serialVersionUID = -2015033468;
   
   public UndefinedLethalTimePropertyExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

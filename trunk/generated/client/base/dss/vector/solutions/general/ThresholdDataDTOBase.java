@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 12812175)
+@com.terraframe.mojo.business.ClassSignature(hash = 1591147556)
 public abstract class ThresholdDataDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdData";
-  private static final long serialVersionUID = 12812175;
+  private static final long serialVersionUID = 1591147556;
   
   protected ThresholdDataDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

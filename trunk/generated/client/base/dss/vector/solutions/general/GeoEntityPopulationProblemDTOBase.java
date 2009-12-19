@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1657183947)
+@com.terraframe.mojo.business.ClassSignature(hash = 1596730571)
 public abstract class GeoEntityPopulationProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.GeoEntityPopulationProblem";
-  private static final long serialVersionUID = 1657183947;
+  private static final long serialVersionUID = 1596730571;
   
   public GeoEntityPopulationProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

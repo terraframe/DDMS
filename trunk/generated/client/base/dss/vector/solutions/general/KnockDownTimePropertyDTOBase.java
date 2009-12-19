@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 272487587)
+@com.terraframe.mojo.business.ClassSignature(hash = -1024917625)
 public abstract class KnockDownTimePropertyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.KnockDownTimeProperty";
-  private static final long serialVersionUID = 272487587;
+  private static final long serialVersionUID = -1024917625;
   
   protected KnockDownTimePropertyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

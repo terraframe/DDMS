@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1728127707)
+@com.terraframe.mojo.business.ClassSignature(hash = -2031356635)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public class SystemAlertEmailTemplateVariablesQueryDTO extends com.terraframe.mojo.business.StructQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1728127707;
+private static final long serialVersionUID = -2031356635;
 
   protected SystemAlertEmailTemplateVariablesQueryDTO(String type)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1618248720)
+@com.terraframe.mojo.business.ClassSignature(hash = 1038202791)
 public abstract class InsecticideDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.Insecticide";
-  private static final long serialVersionUID = 1618248720;
+  private static final long serialVersionUID = 1038202791;
   
   protected InsecticideDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

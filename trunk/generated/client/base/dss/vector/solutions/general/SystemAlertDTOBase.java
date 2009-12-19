@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1713779415)
+@com.terraframe.mojo.business.ClassSignature(hash = 1447486180)
 public abstract class SystemAlertDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlert";
-  private static final long serialVersionUID = -1713779415;
+  private static final long serialVersionUID = 1447486180;
   
   protected SystemAlertDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

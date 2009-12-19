@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -907788692)
+@com.terraframe.mojo.business.ClassSignature(hash = 525167774)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public class KnockDownTimePropertyQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -907788692;
+private static final long serialVersionUID = 525167774;
 
   protected KnockDownTimePropertyQueryDTO(String type)
   {

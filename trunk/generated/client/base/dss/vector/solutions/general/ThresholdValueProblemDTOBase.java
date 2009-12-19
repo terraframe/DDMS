@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2018411029)
+@com.terraframe.mojo.business.ClassSignature(hash = -1940473613)
 public abstract class ThresholdValueProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdValueProblem";
-  private static final long serialVersionUID = -2018411029;
+  private static final long serialVersionUID = -1940473613;
   
   public ThresholdValueProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

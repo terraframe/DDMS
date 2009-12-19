@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1137903268)
+@com.terraframe.mojo.business.ClassSignature(hash = 2088782388)
 public abstract class YearValueExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.YearValueException";
-  private static final long serialVersionUID = 1137903268;
+  private static final long serialVersionUID = 2088782388;
   
   public YearValueExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

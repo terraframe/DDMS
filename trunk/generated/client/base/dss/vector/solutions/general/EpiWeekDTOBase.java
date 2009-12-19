@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -554719214)
+@com.terraframe.mojo.business.ClassSignature(hash = 849865225)
 public abstract class EpiWeekDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.EpiWeek";
-  private static final long serialVersionUID = -554719214;
+  private static final long serialVersionUID = 849865225;
   
   protected EpiWeekDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

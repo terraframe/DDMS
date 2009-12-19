@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 987293035)
+@com.terraframe.mojo.business.ClassSignature(hash = -1525618193)
 public abstract class MalariaSeasonTooLongProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.MalariaSeasonTooLongProblem";
-  private static final long serialVersionUID = 987293035;
+  private static final long serialVersionUID = -1525618193;
   
   public MalariaSeasonTooLongProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

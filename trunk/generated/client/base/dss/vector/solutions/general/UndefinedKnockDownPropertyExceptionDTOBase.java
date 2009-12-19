@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 819026634)
+@com.terraframe.mojo.business.ClassSignature(hash = -110769907)
 public abstract class UndefinedKnockDownPropertyExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.UndefinedKnockDownPropertyException";
-  private static final long serialVersionUID = 819026634;
+  private static final long serialVersionUID = -110769907;
   
   public UndefinedKnockDownPropertyExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

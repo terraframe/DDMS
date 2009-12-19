@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1076920929)
+@com.terraframe.mojo.business.ClassSignature(hash = -38743319)
 public abstract class MalariaSeasonOverlapProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.MalariaSeasonOverlapProblem";
-  private static final long serialVersionUID = 1076920929;
+  private static final long serialVersionUID = -38743319;
   
   public MalariaSeasonOverlapProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {
