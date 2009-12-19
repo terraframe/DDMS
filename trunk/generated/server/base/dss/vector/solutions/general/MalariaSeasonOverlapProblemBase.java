@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2140037345)
+@com.terraframe.mojo.business.ClassSignature(hash = -1411305111)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class MalariaSeasonOverlapProblemBase extends com.terraframe.moj
   public final static String CLASS = "dss.vector.solutions.general.MalariaSeasonOverlapProblem";
   public static java.lang.String ID = "id";
   public static java.lang.String OVERLAP = "overlap";
-  private static final long serialVersionUID = 2140037345;
+  private static final long serialVersionUID = -1411305111;
   
   public MalariaSeasonOverlapProblemBase()
   {

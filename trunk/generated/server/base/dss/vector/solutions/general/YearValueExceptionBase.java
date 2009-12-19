@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1274615844)
+@com.terraframe.mojo.business.ClassSignature(hash = -144614476)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,7 +15,7 @@ public abstract class YearValueExceptionBase extends com.terraframe.mojo.busines
   public static java.lang.String MAXYEAR = "maxYear";
   public static java.lang.String MINYEAR = "minYear";
   public static java.lang.String YEARVALUE = "yearValue";
-  private static final long serialVersionUID = 1274615844;
+  private static final long serialVersionUID = -144614476;
   
   public YearValueExceptionBase()
   {

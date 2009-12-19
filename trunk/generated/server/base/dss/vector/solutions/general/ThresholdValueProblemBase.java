@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1806102677)
+@com.terraframe.mojo.business.ClassSignature(hash = 454806131)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class ThresholdValueProblemBase extends dss.vector.solutions.Not
   public final static String CLASS = "dss.vector.solutions.general.ThresholdValueProblem";
   public static java.lang.String ENTITYLABEL = "entityLabel";
   public static java.lang.String THRESHOLD = "threshold";
-  private static final long serialVersionUID = -1806102677;
+  private static final long serialVersionUID = 454806131;
   
   public ThresholdValueProblemBase()
   {

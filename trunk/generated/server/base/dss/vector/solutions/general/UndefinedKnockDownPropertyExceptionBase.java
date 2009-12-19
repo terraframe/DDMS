@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -668144566)
+@com.terraframe.mojo.business.ClassSignature(hash = 1187986061)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class UndefinedKnockDownPropertyExceptionBase extends com.terraf
   public final static String CLASS = "dss.vector.solutions.general.UndefinedKnockDownPropertyException";
   public static java.lang.String ID = "id";
   public static java.lang.String INSECTICIDE = "insecticide";
-  private static final long serialVersionUID = -668144566;
+  private static final long serialVersionUID = 1187986061;
   
   public UndefinedKnockDownPropertyExceptionBase()
   {

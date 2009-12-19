@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 158094115)
+@com.terraframe.mojo.business.ClassSignature(hash = 479375623)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,7 @@ public abstract class KnockDownTimePropertyBase extends com.terraframe.mojo.busi
   public static java.lang.String TYPE = "type";
   public static java.lang.String UPPERPERCENT = "upperPercent";
   public static java.lang.String UPPERTIME = "upperTime";
-  private static final long serialVersionUID = 158094115;
+  private static final long serialVersionUID = 479375623;
   
   public KnockDownTimePropertyBase()
   {

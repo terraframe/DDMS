@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1869492299)
+@com.terraframe.mojo.business.ClassSignature(hash = -302956981)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class GeoEntityPopulationProblemBase extends com.terraframe.mojo
   public final static String CLASS = "dss.vector.solutions.general.GeoEntityPopulationProblem";
   public static java.lang.String ENTITYLABEL = "entityLabel";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1869492299;
+  private static final long serialVersionUID = -302956981;
   
   public GeoEntityPopulationProblemBase()
   {

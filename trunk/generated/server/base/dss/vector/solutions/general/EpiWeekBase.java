@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2133784942)
+@com.terraframe.mojo.business.ClassSignature(hash = -1276175479)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class EpiWeekBase extends com.terraframe.mojo.business.Business 
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String YEAROFWEEK = "yearOfWeek";
-  private static final long serialVersionUID = -2133784942;
+  private static final long serialVersionUID = -1276175479;
   
   public EpiWeekBase()
   {

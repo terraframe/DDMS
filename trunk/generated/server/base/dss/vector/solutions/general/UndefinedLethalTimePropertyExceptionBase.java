@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -453598463)
+@com.terraframe.mojo.business.ClassSignature(hash = -408304124)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class UndefinedLethalTimePropertyExceptionBase extends com.terra
   public final static String CLASS = "dss.vector.solutions.general.UndefinedLethalTimePropertyException";
   public static java.lang.String ID = "id";
   public static java.lang.String INSECTICIDE = "insecticide";
-  private static final long serialVersionUID = -453598463;
+  private static final long serialVersionUID = -408304124;
   
   public UndefinedLethalTimePropertyExceptionBase()
   {

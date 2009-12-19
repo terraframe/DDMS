@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -397997571)
+@com.terraframe.mojo.business.ClassSignature(hash = -852402303)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class MalariaSeasonDateProblemBase extends com.terraframe.mojo.b
 {
   public final static String CLASS = "dss.vector.solutions.general.MalariaSeasonDateProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -397997571;
+  private static final long serialVersionUID = -852402303;
   
   public MalariaSeasonDateProblemBase()
   {

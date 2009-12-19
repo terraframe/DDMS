@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1652656340)
+@com.terraframe.mojo.business.ClassSignature(hash = 127028814)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,7 @@ public abstract class WeeklyThresholdBase extends com.terraframe.mojo.business.R
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1652656340;
+  private static final long serialVersionUID = 127028814;
   
   public WeeklyThresholdBase(String parentId, String childId)
   {

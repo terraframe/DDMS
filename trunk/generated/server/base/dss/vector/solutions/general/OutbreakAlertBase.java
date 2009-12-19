@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2115832046)
+@com.terraframe.mojo.business.ClassSignature(hash = -1646831238)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,7 +18,7 @@ public abstract class OutbreakAlertBase extends com.terraframe.mojo.business.Inf
   public static java.lang.String THRESHOLD = "threshold";
   public static java.lang.String THRESHOLDTYPE = "thresholdType";
   public static java.lang.String TOTALCASES = "totalCases";
-  private static final long serialVersionUID = 2115832046;
+  private static final long serialVersionUID = -1646831238;
   
   public OutbreakAlertBase()
   {

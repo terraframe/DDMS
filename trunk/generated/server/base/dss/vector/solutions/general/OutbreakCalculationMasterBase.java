@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -716940497)
+@com.terraframe.mojo.business.ClassSignature(hash = 1687586523)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public abstract class OutbreakCalculationMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.OutbreakCalculationMaster";
-  private static final long serialVersionUID = -716940497;
+  private static final long serialVersionUID = 1687586523;
   
   public OutbreakCalculationMasterBase()
   {

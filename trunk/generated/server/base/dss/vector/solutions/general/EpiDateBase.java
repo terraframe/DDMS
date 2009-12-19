@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1796827545)
+@com.terraframe.mojo.business.ClassSignature(hash = -744921447)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,7 +17,7 @@ public abstract class EpiDateBase extends com.terraframe.mojo.business.View impl
   public static java.lang.String PERIOD = "period";
   public static java.lang.String PERIODTYPE = "periodType";
   public static java.lang.String STARTDATE = "startDate";
-  private static final long serialVersionUID = 1796827545;
+  private static final long serialVersionUID = -744921447;
   
   public EpiDateBase()
   {

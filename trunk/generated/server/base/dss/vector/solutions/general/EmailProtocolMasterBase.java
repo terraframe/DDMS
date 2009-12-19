@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -136739093)
+@com.terraframe.mojo.business.ClassSignature(hash = 1919797596)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public abstract class EmailProtocolMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.EmailProtocolMaster";
-  private static final long serialVersionUID = -136739093;
+  private static final long serialVersionUID = 1919797596;
   
   public EmailProtocolMasterBase()
   {

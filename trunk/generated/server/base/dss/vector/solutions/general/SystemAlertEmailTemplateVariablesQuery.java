@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 167548243)
+@com.terraframe.mojo.business.ClassSignature(hash = 110815571)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -10,7 +10,7 @@ package dss.vector.solutions.general;
  */
 public  class SystemAlertEmailTemplateVariablesQuery extends com.terraframe.mojo.query.GeneratedStructQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 167548243;
+private static final long serialVersionUID = 110815571;
 
   public SystemAlertEmailTemplateVariablesQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -18,6 +18,17 @@ private static final long serialVersionUID = 167548243;
     if (this.getComponentQuery() == null)
     {
       com.terraframe.mojo.business.StructQuery structQuery = componentQueryFactory.structQuery(this.getClassType());
+
+       this.setStructQuery(structQuery);
+    }
+  }
+
+  public SystemAlertEmailTemplateVariablesQuery(com.terraframe.mojo.query.ValueQuery valueQuery)
+  {
+     super();
+    if (this.getComponentQuery() == null)
+    {
+      com.terraframe.mojo.business.StructQuery structQuery = new com.terraframe.mojo.business.StructQuery(valueQuery, this.getClassType());
 
        this.setStructQuery(structQuery);
     }
@@ -103,6 +114,7 @@ private static final long serialVersionUID = 167548243;
    */
   public com.terraframe.mojo.query.OIterator<? extends SystemAlertEmailTemplateVariables> getIterator()
   {
+    this.checkNotUsedInValueQuery();
     String sqlStmt;
     if (_limit != null && _skip != null)
     {
@@ -147,7 +159,7 @@ private static final long serialVersionUID = 167548243;
  **/
   public static class SystemAlertEmailTemplateVariablesQueryStruct extends com.terraframe.mojo.query.AttributeLocal implements SystemAlertEmailTemplateVariablesQueryStructIF, com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 2045287119;
+private static final long serialVersionUID = 1518708431;
 
   public SystemAlertEmailTemplateVariablesQueryStruct(com.terraframe.mojo.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdLocalStructDAOIF mdStructIF, String structTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {

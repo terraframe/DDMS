@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1626362142)
+@com.terraframe.mojo.business.ClassSignature(hash = 319234631)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  abstract  class ThresholdDataViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1626362142;
+private static final long serialVersionUID = 319234631;
 
   public ThresholdDataViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

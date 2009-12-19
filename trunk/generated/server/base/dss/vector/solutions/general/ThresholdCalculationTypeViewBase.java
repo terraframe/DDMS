@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 470983511)
+@com.terraframe.mojo.business.ClassSignature(hash = 1332484071)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -29,7 +29,7 @@ public abstract class ThresholdCalculationTypeViewBase extends com.terraframe.mo
   public static java.lang.String WEIGHT7 = "weight7";
   public static java.lang.String WEIGHT8 = "weight8";
   public static java.lang.String WEIGHT9 = "weight9";
-  private static final long serialVersionUID = 470983511;
+  private static final long serialVersionUID = 1332484071;
   
   public ThresholdCalculationTypeViewBase()
   {

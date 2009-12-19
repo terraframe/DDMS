@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2062952849)
+@com.terraframe.mojo.business.ClassSignature(hash = 162170505)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -19,7 +19,7 @@ public abstract class PopulationDataViewBase extends com.terraframe.mojo.busines
   public static java.lang.String ID = "id";
   public static java.lang.String POPULATION = "population";
   public static java.lang.String YEAROFDATA = "yearOfData";
-  private static final long serialVersionUID = 2062952849;
+  private static final long serialVersionUID = 162170505;
   
   public PopulationDataViewBase()
   {

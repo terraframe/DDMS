@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -737395185)
+@com.terraframe.mojo.business.ClassSignature(hash = -2033567068)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class ThresholdDataBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -737395185;
+  private static final long serialVersionUID = -2033567068;
   
   public ThresholdDataBase()
   {

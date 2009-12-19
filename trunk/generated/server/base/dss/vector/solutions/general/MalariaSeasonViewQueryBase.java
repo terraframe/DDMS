@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -969029472)
+@com.terraframe.mojo.business.ClassSignature(hash = -882995552)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  abstract  class MalariaSeasonViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -969029472;
+private static final long serialVersionUID = -882995552;
 
   public MalariaSeasonViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

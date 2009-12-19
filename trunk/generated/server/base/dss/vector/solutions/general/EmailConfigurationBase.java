@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -845131461)
+@com.terraframe.mojo.business.ClassSignature(hash = -1738677180)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -29,7 +29,7 @@ public abstract class EmailConfigurationBase extends com.terraframe.mojo.busines
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TIMEOUT = "timeout";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -845131461;
+  private static final long serialVersionUID = -1738677180;
   
   public EmailConfigurationBase()
   {

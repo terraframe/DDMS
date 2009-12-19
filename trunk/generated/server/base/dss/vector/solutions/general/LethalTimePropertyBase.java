@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2059667937)
+@com.terraframe.mojo.business.ClassSignature(hash = 368863827)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,7 @@ public abstract class LethalTimePropertyBase extends com.terraframe.mojo.busines
   public static java.lang.String TYPE = "type";
   public static java.lang.String UPPERPERCENT = "upperPercent";
   public static java.lang.String UPPERTIME = "upperTime";
-  private static final long serialVersionUID = -2059667937;
+  private static final long serialVersionUID = 368863827;
   
   public LethalTimePropertyBase()
   {

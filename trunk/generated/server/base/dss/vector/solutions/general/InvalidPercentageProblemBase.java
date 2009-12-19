@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -412763818)
+@com.terraframe.mojo.business.ClassSignature(hash = 222953306)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class InvalidPercentageProblemBase extends dss.vector.solutions.
 {
   public final static String CLASS = "dss.vector.solutions.general.InvalidPercentageProblem";
   public static java.lang.String INVALIDPERCENT = "invalidPercent";
-  private static final long serialVersionUID = -412763818;
+  private static final long serialVersionUID = 222953306;
   
   public InvalidPercentageProblemBase()
   {
