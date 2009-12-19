@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -168895213)
+@com.terraframe.mojo.business.ClassSignature(hash = -1282050518)
 public abstract class SurfacePositionMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.SurfacePositionMaster";
-  private static final long serialVersionUID = -168895213;
+  private static final long serialVersionUID = -1282050518;
   
   protected SurfacePositionMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

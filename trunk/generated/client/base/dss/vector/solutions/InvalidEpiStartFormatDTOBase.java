@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -680382992)
+@com.terraframe.mojo.business.ClassSignature(hash = -1058019084)
 public abstract class InvalidEpiStartFormatDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.InvalidEpiStartFormat";
-  private static final long serialVersionUID = -680382992;
+  private static final long serialVersionUID = -1058019084;
   
   public InvalidEpiStartFormatDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

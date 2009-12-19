@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1963181143)
+@com.terraframe.mojo.business.ClassSignature(hash = -1173786917)
 public abstract class CurrentYearProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.CurrentYearProblem";
-  private static final long serialVersionUID = 1963181143;
+  private static final long serialVersionUID = -1173786917;
   
   public CurrentYearProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 157053685)
+@com.terraframe.mojo.business.ClassSignature(hash = 75463413)
 public abstract class UnknownGeoEntityExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.UnknownGeoEntityException";
-  private static final long serialVersionUID = 157053685;
+  private static final long serialVersionUID = 75463413;
   
   public UnknownGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

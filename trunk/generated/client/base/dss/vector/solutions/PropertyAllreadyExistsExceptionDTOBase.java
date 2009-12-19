@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1892273574)
+@com.terraframe.mojo.business.ClassSignature(hash = 1163561566)
 public abstract class PropertyAllreadyExistsExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PropertyAllreadyExistsException";
-  private static final long serialVersionUID = -1892273574;
+  private static final long serialVersionUID = 1163561566;
   
   public PropertyAllreadyExistsExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

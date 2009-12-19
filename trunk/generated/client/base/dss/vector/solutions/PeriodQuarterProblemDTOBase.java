@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1059732178)
+@com.terraframe.mojo.business.ClassSignature(hash = 1210658510)
 public abstract class PeriodQuarterProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PeriodQuarterProblem";
-  private static final long serialVersionUID = 1059732178;
+  private static final long serialVersionUID = 1210658510;
   
   public PeriodQuarterProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1993473341)
+@com.terraframe.mojo.business.ClassSignature(hash = -1298468159)
 public abstract class UniqueOperatorIdExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.UniqueOperatorIdException";
-  private static final long serialVersionUID = 1993473341;
+  private static final long serialVersionUID = -1298468159;
   
   public UniqueOperatorIdExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

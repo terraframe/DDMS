@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1333754467)
+@com.terraframe.mojo.business.ClassSignature(hash = 1270295223)
 public abstract class PatientDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.Patient";
-  private static final long serialVersionUID = -1333754467;
+  private static final long serialVersionUID = 1270295223;
   
   protected PatientDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

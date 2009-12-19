@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1658121421)
+@com.terraframe.mojo.business.ClassSignature(hash = 987884113)
 public abstract class DelegateIdExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.DelegateIdException";
-  private static final long serialVersionUID = 1658121421;
+  private static final long serialVersionUID = 987884113;
   
   public DelegateIdExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

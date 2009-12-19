@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1134848917)
+@com.terraframe.mojo.business.ClassSignature(hash = -1925398131)
 public abstract class NotificationProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.NotificationProblem";
-  private static final long serialVersionUID = 1134848917;
+  private static final long serialVersionUID = -1925398131;
   
   public NotificationProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

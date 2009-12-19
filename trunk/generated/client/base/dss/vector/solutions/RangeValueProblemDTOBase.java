@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1374073610)
+@com.terraframe.mojo.business.ClassSignature(hash = -3449094)
 public abstract class RangeValueProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.RangeValueProblem";
-  private static final long serialVersionUID = -1374073610;
+  private static final long serialVersionUID = -3449094;
   
   public RangeValueProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

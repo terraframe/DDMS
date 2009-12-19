@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1243734010)
+@com.terraframe.mojo.business.ClassSignature(hash = -1328384514)
 public abstract class UnknownTermProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.UnknownTermProblem";
-  private static final long serialVersionUID = 1243734010;
+  private static final long serialVersionUID = -1328384514;
   
   public UnknownTermProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

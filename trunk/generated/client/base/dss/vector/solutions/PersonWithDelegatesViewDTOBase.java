@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1991100393)
+@com.terraframe.mojo.business.ClassSignature(hash = -55255902)
 public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solutions.PersonViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PersonWithDelegatesView";
-  private static final long serialVersionUID = 1991100393;
+  private static final long serialVersionUID = -55255902;
   
   protected PersonWithDelegatesViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1881479032)
+@com.terraframe.mojo.business.ClassSignature(hash = -468928900)
 public abstract class UniqueLeaderIdExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.UniqueLeaderIdException";
-  private static final long serialVersionUID = 1881479032;
+  private static final long serialVersionUID = -468928900;
   
   public UniqueLeaderIdExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

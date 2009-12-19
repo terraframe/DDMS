@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1539699494)
+@com.terraframe.mojo.business.ClassSignature(hash = 1035908134)
 public abstract class RequiredAttributeExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.RequiredAttributeException";
-  private static final long serialVersionUID = 1539699494;
+  private static final long serialVersionUID = 1035908134;
   
   public RequiredAttributeExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

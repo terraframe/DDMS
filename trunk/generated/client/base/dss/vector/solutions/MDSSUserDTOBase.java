@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1786129552)
+@com.terraframe.mojo.business.ClassSignature(hash = 117801890)
 public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.MDSSUser";
-  private static final long serialVersionUID = 1786129552;
+  private static final long serialVersionUID = 117801890;
   
   protected MDSSUserDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

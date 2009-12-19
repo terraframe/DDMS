@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -153315609)
+@com.terraframe.mojo.business.ClassSignature(hash = 892018919)
 public abstract class AmbigiousGeoEntityExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.AmbigiousGeoEntityException";
-  private static final long serialVersionUID = -153315609;
+  private static final long serialVersionUID = 892018919;
   
   public AmbigiousGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

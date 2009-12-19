@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1152998304)
+@com.terraframe.mojo.business.ClassSignature(hash = 1158371172)
 public abstract class RequiredCollectionProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.RequiredCollectionProblem";
-  private static final long serialVersionUID = -1152998304;
+  private static final long serialVersionUID = 1158371172;
   
   public RequiredCollectionProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

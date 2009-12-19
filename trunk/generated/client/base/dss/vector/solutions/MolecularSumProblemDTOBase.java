@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1956862782)
+@com.terraframe.mojo.business.ClassSignature(hash = -2001284922)
 public abstract class MolecularSumProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.MolecularSumProblem";
-  private static final long serialVersionUID = -1956862782;
+  private static final long serialVersionUID = -2001284922;
   
   public MolecularSumProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

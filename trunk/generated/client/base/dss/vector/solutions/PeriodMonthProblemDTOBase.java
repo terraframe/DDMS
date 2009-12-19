@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -684484378)
+@com.terraframe.mojo.business.ClassSignature(hash = -396354846)
 public abstract class PeriodMonthProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PeriodMonthProblem";
-  private static final long serialVersionUID = -684484378;
+  private static final long serialVersionUID = -396354846;
   
   public PeriodMonthProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

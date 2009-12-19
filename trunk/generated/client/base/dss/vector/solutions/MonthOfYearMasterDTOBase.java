@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 414703985)
+@com.terraframe.mojo.business.ClassSignature(hash = -135310624)
 public abstract class MonthOfYearMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.MonthOfYearMaster";
-  private static final long serialVersionUID = 414703985;
+  private static final long serialVersionUID = -135310624;
   
   protected MonthOfYearMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
