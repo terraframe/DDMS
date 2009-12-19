@@ -1,6 +1,6 @@
 package dss.vector.solutions.export.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1760431958)
+@com.terraframe.mojo.business.ClassSignature(hash = 705576601)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -35,7 +35,7 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewBase extends com.terr
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1760431958;
+  private static final long serialVersionUID = 705576601;
   
   public AdultDiscriminatingDoseAssayExcelViewBase()
   {
