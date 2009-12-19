@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -333249796)
+@com.terraframe.mojo.business.ClassSignature(hash = 694307324)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class ConfirmParentChangeExceptionBase extends com.terraframe.mo
   public final static String CLASS = "dss.vector.solutions.geo.ConfirmParentChangeException";
   public static java.lang.String ENTITYNAME = "entityName";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -333249796;
+  private static final long serialVersionUID = 694307324;
   
   public ConfirmParentChangeExceptionBase()
   {

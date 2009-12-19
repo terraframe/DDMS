@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -716487909)
+@com.terraframe.mojo.business.ClassSignature(hash = -1773472944)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class IndividualIPTViewBase extends com.terraframe.mojo.business
   public static java.lang.String RECIEVEDSUPPLEMENT = "recievedSupplement";
   public static java.lang.String SERVICEDATE = "serviceDate";
   public static java.lang.String VISITNUMBER = "visitNumber";
-  private static final long serialVersionUID = -716487909;
+  private static final long serialVersionUID = -1773472944;
   
   public IndividualIPTViewBase()
   {

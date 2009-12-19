@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -810164242)
+@com.terraframe.mojo.business.ClassSignature(hash = 1596891378)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class DuplicateHierarchyParentExceptionBase extends com.terrafra
   public static java.lang.String CHILDDISPLAYLABEL = "childDisplayLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTDISPLAYLABEL = "parentDisplayLabel";
-  private static final long serialVersionUID = -810164242;
+  private static final long serialVersionUID = 1596891378;
   
   public DuplicateHierarchyParentExceptionBase()
   {

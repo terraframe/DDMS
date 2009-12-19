@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -228593372)
+@com.terraframe.mojo.business.ClassSignature(hash = 614087333)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -10,7 +10,7 @@ package dss.vector.solutions.intervention.monitor;
  */
 public  class ITNServiceQuery extends com.terraframe.mojo.query.GeneratedRelationshipQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -228593372;
+private static final long serialVersionUID = 614087333;
 
   public ITNServiceQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -18,6 +18,17 @@ private static final long serialVersionUID = -228593372;
     if (this.getComponentQuery() == null)
     {
       com.terraframe.mojo.business.RelationshipQuery relationshipQuery = componentQueryFactory.relationshipQuery(this.getClassType());
+
+       this.setRelationshipQuery(relationshipQuery);
+    }
+  }
+
+  public ITNServiceQuery(com.terraframe.mojo.query.ValueQuery valueQuery)
+  {
+     super();
+    if (this.getComponentQuery() == null)
+    {
+      com.terraframe.mojo.business.RelationshipQuery relationshipQuery = new com.terraframe.mojo.business.RelationshipQuery(valueQuery, this.getClassType());
 
        this.setRelationshipQuery(relationshipQuery);
     }
@@ -353,6 +364,7 @@ private static final long serialVersionUID = -228593372;
    */
   public com.terraframe.mojo.query.OIterator<? extends ITNService> getIterator()
   {
+    this.checkNotUsedInValueQuery();
     String sqlStmt;
     if (_limit != null && _skip != null)
     {

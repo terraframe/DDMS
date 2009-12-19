@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -44081734)
+@com.terraframe.mojo.business.ClassSignature(hash = 584071355)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class IPTANCVisitBase extends com.terraframe.mojo.business.Relat
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -44081734;
+  private static final long serialVersionUID = 584071355;
   
   public IPTANCVisitBase(String parentId, String childId)
   {

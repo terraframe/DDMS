@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 222167204)
+@com.terraframe.mojo.business.ClassSignature(hash = -2011500918)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo.generated;
 public abstract class EarthBase extends dss.vector.solutions.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Earth";
-  private static final long serialVersionUID = 222167204;
+  private static final long serialVersionUID = -2011500918;
   
   public EarthBase()
   {

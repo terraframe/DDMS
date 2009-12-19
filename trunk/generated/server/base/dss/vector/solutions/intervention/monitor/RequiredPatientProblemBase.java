@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1565315010)
+@com.terraframe.mojo.business.ClassSignature(hash = 2114485190)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class RequiredPatientProblemBase extends com.terraframe.mojo.bus
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.RequiredPatientProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1565315010;
+  private static final long serialVersionUID = 2114485190;
   
   public RequiredPatientProblemBase()
   {

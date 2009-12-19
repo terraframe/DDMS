@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -457481825)
+@com.terraframe.mojo.business.ClassSignature(hash = 1512929035)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class AggregatedIPTViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -457481825;
+private static final long serialVersionUID = 1512929035;
 
   public AggregatedIPTViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

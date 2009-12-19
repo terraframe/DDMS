@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 156811061)
+@com.terraframe.mojo.business.ClassSignature(hash = 100397780)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class LarvacideBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String TEAMLEADER = "teamLeader";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 156811061;
+  private static final long serialVersionUID = 100397780;
   
   public LarvacideBase()
   {

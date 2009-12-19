@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -134635894)
+@com.terraframe.mojo.business.ClassSignature(hash = -1733589630)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,7 +15,7 @@ public abstract class SurveyPointViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
   public static java.lang.String SURVEYDATE = "surveyDate";
-  private static final long serialVersionUID = -134635894;
+  private static final long serialVersionUID = -1733589630;
   
   public SurveyPointViewBase()
   {

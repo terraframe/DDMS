@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1951805183)
+@com.terraframe.mojo.business.ClassSignature(hash = 1591578879)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class AllowedInSelfExceptionBase extends com.terraframe.mojo.bus
   public final static String CLASS = "dss.vector.solutions.geo.AllowedInSelfException";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1951805183;
+  private static final long serialVersionUID = 1591578879;
   
   public AllowedInSelfExceptionBase()
   {

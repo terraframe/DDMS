@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1080760296)
+@com.terraframe.mojo.business.ClassSignature(hash = 1646137847)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class ITNDataViewBase extends com.terraframe.mojo.business.View 
   public static java.lang.String PERIODYEAR = "periodYear";
   public static java.lang.String RECEIVEDFORCOMMUNITYRESPONSE = "receivedForCommunityResponse";
   public static java.lang.String RECEIVEDFORTARGETGROUPS = "receivedForTargetGroups";
-  private static final long serialVersionUID = 1080760296;
+  private static final long serialVersionUID = 1646137847;
   
   public ITNDataViewBase()
   {

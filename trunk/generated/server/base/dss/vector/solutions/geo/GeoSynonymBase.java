@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -706060551)
+@com.terraframe.mojo.business.ClassSignature(hash = -1062524996)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class GeoSynonymBase extends com.terraframe.mojo.business.Busine
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -706060551;
+  private static final long serialVersionUID = -1062524996;
   
   public GeoSynonymBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1888773752)
+@com.terraframe.mojo.business.ClassSignature(hash = 436406648)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class DeleteEarthExceptionBase extends com.terraframe.mojo.busin
   public final static String CLASS = "dss.vector.solutions.geo.DeleteEarthException";
   public static java.lang.String EARTHNAME = "earthName";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1888773752;
+  private static final long serialVersionUID = 436406648;
   
   public DeleteEarthExceptionBase()
   {

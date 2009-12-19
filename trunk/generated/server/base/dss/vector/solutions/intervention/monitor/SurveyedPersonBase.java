@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1968832750)
+@com.terraframe.mojo.business.ClassSignature(hash = -273175563)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -47,7 +47,7 @@ public abstract class SurveyedPersonBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SLEPTUNDERNET = "sleptUnderNet";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1968832750;
+  private static final long serialVersionUID = -273175563;
   
   public SurveyedPersonBase()
   {

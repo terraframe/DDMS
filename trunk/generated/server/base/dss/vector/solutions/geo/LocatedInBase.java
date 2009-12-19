@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1052742992)
+@com.terraframe.mojo.business.ClassSignature(hash = 913725667)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class LocatedInBase extends com.terraframe.mojo.business.Relatio
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1052742992;
+  private static final long serialVersionUID = 913725667;
   
   public LocatedInBase(String parentId, String childId)
   {

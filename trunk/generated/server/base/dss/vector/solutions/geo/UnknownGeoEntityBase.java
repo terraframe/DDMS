@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1542616543)
+@com.terraframe.mojo.business.ClassSignature(hash = -1585210897)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,7 +17,7 @@ public abstract class UnknownGeoEntityBase extends com.terraframe.mojo.business.
   public static java.lang.String KNOWNHIERARCHY = "knownHierarchy";
   public static java.lang.String SIBLINGS = "siblings";
   public static java.lang.String SYNONYMS = "synonyms";
-  private static final long serialVersionUID = 1542616543;
+  private static final long serialVersionUID = -1585210897;
   
   public UnknownGeoEntityBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -69282945)
+@com.terraframe.mojo.business.ClassSignature(hash = 175829631)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -19,7 +19,7 @@ public abstract class GeoEntityViewBase extends com.terraframe.mojo.business.Vie
   public static java.lang.String ID = "id";
   public static java.lang.String MOSUBTYPE = "moSubType";
   public static java.lang.String TYPEDISPLAYLABEL = "typeDisplayLabel";
-  private static final long serialVersionUID = -69282945;
+  private static final long serialVersionUID = 175829631;
   
   public GeoEntityViewBase()
   {

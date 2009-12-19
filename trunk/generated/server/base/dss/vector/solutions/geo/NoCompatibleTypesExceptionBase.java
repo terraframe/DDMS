@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -108244142)
+@com.terraframe.mojo.business.ClassSignature(hash = 1957037910)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class NoCompatibleTypesExceptionBase extends com.terraframe.mojo
 {
   public final static String CLASS = "dss.vector.solutions.geo.NoCompatibleTypesException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -108244142;
+  private static final long serialVersionUID = 1957037910;
   
   public NoCompatibleTypesExceptionBase()
   {

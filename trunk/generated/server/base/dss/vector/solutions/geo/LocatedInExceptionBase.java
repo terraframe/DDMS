@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2081138677)
+@com.terraframe.mojo.business.ClassSignature(hash = 1099530383)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class LocatedInExceptionBase extends com.terraframe.mojo.busines
   public static java.lang.String ENTITYNAME = "entityName";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTDISPLAYLABEL = "parentDisplayLabel";
-  private static final long serialVersionUID = -2081138677;
+  private static final long serialVersionUID = 1099530383;
   
   public LocatedInExceptionBase()
   {

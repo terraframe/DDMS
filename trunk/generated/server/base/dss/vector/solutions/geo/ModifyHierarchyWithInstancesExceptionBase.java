@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -138953399)
+@com.terraframe.mojo.business.ClassSignature(hash = 1158134089)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class ModifyHierarchyWithInstancesExceptionBase extends com.terr
   public final static String CLASS = "dss.vector.solutions.geo.ModifyHierarchyWithInstancesException";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -138953399;
+  private static final long serialVersionUID = 1158134089;
   
   public ModifyHierarchyWithInstancesExceptionBase()
   {

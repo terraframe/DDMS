@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2143567444)
+@com.terraframe.mojo.business.ClassSignature(hash = -16084)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class NetQuantityProblemBase extends dss.vector.solutions.Notifi
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.NetQuantityProblem";
   public static java.lang.String NETCOUNT = "netCount";
   public static java.lang.String QUANTITY = "quantity";
-  private static final long serialVersionUID = -2143567444;
+  private static final long serialVersionUID = -16084;
   
   public NetQuantityProblemBase()
   {

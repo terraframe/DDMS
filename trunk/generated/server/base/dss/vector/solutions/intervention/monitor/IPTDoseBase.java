@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2099467854)
+@com.terraframe.mojo.business.ClassSignature(hash = 16708787)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class IPTDoseBase extends com.terraframe.mojo.business.Relations
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -2099467854;
+  private static final long serialVersionUID = 16708787;
   
   public IPTDoseBase(String parentId, String childId)
   {

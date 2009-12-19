@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1017625886)
+@com.terraframe.mojo.business.ClassSignature(hash = -608671645)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class ITNTargetGroupBase extends com.terraframe.mojo.business.Re
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1017625886;
+  private static final long serialVersionUID = -608671645;
   
   public ITNTargetGroupBase(String parentId, String childId)
   {

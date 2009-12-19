@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 394467673)
+@com.terraframe.mojo.business.ClassSignature(hash = 2046171003)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class ITNRecipientBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 394467673;
+  private static final long serialVersionUID = 2046171003;
   
   public ITNRecipientBase()
   {

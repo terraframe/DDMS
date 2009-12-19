@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 186182270)
+@com.terraframe.mojo.business.ClassSignature(hash = 2131121325)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class AllowedInBase extends com.terraframe.mojo.business.Relatio
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 186182270;
+  private static final long serialVersionUID = 2131121325;
   
   public AllowedInBase(String parentId, String childId)
   {

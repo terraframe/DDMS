@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 865515237)
+@com.terraframe.mojo.business.ClassSignature(hash = -2132845980)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -20,7 +20,7 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
   public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPENAME = "typeName";
-  private static final long serialVersionUID = 865515237;
+  private static final long serialVersionUID = -2132845980;
   
   public GeoEntityDefinitionBase()
   {

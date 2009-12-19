@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -569596914)
+@com.terraframe.mojo.business.ClassSignature(hash = -415619566)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class SprayProblemBase extends dss.vector.solutions.Notification
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.SprayProblem";
   public static java.lang.String MONTHS = "months";
-  private static final long serialVersionUID = -569596914;
+  private static final long serialVersionUID = -415619566;
   
   public SprayProblemBase()
   {

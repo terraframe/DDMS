@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1780698767)
+@com.terraframe.mojo.business.ClassSignature(hash = -1224517899)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class DuplicateParentExceptionBase extends com.terraframe.mojo.b
   public static java.lang.String CHILDENTITYNAME = "childEntityName";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTENTITYNAME = "parentEntityName";
-  private static final long serialVersionUID = -1780698767;
+  private static final long serialVersionUID = -1224517899;
   
   public DuplicateParentExceptionBase()
   {

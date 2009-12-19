@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1501254710)
+@com.terraframe.mojo.business.ClassSignature(hash = -1163103966)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
   public static java.lang.String PERIODTYPE = "periodType";
   public static java.lang.String PERIODYEAR = "periodYear";
   public static java.lang.String TOTALITN = "totalITN";
-  private static final long serialVersionUID = 1501254710;
+  private static final long serialVersionUID = -1163103966;
   
   public AggregatedIPTViewBase()
   {

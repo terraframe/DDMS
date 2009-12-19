@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1658702630)
+@com.terraframe.mojo.business.ClassSignature(hash = -163687316)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,7 +31,7 @@ public abstract class AggregatedIPTBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String TOTALITN = "totalITN";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1658702630;
+  private static final long serialVersionUID = -163687316;
   
   public AggregatedIPTBase()
   {

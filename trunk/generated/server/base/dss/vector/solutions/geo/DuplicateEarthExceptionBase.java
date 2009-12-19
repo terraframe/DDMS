@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -722243598)
+@com.terraframe.mojo.business.ClassSignature(hash = -230728462)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class DuplicateEarthExceptionBase extends com.terraframe.mojo.bu
   public final static String CLASS = "dss.vector.solutions.geo.DuplicateEarthException";
   public static java.lang.String EARTHNAME = "earthName";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -722243598;
+  private static final long serialVersionUID = -230728462;
   
   public DuplicateEarthExceptionBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1886341367)
+@com.terraframe.mojo.business.ClassSignature(hash = 170148493)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class GeoServerReloadExceptionBase extends com.terraframe.mojo.b
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoServerReloadException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1886341367;
+  private static final long serialVersionUID = 170148493;
   
   public GeoServerReloadExceptionBase()
   {

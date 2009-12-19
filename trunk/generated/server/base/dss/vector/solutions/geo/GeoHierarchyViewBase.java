@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1887051150)
+@com.terraframe.mojo.business.ClassSignature(hash = 1581471913)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,7 +22,7 @@ public abstract class GeoHierarchyViewBase extends com.terraframe.mojo.business.
   public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPENAME = "typeName";
-  private static final long serialVersionUID = -1887051150;
+  private static final long serialVersionUID = 1581471913;
   
   public GeoHierarchyViewBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -206997028)
+@com.terraframe.mojo.business.ClassSignature(hash = -2009485859)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -29,7 +29,7 @@ public abstract class GeoHierarchyBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
-  private static final long serialVersionUID = -206997028;
+  private static final long serialVersionUID = -2009485859;
   
   public GeoHierarchyBase()
   {

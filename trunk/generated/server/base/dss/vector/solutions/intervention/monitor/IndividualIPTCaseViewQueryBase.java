@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1973178908)
+@com.terraframe.mojo.business.ClassSignature(hash = 1844395679)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class IndividualIPTCaseViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1973178908;
+private static final long serialVersionUID = 1844395679;
 
   public IndividualIPTCaseViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1018609087)
+@com.terraframe.mojo.business.ClassSignature(hash = 1618066499)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class HierarchyBranchExceptionBase extends com.terraframe.mojo.b
 {
   public final static String CLASS = "dss.vector.solutions.geo.HierarchyBranchException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1018609087;
+  private static final long serialVersionUID = 1618066499;
   
   public HierarchyBranchExceptionBase()
   {

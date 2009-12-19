@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1861637180)
+@com.terraframe.mojo.business.ClassSignature(hash = -1607356145)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class SurveyedPersonTreatmentLocationBase extends com.terraframe
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1861637180;
+  private static final long serialVersionUID = -1607356145;
   
   public SurveyedPersonTreatmentLocationBase(String parentId, String childId)
   {

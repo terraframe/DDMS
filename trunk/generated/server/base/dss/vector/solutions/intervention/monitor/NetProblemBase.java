@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -867239817)
+@com.terraframe.mojo.business.ClassSignature(hash = -547757185)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class NetProblemBase extends com.terraframe.mojo.business.Proble
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.NetProblem";
   public static java.lang.String ID = "id";
   public static java.lang.String NETNAME = "netName";
-  private static final long serialVersionUID = -867239817;
+  private static final long serialVersionUID = -547757185;
   
   public NetProblemBase()
   {

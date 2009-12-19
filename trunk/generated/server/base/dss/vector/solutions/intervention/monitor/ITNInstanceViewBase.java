@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 771024344)
+@com.terraframe.mojo.business.ClassSignature(hash = -1654735285)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class ITNInstanceViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String WASHED = "washed";
   public static java.lang.String YEARRECIEVED = "yearRecieved";
   public static java.lang.String YEARRETREATED = "yearRetreated";
-  private static final long serialVersionUID = 771024344;
+  private static final long serialVersionUID = -1654735285;
   
   public ITNInstanceViewBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1728618449)
+@com.terraframe.mojo.business.ClassSignature(hash = 2118080179)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class HierarchyGapExceptionBase extends com.terraframe.mojo.busi
 {
   public final static String CLASS = "dss.vector.solutions.geo.HierarchyGapException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1728618449;
+  private static final long serialVersionUID = 2118080179;
   
   public HierarchyGapExceptionBase()
   {

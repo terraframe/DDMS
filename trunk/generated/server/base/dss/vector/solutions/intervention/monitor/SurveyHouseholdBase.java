@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1941742309)
+@com.terraframe.mojo.business.ClassSignature(hash = -612410476)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class SurveyHouseholdBase extends com.terraframe.mojo.business.R
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1941742309;
+  private static final long serialVersionUID = -612410476;
   
   public SurveyHouseholdBase(String parentId, String childId)
   {

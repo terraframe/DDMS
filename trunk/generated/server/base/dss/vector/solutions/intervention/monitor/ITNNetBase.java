@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 556669075)
+@com.terraframe.mojo.business.ClassSignature(hash = 1519218708)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class ITNNetBase extends com.terraframe.mojo.business.Relationsh
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 556669075;
+  private static final long serialVersionUID = 1519218708;
   
   public ITNNetBase(String parentId, String childId)
   {

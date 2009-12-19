@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -250504411)
+@com.terraframe.mojo.business.ClassSignature(hash = 927126962)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class IndividualIPTCaseBase extends com.terraframe.mojo.business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -250504411;
+  private static final long serialVersionUID = 927126962;
   
   public IndividualIPTCaseBase()
   {

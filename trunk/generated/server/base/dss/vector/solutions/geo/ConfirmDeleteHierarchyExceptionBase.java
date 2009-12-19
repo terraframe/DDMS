@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2108685406)
+@com.terraframe.mojo.business.ClassSignature(hash = 1573671390)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class ConfirmDeleteHierarchyExceptionBase extends com.terraframe
   public final static String CLASS = "dss.vector.solutions.geo.ConfirmDeleteHierarchyException";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTDISPLAYLABEL = "parentDisplayLabel";
-  private static final long serialVersionUID = 2108685406;
+  private static final long serialVersionUID = 1573671390;
   
   public ConfirmDeleteHierarchyExceptionBase()
   {

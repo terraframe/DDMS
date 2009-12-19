@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1654947770)
+@com.terraframe.mojo.business.ClassSignature(hash = -1025289214)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -50,7 +50,7 @@ public abstract class IndividualInstanceBase extends com.terraframe.mojo.busines
   public static java.lang.String TREATMENTMETHOD = "treatmentMethod";
   public static java.lang.String TREATMENTSTARTDATE = "treatmentStartDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1654947770;
+  private static final long serialVersionUID = -1025289214;
   
   public IndividualInstanceBase()
   {

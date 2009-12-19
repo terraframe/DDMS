@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -808574630)
+@com.terraframe.mojo.business.ClassSignature(hash = 808468570)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class NotApplicableProblemBase extends dss.vector.solutions.Noti
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.NotApplicableProblem";
   public static java.lang.String INPUTATTRIBUTE = "inputAttribute";
   public static java.lang.String INPUTVALUE = "inputValue";
-  private static final long serialVersionUID = -808574630;
+  private static final long serialVersionUID = 808468570;
   
   public NotApplicableProblemBase()
   {

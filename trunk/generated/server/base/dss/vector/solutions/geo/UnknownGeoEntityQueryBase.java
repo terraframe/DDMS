@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1689781768)
+@com.terraframe.mojo.business.ClassSignature(hash = -561742568)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo;
 public  abstract  class UnknownGeoEntityQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1689781768;
+private static final long serialVersionUID = -561742568;
 
   public UnknownGeoEntityQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

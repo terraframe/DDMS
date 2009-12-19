@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 496386213)
+@com.terraframe.mojo.business.ClassSignature(hash = -227800472)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,7 +17,7 @@ public abstract class IndividualIPTCaseViewBase extends com.terraframe.mojo.busi
   public static java.lang.String PATIENT = "patient";
   public static java.lang.String RESIDENTIALLOCATION = "residentialLocation";
   public static java.lang.String SERVICEDATE = "serviceDate";
-  private static final long serialVersionUID = 496386213;
+  private static final long serialVersionUID = -227800472;
   
   public IndividualIPTCaseViewBase()
   {

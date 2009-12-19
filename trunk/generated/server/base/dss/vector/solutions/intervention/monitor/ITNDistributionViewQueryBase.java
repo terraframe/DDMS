@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1211332821)
+@com.terraframe.mojo.business.ClassSignature(hash = 2026132179)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class ITNDistributionViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1211332821;
+private static final long serialVersionUID = 2026132179;
 
   public ITNDistributionViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

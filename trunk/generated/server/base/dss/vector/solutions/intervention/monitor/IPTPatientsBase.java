@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -357878111)
+@com.terraframe.mojo.business.ClassSignature(hash = 20287394)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class IPTPatientsBase extends com.terraframe.mojo.business.Relat
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -357878111;
+  private static final long serialVersionUID = 20287394;
   
   public IPTPatientsBase(String parentId, String childId)
   {

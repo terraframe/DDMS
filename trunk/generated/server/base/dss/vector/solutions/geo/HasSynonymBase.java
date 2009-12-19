@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -936137985)
+@com.terraframe.mojo.business.ClassSignature(hash = 1343449952)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class HasSynonymBase extends com.terraframe.mojo.business.Relati
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -936137985;
+  private static final long serialVersionUID = 1343449952;
   
   public HasSynonymBase(String parentId, String childId)
   {

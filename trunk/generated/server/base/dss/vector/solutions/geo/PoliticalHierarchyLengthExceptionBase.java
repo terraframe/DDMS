@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 783076664)
+@com.terraframe.mojo.business.ClassSignature(hash = -1215998660)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class PoliticalHierarchyLengthExceptionBase extends com.terrafra
   public static java.lang.String HIERARCHYLENGTH = "hierarchyLength";
   public static java.lang.String ID = "id";
   public static java.lang.String SLOTS = "slots";
-  private static final long serialVersionUID = 783076664;
+  private static final long serialVersionUID = -1215998660;
   
   public PoliticalHierarchyLengthExceptionBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1678964265)
+@com.terraframe.mojo.business.ClassSignature(hash = -451999272)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class HouseholdITNInstanceBase extends com.terraframe.mojo.busin
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1678964265;
+  private static final long serialVersionUID = -451999272;
   
   public HouseholdITNInstanceBase(String parentId, String childId)
   {

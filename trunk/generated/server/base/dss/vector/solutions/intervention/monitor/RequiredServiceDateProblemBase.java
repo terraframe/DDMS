@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -402223100)
+@com.terraframe.mojo.business.ClassSignature(hash = -1153751800)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class RequiredServiceDateProblemBase extends com.terraframe.mojo
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.RequiredServiceDateProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -402223100;
+  private static final long serialVersionUID = -1153751800;
   
   public RequiredServiceDateProblemBase()
   {

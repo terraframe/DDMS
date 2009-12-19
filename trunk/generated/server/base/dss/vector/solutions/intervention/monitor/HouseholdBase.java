@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 187815013)
+@com.terraframe.mojo.business.ClassSignature(hash = -1718041216)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -37,7 +37,7 @@ public abstract class HouseholdBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String WALL = "wall";
   public static java.lang.String WALLINFO = "wallInfo";
   public static java.lang.String WINDOWTYPE = "windowType";
-  private static final long serialVersionUID = 187815013;
+  private static final long serialVersionUID = -1718041216;
   
   public HouseholdBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 152848296)
+@com.terraframe.mojo.business.ClassSignature(hash = 1575120040)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 152848296;
+  private static final long serialVersionUID = 1575120040;
   
   public GeoEntityBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -21992541)
+@com.terraframe.mojo.business.ClassSignature(hash = 798633507)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class ConfirmHierarchyParentChangeExceptionBase extends com.terr
   public final static String CLASS = "dss.vector.solutions.geo.ConfirmHierarchyParentChangeException";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTDISPLAYLABEL = "parentDisplayLabel";
-  private static final long serialVersionUID = -21992541;
+  private static final long serialVersionUID = 798633507;
   
   public ConfirmHierarchyParentChangeExceptionBase()
   {
