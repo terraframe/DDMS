@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 299565119)
+@com.terraframe.mojo.business.ClassSignature(hash = -1643558480)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public abstract class QueryTypeMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.QueryTypeMaster";
-  private static final long serialVersionUID = 299565119;
+  private static final long serialVersionUID = -1643558480;
   
   public QueryTypeMasterBase()
   {

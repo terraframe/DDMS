@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1314729072)
+@com.terraframe.mojo.business.ClassSignature(hash = 25438068)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class InvalidEpiStartFormatBase extends com.terraframe.mojo.busi
 {
   public final static String CLASS = "dss.vector.solutions.InvalidEpiStartFormat";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1314729072;
+  private static final long serialVersionUID = 25438068;
   
   public InvalidEpiStartFormatBase()
   {

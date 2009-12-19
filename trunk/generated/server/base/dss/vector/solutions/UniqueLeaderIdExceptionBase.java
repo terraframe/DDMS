@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -666208776)
+@com.terraframe.mojo.business.ClassSignature(hash = 1351308540)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class UniqueLeaderIdExceptionBase extends com.terraframe.mojo.bu
 {
   public final static String CLASS = "dss.vector.solutions.UniqueLeaderIdException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -666208776;
+  private static final long serialVersionUID = 1351308540;
   
   public UniqueLeaderIdExceptionBase()
   {

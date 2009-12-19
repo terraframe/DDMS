@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1021152016)
+@com.terraframe.mojo.business.ClassSignature(hash = -797883870)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,7 +16,7 @@ public abstract class MDSSUserBase extends com.terraframe.mojo.system.Users impl
   public static java.lang.String GEOROOT = "geoRoot";
   public static java.lang.String PERSON = "person";
   public static java.lang.String ROOTGEOENTITY = "rootGeoEntity";
-  private static final long serialVersionUID = 1021152016;
+  private static final long serialVersionUID = -797883870;
   
   public MDSSUserBase()
   {

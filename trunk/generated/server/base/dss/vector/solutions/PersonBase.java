@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1284487141)
+@com.terraframe.mojo.business.ClassSignature(hash = 893447202)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -38,7 +38,7 @@ public abstract class PersonBase extends com.terraframe.mojo.business.Business i
   public static java.lang.String USERDELEGATE = "userDelegate";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
   public static java.lang.String WORKINFORMATION = "workInformation";
-  private static final long serialVersionUID = -1284487141;
+  private static final long serialVersionUID = 893447202;
   
   public PersonBase()
   {

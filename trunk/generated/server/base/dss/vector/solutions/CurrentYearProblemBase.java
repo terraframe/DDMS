@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 294270423)
+@com.terraframe.mojo.business.ClassSignature(hash = -581001125)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class CurrentYearProblemBase extends dss.vector.solutions.Notifi
 {
   public final static String CLASS = "dss.vector.solutions.CurrentYearProblem";
   public static java.lang.String YEAROFDATE = "yearOfDate";
-  private static final long serialVersionUID = 294270423;
+  private static final long serialVersionUID = -581001125;
   
   public CurrentYearProblemBase()
   {

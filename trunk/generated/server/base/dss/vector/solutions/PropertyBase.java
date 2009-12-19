@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1499519330)
+@com.terraframe.mojo.business.ClassSignature(hash = -1817254849)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class PropertyBase extends com.terraframe.mojo.business.Business
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String VALIDVALUES = "validValues";
-  private static final long serialVersionUID = 1499519330;
+  private static final long serialVersionUID = -1817254849;
   
   public PropertyBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 493718349)
+@com.terraframe.mojo.business.ClassSignature(hash = -1737242415)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class DelegateIdExceptionBase extends com.terraframe.mojo.busine
 {
   public final static String CLASS = "dss.vector.solutions.DelegateIdException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 493718349;
+  private static final long serialVersionUID = -1737242415;
   
   public DelegateIdExceptionBase()
   {

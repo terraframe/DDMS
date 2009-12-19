@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1971577973)
+@com.terraframe.mojo.business.ClassSignature(hash = -240882571)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class UnknownGeoEntityExceptionBase extends com.terraframe.mojo.
   public final static String CLASS = "dss.vector.solutions.UnknownGeoEntityException";
   public static java.lang.String ENTITYNAME = "entityName";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1971577973;
+  private static final long serialVersionUID = -240882571;
   
   public UnknownGeoEntityExceptionBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 72656489)
+@com.terraframe.mojo.business.ClassSignature(hash = 978705186)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,7 +18,7 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
   public static java.lang.String SPRAYOPERATORDELEGATE = "sprayOperatorDelegate";
   public static java.lang.String STOCKSTAFFDELEGATE = "stockStaffDelegate";
   public static java.lang.String USERDELEGATE = "userDelegate";
-  private static final long serialVersionUID = 72656489;
+  private static final long serialVersionUID = 978705186;
   
   public PersonWithDelegatesViewBase()
   {

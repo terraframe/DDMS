@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1173701442)
+@com.terraframe.mojo.business.ClassSignature(hash = -431444154)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class MolecularSumProblemBase extends com.terraframe.mojo.busine
 {
   public final static String CLASS = "dss.vector.solutions.MolecularSumProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1173701442;
+  private static final long serialVersionUID = -431444154;
   
   public MolecularSumProblemBase()
   {

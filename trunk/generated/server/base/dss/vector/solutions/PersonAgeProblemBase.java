@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -381244922)
+@com.terraframe.mojo.business.ClassSignature(hash = -867170294)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class PersonAgeProblemBase extends dss.vector.solutions.Notifica
 {
   public final static String CLASS = "dss.vector.solutions.PersonAgeProblem";
   public static java.lang.String AGE = "age";
-  private static final long serialVersionUID = -381244922;
+  private static final long serialVersionUID = -867170294;
   
   public PersonAgeProblemBase()
   {

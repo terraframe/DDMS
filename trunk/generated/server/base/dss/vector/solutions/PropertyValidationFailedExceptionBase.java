@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2074923448)
+@com.terraframe.mojo.business.ClassSignature(hash = -1414080832)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class PropertyValidationFailedExceptionBase extends com.terrafra
   public final static String CLASS = "dss.vector.solutions.PropertyValidationFailedException";
   public static java.lang.String ID = "id";
   public static java.lang.String VALIDVALUES = "validValues";
-  private static final long serialVersionUID = 2074923448;
+  private static final long serialVersionUID = -1414080832;
   
   public PropertyValidationFailedExceptionBase()
   {

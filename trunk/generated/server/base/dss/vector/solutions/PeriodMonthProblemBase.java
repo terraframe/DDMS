@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2057046170)
+@com.terraframe.mojo.business.ClassSignature(hash = -453232286)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class PeriodMonthProblemBase extends com.terraframe.mojo.busines
   public static java.lang.String ID = "id";
   public static java.lang.String MAXPERIOD = "maxPeriod";
   public static java.lang.String PERIOD = "period";
-  private static final long serialVersionUID = -2057046170;
+  private static final long serialVersionUID = -453232286;
   
   public PeriodMonthProblemBase()
   {

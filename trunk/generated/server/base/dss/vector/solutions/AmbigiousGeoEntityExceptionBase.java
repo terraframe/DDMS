@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -152197017)
+@com.terraframe.mojo.business.ClassSignature(hash = 1826206311)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class AmbigiousGeoEntityExceptionBase extends com.terraframe.moj
   public final static String CLASS = "dss.vector.solutions.AmbigiousGeoEntityException";
   public static java.lang.String ENTITYNAME = "entityName";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -152197017;
+  private static final long serialVersionUID = 1826206311;
   
   public AmbigiousGeoEntityExceptionBase()
   {

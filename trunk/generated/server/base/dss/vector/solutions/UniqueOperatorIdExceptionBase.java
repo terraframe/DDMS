@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1796848573)
+@com.terraframe.mojo.business.ClassSignature(hash = -101977791)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class UniqueOperatorIdExceptionBase extends com.terraframe.mojo.
 {
   public final static String CLASS = "dss.vector.solutions.UniqueOperatorIdException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1796848573;
+  private static final long serialVersionUID = -101977791;
   
   public UniqueOperatorIdExceptionBase()
   {

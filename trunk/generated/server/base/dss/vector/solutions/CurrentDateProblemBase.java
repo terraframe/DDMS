@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -10586713)
+@com.terraframe.mojo.business.ClassSignature(hash = 1759153703)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class CurrentDateProblemBase extends dss.vector.solutions.Notifi
   public final static String CLASS = "dss.vector.solutions.CurrentDateProblem";
   public static java.lang.String CURRENTDATE = "currentDate";
   public static java.lang.String GIVENDATE = "givenDate";
-  private static final long serialVersionUID = -10586713;
+  private static final long serialVersionUID = 1759153703;
   
   public CurrentDateProblemBase()
   {

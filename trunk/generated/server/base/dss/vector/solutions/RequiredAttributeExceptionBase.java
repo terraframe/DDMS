@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 503935398)
+@com.terraframe.mojo.business.ClassSignature(hash = 24425126)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class RequiredAttributeExceptionBase extends com.terraframe.mojo
   public final static String CLASS = "dss.vector.solutions.RequiredAttributeException";
   public static java.lang.String ATTRIBUTELABEL = "attributeLabel";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 503935398;
+  private static final long serialVersionUID = 24425126;
   
   public RequiredAttributeExceptionBase()
   {

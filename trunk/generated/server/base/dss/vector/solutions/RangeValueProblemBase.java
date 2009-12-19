@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -231740554)
+@com.terraframe.mojo.business.ClassSignature(hash = -1901216390)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class RangeValueProblemBase extends dss.vector.solutions.Notific
   public static java.lang.String INVALIDVALUE = "invalidValue";
   public static java.lang.String LOWERLIMIT = "lowerLimit";
   public static java.lang.String UPPERLIMIT = "upperLimit";
-  private static final long serialVersionUID = -231740554;
+  private static final long serialVersionUID = -1901216390;
   
   public RangeValueProblemBase()
   {

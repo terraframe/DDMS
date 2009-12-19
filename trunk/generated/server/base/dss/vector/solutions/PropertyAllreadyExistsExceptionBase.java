@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1163202778)
+@com.terraframe.mojo.business.ClassSignature(hash = -1299011362)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class PropertyAllreadyExistsExceptionBase extends com.terraframe
 {
   public final static String CLASS = "dss.vector.solutions.PropertyAllreadyExistsException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1163202778;
+  private static final long serialVersionUID = -1299011362;
   
   public PropertyAllreadyExistsExceptionBase()
   {

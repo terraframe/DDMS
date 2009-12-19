@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -269589974)
+@com.terraframe.mojo.business.ClassSignature(hash = -198666078)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,7 +17,7 @@ public abstract class MDSSUserViewBase extends com.terraframe.mojo.business.View
   public static java.lang.String PERSONID = "personId";
   public static java.lang.String USERID = "userId";
   public static java.lang.String USERNAME = "username";
-  private static final long serialVersionUID = -269589974;
+  private static final long serialVersionUID = -198666078;
   
   public MDSSUserViewBase()
   {

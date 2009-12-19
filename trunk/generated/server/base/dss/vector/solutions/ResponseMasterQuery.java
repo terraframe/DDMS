@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -284824621)
+@com.terraframe.mojo.business.ClassSignature(hash = -163812970)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  class ResponseMasterQuery extends com.terraframe.mojo.system.EnumerationMasterQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -284824621;
+private static final long serialVersionUID = -163812970;
 
   public ResponseMasterQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -19,6 +19,17 @@ private static final long serialVersionUID = -284824621;
     if (this.getComponentQuery() == null)
     {
       com.terraframe.mojo.business.BusinessQuery businessQuery = componentQueryFactory.businessQuery(this.getClassType());
+
+       this.setBusinessQuery(businessQuery);
+    }
+  }
+
+  public ResponseMasterQuery(com.terraframe.mojo.query.ValueQuery valueQuery)
+  {
+    super(valueQuery);
+    if (this.getComponentQuery() == null)
+    {
+      com.terraframe.mojo.business.BusinessQuery businessQuery = new com.terraframe.mojo.business.BusinessQuery(valueQuery, this.getClassType());
 
        this.setBusinessQuery(businessQuery);
     }
@@ -36,6 +47,7 @@ private static final long serialVersionUID = -284824621;
    */
   public com.terraframe.mojo.query.OIterator<? extends ResponseMaster> getIterator()
   {
+    this.checkNotUsedInValueQuery();
     String sqlStmt;
     if (_limit != null && _skip != null)
     {
@@ -150,7 +162,7 @@ private static final long serialVersionUID = -284824621;
  implements ResponseMasterQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 537620597;
+private static final long serialVersionUID = 283956024;
 
   public ResponseMasterQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -188,7 +200,7 @@ private static final long serialVersionUID = 537620597;
   public static class ResponseMasterQueryEnumeration extends com.terraframe.mojo.system.EnumerationMasterQuery.EnumerationMasterQueryEnumeration
  implements ResponseMasterQueryEnumerationIF, com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 814129667;
+private static final long serialVersionUID = 915150790;
 
   public ResponseMasterQueryEnumeration(com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.terraframe.mojo.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {

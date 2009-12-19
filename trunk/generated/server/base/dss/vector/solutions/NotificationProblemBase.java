@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1880549909)
+@com.terraframe.mojo.business.ClassSignature(hash = 1183236109)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,7 +17,7 @@ public abstract class NotificationProblemBase extends com.terraframe.mojo.busine
   public static java.lang.String DEFININGTYPE = "definingType";
   public static java.lang.String DEFININGTYPEDISPLAYLABEL = "definingTypeDisplayLabel";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1880549909;
+  private static final long serialVersionUID = 1183236109;
   
   public NotificationProblemBase()
   {
