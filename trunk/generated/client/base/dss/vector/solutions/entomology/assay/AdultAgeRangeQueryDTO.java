@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 275939635)
+@com.terraframe.mojo.business.ClassSignature(hash = -1947232329)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology.assay;
 public class AdultAgeRangeQueryDTO extends com.terraframe.mojo.business.StructQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 275939635;
+private static final long serialVersionUID = -1947232329;
 
   protected AdultAgeRangeQueryDTO(String type)
   {

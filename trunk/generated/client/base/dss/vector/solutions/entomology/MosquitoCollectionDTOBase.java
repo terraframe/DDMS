@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 995019636)
+@com.terraframe.mojo.business.ClassSignature(hash = -1572012365)
 public abstract class MosquitoCollectionDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollection";
-  private static final long serialVersionUID = 995019636;
+  private static final long serialVersionUID = -1572012365;
   
   protected MosquitoCollectionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

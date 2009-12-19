@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2103083873)
+@com.terraframe.mojo.business.ClassSignature(hash = -1054826229)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public class BiochemicalAssayViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2103083873;
+private static final long serialVersionUID = -1054826229;
 
   protected BiochemicalAssayViewQueryDTO(String type)
   {

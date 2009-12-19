@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1824399419)
+@com.terraframe.mojo.business.ClassSignature(hash = 1747242175)
 public abstract class MosquitoCollectionAllreadyExistsExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionAllreadyExistsException";
-  private static final long serialVersionUID = 1824399419;
+  private static final long serialVersionUID = 1747242175;
   
   public MosquitoCollectionAllreadyExistsExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

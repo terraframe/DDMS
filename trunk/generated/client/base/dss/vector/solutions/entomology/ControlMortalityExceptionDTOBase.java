@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -985031100)
+@com.terraframe.mojo.business.ClassSignature(hash = -1737075896)
 public abstract class ControlMortalityExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.ControlMortalityException";
-  private static final long serialVersionUID = -985031100;
+  private static final long serialVersionUID = -1737075896;
   
   public ControlMortalityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

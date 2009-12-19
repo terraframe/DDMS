@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 303148745)
+@com.terraframe.mojo.business.ClassSignature(hash = -569894323)
 public abstract class SusceptibleCollectionDTOBase extends com.terraframe.mojo.business.InformationDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.SusceptibleCollection";
-  private static final long serialVersionUID = 303148745;
+  private static final long serialVersionUID = -569894323;
   
   public SusceptibleCollectionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

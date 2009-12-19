@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1279905095)
+@com.terraframe.mojo.business.ClassSignature(hash = 1240225465)
 public abstract class InvalidDeadQuantityProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidDeadQuantityProblem";
-  private static final long serialVersionUID = -1279905095;
+  private static final long serialVersionUID = 1240225465;
   
   public InvalidDeadQuantityProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

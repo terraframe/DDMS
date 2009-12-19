@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1496690653)
+@com.terraframe.mojo.business.ClassSignature(hash = 1938526375)
 public abstract class RequiredGeoIdProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.RequiredGeoIdProblem";
-  private static final long serialVersionUID = -1496690653;
+  private static final long serialVersionUID = 1938526375;
   
   public RequiredGeoIdProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

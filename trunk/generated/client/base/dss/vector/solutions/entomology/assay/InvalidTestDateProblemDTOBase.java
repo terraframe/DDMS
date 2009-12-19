@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1798925337)
+@com.terraframe.mojo.business.ClassSignature(hash = 1192923041)
 public abstract class InvalidTestDateProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidTestDateProblem";
-  private static final long serialVersionUID = 1798925337;
+  private static final long serialVersionUID = 1192923041;
   
   public InvalidTestDateProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

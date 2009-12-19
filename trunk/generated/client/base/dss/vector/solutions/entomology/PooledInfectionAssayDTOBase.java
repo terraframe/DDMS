@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 893179844)
+@com.terraframe.mojo.business.ClassSignature(hash = -1808160507)
 public abstract class PooledInfectionAssayDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.PooledInfectionAssay";
-  private static final long serialVersionUID = 893179844;
+  private static final long serialVersionUID = -1808160507;
   
   protected PooledInfectionAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

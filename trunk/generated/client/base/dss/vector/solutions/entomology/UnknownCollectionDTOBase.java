@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1902692929)
+@com.terraframe.mojo.business.ClassSignature(hash = -1787939773)
 public abstract class UnknownCollectionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.UnknownCollection";
-  private static final long serialVersionUID = -1902692929;
+  private static final long serialVersionUID = -1787939773;
   
   public UnknownCollectionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

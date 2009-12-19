@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1407524622)
+@com.terraframe.mojo.business.ClassSignature(hash = 948504590)
 public abstract class InvalidMosquitoCollectionGeoEntityExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidMosquitoCollectionGeoEntityException";
-  private static final long serialVersionUID = 1407524622;
+  private static final long serialVersionUID = 948504590;
   
   public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

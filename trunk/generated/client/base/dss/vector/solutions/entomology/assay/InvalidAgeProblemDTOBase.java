@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 492803532)
+@com.terraframe.mojo.business.ClassSignature(hash = -1225445680)
 public abstract class InvalidAgeProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidAgeProblem";
-  private static final long serialVersionUID = 492803532;
+  private static final long serialVersionUID = -1225445680;
   
   public InvalidAgeProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

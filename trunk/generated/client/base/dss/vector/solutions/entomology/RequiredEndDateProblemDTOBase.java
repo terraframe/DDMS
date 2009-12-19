@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1757806298)
+@com.terraframe.mojo.business.ClassSignature(hash = 812085034)
 public abstract class RequiredEndDateProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.RequiredEndDateProblem";
-  private static final long serialVersionUID = -1757806298;
+  private static final long serialVersionUID = 812085034;
   
   public RequiredEndDateProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

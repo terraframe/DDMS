@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -527010965)
+@com.terraframe.mojo.business.ClassSignature(hash = -1767814293)
 public abstract class InvalidIntervalTimeProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidIntervalTimeProblem";
-  private static final long serialVersionUID = -527010965;
+  private static final long serialVersionUID = -1767814293;
   
   public InvalidIntervalTimeProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

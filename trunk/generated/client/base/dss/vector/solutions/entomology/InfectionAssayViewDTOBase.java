@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1223745197)
+@com.terraframe.mojo.business.ClassSignature(hash = -198677955)
 public abstract class InfectionAssayViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.InfectionAssayView";
-  private static final long serialVersionUID = 1223745197;
+  private static final long serialVersionUID = -198677955;
   
   protected InfectionAssayViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

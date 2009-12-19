@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 906343512)
+@com.terraframe.mojo.business.ClassSignature(hash = -283950244)
 public abstract class RequiredCollectionMethodProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.RequiredCollectionMethodProblem";
-  private static final long serialVersionUID = 906343512;
+  private static final long serialVersionUID = -283950244;
   
   public RequiredCollectionMethodProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

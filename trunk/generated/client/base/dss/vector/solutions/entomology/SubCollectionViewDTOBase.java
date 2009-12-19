@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 321305143)
+@com.terraframe.mojo.business.ClassSignature(hash = 992695566)
 public abstract class SubCollectionViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.SubCollectionView";
-  private static final long serialVersionUID = 321305143;
+  private static final long serialVersionUID = 992695566;
   
   protected SubCollectionViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

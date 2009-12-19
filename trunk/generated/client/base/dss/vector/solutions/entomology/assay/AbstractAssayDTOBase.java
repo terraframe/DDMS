@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1983849776)
+@com.terraframe.mojo.business.ClassSignature(hash = 1489640809)
 public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.AbstractAssay";
-  private static final long serialVersionUID = -1983849776;
+  private static final long serialVersionUID = 1489640809;
   
   protected AbstractAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

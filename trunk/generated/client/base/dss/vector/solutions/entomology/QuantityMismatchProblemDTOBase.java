@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -112318633)
+@com.terraframe.mojo.business.ClassSignature(hash = -1006651045)
 public abstract class QuantityMismatchProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.QuantityMismatchProblem";
-  private static final long serialVersionUID = -112318633;
+  private static final long serialVersionUID = -1006651045;
   
   public QuantityMismatchProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

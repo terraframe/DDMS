@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2041737880)
+@com.terraframe.mojo.business.ClassSignature(hash = -2095129192)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public class SearchMosquitoCollectionViewQueryDTO extends dss.vector.solutions.entomology.MosquitoCollectionViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2041737880;
+private static final long serialVersionUID = -2095129192;
 
   protected SearchMosquitoCollectionViewQueryDTO(String type)
   {

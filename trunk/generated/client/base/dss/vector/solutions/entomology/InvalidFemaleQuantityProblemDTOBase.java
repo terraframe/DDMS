@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -300211369)
+@com.terraframe.mojo.business.ClassSignature(hash = -1863868713)
 public abstract class InvalidFemaleQuantityProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidFemaleQuantityProblem";
-  private static final long serialVersionUID = -300211369;
+  private static final long serialVersionUID = -1863868713;
   
   public InvalidFemaleQuantityProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {
