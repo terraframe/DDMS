@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2006556155)
+@com.terraframe.mojo.business.ClassSignature(hash = -26035214)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo;
 public class GeoHierarchyViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2006556155;
+private static final long serialVersionUID = -26035214;
 
   protected GeoHierarchyViewQueryDTO(String type)
   {

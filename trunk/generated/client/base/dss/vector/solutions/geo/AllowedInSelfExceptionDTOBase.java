@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1917128831)
+@com.terraframe.mojo.business.ClassSignature(hash = -1598426497)
 public abstract class AllowedInSelfExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.AllowedInSelfException";
-  private static final long serialVersionUID = 1917128831;
+  private static final long serialVersionUID = -1598426497;
   
   public AllowedInSelfExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

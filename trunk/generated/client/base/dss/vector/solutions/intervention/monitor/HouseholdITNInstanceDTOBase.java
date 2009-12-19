@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -257104727)
+@com.terraframe.mojo.business.ClassSignature(hash = 25999448)
 public abstract class HouseholdITNInstanceDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.HouseholdITNInstance";
-  private static final long serialVersionUID = -257104727;
+  private static final long serialVersionUID = 25999448;
   
   public HouseholdITNInstanceDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {

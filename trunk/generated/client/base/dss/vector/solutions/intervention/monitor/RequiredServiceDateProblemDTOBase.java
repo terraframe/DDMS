@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1972063868)
+@com.terraframe.mojo.business.ClassSignature(hash = -2129656184)
 public abstract class RequiredServiceDateProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.RequiredServiceDateProblem";
-  private static final long serialVersionUID = -1972063868;
+  private static final long serialVersionUID = -2129656184;
   
   public RequiredServiceDateProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

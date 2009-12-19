@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 201738536)
+@com.terraframe.mojo.business.ClassSignature(hash = -806266072)
 public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
-  private static final long serialVersionUID = 201738536;
+  private static final long serialVersionUID = -806266072;
   
   protected GeoEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

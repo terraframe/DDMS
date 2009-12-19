@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1838563381)
+@com.terraframe.mojo.business.ClassSignature(hash = 967676345)
 public abstract class DuplicateMapDataExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.DuplicateMapDataException";
-  private static final long serialVersionUID = 1838563381;
+  private static final long serialVersionUID = 967676345;
   
   public DuplicateMapDataExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

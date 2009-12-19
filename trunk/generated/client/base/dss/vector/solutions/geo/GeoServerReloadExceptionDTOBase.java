@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1721697673)
+@com.terraframe.mojo.business.ClassSignature(hash = -540815091)
 public abstract class GeoServerReloadExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoServerReloadException";
-  private static final long serialVersionUID = 1721697673;
+  private static final long serialVersionUID = -540815091;
   
   public GeoServerReloadExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

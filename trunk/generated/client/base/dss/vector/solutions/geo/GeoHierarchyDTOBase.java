@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1533417380)
+@com.terraframe.mojo.business.ClassSignature(hash = -269968291)
 public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoHierarchy";
-  private static final long serialVersionUID = -1533417380;
+  private static final long serialVersionUID = -269968291;
   
   protected GeoHierarchyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

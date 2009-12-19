@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1169734663)
+@com.terraframe.mojo.business.ClassSignature(hash = -126335110)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public class ITNTargetGroupQueryDTO extends com.terraframe.mojo.business.RelationshipQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1169734663;
+private static final long serialVersionUID = -126335110;
 
   protected ITNTargetGroupQueryDTO(String type)
   {

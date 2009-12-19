@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1345589519)
+@com.terraframe.mojo.business.ClassSignature(hash = -1342647035)
 public abstract class IPTRecipientDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IPTRecipient";
-  private static final long serialVersionUID = 1345589519;
+  private static final long serialVersionUID = -1342647035;
   
   protected IPTRecipientDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

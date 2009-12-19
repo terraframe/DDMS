@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2027213154)
+@com.terraframe.mojo.business.ClassSignature(hash = 270137059)
 public abstract class ITNTargetGroupDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNTargetGroup";
-  private static final long serialVersionUID = 2027213154;
+  private static final long serialVersionUID = 270137059;
   
   public ITNTargetGroupDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {

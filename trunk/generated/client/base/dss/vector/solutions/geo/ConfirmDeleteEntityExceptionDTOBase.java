@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1488643344)
+@com.terraframe.mojo.business.ClassSignature(hash = 879490544)
 public abstract class ConfirmDeleteEntityExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.ConfirmDeleteEntityException";
-  private static final long serialVersionUID = -1488643344;
+  private static final long serialVersionUID = 879490544;
   
   public ConfirmDeleteEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

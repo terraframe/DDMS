@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1532170792)
+@com.terraframe.mojo.business.ClassSignature(hash = 1314779352)
 public abstract class NotASprayEntityExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.NotASprayEntityException";
-  private static final long serialVersionUID = -1532170792;
+  private static final long serialVersionUID = 1314779352;
   
   public NotASprayEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

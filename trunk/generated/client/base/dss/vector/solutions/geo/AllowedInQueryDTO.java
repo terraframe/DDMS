@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1857796459)
+@com.terraframe.mojo.business.ClassSignature(hash = 1934083908)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo;
 public class AllowedInQueryDTO extends com.terraframe.mojo.business.RelationshipQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1857796459;
+private static final long serialVersionUID = 1934083908;
 
   protected AllowedInQueryDTO(String type)
   {

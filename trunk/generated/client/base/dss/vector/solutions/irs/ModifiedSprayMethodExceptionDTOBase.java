@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1655178408)
+@com.terraframe.mojo.business.ClassSignature(hash = 801442396)
 public abstract class ModifiedSprayMethodExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.ModifiedSprayMethodException";
-  private static final long serialVersionUID = -1655178408;
+  private static final long serialVersionUID = 801442396;
   
   public ModifiedSprayMethodExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

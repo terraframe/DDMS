@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1075403222)
+@com.terraframe.mojo.business.ClassSignature(hash = 163860663)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo;
 public class HasSynonymQueryDTO extends com.terraframe.mojo.business.RelationshipQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1075403222;
+private static final long serialVersionUID = 163860663;
 
   protected HasSynonymQueryDTO(String type)
   {

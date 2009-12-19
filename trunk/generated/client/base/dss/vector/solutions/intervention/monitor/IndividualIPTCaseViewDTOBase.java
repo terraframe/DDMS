@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 918241829)
+@com.terraframe.mojo.business.ClassSignature(hash = -1782191128)
 public abstract class IndividualIPTCaseViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualIPTCaseView";
-  private static final long serialVersionUID = 918241829;
+  private static final long serialVersionUID = -1782191128;
   
   protected IndividualIPTCaseViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

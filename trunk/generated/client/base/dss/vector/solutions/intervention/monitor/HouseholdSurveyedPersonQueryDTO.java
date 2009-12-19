@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -675095138)
+@com.terraframe.mojo.business.ClassSignature(hash = 1125926947)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public class HouseholdSurveyedPersonQueryDTO extends com.terraframe.mojo.business.RelationshipQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -675095138;
+private static final long serialVersionUID = 1125926947;
 
   protected HouseholdSurveyedPersonQueryDTO(String type)
   {

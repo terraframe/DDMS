@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -642658016)
+@com.terraframe.mojo.business.ClassSignature(hash = 306822604)
 public abstract class InterventionPlanningViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.InterventionPlanningView";
-  private static final long serialVersionUID = -642658016;
+  private static final long serialVersionUID = 306822604;
   
   protected InterventionPlanningViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

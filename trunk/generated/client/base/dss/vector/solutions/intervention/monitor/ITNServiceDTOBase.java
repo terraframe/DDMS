@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1079783941)
+@com.terraframe.mojo.business.ClassSignature(hash = 1727165820)
 public abstract class ITNServiceDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNService";
-  private static final long serialVersionUID = -1079783941;
+  private static final long serialVersionUID = 1727165820;
   
   public ITNServiceDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {

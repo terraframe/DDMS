@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1668058349)
+@com.terraframe.mojo.business.ClassSignature(hash = 465967729)
 public abstract class ModifiedSprayZoneExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.ModifiedSprayZoneException";
-  private static final long serialVersionUID = 1668058349;
+  private static final long serialVersionUID = 465967729;
   
   public ModifiedSprayZoneExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

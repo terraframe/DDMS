@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1361446658)
+@com.terraframe.mojo.business.ClassSignature(hash = 651895597)
 public abstract class AllowedInDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.AllowedIn";
-  private static final long serialVersionUID = -1361446658;
+  private static final long serialVersionUID = 651895597;
   
   public AllowedInDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {

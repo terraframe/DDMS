@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1535574471)
+@com.terraframe.mojo.business.ClassSignature(hash = -1435294645)
 public abstract class UncountedProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.UncountedProblem";
-  private static final long serialVersionUID = 1535574471;
+  private static final long serialVersionUID = -1435294645;
   
   public UncountedProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

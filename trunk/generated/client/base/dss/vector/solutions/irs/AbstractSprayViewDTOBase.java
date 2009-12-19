@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1726389014)
+@com.terraframe.mojo.business.ClassSignature(hash = -1546952)
 public abstract class AbstractSprayViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.AbstractSprayView";
-  private static final long serialVersionUID = 1726389014;
+  private static final long serialVersionUID = -1546952;
   
   protected AbstractSprayViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

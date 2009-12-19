@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1470631974)
+@com.terraframe.mojo.business.ClassSignature(hash = -1023635750)
 public abstract class NotApplicableProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.NotApplicableProblem";
-  private static final long serialVersionUID = -1470631974;
+  private static final long serialVersionUID = -1023635750;
   
   public NotApplicableProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

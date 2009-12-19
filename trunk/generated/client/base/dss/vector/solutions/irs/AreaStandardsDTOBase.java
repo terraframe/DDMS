@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 117312519)
+@com.terraframe.mojo.business.ClassSignature(hash = -287476940)
 public abstract class AreaStandardsDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.AreaStandards";
-  private static final long serialVersionUID = 117312519;
+  private static final long serialVersionUID = -287476940;
   
   protected AreaStandardsDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

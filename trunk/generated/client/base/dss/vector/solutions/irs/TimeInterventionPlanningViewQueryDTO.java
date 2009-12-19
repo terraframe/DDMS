@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2101313321)
+@com.terraframe.mojo.business.ClassSignature(hash = 181651159)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public class TimeInterventionPlanningViewQueryDTO extends dss.vector.solutions.irs.InterventionPlanningViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -2101313321;
+private static final long serialVersionUID = 181651159;
 
   protected TimeInterventionPlanningViewQueryDTO(String type)
   {

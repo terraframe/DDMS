@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -901916169)
+@com.terraframe.mojo.business.ClassSignature(hash = 557204735)
 public abstract class NetProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.NetProblem";
-  private static final long serialVersionUID = -901916169;
+  private static final long serialVersionUID = 557204735;
   
   public NetProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

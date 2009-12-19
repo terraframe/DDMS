@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -652864889)
+@com.terraframe.mojo.business.ClassSignature(hash = 1651768828)
 public abstract class SprayMethodMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.SprayMethodMaster";
-  private static final long serialVersionUID = -652864889;
+  private static final long serialVersionUID = 1651768828;
   
   protected SprayMethodMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

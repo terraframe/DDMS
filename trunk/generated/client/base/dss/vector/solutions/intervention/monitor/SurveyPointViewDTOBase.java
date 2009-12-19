@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -880074742)
+@com.terraframe.mojo.business.ClassSignature(hash = 1557661442)
 public abstract class SurveyPointViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.SurveyPointView";
-  private static final long serialVersionUID = -880074742;
+  private static final long serialVersionUID = 1557661442;
   
   protected SurveyPointViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

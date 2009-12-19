@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 369462438)
+@com.terraframe.mojo.business.ClassSignature(hash = 978412268)
 public abstract class AggregatedIPTDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.AggregatedIPT";
-  private static final long serialVersionUID = 369462438;
+  private static final long serialVersionUID = 978412268;
   
   protected AggregatedIPTDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

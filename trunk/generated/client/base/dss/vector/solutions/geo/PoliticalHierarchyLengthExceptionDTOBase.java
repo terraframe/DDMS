@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1007677112)
+@com.terraframe.mojo.business.ClassSignature(hash = 230471356)
 public abstract class PoliticalHierarchyLengthExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.PoliticalHierarchyLengthException";
-  private static final long serialVersionUID = 1007677112;
+  private static final long serialVersionUID = 230471356;
   
   public PoliticalHierarchyLengthExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

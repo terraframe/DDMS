@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1690605119)
+@com.terraframe.mojo.business.ClassSignature(hash = 1405081787)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public class InsecticideInterventionPlanningViewQueryDTO extends dss.vector.solutions.irs.InterventionPlanningViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1690605119;
+private static final long serialVersionUID = 1405081787;
 
   protected InsecticideInterventionPlanningViewQueryDTO(String type)
   {

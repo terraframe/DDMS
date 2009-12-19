@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -291837262)
+@com.terraframe.mojo.business.ClassSignature(hash = -1857409020)
 public abstract class GeoTargetViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.GeoTargetView";
-  private static final long serialVersionUID = -291837262;
+  private static final long serialVersionUID = -1857409020;
   
   protected GeoTargetViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

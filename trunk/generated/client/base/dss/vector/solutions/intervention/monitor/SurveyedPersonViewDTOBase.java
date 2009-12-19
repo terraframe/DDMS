@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1022286657)
+@com.terraframe.mojo.business.ClassSignature(hash = 750225531)
 public abstract class SurveyedPersonViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.SurveyedPersonView";
-  private static final long serialVersionUID = -1022286657;
+  private static final long serialVersionUID = 750225531;
   
   protected SurveyedPersonViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

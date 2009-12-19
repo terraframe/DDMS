@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1697673737)
+@com.terraframe.mojo.business.ClassSignature(hash = 497846395)
 public abstract class RequiredSeasonProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.RequiredSeasonProblem";
-  private static final long serialVersionUID = -1697673737;
+  private static final long serialVersionUID = 497846395;
   
   public RequiredSeasonProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

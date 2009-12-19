@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 586279646)
+@com.terraframe.mojo.business.ClassSignature(hash = -1234124706)
 public abstract class ConfirmDeleteHierarchyExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.ConfirmDeleteHierarchyException";
-  private static final long serialVersionUID = 586279646;
+  private static final long serialVersionUID = -1234124706;
   
   public ConfirmDeleteHierarchyExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

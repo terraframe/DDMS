@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 257675022)
+@com.terraframe.mojo.business.ClassSignature(hash = -1659455155)
 public abstract class IndividualIPTDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualIPT";
-  private static final long serialVersionUID = 257675022;
+  private static final long serialVersionUID = -1659455155;
   
   protected IndividualIPTDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

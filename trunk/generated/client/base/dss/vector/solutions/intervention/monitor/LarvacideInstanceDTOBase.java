@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -925753518)
+@com.terraframe.mojo.business.ClassSignature(hash = -484645453)
 public abstract class LarvacideInstanceDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.LarvacideInstance";
-  private static final long serialVersionUID = -925753518;
+  private static final long serialVersionUID = -484645453;
   
   protected LarvacideInstanceDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

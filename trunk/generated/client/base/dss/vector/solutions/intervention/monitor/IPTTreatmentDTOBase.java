@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -460192825)
+@com.terraframe.mojo.business.ClassSignature(hash = 429754568)
 public abstract class IPTTreatmentDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IPTTreatment";
-  private static final long serialVersionUID = -460192825;
+  private static final long serialVersionUID = 429754568;
   
   public IPTTreatmentDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 381724299)
+@com.terraframe.mojo.business.ClassSignature(hash = 367628047)
 public abstract class LocatedInExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.LocatedInException";
-  private static final long serialVersionUID = 381724299;
+  private static final long serialVersionUID = 367628047;
   
   public LocatedInExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

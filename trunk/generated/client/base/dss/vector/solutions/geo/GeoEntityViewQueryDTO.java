@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 729861832)
+@com.terraframe.mojo.business.ClassSignature(hash = -824626744)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo;
 public class GeoEntityViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 729861832;
+private static final long serialVersionUID = -824626744;
 
   protected GeoEntityViewQueryDTO(String type)
   {

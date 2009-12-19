@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1319822603)
+@com.terraframe.mojo.business.ClassSignature(hash = 1736338430)
 public abstract class AllPathsDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.AllPaths";
-  private static final long serialVersionUID = 1319822603;
+  private static final long serialVersionUID = 1736338430;
   
   protected AllPathsDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

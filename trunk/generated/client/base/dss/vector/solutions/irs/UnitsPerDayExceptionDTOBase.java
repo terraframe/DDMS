@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1096000817)
+@com.terraframe.mojo.business.ClassSignature(hash = -1526193837)
 public abstract class UnitsPerDayExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.UnitsPerDayException";
-  private static final long serialVersionUID = -1096000817;
+  private static final long serialVersionUID = -1526193837;
   
   public UnitsPerDayExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -953175991)
+@com.terraframe.mojo.business.ClassSignature(hash = -771957811)
 public abstract class SprayedCountProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.SprayedCountProblem";
-  private static final long serialVersionUID = -953175991;
+  private static final long serialVersionUID = -771957811;
   
   public SprayedCountProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

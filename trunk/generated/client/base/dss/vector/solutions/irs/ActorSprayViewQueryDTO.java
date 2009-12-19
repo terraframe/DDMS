@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2079593822)
+@com.terraframe.mojo.business.ClassSignature(hash = -194851807)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public class ActorSprayViewQueryDTO extends dss.vector.solutions.irs.AbstractSprayViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -2079593822;
+private static final long serialVersionUID = -194851807;
 
   protected ActorSprayViewQueryDTO(String type)
   {

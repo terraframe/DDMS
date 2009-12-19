@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 175062387)
+@com.terraframe.mojo.business.ClassSignature(hash = -1733138953)
 public abstract class EmptyValueProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.EmptyValueProblem";
-  private static final long serialVersionUID = 175062387;
+  private static final long serialVersionUID = -1733138953;
   
   public EmptyValueProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

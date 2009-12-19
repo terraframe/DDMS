@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 670012537)
+@com.terraframe.mojo.business.ClassSignature(hash = 1024436788)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public class TargetUnitMasterQueryDTO extends com.terraframe.mojo.system.EnumerationMasterQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 670012537;
+private static final long serialVersionUID = 1024436788;
 
   protected TargetUnitMasterQueryDTO(String type)
   {

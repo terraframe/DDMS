@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -89646458)
+@com.terraframe.mojo.business.ClassSignature(hash = -1123998038)
 public abstract class InsecticideNozzleViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.InsecticideNozzleView";
-  private static final long serialVersionUID = -89646458;
+  private static final long serialVersionUID = -1123998038;
   
   protected InsecticideNozzleViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

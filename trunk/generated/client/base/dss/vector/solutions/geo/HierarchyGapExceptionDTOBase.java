@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1531993681)
+@com.terraframe.mojo.business.ClassSignature(hash = 921589811)
 public abstract class HierarchyGapExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.HierarchyGapException";
-  private static final long serialVersionUID = -1531993681;
+  private static final long serialVersionUID = 921589811;
   
   public HierarchyGapExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

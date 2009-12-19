@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 922766958)
+@com.terraframe.mojo.business.ClassSignature(hash = 2059194226)
 public abstract class DuplicateHierarchyParentExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.DuplicateHierarchyParentException";
-  private static final long serialVersionUID = 922766958;
+  private static final long serialVersionUID = 2059194226;
   
   public DuplicateHierarchyParentExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 950753440)
+@com.terraframe.mojo.business.ClassSignature(hash = -540365994)
 public abstract class SurfaceTypeMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.SurfaceTypeMaster";
-  private static final long serialVersionUID = 950753440;
+  private static final long serialVersionUID = -540365994;
   
   protected SurfaceTypeMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

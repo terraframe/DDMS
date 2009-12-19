@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1396366212)
+@com.terraframe.mojo.business.ClassSignature(hash = 2066869116)
 public abstract class ConfirmParentChangeExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.ConfirmParentChangeException";
-  private static final long serialVersionUID = -1396366212;
+  private static final long serialVersionUID = 2066869116;
   
   public ConfirmParentChangeExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

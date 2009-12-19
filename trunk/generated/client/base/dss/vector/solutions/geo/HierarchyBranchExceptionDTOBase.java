@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 331680831)
+@com.terraframe.mojo.business.ClassSignature(hash = 907102915)
 public abstract class HierarchyBranchExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.HierarchyBranchException";
-  private static final long serialVersionUID = 331680831;
+  private static final long serialVersionUID = 907102915;
   
   public HierarchyBranchExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

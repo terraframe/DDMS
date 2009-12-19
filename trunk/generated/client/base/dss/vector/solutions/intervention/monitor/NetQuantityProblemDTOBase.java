@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 481882156)
+@com.terraframe.mojo.business.ClassSignature(hash = 1696559020)
 public abstract class NetQuantityProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.NetQuantityProblem";
-  private static final long serialVersionUID = 481882156;
+  private static final long serialVersionUID = 1696559020;
   
   public NetQuantityProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

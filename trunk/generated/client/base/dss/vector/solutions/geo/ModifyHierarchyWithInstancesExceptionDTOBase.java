@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1661359159)
+@com.terraframe.mojo.business.ClassSignature(hash = -1649662007)
 public abstract class ModifyHierarchyWithInstancesExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.ModifyHierarchyWithInstancesException";
-  private static final long serialVersionUID = -1661359159;
+  private static final long serialVersionUID = -1649662007;
   
   public ModifyHierarchyWithInstancesExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

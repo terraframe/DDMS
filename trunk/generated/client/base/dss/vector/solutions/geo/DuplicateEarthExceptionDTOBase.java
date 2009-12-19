@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1137921678)
+@com.terraframe.mojo.business.ClassSignature(hash = 986062450)
 public abstract class DuplicateEarthExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.DuplicateEarthException";
-  private static final long serialVersionUID = -1137921678;
+  private static final long serialVersionUID = 986062450;
   
   public DuplicateEarthExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

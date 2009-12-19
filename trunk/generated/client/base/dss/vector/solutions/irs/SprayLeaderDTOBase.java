@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1189524435)
+@com.terraframe.mojo.business.ClassSignature(hash = -659147335)
 public abstract class SprayLeaderDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.SprayLeader";
-  private static final long serialVersionUID = -1189524435;
+  private static final long serialVersionUID = -659147335;
   
   protected SprayLeaderDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

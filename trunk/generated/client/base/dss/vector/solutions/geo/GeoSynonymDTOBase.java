@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1004887943)
+@com.terraframe.mojo.business.ClassSignature(hash = -1126885828)
 public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoSynonym";
-  private static final long serialVersionUID = -1004887943;
+  private static final long serialVersionUID = -1126885828;
   
   protected GeoSynonymDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

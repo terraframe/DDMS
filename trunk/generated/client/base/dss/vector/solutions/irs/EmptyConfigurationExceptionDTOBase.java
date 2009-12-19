@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 303005376)
+@com.terraframe.mojo.business.ClassSignature(hash = -1503731260)
 public abstract class EmptyConfigurationExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.EmptyConfigurationException";
-  private static final long serialVersionUID = 303005376;
+  private static final long serialVersionUID = -1503731260;
   
   public EmptyConfigurationExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

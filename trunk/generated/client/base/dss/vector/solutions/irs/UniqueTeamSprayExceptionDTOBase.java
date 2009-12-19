@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1830333807)
+@com.terraframe.mojo.business.ClassSignature(hash = -1572486635)
 public abstract class UniqueTeamSprayExceptionDTOBase extends dss.vector.solutions.irs.UniqueSprayExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.UniqueTeamSprayException";
-  private static final long serialVersionUID = -1830333807;
+  private static final long serialVersionUID = -1572486635;
   
   public UniqueTeamSprayExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

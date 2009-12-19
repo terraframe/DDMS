@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2091206862)
+@com.terraframe.mojo.business.ClassSignature(hash = 1569471950)
 public abstract class TimeInterventionPlanningViewDTOBase extends dss.vector.solutions.irs.InterventionPlanningViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.TimeInterventionPlanningView";
-  private static final long serialVersionUID = 2091206862;
+  private static final long serialVersionUID = 1569471950;
   
   protected TimeInterventionPlanningViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

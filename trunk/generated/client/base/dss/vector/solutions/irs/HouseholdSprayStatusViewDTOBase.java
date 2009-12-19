@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1080364194)
+@com.terraframe.mojo.business.ClassSignature(hash = 1297918874)
 public abstract class HouseholdSprayStatusViewDTOBase extends dss.vector.solutions.irs.SprayStatusViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.HouseholdSprayStatusView";
-  private static final long serialVersionUID = 1080364194;
+  private static final long serialVersionUID = 1297918874;
   
   protected HouseholdSprayStatusViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

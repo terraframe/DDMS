@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 50835778)
+@com.terraframe.mojo.business.ClassSignature(hash = -2004214458)
 public abstract class RequiredPatientProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.RequiredPatientProblem";
-  private static final long serialVersionUID = 50835778;
+  private static final long serialVersionUID = -2004214458;
   
   public RequiredPatientProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

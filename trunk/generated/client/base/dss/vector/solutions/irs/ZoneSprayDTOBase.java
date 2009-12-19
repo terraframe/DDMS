@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1776407473)
+@com.terraframe.mojo.business.ClassSignature(hash = -1804537857)
 public abstract class ZoneSprayDTOBase extends dss.vector.solutions.irs.AbstractSprayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.ZoneSpray";
-  private static final long serialVersionUID = -1776407473;
+  private static final long serialVersionUID = -1804537857;
   
   protected ZoneSprayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

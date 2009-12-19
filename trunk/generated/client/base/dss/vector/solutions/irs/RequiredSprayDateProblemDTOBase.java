@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1869742673)
+@com.terraframe.mojo.business.ClassSignature(hash = 1156534741)
 public abstract class RequiredSprayDateProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.RequiredSprayDateProblem";
-  private static final long serialVersionUID = 1869742673;
+  private static final long serialVersionUID = 1156534741;
   
   public RequiredSprayDateProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 7854731)
+@com.terraframe.mojo.business.ClassSignature(hash = -2102195184)
 public abstract class SprayTeamDTOBase extends dss.vector.solutions.irs.TargeterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.SprayTeam";
-  private static final long serialVersionUID = 7854731;
+  private static final long serialVersionUID = -2102195184;
   
   protected SprayTeamDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

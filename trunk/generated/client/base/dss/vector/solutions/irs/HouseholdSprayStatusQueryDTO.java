@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 487038286)
+@com.terraframe.mojo.business.ClassSignature(hash = 503611304)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public class HouseholdSprayStatusQueryDTO extends dss.vector.solutions.irs.SprayStatusQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 487038286;
+private static final long serialVersionUID = 503611304;
 
   protected HouseholdSprayStatusQueryDTO(String type)
   {

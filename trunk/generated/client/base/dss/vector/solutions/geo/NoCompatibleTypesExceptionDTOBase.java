@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1178665426)
+@com.terraframe.mojo.business.ClassSignature(hash = 1620833750)
 public abstract class NoCompatibleTypesExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.NoCompatibleTypesException";
-  private static final long serialVersionUID = 1178665426;
+  private static final long serialVersionUID = 1620833750;
   
   public NoCompatibleTypesExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1103650609)
+@com.terraframe.mojo.business.ClassSignature(hash = -1860286588)
 public abstract class SurveyedPersonTreatmentDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment";
-  private static final long serialVersionUID = 1103650609;
+  private static final long serialVersionUID = -1860286588;
   
   public SurveyedPersonTreatmentDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {

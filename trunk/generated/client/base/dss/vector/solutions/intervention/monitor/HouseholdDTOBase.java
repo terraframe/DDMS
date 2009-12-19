@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1285677797)
+@com.terraframe.mojo.business.ClassSignature(hash = 112600832)
 public abstract class HouseholdDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.Household";
-  private static final long serialVersionUID = 1285677797;
+  private static final long serialVersionUID = 112600832;
   
   protected HouseholdDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

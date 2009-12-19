@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -510666369)
+@com.terraframe.mojo.business.ClassSignature(hash = 2142460384)
 public abstract class HasSynonymDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.HasSynonym";
-  private static final long serialVersionUID = -510666369;
+  private static final long serialVersionUID = 2142460384;
   
   public HasSynonymDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {

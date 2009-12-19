@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -968977160)
+@com.terraframe.mojo.business.ClassSignature(hash = -850413576)
 public abstract class DeleteEarthExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.DeleteEarthException";
-  private static final long serialVersionUID = -968977160;
+  private static final long serialVersionUID = -850413576;
   
   public DeleteEarthExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {
