@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -98092007)
+@com.terraframe.mojo.business.ClassSignature(hash = -1549876689)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  class PersonQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -98092007;
+private static final long serialVersionUID = -1549876689;
 
   public PersonQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -508,6 +508,29 @@ private static final long serialVersionUID = -98092007;
     return (dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.Person.STOCKSTAFFDELEGATE, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate()
+  {
+    return getSupervisorDelegate(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("supervisorDelegate");
+
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.Person.SUPERVISORDELEGATE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("supervisorDelegate");
+
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.Person.SUPERVISORDELEGATE, mdAttributeIF, this, alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeChar getType()
   {
     return getType(null);
@@ -644,6 +667,10 @@ private static final long serialVersionUID = -98092007;
     {
        return new dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals("supervisorDelegate")) 
+    {
+       return new dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals("userDelegate")) 
     {
        return new dss.vector.solutions.MDSSUserQuery.MDSSUserQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -760,6 +787,9 @@ private static final long serialVersionUID = -98092007;
     public dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReferenceIF getStockStaffDelegate();
     public dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReferenceIF getStockStaffDelegate(String alias);
     public dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReferenceIF getStockStaffDelegate(String alias, String displayLabel);
+    public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate();
+    public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate(String alias);
+    public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeChar getType();
     public com.terraframe.mojo.query.AttributeChar getType(String alias);
     public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel);
@@ -787,7 +817,7 @@ private static final long serialVersionUID = -98092007;
  implements PersonQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1923799991;
+private static final long serialVersionUID = -847228211;
 
   public PersonQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1197,6 +1227,23 @@ private static final long serialVersionUID = 1923799991;
     return (dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReferenceIF)this.attributeFactory("stockStaffDelegate", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
 
   }
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate()
+  {
+    return getSupervisorDelegate(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate(String alias)
+  {
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.attributeFactory("supervisorDelegate", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.attributeFactory("supervisorDelegate", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeChar getType()
   {
     return getType(null);
@@ -1320,6 +1367,10 @@ private static final long serialVersionUID = 1923799991;
     else if (name.equals("stockStaffDelegate")) 
     {
        return new dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("supervisorDelegate")) 
+    {
+       return new dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals("userDelegate")) 
     {

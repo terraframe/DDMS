@@ -66,8 +66,7 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.terraframe.m
   {
     super.populateConcrete(spray);
 
-    spray.setSupervisorName(this.getSupervisorName());
-    spray.setSupervisorSurname(this.getSupervisorSurname());
+    spray.setSupervisor(this.getSupervisor());
     spray.setTarget(this.getTarget());
     spray.setSprayWeek(this.getSprayWeek());
   }

@@ -10,11 +10,13 @@
   String sprayOperatorLabel = query.getAttributeDTO(PersonWithDelegatesViewDTO.ISSPRAYOPERATOR).getAttributeMdDTO().getDisplayLabel();
   String sprayLeaderLabel = query.getAttributeDTO(PersonWithDelegatesViewDTO.ISSPRAYLEADER).getAttributeMdDTO().getDisplayLabel();
   String stockStaffLabel = query.getAttributeDTO(PersonWithDelegatesViewDTO.ISSTOCKSTAFF).getAttributeMdDTO().getDisplayLabel();
+  String supervisorLabel = query.getAttributeDTO(PersonWithDelegatesViewDTO.ISSUPERVISOR).getAttributeMdDTO().getDisplayLabel();
   
   request.setAttribute("userLabel", userLabel);
   request.setAttribute("sprayOperatorLabel", sprayOperatorLabel);
   request.setAttribute("sprayLeaderLabel", sprayLeaderLabel);
   request.setAttribute("stockStaffLabel", stockStaffLabel);
+  request.setAttribute("supervisorLabel", supervisorLabel);
 %>
 
 

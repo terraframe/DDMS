@@ -210,6 +210,23 @@
           <!-- Patient Fieldset -->
         </div>
       </dd>      
+      <dt>
+        <label>
+          ${item.isSupervisorMd.displayLabel}
+          <span id="supervisorSwitch" class="clickable">
+          <c:choose>
+            <c:when test="${item.isSupervisor}"><fmt:message key="Click_to_Remove" /></c:when>
+            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
+          </c:choose>
+          </span>
+        </label>
+      </dt>
+      <dd>
+        <mjl:input id="supervisorInput" type="hidden" value="${item.isSupervisor}" param="isSupervisor" />
+        <div id="supervisorDiv" style="display: ${item.isSupervisor ? 'block' : 'none'}">
+          <!-- Patient Fieldset -->
+        </div>
+      </dd>      
   </mjl:component>
 
 <script type="text/javascript">  

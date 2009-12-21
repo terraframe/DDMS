@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 456104569)
+@com.terraframe.mojo.business.ClassSignature(hash = 712209025)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,6 +22,7 @@ public abstract class PersonViewBase extends com.terraframe.mojo.business.View i
   public static java.lang.String ISSPRAYLEADER = "isSprayLeader";
   public static java.lang.String ISSPRAYOPERATOR = "isSprayOperator";
   public static java.lang.String ISSTOCKSTAFF = "isStockStaff";
+  public static java.lang.String ISSUPERVISOR = "isSupervisor";
   public static java.lang.String LASTNAME = "lastName";
   public static java.lang.String LEADERID = "leaderId";
   public static java.lang.String OPERATORID = "operatorId";
@@ -33,7 +34,7 @@ public abstract class PersonViewBase extends com.terraframe.mojo.business.View i
   public static java.lang.String UZERNAME = "uzername";
   public static java.lang.String WORKGEOID = "workGeoId";
   public static java.lang.String WORKINFORMATION = "workInformation";
-  private static final long serialVersionUID = 456104569;
+  private static final long serialVersionUID = 712209025;
   
   public PersonViewBase()
   {
@@ -333,6 +334,34 @@ public abstract class PersonViewBase extends com.terraframe.mojo.business.View i
     else
     {
       setValue(ISSTOCKSTAFF, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getIsSupervisor()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSUPERVISOR));
+  }
+  
+  public void validateIsSupervisor()
+  {
+    this.validateAttribute(ISSUPERVISOR);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getIsSupervisorMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
+    return mdClassIF.definesAttribute(ISSUPERVISOR);
+  }
+  
+  public void setIsSupervisor(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISSUPERVISOR, "");
+    }
+    else
+    {
+      setValue(ISSUPERVISOR, java.lang.Boolean.toString(value));
     }
   }
   

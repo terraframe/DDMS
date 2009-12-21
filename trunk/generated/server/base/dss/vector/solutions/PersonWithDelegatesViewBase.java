@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 978705186)
+@com.terraframe.mojo.business.ClassSignature(hash = 1295718613)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,8 +17,9 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
   public static java.lang.String SPRAYLEADERDELEGATE = "sprayLeaderDelegate";
   public static java.lang.String SPRAYOPERATORDELEGATE = "sprayOperatorDelegate";
   public static java.lang.String STOCKSTAFFDELEGATE = "stockStaffDelegate";
+  public static java.lang.String SUPERVISORDELEGATE = "supervisorDelegate";
   public static java.lang.String USERDELEGATE = "userDelegate";
-  private static final long serialVersionUID = 978705186;
+  private static final long serialVersionUID = 1295718613;
   
   public PersonWithDelegatesViewBase()
   {
@@ -232,6 +233,41 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
     else
     {
       setValue(STOCKSTAFFDELEGATE, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.irs.Supervisor getSupervisorDelegate()
+  {
+    if (getValue(SUPERVISORDELEGATE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.Supervisor.get(getValue(SUPERVISORDELEGATE));
+    }
+  }
+  
+  public void validateSupervisorDelegate()
+  {
+    this.validateAttribute(SUPERVISORDELEGATE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSupervisorDelegateMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonWithDelegatesView.CLASS);
+    return mdClassIF.definesAttribute(SUPERVISORDELEGATE);
+  }
+  
+  public void setSupervisorDelegate(dss.vector.solutions.irs.Supervisor value)
+  {
+    if(value == null)
+    {
+      setValue(SUPERVISORDELEGATE, "");
+    }
+    else
+    {
+      setValue(SUPERVISORDELEGATE, value.getId());
     }
   }
   

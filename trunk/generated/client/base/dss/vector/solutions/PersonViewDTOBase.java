@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 597523449)
+@com.terraframe.mojo.business.ClassSignature(hash = -1860222719)
 public abstract class PersonViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PersonView";
-  private static final long serialVersionUID = 597523449;
+  private static final long serialVersionUID = -1860222719;
   
   protected PersonViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -27,6 +27,7 @@ public abstract class PersonViewDTOBase extends com.terraframe.mojo.business.Vie
   public static java.lang.String ISSPRAYLEADER = "isSprayLeader";
   public static java.lang.String ISSPRAYOPERATOR = "isSprayOperator";
   public static java.lang.String ISSTOCKSTAFF = "isStockStaff";
+  public static java.lang.String ISSUPERVISOR = "isSupervisor";
   public static java.lang.String LASTNAME = "lastName";
   public static java.lang.String LEADERID = "leaderId";
   public static java.lang.String OPERATORID = "operatorId";
@@ -406,6 +407,43 @@ public abstract class PersonViewDTOBase extends com.terraframe.mojo.business.Vie
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsStockStaffMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSTOCKSTAFF).getAttributeMdDTO();
+  }
+  
+  public Boolean getIsSupervisor()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSUPERVISOR));
+  }
+  
+  public void setIsSupervisor(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISSUPERVISOR, "");
+    }
+    else
+    {
+      setValue(ISSUPERVISOR, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isIsSupervisorWritable()
+  {
+    return isWritable(ISSUPERVISOR);
+  }
+  
+  public boolean isIsSupervisorReadable()
+  {
+    return isReadable(ISSUPERVISOR);
+  }
+  
+  public boolean isIsSupervisorModified()
+  {
+    return isModified(ISSUPERVISOR);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsSupervisorMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSUPERVISOR).getAttributeMdDTO();
   }
   
   public String getLastName()

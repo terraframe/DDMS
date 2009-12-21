@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -647748490)
+@com.terraframe.mojo.business.ClassSignature(hash = 852313308)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  class ZoneSprayQuery extends dss.vector.solutions.irs.AbstractSprayQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -647748490;
+private static final long serialVersionUID = 852313308;
 
   public ZoneSprayQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -56,38 +56,27 @@ private static final long serialVersionUID = -647748490;
     return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.ZoneSpray.SPRAYWEEK, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getSupervisorName()
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor()
   {
-    return getSupervisorName(null);
+    return getSupervisor(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSupervisorName(String alias)
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.ZoneSpray.SUPERVISORNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("supervisor");
+
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.ZoneSpray.SUPERVISOR, mdAttributeIF, this, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSupervisorName(String alias, String displayLabel)
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.ZoneSpray.SUPERVISORNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
-  }
-  public com.terraframe.mojo.query.AttributeChar getSupervisorSurname()
-  {
-    return getSupervisorSurname(null);
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("supervisor");
 
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getSupervisorSurname(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.ZoneSpray.SUPERVISORSURNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getSupervisorSurname(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.ZoneSpray.SUPERVISORSURNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.ZoneSpray.SUPERVISOR, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget()
@@ -107,6 +96,20 @@ private static final long serialVersionUID = -647748490;
     return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.ZoneSpray.TARGET, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
 
   }
+  protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals("supervisor")) 
+    {
+       return new dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      return super.referenceFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+  }
+
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 
@@ -142,12 +145,9 @@ private static final long serialVersionUID = -647748490;
     public com.terraframe.mojo.query.AttributeInteger getSprayWeek();
     public com.terraframe.mojo.query.AttributeInteger getSprayWeek(String alias);
     public com.terraframe.mojo.query.AttributeInteger getSprayWeek(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getSupervisorName();
-    public com.terraframe.mojo.query.AttributeChar getSupervisorName(String alias);
-    public com.terraframe.mojo.query.AttributeChar getSupervisorName(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getSupervisorSurname();
-    public com.terraframe.mojo.query.AttributeChar getSupervisorSurname(String alias);
-    public com.terraframe.mojo.query.AttributeChar getSupervisorSurname(String alias, String displayLabel);
+    public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor();
+    public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias);
+    public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeInteger getTarget();
     public com.terraframe.mojo.query.AttributeInteger getTarget(String alias);
     public com.terraframe.mojo.query.AttributeInteger getTarget(String alias, String displayLabel);
@@ -166,7 +166,7 @@ private static final long serialVersionUID = -647748490;
  implements ZoneSprayQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -492900332;
+private static final long serialVersionUID = -1731963138;
 
   public ZoneSprayQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -202,38 +202,21 @@ private static final long serialVersionUID = -492900332;
     return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("sprayWeek", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getSupervisorName()
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor()
   {
-    return getSupervisorName(null);
+    return getSupervisor(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSupervisorName(String alias)
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("supervisorName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.attributeFactory("supervisor", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSupervisorName(String alias, String displayLabel)
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("supervisorName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
-
-  }
-  public com.terraframe.mojo.query.AttributeChar getSupervisorSurname()
-  {
-    return getSupervisorSurname(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getSupervisorSurname(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("supervisorSurname", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getSupervisorSurname(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("supervisorSurname", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.attributeFactory("supervisor", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget()
@@ -253,5 +236,19 @@ private static final long serialVersionUID = -492900332;
     return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
 
   }
+  protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals("supervisor")) 
+    {
+       return new dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      return super.referenceFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+  }
+
   }
 }

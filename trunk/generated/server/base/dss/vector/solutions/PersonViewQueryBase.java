@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1618499248)
+@com.terraframe.mojo.business.ClassSignature(hash = 150309930)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  abstract  class PersonViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1618499248;
+private static final long serialVersionUID = 150309930;
 
   public PersonViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -221,6 +221,24 @@ private static final long serialVersionUID = 1618499248;
   public com.terraframe.mojo.query.AttributeBoolean getIsStockStaff(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.PersonView.ISSTOCKSTAFF, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getIsSupervisor()
+  {
+    return getIsSupervisor(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getIsSupervisor(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.PersonView.ISSUPERVISOR, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getIsSupervisor(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.PersonView.ISSUPERVISOR, alias, displayLabel);
 
   }
  

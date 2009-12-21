@@ -4,7 +4,8 @@
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 
-<%@page import="dss.vector.solutions.irs.AbstractSprayViewDTO"%><jsp:include page="/WEB-INF/selectSearch.jsp" />
+<%@page import="dss.vector.solutions.irs.AbstractSprayViewDTO"%>
+<jsp:include page="/WEB-INF/selectSearch.jsp" />
 
     <mjl:component item="${item}" param="dto">
       <mjl:input type="hidden" param="sprayId" value="${item.sprayId}" />      
@@ -32,7 +33,12 @@
         <mdss:mo param="surfaceType" value="${surfaceType}"/>
       </mjl:dt>                  
       <mjl:dt attribute="sprayWeek" type="text"/>
-      <mjl:dt attribute="supervisorName" type="text"/>
-      <mjl:dt attribute="supervisorSurname" type="text"/>
+      <mjl:dt attribute="supervisor">
+        <mjl:select var="current" valueAttribute="supervisorId" items="${supervisors}" param="supervisor" includeBlank="true" >
+         <mjl:option selected="${supervisor != null && current.id == supervisor.id ? 'selected' : 'false'}">
+           ${current.firstName} ${current.lastName}
+         </mjl:option>
+        </mjl:select>        
+      </mjl:dt>
       <mjl:dt attribute="target" type="text"/>
     </mjl:component>

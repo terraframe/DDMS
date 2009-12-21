@@ -16,6 +16,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
+import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.RedirectUtility;
@@ -99,6 +100,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("methods", SprayMethodDTO.allItems(request));
     req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getAll(request)));
+    req.setAttribute("supervisors", Arrays.asList(SupervisorViewDTO.getSupervisors(request)));
   }
 
   public void view(String id) throws IOException, ServletException
@@ -134,7 +136,16 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
 
   private void setupReferences(ZoneSprayViewDTO dto)
   {
+    SupervisorDTO supervisor = dto.getSupervisor();
+    
+    if(supervisor != null)
+    {
+      PersonViewDTO person = supervisor.getPerson().getView();
+      req.setAttribute("person", person);
+    }
+    
     req.setAttribute("surfaceType", dto.getSurfaceType());
+    req.setAttribute("supervisor", supervisor);
   }
 
   private JSONObject buildTeamsMap(SprayTeamDTO[] teams)

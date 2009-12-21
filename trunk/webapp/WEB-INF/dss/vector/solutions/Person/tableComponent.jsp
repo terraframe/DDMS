@@ -55,3 +55,12 @@
         </c:choose>
       </mjl:row>
     </mjl:freeColumn>    
+    <mjl:freeColumn>
+      <mjl:header>${supervisorLabel}</mjl:header>
+      <mjl:row>
+        <c:choose>
+          <c:when test="${item.supervisorDelegate != null}"><fmt:message key="Yes" /></c:when>
+          <c:otherwise><fmt:message key="No" /></c:otherwise>
+        </c:choose>
+      </mjl:row>
+    </mjl:freeColumn>    

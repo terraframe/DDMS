@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2036233408)
+@com.terraframe.mojo.business.ClassSignature(hash = 1856045530)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  abstract  class ZoneSprayViewQueryBase extends dss.vector.solutions.irs.AbstractSprayViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2036233408;
+private static final long serialVersionUID = 1856045530;
 
   public ZoneSprayViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -44,42 +44,25 @@ private static final long serialVersionUID = 2036233408;
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSupervisorName()
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor()
   {
-    return getSupervisorName(null);
+    return getSupervisor(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSupervisorName(String alias)
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SUPERVISORNAME, alias, null);
+
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SUPERVISOR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSupervisorName(String alias, String displayLabel)
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SUPERVISORNAME, alias, displayLabel);
+
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SUPERVISOR, alias, displayLabel);
 
   }
- 
-  public com.terraframe.mojo.query.AttributeChar getSupervisorSurname()
-  {
-    return getSupervisorSurname(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getSupervisorSurname(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SUPERVISORSURNAME, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getSupervisorSurname(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SUPERVISORSURNAME, alias, displayLabel);
-
-  }
- 
   public com.terraframe.mojo.query.AttributeInteger getTarget()
   {
     return getTarget(null);

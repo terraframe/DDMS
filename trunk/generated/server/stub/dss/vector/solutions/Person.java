@@ -173,6 +173,11 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     {
       this.getStockStaffDelegate().lock();
     }
+    
+    if (this.getSupervisorDelegate() != null)
+    {
+      this.getSupervisorDelegate().lock();
+    }
   }
 
   @Transaction
@@ -213,6 +218,11 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     if (this.getStockStaffDelegate() != null)
     {
       this.getStockStaffDelegate().unlock();
+    }
+    
+    if (this.getSupervisorDelegate() != null)
+    {
+      this.getSupervisorDelegate().unlock();
     }
   }
 

@@ -49,10 +49,8 @@ public abstract class AbstractSprayView extends AbstractSprayViewBase implements
 
       this.setSprayData(data);
     }
-    else
-    {
-      this.getSprayData().lock();
-    }
+
+    this.getSprayData().lock();
   }
 
   protected void validateSprayMethod(List<SprayMethod> existing)

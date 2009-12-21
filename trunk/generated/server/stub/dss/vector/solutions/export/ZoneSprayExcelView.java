@@ -10,6 +10,7 @@ import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.RequiredGeoIdProblem;
 import dss.vector.solutions.irs.SprayOperator;
 import dss.vector.solutions.irs.SprayTeam;
+import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.TeamSprayStatusView;
 import dss.vector.solutions.irs.ZoneSpray;
 import dss.vector.solutions.irs.ZoneSprayView;
@@ -47,8 +48,8 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements
     {
       super.populate(zsv);
       zsv.setSprayWeek(this.getSprayWeek());
-      zsv.setSupervisorName(this.getSupervisorName());
-      zsv.setSupervisorSurname(this.getSupervisorSurname());
+      zsv.setSupervisor(Supervisor.getByName(this.getSupervisorName(), this.getSupervisorSurname()));
+      
       zsv.setTarget(this.getTarget());
 
       zsv.apply();

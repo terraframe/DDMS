@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -588869479)
+@com.terraframe.mojo.business.ClassSignature(hash = 57035980)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  abstract  class PersonWithDelegatesViewQueryBase extends dss.vector.solutions.PersonViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -588869479;
+private static final long serialVersionUID = 57035980;
 
   public PersonWithDelegatesViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -138,6 +138,25 @@ private static final long serialVersionUID = -588869479;
   {
 
     return (dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReferenceIF)this.getSelectable(dss.vector.solutions.PersonWithDelegatesView.STOCKSTAFFDELEGATE, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate()
+  {
+    return getSupervisorDelegate(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate(String alias)
+  {
+
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.getSelectable(dss.vector.solutions.PersonWithDelegatesView.SUPERVISORDELEGATE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.getSelectable(dss.vector.solutions.PersonWithDelegatesView.SUPERVISORDELEGATE, alias, displayLabel);
 
   }
   public dss.vector.solutions.MDSSUserQuery.MDSSUserQueryReferenceIF getUserDelegate()

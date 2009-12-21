@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1804537857)
+@com.terraframe.mojo.business.ClassSignature(hash = -811008653)
 public abstract class ZoneSprayDTOBase extends dss.vector.solutions.irs.AbstractSprayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.ZoneSpray";
-  private static final long serialVersionUID = -1804537857;
+  private static final long serialVersionUID = -811008653;
   
   protected ZoneSprayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -28,8 +28,7 @@ public abstract class ZoneSprayDTOBase extends dss.vector.solutions.irs.Abstract
   }
   
   public static java.lang.String SPRAYWEEK = "sprayWeek";
-  public static java.lang.String SUPERVISORNAME = "supervisorName";
-  public static java.lang.String SUPERVISORSURNAME = "supervisorSurname";
+  public static java.lang.String SUPERVISOR = "supervisor";
   public static java.lang.String TARGET = "target";
   public Integer getSprayWeek()
   {
@@ -68,78 +67,48 @@ public abstract class ZoneSprayDTOBase extends dss.vector.solutions.irs.Abstract
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYWEEK).getAttributeMdDTO();
   }
   
-  public String getSupervisorName()
+  public dss.vector.solutions.irs.SupervisorDTO getSupervisor()
   {
-    return getValue(SUPERVISORNAME);
-  }
-  
-  public void setSupervisorName(String value)
-  {
-    if(value == null)
+    if(getValue(SUPERVISOR) == null || getValue(SUPERVISOR).trim().equals(""))
     {
-      setValue(SUPERVISORNAME, "");
+      return null;
     }
     else
     {
-      setValue(SUPERVISORNAME, value);
+      return dss.vector.solutions.irs.SupervisorDTO.get(getRequest(), getValue(SUPERVISOR));
     }
   }
   
-  public boolean isSupervisorNameWritable()
-  {
-    return isWritable(SUPERVISORNAME);
-  }
-  
-  public boolean isSupervisorNameReadable()
-  {
-    return isReadable(SUPERVISORNAME);
-  }
-  
-  public boolean isSupervisorNameModified()
-  {
-    return isModified(SUPERVISORNAME);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSupervisorNameMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SUPERVISORNAME).getAttributeMdDTO();
-  }
-  
-  public String getSupervisorSurname()
-  {
-    return getValue(SUPERVISORSURNAME);
-  }
-  
-  public void setSupervisorSurname(String value)
+  public void setSupervisor(dss.vector.solutions.irs.SupervisorDTO value)
   {
     if(value == null)
     {
-      setValue(SUPERVISORSURNAME, "");
+      setValue(SUPERVISOR, "");
     }
     else
     {
-      setValue(SUPERVISORSURNAME, value);
+      setValue(SUPERVISOR, value.getId());
     }
   }
   
-  public boolean isSupervisorSurnameWritable()
+  public boolean isSupervisorWritable()
   {
-    return isWritable(SUPERVISORSURNAME);
+    return isWritable(SUPERVISOR);
   }
   
-  public boolean isSupervisorSurnameReadable()
+  public boolean isSupervisorReadable()
   {
-    return isReadable(SUPERVISORSURNAME);
+    return isReadable(SUPERVISOR);
   }
   
-  public boolean isSupervisorSurnameModified()
+  public boolean isSupervisorModified()
   {
-    return isModified(SUPERVISORSURNAME);
+    return isModified(SUPERVISOR);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSupervisorSurnameMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSupervisorMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SUPERVISORSURNAME).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SUPERVISOR).getAttributeMdDTO();
   }
   
   public Integer getTarget()

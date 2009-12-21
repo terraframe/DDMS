@@ -118,8 +118,7 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
   {
     super.populateView(view);
 
-    view.setSupervisorName(this.getSupervisorName());
-    view.setSupervisorSurname(this.getSupervisorSurname());
+    view.setSupervisor(this.getSupervisor());
     view.setTarget(this.getTarget());
     view.setSprayWeek(this.getSprayWeek());
   }
@@ -190,7 +189,8 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
     select += "actorspray." + ActorSpray.TARGET + " AS team_target,\n";
 
     // zone stuff
-    select += "zonespray." + ZoneSpray.SUPERVISORNAME + " || ' '|| zonespray." + ZoneSpray.SUPERVISORSURNAME + " AS zone_supervisor,\n";
+    // FIXME there is no longer a supervisor name and supervisor surname, just a reference to supervisor
+//    select += "zonespray." + ZoneSpray.SUPERVISORNAME + " || ' '|| zonespray." + ZoneSpray.SUPERVISORSURNAME + " AS zone_supervisor,\n";
     select += "zonespray." + ZoneSpray.SPRAYWEEK + " AS zone_week,\n";
     select += "zonespray." + ZoneSpray.TARGET + " AS zone_target,\n";
     // target stuff

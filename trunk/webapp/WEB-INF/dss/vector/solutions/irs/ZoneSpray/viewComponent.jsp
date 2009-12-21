@@ -88,11 +88,8 @@ background:none;
       <mjl:dt attribute="sprayWeek">
         ${item.sprayWeek}
       </mjl:dt>
-      <mjl:dt attribute="supervisorName">
-        ${item.supervisorName}
-      </mjl:dt>      
-      <mjl:dt attribute="supervisorSurname">
-        ${item.supervisorSurname}
+      <mjl:dt attribute="supervisor">
+        ${person.firstName} ${person.lastName}
       </mjl:dt>      
       <mjl:dt attribute="target">
         ${item.target}

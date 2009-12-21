@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1231318743)
+@com.terraframe.mojo.business.ClassSignature(hash = 1914617969)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,10 +12,9 @@ public abstract class ZoneSprayViewBase extends dss.vector.solutions.irs.Abstrac
 {
   public final static String CLASS = "dss.vector.solutions.irs.ZoneSprayView";
   public static java.lang.String SPRAYWEEK = "sprayWeek";
-  public static java.lang.String SUPERVISORNAME = "supervisorName";
-  public static java.lang.String SUPERVISORSURNAME = "supervisorSurname";
+  public static java.lang.String SUPERVISOR = "supervisor";
   public static java.lang.String TARGET = "target";
-  private static final long serialVersionUID = 1231318743;
+  private static final long serialVersionUID = 1914617969;
   
   public ZoneSprayViewBase()
   {
@@ -50,59 +49,38 @@ public abstract class ZoneSprayViewBase extends dss.vector.solutions.irs.Abstrac
     }
   }
   
-  public String getSupervisorName()
+  public dss.vector.solutions.irs.Supervisor getSupervisor()
   {
-    return getValue(SUPERVISORNAME);
-  }
-  
-  public void validateSupervisorName()
-  {
-    this.validateAttribute(SUPERVISORNAME);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSupervisorNameMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSprayView.CLASS);
-    return mdClassIF.definesAttribute(SUPERVISORNAME);
-  }
-  
-  public void setSupervisorName(String value)
-  {
-    if(value == null)
+    if (getValue(SUPERVISOR).trim().equals(""))
     {
-      setValue(SUPERVISORNAME, "");
+      return null;
     }
     else
     {
-      setValue(SUPERVISORNAME, value);
+      return dss.vector.solutions.irs.Supervisor.get(getValue(SUPERVISOR));
     }
   }
   
-  public String getSupervisorSurname()
+  public void validateSupervisor()
   {
-    return getValue(SUPERVISORSURNAME);
+    this.validateAttribute(SUPERVISOR);
   }
   
-  public void validateSupervisorSurname()
-  {
-    this.validateAttribute(SUPERVISORSURNAME);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSupervisorSurnameMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSupervisorMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSprayView.CLASS);
-    return mdClassIF.definesAttribute(SUPERVISORSURNAME);
+    return mdClassIF.definesAttribute(SUPERVISOR);
   }
   
-  public void setSupervisorSurname(String value)
+  public void setSupervisor(dss.vector.solutions.irs.Supervisor value)
   {
     if(value == null)
     {
-      setValue(SUPERVISORSURNAME, "");
+      setValue(SUPERVISOR, "");
     }
     else
     {
-      setValue(SUPERVISORSURNAME, value);
+      setValue(SUPERVISOR, value.getId());
     }
   }
   
