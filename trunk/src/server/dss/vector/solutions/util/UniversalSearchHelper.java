@@ -48,6 +48,7 @@ public class UniversalSearchHelper implements Reloadable {
 	@Transaction
 	public void createSearch(GeoHierarchy universal) {
 		System.out.println(universal);
+		this.deleteSearch(universal);
 
 		SavedSearch search = new SavedSearch();
 		search.setQueryName(this.getShortClassName(universal));
