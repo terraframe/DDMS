@@ -40,8 +40,8 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       // where key/value is type/select index in this._selectLists
       this._typeAndSelectMap = {};
   
-      // map between ajax search input id and Yahoo Panel
-      this._resultPanels = {};
+      // List of all the auto completes in the system
+      this._autocompletes = [];
   
       // the current type of GeoEntity for ajax searching
       this._currentSearchType = null;
@@ -151,18 +151,25 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     /**
      * Closes all the result panels.
      */
-    _closeAllResultPanels : function()
-    {
-      var panels = Mojo.Util.getValues(this._resultPanels);
-      for(var i=0; i<panels.length; i++)
-      {
-        var panel = panels[i];
-        //if(Mojo.Util.isNumber(excludeIndex) && i !== excludeIndex)
-        var visible = panel.cfg.getProperty('visible');
-        if(visible)
-        {
-          panel.hide();
+    _searchListener : function(value, autocomplete) {
+      var searchedId = autocomplete.getDisplayElement().id;
+      
+      // When a new value is inputed we want to hide all
+      // the other visible search results
+      for(var i=0; i < this._autocompletes.length; i++) {
+        var element = this._autocompletes[i];
+        var elementId = element.getDisplayElement().id;
+    
+        if(searchedId != elementId) {
+          element.hide();
         }
+      }
+    },
+    
+    _closeAllResultPanels : function() {
+      for(var i=0; i < this._autocompletes.length; i++) {
+        var element = this._autocompletes[i];
+        element.hide();
       }
     },
   
@@ -220,30 +227,33 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
             this.searchRef._selectLists.push(select);
   
             YAHOO.util.Event.on(select, this._getChildren, null, this.searchRef);
-          }
+          }                   
   
           // hook all entity name search events
           var ajaxSearches = YAHOO.util.Selector.query('input.ajaxSearch', this._SELECT_CONTAINER_ID);
+          
           for(var i=0; i<ajaxSearches.length; i++)
           {
-            var search = ajaxSearches[i];
-            YAHOO.util.Event.on(search, 'keyup', this.searchRef._ajaxSearch, null, this.searchRef);
-          }
-  
-          // create a panel for each ajax result set
-          var ajaxResults = YAHOO.util.Selector.query('div.ajaxResults', this._SELECT_CONTAINER_ID);
-          for(var i=0; i<ajaxResults.length; i++)
-          {
-            var div = ajaxResults[i];
-            var panel = new YAHOO.widget.Panel(div, {
-              width:'400px',
-              height:'200px',
-              zindex:15,
-              draggable: false,
-              close: true
-            });
-  
-            this.searchRef._resultPanels[div.id] = panel;
+            var search = ajaxSearches[i];            
+            var type = search.id.replace(/_search/, '');
+            
+            var sFunction = Mojo.Util.curry(function(typeRef, request, value){
+              Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityName(request, typeRef, value);
+            }, type);
+            
+            var sHandler = Mojo.Util.bind(this, function(typeRef, option){
+              this.searchRef._resetWithSelection(typeRef, option.id);
+            }, type);
+            
+            var lF = this.searchRef._modalListFunction;
+            var dF = this.searchRef._modalDisplayFunction;
+            var iF = this.searchRef._modalIdFunction;
+            var listener = Mojo.Util.bind(this.searchRef, this.searchRef._searchListener);
+            
+            var autocomplete = new MDSS.GenericSearch(search, null, lF, dF, iF, sFunction, sHandler);                        
+            autocomplete.addListener(listener);
+            
+            this.searchRef._autocompletes.push(autocomplete);
           }
   
           // hook all search events for manual entry
@@ -527,140 +537,36 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
         }
       }
     },
-  
-    /**
-     * Performs an ajax search based on the entity
-     * name and type.
-     */
-    _ajaxSearch : function(e)
-    {
-      var input = e.target;
-      var value = input.value;
-      var type = input.id.replace(/_search/, '');
-      var resultPanel = this._resultPanels[type+"_results"];
-  
-      // must have at least 2 characters ready
-      if(value.length < 2)
-      {
-        return;
-      }
-  
-      // close all other search panels
-      if(this._currentSearchType !== type)
-      {
-        this._closeAllResultPanels();
-      }
-  
-      this._currentSearchType = type;
-  
-      var request = new MDSS.Request({
-        resultPanel: resultPanel,
-        searchValue: value,
-        input: input,
-        searchRef: this,
-        type: type,
-        // don't paint a loading bar. It's too slow for this
-        // type of call
-        onSend: function(){},
-        onComplete: function(){},
-        onSuccess: function(query)
-        {
-          var resultSet = query.getResultSet();
-  
-          var outer = document.createElement('div');
-  
-          var header = document.createElement('div');
-          header.innerHTML = '<h3>'+MDSS.Localized.Search_Results+'</h3><hr />';
-          outer.appendChild(header);
-  
-          var inner = document.createElement('div');
-          YAHOO.util.Dom.addClass(inner, 'entitySearchResults');
-          outer.appendChild(inner);
-  
-          var ul = document.createElement('ul');
-          YAHOO.util.Dom.addClass(ul, 'selectableList')
-          YAHOO.util.Event.on(ul, 'mouseover', function(e, obj){
-  
-            var li = e.target;
-            var ul = e.currentTarget;
-            if(li.nodeName === 'SPAN')
-            {
-              li = li.parentNode;
-            }
-  
-            if(li.nodeName !== 'LI')
-            {
-              return;
-            }
-  
-            // clear all lis of their current class
-            var lis = YAHOO.util.Selector.query('li.currentSelection', ul);
-            for(var i=0; i<lis.length; i++)
-            {
-              YAHOO.util.Dom.removeClass(lis[i], 'currentSelection');
-            }
-  
-            YAHOO.util.Dom.addClass(li, 'currentSelection');
-          });
-  
-          YAHOO.util.Event.on(ul, 'click', function(e, obj){
-  
-            var li = e.target;
-            var ul = e.currentTarget;
-            if(li.nodeName === 'SPAN')
-            {
-              li = li.parentNode;
-            }
-  
-            if(li.nodeName !== 'LI')
-            {
-              return;
-            }
-  
-            var geoEntityId = li.id;
-  
-            obj.input.value = '';
-            this._resetWithSelection(type, obj.panel, geoEntityId);
-  
-          }, {input: this.input, panel: this.resultPanel}, this.searchRef);
-  
-          var GeoEntity = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity;
-          var idAttr = GeoEntity.ID;
-          var entityNameAttr = GeoEntity.ENTITYNAME;
-          var geoIdAttr = GeoEntity.GEOID;
-          for(var i=0; i<resultSet.length; i++)
-          {
-            var valueObj = resultSet[i];
-  
-            var li = document.createElement('li');
-            li.id = valueObj.getValue(idAttr);
-            var display = MDSS.AbstractSelectSearch.formatDisplay2(valueObj.getValue(entityNameAttr),
-              valueObj.getValue('displayLabel'), valueObj.getValue(geoIdAttr), valueObj.getValue('moSubType'));
+    
+    _modalListFunction : function(valueObject) {
+      var GeoEntity = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity;
+      var geoIdAttr = GeoEntity.GEOID;
+      var entityNameAttr = GeoEntity.ENTITYNAME;
         
-            var matched = display.replace(new RegExp("(.*?)("+this.searchValue+")(.*?)", "gi"),
-              "$1<span class='searchMatch'>$2</span>$3");
-              
-              
-            li.innerHTML = matched;
-  
-            ul.appendChild(li);
-          }
-  
-          inner.appendChild(ul);
-  
-          this.resultPanel.setBody(outer);
-          this.resultPanel.render();
-          this.resultPanel.show();
-          this.resultPanel.bringToTop();
-  
-          // refocus the input field
-          this.input.focus();
-        }
-      });
-  
-      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityName(request, type, value);
+      var entityName = valueObject.getValue(entityNameAttr);
+      var displayLabel = valueObject.getValue('displayLabel');
+      var geoId = valueObject.getValue(geoIdAttr);
+      var moSubType = valueObject.getValue('moSubType');
+          
+      return MDSS.AbstractSelectSearch.formatDisplay2(entityName, displayLabel, geoId, moSubType);    
     },
-  
+        
+    _modalDisplayFunction : function(valueObject) {
+      var GeoEntity = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity;
+      var geoIdAttr = GeoEntity.GEOID;
+      var geoId = valueObject.getValue(geoIdAttr);
+          
+      return geoId;
+    },
+        
+    _modalIdFunction : function(valueObject) {
+      var GeoEntity = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity;
+      var idAttr = GeoEntity.ID;
+      var id = valueObject.getValue(idAttr);
+          
+      return id;
+    },
+    
     /**
      * Clears all select lists and adds the given results
      * as new select list options.
@@ -700,17 +606,13 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
      * Resets all select lists with the given GeoEntity
      * and its parents (recursively) and children (immediate).
      */
-    _resetWithSelection : function(type, resultPanel, geoEntityId)
+    _resetWithSelection : function(type, geoEntityId)
     {
       var request = new MDSS.Request({
         searchRef: this,
-        resultPanel: resultPanel,
         type: type,
         onSuccess: function(results)
         {
-          // close the search result panel
-          resultPanel.hide();
-  
           var selectIndex = this.searchRef._typeAndSelectMap[this.type];
   
           this.searchRef._clearAndAddAll(selectIndex, results, geoEntityId);

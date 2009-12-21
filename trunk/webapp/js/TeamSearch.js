@@ -915,7 +915,7 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
       var parameters = this.getParameters();
 
       for(var i = 0; i < this.listeners.length; i++) {
-        this.listeners[i](value);
+        this.listeners[i](value, this);
       }
         
       this._dataSource.getResults(value, parameters);
