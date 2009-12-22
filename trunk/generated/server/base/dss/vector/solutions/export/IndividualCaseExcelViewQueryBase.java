@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 728440932)
+@com.terraframe.mojo.business.ClassSignature(hash = 1608397374)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class IndividualCaseExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 728440932;
+private static final long serialVersionUID = 1608397374;
 
   public IndividualCaseExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -496,6 +496,25 @@ private static final long serialVersionUID = 728440932;
 
   }
  
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence()
+  {
+    return getResidence(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence(String alias)
+  {
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.RESIDENCE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.RESIDENCE, alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeChar getSampleType()
   {
     return getSampleType(null);
@@ -640,6 +659,25 @@ private static final long serialVersionUID = 728440932;
 
   }
  
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace()
+  {
+    return getWorkplace(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace(String alias)
+  {
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.WORKPLACE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.WORKPLACE, alias, displayLabel);
+
+  }
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 

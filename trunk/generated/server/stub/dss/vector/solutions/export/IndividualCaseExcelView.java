@@ -14,6 +14,7 @@ import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.SettlementSubdivision;
 import dss.vector.solutions.intervention.monitor.IndividualCase;
@@ -49,7 +50,27 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
       individualCase.setDiagnosisDate(this.getDiagnosisDate());
       individualCase.setAge(this.getAge());
       individualCase.setProbableSource(this.getProbableSource());
-      individualCase.setResidence(person.getResidentialGeoEntity());
+      
+      GeoEntity res = this.getResidence();
+      if (res!=null)
+      {
+        individualCase.setResidence(res);
+      }
+      else
+      {
+        individualCase.setResidence(person.getResidentialGeoEntity());
+      }
+      
+      GeoEntity work = this.getWorkplace();
+      if (work!=null)
+      {
+        individualCase.setWorkplace(work);
+      }
+      else
+      {
+        individualCase.setWorkplace(person.getWorkGeoEntity());
+      }
+      
       individualCase.applyWithPersonId(person.getId());
     }
     
@@ -119,6 +140,8 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
       person.setLastName(lName);
       person.setDateOfBirth(dob);
       person.setSex(sexTerm);
+      person.setResidentialGeoEntity(this.getResidence());
+      person.setWorkGeoEntity(this.getWorkplace());
       person.apply();
       return person;
     }
@@ -139,22 +162,26 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
   public static void setupImportListener(ExcelImporter importer, String... params)
   {
     importer.addListener(new SymptomListener());
-    importer.addListener(createProbableSourceListener());
+    importer.addListener(createSettlementSubdivisionListener(PROBABLESOURCE));
+    importer.addListener(createSettlementSubdivisionListener(RESIDENCE));
+    importer.addListener(createSettlementSubdivisionListener(WORKPLACE));
     importer.addListener(createHealthFacilityListener());
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
     exporter.addListener(new SymptomListener());
-    exporter.addListener(createProbableSourceListener());
+    exporter.addListener(createSettlementSubdivisionListener(PROBABLESOURCE));
+    exporter.addListener(createSettlementSubdivisionListener(RESIDENCE));
+    exporter.addListener(createSettlementSubdivisionListener(WORKPLACE));
     exporter.addListener(createHealthFacilityListener());
   }
   
-  private static DynamicGeoColumnListener createProbableSourceListener()
+  private static DynamicGeoColumnListener createSettlementSubdivisionListener(String attribute)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     builder.add(GeoHierarchy.getGeoHierarchyFromType(SettlementSubdivision.CLASS));
-    return new DynamicGeoColumnListener(CLASS, PROBABLESOURCE, builder);
+    return new DynamicGeoColumnListener(CLASS, attribute, builder);
   }
 
   private static DynamicGeoColumnListener createHealthFacilityListener()

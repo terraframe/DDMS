@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -623183251)
+@com.terraframe.mojo.business.ClassSignature(hash = -1615208313)
 public abstract class IndividualCaseExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.IndividualCaseExcelView";
-  private static final long serialVersionUID = -623183251;
+  private static final long serialVersionUID = -1615208313;
   
   protected IndividualCaseExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -42,6 +42,7 @@ public abstract class IndividualCaseExcelViewDTOBase extends com.terraframe.mojo
   public static java.lang.String REFERREDFROM = "referredFrom";
   public static java.lang.String REFERREDTO = "referredTo";
   public static java.lang.String RELEASEDATE = "releaseDate";
+  public static java.lang.String RESIDENCE = "residence";
   public static java.lang.String SAMPLETYPE = "sampleType";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SYMPTOMCOMMENTS = "symptomComments";
@@ -50,6 +51,7 @@ public abstract class IndividualCaseExcelViewDTOBase extends com.terraframe.mojo
   public static java.lang.String TREATMENT = "treatment";
   public static java.lang.String TREATMENTMETHOD = "treatmentMethod";
   public static java.lang.String TREATMENTSTARTDATE = "treatmentStartDate";
+  public static java.lang.String WORKPLACE = "workplace";
   public Boolean getActivelyDetected()
   {
     return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ACTIVELYDETECTED));
@@ -989,6 +991,50 @@ public abstract class IndividualCaseExcelViewDTOBase extends com.terraframe.mojo
     return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(RELEASEDATE).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getResidence()
+  {
+    if(getValue(RESIDENCE) == null || getValue(RESIDENCE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(RESIDENCE));
+    }
+  }
+  
+  public void setResidence(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  {
+    if(value == null)
+    {
+      setValue(RESIDENCE, "");
+    }
+    else
+    {
+      setValue(RESIDENCE, value.getId());
+    }
+  }
+  
+  public boolean isResidenceWritable()
+  {
+    return isWritable(RESIDENCE);
+  }
+  
+  public boolean isResidenceReadable()
+  {
+    return isReadable(RESIDENCE);
+  }
+  
+  public boolean isResidenceModified()
+  {
+    return isModified(RESIDENCE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getResidenceMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(RESIDENCE).getAttributeMdDTO();
+  }
+  
   public String getSampleType()
   {
     return getValue(SAMPLETYPE);
@@ -1283,6 +1329,50 @@ public abstract class IndividualCaseExcelViewDTOBase extends com.terraframe.mojo
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getTreatmentStartDateMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(TREATMENTSTARTDATE).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getWorkplace()
+  {
+    if(getValue(WORKPLACE) == null || getValue(WORKPLACE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(WORKPLACE));
+    }
+  }
+  
+  public void setWorkplace(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  {
+    if(value == null)
+    {
+      setValue(WORKPLACE, "");
+    }
+    else
+    {
+      setValue(WORKPLACE, value.getId());
+    }
+  }
+  
+  public boolean isWorkplaceWritable()
+  {
+    return isWritable(WORKPLACE);
+  }
+  
+  public boolean isWorkplaceReadable()
+  {
+    return isReadable(WORKPLACE);
+  }
+  
+  public boolean isWorkplaceModified()
+  {
+    return isModified(WORKPLACE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getWorkplaceMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WORKPLACE).getAttributeMdDTO();
   }
   
   public static IndividualCaseExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

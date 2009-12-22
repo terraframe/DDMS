@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1468987629)
+@com.terraframe.mojo.business.ClassSignature(hash = -1500872953)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -37,6 +37,7 @@ public abstract class IndividualCaseExcelViewBase extends com.terraframe.mojo.bu
   public static java.lang.String REFERREDFROM = "referredFrom";
   public static java.lang.String REFERREDTO = "referredTo";
   public static java.lang.String RELEASEDATE = "releaseDate";
+  public static java.lang.String RESIDENCE = "residence";
   public static java.lang.String SAMPLETYPE = "sampleType";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SYMPTOMCOMMENTS = "symptomComments";
@@ -45,7 +46,8 @@ public abstract class IndividualCaseExcelViewBase extends com.terraframe.mojo.bu
   public static java.lang.String TREATMENT = "treatment";
   public static java.lang.String TREATMENTMETHOD = "treatmentMethod";
   public static java.lang.String TREATMENTSTARTDATE = "treatmentStartDate";
-  private static final long serialVersionUID = 1468987629;
+  public static java.lang.String WORKPLACE = "workplace";
+  private static final long serialVersionUID = -1500872953;
   
   public IndividualCaseExcelViewBase()
   {
@@ -782,6 +784,41 @@ public abstract class IndividualCaseExcelViewBase extends com.terraframe.mojo.bu
     }
   }
   
+  public dss.vector.solutions.geo.generated.GeoEntity getResidence()
+  {
+    if (getValue(RESIDENCE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(RESIDENCE));
+    }
+  }
+  
+  public void validateResidence()
+  {
+    this.validateAttribute(RESIDENCE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getResidenceMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(RESIDENCE);
+  }
+  
+  public void setResidence(dss.vector.solutions.geo.generated.GeoEntity value)
+  {
+    if(value == null)
+    {
+      setValue(RESIDENCE, "");
+    }
+    else
+    {
+      setValue(RESIDENCE, value.getId());
+    }
+  }
+  
   public String getSampleType()
   {
     return getValue(SAMPLETYPE);
@@ -1003,6 +1040,41 @@ public abstract class IndividualCaseExcelViewBase extends com.terraframe.mojo.bu
     else
     {
       setValue(TREATMENTSTARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntity getWorkplace()
+  {
+    if (getValue(WORKPLACE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(WORKPLACE));
+    }
+  }
+  
+  public void validateWorkplace()
+  {
+    this.validateAttribute(WORKPLACE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getWorkplaceMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(WORKPLACE);
+  }
+  
+  public void setWorkplace(dss.vector.solutions.geo.generated.GeoEntity value)
+  {
+    if(value == null)
+    {
+      setValue(WORKPLACE, "");
+    }
+    else
+    {
+      setValue(WORKPLACE, value.getId());
     }
   }
   
