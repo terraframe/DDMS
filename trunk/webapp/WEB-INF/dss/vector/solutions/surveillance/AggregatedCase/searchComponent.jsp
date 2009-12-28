@@ -69,7 +69,7 @@
 (function(){
 	YAHOO.util.Event.onDOMReady(function(){
 
-    MDSS.GenericSearch.createYearSearch('year');
+    var search = MDSS.GenericSearch.createYearSearch('year');
 
     var form = document.getElementById('searchAggregatedCase');
 
@@ -77,10 +77,9 @@
     var button = document.getElementById('button.id');
 
     var geoId = document.getElementById('geoId');	  
-    var year = document.getElementById('year');
     var period = document.getElementById('period');
 
-    MDSS.validateEpiDate(button, geoId, year, period, periodType);
+    MDSS.validateEpiDate(button, geoId, search, period, periodType);
   })
 })();  
 </script>

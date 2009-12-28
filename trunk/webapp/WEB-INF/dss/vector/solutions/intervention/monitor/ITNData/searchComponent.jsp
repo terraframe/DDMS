@@ -69,12 +69,13 @@
 <script type="text/javascript" defer="defer">
   var form = document.getElementById('searchAggregatedCase');
 
+  var search = MDSS.GenericSearch.createYearSearch('year');
+
   var periodType = form.periodType;
   var button = document.getElementById('button.id');
 
   var geoId = document.getElementById('geoId');	  
-  var year = document.getElementById('year');
   var period = document.getElementById('period');
 
-  MDSS.validateEpiDate(button, geoId, year, period, periodType);
+  MDSS.validateEpiDate(button, geoId, search, period, periodType);
 </script>

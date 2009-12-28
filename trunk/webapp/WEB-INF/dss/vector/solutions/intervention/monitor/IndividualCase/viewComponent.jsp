@@ -29,7 +29,7 @@
         ${item.patient.person}
       </mjl:dt>
       <mjl:dt attribute="probableSource">
-        ${item.probableSource}
+        ${item.probableSource.displayString}
       </mjl:dt>
     </mjl:component>
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.IndividualCaseController.edit.mojo" name="dss.vector.solutions.intervention.monitor.IndividualCase.form.edit.button" />
