@@ -336,6 +336,8 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
     }
     
     this.buildAttributeMap(concrete);
+    
+    this.populateConcrete(concrete);
 
     concrete.applyAll(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
 
