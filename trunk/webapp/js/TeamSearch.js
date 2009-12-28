@@ -780,6 +780,7 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
       this._optionBuilder = optionBuilder;
       this._panel = panel;
       this._hasChanged = false;
+      this._value = this.getValue();
       
       this.listeners = [];
       this.parameters = null;
@@ -903,15 +904,18 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
       else if (oData.keyCode === 13) {
         this._panel.selectCurrent();
       }
-      else if(value.length >= this.minLength) {
-        this._hasChanged = true;      
-        this.performSearch(value);
+      else { 
+        if(this._isDifferent(value)) {
+          this._setCurrentValue(value);
+        }
+    
+        if(value.length >= this.minLength) {        
+          this.performSearch(value);
+        }
       }
     },
       
-    performSearch : function(value) {
-      this.resetSelected();
-              
+    performSearch : function(value) {              
       var parameters = this.getParameters();
 
       for(var i = 0; i < this.listeners.length; i++) {
@@ -932,6 +936,16 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
       } 
     },
     
+    _isDifferent : function (value) {
+      return (this._value != value);
+    },
+    
+    _setCurrentValue : function(value) {
+      this.resetSelected();
+      this.value = value;
+      this._hasChanged = true;      
+    },    
+    
     focus : function () {
       IsAbstract : true
     },
@@ -943,7 +957,7 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
     setOption : function (selected) {
       IsAbstract : true
     },
-    
+            
     resetSelected : function() {
       IsAbstract : true
     }
@@ -1026,14 +1040,12 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
 
       var searchFunction = function(request, value) {
         var filtered = [];
-        var searchText = value.toUpperCase();
-
+        
         for(var i=0; i < years.length; i++) {
-          var element = years[i];
-          var text = element.toUpperCase();
+          var year = years[i];
               
-          if(text.search(searchText) !== -1 || value === '') {
-            filtered.push(element);
+          if(year.search(value) !== -1 || value === '') {
+            filtered.push(year);
           }
         }
         
@@ -1050,7 +1062,9 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
 
       var search = new MDSS.GenericSearch(element, null, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler, {minLength:0});
 
-      YAHOO.util.Event.on(element, 'focus', search.performSearch, search, search);  
+      YAHOO.util.Event.on(element, 'focus', search.performSearch, search, search);
+      
+      return search;
     }
   }  
 });
@@ -1092,7 +1106,7 @@ Mojo.Meta.newClass('MDSS.MultiInputAutoComplete', { // Implements CallBack
     },
     
     keyHandler : function(oData) {
-      var target = oData.originalTarget;    	
+      var target = oData.originalTarget;    
       
       this._focusElement = target;
       
@@ -1122,7 +1136,6 @@ Mojo.Meta.newClass('MDSS.MultiInputAutoComplete', { // Implements CallBack
     setOption : function (selected) {
       // IMPORTANT: IT IS EXPECTED THAT selected.label IS A MAP WHERE
       //            MAP[ELEMENT.ID] = LABEL FOR ALL OF THE ELEMENTS
-
       for(var i = 0; i < this._elements.length; i++) {
         var element = this._elements[i];
         var id = element.id;
