@@ -15,7 +15,7 @@
 
     <mjl:attributeColumn attributeName="collection">
       <mjl:row>
-        ${item.collection.displayLabel}
+        ${item.collection.collectionId}
       </mjl:row>
     </mjl:attributeColumn>
 
