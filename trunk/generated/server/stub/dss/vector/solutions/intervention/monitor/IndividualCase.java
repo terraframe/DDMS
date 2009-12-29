@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +51,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
   @Override
   @Transaction
   public void apply()
-  {
+  {    
     validateDiagnosisDate();
     validateCaseEntryDate();
     validateCaseReportDate();
@@ -61,11 +60,12 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     {
       this.setProbableSource(this.getResidence());
     }
-
-    super.apply();
-
-    // Truncate the createdByDate and store it in entry date
-    this.setCaseEntryDate(DateUtils.truncate(this.getCreateDate(), Calendar.DATE));
+    
+    if(this.isNew())
+    {
+      // Truncate the createdByDate and store it in entry date
+      this.setCaseEntryDate(new Date());
+    }
 
     // If no age is specified, calculate it
     if (this.getAge() == null && this.getDiagnosisDate() != null && this.getPatient() != null)

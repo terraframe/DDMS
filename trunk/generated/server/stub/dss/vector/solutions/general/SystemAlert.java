@@ -24,7 +24,11 @@ public class SystemAlert extends SystemAlertBase implements com.terraframe.mojo.
 		
 		if (this.getIsEmailActive()) {
 			Email email = this.generateEmail(data);
-			email.apply();
+			
+			if(!email.isAppliedToDB())
+			{
+			  email.apply();
+			}
 			sent = email.send();
 		}
 		
