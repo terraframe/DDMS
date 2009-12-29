@@ -3,10 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
-
 <%@page import="dss.vector.solutions.stock.StockEventDTO"%>
 <%@page import="dss.vector.solutions.stock.StockItemViewDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.StockDepotDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Arrays"%>
 
 <c:set var="page_title" value="Stock_Detail"  scope="request"/>
 
@@ -19,13 +20,18 @@
 <c:set var="StockDepot" scope="request"><%=StockDepotDTO.CLASS%></c:set>
 <c:set var="StockItemView" scope="request"><%=StockItemViewDTO.CLASS%></c:set>
 
+<%
+List<String> entityUniversals = Arrays.asList(new String[]{StockDepotDTO.CLASS}); 
+request.setAttribute("entityUniversals", entityUniversals);
+%>
+
 <mjl:form name="StockDetail.search.mojo" method="POST">
   <dl>
     <dt>
       <label> ${view.stockDepotMd.displayLabel} </label>
     </dt>
     <dd>
-      <mdss:geo param="geoId" concrete="false" value="${geoId}" filter="${StockDepot}" />      
+      <mdss:geo param="geoId" concrete="false" universals="${entityUniversals}" value="${geoId}" filter="${StockDepot}"  />      
     </dd>
     <dt>
       <label> ${view.itemMd.displayLabel} </label>
