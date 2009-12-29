@@ -5,6 +5,10 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
+import dss.vector.solutions.geo.GeoHierarchy;
+
 public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long   serialVersionUID = 1257806999566L;
@@ -19,6 +23,8 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
   public void populateView(ThresholdCalculationType concrete)
   {
     this.setConcreteId(concrete.getId());
+
+    this.populateConfiguration();
 
     this.setWeeksBefore(concrete.getWeeksBefore());
     this.setWeeksAfter(concrete.getWeeksAfter());
@@ -40,7 +46,7 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
     {
       this.addCaseTypes(m);
     }
-    
+
     this.clearT1Method();
     for (ThresholdCalculationMethod m : concrete.getT1Method())
     {
@@ -51,6 +57,45 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
     for (ThresholdCalculationMethod m : concrete.getT2Method())
     {
       this.addT2Method(m);
+    }
+  }
+
+  private void populateConfiguration()
+  {
+    Property hierarchy = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.EPIDEMIC_UNIVERSAL);
+    Property isEpiWeek = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.IS_EPI_WEEK);
+
+    if (hierarchy != null)
+    {
+      try
+      {
+
+        GeoHierarchy epidemicUniversal = GeoHierarchy.get(hierarchy.getPropertyValue());
+
+        this.setEpidemicUniversal(epidemicUniversal);
+      }
+      catch (Exception e)
+      {
+        // Do nothing: Use the default value
+      }
+    }
+
+    if (isEpiWeek != null)
+    {
+      try
+      {
+        OutbreakCalculation countingMethod = OutbreakCalculation.valueOf(isEpiWeek.getPropertyValue());
+
+        this.setCountingMethod(OutbreakCalculation.EPI_WEEK.equals(countingMethod));
+      }
+      catch (Exception e)
+      {
+        this.setCountingMethod(true);
+      }
+    }
+    else
+    {
+      this.setCountingMethod(true);
     }
   }
 
@@ -75,7 +120,7 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
     {
       concrete.addCaseTypes(m);
     }
-    
+
     concrete.clearT1Method();
     for (ThresholdCalculationMethod m : this.getT1Method())
     {
@@ -88,12 +133,11 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
       concrete.addT2Method(m);
     }
   }
-  
+
   public String getWeight(int i)
   {
     return this.getValue(WEIGHT + i);
   }
-
 
   private void buildAttributeMap(ThresholdCalculationType concrete)
   {
@@ -158,7 +202,10 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 
       // No ThresholdCalculationType has been created before. Therefore
       // return one containing the default values.
-      return new ThresholdCalculationTypeView();
+      ThresholdCalculationTypeView view = new ThresholdCalculationTypeView();
+      view.populateConfiguration();
+
+      return view;
     }
     finally
     {

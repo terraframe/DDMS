@@ -16,21 +16,21 @@
 <mjl:form name="ThresholdData.search.mojo" method="POST" id="threshold.form">
   <dl>
     <dt>
-      <label><fmt:message key="Epidemic_Universal"/></label>
+      <label>${thresholdCalculation.epidemicUniversalMd.displayLabel}</label>
     </dt>
     <dd>    
       <mjl:select var="current" valueAttribute="geoHierarchyId" param="universal" items="${views}">
-        <mjl:option selected="${hierarchy != null && hierarchy == current.geoHierarchyId ? 'selected' : ''}">
+        <mjl:option selected="${epidemicUniversal != null && epidemicUniversal.id == current.geoHierarchyId ? 'selected' : 'false'}">
           ${current.displayLabel}
-        </mjl:option>
+        </mjl:option>    
       </mjl:select>
     </dd>
     <dt>
-      <label> <fmt:message key="Counting_Method"/></label>
+      <label>${thresholdCalculation.countingMethodMd.displayLabel}</label>
     </dt>
     <dd>
-      <mjl:radioGroup var="current" valueAttribute="enumName" items="${methods}" param="calulationMethod">
-       <mjl:radioOption  checked="${isEpiWeek != null && isEpiWeek == current.enumName ? 'checked' : ''}">
+      <mjl:radioGroup var="current" valueAttribute="enumName" varStatus="status" items="${methods}" param="calulationMethod">
+       <mjl:radioOption checked="${((status.index == 0 && thresholdCalculation.countingMethod) || (status.index == 1 && !thresholdCalculation.countingMethod)) ? 'checked' : 'false'}">
           ${current.displayLabel}
        </mjl:radioOption>
       </mjl:radioGroup>
@@ -114,11 +114,11 @@
     <mjl:command classes="submitButton" action="dss.vector.solutions.general.ThresholdDataController.setThresholdConfiguration.mojo" name="search" value="Submit"/>
     
     <dt>
-      <label> <fmt:message key="Calculation_Interval"/> </label>
+      <label> ${thresholdCalculation.calculationIntervalMd.displayLabel}</label>
     </dt>
     <dd>
-      <input type="radio" name="currentYear" value="true" checked="checked"/> <fmt:message key="Current_Year"/>    
-      <input type="radio" name="currentYear" value="false"/> <fmt:message key="Next_Year"/>    
+      <input type="radio" name="currentYear" value="true" checked="checked"/> ${thresholdCalculation.calculationIntervalMd.positiveDisplayLabel}    
+      <input type="radio" name="currentYear" value="false"/> ${thresholdCalculation.calculationIntervalMd.negativeDisplayLabel}  
     </dd>
     
     <input type="button" id="calculate.button" value="" />

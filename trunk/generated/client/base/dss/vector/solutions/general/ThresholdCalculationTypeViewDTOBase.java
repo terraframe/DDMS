@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -299424153)
+@com.terraframe.mojo.business.ClassSignature(hash = 2092360408)
 public abstract class ThresholdCalculationTypeViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdCalculationTypeView";
-  private static final long serialVersionUID = -299424153;
+  private static final long serialVersionUID = 2092360408;
   
   protected ThresholdCalculationTypeViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -16,8 +16,11 @@ public abstract class ThresholdCalculationTypeViewDTOBase extends com.terraframe
     return CLASS;
   }
   
+  public static java.lang.String CALCULATIONINTERVAL = "calculationInterval";
   public static java.lang.String CASETYPES = "caseTypes";
   public static java.lang.String CONCRETEID = "concreteId";
+  public static java.lang.String COUNTINGMETHOD = "countingMethod";
+  public static java.lang.String EPIDEMICUNIVERSAL = "epidemicUniversal";
   public static java.lang.String ID = "id";
   public static java.lang.String PRIORYEARS = "priorYears";
   public static java.lang.String T1METHOD = "t1Method";
@@ -34,6 +37,43 @@ public abstract class ThresholdCalculationTypeViewDTOBase extends com.terraframe
   public static java.lang.String WEIGHT7 = "weight7";
   public static java.lang.String WEIGHT8 = "weight8";
   public static java.lang.String WEIGHT9 = "weight9";
+  public Boolean getCalculationInterval()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CALCULATIONINTERVAL));
+  }
+  
+  public void setCalculationInterval(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(CALCULATIONINTERVAL, "");
+    }
+    else
+    {
+      setValue(CALCULATIONINTERVAL, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isCalculationIntervalWritable()
+  {
+    return isWritable(CALCULATIONINTERVAL);
+  }
+  
+  public boolean isCalculationIntervalReadable()
+  {
+    return isReadable(CALCULATIONINTERVAL);
+  }
+  
+  public boolean isCalculationIntervalModified()
+  {
+    return isModified(CALCULATIONINTERVAL);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getCalculationIntervalMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CALCULATIONINTERVAL).getAttributeMdDTO();
+  }
+  
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.general.ThresholdCalculationCaseTypesDTO> getCaseTypes()
   {
@@ -115,6 +155,87 @@ public abstract class ThresholdCalculationTypeViewDTOBase extends com.terraframe
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+  }
+  
+  public Boolean getCountingMethod()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(COUNTINGMETHOD));
+  }
+  
+  public void setCountingMethod(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(COUNTINGMETHOD, "");
+    }
+    else
+    {
+      setValue(COUNTINGMETHOD, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isCountingMethodWritable()
+  {
+    return isWritable(COUNTINGMETHOD);
+  }
+  
+  public boolean isCountingMethodReadable()
+  {
+    return isReadable(COUNTINGMETHOD);
+  }
+  
+  public boolean isCountingMethodModified()
+  {
+    return isModified(COUNTINGMETHOD);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getCountingMethodMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(COUNTINGMETHOD).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.geo.GeoHierarchyDTO getEpidemicUniversal()
+  {
+    if(getValue(EPIDEMICUNIVERSAL) == null || getValue(EPIDEMICUNIVERSAL).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.GeoHierarchyDTO.get(getRequest(), getValue(EPIDEMICUNIVERSAL));
+    }
+  }
+  
+  public void setEpidemicUniversal(dss.vector.solutions.geo.GeoHierarchyDTO value)
+  {
+    if(value == null)
+    {
+      setValue(EPIDEMICUNIVERSAL, "");
+    }
+    else
+    {
+      setValue(EPIDEMICUNIVERSAL, value.getId());
+    }
+  }
+  
+  public boolean isEpidemicUniversalWritable()
+  {
+    return isWritable(EPIDEMICUNIVERSAL);
+  }
+  
+  public boolean isEpidemicUniversalReadable()
+  {
+    return isReadable(EPIDEMICUNIVERSAL);
+  }
+  
+  public boolean isEpidemicUniversalModified()
+  {
+    return isModified(EPIDEMICUNIVERSAL);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEpidemicUniversalMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(EPIDEMICUNIVERSAL).getAttributeMdDTO();
   }
   
   public Integer getPriorYears()

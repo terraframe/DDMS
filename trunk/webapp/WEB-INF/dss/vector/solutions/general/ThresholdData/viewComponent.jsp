@@ -69,7 +69,6 @@ String deleteColumn = "";
   </mjl:commandLink>
 </span>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{ThresholdDataViewDTO.CLASS}))%>
 <%=Halp.loadTypes(Arrays.asList(new String[]{ThresholdDataViewDTO.CLASS, ThresholdDataController.CLASS}))%>
 
 <script type="text/javascript">

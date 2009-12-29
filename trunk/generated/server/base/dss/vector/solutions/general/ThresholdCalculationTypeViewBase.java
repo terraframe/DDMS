@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1332484071)
+@com.terraframe.mojo.business.ClassSignature(hash = 258507096)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,8 +11,11 @@ package dss.vector.solutions.general;
 public abstract class ThresholdCalculationTypeViewBase extends com.terraframe.mojo.business.View implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdCalculationTypeView";
+  public static java.lang.String CALCULATIONINTERVAL = "calculationInterval";
   public static java.lang.String CASETYPES = "caseTypes";
   public static java.lang.String CONCRETEID = "concreteId";
+  public static java.lang.String COUNTINGMETHOD = "countingMethod";
+  public static java.lang.String EPIDEMICUNIVERSAL = "epidemicUniversal";
   public static java.lang.String ID = "id";
   public static java.lang.String PRIORYEARS = "priorYears";
   public static java.lang.String T1METHOD = "t1Method";
@@ -29,11 +32,39 @@ public abstract class ThresholdCalculationTypeViewBase extends com.terraframe.mo
   public static java.lang.String WEIGHT7 = "weight7";
   public static java.lang.String WEIGHT8 = "weight8";
   public static java.lang.String WEIGHT9 = "weight9";
-  private static final long serialVersionUID = 1332484071;
+  private static final long serialVersionUID = 258507096;
   
   public ThresholdCalculationTypeViewBase()
   {
     super();
+  }
+  
+  public Boolean getCalculationInterval()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CALCULATIONINTERVAL));
+  }
+  
+  public void validateCalculationInterval()
+  {
+    this.validateAttribute(CALCULATIONINTERVAL);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getCalculationIntervalMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
+    return mdClassIF.definesAttribute(CALCULATIONINTERVAL);
+  }
+  
+  public void setCalculationInterval(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(CALCULATIONINTERVAL, "");
+    }
+    else
+    {
+      setValue(CALCULATIONINTERVAL, java.lang.Boolean.toString(value));
+    }
   }
   
   @SuppressWarnings("unchecked")
@@ -99,6 +130,69 @@ public abstract class ThresholdCalculationTypeViewBase extends com.terraframe.mo
     else
     {
       setValue(CONCRETEID, value);
+    }
+  }
+  
+  public Boolean getCountingMethod()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(COUNTINGMETHOD));
+  }
+  
+  public void validateCountingMethod()
+  {
+    this.validateAttribute(COUNTINGMETHOD);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getCountingMethodMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
+    return mdClassIF.definesAttribute(COUNTINGMETHOD);
+  }
+  
+  public void setCountingMethod(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(COUNTINGMETHOD, "");
+    }
+    else
+    {
+      setValue(COUNTINGMETHOD, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public dss.vector.solutions.geo.GeoHierarchy getEpidemicUniversal()
+  {
+    if (getValue(EPIDEMICUNIVERSAL).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.GeoHierarchy.get(getValue(EPIDEMICUNIVERSAL));
+    }
+  }
+  
+  public void validateEpidemicUniversal()
+  {
+    this.validateAttribute(EPIDEMICUNIVERSAL);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getEpidemicUniversalMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
+    return mdClassIF.definesAttribute(EPIDEMICUNIVERSAL);
+  }
+  
+  public void setEpidemicUniversal(dss.vector.solutions.geo.GeoHierarchy value)
+  {
+    if(value == null)
+    {
+      setValue(EPIDEMICUNIVERSAL, "");
+    }
+    else
+    {
+      setValue(EPIDEMICUNIVERSAL, value.getId());
     }
   }
   

@@ -241,6 +241,14 @@
     </dd>    
   </dl>
   <dl>
+    <dt><label><f:message key="Configure_Thresholds"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Threshold_Data"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.ThresholdCalculationTypeView">
+        <f:message key="Configure_Thresholds"/>
+      </mjl:commandLink>
+    </dd>    
     <dt><label><f:message key="Threshold_Data"/></label></dt>
     <dd>
       <mjl:commandLink
@@ -305,6 +313,66 @@
         name="Individual_Instance"
         action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualInstance">
         <f:message key="Individual_Instance"/>
+      </mjl:commandLink>
+    </dd>    
+  </dl>
+  <dl>
+    <dt><label><f:message key="Configure_System_Variables"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="System_Variables"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.Property">
+        <f:message key="System_Variables"/>
+      </mjl:commandLink>
+    </dd>    
+  </dl>
+  <dl>
+    <dt><label><f:message key="Configure_Malaria_Season"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Malaria_Season"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.MalariaSeason">
+        <f:message key="Malaria_Season"/>
+      </mjl:commandLink>
+    </dd>    
+  </dl>
+  <dl>
+    <dt><label><f:message key="Ontology_Fields"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Browser_Root"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.ontology.BrowserRoot">
+        <f:message key="Browser_Root"/>
+      </mjl:commandLink>
+    </dd>    
+  </dl>
+  <dl>
+    <dt><label><f:message key="Ontology_Admin"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Term"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.ontology.Term">
+        <f:message key="Term"/>
+      </mjl:commandLink>
+    </dd>    
+  </dl>
+  <dl>
+    <dt><label><f:message key="Configure_the_Universal_Tree"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Universal"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.geo.GeoEntityDefinition">
+        <f:message key="Universal"/>
+      </mjl:commandLink>
+    </dd>    
+  </dl>
+  <dl>
+    <dt><label><f:message key="Manage_Geo_Entities"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Geo_Entity"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.geo.generated.GeoEntity">
+        <f:message key="Geo_Entity"/>
       </mjl:commandLink>
     </dd>    
   </dl>

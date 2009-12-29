@@ -18,8 +18,6 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
-import dss.vector.solutions.PropertyDTO;
-import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyViewDTO;
 import dss.vector.solutions.irs.RequiredGeoIdProblemDTO;
@@ -234,28 +232,17 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
       ClientRequestIF request = this.getClientRequest();
 
-      List<GeoHierarchyViewDTO> views = this.getPopulationFilterHiearchies();
-      
-      List<OutbreakCalculationMasterDTO> methods = OutbreakCalculationDTO.allItems(request);
+      List<GeoHierarchyViewDTO> universals = this.getPopulationFilterHiearchies();      
+      List<OutbreakCalculationMasterDTO> countingMethods = OutbreakCalculationDTO.allItems(request);
+      ThresholdCalculationTypeViewDTO item = ThresholdCalculationTypeViewDTO.getCalculationThreshold(request);
 
-      PropertyDTO hierarchy = PropertyDTO.getByPackageAndName(request, PropertyInfo.GENERAL_PACKAGE, PropertyInfo.EPIDEMIC_UNIVERSAL);
-      PropertyDTO isEpiWeek = PropertyDTO.getByPackageAndName(request, PropertyInfo.GENERAL_PACKAGE, PropertyInfo.IS_EPI_WEEK);
-
-      req.setAttribute("methods", methods);
-      req.setAttribute("views", views);
-      req.setAttribute("thresholdCalculation", ThresholdCalculationTypeViewDTO.getCalculationThreshold(request));
       req.setAttribute("thresholdCalculationMethods", ThresholdCalculationMethodDTO.allItems(request));
       req.setAttribute("thresholdCalculationCaseTypes", ThresholdCalculationCaseTypesDTO.allItems(request));
-
-      if (hierarchy != null)
-      {
-        req.setAttribute("hierarchy", hierarchy.getPropertyValue());
-      }
-
-      if (isEpiWeek != null)
-      {
-        req.setAttribute("isEpiWeek", isEpiWeek.getPropertyValue());
-      }
+      req.setAttribute("methods", countingMethods);
+      req.setAttribute("views", universals);
+      
+      req.setAttribute("thresholdCalculation", item);
+      req.setAttribute("epidemicUniversal", item.getEpidemicUniversal());
 
       render("editThresholdConfiguration.jsp");
     }

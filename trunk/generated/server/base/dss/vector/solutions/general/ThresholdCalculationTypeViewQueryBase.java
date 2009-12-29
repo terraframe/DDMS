@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1442190864)
+@com.terraframe.mojo.business.ClassSignature(hash = 1118730895)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  abstract  class ThresholdCalculationTypeViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1442190864;
+private static final long serialVersionUID = 1118730895;
 
   public ThresholdCalculationTypeViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -26,6 +26,24 @@ private static final long serialVersionUID = 1442190864;
   {
     return dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS;
   }
+  public com.terraframe.mojo.query.AttributeBoolean getCalculationInterval()
+  {
+    return getCalculationInterval(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getCalculationInterval(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.CALCULATIONINTERVAL, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getCalculationInterval(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.CALCULATIONINTERVAL, alias, displayLabel);
+
+  }
+ 
   public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes()
   {
     return getCaseTypes(null);
@@ -61,6 +79,43 @@ private static final long serialVersionUID = 1442190864;
 
   }
  
+  public com.terraframe.mojo.query.AttributeBoolean getCountingMethod()
+  {
+    return getCountingMethod(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getCountingMethod(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.COUNTINGMETHOD, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getCountingMethod(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.COUNTINGMETHOD, alias, displayLabel);
+
+  }
+ 
+  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getEpidemicUniversal()
+  {
+    return getEpidemicUniversal(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getEpidemicUniversal(String alias)
+  {
+
+    return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.EPIDEMICUNIVERSAL, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getEpidemicUniversal(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.EPIDEMICUNIVERSAL, alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeChar getId()
   {
     return getId(null);
