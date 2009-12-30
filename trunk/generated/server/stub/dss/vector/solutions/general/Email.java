@@ -212,7 +212,7 @@ public class Email extends EmailBase implements com.terraframe.mojo.generation.l
 
       // Update this email object
       //FIXME this causes a class loader dead lock
-//      this.lock();
+      this.lock();
       this.setSentDate(new Date());
       this.apply();
 
@@ -221,7 +221,7 @@ public class Email extends EmailBase implements com.terraframe.mojo.generation.l
     catch (Exception e)
     {
       //FIXME this causes a class loader dead lock      
-//      this.lock();
+      this.lock();
       this.setError(new Date() + ": " + e.getLocalizedMessage());
       this.apply();
     }

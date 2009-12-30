@@ -164,6 +164,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
   public static MalariaSeason getSeasonByDate(Date date)
   {
 	  MalariaSeasonQuery query = MalariaSeason.getSeasonQueryByDate(date, new QueryFactory());
+	  
 	  return getSeasonFromQueryByDate(query, date);
   }
   
@@ -177,16 +178,13 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
 
   public static MalariaSeason getSeasonFromQueryByDate(MalariaSeasonQuery query, Date date)
   {
-    MalariaSeason malariaSeason = null;
-
     OIterator<? extends MalariaSeason> iterator = query.getIterator();
 
     try
     {
       if (iterator.hasNext())
       {
-
-        malariaSeason = iterator.next();
+        return iterator.next();
       }
 
     }
@@ -195,7 +193,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
       iterator.close();
     }
 
-    return malariaSeason;
+    return null;
   }
   
   

@@ -13,8 +13,8 @@
     <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="collection">
         <mjl:commandLink name="collection.link" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" >
-          <mjl:property name="id" value="${item.collection.id}"/>
-          ${item.collection.collectionId}
+          <mjl:property name="id" value="${collection.concreteId}"/>
+          ${collection.collectionId}
         </mjl:commandLink>
       </mjl:dt>
       <mjl:dt attribute="testDate">
@@ -78,9 +78,50 @@
       </mjl:dt>
       <mjl:dt attribute="kd95">
         ${item.kd95}
-      </mjl:dt>      
+      </mjl:dt>
+      
+      <div id="intervalsDiv">
+        <table class="displayTable">
+          <c:if test="${item.interval10Readable}">
+            <tr class="oddRow" id="interval10">
+              <td>${item.interval10Md.displayLabel}</td>
+              <td style="text-align:right">${item.interval10}</td>
+            </tr>
+          </c:if>
+          <c:if test="${item.interval20Readable}">
+            <tr class="oddRow" id="interval20">
+              <td>${item.interval20Md.displayLabel}</td>
+              <td style="text-align:right">${item.interval20}</td>
+            </tr>
+          </c:if>
+          <c:if test="${item.interval30Readable}">
+            <tr class="oddRow" id="interval30">
+              <td>${item.interval30Md.displayLabel}</td>
+              <td style="text-align:right">${item.interval30}</td>
+            </tr>
+          </c:if>
+          <c:if test="${item.interval40Readable}">
+            <tr class="oddRow" id="interval40">
+              <td>${item.interval40Md.displayLabel}</td>
+              <td style="text-align:right">${item.interval40}</td>
+            </tr>
+          </c:if>
+          <c:if test="${item.interval50Readable}">
+            <tr class="oddRow" id="interval50">
+              <td>${item.interval50Md.displayLabel}</td>
+              <td style="text-align:right">${item.interval50}</td>
+            </tr>
+          </c:if>
+          <c:if test="${item.interval60Readable}">
+            <tr class="oddRow" id="interval60">
+              <td>${item.interval60Md.displayLabel}</td>
+              <td style="text-align:right;padding-left:30px">${item.interval60}</td>
+            </tr>
+          </c:if>
+        </table>    
+      </div>  
     </mjl:component>
-    <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.KnockDownAssay.form.edit.button" classes="submitButton" />
+  <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.KnockDownAssay.form.edit.button" classes="submitButton" />
   </dl>
 </mjl:form>
 

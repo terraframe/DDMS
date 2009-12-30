@@ -13,9 +13,9 @@
   <mjl:context action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewPage.mojo" />
   <mjl:columns>
 
-    <mjl:attributeColumn attributeName="collection">
+    <mjl:attributeColumn attributeName="collectionLabel">
       <mjl:row>
-        ${item.collection.collectionId}
+        ${item.collectionLabel}
       </mjl:row>
     </mjl:attributeColumn>
 
@@ -66,7 +66,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.view.mojo" name="view.link">
-          <mjl:property value="${item.id}" name="id" />
+          <mjl:property value="${item.concreteId}" name="id" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>

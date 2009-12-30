@@ -131,9 +131,27 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
     {
       return list.get(0);
     }
+
     return null;
   }
-  
+
+  public static ThresholdData getThresholdOrCreate(GeoEntity entity, Date date)
+  {
+    ThresholdData data = ThresholdData.getThresholdData(entity, date);
+
+    if (data == null)
+    {
+      MalariaSeason season = MalariaSeason.getSeasonByDate(date);
+      
+      data = new ThresholdData();
+      data.setGeoEntity(entity);
+      data.setSeason(season);
+      data.apply();
+    }
+
+    return data;
+  }
+
   public static ThresholdData getThresholdData(GeoEntity entity, MalariaSeason season)
   {
     QueryFactory factory = new QueryFactory();
@@ -160,7 +178,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
    */
   public static Integer getCalculatedValue(GeoEntity entity, EpiWeek week, String attribute)
   {
-    if(entity.getType().equals(Earth.CLASS))
+    if (entity.getType().equals(Earth.CLASS))
     {
       return null;
     }
@@ -210,7 +228,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
     sql += " SELECT b.child_id, b.parent_id, a.depth+1 , geoentity.type , ";
     // this is how we sum";
     sql += " a.sumvalue +  COALESCE((";
-    sql += "  SELECT " + attribute + " FROM weeklythreshold, thresholddata, epiweek  ";
+    sql += "  SELECT " + attribute + " FROM weeklythreshold, thresholddata  ";
     sql += "    WHERE weeklythreshold.child_id = '" + week.getId() + "'";
     sql += "    AND thresholddata.geoentity = b.child_id";
     sql += "    AND weeklythreshold.parent_id = thresholddata.id";
@@ -228,8 +246,6 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
     sql += " select sum(sumvalue) as summed_value from recursive_rollup ";
     sql += " )";
     valueQuery.FROM(sql, "rr");
-
-    System.out.println(valueQuery.getSQL());
 
     List<ValueObject> valueObjectList = valueQuery.getIterator().getAll();
 
@@ -254,6 +270,11 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
   @Authenticate
   public static void checkThresholdViolation(Date date, GeoEntity entity, long count)
   {
+    if (entity.getType().equals(Earth.CLASS))
+    {
+      return;
+    }
+
     WeeklyThreshold threshold = ThresholdData.getThresholds(entity, date);
 
     Integer notification = null;
@@ -281,7 +302,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
     {
       if (threshold == null)
       {
-        ThresholdData data = ThresholdData.getThresholdData(entity, date);
+        ThresholdData data = ThresholdData.getThresholdOrCreate(entity, date);
 
         threshold = data.addEpiWeeks(week);
         threshold.apply();
@@ -289,8 +310,8 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
 
       if (!threshold.performedNotificationAlert())
       {
-    	// Perform the alert
-      	performAlert("PoliticalOutbreakNotification", entity, notification, count);
+        // Perform the alert
+        performAlert("PoliticalOutbreakNotification", entity, notification, count);
 
         threshold.updateLastNotification();
       }
@@ -300,7 +321,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
     {
       if (threshold == null)
       {
-        ThresholdData data = ThresholdData.getThresholdData(entity, date);
+        ThresholdData data = ThresholdData.getThresholdOrCreate(entity, date);
 
         threshold = data.addEpiWeeks(week);
         threshold.apply();
@@ -308,45 +329,47 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
 
       if (!threshold.performedIdentificationAlert())
       {
-    	performAlert("PoliticalOutbreakIdentification", entity, identification, count);
+        performAlert("PoliticalOutbreakIdentification", entity, identification, count);
 
         threshold.updateLastIdentification();
       }
     }
   }
-  
-  private static void performAlert(String alertKey, GeoEntity entity, int threshold, long count) {
-  	SystemAlert systemAlert = SystemAlert.getByKey(alertKey);
+
+  private static void performAlert(String alertKey, GeoEntity entity, int threshold, long count)
+  {
+    SystemAlert systemAlert = SystemAlert.getByKey(alertKey);
     String alertType = entity.getOutbreakAlert();
     String thresholdType = MDSSProperties.getString(alertKey);
     String label = entity.getLabel();
     boolean emailSent = false;
 
-	if (systemAlert.getIsEmailActive())
-	{
-		HashMap<String,Object> data = new HashMap<String,Object>();
-        data.put("alertType", alertType);
-        data.put("thresholdType", thresholdType);
-        data.put("entityLabel", label);
-        data.put("threshold", threshold);
-        data.put("totalCases", count);
-		emailSent = systemAlert.sendEmail(data);
-	}
-	
-	if (systemAlert.getIsOnscreenActive())
-	{
-        OutbreakAlert alert = new OutbreakAlert();
-        alert.setAlertType(alertType);
-        alert.setThresholdType(thresholdType);
-        alert.setEntityLabel(label);
-        alert.setThreshold(threshold);
-        alert.setTotalCases(count);
-        if (systemAlert.getIsEmailActive() & !emailSent) {
-        	alert.setEmailFailure(true);
-        }
-        alert.apply();
+    if (systemAlert.getIsEmailActive())
+    {
+      HashMap<String, Object> data = new HashMap<String, Object>();
+      data.put("alertType", alertType);
+      data.put("thresholdType", thresholdType);
+      data.put("entityLabel", label);
+      data.put("threshold", threshold);
+      data.put("totalCases", count);
+      emailSent = systemAlert.sendEmail(data);
+    }
 
-        alert.throwIt();
-	}
+    if (systemAlert.getIsOnscreenActive())
+    {
+      OutbreakAlert alert = new OutbreakAlert();
+      alert.setAlertType(alertType);
+      alert.setThresholdType(thresholdType);
+      alert.setEntityLabel(label);
+      alert.setThreshold(threshold);
+      alert.setTotalCases(count);
+      if (systemAlert.getIsEmailActive() & !emailSent)
+      {
+        alert.setEmailFailure(true);
+      }
+      alert.apply();
+
+      alert.throwIt();
+    }
   }
 }

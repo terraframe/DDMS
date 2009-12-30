@@ -59,7 +59,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
-    KnockDownAssayQueryDTO query = KnockDownAssayDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    KnockDownAssayViewQueryDTO query = KnockDownAssayViewDTO.getPage(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
@@ -107,7 +107,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
   private void edit(KnockDownAssayDTO dto) throws IOException, ServletException
   {
     this.setupRequest();
-    this.setupMO(dto);
+    this.setupReferences(dto);
     req.setAttribute("item", dto);
 
     render("editComponent.jsp");
@@ -142,7 +142,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
   public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    KnockDownAssayQueryDTO query = KnockDownAssayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    KnockDownAssayViewQueryDTO query = KnockDownAssayViewDTO.getPage(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
@@ -169,7 +169,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
   private void newInstance(KnockDownAssayDTO dto) throws IOException, ServletException
   {
     this.setupRequest();
-    this.setupMO(dto);
+    this.setupReferences(dto);
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
@@ -191,7 +191,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    this.setupMO(dto);
+    this.setupReferences(dto);
     
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
@@ -228,13 +228,20 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     this.edit(dto);
   }
 
-  private void setupMO(KnockDownAssayDTO dto)
+  private void setupReferences(KnockDownAssayDTO dto)
   {
     req.setAttribute("sex", dto.getSex());
     req.setAttribute("generation", dto.getGeneration());
     req.setAttribute("identificationMethod", dto.getIdentificationMethod());
     req.setAttribute("testMethod", dto.getTestMethod());
     req.setAttribute("specie", dto.getSpecie());
+    
+    String collectionId = dto.getValue(KnockDownAssayDTO.COLLECTION);
+    
+    if(collectionId != null && !collectionId.equals(""))
+    {
+      req.setAttribute("collection", MosquitoCollectionDTO.getView(this.getClientRequest(), collectionId));
+    }
   }
 
   private void setupRequest()

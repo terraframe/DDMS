@@ -10,9 +10,9 @@
   <mjl:context action="dss.vector.solutions.entomology.assay.KnockDownAssayController.viewPage.mojo" />
   <mjl:columns>
 
-  <mjl:attributeColumn attributeName="collection">
+  <mjl:attributeColumn attributeName="collectionLabel">
        <mjl:row>
-        ${item.collection.collectionId}
+        ${item.collectionLabel}
       </mjl:row>
     </mjl:attributeColumn>
 
@@ -67,7 +67,7 @@
           action="dss.vector.solutions.entomology.assay.KnockDownAssayController.view.mojo"
           name="view.link">
           <mjl:property
-            value="${item.id}"
+            value="${item.concreteId}"
             name="id" />
         </mjl:commandLink>
       </mjl:row>

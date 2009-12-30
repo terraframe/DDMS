@@ -13,8 +13,8 @@
     <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="collection">
         <mjl:commandLink name="collection.link" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" >
-          <mjl:property name="id" value="${item.collection.id}"/>
-          ${item.collection.collectionId}
+          <mjl:property name="id" value="${collection.concreteId}"/>
+          ${collection.collectionId}
         </mjl:commandLink>
       </mjl:dt>
       <mjl:dt attribute="testDate">

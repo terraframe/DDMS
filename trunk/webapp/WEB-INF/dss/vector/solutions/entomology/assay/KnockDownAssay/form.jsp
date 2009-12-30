@@ -11,76 +11,113 @@
 <%@page import="dss.vector.solutions.entomology.assay.CollectionAssayDTO"%>
 <%@page import="dss.vector.solutions.entomology.assay.AbstractAssayDTO"%>
 <%@page import="dss.vector.solutions.entomology.assay.AdultAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
 
+<mjl:component item="${item}" param="dto">
+  <mjl:dt attribute="collection">
+    <mjl:input id="collectionInput" param="collectionInput" type="text" value="${collection != null ? collection.collectionId : ''}"/>
+    <mjl:input id="collectionId" param="collection" type="hidden" value="${collection != null ? collection.concreteId : ''}" />    
+  </mjl:dt>
+  <mjl:dt attribute="testDate">
+    <mjl:input type="text" param="testDate" id="testDate" classes="DatePick NoFuture" />
+  </mjl:dt>
+  <mjl:dt attribute="testMethod">
+    <mdss:mo param="testMethod" value="${testMethod}"/>
+  </mjl:dt>  
+  <mjl:dt attribute="generation">
+    <mdss:mo param="generation" value="${generation}"/>
+  </mjl:dt>  
+  <mjl:dt attribute="isofemale">
+    <mjl:boolean param="isofemale" />
+  </mjl:dt>
+  <mjl:dt attribute="sex">
+    <mdss:mo param="sex" value="${sex}"/>
+  </mjl:dt>  
+  <mjl:dt attribute="specie">
+    <mdss:mo param="specie" value="${specie}"/>
+  </mjl:dt>  
+  <mjl:dt attribute="identificationMethod">
+    <mdss:mo param="identificationMethod" value="${identificationMethod}"/>
+  </mjl:dt>  
+  <mjl:dt attribute="ageRange">
+  <dl>
+    <mjl:struct param="ageRange">
+      <mjl:dt attribute="startPoint" type="text"  />
+      <mjl:dt attribute="endPoint" type="text"  />
+    </mjl:struct>
+  </dl>
+  </mjl:dt>
+  <mjl:dt attribute="fed">
+    <mjl:input type="text" param="fed" />
+  </mjl:dt>
+  <mjl:dt attribute="gravid">
+    <mjl:input type="text" param="gravid" />
+  </mjl:dt>
+  <mjl:dt attribute="exposureTime">
+    <mjl:input type="text" param="exposureTime" />
+  </mjl:dt>
 
+  <mjl:dt attribute="insecticide">
+    <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide">
+      <mjl:option>
+        ${current.displayLabel}
+      </mjl:option>
+    </mjl:select>
+    <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><fmt:message key="Manage_Insecticides" /></a>
+  </mjl:dt>
+  <mjl:dt attribute="quantityTested">
+    <mjl:input type="text" param="quantityTested" />
+  </mjl:dt>
 
+  <mjl:dt attribute="kd50">
+    <mjl:input type="text" param="kd50" />
+  </mjl:dt>
 
+  <mjl:dt attribute="kd95">
+    <mjl:input type="text" param="kd95" />
+  </mjl:dt>
 
-<%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%><mjl:component item="${item}" param="dto">
-      <mjl:dt attribute="collection">
-        <mjl:input id="collectionInput" param="collectionInput" type="text" value="${item.collection != null ? item.collection.collectionId : ''}"/>
-        <mjl:input id="collectionId" param="collection" type="hidden" value="${item.collection != null ? item.collection.id : ''}" />        
-      </mjl:dt>
-      <mjl:dt attribute="testDate">
-        <mjl:input type="text" param="testDate" id="testDate" classes="DatePick NoFuture" />
-      </mjl:dt>
-      <mjl:dt attribute="testMethod">
-        <mdss:mo param="testMethod" value="${testMethod}"/>
-      </mjl:dt>      
-      <mjl:dt attribute="generation">
-        <mdss:mo param="generation" value="${generation}"/>
-      </mjl:dt>      
-      <mjl:dt attribute="isofemale">
-        <mjl:boolean param="isofemale" />
-      </mjl:dt>
-      <mjl:dt attribute="sex">
-        <mdss:mo param="sex" value="${sex}"/>
-      </mjl:dt>      
-      <mjl:dt attribute="specie">
-        <mdss:mo param="specie" value="${specie}"/>
-      </mjl:dt>      
-      <mjl:dt attribute="identificationMethod">
-        <mdss:mo param="identificationMethod" value="${identificationMethod}"/>
-      </mjl:dt>      
-      <mjl:dt attribute="ageRange">
-      <dl>
-        <mjl:struct param="ageRange">
-          <mjl:dt attribute="startPoint" type="text"  />
-          <mjl:dt attribute="endPoint" type="text"  />
-        </mjl:struct>
-      </dl>
-      </mjl:dt>
-      <mjl:dt attribute="fed">
-        <mjl:input type="text" param="fed" />
-      </mjl:dt>
-      <mjl:dt attribute="gravid">
-        <mjl:input type="text" param="gravid" />
-      </mjl:dt>
-      <mjl:dt attribute="exposureTime">
-        <mjl:input type="text" param="exposureTime" />
-      </mjl:dt>
-
-      <mjl:dt attribute="insecticide">
-        <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-        <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><fmt:message key="Manage_Insecticides" /></a>
-      </mjl:dt>
-      <mjl:dt attribute="quantityTested">
-        <mjl:input type="text" param="quantityTested" />
-      </mjl:dt>
-
-      <mjl:dt attribute="kd50">
-        <mjl:input type="text" param="kd50" />
-      </mjl:dt>
-
-      <mjl:dt attribute="kd95">
-        <mjl:input type="text" param="kd95" />
-      </mjl:dt>
-      
-    </mjl:component>
+  <div id="intervalsDiv">
+    <table class="displayTable">
+      <c:if test="${item.interval10Readable}">
+        <tr class="oddRow" id="interval10">
+          <td>${item.interval10Md.displayLabel}</td>
+          <td><mjl:input type="text" param="interval10" /></td>
+        </tr>
+      </c:if>
+      <c:if test="${item.interval20Readable}">
+        <tr class="oddRow" id="interval20">
+          <td>${item.interval20Md.displayLabel}</td>
+          <td><mjl:input type="text" param="interval20" /></td>
+        </tr>
+      </c:if>
+      <c:if test="${item.interval30Readable}">
+        <tr class="oddRow" id="interval30">
+          <td>${item.interval30Md.displayLabel}</td>
+          <td><mjl:input type="text" param="interval30" /></td>
+        </tr>
+      </c:if>
+      <c:if test="${item.interval40Readable}">
+        <tr class="oddRow" id="interval40">
+          <td>${item.interval40Md.displayLabel}</td>
+          <td><mjl:input type="text" param="interval40" /></td>
+        </tr>
+      </c:if>
+      <c:if test="${item.interval50Readable}">
+        <tr class="oddRow" id="interval50">
+          <td>${item.interval50Md.displayLabel}</td>
+          <td><mjl:input type="text" param="interval50" /></td>
+        </tr>
+      </c:if>
+      <c:if test="${item.interval60Readable}">
+        <tr class="oddRow" id="interval60">
+          <td>${item.interval60Md.displayLabel}</td>
+          <td><mjl:input type="text" param="interval60" /></td>
+        </tr>
+      </c:if>
+    </table>    
+  </div>  
+</mjl:component>
 
 <%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionViewDTO.CLASS}))%>
 

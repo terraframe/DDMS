@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
+import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -45,8 +46,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
-    AdultDiscriminatingDoseAssayQueryDTO query = AdultDiscriminatingDoseAssayDTO.getAllInstances(
-        clientRequest, null, true, 20, 1);
+    AdultDiscriminatingDoseAssayViewQueryDTO query = AdultDiscriminatingDoseAssayViewDTO.getPage(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
@@ -73,7 +73,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    this.setupMO(dto);
+    this.setupReferences(dto);
     req.setAttribute("item", dto);
 
     render("viewComponent.jsp");
@@ -146,8 +146,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
       throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    AdultDiscriminatingDoseAssayQueryDTO query = AdultDiscriminatingDoseAssayDTO.getAllInstances(
-        clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    AdultDiscriminatingDoseAssayViewQueryDTO query = AdultDiscriminatingDoseAssayViewDTO.getPage(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
@@ -172,7 +171,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     }
 
     this.setupRequest();
-    this.setupMO(dto);
+    this.setupReferences(dto);
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
@@ -219,7 +218,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
       AdultDiscriminatingDoseAssayDTO dto = AdultDiscriminatingDoseAssayDTO.lock(super.getClientRequest(), id);
 
       this.setupRequest();
-      this.setupMO(dto);
+      this.setupReferences(dto);
       
       req.setAttribute("item", dto);
 
@@ -245,13 +244,20 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     this.view(id);
   }
   
-  private void setupMO(AdultDiscriminatingDoseAssayDTO dto)
+  private void setupReferences(AdultDiscriminatingDoseAssayDTO dto)
   {
     req.setAttribute("sex", dto.getSex());
     req.setAttribute("generation", dto.getGeneration());
     req.setAttribute("identificationMethod", dto.getIdentificationMethod());
     req.setAttribute("testMethod", dto.getTestMethod());
     req.setAttribute("specie", dto.getSpecie());
+    
+    String collectionId = dto.getValue(KnockDownAssayDTO.COLLECTION);
+    
+    if(collectionId != null && !collectionId.equals(""))
+    {
+      req.setAttribute("collection", MosquitoCollectionDTO.getView(this.getClientRequest(), collectionId));
+    }
   }
 
 

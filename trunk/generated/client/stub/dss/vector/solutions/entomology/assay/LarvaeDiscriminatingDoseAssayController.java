@@ -52,7 +52,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   private void edit(LarvaeDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
   {
     this.setupRequest();
-    this.setupMO(dto);
+    this.setupReferences(dto);
     req.setAttribute("item", dto);
 
     render("editComponent.jsp");
@@ -79,7 +79,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   private void newInstance(LarvaeDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
   {
     this.setupRequest();
-    this.setupMO(dto);
+    this.setupReferences(dto);
 
     req.setAttribute("item", dto);
 
@@ -96,7 +96,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
-    LarvaeDiscriminatingDoseAssayQueryDTO query = LarvaeDiscriminatingDoseAssayDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    LarvaeDiscriminatingDoseAssayViewQueryDTO query = LarvaeDiscriminatingDoseAssayViewDTO.getPage(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
@@ -110,7 +110,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    LarvaeDiscriminatingDoseAssayQueryDTO query = LarvaeDiscriminatingDoseAssayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    LarvaeDiscriminatingDoseAssayViewQueryDTO query = LarvaeDiscriminatingDoseAssayViewDTO.getPage(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
@@ -205,7 +205,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    this.setupMO(dto);
+    this.setupReferences(dto);
 
     req.setAttribute("item", dto);
 
@@ -228,7 +228,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     this.edit(dto.getId());
   }
 
-  private void setupMO(LarvaeDiscriminatingDoseAssayDTO dto)
+  private void setupReferences(LarvaeDiscriminatingDoseAssayDTO dto)
   {
     req.setAttribute("startPoint", dto.getStartPoint());
     req.setAttribute("endPoint", dto.getEndPoint());
@@ -236,6 +236,13 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     req.setAttribute("identificationMethod", dto.getIdentificationMethod());
     req.setAttribute("testMethod", dto.getTestMethod());
     req.setAttribute("specie", dto.getSpecie());
+    
+    String collectionId = dto.getValue(KnockDownAssayDTO.COLLECTION);
+    
+    if(collectionId != null && !collectionId.equals(""))
+    {
+      req.setAttribute("collection", MosquitoCollectionDTO.getView(this.getClientRequest(), collectionId));
+    }    
   }
 
   private void setupRequest()
