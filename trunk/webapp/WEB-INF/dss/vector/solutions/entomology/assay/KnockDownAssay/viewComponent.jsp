@@ -82,6 +82,10 @@
       
       <div id="intervalsDiv">
         <table class="displayTable">
+          <tr>
+            <th><fmt:message key="interval_time"/></th>
+            <th><fmt:message key="knock_down"/></th>
+          </tr>        
           <c:if test="${item.interval10Readable}">
             <tr class="oddRow" id="interval10">
               <td>${item.interval10Md.displayLabel}</td>
