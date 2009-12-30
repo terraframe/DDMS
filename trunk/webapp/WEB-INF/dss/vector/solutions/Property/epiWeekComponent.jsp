@@ -60,7 +60,7 @@
     <dl>
       <dt>
         <label>
-          ${item.displayLabel}
+          ${configuration.firstDayMd.displayLabel}
         </label>
       </dt>
       <dd>

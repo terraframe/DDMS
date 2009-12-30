@@ -337,6 +337,16 @@
     </dd>    
   </dl>
   <dl>
+    <dt><label><f:message key="Configure_Epi_Week"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Configure_Epi_Week"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.EpiConfiguration">
+        <f:message key="Configure_Epi_Week"/>
+      </mjl:commandLink>
+    </dd>    
+  </dl>
+  <dl>
     <dt><label><f:message key="Ontology_Fields"/></label></dt>
     <dd>
       <mjl:commandLink

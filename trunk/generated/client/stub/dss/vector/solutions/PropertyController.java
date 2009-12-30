@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
+import dss.vector.solutions.general.EpiConfigurationDTO;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class PropertyController extends PropertyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -36,6 +37,8 @@ public class PropertyController extends PropertyControllerBase implements com.te
   public void view(String id) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
+    
+    req.setAttribute("configuration", new EpiConfigurationDTO(this.getClientRequest()));
     req.setAttribute("item", PropertyDTO.get(clientRequest, id));
     render("viewComponent.jsp");
   }
@@ -68,6 +71,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
 
   public void failCreate(PropertyDTO dto) throws IOException, ServletException
   {
+    req.setAttribute("configuration", new EpiConfigurationDTO(this.getClientRequest()));
     req.setAttribute("item", dto);
     render("epiWeekComponent.jsp");
   }
@@ -115,6 +119,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
   {
     try
     {
+      dto.lock();
       dto.apply();
       this.view(dto.getId());
     }
@@ -134,6 +139,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
 
   public void failUpdate(PropertyDTO dto) throws IOException, ServletException
   {
+    req.setAttribute("configuration", new EpiConfigurationDTO(this.getClientRequest()));
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -157,8 +163,8 @@ public class PropertyController extends PropertyControllerBase implements com.te
      * PropertyDTO dto = new PropertyDTO(clientRequest);
      */
     PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
-    dto.lock();
     req.setAttribute("item", dto);
+    req.setAttribute("configuration", new EpiConfigurationDTO(clientRequest));
     render("epiWeekComponent.jsp");
   }
 

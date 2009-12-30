@@ -1,0 +1,77 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.general.EpiConfiguration"
+        label="Epi Week Configuration">
+        <attributes>
+          <char
+            name="firstDay"
+            label="First Weekday of the Epi Year"
+            size="255"
+            required="true" />
+        </attributes>
+      </mdView>
+    </create>
+    <permissions>
+      <role
+        roleName="mdss.GUIVisibility">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.general.ThresholdCalculationMethodMaster">
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.general.ThresholdCalculationCaseTypesMaster">
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+          </mdBusinessPermission>
+          <mdViewPermission
+            type="dss.vector.solutions.general.EpiConfiguration">
+            <operation
+              name="CREATE" />
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdViewPermission>
+          <mdViewPermission
+            type="dss.vector.solutions.general.ThresholdCalculationTypeView">
+            <operation
+              name="CREATE" />
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdViewPermission>
+        </grant>
+      </role>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.EpiConfiguration"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+    </delete>
+  </undoIt>
+</version>
