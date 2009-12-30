@@ -31,7 +31,9 @@ MDSS.validateEpiDate = function(button, geoId, yearSearch, period, periodType){
       return;
     }
     
-    if(geoId.value != '' && year.value != '' && period.value != '' && selectedType != '') {
+    var yearValue = year.value + '';
+    
+    if(geoId.value != '' && yearValue != '' && yearValue.length == 4 && period.value != '' && selectedType != '') {
       var request = new MDSS.Request({
         onSuccess : function(){
           button.disabled=false; 
