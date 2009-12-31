@@ -9,6 +9,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import com.terraframe.mojo.business.Mutable;
 import com.terraframe.mojo.dataaccess.io.ExcelExportListener;
 import com.terraframe.mojo.dataaccess.io.excel.ExcelColumn;
+import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
 import com.terraframe.mojo.dataaccess.io.excel.ImportListener;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.system.metadata.MdAttribute;
@@ -88,7 +89,7 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
         if (column.getAttributeName().equals(STOCK + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          Boolean inStock = cell.getBooleanCellValue();
+          Boolean inStock = ExcelUtil.getBoolean(cell);
           aggregatedCase.addStock(term, inStock);
         }
       }

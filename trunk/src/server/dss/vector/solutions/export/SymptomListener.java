@@ -9,6 +9,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import com.terraframe.mojo.business.Mutable;
 import com.terraframe.mojo.dataaccess.io.ExcelExportListener;
 import com.terraframe.mojo.dataaccess.io.excel.ExcelColumn;
+import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
 import com.terraframe.mojo.dataaccess.io.excel.ImportListener;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
@@ -46,7 +47,7 @@ public class SymptomListener implements ExcelExportListener, ImportListener, Rel
         if (column.getAttributeName().equals(SYMPTOM + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          Boolean inStock = cell.getBooleanCellValue();
+          Boolean inStock = ExcelUtil.getBoolean(cell);
           individualCase.addSymptom(term, inStock);
         }
       }
