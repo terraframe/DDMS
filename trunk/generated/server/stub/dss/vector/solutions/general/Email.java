@@ -36,78 +36,12 @@ public class Email extends EmailBase implements com.terraframe.mojo.generation.l
     this.setBody(body);
   }
 
-  private static class EmailDaemon implements Runnable, com.terraframe.mojo.generation.loader.Reloadable
-  {
-    private static final long MINUTE_IN_MILLISECONDS = 60000;
-
-    private long              lastRun                = 0;
-
-    private boolean           running                = false;
-
-    @StartSession
-    public void run()
-    {
-      while (running)
-      {
-        try
-        {
-          long current = System.currentTimeMillis();
-          EmailConfiguration config = EmailConfiguration.getDefault();
-          if (this.lastRun == 0 || ( current >= ( this.lastRun + ( config.getRetry() * MINUTE_IN_MILLISECONDS ) ) ))
-          {
-            Email.sendAll(config);
-            this.lastRun = current;
-          }
-        }
-        catch (Throwable t)
-        {
-          // Catch all errors and try again
-          t.printStackTrace(System.err);
-        }
-        try
-        {
-          Thread.sleep(MINUTE_IN_MILLISECONDS);
-        }
-        catch (InterruptedException e)
-        {
-          // Do nothing
-        }
-      }
-    }
-
-    public void start()
-    {
-      if (!running)
-      {
-        Thread t = new Thread(this, "MDSS Email Daemon");
-        this.running = true;
-        t.start();
-      }
-    }
-
-    public void stop()
-    {
-      this.running = false;
-    }
-  }
-
-  private static EmailDaemon daemon = new EmailDaemon();
-
-  public static void startDaemon()
-  {
-    daemon.start();
-  }
-
-  public static void stopDaemon()
-  {
-    daemon.stop();
-  }
-
   public static void sendAll()
   {
     sendAll(EmailConfiguration.getDefault());
   }
 
+  @StartSession
   public static void sendAll(EmailConfiguration config)
   {
     Calendar cutoff = Calendar.getInstance();
@@ -211,7 +145,6 @@ public class Email extends EmailBase implements com.terraframe.mojo.generation.l
       transport.close();
 
       // Update this email object
-      //FIXME this causes a class loader dead lock
       this.lock();
       this.setSentDate(new Date());
       this.apply();
@@ -220,7 +153,6 @@ public class Email extends EmailBase implements com.terraframe.mojo.generation.l
     }
     catch (Exception e)
     {
-      //FIXME this causes a class loader dead lock      
       this.lock();
       this.setError(new Date() + ": " + e.getLocalizedMessage());
       this.apply();
