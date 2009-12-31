@@ -27,7 +27,7 @@ public class PopulationDataExcelView extends PopulationDataExcelViewBase impleme
     populationData.setGeoEntity(this.getGeoEntity());
     populationData.setYearOfData(this.getYearOfData());
     populationData.setPopulation(this.getPopulation());
-    populationData.setGrowthRate(this.getGrowthRate());
+    populationData.setGrowthRate(this.getGrowthRate() / 100); // Ticket #822 calls for division by 100 to get a %
     
     populationData.apply();
   }
