@@ -160,8 +160,11 @@
     MDSS.ElementHandler.setupSelectHandler('performedRDT.YES', new Array('performedRDT', 'performedRDT.NO', 'performedRDT.DONT_KNOW'), [rdtResult, rdtDetail, rdtTreatment]);    
     MDSS.ElementHandler.setupBooleanHandler('performedBloodslide.negative', 'performedBloodslide.positive', [bloodslideReason]);
     MDSS.ElementHandler.setupBooleanHandler('performedBloodslide.positive', 'performedBloodslide.negative', [bloodslideResult, bloodslideDetail]);
-    MDSS.ElementHandler.setupSelectHandler('fever.YES', new Array('fever', 'fever.NO', 'fever.DONT_KNOW'), [malaria, malariaConformationTechnique, locations, treatments, payment]);    
-    MDSS.ElementHandler.setupSelectHandler('malaria.YES', new Array('malaria', 'malaria.NO', 'malaria.DONT_KNOW'), [malariaConformationTechnique, locations, treatments, payment]);    
+    
+    var feverHandler = MDSS.ElementHandler.setupSelectHandler('fever.YES', new Array('fever', 'fever.NO', 'fever.DONT_KNOW'), [malaria]);    
+    var malariaHandler = MDSS.ElementHandler.setupSelectHandler('malaria.YES', new Array('malaria', 'malaria.NO', 'malaria.DONT_KNOW'), [malariaConformationTechnique, locations, treatments, payment]);
+
+    feverHandler.addListener(malariaHandler);
 
     //**********************************************************
     // SETUP UNIQUE ID GENERATOR

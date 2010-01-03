@@ -310,14 +310,16 @@ Mojo.Meta.newClass('MDSS.HiddenSelectElement', {
     },
       
     clearValues : function() {
-      //Add a blank option with a null value
-      var blankOption = document.createElement('option');
-      blankOption.text = '';
-      blankOption.value = '';
+      if(this._inputElement.value != '') {
+        //Add a blank option with a null value
+        var blankOption = document.createElement('option');
+        blankOption.text = '';
+        blankOption.value = '';
 
-      //Set the input element to the blank option
-      this._inputElement.add(blankOption, null);
-      this._inputElement.selectedIndex = this._inputElement.length - 1;
+        //Set the input element to the blank option
+        this._inputElement.add(blankOption, null);
+        this._inputElement.selectedIndex = this._inputElement.length - 1;
+      }
     },
       
     resetValues : function() {
@@ -417,7 +419,9 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
       this.condition = condition;
       
       // elements: An array of AbstractElementProperty
-      this.elements = elements;       
+      this.elements = elements;
+      
+      this._listeners = [];
 
       // Finally we need to set the initial state of the elements
       this.optionHandler();
@@ -435,7 +439,9 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
     optionHandler : function () {
       if(this.getCondition())
       {
-        if(this.getCondition().evaluate())
+        var evaluate = this.getCondition().evaluate();
+        
+        if(evaluate)
         {
           for(var i = 0; i < this.elements.length; i++) {
             this.elements[i].showElement();
@@ -447,7 +453,15 @@ Mojo.Meta.newClass('MDSS.ElementHandler', {
             this.elements[i].hideElement();
           }
         }
+        
+        for(var i = 0; i < this._listeners.length; i++) {
+          this._listeners[i].optionHandler();
+        }
       }
+    },
+    
+    addListener : function (listener) {
+      this._listeners.push(listener);
     }    
   },
   
