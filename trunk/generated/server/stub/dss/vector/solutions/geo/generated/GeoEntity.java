@@ -362,13 +362,15 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     
     for(int i = 3; i < filter.length; i++)
     {      
+      String universal = filter[i].replace("*", "");
+      
       if(condition == null)
       {
-        condition = q.getType().EQ(filter[i]);        
+        condition = q.getType().EQ(universal);        
       }
       else
       {
-        condition = OR.get(condition, q.getType().EQ(filter[i]));        
+        condition = OR.get(condition, q.getType().EQ(universal));        
       }      
     }
 
