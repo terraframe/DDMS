@@ -21,14 +21,18 @@
 <mjl:component item="${item}" param="dto">
   <mjl:input type="hidden" param="individualCase" value="${item.individualCase.id}"/>
   <mjl:dt attribute="activelyDetected">
-    <mjl:boolean param="activelyDetected" />
+    <mjl:boolean param="activelyDetected" id="activelyDetected" />
   </mjl:dt>
-  <mjl:dt attribute="healthFacility">
-    <mdss:geo param="healthFacility" value="${healthFacility}" filter="${HEALTH_FACILITY}" universals="${entityUniversals}" />
-  </mjl:dt>
-  <mjl:dt attribute="detectedBy">
-    <mdss:mo param="detectedBy" value="${detectedBy}"/>
-  </mjl:dt>
+  <div class="healthFacility">
+    <mjl:dt attribute="healthFacility">
+      <mdss:geo param="healthFacility" value="${healthFacility}" filter="${HEALTH_FACILITY}" universals="${entityUniversals}" />
+    </mjl:dt>
+  </div>
+  <div class="detectedBy">
+    <mjl:dt attribute="detectedBy">
+      <mdss:mo param="detectedBy" value="${detectedBy}" id="detectedBy"/>
+    </mjl:dt>
+  </div>
   
   <h2><fmt:message key="Basic_Case_Information" /></h2>
   <mjl:dt attribute="clinicalDiagnosis">
@@ -121,3 +125,20 @@
       </mjl:components>
     </table>
   </dd>
+  
+  <script type="text/javascript">
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){
+    //**********************************************************
+    // SETUP FIELD HIDING
+    //**********************************************************    
+    var healthFacility = new MDSS.HiddenInputElement({element:'healthFacility'});
+    var healthFacilityConcrete = new MDSS.HiddenInputElement({element:'healthFacility_geoEntityId'});
+    var detectedBy = new MDSS.HiddenInputElement({element:'detectedBy'});
+        
+    MDSS.ElementHandler.setupBooleanHandler('activelyDetected.negative', 'activelyDetected.positive', [healthFacility, healthFacilityConcrete]);
+    MDSS.ElementHandler.setupBooleanHandler('activelyDetected.positive', 'activelyDetected.negative', [detectedBy]);
+  })
+})();
+</script>
+  
