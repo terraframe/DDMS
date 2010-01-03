@@ -1,5 +1,7 @@
 package dss.vector.solutions.geo;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -16,8 +18,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.business.BusinessQuery;
+import com.terraframe.mojo.business.Entity;
 import com.terraframe.mojo.business.generation.EntityQueryAPIGenerator;
 import com.terraframe.mojo.business.rbac.Operation;
 import com.terraframe.mojo.business.rbac.RoleDAO;
@@ -628,13 +632,37 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     geoHierarchy.setTerm(definition.getTerm());
     geoHierarchy.setPopulationAllowed(definition.getPopulationAllowed());
     geoHierarchy.apply();
-
-    GeoHierarchy allowedIn = GeoHierarchy.get(definition.getParentGeoHierarchyId());
-    geoHierarchy.addAllowedInGeoEntity(allowedIn).apply();
-
-    geoHierarchy.validateConsistentHierarchy();
-
-    return geoHierarchy.getId();
+    
+    // IMPORTANT: geoHierarchy.apply() causes a reload which causes a class cast exception when
+    //            GeoHierarchy.get(geoHierarchy.getId()) is invoked on the out dated class.
+    //            Therefore we need to use reflection to get the current GeoHierarchy class definition.
+    try
+    {
+      Class<?> ghClass = LoaderDecorator.load(GeoHierarchy.CLASS);
+      Method getMethod = ghClass.getMethod("get", String.class);
+      Object childUniversal = getMethod.invoke(null, geoHierarchy.getId());
+      Object parentUniversal = getMethod.invoke(null, definition.getParentGeoHierarchyId());
+      Entity allowedIn = (Entity)ghClass.getMethod("addAllowedInGeoEntity", parentUniversal.getClass()).invoke(childUniversal, parentUniversal);
+      allowedIn.apply();
+      
+      ghClass.getMethod("validateConsistentHierarchy").invoke(childUniversal);
+      return ((Entity)childUniversal).getId();
+    }
+    catch (InvocationTargetException e)
+    {
+      throw new ApplicationException(e.getTargetException());
+    }
+    catch (Exception e)
+    {
+      throw new ApplicationException(e);
+    }
+//
+//    GeoHierarchy allowedIn = GeoHierarchy.get(definition.getParentGeoHierarchyId());
+//    geoHierarchy.addAllowedInGeoEntity(allowedIn).apply();
+//
+//    geoHierarchy.validateConsistentHierarchy();
+//
+//    return geoHierarchy.getId();
   }
 
   @Override
@@ -767,7 +795,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
    * @throws HierarchyBranchException
    *           if the political or spray hierarchy tries to branch.
    */
-  private void validateConsistentHierarchy()
+  public void validateConsistentHierarchy()
   {
     List<GeoHierarchy> parents = this.getImmediateParents();
     boolean isPolitical = this.getPolitical();
