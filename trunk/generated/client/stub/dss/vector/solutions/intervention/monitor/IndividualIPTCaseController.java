@@ -344,12 +344,6 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   {
     List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
 
-//    if (serviceDate == null)
-//    {
-//      ClientRequestIF clientRequest = super.getClientSession().getRequest();
-//      problems.add(new RequiredServiceDateProblemDTO(clientRequest, req.getLocale()));
-//    }
-
     if (patientId == null || patientId.equals(""))
     {
       ClientRequestIF clientRequest = super.getClientSession().getRequest();
