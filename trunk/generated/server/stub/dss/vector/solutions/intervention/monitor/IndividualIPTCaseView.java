@@ -158,6 +158,10 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
 
       return iptCase.getPatient().getPerson().getView();
     }
+    else if(this.getPatient() != null)
+    {
+      return this.getPatient().getView();
+    }
 
     return null;
   }

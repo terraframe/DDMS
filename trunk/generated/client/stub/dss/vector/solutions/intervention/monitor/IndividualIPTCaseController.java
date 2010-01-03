@@ -165,11 +165,13 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
+      
       this.failCreateCaseAndInstance(dto, instance);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
+      
       this.failCreateCaseAndInstance(dto, instance);
     }
   }
@@ -177,8 +179,14 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   @Override
   public void failCreateCaseAndInstance(IndividualIPTCaseViewDTO dto, IndividualIPTViewDTO instance) throws IOException, ServletException
   {
+    String serviceDate = req.getParameter("serviceDate");
+    PersonViewDTO person = dto.getPatientView();
+
+    req.setAttribute("person", person);
+    req.setAttribute("serviceDate", serviceDate);
     req.setAttribute("instance", instance);
     req.setAttribute("item", dto);
+    
     render("createComponent.jsp");
   }
 
