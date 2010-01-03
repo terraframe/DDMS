@@ -1179,7 +1179,8 @@ MDSS.GeoEntityTree = (function(){
       }
     }
     
-    var display = MDSS.AbstractSelectSearch.formatDisplay(geoEntityView);
+    var display = MDSS.AbstractSelectSearch.getDisplayWithSubtype(geoEntityView);
+    
     return "<span title='"+geoEntityView.getGeoId()+"'>"+display+"</span>";
   }
 
