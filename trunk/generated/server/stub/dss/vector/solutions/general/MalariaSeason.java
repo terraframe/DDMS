@@ -20,6 +20,12 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
   {
     super();
   }
+  
+  @Override
+  public String toString()
+  {
+    return this.buildKey();
+  }
 
   @Override
   protected String buildKey()

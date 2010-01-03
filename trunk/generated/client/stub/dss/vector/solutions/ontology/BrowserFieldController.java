@@ -79,7 +79,6 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
         rootMap.get(attrId).add(view);
       }
 
-      
       req.setAttribute("fields", results);
       req.setAttribute("rootMap", rootMap);
       req.setAttribute("terms", termMap);

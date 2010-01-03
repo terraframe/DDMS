@@ -1,12 +1,19 @@
 package dss.vector.solutions.general;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class MalariaSeasonController extends MalariaSeasonControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class MalariaSeasonController extends MalariaSeasonControllerBase implements Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/general/MalariaSeason/";
 
@@ -14,14 +21,12 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
 
   private static final long  serialVersionUID = 1242259543111L;
 
-  public MalariaSeasonController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public MalariaSeasonController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  public void create(dss.vector.solutions.general.MalariaSeasonDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void create(MalariaSeasonDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -42,54 +47,61 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
     }
   }
 
-  public void failCreate(dss.vector.solutions.general.MalariaSeasonDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failCreate(MalariaSeasonDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create MalariaSeasonController");
     render("createComponent.jsp");
   }
 
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void viewAll() throws IOException, ServletException
   {
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.general.MalariaSeasonQueryDTO query = dss.vector.solutions.general.MalariaSeasonDTO
-        .getAllInstances(clientRequest, null, true, 20, 1);
+    ClientRequestIF clientRequest = super.getClientRequest();
+    MalariaSeasonQueryDTO query = MalariaSeasonDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All MalariaSeasonController Objects");
     render("viewAllComponent.jsp");
   }
 
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void failViewAll() throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void newInstance() throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.general.MalariaSeasonDTO dto = new dss.vector.solutions.general.MalariaSeasonDTO(
-        clientRequest);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create MalariaSeasonController");
-    render("createComponent.jsp");
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      MalariaSeasonDTO dto = new MalariaSeasonDTO(clientRequest);
+      req.setAttribute("item", dto);
+      render("createComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failNewInstance();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failNewInstance();
+    }
   }
 
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void failNewInstance() throws IOException, ServletException
   {
     this.viewAll();
   }
 
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void edit(String id) throws IOException, ServletException
   {
     try
     {
-      dss.vector.solutions.general.MalariaSeasonDTO dto = dss.vector.solutions.general.MalariaSeasonDTO
-          .lock(super.getClientRequest(), id);
+      MalariaSeasonDTO dto = MalariaSeasonDTO.lock(super.getClientRequest(), id);
       req.setAttribute("item", dto);
-      req.setAttribute("page_title", "Edit MalariaSeasonController");
       render("editComponent.jsp");
     }
     catch (ProblemExceptionDTO e)
@@ -107,13 +119,12 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
 
   }
 
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failEdit(String id) throws IOException, ServletException
   {
-    this.view(id);
+    this.viewAll();
   }
 
-  public void delete(dss.vector.solutions.general.MalariaSeasonDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void delete(MalariaSeasonDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -134,29 +145,24 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
     }
   }
 
-  public void failDelete(dss.vector.solutions.general.MalariaSeasonDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failDelete(MalariaSeasonDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit MalariaSeasonController");
     render("editComponent.jsp");
   }
 
-  public void cancel(dss.vector.solutions.general.MalariaSeasonDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void cancel(MalariaSeasonDTO dto) throws IOException, ServletException
   {
     dto.unlock();
     this.viewAll();
   }
 
-  public void failCancel(dss.vector.solutions.general.MalariaSeasonDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failCancel(MalariaSeasonDTO dto) throws IOException, ServletException
   {
     this.edit(dto.getId());
   }
 
-  public void update(dss.vector.solutions.general.MalariaSeasonDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void update(MalariaSeasonDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -177,46 +183,37 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
     }
   }
 
-  public void failUpdate(dss.vector.solutions.general.MalariaSeasonDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failUpdate(MalariaSeasonDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update MalariaSeasonController");
     render("editComponent.jsp");
   }
 
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending,
-      java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.general.MalariaSeasonQueryDTO query = dss.vector.solutions.general.MalariaSeasonDTO
-        .getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    ClientRequestIF clientRequest = super.getClientRequest();
+    MalariaSeasonQueryDTO query = MalariaSeasonDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All MalariaSeasonController Objects");
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending,
-      java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void view(String id) throws IOException, ServletException
   {
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", dss.vector.solutions.general.MalariaSeasonDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View MalariaSeasonController");
+    ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("item", MalariaSeasonDTO.get(clientRequest, id));
     render("viewComponent.jsp");
   }
 
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
   }
