@@ -22,6 +22,7 @@ import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.business.BusinessQuery;
 import com.terraframe.mojo.business.Entity;
+import com.terraframe.mojo.business.SmartException;
 import com.terraframe.mojo.business.generation.EntityQueryAPIGenerator;
 import com.terraframe.mojo.business.rbac.Operation;
 import com.terraframe.mojo.business.rbac.RoleDAO;
@@ -650,7 +651,12 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     }
     catch (InvocationTargetException e)
     {
-      throw new ApplicationException(e.getTargetException());
+      Throwable targetException = e.getTargetException();
+      if (targetException instanceof SmartException)
+      {
+        throw (SmartException) targetException;
+      }
+      throw new ApplicationException(targetException);
     }
     catch (Exception e)
     {
