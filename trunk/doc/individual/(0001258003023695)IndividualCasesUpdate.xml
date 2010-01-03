@@ -106,7 +106,7 @@
               label="Treatement Start Date"/>
             <boolean
               name="activelyDetected"
-              label="Actively Detected Instance"
+              label="Case Detection"
               positiveLabel="Actively Detected"
               negativeLabel="Passively Detected"/>
             <reference
