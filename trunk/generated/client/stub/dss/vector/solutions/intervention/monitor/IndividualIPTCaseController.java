@@ -82,14 +82,14 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     ClientRequestIF request = this.getClientRequest();
 
     String location = view.getResidentialLocation();
-    
-    if(location != null && !location.equals(""))
+
+    if (location != null && !location.equals(""))
     {
       req.setAttribute("residentialLocation", GeoEntityDTO.searchByGeoId(request, location));
     }
-    
+
     PersonViewDTO person = view.getPatientView();
-    
+
     req.setAttribute("person", person);
     req.setAttribute("serviceDate", req.getParameter("serviceDate"));
     req.setAttribute("query", IndividualIPTViewDTO.getCaseInstances(request, sortAttribute, isAscending, pageSize, pageNumber, view.getConcreteId()));
@@ -112,16 +112,16 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     IndividualIPTCaseViewDTO dto = new IndividualIPTCaseViewDTO(clientRequest);
     dto.setValue(IndividualIPTCaseViewDTO.PATIENT, view.getPersonId());
     dto.setResidentialLocation(view.getResidentialGeoId());
-    
+
     IndividualIPTViewDTO instance = new IndividualIPTViewDTO(clientRequest);
-    
+
     String serviceDate = req.getParameter("serviceDate");
-    
-    if(serviceDate != null && !serviceDate.equals(""))
+
+    if (serviceDate != null && !serviceDate.equals(""))
     {
       instance.setServiceDate((Date) new DefaultConverter(Date.class).parse(serviceDate, req.getLocale()));
-    }    
-    
+    }
+
     req.setAttribute("item", dto);
     req.setAttribute("instance", instance);
     req.setAttribute("person", view);
@@ -152,14 +152,14 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
       this.failCreate(dto);
     }
   }
-  
+
   @Override
   public void createCaseAndInstance(IndividualIPTCaseViewDTO dto, IndividualIPTViewDTO instance) throws IOException, ServletException
   {
     try
     {
       dto.applyWithInstance(instance);
-      
+
       this.view(dto);
     }
     catch (ProblemExceptionDTO e)
@@ -171,15 +171,15 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     {
       ErrorUtility.prepareThrowable(t, req);
       this.failCreateCaseAndInstance(dto, instance);
-    }    
+    }
   }
-  
+
   @Override
   public void failCreateCaseAndInstance(IndividualIPTCaseViewDTO dto, IndividualIPTViewDTO instance) throws IOException, ServletException
   {
     req.setAttribute("instance", instance);
     req.setAttribute("item", dto);
-    render("createComponent.jsp");    
+    render("createComponent.jsp");
   }
 
   public void failCreate(IndividualIPTCaseViewDTO dto) throws IOException, ServletException
@@ -194,7 +194,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     String serviceDate = req.getParameter("serviceDate");
 
     PersonViewDTO person = dto.getPatientView();
-    
+
     req.setAttribute("person", person);
     req.setAttribute("serviceDate", serviceDate);
     req.setAttribute("item", dto);
@@ -272,10 +272,11 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   {
     if (!this.isAsynchronous())
     {
-//      new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "search");
+      // new RedirectUtility(req,
+      // resp).checkURL(this.getClass().getSimpleName(), "search");
 
       req.setAttribute("item", new IndividualIPTCaseViewDTO(this.getClientRequest()));
-      req.setAttribute("serviceDate", req.getParameter("serviceDate"));      
+      req.setAttribute("serviceDate", req.getParameter("serviceDate"));
       render("searchComponent.jsp");
     }
   }
@@ -290,49 +291,49 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   {
     try
     {
-    validateParameters(serviceDate, patientId);
-    
-    ClientRequestIF request = this.getClientRequest();
+      validateParameters(serviceDate, patientId);
 
-    IndividualIPTCaseViewDTO[] cases = IndividualIPTCaseViewDTO.searchCases(request, serviceDate, patientId);
-    String formatDate = new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
-    
-    PersonViewDTO person = PersonDTO.getView(request, patientId);
-    
-    String residential = person.getResidentialGeoId();
-    
-    if(residential != null && !residential.equals(""))
-    {
-      GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, residential);
-      req.setAttribute("residential", entity);
-    }
-    
-    req.setAttribute("person", person);
-    req.setAttribute("view", new IndividualIPTCaseViewDTO(request));
-    req.setAttribute("serviceDate", formatDate);
-    req.setAttribute("patientId", patientId);
-    req.setAttribute("cases", Arrays.asList(cases));
+      ClientRequestIF request = this.getClientRequest();
 
-    render("viewAllComponent.jsp");
+      IndividualIPTCaseViewDTO[] cases = IndividualIPTCaseViewDTO.searchCases(request, serviceDate, patientId);
+      String formatDate = new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
+
+      PersonViewDTO person = PersonDTO.getView(request, patientId);
+
+      String residential = person.getResidentialGeoId();
+
+      if (residential != null && !residential.equals(""))
+      {
+        GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, residential);
+        req.setAttribute("residential", entity);
+      }
+
+      req.setAttribute("person", person);
+      req.setAttribute("view", new IndividualIPTCaseViewDTO(request));
+      req.setAttribute("serviceDate", formatDate);
+      req.setAttribute("patientId", patientId);
+      req.setAttribute("cases", Arrays.asList(cases));
+
+      render("viewAllComponent.jsp");
     }
     catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
 
-      String date = (serviceDate == null) ? null : new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
-      
+      String date = ( serviceDate == null ) ? null : new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
+
       this.failViewCasePage(null, null, null, null, date, patientId);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
-      
-      String date = (serviceDate == null) ? null : new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
-      
+
+      String date = ( serviceDate == null ) ? null : new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
+
       this.failViewCasePage(null, null, null, null, date, patientId);
     }
   }
-  
+
   @Override
   public void failViewCasePage(String sortAttribute, String isAscending, String pageSize, String pageNumber, String serviceDate, String patientId) throws IOException, ServletException
   {
@@ -343,11 +344,11 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   {
     List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
 
-    if (serviceDate == null)
-    {
-      ClientRequestIF clientRequest = super.getClientSession().getRequest();
-      problems.add(new RequiredServiceDateProblemDTO(clientRequest, req.getLocale()));
-    }
+//    if (serviceDate == null)
+//    {
+//      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+//      problems.add(new RequiredServiceDateProblemDTO(clientRequest, req.getLocale()));
+//    }
 
     if (patientId == null || patientId.equals(""))
     {

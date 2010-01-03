@@ -2,6 +2,7 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,15 +33,15 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
     this.setPatient(concrete.getPatient().getPerson());
 
     GeoEntity location = concrete.getResidentialLocation();
-    
-    if(location != null)
+
+    if (location != null)
     {
       this.setResidentialLocation(location.getGeoId());
     }
-    
+
     IndividualIPTView instance = this.getMostRecentInstance();
-    
-    if(instance != null)
+
+    if (instance != null)
     {
       this.setFacility(instance.getFacility());
       this.setServiceDate(instance.getServiceDate());
@@ -63,10 +64,10 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
       person.setIptRecipientDelegate(recipient);
       person.apply();
     }
-    
+
     String location = this.getResidentialLocation();
 
-    if(location != null && !location.equals(""))
+    if (location != null && !location.equals(""))
     {
       concrete.setResidentialLocation(GeoEntity.searchByGeoId(location));
     }
@@ -79,13 +80,13 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
     new AttributeNotificationMap(concrete, IndividualIPTCase.PATIENT, this, IndividualIPTCaseView.PATIENT);
     new AttributeNotificationMap(concrete, IndividualIPTCase.RESIDENTIALLOCATION, this, IndividualIPTCaseView.RESIDENTIALLOCATION);
   }
-  
+
   @Override
   @Transaction
   public void applyWithInstance(IndividualIPTView instance)
   {
     this.apply();
-    
+
     instance.setIptCase(IndividualIPTCase.get(this.getConcreteId()));
     instance.apply();
   }
@@ -135,11 +136,11 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
 
     try
     {
-      while(iterator.hasNext())
+      while (iterator.hasNext())
       {
         return iterator.next().getView();
       }
-      
+
       return null;
     }
     finally
@@ -147,17 +148,17 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
       iterator.close();
     }
   }
-  
+
   @Override
   public PersonView getPatientView()
   {
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       IndividualIPTCase iptCase = IndividualIPTCase.get(this.getConcreteId());
 
       return iptCase.getPatient().getPerson().getView();
     }
-    
+
     return null;
   }
 
@@ -198,37 +199,49 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
   {
     List<IndividualIPTCaseView> list = new LinkedList<IndividualIPTCaseView>();
 
-    // We only want to search for IPT cases which are newer than 9 months ago
-    int limit = -9;
-
-    Calendar calendar = Calendar.getInstance();
-    calendar.clear();
-    calendar.setTime(serviceDate);
-    calendar.add(Calendar.MONTH, limit);
-    Date time = calendar.getTime();
-
-    IndividualIPTCaseQuery query = new IndividualIPTCaseQuery(new QueryFactory());    
+    IndividualIPTCaseQuery query = new IndividualIPTCaseQuery(new QueryFactory());
     query.WHERE(query.getPatient().getPerson().EQ(patientId));
-    
     OIterator<? extends IndividualIPTCase> iterator = query.getIterator();
     
     try
     {
-      while(iterator.hasNext())
+      while (iterator.hasNext())
       {
         IndividualIPTCaseView view = iterator.next().getView();
-        
-        if(view.getServiceDate() == null || view.getServiceDate().after(time))
-        {
-          list.add(view);
-        }
+
+        list.add(view);
       }
     }
     finally
     {
       iterator.close();
     }
-    
+
+    if (serviceDate != null)
+    {
+      // We only want to search for IPT cases which are newer than 9 months ago
+      int limit = 9;
+
+      Calendar calendar = Calendar.getInstance();
+      calendar.clear();
+      calendar.setTime(serviceDate);
+      calendar.add(Calendar.MONTH, -limit);
+
+      Date past = calendar.getTime();
+      
+      Iterator<IndividualIPTCaseView> it = list.iterator();
+      
+      while(it.hasNext())
+      {
+        IndividualIPTCaseView view = it.next();
+        
+        if (view.getServiceDate() != null && !(view.getServiceDate().after(past) && view.getServiceDate().before(serviceDate)))
+        {
+          it.remove();
+        }
+      }
+    }
+
     return list.toArray(new IndividualIPTCaseView[list.size()]);
   }
 }
