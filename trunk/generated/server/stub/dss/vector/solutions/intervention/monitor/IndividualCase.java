@@ -194,16 +194,25 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(diagnosisDate);
     calendar.add(Calendar.DAY_OF_MONTH, -28);
+    
     Date fourWeeksAgo = calendar.getTime();
+    
+    calendar.setTime(diagnosisDate);
+    calendar.add(Calendar.DAY_OF_MONTH, 28);
+    
+    Date fourWeeksFuture = calendar.getTime();
 
     IndividualCase individualCase = new IndividualCase();
     Person person = Person.get(personId);
     Patient patient = person.getPatientDelegate();
+    
     if (patient != null)
     {
       IndividualCaseQuery query = new IndividualCaseQuery(new QueryFactory());
-      query.WHERE(query.getDiagnosisDate().GE(fourWeeksAgo));
-      query.WHERE(query.getPatient().EQ(patient));
+      
+      Condition condition = AND.get(query.getDiagnosisDate().GE(fourWeeksAgo), query.getDiagnosisDate().LE(fourWeeksFuture), query.getPatient().EQ(patient));
+      
+      query.WHERE(condition);
       query.ORDER_BY_DESC(query.getDiagnosisDate());
 
       OIterator<? extends IndividualCase> iterator = query.getIterator();
