@@ -36,7 +36,7 @@
   </mjl:form>
 </dl>
 <dl>
-  <dt> <label><fmt:message key="Case_instances" /> </label></dt>
+  <dt> <label><fmt:message key="Individual_Case_instances" /> </label></dt>
   <dd>
 <mjl:table var="row" query="${query}" odd="oddRow" classes="displayTable" even="evenRow">
   <mjl:context action="dss.vector.solutions.intervention.monitor.IndividualInstanceController.viewPage.mojo" />

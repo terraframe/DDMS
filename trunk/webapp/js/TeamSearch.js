@@ -582,7 +582,11 @@ Mojo.Meta.newClass('MDSS.DataSource', {
       else {
         this.getResultsFromServer(value, parameters);
       }
-    }        
+    },
+    
+    resetCache : function() {
+      this.cache = {};    
+    }
   }
 });
 
@@ -602,7 +606,6 @@ Mojo.Meta.newClass('MDSS.ResultPanel', {
       YAHOO.util.Dom.insertAfter(resultsDiv,element);
 
       this.panel = new YAHOO.widget.Panel(resultsDiv, {
-//        width:'400px',
         zindex:15,
         draggable: false,
         close: false,
@@ -958,7 +961,11 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
       this.resetSelected();
       this.value = value;
       this._hasChanged = true;      
-    },    
+    },
+    
+    resetCache : function() {
+      this._dataSource.resetCache();
+    },
     
     focus : function () {
       IsAbstract : true

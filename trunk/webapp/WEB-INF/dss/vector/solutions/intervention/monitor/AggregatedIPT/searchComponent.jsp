@@ -25,13 +25,18 @@
   request.setAttribute("entityUniversals", entityUniversals);
 %>
 
+<c:set scope="request" var="HealthFacility"><%=HealthFacilityDTO.CLASS%></c:set>
+
 <c:set var="page_title" value="Search_Aggregated_IPT"  scope="request"/>
 
 <mjl:form name="search" method="POST" id ="searchAggregatedCase">
   <dl>
     <dt> <fmt:message key="Geo_Id"/> </dt>
     <dd>
-      <mdss:geo param="geoId" value="${geoId}" concrete="false" universals="${entityUniversals}" />
+      <mdss:geo param="geoId" value="${geoId}" concrete="false" universals="${entityUniversals}" >
+        <mdss:filter universal="" id="all" checked="true">&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;</mdss:filter>
+        <mdss:filter universal="${HealthFacility}" id="health_facility">&nbsp;<fmt:message key="Health_Facility"/> &nbsp;&nbsp;&nbsp; <br /></mdss:filter>      
+      </mdss:geo>
     </dd>
     <dt> <fmt:message key="Period_Type"/> </dt>
     <dd>

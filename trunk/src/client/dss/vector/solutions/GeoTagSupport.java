@@ -293,7 +293,10 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     
     this.writeFilterScript(out);
 
-    out.write("    new MDSS.GeoSearch(geoInput, selectSearch);\n");
+    out.write("    var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);\n");
+    
+    this.writeFilterTags(out);
+
     out.write("  })\n");
     out.write("})();\n");
     out.write("</script>\n");
@@ -313,8 +316,11 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     for(String universal : this.getUniversals())
     {
       out.write("    selectSearch.addExtraUniversal('" + universal + "');\n");      
-    }
-    
+    }    
+  }
+
+  private void writeFilterTags(JspWriter out) throws IOException
+  {
     for (FilterTagSupport tag : this.radioFilters)
     {
       out.write("    YAHOO.util.Event.on('" + tag.getId() + "', 'click', function(e, obj){\n");
@@ -323,7 +329,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
       out.write("        var filter = e.target.value;\n");
       out.write("        this.setFilter('" + tag.getUniversal() + "');\n");
       out.write("      }\n");
-      out.write("     }, null, selectSearch);\n");
+      out.write("     }, null, geoSearch);\n");
     }
   }
 }

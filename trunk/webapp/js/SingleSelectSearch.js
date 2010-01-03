@@ -354,6 +354,15 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       {
         YAHOO.util.Dom.addClass(geoInfo,'alert');
       }
+    },
+    
+    setFilter : function(filter)
+    {
+      if(this._selectSearch != null) {
+        this._selectSearch.setFilter(filter);
+      }
+      
+      this._genericSearch.resetCache();
     }
     
     /*
