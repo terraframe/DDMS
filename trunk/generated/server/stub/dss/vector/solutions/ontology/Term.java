@@ -742,7 +742,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     apq.WHERE(apq.getParentTerm().EQ(brq.getTerm()));
 
     TermQuery tq = new TermQuery(factory);
-    tq.WHERE(tq.getName().EQi(displayLabel));
+    tq.WHERE(OR.get(tq.getName().EQi(displayLabel), tq.getDisplay().EQi(displayLabel), tq.getTermId().EQ(displayLabel)));
     tq.WHERE(tq.getId().EQ(apq.getChildTerm().getId()));
 
     OIterator<? extends Term> iterator = tq.getIterator();
