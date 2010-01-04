@@ -512,6 +512,19 @@
 		</java>
 	</target>
 
+
+	<target name="develop_create_univeral_queries" description="create the system queries for universals for development">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="develop_create_universal_queries">
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+
+			<arg value="create_universal_queries" />
+		</java>
+	</target>
+		
 	<target name="import_geodata_deploy" depends="" description="imports geodata.db of geodata into the deploy db">
 		<!--<diagnostics/>-->
 		<echo message="NOTICE: your develop/server/database.properties  is backed up as database.properties.bak, if this script does not complete sucessfully you will need to restore it manualy" />

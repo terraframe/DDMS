@@ -636,7 +636,7 @@
 
 
 	<!-- =================================================================== -->
-	<!-- Import the ontology                             -->
+	<!-- Import the ontology                                                 -->
 	<!-- =================================================================== -->
 	<target name="import_ontology" depends="" description="imports the MO ontology data into the db">
 		<!--
@@ -675,7 +675,7 @@
 	</target>
 
 	<!-- =================================================================== -->
-	<!-- Rebuild the all paths table                                         -->
+	<!-- Rebuild the geodata all paths table                                 -->
 	<!-- =================================================================== -->
 	<target name="build_all_paths_geodata" depends="" description="imports a db of geodata into the db">
 		<!--
@@ -696,7 +696,7 @@
 	</target>
 
 	<!-- =================================================================== -->
-	<!-- Rebuild the all paths table                                         -->
+	<!-- Rebuild the ontology all paths table                                -->
 	<!-- =================================================================== -->
 	<target name="build_all_paths_ontology" depends="" description="imports a db of geodata into the db">
 		<!--
@@ -713,6 +713,24 @@
 		</java>
 	</target>
 
+	<!-- =================================================================== -->
+	<!-- Create system queries for all universal types                       -->
+	<!-- =================================================================== -->
+	<target name="create_universal_queries" depends="" description="creates system queries for all universal types">
+		<!--
+		<diagnostics/>
+		<echoproperties>
+		</echoproperties>
+		-->
+		<java classname="dss.vector.solutions.util.UniversalSearchHelper" fork="true" failonerror="true" dir="." timeout="4000000" taskname="CreateUniversalSystemQueries">
+			<jvmarg value="-Xmx1024m" />
+
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+		</java>
+
+	</target>
 
 	<!-- =================================================================== -->
 	<!-- Backup the application                                              -->
