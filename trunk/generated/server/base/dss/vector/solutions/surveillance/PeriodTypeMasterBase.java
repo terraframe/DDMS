@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 699099489)
+@com.terraframe.mojo.business.ClassSignature(hash = 732236089)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class PeriodTypeMasterBase extends com.terraframe.mojo.system.En
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.PeriodTypeMaster";
   public static java.lang.String MAXIMUMPERIOD = "maximumPeriod";
-  private static final long serialVersionUID = 699099489;
+  private static final long serialVersionUID = 732236089;
   
   public PeriodTypeMasterBase()
   {

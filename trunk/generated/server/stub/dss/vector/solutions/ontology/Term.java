@@ -471,14 +471,17 @@ public class Term extends TermBase implements Reloadable, OptionIF
     private AllPathsQuery    pathsQuery;
 
     private BrowserRootQuery rootQuery;
-
+    
+    private BrowserRootQuery unselectableRootQuery;
+    
     private String           searchValue;
 
-    protected SearchRootQueryBuilder(QueryFactory queryFactory, String searchValue, BrowserRootQuery rootQuery)
+    protected SearchRootQueryBuilder(QueryFactory queryFactory, String searchValue, BrowserRootQuery rootQuery, BrowserRootQuery unselectableRootQuery)
     {
       super(queryFactory);
 
       this.rootQuery = rootQuery;
+      this.unselectableRootQuery = unselectableRootQuery;
       this.searchValue = searchValue;
       this.termQuery = new TermQuery(queryFactory);
       this.pathsQuery = new AllPathsQuery(queryFactory);
@@ -489,6 +492,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       super(queryFactory);
 
       this.rootQuery = null;
+      this.unselectableRootQuery = null;
       this.searchValue = searchValue;
       this.termQuery = new TermQuery(queryFactory);
       this.pathsQuery = new AllPathsQuery(queryFactory);
@@ -520,10 +524,17 @@ public class Term extends TermBase implements Reloadable, OptionIF
       {
         query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
         query.AND(this.pathsQuery.getParentTerm().EQ(rootQuery.getTerm()));
+        
+        long count = unselectableRootQuery.getCount();
+        
+        if(count > 0)
+        {
+          query.AND(this.termQuery.getId().NEi(unselectableRootQuery.getTerm().getId()));
+        }
       }
 
       query.AND(termQuery.getObsolete().EQ(false));
-
+      
       query.ORDER_BY_ASC(this.termQuery.getDisplay());
     }
 
@@ -951,13 +962,18 @@ public class Term extends TermBase implements Reloadable, OptionIF
     else
     {
       BrowserRootQuery rootQuery = BrowserRoot.getAttributeRoots(className, attribute, f);
-      builder = new SearchRootQueryBuilder(f, value, rootQuery);
+      
+      BrowserRootQuery unselectableRootQuery = BrowserRoot.getAttributeRoots(className, attribute, f);
+      unselectableRootQuery.WHERE(unselectableRootQuery.getSelectable().EQ(false));
+      
+      builder = new SearchRootQueryBuilder(f, value, rootQuery, unselectableRootQuery);
     }
 
     TermViewQuery q = new TermViewQuery(f, builder);
     q.ORDER_BY_ASC(q.getTermName());
 
     q.restrictRows(15, 1);
+    
 
     return q;
 

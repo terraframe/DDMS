@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 842911446)
+@com.terraframe.mojo.business.ClassSignature(hash = -324924970)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public abstract class SurfaceTypeMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.SurfaceTypeMaster";
-  private static final long serialVersionUID = 842911446;
+  private static final long serialVersionUID = -324924970;
   
   public SurfaceTypeMasterBase()
   {

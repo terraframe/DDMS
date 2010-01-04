@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1797435626)
+@com.terraframe.mojo.business.ClassSignature(hash = -550170272)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public abstract class MonthOfYearMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.MonthOfYearMaster";
-  private static final long serialVersionUID = -1797435626;
+  private static final long serialVersionUID = -550170272;
   
   public MonthOfYearMasterBase()
   {
