@@ -49,32 +49,57 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
     getWriter().writeLine("this.failUpdate(" + args + ");");
     getWriter().closeBracket();
   }
-  
+
   @Override
   protected void writeNewInstanceAction(MdEntityDAOIF mdEntity)
   {
     // TODO Auto-generated method stub
     boolean isGeoEntity = mdEntity.getSuperTypes().contains(GeoEntity.CLASS);
-    
-    if(isGeoEntity)
+
+    if (isGeoEntity)
     {
       getWriter().writeLine("try");
       getWriter().openBracket();
     }
-    
+
     super.writeNewInstanceAction(mdEntity);
-    
-    if(isGeoEntity)
+
+    if (isGeoEntity)
     {
       getWriter().closeBracket();
-      getWriter().writeLine("catch("+Throwable.class.getName()+" t)");
+      getWriter().writeLine("catch(" + Throwable.class.getName() + " t)");
       getWriter().openBracket();
-      getWriter().writeLine(JSONMojoExceptionDTOInfo.CLASS + " jsonE = new "+JSONMojoExceptionDTOInfo.CLASS+"(t);");
+      getWriter().writeLine(JSONMojoExceptionDTOInfo.CLASS + " jsonE = new " + JSONMojoExceptionDTOInfo.CLASS + "(t);");
       getWriter().writeLine("resp.setStatus(500);");
       getWriter().writeLine("resp.getWriter().print(jsonE.getJSON());");
       getWriter().closeBracket();
     }
-    
+  }
+
+  @Override
+  protected void writeEditAction(MdEntityDAOIF mdEntity)
+  {
+    // TODO Auto-generated method stub
+    boolean isGeoEntity = mdEntity.getSuperTypes().contains(GeoEntity.CLASS);
+
+    if (isGeoEntity)
+    {
+      getWriter().writeLine("try");
+      getWriter().openBracket();
+    }
+
+    super.writeEditAction(mdEntity);
+
+    if (isGeoEntity)
+    {
+      getWriter().closeBracket();
+      getWriter().writeLine("catch(" + Throwable.class.getName() + " t)");
+      getWriter().openBracket();
+      getWriter().writeLine(JSONMojoExceptionDTOInfo.CLASS + " jsonE = new " + JSONMojoExceptionDTOInfo.CLASS + "(t);");
+      getWriter().writeLine("resp.setStatus(500);");
+      getWriter().writeLine("resp.getWriter().print(jsonE.getJSON());");
+      getWriter().closeBracket();
+    }
   }
 
   @Override
@@ -130,7 +155,7 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
 
     String typeName = mdEntity.definesType() + "DTO";
 
-    getWriter().writeLine(typeName + " dto = " + typeName  + ".get(clientRequest, id);");
+    getWriter().writeLine(typeName + " dto = " + typeName + ".get(clientRequest, id);");
 
     // Load options for Enumeration and Reference attributes
     this.generateRequestsForReferencesAndEnumerations(mdEntity);
@@ -152,11 +177,11 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
 
     String definesAttribute = mdAttribute.definesAttribute();
 
-    if(isTerm)
+    if (isTerm)
     {
       String accessor = mdAttribute.getValue(MdAttributeReferenceInfo.ACCESSOR);
 
-      if(accessor == null || accessor.equals(""))
+      if (accessor == null || accessor.equals(""))
       {
         accessor = definesAttribute;
       }
