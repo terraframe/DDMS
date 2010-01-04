@@ -2,7 +2,6 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -377,9 +376,51 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     {
     }
 
+
+    calculateIncidence(valueQuery,caseQuery,queryConfig, xml,100);
+    calculateIncidence(valueQuery,caseQuery,queryConfig, xml,1000);
+    calculateIncidence(valueQuery,caseQuery,queryConfig, xml,10000);
+    calculateIncidence(valueQuery,caseQuery,queryConfig, xml,100000);
+    calculateIncidence(valueQuery,caseQuery,queryConfig, xml,1000000);
+    
+    QueryUtil.getSingleAttribteGridSql(valueQuery, instanceQuery.getTableAlias());
+
+    QueryUtil.setTermRestrictions(valueQuery, queryMap);
+
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+
+    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
+
+    /*
+     * this will be for speed later
+    String result = "incidence";
+
+    if (xml.indexOf(">" + result + "<") > 0)
+    {
+      String sql = valueQuery.getSQL();
+      String tableName = "innerQuery";
+      ValueQuery outerQuery = new ValueQuery(queryFactory);
+      outerQuery.FROM(tableName, sql);
+
+      for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
+      {
+        // incidence/ get_population(geoUUID,CAST(DATEGROUP_YEAR AS INT))
+        // loop through and recreate all of the inner queries's selectables as
+        // selectable sqls.
+      }
+    }*/
+
+    return valueQuery;
+
+  }
+  
+  public static void calculateIncidence(ValueQuery valueQuery,IndividualCaseQuery caseQuery,JSONObject queryConfig, String xml,Integer multiplier )
+  {
     try
     {
-      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectable("incidence");
+      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectable("incidence_"+multiplier);
       
       String geoType = null;
       
@@ -409,7 +450,6 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
       }
       //dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
       
-      Integer multiplier = 10000;
       
       String timePeriod = "yearly";
       
@@ -424,6 +464,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
       
       String tableAlias = caseQuery.getTableAlias();
       String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
+      
       String sql = "(SUM(1.0/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii.individualcase = " + tableAlias + ".id))/";
       sql += " AVG(get_"+timePeriod+"_population_by_geoid_and_date("+columnAlias+", caseReportDate)))*"+multiplier;
 
@@ -437,35 +478,6 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-
-    QueryUtil.getSingleAttribteGridSql(valueQuery, instanceQuery.getTableAlias());
-
-    QueryUtil.setTermRestrictions(valueQuery, queryMap);
-
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
-
-    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
-
-    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
-
-    String result = "incidence";
-
-    if (xml.indexOf(">" + result + "<") > 0)
-    {
-      String sql = valueQuery.getSQL();
-      String tableName = "innerQuery";
-      ValueQuery outerQuery = new ValueQuery(queryFactory);
-      outerQuery.FROM(tableName, sql);
-
-      for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
-      {
-        // incidence/ get_population(geoUUID,CAST(DATEGROUP_YEAR AS INT))
-        // loop through and recreate all of the inner queries's selectables as
-        // selectable sqls.
-      }
-    }
-
-    return valueQuery;
-
   }
+  
 }
