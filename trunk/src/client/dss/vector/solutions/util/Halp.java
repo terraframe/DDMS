@@ -140,7 +140,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     JSONObject map = new JSONObject();
     for (LabeledDTO term : terms)
     {
-      map.put(term.getOptionId(), term.getLabel());
+      map.put(term.getOptionId(), term.getLabel().replaceAll("'", "\\\\'"));
     }
     return map.toString();
   }
@@ -403,7 +403,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         {
           EnumerationMasterDTO e = (EnumerationMasterDTO) dto;
 
-          list.add("'" + e.getId() + "':'" + e.getDisplayLabel() + "'");
+          list.add("'" + e.getId() + "':'"+ e.getDisplayLabel().toString().replaceAll("'", "\\\\'") + "'");
         }
 
         return "{" + Halp.join(list) + "}";
