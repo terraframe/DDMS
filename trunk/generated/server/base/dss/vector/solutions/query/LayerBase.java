@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1108241381)
+@com.terraframe.mojo.business.ClassSignature(hash = 1147126461)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,23 +15,27 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DEFAULTSTYLES = "defaultStyles";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String GEOHIERARCHY = "geoHierarchy";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LAYERNAME = "layerName";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String MDATTRIBUTE = "mdAttribute";
   public static java.lang.String OPACITY = "opacity";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String RENDERAS = "renderAs";
   public static java.lang.String SAVEDSEARCH = "savedSearch";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SLDFILE = "sldFile";
+  public static java.lang.String THEMATICUSERALIAS = "thematicUserAlias";
   public static java.lang.String THEMATICVARIABLE = "thematicVariable";
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
-  private static final long serialVersionUID = -1108241381;
+  private static final long serialVersionUID = 1147126461;
   
   public LayerBase()
   {
@@ -144,6 +148,41 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     else
     {
       setValue(ENTITYDOMAIN, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.geo.GeoHierarchy getGeoHierarchy()
+  {
+    if (getValue(GEOHIERARCHY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.GeoHierarchy.get(getValue(GEOHIERARCHY));
+    }
+  }
+  
+  public void validateGeoHierarchy()
+  {
+    this.validateAttribute(GEOHIERARCHY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGeoHierarchyMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(GEOHIERARCHY);
+  }
+  
+  public void setGeoHierarchy(dss.vector.solutions.geo.GeoHierarchy value)
+  {
+    if(value == null)
+    {
+      setValue(GEOHIERARCHY, "");
+    }
+    else
+    {
+      setValue(GEOHIERARCHY, value.getId());
     }
   }
   
@@ -281,6 +320,41 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     return mdClassIF.definesAttribute(LOCKEDBY);
   }
   
+  public com.terraframe.mojo.system.metadata.MdAttribute getMdAttribute()
+  {
+    if (getValue(MDATTRIBUTE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.metadata.MdAttribute.get(getValue(MDATTRIBUTE));
+    }
+  }
+  
+  public void validateMdAttribute()
+  {
+    this.validateAttribute(MDATTRIBUTE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getMdAttributeMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(MDATTRIBUTE);
+  }
+  
+  public void setMdAttribute(com.terraframe.mojo.system.metadata.MdAttribute value)
+  {
+    if(value == null)
+    {
+      setValue(MDATTRIBUTE, "");
+    }
+    else
+    {
+      setValue(MDATTRIBUTE, value.getId());
+    }
+  }
+  
   public java.math.BigDecimal getOpacity()
   {
     return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(OPACITY));
@@ -342,6 +416,44 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     {
       setValue(OWNER, value.getId());
     }
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.query.AllRenderTypes> getRenderAs()
+  {
+    return (java.util.List<dss.vector.solutions.query.AllRenderTypes>) getEnumValues(RENDERAS);
+  }
+  
+  public void addRenderAs(dss.vector.solutions.query.AllRenderTypes value)
+  {
+    if(value != null)
+    {
+      addEnumItem(RENDERAS, value.getId());
+    }
+  }
+  
+  public void removeRenderAs(dss.vector.solutions.query.AllRenderTypes value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(RENDERAS, value.getId());
+    }
+  }
+  
+  public void clearRenderAs()
+  {
+    clearEnum(RENDERAS);
+  }
+  
+  public void validateRenderAs()
+  {
+    this.validateAttribute(RENDERAS);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getRenderAsMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(RENDERAS);
   }
   
   public dss.vector.solutions.query.SavedSearch getSavedSearch()
@@ -436,6 +548,34 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     else
     {
       setValue(SLDFILE, value);
+    }
+  }
+  
+  public String getThematicUserAlias()
+  {
+    return getValue(THEMATICUSERALIAS);
+  }
+  
+  public void validateThematicUserAlias()
+  {
+    this.validateAttribute(THEMATICUSERALIAS);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getThematicUserAliasMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(THEMATICUSERALIAS);
+  }
+  
+  public void setThematicUserAlias(String value)
+  {
+    if(value == null)
+    {
+      setValue(THEMATICUSERALIAS, "");
+    }
+    else
+    {
+      setValue(THEMATICUSERALIAS, value);
     }
   }
   
@@ -634,6 +774,18 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   {
     Layer _instance = Layer.get(id);
     _instance.applyWithStyles(styles, savedMapId);
+  }
+  
+  public dss.vector.solutions.query.AttributeGeoHierarchy[] getAttributeGeoHierarchies()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.Layer.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.query.AttributeGeoHierarchy[] getAttributeGeoHierarchies(java.lang.String id)
+  {
+    Layer _instance = Layer.get(id);
+    return _instance.getAttributeGeoHierarchies();
   }
   
   public static Layer lock(java.lang.String id)

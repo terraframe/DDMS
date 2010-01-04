@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 877599292)
+@com.terraframe.mojo.business.ClassSignature(hash = 577149248)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  abstract  class SupervisorViewQueryBase extends dss.vector.solutions.PersonViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 877599292;
+private static final long serialVersionUID = 577149248;
 
   public SupervisorViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

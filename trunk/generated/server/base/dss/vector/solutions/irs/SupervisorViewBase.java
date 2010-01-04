@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1805453293)
+@com.terraframe.mojo.business.ClassSignature(hash = 576052887)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class SupervisorViewBase extends dss.vector.solutions.PersonView
 {
   public final static String CLASS = "dss.vector.solutions.irs.SupervisorView";
   public static java.lang.String SUPERVISORID = "supervisorId";
-  private static final long serialVersionUID = -1805453293;
+  private static final long serialVersionUID = 576052887;
   
   public SupervisorViewBase()
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1699117142)
+@com.terraframe.mojo.business.ClassSignature(hash = -1054143739)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class SavedSearchBase extends com.terraframe.mojo.business.Busin
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TEMPLATEFILE = "templateFile";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1699117142;
+  private static final long serialVersionUID = -1054143739;
   
   public SavedSearchBase()
   {
@@ -558,6 +558,18 @@ public abstract class SavedSearchBase extends com.terraframe.mojo.business.Busin
     return _instance.getAsView(includeXML, includeConfig);
   }
   
+  public dss.vector.solutions.query.AttributeGeoHierarchy[] getAttributeGeoHierarchies()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedSearch.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.query.AttributeGeoHierarchy[] getAttributeGeoHierarchies(java.lang.String id)
+  {
+    SavedSearch _instance = SavedSearch.get(id);
+    return _instance.getAttributeGeoHierarchies();
+  }
+  
   public static dss.vector.solutions.query.SavedSearchViewQuery getMappableSearches()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedSearch.java";
@@ -580,6 +592,18 @@ public abstract class SavedSearchBase extends com.terraframe.mojo.business.Busin
   {
     SavedSearch _instance = SavedSearch.get(id);
     return _instance.getTemplateStream();
+  }
+  
+  public dss.vector.solutions.query.ThematicVariable[] getThematicVariables()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedSearch.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.query.ThematicVariable[] getThematicVariables(java.lang.String id)
+  {
+    SavedSearch _instance = SavedSearch.get(id);
+    return _instance.getThematicVariables();
   }
   
   public static dss.vector.solutions.query.SavedSearchView loadDefaultSearch(dss.vector.solutions.query.SavedSearchView savedSearchView)

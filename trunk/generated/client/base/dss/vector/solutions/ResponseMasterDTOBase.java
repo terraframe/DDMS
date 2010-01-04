@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -951022483)
+@com.terraframe.mojo.business.ClassSignature(hash = -714486269)
 public abstract class ResponseMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ResponseMaster";
-  private static final long serialVersionUID = -951022483;
+  private static final long serialVersionUID = -714486269;
   
   protected ResponseMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

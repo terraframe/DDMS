@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1494215517)
+@com.terraframe.mojo.business.ClassSignature(hash = 1955285101)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public abstract class LifeStageMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.LifeStageMaster";
-  private static final long serialVersionUID = -1494215517;
+  private static final long serialVersionUID = 1955285101;
   
   public LifeStageMasterBase()
   {

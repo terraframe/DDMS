@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1819028790)
+@com.terraframe.mojo.business.ClassSignature(hash = 1435077766)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class SavedMapBase extends com.terraframe.mojo.business.Business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1819028790;
+  private static final long serialVersionUID = 1435077766;
   
   public SavedMapBase()
   {
@@ -442,6 +442,18 @@ public abstract class SavedMapBase extends com.terraframe.mojo.business.Business
   {
     SavedMap _instance = SavedMap.get(id);
     _instance.moveLayerOnMap(layerId, layerPosition);
+  }
+  
+  public java.lang.String refreshMap()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.String refreshMap(java.lang.String id)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    return _instance.refreshMap();
   }
   
   public static SavedMap lock(java.lang.String id)

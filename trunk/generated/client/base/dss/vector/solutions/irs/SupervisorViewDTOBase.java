@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 51906195)
+@com.terraframe.mojo.business.ClassSignature(hash = 637283607)
 public abstract class SupervisorViewDTOBase extends dss.vector.solutions.PersonViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.SupervisorView";
-  private static final long serialVersionUID = 51906195;
+  private static final long serialVersionUID = 637283607;
   
   protected SupervisorViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

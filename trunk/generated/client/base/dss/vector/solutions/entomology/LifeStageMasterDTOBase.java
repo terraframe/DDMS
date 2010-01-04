@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1894687523)
+@com.terraframe.mojo.business.ClassSignature(hash = 1049220845)
 public abstract class LifeStageMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.LifeStageMaster";
-  private static final long serialVersionUID = 1894687523;
+  private static final long serialVersionUID = 1049220845;
   
   protected LifeStageMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

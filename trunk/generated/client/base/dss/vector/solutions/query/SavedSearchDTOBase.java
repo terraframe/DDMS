@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 277510614)
+@com.terraframe.mojo.business.ClassSignature(hash = -1751156347)
 public abstract class SavedSearchDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearch";
-  private static final long serialVersionUID = 277510614;
+  private static final long serialVersionUID = -1751156347;
   
   protected SavedSearchDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -632,6 +632,22 @@ public abstract class SavedSearchDTOBase extends com.terraframe.mojo.business.Bu
     return (dss.vector.solutions.query.SavedSearchViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final dss.vector.solutions.query.AttributeGeoHierarchyDTO[] getAttributeGeoHierarchies()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "getAttributeGeoHierarchies", _declaredTypes);
+    return (dss.vector.solutions.query.AttributeGeoHierarchyDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.query.AttributeGeoHierarchyDTO[] getAttributeGeoHierarchies(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "getAttributeGeoHierarchies", _declaredTypes);
+    return (dss.vector.solutions.query.AttributeGeoHierarchyDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final dss.vector.solutions.query.SavedSearchViewQueryDTO getMappableSearches(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
@@ -662,6 +678,22 @@ public abstract class SavedSearchDTOBase extends com.terraframe.mojo.business.Bu
     Object[] _parameters = new Object[]{id};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "getTemplateStream", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.query.ThematicVariableDTO[] getThematicVariables()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "getThematicVariables", _declaredTypes);
+    return (dss.vector.solutions.query.ThematicVariableDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.query.ThematicVariableDTO[] getThematicVariables(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "getThematicVariables", _declaredTypes);
+    return (dss.vector.solutions.query.ThematicVariableDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.query.SavedSearchViewDTO loadDefaultSearch(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.query.SavedSearchViewDTO savedSearchView)
