@@ -40,10 +40,8 @@ Mojo.Meta.newClass('MDSS.QueryLarvacide', {
                              
                            ];
       
-      this._queryType = 'QueryLarvacide';
+      this._queryType = this._mainQueryClass;
 
-      this._reportQueryType = 'QueryLarvacide';
-      
       this.$initialize(selectableGroups, queryList);   
  
       var picker = this.getGeoPicker();      

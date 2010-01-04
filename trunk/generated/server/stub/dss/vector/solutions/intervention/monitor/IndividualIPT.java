@@ -18,6 +18,7 @@ import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -130,7 +131,7 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
     JSONObject queryConfig;
     try
@@ -147,7 +148,7 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, IndividualIPT.CLASS, IndividualIPT.FACILITY);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
 
     IndividualIPTQuery individualIPTQuery = (IndividualIPTQuery) queryMap.get(IndividualIPT.CLASS);
     IndividualIPTCaseQuery individualIPTCaseQuery = (IndividualIPTCaseQuery) queryMap.get(IndividualIPTCase.CLASS);

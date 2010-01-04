@@ -629,6 +629,7 @@ MDSS.QueryPanel.prototype = {
    YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
    YAHOO.util.Dom.setAttribute(searchIdInput, 'name', 'savedSearchId');
 
+/* Obsolete: query type is grabbed from SavedSearch given by savedSearchId param
    var queryTypeInput = document.createElement('input');
    YAHOO.util.Dom.setAttribute(queryTypeInput, 'type', 'hidden');
    YAHOO.util.Dom.setAttribute(queryTypeInput, 'name', 'queryType');
@@ -636,13 +637,14 @@ MDSS.QueryPanel.prototype = {
    var queryTypeInput = document.createElement('input');
    YAHOO.util.Dom.setAttribute(queryTypeInput, 'type', 'hidden');
    YAHOO.util.Dom.setAttribute(queryTypeInput, 'name', 'type');
-
+*/
+   
    var obj = {
      form: form,
      xmlInput: xmlInput,
      config : config,
-     searchIdInput : searchIdInput,
-     queryTypeInput : queryTypeInput
+     searchIdInput : searchIdInput
+//     queryTypeInput : queryTypeInput
    };
 
    var exportReportButton = document.createElement('input');
@@ -654,7 +656,7 @@ MDSS.QueryPanel.prototype = {
    form.appendChild(xmlInput);
    form.appendChild(config);
    form.appendChild(searchIdInput);
-   form.appendChild(queryTypeInput);
+//   form.appendChild(queryTypeInput);
 
    document.getElementById('ReportFormContainer').appendChild(form);
 

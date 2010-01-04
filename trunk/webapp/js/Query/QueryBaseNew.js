@@ -6,7 +6,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
   
     initialize : function(selectableGroups, queryList)
     {
-      this.$initialize();
+      this.$initialize(queryList);
 
       // list of columns that have been added before a call to render()
       this._preconfiguredColumns = [];
@@ -35,32 +35,21 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
       // Map of criteria ids and associated ContextMenuItems.
       this._menuItems = {};
-      
-      for(var i=0; i<queryList.length; i++)
-      {
-        this._queryPanel.addAvailableQuery(queryList[i]);
-      }
 
       this._buildQueryItems(selectableGroups);
 
       this._buildColumns();
-
-
     },
 
 
     /**
      * Returns the type of query.
-     */
+     * // FIXME NO LONGER NEEDED
     _getQueryType: function()
     {
       return this._queryType;
     },
-
-    _getReportQueryType : function()
-    {
-    	return this._reportQueryType;
-    },
+     */
 
     /**
      * Returns the controller action to invoke when exporting the query to XML.
@@ -114,12 +103,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       form.submit();
     },
 
-    _getExportReportAction : function()
-    {
-      return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
-    },
-
-
     /**
      * Final function called before query is executed.
      * Any last minute cleanup is done here. The this
@@ -127,8 +110,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      */
     executeQuery : function()
     {
-
-
       // execute the query
       var queryXML = this._constructQuery();
       var xml = queryXML.getXML();
@@ -148,7 +129,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       }
       var page = this.getCurrentPage();
 
-        // FIXME json conversion below is temporary
       this._dataQueryFunction(request,this._xmlToValueQueryClass, xml, this._config.getJSON(), '', true, page, this.PAGE_SIZE);
     },
 
@@ -234,7 +214,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
           if(items)
           {
-          if(selectable.attribute.getDtoType() && selectable.attribute.getDtoType().contains('AttributeEnumeration'))
+          if(selectable.attribute.getDtoType() && selectable.attribute.getDtoType().indexOf('AttributeEnumeration') != -1)
           {
             var enumIds = items.filter(
                 function(a){return a.checked;}).map(
@@ -809,7 +789,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         li.appendChild(check);
         this._defaults.push({element:check, checked:false});
         
-        if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeCharacterDTO'))
+        if(visibleObj.dtoType && visibleObj.dtoType.indexOf('AttributeCharacterDTO') != -1)
         {
         	li.id = attribute.getKey()+'_li';
 
@@ -825,7 +805,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           
         }
         
-        if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeIntegerDTO'))
+        if(visibleObj.dtoType && visibleObj.dtoType.indexOf('AttributeIntegerDTO') != -1)
         {
         	li.id = attribute.getKey()+'_li';
         	 	
@@ -1375,14 +1355,14 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
        var row = {};
        if(attrib){
          row.attributeName = attrib.attributeName;
-         if(attrib.dtoType.contains('AttributeReferenceDTO'))
+         if(attrib.dtoType.indexOf('AttributeReferenceDTO') != -1)
          {
-           if(attrib.getAttributeMdDTO().getReferencedMdBusiness().contains('Term'))
+           if(attrib.getAttributeMdDTO().getReferencedMdBusiness().indexOf('Term') != -1)
            {
              row.isTerm = true;
            }
            
-           if(attrib.getAttributeMdDTO().getReferencedMdBusiness().contains('dss.vector.solutions.geo.generated'))
+           if(attrib.getAttributeMdDTO().getReferencedMdBusiness().indexOf('dss.vector.solutions.geo.generated') != -1)
            {
              row.attributeName = attribName + '_displayLabel';
              row.type = 'sqlcharacter';
@@ -1394,7 +1374,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
            }
 
          }
-         if(attrib.dtoType.contains('AttributeEnumerationDTO'))
+         if(attrib.dtoType.indexOf('AttributeEnumerationDTO') != -1)
          {
         	 /* row.attributeName = attribName + '_displayLabel';
             row.type = 'sqlcharacter';

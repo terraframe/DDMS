@@ -16,6 +16,7 @@ import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
 public class ITNDistribution extends ITNDistributionBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -103,7 +104,7 @@ public class ITNDistribution extends ITNDistributionBase implements com.terrafra
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
     JSONObject queryConfig;
     try
@@ -120,7 +121,7 @@ public class ITNDistribution extends ITNDistributionBase implements com.terrafra
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, AggregatedIPT.CLASS, AggregatedIPT.GEOENTITY);   
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);   
    
     ITNDistributionQuery itnQuery = (ITNDistributionQuery) queryMap.get(ITNDistribution.CLASS);
     

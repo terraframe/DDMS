@@ -48,11 +48,9 @@ Mojo.Meta.newClass('MDSS.QueryEfficacyAssay', {
       /**
        * Returns the type of query.
        */
-      this._queryType = 'QueryEfficacyAssay';
+      this._queryType = this._mainQueryClass;
       
 
-      this._reportQueryType = 'QueryEfficacyAssay';
-      
       var picker = this.getGeoPicker();      
       picker.setPolitical(false);
       picker.setSprayTargetAllowed(false);

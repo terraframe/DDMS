@@ -2,7 +2,6 @@ package dss.vector.solutions.query;
 
 import org.apache.commons.lang.math.NumberRange;
 
-import com.terraframe.mojo.dataaccess.transaction.AbortIfProblem;
 
 
 public class RangeCategory extends RangeCategoryBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -15,49 +14,125 @@ public class RangeCategory extends RangeCategoryBase implements com.terraframe.m
   }
   
   @Override
-  public void apply()
+  public void preValidate()
   {
+    // make sure there are values since this is required.
     this.validateLowerBoundStr();
     this.validateUpperBoundStr();
     
-    validateBounds();
+    // Make sure the lower/upper bounds are either
+    // both strings or both numeric, but not one of each.
+    String lower = this.getLowerBoundStr();
+    String upper = this.getUpperBoundStr();
     
-    super.apply();
+    boolean isLowerNum = false;
+    boolean isUpperNum = false;
+    
+    try
+    {
+      Double.valueOf(lower);
+      isLowerNum = true;
+    }
+    catch(NumberFormatException e)
+    {
+      // lower bound is a string
+    }
+    
+    try
+    {
+      Double.valueOf(upper);
+      isUpperNum = true;
+    }
+    catch(NumberFormatException e)
+    {
+      // lower bound is a string
+    }
+    
+    if(isLowerNum != isUpperNum)
+    {
+      String error = "The range bounds lower ["+lower+"] and upper ["+upper+"] are not compatible types";
+      throw new IncompatibleBoundsException(error);
+    }
   }
   
-  @AbortIfProblem
-  private void validateBounds()
+  protected void checkAgainstRangeNumbers(Double lowerD, Double upperD, Double lowerD2, Double upperD2)
+  {
+    NumberRange range1 = new NumberRange(lowerD, upperD);
+    NumberRange range2 = new NumberRange(lowerD2, upperD2);
+    
+    if(range1.overlapsRange(range2))
+    {
+      this.throwsOverlapException(range1, range2);
+    }
+  }
+  
+  protected void checkAgainstRangeStrings(String lower, String upper, String lower2, String upper2)
+  {
+    String lowerL = lower.toLowerCase();
+    String upperL = upper.toLowerCase();
+    String lower2L = lower2.toLowerCase();
+    String upper2L = upper2.toLowerCase();
+    
+    if(lowerL.compareTo(lower2L) >= 0 && lowerL.compareTo(upper2L) <= 0)
+    {
+      this.throwsOverlapException(lower, upper, lower2, upper2);
+    }
+    else if(upperL.compareTo(lower2L) >= 0 && upperL.compareTo(upper2L) <= 0)
+    {
+      this.throwsOverlapException(lower, upper, lower2, upper2);
+    }
+    
+  }
+
+  @Override
+  protected void checkBounds(AbstractCategory category)
   {
     String lower = this.getLowerBoundStr();
     String upper = this.getUpperBoundStr();
     
+    Double lowerD = null;
+    Double upperD = null;
     try
     {
-      Double lowerD = Double.valueOf(lower);
-      Double upperD = Double.valueOf(upper);
-//      
-//      NumberRange range1 = new NumberRange(lowerD);
-//      NumberRange range2 = new NumberRange(upperD);
-//      
-//      if(!upperD.equals(lowerD)  && range1.overlapsRange(range2))
-//      {
-//        OverlapBoundsException ex = new OverlapBoundsException();
-//
-//        Number min1 = range1.getMinimumNumber();
-//        Number max1 = range1.getMaximumNumber();
-//        ex.setRangeOne(min1.equals(max1) ? min1.toString() : min1.toString()+", "+max1.toString());
-//  
-//        Number min2 = range2.getMinimumNumber();
-//        Number max2 = range2.getMaximumNumber();
-//        ex.setRangeTwo(min2.equals(max2) ? min2.toString() : min2.toString()+", "+max2.toString());
-//  
-//        throw ex; 
-//      }
+      lowerD = Double.valueOf(lower);
+      upperD = Double.valueOf(upper);
     }
     catch(NumberFormatException e)
     {
-      // nothing to do since the bounds are not both numbers
+      // The Range is not numeric
     }
+    
+   
+    if(category instanceof NonRangeCategory)
+    {
+      NonRangeCategory nonRange = (NonRangeCategory) category;
+      nonRange.checkBounds(this);
+    }
+    else
+    {
+      RangeCategory range = (RangeCategory) category;
+      String lower2 = range.getLowerBoundStr();
+      String upper2 = range.getUpperBoundStr();
+      
+      try
+      {
+        Double lowerD2 = Double.valueOf(lower2);
+        Double upperD2 = Double.valueOf(upper2);
+        
+        // Numeric comparison
+        if(lowerD != null)
+        {
+          this.checkAgainstRangeNumbers(lowerD, upperD, lowerD2, upperD2);
+        }
+      }
+      catch(NumberFormatException e)
+      {
+        if(lowerD == null)
+        {
+          // The values are not numeric, so try a string comparison  
+          checkAgainstRangeStrings(lower, upper, lower2, upper2);
+        }
+      }
+    } 
   }
-
 }

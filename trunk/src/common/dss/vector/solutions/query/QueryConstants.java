@@ -14,44 +14,76 @@ public class QueryConstants implements Reloadable
   public static final String THEMATIC_DATA_COLUMN = "data";
 
   public static final String ENTITY_NAME_COLUMN = "entityname_v";
+  
+  public static final String GEO_ID_COLUMN = "geoid_v";
 
   public static final String GEOMETRY_NAME_COLUMN = "geometry_v";
 
   public static final String VIEW_NAME_SUFFIX = "_view";
 
   // Query types
-  public static final String QUERY_AGGREGATED_CASE = "QueryAggregatedCase";
-
-  public static final String QUERY_ENTOMOLOGY = "QueryEntomology";
-
-  public static final String QUERY_INDICATOR_SURVEY ="QueryIndicatorSurvey";
-
-  public static final String QUERY_STOCK = "QueryStock";
-  
-  public static final String QUERY_LARVACIDE = "QueryLarvacide";
-  
-  public static final String QUERY_IRS = "QueryIRS";
-
-  public static final String QUERY_RESISTANCE = "QueryResistance";
-
-  public static final String QUERY_AGGREGATED_IPT = "QueryAggregatedIPT";
-  
-  public static final String QUERY_INDIVIDUAL_IPT = "QueryIndividualIPT";
-  
-  public static final String QUERY_INDIVIDUAL_CASES   = "QueryIndividualCases";
-
-  public static final String QUERY_EFFICACY_ASSAY = "QueryEfficacyAssay";
-  
-  public static final String QUERY_MOSQUITO_COLLECTIONS = "QueryMosquitoCollections";
-  
   public static final String SELECTED_UNIVERSALS = "selectedUniversals";
   
   public static final String DOB_CRITERIA = "dobCriteria";
+
+  private static final String NAMESPACE_DELIM = ":";
+
+  public enum QueryType implements Reloadable {
+    
+    QUERY_AGGREGATED_CASE,
+    
+    QUERY_ENTOMOLOGY,
+    
+    QUERY_INDICATOR_SURVEY,
+    
+    QUERY_STOCK,
+    
+    QUERY_LARVACIDE,
+    
+    QUERY_IRS,
+
+    QUERY_RESISTANCE,
+    
+    QUERY_AGGREGATED_IPT,
+    
+    QUERY_INDIVIDUAL_IPT,
+    
+    QUERY_INDIVIDUAL_CASES,
+    
+    QUERY_EFFICACY_ASSAY,
+    
+    QUERY_MOSQUITO_COLLECTIONS,
+    
+    QUERY_ITN_COMMUNITY_DISTRIBUTION,
+    
+    QUERY_ITN_FACILITY_DISTRIBUTION,
+    
+    QUERY_AGGREGATED_ITN,
+    
+  }
   
-  public static final String QUERY_ITN_COMMUNITY_DISTRIBUTION  = "QueryITNCommunityDistribution";
+  /**
+   * Namespaces the query with the qualified class and query type.
+   */
+  public static String namespaceQuery(String queryClass, QueryConstants.QueryType queryType)
+  {
+    return queryClass + NAMESPACE_DELIM + queryType.name();
+  }
   
-  public static final String QUERY_ITN_FACILITY_DISTRIBUTION  = "QueryITNFacilityDistribution";
+  /**
+   * Extracts the query class from the string generated with namespaceQuery().
+   * 
+   * @param namespacedType
+   * @return
+   */
+  public static String getQueryClass(String namespacedType)
+  {
+    return namespacedType.split(NAMESPACE_DELIM)[0];
+  }
   
-  public static final String QUERY_AGGREGATED_ITN = "QueryAggregatedITN";
-  
+  public static QueryType getQueryType(String namespacedType)
+  {
+    String name = namespacedType.split(NAMESPACE_DELIM)[1];
+    return QueryType.valueOf(name);
+  }
 }

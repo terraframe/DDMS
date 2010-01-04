@@ -47,10 +47,8 @@ Mojo.Meta.newClass('MDSS.QueryIndividualIPT', {
                              
                            ];
       
-      this._queryType = 'QueryIndividualIPT';
+      this._queryType = this._mainQueryClass;
 
-      this._reportQueryType = 'QueryIndividualIPT';
-      
       this.$initialize(selectableGroups, queryList);   
 
       var picker = this.getGeoPicker();      

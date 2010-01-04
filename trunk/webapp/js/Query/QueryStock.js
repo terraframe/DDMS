@@ -38,10 +38,8 @@ Mojo.Meta.newClass('MDSS.QueryStock', {
                              
                            ];
       
-      this._queryType = 'QueryStock';
+      this._queryType = this._mainQueryClass;
 
-      this._reportQueryType = 'QueryStock';
-      
       this.$initialize(selectableGroups, queryList);   
  
       var picker = this.getGeoPicker();

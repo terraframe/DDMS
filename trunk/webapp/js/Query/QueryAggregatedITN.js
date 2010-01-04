@@ -45,10 +45,9 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedITN', {
       /**
        * Returns the type of query.
        */
-      this._queryType = 'QueryAggregatedIPT';
+      this._queryType = this._mainQueryClass;
       
 
-      this._reportQueryType = 'QueryAggregatedIPT';
       this.$initialize(selectableGroups, queryList);   
       
       var picker = this.getGeoPicker();      

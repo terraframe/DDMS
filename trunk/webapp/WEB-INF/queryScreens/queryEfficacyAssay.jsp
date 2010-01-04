@@ -84,11 +84,11 @@ YAHOO.util.Event.onDOMReady(function(){
       var row = {};
       if(attrib){
         row.attributeName = attrib.attributeName;
-        if(attrib.dtoType.contains('AttributeReferenceDTO'))
+        if(attrib.dtoType.indexOf('AttributeReferenceDTO') != -1)
         {
           //row.attributeName += '.name';
         }
-        if(attrib.dtoType.contains('AttributeEnumerationDTO'))
+        if(attrib.dtoType.indexOf('AttributeEnumerationDTO') != -1)
         {
           row.attributeName += '.displayLabel.currentValue';
         }

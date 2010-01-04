@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
@@ -20,11 +21,13 @@
 <%@page import="dss.vector.solutions.query.LayerController"%>
 <%@page import="dss.vector.solutions.query.AbstractCategoryController"%>
 
-<c:set var="page_title" value="Generate_Maps"  scope="request"/>
+
+<%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
+<%@page import="dss.vector.solutions.query.AttributeGeoHierarchyDTO"%><c:set var="page_title" value="Generate_Maps"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
-
+<jwr:script src="/bundles/mapBundle.js"/>
 
 <script type="text/javascript">
 <%
@@ -32,7 +35,8 @@ ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstan
 
 String[] types = new String[]{DefaultSavedMapDTO.CLASS, SavedMapController.CLASS, LayerViewDTO.CLASS, LayerDTO.CLASS,
     ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS,
-    NonRangeCategoryController.CLASS, MappingController.CLASS, LayerController.CLASS, AbstractCategoryController.CLASS};
+    NonRangeCategoryController.CLASS, MappingController.CLASS, LayerController.CLASS, AbstractCategoryController.CLASS, SavedSearchDTO.CLASS,
+    AttributeGeoHierarchyDTO.CLASS};
 
 String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 out.print(js);

@@ -43,13 +43,9 @@ import com.terraframe.mojo.dataaccess.database.IDGenerator;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.util.FileIO;
 
-import dss.vector.solutions.QueryTypeDTO;
-import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
-import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
-import dss.vector.solutions.irs.AbstractSprayDTO;
+import dss.vector.solutions.query.QueryBuilderDTO;
 import dss.vector.solutions.query.SavedSearchDTO;
 import dss.vector.solutions.query.SavedSearchRequiredExceptionDTO;
-import dss.vector.solutions.surveillance.AggregatedCaseDTO;
 import dss.vector.solutions.util.BirtEngine;
 
 public class ReportController extends ReportControllerBase implements Reloadable
@@ -67,13 +63,13 @@ public class ReportController extends ReportControllerBase implements Reloadable
     super(req, resp, isAsynchronous);
   }
 
-  public void generateReport(String queryXML, String config, String savedSearchId, String type) throws IOException, ServletException
+  public void generateReport(String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
     {
       validateParameters(queryXML, config, savedSearchId);
 
-      buildReport(savedSearchId, this.getCSV(queryXML, config, savedSearchId, QueryTypeDTO.valueOf(type)));
+      buildReport(savedSearchId, this.getCSV(queryXML, config, savedSearchId));
     }
     catch (Throwable t)
     {
@@ -81,8 +77,15 @@ public class ReportController extends ReportControllerBase implements Reloadable
     }
   }
 
-  private InputStream getCSV(String queryXML, String config, String savedSearchId, QueryTypeDTO type)
+  private InputStream getCSV(String queryXML, String config, String savedSearchId)
   {
+    ClientRequestIF request = this.getClientRequest();
+    SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+    String queryType = search.getQueryType();
+    
+    return QueryBuilderDTO.exportQueryToCSV(request, queryType, queryXML, config, savedSearchId);
+    
+    /*
     if(type.equals(QueryTypeDTO.AGGREGATED_CASES))
     {
       return AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
@@ -103,8 +106,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
     {
       return SurveyPointDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
     }
-
-    throw new RuntimeException("Query Type does not have a CSV exporter defined");
+    */
   }
 
   private void validateParameters(String queryXML, String geoEntityType, String savedSearchId)

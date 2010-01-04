@@ -1,7 +1,6 @@
 package dss.vector.solutions.query;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -78,22 +77,74 @@ public class LayerController extends LayerControllerBase implements
       
       // fetch queries
       SavedSearchViewQueryDTO query = SavedSearchDTO.getMappableSearches(this.getClientRequest());
+      List<? extends SavedSearchViewDTO> results = query.getResultSet();
       
-      this.req.setAttribute("queryList", query.getResultSet());
+      this.req.setAttribute("queryList", results);
       this.req.setAttribute("pointMarker", dss.vector.solutions.query.WellKnownNamesDTO.allItems(this.getClientRequest()));      
+      this.req.setAttribute("renderAsOptions", AllRenderTypesDTO.allItems(this.getClientRequest()));
       
       // fetch categories
+      String mdAttributeId = "";
+      String geoHierarchyId= "";
       if(layer.isNewInstance())
       {
         req.setAttribute("categories", null); 
+        
+        // Check if there is at least one valid SavedSearch which has geometry in the query.
+        if(results.size() > 0)
+        {
+          SavedSearchViewDTO ssView = results.get(0);
+          String ssId = ssView.getSavedQueryId();
+          
+          // Add any of available universal geometries 
+          AttributeGeoHierarchyDTO[] attrGeos = SavedSearchDTO.getAttributeGeoHierarchies(layer.getRequest(), ssId);
+          req.setAttribute("attrGeos", attrGeos);
+          
+          if(attrGeos.length > 0)
+          {
+            // Automatically provide the layer with the first available universal geometry 
+            AttributeGeoHierarchyDTO first = attrGeos[0];
+            mdAttributeId = first.getMdAttributeId();
+            geoHierarchyId = first.getGeoHierarchyId();
+          }
+
+          // Add any thematic variables defined by the SavedSearch
+          ThematicVariableDTO[] thematicVars = SavedSearchDTO.getThematicVariables(layer.getRequest(), ssId);
+          req.setAttribute("thematicVars", thematicVars);
+        }
+        else
+        {
+          req.setAttribute("attrGeos", null); 
+          req.setAttribute("thematicVars", null);
+        }
+        
+        req.setAttribute("currentAttributeGeoHierarchy", null);
       }
       else
       {
+        String ssId = layer.getValue(LayerDTO.SAVEDSEARCH);
+        
+        mdAttributeId = layer.getValue(LayerDTO.MDATTRIBUTE);
+        geoHierarchyId = layer.getValue(LayerDTO.GEOHIERARCHY);
+        
         List<? extends AbstractCategoryDTO> categories = layer.getAllHasCategory();
         //Collections.sort(categories, new CategoryComparator());
         
         req.setAttribute("categories", categories);
+        
+        AttributeGeoHierarchyDTO[] attrGeos = SavedSearchDTO.getAttributeGeoHierarchies(layer.getRequest(),
+          ssId);
+        req.setAttribute("attrGeos", attrGeos);
+        
+        String currAttrGeo = layer.getValue(LayerDTO.MDATTRIBUTE)+":"+layer.getValue(LayerDTO.GEOHIERARCHY);
+        req.setAttribute("currentAttributeGeoHierarchy", currAttrGeo);
+        
+        ThematicVariableDTO[] thematicVars = SavedSearchDTO.getThematicVariables(layer.getRequest(), ssId);
+        req.setAttribute("thematicVars", thematicVars);
       }
+      
+      this.req.setAttribute("mdAttributeId", mdAttributeId);
+      this.req.setAttribute("geoHierarchyId", geoHierarchyId);
     }
     catch(Throwable e)
     {

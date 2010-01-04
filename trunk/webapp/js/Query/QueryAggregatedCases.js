@@ -9,7 +9,7 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
 
     initialize : function(ageGroups, visibleAttributes, orderedGrids, queryList)
     {
-      this.$initialize();
+      this.$initialize(queryList);
       
       // Ref to instance of AggregatedCase (used as template for display labels)
       this._aggregatedCase = new Mojo.$.dss.vector.solutions.surveillance.AggregatedCase();
@@ -40,11 +40,6 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
       var endDateAttr = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.ENDDATE, aggregatedCase.ENDDATE);
       this._endDateSelectable = new MDSS.QueryXML.Selectable(endDateAttr);
   
-      for(var i=0; i<queryList.length; i++)
-      {
-        this._queryPanel.addAvailableQuery(queryList[i]);
-      }
-  
       // array of checkboxes that must be checked after the DOM has been rendered
       this._defaultAgeGroups = [];
   
@@ -70,14 +65,6 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
     },
   
     /**
-     * Returns the method to save this AggregatedCase search.
-     */
-    _getQueryType: function()
-    {
-      return 'QueryAggregatedCase';
-    },
-  
-    /**
      * Returns the controller action to invoke when exporting the query to XML.
      */
     _getExportXLSAction : function()
@@ -90,16 +77,6 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
       return 'dss.vector.solutions.query.QueryController.exportAggregatedCaseQueryToCSV.mojo';
     },
   
-    _getExportReportAction : function()
-    {
-      return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
-    },
-    
-    _getReportQueryType : function()
-    {
-      return 'AGGREGATED_CASES';
-    },
-    
     _loadQueryState : function(view)
     {
       var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;

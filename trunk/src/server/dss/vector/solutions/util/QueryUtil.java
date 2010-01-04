@@ -41,6 +41,7 @@ import com.terraframe.mojo.query.SelectableSQLDate;
 import com.terraframe.mojo.query.SelectableSingle;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryParser;
+import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdEntity;
 import com.terraframe.mojo.system.metadata.MdRelationship;
@@ -55,6 +56,8 @@ import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.query.AllRenderTypes;
+import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
 
@@ -304,7 +307,7 @@ public class QueryUtil implements Reloadable
 
     return sql;
   }
-
+  
   /**
    * Joins the ValueQuery with any selected/restricting geo entity information.
    * This method does not perform the final join between the AllPathsQuery and
@@ -318,7 +321,7 @@ public class QueryUtil implements Reloadable
    * @param selectedUniversals
    * @return
    */
-  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory, ValueQuery valueQuery, String xml, JSONObject config, boolean includeGeometry, String generatedQueryClass, String geoEntityAttribute)
+  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory, ValueQuery valueQuery, String xml, JSONObject config, Layer layer)
   {
     ValueQueryParser valueQueryParser;
     Map<String, GeneratedEntityQuery> queryMap;
@@ -342,130 +345,101 @@ public class QueryUtil implements Reloadable
       }
     }
 
-    // include the thematic variable (if applicable).
-    /*
-     * FIXME MAP if (thematicLayer != null) { ThematicVariable thematicVariable
-     * = thematicLayer.getThematicVariable(); if (thematicVariable != null) {
-     * String entityAlias = thematicVariable.getEntityAlias(); String userAlias
-     * = thematicVariable.getUserAlias();
-     * 
-     * valueQueryParser.setColumnAlias(entityAlias, userAlias,
-     * QueryConstants.THEMATIC_DATA_COLUMN); } }
-     * 
-     * // FIXME does not take into account multiple geo attributes if
-     * (includeGeometry) { // Note that the mapping query does not need to
-     * perform the complex left // join logic. This is because the entity name,
-     * geo id selectables on // different universal types will not affect the
-     * mapping result, so they // are omitted.
-     * 
-     * MdBusiness geoEntityMd =
-     * thematicLayer.getGeoHierarchy().getGeoEntityClass(); String
-     * thematicLayerType = geoEntityMd.definesType();
-     * 
-     * MdAttributeGeometry mdAttrGeo = GeoHierarchy.getGeometry(geoEntityMd);
-     * String attributeName = mdAttrGeo.getAttributeName();
-     * 
-     * valueQueryParser.addAttributeSelectable(thematicLayerType, attributeName,
-     * attributeName, QueryConstants.GEOMETRY_NAME_COLUMN);
-     * valueQueryParser.addAttributeSelectable(thematicLayerType,
-     * GeoEntity.ENTITYNAME, GeoEntity.ENTITYNAME,
-     * QueryConstants.ENTITY_NAME_COLUMN);
-     * 
-     * queryMap = valueQueryParser.parse();
-     * 
-     * // exclude any entity without spatial data Selectable geometrySelectable
-     * = valueQuery.getSelectable(attributeName);
-     * valueQuery.AND(geometrySelectable.NE(null));
-     * 
-     * AllPathsQuery allPathsQuery = (AllPathsQuery)
-     * queryMap.get(AllPaths.CLASS); GeoEntityQuery geoEntityQuery =
-     * (GeoEntityQuery) queryMap.get(thematicLayerType); GeneratedEntityQuery
-     * generatedEntityQuery = queryMap.get(generatedQueryClass);
-     * 
-     * if (allPathsQuery == null) { // this case is for when they have not
-     * restricted to a specific // geoEntity allPathsQuery = new
-     * AllPathsQuery(queryFactory);
-     * 
-     * // find all the parents that are of the type of the thematicLayer
-     * valueQuery.WHERE(allPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
-     * 
-     * // find all the rows where the children match geoEntities of the //
-     * children we are looking for. valueQuery.AND( ( (AttributeReference)
-     * generatedEntityQuery.aAttribute(geoEntityAttribute)
-     * ).EQ(allPathsQuery.getChildGeoEntity()));
-     * 
-     * } else {
-     * 
-     * // This is the case for where we are restricting by one or more entitys
-     * 
-     * // first we make a seond all paths query AllPathsQuery allPathsParent =
-     * new AllPathsQuery(queryFactory);
-     * 
-     * // we narrow down the secoond all paths table to just rows that match //
-     * entity restrictions
-     * valueQuery.WHERE(allPathsParent.getParentGeoEntity().EQ(geoEntityQuery));
-     * // we join the second all paths to the primary all paths
-     * valueQuery.WHERE(
-     * allPathsParent.getChildGeoEntity().EQ(allPathsQuery.getChildGeoEntity
-     * ())); // we join the primary all paths to the md business which is
-     * located at // a certain geoEntity valueQuery.AND( ( (AttributeReference)
-     * generatedEntityQuery.aAttribute(geoEntityAttribute)
-     * ).EQ(allPathsQuery.getChildGeoEntity()));
-     * 
-     * }
-     * 
-     * } else
-     */
+    // If we're mapping, dereference the MdAttribute that will be joined with the GeoEntity
+    // table.
+    String key = null;
+    String attr = null;
+    String layerGeoEntityType = null;
+    String thematicUserAlias = null;
+    if(layer != null)
     {
-      // Normal query (non-mapping)
-      Map<String, List<ValueQuery>> attributeKeysAndJoins = new HashMap<String, List<ValueQuery>>();
-      try
+      thematicUserAlias = layer.getThematicUserAlias();
+      layerGeoEntityType = layer.getGeoHierarchy().getQualifiedType();
+      MdAttribute mdAttribute = layer.getMdAttribute();
+      key = mdAttribute.getKey();
+      attr = layer.getRenderAs().get(0) == AllRenderTypes.POINT ? GeoEntity.GEOPOINT : GeoEntity.GEOMULTIPOLYGON;
+    }
+    
+    // Normal query (non-mapping)
+    GeoEntityJoinData joinData = new GeoEntityJoinData();
+    try
+    {
+      JSONObject selectedUniMap = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+      Iterator<?> keys = selectedUniMap.keys();
+      while (keys.hasNext())
       {
-        JSONObject selectedUniMap = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
-        Iterator<?> keys = selectedUniMap.keys();
-        while (keys.hasNext())
+        String attributeKey = (String) keys.next();
+
+        JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
+        if (universals.length() > 0)
         {
-          String attributeKey = (String) keys.next();
-
-          JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-          if (universals.length() > 0)
+          String[] selectedUniversals = new String[universals.length()];
+          for (int i = 0; i < universals.length(); i++)
           {
-            String[] selectedUniversals = new String[universals.length()];
-            for (int i = 0; i < universals.length(); i++)
-            {
-              selectedUniversals[i] = universals.getString(i);
-            }
-
-            List<ValueQuery> leftJoinValueQueries = addUniversalsForAttribute(queryFactory, attributeKey, selectedUniversals, valueQueryParser);
-            attributeKeysAndJoins.put(attributeKey, leftJoinValueQueries);
+            selectedUniversals[i] = universals.getString(i);
           }
+
+          addUniversalsForAttribute(joinData, queryFactory, attributeKey, selectedUniversals, valueQueryParser,
+            key, attr, layerGeoEntityType, thematicUserAlias);
         }
       }
-      catch (JSONException e)
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+
+    // Include the geometry column/attribute in the ValueQuery if we are mapping
+    if(layer != null)
+    {
+      String entityAlias = key + "__" + layerGeoEntityType;
+      
+      valueQueryParser.addAttributeSelectable(entityAlias, attr, attr, QueryConstants.GEOMETRY_NAME_COLUMN);
+      
+      if(joinData.geoThematicAlias != null)
       {
-        throw new ProgrammingErrorException(e);
+        valueQueryParser.addAttributeSelectable(joinData.geoThematicEntity, 
+            joinData.geoThematicAttr, joinData.geoThematicAlias, QueryConstants.THEMATIC_DATA_COLUMN);
       }
+    }
+    
+    queryMap = valueQueryParser.parse();
+    
+    // Set the entity name and geo id columns to something predictable
+    if(layer != null)
+    {
+      valueQuery.getSelectable(joinData.entityNameAlias).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
+      valueQuery.getSelectable(joinData.geoIdAlias).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
 
-      queryMap = valueQueryParser.parse();
-
-      for (String attributeKey : attributeKeysAndJoins.keySet())
+      // Name the thematic column if a thematic variable has been selected
+      if(thematicUserAlias != null && thematicUserAlias.length() > 0)
       {
-        AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS + "_" + attributeKey);
-        List<ValueQuery> leftJoinValueQueries = attributeKeysAndJoins.get(attributeKey);
-
-        restrictEntitiesForAttribute(attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery, queryMap);
+        String alias = joinData.geoThematicAlias != null ? joinData.geoThematicAlias : thematicUserAlias;
+        valueQuery.getSelectable(alias).setColumnAlias(QueryConstants.THEMATIC_DATA_COLUMN);
       }
+    }
+    
+    for (String attributeKey : joinData.attributeKeysAndJoins.keySet())
+    {
+      AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS + "_" + attributeKey);
+      List<ValueQuery> leftJoinValueQueries = joinData.attributeKeysAndJoins.get(attributeKey);
 
+      restrictEntitiesForAttribute(attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery, queryMap);
     }
 
     return queryMap;
+    
   }
-
-  private static List<ValueQuery> addUniversalsForAttribute(QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser)
+  
+  private static void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory, String attributeKey,
+      String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType,
+      String thematicUserAlias)
   {
     List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
     for (String selectedGeoEntityType : selectedUniversals)
     {
+      List<Selectable> selectables = new LinkedList<Selectable>();
+      
       GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
 
       AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
@@ -480,7 +454,47 @@ public class QueryUtil implements Reloadable
       Selectable selectable2 = geoEntityQuery.getGeoId(geoIdAlias);
       SelectableReference selectable3 = subAllPathsQuery.getChildGeoEntity("child_id");
 
-      geoEntityVQ.SELECT(selectable1, selectable2, selectable3);
+      selectables.add(selectable1);
+      selectables.add(selectable2);
+      selectables.add(selectable3);
+      
+      String geoVQEntityAlias = attributeKey + "__" + selectedGeoEntityType;
+      if(layerKey != null && attributeKey.equals(layerKey)
+          && selectedGeoEntityType.equals(layerGeoEntityType))
+      {
+        // save the aliases used for mapping the entity name and geo id columns
+        joinData.entityNameAlias = entityNameAlias;
+        joinData.geoIdAlias = geoIdAlias;
+        
+        // If the thematic variable is either the entity name or geo id
+        // then create a new selectable because those columns already have
+        // a custom name and cannot be renamed to QueryConstants.THEMATIC_DATA_COLUMN.
+        Selectable thematicSel = null;
+        if(thematicUserAlias != null && thematicUserAlias.length() > 0)
+        {
+          if(thematicUserAlias.equals(entityNameAlias))
+          {
+            joinData.geoThematicEntity = geoVQEntityAlias;
+            joinData.geoThematicAlias = entityNameAlias+"_"+QueryConstants.THEMATIC_DATA_COLUMN;
+            joinData.geoThematicAttr = GeoEntity.ENTITYNAME;
+            thematicSel = geoEntityQuery.getEntityName(joinData.geoThematicAlias);
+            selectables.add(thematicSel);
+          }
+          else if(thematicUserAlias.equals(geoIdAlias))
+          {
+            joinData.geoThematicEntity = geoVQEntityAlias;
+            joinData.geoThematicAlias = geoIdAlias+"_"+QueryConstants.THEMATIC_DATA_COLUMN;
+            joinData.geoThematicAttr = GeoEntity.GEOID;
+            thematicSel = geoEntityQuery.getGeoId(joinData.geoThematicAlias);
+            selectables.add(thematicSel);
+          }
+        }
+        
+        Selectable geometrySel = geoEntityQuery.aAttribute(geoAttr);
+        selectables.add(geometrySel);
+      }
+      
+      geoEntityVQ.SELECT(selectables.toArray(new Selectable[selectables.size()]));
 
       List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
       Condition[] geoConditions = new Condition[allClasses.size()];
@@ -494,10 +508,10 @@ public class QueryUtil implements Reloadable
 
       leftJoinValueQueries.add(geoEntityVQ);
 
-      valueQueryParser.setValueQuery(attributeKey + "__" + selectedGeoEntityType, geoEntityVQ);
+      valueQueryParser.setValueQuery(geoVQEntityAlias, geoEntityVQ);
     }
 
-    return leftJoinValueQueries;
+    joinData.attributeKeysAndJoins.put(attributeKey, leftJoinValueQueries);
   }
 
   private static void restrictEntitiesForAttribute(String attributeKey, AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
@@ -689,6 +703,8 @@ public class QueryUtil implements Reloadable
           + "THEN to_char(" + sd + ",'YYYY')" + "ELSE to_char(" + ed + ",'YYYY') END";
       dateGroup.setSQL(dateGroupSql);
     }
+    
+    String sql = valueQuery.getSQL();
 
     return setQueryDates(xml, valueQuery);
   }
@@ -747,5 +763,32 @@ public class QueryUtil implements Reloadable
 
   }
 
-  
+  /**
+   * Class to help with the structure of the join criteria for GeoEntity data
+   * and mapping.
+   */
+  private static class GeoEntityJoinData implements Reloadable{
+    
+    private String entityNameAlias;
+    
+    private String geoIdAlias;
+    
+    private String geoThematicAlias;
+    
+    private String geoThematicAttr;
+    
+    private String geoThematicEntity;
+    
+    private Map<String, List<ValueQuery>> attributeKeysAndJoins;
+    
+    private GeoEntityJoinData()
+    {
+      entityNameAlias = null;
+      geoIdAlias = null;
+      geoThematicAlias = null;
+      geoThematicAttr = null;
+      geoThematicEntity = null;
+      attributeKeysAndJoins = new HashMap<String, List<ValueQuery>>();
+    }
+  }
 }

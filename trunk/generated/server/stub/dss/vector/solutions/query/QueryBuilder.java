@@ -4,7 +4,12 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.eclipse.birt.core.framework.FrameworkException;
+
+import com.terraframe.mojo.ApplicationExceptionIF;
+import com.terraframe.mojo.MojoExceptionIF;
 import com.terraframe.mojo.business.rbac.Authenticate;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AttributePrimitive;
@@ -19,7 +24,6 @@ import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
 import com.terraframe.mojo.system.metadata.MdBusiness;
-
 public class QueryBuilder extends QueryBuilderBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1255379414351L;
@@ -29,9 +33,9 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     super();
   }
   
-  private static ValueQuery getValueQuery(String queryClass, String queryXML, String config, Boolean includeGeometry)
+  // FIXME have calling code pass in the qualified query type instead of just the class.
+  public static ValueQuery getValueQuery(String queryClass, String queryXML, String config, Layer layer)
   {
-    
     Class<?> clazz = null;
 
     Method xmlToValueQuery = null;
@@ -40,44 +44,13 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     try
     {
       clazz = Class.forName(queryClass);
-      xmlToValueQuery = clazz.getMethod("xmlToValueQuery",String.class, String.class, Boolean.class);
-      valueQuery = (ValueQuery) xmlToValueQuery.invoke(clazz, queryXML, config, includeGeometry);
-      System.out.println(valueQuery.getSQL());
-      
+      xmlToValueQuery = clazz.getMethod("xmlToValueQuery",String.class, String.class, Layer.class);
+      valueQuery = (ValueQuery) xmlToValueQuery.invoke(clazz, queryXML, config, layer);
     }
-    catch (ClassNotFoundException e1)
+    catch (Throwable t)
     {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
-    }
-    catch (SecurityException e1)
-    {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
-    }
-    catch (NoSuchMethodException e1)
-    {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
-    }
-    catch (IllegalArgumentException e)
-    {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    catch (IllegalAccessException e)
-    {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    catch (InvocationTargetException e)
-    {
-      // TODO Auto-generated catch block
-     
-     RuntimeException cause = (RuntimeException) e.getTargetException();
-     cause.printStackTrace();
-      throw cause;
-     
+      ProgrammingErrorException ex = new ProgrammingErrorException(t);
+      throw ex;
     }
 
     return valueQuery;
@@ -95,11 +68,9 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
   @Authenticate
   public static com.terraframe.mojo.query.ValueQuery getQueryResults(String queryClass, String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize) 
   {
-    ValueQuery valueQuery = getValueQuery(queryClass, queryXML, config, false);
+    ValueQuery valueQuery = getValueQuery(queryClass, queryXML, config, null);
 
     valueQuery.restrictRows(pageSize, pageNumber);
-
-    System.out.println(valueQuery.getSQL());
 
     return valueQuery;
   }
@@ -117,7 +88,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    ValueQuery query = getValueQuery(queryClass, queryXML, config, false);
+    ValueQuery query = getValueQuery(queryClass, queryXML, config, null);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
@@ -133,7 +104,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
       throw ex;
     }
 
-    ValueQuery query = getValueQuery(queryClass, queryXML, config, false);
+    ValueQuery query = getValueQuery(queryClass, queryXML, config, null);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();

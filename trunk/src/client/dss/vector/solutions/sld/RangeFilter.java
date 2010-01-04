@@ -13,10 +13,9 @@ public class RangeFilter extends Filter implements Reloadable
   {
     this.category = category;
   }
-
+  
   protected void write(SLDWriter writer)
   {
-    writer.writeln("<Filter>");
     writer.writeln("<ogc:PropertyIsBetween>");
     writer.writeln("<ogc:PropertyName>"+QueryConstants.THEMATIC_DATA_COLUMN+"</ogc:PropertyName>");
     writer.writeln("<ogc:LowerBoundary>");
@@ -26,6 +25,5 @@ public class RangeFilter extends Filter implements Reloadable
     writer.writeln("<ogc:Literal>"+category.getUpperBoundStr()+"</ogc:Literal>");
     writer.writeln("</ogc:UpperBoundary>");
     writer.writeln("</ogc:PropertyIsBetween>");
-    writer.writeln("</Filter>");
   }
 }

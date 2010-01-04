@@ -37,6 +37,26 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
   }
   
   /**
+   * Refreshes the map data, including rerunning the queries and
+   * creating DB views.
+   */
+  @Override
+  @Transaction
+  public String refreshMap()
+  {
+    QueryFactory f = new QueryFactory();
+    LayerQuery layerQ = new LayerQuery(f);
+    HasLayersQuery hasQ = new HasLayersQuery(f);
+    
+    hasQ.WHERE(hasQ.parentId().EQ(this.getId()));
+    layerQ.WHERE(layerQ.map(hasQ));
+    
+    hasQ.ORDER_BY_ASC(hasQ.getLayerPosition());
+    
+    return MapUtil.createDBViews(layerQ.getIterator().getAll()); 
+  };
+  
+  /**
    * Creates a SavedMap and clones the given layers to be
    * applied as layers on the created SavedMap.
    */
@@ -56,6 +76,8 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
       // TODO assign an sld file
       layer.setLayerName(existingLayer.getLayerName());
       layer.setSavedSearch(existingLayer.getSavedSearch());
+      layer.setMdAttribute(existingLayer.getMdAttribute());
+      layer.setGeoHierarchy(existingLayer.getGeoHierarchy());
       
       // copy the styles
       Styles existingStyles = existingLayer.getDefaultStyles();

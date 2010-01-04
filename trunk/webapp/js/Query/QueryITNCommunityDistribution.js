@@ -48,10 +48,8 @@ Mojo.Meta.newClass('MDSS.QueryITNCommunityDistribution', {
       /**
        * Returns the type of query.
        */
-      this._queryType = 'QueryITNCommunityDistribution';
+      this._queryType = this._mainQueryClass;
       
-
-      this._reportQueryType = 'QueryITNCommunityDistribution';
       this.$initialize(selectableGroups, queryList);   
       
       var picker = this.getGeoPicker();      

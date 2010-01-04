@@ -2,8 +2,6 @@ package dss.vector.solutions.geo;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,8 +28,6 @@ import com.terraframe.mojo.constants.ComponentInfo;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.dataaccess.database.Database;
-import com.terraframe.mojo.dataaccess.database.DatabaseException;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.AbortIfProblem;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -58,7 +54,6 @@ import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.MissingMOtoGeoUniversalMapping;
-import dss.vector.solutions.query.MapUtil;
 import dss.vector.solutions.query.QueryConstants;
 
 public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -416,7 +411,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
    */
   public String getQualifiedType(MdBusiness md)
   {
-    return md.getPackageName() + "." + md.getTypeName();
+    return md.definesType();
   }
 
   /**
@@ -480,6 +475,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     super.delete();
 
     // remove the view associated with this universal
+    /* FIXME MAP
     String viewName = geoEntityClass.getTypeName().toLowerCase() + QueryConstants.VIEW_NAME_SUFFIX;
     try
     {
@@ -492,6 +488,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       // View doesn't exist but that's okay. It may have been
       // deleted earlier.
     }
+    */
 
     // finally, delete this class's MdBusiness, which must be removed
     // after this GeoHierarchy to avoid a dependency error as the MdBusiness
@@ -850,13 +847,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     // check political hierarchy
     if (isPolitical && !politicalParent)
     {
-      String msg = "The universal [" + this.getTypeName() + "] attempted to create a" + " gap in the political hierarchy.";
-      HierarchyGapException ex = new HierarchyGapException(msg);
-      throw ex;
+        String msg = "The universal ["+this.getQualifiedType()+"] attempted to create a"+
+          " gap in the political hierarchy.";
+        HierarchyGapException ex = new HierarchyGapException(msg);
+        throw ex;
     }
     else if (isPolitical && politicalChild)
     {
-      String msg = "The universal [" + this.getTypeName() + "] attempted to branch the political hierarchy.";
+      String msg = "The universal ["+this.getQualifiedType()+"] attempted to branch the political hierarchy.";
       HierarchyBranchException ex = new HierarchyBranchException(msg);
       throw ex;
     }
@@ -876,13 +874,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     // check spray hierarchy
     if (isSpray && !sprayParent)
     {
-      String msg = "The universal [" + this.getTypeName() + "] attempted to create a" + " gap in the spray hierarchy.";
+      String msg = "The universal ["+this.getQualifiedType()+"] attempted to create a"+
+        " gap in the spray hierarchy.";
       HierarchyGapException ex = new HierarchyGapException(msg);
       throw ex;
     }
     else if (isSpray && sprayChild)
     {
-      String msg = "The universal [" + this.getTypeName() + "] attempted to branch the spray hierarchy.";
+      String msg = "The universal ["+this.getQualifiedType()+"] attempted to branch the spray hierarchy.";
       HierarchyBranchException ex = new HierarchyBranchException(msg);
       throw ex;
     }
@@ -1369,12 +1368,12 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   }
 
   /**
+   * FIXME MAP
    * Creates a database view that represents this GeoHierarchy (i.e., the
    * underlying GeoEntity MdBusiness and its spatial attribute). If the view
    * already exists this method does nothing but return the view name.
    * 
    * @return The name of the database view
-   */
   public boolean createViewTable(String sessionId)
   {
     MdBusiness md = this.getGeoEntityClass();
@@ -1434,6 +1433,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
 
     return count > 0;
   }
+   */
 
   public static boolean addGeoHierarchyJoinConditions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryParserMap)
   {
@@ -1582,6 +1582,20 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   {
     return getGeoHierarchyMappedToMO(termId).getGeoEntityClass();
   }
+  
+  /**
+   * Returns the display label of this GeoHierarchy, which is actually
+   * the display label of the underlying MdBusiness that this instance
+   * references. NOTE: this should only be called after this GeoHierarchy
+   * has been successfully applied because then the required MdBusiness
+   * reference will be available.
+   * 
+   * @return
+   */
+  public String getDisplayLabel()
+  {
+   return this.getGeoEntityClass().getDisplayLabel().getValue(); 
+  }
 
   public String toString()
   {
@@ -1663,7 +1677,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       allowedInQuery = new AllowedInQuery(queryFactory);
       mdBusinessQuery = new MdBusinessQuery(queryFactory);
       parentMdBusinessQuery = new MdBusinessQuery(queryFactory);
-
       this.geoHierarchy = geoHierarchy;
     }
 

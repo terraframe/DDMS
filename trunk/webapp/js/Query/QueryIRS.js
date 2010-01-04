@@ -51,10 +51,7 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
 
       //this._dataQueryFunction = Mojo.$.dss.vector.solutions.irs.AbstractSpray.queryIRS;
 
-      this._queryType = 'QueryIRS';
-
-      this._reportQueryType = 'QueryIRS';
-      
+      this._queryType = this._mainQueryClass;
 
       this.$initialize(selectableGroups, queryList); 
       

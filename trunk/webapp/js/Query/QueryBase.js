@@ -13,7 +13,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
 
   Instance : {
 
-    initialize : function()
+    initialize : function(queryList)
     {
       this._queryPanel = new MDSS.QueryPanel(this, 'queryPanel', 'mapPanel', {
         executeQuery: this.executeQuery,
@@ -60,6 +60,14 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       this._defaults = [];
       
       this._browsers = {};
+      
+      this._namespacedQueryType = queryList.namespacedType;
+      
+      var queries = queryList.queries;
+      for(var i=0; i<queries.length; i++)
+      {
+        this._queryPanel.addAvailableQuery(queries[i]);
+      }
     },
     
     getGeoPicker : function ()
@@ -261,7 +269,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       xmlInput.innerHTML = xml;
       config.value = this._config.getJSON();
       searchIdInput.value = savedSearchId;
-      queryTypeInput.value = this._getReportQueryType();
+//      queryTypeInput.value = this._getReportQueryType();
       form.submit();
     },
   
@@ -308,15 +316,15 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
            var attr = column.getKey();
            var dto = result.getAttributeDTO(attr);
            var value = dto.getValue();
-           if(dto.dtoType.contains('AttributeDateDTO')){
+           if(dto instanceof AttributeDateDTO){
              value = MDSS.Calendar.getLocalizedString(value);
            }
-           if(dto instanceof AttributeDecDTO){
+           else if(dto instanceof AttributeDecDTO){
              if(value != null){
                value = value.toFixed(2);
              }
            }
-           if(dto.dtoType.contains('AttributeBooleanDTO')){
+           else if(dto instanceof AttributeBooleanDTO){
   
              var displayValue = null;
              if(value === true)
@@ -334,7 +342,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
                value = displayValue;
              }
            }
-  
+           
            entry[attr] = value;
          }
   
@@ -449,12 +457,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       IsAbstract : true
     },
   
-    _getExportReportAction: {
-      IsAbstract : true
-    },
-  
-    _getReportQueryType: {
-      IsAbstract : true
+    _getExportReportAction : function()
+    {
+      return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
     },
   
     _getCountDiv : function(that,divName,klass,useRatio){
@@ -967,23 +972,31 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       */ 
       view.setQueryType(queryType);
     },
+    
+    /**
+     * Unique type of this query which is the string: "[query class:query type]".
+     * For example, "dss.vector.solutions.entomology.MosquitoCollection:QUERYIRS"
+     */
+    _getQueryType : function()
+    {
+      return this._namespacedQueryType;
+    },
   
     /**
      * Subclasses must override this to return the controller method
      * that will be executed to save a search.
-     */
     _getQueryType: {
       IsAbstract : true
     },
+     */
+    
     /**
      * Creates and returns an MDSS.QueryXML.Query object.
      * Subclasses must override this method and use the returned
      * object according their specific use case.
      */
-    _constructQuery : function(forMapping)
+    _constructQuery : function()
     {
-      forMapping = forMapping || false;
-  
       var queryXML = new MDSS.QueryXML.Query();
   
       // Add GeoEntity criteria on any geo attribute
@@ -1012,29 +1025,13 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         queryXML.addEntity(allPaths);
       }
       
-      if(forMapping)
+      var geoSelectables = Mojo.Util.getKeys(this._geoEntitySelectables);
+      for(var i=0; i<geoSelectables.length; i++)
       {
-        // only include the thematic layer as an entity in the query.
-        // The selectables (data column and entity name) will be provided
-        // by a ValueQuery in the business layer
-  
-        var layer = this._queryPanel.getCurrentThematicLayer();
-        if(layer != null && layer != '')
-        {
-          var entity = new MDSS.QueryXML.Entity(layer, layer);
-          queryXML.addEntity(entity);
-        }
-      }
-      else
-      {
-        var geoSelectables = Mojo.Util.getKeys(this._geoEntitySelectables);
-        for(var i=0; i<geoSelectables.length; i++)
-        {
-          var name = geoSelectables[i];
-          var selectable = this._geoEntitySelectables[name];
-  
-          queryXML.addSelectable(name, selectable);
-        }
+        var name = geoSelectables[i];
+        var selectable = this._geoEntitySelectables[name];
+ 
+        queryXML.addSelectable(name, selectable);
       }
   
       // calculate the date criteria

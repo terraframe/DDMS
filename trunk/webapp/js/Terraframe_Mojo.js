@@ -1,6 +1,7 @@
 // FIXME use special Error subclass that automatically logs messages to the Logger and extends Error
 // FIXME replace JSON with latest from crockford's site
 // always use getMethod() instead of grabbing the prototype copy? This could cause as many problems as it solves so be careful.
+// TODO add IsFinal notion to class and methods
 
 /**
  * Terraframe Mojo Javascript library.
@@ -170,7 +171,7 @@ var Mojo = {
           throw error;
         }
         
-        this.__context__ = {}; // super context
+        this.__context = {}; // super context
         
         if(arguments.length === 1 && arguments[0] === Mojo.Meta._pseudoConstructor)
         {
@@ -199,12 +200,12 @@ var Mojo = {
       
           return function(){
         
-            // FIXME clean this (use __context__?)
-            var execStack = this.__context__[m];
+            // FIXME clean this (use __context?)
+            var execStack = this.__context[m];
             if(!execStack)
             {
               execStack = [];
-              this.__context__[m] = execStack;
+              this.__context[m] = execStack;
             }
             
             var currentKlass = execStack.length === 0 ? this.getMetaClass().getSuperClass()
@@ -1474,35 +1475,41 @@ Mojo.Meta.newClass('Mojo.Util', {
           };
     })(),
 
-    getKeys : function(obj)
+    getKeys : function(obj, hasOwnProp)
     {
       var keys = [];
       for(var i in obj)
       {
-        keys.push(i);
+        if(!hasOwnProp || obj.hasOwnProperty(i))
+        {
+          keys.push(i);
+        }
       }
 
       return keys;
     },
 
-    getValues : function(obj)
+    getValues : function(obj, hasOwnProp)
     {
       var values = [];
       for(var i in obj)
       {
-        values.push(obj[i]);
+        if(!hasOwnProp || obj.hasOwnProperty(i))
+        {
+          values.push(obj[i]);
+        }
       }
 
       return values;
     },
 
-    copy : function(source, dest, ownProp)
+    copy : function(source, dest, hasOwnProp)
     {
       if(Mojo.Util.isObject(source))
       {
         for(var i in source)
         {
-          if((ownProp && source.hasOwnProperty(i)) || !ownProp)
+          if(!hasOwnProp || source.hasOwnProperty(i))
           {
             dest[i] = source[i];
           }
@@ -1752,6 +1759,8 @@ Mojo.Meta.newClass('Mojo.Util', {
       collect(form.getElementsByTagName('input'));
       collect(form.getElementsByTagName('select'));
       collect(form.getElementsByTagName('textarea'));
+      
+      // FIXME use form.elements[] instead and remove inner function
 
       return keyValues;
     },
@@ -1894,6 +1903,8 @@ Mojo.Meta.newClass("Mojo.log.Logger", {
 });
 
 // FIXME iterate over different object types
+// Look at prototype 1.6 and http://closure-library.googlecode.com/svn/trunk/closure/goog/docs/closure_goog_iter_iter.js.source.html
+// for more iter methods and integrated iteration
 Mojo.Meta.newClass('Mojo.Iter', {
 
   Instance : {

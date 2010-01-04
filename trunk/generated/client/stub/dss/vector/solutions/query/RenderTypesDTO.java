@@ -1,10 +1,10 @@
-package dss.vector.solutions;
+package dss.vector.solutions.query;
 
-public class QueryTypeMasterDTO extends QueryTypeMasterDTOBase
+public class RenderTypesDTO extends RenderTypesDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1247175715280L;
+  private static final long serialVersionUID = -1417728133;
   
-  public QueryTypeMasterDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public RenderTypesDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class QueryTypeMasterDTO extends QueryTypeMasterDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected QueryTypeMasterDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected RenderTypesDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

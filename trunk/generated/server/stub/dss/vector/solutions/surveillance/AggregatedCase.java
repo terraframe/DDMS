@@ -37,6 +37,7 @@ import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.TermQuery;
+import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.util.QueryUtil;
@@ -393,7 +394,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
    */
   @Authenticate
   public static ValueQuery xmlToValueQuery(String xml, String config,
-      boolean includeGeometry)
+      Layer layer)
   {
     JSONObject queryConfig;
     try
@@ -411,7 +412,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     // IMPORTANT: Required call for all query screens.
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
-        valueQuery, xml, queryConfig, includeGeometry, AggregatedCase.CLASS, AggregatedCase.GEOENTITY);
+        valueQuery, xml, queryConfig, layer);
 
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
 
@@ -485,7 +486,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
   public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String config,
       Integer pageNumber, Integer pageSize)
   {
-    ValueQuery valueQuery = xmlToValueQuery(xml, config, false);
+    ValueQuery valueQuery = xmlToValueQuery(xml, config, null);
 
     valueQuery.restrictRows(pageSize, pageNumber);
 
@@ -504,7 +505,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    ValueQuery query = xmlToValueQuery(queryXML, config, false);
+    ValueQuery query = xmlToValueQuery(queryXML, config, null);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
@@ -520,7 +521,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
       throw ex;
     }
 
-    ValueQuery query = xmlToValueQuery(queryXML, config, false);
+    ValueQuery query = xmlToValueQuery(queryXML, config, null);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();

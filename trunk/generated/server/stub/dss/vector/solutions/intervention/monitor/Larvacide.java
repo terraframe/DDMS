@@ -18,6 +18,7 @@ import com.terraframe.mojo.query.SelectableSingle;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
 public class Larvacide extends LarvacideBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -51,7 +52,7 @@ public class Larvacide extends LarvacideBase implements com.terraframe.mojo.gene
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
     JSONObject queryConfig;
     try
@@ -68,7 +69,7 @@ public class Larvacide extends LarvacideBase implements com.terraframe.mojo.gene
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, Larvacide.CLASS, Larvacide.GEOENTITY);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
 
     LarvacideQuery larvacideQuery = (LarvacideQuery) queryMap.get(Larvacide.CLASS);
     LarvacideInstanceQuery larvacideInstanceQuery = (LarvacideInstanceQuery) queryMap.get(LarvacideInstance.CLASS);

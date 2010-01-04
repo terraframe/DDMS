@@ -30,6 +30,7 @@ import dss.vector.solutions.entomology.ControlMortalityException;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.ontology.AllPathsQuery;
+import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.util.QueryUtil;
@@ -144,7 +145,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
    * @return
    */
   @Authenticate
-  public static ValueQuery xmlToValueQuery(String xml, String config, boolean includeGeometry)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
     JSONObject queryConfig;
     try
@@ -161,7 +162,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, MosquitoCollection.CLASS, MosquitoCollection.GEOENTITY);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
 
     // join Mosquito with mosquito collection
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
@@ -287,7 +288,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   @Authenticate
   public static com.terraframe.mojo.query.ValueQuery queryResistance(String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
-    ValueQuery valueQuery = xmlToValueQuery(queryXML, config, false);
+    ValueQuery valueQuery = xmlToValueQuery(queryXML, config, null);
 
     valueQuery.restrictRows(pageSize, pageNumber);
 
@@ -308,7 +309,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    ValueQuery query = xmlToValueQuery(queryXML, config, false);
+    ValueQuery query = xmlToValueQuery(queryXML, config, null);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
@@ -324,7 +325,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       throw ex;
     }
 
-    ValueQuery query = xmlToValueQuery(queryXML, config, false);
+    ValueQuery query = xmlToValueQuery(queryXML, config, null);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();

@@ -3,6 +3,7 @@ package dss.vector.solutions.sld;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import com.terraframe.mojo.business.BusinessDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
@@ -10,11 +11,20 @@ import com.terraframe.mojo.constants.LocalProperties;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.util.FileIO;
 
+import dss.vector.solutions.query.AbstractCategoryDTO;
+import dss.vector.solutions.query.AllRenderTypesDTO;
 import dss.vector.solutions.query.LayerDTO;
+import dss.vector.solutions.query.NonRangeCategoryDTO;
 import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.query.RangeCategoryDTO;
+import dss.vector.solutions.query.SavedMapDTO;
+import dss.vector.solutions.query.StylesDTO;
+import dss.vector.solutions.query.WellKnownNamesDTO;
 
 public class SLDWriter implements Reloadable
 {
+  private SavedMapDTO map;
+  
   private LayerDTO      layer;
 
   private StringBuilder builder;
@@ -24,8 +34,9 @@ public class SLDWriter implements Reloadable
    * 
    * @param layer
    */
-  public SLDWriter(LayerDTO layer)
+  public SLDWriter(SavedMapDTO map, LayerDTO layer)
   {
+    this.map = map;
     this.layer = layer;
     builder = new StringBuilder();
   }
@@ -34,25 +45,92 @@ public class SLDWriter implements Reloadable
   {
     return layer;
   }
+  
+  private void writeSequence()
+  {
+    writeHeader(this.layer.getViewName());
+    
+    boolean asPoint = this.layer.getRenderAs().get(0).equals(AllRenderTypesDTO.POINT);
+
+    String thematicUserAlias = layer.getThematicUserAlias();
+    if (thematicUserAlias != null && thematicUserAlias.length() > 0)
+    {
+      // The layer is thematic, so write all the category styles/ranges.
+      List<? extends AbstractCategoryDTO> categories = this.layer.getAllHasCategory();
+      for(AbstractCategoryDTO category : categories)
+      {
+        Filter tFilter = new ThematicLabelFilter();
+        Filter filter;
+        if (category instanceof RangeCategoryDTO)
+        {
+          filter = new RangeFilter((RangeCategoryDTO) category);
+        }
+        else
+        {
+          filter = new NonRangeFilter((NonRangeCategoryDTO) category);
+        }
+        Filter cFilter = new CompositeFilter(tFilter, filter);
+
+        StylesDTO categoryStyle = category.getStyles();
+        
+        Symbolizer sym = getSymbolizer(asPoint, categoryStyle);
+        ThematicTextSymbolizer tSym = new ThematicTextSymbolizer(categoryStyle);
+        
+        // Write one rule for having the thematic value. If the
+        // thematic value is null then it will get default styles
+        Rule categoryRule = new Rule(cFilter, sym, tSym);
+        categoryRule.write(this);
+      }
+      
+      StylesDTO defaultStyle = layer.getDefaultStyles();
+      Symbolizer sym = getSymbolizer(asPoint, defaultStyle);
+
+      // Write the default styles for when the thematic value
+      // is null. THIS MUST COME BEFORE NON-NULL THEMATIC VALUES
+      TextSymbolizer textSym = new TextSymbolizer(defaultStyle);
+      ThematicNullLabelFilter nFilter = new ThematicNullLabelFilter();
+      Filter cFilter = new CompositeFilter(nFilter);
+      Rule rule = new Rule(cFilter, sym, textSym);
+      rule.write(this);
+
+      // Write the rule that will include the thematic label.
+      ThematicTextSymbolizer tSymbolizer = new ThematicTextSymbolizer(defaultStyle);
+      ElseFilter elseFilter = new ElseFilter();
+      Rule thematicRule = new Rule(elseFilter, sym, tSymbolizer);
+      thematicRule.write(this);
+    }
+    else
+    {
+      // Default layer styles
+      StylesDTO defaultStyle = layer.getDefaultStyles();
+      Symbolizer sym = getSymbolizer(asPoint, defaultStyle);
+      
+      Rule rule = new Rule(null, sym, new TextSymbolizer(defaultStyle));
+      rule.write(this);
+    }
+    
+    writeFooter();
+  }
+  
+  private Symbolizer getSymbolizer(boolean asPoint, StylesDTO style)
+  {
+    if(asPoint)
+    {
+      return new PointSymbolizer(style);
+    }
+    else
+    {
+      return new PolygonSymbolizer(style);
+    }
+  }
 
   public void write()
   {
     this.layer.lock();
 
-    /* FIXME MAP
-    
-    TextStyleDTO textStyle = layer.getTextStyle();
-    GeometryStyleDTO geoStyle = layer.getGeometryStyle();
-    
-
-    String viewName = layer.getViewName();
-    writeHeader(viewName);
-    writeGeometryStyle(geoStyle);
-    writeTextStyle(textStyle);
-    writeFooter();
-    */
-
     ClientRequestIF requestIF = this.layer.getRequest();
+
+    writeSequence();
     
     String path = "styles/";
     String fileName = "style_" + this.layer.getId().substring(0, 32);
@@ -62,8 +140,6 @@ public class SLDWriter implements Reloadable
     // delete the previous file if it exists
     deleteExistingSLD(requestIF, path, fileName, extension, oldFileId);
 
-    // SLD name is the LayerDTO id
-    // FIXME how to figure out path?
     ByteArrayInputStream stream = new ByteArrayInputStream(builder.toString().getBytes());
     BusinessDTO webFile = requestIF.newFile(path, fileName, extension, stream);
 
@@ -118,20 +194,6 @@ public class SLDWriter implements Reloadable
     writeln("<Abstract>Layer Style for " + viewName + "</Abstract>");
     writeln("<FeatureTypeStyle>");
   }
-
-  /*
-  private void writeGeometryStyle(GeometryStyleDTO geoStyle)
-  {
-    Symbolizer symbolizer = Symbolizer.getGeometrySymbolizer(layer, geoStyle);
-    symbolizer.write(this);
-  }
-
-  private void writeTextStyle(TextStyleDTO textStyle)
-  {
-    TextSymbolizer textSymbolizer = new TextSymbolizer(layer, textStyle);
-    textSymbolizer.write(this);
-  }
-  */
 
   private void writeFooter()
   {

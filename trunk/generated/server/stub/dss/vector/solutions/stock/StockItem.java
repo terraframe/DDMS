@@ -19,6 +19,7 @@ import com.terraframe.mojo.system.metadata.MdBusiness;
 import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
+import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
 /**
@@ -151,7 +152,7 @@ public class StockItem extends StockItemBase implements com.terraframe.mojo.gene
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
     JSONObject queryConfig;
     try
@@ -168,7 +169,7 @@ public class StockItem extends StockItemBase implements com.terraframe.mojo.gene
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, StockEvent.CLASS, StockEvent.STOCKDEPOT);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
 
     StockItemQuery stockItemQuery = (StockItemQuery) queryMap.get(StockItem.CLASS);
     

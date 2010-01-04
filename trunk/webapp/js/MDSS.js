@@ -257,4 +257,36 @@ MDSS.Set.prototype = {
   Mojo.Iter.forEach(imgs, function(img){
     new Image().src=img;
   });
-})()
+})();
+
+// Intercept all event listener calls and store them to be
+// unhooked later.
+(function(){
+  var registered = [];
+  var E = YAHOO.util.Event;
+  var al = E.addListener;
+  E.addListener = function(el, sType, fn, obj, overrideContext){
+    
+    registered.push(el);
+    
+    al.call(E, el, sType, fn, obj, overrideContext);
+  };
+
+  // Unattach all event handlers
+  YAHOO.util.Event.on(window, 'unload', function(e){
+    var E = YAHOO.util.Event;
+    for(var i=0, len=registered.length; i<len; i++)
+    {
+      try
+      {
+        E.purgeElement(registered[i], false);
+      }
+      catch(e)
+      {
+        // No point in doing anything
+      }
+    }
+    
+    delete registered;
+  });
+})();

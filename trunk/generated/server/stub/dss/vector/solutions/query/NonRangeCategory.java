@@ -2,7 +2,6 @@ package dss.vector.solutions.query;
 
 import org.apache.commons.lang.math.NumberRange;
 
-import com.terraframe.mojo.dataaccess.transaction.AbortIfProblem;
 
 public class NonRangeCategory extends NonRangeCategoryBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -12,11 +11,106 @@ public class NonRangeCategory extends NonRangeCategoryBase implements com.terraf
   {
     super();
   }
-
+  
   @Override
   protected String buildKey()
   {
     //TODO: Naifeh needs to define this key
     return this.getId();
+  }
+  
+  @Override
+  protected void preValidate()
+  {
+    this.validateExactValueStr();
+  }
+  
+  /**
+   * Checks two NonRangeCategory values for overlapping. This is a simple string
+   * comparison.
+   * 
+   * @param exactValue
+   * @param exactValue2
+   */
+  private void checkAgainstNonRange(String exactValue, String exactValue2)
+  {
+    String exactValueL = exactValue.toLowerCase();
+    String exactValue2L = exactValue2.toLowerCase();
+    
+    if(exactValueL.equals(exactValue2L))
+    {
+      this.throwsOverlapException(exactValue, exactValue2);
+    }
+  }
+  
+  private void checkAgainstRangeNumbers(Double exactValue, Double lowerBound, Double upperBound)
+  {
+    NumberRange range1 = new NumberRange(exactValue); 
+    NumberRange range2 = new NumberRange(lowerBound, upperBound);
+    
+    if(range1.overlapsRange(range2))
+    {
+      this.throwsOverlapException(range1, range2);
+    }
+  }
+  
+  private void checkAgainstRangeStrings(String exactValue, String lowerStr, String upperStr)
+  {
+    String exactValueL = exactValue.toLowerCase();
+    String lowerStrL = lowerStr.toLowerCase();
+    String upperStrL = upperStr.toLowerCase();
+    
+    if(exactValueL.compareTo(lowerStrL) >= 0 && exactValueL.compareTo(upperStrL) <= 0)
+    {
+      this.throwsOverlapException(exactValue, lowerStr, upperStr);
+    }
+  }
+
+  @Override
+  protected void checkBounds(AbstractCategory category)
+  {
+    String exactValue = this.getExactValueStr();
+    
+    Double exactD = null;
+    try
+    {
+      exactD = Double.parseDouble(exactValue);
+    }
+    catch(NumberFormatException e)
+    {
+      // We know the value is not numeric
+    }
+    
+    if(category instanceof NonRangeCategory)
+    {
+      NonRangeCategory exact = (NonRangeCategory) category;
+      this.checkAgainstNonRange(exactValue, exact.getExactValueStr());
+    }
+    else
+    {
+      RangeCategory range = (RangeCategory) category;
+      String lower = range.getLowerBoundStr();
+      String upper = range.getUpperBoundStr();
+      
+      try
+      {
+        Double lowerD = Double.parseDouble(lower); 
+        Double upperD = Double.parseDouble(upper);
+        
+        if(exactD != null)
+        {
+          // Compare as numbers
+          this.checkAgainstRangeNumbers(exactD, lowerD, upperD);
+        }
+      }
+      catch(NumberFormatException e)
+      {
+        // The values are not numeric, so try a string comparison
+        if(exactD == null)
+        {
+          checkAgainstRangeStrings(exactValue, lower, upper);
+        }
+      }
+    }
   }
 }

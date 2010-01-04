@@ -7,7 +7,6 @@
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
-<%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.query.QueryController"%>
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
@@ -20,9 +19,7 @@
 <%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%>
 
 <c:set var="page_title" value="Query_Aggregated_Cases"  scope="request" />
 

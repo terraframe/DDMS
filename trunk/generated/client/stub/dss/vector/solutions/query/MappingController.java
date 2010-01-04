@@ -1,8 +1,6 @@
 package dss.vector.solutions.query;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,7 +9,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.terraframe.mojo.ApplicationException;
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
+import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.sld.SLDWriter;
 
@@ -60,6 +61,40 @@ public class MappingController extends MappingControllerBase implements
     catch (Throwable t)
     {
       throw new ApplicationException(t);
+    }
+  }
+  
+  @Override
+  public void refreshMap(String savedMapId) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF request = this.getClientRequest();
+      
+      SavedMapDTO map = SavedMapDTO.get(request, savedMapId);
+      
+      // Re-print all SLD files for the layers
+      for(LayerDTO layer : map.getAllLayer())
+      {
+        new SLDWriter(map, layer).write();
+      }
+      
+      // Regenerate the database views
+      String mapData = map.refreshMap();
+      
+      resp.getWriter().print(mapData);
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
     }
   }
   
@@ -127,92 +162,6 @@ public class MappingController extends MappingControllerBase implements
     }
   }
 
-  /**
-   * Writes all layers for the SavedSearch with the given id.
-   * 
-   * @param savedSearchId
-   */
-  private void writeLayers(String savedMapId)
-  {
-    SavedMapDTO savedMap = SavedMapDTO.get(this.getClientRequest(), savedMapId);
-    List<? extends LayerDTO> layers = savedMap.getAllLayer();
-
-    // Check that a thematic layer has been defined with valid a valid geometry style
-    /* FIXME MAP
-    LayerDTO thematicLayerDTO = savedMap.getThematicLayer();
-    if (thematicLayerDTO.getGeometryStyle() == null)
-    {
-      NoThematicLayerExceptionDTO ex = new NoThematicLayerExceptionDTO(this.getClientRequest(), this.req
-          .getLocale());
-      throw ex;
-    }
-
-    SLDWriter sldWriter = SLDWriter.getSLDWriter(thematicLayerDTO);
-    sldWriter.write();
-     */
-
-    for (LayerDTO layer : layers)
-    {
-      SLDWriter layerWriter = new SLDWriter(layer);
-      layerWriter.write();
-    }
-
-  }
-
-  @Override
-  public void editThematicLayer(String thematicLayerId, ThematicVariableDTO[] thematicVariables)
-      throws IOException, ServletException
-  {
-    /* FIXME MAP
-    try
-    {
-      LayerDTO layer = ThematicLayerDTO.lock(this.getClientRequest(), thematicLayerId);
-
-      List<? extends AbstractCategoryDTO> categories = layer.getAllDefinesCategory();
-      Collections.sort(categories, new CategoryComparator());
-      
-      req.setAttribute("categories", categories);
-      req.setAttribute("thematicVariable", layer.getThematicVariable());
-
-      req.setAttribute("variables", thematicVariables);
-
-      req.getRequestDispatcher(EDIT_VARIABLE_STYLES).forward(req, resp);
-
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-    */
-  }
-
-  @Override
-  public void updateThematicVariable(String layerId, ThematicVariableDTO thematicVariable,
-      AbstractCategoryDTO[] categories) throws IOException, ServletException
-  {
-    /* FIXME MAP
-    try
-    {
-      LayerDTO.updateThematicVariable(this.getClientRequest(), layerId, thematicVariable,
-          categories);
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-    */
-  }
-
   public void viewLayer(java.lang.String layerId) throws java.io.IOException,
       javax.servlet.ServletException
   {
@@ -261,7 +210,6 @@ public class MappingController extends MappingControllerBase implements
   {
     try
     {
-      // TODO clean up SLD file
       LayerDTO layer = LayerDTO.get(this.getClientRequest(), layerId);
       layer.delete();
     }

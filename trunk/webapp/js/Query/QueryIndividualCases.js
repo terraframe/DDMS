@@ -92,12 +92,8 @@ Mojo.Meta.newClass('MDSS.QueryIndividualCases', {
                              
                            ];
       
-      this._queryType = 'QueryIndividualCases';
+      this._queryType = this._mainQueryClass;
 
-      this._reportQueryType = 'QueryIndividualCases';
-      
-
-      
       this.$initialize(selectableGroups, queryList);
       
       var picker = this.getGeoPicker();      
@@ -158,7 +154,8 @@ Mojo.Meta.newClass('MDSS.QueryIndividualCases', {
           li.appendChild(check);
           this._defaults.push({element:check, checked:false});
           
-          if(visibleObj.dtoType && (visibleObj.dtoType.contains('AttributeCharacterDTO')||visibleObj.dtoType.contains('AttributeTextDTO')))
+          if(visibleObj.dtoType && (visibleObj.dtoType.indexOf('AttributeCharacterDTO') != -1
+            ||visibleObj.dtoType.indexOf('AttributeTextDTO') != -1))
           {
           	li.id = attribute.getKey()+'_li';
 
@@ -175,7 +172,7 @@ Mojo.Meta.newClass('MDSS.QueryIndividualCases', {
           }
           
           
-          if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeIntegerDTO'))
+          if(visibleObj.dtoType && visibleObj.dtoType.indexOf('AttributeIntegerDTO') != -1)
           {
           	li.id = attribute.getKey()+'_li';
 
@@ -246,7 +243,7 @@ Mojo.Meta.newClass('MDSS.QueryIndividualCases', {
             this._menus[li.id] = items;
           }
           else //Mo terms
-            if(visibleObj.dtoType && visibleObj.dtoType.contains('AttributeReferenceDTO'))
+            if(visibleObj.dtoType && visibleObj.dtoType.indexOf('AttributeReferenceDTO') != -1)
             {
             	attribute.setTerm(true);
             	li.id = attribute.getKey()+'_li';

@@ -50,10 +50,8 @@ Mojo.Meta.newClass('MDSS.QueryITNFacilityDistribution', {
       /**
        * Returns the type of query.
        */
-      this._queryType = 'QueryITNFacilityDistribution';
+      this._queryType = this._mainQueryClass;
       
-
-      this._reportQueryType = 'QueryITNFacilityDistribution';
       this.$initialize(selectableGroups, queryList);   
 
       var picker = this.getGeoPicker();      

@@ -3,8 +3,6 @@ package dss.vector.solutions.query;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.lang.math.NumberRange;
-
 import com.terraframe.mojo.constants.LocalProperties;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -66,9 +64,9 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
   @Override
   protected String buildKey()
   {
-    //TODO: Naifeh needs to define this key
     return this.getId();
   }
+  
 
   @Override
   @Transaction
@@ -111,7 +109,7 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
     finally
     {
       iter.close();
-    }    
+    }
   }
 
   @Override
@@ -146,9 +144,11 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
       }
     }
     
+    Styles styles = this.getDefaultStyles();
+    
     super.delete();
     
-    this.getDefaultStyles().delete();
+    styles.delete();
   }
   
   /**
@@ -158,7 +158,6 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
    * @param thematicVariable
    * @param categories
    * @return
-   */
   @Transaction
   public static Layer updateThematicVariable(String layerId, ThematicVariable thematicVariable,
       AbstractCategory[] categories)
@@ -212,11 +211,6 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
     return layer;
   }
 
-  /**
-   * Ensures that no overlapping exists among category boundaries.
-   *
-   * @param categories
-   */
   private static void validateCategoryBounds(AbstractCategory[] categories)
   {
     NumberRange[] ranges = new NumberRange[categories.length];
@@ -250,6 +244,7 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
       }
     }
   }
+  */
 
   /*
    * FIXME MAP artifact from ThematicLayer
@@ -322,6 +317,4 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
 
     return layer;
   }*/
-  
-
 }

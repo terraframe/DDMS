@@ -34,10 +34,8 @@ Mojo.Meta.newClass('MDSS.QueryMosquitoCollections', {
                            }
                           ];
       
-      this._queryType = 'QueryMosquitoCollections';
+      this._queryType = this._mainQueryClass;
 
-      this._reportQueryType = 'QueryMosquitoCollections';
-      
       this.$initialize(selectableGroups, queryList);   
  
       }

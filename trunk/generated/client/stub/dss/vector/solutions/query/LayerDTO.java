@@ -19,5 +19,5 @@ public class LayerDTO extends LayerDTOBase
   {
     super(businessDTO, clientRequest);
   }
-  
+    
 }

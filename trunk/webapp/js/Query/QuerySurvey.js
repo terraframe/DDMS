@@ -38,10 +38,8 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
                                }
                               ];
           
-          this._queryType = 'QueryResistance';
+          this._queryType = this._mainQueryClass;
 
-          this._reportQueryType = 'QueryResistance';
-          
           this.$initialize(selectableGroups, queryList);   
           
           var picker = this.getGeoPicker();      

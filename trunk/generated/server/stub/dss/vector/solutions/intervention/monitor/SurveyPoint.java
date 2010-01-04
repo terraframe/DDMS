@@ -23,6 +23,7 @@ import com.terraframe.mojo.query.ValueQueryExcelExporter;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.util.QueryUtil;
@@ -167,7 +168,7 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
     JSONObject queryConfig;
     try
@@ -184,7 +185,7 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, SurveyPoint.CLASS, SurveyPoint.GEOENTITY);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
 
     SurveyPointQuery surveyPointQuery = (SurveyPointQuery) queryMap.get(SurveyPoint.CLASS);
     if (surveyPointQuery != null)
@@ -339,7 +340,7 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    ValueQuery query = xmlToValueQuery(queryXML, config, false);
+    ValueQuery query = xmlToValueQuery(queryXML, config, null);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
@@ -355,7 +356,7 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
       throw ex;
     }
 
-    ValueQuery query = xmlToValueQuery(queryXML, config, false);
+    ValueQuery query = xmlToValueQuery(queryXML, config, null);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
 
@@ -376,7 +377,7 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
   @Authenticate
   public static com.terraframe.mojo.query.ValueQuery querySurvey(String xml, String config, Integer pageNumber, Integer pageSize)
   {
-    ValueQuery valueQuery = xmlToValueQuery(xml, config, false);
+    ValueQuery valueQuery = xmlToValueQuery(xml, config, null);
 
     valueQuery.restrictRows(pageSize, pageNumber);
 

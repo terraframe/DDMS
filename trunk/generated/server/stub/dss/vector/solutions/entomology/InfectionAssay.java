@@ -13,7 +13,7 @@ import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.RangeValueProblem;
-import dss.vector.solutions.intervention.monitor.IndividualIPT;
+import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
 public class InfectionAssay extends InfectionAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -115,7 +115,7 @@ public class InfectionAssay extends InfectionAssayBase implements com.terraframe
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
     JSONObject queryConfig;
     try
@@ -132,7 +132,7 @@ public class InfectionAssay extends InfectionAssayBase implements com.terraframe
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, IndividualIPT.CLASS, IndividualIPT.FACILITY);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
 
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
 

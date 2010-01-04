@@ -2,9 +2,7 @@ package dss.vector.solutions.query;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 
@@ -31,6 +29,7 @@ import dss.vector.solutions.entomology.MolecularAssayDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.entomology.PooledInfectionAssayDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
+import dss.vector.solutions.entomology.assay.EfficacyAssay;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.general.InsecticideDTO;
@@ -46,20 +45,25 @@ import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionDTO;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO;
 import dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO;
 import dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO;
+import dss.vector.solutions.intervention.monitor.ITNDataDTO;
 import dss.vector.solutions.intervention.monitor.ITNDataViewDTO;
+import dss.vector.solutions.intervention.monitor.ITNDistributionDTO;
 import dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO;
 import dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO;
 import dss.vector.solutions.intervention.monitor.ITNInstanceDTO;
 import dss.vector.solutions.intervention.monitor.ITNNetDTO;
 import dss.vector.solutions.intervention.monitor.ITNServiceDTO;
 import dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO;
+import dss.vector.solutions.intervention.monitor.IndividualCaseDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTDTO;
 import dss.vector.solutions.intervention.monitor.IndividualInstanceDTO;
 import dss.vector.solutions.intervention.monitor.LarvacideDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonDTO;
+import dss.vector.solutions.irs.SprayStatusDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.stock.StockEventDTO;
+import dss.vector.solutions.stock.StockItemDTO;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
 import dss.vector.solutions.surveillance.AggregatedCaseDTO;
 import dss.vector.solutions.surveillance.CaseDiagnosticDTO;
@@ -113,30 +117,87 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     super(req, resp, isAsynchronous);
   }
+  
+  /**
+   * Loads information common to query screens, including the Earth node for 061 and all available
+   * queries for the given query screen.
+   * 
+   * @param queryClass
+   * @param queryType
+   * @throws JSONException
+   */
+  private void loadQuerySpecifics(String queryClass, QueryConstants.QueryType queryType) throws JSONException
+  {
+    ClientRequestIF request = this.getClientRequest();
+    String namespacedType = QueryConstants.namespaceQuery(queryClass, queryType);
+    
+    SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(request, namespacedType);
+    JSONArray queries = new JSONArray();
+    for (SavedSearchViewDTO view : query.getResultSet())
+    {
+      JSONObject idAndName = new JSONObject();
+      idAndName.put("id", view.getSavedQueryId());
+      idAndName.put("name", view.getQueryName());
+
+      queries.put(idAndName);
+    }
+    
+    JSONObject queryList = new JSONObject();
+    queryList.put("queries", queries);
+    queryList.put("namespacedType", namespacedType);
+    
+    req.setAttribute("queryList", queryList.toString());
+    
+    // The Earth is the root. FIXME use country's default root
+    EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+    req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+  }
 
   @Override
   public void querySurvey() throws IOException, ServletException
   {
     try
     {
+      loadQuerySpecifics(SurveyPointDTO.CLASS, QueryConstants.QueryType.QUERY_INDICATOR_SURVEY);
+      
       ClientRequestIF request = this.getClientRequest();
-
-      // Available queries
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(request, QueryConstants.QUERY_INDICATOR_SURVEY);
-
-      JSONArray queries = new JSONArray();
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
-
-      req.setAttribute("queryList", queries.toString());
-      JSONObject ordered = new JSONObject();
-
+      
+      // 24. RDT Result (special case). Use new PersonViewDTO object
+      // as a template to get display values.
+//      JSONObject rdtResult = new JSONObject();
+//      ClientRequestIF request = this.getClientRequest();
+//      String display = new PersonViewDTO(this.getClientRequest()).getRDTResultMd().getDisplayLabel();
+//      rdtResult.put("displayLabel", display);
+//      rdtResult.put("attributeName", PersonViewDTO.RDTRESULT);
+//      JSONArray items = new JSONArray();
+//      rdtResult.put("items", items);
+//      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
+//      {
+//        JSONObject item = new JSONObject();
+//        item.put("displayLabel", term.getDisplayLabel());
+//        item.put("value", term.getId());
+//
+//        items.put(item);
+//      }
+//
+//      req.setAttribute("rdtResults", rdtResult.toString());
+//
+//
+//      JSONArray nets = new JSONArray();
+//      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
+//      {
+//        JSONObject net = new JSONObject();
+//        net.put("entityAlias", HouseholdNetDTO.CLASS + "_" + term.getId());
+//        net.put("key", HouseholdNetDTO.AMOUNT + "_" + term.getId());
+//        net.put("displayLabel", term.getDisplayLabel());
+//        net.put("attributeName", HouseholdNetDTO.AMOUNT);
+//        net.put("type", HouseholdNetDTO.CLASS);
+//
+//        nets.put(net);
+//      }
+//
+//      req.setAttribute("nets", nets.toString());
+      
       // Load label map for Adult Discriminating Dose Assay
       ClassQueryDTO surveyedPerson = request.getQuery(SurveyedPersonDTO.CLASS);
       String surveyedPersonMap = Halp.getDropDownMaps(surveyedPerson, request, ", ");
@@ -241,25 +302,8 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      // Available queries
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_AGGREGATED_CASE);
-
-      JSONArray queries = new JSONArray();
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
-
-      req.setAttribute("queryList", queries.toString());
-
+      loadQuerySpecifics(AggregatedCaseDTO.CLASS, QueryConstants.QueryType.QUERY_AGGREGATED_CASE);
+      
       AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientRequest());
       JSONArray groups = new JSONArray();
       for (AggregatedAgeGroupDTO ageGroup : ageGroups)
@@ -423,37 +467,20 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      // The Earth is the root. FIXME use country's default root
+      loadQuerySpecifics(AggregatedIPTDTO.CLASS, QueryConstants.QueryType.QUERY_AGGREGATED_IPT);
+      
       ClientRequestIF request = this.getClientRequest();
-
-      // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_AGGREGATED_IPT);
-      JSONArray queries = new JSONArray();
-      // Available queries
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
 
       // Load label map for Adult Discriminating Dose Assay
       ClassQueryDTO aIPT = request.getQuery(AggregatedIPTDTO.CLASS);
       String iptMap = Halp.getDropDownMaps(aIPT, request, ", ");
       req.setAttribute("iptMap", iptMap);
 
-      req.setAttribute("queryList", queries.toString());
-
       JSONObject ordered = new JSONObject();
 
-      Map<String, JSONObject> orderedMap = new HashMap<String, JSONObject>();
+//      Map<String, JSONObject> orderedMap = new HashMap<String, JSONObject>();
 
-      AggregatedIPTViewDTO av = new AggregatedIPTViewDTO(request);
+//      AggregatedIPTViewDTO av = new AggregatedIPTViewDTO(request);
 
       // Patients
       JSONObject patients = new JSONObject();
@@ -508,26 +535,9 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      // The Earth is the root. FIXME use country's default root
+      loadQuerySpecifics(ITNDataDTO.CLASS, QueryConstants.QueryType.QUERY_AGGREGATED_ITN);
+      
       ClientRequestIF request = this.getClientRequest();
-
-      // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_AGGREGATED_ITN);
-      JSONArray queries = new JSONArray();
-      // Available queries
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
-
-      req.setAttribute("queryList", queries.toString());
 
       JSONObject ordered = new JSONObject();
 
@@ -578,26 +588,9 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      // The Earth is the root. FIXME use country's default root
+      loadQuerySpecifics(ITNCommunityDistributionDTO.CLASS, QueryConstants.QueryType.QUERY_ITN_COMMUNITY_DISTRIBUTION);
+      
       ClientRequestIF request = this.getClientRequest();
-
-      // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_ITN_COMMUNITY_DISTRIBUTION);
-      JSONArray queries = new JSONArray();
-      // Available queries
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
-
-      req.setAttribute("queryList", queries.toString());   
 
       JSONObject ordered = new JSONObject();
 
@@ -645,27 +638,10 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      // The Earth is the root. FIXME use country's default root
+      loadQuerySpecifics(ITNDistributionDTO.CLASS, QueryConstants.QueryType.QUERY_ITN_FACILITY_DISTRIBUTION);
+      
       ClientRequestIF request = this.getClientRequest();
 
-      // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_ITN_FACILITY_DISTRIBUTION);
-      JSONArray queries = new JSONArray();
-      // Available queries
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
-
-      req.setAttribute("queryList", queries.toString());
-      
       JSONObject ordered = new JSONObject();
 
       ITNDistributionViewDTO itnView = new ITNDistributionViewDTO(request);
@@ -703,28 +679,9 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      // The Earth is the root. FIXME use country's default root
+      loadQuerySpecifics(MosquitoCollectionDTO.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS);
+      
       ClientRequestIF request = this.getClientRequest();
-
-      // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_MOSQUITO_COLLECTIONS);
-      JSONArray queries = new JSONArray();
-      // Available queries
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
-
-      req.setAttribute("queryList", queries.toString());
-      
-      
 
       // Load label map 
       ClassQueryDTO collectionQuery = request.getQuery(MosquitoCollectionDTO.CLASS);
@@ -749,31 +706,14 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      // The Earth is the root. FIXME use country's default root
+      loadQuerySpecifics(IndividualIPTDTO.CLASS, QueryConstants.QueryType.QUERY_INDIVIDUAL_IPT);
+      
       ClientRequestIF request = this.getClientRequest();
-
-      // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_INDIVIDUAL_IPT);
-      JSONArray queries = new JSONArray();
-      // Available queries
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
 
       // Load label map for Adult Discriminating Dose Assay
       ClassQueryDTO aIPT = request.getQuery(IndividualIPTDTO.CLASS);
       String iptMap = Halp.getDropDownMaps(aIPT, request, ", ");
       req.setAttribute("iptMap", iptMap);
-
-      req.setAttribute("queryList", queries.toString());
 
       req.getRequestDispatcher(QUERY_INDIVIDUAL_IPT).forward(req, resp);
 
@@ -793,31 +733,14 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      // The Earth is the root. FIXME use country's default root
+      loadQuerySpecifics(StockItemDTO.CLASS, QueryConstants.QueryType.QUERY_STOCK);
+      
       ClientRequestIF request = this.getClientRequest();
-
-      // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_STOCK);
-      JSONArray queries = new JSONArray();
-      // Available queries
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
 
       // Load label map for Adult Discriminating Dose Assay
       ClassQueryDTO stock = request.getQuery(StockEventDTO.CLASS);
       String map = Halp.getDropDownMaps(stock, request, ", ");
       req.setAttribute("stockMap", map);
-
-      req.setAttribute("queryList", queries.toString());
 
       req.getRequestDispatcher(QUERY_STOCK).forward(req, resp);
 
@@ -837,31 +760,14 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      // The Earth is the root. FIXME use country's default root
+      loadQuerySpecifics(LarvacideDTO.CLASS, QueryConstants.QueryType.QUERY_LARVACIDE);
+      
       ClientRequestIF request = this.getClientRequest();
-
-      // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_LARVACIDE);
-      JSONArray queries = new JSONArray();
-      // Available queries
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
 
       // Load label map for Adult Discriminating Dose Assay
       ClassQueryDTO larvacide = request.getQuery(LarvacideDTO.CLASS);
       String map = Halp.getDropDownMaps(larvacide, request, ", ");
       req.setAttribute("larvacideMap", map);
-
-      req.setAttribute("queryList", queries.toString());
 
       req.getRequestDispatcher(QUERY_LARVACIDE).forward(req, resp);
 
@@ -881,31 +787,14 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      // The Earth is the root. FIXME use country's default root
+      loadQuerySpecifics(IndividualCaseDTO.CLASS, QueryConstants.QueryType.QUERY_INDIVIDUAL_CASES);
+      
       ClientRequestIF request = this.getClientRequest();
-
-      // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_INDIVIDUAL_CASES);
-      JSONArray queries = new JSONArray();
-      // Available queries
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
 
       // Load label map 
       ClassQueryDTO iInstance = request.getQuery(IndividualInstanceDTO.CLASS);
       String instanceMap = Halp.getDropDownMaps(iInstance, request, ", ");
       req.setAttribute("instanceMaps", instanceMap);
-
-      req.setAttribute("queryList", queries.toString());
 
       JSONObject ordered = new JSONObject();
       
@@ -949,31 +838,14 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      // The Earth is the root. FIXME use country's default root
+      loadQuerySpecifics(EfficacyAssay.CLASS, QueryConstants.QueryType.QUERY_EFFICACY_ASSAY);
+      
       ClientRequestIF request = this.getClientRequest();
-
-      // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_EFFICACY_ASSAY);
-      JSONArray queries = new JSONArray();
-      // Available queries
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
 
       // Load label map for Adult Discriminating Dose Assay
       ClassQueryDTO aIPT = request.getQuery(IndividualIPTDTO.CLASS);
       String iptMap = Halp.getDropDownMaps(aIPT, request, ", ");
       req.setAttribute("iptMap", iptMap);
-
-      req.setAttribute("queryList", queries.toString());
 
       req.getRequestDispatcher(QUERY_EFFICACY_ASSAY).forward(req, resp);
 
@@ -992,25 +864,10 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
+      loadQuerySpecifics(MosquitoCollectionDTO.CLASS, QueryConstants.QueryType.QUERY_ENTOMOLOGY);
+      
       ClientRequestIF request = this.getClientRequest();
       
-      // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_ENTOMOLOGY);
-      JSONArray queries = new JSONArray();
-      // Available queries
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
-
-
       // Load label map 
       ClassQueryDTO collectionQuery = request.getQuery(MosquitoCollectionDTO.CLASS);
       String collectionMap = Halp.getDropDownMaps(collectionQuery, request, ", ");
@@ -1037,9 +894,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       String molecularMap = Halp.getDropDownMaps(molecularQuery, request, ", ");
       req.setAttribute("molecularMaps", molecularMap);
       
-      
-      req.setAttribute("queryList", queries.toString());
-
       req.getRequestDispatcher(QUERY_ENTOMOLOGY).forward(req, resp);
 
     }
@@ -1057,25 +911,9 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      // The Earth is the root. FIXME use country's default root
+      loadQuerySpecifics(MosquitoCollectionDTO.CLASS, QueryConstants.QueryType.QUERY_RESISTANCE);
+      
       ClientRequestIF request = this.getClientRequest();
-
-      EarthDTO earth = EarthDTO.getEarthInstance(request);
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(request, QueryConstants.QUERY_RESISTANCE);
-      JSONArray queries = new JSONArray();
-      // Available queries
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
-
-      req.setAttribute("queryList", queries.toString());
 
       // Load label map for Adult Discriminating Dose Assay
       ClassQueryDTO adda = request.getQuery(AdultDiscriminatingDoseAssayDTO.CLASS);
@@ -1113,24 +951,9 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-      ClientRequestIF request = this.getClientRequest();
-
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_IRS);
-      JSONArray queries = new JSONArray();
-      // Available queries
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
-
-      req.setAttribute("queryList", queries.toString());
+      loadQuerySpecifics(SprayStatusDTO.CLASS, QueryConstants.QueryType.QUERY_IRS);
+      
+//      ClientRequestIF request = this.getClientRequest();
 
       // Load label map for spray data
       // ClassQueryDTO sprayData = request.getQuery(SprayDataDTO.CLASS);

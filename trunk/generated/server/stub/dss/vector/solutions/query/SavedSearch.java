@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,12 +19,15 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
+import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.vault.VaultFileDAO;
 import com.terraframe.mojo.vault.VaultFileDAOIF;
 
 import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.report.UndefinedTemplateException;
 
@@ -43,6 +47,42 @@ public class SavedSearch extends SavedSearchBase implements
     // Ask Naifeh if this is a valid key
 //    return this.getQueryType() + "-" + this.getQueryName();
     return this.getId();
+  }
+  
+  /**
+   * Apply method that also checks if this SavedSearch object is mappable
+   * or not.
+   */
+  public void apply()
+  {
+    try
+    {
+      JSONObject config = new JSONObject(this.getConfig());
+      JSONObject selectedUniversals = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+      
+      // Any search is mappable if it has at least one universal 
+      // selected for any GeoEntity attribute reference.
+      boolean mappable = false;
+      Iterator<String> attrs = selectedUniversals.keys();
+      while(attrs.hasNext())
+      {
+        if(selectedUniversals.getJSONArray(attrs.next()).length() > 0)
+        {
+          mappable = true;
+          break;
+        }
+      }
+
+      this.setMappable(mappable);
+      
+    }
+    catch (JSONException e)
+    {
+      String error = "An error occured while marking a query as mappable.";
+      throw new ProgrammingErrorException(error, e);
+    }
+    
+    super.apply();
   }
 
   /**
@@ -365,11 +405,89 @@ public class SavedSearch extends SavedSearchBase implements
       GeneratedViewQuery viewQuery = this.getViewQuery();
       
       viewQuery.WHERE(this.searchQuery.getQueryType().NE(DefaultSavedSearch.DEFAULT));
-//      viewQuery.AND(this.searchQuery.getMappable().EQ(true));
+      viewQuery.AND(this.searchQuery.getMappable().EQ(true));
       viewQuery.ORDER_BY_ASC(searchQuery.getQueryName());
     }
     
   }
+  
+  /**
+   * Returns any available thematic variables (Selectables) available
+   * on this query this SavedSearch encapsulates.
+   */
+  @Override
+  public ThematicVariable[] getThematicVariables()
+  {
+    String xml = this.getQueryXml();
+    String config = this.getConfig();
+    String queryType = this.getQueryType();
+    
+    // QueryBuilder.getValueQuery() takes in the query class for use with reflection.
+    // TODO pass in queryType and have getValueQuery deref the class
+    String queryClass = QueryConstants.getQueryClass(queryType);
+    ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null);
+    
+    Selectable[] selectables = valueQuery.getSelectables();
+    ThematicVariable[] thematicVars = new ThematicVariable[selectables.length];
+    
+    for(int i=0; i<selectables.length; i++)
+    {
+      Selectable sel = selectables[i];
+      
+      ThematicVariable var = new ThematicVariable();
+      var.setAttributeName(sel.getQualifiedName());
+      var.setDisplayLabel(sel.getUserDefinedDisplayLabel());
+      var.setUserAlias(sel.getUserDefinedAlias());
+      
+      thematicVars[i] = var;
+    }
+    
+    return thematicVars;
+  }
+  
+  /**
+   * Returns all available GeoHierarchies provided by this SavedSearch
+   */
+  @Override
+  public AttributeGeoHierarchy[] getAttributeGeoHierarchies()
+  {
+    String configStr = this.getConfig();
+    
+    try
+    {
+      JSONObject config = new JSONObject(configStr);
+      JSONObject selected = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+      JSONArray names = selected.names();
+      List<AttributeGeoHierarchy> attrGeos = new LinkedList<AttributeGeoHierarchy>();
+      for(int i=0; i<names.length(); i++)
+      {
+        String qualifiedAttribute = names.getString(i);
+        MdAttribute mdAttribute = MdAttribute.getByKey(qualifiedAttribute);
+        JSONArray universals = selected.getJSONArray(qualifiedAttribute);
+        
+        for(int j=0; j<universals.length(); j++)
+        {
+          GeoHierarchy geoH = GeoHierarchy.getGeoHierarchyFromType(universals.getString(j));
+          
+          AttributeGeoHierarchy attrGeo = new AttributeGeoHierarchy();
+          attrGeo.setAttributeDisplayLabel(mdAttribute.getDisplayLabel().getValue());
+          attrGeo.setMdAttributeId(mdAttribute.getId());
+          attrGeo.setGeoHierarchyDisplayLabel(geoH.getDisplayLabel());
+          attrGeo.setGeoHierarchyId(geoH.getId());
+          
+          attrGeos.add(attrGeo);
+        }
+      }
+      
+      return attrGeos.toArray(new AttributeGeoHierarchy[attrGeos.size()]);
+    }
+    catch (JSONException e)
+    {
+      // We should never hit this since MDSS controls the JSON configuration.
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
   
   @Override
   public String toString()

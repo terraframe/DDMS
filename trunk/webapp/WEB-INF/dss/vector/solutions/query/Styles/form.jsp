@@ -18,7 +18,7 @@
   <mjl:dt attribute="pointMarker">
     <mjl:select var="current" valueAttribute="enumName" items="${pointMarker}" param="pointMarker">
       <mjl:option selected="${mjl:contains(styles.pointMarkerEnumNames, current.enumName) ? 'selected' : 'false'}">
-        ${styles.pointMarkerMd.enumItems[current.enumName]}
+        ${current.displayLabel}
       </mjl:option>
     </mjl:select>
   </mjl:dt>

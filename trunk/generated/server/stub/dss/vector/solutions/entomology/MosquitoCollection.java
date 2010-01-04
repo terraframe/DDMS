@@ -20,7 +20,7 @@ import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.entomology.assay.CollectionAssay;
 import dss.vector.solutions.entomology.assay.CollectionAssayQuery;
-import dss.vector.solutions.intervention.monitor.IndividualIPT;
+import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
 public class MosquitoCollection extends MosquitoCollectionBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -202,7 +202,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
     JSONObject queryConfig;
     try
@@ -219,7 +219,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, IndividualIPT.CLASS, IndividualIPT.FACILITY);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
 
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
     SubCollectionQuery subCollectionQuery = (SubCollectionQuery) queryMap.get(SubCollection.CLASS);

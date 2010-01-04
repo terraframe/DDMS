@@ -30,10 +30,8 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
                            }
                           ];
       
-      this._queryType = 'QueryEntomology';
+      this._queryType = this._mainQueryClass;
 
-      this._reportQueryType = 'QueryEntomology';
-      
       this.$initialize(selectableGroups, queryList);   
       
       //remove collection from exclusion classes so collection selectables will not be unchecked when switching assay types

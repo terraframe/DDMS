@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,27 +23,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.terraframe.mojo.business.Business;
 import com.terraframe.mojo.constants.LocalProperties;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DatabaseException;
-import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.WebFile;
-import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
-import com.terraframe.mojo.system.gis.metadata.MdAttributeLineString;
-import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiLineString;
-import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPoint;
-import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPolygon;
-import com.terraframe.mojo.system.gis.metadata.MdAttributePoint;
-import com.terraframe.mojo.system.gis.metadata.MdAttributePolygon;
-import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Envelope;
 
 import dss.vector.solutions.geo.DuplicateMapDataException;
-import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoServerReloadException;
 import dss.vector.solutions.global.CredentialsSingleton;
 
@@ -55,163 +47,150 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
   {
     super();
   }
-
+  
   /**
-  *
-  *
-  * @param universalLayers
-  * @param valueQuery
-  * @param savedSearch
-  * @param thematicLayer
-  * @return
-  */
- public static String generateLayers(ValueQuery valueQuery, SavedMap savedMap)
- {
-   /* FIXME MAP
-   if(valueQuery.getCount() == 0)
-   {
-     String error = "The thematic layer doesn't contain spatial data.";
-     throw new NoEntitiesInThematicLayerException(error);
-   }
-   
-   String sql = valueQuery.getSQL();
-
-   // reload the view for the thematic layer
-   
-   String viewName = thematicLayer.getViewName();
-
-   try
-   {
-     Database.dropView(viewName, sql, false); 
-   }
-   catch(DatabaseException e)
-   {
-     // View doesn't exist, but that's okay. It may have never
-	 // been created or a cleanup task has removed it.
-   }
-   finally
-   {
-	 // Create a new view that will reflect the current state of the query.
-     Database.createView(viewName, sql);
-   }
-   
-   
-   
-   // make sure there are no duplicate geo entities
-   String countSQL = "SELECT COUNT(*) " + Database.formatColumnAlias("ct") + " FROM " + viewName;
-   countSQL += " GROUP BY "+QueryConstants.ENTITY_NAME_COLUMN + " HAVING COUNT(*) > 1";
-   
-   ResultSet resultSet = Database.query(countSQL);
-   
-   try
-   {
-     if(resultSet.next())
-     {
-       DuplicateMapDataException ex = new DuplicateMapDataException();
-       throw ex;
-     }
-   }
-   catch (SQLException sqlEx1)
-   {
-     Database.throwDatabaseException(sqlEx1);
-   }
-   finally
-   {
-     try
-     {
-       java.sql.Statement statement = resultSet.getStatement();
-       resultSet.close();
-       statement.close();
-     }
-     catch (SQLException sqlEx2)
-     {
-       Database.throwDatabaseException(sqlEx2);
-     }
-   }
-
-//   thematicLayer.appLock();
-//   thematicLayer.setViewCreated(true);
-//   thematicLayer.apply();
-
-   String sessionId = Session.getCurrentSession().getId();
-
-   GeoHierarchy thematicGeoH = thematicLayer.getGeoHierarchy();
-   MdAttributeGeometry geoAttr = thematicGeoH.getGeometry();
-
-   reload(sessionId, viewName, geoAttr);
-
-
-   // JSON representation of the layers in the map. This is used
-   // in Javascript to generated an OpenLayers call to GeoServer.
-   JSONArray layers = new JSONArray();
-
-   try
-   {
-     String geoserverPath = getGeoServerRemoteURL();
-     String baseView = QueryConstants.MDSS_NAMESPACE + ":" + viewName.toLowerCase();
-     JSONObject baseLayer = new JSONObject();
-
-     String sldFile = formatSLD(thematicLayer);
-
-     baseLayer.put("view", baseView);
-     baseLayer.put("sld", sldFile);
-     baseLayer.put("geoserverURL", geoserverPath);
-     baseLayer.put("bbox", getThematicBBox(viewName));
-     layers.put(baseLayer);
-   }
-   catch (JSONException e)
-   {
-     String error = "Unable to define the base (thematic) layer.";
-     throw new ProgrammingErrorException(error, e);
-   }
-
-   // create views (if needed) for all other layers
-   for (String layerId : universalLayers)
-   {
-     UniversalLayer layer = UniversalLayer.get(layerId);
-     GeoHierarchy geoH = layer.getGeoHierarchy();
-
-     boolean includeLayer = geoH.createViewTable(sessionId);
-     if (includeLayer)
-     {
-       String layerView = layer.getViewName();
-       String namespacedView = QueryConstants.MDSS_NAMESPACE + ":" + layerView;
-
-       JSONObject layerObj = new JSONObject();
-
-       try
-       {
-         String sldFile = formatSLD(layer);
-
-
-         layerObj.put("view", namespacedView);
-         layerObj.put("sld", sldFile);
-       }
-       catch (JSONException e)
-       {
-         MdBusiness md = geoH.getGeoEntityClass();
-         String error = "Unable to define the layer for [" + md.getDisplayLabel().getValue() + "].";
-         throw new ProgrammingErrorException(error, e);
-       }
-
-       layers.put(layerObj);
-     }
-   }
-   
-   
-   // Rename the layer for next time because the SLDs have already been generated
-   // for the previous name. Doing this will keep the timestamp up to date to help
-   // the cleanup task.
-   String newViewName = ThematicLayer.GEO_VIEW_PREFIX + System.currentTimeMillis();
-   thematicLayer.appLock();
-   thematicLayer.setViewName(newViewName);     
-   thematicLayer.apply();
-
-   return layers.toString();
+   * Creates database views for each layer provided and returns a JSON string
+   * with the correct mapping information for use with OpenLayers/GeoServer.
+   * 
+   * @param layers
+   * @return
    */
-   
-   return null;
- }
+  public static String createDBViews(List<? extends Layer> layers)
+  {
+    if(layers.size() == 0)
+    {
+      String error = "A user tried to create a map without layers.";
+      throw new NoThematicLayerException(error);
+    }
+    
+    JSONObject mapData;
+    JSONArray layersJSON;
+    
+    try
+    {
+      String geoserverPath = getGeoServerRemoteURL();
+      
+      mapData = new JSONObject();
+      layersJSON = new JSONArray();
+      
+      mapData.put("geoserverURL", geoserverPath);
+      mapData.put("layers", layersJSON);
+    }
+    catch(JSONException e)
+    {
+      String error = "Could not create the mapping data.";
+      throw new ProgrammingErrorException(error, e);
+    }
+    
+    
+    String sessionId = Session.getCurrentSession().getId();
+    for(int i=0; i<layers.size(); i++)
+    {
+      Layer layer = layers.get(i);
+      String viewName = layer.getViewName();
+      
+      SavedSearch search = layer.getSavedSearch(); 
+      String xml = search.getQueryXml();
+      String config = search.getConfig();
+      String queryType = search.getQueryType();
+      
+      // QueryBuilder.getValueQuery() takes in the query class for use with reflection.
+      // TODO pass in queryType and have getValueQuery deref the class
+      String queryClass = QueryConstants.getQueryClass(queryType);
+      ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, layer);
+      
+      if(valueQuery.getCount() == 0)
+      {
+        String error = "The thematic layer doesn't contain spatial data.";
+        throw new NoEntitiesInThematicLayerException(error);        
+      }
+      
+      String sql = valueQuery.getSQL();
+
+      try
+      {
+        Database.dropView(viewName, sql, false); 
+      }
+      catch(DatabaseException e)
+      {
+        // View doesn't exist, but that's okay. It may have never
+        // been created or a cleanup task has removed it.
+      }
+      finally
+      {
+      // Create a new view that will reflect the current state of the query.
+        Database.createView(viewName, sql);
+      }
+      
+      // make sure there are no duplicate geo entities
+      String countSQL = "SELECT COUNT(*) " + Database.formatColumnAlias("ct") + " FROM " + viewName;
+      countSQL += " GROUP BY "+QueryConstants.GEO_ID_COLUMN + " HAVING COUNT(*) > 1";
+      
+      ResultSet resultSet = Database.query(countSQL);
+      
+      try
+      {
+        if(resultSet.next())
+        {
+          DuplicateMapDataException ex = new DuplicateMapDataException();
+          throw ex;
+        }
+      }
+      catch (SQLException sqlEx1)
+      {
+        Database.throwDatabaseException(sqlEx1);
+      }
+      finally
+      {
+        try
+        {
+          java.sql.Statement statement = resultSet.getStatement();
+          resultSet.close();
+          statement.close();
+        }
+        catch (SQLException sqlEx2)
+        {
+          Database.throwDatabaseException(sqlEx2);
+        }
+      }
+      
+      
+      reload(sessionId, viewName, layer.getRenderAs().get(0));
+      
+      // Update the view name on the layer so the old view can be cleaned up
+      String newViewName = Layer.GEO_VIEW_PREFIX + System.currentTimeMillis();
+      layer.appLock();
+      layer.setViewName(newViewName);     
+      layer.apply();
+      
+      String namespacedView = QueryConstants.MDSS_NAMESPACE + ":" + viewName;
+      String sldFile = formatSLD(layer);
+      
+      // Create the JSON for this layer that will be passed to OpenLayers
+      JSONObject layerJSON = new JSONObject();
+      try
+      {
+        layerJSON.put("view", namespacedView);
+        layerJSON.put("sld", sldFile);
+        layersJSON.put(layerJSON);
+        
+        if(i == 0)
+        {
+          // restrict the map bounds to the base layer
+          mapData.put("bbox", getThematicBBox(viewName));
+        }
+
+      }
+      catch (JSONException e)
+      {
+        String error = "Could not produce the information for the layer ["+layer.getLayerName()+"]";
+        throw new ProgrammingErrorException(error, e);
+      }
+
+    }
+    
+    return mapData.toString();
+  }
 
  /**
   * Formats the SLD file (pathing and filename concatenation) for the given layer.
@@ -244,7 +223,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
 
  private static final Pattern JSESSIONID_PATTERN = Pattern.compile("(?:.*?)JSESSIONID=(\\w*);.*");
 
- private static final ResourceBundle bundle = ResourceBundle.getBundle("GeoServer");
+ private static final ResourceBundle bundle = ResourceBundle.getBundle("GeoServer", Locale.getDefault(), Business.class.getClassLoader());
 
  /**
   * Returns the url to access GeoServer locally.
@@ -264,7 +243,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
    return bundle.getString("geoserver.remote.path");
  }
 
- public static void reload(String sessionId, String viewName, MdAttributeGeometry geoAttr)
+ public static void reload(String sessionId, String viewName, AllRenderTypes renderType)
  {
    try
    {
@@ -303,19 +282,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
      createPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
      createPost.addRequestHeader("Cookie", "JSESSIONID="+jSessionId);
 
-     String defaultStyle = "";
-     if(geoAttr instanceof MdAttributePoint || geoAttr instanceof MdAttributeMultiPoint)
-     {
-       defaultStyle = "point";
-     }
-     else if(geoAttr instanceof MdAttributeLineString || geoAttr instanceof MdAttributeMultiLineString)
-     {
-       defaultStyle = "line";
-     }
-     else if(geoAttr instanceof MdAttributePolygon || geoAttr instanceof MdAttributeMultiPolygon)
-     {
-       defaultStyle = "polygon";
-     }
+     String defaultStyle = renderType == AllRenderTypes.POINT ? "point" : "polygon";
 
      createPost.addParameter("panelStyleIds", defaultStyle);
      createPost.addParameter("styleId", defaultStyle);

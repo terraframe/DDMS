@@ -4,8 +4,10 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 
 public class ElseFilter extends Filter implements Reloadable
 {
+  public ElseFilter()
+  {
+  }
 
-  @Override
   protected void write(SLDWriter writer)
   {
     writer.writeln("<ElseFilter />");

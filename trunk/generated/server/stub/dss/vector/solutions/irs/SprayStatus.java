@@ -395,7 +395,7 @@ public class SprayStatus extends SprayStatusBase implements com.terraframe.mojo.
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
     JSONObject queryConfig;
     try
@@ -412,7 +412,7 @@ public class SprayStatus extends SprayStatusBase implements com.terraframe.mojo.
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, SprayData.CLASS, SprayData.GEOENTITY);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
 
     SprayStatusQuery sprayStatusQuery = (SprayStatusQuery) queryMap.get(SprayStatus.CLASS);
 

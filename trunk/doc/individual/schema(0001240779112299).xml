@@ -98,7 +98,7 @@
             required="true"
             label="Query Type"
             description="Descriptor of what query screen this search belongs to."
-            size="50" />
+            size="255" />
           <reference
             name="thematicLayer"
             type="dss.vector.solutions.query.ThematicLayer"

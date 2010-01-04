@@ -31,10 +31,8 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
                            }
                           ];
       
-      this._queryType = 'QueryResistance';
+      this._queryType = this._mainQueryClass;
 
-      this._reportQueryType = 'QueryResistance';
-      
       this.$initialize(selectableGroups, queryList);   
       
       //remove collection from exclusion classes so collection selectables will not be unchecked when switching assay types
