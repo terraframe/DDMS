@@ -49,6 +49,7 @@ import dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO;
 import dss.vector.solutions.intervention.monitor.ITNDataViewDTO;
 import dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO;
 import dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO;
+import dss.vector.solutions.intervention.monitor.ITNInstanceDTO;
 import dss.vector.solutions.intervention.monitor.ITNNetDTO;
 import dss.vector.solutions.intervention.monitor.ITNServiceDTO;
 import dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO;
@@ -56,6 +57,7 @@ import dss.vector.solutions.intervention.monitor.IndividualIPTDTO;
 import dss.vector.solutions.intervention.monitor.IndividualInstanceDTO;
 import dss.vector.solutions.intervention.monitor.LarvacideDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
+import dss.vector.solutions.intervention.monitor.SurveyedPersonDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.stock.StockEventDTO;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
@@ -119,7 +121,9 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     {
       ClientRequestIF request = this.getClientRequest();
 
+      // Available queries
       SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(request, QueryConstants.QUERY_INDICATOR_SURVEY);
+
       JSONArray queries = new JSONArray();
       for (SavedSearchViewDTO view : query.getResultSet())
       {
@@ -130,42 +134,18 @@ public class QueryController extends QueryControllerBase implements com.terrafra
         queries.put(idAndName);
       }
 
-      // 24. RDT Result (special case). Use new PersonViewDTO object
-      // as a template to get display values.
-      JSONObject rdtResult = new JSONObject();
-//      String display = new PersonViewDTO(this.getClientRequest()).getRDTResultMd().getDisplayLabel();
-//      rdtResult.put("displayLabel", display);
-//      rdtResult.put("attributeName", PersonViewDTO.RDTRESULT);
+      req.setAttribute("queryList", queries.toString());
+      JSONObject ordered = new JSONObject();
 
-//      JSONArray items = new JSONArray();
-//      rdtResult.put("items", items);
-//      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
-//      {
-//        JSONObject item = new JSONObject();
-//        item.put("displayLabel", term.getDisplayLabel());
-//        item.put("value", term.getId());
-//
-//        items.put(item);
-//      }
-//
-//      req.setAttribute("rdtResults", rdtResult.toString());
-//
-//      req.setAttribute("queryList", queries.toString());
-//
-//      JSONArray nets = new JSONArray();
-//      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
-//      {
-//        JSONObject net = new JSONObject();
-//        net.put("entityAlias", HouseholdNetDTO.CLASS + "_" + term.getId());
-//        net.put("key", HouseholdNetDTO.AMOUNT + "_" + term.getId());
-//        net.put("displayLabel", term.getDisplayLabel());
-//        net.put("attributeName", HouseholdNetDTO.AMOUNT);
-//        net.put("type", HouseholdNetDTO.CLASS);
-//
-//        nets.put(net);
-//      }
-//
-//      req.setAttribute("nets", nets.toString());
+      // Load label map for Adult Discriminating Dose Assay
+      ClassQueryDTO surveyedPerson = request.getQuery(SurveyedPersonDTO.CLASS);
+      String surveyedPersonMap = Halp.getDropDownMaps(surveyedPerson, request, ", ");
+      req.setAttribute("surveyedPersonMap", surveyedPersonMap); 
+      
+      // Load label map for Adult Discriminating Dose Assay
+      ClassQueryDTO iTNInstance = request.getQuery(ITNInstanceDTO.CLASS);
+      String itnMap = Halp.getDropDownMaps(iTNInstance, request, ", ");
+      req.setAttribute("itnMap", itnMap);
 
       req.getRequestDispatcher(QUERY_SURVEY).forward(req, resp);
     }
@@ -280,10 +260,10 @@ public class QueryController extends QueryControllerBase implements com.terrafra
 
       req.setAttribute("queryList", queries.toString());
 
-      // Age groups
       AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientRequest());
       JSONArray groups = new JSONArray();
       for (AggregatedAgeGroupDTO ageGroup : ageGroups)
+        // Age groups
       {
         JSONObject group = new JSONObject();
         group.put("id", ageGroup.getId());
