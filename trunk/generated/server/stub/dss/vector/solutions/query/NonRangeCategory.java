@@ -34,10 +34,7 @@ public class NonRangeCategory extends NonRangeCategoryBase implements com.terraf
    */
   private void checkAgainstNonRange(String exactValue, String exactValue2)
   {
-    String exactValueL = exactValue.toLowerCase();
-    String exactValue2L = exactValue2.toLowerCase();
-    
-    if(exactValueL.equals(exactValue2L))
+    if(exactValue.equals(exactValue2))
     {
       this.throwsOverlapException(exactValue, exactValue2);
     }
@@ -56,11 +53,7 @@ public class NonRangeCategory extends NonRangeCategoryBase implements com.terraf
   
   private void checkAgainstRangeStrings(String exactValue, String lowerStr, String upperStr)
   {
-    String exactValueL = exactValue.toLowerCase();
-    String lowerStrL = lowerStr.toLowerCase();
-    String upperStrL = upperStr.toLowerCase();
-    
-    if(exactValueL.compareTo(lowerStrL) >= 0 && exactValueL.compareTo(upperStrL) <= 0)
+    if(exactValue.compareTo(lowerStr) >= 0 && exactValue.compareTo(upperStr) <= 0)
     {
       this.throwsOverlapException(exactValue, lowerStr, upperStr);
     }

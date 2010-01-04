@@ -789,7 +789,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
               },
               {
                 buffer: 0,
-                opacity: 1.0,
+                opacity: baseLayer.opacity,
                 isBaseLayer: true
           });
           
@@ -811,7 +811,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
               },
               {
                 buffer: 0,
-                opacity: 0.5
+                opacity: layer.opacity
             });
       
             mapLayers.push(extraLayer);

@@ -68,16 +68,11 @@ public class RangeCategory extends RangeCategoryBase implements com.terraframe.m
   
   protected void checkAgainstRangeStrings(String lower, String upper, String lower2, String upper2)
   {
-    String lowerL = lower.toLowerCase();
-    String upperL = upper.toLowerCase();
-    String lower2L = lower2.toLowerCase();
-    String upper2L = upper2.toLowerCase();
-    
-    if(lowerL.compareTo(lower2L) >= 0 && lowerL.compareTo(upper2L) <= 0)
+    if(lower.compareTo(lower2) >= 0 && lower.compareTo(upper2) <= 0)
     {
       this.throwsOverlapException(lower, upper, lower2, upper2);
     }
-    else if(upperL.compareTo(lower2L) >= 0 && upperL.compareTo(upper2L) <= 0)
+    else if(upper.compareTo(lower2) >= 0 && upper.compareTo(upper2) <= 0)
     {
       this.throwsOverlapException(lower, upper, lower2, upper2);
     }

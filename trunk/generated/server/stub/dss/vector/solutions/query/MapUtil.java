@@ -99,13 +99,21 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       String queryClass = QueryConstants.getQueryClass(queryType);
       ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, layer);
       
-      if(valueQuery.getCount() == 0)
+      long count = valueQuery.getCount();
+      String sql = valueQuery.getSQL();
+
+      if(i == 0 && count == 0)
       {
+        // The base layer must have geo entities or geoserver bombs out
         String error = "The thematic layer doesn't contain spatial data.";
         throw new NoEntitiesInThematicLayerException(error);        
       }
+      else if(count == 0)
+      {
+        // There is nothing to map, so omit the layer
+        continue;
+      }
       
-      String sql = valueQuery.getSQL();
 
       try
       {
@@ -172,6 +180,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       {
         layerJSON.put("view", namespacedView);
         layerJSON.put("sld", sldFile);
+        layerJSON.put("opacity", layer.getOpacity());
         layersJSON.put(layerJSON);
         
         if(i == 0)

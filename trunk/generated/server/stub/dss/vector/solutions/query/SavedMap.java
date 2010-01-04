@@ -51,7 +51,9 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
     hasQ.WHERE(hasQ.parentId().EQ(this.getId()));
     layerQ.WHERE(layerQ.map(hasQ));
     
-    hasQ.ORDER_BY_ASC(hasQ.getLayerPosition());
+    layerQ.ORDER_BY_ASC(hasQ.getLayerPosition());
+    
+    String sql = layerQ.getSQL();
     
     return MapUtil.createDBViews(layerQ.getIterator().getAll()); 
   };
