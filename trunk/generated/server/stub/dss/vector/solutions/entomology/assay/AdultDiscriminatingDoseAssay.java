@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -10,7 +9,6 @@ import org.json.JSONObject;
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.database.Database;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.InnerJoin;
 import com.terraframe.mojo.query.InnerJoinEq;
@@ -20,8 +18,6 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableMoment;
 import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.query.ValueQueryCSVExporter;
-import com.terraframe.mojo.query.ValueQueryExcelExporter;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.Property;
@@ -31,8 +27,6 @@ import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.query.SavedSearch;
-import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.util.QueryUtil;
 
 public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -279,55 +273,4 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     return CollectionAssay.getCollectionResistanceSQL(assayTable, mortality, resistant.toString(), susceptible.toString(), labels);
   }
 
-  /**
-   * Queries for Mosquitos.
-   * 
-   * @param xml
-   */
-  @Transaction
-  @Authenticate
-  public static com.terraframe.mojo.query.ValueQuery queryResistance(String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
-  {
-    ValueQuery valueQuery = xmlToValueQuery(queryXML, config, null);
-
-    valueQuery.restrictRows(pageSize, pageNumber);
-
-    System.out.println(valueQuery.getSQL());
-
-    return valueQuery;
-  }
-
-  @Transaction
-  public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
-  {
-    if (savedSearchId == null || savedSearchId.trim().length() == 0)
-    {
-      String error = "Cannot export to Excel without a current SavedSearch instance.";
-      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
-      throw ex;
-    }
-
-    SavedSearch search = SavedSearch.get(savedSearchId);
-
-    ValueQuery query = xmlToValueQuery(queryXML, config, null);
-
-    ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
-    return exporter.exportStream();
-  }
-
-  @Transaction
-  public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId)
-  {
-    if (savedSearchId == null || savedSearchId.trim().length() == 0)
-    {
-      String error = "Cannot export to CSV without a current SavedSearch instance.";
-      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
-      throw ex;
-    }
-
-    ValueQuery query = xmlToValueQuery(queryXML, config, null);
-
-    ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
-    return exporter.exportStream();
-  }
 }
