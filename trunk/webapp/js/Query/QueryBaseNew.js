@@ -1396,7 +1396,14 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
          }
          if(attrib.dtoType.contains('AttributeEnumerationDTO'))
          {
-           row.attributeName += '.displayLabel.currentValue';
+        	 /* row.attributeName = attribName + '_displayLabel';
+            row.type = 'sqlcharacter';
+            row.displayLabel = attrib.attributeMdDTO.displayLabel;
+            row.key = attribName;
+            row.dtoType = "AttributeCharacterDTO";
+            return row;
+        	 */
+           //row.attributeName += '.displayLabel.currentValue';
          }
         
          row.key = attrib.attributeName + this.suffix;
@@ -1420,6 +1427,12 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
          row.displayLabel = attribName;
          row.key = attribName;
          row.dtoType = "AttributeIntegerDTO";
+         
+         if(this.obj.row)
+         {
+        	 row.type = this.obj.row.type;
+        	 row.dtoType = this.obj.row.dtoType;
+         }
 
        }
        return row;

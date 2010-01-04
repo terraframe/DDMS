@@ -1250,7 +1250,7 @@ MDSS.QueryPanel.prototype = {
     YAHOO.util.Dom.addClass(countSpan, 'resultCount');
     var max = (pageNumber * pageSize);
     if(max > count) max = count;
-    countSpan.innerHTML = " " + (((pageNumber-1) * pageSize)+1)+ "-" +max+" "+MDSS.localize('of')+" "+ count;
+    countSpan.innerHTML = " " + (((pageNumber-1) * pageSize)+1)+ "-" +max+" "+MDSS.localize('Of')+" "+ count;
     frag.appendChild(countSpan);
 
     section.appendChild(frag);
