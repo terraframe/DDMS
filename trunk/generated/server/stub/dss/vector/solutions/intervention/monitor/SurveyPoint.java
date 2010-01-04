@@ -1,6 +1,5 @@
 package dss.vector.solutions.intervention.monitor;
 
-import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,21 +10,16 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.query.ValueQueryCSVExporter;
-import com.terraframe.mojo.query.ValueQueryExcelExporter;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.query.SavedSearch;
-import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.util.QueryUtil;
 
 public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -328,60 +322,4 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
    * } catch(QueryException e) { // no precision query } }
    */
 
-  @Transaction
-  public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
-  {
-    if (savedSearchId == null || savedSearchId.trim().length() == 0)
-    {
-      String error = "Cannot export to Excel without a current SavedSearch instance.";
-      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
-      throw ex;
-    }
-
-    SavedSearch search = SavedSearch.get(savedSearchId);
-
-    ValueQuery query = xmlToValueQuery(queryXML, config, null);
-
-    ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
-    return exporter.exportStream();
-  }
-
-  @Transaction
-  public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId)
-  {
-    if (savedSearchId == null || savedSearchId.trim().length() == 0)
-    {
-      String error = "Cannot export to CSV without a current SavedSearch instance.";
-      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
-      throw ex;
-    }
-
-    ValueQuery query = xmlToValueQuery(queryXML, config, null);
-
-    ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
-
-    query.getSQL();
-    return exporter.exportStream();
-  }
-
-  /**
-   * Queries Survey points.
-   * 
-   * @param queryXML
-   * @param config
-   * @param sortBy
-   * @param ascending
-   * @param pageNumber
-   * @return
-   */
-  @Authenticate
-  public static com.terraframe.mojo.query.ValueQuery querySurvey(String xml, String config, Integer pageNumber, Integer pageSize)
-  {
-    ValueQuery valueQuery = xmlToValueQuery(xml, config, null);
-
-    valueQuery.restrictRows(pageSize, pageNumber);
-
-    String sql = valueQuery.getSQL();
-    return valueQuery;
-  }
 }
