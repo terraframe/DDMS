@@ -134,7 +134,7 @@ YAHOO.util.Event.onDOMReady(function(){
                             key:"incidence",
                             type:"sqlfloat",
                             attributeName:"incidence",
-                            dropDownMap:{'100':'1000','1,000':'1000','10,000':'10000','100,000':'100000'},
+                            dropDownMap:{'100':'100','1,000':'1000','10,000':'10000','100,000':'100000'},
                             isAggregate:true
                           },
                           {

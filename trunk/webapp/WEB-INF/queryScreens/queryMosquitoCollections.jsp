@@ -86,9 +86,42 @@ YAHOO.util.Event.onDOMReady(function(){
     subCollectionColumns =   subCollectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:subCollection, suffix:'_mc',dropDownMaps:{}});
 
 
+    subCollectionColumns = subCollectionColumns.concat([
+                                                       {
+                                                         displayLabel:"Abundance x 1",
+                                                         key:"abundance_1",
+                                                         type:"sqlfloat",
+                                                         attributeName:"abundance_1",
+                                                         isAggregate:true
+                                                       },
+                                                       {
+                                                         displayLabel:"Abundance x 10",
+                                                         key:"abundance_10",
+                                                         type:"sqlfloat",
+                                                         attributeName:"abundance_10",
+                                                         isAggregate:true
+                                                       },
+                                                       {
+                                                         displayLabel:"Abundance x 100",
+                                                         key:"abundance_100",
+                                                         type:"sqlfloat",
+                                                         attributeName:"abundance_100",
+                                                         isAggregate:true
+                                                       },
+                                                       {
+                                                         displayLabel:"Abundance x 1000",
+                                                         key:"abundance_1000",
+                                                         type:"sqlfloat",
+                                                         attributeName:"abundance_1000",
+                                                         isAggregate:true
+                                                       },
+                                                    
+                                                    ]);
+
     var selectableGroups = [
                 {title:"Collection", values:collectionColumns, group:"ipt", klass:mosquitoCollection.CLASS},
-                {title:"SubCollection", values:subCollectionColumns, group:"ipt", klass:subCollection.CLASS}
+                {title:"SubCollection", values:subCollectionColumns, group:"ipt", klass:subCollection.CLASS},
+                //{title:"Calcuations", values:subCollectionColumns, group:"ipt", klass:subCollection.CLASS}
         ];
 
     var query = new MDSS.QueryMosquitoCollections(selectableGroups, queryList);
