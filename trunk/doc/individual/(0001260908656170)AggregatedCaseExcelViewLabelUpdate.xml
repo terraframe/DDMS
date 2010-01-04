@@ -1,0 +1,23 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.export.AggregatedCaseExcelView"
+        label="Aggregated Case Excel View"
+        description="Excel View for Aggregated Cases">
+        <attributes>
+          <virtual
+            name="epiYear"
+            concrete="epiYear"
+            label="Year"
+            type="dss.vector.solutions.general.EpiDate"/>
+        </attributes>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <!-- This is only a label change.  No undo. -->
+  </undoIt>
+</version>
