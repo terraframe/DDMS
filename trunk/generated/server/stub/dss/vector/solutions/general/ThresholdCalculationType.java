@@ -201,10 +201,10 @@ public class ThresholdCalculationType extends ThresholdCalculationTypeBase imple
 			try {
 				while (it.hasNext()) {
 					GeoEntity geoEntity = it.next();
-					if ("22220033".equals(geoEntity.getGeoId())) {
-						System.out.println(geoEntity.getEntityName());
+					//if ("22220033".equals(geoEntity.getGeoId())) {
+					//	System.out.println(geoEntity.getEntityName());
 						this.calculateThresholds(geoEntity, season, startingEpiWeek, endingEpiWeek);
-					}
+					//}
 				}
 			} finally {
 				it.close();
