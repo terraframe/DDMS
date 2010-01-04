@@ -20,7 +20,6 @@ import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.session.Session;
@@ -512,8 +511,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
       String search = this.searchValue.replace(" ", "% ") + "%";
 
-      query.WHERE(OR.get(termQuery.getName().LIKEi(search), termQuery.getTermId().LIKEi(search)));
-
+      if(search.length() > 0)
+      {
+        query.WHERE(OR.get(termQuery.getName().LIKEi(search), termQuery.getTermId().LIKEi(search)));
+      }
+      
       if (this.rootQuery != null)
       {
         query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
