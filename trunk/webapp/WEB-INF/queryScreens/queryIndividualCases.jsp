@@ -130,13 +130,38 @@ YAHOO.util.Event.onDOMReady(function(){
                            isAggregate:true
                           },                       
                           {
-                            displayLabel:"Incidence (GB)",
-                            key:"incidence",
+                            displayLabel:"Incidence 100(GB)",
+                            key:"incidence_100",
                             type:"sqlfloat",
-                            attributeName:"incidence",
-                            dropDownMap:{'100':'100','1,000':'1000','10,000':'10000','100,000':'100000'},
+                            attributeName:"incidence_100",
                             isAggregate:true
                           },
+
+                          {
+                            displayLabel:"Incidence 1,000(GB)",
+                            key:"incidence_1000",
+                            type:"sqlfloat",
+                            attributeName:"incidence_1000",
+                            isAggregate:true
+                          },
+
+                          {
+                            displayLabel:"Incidence 10,000(GB)",
+                            key:"incidence_10000",
+                            type:"sqlfloat",
+                            attributeName:"incidence_10000",
+                            isAggregate:true
+                          },
+
+                          {
+                            displayLabel:"Incidence 100,000(GB)",
+                            key:"incidence_100000",
+                            type:"sqlfloat",
+                            attributeName:"incidence_100000",
+                            //dropDownMap:{'100':'100','1,000':'1000','10,000':'10000','100,000':'100000'},
+                            isAggregate:true
+                          },
+                          
                           {
                             displayLabel:"CFR (GB)",
                             key:"cfr",
