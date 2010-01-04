@@ -1,13 +1,8 @@
 package dss.vector.solutions.query;
 
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.eclipse.birt.core.framework.FrameworkException;
-
-import com.terraframe.mojo.ApplicationExceptionIF;
-import com.terraframe.mojo.MojoExceptionIF;
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
