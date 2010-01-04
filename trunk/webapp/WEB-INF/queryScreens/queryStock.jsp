@@ -127,8 +127,4 @@ YAHOO.util.Event.onDOMReady(function(){
 
 </script>
 <jsp:include page="queryContainer.jsp"></jsp:include>
-
-
-<textarea id="debug_xml" cols="40" rows="40" style="width:1280px"> </textarea>
-
 <jsp:include page="../templates/footer.jsp"></jsp:include>
