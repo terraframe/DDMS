@@ -15,27 +15,19 @@ import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
-import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectableSQLCharacter;
-import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
-import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.util.QueryUtil;
 
-public class SurveyPoint extends SurveyPointBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1239641306732L;
 
@@ -55,7 +47,7 @@ public class SurveyPoint extends SurveyPointBase implements
   @Override
   protected String buildKey()
   {
-    if(this.getGeoEntity() != null && this.getSurveyDate() != null)
+    if (this.getGeoEntity() != null && this.getSurveyDate() != null)
     {
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
 
@@ -168,10 +160,14 @@ public class SurveyPoint extends SurveyPointBase implements
       it.close();
     }
   }
-
-  @Authenticate
-  public static ValueQuery xmlToValueQuery(String xml, String config,
-      boolean includeGeometry)
+  /**
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
+   * 
+   * @param xml
+   * @return
+   */
+  public static ValueQuery xmlToValueQuery(String xml, String config, Boolean includeGeometry)
   {
     JSONObject queryConfig;
     try
@@ -183,35 +179,30 @@ public class SurveyPoint extends SurveyPointBase implements
       throw new ProgrammingErrorException(e1);
     }
 
-    String dobCriteria = getDobCriteria(queryConfig);
-
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
-        valueQuery, xml, queryConfig, includeGeometry, SurveyPoint.CLASS, SurveyPoint.GEOENTITY);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, includeGeometry, SurveyPoint.CLASS, SurveyPoint.GEOENTITY);
 
     SurveyPointQuery surveyPointQuery = (SurveyPointQuery) queryMap.get(SurveyPoint.CLASS);
+    if (surveyPointQuery != null)
+    {
+      QueryUtil.joinGeoDisplayLabels(valueQuery, SurveyPoint.CLASS, surveyPointQuery);
+    }
     HouseholdQuery householdQuery = (HouseholdQuery) queryMap.get(Household.CLASS);
-    SurveyedPersonQuery personQuery = (SurveyedPersonQuery) queryMap.get(SurveyedPerson.CLASS);
-    TermQuery termQuery = (TermQuery) queryMap.get(Term.CLASS);
-
-    if(householdQuery != null)
+    if (householdQuery != null)
     {
       valueQuery.WHERE(surveyPointQuery.households(householdQuery));
 
-      String[] houseAttributes = Term.getTermAttributes(Household.CLASS);
-      String sql = "(" + QueryUtil.getTermSubSelect(Household.CLASS, houseAttributes) + ")";
-      String subSelect = "houseTermSubSel";
-      valueQuery.AND(new InnerJoinEq("id","household",householdQuery.getTableAlias(),"id",sql,subSelect));
+      QueryUtil.joinTermAllpaths(valueQuery, Household.CLASS, householdQuery);
     }
 
-    String personTable = MdBusiness.getMdBusiness(SurveyedPerson.CLASS).getTableName();
-    if(personQuery != null)
+    SurveyedPersonQuery personQuery = (SurveyedPersonQuery) queryMap.get(SurveyedPerson.CLASS);
+    if (personQuery != null)
     {
-      if(householdQuery == null)
+      if (householdQuery == null)
       {
         householdQuery = new HouseholdQuery(queryFactory);
         valueQuery.WHERE(surveyPointQuery.households(householdQuery));
@@ -220,16 +211,15 @@ public class SurveyPoint extends SurveyPointBase implements
 
       valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
 
-
-      String[] personAttributes = Term.getTermAttributes(SurveyedPerson.CLASS);
-      String sql = "(" + QueryUtil.getTermSubSelect(SurveyedPerson.CLASS, personAttributes) + ")";
-      String subSelect = "personTermSubSel";
-      valueQuery.AND(new InnerJoinEq("id", personTable,personQuery.getTableAlias(),"id",sql,subSelect));
+      QueryUtil.joinTermAllpaths(valueQuery, SurveyedPerson.CLASS, personQuery);
     }
-
+    
     // Convert Treatments which is relationship between Surveyed Person and Term
+    /*
+    TermQuery termQuery = (TermQuery) queryMap.get(Term.CLASS);
     try
     {
+      
       SelectableSQLCharacter sel = (SelectableSQLCharacter) valueQuery.getSelectable(SurveyedPersonView.RDTRESULT);
 
       // If TermQuery exists then restrict by inner joins instead of doing left joins
@@ -255,159 +245,87 @@ public class SurveyPoint extends SurveyPointBase implements
     catch(QueryException e)
     {
       // RDTResult not included in the query
-    }
+    }*/
 
-    // Convert Person.DOB into an integer
-    try
-    {
-      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable(SurveyedPerson.DOB);
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 
-      String personTableAlias = personQuery.getTableAlias();
-      String sql = "EXTRACT(year from AGE(NOW(), "+personTableAlias+".dob))";
-      dobSel.setSQL(sql);
+    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
 
-      // Check for equals or range criteria on Person.DOB
-      if(dobCriteria != null)
-      {
-        if(dobCriteria.contains("-"))
-        {
-          String[] range = dobCriteria.split("-");
-          if(range.length == 2)
-          {
-            String range1 = range[0];
-            String range2 = range[1];
-            if(range1.length() > 0)
-            {
-              valueQuery.WHERE(dobSel.GE(range1));
-            }
+    QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
-            if(range2.length() > 0)
-            {
-              valueQuery.WHERE(dobSel.LE(range2));
-            }
-          }
-          else
-          {
-            // Just the GE criteria was specified (e.g., "7-")
-            valueQuery.WHERE(dobSel.GE(range[0]));
-          }
-        }
-        else
-        {
-          // exact value
-          valueQuery.WHERE(dobSel.EQ(dobCriteria));
-        }
-      }
-    }
-    catch(QueryException e)
-    {
-      // Person.DOB not included in query.
-    }
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    
 
-    QueryUtil.setQueryDates(xml, valueQuery, surveyPointQuery.getSurveyDate());
 
     // Add net selectables
-    for(String entityAlias : queryMap.keySet())
+    for (String entityAlias : queryMap.keySet())
     {
-//      if(entityAlias.startsWith(HouseholdNet.CLASS))
-//      {
-//        if(householdQuery == null)
-//        {
-//          householdQuery = new HouseholdQuery(queryFactory);
-//          valueQuery.WHERE(surveyPointQuery.households(householdQuery));
-//          valueQuery.FROM(householdQuery);
-//        }
-//
-//        TermQuery termNetQuery = new TermQuery(queryFactory);
-//
-//        String termId = entityAlias.substring(entityAlias.indexOf("_")+1);
-//
-//        HouseholdNetQuery householdNetQuery = (HouseholdNetQuery) queryMap.get(entityAlias);
-//
-//        valueQuery.AND(householdQuery.nets(householdNetQuery));
-//        valueQuery.AND(householdNetQuery.hasChild(termNetQuery));
-//        valueQuery.AND(termNetQuery.getId().EQ(termId));
-//      }
+      // if(entityAlias.startsWith(HouseholdNet.CLASS))
+      // {
+      // if(householdQuery == null)
+      // {
+      // householdQuery = new HouseholdQuery(queryFactory);
+      // valueQuery.WHERE(surveyPointQuery.households(householdQuery));
+      // valueQuery.FROM(householdQuery);
+      // }
+      //
+      // TermQuery termNetQuery = new TermQuery(queryFactory);
+      //
+      // String termId = entityAlias.substring(entityAlias.indexOf("_")+1);
+      //
+      // HouseholdNetQuery householdNetQuery = (HouseholdNetQuery)
+      // queryMap.get(entityAlias);
+      //
+      // valueQuery.AND(householdQuery.nets(householdNetQuery));
+      // valueQuery.AND(householdNetQuery.hasChild(termNetQuery));
+      // valueQuery.AND(termNetQuery.getId().EQ(termId));
+      // }
     }
 
-   /*
-    // Default prevalence
-    addPrevalenceColumn("prevalence", valueQuery, personQuery, null);
-
-    // specific prevalences
-    for(RDTResult result : RDTResult.values())
-    {
-      addPrevalenceColumn("prevalence_"+result.getId(), valueQuery, personQuery, result);
-    }
-    */
+    /*
+     * // Default prevalence addPrevalenceColumn("prevalence", valueQuery,
+     * personQuery, null);
+     * 
+     * // specific prevalences for(RDTResult result : RDTResult.values()) {
+     * addPrevalenceColumn("prevalence_"+result.getId(), valueQuery,
+     * personQuery, result); }
+     */
 
     return valueQuery;
   }
 
-  private static String getDobCriteria(JSONObject config)
-  {
-    String dobCriteriaKey = "dobCriteria";
-    if(config.has(dobCriteriaKey) && !config.isNull(dobCriteriaKey))
-    {
-      try
-      {
-        return config.getString(dobCriteriaKey);
-      }
-      catch (JSONException e)
-      {
-        throw new ProgrammingErrorException(e);
-      }
-    }
-    else
-    {
-      return null;
-    }
-  }
-
-  /* FIXME check with Marlize/Miguel on proper implementation
-  private static void addPrevalenceColumn(String prevalenceSel, ValueQuery valueQuery, PersonQuery personQuery, RDTResult rdtResult)
-  {
-    try
-    {
-      SelectableSQLDouble prevalence = (SelectableSQLDouble) valueQuery.getSelectable(prevalenceSel);
-
-      // shorten the column alias to avoid truncation.
-      if(rdtResult != null)
-      {
-        prevalence.setColumnAlias(rdtResult.name());
-      }
-
-      ValueQuery innerVQ = new ValueQuery(valueQuery.getQueryFactory());
-
-      PersonQuery prevalencePQ = new PersonQuery(valueQuery.getQueryFactory()); // PersonQuery for Prevalence
-
-      // total tested
-      Condition or = OR.get(prevalencePQ.getPerformedRDT().containsAny(RDTResponse.YES),
-          prevalencePQ.getBloodslide().containsAny(BloodslideResponse.DONE));
-      prevalencePQ.WHERE(or);
-
-      // total positive
-      if(rdtResult != null)
-      {
-        prevalencePQ.AND(prevalencePQ.getRDTResult().containsAny(rdtResult));
-      }
-      else
-      {
-        prevalencePQ.AND(prevalencePQ.getRDTResult().containsAny(RDTResult.MALARIAE_POSITIVE, RDTResult.MIXED_POSITIVE,
-          RDTResult.OVALE_POSITIVE, RDTResult.PF_POSITIVE, RDTResult.VIVAX_POSITIVE));
-      }
-
-      innerVQ.SELECT(F.COUNT(prevalencePQ.getId()));
-
-      prevalence.setSQL("100 * AVG( ("+innerVQ.getSQL()+" AND "+prevalencePQ.getTableAlias()+".id = "+personQuery.getTableAlias()+".id))");
-
-    }
-    catch(QueryException e)
-    {
-      // no precision query
-    }
-  }
-  */
+  /*
+   * FIXME check with Marlize/Miguel on proper implementation private static
+   * void addPrevalenceColumn(String prevalenceSel, ValueQuery valueQuery,
+   * PersonQuery personQuery, RDTResult rdtResult) { try { SelectableSQLDouble
+   * prevalence = (SelectableSQLDouble) valueQuery.getSelectable(prevalenceSel);
+   * 
+   * // shorten the column alias to avoid truncation. if(rdtResult != null) {
+   * prevalence.setColumnAlias(rdtResult.name()); }
+   * 
+   * ValueQuery innerVQ = new ValueQuery(valueQuery.getQueryFactory());
+   * 
+   * PersonQuery prevalencePQ = new PersonQuery(valueQuery.getQueryFactory());
+   * // PersonQuery for Prevalence
+   * 
+   * // total tested Condition or =
+   * OR.get(prevalencePQ.getPerformedRDT().containsAny(RDTResponse.YES),
+   * prevalencePQ.getBloodslide().containsAny(BloodslideResponse.DONE));
+   * prevalencePQ.WHERE(or);
+   * 
+   * // total positive if(rdtResult != null) {
+   * prevalencePQ.AND(prevalencePQ.getRDTResult().containsAny(rdtResult)); }
+   * else {prevalencePQ.AND(prevalencePQ.getRDTResult().containsAny(RDTResult.
+   * MALARIAE_POSITIVE, RDTResult.MIXED_POSITIVE, RDTResult.OVALE_POSITIVE,
+   * RDTResult.PF_POSITIVE, RDTResult.VIVAX_POSITIVE)); }
+   * 
+   * innerVQ.SELECT(F.COUNT(prevalencePQ.getId()));
+   * 
+   * prevalence.setSQL("100 * AVG( ("+innerVQ.getSQL()+" AND "+prevalencePQ.
+   * getTableAlias()+".id = "+personQuery.getTableAlias()+".id))");
+   * 
+   * } catch(QueryException e) { // no precision query } }
+   */
 
   @Transaction
   public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
@@ -441,14 +359,13 @@ public class SurveyPoint extends SurveyPointBase implements
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
 
-
     query.getSQL();
     return exporter.exportStream();
   }
 
   /**
    * Queries Survey points.
-   *
+   * 
    * @param queryXML
    * @param config
    * @param sortBy
@@ -457,8 +374,7 @@ public class SurveyPoint extends SurveyPointBase implements
    * @return
    */
   @Authenticate
-  public static com.terraframe.mojo.query.ValueQuery querySurvey(String xml, String config,
-      Integer pageNumber, Integer pageSize)
+  public static com.terraframe.mojo.query.ValueQuery querySurvey(String xml, String config, Integer pageNumber, Integer pageSize)
   {
     ValueQuery valueQuery = xmlToValueQuery(xml, config, false);
 
