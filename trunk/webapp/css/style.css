@@ -666,6 +666,13 @@ div.scrollable {
   cursor: pointer;
 }
 
+#paginationSection .resultCount
+{
+  float: right;
+  margin-right: 5px;
+}
+
+
 #paginationSection .currentPage
 {
   text-decoration: underline;
