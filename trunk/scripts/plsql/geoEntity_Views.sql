@@ -61,21 +61,25 @@ from recursive_rollup  ;
 /*
  * Get the popluation or cacluate it if it is not available. 
  */
-CREATE OR REPLACE FUNCTION get_population
+CREATE OR REPLACE FUNCTION get_adjusted_population
 (
   _geoEntityId         VARCHAR,
-  _year             INT
+  _year             INT,
+  _middleDay INT
 )
 RETURNS FLOAT AS $$
 
 DECLARE
   _population                FLOAT;
   _sql VARCHAR;
-  rec record;
+   rec record;
   _prevYear INT;
   _growth FLOAT;
   _childCount FLOAT; 
+  _percentageAdjustment FLOAT;
 BEGIN
+
+  _percentageAdjustment = (_middleDay/183);
 
   SELECT population , yearofdata, growthrate FROM populationdata pd 
     WHERE pd.yearofdata  <= _year AND pd.geoentity = _geoEntityId 
@@ -85,7 +89,11 @@ BEGIN
     
     IF _population IS NOT NULL THEN
       WHILE _prevYear < _year LOOP
-        _population := _population + (_population * _growth);
+        IF _prevYear = _year - 1  THEN
+           _population := _population + (_population * (_growth * _percentageAdjustment ));
+        ELSE
+           _population := _population + (_population * _growth);
+        END IF;
         _prevYear := _prevYear + 1;
       END LOOP;
     ELSE
@@ -100,7 +108,7 @@ BEGIN
 	      
 	      _sql := 'SELECT child_id  FROM locatedin WHERE parent_id = ' || quote_literal(_geoEntityId);
 	      FOR  rec IN EXECUTE _sql LOOP
-		    _population = _population + get_population(rec.child_id, _year);
+		    _population = _population + get_adjusted_population(rec.child_id, _year,_middleDay);
 	      END LOOP;
        END IF;
     END IF;
@@ -108,3 +116,69 @@ BEGIN
     RETURN _population;
 END;
 $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_yearly_population_by_geoid_and_date
+(
+  _geoId         VARCHAR,
+  _date             DATE
+)
+RETURNS FLOAT AS $$
+
+DECLARE
+  _population      FLOAT;
+  _geoEntityId  VARCHAR;
+  _year             INT;
+BEGIN
+
+  SELECT id FROM geoentity WHERE geoid = _geoId
+    INTO _geoEntityId;
+
+   _year := EXTRACT(year FROM _date);
+
+  SELECT get_adjusted_population(_geoEntityId, _year,183)
+    INTO _population;
+    
+    RETURN _population;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+CREATE OR REPLACE FUNCTION get_seasonal_population_by_geoid_and_date
+(
+  _geoId         VARCHAR,
+  _date      DATE
+)
+RETURNS FLOAT AS $$
+
+DECLARE
+  _population                FLOAT;
+  _geoEntityId  VARCHAR;
+  _year             INT;
+  _seasonStart DATE;
+  _seasonMiddle DATE;
+  _seasonEnd DATE;
+  _middleDay INT;
+BEGIN
+
+  SELECT id FROM geoentity WHERE geoid = _geoId
+    INTO _geoEntityId;
+
+  SELECT startdate,enddate FROM malariaseason AS ms  WHERE ms.startDate <= _date AND ms.endDate >= _date
+    INTO _seasonStart, _seasonEnd;
+  
+  _seasonMiddle := _seasonStart + ((_seasonEnd - _seasonStart)/2);
+
+  _middleDay := EXTRACT(doy FROM _seasonMiddle);
+
+  _year := EXTRACT(year FROM _seasonMiddle);
+ 
+  SELECT get_adjusted_population(_geoEntityId, _year, _middleDay)
+    INTO _population;
+    
+    RETURN _population;
+END;
+$$ LANGUAGE plpgsql;
+
+--select get_yearly_population_by_geoid_and_date('22002',  '2010-01-01'::DATE)
+--select get_seasonal_population_by_geoid_and_date('22002',  '2010-01-01'::DATE)
