@@ -80,20 +80,56 @@ YAHOO.util.Event.onDOMReady(function(){
     var collectionAttribs = ["collectionId","collectionMethod","geoEntity","collectionDate","lifeStage","abundance"];
     collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_collection',dropDownMaps:collectionMaps});
 
+
     var infectionMaps = {<%=(String) request.getAttribute("infectionMaps")%>};
     var infectionAssay = new dss.vector.solutions.entomology.InfectionAssay;
     var infectionAttribs = ["mosquitoId","species","identMethod","sex","parasite","testMethod","infected","numberTested","numberPositive"];
     infectionColumns =   infectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:infectionAssay, suffix:'_infection',dropDownMaps:infectionMaps});
+
+    infectionColumns = infectionColumns.concat([
+                                                      {
+                                                         displayLabel:"% Prevalence",
+                                                         key:"prevalence",
+                                                         type:"sqlfloat",
+                                                         attributeName:"prevalence",
+                                                         isAggregate:true
+                                                       },
+                                                      
+                                                    ]);
 
     var pooledInfectionMaps = {<%=(String) request.getAttribute("pooledInfectionMaps")%>};
     var pooledInfectionAssay = new dss.vector.solutions.entomology.PooledInfectionAssay;
     var pooledInfectionAttribs = ["poolId","species","identMethod","sex","parasite","testMethod","infected","mosquitosTested","poolsTested","numberPositive"];
     pooledInfectionColumns =   pooledInfectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:pooledInfectionAssay, suffix:'_pooledInfection',dropDownMaps:pooledInfectionMaps});
 
+
+    pooledInfectionColumns = pooledInfectionColumns.concat([
+                                                {
+                                                   displayLabel:"% Mininum Prevalence",
+                                                   key:"minPrevalence",
+                                                   type:"sqlfloat",
+                                                   attributeName:"minPrevalence",
+                                                   isAggregate:true
+                                                 },
+                                                
+                                              ]);
+
+    
     var biochemicalMaps = {<%=(String) request.getAttribute("biochemicalMaps")%>};
     var biochemicalAssay = new dss.vector.solutions.entomology.BiochemicalAssay;
     var biochemicalAttribs = ["mosquitoId","species","identMethod","sex","generation","isofemale","numberTested","numberElevated"];
     biochemicalColumns =   biochemicalAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:biochemicalAssay, suffix:'_biochemical',dropDownMaps:biochemicalMaps});
+
+    biochemicalColumns = biochemicalColumns.concat([
+                                                        {
+                                                           displayLabel:"% Elevated",
+                                                           key:"elevated",
+                                                           type:"sqlfloat",
+                                                           attributeName:"elevated",
+                                                           isAggregate:true
+                                                         },
+                                                        
+                                                      ]);
 
     var molecularMaps = {<%=(String) request.getAttribute("molecularMaps")%>};
     var molecularAssay = new dss.vector.solutions.entomology.MolecularAssay;
@@ -101,6 +137,47 @@ YAHOO.util.Event.onDOMReady(function(){
     var molecularAttribs = ["mosquitoId","species","identMethod","sex","generation","isofemale","assayMethod","target","numberRR","numberRS","numberSS"];
     molecularColumns =   molecularAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:molecularAssay, suffix:'_molecular',dropDownMaps:molecularMaps});
 
+
+    molecularColumns = molecularColumns.concat([
+                                                      {
+                                                         displayLabel:"% RR",
+                                                         key:"percentRR",
+                                                         type:"sqlfloat",
+                                                         attributeName:"percentRR",
+                                                         isAggregate:true
+                                                       },
+                                                       {
+                                                         displayLabel:"% RS",
+                                                         key:"percentRS",
+                                                         type:"sqlfloat",
+                                                         attributeName:"percentRS",
+                                                         isAggregate:true
+                                                       },
+                                                       {
+                                                         displayLabel:"% SS",
+                                                         key:"percentSS",
+                                                         type:"sqlfloat",
+                                                         attributeName:"percentSS",
+                                                         isAggregate:true
+                                                       },
+                                                       {
+                                                         displayLabel:"% R Frequency",
+                                                         key:"frequencyR",
+                                                         type:"sqlfloat",
+                                                         attributeName:"frequencyR",
+                                                         isAggregate:true
+                                                       },
+                                                       {
+                                                         displayLabel:"% S Frequency",
+                                                         key:"frequencyS",
+                                                         type:"sqlfloat",
+                                                         attributeName:"frequencyS",
+                                                         isAggregate:true
+                                                       },
+                                                      
+                                                    ]);
+
+    
     var selectableGroups = [
                 {title:"Collection", values:collectionColumns, group:"collection", klass:mosquitoCollection.CLASS},
                 {title:"Infection_Assay", values:infectionColumns, group:"infection", klass:infectionAssay.CLASS},
