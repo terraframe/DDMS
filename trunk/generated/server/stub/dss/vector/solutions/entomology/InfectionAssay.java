@@ -9,6 +9,7 @@ import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.Property;
@@ -141,6 +142,13 @@ public class InfectionAssay extends InfectionAssayBase implements com.terraframe
     {
       valueQuery.WHERE(infectionQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
       QueryUtil.joinTermAllpaths(valueQuery, InfectionAssay.CLASS, infectionQuery);
+      
+      if(xml.indexOf(">prevalence<") > 0)
+      {
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("prevalence");
+        s.setSQL("100.0 * SUM(numberPositive) / SUM(numberTested)");
+      }
+      
     }
 
     PooledInfectionAssayQuery pooledInfectionQuery = (PooledInfectionAssayQuery) queryMap.get(PooledInfectionAssay.CLASS);
@@ -148,6 +156,12 @@ public class InfectionAssay extends InfectionAssayBase implements com.terraframe
     {
       valueQuery.WHERE(pooledInfectionQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
       QueryUtil.joinTermAllpaths(valueQuery, PooledInfectionAssay.CLASS, pooledInfectionQuery);
+      
+      if(xml.indexOf(">minPrevalence<") > 0)
+      {
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("minPrevalence");
+        s.setSQL("100.0 * SUM(numberPositive) / SUM(poolsTested)");
+      }
     }
     
     MolecularAssayQuery molecularQuery = (MolecularAssayQuery) queryMap.get(MolecularAssay.CLASS);
@@ -155,6 +169,32 @@ public class InfectionAssay extends InfectionAssayBase implements com.terraframe
     {
       valueQuery.WHERE(molecularQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
       QueryUtil.joinTermAllpaths(valueQuery, MolecularAssay.CLASS, molecularQuery);
+      
+      if(xml.indexOf(">percentRR<") > 0)
+      {
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("percentRR");
+        s.setSQL("100.0 * SUM(numberrr) / SUM(numberrr+numberrs+numberss)");
+      }
+      if(xml.indexOf(">percentRS<") > 0)
+      {
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("percentRS");
+        s.setSQL("100.0 * SUM(numberrs) / SUM(numberrr+numberrs+numberss)");
+      }
+      if(xml.indexOf(">percentSS<") > 0)
+      {
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("percentSS");
+        s.setSQL("100.0 * SUM(numberss) / SUM(numberrr+numberrs+numberss)");
+      }
+      if(xml.indexOf(">frequencyR<") > 0)
+      {
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("frequencyR");
+        s.setSQL("100.0 * (SUM(numberrr +(0.5*numberrs) ) ) / SUM(numberrr+numberrs+numberss)");
+      }
+      if(xml.indexOf(">frequencyS<") > 0)
+      {
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("frequencyS");
+        s.setSQL("100.0 * (SUM(numberss +(0.5*numberrs) ) ) / SUM(numberrr+numberrs+numberss)");
+      }
     }
     
     BiochemicalAssayQuery biochemicalQuery = (BiochemicalAssayQuery) queryMap.get(BiochemicalAssay.CLASS);
@@ -162,6 +202,12 @@ public class InfectionAssay extends InfectionAssayBase implements com.terraframe
     {
       valueQuery.WHERE(biochemicalQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
       QueryUtil.joinTermAllpaths(valueQuery, BiochemicalAssay.CLASS, biochemicalQuery);
+      
+      if(xml.indexOf(">elevated<") > 0)
+      {
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("elevated");
+        s.setSQL("100.0 * SUM(numberElevated) / SUM(numberTested)");
+      }
     }
     
 
