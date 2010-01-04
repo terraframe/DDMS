@@ -142,8 +142,6 @@
   </doIt>
   <undoIt>
     <delete>
-    <!-- 
-     -->
       <object
         key="dss.vector.solutions.intervetion.monitor.LarvacideAssociation"
         type="com.terraframe.mojo.system.metadata.MdRelationship"/>

@@ -167,8 +167,6 @@
   </doIt>
   <undoIt>
     <delete>
-    <!--
-    -->
       <object
         key="dss.vector.solutions.export.SurveyExcelView.hasBeenSprayed"
         type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>

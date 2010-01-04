@@ -92,8 +92,6 @@
   </doIt>
   <undoIt>
     <delete>
-    <!-- 
-     -->
       <object
         key="dss.vector.solutions.export.InfectionAssayExcelView"
         type="com.terraframe.mojo.system.metadata.MdView" />

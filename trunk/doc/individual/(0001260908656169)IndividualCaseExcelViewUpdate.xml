@@ -20,14 +20,12 @@
   </doIt>
   <undoIt>
     <delete>
-      <!-- 
       <object
         key="dss.vector.solutions.export.IndividualCaseExcelView.residence"
         type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.IndividualCaseExcelView.workplace"
         type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
-      -->
     </delete>
   </undoIt>
 </version>

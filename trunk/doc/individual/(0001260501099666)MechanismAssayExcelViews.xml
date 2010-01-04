@@ -96,14 +96,12 @@
   </doIt>
   <undoIt>
     <delete>
-    <!-- 
       <object
         key="dss.vector.solutions.export.BiochemicalAssayExcelView"
         type="com.terraframe.mojo.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.export.MolecularAssayExcelView"
         type="com.terraframe.mojo.system.metadata.MdView" />
-     -->
     </delete>
   </undoIt>
 </version>

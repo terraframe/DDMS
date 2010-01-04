@@ -64,11 +64,9 @@
   </doIt>
   <undoIt>
     <delete>
-    <!-- 
       <object
         key="dss.vector.solutions.export.MosquitoCollectionExcelView"
         type="com.terraframe.mojo.system.metadata.MdView" />
-     -->
     </delete>
   </undoIt>
 </version>

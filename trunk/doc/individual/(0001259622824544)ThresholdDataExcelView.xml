@@ -343,11 +343,9 @@
   </doIt>
   <undoIt>
     <delete>
-    <!-- 
       <object
         key="dss.vector.solutions.export.ThresholdDataExcelView"
         type="com.terraframe.mojo.system.metadata.MdView" />
-     -->
     </delete>
   </undoIt>
 </version>

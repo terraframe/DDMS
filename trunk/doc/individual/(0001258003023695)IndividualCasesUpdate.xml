@@ -285,8 +285,6 @@
   </doIt>
   <undoIt>
     <delete>
-    <!--
-    -->
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance.getSymptoms"
         type="com.terraframe.mojo.system.metadata.MdMethod" />
@@ -389,8 +387,6 @@
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstanceController.createWithCase"
         type="com.terraframe.mojo.system.metadata.MdAction" />
-    <!-- 
-     -->
     </delete>
   </undoIt>
 </version>
