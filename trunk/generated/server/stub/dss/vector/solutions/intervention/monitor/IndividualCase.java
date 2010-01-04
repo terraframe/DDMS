@@ -43,6 +43,7 @@ import dss.vector.solutions.util.QueryUtil;
 public class IndividualCase extends IndividualCaseBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1254360073722L;
+  private static String timePeriod;
 
   public IndividualCase()
   {
@@ -406,17 +407,25 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
 
         }
       }
-      //dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__country_geoId
-      Selectable s = valueQuery.getSelectable(geoType);
-      ValueQuery q = (ValueQuery) s.getRootQuery();
-      Selectable id = q.getSelectable("child_id");
+      //dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
       
-      String columnAlias = id.getColumnAlias();
+      Integer multiplier = 10000;
+      
+      String timePeriod = "yearly";
+      
+      if(xml.indexOf("season")>0)
+      {
+        timePeriod = "seasonal";
+      }
+      
+      Selectable s = valueQuery.getSelectable(geoType);
+      
+      String columnAlias = s.getQualifiedName();
       
       String tableAlias = caseQuery.getTableAlias();
       String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
-      String sql = "SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii.individualcase = " + tableAlias + ".id)) /";
-      sql = " AVG(get_population("+columnAlias+", EXTRACT(year FROM caseReportDate)::int ))";
+      String sql = "(SUM(1.0/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii.individualcase = " + tableAlias + ".id))/";
+      sql += " AVG(get_"+timePeriod+"_population_by_geoid_and_date("+columnAlias+", caseReportDate)))*"+multiplier;
 
       calc.setSQL(sql);
     }
