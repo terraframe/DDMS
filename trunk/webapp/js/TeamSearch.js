@@ -931,6 +931,12 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
         }
       }
     },
+    
+    forceSearch : function() {
+      var value = this.getValue();
+      
+      this.performSearch(value);
+    },
       
     performSearch : function(value) {              
       var parameters = this.getParameters();
@@ -1083,7 +1089,7 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
 
       var search = new MDSS.GenericSearch(element, null, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler, {minLength:0});
 
-      YAHOO.util.Event.on(element, 'focus', search.performSearch, search, search);
+      YAHOO.util.Event.on(element, 'focus', search.forceSearch, search, search);
       
       return search;
     }
