@@ -5,7 +5,7 @@
     <create>
       <mdBusiness
         name="dss.vector.solutions.general.ThresholdData"
-        label="Population Data"
+        label="Threshold"
         generateController="false"
         description="Population data for a geo entity on a given year">
         <attributes>
@@ -40,7 +40,7 @@
       </mdBusiness>
       <mdView
         name="dss.vector.solutions.general.ThresholdDataView"
-        label="Population Data">
+        label="Threshold">
         <attributes>
           <char
             name="concreteId"
