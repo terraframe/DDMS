@@ -46,6 +46,7 @@ import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.GeneratedViewQuery;
+import com.terraframe.mojo.query.LeftJoinEq;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
@@ -84,6 +85,7 @@ import dss.vector.solutions.geo.NoCompatibleTypesException;
 import dss.vector.solutions.geo.SearchParameter;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
+import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.util.GeoEntityImporter;
 import dss.vector.solutions.util.GeometryHelper;
 import dss.vector.solutions.util.MDSSProperties;
@@ -320,13 +322,19 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
    * @param filter[..] = extra universals
    * @return
    */
+  /**
+   * @param value
+   * @param filter
+   * @return
+   */
   public static ValueQuery searchByParameters(String value, String[] filter)
   {
-    QueryFactory f = new QueryFactory();
+    QueryFactory factory = new QueryFactory();
     
-    MdBusinessQuery mdQ = new MdBusinessQuery(f);
-    GeoEntityQuery q = new GeoEntityQuery(f);
-    TermQuery tq = new TermQuery(f);
+    ValueQuery valueQuery = new ValueQuery(factory);    
+    MdBusinessQuery mdQ = new MdBusinessQuery(valueQuery);
+    GeoEntityQuery q = new GeoEntityQuery(valueQuery);
+    TermQuery tq = new TermQuery(valueQuery);
     
     boolean political = Boolean.parseBoolean(filter[0]);
     boolean populated = Boolean.parseBoolean(filter[1]);
@@ -335,7 +343,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, false, false);    
     GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
     
-    Selectable[] selectables = new Selectable[] { 
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] { 
         q.getId(GeoEntity.ID),
         q.getEntityName(GeoEntity.ENTITYNAME),
         q.getGeoId(GeoEntity.GEOID),
@@ -374,20 +382,21 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       }      
     }
 
-    ValueQuery valueQuery = new ValueQuery(f);
-    valueQuery.SELECT(selectables);
+//    valueQuery.SELECT(selectables);
 
-    String searchable = value.replace(" ", "% ") + "%";
+    String[] searchable = value.split(" ");
 
-    Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
-    Condition and = AND.get(or, condition);
+//    String searchable = value.replace(" ", "% ") + "%";
 
-    valueQuery.WHERE(and);
-    valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
-    valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
+//    Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
+        
+    Condition[] conditions = new Condition[] {condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType())};
+    LeftJoinEq[] joins = new LeftJoinEq[] {q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId"))};   
     
-    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(GeoEntity.ENTITYNAME));
-    valueQuery.restrictRows(20, 1);
+    QueryBuilder.textLookup(valueQuery, factory, searchable, selectables, conditions, joins);
+    
+//    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(GeoEntity.ENTITYNAME));
+//    valueQuery.restrictRows(20, 1);
 
     return valueQuery;    
   }
@@ -911,6 +920,34 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   public GeoEntityQuery getFamily(QueryFactory factory, SearchParameter parameter)
   {
     return parameter.getGeoEntityQuery(factory, this);
+  }
+  
+  public List<GeoEntity> getFacilityChildren()
+  {
+    QueryFactory factory = new QueryFactory();
+    
+    AllPathsQuery pathsQuery = new AllPathsQuery(factory);
+    GeoEntityQuery entityQuery = new GeoEntityQuery(factory);
+
+    MdClass mdClass = MdClass.getMdClass(HealthFacility.CLASS);
+    
+    Condition condition = pathsQuery.getChildUniversal().EQ(mdClass);
+    condition = AND.get(condition, pathsQuery.getParentGeoEntity().EQ(this));
+    
+    pathsQuery.WHERE(condition);
+    
+    entityQuery.WHERE(entityQuery.getId().EQ(pathsQuery.getChildGeoEntity().getId()));
+
+    OIterator<? extends GeoEntity> it = entityQuery.getIterator();
+    
+    try
+    {
+      return new LinkedList<GeoEntity>(it.getAll());
+    }
+    finally
+    {
+      it.close();
+    }
   }
 
   /**
@@ -2086,5 +2123,4 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       }
     }
   }
-
 }
