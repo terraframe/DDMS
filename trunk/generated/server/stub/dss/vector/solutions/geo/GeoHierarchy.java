@@ -55,6 +55,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.MissingMOtoGeoUniversalMapping;
 import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.util.UniversalSearchHelper;
 
 public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -71,7 +72,24 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     super();
   }
 
-  /**
+	@Override
+	public void delete() {
+		super.delete();
+		UniversalSearchHelper helper = new UniversalSearchHelper();
+		helper.deleteSearch(this);
+	}
+
+	@Override
+	public void apply() {
+		boolean isNew = this.isNew();
+		super.apply();
+		if (isNew) {
+			UniversalSearchHelper helper = new UniversalSearchHelper();
+			helper.createSearch(this);
+		}
+	}
+
+/**
    * Returns the {@link GeoHierarchyView} that represents Earth.
    * 
    * @return
