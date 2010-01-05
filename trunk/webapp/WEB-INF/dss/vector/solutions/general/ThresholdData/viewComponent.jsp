@@ -78,21 +78,21 @@ String deleteColumn = "";
     <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
 
     var thresholdValidator = function (oData) {
-        if(oData === "")
-        {
-            return oData;
-        }
+      if(oData === "")
+      {
+        return oData;
+      }
 
-        var value = 1 * oData;
+      var value = 1 * oData;
         
-        if(Mojo.Util.isNumber(value)) {
-            if(value > 0) {
-                return oData;
-            }                
-        }
+      if(Mojo.Util.isNumber(value)) {
+        if(value > 0) {
+          return oData;
+        }                
+      }
 
-        alert(MDSS.localize("Value_Not_Greater_Than_0"));
-        return undefined;
+      alert(MDSS.localize("Value_Not_Greater_Than_0"));
+      return undefined;
     }
 
     var data = {

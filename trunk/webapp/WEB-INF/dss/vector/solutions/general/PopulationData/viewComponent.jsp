@@ -38,7 +38,7 @@ String deleteColumn = "";
     </label>
   </dt>
   <dd>
-     ${item.entityLabel} - ${item.geoEntity} 
+     ${entity.displayString} 
   </dd>
   <dt>
     <label>
@@ -62,16 +62,18 @@ String deleteColumn = "";
 <%=Halp.loadTypes(Arrays.asList(new String[]{PopulationDataViewDTO.CLASS, PopulationDataController.CLASS}))%>
 <%
 ColumnSetup population = new ColumnSetup(false, true);
-population.setSum(true);
+population.setSum(view.getPopulationType());
 
 Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
 map.put("ConcreteId", new ColumnSetup(true, false));
 map.put("GeoEntity", new ColumnSetup(true, false));
 map.put("YearOfData", new ColumnSetup(true, false));
+map.put("PopulationType", new ColumnSetup(true, false));
 map.put("EntityLabel", new ColumnSetup(false, false));
 map.put("Population", population);
 map.put("GrowthRate", new ColumnSetup(false, true));
 map.put("Estimated", new ColumnSetup(true, false));
+
 %>
 
 <script type="text/javascript">
@@ -79,7 +81,9 @@ map.put("Estimated", new ColumnSetup(true, false));
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
     <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
-        
+
+    var populationType = <%=view.getPopulationType()%>;
+    
     var data = {
       rows:<%=Halp.getDataMap(rows, attributes, view)%>,
       columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
@@ -89,13 +93,14 @@ map.put("Estimated", new ColumnSetup(true, false));
       saveFunction:"applyAll",
       excelButtons:false,
       addButton:false,
-      after_row_load:function(record){
-        if(record.getCount() < (data.rows.length - 1))
+      after_row_load:function(record){          
+        if(populationType == true && record.getCount() < (data.rows.length - 1))
         {
         	var str = '<form method = "post"';
           str += ' id="'+record.getData('GeoEntity')+'">';
           str += '<input type="hidden" name="geoId" value="'+record.getData('GeoEntity')+'"/>';
           str += '<input type="hidden" name="yearOfData" value="'+record.getData('YearOfData')+'"/>';
+          str += '<input type="hidden" name="populationType" value="true"/>';
           str += " <a href=\"#\" onclick=\"document.getElementById('"+record.getData('GeoEntity')+"').submit();\">";
           str += record.getData('EntityLabel')+'</a></form>';
           data.myDataTable.updateCell(record, 'EntityLabel', str);

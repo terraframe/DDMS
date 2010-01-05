@@ -17,6 +17,7 @@ import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.irs.RequiredGeoIdProblemDTO;
 import dss.vector.solutions.surveillance.RequiredYearProblemDTO;
 import dss.vector.solutions.util.ErrorUtility;
@@ -49,6 +50,7 @@ public class PopulationDataController extends PopulationDataControllerBase imple
 
       new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "search");
 
+      req.setAttribute("item", new PopulationDataViewDTO(this.getClientRequest()));
       render("searchComponent.jsp");
     }
   }
@@ -61,7 +63,7 @@ public class PopulationDataController extends PopulationDataControllerBase imple
   }
 
   @Override
-  public void searchForPopulationData(String geoId, Integer yearOfData) throws IOException, ServletException
+  public void searchForPopulationData(String geoId, Integer yearOfData, Boolean populationType) throws IOException, ServletException
   {
     try
     {
@@ -69,32 +71,33 @@ public class PopulationDataController extends PopulationDataControllerBase imple
 
       ClientRequestIF request = this.getClientRequest();
 
-      PopulationDataViewDTO[] views = PopulationDataViewDTO.getViews(request, geoId, yearOfData);
+      PopulationDataViewDTO[] views = null;
 
-      JSONObject calcuatedValues = new JSONObject();
-
-      for(PopulationDataViewDTO view : views)
+      if (populationType)
       {
-        calcuatedValues.put(view.getGeoEntity(), new JSONArray(Arrays.asList(view.getCalculatedPopulation()))); 
-      }
-      
-      req.setAttribute("calculatedValues", calcuatedValues);
-      
-      
-      if (views.length > 0)
-      {
-        req.setAttribute(ITEM, views[views.length - 1]);
+        views = PopulationDataViewDTO.getViews(request, geoId, yearOfData);
       }
       else
       {
-        PopulationDataViewDTO item = new PopulationDataViewDTO(request);
-        item.setGeoEntity(geoId);
-        item.setYearOfData(yearOfData);
-        
-        req.setAttribute(ITEM, item);
+        views = PopulationDataViewDTO.getFacilityViews(request, geoId, yearOfData);
       }
 
+      JSONObject calcuatedValues = new JSONObject();
+
+      for (PopulationDataViewDTO view : views)
+      {
+        calcuatedValues.put(view.getGeoEntity(), new JSONArray(Arrays.asList(view.getCalculatedPopulation())));
+      }
+
+      PopulationDataViewDTO item = new PopulationDataViewDTO(request);
+      item.setGeoEntity(geoId);
+      item.setYearOfData(yearOfData);
+      item.setPopulationType(populationType);
+
+      req.setAttribute("calculatedValues", calcuatedValues);
+      req.setAttribute(ITEM, item);
       req.setAttribute(VIEWS, views);
+      req.setAttribute("entity", GeoEntityDTO.searchByGeoId(request, geoId));
 
       render("viewComponent.jsp");
     }
@@ -103,21 +106,23 @@ public class PopulationDataController extends PopulationDataControllerBase imple
       ErrorUtility.prepareProblems(e, req);
 
       String year = ( yearOfData == null ? null : yearOfData.toString() );
+      String failPopulationType = populationType != null ? populationType.toString() : "true";
 
-      this.failSearchForPopulationData(geoId, year);
+      this.failSearchForPopulationData(geoId, year, failPopulationType);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
 
       String year = ( yearOfData == null ? null : yearOfData.toString() );
-
-      this.failSearchForPopulationData(geoId, year);
+      String failPopulationType = populationType != null ? populationType.toString() : "true";
+      
+      this.failSearchForPopulationData(geoId, year, failPopulationType);
     }
   }
-
+  
   @Override
-  public void failSearchForPopulationData(String geoId, String yearOfData) throws IOException, ServletException
+  public void failSearchForPopulationData(String geoId, String yearOfData, String populationType) throws IOException, ServletException
   {
     this.search();
   }

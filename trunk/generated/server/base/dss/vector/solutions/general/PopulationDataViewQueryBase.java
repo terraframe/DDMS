@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -698209536)
+@com.terraframe.mojo.business.ClassSignature(hash = 1505323270)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  abstract  class PopulationDataViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -698209536;
+private static final long serialVersionUID = 1505323270;
 
   public PopulationDataViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -149,6 +149,24 @@ private static final long serialVersionUID = -698209536;
   public com.terraframe.mojo.query.AttributeLong getPopulation(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeLong)this.getSelectable(dss.vector.solutions.general.PopulationDataView.POPULATION, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getPopulationType()
+  {
+    return getPopulationType(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getPopulationType(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.general.PopulationDataView.POPULATIONTYPE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getPopulationType(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.general.PopulationDataView.POPULATIONTYPE, alias, displayLabel);
 
   }
  

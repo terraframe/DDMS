@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2092317799)
+@com.terraframe.mojo.business.ClassSignature(hash = 1211243769)
 public class PopulationDataControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.general.PopulationDataController";
@@ -10,7 +10,7 @@ public class PopulationDataControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -2092317799;
+  private static final long serialVersionUID = 1211243769;
   
   public PopulationDataControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -81,15 +81,15 @@ public class PopulationDataControllerBase implements com.terraframe.mojo.generat
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.PopulationDataController.failSearch");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoId, java.lang.Integer:yearOfData", post=true)
-  public void searchForPopulationData(java.lang.String geoId, java.lang.Integer yearOfData) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoId, java.lang.Integer:yearOfData, java.lang.Boolean:populationType", post=true)
+  public void searchForPopulationData(java.lang.String geoId, java.lang.Integer yearOfData, java.lang.Boolean populationType) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.PopulationDataController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.PopulationDataController.searchForPopulationData");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoId, java.lang.String:yearOfData", post=true)
-  public void failSearchForPopulationData(java.lang.String geoId, java.lang.String yearOfData) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoId, java.lang.String:yearOfData, java.lang.String:populationType", post=true)
+  public void failSearchForPopulationData(java.lang.String geoId, java.lang.String yearOfData, java.lang.String populationType) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.PopulationDataController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.PopulationDataController.failSearchForPopulationData");

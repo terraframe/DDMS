@@ -14,6 +14,7 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.HealthFacility;
 
 public class PopulationDataView extends PopulationDataViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -206,7 +207,6 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
     list.add(PopulationDataView.getView(geoEntity, yearOfData));
 
     return list.toArray(new PopulationDataView[list.size()]);
-
   }
 
   private static void validateYear(Integer year)
@@ -229,6 +229,29 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
       throw e;
     }
   }
+  
+  public static PopulationDataView[] getFacilityViews(String geoId, Integer yearOfData)
+  {
+    validateYear(yearOfData);
+    
+    GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
+    List<PopulationDataView> list = new LinkedList<PopulationDataView>();
+
+    for (GeoEntity child : geoEntity.getFacilityChildren())
+    {
+      PopulationDataView view = PopulationDataView.getView(child, yearOfData);
+
+      list.add(view);
+    }    
+    
+    if(geoEntity instanceof HealthFacility)
+    {
+      list.add(PopulationDataView.getView(geoEntity, yearOfData));
+    }
+
+    return list.toArray(new PopulationDataView[list.size()]);
+  }
+
 
   public static PopulationDataView getView(GeoEntity entity, Integer yearOfData)
   {

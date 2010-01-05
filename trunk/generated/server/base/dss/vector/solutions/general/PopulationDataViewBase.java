@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 162170505)
+@com.terraframe.mojo.business.ClassSignature(hash = 914095005)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,8 +18,9 @@ public abstract class PopulationDataViewBase extends com.terraframe.mojo.busines
   public static java.lang.String GROWTHRATE = "growthRate";
   public static java.lang.String ID = "id";
   public static java.lang.String POPULATION = "population";
+  public static java.lang.String POPULATIONTYPE = "populationType";
   public static java.lang.String YEAROFDATA = "yearOfData";
-  private static final long serialVersionUID = 162170505;
+  private static final long serialVersionUID = 914095005;
   
   public PopulationDataViewBase()
   {
@@ -210,6 +211,34 @@ public abstract class PopulationDataViewBase extends com.terraframe.mojo.busines
     }
   }
   
+  public Boolean getPopulationType()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POPULATIONTYPE));
+  }
+  
+  public void validatePopulationType()
+  {
+    this.validateAttribute(POPULATIONTYPE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getPopulationTypeMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.PopulationDataView.CLASS);
+    return mdClassIF.definesAttribute(POPULATIONTYPE);
+  }
+  
+  public void setPopulationType(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(POPULATIONTYPE, "");
+    }
+    else
+    {
+      setValue(POPULATIONTYPE, java.lang.Boolean.toString(value));
+    }
+  }
+  
   public Integer getYearOfData()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(YEAROFDATA));
@@ -276,6 +305,12 @@ public abstract class PopulationDataViewBase extends com.terraframe.mojo.busines
   {
     PopulationDataView _instance = PopulationDataView.get(id);
     return _instance.getCalculatedPopulation();
+  }
+  
+  public static dss.vector.solutions.general.PopulationDataView[] getFacilityViews(java.lang.String geoId, java.lang.Integer yearOfData)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.PopulationDataView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static dss.vector.solutions.general.PopulationDataView[] getViews(java.lang.String geoId, java.lang.Integer yearOfData)

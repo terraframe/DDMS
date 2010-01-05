@@ -14,16 +14,23 @@
 <mjl:form name="PopulationData.search.mojo" method="POST">
   <dl>
     <dt>
-      <label><fmt:message key="Geo_Id"/></label>
+      <label>${item.populationTypeMd.displayLabel}</label>
+    </dt>
+    <dd>      
+      <mjl:boolean param="populationType" trueLabel="${item.populationTypeMd.positiveDisplayLabel}" falseLabel="${item.populationTypeMd.negativeDisplayLabel}" value="${item.populationType}"/>
+    </dd>
+  
+    <dt>
+      <label>${item.geoEntityMd.displayLabel}</label>
     </dt>
     <dd>
       <mdss:geo param="geoId" populated="true" political="true" concrete="false" />    
     </dd>
     <dt>
-      <label> <fmt:message key="Year"/></label>
+      <label>${item.yearOfDataMd.displayLabel}</label>
     </dt>
     <dd>
-      <mjl:input type="text" maxlength="4" size="4" param="yearOfData"/>
+      <mjl:input type="text" maxlength="4" size="4" param="yearOfData" id="year"/>
     </dd>
     <mjl:command classes="submitButton" action="dss.vector.solutions.general.PopulationDataController.searchForPopulationData.mojo" name="search" value="Search" id="search"/>
   </dl>
@@ -32,3 +39,11 @@
 <jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.PopulationDataExcelView" name="excelType"/>
 </jsp:include>
+
+<script type="text/javascript">
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){
+    MDSS.GenericSearch.createYearSearch('year');
+  })
+})();  
+</script>
