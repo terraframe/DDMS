@@ -329,76 +329,74 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
    */
   public static ValueQuery searchByParameters(String value, String[] filter)
   {
-    QueryFactory factory = new QueryFactory();
-    
-    ValueQuery valueQuery = new ValueQuery(factory);    
-    MdBusinessQuery mdQ = new MdBusinessQuery(valueQuery);
-    GeoEntityQuery q = new GeoEntityQuery(valueQuery);
-    TermQuery tq = new TermQuery(valueQuery);
-    
-    boolean political = Boolean.parseBoolean(filter[0]);
-    boolean populated = Boolean.parseBoolean(filter[1]);
-    boolean sprayTarget = Boolean.parseBoolean(filter[2]);
-    
-    SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, false, false);    
-    GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
-    
-    SelectablePrimitive[] selectables = new SelectablePrimitive[] { 
-        q.getId(GeoEntity.ID),
-        q.getEntityName(GeoEntity.ENTITYNAME),
-        q.getGeoId(GeoEntity.GEOID),
-        q.getType(GeoEntity.TYPE),
-        mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL),
-        tq.getName(GeoEntityView.MOSUBTYPE)
-    };
-    
-    Condition condition = null;
-    
-    for(GeoHierarchyView view : views)
-    {
-      String type = view.getGeneratedType();
-      
-      if(condition == null)
-      {
-        condition = q.getType().EQ(type);        
-      }
-      else
-      {
-        condition = OR.get(condition, q.getType().EQ(type));        
-      }
-    }
-    
-    for(int i = 3; i < filter.length; i++)
-    {      
-      String universal = filter[i].replace("*", "");
-      
-      if(condition == null)
-      {
-        condition = q.getType().EQ(universal);        
-      }
-      else
-      {
-        condition = OR.get(condition, q.getType().EQ(universal));        
-      }      
-    }
+	    QueryFactory f = new QueryFactory();
+	    
+	    MdBusinessQuery mdQ = new MdBusinessQuery(f);
+	    GeoEntityQuery q = new GeoEntityQuery(f);
+	    TermQuery tq = new TermQuery(f);
+	    
+	    boolean political = Boolean.parseBoolean(filter[0]);
+	    boolean populated = Boolean.parseBoolean(filter[1]);
+	    boolean sprayTarget = Boolean.parseBoolean(filter[2]);
+	    
+	    SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, false, false);    
+	    GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
+	    
+	    Selectable[] selectables = new Selectable[] { 
+	        q.getId(GeoEntity.ID),
+	        q.getEntityName(GeoEntity.ENTITYNAME),
+	        q.getGeoId(GeoEntity.GEOID),
+	        q.getType(GeoEntity.TYPE),
+	        mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL),
+	        tq.getName(GeoEntityView.MOSUBTYPE)
+	    };
+	    
+	    Condition condition = null;
+	    
+	    for(GeoHierarchyView view : views)
+	    {
+	      String type = view.getGeneratedType();
+	      
+	      if(condition == null)
+	      {
+	        condition = q.getType().EQ(type);        
+	      }
+	      else
+	      {
+	        condition = OR.get(condition, q.getType().EQ(type));        
+	      }
+	    }
+	    
+	    for(int i = 3; i < filter.length; i++)
+	    {      
+	      String universal = filter[i].replace("*", "");
+	      
+	      if(condition == null)
+	      {
+	        condition = q.getType().EQ(universal);        
+	      }
+	      else
+	      {
+	        condition = OR.get(condition, q.getType().EQ(universal));        
+	      }      
+	    }
 
-//    valueQuery.SELECT(selectables);
+	    ValueQuery valueQuery = new ValueQuery(f);
+	    valueQuery.SELECT(selectables);
 
-    String[] searchable = value.split(" ");
+	    String searchable = value.replace(" ", "% ") + "%";
 
-//    String searchable = value.replace(" ", "% ") + "%";
+	    Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
+	    Condition and = AND.get(or, condition);
 
-//    Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
-        
-    Condition[] conditions = new Condition[] {condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType())};
-    LeftJoinEq[] joins = new LeftJoinEq[] {q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId"))};   
-    
-    QueryBuilder.textLookup(valueQuery, factory, searchable, selectables, conditions, joins);
-    
-//    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(GeoEntity.ENTITYNAME));
-//    valueQuery.restrictRows(20, 1);
+	    valueQuery.WHERE(and);
+	    valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
+	    valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
+	    
+	    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(GeoEntity.ENTITYNAME));
+	    valueQuery.restrictRows(20, 1);
 
-    return valueQuery;    
+	    return valueQuery;    
   }
 
   
