@@ -18,6 +18,26 @@ public class Insecticide extends InsecticideBase implements
   }
   
   @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: "+ this.getClassDisplayLabel();
+    }
+    else if(this.getActiveIngredient() != null && this.getUnits() != null && this.getAmount() != null)
+    {
+      String activeIngredient = this.getActiveIngredient().getDisplay();
+      String units = this.getUnits().getDisplay();
+      
+      return activeIngredient + " - " + this.getAmount() + " " + units;
+    }
+    
+    return super.toString();
+  }
+
+
+  
+  @Override
   protected String buildKey()
   {
     if (this.getUnits() != null && this.getActiveIngredient() != null)

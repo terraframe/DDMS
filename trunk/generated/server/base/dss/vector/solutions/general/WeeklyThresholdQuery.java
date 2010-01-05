@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -135258057)
+@com.terraframe.mojo.business.ClassSignature(hash = 1351639051)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -10,7 +10,7 @@ package dss.vector.solutions.general;
  */
 public  class WeeklyThresholdQuery extends com.terraframe.mojo.query.GeneratedRelationshipQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -135258057;
+private static final long serialVersionUID = 1351639051;
 
   public WeeklyThresholdQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -89,6 +89,14 @@ private static final long serialVersionUID = -135258057;
     else if (name.equals("entityDomain")) 
     {
        return new com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("lastFacilityIdentification")) 
+    {
+       return new dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("lastFacilityNotification")) 
+    {
+       return new dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals("lastIdentification")) 
     {
@@ -203,6 +211,40 @@ private static final long serialVersionUID = -135258057;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeInteger getFacilityIdentification()
+  {
+    return getFacilityIdentification(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getFacilityIdentification(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.FACILITYIDENTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getFacilityIdentification(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.FACILITYIDENTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeInteger getFacilityNotification()
+  {
+    return getFacilityNotification(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getFacilityNotification(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.FACILITYNOTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getFacilityNotification(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.FACILITYNOTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeChar getId()
   {
     return getId(null);
@@ -252,6 +294,52 @@ private static final long serialVersionUID = -135258057;
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastFacilityIdentification()
+  {
+    return getLastFacilityIdentification(null);
+
+  }
+ 
+  public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastFacilityIdentification(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastFacilityIdentification");
+
+    return (dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LASTFACILITYIDENTIFICATION, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastFacilityIdentification(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastFacilityIdentification");
+
+    return (dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LASTFACILITYIDENTIFICATION, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastFacilityNotification()
+  {
+    return getLastFacilityNotification(null);
+
+  }
+ 
+  public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastFacilityNotification(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastFacilityNotification");
+
+    return (dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LASTFACILITYNOTIFICATION, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastFacilityNotification(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastFacilityNotification");
+
+    return (dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LASTFACILITYNOTIFICATION, mdAttributeIF, this, alias, displayLabel);
 
   }
   public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastIdentification()

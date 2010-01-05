@@ -13,6 +13,25 @@ public class PooledInfectionAssay extends PooledInfectionAssayBase implements co
   {
     super();
   }
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: "+ this.getClassDisplayLabel();
+    }
+    else if(this.getPoolId() != null && !this.getPoolId().equals(""))
+    {
+      return this.getPoolId();
+    }
+    else if(this.getSpecies() != null)
+    {
+      return this.getSpecies().getDisplay();
+    }
+    
+    return super.toString();
+  }
 
   @Override
   protected String buildKey()

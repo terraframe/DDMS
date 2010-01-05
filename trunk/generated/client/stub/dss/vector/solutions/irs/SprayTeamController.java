@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class SprayTeamController extends SprayTeamControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class SprayTeamController extends SprayTeamControllerBase implements Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/SprayTeam/";
 
@@ -31,13 +31,27 @@ public class SprayTeamController extends SprayTeamControllerBase implements
 
   public void newInstance() throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    renderCreate(clientRequest, new SprayTeamDTO(clientRequest));
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      renderCreate(clientRequest, new SprayTeamDTO(clientRequest));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failNewInstance();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failNewInstance();
+    }
   }
 
   @Override
-  public void createAndAssign(SprayTeamDTO team, String geoId, String leaderId, String[] operatorIDs)
-      throws IOException, ServletException
+  public void createAndAssign(SprayTeamDTO team, String geoId, String leaderId, String[] operatorIDs) throws IOException, ServletException
   {
     try
     {
@@ -59,17 +73,17 @@ public class SprayTeamController extends SprayTeamControllerBase implements
     renderCreate(super.getClientRequest(), team);
   }
 
-  private void renderCreate(ClientRequestIF clientRequest, SprayTeamDTO team) throws IOException,
-      ServletException
+  private void renderCreate(ClientRequestIF clientRequest, SprayTeamDTO team) throws IOException, ServletException
   {
     req.setAttribute("item", team);
-//    req.setAttribute("leaders", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(),
-//        "keyName", true, 0, 0).getResultSet());
+    // req.setAttribute("leaders",
+    // SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(),
+    // "keyName", true, 0, 0).getResultSet());
 
     List<SprayOperatorViewDTO> currentOperators = new LinkedList<SprayOperatorViewDTO>();
     List<SprayOperatorViewDTO> assignedOperators = new LinkedList<SprayOperatorViewDTO>();
     List<SprayOperatorViewDTO> availableOperators = new LinkedList<SprayOperatorViewDTO>();
-    
+
     for (SprayOperatorViewDTO operator : SprayOperatorViewDTO.getAll(clientRequest))
     {
       if (!operator.getIsAssigned())
@@ -91,19 +105,18 @@ public class SprayTeamController extends SprayTeamControllerBase implements
       ClientRequestIF clientRequest = super.getClientRequest();
       SprayTeamDTO team = SprayTeamDTO.lock(clientRequest, id);
       req.setAttribute("item", team);
-//      req.setAttribute("leaders", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(),
-//          "keyName", true, 0, 0).getResultSet());
+      // req.setAttribute("leaders",
+      // SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(),
+      // "keyName", true, 0, 0).getResultSet());
 
       SprayOperatorViewDTO[] assigned = SprayOperatorViewDTO.getAllForLocation(clientRequest, team.getSprayZone().getGeoId());
       List<String> locatedIn = new LinkedList<String>();
-      
-      for(SprayOperatorViewDTO view : assigned)
+
+      for (SprayOperatorViewDTO view : assigned)
       {
         locatedIn.add(view.getActorId());
       }
-      
-      
-      
+
       List<SprayOperatorViewDTO> assignedOperators = new LinkedList<SprayOperatorViewDTO>();
       List<SprayOperatorViewDTO> currentOperators = new LinkedList<SprayOperatorViewDTO>();
       List<SprayOperatorViewDTO> availableOperators = new LinkedList<SprayOperatorViewDTO>();
@@ -126,8 +139,6 @@ public class SprayTeamController extends SprayTeamControllerBase implements
           availableOperators.add(operator);
         }
       }
-      
-            
 
       List<? extends SprayLeaderDTO> leader = team.getAllTeamLeader();
 
@@ -135,9 +146,9 @@ public class SprayTeamController extends SprayTeamControllerBase implements
       {
         SprayLeaderDTO l = leader.get(0);
         PersonDTO person = l.getPerson();
-        
+
         req.setAttribute("leaderLabel", person.getFirstName() + " " + person.getLastName() + " - " + l.getLeaderId());
-        req.setAttribute("leaderId", l.getId()); 
+        req.setAttribute("leaderId", l.getId());
       }
 
       req.setAttribute("current", currentOperators);
@@ -162,8 +173,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements
   }
 
   @Override
-  public void updateAssignments(SprayTeamDTO team, String geoId, String leaderId, String[] operatorIds,
-      String[] removedIds) throws IOException, ServletException
+  public void updateAssignments(SprayTeamDTO team, String geoId, String leaderId, String[] operatorIds, String[] removedIds) throws IOException, ServletException
   {
     try
     {
@@ -188,12 +198,13 @@ public class SprayTeamController extends SprayTeamControllerBase implements
   private void renderView(SprayTeamDTO sprayTeamDTO) throws IOException, ServletException
   {
     List<? extends SprayLeaderDTO> allTeamLeader = sprayTeamDTO.getAllTeamLeader();
+    
     if (allTeamLeader.size() > 0)
     {
-      req.setAttribute("leader", allTeamLeader.get(0).getPerson());
+      req.setAttribute("leader", allTeamLeader.get(0).getPerson().getView());
     }
-    req.setAttribute("operators", SprayOperatorViewDTO.getAllForTeam(super.getClientRequest(),
-        sprayTeamDTO));
+    
+    req.setAttribute("operators", SprayOperatorViewDTO.getAllForTeam(super.getClientRequest(), sprayTeamDTO));
     req.setAttribute("item", sprayTeamDTO);
     render("viewComponent.jsp");
   }
@@ -236,18 +247,15 @@ public class SprayTeamController extends SprayTeamControllerBase implements
     render("editComponent.jsp");
   }
 
-  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
-      throws IOException, ServletException
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    SprayTeamQueryDTO query = SprayTeamDTO.getAllInstances(clientRequest, sortAttribute, isAscending,
-        pageSize, pageNumber);
+    SprayTeamQueryDTO query = SprayTeamDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber)
-      throws IOException, ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
   {
     resp.sendError(500);
   }

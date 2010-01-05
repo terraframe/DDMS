@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 127028814)
+@com.terraframe.mojo.business.ClassSignature(hash = 1507784674)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,9 +15,13 @@ public abstract class WeeklyThresholdBase extends com.terraframe.mojo.business.R
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String FACILITYIDENTIFICATION = "facilityIdentification";
+  public static java.lang.String FACILITYNOTIFICATION = "facilityNotification";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATION = "identification";
   public static java.lang.String KEYNAME = "keyName";
+  public static java.lang.String LASTFACILITYIDENTIFICATION = "lastFacilityIdentification";
+  public static java.lang.String LASTFACILITYNOTIFICATION = "lastFacilityNotification";
   public static java.lang.String LASTIDENTIFICATION = "lastIdentification";
   public static java.lang.String LASTNOTIFICATION = "lastNotification";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
@@ -28,7 +32,7 @@ public abstract class WeeklyThresholdBase extends com.terraframe.mojo.business.R
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 127028814;
+  private static final long serialVersionUID = 1507784674;
   
   public WeeklyThresholdBase(String parentId, String childId)
   {
@@ -144,6 +148,62 @@ public abstract class WeeklyThresholdBase extends com.terraframe.mojo.business.R
     }
   }
   
+  public Integer getFacilityIdentification()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FACILITYIDENTIFICATION));
+  }
+  
+  public void validateFacilityIdentification()
+  {
+    this.validateAttribute(FACILITYIDENTIFICATION);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getFacilityIdentificationMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
+    return mdClassIF.definesAttribute(FACILITYIDENTIFICATION);
+  }
+  
+  public void setFacilityIdentification(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(FACILITYIDENTIFICATION, "");
+    }
+    else
+    {
+      setValue(FACILITYIDENTIFICATION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getFacilityNotification()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FACILITYNOTIFICATION));
+  }
+  
+  public void validateFacilityNotification()
+  {
+    this.validateAttribute(FACILITYNOTIFICATION);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getFacilityNotificationMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
+    return mdClassIF.definesAttribute(FACILITYNOTIFICATION);
+  }
+  
+  public void setFacilityNotification(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(FACILITYNOTIFICATION, "");
+    }
+    else
+    {
+      setValue(FACILITYNOTIFICATION, java.lang.Integer.toString(value));
+    }
+  }
+  
   public String getId()
   {
     return getValue(ID);
@@ -213,6 +273,76 @@ public abstract class WeeklyThresholdBase extends com.terraframe.mojo.business.R
     else
     {
       setValue(KEYNAME, value);
+    }
+  }
+  
+  public dss.vector.solutions.general.EpiWeek getLastFacilityIdentification()
+  {
+    if (getValue(LASTFACILITYIDENTIFICATION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.EpiWeek.get(getValue(LASTFACILITYIDENTIFICATION));
+    }
+  }
+  
+  public void validateLastFacilityIdentification()
+  {
+    this.validateAttribute(LASTFACILITYIDENTIFICATION);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLastFacilityIdentificationMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
+    return mdClassIF.definesAttribute(LASTFACILITYIDENTIFICATION);
+  }
+  
+  public void setLastFacilityIdentification(dss.vector.solutions.general.EpiWeek value)
+  {
+    if(value == null)
+    {
+      setValue(LASTFACILITYIDENTIFICATION, "");
+    }
+    else
+    {
+      setValue(LASTFACILITYIDENTIFICATION, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.general.EpiWeek getLastFacilityNotification()
+  {
+    if (getValue(LASTFACILITYNOTIFICATION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.EpiWeek.get(getValue(LASTFACILITYNOTIFICATION));
+    }
+  }
+  
+  public void validateLastFacilityNotification()
+  {
+    this.validateAttribute(LASTFACILITYNOTIFICATION);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLastFacilityNotificationMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
+    return mdClassIF.definesAttribute(LASTFACILITYNOTIFICATION);
+  }
+  
+  public void setLastFacilityNotification(dss.vector.solutions.general.EpiWeek value)
+  {
+    if(value == null)
+    {
+      setValue(LASTFACILITYNOTIFICATION, "");
+    }
+    else
+    {
+      setValue(LASTFACILITYNOTIFICATION, value.getId());
     }
   }
   

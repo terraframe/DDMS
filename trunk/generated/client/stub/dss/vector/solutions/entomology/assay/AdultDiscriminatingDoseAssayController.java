@@ -14,8 +14,7 @@ import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingDoseAssayControllerBase
-    implements com.terraframe.mojo.generation.loader.Reloadable
+public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingDoseAssayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/entomology/assay/AdultDiscriminatingDoseAssay/";
 
@@ -23,8 +22,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
 
   private static final long  serialVersionUID = 1235419628808L;
 
-  public AdultDiscriminatingDoseAssayController(HttpServletRequest req, HttpServletResponse resp,
-      Boolean isAsynchronous)
+  public AdultDiscriminatingDoseAssayController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
@@ -142,8 +140,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     render("createComponent.jsp");
   }
 
-  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
-      throws IOException, ServletException
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     AdultDiscriminatingDoseAssayViewQueryDTO query = AdultDiscriminatingDoseAssayViewDTO.getPage(clientRequest, null, true, 20, 1);
@@ -152,29 +149,43 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber)
-      throws IOException, ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
   public void newInstance() throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    AdultDiscriminatingDoseAssayDTO dto = new AdultDiscriminatingDoseAssayDTO(clientRequest);
-
-    String collectionId = req.getParameter("collection_id");
-
-    if (collectionId != null && !collectionId.equals(""))
+    try
     {
-      dto.setValue(AdultDiscriminatingDoseAssayDTO.COLLECTION, collectionId);
+      ClientRequestIF clientRequest = super.getClientRequest();
+      AdultDiscriminatingDoseAssayDTO dto = new AdultDiscriminatingDoseAssayDTO(clientRequest);
+
+      String collectionId = req.getParameter("collection_id");
+
+      if (collectionId != null && !collectionId.equals(""))
+      {
+        dto.setValue(AdultDiscriminatingDoseAssayDTO.COLLECTION, collectionId);
+      }
+
+      this.setupRequest();
+      this.setupReferences(dto);
+      req.setAttribute("item", dto);
+
+      render("createComponent.jsp");
     }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
 
-    this.setupRequest();
-    this.setupReferences(dto);
-    req.setAttribute("item", dto);
+      this.failNewInstance();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
 
-    render("createComponent.jsp");
+      this.failNewInstance();
+    }
   }
 
   public void failNewInstance() throws IOException, ServletException
@@ -219,7 +230,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
 
       this.setupRequest();
       this.setupReferences(dto);
-      
+
       req.setAttribute("item", dto);
 
       render("editComponent.jsp");
@@ -243,7 +254,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   {
     this.view(id);
   }
-  
+
   private void setupReferences(AdultDiscriminatingDoseAssayDTO dto)
   {
     req.setAttribute("sex", dto.getSex());
@@ -251,15 +262,14 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     req.setAttribute("identificationMethod", dto.getIdentificationMethod());
     req.setAttribute("testMethod", dto.getTestMethod());
     req.setAttribute("specie", dto.getSpecie());
-    
+
     String collectionId = dto.getValue(KnockDownAssayDTO.COLLECTION);
-    
-    if(collectionId != null && !collectionId.equals(""))
+
+    if (collectionId != null && !collectionId.equals(""))
     {
       req.setAttribute("collection", MosquitoCollectionDTO.getView(this.getClientRequest(), collectionId));
     }
   }
-
 
   private void setupRequest()
   {

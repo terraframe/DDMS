@@ -29,6 +29,19 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
   {
     super();
   }
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else 
+    {
+      return this.buildKey();
+    }
+  }
 
   @Override
   public void apply()

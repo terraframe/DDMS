@@ -12,6 +12,22 @@ public class KnockDownAssay extends KnockDownAssayBase implements com.terraframe
   {
     super();
   }
+  
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: "+ this.getClassDisplayLabel();
+    }
+    else if(this.getCollection() != null && this.getInsecticide() != null)
+    {
+      return "(" + this.getCollection().getCollectionId() + ", " + this.getInsecticide().toString() + ")";
+    }
+    
+    return super.toString();
+  }
 
   public static String getResistanceSQL(String[] labels)
   {

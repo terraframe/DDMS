@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1352549090)
+@com.terraframe.mojo.business.ClassSignature(hash = -1730477486)
 public abstract class ThresholdDataViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdDataView";
-  private static final long serialVersionUID = -1352549090;
+  private static final long serialVersionUID = -1730477486;
   
   protected ThresholdDataViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -127,6 +127,7 @@ public abstract class ThresholdDataViewDTOBase extends com.terraframe.mojo.busin
   public static java.lang.String OUTBREAK_8 = "outbreak_8";
   public static java.lang.String OUTBREAK_9 = "outbreak_9";
   public static java.lang.String SEASON = "season";
+  public static java.lang.String THRESHOLDTYPE = "thresholdType";
   public String getConcreteId()
   {
     return getValue(CONCRETEID);
@@ -4204,6 +4205,43 @@ public abstract class ThresholdDataViewDTOBase extends com.terraframe.mojo.busin
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SEASON).getAttributeMdDTO();
   }
   
+  public Boolean getThresholdType()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(THRESHOLDTYPE));
+  }
+  
+  public void setThresholdType(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(THRESHOLDTYPE, "");
+    }
+    else
+    {
+      setValue(THRESHOLDTYPE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isThresholdTypeWritable()
+  {
+    return isWritable(THRESHOLDTYPE);
+  }
+  
+  public boolean isThresholdTypeReadable()
+  {
+    return isReadable(THRESHOLDTYPE);
+  }
+  
+  public boolean isThresholdTypeModified()
+  {
+    return isModified(THRESHOLDTYPE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getThresholdTypeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(THRESHOLDTYPE).getAttributeMdDTO();
+  }
+  
   public static final dss.vector.solutions.general.ThresholdDataViewDTO[] applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.general.ThresholdDataViewDTO[] views)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.general.ThresholdDataView;"};
@@ -4250,6 +4288,14 @@ public abstract class ThresholdDataViewDTOBase extends com.terraframe.mojo.busin
     Object[] _parameters = new Object[]{id};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.ThresholdDataViewDTO.CLASS, "getCalculatedThresholds", _declaredTypes);
     return (java.lang.Integer[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.general.ThresholdDataViewDTO[] getFacilityViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId, dss.vector.solutions.general.MalariaSeasonDTO season)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.general.MalariaSeason"};
+    Object[] _parameters = new Object[]{geoId, season};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.ThresholdDataViewDTO.CLASS, "getFacilityViews", _declaredTypes);
+    return (dss.vector.solutions.general.ThresholdDataViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.general.ThresholdDataViewDTO[] getViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId, dss.vector.solutions.general.MalariaSeasonDTO season)

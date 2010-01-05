@@ -40,11 +40,26 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
   {
     super();
   }
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: "+ this.getClassDisplayLabel();
+    }
+    else if(this.getCollectionId() != null)
+    {
+      return this.getCollectionId();
+    }
+    
+    return super.toString();
+  }
 
   @Override
   protected String buildKey()
   {
-    return this.getId();
+    return this.getCollectionId();
   }
 
   @Override

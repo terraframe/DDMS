@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 319234631)
+@com.terraframe.mojo.business.ClassSignature(hash = 706903035)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  abstract  class ThresholdDataViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 319234631;
+private static final long serialVersionUID = 706903035;
 
   public ThresholdDataViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -2025,6 +2025,24 @@ private static final long serialVersionUID = 319234631;
     return (dss.vector.solutions.general.MalariaSeasonQuery.MalariaSeasonQueryReferenceIF)this.getSelectable(dss.vector.solutions.general.ThresholdDataView.SEASON, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeBoolean getThresholdType()
+  {
+    return getThresholdType(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getThresholdType(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.general.ThresholdDataView.THRESHOLDTYPE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getThresholdType(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.general.ThresholdDataView.THRESHOLDTYPE, alias, displayLabel);
+
+  }
+ 
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 

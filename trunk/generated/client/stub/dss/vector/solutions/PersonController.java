@@ -42,9 +42,29 @@ public class PersonController extends PersonControllerBase implements Reloadable
 
   public void newInstance() throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    PersonViewDTO view = new PersonViewDTO(clientRequest);
-    renderCreate(view);
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+
+      // Ensure that the user has permissions to create a person
+      new PersonDTO(clientRequest);
+
+      PersonViewDTO view = new PersonViewDTO(clientRequest);
+      renderCreate(view);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failNewInstance();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failNewInstance();
+    }
+
   }
 
   @Override
@@ -190,7 +210,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
     ClientRequestIF clientRequest = super.getClientRequest();
 
     PersonWithDelegatesViewQueryDTO query = PersonWithDelegatesViewDTO.getPage(clientRequest, null, true, 20, 1);
-    
+
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }

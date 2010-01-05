@@ -17,6 +17,21 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
   {
     super();
   }
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else if(this.getTerm() != null)
+    {
+      return this.getTerm().getDisplay();
+    }
+    
+    return super.toString();
+  }
 
   @Override
   protected String buildKey()

@@ -42,8 +42,7 @@ import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.util.QueryUtil;
 
-public class AggregatedCase extends AggregatedCaseBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class AggregatedCase extends AggregatedCaseBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1238693161773L;
 
@@ -51,18 +50,29 @@ public class AggregatedCase extends AggregatedCaseBase implements
   {
     super();
   }
-  
+
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+
+    return "(" + this.buildKey() + ")";
+  }
+
   @Override
   protected String buildKey()
   {
-    if(this.getGeoEntity() != null && this.getStartDate() != null && this.getEndDate() != null && this.getStartAge() != null && this.getEndAge() != null)
+    if (this.getGeoEntity() != null && this.getStartDate() != null && this.getEndDate() != null && this.getStartAge() != null && this.getEndAge() != null)
     {
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
-      
+
       String period = format.format(this.getStartDate()) + "-" + format.format(this.getEndDate());
       String ageRange = this.getStartAge() + "-" + this.getEndAge();
 
-      return this.getGeoEntity().getGeoId() + "." + period + "." + ageRange;
+      return this.getGeoEntity().getGeoId() + ", " + period + ", " + ageRange;
     }
     return this.getId();
   }
@@ -71,8 +81,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
   public static java.lang.String[] getVisibleAttributeNames()
   {
     MdBusinessDAOIF aggregateCaseMdBusiness = MdBusinessDAO.getMdBusinessDAO(AggregatedCase.CLASS);
-    List<? extends MdAttributeConcreteDAOIF> aggregateCaseAttributes = aggregateCaseMdBusiness
-        .getAllDefinedMdAttributes();
+    List<? extends MdAttributeConcreteDAOIF> aggregateCaseAttributes = aggregateCaseMdBusiness.getAllDefinedMdAttributes();
 
     MdViewDAOIF aggregatedCaseMdView = MdViewDAO.getMdViewDAO(AggregatedCaseView.CLASS);
 
@@ -92,8 +101,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
     {
       for (MdViewDAOIF mdViewDAOIF : aggregatedCaseViewSubClasses)
       {
-        boolean hasVisibility = hasVisibility(mdAttribute.definesAttribute(), subClassAttrMap
-            .get(mdViewDAOIF.definesType()));
+        boolean hasVisibility = hasVisibility(mdAttribute.definesAttribute(), subClassAttrMap.get(mdViewDAOIF.definesType()));
         if (hasVisibility)
         {
           visibleAttributeNameList.add(mdAttribute.definesAttribute());
@@ -113,19 +121,18 @@ public class AggregatedCase extends AggregatedCaseBase implements
    * Returns true if the given attribute is defined by a
    * <code>MdAttributeDAOIF</code> in the given map and the current user has
    * permission to view the attribute, false otherwise.
-   *
+   * 
    * <br>
    * Precondition:</br> <code>Session.getCurrentSession()</code> does not return
    * null.
-   *
+   * 
    * @param attributeName
    * @param viewCaseAttributeMap
    * @return true if the given attribute is defined by a
    *         <code>MdAttributeDAOIF</code> in the given map and the current user
    *         has permission to view the attribute, false otherwise.
    */
-  private static boolean hasVisibility(String attributeName,
-      Map<String, ? extends MdAttributeDAOIF> viewCaseAttributeMap)
+  private static boolean hasVisibility(String attributeName, Map<String, ? extends MdAttributeDAOIF> viewCaseAttributeMap)
   {
     String attrNameLowerCase = attributeName.toLowerCase();
 
@@ -136,8 +143,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
     if (viewCaseAttributeMap.containsKey(attrNameLowerCase))
     {
       MdAttributeDAOIF mdAttributeDAOIF = viewCaseAttributeMap.get(attrNameLowerCase);
-      hasVisibility = SessionFacade.checkAttributeAccess(session.getId(), Operation.READ,
-          mdAttributeDAOIF);
+      hasVisibility = SessionFacade.checkAttributeAccess(session.getId(), Operation.READ, mdAttributeDAOIF);
     }
     return hasVisibility;
   }
@@ -268,8 +274,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   @Override
   @Transaction
-  public void applyAll(CaseTreatment[] treatments, CaseTreatmentMethod[] treatmentMethods,
-      CaseTreatmentStock[] stock, CaseDiagnostic[] diagnosticMethods, CaseReferral[] referrals)
+  public void applyAll(CaseTreatment[] treatments, CaseTreatmentMethod[] treatmentMethods, CaseTreatmentStock[] stock, CaseDiagnostic[] diagnosticMethods, CaseReferral[] referrals)
   {
     this.apply();
 
@@ -305,8 +310,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   }
 
-  public static AggregatedCase searchByGeoEntityAndDate(GeoEntity geoEntity, Date startDate,
-      Date endDate, AggregatedAgeGroup ageGroup)
+  public static AggregatedCase searchByGeoEntityAndDate(GeoEntity geoEntity, Date startDate, Date endDate, AggregatedAgeGroup ageGroup)
   {
     AggregatedCaseQuery query = new AggregatedCaseQuery(new QueryFactory());
     query.WHERE(query.getGeoEntity().EQ(geoEntity));
@@ -335,21 +339,19 @@ public class AggregatedCase extends AggregatedCaseBase implements
   public AggregatedCaseView getView()
   {
     AggregatedCaseView view = this.getAgeGroup().getView();
-    
+
     view.populateView(this);
-    
+
     return view;
   }
 
   @Transaction
-  public static AggregatedCaseView searchByGeoEntityAndEpiDate(GeoEntity geoEntity,
-      PeriodType periodType, Integer period, Integer year, AggregatedAgeGroup ageGroup)
+  public static AggregatedCaseView searchByGeoEntityAndEpiDate(GeoEntity geoEntity, PeriodType periodType, Integer period, Integer year, AggregatedAgeGroup ageGroup)
   {
     EpiDate.validate(periodType, period, year);
 
     EpiDate date = EpiDate.getInstanceByPeriod(periodType, period, year);
-    AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, date.getStartDate(), date
-        .getEndDate(), ageGroup);
+    AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, date.getStartDate(), date.getEndDate(), ageGroup);
 
     if (c != null)
     {
@@ -388,13 +390,12 @@ public class AggregatedCase extends AggregatedCaseBase implements
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
-   *
+   * 
    * @param xml
    * @return
    */
   @Authenticate
-  public static ValueQuery xmlToValueQuery(String xml, String config,
-      Layer layer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
     JSONObject queryConfig;
     try
@@ -405,31 +406,30 @@ public class AggregatedCase extends AggregatedCaseBase implements
     {
       throw new ProgrammingErrorException(e1);
     }
-    
+
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
-        valueQuery, xml, queryConfig, layer);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
 
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
 
     for (String gridAlias : queryMap.keySet())
     {
       GeneratedEntityQuery generatedQuery = queryMap.get(gridAlias);
-      
-      String termAlias = gridAlias+"_Term";
+
+      String termAlias = gridAlias + "_Term";
       TermQuery termQuery = (TermQuery) queryMap.get(termAlias);
-      
+
       if (generatedQuery instanceof CaseTreatmentStockQuery)
       {
-        CaseTreatmentStockQuery ctsq = (CaseTreatmentStockQuery)generatedQuery;
+        CaseTreatmentStockQuery ctsq = (CaseTreatmentStockQuery) generatedQuery;
         valueQuery.AND(aggregatedCaseQuery.treatmentStock(ctsq));
         valueQuery.AND(ctsq.hasChild(termQuery));
       }
-      else if(generatedQuery instanceof CaseTreatmentQuery)
+      else if (generatedQuery instanceof CaseTreatmentQuery)
       {
         CaseTreatmentQuery ctq = (CaseTreatmentQuery) generatedQuery;
         valueQuery.AND(aggregatedCaseQuery.treatment(ctq));
@@ -459,10 +459,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
     String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
 
     return QueryUtil.setQueryDates(xml, valueQuery, sd, ed);
-    
+
   }
-
-
 
   /**
    * Returns the alias for the relationship query that maps to the grid query
@@ -478,13 +476,12 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   /**
    * Queries for AggregatedCases.
-   *
+   * 
    * @param xml
    */
   @Transaction
   @Authenticate
-  public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String config,
-      Integer pageNumber, Integer pageSize)
+  public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String config, Integer pageNumber, Integer pageSize)
   {
     ValueQuery valueQuery = xmlToValueQuery(xml, config, null);
 

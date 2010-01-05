@@ -1,0 +1,158 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.general.ThresholdDataView">
+        <create>
+          <attributes>
+            <boolean
+              name="thresholdType"
+              label="Threshold Type"
+              positiveLabel="Political"
+              negativeLabel="Facility"
+              defaultValue="true"
+              required="true" />
+          </attributes>
+          <mdMethod
+            name="getFacilityViews"
+            returnType="dss.vector.solutions.general.ThresholdDataView[]"
+            label="Get Facility Views"
+            static="true">
+            <mdParameter
+              name="geoId"
+              label="Geo Id"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="season"
+              label="Malaria Season"
+              order="1"
+              type="dss.vector.solutions.general.MalariaSeason" />
+          </mdMethod>
+        </create>
+      </mdView>
+      <mdTree
+        name="dss.vector.solutions.general.WeeklyThreshold"
+        label="Weekly Threshold">
+        <create>
+          <attributes>
+            <integer
+              name="facilityNotification"
+              label="Facility T1" />
+            <integer
+              name="facilityIdentification"
+              label="Facility T2" />
+            <reference
+              name="lastFacilityNotification"
+              label="Last Facility Notification"
+              type="dss.vector.solutions.general.EpiWeek" />
+            <reference
+              name="lastFacilityIdentification"
+              label="Last Facility Identification"
+              type="dss.vector.solutions.general.EpiWeek" />
+          </attributes>
+        </create>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.general.ThresholdData"
+          method="Thresholds" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.general.EpiWeek"
+          method="EpiWeeks" />
+      </mdTree>
+      <mdController
+        name="dss.vector.solutions.general.ThresholdDataController"
+        label="Threshold Data Controller">
+        <mdAction
+          name="searchForThresholdData"
+          isPost="true"
+          isQuery="false">
+          <create>
+            <mdParameter
+              name="thresholdType"
+              label="Threshold Type"
+              order="2"
+              type="java.lang.Boolean" />
+          </create>
+        </mdAction>
+      </mdController>
+    </update>
+    <permissions>
+      <role
+        roleName="mdss.GUIVisibility">
+        <grant>
+          <mdViewPermission
+            type="dss.vector.solutions.general.ThresholdDataView">
+            <operation
+              name="CREATE" />
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdViewPermission>
+        </grant>
+      </role>
+      <role
+        roleName="mdss.coordinator, mdss.operationalManager">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.general.ThresholdData">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdBusinessPermission>
+          <mdRelationshipPermission
+            type="dss.vector.solutions.general.WeeklyThreshold">
+            <operation
+              name="CREATE" />
+            <operation
+              name="DELETE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+          </mdRelationshipPermission>
+        </grant>
+      </role>      
+    </permissions>    
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.ThresholdDataController.searchForThresholdData.thresholdType"
+        type="com.terraframe.mojo.system.metadata.MdParameter" />
+      <object
+        key="dss.vector.solutions.general.ThresholdDataView.thresholdType"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.ThresholdDataView.getFacilityViews"
+        type="com.terraframe.mojo.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThreshold.facilityNotification"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThreshold.facilityIdentification"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThreshold.lastFacilityNotification"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThreshold.lastFacilityIdentification"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+    </delete>
+  </undoIt>
+</version>

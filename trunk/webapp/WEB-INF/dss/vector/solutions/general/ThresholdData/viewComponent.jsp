@@ -44,7 +44,7 @@ String deleteColumn = "";
     </label>
   </dt>
   <dd>
-     ${item.entityLabel} - ${item.geoEntity} 
+     ${entity.displayString}
   </dd>
   <dt>
     <label>
@@ -104,14 +104,17 @@ String deleteColumn = "";
       saveFunction:"applyAll",
       excelButtons:false,
       addButton:false,
-      width:"80em",
       after_row_load:function(record){
-        if(record.getCount() < (data.rows.length - 1))
+        var _threshold = record.getData('ThresholdType');
+        var thresholdType = (_threshold == 'true');
+        
+        if(thresholdType == true && (record.getCount() < (data.rows.length - 1)))
         {
           var str = '<form method = "post"';
           str += ' id="'+record.getData('GeoEntity')+'">';
           str += '<input type="hidden" name="geoId" value="'+record.getData('GeoEntity')+'"/>';
           str += '<input type="hidden" name="season.componentId" value="'+record.getData('Season')+'"/>';
+          str += '<input type="hidden" name="thresholdType" value="'+thresholdType+'"/>';
           str += " <a href=\"javascript: document.getElementById('"+record.getData('GeoEntity')+"').submit();\">";
           str += record.getData('EntityLabel')+'</a></form>';
           data.myDataTable.updateCell(record, 'EntityLabel', str);
@@ -138,26 +141,26 @@ String deleteColumn = "";
                     innerHTML += '<input type="hidden" name="views_' + i + '.geoEntity" value="' + object.getGeoEntity() + '"/>\n';
 
                     for(var j = 0; j < 52; j++) {
-                    	var outbreak = object['getOutbreak_'+j]();
-                    	var identification = object['getIdentification_'+j]();
+                      var outbreak = object['getOutbreak_'+j]();
+                      var identification = object['getIdentification_'+j]();
 
-                    	if(!outbreak) {
-                        	var value = calculatedTargets[object.getGeoEntity()][j*2];
+                      if(!outbreak) {
+                          var value = calculatedTargets[object.getGeoEntity()][j*2];
 
-                        	if(value) {
+                          if(value) {
                             outbreak = value;
-                        	}                            	
-                    	}
+                          }                              
+                      }
 
-                    	if(!identification) {
-                    		var value = calculatedTargets[object.getGeoEntity()][j*2 + 1];
+                      if(!identification) {
+                        var value = calculatedTargets[object.getGeoEntity()][j*2 + 1];
 
-                    		if(value) {
-                    		  identification = value;
-                    		}
-                    	}
-                        	
-                    	
+                        if(value) {
+                          identification = value;
+                        }
+                      }
+                          
+                      
                       innerHTML += '<input type="hidden" name="views_' + i + '.outbreak_' + j +'" value="' + outbreak + '"/>\n';
                       innerHTML += '<input type="hidden" name="views_' + i + '.identification_' + j + '" value="' + identification + '"/>\n'                    
                     }
@@ -199,7 +202,7 @@ String deleteColumn = "";
         {
           if(! row.getData('Outbreak_'+i))
           {
-          	var calc = calulated[i*2];
+            var calc = calulated[i*2];
             if(calc)
             {
               var col = dt.getColumn('Outbreak_'+i);

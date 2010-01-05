@@ -207,7 +207,27 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
 
   public void newInstance() throws IOException, ServletException
   {
-    this.newInstance(new EfficacyAssayViewDTO(super.getClientRequest()));
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+
+      // Ensure the user has permissions to create an Efficacy Assay
+      new EfficacyAssayDTO(clientRequest);
+      
+      this.newInstance(new EfficacyAssayViewDTO(clientRequest));      
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failNewInstance();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failNewInstance();
+    }
   }
 
   private void newInstance(EfficacyAssayViewDTO dto) throws IOException, ServletException
@@ -250,18 +270,18 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
 
     this.newInstance(clone);
   }
-  
+
   private void setupReferences(EfficacyAssayViewDTO dto)
   {
-    if(dto.getGeoId() != null && !dto.getGeoId().equals(""))
+    if (dto.getGeoId() != null && !dto.getGeoId().equals(""))
     {
       req.setAttribute("geoId", GeoEntityDTO.searchByGeoId(this.getClientRequest(), dto.getGeoId()));
     }
-    
+
     req.setAttribute("surfacePostion", dto.getSurfacePostion());
     req.setAttribute("sex", dto.getSex());
     req.setAttribute("specie", dto.getSpecie());
-    req.setAttribute("testMethod", dto.getTestMethod());    
+    req.setAttribute("testMethod", dto.getTestMethod());
   }
 
   private void setupRequest()

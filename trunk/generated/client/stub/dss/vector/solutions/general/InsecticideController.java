@@ -49,25 +49,22 @@ public class InsecticideController extends InsecticideControllerBase implements 
 
   public void failCreate(InsecticideDTO dto) throws IOException, ServletException
   {
-    
+
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
   }
 
-  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
-      throws IOException, ServletException
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    InsecticideQueryDTO query = InsecticideDTO.getAllInstances(clientRequest, sortAttribute,
-        isAscending, pageSize, pageNumber);
+    InsecticideQueryDTO query = InsecticideDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber)
-      throws IOException, ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
   {
     resp.sendError(500);
   }
@@ -90,15 +87,29 @@ public class InsecticideController extends InsecticideControllerBase implements 
 
   public void newInstance() throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    InsecticideDTO dto = new InsecticideDTO(clientRequest);
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      InsecticideDTO dto = new InsecticideDTO(clientRequest);
 
-    
-    this.setupReferences(dto);
-    
-    req.setAttribute("item", dto);
+      this.setupReferences(dto);
 
-    render("createComponent.jsp");
+      req.setAttribute("item", dto);
+
+      render("createComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failNewInstance();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failNewInstance();
+    }
   }
 
   private void setupReferences(InsecticideDTO dto)
@@ -106,7 +117,6 @@ public class InsecticideController extends InsecticideControllerBase implements 
     req.setAttribute("activeIngredient", dto.getActiveIngredient());
     req.setAttribute("units", dto.getUnits());
   }
-
 
   public void failNewInstance() throws IOException, ServletException
   {
@@ -128,7 +138,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
 
   public void failUpdate(InsecticideDTO dto) throws IOException, ServletException
   {
-    
+
     req.setAttribute("item", dto);
 
     render("updateComponent.jsp");
@@ -168,7 +178,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
 
   public void failDelete(InsecticideDTO dto) throws IOException, ServletException
   {
-    
+
     req.setAttribute("item", dto);
 
     render("editComponent.jsp");
@@ -197,7 +207,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
     try
     {
       InsecticideDTO dto = InsecticideDTO.lock(super.getClientRequest(), id);
-      
+
       this.setupReferences(dto);
 
       req.setAttribute("item", dto);

@@ -19,6 +19,19 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
   }
   
   @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else 
+    {
+      return this.buildKey();
+    }
+  }
+  
+  @Override
   protected String buildKey()
   {
     if(this.getSpray() != null)

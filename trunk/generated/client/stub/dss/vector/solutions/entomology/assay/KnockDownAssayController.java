@@ -155,15 +155,31 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
   public void newInstance() throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    KnockDownAssayDTO dto = new KnockDownAssayDTO(clientRequest);
-
-    if (req.getParameter("collection_id") != null)
+    try
     {
-      dto.setCollection(MosquitoCollectionDTO.get(clientRequest, req.getParameter("collection_id")));
+      ClientRequestIF clientRequest = super.getClientRequest();
+      KnockDownAssayDTO dto = new KnockDownAssayDTO(clientRequest);
+
+      if (req.getParameter("collection_id") != null)
+      {
+        dto.setCollection(MosquitoCollectionDTO.get(clientRequest, req.getParameter("collection_id")));
+      }
+
+      this.newInstance(dto);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failNewInstance();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failNewInstance();
     }
 
-    this.newInstance(dto);
   }
 
   private void newInstance(KnockDownAssayDTO dto) throws IOException, ServletException
@@ -192,7 +208,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     this.setupReferences(dto);
-    
+
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }
@@ -235,10 +251,10 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     req.setAttribute("identificationMethod", dto.getIdentificationMethod());
     req.setAttribute("testMethod", dto.getTestMethod());
     req.setAttribute("specie", dto.getSpecie());
-    
+
     String collectionId = dto.getValue(KnockDownAssayDTO.COLLECTION);
-    
-    if(collectionId != null && !collectionId.equals(""))
+
+    if (collectionId != null && !collectionId.equals(""))
     {
       req.setAttribute("collection", MosquitoCollectionDTO.getView(this.getClientRequest(), collectionId));
     }

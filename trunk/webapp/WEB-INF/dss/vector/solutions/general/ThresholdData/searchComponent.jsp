@@ -13,14 +13,21 @@
 
 <mjl:form name="PopulationData.search.mojo" method="POST">
   <dl>
+    
     <dt>
-      <label><fmt:message key="Geo_Id"/></label>
+      <label>${item.thresholdTypeMd.displayLabel}</label>
     </dt>
-    <dd>
-      <mdss:geo param="geoId" populated="true" political="true" concrete="false" />    
+    <dd>      
+      <mjl:boolean param="thresholdType" trueLabel="${item.thresholdTypeMd.positiveDisplayLabel}" falseLabel="${item.thresholdTypeMd.negativeDisplayLabel}" value="${item.thresholdType}"/>
     </dd>
     <dt>
-      <label> <fmt:message key="Season"/></label>
+      <label>${item.geoEntityMd.displayLabel}</label>
+    </dt>
+    <dd>
+      <mdss:geo param="geoId" populated="true" political="true" concrete="false" value="${item.geoEntity}" />    
+    </dd>
+    <dt>
+      <label>${item.seasonMd.displayLabel}</label>
     </dt>
     <dd>
       <mjl:select var="current" valueAttribute="id" items="${seasons}" param="season.componentId" >

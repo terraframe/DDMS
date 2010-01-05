@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 937750174)
+@com.terraframe.mojo.business.ClassSignature(hash = 1614214098)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -122,7 +122,8 @@ public abstract class ThresholdDataViewBase extends com.terraframe.mojo.business
   public static java.lang.String OUTBREAK_8 = "outbreak_8";
   public static java.lang.String OUTBREAK_9 = "outbreak_9";
   public static java.lang.String SEASON = "season";
-  private static final long serialVersionUID = 937750174;
+  public static java.lang.String THRESHOLDTYPE = "thresholdType";
+  private static final long serialVersionUID = 1614214098;
   
   public ThresholdDataViewBase()
   {
@@ -3232,6 +3233,34 @@ public abstract class ThresholdDataViewBase extends com.terraframe.mojo.business
     }
   }
   
+  public Boolean getThresholdType()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(THRESHOLDTYPE));
+  }
+  
+  public void validateThresholdType()
+  {
+    this.validateAttribute(THRESHOLDTYPE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getThresholdTypeMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdDataView.CLASS);
+    return mdClassIF.definesAttribute(THRESHOLDTYPE);
+  }
+  
+  public void setThresholdType(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(THRESHOLDTYPE, "");
+    }
+    else
+    {
+      setValue(THRESHOLDTYPE, java.lang.Boolean.toString(value));
+    }
+  }
+  
   protected String getDeclaredType()
   {
     return CLASS;
@@ -3276,6 +3305,12 @@ public abstract class ThresholdDataViewBase extends com.terraframe.mojo.business
   {
     ThresholdDataView _instance = ThresholdDataView.get(id);
     return _instance.getCalculatedThresholds();
+  }
+  
+  public static dss.vector.solutions.general.ThresholdDataView[] getFacilityViews(java.lang.String geoId, dss.vector.solutions.general.MalariaSeason season)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdDataView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static dss.vector.solutions.general.ThresholdDataView[] getViews(java.lang.String geoId, dss.vector.solutions.general.MalariaSeason season)

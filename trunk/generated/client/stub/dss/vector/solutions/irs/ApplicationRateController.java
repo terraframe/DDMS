@@ -8,6 +8,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class ApplicationRateController extends ApplicationRateControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -41,19 +42,13 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
   {
     // if this method is being accessed from create or edit, redirect so the url
     // will be correct and refresh will
-    // not create a new object
-    if (!req.getRequestURI().contains(".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo"));
-      return;
-    }
+    // not create a new object   
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     req.setAttribute("targetUnits", TargetUnitDTO.allItems(this.getClientRequest())); 
     req.setAttribute("dto", dto);
-    render("viewComponent.jsp");
-    
+    render("viewComponent.jsp");    
   }
 
   @Override

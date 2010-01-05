@@ -32,6 +32,19 @@ public class TeamSpray extends TeamSprayBase implements com.terraframe.mojo.gene
   }
   
   @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else 
+    {
+      return this.buildKey();
+    }
+  }
+  
+  @Override
   public void apply()
   {
     // IMPORTANT: Lock before performing the uniqueness constraint check

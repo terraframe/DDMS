@@ -7,6 +7,7 @@ import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF;
 import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.system.metadata.MdAttribute;
 
 public class FieldDefaultView extends FieldDefaultViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -16,16 +17,16 @@ public class FieldDefaultView extends FieldDefaultViewBase implements com.terraf
   {
     super();
   }
-  
+
   @Override
   @Transaction
   public void apply()
   {
     applyDefaultValue();
   }
-  
+
   @Override
-  @Transaction  
+  @Transaction
   public void delete()
   {
     deleteConcrete();
@@ -35,17 +36,27 @@ public class FieldDefaultView extends FieldDefaultViewBase implements com.terraf
   @Authenticate
   public void applyDefaultValue()
   {
-    Term term = this.getDefaultValue();
+    MdAttribute mdAttribute = this.getMdAttribute();
 
-    if (term != null)
+    if (mdAttribute != null)
     {
-      String attributeId = this.getMdAttribute().getId();
+      String attributeId = mdAttribute.getId();
       MdAttributeDAOIF businessDAOIF = (MdAttributeDAOIF) MdAttributeDAO.get(attributeId);
       BusinessDAO mdAttributeDAO = businessDAOIF.getMdAttributeConcrete().getBusinessDAO();
 
       if (mdAttributeDAO instanceof MdAttributeRefDAOIF)
       {
-        mdAttributeDAO.setValue(MdAttributeConcreteInfo.DEFAULT_VALUE, term.getId());
+        Term term = this.getDefaultValue();
+
+        if (term != null)
+        {
+          mdAttributeDAO.setValue(MdAttributeConcreteInfo.DEFAULT_VALUE, term.getId());
+        }
+        else
+        {
+          mdAttributeDAO.setValue(MdAttributeConcreteInfo.DEFAULT_VALUE, null);
+        }
+
         mdAttributeDAO.apply();
       }
     }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 729064101)
+@com.terraframe.mojo.business.ClassSignature(hash = 1905149433)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public class WeeklyThresholdQueryDTO extends com.terraframe.mojo.business.RelationshipQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 729064101;
+private static final long serialVersionUID = 1905149433;
 
   protected WeeklyThresholdQueryDTO(String type)
   {

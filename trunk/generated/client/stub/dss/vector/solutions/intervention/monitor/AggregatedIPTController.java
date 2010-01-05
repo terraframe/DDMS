@@ -49,17 +49,21 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
 
       AggregatedIPTViewDTO dto = AggregatedIPTDTO.searchByGeoEntityAndEpiDate(request, geoEntity, type, period, year);
 
-      String jsp = "createComponent.jsp";
-
       if (dto.hasConcreteId())
       {
-        jsp = "viewComponent.jsp";
+        this.view(dto);
+      }
+      else
+      {
+        // Ensure that the user has the ability to create an aggregated IPT
+        new AggregatedIPTDTO(request);
+
+        // Load all of the corresponding grid values
+        this.prepareRelationships(dto);
+        req.setAttribute("item", dto);
+        render("createComponent.jsp");        
       }
 
-      // Load all of the corresponding grid values
-      this.prepareRelationships(dto);
-      req.setAttribute("item", dto);
-      render(jsp);
     }
     catch (ProblemExceptionDTO e)
     {
@@ -103,11 +107,11 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
     req.setAttribute("periodType", allItems);
     req.setAttribute("period", period);
     req.setAttribute("year", year);
-    
-    if(geoId != null && !geoId.equals(""))
+
+    if (geoId != null && !geoId.equals(""))
     {
       GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(clientRequest, geoId);
-      
+
       req.setAttribute("geoId", entity);
     }
     req.setAttribute("checkedType", periodType);
@@ -165,17 +169,35 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
 
   public void newInstance() throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    AggregatedIPTViewDTO dto = new AggregatedIPTViewDTO(clientRequest);
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      AggregatedIPTViewDTO dto = new AggregatedIPTViewDTO(clientRequest);
 
-    this.prepareRelationships(dto);
-    req.setAttribute("item", dto);
-    render("createComponent.jsp");
+      // Ensure that the user has the ability to create an aggregated IPT
+      new AggregatedIPTDTO(clientRequest);
+
+      this.prepareRelationships(dto);
+      req.setAttribute("item", dto);
+      render("createComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failNewInstance();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failNewInstance();
+    }
   }
 
   public void failNewInstance() throws IOException, ServletException
   {
-    this.viewAll();
+    this.search();
   }
 
   public void cancel(AggregatedIPTViewDTO dto) throws IOException, ServletException

@@ -25,6 +25,21 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
   {
     super();
   }
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: "+ this.getClassDisplayLabel();
+    }
+    else if(this.getGeoEntity() != null && this.getSeason() != null)
+    {
+      return this.buildKey();
+    }
+    
+    return super.toString();
+  }
 
   @Override
   protected String buildKey()
@@ -32,12 +47,18 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
     return this.getGeoEntity().getKey() + " - " + this.getSeason().getKey();
   }
 
-  public ThresholdDataView getView()
+  public ThresholdDataView getView(boolean thresholdType)
   {
     ThresholdDataView view = new ThresholdDataView();
+    view.setThresholdType(thresholdType);
     view.populateView(this);
-
+    
     return view;
+  }
+  
+  public ThresholdDataView getView()
+  {
+    return this.getView(true);
   }
 
   @Override

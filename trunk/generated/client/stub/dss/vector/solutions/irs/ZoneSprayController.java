@@ -280,9 +280,9 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
     {
       validateParameters(brand, geoId, date, sprayMethod);
 
+      ClientRequestIF request = this.getClientRequest();
       SprayMethodDTO method = SprayMethodDTO.valueOf(sprayMethod);
-
-      ZoneSprayViewDTO dto = ZoneSprayViewDTO.searchBySprayData(this.getClientRequest(), geoId, date, method, brand);
+      ZoneSprayViewDTO dto = ZoneSprayViewDTO.searchBySprayData(request, geoId, date, method, brand);
 
       if (dto.hasConcrete())
       {
@@ -290,6 +290,9 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
       }
       else
       {
+        // Ensure that the user has the ability to create a team spray
+        new ZoneSprayDTO(request);
+
         this.setupRequest(dto);
         this.setupReferences(dto);
 

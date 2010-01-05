@@ -35,7 +35,20 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
   {
     super();
   }
-  
+
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else
+    {
+      return ResourceTarget.getTargeterName(this);
+    }
+  }
+
   @Override
   protected String buildKey()
   {
@@ -91,12 +104,12 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
   {
     SprayOperator[] operators = this.getTeamMembers();
     SprayOperatorView[] views = new SprayOperatorView[operators.length];
-    
-    for(int i = 0; i < operators.length; i++)
+
+    for (int i = 0; i < operators.length; i++)
     {
       views[i] = operators[i].populateView();
     }
-    
+
     return SprayOperatorView.getAllForTeam(this);
   }
 
@@ -156,8 +169,7 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
     else
     {
       // No results = the geoId is invalid.
-      throw new InvalidReferenceException("[" + geoId + "] is not a valid Spray Zone GeoId",
-          (MdAttributeReferenceDAOIF) SprayTeam.getSprayZoneMd());
+      throw new InvalidReferenceException("[" + geoId + "] is not a valid Spray Zone GeoId", (MdAttributeReferenceDAOIF) SprayTeam.getSprayZoneMd());
     }
   }
 
@@ -185,14 +197,8 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
     }
   }
 
-  public String toString()
-  {
-    return ResourceTarget.getTargeterName(this);
-  }
-
   @Transaction
-  public static SprayTeam newTeam(String geoId, String leaderId, String[] availableIds,
-      String[] assignedIds)
+  public static SprayTeam newTeam(String geoId, String leaderId, String[] availableIds, String[] assignedIds)
   {
     SprayTeam sprayTeam = new SprayTeam();
 
@@ -208,8 +214,7 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
     else
     {
       // No results = the geoId is invalid.
-      throw new InvalidReferenceException("[" + geoId + "] is not a valid Spray Zone GeoId",
-          (MdAttributeReferenceDAOIF) SprayTeam.getSprayZoneMd());
+      throw new InvalidReferenceException("[" + geoId + "] is not a valid Spray Zone GeoId", (MdAttributeReferenceDAOIF) SprayTeam.getSprayZoneMd());
     }
     sprayTeam.apply();
 
@@ -239,8 +244,7 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
     GeoEntity location = GeoEntity.searchByGeoId(geoId);
 
     List<GeoEntity> parents = location.getPrunedParents(Arrays.asList(new String[] { SprayZone.CLASS }));
-    List<GeoEntity> children = location.getPrunedChildren(Arrays
-        .asList(new String[] { SprayZone.CLASS }));
+    List<GeoEntity> children = location.getPrunedChildren(Arrays.asList(new String[] { SprayZone.CLASS }));
     List<GeoEntity> geoEntities = new LinkedList<GeoEntity>();
 
     geoEntities.addAll(parents);

@@ -18,27 +18,27 @@ public class ResourceTarget extends ResourceTargetBase implements com.terraframe
   {
     super();
   }
-  
+
   @Override
   protected String buildKey()
   {
-    if(this.getTargeter() != null && this.getSeason() != null)
+    if (this.getTargeter() != null && this.getSeason() != null)
     {
       return this.getTargeterId() + "." + this.getSeason().getKey();
     }
     return this.getId();
   }
-  
+
   private String getTargeterId()
   {
-    if(this.getTargeter() instanceof SprayOperator)
+    if (this.getTargeter() instanceof SprayOperator)
     {
-      return ((SprayOperator) this.getTargeter()).getOperatorId();
+      return ( (SprayOperator) this.getTargeter() ).getOperatorId();
     }
-      
-    return ((SprayTeam) this.getTargeter()).getTeamId();
+
+    return ( (SprayTeam) this.getTargeter() ).getTeamId();
   }
-  
+
   public static String getTargeterName(Targeter targeter)
   {
     if (targeter instanceof SprayOperator)
@@ -141,7 +141,7 @@ public class ResourceTarget extends ResourceTargetBase implements com.terraframe
     String sql = "DROP VIEW IF EXISTS " + viewName + ";\n";
     sql += "CREATE VIEW " + viewName + " AS ";
     sql += ResourceTarget.getTempTableSQL();
-    //sql += "ORDER BY season_id;\n";
+    // sql += "ORDER BY season_id;\n";
     sql += ";\n";
     System.out.println(sql);
     Database.parseAndExecute(sql);
@@ -151,15 +151,15 @@ public class ResourceTarget extends ResourceTargetBase implements com.terraframe
   public static String getTempTableSQL()
   {
     String sql = "";
-    sql += ResourceTarget.getTargetSQL(MdBusiness.getMdBusiness(ResourceTarget.CLASS).getTableName(),"targeter");
+    sql += ResourceTarget.getTargetSQL(MdBusiness.getMdBusiness(ResourceTarget.CLASS).getTableName(), "targeter");
     sql += " UNION \n";
-    sql += ResourceTarget.getTargetSQL(MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName(),"geoentity");
+    sql += ResourceTarget.getTargetSQL(MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName(), "geoentity");
     sql += " ";
     return sql;
 
   }
 
-  public static String getTargetSQL(String tableName,String targetColumn)
+  public static String getTargetSQL(String tableName, String targetColumn)
   {
     Integer number_of_weeks = 53;
 
@@ -178,7 +178,7 @@ public class ResourceTarget extends ResourceTargetBase implements com.terraframe
     select += "target_array[i] AS weekly_target,\n";
 
     String from = "FROM ";
-    from += "(SELECT "+targetColumn+" AS targeter, season, ARRAY[" + weeks + "] AS target_array FROM " + tableName + ") AS tar ";
+    from += "(SELECT " + targetColumn + " AS targeter, season, ARRAY[" + weeks + "] AS target_array FROM " + tableName + ") AS tar ";
     from += "CROSS JOIN generate_series(1, " + ( number_of_weeks + 1 ) + ") AS i \n";
 
     select = select.substring(0, select.length() - 2);

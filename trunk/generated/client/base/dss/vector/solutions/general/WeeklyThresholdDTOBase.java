@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2015673550)
+@com.terraframe.mojo.business.ClassSignature(hash = 70452834)
 public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.WeeklyThreshold";
-  private static final long serialVersionUID = 2015673550;
+  private static final long serialVersionUID = 70452834;
   
   public WeeklyThresholdDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {
@@ -32,9 +32,13 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String FACILITYIDENTIFICATION = "facilityIdentification";
+  public static java.lang.String FACILITYNOTIFICATION = "facilityNotification";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATION = "identification";
   public static java.lang.String KEYNAME = "keyName";
+  public static java.lang.String LASTFACILITYIDENTIFICATION = "lastFacilityIdentification";
+  public static java.lang.String LASTFACILITYNOTIFICATION = "lastFacilityNotification";
   public static java.lang.String LASTIDENTIFICATION = "lastIdentification";
   public static java.lang.String LASTNOTIFICATION = "lastNotification";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
@@ -190,6 +194,80 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
+  public Integer getFacilityIdentification()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FACILITYIDENTIFICATION));
+  }
+  
+  public void setFacilityIdentification(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(FACILITYIDENTIFICATION, "");
+    }
+    else
+    {
+      setValue(FACILITYIDENTIFICATION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isFacilityIdentificationWritable()
+  {
+    return isWritable(FACILITYIDENTIFICATION);
+  }
+  
+  public boolean isFacilityIdentificationReadable()
+  {
+    return isReadable(FACILITYIDENTIFICATION);
+  }
+  
+  public boolean isFacilityIdentificationModified()
+  {
+    return isModified(FACILITYIDENTIFICATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFacilityIdentificationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FACILITYIDENTIFICATION).getAttributeMdDTO();
+  }
+  
+  public Integer getFacilityNotification()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FACILITYNOTIFICATION));
+  }
+  
+  public void setFacilityNotification(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(FACILITYNOTIFICATION, "");
+    }
+    else
+    {
+      setValue(FACILITYNOTIFICATION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isFacilityNotificationWritable()
+  {
+    return isWritable(FACILITYNOTIFICATION);
+  }
+  
+  public boolean isFacilityNotificationReadable()
+  {
+    return isReadable(FACILITYNOTIFICATION);
+  }
+  
+  public boolean isFacilityNotificationModified()
+  {
+    return isModified(FACILITYNOTIFICATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFacilityNotificationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FACILITYNOTIFICATION).getAttributeMdDTO();
+  }
+  
   public Integer getIdentification()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION));
@@ -262,6 +340,94 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.general.EpiWeekDTO getLastFacilityIdentification()
+  {
+    if(getValue(LASTFACILITYIDENTIFICATION) == null || getValue(LASTFACILITYIDENTIFICATION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.EpiWeekDTO.get(getRequest(), getValue(LASTFACILITYIDENTIFICATION));
+    }
+  }
+  
+  public void setLastFacilityIdentification(dss.vector.solutions.general.EpiWeekDTO value)
+  {
+    if(value == null)
+    {
+      setValue(LASTFACILITYIDENTIFICATION, "");
+    }
+    else
+    {
+      setValue(LASTFACILITYIDENTIFICATION, value.getId());
+    }
+  }
+  
+  public boolean isLastFacilityIdentificationWritable()
+  {
+    return isWritable(LASTFACILITYIDENTIFICATION);
+  }
+  
+  public boolean isLastFacilityIdentificationReadable()
+  {
+    return isReadable(LASTFACILITYIDENTIFICATION);
+  }
+  
+  public boolean isLastFacilityIdentificationModified()
+  {
+    return isModified(LASTFACILITYIDENTIFICATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastFacilityIdentificationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTFACILITYIDENTIFICATION).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.general.EpiWeekDTO getLastFacilityNotification()
+  {
+    if(getValue(LASTFACILITYNOTIFICATION) == null || getValue(LASTFACILITYNOTIFICATION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.EpiWeekDTO.get(getRequest(), getValue(LASTFACILITYNOTIFICATION));
+    }
+  }
+  
+  public void setLastFacilityNotification(dss.vector.solutions.general.EpiWeekDTO value)
+  {
+    if(value == null)
+    {
+      setValue(LASTFACILITYNOTIFICATION, "");
+    }
+    else
+    {
+      setValue(LASTFACILITYNOTIFICATION, value.getId());
+    }
+  }
+  
+  public boolean isLastFacilityNotificationWritable()
+  {
+    return isWritable(LASTFACILITYNOTIFICATION);
+  }
+  
+  public boolean isLastFacilityNotificationReadable()
+  {
+    return isReadable(LASTFACILITYNOTIFICATION);
+  }
+  
+  public boolean isLastFacilityNotificationModified()
+  {
+    return isModified(LASTFACILITYNOTIFICATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastFacilityNotificationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTFACILITYNOTIFICATION).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.general.EpiWeekDTO getLastIdentification()

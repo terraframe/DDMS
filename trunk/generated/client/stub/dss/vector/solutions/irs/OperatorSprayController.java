@@ -211,9 +211,9 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     {
       validateParameters(brand, geoId, date, sprayMethod, operator);
 
+      ClientRequestIF request = this.getClientRequest();      
       SprayMethodDTO method = SprayMethodDTO.valueOf(sprayMethod);
-
-      OperatorSprayViewDTO dto = OperatorSprayViewDTO.searchBySprayData(this.getClientRequest(), geoId, date, method, brand, operator.getId());
+      OperatorSprayViewDTO dto = OperatorSprayViewDTO.searchBySprayData(request, geoId, date, method, brand, operator.getId());
 
       if (dto.hasConcrete())
       {
@@ -221,6 +221,9 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
       }
       else
       {
+        //Ensure that the user has the ability to create an operator spray
+        new OperatorSprayDTO(request);
+        
         this.setupRequest(dto);
         this.setupReferences(dto);
 

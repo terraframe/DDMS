@@ -52,7 +52,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     try
     {
       validateSearchCriteria(diagnosisDate, caseReportDate, personId);
-      
+
       ClientRequestIF clientRequest = getClientRequest();
       IndividualCaseDTO individualCase = IndividualCaseDTO.searchForExistingCase(clientRequest, diagnosisDate, personId);
       if (individualCase.isNewInstance())
@@ -69,17 +69,17 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      
-      String failDiagnosis = (diagnosisDate != null ? new DefaultConverter(Date.class).format(diagnosisDate, req.getLocale()): null);
-      String failCase = (caseReportDate != null ? new DefaultConverter(Date.class).format(caseReportDate, req.getLocale()): null);
-      
+
+      String failDiagnosis = ( diagnosisDate != null ? new DefaultConverter(Date.class).format(diagnosisDate, req.getLocale()) : null );
+      String failCase = ( caseReportDate != null ? new DefaultConverter(Date.class).format(caseReportDate, req.getLocale()) : null );
+
       this.failSearch(failDiagnosis, failCase, personId);
     }
     catch (Throwable t)
     {
-      String failDiagnosis = (diagnosisDate != null ? new DefaultConverter(Date.class).format(diagnosisDate, req.getLocale()): null);
-      String failCase = (caseReportDate != null ? new DefaultConverter(Date.class).format(caseReportDate, req.getLocale()): null);
-      
+      String failDiagnosis = ( diagnosisDate != null ? new DefaultConverter(Date.class).format(diagnosisDate, req.getLocale()) : null );
+      String failCase = ( caseReportDate != null ? new DefaultConverter(Date.class).format(caseReportDate, req.getLocale()) : null );
+
       this.failSearch(failDiagnosis, failCase, personId);
     }
   }
@@ -113,8 +113,8 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
   {
     req.setAttribute("diagnosisDate", diagnosisDate);
     req.setAttribute("caseReportDate", caseReportDate);
-    
-    if(personId != null && !personId.equals(""))
+
+    if (personId != null && !personId.equals(""))
     {
       req.setAttribute("person", PersonDTO.getView(this.getClientRequest(), personId));
     }
@@ -145,7 +145,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     PersonViewDTO person = individualCaseDTO.getPatient().getPerson().getView();
-    
+
     req.setAttribute("person", person);
     req.setAttribute("query", individualCaseDTO.getInstances());
     req.setAttribute("item", individualCaseDTO);
@@ -252,9 +252,24 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
   public void newInstance() throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    IndividualCaseDTO dto = new IndividualCaseDTO(clientRequest);
-    renderSearch(dto);
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      IndividualCaseDTO dto = new IndividualCaseDTO(clientRequest);
+      renderSearch(dto);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failNewInstance();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failNewInstance();
+    }
   }
 
   private void renderSearch(IndividualCaseDTO dto) throws IOException, ServletException

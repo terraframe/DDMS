@@ -13,6 +13,25 @@ public class BiochemicalAssay extends BiochemicalAssayBase implements com.terraf
   {
     super();
   }
+    
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: "+ this.getClassDisplayLabel();
+    }
+    else if(this.getMosquitoId() != null && !this.getMosquitoId().equals(""))
+    {
+      return this.getMosquitoId();
+    }
+    else if(this.getSpecies() != null)
+    {
+      return this.getSpecies().getDisplay();
+    }
+    
+    return super.toString();
+  }
   
   @Override
   protected String buildKey()

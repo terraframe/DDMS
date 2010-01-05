@@ -8,7 +8,20 @@ public class AreaStandards extends AreaStandardsBase implements com.terraframe.m
   {
     super();
   }
-  
+
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else
+    {
+      return this.getClassDisplayLabel();
+    }
+  }
+
   @Override
   protected String buildKey()
   {
@@ -22,10 +35,10 @@ public class AreaStandards extends AreaStandardsBase implements com.terraframe.m
     view.setHousehold(this.getHousehold());
     view.setUnitNozzleAreaCoverage(this.getUnitNozzleAreaCoverage());
     view.setAreaStandardsId(this.getId());
-    
+
     view.clearTargetUnit();
-    
-    for(TargetUnit unit : this.getTargetUnit())
+
+    for (TargetUnit unit : this.getTargetUnit())
     {
       view.addTargetUnit(unit);
     }

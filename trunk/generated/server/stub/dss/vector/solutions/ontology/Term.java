@@ -39,6 +39,21 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     super();
   }
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else if(this.getName() != null && this.getTermId() != null)
+    {
+      return this.getName() + " (" + this.getTermId() + ")";
+    }
+    
+    return super.toString();
+  }
 
   @Override
   protected String buildKey()
@@ -205,11 +220,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
 
     super.apply();
-  }
-
-  public String toString()
-  {
-    return this.getName() + " (" + this.getTermId() + ")";
   }
 
   /**

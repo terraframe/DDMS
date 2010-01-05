@@ -23,6 +23,7 @@ import com.terraframe.mojo.session.Session;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.HealthFacility;
 
 public class ThresholdDataView extends ThresholdDataViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -68,8 +69,11 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
 
         int index = ( week.getPeriod() % EpiDate.getNumberOfEpiWeeks(week.getYearOfWeek()) );
 
-        this.populateAttributes(this, "setOutbreak_" + index, threshold.getNotification());
-        this.populateAttributes(this, "setIdentification_" + index, threshold.getIdentification());
+        Integer notification = (this.getThresholdType() ? threshold.getNotification() : threshold.getFacilityNotification());
+        Integer ident = (this.getThresholdType() ? threshold.getIdentification() : threshold.getFacilityIdentification());
+        
+        this.populateAttributes(this, "setOutbreak_" + index, notification);
+        this.populateAttributes(this, "setIdentification_" + index, ident);
       }
     }
     finally
@@ -171,9 +175,20 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
 
         new AttributeNotificationMap(threshold, WeeklyThreshold.IDENTIFICATION, this, ThresholdDataView.IDENTIFICATION + index);
         new AttributeNotificationMap(threshold, WeeklyThreshold.NOTIFICATION, this, ThresholdDataView.OUTBREAK + index);
+        new AttributeNotificationMap(threshold, WeeklyThreshold.FACILITYIDENTIFICATION, this, ThresholdDataView.IDENTIFICATION + index);
+        new AttributeNotificationMap(threshold, WeeklyThreshold.FACILITYNOTIFICATION, this, ThresholdDataView.OUTBREAK + index);
 
-        threshold.setNotification(notification);
-        threshold.setIdentification(identification);
+        if (this.getThresholdType())
+        {
+          threshold.setNotification(notification);
+          threshold.setIdentification(identification);
+        }
+        else
+        {
+          threshold.setFacilityNotification(notification);
+          threshold.setFacilityIdentification(identification);          
+        }
+
         threshold.setCalculationType(null);
         threshold.apply();
       }
@@ -230,18 +245,39 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
 
     for (GeoEntity child : geoEntity.getPopulationChildren())
     {
-      ThresholdDataView view = ThresholdDataView.getView(child, season);
+      ThresholdDataView view = ThresholdDataView.getView(child, season, true);
 
       list.add(view);
     }
 
-    list.add(ThresholdDataView.getView(geoEntity, season));
+    list.add(ThresholdDataView.getView(geoEntity, season, true));
 
     return list.toArray(new ThresholdDataView[list.size()]);
-
   }
 
-  public static ThresholdDataView getView(GeoEntity entity, MalariaSeason season)
+  public static ThresholdDataView[] getFacilityViews(String geoId, MalariaSeason season)
+  {
+    GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
+    
+    List<ThresholdDataView> list = new LinkedList<ThresholdDataView>();
+    List<GeoEntity> children = geoEntity.getFacilityChildren();
+    
+    for (GeoEntity child : children)
+    {
+      ThresholdDataView view = ThresholdDataView.getView(child, season, false);
+
+      list.add(view);
+    }
+
+    if (geoEntity instanceof HealthFacility)
+    {
+      list.add(ThresholdDataView.getView(geoEntity, season, true));
+    }
+
+    return list.toArray(new ThresholdDataView[list.size()]);
+  }
+
+  public static ThresholdDataView getView(GeoEntity entity, MalariaSeason season, boolean political)
   {
     ThresholdDataQuery query = new ThresholdDataQuery(new QueryFactory());
 
@@ -257,13 +293,16 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
     {
       if (it.hasNext())
       {
-        return it.next().getView();
+        ThresholdDataView view = it.next().getView(political);
+        
+        return view;
       }
 
       ThresholdDataView view = new ThresholdDataView();
       view.setGeoEntity(entity.getGeoId());
       view.setSeason(season);
       view.setEntityLabel(entity);
+      view.setThresholdType(political);
 
       return view;
     }

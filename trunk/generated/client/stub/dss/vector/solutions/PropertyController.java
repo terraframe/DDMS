@@ -37,7 +37,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
   public void view(String id) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    
+
     req.setAttribute("configuration", new EpiConfigurationDTO(this.getClientRequest()));
     req.setAttribute("item", PropertyDTO.get(clientRequest, id));
     render("viewComponent.jsp");
@@ -103,7 +103,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
   public void viewAll() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    
+
     PropertyQueryDTO query = PropertyDTO.getAllEditable(clientRequest);
 
     req.setAttribute("query", query);
@@ -146,14 +146,29 @@ public class PropertyController extends PropertyControllerBase implements com.te
 
   public void edit(String id) throws IOException, ServletException
   {
-    PropertyDTO dto = PropertyDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    try
+    {
+      PropertyDTO dto = PropertyDTO.lock(super.getClientRequest(), id);
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
   }
 
   public void failEdit(String id) throws IOException, ServletException
   {
-    this.view(id);
+    this.viewAll();
   }
 
   public void newInstance() throws IOException, ServletException

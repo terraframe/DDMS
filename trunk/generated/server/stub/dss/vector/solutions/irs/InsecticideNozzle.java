@@ -22,6 +22,22 @@ public class InsecticideNozzle extends InsecticideNozzleBase implements com.terr
   }
   
   @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else if(this.getParent() != null && this.getChild() != null)
+    {
+      return this.getParent().toString() + " - " + this.getChild().toString();
+    }
+
+    return super.toString();
+  }
+
+  
+  @Override
   protected String buildKey()
   {
     return this.getId();

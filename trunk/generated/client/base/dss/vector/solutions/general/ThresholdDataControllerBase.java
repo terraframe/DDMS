@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -605058819)
+@com.terraframe.mojo.business.ClassSignature(hash = 55616469)
 public class ThresholdDataControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.general.ThresholdDataController";
@@ -10,7 +10,7 @@ public class ThresholdDataControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -605058819;
+  private static final long serialVersionUID = 55616469;
   
   public ThresholdDataControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -123,15 +123,15 @@ public class ThresholdDataControllerBase implements com.terraframe.mojo.generati
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.ThresholdDataController.failSearch");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoId, dss.vector.solutions.general.MalariaSeasonDTO:season", post=true)
-  public void searchForThresholdData(java.lang.String geoId, dss.vector.solutions.general.MalariaSeasonDTO season) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoId, dss.vector.solutions.general.MalariaSeasonDTO:season, java.lang.Boolean:thresholdType", post=true)
+  public void searchForThresholdData(java.lang.String geoId, dss.vector.solutions.general.MalariaSeasonDTO season, java.lang.Boolean thresholdType) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdDataController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.ThresholdDataController.searchForThresholdData");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoId, dss.vector.solutions.general.MalariaSeasonDTO:season", post=true)
-  public void failSearchForThresholdData(java.lang.String geoId, dss.vector.solutions.general.MalariaSeasonDTO season) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoId, dss.vector.solutions.general.MalariaSeasonDTO:season, java.lang.String:thresholdType", post=true)
+  public void failSearchForThresholdData(java.lang.String geoId, dss.vector.solutions.general.MalariaSeasonDTO season, java.lang.String thresholdType) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdDataController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.ThresholdDataController.failSearchForThresholdData");

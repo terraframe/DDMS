@@ -25,6 +25,21 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     super();
   }
 
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else if(this.getDisplayLabel() != null)
+    {
+      return this.getDisplayLabel();
+    }
+    
+    return super.toString();
+  }
+
   protected String buildKey()
   {
     return this.getPropertyName();
@@ -42,13 +57,13 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
   public static PropertyQuery getAllEditable()
   {
     PropertyQuery query = new PropertyQuery(new QueryFactory());
-    
+
     Condition condition = AND.get(query.getPropertyPackage().NE(PropertyInfo.RESISTANCE_PACKAGE), query.getEditable().EQ(true));
     condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.GENERAL_PACKAGE));
     condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.STANDARDS_PACKAGE));
-    
+
     query.WHERE(condition);
-    
+
     return query;
   }
 

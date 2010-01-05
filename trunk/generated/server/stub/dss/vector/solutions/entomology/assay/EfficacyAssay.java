@@ -31,6 +31,21 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
   public EfficacyAssay()
   {
     super();
+  }  
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: "+ this.getClassDisplayLabel();
+    }
+    else if(this.getGeoEntity() != null && this.getInsecticide() != null)
+    {
+      return "(" + this.getGeoEntity().getLabel() + ", " + this.getInsecticide().toString() + ")";
+    }
+    
+    return super.toString();
   }
 
   @Override

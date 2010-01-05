@@ -20,6 +20,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyViewDTO;
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.irs.RequiredGeoIdProblemDTO;
 import dss.vector.solutions.irs.RequiredSeasonProblemDTO;
 import dss.vector.solutions.util.ColumnSetup;
@@ -59,10 +60,10 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
       new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "search");
 
-      MalariaSeasonDTO[] seasons = MalariaSeasonDTO.getAll(this.getClientRequest());
+      ClientRequestIF request = this.getClientRequest();
 
-      req.setAttribute("seasons", Arrays.asList(seasons));
-
+      req.setAttribute("seasons", Arrays.asList(MalariaSeasonDTO.getAll(request)));
+      req.setAttribute("item", new ThresholdDataViewDTO(request));
       render("searchComponent.jsp");
     }
   }
@@ -75,7 +76,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
   }
 
   @Override
-  public void searchForThresholdData(String geoId, MalariaSeasonDTO season) throws IOException, ServletException
+  public void searchForThresholdData(String geoId, MalariaSeasonDTO season, Boolean thresholdType) throws IOException, ServletException
   {
     try
     {
@@ -83,30 +84,32 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
       ClientRequestIF request = this.getClientRequest();
 
-      ThresholdDataViewDTO[] views = ThresholdDataViewDTO.getViews(request, geoId, season);
+      ThresholdDataViewDTO[] views = null;
 
-      if (views.length > 0)
+      if (thresholdType)
       {
-        req.setAttribute(ITEM, views[views.length - 1]);
+        views = ThresholdDataViewDTO.getViews(request, geoId, season);
       }
       else
       {
-        ThresholdDataViewDTO item = new ThresholdDataViewDTO(request);
-        item.setGeoEntity(geoId);
-        item.setSeason(season);
-
-        req.setAttribute(ITEM, item);
+        views = ThresholdDataViewDTO.getFacilityViews(request, geoId, season);
       }
+
+      ThresholdDataViewDTO item = new ThresholdDataViewDTO(request);
+      item.setGeoEntity(geoId);
+      item.setSeason(season);
 
       EpiDateDTO[] weeks = season.getEpiWeeks();
 
       String[] keys = getAttributeKeys(weeks);
-      Map<String, ColumnSetup> map = getColumns(weeks);
+      Map<String, ColumnSetup> map = getColumns(weeks, thresholdType);
 
+      req.setAttribute(ITEM, item);
       req.setAttribute(VIEWS, views);
       req.setAttribute(KEYS, keys);
       req.setAttribute(COLUMNS, map);
       req.setAttribute("season", season);
+      req.setAttribute("entity", GeoEntityDTO.searchByGeoId(request, geoId));
 
       render("viewComponent.jsp");
     }
@@ -114,22 +117,25 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
     {
       ErrorUtility.prepareProblems(e, req);
 
-      this.failSearchForThresholdData(geoId, season);
+      String failThresholdType = thresholdType != null ? thresholdType.toString() : "true";
+      this.failSearchForThresholdData(geoId, season, failThresholdType);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
 
-      this.failSearchForThresholdData(geoId, season);
+      String failThresholdType = thresholdType != null ? thresholdType.toString() : "true";
+      this.failSearchForThresholdData(geoId, season, failThresholdType);
     }
   }
 
-  private Map<String, ColumnSetup> getColumns(EpiDateDTO[] weeks)
+  private Map<String, ColumnSetup> getColumns(EpiDateDTO[] weeks, boolean thresholdType)
   {
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
     map.put("ConcreteId", new ColumnSetup(true, false));
     map.put("GeoEntity", new ColumnSetup(true, false));
     map.put("Season", new ColumnSetup(true, false));
+    map.put("ThresholdType", new ColumnSetup(true, false));
     map.put("EntityLabel", new ColumnSetup(false, false));
 
     for (int i = 0; i < 53; i++)
@@ -146,12 +152,12 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
       int weekNumber = ( week.getPeriod() % week.getNumberOfEpiWeeks() ) + 1;
 
       ColumnSetup outbreakSetup = new ColumnSetup(false, true);
-      outbreakSetup.setSum(true);
+      outbreakSetup.setSum(thresholdType);
       outbreakSetup.setTitle(startDate + " -> " + endDate);
       outbreakSetup.setValidator("thresholdValidator");
 
       ColumnSetup identificationSetup = new ColumnSetup(false, true);
-      identificationSetup.setSum(true);
+      identificationSetup.setSum(thresholdType);
       identificationSetup.setTitle(startDate + " -> " + endDate);
       identificationSetup.setValidator("thresholdValidator");
 
@@ -205,7 +211,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
   }
 
   @Override
-  public void failSearchForThresholdData(String geoId, MalariaSeasonDTO season) throws IOException, ServletException
+  public void failSearchForThresholdData(String geoId, MalariaSeasonDTO season, String thresholdType) throws IOException, ServletException
   {
     this.search();
   }
@@ -232,7 +238,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
       ClientRequestIF request = this.getClientRequest();
 
-      List<GeoHierarchyViewDTO> universals = this.getPopulationFilterHiearchies();      
+      List<GeoHierarchyViewDTO> universals = this.getPopulationFilterHiearchies();
       List<OutbreakCalculationMasterDTO> countingMethods = OutbreakCalculationDTO.allItems(request);
       ThresholdCalculationTypeViewDTO item = ThresholdCalculationTypeViewDTO.getCalculationThreshold(request);
 
@@ -240,7 +246,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
       req.setAttribute("thresholdCalculationCaseTypes", ThresholdCalculationCaseTypesDTO.allItems(request));
       req.setAttribute("methods", countingMethods);
       req.setAttribute("views", universals);
-      
+
       req.setAttribute("thresholdCalculation", item);
       req.setAttribute("epidemicUniversal", item.getEpidemicUniversal());
 
@@ -258,7 +264,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
     for (Iterator<GeoHierarchyViewDTO> it = list.iterator(); it.hasNext();)
     {
       GeoHierarchyViewDTO view = it.next();
-      
+
       if (view.getPolitical() && view.getPopulationAllowed())
       {
         views.add(view);

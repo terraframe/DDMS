@@ -25,6 +25,21 @@ public class PopulationData extends PopulationDataBase implements com.terraframe
   {
     super();
   }
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: "+ this.getClassDisplayLabel();
+    }
+    else if(this.getGeoEntity() != null && this.getYearOfData() != null)
+    {
+      return this.buildKey();
+    }
+    
+    return super.toString();
+  }
 
   @Override
   protected String buildKey()

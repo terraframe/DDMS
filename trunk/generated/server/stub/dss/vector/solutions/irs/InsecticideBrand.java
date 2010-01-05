@@ -21,6 +21,21 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.terraf
   }
   
   @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else if(this.getBrandName() != null)
+    {
+      return this.getBrandName();
+    }
+
+    return super.toString();
+  }
+  
+  @Override
   protected String buildKey()
   {
     return this.getBrandName();

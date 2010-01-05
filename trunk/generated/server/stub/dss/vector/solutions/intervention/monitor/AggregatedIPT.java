@@ -30,6 +30,17 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.m
   {
     super();
   }
+    
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: "+ this.getClassDisplayLabel();
+    }
+    
+    return this.buildKey();
+  }
 
   @Override
   protected String buildKey()

@@ -14,6 +14,21 @@ public class AggregatedAgeGroup extends AggregatedAgeGroupBase implements com.te
   {
     super();
   }
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: "+ this.getClassDisplayLabel();
+    }
+    else if(this.getDisplayLabel() != null)
+    {
+      return this.getDisplayLabel();
+    }
+    
+    return super.toString();
+  }
 
   protected String buildKey()
   {

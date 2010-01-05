@@ -26,6 +26,26 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   }
 
   @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else
+    {
+      String toString = this.getFirstName() + " " + this.getLastName();
+      
+      if (toString.length() > 1)
+      {
+        return toString;
+      }
+      
+      return super.toString();
+    }
+  }
+
+  @Override
   protected String buildKey()
   {
     // Person class has no attributes that can form a unique identifier
@@ -119,7 +139,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     {
       this.getSprayLeaderDelegate().delete();
     }
-    
+
     if (this.getStockStaffDelegate() != null)
     {
       this.getStockStaffDelegate().delete();
@@ -173,7 +193,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     {
       this.getStockStaffDelegate().lock();
     }
-    
+
     if (this.getSupervisorDelegate() != null)
     {
       this.getSupervisorDelegate().lock();
@@ -219,7 +239,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     {
       this.getStockStaffDelegate().unlock();
     }
-    
+
     if (this.getSupervisorDelegate() != null)
     {
       this.getSupervisorDelegate().unlock();
@@ -245,7 +265,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   {
     // Set the person's base attributes
     PersonView view = new PersonView();
-    
+
     view.populateView(this);
 
     return view;
@@ -259,7 +279,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     String lastName = this.getLastName();
     Date dob = this.getDateOfBirth();
     Term sex = this.getSex();
-    
+
     if (firstName.length() > 0)
     {
       query.WHERE(query.getFirstName().EQ(firstName));
@@ -274,8 +294,8 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     {
       query.WHERE(query.getDateOfBirth().EQ(dob));
     }
-    
-    if(sex != null)
+
+    if (sex != null)
     {
       query.WHERE(query.getSex().EQ(sex));
     }
@@ -301,17 +321,6 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     super.unlock();
   }
 
-  @Override
-  public String toString()
-  {
-    String value = this.getFirstName() + " " + this.getLastName();
-    if (value.length() > 1)
-    {
-      return value;
-    }
-    return this.getKey();
-  }
-
   public static ValueQuery searchForPerson(String value)
   {
     QueryFactory f = new QueryFactory();
@@ -320,21 +329,14 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     ValueQuery valueQuery = new ValueQuery(f);
 
     String residentialLabel = Person.RESIDENTIALGEOENTITY + QueryUtil.DISPLAY_LABEL_SUFFIX;
-    
-    Selectable[] selectables = new Selectable[] {
-        personQuery.getId(PersonView.ID),
-        personQuery.getFirstName(PersonView.FIRSTNAME),
-        personQuery.getLastName(PersonView.LASTNAME),
-        personQuery.getDateOfBirth(PersonView.DATEOFBIRTH),
-        personQuery.getSex().getName(PersonView.SEX),
-        valueQuery.aSQLCharacter(PersonView.RESIDENTIALGEOID, residentialLabel),
-    };
+
+    Selectable[] selectables = new Selectable[] { personQuery.getId(PersonView.ID), personQuery.getFirstName(PersonView.FIRSTNAME), personQuery.getLastName(PersonView.LASTNAME), personQuery.getDateOfBirth(PersonView.DATEOFBIRTH), personQuery.getSex().getName(PersonView.SEX),
+        valueQuery.aSQLCharacter(PersonView.RESIDENTIALGEOID, residentialLabel), };
 
     valueQuery.SELECT(selectables);
 
-    
     QueryUtil.joinGeoDisplayLabels(valueQuery, Person.CLASS, personQuery);
-    
+
     String statement = "%" + value + "%";
 
     // Search conditions
@@ -354,7 +356,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(Person.FIRSTNAME));
 
     valueQuery.restrictRows(20, 1);
-    
+
     return valueQuery;
   }
 
