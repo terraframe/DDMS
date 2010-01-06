@@ -564,10 +564,25 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
 
     MdBusiness geoEntityClass = this.getGeoEntityClass();
 
+    /* Obsolete? Strict is_a hierarchies no longer exist
     // delete is_a hierarchy
     for (MdBusiness child : geoEntityClass.getAllSubClass().getAll())
     {
       GeoHierarchy.getGeoHierarchyFromType(child).deleteInternal(ids);
+    }
+    */
+
+    // Regenerate the all paths table if any entities exist for this universal
+    QueryFactory f = new QueryFactory();
+    GeoEntityQuery q = new GeoEntityQuery(f);
+    
+    q.WHERE(q.getType().EQ(geoEntityClass.definesType()));
+    
+    boolean hasEntries = q.getCount() > 0;
+    if(hasEntries)
+    {
+      MdBusiness mdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);
+      mdBusiness.deleteAllTableRecords();
     }
 
     super.delete();
@@ -576,6 +591,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     helper.deleteSearch(this);
 
     geoEntityClass.delete();
+
+    if(hasEntries)
+    {
+      GeoEntity.buildAllPathsFast();
+    }
   }
 
   /**
