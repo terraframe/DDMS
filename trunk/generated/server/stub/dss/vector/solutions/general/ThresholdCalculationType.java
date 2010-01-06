@@ -164,8 +164,66 @@ public class ThresholdCalculationType extends ThresholdCalculationTypeBase imple
 
 	@Transaction
 	public MalariaSeason calculateThresholds(boolean currentPeriod) {
+		this.calculatePoliticalThresholds(currentPeriod);
+		return this.calculateFacilityThresholds(currentPeriod);
+	}
+	
+	@Transaction
+	public MalariaSeason calculatePoliticalThresholds(boolean currentPeriod) {
 		MalariaSeason season = this.getSeason(currentPeriod);
 
+		if (season != null) {
+
+			EpiDate thisEpiWeek = EpiDate.getEpiWeek(new Date());
+
+			EpiDate startingEpiWeek = null;
+			EpiDate endingEpiWeek = null;
+			if (currentPeriod) {
+				// If we're currently in a season, then we can't calculate any
+				// dates
+				// for weeks before now
+				// So set the start to next epi week, and the end to the end of
+				// the
+				// season
+				startingEpiWeek = thisEpiWeek.getNext();
+				endingEpiWeek = EpiDate.getEpiWeek(season.getEndDate());
+			} else {
+				// If we're not in a season, we'll calculate NEXT season
+				// We can only calculate up to a year out
+				startingEpiWeek = EpiDate.getEpiWeek(season.getStartDate());
+				Calendar nextYear = Calendar.getInstance();
+				nextYear.add(Calendar.YEAR, 1);
+				if (season.getEndDate().after(nextYear.getTime())) {
+					endingEpiWeek = EpiDate.getEpiWeek(nextYear.getTime());
+				} else {
+					endingEpiWeek = EpiDate.getEpiWeek(season.getEndDate());
+				}
+			}
+
+			GeoEntity earth = Earth.getEarthInstance();
+			GeoEntityQuery query = earth.getPopulationDecendants(new QueryFactory());
+			OIterator<? extends GeoEntity> it = query.getIterator();
+
+			try {
+				while (it.hasNext()) {
+					GeoEntity geoEntity = it.next();
+					//if ("22220033".equals(geoEntity.getGeoId())) {
+					//	System.out.println(geoEntity.getEntityName());
+						this.calculatePoliticalThresholds(geoEntity, season, startingEpiWeek, endingEpiWeek);
+					//}
+				}
+			} finally {
+				it.close();
+			}
+		}
+
+		return season;
+	}
+	
+	@Transaction
+	public MalariaSeason calculateFacilityThresholds(boolean currentPeriod) {
+		MalariaSeason season = this.getSeason(currentPeriod);
+/*
 		if (season != null) {
 
 			EpiDate thisEpiWeek = EpiDate.getEpiWeek(new Date());
@@ -210,12 +268,12 @@ public class ThresholdCalculationType extends ThresholdCalculationTypeBase imple
 				it.close();
 			}
 		}
-
+*/
 		return season;
 	}
-
+	
 	@Transaction
-	private void calculateThresholds(GeoEntity geoEntity, MalariaSeason season, EpiDate startingEpiWeek, EpiDate endingEpiWeek) {
+	private void calculatePoliticalThresholds(GeoEntity geoEntity, MalariaSeason season, EpiDate startingEpiWeek, EpiDate endingEpiWeek) {
 		ThresholdCalculationMethod t1Method = this.getT1Method().get(0);
 		ThresholdCalculationMethod t2Method = this.getT2Method().get(0);
 
@@ -234,14 +292,14 @@ public class ThresholdCalculationType extends ThresholdCalculationTypeBase imple
 				if (t1Method != t2Method) {
 					t2 = this.calculate(t2Method, geoEntity, period, year);
 				}
-				this.createWeeklyThreshold(thresholdData, currentEpiWeek, t1, t2);
+				this.createWeeklyThreshold(thresholdData, currentEpiWeek, t1, t2, 0, 0);
 			}
 		}
 	}
 
 	@Transaction
-	private void createWeeklyThreshold(ThresholdData thresholdData, EpiDate epiDate, long t1, long t2) {
-		if (t1 > 0 && t2 > 0) {
+	private void createWeeklyThreshold(ThresholdData thresholdData, EpiDate epiDate, long pt1, long pt2, long ft1, long ft2) {
+		if (pt1 > 0 || pt2 > 0 || ft1 > 0 || ft2 > 0) {
 			// System.out.println(thresholdData.getGeoEntity().getEntityName() +
 			// ", " + thresholdData.getSeason().getSeasonName() + " (" +
 			// epiDate.getActualPeriod() + "/" + epiDate.getActualYear() +
@@ -250,11 +308,17 @@ public class ThresholdCalculationType extends ThresholdCalculationTypeBase imple
 			WeeklyThreshold weeklyThreshold = thresholdData.getEpiWeeksRel(epiWeek);
 			if (weeklyThreshold == null) {
 				weeklyThreshold = new WeeklyThreshold(thresholdData, epiWeek);
-				if (t1 > 0) {
-					weeklyThreshold.setNotification((int) t1);
+				if (pt1 > 0) {
+					weeklyThreshold.setNotification((int) pt1);
 				}
-				if (t2 > 0) {
-					weeklyThreshold.setIdentification((int) t2);
+				if (pt2 > 0) {
+					weeklyThreshold.setIdentification((int) pt2);
+				}
+				if (ft1 > 0) {
+					weeklyThreshold.setFacilityNotification((int) ft1);
+				}
+				if (ft2 > 0) {
+					weeklyThreshold.setFacilityIdentification((int) ft2);
 				}
 				weeklyThreshold.setCalculationType(this);
 				weeklyThreshold.apply();

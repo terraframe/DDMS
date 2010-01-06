@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2092360408)
+@com.terraframe.mojo.business.ClassSignature(hash = 1819404094)
 public abstract class ThresholdCalculationTypeViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdCalculationTypeView";
-  private static final long serialVersionUID = 2092360408;
+  private static final long serialVersionUID = 1819404094;
   
   protected ThresholdCalculationTypeViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -809,6 +809,22 @@ public abstract class ThresholdCalculationTypeViewDTOBase extends com.terraframe
   public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getWeight9Md()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT9).getAttributeMdDTO();
+  }
+  
+  public static final void calculateFacilityThresholds(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.general.ThresholdCalculationTypeViewDTO thresholdCalculation, java.lang.Boolean currentYear)
+  {
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.general.ThresholdCalculationTypeView", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{thresholdCalculation, currentYear};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.ThresholdCalculationTypeViewDTO.CLASS, "calculateFacilityThresholds", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void calculatePoliticalThresholds(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.general.ThresholdCalculationTypeViewDTO thresholdCalculation, java.lang.Boolean currentYear)
+  {
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.general.ThresholdCalculationTypeView", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{thresholdCalculation, currentYear};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.ThresholdCalculationTypeViewDTO.CLASS, "calculatePoliticalThresholds", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final void calculateThresholds(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.general.ThresholdCalculationTypeViewDTO thresholdCalculation, java.lang.Boolean currentYear)

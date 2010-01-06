@@ -120,9 +120,9 @@
       <input type="radio" name="currentYear" value="true" checked="checked"/> ${thresholdCalculation.calculationIntervalMd.positiveDisplayLabel}    
       <input type="radio" name="currentYear" value="false"/> ${thresholdCalculation.calculationIntervalMd.negativeDisplayLabel}  
     </dd>
-    
-    <input type="button" id="calculate.button" value="" />
-    (<fmt:message key="Calculation_may_take_time"/>)
+
+    <input type="button" id="calculatePolitical.button" value="" /> <input type="button" id="calculateFacility.button" value="" />
+    (<fmt:message key="Calculations_may_take_time"/>)
   </dl>
 </mjl:form>
 
@@ -132,18 +132,31 @@
 (function(){
     YAHOO.util.Event.onDOMReady(function(){
 
-      var button = document.getElementById('calculate.button');    
-      button.value = MDSS.localize('Calculate');
+      var politicalButton = document.getElementById('calculatePolitical.button');    
+      politicalButton.value = MDSS.localize('CalculatePoliticalThresholds');
         
-      var calculateThresholds = function(e) {
-        e.preventDefault();
-        YAHOO.util.Event.stopEvent(e);
+      var calculatePoliticalThresholds = function(e) {
+          e.preventDefault();
+          YAHOO.util.Event.stopEvent(e);
 
-        var request = new MDSS.Request({ /* whatever */});
-        var params = Mojo.Util.collectFormValues('threshold.form');
+          var request = new MDSS.Request({ /* whatever */});
+          var params = Mojo.Util.collectFormValues('threshold.form');
 
-        Mojo.$.dss.vector.solutions.general.ThresholdDataController.calculateThresholdsMap(request, params);        
-      };
+          Mojo.$.dss.vector.solutions.general.ThresholdDataController.calculatePoliticalThresholdsMap(request, params);        
+        };
+
+      var facilityButton = document.getElementById('calculateFacility.button');    
+      facilityButton.value = MDSS.localize('CalculateFacilityThresholds');
+
+      var calculateFacilityThresholds = function(e) {
+          e.preventDefault();
+          YAHOO.util.Event.stopEvent(e);
+
+          var request = new MDSS.Request({ /* whatever */});
+          var params = Mojo.Util.collectFormValues('threshold.form');
+
+          Mojo.$.dss.vector.solutions.general.ThresholdDataController.calculateFacilityThresholdsMap(request, params);        
+        };
 
       
       var priorYearsHandler = function(){
@@ -174,7 +187,8 @@
       }
 
       YAHOO.util.Event.addListener('priorYears', "blur", priorYearsHandler);  
-      YAHOO.util.Event.on(button, 'click', calculateThresholds);    
+      YAHOO.util.Event.on(politicalButton, 'click', calculatePoliticalThresholds);    
+      YAHOO.util.Event.on(facilityButton, 'click', calculateFacilityThresholds);    
       
       priorYearsHandler();
     });

@@ -185,6 +185,20 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
     ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
     calcType.calculateThresholds(currentPeriod);
   }
+  
+  @Transaction
+  public static void calculatePoliticalThresholds(ThresholdCalculationTypeView thresholdCalculation, Boolean currentPeriod)
+  {
+    ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
+    calcType.calculatePoliticalThresholds(currentPeriod);
+  }
+  
+  @Transaction
+  public static void calculateFacilityThresholds(ThresholdCalculationTypeView thresholdCalculation, Boolean currentPeriod)
+  {
+    ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
+    calcType.calculateFacilityThresholds(currentPeriod);
+  }
 
   public static ThresholdCalculationTypeView getCalculationThreshold()
   {

@@ -341,7 +341,32 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
   @Override
   public void failCalculateThresholds(ThresholdCalculationTypeViewDTO thresholdCalculation, String currentYear) throws IOException, ServletException
   {
-    // TODO Auto-generated method stub
+    super.failCalculateThresholds(thresholdCalculation, currentYear);
+  }
+  
+  @Override
+  public void calculatePoliticalThresholds(ThresholdCalculationTypeViewDTO thresholdCalculation, Boolean currentYear) throws IOException, ServletException
+  {
+    ThresholdCalculationTypeViewDTO.calculatePoliticalThresholds(this.getClientRequest(), thresholdCalculation, currentYear);
+    this.editThresholdConfiguration();
+  }
+
+  @Override
+  public void failCalculatePoliticalThresholds(ThresholdCalculationTypeViewDTO thresholdCalculation, String currentYear) throws IOException, ServletException
+  {
+    super.failCalculateThresholds(thresholdCalculation, currentYear);
+  }
+  
+  @Override
+  public void calculateFacilityThresholds(ThresholdCalculationTypeViewDTO thresholdCalculation, Boolean currentYear) throws IOException, ServletException
+  {
+    ThresholdCalculationTypeViewDTO.calculateFacilityThresholds(this.getClientRequest(), thresholdCalculation, currentYear);
+    this.editThresholdConfiguration();
+  }
+
+  @Override
+  public void failCalculateFacilityThresholds(ThresholdCalculationTypeViewDTO thresholdCalculation, String currentYear) throws IOException, ServletException
+  {
     super.failCalculateThresholds(thresholdCalculation, currentYear);
   }
 }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 258507096)
+@com.terraframe.mojo.business.ClassSignature(hash = 645593278)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class ThresholdCalculationTypeViewBase extends com.terraframe.mo
   public static java.lang.String WEIGHT7 = "weight7";
   public static java.lang.String WEIGHT8 = "weight8";
   public static java.lang.String WEIGHT9 = "weight9";
-  private static final long serialVersionUID = 258507096;
+  private static final long serialVersionUID = 645593278;
   
   public ThresholdCalculationTypeViewBase()
   {
@@ -660,6 +660,18 @@ public abstract class ThresholdCalculationTypeViewBase extends com.terraframe.mo
   public static ThresholdCalculationTypeView get(String id)
   {
     return (ThresholdCalculationTypeView) com.terraframe.mojo.business.View.get(id);
+  }
+  
+  public static void calculateFacilityThresholds(dss.vector.solutions.general.ThresholdCalculationTypeView thresholdCalculation, java.lang.Boolean currentYear)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdCalculationTypeView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void calculatePoliticalThresholds(dss.vector.solutions.general.ThresholdCalculationTypeView thresholdCalculation, java.lang.Boolean currentYear)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdCalculationTypeView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static void calculateThresholds(dss.vector.solutions.general.ThresholdCalculationTypeView thresholdCalculation, java.lang.Boolean currentYear)
