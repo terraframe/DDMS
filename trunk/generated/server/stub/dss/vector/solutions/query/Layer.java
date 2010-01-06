@@ -151,6 +151,12 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
     styles.delete();
   }
   
+  public String toString()
+  {
+    String name = this.getLayerName();
+    return name != null ? name : this.getId();
+  }
+  
   /**
    * Updates a ThematicLayer with the given information.
    *

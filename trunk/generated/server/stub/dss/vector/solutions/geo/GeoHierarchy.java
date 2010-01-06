@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -54,6 +55,8 @@ import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.MissingMOtoGeoUniversalMapping;
+import dss.vector.solutions.query.AllRenderTypes;
+import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.UniversalSearchHelper;
 
@@ -71,13 +74,90 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   {
     super();
   }
+  
+  public static ValueQuery xmlToValueQuery(String xml, String config,
+      Layer layer)
+  {
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+      JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+      Iterator<?> keys = selectedUniMap.keys();
+      String universalType = (String) keys.next();
+      
+      // Load the type-specific universal query class
+      QueryFactory f = new QueryFactory();
+      GeoEntityQuery geoQuery = new GeoEntityQuery(f);
+      GeoEntityQuery geoQuery2 = new GeoEntityQuery(f);
+      
+      // Add the GeoEntity selectables to the ValueQuery
+      List<Selectable> selectables = new LinkedList<Selectable>();
+      
+      selectables.add(geoQuery.getEntityName(GeoEntity.ENTITYNAME));
+      selectables.add(geoQuery.getGeoId(GeoEntity.GEOID));
+      selectables.add(geoQuery.getType(GeoEntity.TYPE));
 
-	@Override
-	public void delete() {
-		super.delete();
-		UniversalSearchHelper helper = new UniversalSearchHelper();
-		helper.deleteSearch(this);
-	}
+      // If we're mapping then include the geometry column
+      if(layer != null)
+      {
+        Attribute attr;
+        if(layer.getRenderAs().get(0).equals(AllRenderTypes.POINT))
+        {
+          attr = geoQuery.aAttribute(GeoEntity.GEOPOINT);
+        }
+        else
+        {
+          attr = geoQuery.aAttribute(GeoEntity.GEOMULTIPOLYGON);
+        }
+
+        attr.setUserDefinedAlias(QueryConstants.GEOMETRY_NAME_COLUMN);
+        selectables.add(attr);
+        
+        // Look for the thematic variable. The user alias is the name of the attribute
+        String thematicUserAlias = layer.getThematicUserAlias();
+        if(thematicUserAlias != null && thematicUserAlias.length() > 0)
+        {
+          Attribute thematic = geoQuery2.aAttribute(thematicUserAlias);
+          thematic.setUserDefinedAlias(QueryConstants.THEMATIC_DATA_COLUMN);
+          selectables.add(thematic);
+        }
+      }
+      
+      ValueQuery vq = new ValueQuery(f);
+      vq.SELECT(selectables.toArray(new Selectable[selectables.size()]));
+      
+      // Rename the column aliases so GeoServer and the SLD can read them
+      vq.getSelectable(GeoEntity.ENTITYNAME).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
+      vq.getSelectable(GeoEntity.GEOID).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
+      
+      if(layer != null)
+      {
+        vq.getSelectable(QueryConstants.GEOMETRY_NAME_COLUMN).setColumnAlias(QueryConstants.GEOMETRY_NAME_COLUMN);
+        
+        String thematicUserAlias = layer.getThematicUserAlias();
+        if(thematicUserAlias != null && thematicUserAlias.length() > 0)
+        {
+          vq.getSelectable(QueryConstants.THEMATIC_DATA_COLUMN).setColumnAlias(QueryConstants.THEMATIC_DATA_COLUMN);
+          
+          vq.WHERE(geoQuery.getId().EQ(geoQuery2.getId()));
+        }
+      }
+      
+      vq.WHERE(geoQuery.aAttribute(GeoEntity.TYPE).EQ(universalType));
+      
+      return vq;
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+  }
+  
+  
+  public static String getQueryType() {
+    return QueryConstants.namespaceQuery(GeoHierarchy.CLASS, QueryConstants.QueryType.QUERY_UNIVERSAL);
+  }
 
 	@Override
 	public void apply() {
@@ -491,26 +571,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     }
 
     super.delete();
+    
+    UniversalSearchHelper helper = new UniversalSearchHelper();
+    helper.deleteSearch(this);
 
-    // remove the view associated with this universal
-    /* FIXME MAP
-    String viewName = geoEntityClass.getTypeName().toLowerCase() + QueryConstants.VIEW_NAME_SUFFIX;
-    try
-    {
-      MdAttributeGeometry mdAttrGeo = this.getGeometry();
-      String sql = this.getViewSQL(geoEntityClass, mdAttrGeo);
-      Database.dropView(viewName, sql, false);
-    }
-    catch (DatabaseException ex)
-    {
-      // View doesn't exist but that's okay. It may have been
-      // deleted earlier.
-    }
-    */
-
-    // finally, delete this class's MdBusiness, which must be removed
-    // after this GeoHierarchy to avoid a dependency error as the MdBusiness
-    // is a required attribute.
     geoEntityClass.delete();
   }
 
