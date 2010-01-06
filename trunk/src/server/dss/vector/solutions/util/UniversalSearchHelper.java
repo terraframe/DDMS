@@ -51,8 +51,8 @@ public class UniversalSearchHelper implements Reloadable {
 		this.deleteSearch(universal);
 
 		SavedSearch search = new SavedSearch();
-		search.setQueryName(this.getShortClassName(universal));
-		search.setQueryType("GeoEntitySearch");
+		search.setQueryName(this.getQueryName(universal));
+		search.setQueryType(GeoHierarchy.getQueryType());
 		search.setConfig(this.getConfig(universal));
 		search.setQueryXml(this.getXML(universal));
 		
@@ -63,7 +63,7 @@ public class UniversalSearchHelper implements Reloadable {
 	public void deleteSearch(GeoHierarchy universal) {
 		QueryFactory f = new QueryFactory();
 		SavedSearchQuery q = new SavedSearchQuery(f);
-		q.WHERE(q.getQueryName().EQ(this.getShortClassName(universal)));
+		q.WHERE(q.getQueryName().EQ(this.getQueryName(universal)));
 
 		OIterator<? extends SavedSearch> i = q.getIterator();
 
@@ -77,11 +77,14 @@ public class UniversalSearchHelper implements Reloadable {
 		}
 	}
 	
-	private String getConfig(GeoHierarchy universal) {	
-		return "{'date_attribute':{},'terms':{},'criteriaEntities':{},'selectedUniversals':{'dss.vector.solutions.geo.generated.Country':['dss.vector.solutions.geo.generated.Country']}}";
+	// JN
+	public String getConfig(GeoHierarchy universal) {
+	  String type = universal.getQualifiedType();
+		return "{'date_attribute':{},'terms':{},'criteriaEntities':{},'selectedUniversals':{'"+type+"':['"+type+"']}}";
 	}
 	
-	private String getXML(GeoHierarchy universal) {
+	// JN
+	public String getXML(GeoHierarchy universal) {
 		String universalClass = this.getLongClassName(universal);
 		String underscoredUniversalClass = universalClass.replace('.', '_');
 		StringBuilder sb = new StringBuilder();
@@ -118,12 +121,12 @@ public class UniversalSearchHelper implements Reloadable {
 		return sb.toString();
 	}
 	
-	private String getShortClassName(GeoHierarchy universal) {
-		return this.getLongClassName(universal).substring(MDSSInfo.GENERATED_GEO_PACKAGE.length()+1);
+	private String getQueryName(GeoHierarchy universal)
+	{
+	  return this.getLongClassName(universal).substring(MDSSInfo.GENERATED_GEO_PACKAGE.length()+1);
 	}
-
 		
 	private String getLongClassName(GeoHierarchy universal) {
-		return universal.getGeoEntityClass().getKey();
+		return universal.getQualifiedType();
 	}
 }

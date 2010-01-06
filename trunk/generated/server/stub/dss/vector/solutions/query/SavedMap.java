@@ -1,13 +1,17 @@
 package dss.vector.solutions.query;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.terraframe.mojo.business.rbac.UserDAOIF;
+import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.MDSSUser;
@@ -45,17 +49,26 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
   public String refreshMap()
   {
     QueryFactory f = new QueryFactory();
-    LayerQuery layerQ = new LayerQuery(f);
     HasLayersQuery hasQ = new HasLayersQuery(f);
     
-    hasQ.WHERE(hasQ.parentId().EQ(this.getId()));
-    layerQ.WHERE(layerQ.map(hasQ));
+    ValueQuery vq = new ValueQuery(f);
+    vq.SELECT(hasQ.childId("child_id"), hasQ.getLayerPosition("layerPosition"));
+    vq.WHERE(hasQ.parentId().EQ(this.getId()));
+    vq.ORDER_BY_ASC(hasQ.getLayerPosition());
     
-    layerQ.ORDER_BY_ASC(hasQ.getLayerPosition());
+    Map<String, Integer> positions = new HashMap<String, Integer>();
+    for(ValueObject o : vq.getIterator().getAll())
+    {
+      positions.put(o.getValue("child_id"), Integer.valueOf(o.getValue("layerPosition")));
+    }
     
-    String sql = layerQ.getSQL();
+    Layer[] ordered = new Layer[positions.size()];
+    for(Layer layer : this.getAllLayer().getAll())
+    {
+      ordered[positions.get(layer.getId())] = layer;
+    }
     
-    return MapUtil.createDBViews(layerQ.getIterator().getAll()); 
+    return MapUtil.createDBViews(ordered); 
   };
   
   /**

@@ -452,13 +452,15 @@ public class QueryUtil implements Reloadable
 
       Selectable selectable1 = geoEntityQuery.getEntityName(entityNameAlias);
       Selectable selectable2 = geoEntityQuery.getGeoId(geoIdAlias);
-      SelectableReference selectable3 = subAllPathsQuery.getChildGeoEntity("child_id");
 
       selectables.add(selectable1);
       selectables.add(selectable2);
+
+      SelectableReference selectable3 = subAllPathsQuery.getChildGeoEntity("child_id");
       selectables.add(selectable3);
       
       String geoVQEntityAlias = attributeKey + "__" + selectedGeoEntityType;
+      GeoEntityQuery geoEntityQuery2 = null;
       if(layerKey != null && attributeKey.equals(layerKey)
           && selectedGeoEntityType.equals(layerGeoEntityType))
       {
@@ -474,18 +476,22 @@ public class QueryUtil implements Reloadable
         {
           if(thematicUserAlias.equals(entityNameAlias))
           {
+            geoEntityQuery2 = new GeoEntityQuery(queryFactory);
+            
             joinData.geoThematicEntity = geoVQEntityAlias;
             joinData.geoThematicAlias = entityNameAlias+"_"+QueryConstants.THEMATIC_DATA_COLUMN;
             joinData.geoThematicAttr = GeoEntity.ENTITYNAME;
-            thematicSel = geoEntityQuery.getEntityName(joinData.geoThematicAlias);
+            thematicSel = geoEntityQuery2.getEntityName(joinData.geoThematicAlias);
             selectables.add(thematicSel);
           }
           else if(thematicUserAlias.equals(geoIdAlias))
           {
+            geoEntityQuery2 = new GeoEntityQuery(queryFactory);
+            
             joinData.geoThematicEntity = geoVQEntityAlias;
             joinData.geoThematicAlias = geoIdAlias+"_"+QueryConstants.THEMATIC_DATA_COLUMN;
             joinData.geoThematicAttr = GeoEntity.GEOID;
-            thematicSel = geoEntityQuery.getGeoId(joinData.geoThematicAlias);
+            thematicSel = geoEntityQuery2.getGeoId(joinData.geoThematicAlias);
             selectables.add(thematicSel);
           }
         }
@@ -495,7 +501,7 @@ public class QueryUtil implements Reloadable
       }
       
       geoEntityVQ.SELECT(selectables.toArray(new Selectable[selectables.size()]));
-
+      
       List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
       Condition[] geoConditions = new Condition[allClasses.size()];
       for (int i = 0; i < allClasses.size(); i++)
@@ -506,6 +512,11 @@ public class QueryUtil implements Reloadable
       geoEntityVQ.WHERE(OR.get(geoConditions));
       geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
 
+      if(geoEntityQuery2 != null)
+      {
+        geoEntityVQ.AND(geoEntityQuery.getId().EQ(geoEntityQuery2.getId()));
+      }
+      
       leftJoinValueQueries.add(geoEntityVQ);
 
       valueQueryParser.setValueQuery(geoVQEntityAlias, geoEntityVQ);

@@ -60,6 +60,8 @@ public class QueryConstants implements Reloadable
     
     QUERY_AGGREGATED_ITN,
     
+    QUERY_UNIVERSAL
+    
   }
   
   /**

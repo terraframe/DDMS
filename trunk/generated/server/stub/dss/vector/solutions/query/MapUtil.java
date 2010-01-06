@@ -55,9 +55,9 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
    * @param layers
    * @return
    */
-  public static String createDBViews(List<? extends Layer> layers)
+  public static String createDBViews(Layer[] layers)
   {
-    if(layers.size() == 0)
+    if(layers.length == 0)
     {
       String error = "A user tried to create a map without layers.";
       throw new NoThematicLayerException(error);
@@ -84,9 +84,9 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
     
     
     String sessionId = Session.getCurrentSession().getId();
-    for(int i=0; i<layers.size(); i++)
+    for(int i=0; i<layers.length; i++)
     {
-      Layer layer = layers.get(i);
+      Layer layer = layers[i];
       String viewName = layer.getViewName();
       
       SavedSearch search = layer.getSavedSearch(); 
@@ -407,6 +407,8 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
  public static JSONArray getThematicBBox(String viewName)
  {
    ResultSet resultSet = Database.query("SELECT AsText(extent("+viewName+"."+QueryConstants.GEOMETRY_NAME_COLUMN+")) AS bbox FROM "+viewName);
+   JSONArray bboxArr = new JSONArray();
+
    try
    {
      if(resultSet.next())
@@ -416,39 +418,70 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
        {
          Pattern p = Pattern.compile("POLYGON\\(\\((.*)\\)\\)");
          Matcher m = p.matcher(bbox);
-         m.matches();
          
-         String coordinates = m.group(1);
-         List<Coordinate> coords = new LinkedList<Coordinate>();
-         
-         for(String c : coordinates.split(","))
+         if(m.matches())
          {
-           String[] xAndY = c.split(" ");
-           double x = Double.valueOf(xAndY[0]);
-           double y = Double.valueOf(xAndY[1]);
+           String coordinates = m.group(1);
+           List<Coordinate> coords = new LinkedList<Coordinate>();
+           
+           for(String c : coordinates.split(","))
+           {
+             String[] xAndY = c.split(" ");
+             double x = Double.valueOf(xAndY[0]);
+             double y = Double.valueOf(xAndY[1]);
 
-           coords.add(new Coordinate(x,y));
-         }
-         
-         Envelope e = new Envelope(coords.get(0), coords.get(2));
+             coords.add(new Coordinate(x,y));
+           }
+           
+           Envelope e = new Envelope(coords.get(0), coords.get(2));
 
-         JSONArray bboxArr = new JSONArray();
-         
-         try
-         {
-           bboxArr.put(e.getMinX());
-           bboxArr.put(e.getMinY());
-           bboxArr.put(e.getMaxX());
-           bboxArr.put(e.getMaxY());
+           
+           try
+           {
+             bboxArr.put(e.getMinX());
+             bboxArr.put(e.getMinY());
+             bboxArr.put(e.getMaxX());
+             bboxArr.put(e.getMaxY());
+           }
+           catch(JSONException ex)
+           {
+             throw new ProgrammingErrorException(ex);
+           }
          }
-         catch(JSONException ex)
+         else
          {
-           throw new ProgrammingErrorException(ex);
+           // There will not be a match if there is a single point geo entity.
+           // In this case, return the x,y coordinates to OpenLayers.
+           
+           p = Pattern.compile("POINT\\((.*)\\)");
+           m = p.matcher(bbox);
+           if(m.matches())
+           {
+             String c = m.group(1);
+             String[] xAndY = c.split(" ");
+             double x = Double.valueOf(xAndY[0]);
+             double y = Double.valueOf(xAndY[1]);
+            
+             try
+             {
+               bboxArr.put(x);
+               bboxArr.put(y);
+             }
+             catch(JSONException ex)
+             {
+               throw new ProgrammingErrorException(ex);
+             }
+           }
+           else
+           {
+             String error = "The database view ["+viewName+"] does not contain a valid bounding box";
+             throw new GeoServerReloadException(error);
+           }
          }
-         
-         return bboxArr;
        }
      }
+     
+     return bboxArr;
    }
    catch (SQLException sqlEx1)
    {
@@ -470,8 +503,6 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
    
    // Some problem occured and the bbox couldn't be calculated.
    // Just return the African defaults
-   JSONArray bboxArr = new JSONArray();
-   
    try
    {
      bboxArr.put(36.718452);

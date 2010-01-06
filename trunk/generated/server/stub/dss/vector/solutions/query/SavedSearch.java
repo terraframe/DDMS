@@ -23,11 +23,13 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdAttribute;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.vault.VaultFileDAO;
 import com.terraframe.mojo.vault.VaultFileDAOIF;
 
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.report.UndefinedTemplateException;
 
@@ -45,13 +47,13 @@ public class SavedSearch extends SavedSearchBase implements
   protected String buildKey()
   {
     // Ask Naifeh if this is a valid key
-//    return this.getQueryType() + "-" + this.getQueryName();
+    // return this.getQueryType() + "-" + this.getQueryName();
     return this.getId();
   }
-  
+
   /**
-   * Apply method that also checks if this SavedSearch object is mappable
-   * or not.
+   * Apply method that also checks if this SavedSearch object is mappable or
+   * not.
    */
   public void apply()
   {
@@ -59,14 +61,14 @@ public class SavedSearch extends SavedSearchBase implements
     {
       JSONObject config = new JSONObject(this.getConfig());
       JSONObject selectedUniversals = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
-      
-      // Any search is mappable if it has at least one universal 
+
+      // Any search is mappable if it has at least one universal
       // selected for any GeoEntity attribute reference.
       boolean mappable = false;
       Iterator<String> attrs = selectedUniversals.keys();
-      while(attrs.hasNext())
+      while (attrs.hasNext())
       {
-        if(selectedUniversals.getJSONArray(attrs.next()).length() > 0)
+        if (selectedUniversals.getJSONArray(attrs.next()).length() > 0)
         {
           mappable = true;
           break;
@@ -74,21 +76,21 @@ public class SavedSearch extends SavedSearchBase implements
       }
 
       this.setMappable(mappable);
-      
+
     }
     catch (JSONException e)
     {
       String error = "An error occured while marking a query as mappable.";
       throw new ProgrammingErrorException(error, e);
     }
-    
+
     super.apply();
   }
 
   /**
    * Checks that a search name is unique for a user on a given SavedSearch
    * subclass.
-   *
+   * 
    * @param searchName
    * @param user
    */
@@ -100,7 +102,7 @@ public class SavedSearch extends SavedSearchBase implements
 
     // restrict by type and search name
     searchQuery.WHERE(searchQuery.getQueryName().EQ(searchName));
-//    searchQuery.WHERE(searchQuery.getQueryType().EQ(this.getQueryType()));
+    // searchQuery.WHERE(searchQuery.getQueryType().EQ(this.getQueryType()));
     searchQuery.WHERE(searchQuery.getQueryType().NEi(DefaultSavedSearch.DEFAULT));
 
     if (searchQuery.getCount() > 0)
@@ -110,7 +112,7 @@ public class SavedSearch extends SavedSearchBase implements
       throw ex;
     }
   }
-  
+
   /**
    * Fetches all SavedSearches that can be mapped.
    * 
@@ -121,13 +123,13 @@ public class SavedSearch extends SavedSearchBase implements
     QueryFactory f = new QueryFactory();
     MappableSearchBuilder builder = new MappableSearchBuilder(f);
     SavedSearchViewQuery q = new SavedSearchViewQuery(f, builder);
-    
+
     return q;
   }
 
   /**
    * Creates a new SavedSearch object.
-   *
+   * 
    * @param view
    * @return
    */
@@ -143,7 +145,7 @@ public class SavedSearch extends SavedSearchBase implements
   @Transaction
   public static SavedSearchView updateSearch(SavedSearchView view)
   {
-    if(view == null || view.getSavedQueryId() == null || view.getSavedQueryId().trim().length() == 0)
+    if (view == null || view.getSavedQueryId() == null || view.getSavedQueryId().trim().length() == 0)
     {
       NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
       throw ex;
@@ -152,7 +154,7 @@ public class SavedSearch extends SavedSearchBase implements
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
     SavedSearch defaultSearch = mdssUser.getDefaultSearch();
-    if(defaultSearch != null && defaultSearch.getId().equals(view.getSavedQueryId()))
+    if (defaultSearch != null && defaultSearch.getId().equals(view.getSavedQueryId()))
     {
       NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
       throw ex;
@@ -173,7 +175,7 @@ public class SavedSearch extends SavedSearchBase implements
 
   /**
    * Updates this SavedSearch with the given view.
-   *
+   * 
    * @param view
    */
   protected void update(SavedSearchView view)
@@ -192,7 +194,7 @@ public class SavedSearch extends SavedSearchBase implements
   /**
    * Creates and applies this SavedSearch object with the given information in
    * the SavedSearchView.
-   *
+   * 
    * @param view
    * @param savedQuery
    */
@@ -202,12 +204,12 @@ public class SavedSearch extends SavedSearchBase implements
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
 
-    if(asDefault)
+    if (asDefault)
     {
       // Always replace the old default search.
       SavedSearch search = mdssUser.getDefaultSearch();
 
-      if(search != null)
+      if (search != null)
       {
         search.delete();
       }
@@ -215,9 +217,7 @@ public class SavedSearch extends SavedSearchBase implements
 
     String name = view.getQueryName();
 
-
     String xml = view.getQueryXml();
-
 
     this.setQueryName(name);
     this.setQueryXml(xml);
@@ -228,7 +228,7 @@ public class SavedSearch extends SavedSearchBase implements
 
     this.apply();
 
-    if(asDefault)
+    if (asDefault)
     {
       mdssUser.appLock();
       mdssUser.setDefaultSearch(this);
@@ -247,12 +247,12 @@ public class SavedSearch extends SavedSearchBase implements
     view.setQueryName(this.getQueryName());
     view.setSavedQueryId(this.getId());
 
-    if(includeXML)
+    if (includeXML)
     {
       view.setQueryXml(this.getQueryXml());
     }
 
-    if(includeConfig)
+    if (includeConfig)
     {
       JSONObject config;
 
@@ -266,29 +266,29 @@ public class SavedSearch extends SavedSearchBase implements
         List<String> ids = new LinkedList<String>();
 
         Iterator<?> termKeys = terms.keys();
-        while(termKeys.hasNext())
+        while (termKeys.hasNext())
         {
           String termKey = (String) termKeys.next();
 
           JSONObject termIdsObj = terms.getJSONObject(termKey);
 
           Iterator<?> idKeys = termIdsObj.keys();
-          while(idKeys.hasNext())
+          while (idKeys.hasNext())
           {
             String id = (String) idKeys.next();
             ids.add(id);
 
-            if(!termIds.containsKey(id))
+            if (!termIds.containsKey(id))
             {
               termIds.put(id, new LinkedList<JSONObject>());
             }
 
-//            JSONObject termIdDisplay = termIdsObj.getJSONObject(id);
+            // JSONObject termIdDisplay = termIdsObj.getJSONObject(id);
             termIds.get(id).add(termIdsObj);
           }
         }
 
-        if(ids.size() > 0)
+        if (ids.size() > 0)
         {
           QueryFactory f = new QueryFactory();
           TermQuery t = new TermQuery(f);
@@ -300,13 +300,13 @@ public class SavedSearch extends SavedSearchBase implements
 
           try
           {
-            while(iter.hasNext())
+            while (iter.hasNext())
             {
               ValueObject o = iter.next();
               String id = o.getValue("tId");
-              String display = o.getValue("termName") + " ("+o.getValue("termId")+")";
+              String display = o.getValue("termName") + " (" + o.getValue("termId") + ")";
 
-              for(JSONObject termIdDisplay : termIds.get(id))
+              for (JSONObject termIdDisplay : termIds.get(id))
               {
                 termIdDisplay.put(id, display);
               }
@@ -318,7 +318,7 @@ public class SavedSearch extends SavedSearchBase implements
           }
         }
       }
-      catch(JSONException e)
+      catch (JSONException e)
       {
         throw new ProgrammingErrorException(e);
       }
@@ -333,7 +333,7 @@ public class SavedSearch extends SavedSearchBase implements
   {
     String template = this.getTemplateFile();
 
-    if(template == null || template.equals(""))
+    if (template == null || template.equals(""))
     {
       String msg = "A report template has not been defined for this query";
 
@@ -350,7 +350,7 @@ public class SavedSearch extends SavedSearchBase implements
 
   public static SavedSearchView loadSearch(String searchId)
   {
-    if(searchId == null || searchId.trim().length() == 0)
+    if (searchId == null || searchId.trim().length() == 0)
     {
       NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
       throw ex;
@@ -359,7 +359,7 @@ public class SavedSearch extends SavedSearchBase implements
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
     SavedSearch search = mdssUser.getDefaultSearch();
-    if(search != null && search.getId().equals(searchId))
+    if (search != null && search.getId().equals(searchId))
     {
       NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
       throw ex;
@@ -378,117 +378,183 @@ public class SavedSearch extends SavedSearchBase implements
     return search.getAsView(false, false);
   }
 
-  private static class MappableSearchBuilder extends com.terraframe.mojo.query.ViewQueryBuilder implements Reloadable
+  private static class MappableSearchBuilder extends com.terraframe.mojo.query.ViewQueryBuilder
+      implements Reloadable
   {
     private SavedSearchQuery searchQuery;
-    
+
     private MappableSearchBuilder(QueryFactory f)
     {
       super(f);
-      
+
       this.searchQuery = new SavedSearchQuery(f);
     }
-    
+
     @Override
     protected void buildSelectClause()
     {
       GeneratedViewQuery viewQuery = this.getViewQuery();
-      
+
       viewQuery.map(SavedSearchView.QUERYNAME, searchQuery.getQueryName());
       viewQuery.map(SavedSearchView.SAVEDQUERYID, searchQuery.getId());
-      viewQuery.map(SavedSearchView.QUERYTYPE, searchQuery.getQueryType()); 
+      viewQuery.map(SavedSearchView.QUERYTYPE, searchQuery.getQueryType());
     }
 
     @Override
     protected void buildWhereClause()
     {
       GeneratedViewQuery viewQuery = this.getViewQuery();
-      
+
       viewQuery.WHERE(this.searchQuery.getQueryType().NE(DefaultSavedSearch.DEFAULT));
       viewQuery.AND(this.searchQuery.getMappable().EQ(true));
       viewQuery.ORDER_BY_ASC(searchQuery.getQueryName());
     }
-    
+
   }
-  
+
   /**
-   * Returns any available thematic variables (Selectables) available
-   * on this query this SavedSearch encapsulates.
+   * Returns any available thematic variables (Selectables) available on this
+   * query this SavedSearch encapsulates.
    */
   @Override
   public ThematicVariable[] getThematicVariables()
   {
-    String xml = this.getQueryXml();
-    String config = this.getConfig();
-    String queryType = this.getQueryType();
-    
-    // QueryBuilder.getValueQuery() takes in the query class for use with reflection.
-    // TODO pass in queryType and have getValueQuery deref the class
-    String queryClass = QueryConstants.getQueryClass(queryType);
-    ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null);
-    
-    Selectable[] selectables = valueQuery.getSelectables();
-    ThematicVariable[] thematicVars = new ThematicVariable[selectables.length];
-    
-    for(int i=0; i<selectables.length; i++)
+    if (this.getQueryType().equals(GeoHierarchy.getQueryType()))
     {
-      Selectable sel = selectables[i];
+      // For the universal queries we can grab the entity name and
+      // geo id directly as thematic variables.
+      ThematicVariable[] thematicVars = new ThematicVariable[2];
       
-      ThematicVariable var = new ThematicVariable();
-      var.setAttributeName(sel.getQualifiedName());
-      var.setDisplayLabel(sel.getUserDefinedDisplayLabel());
-      var.setUserAlias(sel.getUserDefinedAlias());
+      MdAttribute entityName = MdAttribute.getByKey(GeoEntity.CLASS+"."+GeoEntity.ENTITYNAME);
+      MdAttribute geoId = MdAttribute.getByKey(GeoEntity.CLASS+"."+GeoEntity.GEOID);
       
-      thematicVars[i] = var;
+      ThematicVariable entityNameVar = new ThematicVariable();
+      entityNameVar.setAttributeName(GeoEntity.ENTITYNAME);
+      entityNameVar.setDisplayLabel(entityName.getDisplayLabel().getValue());
+      entityNameVar.setUserAlias(GeoEntity.ENTITYNAME);
+
+      ThematicVariable geoIdVar = new ThematicVariable();
+      geoIdVar.setAttributeName(GeoEntity.GEOID);
+      geoIdVar.setDisplayLabel(geoId.getDisplayLabel().getValue());
+      geoIdVar.setUserAlias(GeoEntity.GEOID);
+      
+      thematicVars[0] = entityNameVar;
+      thematicVars[1] = geoIdVar;
+      
+      return thematicVars;
     }
-    
-    return thematicVars;
+    else
+    {
+      String xml = this.getQueryXml();
+      String config = this.getConfig();
+      String queryType = this.getQueryType();
+
+      // QueryBuilder.getValueQuery() takes in the query class for use with
+      // reflection.
+      // TODO pass in queryType and have getValueQuery deref the class
+      String queryClass = QueryConstants.getQueryClass(queryType);
+      ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null);
+
+      Selectable[] selectables = valueQuery.getSelectables();
+      ThematicVariable[] thematicVars = new ThematicVariable[selectables.length];
+
+      for (int i = 0; i < selectables.length; i++)
+      {
+        Selectable sel = selectables[i];
+
+        ThematicVariable var = new ThematicVariable();
+        var.setAttributeName(sel.getQualifiedName());
+        var.setDisplayLabel(sel.getUserDefinedDisplayLabel());
+        var.setUserAlias(sel.getUserDefinedAlias());
+
+        thematicVars[i] = var;
+      }
+
+      return thematicVars;
+    }
   }
-  
+
   /**
    * Returns all available GeoHierarchies provided by this SavedSearch
    */
   @Override
   public AttributeGeoHierarchy[] getAttributeGeoHierarchies()
   {
+    List<AttributeGeoHierarchy> attrGeos = new LinkedList<AttributeGeoHierarchy>();
     String configStr = this.getConfig();
-    
-    try
+
+    if (this.getQueryType().equals(GeoHierarchy.getQueryType()))
     {
-      JSONObject config = new JSONObject(configStr);
-      JSONObject selected = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
-      JSONArray names = selected.names();
-      List<AttributeGeoHierarchy> attrGeos = new LinkedList<AttributeGeoHierarchy>();
-      for(int i=0; i<names.length(); i++)
+      String universal;
+      try
       {
-        String qualifiedAttribute = names.getString(i);
-        MdAttribute mdAttribute = MdAttribute.getByKey(qualifiedAttribute);
-        JSONArray universals = selected.getJSONArray(qualifiedAttribute);
+        JSONObject config = new JSONObject(configStr);
+        JSONObject selected = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+        universal = (String) selected.keys().next(); // There will always be one key
         
-        for(int j=0; j<universals.length(); j++)
-        {
-          GeoHierarchy geoH = GeoHierarchy.getGeoHierarchyFromType(universals.getString(j));
-          
-          AttributeGeoHierarchy attrGeo = new AttributeGeoHierarchy();
-          attrGeo.setAttributeDisplayLabel(mdAttribute.getDisplayLabel().getValue());
-          attrGeo.setMdAttributeId(mdAttribute.getId());
-          attrGeo.setGeoHierarchyDisplayLabel(geoH.getDisplayLabel());
-          attrGeo.setGeoHierarchyId(geoH.getId());
-          
-          attrGeos.add(attrGeo);
-        }
+      }
+      catch (JSONException e)
+      {
+        // We should never hit this since MDSS controls the JSON configuration.
+        throw new ProgrammingErrorException(e);
       }
       
-      return attrGeos.toArray(new AttributeGeoHierarchy[attrGeos.size()]);
+      GeoHierarchy geoH = GeoHierarchy.getGeoHierarchyFromType(universal);
+
+      // To keep things generic, we steal the metadata of the GeoEntity class
+      // instead of pointing to a specific GeoEntity reference attribute on a
+      // domain class. The display is from the GeoEntity class itself, which
+      // is adequate for universal queries. The MdAttribute reference is spoofed
+      // and simply points to the MdAttribute that defines GeoEntity.entityName.
+      MdBusiness mdBusiness = MdBusiness.getMdBusiness(GeoEntity.CLASS);
+      MdAttribute mdAttr = MdAttribute.getByKey(GeoEntity.CLASS + "." + GeoEntity.ENTITYNAME);
+
+      AttributeGeoHierarchy attrGeo = new AttributeGeoHierarchy();
+      attrGeo.setAttributeDisplayLabel(mdBusiness.getDisplayLabel().getValue());
+      attrGeo.setMdAttributeId(mdAttr.getId());
+      attrGeo.setGeoHierarchyDisplayLabel(geoH.getDisplayLabel());
+      attrGeo.setGeoHierarchyId(geoH.getId());
+
+      attrGeos.add(attrGeo);
     }
-    catch (JSONException e)
+    else
     {
-      // We should never hit this since MDSS controls the JSON configuration.
-      throw new ProgrammingErrorException(e);
+      try
+      {
+        JSONObject config = new JSONObject(configStr);
+        JSONObject selected = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+        JSONArray names = selected.names();
+        for (int i = 0; i < names.length(); i++)
+        {
+          String qualifiedAttribute = names.getString(i);
+          MdAttribute mdAttribute = MdAttribute.getByKey(qualifiedAttribute);
+          JSONArray universals = selected.getJSONArray(qualifiedAttribute);
+
+          for (int j = 0; j < universals.length(); j++)
+          {
+            GeoHierarchy geoH = GeoHierarchy.getGeoHierarchyFromType(universals.getString(j));
+
+            AttributeGeoHierarchy attrGeo = new AttributeGeoHierarchy();
+            attrGeo.setAttributeDisplayLabel(mdAttribute.getDisplayLabel().getValue());
+            attrGeo.setMdAttributeId(mdAttribute.getId());
+            attrGeo.setGeoHierarchyDisplayLabel(geoH.getDisplayLabel());
+            attrGeo.setGeoHierarchyId(geoH.getId());
+
+            attrGeos.add(attrGeo);
+          }
+        }
+
+      }
+      catch (JSONException e)
+      {
+        // We should never hit this since MDSS controls the JSON configuration.
+        throw new ProgrammingErrorException(e);
+      }
     }
+
+    return attrGeos.toArray(new AttributeGeoHierarchy[attrGeos.size()]);
   }
 
-  
   @Override
   public String toString()
   {

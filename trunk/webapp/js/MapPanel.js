@@ -228,7 +228,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
             }
           
             var value = attrGeo.getMdAttributeId()+':'+attrGeo.getGeoHierarchyId();
-            var inner = attrGeo.getAttributeDisplayLabel()+' ('+attrGeo.getGeoHierarchyDisplayLabel()+')';
+            var inner = attrGeo.getGeoHierarchyDisplayLabel()+' ('+attrGeo.getAttributeDisplayLabel()+')';
             return '<option value="'+value+'">'+inner+' </option>'; 
           });
           
@@ -764,7 +764,17 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
       
           var bbox = mapData.bbox;
-          var bounds = new OpenLayers.Bounds(bbox[0], bbox[1], bbox[2], bbox[3]);
+          var bounds;
+          if(bbox.length === 2)
+          {
+            bounds = new OpenLayers.Bounds();
+            bounds.extend(new OpenLayers.Geometry.Point(bbox[0], bbox[1]));
+          }
+          else
+          {
+            bounds = new OpenLayers.Bounds(bbox[0], bbox[1], bbox[2], bbox[3]);
+          }
+          
           var options = {
               controls: [],
               projection: "EPSG:4326",
