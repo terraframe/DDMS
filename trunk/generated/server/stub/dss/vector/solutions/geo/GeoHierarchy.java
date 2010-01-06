@@ -133,14 +133,16 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       
       if(layer != null)
       {
-        vq.getSelectable(QueryConstants.GEOMETRY_NAME_COLUMN).setColumnAlias(QueryConstants.GEOMETRY_NAME_COLUMN);
+        Selectable geometry = vq.getSelectable(QueryConstants.GEOMETRY_NAME_COLUMN);
+        geometry.setColumnAlias(QueryConstants.GEOMETRY_NAME_COLUMN);
+        vq.WHERE(geometry.NE(null));
         
         String thematicUserAlias = layer.getThematicUserAlias();
         if(thematicUserAlias != null && thematicUserAlias.length() > 0)
         {
           vq.getSelectable(QueryConstants.THEMATIC_DATA_COLUMN).setColumnAlias(QueryConstants.THEMATIC_DATA_COLUMN);
           
-          vq.WHERE(geoQuery.getId().EQ(geoQuery2.getId()));
+          vq.AND(geoQuery.getId().EQ(geoQuery2.getId()));
         }
       }
       
@@ -537,6 +539,16 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     Set<String> ids = new HashSet<String>();
 
     GeoHierarchy geoHierarchy = GeoHierarchy.get(geoHierarchyId);
+    
+    // Don't allow the user to delete Earth for very obvious reasons.
+    MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();
+    if(geoEntityClass.definesType().equals(Earth.CLASS))
+    {
+      String error = "Cannot delete the Earth Universal.";
+      DeleteEarthException ex = new DeleteEarthException(error);
+      ex.setEarthName(geoEntityClass.getDisplayLabel().getValue());
+      throw ex;
+    }
 
     List<GeoHierarchy> children = geoHierarchy.getImmediateChildren();
     for (GeoHierarchy child : children)
@@ -563,15 +575,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     ids.add(this.getId());
 
     MdBusiness geoEntityClass = this.getGeoEntityClass();
-
-    /* Obsolete? Strict is_a hierarchies no longer exist
-    // delete is_a hierarchy
-    for (MdBusiness child : geoEntityClass.getAllSubClass().getAll())
-    {
-      GeoHierarchy.getGeoHierarchyFromType(child).deleteInternal(ids);
-    }
-    */
-
+    
     // Regenerate the all paths table if any entities exist for this universal
     QueryFactory f = new QueryFactory();
     GeoEntityQuery q = new GeoEntityQuery(f);
