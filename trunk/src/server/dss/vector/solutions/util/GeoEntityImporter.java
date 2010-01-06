@@ -350,6 +350,7 @@ public class GeoEntityImporter {
 						g = multiPolygonField.getGeometry();
 					}
 					if (g != null) {
+						geoEntity.setGeoData(g.toText());
 						geoEntity.setGeoPoint(geometryHelper.getGeoPoint(g));
 						geoEntity.setGeoMultiPolygon(geometryHelper.getGeoMultiPolygon(g));
 						//businessClass.getMethod("setMultiPolygon", MultiPolygon.class).invoke(geoEntity, geometryHelper.getGeoMultiPolygon(g));
