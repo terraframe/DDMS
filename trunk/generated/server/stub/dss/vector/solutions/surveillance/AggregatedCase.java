@@ -5,10 +5,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,7 +26,10 @@ import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectableSQLDouble;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
@@ -38,6 +43,7 @@ import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.util.QueryUtil;
@@ -454,12 +460,94 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
         valueQuery.AND(ctmq.hasChild(termQuery));
       }
     }
+    
+    try
+    {
+      SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectable("sqldouble__cfr");
+      String sql = "(SUM(deaths::FLOAT)/SUM(cases))*100.0";
+      calc.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+    }
 
+
+    calculateIncidence(valueQuery,aggregatedCaseQuery,queryConfig, xml,100);
+    calculateIncidence(valueQuery,aggregatedCaseQuery,queryConfig, xml,1000);
+    calculateIncidence(valueQuery,aggregatedCaseQuery,queryConfig, xml,10000);
+    calculateIncidence(valueQuery,aggregatedCaseQuery,queryConfig, xml,100000);
+    calculateIncidence(valueQuery,aggregatedCaseQuery,queryConfig, xml,1000000);
+    
+    
     String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
     String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
 
+    System.out.println(valueQuery.getSQL());
     return QueryUtil.setQueryDates(xml, valueQuery, sd, ed);
 
+  }
+  
+  
+  private static void calculateIncidence(ValueQuery valueQuery,AggregatedCaseQuery caseQuery,JSONObject queryConfig, String xml,Integer multiplier )
+  {
+    try
+    {
+      SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectable("sqldouble__incidence_"+multiplier);
+      
+      String geoType = null;
+      
+      String attributeKey = null;
+      
+      JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+      Iterator<?> keys = selectedUniMap.keys();
+      while (keys.hasNext())
+      {
+        attributeKey = (String) keys.next();
+
+        JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
+        if (universals.length() > 0 && attributeKey.equals(AggregatedCase.CLASS+'.'+AggregatedCase.GEOENTITY))
+        {
+          String[] selectedUniversals = new String[universals.length()];
+          for (int i = 0; i < universals.length(); i++)
+          {
+            selectedUniversals[i] = universals.getString(i);
+            
+            geoType =  universals.getString(i);
+            geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
+            geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
+            geoType = geoType.replace('.', '_');
+          }
+
+        }
+      }
+      //dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
+      
+      
+      String timePeriod = "yearly";
+      
+      if(xml.indexOf("season")>0)
+      {
+        timePeriod = "seasonal";
+      }
+      
+      Selectable s = valueQuery.getSelectable(geoType);
+      
+      String columnAlias = s.getQualifiedName();
+      
+      String sql = "(SUM(cases::FLOAT)/";
+      sql += " NULLIF(AVG(get_"+timePeriod+"_population_by_geoid_and_date("+columnAlias+", "+AggregatedCase.STARTDATE+")),0))*"+multiplier;
+
+      calc.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+    }
+    catch (JSONException e)
+    {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
   }
 
   /**
