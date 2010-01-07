@@ -50,6 +50,16 @@
     var queryList = <%= (String) request.getAttribute("queryList") %>;
     var ageGroups = <%= (String) request.getAttribute("ageGroups") %>;
     var visibleAttributes = <%= (String) request.getAttribute("visibleAttributes") %>;
+    visibleAttributes = visibleAttributes.concat(
+        [{"attributeName":"cfr","displayLabel":"CFR(GB)","type":"sqldouble"},
+         {"attributeName":"incidence_100","displayLabel":"Incidence 100(GB)","type":"sqldouble"},
+         {"attributeName":"incidence_1000","displayLabel":"Incidence 1,000(GB)","type":"sqldouble"},
+         {"attributeName":"incidence_10000","displayLabel":"Incidence 10,000(GB)","type":"sqldouble"},
+         {"attributeName":"incidence_100000","displayLabel":"Incidence 100,000(GB)","type":"sqldouble"},
+        ]
+
+
+         );
 
     var orderedGrids = <%= (String) request.getAttribute("orderedGrids") %>;
 
