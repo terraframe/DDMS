@@ -23,8 +23,10 @@ import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.general.WeeklyThreshold;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.intervention.monitor.IndividualCase;
 import dss.vector.solutions.intervention.monitor.IndividualCaseQuery;
+import dss.vector.solutions.intervention.monitor.IndividualInstance;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.AggregatedAgeGroup;
 import dss.vector.solutions.surveillance.AggregatedCase;
@@ -83,6 +85,7 @@ public class ThresholdCalculationTest extends TestCase {
 		this.deleteAllTableRecords(Person.CLASS);
 		this.deleteAllTableRecords(Patient.CLASS);
 		this.deleteAllTableRecords(IndividualCase.CLASS);
+		this.deleteAllTableRecords(IndividualInstance.CLASS);
 		this.deleteAllTableRecords(AggregatedCase.CLASS);
 		this.deleteAllTableRecords(MalariaSeason.CLASS);
 		this.deleteAllTableRecords(PopulationData.CLASS);
@@ -109,24 +112,24 @@ public class ThresholdCalculationTest extends TestCase {
 		patient.apply();
 
 		for (int day = 1; day <= 31; day++) {
-			this.createIndividualCases(day, createDate(2009, Calendar.AUGUST, day), patient, EGYPT);
+			this.createIndividualCases(day, 1, createDate(2009, Calendar.AUGUST, day), patient, EGYPT);
 		}
 
-		this.createIndividualCases(9, createDate(2005, Calendar.MARCH, 16), patient, DJIBOUTI);
-		this.createIndividualCases(9, createDate(2005, Calendar.MARCH, 23), patient, DJIBOUTI);
-		this.createIndividualCases(9, createDate(2005, Calendar.MARCH, 30), patient, DJIBOUTI);
-		this.createIndividualCases(9, createDate(2006, Calendar.MARCH, 15), patient, DJIBOUTI);
-		this.createIndividualCases(9, createDate(2006, Calendar.MARCH, 22), patient, DJIBOUTI);
-		this.createIndividualCases(9, createDate(2006, Calendar.MARCH, 29), patient, DJIBOUTI);
-		this.createIndividualCases(2, createDate(2007, Calendar.MARCH, 14), patient, DJIBOUTI);
-		this.createIndividualCases(4, createDate(2007, Calendar.MARCH, 21), patient, DJIBOUTI);
-		this.createIndividualCases(4, createDate(2007, Calendar.MARCH, 28), patient, DJIBOUTI);
-		this.createIndividualCases(1, createDate(2008, Calendar.MARCH, 12), patient, DJIBOUTI);
-		this.createIndividualCases(1, createDate(2008, Calendar.MARCH, 19), patient, DJIBOUTI);
-		this.createIndividualCases(3, createDate(2008, Calendar.MARCH, 26), patient, DJIBOUTI);
-		this.createIndividualCases(3, createDate(2009, Calendar.MARCH, 18), patient, DJIBOUTI);
-		this.createIndividualCases(2, createDate(2009, Calendar.MARCH, 25), patient, DJIBOUTI);
-		this.createIndividualCases(1, createDate(2009, Calendar.APRIL, 1), patient, DJIBOUTI);
+		this.createIndividualCases(9, 1, createDate(2005, Calendar.MARCH, 16), patient, DJIBOUTI);
+		this.createIndividualCases(9, 1, createDate(2005, Calendar.MARCH, 23), patient, DJIBOUTI);
+		this.createIndividualCases(9, 1, createDate(2005, Calendar.MARCH, 30), patient, DJIBOUTI);
+		this.createIndividualCases(9, 1, createDate(2006, Calendar.MARCH, 15), patient, DJIBOUTI);
+		this.createIndividualCases(9, 1, createDate(2006, Calendar.MARCH, 22), patient, DJIBOUTI);
+		this.createIndividualCases(9, 1, createDate(2006, Calendar.MARCH, 29), patient, DJIBOUTI);
+		this.createIndividualCases(2, 1, createDate(2007, Calendar.MARCH, 14), patient, DJIBOUTI);
+		this.createIndividualCases(4, 1, createDate(2007, Calendar.MARCH, 21), patient, DJIBOUTI);
+		this.createIndividualCases(4, 1, createDate(2007, Calendar.MARCH, 28), patient, DJIBOUTI);
+		this.createIndividualCases(1, 1, createDate(2008, Calendar.MARCH, 12), patient, DJIBOUTI);
+		this.createIndividualCases(1, 1, createDate(2008, Calendar.MARCH, 19), patient, DJIBOUTI);
+		this.createIndividualCases(3, 1, createDate(2008, Calendar.MARCH, 26), patient, DJIBOUTI);
+		this.createIndividualCases(3, 1, createDate(2009, Calendar.MARCH, 18), patient, DJIBOUTI);
+		this.createIndividualCases(2, 1, createDate(2009, Calendar.MARCH, 25), patient, DJIBOUTI);
+		this.createIndividualCases(1, 1, createDate(2009, Calendar.APRIL, 1), patient, DJIBOUTI);
 		
 		this.createAggregatedCases(9, createDate(2005, Calendar.MARCH, 13), createDate(2005, Calendar.MARCH, 19), DJIBOUTI);
 		this.createAggregatedCases(9, createDate(2005, Calendar.MARCH, 20), createDate(2005, Calendar.MARCH, 26), DJIBOUTI);
@@ -147,21 +150,40 @@ public class ThresholdCalculationTest extends TestCase {
 		// This is a period less than a week -- should not be counted 
 		this.createAggregatedCases(100, createDate(2008, Calendar.MARCH, 10), createDate(2008, Calendar.MARCH, 14), DJIBOUTI);
 		
-		this.createIndividualCases(9, createDate(2005, Calendar.MARCH, 16), patient, KABWE_MINE_HOSPITAL);
-		this.createIndividualCases(9, createDate(2005, Calendar.MARCH, 23), patient, KABWE_MINE_HOSPITAL);
-		this.createIndividualCases(9, createDate(2005, Calendar.MARCH, 30), patient, KABWE_MINE_HOSPITAL);
-		this.createIndividualCases(9, createDate(2006, Calendar.MARCH, 15), patient, KABWE_MINE_HOSPITAL);
-		this.createIndividualCases(9, createDate(2006, Calendar.MARCH, 22), patient, KABWE_MINE_HOSPITAL);
-		this.createIndividualCases(9, createDate(2006, Calendar.MARCH, 29), patient, KABWE_MINE_HOSPITAL);
-		this.createIndividualCases(2, createDate(2007, Calendar.MARCH, 14), patient, KABWE_MINE_HOSPITAL);
-		this.createIndividualCases(4, createDate(2007, Calendar.MARCH, 21), patient, KABWE_MINE_HOSPITAL);
-		this.createIndividualCases(4, createDate(2007, Calendar.MARCH, 28), patient, KABWE_MINE_HOSPITAL);
-		this.createIndividualCases(1, createDate(2008, Calendar.MARCH, 12), patient, KABWE_MINE_HOSPITAL);
-		this.createIndividualCases(1, createDate(2008, Calendar.MARCH, 19), patient, KABWE_MINE_HOSPITAL);
-		this.createIndividualCases(3, createDate(2008, Calendar.MARCH, 26), patient, KABWE_MINE_HOSPITAL);
-		this.createIndividualCases(3, createDate(2009, Calendar.MARCH, 18), patient, KABWE_MINE_HOSPITAL);
-		this.createIndividualCases(2, createDate(2009, Calendar.MARCH, 25), patient, KABWE_MINE_HOSPITAL);
-		this.createIndividualCases(1, createDate(2009, Calendar.APRIL, 1), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 9, createDate(2005, Calendar.MARCH, 16), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 9, createDate(2005, Calendar.MARCH, 23), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 9, createDate(2005, Calendar.MARCH, 30), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 9, createDate(2006, Calendar.MARCH, 15), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 9, createDate(2006, Calendar.MARCH, 22), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 9, createDate(2006, Calendar.MARCH, 29), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 2, createDate(2007, Calendar.MARCH, 14), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 4, createDate(2007, Calendar.MARCH, 21), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 4, createDate(2007, Calendar.MARCH, 28), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 1, createDate(2008, Calendar.MARCH, 12), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 1, createDate(2008, Calendar.MARCH, 19), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 3, createDate(2008, Calendar.MARCH, 26), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 3, createDate(2009, Calendar.MARCH, 18), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 2, createDate(2009, Calendar.MARCH, 25), patient, KABWE_MINE_HOSPITAL);
+		this.createIndividualCases(1, 1, createDate(2009, Calendar.APRIL, 1), patient, KABWE_MINE_HOSPITAL);
+		
+		this.createAggregatedCases(9, createDate(2005, Calendar.MARCH, 13), createDate(2005, Calendar.MARCH, 19), KABWE_MINE_HOSPITAL);
+		this.createAggregatedCases(9, createDate(2005, Calendar.MARCH, 20), createDate(2005, Calendar.MARCH, 26), KABWE_MINE_HOSPITAL);
+		this.createAggregatedCases(9, createDate(2005, Calendar.MARCH, 27), createDate(2005, Calendar.APRIL, 2), KABWE_MINE_HOSPITAL);
+		this.createAggregatedCases(9, createDate(2006, Calendar.MARCH, 12), createDate(2006, Calendar.MARCH, 18), KABWE_MINE_HOSPITAL);
+		this.createAggregatedCases(9, createDate(2006, Calendar.MARCH, 19), createDate(2006, Calendar.MARCH, 25), KABWE_MINE_HOSPITAL);
+		this.createAggregatedCases(9, createDate(2006, Calendar.MARCH, 26), createDate(2006, Calendar.APRIL, 1), KABWE_MINE_HOSPITAL);
+		this.createAggregatedCases(2, createDate(2007, Calendar.MARCH, 11), createDate(2007, Calendar.MARCH, 17), KABWE_MINE_HOSPITAL);
+		this.createAggregatedCases(4, createDate(2007, Calendar.MARCH, 18), createDate(2007, Calendar.MARCH, 24), KABWE_MINE_HOSPITAL);
+		this.createAggregatedCases(4, createDate(2007, Calendar.MARCH, 25), createDate(2007, Calendar.MARCH, 31), KABWE_MINE_HOSPITAL);
+		this.createAggregatedCases(1, createDate(2008, Calendar.MARCH, 9), createDate(2008, Calendar.MARCH, 15), KABWE_MINE_HOSPITAL);
+		this.createAggregatedCases(1, createDate(2008, Calendar.MARCH, 16), createDate(2008, Calendar.MARCH, 22), KABWE_MINE_HOSPITAL);
+		this.createAggregatedCases(3, createDate(2008, Calendar.MARCH, 23), createDate(2008, Calendar.MARCH, 29), KABWE_MINE_HOSPITAL);
+		this.createAggregatedCases(3, createDate(2009, Calendar.MARCH, 15), createDate(2009, Calendar.MARCH, 21), KABWE_MINE_HOSPITAL);
+		this.createAggregatedCases(2, createDate(2009, Calendar.MARCH, 22), createDate(2009, Calendar.MARCH, 28), KABWE_MINE_HOSPITAL);
+		this.createAggregatedCases(1, createDate(2009, Calendar.MARCH, 29), createDate(2009, Calendar.APRIL, 4), KABWE_MINE_HOSPITAL);
+		
+		// This is a period less than a week -- should not be counted 
+		this.createAggregatedCases(100, createDate(2008, Calendar.MARCH, 10), createDate(2008, Calendar.MARCH, 14), KABWE_MINE_HOSPITAL);
 		
 		PopulationData politicalPopulationData = new PopulationData();
 		politicalPopulationData.setGeoEntity(DJIBOUTI);
@@ -222,7 +244,7 @@ public class ThresholdCalculationTest extends TestCase {
 */	
 	
 	@Transaction
-	public void xtestCalculatePoliticalIndividualMeanThresholds() {
+	public void testCalculatePoliticalIndividualMeanThresholds() {
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
 		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		calculator.setTestingLimiter(DJIBOUTI.getGeoId());
@@ -233,7 +255,7 @@ public class ThresholdCalculationTest extends TestCase {
 	}	
 
 	@Transaction
-	public void xtestCalculatePoliticalIndividualQuartileThresholds() {
+	public void testCalculatePoliticalIndividualQuartileThresholds() {
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
 		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		calculator.setTestingLimiter(DJIBOUTI.getGeoId());
@@ -244,7 +266,7 @@ public class ThresholdCalculationTest extends TestCase {
 	}
 
 	@Transaction
-	public void xtestCalculatePoliticalIndividualBinomialThresholds() {
+	public void testCalculatePoliticalIndividualBinomialThresholds() {
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
 		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		calculator.setTestingLimiter(DJIBOUTI.getGeoId());
@@ -256,7 +278,7 @@ public class ThresholdCalculationTest extends TestCase {
 	
 	
 	@Transaction
-	public void xtestCalculatePoliticalAggregatedMeanThresholds() {
+	public void testCalculatePoliticalAggregatedMeanThresholds() {
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
 		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		calculator.setTestingLimiter(DJIBOUTI.getGeoId());
@@ -267,7 +289,7 @@ public class ThresholdCalculationTest extends TestCase {
 	}	
 
 	@Transaction
-	public void xtestCalculatePoliticalAggregatedQuartileThresholds() {
+	public void testCalculatePoliticalAggregatedQuartileThresholds() {
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
 		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		calculator.setTestingLimiter(DJIBOUTI.getGeoId());
@@ -278,7 +300,7 @@ public class ThresholdCalculationTest extends TestCase {
 	}
 
 	@Transaction
-	public void xtestCalculatePoliticalAggregatedBinomialThresholds() {
+	public void testCalculatePoliticalAggregatedBinomialThresholds() {
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
 		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		calculator.setTestingLimiter(DJIBOUTI.getGeoId());
@@ -287,6 +309,39 @@ public class ThresholdCalculationTest extends TestCase {
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
 		assertThresholds(11, 2010, td, 6, 8);
 	}		
+	
+	@Transaction
+	public void testCalculateFacilityIndividualMeanThresholds() {
+		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
+		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
+		calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
+		MalariaSeason season = calculator.calculateThresholds(false);
+		
+		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
+		assertThresholds(11, 2010, td, 4, 4);
+	}	
+
+	@Transaction
+	public void testCalculateFacilityIndividualQuartileThresholds() {
+		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
+		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
+		calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
+		MalariaSeason season = calculator.calculateThresholds(false);
+		
+		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
+		assertThresholds(11, 2010, td, 2, 2);
+	}
+
+	@Transaction
+	public void testCalculateFacilityIndividualBinomialThresholds() {
+		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
+		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
+		calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
+		MalariaSeason season = calculator.calculateThresholds(false);
+		
+		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
+		assertThresholds(11, 2010, td, 6, 8);
+	}	
 	
 	@Transaction
 	public void testCalculateFacilityAggregatedMeanThresholds() {
@@ -357,19 +412,35 @@ public class ThresholdCalculationTest extends TestCase {
 		assertEquals(t2, (int) weeklyThreshold.getIdentification());
 	}
 	
-	private void createIndividualCases(int count, Date date, Patient patient, GeoEntity geoEntity) {
-		for (int i = 0; i < count; i++) {
-			this.createIndividualCase(date, patient, geoEntity);
+	private void createIndividualCases(int caseCount, int instanceCount, Date date, Patient patient, GeoEntity geoEntity) {
+		for (int i = 0; i < caseCount; i++) {
+			IndividualCase caseData = this.createIndividualCase(date, patient, geoEntity);
+			this.createIndividualInstance(caseData, geoEntity, true);
+			for (int j = 0; j < instanceCount; j++) {
+				this.createIndividualInstance(caseData, geoEntity, false);
+			}
 		}
 	}
 
-	private void createIndividualCase(Date date, Patient patient, GeoEntity geoEntity) {
-		IndividualCase data = new IndividualCase();
-		data.setDiagnosisDate(date);
-		data.setPatient(patient);
-		data.setProbableSource(geoEntity);
-		data.setResidence(geoEntity);
-		data.apply();
+	private IndividualCase createIndividualCase(Date date, Patient patient, GeoEntity geoEntity) {
+		IndividualCase caseData = new IndividualCase();
+		caseData.setDiagnosisDate(date);
+		caseData.setPatient(patient);
+		caseData.setProbableSource(geoEntity);
+		caseData.setResidence(geoEntity);
+		caseData.apply();
+		return caseData;
+	}
+	
+	private IndividualInstance createIndividualInstance(IndividualCase caseData, GeoEntity geoEntity, boolean active) {
+		IndividualInstance instanceData = new IndividualInstance();
+		instanceData.setIndividualCase(caseData);
+		if (geoEntity instanceof HealthFacility) {
+			instanceData.setHealthFacility((HealthFacility) geoEntity);
+		}
+		instanceData.setActivelyDetected(active);
+		instanceData.apply();
+		return instanceData;
 	}
 	
 	private void createAggregatedCases(int count, Date startDate, Date endDate, GeoEntity geoEntity) {

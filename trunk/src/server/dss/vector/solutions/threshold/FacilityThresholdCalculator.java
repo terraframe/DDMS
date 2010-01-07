@@ -13,6 +13,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.geo.generated.HealthFacilityQuery;
 import dss.vector.solutions.intervention.monitor.IndividualCaseQuery;
+import dss.vector.solutions.intervention.monitor.IndividualInstanceQuery;
 import dss.vector.solutions.surveillance.PeriodType;
 
 public class FacilityThresholdCalculator extends ThresholdCalculator implements com.terraframe.mojo.generation.loader.Reloadable {
@@ -30,7 +31,7 @@ public class FacilityThresholdCalculator extends ThresholdCalculator implements 
 			while (it.hasNext()) {
 				GeoEntity geoEntity = it.next();
 				if (this.testingLimiter == null || this.testingLimiter.equals(geoEntity.getGeoId())) {
-					System.out.println(geoEntity.getEntityName());
+					//System.out.println(geoEntity.getEntityName());
 					this.calculateThresholds(calculationPeriod, geoEntity);
 				}
 			}
@@ -88,11 +89,12 @@ public class FacilityThresholdCalculator extends ThresholdCalculator implements 
 
 	@Transaction
 	private long getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, EpiDate initialWeek, EpiDate finalWeek) {
-		IndividualCaseQuery query = new IndividualCaseQuery(factory);
+		IndividualInstanceQuery query = new IndividualInstanceQuery(factory);
 
-		Condition condition = query.getProbableSource().EQ(entityQuery);
-		condition = AND.get(condition, query.getDiagnosisDate().GE(initialWeek.getStartDate()));
-		condition = AND.get(condition, query.getDiagnosisDate().LE(finalWeek.getEndDate()));
+		Condition condition = query.getHealthFacility().EQ(entityQuery);
+		condition = AND.get(condition, query.getIndividualCase().getDiagnosisDate().GE(initialWeek.getStartDate()));
+		condition = AND.get(condition, query.getIndividualCase().getDiagnosisDate().LE(finalWeek.getEndDate()));
+		condition = AND.get(condition, query.getActivelyDetected().EQ(false));
 		query.WHERE(condition);
 
 		return query.getCount();

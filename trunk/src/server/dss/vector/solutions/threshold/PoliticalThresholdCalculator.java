@@ -32,7 +32,7 @@ public class PoliticalThresholdCalculator extends ThresholdCalculator implements
 			while (it.hasNext()) {
 				GeoEntity geoEntity = it.next();
 				if (this.testingLimiter == null || this.testingLimiter.equals(geoEntity.getGeoId())) {
-					System.out.println(geoEntity.getEntityName());
+					//System.out.println(geoEntity.getEntityName());
 					this.calculateThresholds(calculationPeriod, geoEntity);
 				}
 			}

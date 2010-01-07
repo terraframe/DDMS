@@ -238,7 +238,7 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 			String valueString = valueObject.getValue("cases");
 			if (valueString.length() > 0) {
 				long value = Long.parseLong(valueString);
-				System.out.println(value);
+				//System.out.println(value);
 				sum += value;
 			}
 		}
