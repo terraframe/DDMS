@@ -427,7 +427,7 @@
 					value="false" />
 				<attribute
 					name="populationAllowed"
-					value="false" />
+					value="true" />
 				<attributeReference
 					name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.HealthFacility" />
