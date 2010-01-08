@@ -82,6 +82,7 @@ public class ThresholdCalculationTest extends TestCase {
 
 	@Transaction
 	private void createData() {
+		System.out.print("Creating Data...");
 		this.deleteAllTableRecords(Person.CLASS);
 		this.deleteAllTableRecords(Patient.CLASS);
 		this.deleteAllTableRecords(IndividualCase.CLASS);
@@ -198,6 +199,8 @@ public class ThresholdCalculationTest extends TestCase {
 		facilityPopulationData.setGrowthRate(0D);
 		facilityPopulationData.setPopulation(182981L);
 		facilityPopulationData.apply();
+
+		System.out.println("Done!");
 	}
 /* These are old tests for methods that are no longer public
  
@@ -245,6 +248,7 @@ public class ThresholdCalculationTest extends TestCase {
 	
 	@Transaction
 	public void testCalculatePoliticalIndividualMeanThresholds() {
+		System.out.print("Calculating Political Individual Mean Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
 		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		calculator.setTestingLimiter(DJIBOUTI.getGeoId());
@@ -252,10 +256,12 @@ public class ThresholdCalculationTest extends TestCase {
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
 		assertThresholds(11, 2010, td, 4, 4);
+		System.out.println("Done!");
 	}	
 
 	@Transaction
 	public void testCalculatePoliticalIndividualQuartileThresholds() {
+		System.out.print("Calculating Political Individual Quartile Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
 		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		calculator.setTestingLimiter(DJIBOUTI.getGeoId());
@@ -263,10 +269,12 @@ public class ThresholdCalculationTest extends TestCase {
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
 		assertThresholds(11, 2010, td, 2, 2);
+		System.out.println("Done!");
 	}
 
 	@Transaction
 	public void testCalculatePoliticalIndividualBinomialThresholds() {
+		System.out.print("Calculating Political Individual Binomial Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
 		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		calculator.setTestingLimiter(DJIBOUTI.getGeoId());
@@ -274,11 +282,12 @@ public class ThresholdCalculationTest extends TestCase {
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
 		assertThresholds(11, 2010, td, 6, 8);
+		System.out.println("Done!");
 	}	
-	
 	
 	@Transaction
 	public void testCalculatePoliticalAggregatedMeanThresholds() {
+		System.out.print("Calculating Political Aggregated Mean Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
 		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		calculator.setTestingLimiter(DJIBOUTI.getGeoId());
@@ -286,10 +295,12 @@ public class ThresholdCalculationTest extends TestCase {
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
 		assertThresholds(11, 2010, td, 4, 4);
+		System.out.println("Done!");
 	}	
 
 	@Transaction
 	public void testCalculatePoliticalAggregatedQuartileThresholds() {
+		System.out.print("Calculating Political Aggregated Quartile Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
 		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		calculator.setTestingLimiter(DJIBOUTI.getGeoId());
@@ -297,10 +308,12 @@ public class ThresholdCalculationTest extends TestCase {
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
 		assertThresholds(11, 2010, td, 2, 2);
+		System.out.println("Done!");
 	}
 
 	@Transaction
 	public void testCalculatePoliticalAggregatedBinomialThresholds() {
+		System.out.print("Calculating Political Aggregated Binomial Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
 		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		calculator.setTestingLimiter(DJIBOUTI.getGeoId());
@@ -308,10 +321,12 @@ public class ThresholdCalculationTest extends TestCase {
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
 		assertThresholds(11, 2010, td, 6, 8);
+		System.out.println("Done!");
 	}		
 	
 	@Transaction
 	public void testCalculateFacilityIndividualMeanThresholds() {
+		System.out.print("Calculating Facility Individual Mean Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
 		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
 		calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
@@ -319,10 +334,12 @@ public class ThresholdCalculationTest extends TestCase {
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
 		assertThresholds(11, 2010, td, 4, 4);
+		System.out.println("Done!");
 	}	
 
 	@Transaction
 	public void testCalculateFacilityIndividualQuartileThresholds() {
+		System.out.print("Calculating Facility Individual Quartile Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
 		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
 		calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
@@ -330,10 +347,12 @@ public class ThresholdCalculationTest extends TestCase {
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
 		assertThresholds(11, 2010, td, 2, 2);
+		System.out.println("Done!");
 	}
 
 	@Transaction
 	public void testCalculateFacilityIndividualBinomialThresholds() {
+		System.out.print("Calculating Facility Individual Binomial Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
 		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
 		calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
@@ -341,10 +360,12 @@ public class ThresholdCalculationTest extends TestCase {
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
 		assertThresholds(11, 2010, td, 6, 8);
+		System.out.println("Done!");
 	}	
 	
 	@Transaction
 	public void testCalculateFacilityAggregatedMeanThresholds() {
+		System.out.print("Calculating Facility Aggregated Mean Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
 		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
 		calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
@@ -352,10 +373,12 @@ public class ThresholdCalculationTest extends TestCase {
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
 		assertThresholds(11, 2010, td, 4, 4);
+		System.out.println("Done!");
 	}	
 
 	@Transaction
 	public void testCalculateFacilityAggregatedQuartileThresholds() {
+		System.out.print("Calculating Facility Aggregated Quartile Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
 		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
 		calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
@@ -363,10 +386,12 @@ public class ThresholdCalculationTest extends TestCase {
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
 		assertThresholds(11, 2010, td, 2, 2);
+		System.out.println("Done!");
 	}
 
 	@Transaction
 	public void testCalculateFacilityAggregatedBinomialThresholds() {
+		System.out.print("Calculating Facility Aggregated Binomial Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
 		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
 		calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
@@ -374,6 +399,7 @@ public class ThresholdCalculationTest extends TestCase {
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
 		assertThresholds(11, 2010, td, 6, 8);
+		System.out.println("Done!");
 	}	
 	
 	@Transaction
