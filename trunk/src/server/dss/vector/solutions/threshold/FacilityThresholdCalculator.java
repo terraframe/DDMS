@@ -92,8 +92,8 @@ public class FacilityThresholdCalculator extends ThresholdCalculator implements 
 		IndividualInstanceQuery query = new IndividualInstanceQuery(factory);
 
 		Condition condition = query.getHealthFacility().EQ(entityQuery);
-		condition = AND.get(condition, query.getIndividualCase().getDiagnosisDate().GE(initialWeek.getStartDate()));
-		condition = AND.get(condition, query.getIndividualCase().getDiagnosisDate().LE(finalWeek.getEndDate()));
+		condition = AND.get(condition, query.getFacilityVisit().GE(initialWeek.getStartDate()));
+		condition = AND.get(condition, query.getFacilityVisit().LE(finalWeek.getEndDate()));
 		condition = AND.get(condition, query.getActivelyDetected().EQ(false));
 		query.WHERE(condition);
 
