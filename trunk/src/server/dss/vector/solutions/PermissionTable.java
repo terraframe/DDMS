@@ -53,7 +53,7 @@ public class PermissionTable
     for (MdType type : allTypes)
     {
       openRow();
-      writeCell(type.getDisplayLabel().getDefaultLocale());
+      writeCellWithTitle(type.getDisplayLabel().getDefaultLocale(), type.definesType());
       MdTypeDAO typeDAO = (MdTypeDAO)BusinessFacade.getEntityDAO(type);
       for (Roles role : allRoles)
       {
@@ -79,6 +79,11 @@ public class PermissionTable
   private void closeRow()
   {
     html += "</tr>";
+  }
+  
+  private void writeCellWithTitle(String data, String title)
+  {
+    html += "<td title=\"" + title + "\">" + data + "</td>";
   }
   
   private void writeCell(String data)
