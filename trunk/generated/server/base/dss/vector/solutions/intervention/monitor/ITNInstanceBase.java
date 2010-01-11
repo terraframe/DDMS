@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 913387380)
+@com.terraframe.mojo.business.ClassSignature(hash = -433910071)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,9 @@ public abstract class ITNInstanceBase extends com.terraframe.mojo.business.Busin
   public static java.lang.String PRICE = "price";
   public static java.lang.String PURPOSE = "purpose";
   public static java.lang.String PURPOSECOMMENTS = "purposeComments";
+  public static java.lang.String RECIEVEDDATE = "recievedDate";
   public static java.lang.String RETEATED = "reteated";
+  public static java.lang.String RETREATEDDATE = "retreatedDate";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SLEPTUNDERNET = "sleptUnderNet";
@@ -42,7 +44,7 @@ public abstract class ITNInstanceBase extends com.terraframe.mojo.business.Busin
   public static java.lang.String WASHED = "washed";
   public static java.lang.String YEARRECIEVED = "yearRecieved";
   public static java.lang.String YEARRETREATED = "yearRetreated";
-  private static final long serialVersionUID = 913387380;
+  private static final long serialVersionUID = -433910071;
   
   public ITNInstanceBase()
   {
@@ -662,6 +664,34 @@ public abstract class ITNInstanceBase extends com.terraframe.mojo.business.Busin
     }
   }
   
+  public java.util.Date getRecievedDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(RECIEVEDDATE));
+  }
+  
+  public void validateRecievedDate()
+  {
+    this.validateAttribute(RECIEVEDDATE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getRecievedDateMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstance.CLASS);
+    return mdClassIF.definesAttribute(RECIEVEDDATE);
+  }
+  
+  public void setRecievedDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(RECIEVEDDATE, "");
+    }
+    else
+    {
+      setValue(RECIEVEDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
   public Boolean getReteated()
   {
     return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RETEATED));
@@ -687,6 +717,34 @@ public abstract class ITNInstanceBase extends com.terraframe.mojo.business.Busin
     else
     {
       setValue(RETEATED, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public java.util.Date getRetreatedDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(RETREATEDDATE));
+  }
+  
+  public void validateRetreatedDate()
+  {
+    this.validateAttribute(RETREATEDDATE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getRetreatedDateMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstance.CLASS);
+    return mdClassIF.definesAttribute(RETREATEDDATE);
+  }
+  
+  public void setRetreatedDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(RETREATEDDATE, "");
+    }
+    else
+    {
+      setValue(RETREATEDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   

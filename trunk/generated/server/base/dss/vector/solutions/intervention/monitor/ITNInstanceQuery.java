@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -305485475)
+@com.terraframe.mojo.business.ClassSignature(hash = 734125056)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  class ITNInstanceQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -305485475;
+private static final long serialVersionUID = 734125056;
 
   public ITNInstanceQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -474,6 +474,23 @@ private static final long serialVersionUID = -305485475;
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.ITNInstance.PURPOSECOMMENTS, "com.terraframe.mojo.system.metadata.MdAttributeText", alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeMoment getRecievedDate()
+  {
+    return getRecievedDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getRecievedDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.ITNInstance.RECIEVEDDATE, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getRecievedDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.ITNInstance.RECIEVEDDATE, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeBoolean getReteated()
   {
     return getReteated(null);
@@ -489,6 +506,23 @@ private static final long serialVersionUID = -305485475;
   public com.terraframe.mojo.query.AttributeBoolean getReteated(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.ITNInstance.RETEATED, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeMoment getRetreatedDate()
+  {
+    return getRetreatedDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getRetreatedDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.ITNInstance.RETREATEDDATE, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getRetreatedDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.ITNInstance.RETREATEDDATE, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -891,9 +925,15 @@ private static final long serialVersionUID = -305485475;
     public com.terraframe.mojo.query.AttributeChar getPurposeComments();
     public com.terraframe.mojo.query.AttributeChar getPurposeComments(String alias);
     public com.terraframe.mojo.query.AttributeChar getPurposeComments(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeMoment getRecievedDate();
+    public com.terraframe.mojo.query.AttributeMoment getRecievedDate(String alias);
+    public com.terraframe.mojo.query.AttributeMoment getRecievedDate(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeBoolean getReteated();
     public com.terraframe.mojo.query.AttributeBoolean getReteated(String alias);
     public com.terraframe.mojo.query.AttributeBoolean getReteated(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeMoment getRetreatedDate();
+    public com.terraframe.mojo.query.AttributeMoment getRetreatedDate(String alias);
+    public com.terraframe.mojo.query.AttributeMoment getRetreatedDate(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeLong getSeq();
     public com.terraframe.mojo.query.AttributeLong getSeq(String alias);
     public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel);
@@ -948,7 +988,7 @@ private static final long serialVersionUID = -305485475;
  implements ITNInstanceQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 351699839;
+private static final long serialVersionUID = 2053470750;
 
   public ITNInstanceQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1324,6 +1364,23 @@ private static final long serialVersionUID = 351699839;
     return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("purposeComments", "com.terraframe.mojo.system.metadata.MdAttributeText", alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeMoment getRecievedDate()
+  {
+    return getRecievedDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getRecievedDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("recievedDate", "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getRecievedDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("recievedDate", "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeBoolean getReteated()
   {
     return getReteated(null);
@@ -1339,6 +1396,23 @@ private static final long serialVersionUID = 351699839;
   public com.terraframe.mojo.query.AttributeBoolean getReteated(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("reteated", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeMoment getRetreatedDate()
+  {
+    return getRetreatedDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getRetreatedDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("retreatedDate", "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getRetreatedDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("retreatedDate", "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()

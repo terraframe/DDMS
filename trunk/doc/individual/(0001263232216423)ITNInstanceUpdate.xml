@@ -1,0 +1,51 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.ITNInstance">
+        <create>
+          <attributes>
+            <date
+              name="recievedDate"
+              label="Recieved"
+              required="true" />
+            <date
+              name="retreatedDate"
+              label="Retreated"
+              required="false" />
+          </attributes>
+        </create>
+      </mdBusiness>
+    </update>
+    <permissions>
+      <role
+        roleName="mdss.coordinator, mdss.dataCapturer, mdss.operationalManager">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.intervention.monitor.ITNInstance">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdBusinessPermission>
+        </grant>
+      </role>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNInstance.recievedDate"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNInstance.retreatedDate"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+    </delete>
+  </undoIt>
+</version>

@@ -1,6 +1,8 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import com.terraframe.mojo.dataaccess.MdAttributeBooleanDAOIF;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -8,6 +10,7 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.CurrentYearProblem;
+import dss.vector.solutions.MonthOfYear;
 import dss.vector.solutions.Response;
 import dss.vector.solutions.ResponseMaster;
 
@@ -44,7 +47,10 @@ public class ITNInstance extends ITNInstanceBase implements com.terraframe.mojo.
     validateWashPeriod();
 
     boolean first = this.isNew() && !this.isAppliedToDB();
-
+    
+    this.setRecievedDate();
+    this.setRetreatedDate();
+    
     super.apply();
 
     if (first)
@@ -64,6 +70,82 @@ public class ITNInstance extends ITNInstanceBase implements com.terraframe.mojo.
       household.setNets((int) count);
       household.apply();
     }
+  }
+  
+  private Date getDate(Integer year, List<MonthOfYear> list)
+  {
+    if(year != null)
+    {
+      Calendar calendar = Calendar.getInstance();
+      calendar.clear();
+      calendar.set(Calendar.YEAR, year);    
+    
+      if(list.size() > 0)
+      {
+        int month = 1;
+        MonthOfYear monthOfYear = list.get(0);
+                
+        switch(monthOfYear)
+        {
+          case JANUARY:
+            month = 1;
+            break;
+          case FEBRUARY:
+            month = 2;
+            break;
+          case MARCH:
+            month = 3;
+            break;
+          case APRIL:
+            month = 4;
+            break;
+          case MAY:
+            month = 5;
+            break;
+          case JUNE:
+            month = 6;
+            break;
+          case JULY:
+            month = 7;
+            break;
+          case AUGUST:
+            month = 8;
+            break;
+          case SEPTEMBER:
+            month = 9;
+            break;
+          case OCTOBER:
+            month = 10;
+            break;
+          case NOVEMBER:
+            month = 11;
+            break;
+          default:
+            month = 12;
+            break;
+        }
+        
+        calendar.set(Calendar.MONTH, month);
+      }
+      
+      return calendar.getTime();      
+    }
+
+    return null;
+  }
+
+  private void setRetreatedDate()
+  {
+    Date date = this.getDate(this.getYearRetreated(), this.getMonthRetreated());
+
+    this.setRetreatedDate(date);
+  }
+
+  private void setRecievedDate()
+  {
+    Date date = this.getDate(this.getYearRecieved(), this.getMonthRecieved());
+
+    this.setRecievedDate(date);
   }
 
   @Override

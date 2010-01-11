@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -261644812)
+@com.terraframe.mojo.business.ClassSignature(hash = -1818005431)
 public abstract class ITNInstanceDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNInstance";
-  private static final long serialVersionUID = -261644812;
+  private static final long serialVersionUID = -1818005431;
   
   protected ITNInstanceDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -48,7 +48,9 @@ public abstract class ITNInstanceDTOBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String PRICE = "price";
   public static java.lang.String PURPOSE = "purpose";
   public static java.lang.String PURPOSECOMMENTS = "purposeComments";
+  public static java.lang.String RECIEVEDDATE = "recievedDate";
   public static java.lang.String RETEATED = "reteated";
+  public static java.lang.String RETREATEDDATE = "retreatedDate";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SLEPTUNDERNET = "sleptUnderNet";
@@ -833,6 +835,43 @@ public abstract class ITNInstanceDTOBase extends com.terraframe.mojo.business.Bu
     return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(PURPOSECOMMENTS).getAttributeMdDTO();
   }
   
+  public java.util.Date getRecievedDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(RECIEVEDDATE));
+  }
+  
+  public void setRecievedDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(RECIEVEDDATE, "");
+    }
+    else
+    {
+      setValue(RECIEVEDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isRecievedDateWritable()
+  {
+    return isWritable(RECIEVEDDATE);
+  }
+  
+  public boolean isRecievedDateReadable()
+  {
+    return isReadable(RECIEVEDDATE);
+  }
+  
+  public boolean isRecievedDateModified()
+  {
+    return isModified(RECIEVEDDATE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getRecievedDateMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(RECIEVEDDATE).getAttributeMdDTO();
+  }
+  
   public Boolean getReteated()
   {
     return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RETEATED));
@@ -868,6 +907,43 @@ public abstract class ITNInstanceDTOBase extends com.terraframe.mojo.business.Bu
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getReteatedMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(RETEATED).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getRetreatedDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(RETREATEDDATE));
+  }
+  
+  public void setRetreatedDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(RETREATEDDATE, "");
+    }
+    else
+    {
+      setValue(RETREATEDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isRetreatedDateWritable()
+  {
+    return isWritable(RETREATEDDATE);
+  }
+  
+  public boolean isRetreatedDateReadable()
+  {
+    return isReadable(RETREATEDDATE);
+  }
+  
+  public boolean isRetreatedDateModified()
+  {
+    return isModified(RETREATEDDATE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getRetreatedDateMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(RETREATEDDATE).getAttributeMdDTO();
   }
   
   public Long getSeq()
