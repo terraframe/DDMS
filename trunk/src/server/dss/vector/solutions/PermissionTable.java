@@ -1,6 +1,8 @@
 package dss.vector.solutions;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.business.rbac.Operation;
@@ -16,6 +18,7 @@ import com.terraframe.mojo.util.FileIO;
 public class PermissionTable
 {
   private String html;
+  private List<Operation> allOperations;
   
   public static void main(String[] args) throws Exception
   {
@@ -25,6 +28,19 @@ public class PermissionTable
   public PermissionTable()
   {
     html = new String();
+    allOperations = new LinkedList<Operation>();
+    allOperations.add(Operation.READ);
+    allOperations.add(Operation.WRITE);
+    allOperations.add(Operation.CREATE);
+    allOperations.add(Operation.DELETE);
+    allOperations.add(Operation.READ_PARENT);
+    allOperations.add(Operation.READ_CHILD);
+    allOperations.add(Operation.WRITE_PARENT);
+    allOperations.add(Operation.WRITE_CHILD);
+    allOperations.add(Operation.ADD_PARENT);
+    allOperations.add(Operation.ADD_CHILD);
+    allOperations.add(Operation.DELETE_PARENT);
+    allOperations.add(Operation.DELETE_CHILD);
   }
   
   public String getHTML()
@@ -46,7 +62,26 @@ public class PermissionTable
     for (Roles role : allRoles)
     {
       String roleName = role.getRoleName();
-      writeHeader(roleName.substring(roleName.indexOf(".")+1));
+      writeHeaderWithSpan(roleName.substring(roleName.indexOf(".")+1));
+    }
+    closeRow();
+    
+    openRow();
+    writeHeader("");
+    for (Roles role : allRoles)
+    {
+      writeHeader("Read");
+      writeHeader("Write");
+      writeHeader("Create");
+      writeHeader("Delete");
+      writeHeader("Read Parent");
+      writeHeader("Read Child");
+      writeHeader("Write Parent");
+      writeHeader("Write Child");
+      writeHeader("Add Parent");
+      writeHeader("Add Child");
+      writeHeader("Delete Parent");
+      writeHeader("Delete Child");
     }
     closeRow();
     
@@ -57,13 +92,19 @@ public class PermissionTable
       MdTypeDAO typeDAO = (MdTypeDAO)BusinessFacade.getEntityDAO(type);
       for (Roles role : allRoles)
       {
-        String codedPermissions = new String();
         RoleDAO roleDAO = (RoleDAO)BusinessFacade.getEntityDAO(role);
-        for (Operation op : roleDAO.getPermissions(typeDAO))
+        Set<Operation> permissions = roleDAO.getPermissions(typeDAO);
+        for (Operation op : allOperations)
         {
-          codedPermissions += getCode(op);
+          if (permissions.contains(op))
+          {
+            writeCell("X");
+          }
+          else
+          {
+            writeCell("");
+          }
         }
-        writeCell(codedPermissions);
       }
       closeRow();
     }
@@ -89,6 +130,11 @@ public class PermissionTable
   private void writeCell(String data)
   {
     html += "<td>" + data + "</td>";
+  }
+  
+  private void writeHeaderWithSpan(String data)
+  {
+    html += "<th colspan=12>" + data + "</th>";
   }
   
   private void writeHeader(String data)
