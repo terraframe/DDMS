@@ -29,7 +29,7 @@ import dss.vector.solutions.entomology.MolecularAssayDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.entomology.PooledInfectionAssayDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
-import dss.vector.solutions.entomology.assay.EfficacyAssay;
+import dss.vector.solutions.entomology.assay.EfficacyAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.general.InsecticideDTO;
@@ -838,7 +838,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      loadQuerySpecifics(EfficacyAssay.CLASS, QueryConstants.QueryType.QUERY_EFFICACY_ASSAY);
+      loadQuerySpecifics(EfficacyAssayDTO.CLASS, QueryConstants.QueryType.QUERY_EFFICACY_ASSAY);
       
       ClientRequestIF request = this.getClientRequest();
 
