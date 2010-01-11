@@ -389,7 +389,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     
     valueQuery.SELECT(selectables);
     String searchable = value.replace(" ", "% ") + "%";
-    Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
+    Condition or = OR.get(condition, q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
     valueQuery.WHERE(or);
     valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
     valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
