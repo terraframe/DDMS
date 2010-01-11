@@ -11,6 +11,7 @@ import com.terraframe.mojo.query.AttributePrimitive;
 import com.terraframe.mojo.query.COUNT;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.F;
+import com.terraframe.mojo.query.LeftJoinEq;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectablePrimitive;
@@ -19,16 +20,18 @@ import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
 import com.terraframe.mojo.system.metadata.MdBusiness;
+
 public class QueryBuilder extends QueryBuilderBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1255379414351L;
-  
+
   public QueryBuilder()
   {
     super();
   }
-  
-  // FIXME have calling code pass in the qualified query type instead of just the class.
+
+  // FIXME have calling code pass in the qualified query type instead of just
+  // the class.
   public static ValueQuery getValueQuery(String queryClass, String queryXML, String config, Layer layer)
   {
     Class<?> clazz = null;
@@ -39,7 +42,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     try
     {
       clazz = Class.forName(queryClass);
-      xmlToValueQuery = clazz.getMethod("xmlToValueQuery",String.class, String.class, Layer.class);
+      xmlToValueQuery = clazz.getMethod("xmlToValueQuery", String.class, String.class, Layer.class);
       valueQuery = (ValueQuery) xmlToValueQuery.invoke(clazz, queryXML, config, layer);
     }
     catch (Throwable t)
@@ -49,19 +52,18 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     }
 
     return valueQuery;
-    
+
   }
-  
-  
+
   /**
-   * Queries 
-   *
+   * Queries
+   * 
    * @param xml
-   * @throws Throwable 
+   * @throws Throwable
    */
   @Transaction
   @Authenticate
-  public static com.terraframe.mojo.query.ValueQuery getQueryResults(String queryClass, String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize) 
+  public static com.terraframe.mojo.query.ValueQuery getQueryResults(String queryClass, String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
     ValueQuery valueQuery = getValueQuery(queryClass, queryXML, config, null);
 
@@ -70,9 +72,8 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     return valueQuery;
   }
 
-
   @Transaction
-  public static InputStream exportQueryToExcel(String queryClass,String queryXML, String config, String savedSearchId)
+  public static InputStream exportQueryToExcel(String queryClass, String queryXML, String config, String savedSearchId)
   {
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
@@ -104,7 +105,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();
   }
-  
+
   @Authenticate
   @Transaction
   public static ValueQuery getTextAttributeSugestions(String match, String klass, String attribute)
@@ -112,30 +113,34 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
-    
+
     SelectableSQLCharacter attribSelectable = valueQuery.aSQLCharacter("attribute", attribute);
-    
+
     COUNT count = F.COUNT(attribSelectable, "attributeCount");
-    
-    valueQuery.SELECT(attribSelectable,count);
+
+    valueQuery.SELECT(attribSelectable, count);
 
     String table = MdBusiness.getMdBusiness(klass).getTableName();
-    
-    valueQuery.FROM(table, "auto_complete");
-    
-    valueQuery.WHERE(attribSelectable.LIKEi(match+"%"));
-    
-    valueQuery.ORDER_BY_DESC(count);
-    
-    valueQuery.restrictRows(20, 1);
-    
-    System.out.println(valueQuery.getSQL());
 
+    valueQuery.FROM(table, "auto_complete");
+
+    valueQuery.WHERE(attribSelectable.LIKEi(match + "%"));
+
+    valueQuery.ORDER_BY_DESC(count);
+
+    valueQuery.restrictRows(20, 1);
+
+    System.out.println(valueQuery.getSQL());
 
     return valueQuery;
   }
+
+  public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)
+  {
+    QueryBuilder.textLookup(valueQuery, qf, tokenArray, selectableArray, conditionArray, new LeftJoinEq[]{});
+  }
   
-  public static ValueQuery textLookup(QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)
+  public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray, LeftJoinEq[] joins)
   {
     long WEIGHT = 256;
 
@@ -148,19 +153,18 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
       for (int i = 0; i < tokenArray.length; i++)
       {
         String token = tokenArray[i].toLowerCase();
-        valueQueryArray[i] = buildQueryForToken(qf, token, selectableArray, conditionArray, WEIGHT, i);
+        valueQueryArray[i] = buildQueryForToken(qf, token, selectableArray, conditionArray, joins, WEIGHT, i);
       }
       uQ.UNION(valueQueryArray);
     }
     else
     {
-      uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), selectableArray, conditionArray, WEIGHT, 0);
+      uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), selectableArray, conditionArray, joins, WEIGHT, 0);
     }
 
     // Build outermost select clause. This would be cleaner if the API supported
-    // incrementally adding
-    // to the select clause. One day that will be supported.
-    ValueQuery resultQuery = qf.valueQuery();
+    // incrementally adding to the select clause. One day that will be
+    // supported.
     Selectable[] selectClauseArray = new Selectable[selectableArray.length + 2];
     for (int k = 0; k < selectableArray.length; k++)
     {
@@ -169,25 +173,23 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     selectClauseArray[selectableArray.length] = F.COUNT(uQ.aAttribute("weight"), "weight");
     selectClauseArray[selectableArray.length + 1] = F.SUM(uQ.aAttribute("weight"), "sum");
 
-    resultQuery.SELECT(selectClauseArray);
-    resultQuery.ORDER_BY_DESC(F.COUNT(uQ.aAttribute("weight"), "weight"));
-    resultQuery.ORDER_BY_DESC(F.SUM(uQ.aAttribute("weight"), "sum"));
+    valueQuery.SELECT(selectClauseArray);
+    valueQuery.ORDER_BY_DESC(F.COUNT(uQ.aAttribute("weight"), "weight"));
+    valueQuery.ORDER_BY_DESC(F.SUM(uQ.aAttribute("weight"), "sum"));
     for (SelectablePrimitive selectable : selectableArray)
     {
-      resultQuery.ORDER_BY_ASC((AttributePrimitive) uQ.aAttribute(selectable.getResultAttributeName()));
+      valueQuery.ORDER_BY_ASC((AttributePrimitive) uQ.aAttribute(selectable.getResultAttributeName()));
     }
-    resultQuery.HAVING(F.COUNT(uQ.aAttribute("weight")).EQ(tokenArray.length));
-    System.out.println(resultQuery.getSQL());
+    valueQuery.HAVING(F.COUNT(uQ.aAttribute("weight")).EQ(tokenArray.length));
+    System.out.println(valueQuery.getSQL());
 
-    for (ValueObject valueObject : resultQuery.getIterator())
+    for (ValueObject valueObject : valueQuery.getIterator())
     {
       valueObject.printAttributes();
     }
-
-    return resultQuery;
   }
 
-  private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] selectableArray, Condition[] conditionArray, long WEIGHT, int i)
+  private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] selectableArray, Condition[] conditionArray, LeftJoinEq[] joins, long weight, int i)
   {
     ValueQuery vQ = qf.valueQuery();
 
@@ -199,7 +201,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     {
       selectClauseArray[k] = selectableArray[k];
     }
-    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(WEIGHT, i) + " * STRPOS(" + concatenate(selectableArray) + ", ' " + token + "'))");
+    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(weight, i) + " * STRPOS(" + concatenate(selectableArray) + ", ' " + token + "'))");
 
     vQ.SELECT(selectClauseArray);
     vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(selectableArray)).LIKE("% " + token + "%"));
@@ -208,6 +210,12 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     {
       vQ.AND(condition);
     }
+    
+    for (LeftJoinEq join : joins)
+    {
+      vQ.AND(join);
+    }
+    
     return vQ;
   }
 

@@ -23,7 +23,6 @@ import com.terraframe.mojo.session.Session;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.HealthFacility;
 
 public class ThresholdDataView extends ThresholdDataViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -267,11 +266,6 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
       ThresholdDataView view = ThresholdDataView.getView(child, season, false);
 
       list.add(view);
-    }
-
-    if (geoEntity instanceof HealthFacility)
-    {
-      list.add(ThresholdDataView.getView(geoEntity, season, true));
     }
 
     return list.toArray(new ThresholdDataView[list.size()]);

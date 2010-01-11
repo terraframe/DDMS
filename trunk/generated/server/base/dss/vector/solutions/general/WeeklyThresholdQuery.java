@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1351639051)
+@com.terraframe.mojo.business.ClassSignature(hash = -1713019177)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -10,7 +10,7 @@ package dss.vector.solutions.general;
  */
 public  class WeeklyThresholdQuery extends com.terraframe.mojo.query.GeneratedRelationshipQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1351639051;
+private static final long serialVersionUID = -1713019177;
 
   public WeeklyThresholdQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -125,6 +125,74 @@ private static final long serialVersionUID = 1351639051;
     }
   }
 
+  public com.terraframe.mojo.query.AttributeInteger getActualFacilityIdentification()
+  {
+    return getActualFacilityIdentification(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getActualFacilityIdentification(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.ACTUALFACILITYIDENTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getActualFacilityIdentification(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.ACTUALFACILITYIDENTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeInteger getActualFacilityNotification()
+  {
+    return getActualFacilityNotification(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getActualFacilityNotification(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.ACTUALFACILITYNOTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getActualFacilityNotification(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.ACTUALFACILITYNOTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeInteger getActualIdentification()
+  {
+    return getActualIdentification(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getActualIdentification(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.ACTUALIDENTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getActualIdentification(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.ACTUALIDENTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeInteger getActualNotification()
+  {
+    return getActualNotification(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getActualNotification(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.ACTUALNOTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getActualNotification(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.ACTUALNOTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+
+  }
   public dss.vector.solutions.general.ThresholdCalculationTypeQuery.ThresholdCalculationTypeQueryReferenceIF getCalculationType()
   {
     return getCalculationType(null);
@@ -243,6 +311,74 @@ private static final long serialVersionUID = 1351639051;
   public com.terraframe.mojo.query.AttributeInteger getFacilityNotification(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.FACILITYNOTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeMoment getFirstFacilityIdentification()
+  {
+    return getFirstFacilityIdentification(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getFirstFacilityIdentification(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.FIRSTFACILITYIDENTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getFirstFacilityIdentification(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.FIRSTFACILITYIDENTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeMoment getFirstFacilityNotification()
+  {
+    return getFirstFacilityNotification(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getFirstFacilityNotification(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.FIRSTFACILITYNOTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getFirstFacilityNotification(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.FIRSTFACILITYNOTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeMoment getFirstIdentification()
+  {
+    return getFirstIdentification(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getFirstIdentification(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.FIRSTIDENTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getFirstIdentification(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.FIRSTIDENTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeMoment getFirstNotification()
+  {
+    return getFirstNotification(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getFirstNotification(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.FIRSTNOTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getFirstNotification(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.WeeklyThreshold.FIRSTNOTIFICATION, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()

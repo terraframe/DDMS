@@ -92,7 +92,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     {
       if(this._cache[termId])
       {
-        return this.constructor.formatLabel(this._cache[termId]);
+        return this.constructor.formatLabelFromView(this._cache[termId]);
       }
       else
       {
@@ -327,7 +327,10 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       
       var li = document.createElement('li');
       li.id = liId;
-      li.innerHTML = img+term.getTermName()+ ' ('+term.getTermOntologyId()+')';
+      
+      var label = MDSS.OntologyBrowser.formatLabelFromValueObject(term);
+      
+      li.innerHTML = img + label;
       
       return li;
     },
@@ -431,22 +434,23 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       this._rendered = true;
     },
     
-    _displayFunction : function(view)
+    _displayFunction : function(valueObject)
     {
-      return view.getTermName() + ' ('+view.getTermOntologyId()+')';
+      return MDSS.OntologyBrowser.formatLabelFromValueObject(valueObject);
     },
     
-    _listFunction : function(view)
+    _listFunction : function(valueObject)
     {
-      this._searchCache[view.getTermId()] = view;
-    
-      return view.getTermName() + ' ('+view.getTermOntologyId()+')';
+      var termId = valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.ID);
+      this._searchCache[termId] = valueObject;
+
+      return MDSS.OntologyBrowser.formatLabelFromValueObject(valueObject);
     },
     
-    _idFunction : function(view)
+    _idFunction : function(valueObject)
     {
-      return view.getTermId();
-    },
+      return valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.ID);
+    },    
     
     _selectEventHandler : function(selected)
     {
@@ -469,7 +473,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     
     _searchFunction : function(request, value)
     {
-      Mojo.$.dss.vector.solutions.ontology.Term.searchTerms(request, value, this._currentParents);
+      Mojo.$.dss.vector.solutions.ontology.Term.termQuery(request, value, this._currentParents);
     },
     
     _attachSearch : function()
@@ -521,6 +525,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       Mojo.Iter.forEach(termIds, function(termId){
       
         var term = this._cacheGet(termId);
+        
         if(term)
         {
           cached.push(term);
@@ -564,18 +569,18 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
             });
             
             // Now reset the selection
-            Mojo.Iter.forEach(total, function(view){
+            Mojo.Iter.forEach(total, function(valueObject){
               
               // must add term to the cache first
-              var termId = view.getTermId();
-              this._cacheSet(termId, view);
+              var termId = valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.ID);
+              this._cacheSet(termId, valueObject);
               
               this._addToSelection(termId); 
             }, this.that);
           }
         });
         
-        Mojo.$.dss.vector.solutions.ontology.Term.getByIds(request, toFetch);
+        Mojo.$.dss.vector.solutions.ontology.Term.termQueryByIds(request, toFetch);
       }
       else
       {
@@ -735,12 +740,24 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
   },
   Static : {
   
-    formatLabel : function(term)
+    formatLabelFromView : function(term)
     {
-      return term.getTermName() + ' ('+term.getTermOntologyId()+')';
+      return formatLabel(term.getTermName(), term.getTermOntologyId());
     },
     
-    // Extracts the term name from the display created with formatLabel()
+    formatLabelFromValueObject : function(valueObject)
+    {
+      var displayLabel = valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.DISPLAY);
+      var termId = valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.TERMID);
+
+      return MDSS.OntologyBrowser.formatLabel(displayLabel, termId);
+    },
+    
+    formatLabel : function(label, termId) {
+      return label + ' ('+termId+')';
+    },
+    
+    // Extracts the term name from the display created with formatLabelFromView()
     extractName : function(html)
     {
       html = Mojo.Util.trim(html);
@@ -772,7 +789,7 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
         // Setup the ontology search
         var searchFunction = function(request, value) {
           var parameters = [attributeClass, attributeName]
-          Mojo.$.dss.vector.solutions.ontology.Term.searchTermsWithRoots(request, value, parameters);
+          Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, parameters);
         }        
         
         this._attachSearch(attributeEl, displayEl, searchFunction);
@@ -786,8 +803,8 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
 
       if(selected.length > 0) {
         var sel = selected[0];
-        attributeEl.value = sel.getTermId();
-        displayEl.value = MDSS.OntologyBrowser.formatLabel(sel);
+        attributeEl.value = sel.getValue(Mojo.$.dss.vector.solutions.ontology.Term.ID);
+        displayEl.value = MDSS.OntologyBrowser.formatLabelFromValueObject(sel);
       }
       else
       {
@@ -819,19 +836,21 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       browser.setSelection(selected); 
     },
     
-    _displayFunction : function(view)
+    _displayFunction : function(valueObject)
     {
-      return MDSS.OntologyBrowser.formatLabel(view);
+      return MDSS.OntologyBrowser.formatLabelFromValueObject(valueObject);
     },
     
-    _listFunction : function(view)
+    _listFunction : function(valueObject)
     {
-      return MDSS.OntologyBrowser.formatLabel(view);
+      return MDSS.OntologyBrowser.formatLabelFromValueObject(valueObject);
     },
     
-    _idFunction : function(view)
+    _idFunction : function(valueObject)
     {
-      return view.getTermId();
+      var id = Mojo.$.dss.vector.solutions.ontology.Term.ID;
+
+      return valueObject.getValue(id);
     },
         
     _attachSearch : function(attributeElement, displayElement, searchFunction)
@@ -882,7 +901,7 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
           innerHTML += '<input type="hidden" class="' + attribute + '" name="' + component + '.componentId" value="' + sel.getTermId() + '" />\n';
           innerHTML += '<input type="hidden" name="' + component + '.isNew" value="false" />\n';
 
-          displayHTML += MDSS.OntologyBrowser.formatLabel(sel) + '\n';
+          displayHTML += MDSS.OntologyBrowser.formatLabelFromView(sel) + '\n';
         }
 
         attributeEl.innerHTML = innerHTML;
@@ -1006,7 +1025,7 @@ focus : function() {
   {    
     var row  = this.getDataTable().getTrIndex(this.getRecord());
     var column = this.getColumn().getField();
-	
+  
     var termId = this.tableData.rows[row][column];
     var selected = [];
     
@@ -1028,7 +1047,7 @@ getInputValue : function() {
 },
 
 getInputDisplayLabel : function() {
-  return this._lastSelected != null ? MDSS.OntologyBrowser.formatLabel(this._lastSelected) : '';
+  return this._lastSelected != null ? MDSS.OntologyBrowser.formatLabelFromView(this._lastSelected) : '';
 }
 
 

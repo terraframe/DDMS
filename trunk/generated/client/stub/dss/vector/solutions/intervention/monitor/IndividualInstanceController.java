@@ -47,7 +47,12 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     try
     {
       dto.applyAll(symptoms);
-      this.view(dto.getId());
+      
+      ClientRequestIF request = dto.getRequest();
+
+      ErrorUtility.prepareInformation(request.getInformation(), req);
+
+      this.view(dto);
     }
     catch (ProblemExceptionDTO e)
     {
@@ -73,7 +78,12 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     try
     {
       dto.applyAll(symptoms);
-      this.view(dto.getId());
+      
+      ClientRequestIF request = dto.getRequest();
+
+      ErrorUtility.prepareInformation(request.getInformation(), req);
+
+      this.view(dto);
     }
     catch (ProblemExceptionDTO e)
     {
@@ -153,7 +163,8 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   public void cancel(IndividualInstanceDTO dto) throws IOException, ServletException
   {
     dto.unlock();
-    this.view(dto.getId());
+    
+    this.view(dto);
   }
 
   public void failCancel(IndividualInstanceDTO dto) throws IOException, ServletException
@@ -236,11 +247,15 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   public void view(String id) throws IOException, ServletException
   {
+    this.view(IndividualInstanceDTO.get(super.getClientRequest(), id));
+  }
+
+  private void view(IndividualInstanceDTO dto) throws IOException, ServletException
+  {
     RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("id", id);
+    utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
     
-    IndividualInstanceDTO dto = IndividualInstanceDTO.get(super.getClientRequest(), id);
     PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
 
     req.setAttribute("person", person);

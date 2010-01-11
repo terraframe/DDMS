@@ -14,7 +14,6 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.HealthFacility;
 
 public class PopulationDataView extends PopulationDataViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -244,11 +243,6 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
       list.add(view);
     }    
     
-    if(geoEntity instanceof HealthFacility)
-    {
-      list.add(PopulationDataView.getView(geoEntity, yearOfData));
-    }
-
     return list.toArray(new PopulationDataView[list.size()]);
   }
 

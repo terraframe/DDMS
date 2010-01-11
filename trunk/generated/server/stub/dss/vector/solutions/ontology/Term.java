@@ -11,15 +11,20 @@ import java.util.TreeSet;
 import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.dataaccess.DuplicateGraphPathException;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.MdClassDAOIF;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
+import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.GeneratedViewQuery;
+import com.terraframe.mojo.query.LeftJoinEq;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.session.Session;
@@ -28,6 +33,7 @@ import com.terraframe.mojo.system.metadata.MdAttributeReference;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.UnknownTermProblem;
+import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.surveillance.OptionComparator;
 import dss.vector.solutions.surveillance.OptionIF;
 
@@ -39,7 +45,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     super();
   }
-  
+
   @Override
   public String toString()
   {
@@ -47,11 +53,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       return "New: " + this.getClassDisplayLabel();
     }
-    else if(this.getName() != null && this.getTermId() != null)
+    else if (this.getName() != null && this.getTermId() != null)
     {
       return this.getName() + " (" + this.getTermId() + ")";
     }
-    
+
     return super.toString();
   }
 
@@ -64,7 +70,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   /**
    * Throws a localized Exception to alert the user that he is trying to modify
    * the parent of a Term.
-   *
+   * 
    * @throws ConfirmParentChangeException
    *           always.
    */
@@ -98,7 +104,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       MdBusiness mdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);
       mdBusiness.deleteAllTableRecords();
-      
+
       this.delete();
 
       AllPaths.rebuildAllPaths();
@@ -110,28 +116,28 @@ public class Term extends TermBase implements Reloadable, OptionIF
   public void delete()
   {
     List<? extends Term> children = this.getAllChildTerm().getAll();
-    
-    for(Term child : children)
+
+    for (Term child : children)
     {
-      if(child.hasSingleParent())
+      if (child.hasSingleParent())
       {
         child.delete();
       }
     }
-    
+
     super.delete();
   }
-  
+
   private boolean hasSingleParent()
   {
     QueryFactory f = new QueryFactory();
     TermRelationshipQuery q = new TermRelationshipQuery(f);
-    
+
     q.WHERE(q.childId().EQ(this.getId()));
-    
+
     return q.getCount() == 1;
   }
-  
+
   /**
    * Deletes the TermRElationship between this Term and the Term with the given
    * parent id. This method should only be called if this Term has more than one
@@ -166,7 +172,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * Throws an exception to alert the user before they try to delete a Term.
-   *
+   * 
    * @throws ConfirmDeleteTermException
    *           If the Term has more than one parent.
    * @throws
@@ -224,7 +230,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * Gets all the TermRelationship children of this Term.
-   *
+   * 
    * FIXME parameterize to pass in the relationship type.
    */
   @Override
@@ -248,6 +254,44 @@ public class Term extends TermBase implements Reloadable, OptionIF
     q.restrictRows(15, 1);
 
     return q;
+  }
+
+  public static ValueQuery termQuery(String value, String[] parentTermIds)
+  {
+    QueryFactory factory = new QueryFactory();
+    
+    ValueQuery query = new ValueQuery(factory);
+    AllPathsQuery pathsQuery = new AllPathsQuery(query);
+    TermQuery termQuery = new TermQuery(query);
+
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] { termQuery.getId(Term.ID), termQuery.getDisplay(Term.DISPLAY), termQuery.getTermId(Term.TERMID) };
+
+    List<Condition> conditions = new LinkedList<Condition>();
+
+    // Restrict the search by parent terms. There are three options:
+    // 1) If the parentIds array is null, don't restrict anything
+    // 2) If the parentIds array is empty, don't allow searching
+    // 3) If the parentIds array has ids, restrict by those ids
+    if (parentTermIds != null && parentTermIds.length > 0)
+    {
+      conditions.add(pathsQuery.getChildTerm().EQ(termQuery));
+      conditions.add(pathsQuery.getParentTerm().IN(parentTermIds));
+    }
+    else if (parentTermIds != null)
+    {
+      // There are no Parent terms meaning no roots have been set. Searching
+      // is not allowed without roots.
+      conditions.add(termQuery.getId().EQ(""));
+    }
+
+    conditions.add(termQuery.getObsolete().EQ(false));
+
+    Condition[] conditionArray = conditions.toArray(new Condition[conditions.size()]);
+    String[] searchable = value.split(" ");
+    
+    QueryBuilder.textLookup(query, factory, searchable, selectables, conditionArray);
+
+    return query;
   }
 
   @Override
@@ -296,7 +340,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
         iter.close();
       }
     }
-    else if(!isNew)
+    else if (!isNew)
     {
       // Heads up: is this check even necessary? Doesn't the Graph already
       // enforce this?
@@ -369,7 +413,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
    * Returns all default roots (Terms without parents). This method WILL return
    * all Terms regardless of obsolete status. To return the terms with obsolete
    * marked as false, use BrowserRoot.getDefaultRoot().
-   *
+   * 
    * @param filterObsolete
    * @return
    */
@@ -409,6 +453,31 @@ public class Term extends TermBase implements Reloadable, OptionIF
     TermViewQuery q = new TermViewQuery(f, builder);
 
     return q;
+  }
+
+  public static ValueQuery termQueryByIds(String[] termIds)
+  {
+    QueryFactory factory = new QueryFactory();
+    
+    ValueQuery query = new ValueQuery(factory);
+    TermQuery termQuery = new TermQuery(query);
+
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] { termQuery.getId(Term.ID), termQuery.getDisplay(Term.DISPLAY), termQuery.getTermId(Term.TERMID) };
+
+    query.SELECT(selectables);
+    
+    // restrict by the term ids (ordering will be done client-side)
+    if (termIds != null && termIds.length > 0)
+    {
+      query.WHERE(termQuery.getId().IN(termIds));  
+    }
+    else
+    {
+      // Use empty string to avoid SQL syntax error.
+      query.WHERE(termQuery.getId().IN(""));
+    }
+    
+    return query;
   }
 
   public static Term getByTermId(String termId)
@@ -481,9 +550,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
     private AllPathsQuery    pathsQuery;
 
     private BrowserRootQuery rootQuery;
-    
+
     private BrowserRootQuery unselectableRootQuery;
-    
+
     private String           searchValue;
 
     protected SearchRootQueryBuilder(QueryFactory queryFactory, String searchValue, BrowserRootQuery rootQuery, BrowserRootQuery unselectableRootQuery)
@@ -525,26 +594,26 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
       String search = this.searchValue.replace(" ", "% ") + "%";
 
-      if(search.length() > 0)
+      if (search.length() > 0)
       {
         query.WHERE(OR.get(termQuery.getName().LIKEi(search), termQuery.getTermId().LIKEi(search)));
       }
-      
+
       if (this.rootQuery != null)
       {
         query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
         query.AND(this.pathsQuery.getParentTerm().EQ(rootQuery.getTerm()));
-        
+
         long count = unselectableRootQuery.getCount();
-        
-        if(count > 0)
+
+        if (count > 0)
         {
           query.AND(this.termQuery.getId().NEi(unselectableRootQuery.getTerm().getId()));
         }
       }
 
       query.AND(termQuery.getObsolete().EQ(false));
-      
+
       query.ORDER_BY_ASC(this.termQuery.getDisplay());
     }
 
@@ -678,7 +747,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     private TermQuery             termQuery;
 
-//    private ValueQuery            valueQuery;
+    // private ValueQuery valueQuery;
 
     private TermRelationshipQuery termRelQuery;
 
@@ -689,7 +758,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       super(queryFactory);
 
       this.termQuery = termQuery;
-//      this.valueQuery = queryFactory.valueQuery();
+      // this.valueQuery = queryFactory.valueQuery();
       this.termRelQuery = termRelQuery;
       this.filterObsolete = filterObsolete;
     }
@@ -711,13 +780,13 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       // the root is not a child of any other term
-//      Selectable childId = this.termRelQuery.childId();
-//      this.valueQuery.SELECT(childId);
+      // Selectable childId = this.termRelQuery.childId();
+      // this.valueQuery.SELECT(childId);
 
       // query.WHERE(this.termQuery.NOT_IN(this.termQuery.getId(),
       // this.valueQuery));
-// Heads up: clean up?
-//      query.WHERE(this.termQuery.getId().SUBSELECT_NOT_IN(this.valueQuery));
+      // Heads up: clean up?
+      // query.WHERE(this.termQuery.getId().SUBSELECT_NOT_IN(this.valueQuery));
       query.WHERE(this.termQuery.getId().SUBSELECT_NOT_IN(this.termRelQuery.childId()));
 
       if (this.filterObsolete)
@@ -840,9 +909,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
    * field described by the given class and attribute names. Inheritance is
    * already factored into the method such that if B extends A and A defines
    * attribute m, the following calls are valid:
-   *
+   * 
    * 1) Term.getAllTermsForField("A", "m") 2) Term.getAllTermsForField("B", "m")
-   *
+   * 
    * @param className
    * @param attributeName
    * @return
@@ -918,7 +987,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * Returns all attributes that reference the Term class.
-   *
+   * 
    * @param className
    * @return
    */
@@ -940,7 +1009,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * A single leaf node has no children and has one or fewer parents.
-   *
+   * 
    * @param ontologyRelationshipId
    * @return true if a single leaf node, false otherwise.
    */
@@ -972,20 +1041,96 @@ public class Term extends TermBase implements Reloadable, OptionIF
     else
     {
       BrowserRootQuery rootQuery = BrowserRoot.getAttributeRoots(className, attribute, f);
-      
+
       BrowserRootQuery unselectableRootQuery = BrowserRoot.getAttributeRoots(className, attribute, f);
       unselectableRootQuery.WHERE(unselectableRootQuery.getSelectable().EQ(false));
-      
+
       builder = new SearchRootQueryBuilder(f, value, rootQuery, unselectableRootQuery);
     }
 
     TermViewQuery q = new TermViewQuery(f, builder);
+
+    System.out.println(q.getSQL());
+
     q.ORDER_BY_ASC(q.getTermName());
 
     q.restrictRows(15, 1);
-    
 
     return q;
-
   }
+
+  public static ValueQuery termQueryWithRoots(String value, String[] parameters)
+  {
+    String className = parameters[0];
+    String attribute = parameters[1];
+
+    QueryFactory factory = new QueryFactory();
+    ValueQuery query = new ValueQuery(factory);
+
+    BrowserFieldQuery fieldQuery = new BrowserFieldQuery(query);
+    BrowserRootQuery rootQuery = new BrowserRootQuery(query);
+    BrowserRootQuery unselectableRootQuery = new BrowserRootQuery(query);
+    AllPathsQuery pathsQuery = new AllPathsQuery(query);
+    TermQuery termQuery = new TermQuery(query);
+    
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] { termQuery.getId(Term.ID), termQuery.getDisplay(Term.DISPLAY), termQuery.getTermId(Term.TERMID) };
+
+    Condition fieldCondition = getBrowserFieldCondition(className, attribute, fieldQuery);
+    
+    List<Condition> conditionList = new LinkedList<Condition>();
+    conditionList.add(fieldCondition);
+    conditionList.add(rootQuery.getTerm().getObsolete().EQ(false));
+    conditionList.add(rootQuery.field(fieldQuery));
+    conditionList.add(pathsQuery.getChildTerm().EQ(termQuery));
+    conditionList.add(pathsQuery.getParentTerm().EQ(rootQuery.getTerm()));
+    
+    conditionList.addAll(getUnselectableConditions(className, attribute, fieldQuery, unselectableRootQuery, termQuery));
+    
+    Condition[] conditions = conditionList.toArray(new Condition[conditionList.size()]);
+
+    String[] searchable = value.split(" ");
+
+    QueryBuilder.textLookup(query, factory, searchable, selectables, conditions, new LeftJoinEq[] {});
+    
+    return query;
+  }
+
+  private static List<Condition> getUnselectableConditions(String className, String attribute, BrowserFieldQuery fieldQuery, BrowserRootQuery unselectableRootQuery, TermQuery termQuery)
+  {
+    List<Condition> conditions = new LinkedList<Condition>();
+    
+    BrowserRootQuery countQuery = BrowserRoot.getAttributeRoots(className, attribute, new QueryFactory());
+    countQuery.AND(countQuery.getSelectable().EQ(false));
+    
+    long count = countQuery.getCount();
+    
+    if(count > 0)
+    {
+      conditions.add(unselectableRootQuery.getTerm().getObsolete().EQ(false));
+      conditions.add(unselectableRootQuery.getSelectable().EQ(false));
+      conditions.add(unselectableRootQuery.field(fieldQuery));
+      conditions.add(termQuery.getId().NEi(unselectableRootQuery.getTerm().getId()));      
+    }
+    
+    return conditions;
+  }
+
+  private static Condition getBrowserFieldCondition(String className, String attribute, BrowserFieldQuery fieldQuery)
+  {
+    String keyName = BrowserField.buildKey(className, attribute);
+
+    Condition fieldCondition = OR.get(fieldQuery.getKeyName().EQ(keyName));
+
+    MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(className);
+
+    for (MdClassDAOIF superClass : mdClass.getSuperClasses())
+    {
+      String key = BrowserField.buildKey(superClass.definesType(), attribute);
+
+      fieldCondition = OR.get(fieldCondition, fieldQuery.getKeyName().EQ(key));
+    }
+
+    return fieldCondition;
+  }
+
 }

@@ -31,6 +31,8 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
     MdAttribute mdAttr = this.getMdAttribute();
     return KEY_PREFIX + mdAttr.getKeyName();
   }
+  
+  
 
   public static BrowserFieldQuery getFieldForAttribute(String className, String attribute, QueryFactory factory)
   {
@@ -86,7 +88,7 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
     }
   }
 
-  private static String buildKey(String className, String attribute)
+  public static String buildKey(String className, String attribute)
   {
     return KEY_PREFIX + className + "." + attribute;
   }

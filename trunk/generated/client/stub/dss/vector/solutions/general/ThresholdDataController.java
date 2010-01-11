@@ -369,4 +369,20 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
   {
     super.failCalculateThresholds(thresholdCalculation, currentYear);
   }
+  
+  @Override
+  public void exportHistory() throws IOException, ServletException
+  {
+    ClientRequestIF request = this.getClientRequest();
+    
+    InputStream stream = WeeklyThresholdViewDTO.exportHistory(request);
+    
+    FileDownloadUtil.writeXLS(resp, "ThresholdHistory", stream);
+  }
+  
+  @Override
+  public void failExportHistory() throws IOException, ServletException
+  {
+    super.failExportHistory();
+  }
 }

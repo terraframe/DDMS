@@ -46,7 +46,6 @@ import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.GeneratedViewQuery;
-import com.terraframe.mojo.query.LeftJoinEq;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
@@ -85,7 +84,6 @@ import dss.vector.solutions.geo.NoCompatibleTypesException;
 import dss.vector.solutions.geo.SearchParameter;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
-import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.util.GeoEntityImporter;
 import dss.vector.solutions.util.GeometryHelper;
 import dss.vector.solutions.util.MDSSProperties;
@@ -329,78 +327,77 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
    */
   public static ValueQuery searchByParameters(String value, String[] filter)
   {
-	    QueryFactory f = new QueryFactory();
-	    
-	    MdBusinessQuery mdQ = new MdBusinessQuery(f);
-	    GeoEntityQuery q = new GeoEntityQuery(f);
-	    TermQuery tq = new TermQuery(f);
-	    
-	    boolean political = Boolean.parseBoolean(filter[0]);
-	    boolean populated = Boolean.parseBoolean(filter[1]);
-	    boolean sprayTarget = Boolean.parseBoolean(filter[2]);
-	    
-	    SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, false, false);    
-	    GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
-	    
-	    Selectable[] selectables = new Selectable[] { 
-	        q.getId(GeoEntity.ID),
-	        q.getEntityName(GeoEntity.ENTITYNAME),
-	        q.getGeoId(GeoEntity.GEOID),
-	        q.getType(GeoEntity.TYPE),
-	        mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL),
-	        tq.getName(GeoEntityView.MOSUBTYPE)
-	    };
-	    
-	    Condition condition = null;
-	    
-	    for(GeoHierarchyView view : views)
-	    {
-	      String type = view.getGeneratedType();
-	      
-	      if(condition == null)
-	      {
-	        condition = q.getType().EQ(type);        
-	      }
-	      else
-	      {
-	        condition = OR.get(condition, q.getType().EQ(type));        
-	      }
-	    }
-	    
-	    for(int i = 3; i < filter.length; i++)
-	    {      
-	      String universal = filter[i].replace("*", "");
-	      
-	      if(condition == null)
-	      {
-	        condition = q.getType().EQ(universal);        
-	      }
-	      else
-	      {
-	        condition = OR.get(condition, q.getType().EQ(universal));        
-	      }      
-	    }
+    QueryFactory factory = new QueryFactory();
+    
+    ValueQuery valueQuery = new ValueQuery(factory);    
+    MdBusinessQuery mdQ = new MdBusinessQuery(valueQuery);
+    GeoEntityQuery q = new GeoEntityQuery(valueQuery);
+    TermQuery tq = new TermQuery(valueQuery);
+    
+    boolean political = Boolean.parseBoolean(filter[0]);
+    boolean populated = Boolean.parseBoolean(filter[1]);
+    boolean sprayTarget = Boolean.parseBoolean(filter[2]);
+    
+    SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, false, false);    
+    GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
+    
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] { 
+        q.getId(GeoEntity.ID),
+        q.getEntityName(GeoEntity.ENTITYNAME),
+        q.getGeoId(GeoEntity.GEOID),
+        q.getType(GeoEntity.TYPE),
+        mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL),
+        tq.getName(GeoEntityView.MOSUBTYPE)
+    };
+    
+    Condition condition = null;
+    
+    for(GeoHierarchyView view : views)
+    {
+      String type = view.getGeneratedType();
+      
+      if(condition == null)
+      {
+        condition = q.getType().EQ(type);        
+      }
+      else
+      {
+        condition = OR.get(condition, q.getType().EQ(type));        
+      }
+    }
+    
+    for(int i = 3; i < filter.length; i++)
+    {      
+      String universal = filter[i].replace("*", "");
+      
+      if(condition == null)
+      {
+        condition = q.getType().EQ(universal);        
+      }
+      else
+      {
+        condition = OR.get(condition, q.getType().EQ(universal));        
+      }      
+    }
 
-	    ValueQuery valueQuery = new ValueQuery(f);
-	    valueQuery.SELECT(selectables);
+//    String[] searchable = value.split(" ");
+//    
+//    Condition[] conditions = new Condition[] {condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType())};
+//    LeftJoinEq[] joins = new LeftJoinEq[] {q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId"))};   
+//    
+//    QueryBuilder.textLookup(valueQuery, factory, searchable, selectables, conditions, joins);
+    
+    valueQuery.SELECT(selectables);
+    String searchable = value.replace(" ", "% ") + "%";
+    Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
+    valueQuery.WHERE(or);
+    valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
+    valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
+    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(GeoEntity.ENTITYNAME));
+    valueQuery.restrictRows(20, 1);
 
-	    String searchable = value.replace(" ", "% ") + "%";
-
-	    Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
-	    Condition and = AND.get(or, condition);
-
-	    valueQuery.WHERE(and);
-	    valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
-	    valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
-	    
-	    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(GeoEntity.ENTITYNAME));
-	    valueQuery.restrictRows(20, 1);
-
-	    return valueQuery;    
+    return valueQuery;    
   }
-
-  
-  
   
   /**
    * Throws an exception to alert the user before they change an entity's
@@ -1676,13 +1673,13 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     }
 
     String sql = "INSERT INTO "+allPathsTable+" (\n" +
-    		"  "+AllPaths.getIdMd().definesAttribute().toLowerCase()+",\n" +
-    		"  "+AllPaths.getSiteMasterMd().definesAttribute().toLowerCase()+",\n" +
-    		"  "+AllPaths.getKeyNameMd().definesAttribute().toLowerCase()+",\n" +
-    		"  "+AllPaths.getTypeMd().definesAttribute().toLowerCase()+",\n" +
-    		"  "+AllPaths.getEntityDomainMd().definesAttribute().toLowerCase()+",\n" +
-    		"  "+AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase()+",\n" +
-    		"  "+AllPaths.getSeqMd().definesAttribute().toLowerCase()+",\n" +
+            "  "+AllPaths.getIdMd().definesAttribute().toLowerCase()+",\n" +
+            "  "+AllPaths.getSiteMasterMd().definesAttribute().toLowerCase()+",\n" +
+            "  "+AllPaths.getKeyNameMd().definesAttribute().toLowerCase()+",\n" +
+            "  "+AllPaths.getTypeMd().definesAttribute().toLowerCase()+",\n" +
+            "  "+AllPaths.getEntityDomainMd().definesAttribute().toLowerCase()+",\n" +
+            "  "+AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase()+",\n" +
+            "  "+AllPaths.getSeqMd().definesAttribute().toLowerCase()+",\n" +
             "  "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
             "  "+AllPaths.getLockedByMd().definesAttribute().toLowerCase()+",\n" +
             "  "+AllPaths.getCreateDateMd().definesAttribute().toLowerCase()+",\n" +
@@ -1692,34 +1689,34 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
             "  "+AllPaths.getParentUniversalMd().definesAttribute().toLowerCase()+",\n" +
             "  "+AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase()+",\n" +
             "  "+AllPaths.getChildUniversalMd().definesAttribute().toLowerCase()+"\n" +
-    		") \n" +
+            ") \n" +
 
-    		"WITH RECURSIVE quick_paths(root_id, "+RelationshipInfo.CHILD_ID+", "+RelationshipInfo.PARENT_ID+", "+AllPaths.getSeqMd().definesAttribute().toLowerCase()+") AS ( \n" +
-    		"    SELECT "+RelationshipInfo.CHILD_ID+" , "+RelationshipInfo.CHILD_ID+", "+RelationshipInfo.PARENT_ID+", NEXTVAL('"+PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE+"')  FROM "+locatedInTable+"  locatedin \n" +
-    		"    UNION\n" +
-    		"    SELECT a.root_id, b."+RelationshipInfo.CHILD_ID+", b."+RelationshipInfo.PARENT_ID+", NEXTVAL('"+PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE+"')  FROM quick_paths a, "+locatedInTable+" b WHERE b."+RelationshipInfo.CHILD_ID+" = a."+RelationshipInfo.PARENT_ID+"\n" +
-    		"    )\n" +
+            "WITH RECURSIVE quick_paths(root_id, "+RelationshipInfo.CHILD_ID+", "+RelationshipInfo.PARENT_ID+", "+AllPaths.getSeqMd().definesAttribute().toLowerCase()+") AS ( \n" +
+            "    SELECT "+RelationshipInfo.CHILD_ID+" , "+RelationshipInfo.CHILD_ID+", "+RelationshipInfo.PARENT_ID+", NEXTVAL('"+PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE+"')  FROM "+locatedInTable+"  locatedin \n" +
+            "    UNION\n" +
+            "    SELECT a.root_id, b."+RelationshipInfo.CHILD_ID+", b."+RelationshipInfo.PARENT_ID+", NEXTVAL('"+PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE+"')  FROM quick_paths a, "+locatedInTable+" b WHERE b."+RelationshipInfo.CHILD_ID+" = a."+RelationshipInfo.PARENT_ID+"\n" +
+            "    )\n" +
 
-    		"SELECT  \n" +
-    		"    MD5(geo1."+GeoEntity.getIdMd().definesAttribute().toLowerCase()+" || geo2."+GeoEntity.getIdMd().definesAttribute().toLowerCase()+" ) || '"+allPathsRootTypeId+"' AS "+GeoEntity.getIdMd().definesAttribute().toLowerCase()+",\n" +
-    		"    '"+sitemaster+"'  AS "+AllPaths.getSiteMasterMd().definesAttribute().toLowerCase()+",\n" +
+            "SELECT  \n" +
+            "    MD5(geo1."+GeoEntity.getIdMd().definesAttribute().toLowerCase()+" || geo2."+GeoEntity.getIdMd().definesAttribute().toLowerCase()+" ) || '"+allPathsRootTypeId+"' AS "+GeoEntity.getIdMd().definesAttribute().toLowerCase()+",\n" +
+            "    '"+sitemaster+"'  AS "+AllPaths.getSiteMasterMd().definesAttribute().toLowerCase()+",\n" +
             "    MD5(geo1."+GeoEntity.getIdMd().definesAttribute().toLowerCase()+" || geo2."+GeoEntity.getIdMd().definesAttribute().toLowerCase()+" ) || '"+allPathsRootTypeId+"' AS "+GeoEntity.getKeyNameMd().definesAttribute().toLowerCase()+",\n" +
-    		"    '"+AllPaths.CLASS+"' AS \""+AllPaths.getTypeMd().definesAttribute().toLowerCase()+"\",\n" +
-    		"    '' AS "+AllPaths.getEntityDomainMd().definesAttribute().toLowerCase()+",\n" +
-    		"    ? AS "+AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase()+",\n" +
-    		"    paths."+AllPaths.getSeqMd().definesAttribute().toLowerCase()+"  AS "+AllPaths.getSeqMd().definesAttribute().toLowerCase()+",\n" +
-    		"    '"+createdById+"'  AS "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
-    		"    NULL AS "+AllPaths.getLockedByMd().definesAttribute().toLowerCase()+",\n" +
-    		"    ? AS "+AllPaths.getCreateDateMd().definesAttribute().toLowerCase()+",\n" +
-    		"    '"+createdById+"' AS \""+AllPaths.getOwnerMd().definesAttribute().toLowerCase()+"\",\n" +
-    		"    '"+createdById+"' AS "+AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase()+",\n" +
-    		"    paths."+RelationshipInfo.PARENT_ID+" AS "+AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase()+", \n" +
-    		"    SUBSTRING(paths."+RelationshipInfo.PARENT_ID+","+DatabaseInfo.ROOT_ID_SIZE+"+1,"+DatabaseInfo.ROOT_ID_SIZE+") || '"+MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE))+"',\n" +
-    		"    paths.root_id as "+AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase()+", \n" +
-    		"    SUBSTRING(paths.root_id,"+DatabaseInfo.ROOT_ID_SIZE+"+1,"+DatabaseInfo.ROOT_ID_SIZE+")   || '"+MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE))+"'\n" +
-    		"FROM "+geoEntityTable+" as geo1, "+geoEntityTable+" as geo2,\n" +
-    		"(SELECT * FROM quick_paths UNION SELECT "+GeoEntity.getIdMd().definesAttribute().toLowerCase()+","+GeoEntity.getIdMd().definesAttribute().toLowerCase()+","+GeoEntity.getIdMd().definesAttribute().toLowerCase()+",NEXTVAL('"+PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE+"') FROM "+geoEntityTable+" ) as paths\n"+
-    		"WHERE geo1."+GeoEntity.getIdMd().definesAttribute().toLowerCase()+" = paths."+RelationshipInfo.PARENT_ID+" AND geo2."+GeoEntity.getIdMd().definesAttribute().toLowerCase()+" = paths.root_id\n";
+            "    '"+AllPaths.CLASS+"' AS \""+AllPaths.getTypeMd().definesAttribute().toLowerCase()+"\",\n" +
+            "    '' AS "+AllPaths.getEntityDomainMd().definesAttribute().toLowerCase()+",\n" +
+            "    ? AS "+AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase()+",\n" +
+            "    paths."+AllPaths.getSeqMd().definesAttribute().toLowerCase()+"  AS "+AllPaths.getSeqMd().definesAttribute().toLowerCase()+",\n" +
+            "    '"+createdById+"'  AS "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
+            "    NULL AS "+AllPaths.getLockedByMd().definesAttribute().toLowerCase()+",\n" +
+            "    ? AS "+AllPaths.getCreateDateMd().definesAttribute().toLowerCase()+",\n" +
+            "    '"+createdById+"' AS \""+AllPaths.getOwnerMd().definesAttribute().toLowerCase()+"\",\n" +
+            "    '"+createdById+"' AS "+AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase()+",\n" +
+            "    paths."+RelationshipInfo.PARENT_ID+" AS "+AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase()+", \n" +
+            "    SUBSTRING(paths."+RelationshipInfo.PARENT_ID+","+DatabaseInfo.ROOT_ID_SIZE+"+1,"+DatabaseInfo.ROOT_ID_SIZE+") || '"+MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE))+"',\n" +
+            "    paths.root_id as "+AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase()+", \n" +
+            "    SUBSTRING(paths.root_id,"+DatabaseInfo.ROOT_ID_SIZE+"+1,"+DatabaseInfo.ROOT_ID_SIZE+")   || '"+MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE))+"'\n" +
+            "FROM "+geoEntityTable+" as geo1, "+geoEntityTable+" as geo2,\n" +
+            "(SELECT * FROM quick_paths UNION SELECT "+GeoEntity.getIdMd().definesAttribute().toLowerCase()+","+GeoEntity.getIdMd().definesAttribute().toLowerCase()+","+GeoEntity.getIdMd().definesAttribute().toLowerCase()+",NEXTVAL('"+PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE+"') FROM "+geoEntityTable+" ) as paths\n"+
+            "WHERE geo1."+GeoEntity.getIdMd().definesAttribute().toLowerCase()+" = paths."+RelationshipInfo.PARENT_ID+" AND geo2."+GeoEntity.getIdMd().definesAttribute().toLowerCase()+" = paths.root_id\n";
 
     Connection conn = Database.getConnection();
 

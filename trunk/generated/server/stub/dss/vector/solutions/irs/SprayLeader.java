@@ -1,16 +1,16 @@
 package dss.vector.solutions.irs;
 
-import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.OR;
+import com.terraframe.mojo.query.LeftJoinEq;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.UniqueLeaderIdException;
+import dss.vector.solutions.query.QueryBuilder;
 
 public class SprayLeader extends SprayLeaderBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -59,55 +59,25 @@ public class SprayLeader extends SprayLeaderBase implements com.terraframe.mojo.
 
   public static ValueQuery searchForLeader(String search)
   {
-//    String[] array = search.split(" ");
-//
-//    QueryFactory f = new QueryFactory();
-//    PersonQuery personQuery = new PersonQuery(f);
-//    SprayLeaderQuery leaderQuery = new SprayLeaderQuery(f);
-//
-//    SelectablePrimitive[] selectables = new SelectablePrimitive[] {
-//      leaderQuery.getId(PersonView.ID),
-//      leaderQuery.getLeaderId(PersonView.LEADERID),
-//      personQuery.getFirstName(PersonView.FIRSTNAME),
-//      personQuery.getLastName(PersonView.LASTNAME)
-//    };
-//
-//    Condition[] conditions = new Condition[] { personQuery.getSprayLeaderDelegate().EQ(leaderQuery) };
-//
-//    ValueQuery valueQuery = QueryBuilder.textLookup(f, array, selectables, conditions);
-//
-//    return valueQuery;
-    
-    QueryFactory f = new QueryFactory();
-    
-    PersonQuery personQuery = new PersonQuery(f);
-    SprayLeaderQuery leaderQuery = new SprayLeaderQuery(f);
-    ValueQuery valueQuery = new ValueQuery(f);
+    String[] array = search.split(" ");
 
-    Selectable[] selectables = new Selectable[] {
-        leaderQuery.getId(PersonView.ID),
-        leaderQuery.getLeaderId(PersonView.LEADERID),
-        personQuery.getFirstName(PersonView.FIRSTNAME),
-        personQuery.getLastName(PersonView.LASTNAME),
+    QueryFactory factory = new QueryFactory();
+    ValueQuery valueQuery = factory.valueQuery();
+    
+    PersonQuery personQuery = new PersonQuery(valueQuery);
+    SprayLeaderQuery leaderQuery = new SprayLeaderQuery(valueQuery);
+
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] {
+      leaderQuery.getId(PersonView.ID),
+      leaderQuery.getLeaderId(PersonView.LEADERID),
+      personQuery.getFirstName(PersonView.FIRSTNAME),
+      personQuery.getLastName(PersonView.LASTNAME)
     };
+
+    Condition[] conditions = new Condition[] { personQuery.getSprayLeaderDelegate().EQ(leaderQuery) };
     
-    valueQuery.SELECT(selectables);
+    QueryBuilder.textLookup(valueQuery, factory, array, selectables, conditions, new LeftJoinEq[]{});
 
-    String statement = "%" + search + "%";
-
-    // Search conditions
-    Condition or = OR.get(
-        leaderQuery.getLeaderId().LIKEi(statement),
-        personQuery.getFirstName().LIKEi(statement),
-        personQuery.getLastName().LIKEi(statement));
-
-    // The person must be a spray operator AND not in team
-    Condition and = AND.get(personQuery.getSprayLeaderDelegate().EQ(leaderQuery), or);
-
-    valueQuery.WHERE(and);
-
-    valueQuery.restrictRows(20, 1);
-    
     return valueQuery;
   }
 

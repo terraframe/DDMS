@@ -23,8 +23,9 @@
       </mjl:header>
       <mjl:row>
         <c:if test="${item.allTeamLeader[0] != null}">
-          ${item.allTeamLeader[0].person.firstName}
-          ${item.allTeamLeader[0].person.lastName}
+          <c:set scope="request" var="person" value="${item.allTeamLeader[0].person.view}" />
+          ${person.firstName}
+          ${person.lastName}
         </c:if>
       </mjl:row>
       <mjl:footer>

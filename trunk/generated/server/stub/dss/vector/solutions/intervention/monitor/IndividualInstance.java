@@ -7,8 +7,13 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.AND;
+import com.terraframe.mojo.query.Condition;
+import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.general.ThresholdData;
+import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.GridComparator;
 import dss.vector.solutions.surveillance.IndividualCaseSymptom;
@@ -23,6 +28,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.te
   }
 
   @Override
+  @Transaction
   public void apply()
   {
     validateSymptomOnset();
@@ -34,6 +40,43 @@ public class IndividualInstance extends IndividualInstanceBase implements com.te
     validateTreatmentStartDate();
 
     super.apply();
+
+    validateFacilityOutbreak();
+  }
+
+  private void validateFacilityOutbreak()
+  {
+    if (this.getActivelyDetected() != null && !this.getActivelyDetected())
+    {
+      HealthFacility facility = this.getHealthFacility();
+
+      Date date = this.getFacilityVisit();
+      
+      if (facility != null && date != null)
+      {
+        Date[] window = IndividualCase.getWindow(date);
+
+        long count = IndividualInstance.getPassiveCount(facility, window[0], window[1]);
+
+        ThresholdData.checkFacilityThresholdViolation(date, facility, count);
+      }
+    }
+  }
+
+  private static long getPassiveCount(HealthFacility facility, Date startDate, Date endDate)
+  {
+    QueryFactory factory = new QueryFactory();
+
+    IndividualInstanceQuery query = new IndividualInstanceQuery(factory);
+
+    Condition condition = query.getHealthFacility().EQ(facility);
+    condition = AND.get(condition, query.getActivelyDetected().EQ(false));
+    condition = AND.get(condition, query.getFacilityVisit().GE(startDate));
+    condition = AND.get(condition, query.getFacilityVisit().LE(endDate));
+
+    query.WHERE(condition);
+
+    return query.getCount();
   }
 
   @Override

@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 70452834)
+@com.terraframe.mojo.business.ClassSignature(hash = -409345746)
 public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.WeeklyThreshold";
-  private static final long serialVersionUID = 70452834;
+  private static final long serialVersionUID = -409345746;
   
   public WeeklyThresholdDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {
@@ -28,12 +28,20 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return CLASS;
   }
   
+  public static java.lang.String ACTUALFACILITYIDENTIFICATION = "actualFacilityIdentification";
+  public static java.lang.String ACTUALFACILITYNOTIFICATION = "actualFacilityNotification";
+  public static java.lang.String ACTUALIDENTIFICATION = "actualIdentification";
+  public static java.lang.String ACTUALNOTIFICATION = "actualNotification";
   public static java.lang.String CALCULATIONTYPE = "calculationType";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String FACILITYIDENTIFICATION = "facilityIdentification";
   public static java.lang.String FACILITYNOTIFICATION = "facilityNotification";
+  public static java.lang.String FIRSTFACILITYIDENTIFICATION = "firstFacilityIdentification";
+  public static java.lang.String FIRSTFACILITYNOTIFICATION = "firstFacilityNotification";
+  public static java.lang.String FIRSTIDENTIFICATION = "firstIdentification";
+  public static java.lang.String FIRSTNOTIFICATION = "firstNotification";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATION = "identification";
   public static java.lang.String KEYNAME = "keyName";
@@ -49,6 +57,154 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
+  public Integer getActualFacilityIdentification()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALFACILITYIDENTIFICATION));
+  }
+  
+  public void setActualFacilityIdentification(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(ACTUALFACILITYIDENTIFICATION, "");
+    }
+    else
+    {
+      setValue(ACTUALFACILITYIDENTIFICATION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isActualFacilityIdentificationWritable()
+  {
+    return isWritable(ACTUALFACILITYIDENTIFICATION);
+  }
+  
+  public boolean isActualFacilityIdentificationReadable()
+  {
+    return isReadable(ACTUALFACILITYIDENTIFICATION);
+  }
+  
+  public boolean isActualFacilityIdentificationModified()
+  {
+    return isModified(ACTUALFACILITYIDENTIFICATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getActualFacilityIdentificationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALFACILITYIDENTIFICATION).getAttributeMdDTO();
+  }
+  
+  public Integer getActualFacilityNotification()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALFACILITYNOTIFICATION));
+  }
+  
+  public void setActualFacilityNotification(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(ACTUALFACILITYNOTIFICATION, "");
+    }
+    else
+    {
+      setValue(ACTUALFACILITYNOTIFICATION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isActualFacilityNotificationWritable()
+  {
+    return isWritable(ACTUALFACILITYNOTIFICATION);
+  }
+  
+  public boolean isActualFacilityNotificationReadable()
+  {
+    return isReadable(ACTUALFACILITYNOTIFICATION);
+  }
+  
+  public boolean isActualFacilityNotificationModified()
+  {
+    return isModified(ACTUALFACILITYNOTIFICATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getActualFacilityNotificationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALFACILITYNOTIFICATION).getAttributeMdDTO();
+  }
+  
+  public Integer getActualIdentification()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALIDENTIFICATION));
+  }
+  
+  public void setActualIdentification(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(ACTUALIDENTIFICATION, "");
+    }
+    else
+    {
+      setValue(ACTUALIDENTIFICATION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isActualIdentificationWritable()
+  {
+    return isWritable(ACTUALIDENTIFICATION);
+  }
+  
+  public boolean isActualIdentificationReadable()
+  {
+    return isReadable(ACTUALIDENTIFICATION);
+  }
+  
+  public boolean isActualIdentificationModified()
+  {
+    return isModified(ACTUALIDENTIFICATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getActualIdentificationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALIDENTIFICATION).getAttributeMdDTO();
+  }
+  
+  public Integer getActualNotification()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALNOTIFICATION));
+  }
+  
+  public void setActualNotification(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(ACTUALNOTIFICATION, "");
+    }
+    else
+    {
+      setValue(ACTUALNOTIFICATION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isActualNotificationWritable()
+  {
+    return isWritable(ACTUALNOTIFICATION);
+  }
+  
+  public boolean isActualNotificationReadable()
+  {
+    return isReadable(ACTUALNOTIFICATION);
+  }
+  
+  public boolean isActualNotificationModified()
+  {
+    return isModified(ACTUALNOTIFICATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getActualNotificationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALNOTIFICATION).getAttributeMdDTO();
+  }
+  
   public dss.vector.solutions.general.ThresholdCalculationTypeDTO getCalculationType()
   {
     if(getValue(CALCULATIONTYPE) == null || getValue(CALCULATIONTYPE).trim().equals(""))
@@ -266,6 +422,154 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFacilityNotificationMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FACILITYNOTIFICATION).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getFirstFacilityIdentification()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(FIRSTFACILITYIDENTIFICATION));
+  }
+  
+  public void setFirstFacilityIdentification(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(FIRSTFACILITYIDENTIFICATION, "");
+    }
+    else
+    {
+      setValue(FIRSTFACILITYIDENTIFICATION, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isFirstFacilityIdentificationWritable()
+  {
+    return isWritable(FIRSTFACILITYIDENTIFICATION);
+  }
+  
+  public boolean isFirstFacilityIdentificationReadable()
+  {
+    return isReadable(FIRSTFACILITYIDENTIFICATION);
+  }
+  
+  public boolean isFirstFacilityIdentificationModified()
+  {
+    return isModified(FIRSTFACILITYIDENTIFICATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getFirstFacilityIdentificationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(FIRSTFACILITYIDENTIFICATION).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getFirstFacilityNotification()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(FIRSTFACILITYNOTIFICATION));
+  }
+  
+  public void setFirstFacilityNotification(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(FIRSTFACILITYNOTIFICATION, "");
+    }
+    else
+    {
+      setValue(FIRSTFACILITYNOTIFICATION, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isFirstFacilityNotificationWritable()
+  {
+    return isWritable(FIRSTFACILITYNOTIFICATION);
+  }
+  
+  public boolean isFirstFacilityNotificationReadable()
+  {
+    return isReadable(FIRSTFACILITYNOTIFICATION);
+  }
+  
+  public boolean isFirstFacilityNotificationModified()
+  {
+    return isModified(FIRSTFACILITYNOTIFICATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getFirstFacilityNotificationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(FIRSTFACILITYNOTIFICATION).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getFirstIdentification()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(FIRSTIDENTIFICATION));
+  }
+  
+  public void setFirstIdentification(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(FIRSTIDENTIFICATION, "");
+    }
+    else
+    {
+      setValue(FIRSTIDENTIFICATION, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isFirstIdentificationWritable()
+  {
+    return isWritable(FIRSTIDENTIFICATION);
+  }
+  
+  public boolean isFirstIdentificationReadable()
+  {
+    return isReadable(FIRSTIDENTIFICATION);
+  }
+  
+  public boolean isFirstIdentificationModified()
+  {
+    return isModified(FIRSTIDENTIFICATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getFirstIdentificationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(FIRSTIDENTIFICATION).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getFirstNotification()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(FIRSTNOTIFICATION));
+  }
+  
+  public void setFirstNotification(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(FIRSTNOTIFICATION, "");
+    }
+    else
+    {
+      setValue(FIRSTNOTIFICATION, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isFirstNotificationWritable()
+  {
+    return isWritable(FIRSTNOTIFICATION);
+  }
+  
+  public boolean isFirstNotificationReadable()
+  {
+    return isReadable(FIRSTNOTIFICATION);
+  }
+  
+  public boolean isFirstNotificationModified()
+  {
+    return isModified(FIRSTNOTIFICATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getFirstNotificationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(FIRSTNOTIFICATION).getAttributeMdDTO();
   }
   
   public Integer getIdentification()

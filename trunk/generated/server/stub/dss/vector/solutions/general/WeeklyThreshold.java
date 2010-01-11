@@ -1,6 +1,14 @@
 package dss.vector.solutions.general;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+import com.terraframe.mojo.ApplicationException;
+import com.terraframe.mojo.business.generation.GenerationUtil;
+import com.terraframe.mojo.session.Session;
 
 public class WeeklyThreshold extends WeeklyThresholdBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -15,94 +23,263 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.terrafra
   {
     this(parent.getId(), child.getId());
   }
-  
+
   @Override
   public void apply()
   {
     validateNotification();
     validateIdentification();
-    
+
     super.apply();
   }
-  
+
   @Override
   public void validateNotification()
   {
-    if(this.getNotification() != null && !(this.getNotification() > 0))
+    if (this.getNotification() != null && ! ( this.getNotification() > 0 ))
     {
       ThresholdValueProblem p = new ThresholdValueProblem();
       p.setNotification(this, NOTIFICATION);
       p.setEntityLabel(this.getParent().getGeoEntity().getLabel());
       p.setThreshold(this.getNotification());
       p.apply();
-      
+
       p.throwIt();
     }
   }
-  
+
   @Override
   public void validateIdentification()
   {
-    if(this.getIdentification() != null && !(this.getIdentification() > 0))
+    if (this.getIdentification() != null && ! ( this.getIdentification() > 0 ))
     {
       ThresholdValueProblem p = new ThresholdValueProblem();
       p.setNotification(this, IDENTIFICATION);
       p.setEntityLabel(this.getParent().getGeoEntity().getLabel());
       p.setThreshold(this.getIdentification());
       p.apply();
-      
+
       p.throwIt();
     }
   }
 
-  private boolean performedAlert(EpiWeek weekOfLastAlert)
+  private boolean performedAlert(Object weekOfLastAlert)
   {
-    EpiDate epiDate = EpiDate.getEpiWeek(new Date());
+    EpiDate currentEpiWeek = EpiDate.getEpiWeek(new Date());
 
-    if (weekOfLastAlert != null)
+    if (weekOfLastAlert != null && weekOfLastAlert instanceof EpiWeek)
     {
-      boolean period = weekOfLastAlert.getPeriod() == epiDate.getPeriod();
-      boolean year = weekOfLastAlert.getYearOfWeek() != epiDate.getYear();
+      EpiWeek _weekOfLastAlert = (EpiWeek) weekOfLastAlert;
+
+      boolean period = _weekOfLastAlert.getPeriod() == currentEpiWeek.getPeriod();
+      boolean year = _weekOfLastAlert.getYearOfWeek() != currentEpiWeek.getYear();
 
       return period && year;
     }
 
-    return false;    
-  }
-
-  public boolean performedNotificationAlert()
-  {
-    return this.performedAlert(this.getLastNotification());
+    return false;
   }
   
-  public boolean performedIdentificationAlert()
-  {
-    return this.performedAlert(this.getLastIdentification());
-  }
-  
-  public void updateLastNotification()
+  public void reachedThreshold(String attribute, Integer threshold)
   {
     EpiWeek week = EpiWeek.getEpiWeek(new Date());
 
-    if(!this.isNew())
+    if (!this.isNew())
     {
-    this.lock();
+      this.lock();
     }
-    
-    this.setLastNotification(week);
+
+    if (this.getDateThresholdWasReached(attribute) == null)
+    {
+      this.setDateThresholdWasReached(attribute, new Date());
+    }
+
+    this.setActualThreshold(attribute, threshold);
+    this.updateThresholdWeek(attribute, week);
     this.apply();
   }
-
-  public void updateLastIdentification()
+  
+  private void setDateThresholdWasReached(String attribute, Date date)
   {
-    EpiWeek week = EpiWeek.getEpiWeek(new Date());
-
-    if(!this.isNew())
+    try
     {
-    this.lock();
+      String accessor = GenerationUtil.upperFirstCharacter(attribute);
+
+      Class<? extends WeeklyThreshold> clazz = this.getClass();
+      Method method = clazz.getMethod("setFirst" + accessor, date.getClass());
+
+      method.invoke(this, date);
+    }
+    catch (InvocationTargetException e)
+    {
+      throw new ApplicationException(e.getTargetException());
+    }
+    catch (Exception e)
+    {
+      throw new ApplicationException(e);
+    }
+  }
+
+  private void updateThresholdWeek(String attribute, EpiWeek week)
+  {
+    try
+    {
+      String accessor = GenerationUtil.upperFirstCharacter(attribute);
+
+      Class<? extends WeeklyThreshold> clazz = this.getClass();
+      Method method = clazz.getMethod("setLast" + accessor, week.getClass());
+
+      method.invoke(this, week);
+    }
+    catch (InvocationTargetException e)
+    {
+      throw new ApplicationException(e.getTargetException());
+    }
+    catch (Exception e)
+    {
+      throw new ApplicationException(e);
     }
     
-    this.setLastIdentification(week);
-    this.apply();
+  }
+  
+  public void setActualThreshold(String attribute, Integer threshold)
+  {
+    try
+    {
+      String accessor = GenerationUtil.upperFirstCharacter(attribute);
+
+      Class<? extends WeeklyThreshold> clazz = this.getClass();
+      Method method = clazz.getMethod("setActual" + accessor, Integer.class);
+
+      method.invoke(this, threshold);
+    }
+    catch (InvocationTargetException e)
+    {
+      throw new ApplicationException(e.getTargetException());
+    }
+    catch (Exception e)
+    {
+      throw new ApplicationException(e);
+    }
+  }
+
+  public Integer getThreshold(String attribute)
+  {
+    try
+    {
+      String accessor = GenerationUtil.upperFirstCharacter(attribute);
+
+      Class<? extends WeeklyThreshold> clazz = this.getClass();
+      Method method = clazz.getMethod("get" + accessor);
+
+      return (Integer) method.invoke(this);
+    }
+    catch (InvocationTargetException e)
+    {
+      throw new ApplicationException(e.getTargetException());
+    }
+    catch (Exception e)
+    {
+      throw new ApplicationException(e);
+    }
+  }
+  
+  public Integer getActualThreshold(String attribute)
+  {
+    try
+    {
+      String accessor = GenerationUtil.upperFirstCharacter(attribute);
+      
+      Class<? extends WeeklyThreshold> clazz = this.getClass();
+      Method method = clazz.getMethod("getActual" + accessor);
+      
+      return (Integer) method.invoke(this);
+    }
+    catch (InvocationTargetException e)
+    {
+      throw new ApplicationException(e.getTargetException());
+    }
+    catch (Exception e)
+    {
+      throw new ApplicationException(e);
+    }
+  }
+
+  public Boolean getPerformedAlert(String attribute)
+  {
+    try
+    {
+      String accessor = GenerationUtil.upperFirstCharacter(attribute);
+
+      Class<? extends WeeklyThreshold> clazz = this.getClass();
+      Method method = clazz.getMethod("getLast" + accessor);
+
+      return this.performedAlert(method.invoke(this));
+    }
+    catch (InvocationTargetException e)
+    {
+      throw new ApplicationException(e.getTargetException());
+    }
+    catch (Exception e)
+    {
+      throw new ApplicationException(e);
+    }
+  }
+  
+  private Date getDateThresholdWasReached(String attribute)
+  {
+    try
+    {
+      String accessor = GenerationUtil.upperFirstCharacter(attribute);
+
+      Class<? extends WeeklyThreshold> clazz = this.getClass();
+      Method method = clazz.getMethod("getFirst" + accessor);
+
+      Object date = method.invoke(this);
+      
+      return (date != null ? (Date) date : null);
+    }
+    catch (InvocationTargetException e)
+    {
+      throw new ApplicationException(e.getTargetException());
+    }
+    catch (Exception e)
+    {
+      throw new ApplicationException(e);
+    }
+  }
+
+  public List<WeeklyThresholdView> export()
+  {
+    List<WeeklyThresholdView> list = new LinkedList<WeeklyThresholdView>();
+
+    String[] accessors = { IDENTIFICATION, NOTIFICATION, FACILITYIDENTIFICATION, FACILITYNOTIFICATION };
+    
+    String entityLabel = this.getParent().getGeoEntity().getLabel();
+    Integer period = this.getChild().getPeriod();
+    Integer year = this.getChild().getYearOfWeek();    
+
+    for(String accessor : accessors)
+    {
+      Date date = this.getDateThresholdWasReached(accessor);
+      
+      if(date != null)
+      {
+        Integer threshold = this.getActualThreshold(accessor);
+        String type = this.getMdAttributeDAO(accessor).getDisplayLabel(Session.getCurrentLocale());
+        
+        WeeklyThresholdView view = new WeeklyThresholdView();
+        view.setThresholdValue(threshold);
+        view.setThresholdDate(date);
+        view.setThreshsoldType(type);
+        view.setEntityLabel(entityLabel);
+        view.setPeriod(period);
+        view.setYearOfWeek(year);
+        
+        list.add(view);
+      }
+    }
+    
+    return list;
   }
 }

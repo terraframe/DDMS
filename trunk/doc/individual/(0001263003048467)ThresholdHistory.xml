@@ -1,0 +1,166 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.general.WeeklyThresholdView"
+        label="Threshold Export View">
+        <attributes>
+          <char
+            name="entityLabel"
+            label="Entity Label"
+            size="255"
+            required="true" />
+          <integer
+            name="period"
+            label="Epi Week" />
+          <integer
+            name="yearOfWeek"
+            label="Year" />
+          <integer
+            name="thresholdValue"
+            label="Actual Threshold Value" />
+          <char
+            name="threshsoldType"
+            label="Threshold Type"
+            size="255" />
+          <date
+            name="thresholdDate"
+            label="Date" />
+        </attributes>
+        <mdMethod
+          name="exportHistory"
+          label="Export History"
+          returnType="java.io.InputStream"
+          static="true" />
+      </mdView>
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.IndividualInstance">
+        <attributes>
+          <date
+            name="facilityVisit"
+            label="Visit Date"
+            required="true" />
+        </attributes>
+      </mdBusiness>
+      <mdTree
+        name="dss.vector.solutions.general.WeeklyThreshold"
+        label="Weekly Threshold">
+        <create>
+          <attributes>
+            <date
+              name="firstFacilityNotification"
+              label="First Facility Notification" />
+            <date
+              name="firstFacilityIdentification"
+              label="First Facility Identification" />
+            <date
+              name="firstNotification"
+              label="First Notification" />
+            <date
+              name="firstIdentification"
+              label="First Identification" />
+            <integer
+              name="actualNotification"
+              label="Actual Notification" />
+            <integer
+              name="actualIdentification"
+              label="Actual Identification" />
+            <integer
+              name="actualFacilityNotification"
+              label="Actual Facility Notification" />
+            <integer
+              name="actualFacilityIdentification"
+              label="Actual Facility Identification" />
+          </attributes>
+        </create>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.general.ThresholdData"
+          method="Thresholds" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.general.EpiWeek"
+          method="EpiWeeks" />
+      </mdTree>
+      <mdController
+        name="dss.vector.solutions.general.ThresholdDataController">
+        <create>
+          <mdAction
+            name="exportHistory"
+            label="Export History"
+            isPost="false" />
+        </create>
+      </mdController>
+    </update>
+    <permissions>
+      <method
+        methodName="exportHistory"
+        type="dss.vector.solutions.general.WeeklyThresholdView">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+      <role
+        roleName="mdss.coordinator, mdss.operationalManager">
+        <grant>
+          <mdViewPermission
+            type="dss.vector.solutions.general.WeeklyThresholdView">
+            <mdMethodPermission
+              methodName="exportHistory">
+              <operation
+                name="EXECUTE" />
+            </mdMethodPermission>
+          </mdViewPermission>
+          <mdRelationshipPermission
+            type="dss.vector.solutions.general.WeeklyThreshold">
+            <operation
+              name="CREATE" />
+            <operation
+              name="DELETE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+          </mdRelationshipPermission>
+        </grant>
+      </role>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.ThresholdDataController.exportHistory"
+        type="com.terraframe.mojo.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThreshold.actualNotification"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThreshold.actualIdentification"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThreshold.actualFacilityNotification"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThreshold.actualFacilityIdentification"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThreshold.firstNotification"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThreshold.firstIdentification"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThreshold.firstFacilityIdentification"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThreshold.firstFacilityNotification"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThresholdView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+    </delete>
+  </undoIt>
+</version>

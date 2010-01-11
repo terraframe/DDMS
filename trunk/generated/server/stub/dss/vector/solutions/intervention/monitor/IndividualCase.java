@@ -145,9 +145,9 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
         ThresholdData.checkThresholdViolation(date, entity, count);
       }
     }
-  }
+  }  
 
-  private static Date[] getWindow(Date date)
+  protected static Date[] getWindow(Date date)
   {
     Property property = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.IS_EPI_WEEK);
 

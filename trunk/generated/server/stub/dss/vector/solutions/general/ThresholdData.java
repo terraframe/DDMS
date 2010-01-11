@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import com.terraframe.mojo.business.generation.GenerationUtil;
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -25,19 +26,19 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
   {
     super();
   }
-  
+
   @Override
   public String toString()
   {
     if (this.isNew())
     {
-      return "New: "+ this.getClassDisplayLabel();
+      return "New: " + this.getClassDisplayLabel();
     }
-    else if(this.getGeoEntity() != null && this.getSeason() != null)
+    else if (this.getGeoEntity() != null && this.getSeason() != null)
     {
       return this.buildKey();
     }
-    
+
     return super.toString();
   }
 
@@ -52,10 +53,10 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
     ThresholdDataView view = new ThresholdDataView();
     view.setThresholdType(thresholdType);
     view.populateView(this);
-    
+
     return view;
   }
-  
+
   public ThresholdDataView getView()
   {
     return this.getView(true);
@@ -163,7 +164,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
     if (data == null)
     {
       MalariaSeason season = MalariaSeason.getSeasonByDate(date);
-      
+
       data = new ThresholdData();
       data.setGeoEntity(entity);
       data.setSeason(season);
@@ -296,67 +297,68 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
       return;
     }
 
-    WeeklyThreshold threshold = ThresholdData.getThresholds(entity, date);
+    ThresholdData.checkThreshold(WeeklyThreshold.IDENTIFICATION, date, entity, count, false);
+    ThresholdData.checkThreshold(WeeklyThreshold.NOTIFICATION, date, entity, count, false);
+  }
+  
+  @Transaction
+  @Authenticate
+  public static void checkFacilityThresholdViolation(Date date, GeoEntity entity, long count)
+  {
+    if (entity.getType().equals(Earth.CLASS))
+    {
+      return;
+    }
 
-    Integer notification = null;
-    Integer identification = null;
+    ThresholdData.checkThreshold(WeeklyThreshold.FACILITYIDENTIFICATION, date, entity, count, true);
+    ThresholdData.checkThreshold(WeeklyThreshold.FACILITYNOTIFICATION, date, entity, count, true);    
+  }
+  
+  private static void checkThreshold(String accessor, Date date, GeoEntity entity, long cases, boolean facility)
+  {    
+    WeeklyThreshold threshold = ThresholdData.getThresholds(entity, date);
+    EpiWeek week = EpiWeek.getEpiWeek(date);    
+    
+    Integer count = null;
 
     if (threshold != null)
     {
-      notification = threshold.getNotification();
-      identification = threshold.getIdentification();
+      count = threshold.getThreshold(accessor);
     }
 
-    EpiWeek week = EpiWeek.getEpiWeek(date);
-
-    if (notification == null)
+    if (count == null && !facility)
     {
-      notification = ThresholdData.getCalculatedValue(entity, week, WeeklyThreshold.NOTIFICATION);
+      count = ThresholdData.getCalculatedValue(entity, week, accessor);
     }
 
-    if (identification == null)
-    {
-      identification = ThresholdData.getCalculatedValue(entity, week, WeeklyThreshold.IDENTIFICATION);
-    }
-
-    if (notification != null && count >= notification)
+    if (count != null && cases >= count)
     {
       if (threshold == null)
       {
         ThresholdData data = ThresholdData.getThresholdOrCreate(entity, date);
-
         threshold = data.addEpiWeeks(week);
         threshold.apply();
       }
 
-      if (!threshold.performedNotificationAlert())
+      boolean performedAlert = threshold.getPerformedAlert(accessor);
+      
+      if (!performedAlert)
       {
+        String alertKey = "PoliticalOutbreak" + GenerationUtil.upperFirstCharacter(accessor);
+        
+        if(facility)
+        {
+          alertKey = GenerationUtil.upperFirstCharacter(accessor).replace("Facility", "FacilityOutbreak");
+        }
+        
         // Perform the alert
-        performAlert("PoliticalOutbreakNotification", entity, notification, count);
+        performAlert(alertKey, entity, count, cases);
 
-        threshold.updateLastNotification();
-      }
-    }
-
-    if (identification != null && count >= identification)
-    {
-      if (threshold == null)
-      {
-        ThresholdData data = ThresholdData.getThresholdOrCreate(entity, date);
-
-        threshold = data.addEpiWeeks(week);
-        threshold.apply();
-      }
-
-      if (!threshold.performedIdentificationAlert())
-      {
-        performAlert("PoliticalOutbreakIdentification", entity, identification, count);
-
-        threshold.updateLastIdentification();
+        threshold.reachedThreshold(accessor, count);
       }
     }
   }
-
+  
   private static void performAlert(String alertKey, GeoEntity entity, int threshold, long count)
   {
     SystemAlert systemAlert = SystemAlert.getByKey(alertKey);
@@ -392,5 +394,5 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
 
       alert.throwIt();
     }
-  }
+  }  
 }
