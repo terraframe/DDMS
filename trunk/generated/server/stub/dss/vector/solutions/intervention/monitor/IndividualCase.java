@@ -33,6 +33,7 @@ import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.general.OutbreakCalculation;
 import dss.vector.solutions.general.ThresholdData;
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.query.Layer;
@@ -393,30 +394,11 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
 
     QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
 
-    /*
-     * this will be for speed later
-    String result = "incidence";
-
-    if (xml.indexOf(">" + result + "<") > 0)
-    {
-      String sql = valueQuery.getSQL();
-      String tableName = "innerQuery";
-      ValueQuery outerQuery = new ValueQuery(queryFactory);
-      outerQuery.FROM(tableName, sql);
-
-      for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
-      {
-        // incidence/ get_population(geoUUID,CAST(DATEGROUP_YEAR AS INT))
-        // loop through and recreate all of the inner queries's selectables as
-        // selectable sqls.
-      }
-    }*/
-
     return valueQuery;
 
   }
   
-  public static void calculateIncidence(ValueQuery valueQuery,IndividualCaseQuery caseQuery,JSONObject queryConfig, String xml,Integer multiplier )
+  private static void calculateIncidence(ValueQuery valueQuery,IndividualCaseQuery caseQuery,JSONObject queryConfig, String xml,Integer multiplier )
   {
     try
     {
@@ -425,6 +407,8 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
       String geoType = null;
       
       String attributeKey = null;
+      
+      String[] selectedUniversals = null;
       
       JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
       Iterator<?> keys = selectedUniMap.keys();
@@ -435,21 +419,19 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
         JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
         if (universals.length() > 0 && attributeKey.equals(IndividualCase.CLASS+'.'+IndividualCase.PROBABLESOURCE))
         {
-          String[] selectedUniversals = new String[universals.length()];
+          selectedUniversals = new String[universals.length()];
           for (int i = 0; i < universals.length(); i++)
           {
             selectedUniversals[i] = universals.getString(i);
-            
-            geoType =  universals.getString(i);
-            geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
-            geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
-            geoType = geoType.replace('.', '_');
           }
-
+          //dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
+          geoType =  GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
+          geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
+          geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
+          geoType = geoType.replace('.', '_');
         }
       }
-      //dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
-      
+
       
       String timePeriod = "yearly";
       
