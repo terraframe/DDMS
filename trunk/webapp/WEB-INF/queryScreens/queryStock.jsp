@@ -111,7 +111,7 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var personAttribs = ["firstName","lastName"];
     
-    var personColumns =  personAttribs.map(mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
+    var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
 
     var selectableGroups = [
               {title:"StockItems", values:stockItemColumns, group:"s", klass:stockItem.CLASS},
