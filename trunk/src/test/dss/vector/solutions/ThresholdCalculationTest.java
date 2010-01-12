@@ -37,7 +37,7 @@ public class ThresholdCalculationTest extends TestCase {
 	private static GeoEntity EGYPT = GeoEntity.searchByGeoId("22220002");
 	private static GeoEntity DJIBOUTI = GeoEntity.searchByGeoId("22220033");
 	private static GeoEntity KABWE_MINE_HOSPITAL = GeoEntity.searchByGeoId("2020010");
-	private static final boolean CALCULATE_ALL_THRESHOLDS = true;
+	private static final boolean CALCULATE_ALL_THRESHOLDS = false;
 	
 	MalariaSeason malariaSeason = null;
 	Patient patient = null;
@@ -258,7 +258,7 @@ public class ThresholdCalculationTest extends TestCase {
 		MalariaSeason season = calculator.calculateThresholds(false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
-		assertThresholds(11, 2010, td, 4, 4);
+		assertThresholds(true, 11, 2010, td, 4, 4);
 		output("Done!");
 	}	
 
@@ -273,7 +273,7 @@ public class ThresholdCalculationTest extends TestCase {
 		MalariaSeason season = calculator.calculateThresholds(false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
-		assertThresholds(11, 2010, td, 2, 2);
+		assertThresholds(true, 11, 2010, td, 2, 2);
 		output("Done!");
 	}
 
@@ -288,7 +288,7 @@ public class ThresholdCalculationTest extends TestCase {
 		MalariaSeason season = calculator.calculateThresholds(false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
-		assertThresholds(11, 2010, td, 6, 8);
+		assertThresholds(true, 11, 2010, td, 6, 8);
 		output("Done!");
 	}	
 	
@@ -303,7 +303,7 @@ public class ThresholdCalculationTest extends TestCase {
 		MalariaSeason season = calculator.calculateThresholds(false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
-		assertThresholds(11, 2010, td, 4, 4);
+		assertThresholds(true, 11, 2010, td, 4, 4);
 		output("Done!");
 	}	
 
@@ -318,7 +318,7 @@ public class ThresholdCalculationTest extends TestCase {
 		MalariaSeason season = calculator.calculateThresholds(false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
-		assertThresholds(11, 2010, td, 2, 2);
+		assertThresholds(true, 11, 2010, td, 2, 2);
 		output("Done!");
 	}
 
@@ -333,7 +333,7 @@ public class ThresholdCalculationTest extends TestCase {
 		MalariaSeason season = calculator.calculateThresholds(false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
-		assertThresholds(11, 2010, td, 6, 8);
+		assertThresholds(true, 11, 2010, td, 6, 8);
 		output("Done!");
 	}		
 	
@@ -348,7 +348,7 @@ public class ThresholdCalculationTest extends TestCase {
 		MalariaSeason season = calculator.calculateThresholds(false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
-		assertThresholds(11, 2010, td, 4, 4);
+		assertThresholds(false, 11, 2010, td, 4, 4);
 		output("Done!");
 	}	
 
@@ -363,7 +363,7 @@ public class ThresholdCalculationTest extends TestCase {
 		MalariaSeason season = calculator.calculateThresholds(false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
-		assertThresholds(11, 2010, td, 2, 2);
+		assertThresholds(false, 11, 2010, td, 2, 2);
 		output("Done!");
 	}
 
@@ -378,7 +378,7 @@ public class ThresholdCalculationTest extends TestCase {
 		MalariaSeason season = calculator.calculateThresholds(false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
-		assertThresholds(11, 2010, td, 6, 8);
+		assertThresholds(false, 11, 2010, td, 6, 8);
 		output("Done!");
 	}	
 	
@@ -393,7 +393,7 @@ public class ThresholdCalculationTest extends TestCase {
 		MalariaSeason season = calculator.calculateThresholds(false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
-		assertThresholds(11, 2010, td, 4, 4);
+		assertThresholds(false, 11, 2010, td, 4, 4);
 		output("Done!");
 	}	
 
@@ -408,7 +408,7 @@ public class ThresholdCalculationTest extends TestCase {
 		MalariaSeason season = calculator.calculateThresholds(false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
-		assertThresholds(11, 2010, td, 2, 2);
+		assertThresholds(false, 11, 2010, td, 2, 2);
 		output("Done!");
 	}
 
@@ -423,7 +423,7 @@ public class ThresholdCalculationTest extends TestCase {
 		MalariaSeason season = calculator.calculateThresholds(false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
-		assertThresholds(11, 2010, td, 6, 8);
+		assertThresholds(false, 11, 2010, td, 6, 8);
 		output("Done!");
 	}	
 	
@@ -453,14 +453,21 @@ public class ThresholdCalculationTest extends TestCase {
 		
 		return calcType;
 	}
-	private void assertThresholds(int week, int year, ThresholdData td, int t1, int t2) {
+	private void assertThresholds(boolean checkPolitical, int week, int year, ThresholdData td, int t1, int t2) {
 		assertNotNull(td);
 		WeeklyThreshold weeklyThreshold = td.getEpiWeeksRel(EpiWeek.getEpiWeek(week, year));
 		assertNotNull(weeklyThreshold);
-		assertNotNull(weeklyThreshold.getIdentification());
-		assertEquals(t1, (int) weeklyThreshold.getNotification());
-		assertNotNull(weeklyThreshold.getNotification());
-		assertEquals(t2, (int) weeklyThreshold.getIdentification());
+		if (checkPolitical) {
+			assertNotNull(weeklyThreshold.getIdentification());
+			assertEquals(t1, (int) weeklyThreshold.getNotification());
+			assertNotNull(weeklyThreshold.getNotification());
+			assertEquals(t2, (int) weeklyThreshold.getIdentification());
+		} else {
+			assertNotNull(weeklyThreshold.getFacilityIdentification());
+			assertEquals(t1, (int) weeklyThreshold.getFacilityNotification());
+			assertNotNull(weeklyThreshold.getFacilityNotification());
+			assertEquals(t2, (int) weeklyThreshold.getFacilityIdentification());			
+		}
 	}
 	
 	private void createIndividualCases(int caseCount, int instanceCount, Date date, Patient patient, GeoEntity geoEntity) {

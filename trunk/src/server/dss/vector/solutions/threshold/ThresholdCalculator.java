@@ -24,7 +24,6 @@ import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.general.WeeklyThreshold;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.geo.generated.HealthFacilityQuery;
 import dss.vector.solutions.surveillance.AggregatedCaseQuery;
 import dss.vector.solutions.surveillance.PeriodType;
 
@@ -43,10 +42,13 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 	protected final ThresholdCalculationType calculationType;
 	protected String testingLimiter = null;
 	
-	protected class ThresholdCalculationPeriod {
+	protected class ThresholdCalculationPeriod implements com.terraframe.mojo.generation.loader.Reloadable{
 		public MalariaSeason season;
 		public EpiDate startingEpiWeek;
 		public EpiDate endingEpiWeek;
+		public ThresholdCalculationPeriod() {
+			super();
+		}
 	}
 
 	public ThresholdCalculator(ThresholdCalculationType calculationType) {
@@ -61,6 +63,7 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 	protected abstract GeoEntityQuery getEntityQuery(QueryFactory factory);
 	protected abstract GeoEntityQuery getRelatedEntitiesQuery(GeoEntity geoEntity, QueryFactory factory);
 	protected abstract long getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate);
+	protected abstract void setThresholdValues(WeeklyThreshold weeklyThreshold, long t1, long t2);
 
 	public MalariaSeason calculateThresholds(boolean currentPeriod) {
 		ThresholdCalculationPeriod period = this.getCalculationPeriod(currentPeriod);
@@ -133,7 +136,7 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 				if (t1Method != t2Method) {
 					t2 = this.calculate( t2Method, geoEntity, period, year, weightedSeasonalMeans);
 				}
-				this.createWeeklyThreshold( thresholdData, currentEpiWeek, t1, t2, 0, 0);
+				this.createWeeklyThreshold( thresholdData, currentEpiWeek, t1, t2);
 			}
 		}
 	}
@@ -261,8 +264,8 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 	}
 	
 	@Transaction
-	protected void createWeeklyThreshold(ThresholdData thresholdData, EpiDate epiDate, long pt1, long pt2, long ft1, long ft2) {
-		if (pt1 > 0 || pt2 > 0 || ft1 > 0 || ft2 > 0) {
+	protected void createWeeklyThreshold(ThresholdData thresholdData, EpiDate epiDate, long t1, long t2) {
+		if (t1 > 0 || t2 > 0) {
 			// System.out.println(thresholdData.getGeoEntity().getEntityName() +
 			// ", " + thresholdData.getSeason().getSeasonName() + " (" +
 			// epiDate.getActualPeriod() + "/" + epiDate.getActualYear() +
@@ -271,21 +274,10 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 			WeeklyThreshold weeklyThreshold = thresholdData.getEpiWeeksRel(epiWeek);
 			if (weeklyThreshold == null) {
 				weeklyThreshold = new WeeklyThreshold(thresholdData, epiWeek);
-				if (pt1 > 0) {
-					weeklyThreshold.setNotification((int) pt1);
-				}
-				if (pt2 > 0) {
-					weeklyThreshold.setIdentification((int) pt2);
-				}
-				if (ft1 > 0) {
-					weeklyThreshold.setFacilityNotification((int) ft1);
-				}
-				if (ft2 > 0) {
-					weeklyThreshold.setFacilityIdentification((int) ft2);
-				}
-				weeklyThreshold.setCalculationType(calculationType);
-				weeklyThreshold.apply();
 			}
+			this.setThresholdValues(weeklyThreshold, t1, t2);
+			weeklyThreshold.setCalculationType(calculationType);
+			weeklyThreshold.apply();
 		}
 	}
 

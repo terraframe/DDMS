@@ -9,6 +9,7 @@ import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.general.ThresholdCalculationType;
+import dss.vector.solutions.general.WeeklyThreshold;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
@@ -41,5 +42,10 @@ public class PoliticalThresholdCalculator extends ThresholdCalculator implements
 		query.WHERE(condition);
 
 		return query.getCount();
+	}
+
+	protected void setThresholdValues(WeeklyThreshold weeklyThreshold, long t1, long t2) {
+		weeklyThreshold.setNotification((int) t1);
+		weeklyThreshold.setIdentification((int) t2);
 	}
 }

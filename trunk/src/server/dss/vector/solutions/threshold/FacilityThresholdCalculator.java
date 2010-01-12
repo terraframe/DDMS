@@ -8,6 +8,7 @@ import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.general.ThresholdCalculationType;
+import dss.vector.solutions.general.WeeklyThreshold;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.geo.generated.HealthFacilityQuery;
@@ -42,5 +43,10 @@ public class FacilityThresholdCalculator extends ThresholdCalculator implements 
 		query.WHERE(condition);
 
 		return query.getCount();
+	}
+	
+	protected void setThresholdValues(WeeklyThreshold weeklyThreshold, long t1, long t2) {
+		weeklyThreshold.setFacilityNotification((int) t1);
+		weeklyThreshold.setFacilityIdentification((int) t2);
 	}
 }
