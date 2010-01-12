@@ -11,6 +11,7 @@ import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.AttributePrimitive;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.F;
@@ -26,7 +27,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.ontology.TermQuery;
+import dss.vector.solutions.surveillance.AggregatedCaseQuery;
 
 public class Sandbox
 {
@@ -248,6 +249,21 @@ public class Sandbox
   @StartSession
   public static void testNoLogin()
   {
+
+//    ValueQuery valueQuery = new ValueQuery(factory);
+//    AggregatedCaseQuery query = new AggregatedCaseQuery(factory);
+//
+//    Condition condition = caseQuery.getGeoEntity().EQ(entityQuery);
+//    condition = AND.get(condition, caseQuery.getStartDate().GE(initialWeek.getStartDate()));
+//    condition = AND.get(condition, caseQuery.getEndDate().LE(finalWeek.getEndDate()));
+//    //condition = AND.get(condition, caseQuery.getEndDate().EQ(caseQuery.getStartDate() + 7));
+//    valueQuery.WHERE(caseQuery.getGeoEntity().EQ(entityQuery));
+//    valueQuery.AND(caseQuery.getStartDate().GE(initialWeek.getStartDate()));
+//    valueQuery.AND(caseQuery.getEndDate().LE(finalWeek.getEndDate()));
+//    valueQuery.AND(caseQuery.getEndDate().EQ(valueQuery.aSQLDate("startDate",  caseQuery.getStartDate().getQualifiedName() + "+ interval '7 days'")));
+//    valueQuery.FROM(caseQuery.getStartDate().getDefiningTableName(), caseQuery.getStartDate().getDefiningTableAlias());
+
+
     /*
     select name, count(weight) c, sum(weight) s from (
         select name, 1.0 / (1.0 * strpos(lower(' ' || name), ' b')) as weight from term where lower(' ' || name) like '% b%'
@@ -261,22 +277,22 @@ public class Sandbox
 
 
 //    String[] tokenArray = new String[]{"Plasmodium"};
-    String[] tokenArray = new String[]{"Plasmodium", "falciparum"};
-
-
-    QueryFactory qf = new QueryFactory();
-    TermQuery tQ = new TermQuery(qf);
-    GeoEntityQuery gQ = new GeoEntityQuery(qf);
-
-    SelectablePrimitive[] selectableArray = new SelectablePrimitive[2];
-    selectableArray[0] = tQ.getName();
-    selectableArray[1] = tQ.getTermId();
-
-    // This is a COMPLETELY contrived example that makes no sense in real ife.
-   Condition joinCondition = tQ.getName().EQ(gQ.getEntityName());
-//    textLookup(qf, tokenArray, selectableArray, new Condition[]{joinCondition});
-
-    textLookup(qf, tokenArray, selectableArray, new Condition[]{});
+//    String[] tokenArray = new String[]{"Plasmodium", "falciparum"};
+//
+//
+//    QueryFactory qf = new QueryFactory();
+//    TermQuery tQ = new TermQuery(qf);
+//    GeoEntityQuery gQ = new GeoEntityQuery(qf);
+//
+//    SelectablePrimitive[] selectableArray = new SelectablePrimitive[2];
+//    selectableArray[0] = tQ.getName();
+//    selectableArray[1] = tQ.getTermId();
+//
+//    // This is a COMPLETELY contrived example that makes no sense in real ife.
+//   Condition joinCondition = tQ.getName().EQ(gQ.getEntityName());
+////    textLookup(qf, tokenArray, selectableArray, new Condition[]{joinCondition});
+//
+//    textLookup(qf, tokenArray, selectableArray, new Condition[]{});
 
 
 
