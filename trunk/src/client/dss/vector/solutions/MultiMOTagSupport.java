@@ -11,11 +11,13 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import com.terraframe.mojo.business.MutableDTO;
 import com.terraframe.mojo.controller.DTOFacade;
 import com.terraframe.mojo.controller.tag.ComponentMarkerIF;
+import com.terraframe.mojo.controller.tag.InputTagSupport;
 import com.terraframe.mojo.controller.tag.develop.AttributeAnnotation;
 import com.terraframe.mojo.controller.tag.develop.TagAnnotation;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.ontology.TermDTO;
+import dss.vector.solutions.util.MDSSProperties;
 
 @TagAnnotation(name = "multimo", bodyContent = "empty", description = "Multiple select MO input tag")
 public class MultiMOTagSupport extends SimpleTagSupport implements Reloadable
@@ -139,7 +141,6 @@ public class MultiMOTagSupport extends SimpleTagSupport implements Reloadable
     JspWriter out = this.getJspContext().getOut();
     JspTag parent = findAncestorWithClass(this, ComponentMarkerIF.class);
 
-    String _param = this.getParam();
     List<TermDTO> _value = this.getValue();
 
     String _id = ( this.getId() != null ) ? this.getId() : this.getParam();
@@ -153,8 +154,6 @@ public class MultiMOTagSupport extends SimpleTagSupport implements Reloadable
     {
       ComponentMarkerIF component = (ComponentMarkerIF) parent;
       MutableDTO item = component.getItem();
-
-      _param = component.getParam() + "." + this.getParam();
 
       if (_value == null && item != null)
       {
@@ -180,33 +179,47 @@ public class MultiMOTagSupport extends SimpleTagSupport implements Reloadable
         _browserClass = item.getType();
       }
     }
+    
+    int _index = (_value != null ? _value.size() - 1 : -1);
 
-    out.write("<div class=\"ontologyDisplay\" id=\"" + _id + "Display\">");
-    if (_value != null && _value.size() > 0)
-    {
-      for (TermDTO term : _value)
-      {
-        out.write(term.getDisplayLabel());
-      }
-    }
-    else
-    {
-      out.write("No Value");
-    }
-    out.write("</div>\n");
+    // <mjl:input id="collectionMethodDisplay" param="#_collectionMethodDisplay" type="text"/>
+    InputTagSupport displayInput = new InputTagSupport();
+    displayInput.setJspBody(this.getJspBody());
+    displayInput.setJspContext(this.getJspContext());
+    displayInput.setId(_id);
+    displayInput.setType("text");
+    displayInput.setParam("#_" + _id);
+    displayInput.doTag();
 
-    out.write("<div style=\"display:none;\" id=\"" + _id + "\">\n");
-    if (_value != null)
+    // <span id="collectionMethodBtn" class="clickable">
+    // <img alt="Browser" src="./imgs/icons/tree.png" class="ontologyOpener">
+    // </span>
+
+    String title = MDSSProperties.getString("Browser");
+    out.write("<span id=\"" + _id + "Btn\" class=\"clickable\">\n");
+    out.write("<img alt=\"" + title + "\" title=\"" + title + "\" src=\"./imgs/icons/term.png\" class=\"ontologyOpener\">\n");
+    out.write("</span>\n");
+
+    // Generate the div for listing the selected items
+    out.write("<div id=\"" + _id + "Results\">\n");
+    out.write("<ul id=\"" + _id + "ResultList\">\n");
+    
+    if(_value != null)
     {
-      for (int i = 0; i < _value.size(); i++)
+      for(int i = 0; i < _value.size(); i++)
       {
         TermDTO term = _value.get(i);
+        String component = _id + '_' + i;
 
-        out.write("<input type=\"hidden\" name=\"" + _param + "_" + i + ".componentId\" value=\"" + term.getId() + "\" class=" + _id + " />\n");
-        out.write("<input type=\"hidden\" name=\"" + _param + "_" + i + ".isNew\" value=\"" + term.isNewInstance() + "\" />\n");
-        out.write("<input type=\"hidden\" name=\"" + _param + "_" + i + ".actualType\" value=\"" + term.getType() + "\" />\n");
+        out.write("<li>\n");
+        out.write("<input type=\"hidden\" class=\"" + _id + "\" name=\"" + component + ".componentId\" value=\"" + term.getId() + "\" />\n");
+        out.write("<input type=\"hidden\" name=\"" + component + ".isNew\" value=\"false\" />\n");
+        out.write(term.getDisplayLabel() + "\n");
+        out.write("<li>\n");
       }
     }
+    
+    out.write("</ul>\n");
     out.write("</div>\n");
 
     if (_script)
@@ -214,7 +227,7 @@ public class MultiMOTagSupport extends SimpleTagSupport implements Reloadable
       out.write("<script type=\"text/javascript\">\n");
       out.write("(function(){\n");
       out.write("YAHOO.util.Event.onDOMReady(function(){\n");
-      out.write("new MDSS.GenericMultiOntologyBrowser('" + _browserClass + "', [{attributeName:'" + _id + "', browserField:'" + _browserAttribute + "', multipleSelect:true}]);\n");
+      out.write("new MDSS.GenericMultiOntologyBrowser('" + _browserClass + "', {attributeName:'" + _id + "', browserField:'" + _browserAttribute + "', multipleSelect:true, index:" + _index + "});\n");
       out.write("})\n");
       out.write("})();\n");
       out.write("</script>\n");

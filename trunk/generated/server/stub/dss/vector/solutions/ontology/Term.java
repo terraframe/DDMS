@@ -291,6 +291,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
     
     QueryBuilder.textLookup(query, factory, searchable, selectables, conditionArray);
 
+    query.restrictRows(15, 1);
+    
     return query;
   }
 

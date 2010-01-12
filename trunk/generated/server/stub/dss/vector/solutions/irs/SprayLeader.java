@@ -77,6 +77,8 @@ public class SprayLeader extends SprayLeaderBase implements com.terraframe.mojo.
     Condition[] conditions = new Condition[] { personQuery.getSprayLeaderDelegate().EQ(leaderQuery) };
     
     QueryBuilder.textLookup(valueQuery, factory, array, selectables, conditions, new LeftJoinEq[]{});
+    
+    valueQuery.restrictRows(15, 1);
 
     return valueQuery;
   }

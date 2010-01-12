@@ -181,7 +181,6 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
       valueQuery.ORDER_BY_ASC((AttributePrimitive) uQ.aAttribute(selectable.getResultAttributeName()));
     }
     valueQuery.HAVING(F.COUNT(uQ.aAttribute("weight")).EQ(tokenArray.length));
-    System.out.println(valueQuery.getSQL());
 
     for (ValueObject valueObject : valueQuery.getIterator())
     {
