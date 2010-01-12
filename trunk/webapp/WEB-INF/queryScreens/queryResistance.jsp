@@ -100,7 +100,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var mosquitoCollection = new dss.vector.solutions.entomology.MosquitoCollection;
 
-    var collectionAttribs = ["collectionId","dateCollected","collectionMethod"];
+    var collectionAttribs = ["collectionId","collectionDate","collectionMethod"];
     var collectionColumns = [];
 
     var insectcide = new dss.vector.solutions.general.Insecticide;
