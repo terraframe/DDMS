@@ -82,7 +82,6 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
    * @param xml
    * @return
    */
-  @Authenticate
   public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
     JSONObject queryConfig;

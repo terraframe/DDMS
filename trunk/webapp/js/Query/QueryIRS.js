@@ -32,7 +32,7 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       
     	this._groupByClass = Mojo.$.dss.vector.solutions.irs.SprayStatus;
     	
-    	//this._sprayStatus = new this._groupByClass;
+    	var sprayData = new this._sprayData;
 
       this._commonQueryClasses = [Mojo.$.dss.vector.solutions.irs.SprayData.CLASS,
                                   Mojo.$.dss.vector.solutions.irs.InsecticideBrand.CLASS,
@@ -41,8 +41,8 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       
       this._geoEntityAttribs = [
                                 {
-                                  keyName :  this._groupByClass.CLASS+'.'+this._groupByClass.GEOENTITY,
-                                  display : "GeoEntitny"//this._sprayStatus.getGeoentityMd().getDisplayLabel()
+                                  keyName :  this._sprayData.CLASS+'.'+this._sprayData.GEOENTITY,
+                                  display :  sprayData.getGeoEntityMd().getDisplayLabel()
                                 },    
                                 
                               ];

@@ -205,6 +205,7 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
     select += "NULL AS team_target,\n";
     // zone stuff
     select += "'' AS zone_supervisor,\n";
+    select += "'' AS zone_supervisor_defaultLocale,\n";
     select += "CAST(NULL AS INT)  AS zone_week,\n";
     select += "CAST(NULL AS INT)  AS zone_target,\n";
     // target stuff
