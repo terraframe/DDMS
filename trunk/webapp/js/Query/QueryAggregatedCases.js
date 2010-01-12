@@ -179,6 +179,12 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
         }
       });
   
+      var debug = $('debug_xml')
+      if(debug){
+      	debug.value = xml;
+      	xml = $('debug_xml').value;
+      }
+      
       var page = this.getCurrentPage();
       Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, this._config.getJSON(), page, this.PAGE_SIZE);
     },
@@ -412,7 +418,14 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
       column = this._queryPanel.insertColumn(column);
   
       var attributeName = attribute.getAttributeName();
-      var selectable = attribute.getSelectable();
+      
+      if(attribute.getType() == 'sqldouble'){
+        var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),true));
+      }
+      else
+      {
+      	var selectable = attribute.getSelectable();
+      }
   
       this._visibleSelectables[attribute.getKey()] = selectable;
     },
