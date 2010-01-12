@@ -1,9 +1,21 @@
 package dss.vector.solutions.entomology;
 
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQL;
+import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.RangeValueProblem;
+import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.util.QueryUtil;
 
 public class PooledInfectionAssay extends PooledInfectionAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -116,4 +128,62 @@ public class PooledInfectionAssay extends PooledInfectionAssayBase implements co
     return view;
   }
 
+  /**
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
+   * 
+   * @param xml
+   * @return
+   */
+  public static ValueQuery getUnionSubQuery(String xml, String config, Layer layer)
+  {
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
+
+    MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
+
+
+    PooledInfectionAssayQuery pooledInfectionQuery = (PooledInfectionAssayQuery) queryMap.get(PooledInfectionAssay.CLASS);
+    if (pooledInfectionQuery != null)
+    {
+      valueQuery.WHERE(pooledInfectionQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
+      QueryUtil.joinTermAllpaths(valueQuery, PooledInfectionAssay.CLASS, pooledInfectionQuery);
+      
+      if(xml.indexOf(">minPrevalence<") > 0)
+      {
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("minPrevalence");
+        s.setSQL("100.0 * SUM(numberPositive) / SUM(poolsTested)");
+      }
+    }
+    
+
+    QueryUtil.joinGeoDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
+
+    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
+
+    QueryUtil.setTermRestrictions(valueQuery, queryMap);
+
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+
+    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
+
+    return valueQuery;
+  }
+  
 }

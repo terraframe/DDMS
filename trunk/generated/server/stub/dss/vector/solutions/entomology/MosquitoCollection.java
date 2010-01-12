@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -11,19 +10,15 @@ import org.json.JSONObject;
 
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
-import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.Function;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
-import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableSQLFloat;
 import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.Property;
@@ -271,42 +266,45 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     if (xml.contains("abundance_"))
     {
 
-      String tableAlias = subCollectionQuery.getTableAlias();
-      String subCollectionTableName = MdBusiness.getMdBusiness(SubCollection.CLASS).getTableName();
-      String collectionTableName = MdBusiness.getMdBusiness(SubCollection.CLASS).getTableName();
       String viewName = "abundance_view";
       
       setAbundance(valueQuery, 1, "1");
       setAbundance(valueQuery, 10, "10");
       setAbundance(valueQuery, 100, "100");
-      setAbundance(valueQuery, 1000, "100");
-
-      ArrayList<Selectable> joinSelectabes = new ArrayList<Selectable>();
-      for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
-      {
-        if (! ( s instanceof Function ))
-        {
-          if (s.getDefiningTableName().equals(subCollectionTableName) || s.getDefiningTableName().equals(collectionTableName) )
-          {
-            joinSelectabes.add(s);
-            valueQuery.WHERE(new InnerJoinEq(s.getColumnAlias(), s.getDefiningTableName(), s.getDefiningTableAlias(), s.getColumnAlias(), viewName, viewName));
-          }
-        }
-      }
+      setAbundance(valueQuery, 1000, "1000");
       
       valueQuery.WHERE(mosquitoCollectionQuery.getAbundance().EQ(true));
-      Database.parseAndExecute(getTempTableSQL(viewName, valueQuery,joinSelectabes));
+      valueQuery.setSqlPrefix(getWithQuerySQL(viewName, valueQuery));
+      
+      
+      String sql = "";
+      for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
+      {
+        String columnAlias = s.getColumnAlias();
+        
+        if (columnAlias.contains("abundance_1"))
+        {
+          columnAlias = "1.0*((total_of_children_z+abundance_sum+abundance)/abundance_count) AS abundance_1";
+        }
+        if (columnAlias.contains("abundance_10"))
+        {
+          columnAlias = "10.0*((total_of_children_z+abundance_sum+abundance)/abundance_count) AS abundance_10";
+        }
+        if (columnAlias.contains("abundance_100"))
+        {
+          columnAlias = "100.0*((total_of_children_z+abundance_sum+abundance)/abundance_count) AS abundance_100";
+        }
+        if (columnAlias.contains("abundance_1000"))
+        {
+          columnAlias = "1000.0*((total_of_children_z+abundance_sum+abundance)/abundance_count) AS abundance_1000";
+        }
+        
+        sql +=  "," + columnAlias;
+      }
 
-      setAbundance(valueQuery, 1, "(SUM(abundance_calulated))/COUNT(*)");
-      setAbundance(valueQuery, 10, "(SUM(abundance_calulated))/COUNT(*)");
-      setAbundance(valueQuery, 100, "(SUM(abundance_calulated))/COUNT(*)");
-      setAbundance(valueQuery, 1000, "(SUM(abundance_calulated))/COUNT(*)");
-
-
-      valueQuery.FROM(viewName, viewName);
-      valueQuery.WHERE(new InnerJoinEq("taxon", subCollectionTableName, tableAlias, "taxon", viewName, "abundance_view"));
-
-    
+      sql = "\nSELECT "+sql.substring(1)+" FROM " +viewName + "\n";
+      
+      valueQuery.setSqlOverride(sql);
 
     }
 
@@ -320,53 +318,39 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
       String selectableName = "abundance_" + multiplier;
       SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectable(selectableName);
 
-      calc.setSQL("" + multiplier + " * " + sql);
+      calc.setSQL(sql);
     }
     catch (QueryException e)
     {
     }
   }
 
-  public static String getTempTableSQL(String viewName, ValueQuery valueQuery, ArrayList<Selectable> joinSelectabes)
+  public static String getWithQuerySQL(String viewName, ValueQuery valueQuery)
   {
 
     String origQuery = valueQuery.getSQL();
-
-    String joinable = "";
-
-    for (Selectable s : joinSelectabes)
-    {
-      joinable += s.getColumnAlias() + ",";
-    }    
     
-    origQuery = origQuery.replaceFirst("SELECT", "SELECT taxon,SUM(total) as abundance_calc,").replaceFirst("GROUP BY", "GROUP BY taxon,");
+    origQuery = origQuery.replaceFirst("SELECT", "SELECT taxon,SUM(total) as abundance_sum,COUNT(*) as abundance_count,").replaceFirst("GROUP BY", "GROUP BY taxon,");
 
-    String sql = "DROP TABLE IF EXISTS " + viewName + ";\n";
-    sql += "CREATE TEMP TABLE " + viewName + " AS ";
-    sql += "( WITH sub1 AS \n";
+    String sql = "WITH mainQuery AS \n";
     sql += "(" + origQuery + "),\n";
 
-    sql += "sub2 AS (\n";
-    sql += "SELECT " + joinable + "taxon as taxon_id, abundance_calc ,\n";
-    sql += "(SELECT SUM(abundance_calc) FROM sub1 as ss, allpaths_ontology ap WHERE ss.taxon = childterm AND parentterm = sub1.taxon AND ss.taxon != sub1.taxon )as total_of_children, \n";
+    sql += "taxonCountQuery AS (\n";
+    sql += "SELECT mainQuery.* ,";
+    sql += "(SELECT SUM(ss.abundance_sum) FROM mainQuery as ss, allpaths_ontology ap WHERE ss.taxon = childterm AND parentterm = mainQuery.taxon AND ss.taxon != mainQuery.taxon )as total_of_children, \n";
     sql += "(SELECT parent_id from termrelationship WHERE taxon = child_id ) as parent \n";
-    sql += " FROM sub1),\n";
+    sql += " FROM mainQuery),\n";
     sql += " \n";
 
-    sql += " sub3 AS (\n";
-    sql += " SELECT " + joinable + "taxon_id,abundance_calc,parent,\n";
-    sql += " coalesce( total_of_children,0) as total_of_children, \n";
-    sql += " coalesce( abundance_calc/(select(total_of_children ) from sub2 as ss where ss.taxon_id = sub2.parent) * \n";
-    sql += " (select(total_of_children+abundance_calc) from sub2 as ss where ss.taxon_id = sub2.parent)-abundance_calc ,0)as abundance\n";
-    sql += " FROM sub2)\n";
+    sql += " "+viewName+" AS (\n";
+    sql += " SELECT taxonCountQuery.*,\n";
+    sql += " coalesce( total_of_children,0) as total_of_children_z, \n";
+    sql += " coalesce( abundance_sum/(select(total_of_children ) from taxonCountQuery as ss where ss.taxon = taxonCountQuery.parent) * \n";
+    sql += " (select(total_of_children+abundance_sum) from taxonCountQuery as ss where ss.taxon = taxonCountQuery.parent)-abundance_sum ,0)as abundance\n";
+    sql += " FROM taxonCountQuery )\n";
     sql += " \n";
+    
 
-    sql += " SELECT " + joinable + " taxon_id as taxon,\n";
-    sql += " total_of_children+abundance_calc+abundance as abundance_calulated \n";
-    sql += " FROM sub3\n";
-    sql += " )\n";
-
-    System.out.println(sql);
     return sql;
   }
 }
