@@ -202,8 +202,8 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
     select += "actorspray." + ActorSpray.TARGET + " AS team_target,\n";
 
     // zone stuff
-    // FIXME there is no longer a supervisor name and supervisor surname, just a reference to supervisor
-//    select += "zonespray." + ZoneSpray.SUPERVISORNAME + " || ' '|| zonespray." + ZoneSpray.SUPERVISORSURNAME + " AS zone_supervisor,\n";
+    select += "zonespray." + ZoneSpray.SUPERVISOR +" AS zone_supervisor,\n";
+    select += "(SELECT person.firstname || ' ' || person.lastname FROM "+MdBusiness.getMdBusiness(Person.CLASS).getTableName() + " person " + " WHERE zonespray." + ZoneSpray.SUPERVISOR +"  = person."+ Person.SUPERVISORDELEGATE+") AS zone_supervisor_defaultLocale,\n";
     select += "zonespray." + ZoneSpray.SPRAYWEEK + " AS zone_week,\n";
     select += "zonespray." + ZoneSpray.TARGET + " AS zone_target,\n";
     // target stuff
