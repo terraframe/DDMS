@@ -29,6 +29,7 @@ import com.terraframe.mojo.constants.ComponentInfo;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
+import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.AbortIfProblem;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -42,6 +43,8 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFacade;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectableSQLCharacter;
+import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
@@ -1834,5 +1837,36 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     }
 
     return false;
+  }
+  
+  public static String getMostChildishUniversialType(String[] types)
+  {
+
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery lowestUniversial = new ValueQuery(queryFactory);
+    
+    SelectableSQLCharacter childType = lowestUniversial.aSQLCharacter("child_type", "child_type");
+    
+    SelectableSQLInteger childCount = lowestUniversial.aSQLAggregateInteger("child_count", "COUNT(*)");
+    
+    lowestUniversial.SELECT(new Selectable[] {childType,childCount});
+    lowestUniversial.FROM("geohierarchy_allpaths", "geohierarchy_allpaths");
+    lowestUniversial.WHERE(childType.IN(types));
+    lowestUniversial.ORDER_BY_DESC(childCount);
+    
+    OIterator<ValueObject> iter = lowestUniversial.getIterator();
+    try
+    {
+      if (iter.hasNext())
+      {
+        return iter.next().getValue("child_type");
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
+    return null;
   }
 }
