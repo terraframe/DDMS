@@ -601,7 +601,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
           }
         });
         
-        Mojo.$.dss.vector.solutions.ontology.Term.termQueryByIds(request, toFetch);
+        Mojo.$.dss.vector.solutions.ontology.Term.getByIds(request, toFetch);
       }
       else
       {
@@ -895,18 +895,23 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
       this.attributeName = config.attributeName;
       this.attributeClass = Mojo.Util.isString(config.className) ? config.className : className;
       this.browserField = Mojo.Util.isString(config.browserField) ? config.browserField : config.attributeName;       
-      this.index = Mojo.Util.isNumber(config.index) ? config.index : 0;
+      this.index = Mojo.Util.isNumber(config.index) ? config.index : -1;
           
       // Setup the ontology browser
-      this.browser = new MDSS.OntologyBrowser(true, this.attributeClass, this.browserField);            
-      this.browser.setHandler(this.setField);     
+      this.browser = new MDSS.OntologyBrowser(true, this.attributeClass, this.browserField);
+      this.browser.setHandler(Mojo.Util.bind(this, this.setField));     
       
       YAHOO.util.Event.on(this.attributeName + 'Btn', "click", this.openBrowser, this, this);
           
       // Setup the ontology search
-      var displayEl = document.getElementById(this.attributeName);
+      this.attributeElement = document.getElementById(this.attributeName);
+      var dF = Mojo.Util.bind(this, this._displayFunction);
+      var iF = Mojo.Util.bind(this, this._idFunction);
+      var lF = Mojo.Util.bind(this, this._displayFunction);
+      var sF = Mojo.Util.bind(this, this._searchFunction);
+      var sH = Mojo.Util.bind(this, this._selectionHandler);
       
-      this._attachSearch(displayEl);      
+      var search = new MDSS.GenericSearch(this.attributeElement, null, lF, dF, iF, sF, sH); 
     },
 
     setField : function(selected) {
@@ -918,7 +923,10 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
         var innerHTML = '';
         
         for(var i = 0; i < selected.length; i++) {
-          innerHTML += this._getInnerHTML(selected[i], i);
+          var label = this._displayFunction(selected[i]);
+          var id = this._idFunction(selected[i]);
+        	
+          innerHTML += this._getInnerHTML(i, label, id);
         }
 
         resultEl.innerHTML = innerHTML;
@@ -957,22 +965,25 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
       browser.setSelection(selected); 
     },
     
-    _addSelection : function(selection)
+    _nextTermNumber : function()
+    { 
+      return ++this.index;
+    },
+    
+    _addSelection : function(label, id)
     {
       var resultEl = document.getElementById(this.attributeName + 'ResultList');        
 
       var index = this._nextTermNumber();
       
-      var innerHTML = this._getInnerHTML(selection, index);
+      var innerHTML = this._getInnerHTML(index, label, id);
 
       resultEl.innerHTML += innerHTML;    
     },
     
-    _getInnerHTML : function(selection, index)
+    _getInnerHTML : function(index, label, id)
     {
       var component = this.attributeName + '_' + index;
-      var label = this._displayFunction(selection);
-      var id = this._idFunction(selection);
 
       innerHTML = '<li>\n';
       innerHTML += '<input type="hidden" class="' + this.attributeName + '" name="' + component + '.componentId" value="' + id + '" />\n';
@@ -1005,26 +1016,17 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
     
     _searchFunction : function(request, value)
     {
-      var parameters = [this.attributeClass, this.attributeName];
+      var parameters = [this.attributeClass, this.browserField];
       
       Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, parameters);
     },
     
     _selectionHandler : function(selection)
     {
-      this._addSelection(selection);
-    },
-        
-    _attachSearch : function(displayElement)
-    {
-      var dF = Mojo.Util.bind(this, this._displayFunction);
-      var iF = Mojo.Util.bind(this, this._idFunction);
-      var lF = Mojo.Util.bind(this, this._displayFunction);
-      var sF = Mojo.Util.bind(this, this._searchFunction);
-      var sH = Mojo.Util.bind(this, this._selectionHandler);
+      this._addSelection(selection.label, selection.id);
       
-      var search = new MDSS.GenericSearch(displayElement, null, lF, dF, iF, sF, sH);      
-    }
+      this.attributeElement.value = '';
+    }        
   }
 });
 
