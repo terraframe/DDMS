@@ -40,6 +40,7 @@ import com.terraframe.mojo.session.StartSession;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.EpiDate;
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.Layer;
@@ -400,7 +401,6 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
    * @param xml
    * @return
    */
-  @Authenticate
   public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
     JSONObject queryConfig;
@@ -497,6 +497,7 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
       String geoType = null;
       
       String attributeKey = null;
+      String[] selectedUniversals = null;
       
       JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
       Iterator<?> keys = selectedUniMap.keys();
@@ -507,21 +508,21 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
         JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
         if (universals.length() > 0 && attributeKey.equals(AggregatedCase.CLASS+'.'+AggregatedCase.GEOENTITY))
         {
-          String[] selectedUniversals = new String[universals.length()];
+          selectedUniversals = new String[universals.length()];
           for (int i = 0; i < universals.length(); i++)
           {
-            selectedUniversals[i] = universals.getString(i);
-            
-            geoType =  universals.getString(i);
-            geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
-            geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
-            geoType = geoType.replace('.', '_');
+            selectedUniversals[i] = universals.getString(i);            
           }
-
+          //dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
+          geoType =  GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
+          geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
+          geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
+          geoType = geoType.replace('.', '_');
         }
       }
-      //dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
       
+
+ 
       
       String timePeriod = "yearly";
       
