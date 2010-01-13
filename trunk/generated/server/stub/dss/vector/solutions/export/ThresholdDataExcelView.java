@@ -1,5 +1,8 @@
 package dss.vector.solutions.export;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
@@ -12,6 +15,7 @@ import dss.vector.solutions.general.MalariaSeasonQuery;
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.general.ThresholdDataView;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class ThresholdDataExcelView extends ThresholdDataExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -27,11 +31,10 @@ public class ThresholdDataExcelView extends ThresholdDataExcelViewBase implement
   public void apply()
   {
     ThresholdDataView view = new ThresholdDataView();
+    view.setThresholdType(this.getThresholdType());
     view.setGeoEntity(this.getGeoEntity().getGeoId());
     
     MalariaSeasonQuery query = new MalariaSeasonQuery(new QueryFactory());
-    query.WHERE(query.getStartDate().EQ(this.getStartDate()));
-    query.WHERE(query.getEndDate().EQ(this.getEndDate()));
     query.WHERE(query.getSeasonName().EQ(this.getSeasonName()));
     
     OIterator<? extends MalariaSeason> iterator = query.getIterator();
@@ -154,6 +157,120 @@ public class ThresholdDataExcelView extends ThresholdDataExcelViewBase implement
     view.apply();
   }
   
+  public static List<String> customAttributeOrder()
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(THRESHOLDTYPE);
+    list.add(SEASONNAME);
+    list.add(OUTBREAK_0);
+    list.add(IDENTIFICATION_0);
+    list.add(OUTBREAK_1);
+    list.add(IDENTIFICATION_1);
+    list.add(OUTBREAK_2);
+    list.add(IDENTIFICATION_2);
+    list.add(OUTBREAK_3);
+    list.add(IDENTIFICATION_3);
+    list.add(OUTBREAK_4);
+    list.add(IDENTIFICATION_4);
+    list.add(OUTBREAK_5);
+    list.add(IDENTIFICATION_5);
+    list.add(OUTBREAK_6);
+    list.add(IDENTIFICATION_6);
+    list.add(OUTBREAK_7);
+    list.add(IDENTIFICATION_7);
+    list.add(OUTBREAK_8);
+    list.add(IDENTIFICATION_8);
+    list.add(OUTBREAK_9);
+    list.add(IDENTIFICATION_9);
+    list.add(OUTBREAK_10);
+    list.add(IDENTIFICATION_10);
+    list.add(OUTBREAK_11);
+    list.add(IDENTIFICATION_11);
+    list.add(OUTBREAK_12);
+    list.add(IDENTIFICATION_12);
+    list.add(OUTBREAK_13);
+    list.add(IDENTIFICATION_13);
+    list.add(OUTBREAK_14);
+    list.add(IDENTIFICATION_14);
+    list.add(OUTBREAK_15);
+    list.add(IDENTIFICATION_15);
+    list.add(OUTBREAK_16);
+    list.add(IDENTIFICATION_16);
+    list.add(OUTBREAK_17);
+    list.add(IDENTIFICATION_17);
+    list.add(OUTBREAK_18);
+    list.add(IDENTIFICATION_18);
+    list.add(OUTBREAK_19);
+    list.add(IDENTIFICATION_19);
+    list.add(OUTBREAK_20);
+    list.add(IDENTIFICATION_20);
+    list.add(OUTBREAK_21);
+    list.add(IDENTIFICATION_21);
+    list.add(OUTBREAK_22);
+    list.add(IDENTIFICATION_22);
+    list.add(OUTBREAK_23);
+    list.add(IDENTIFICATION_23);
+    list.add(OUTBREAK_24);
+    list.add(IDENTIFICATION_24);
+    list.add(OUTBREAK_25);
+    list.add(IDENTIFICATION_25);
+    list.add(OUTBREAK_26);
+    list.add(IDENTIFICATION_26);
+    list.add(OUTBREAK_27);
+    list.add(IDENTIFICATION_27);
+    list.add(OUTBREAK_28);
+    list.add(IDENTIFICATION_28);
+    list.add(OUTBREAK_29);
+    list.add(IDENTIFICATION_29);
+    list.add(OUTBREAK_30);
+    list.add(IDENTIFICATION_30);
+    list.add(OUTBREAK_31);
+    list.add(IDENTIFICATION_31);
+    list.add(OUTBREAK_32);
+    list.add(IDENTIFICATION_32);
+    list.add(OUTBREAK_33);
+    list.add(IDENTIFICATION_33);
+    list.add(OUTBREAK_34);
+    list.add(IDENTIFICATION_34);
+    list.add(OUTBREAK_35);
+    list.add(IDENTIFICATION_35);
+    list.add(OUTBREAK_36);
+    list.add(IDENTIFICATION_36);
+    list.add(OUTBREAK_37);
+    list.add(IDENTIFICATION_37);
+    list.add(OUTBREAK_38);
+    list.add(IDENTIFICATION_38);
+    list.add(OUTBREAK_39);
+    list.add(IDENTIFICATION_39);
+    list.add(OUTBREAK_40);
+    list.add(IDENTIFICATION_40);
+    list.add(OUTBREAK_41);
+    list.add(IDENTIFICATION_41);
+    list.add(OUTBREAK_42);
+    list.add(IDENTIFICATION_42);
+    list.add(OUTBREAK_43);
+    list.add(IDENTIFICATION_43);
+    list.add(OUTBREAK_44);
+    list.add(IDENTIFICATION_44);
+    list.add(OUTBREAK_45);
+    list.add(IDENTIFICATION_45);
+    list.add(OUTBREAK_46);
+    list.add(IDENTIFICATION_46);
+    list.add(OUTBREAK_47);
+    list.add(IDENTIFICATION_47);
+    list.add(OUTBREAK_48);
+    list.add(IDENTIFICATION_48);
+    list.add(OUTBREAK_49);
+    list.add(IDENTIFICATION_49);
+    list.add(OUTBREAK_50);
+    list.add(IDENTIFICATION_50);
+    list.add(OUTBREAK_51);
+    list.add(IDENTIFICATION_51);
+    list.add(OUTBREAK_52);
+    list.add(IDENTIFICATION_52);
+    return list;
+  }
+  
   public static void setupExportListener(ExcelExporter exporter, String...params)
   {
     exporter.addListener(createExcelGeoListener());
@@ -173,6 +290,7 @@ public class ThresholdDataExcelView extends ThresholdDataExcelViewBase implement
       builder.add(iterator.next());
     }
     iterator.close();
+    builder.add(GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS));
     return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
   
