@@ -553,8 +553,23 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       
       var selectable = attribute.getSelectable();
       
+      
       if(attribute.getType() == 'sqlinteger'){
-        var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),true));
+        var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),false));
+        selectable.attribute = attribute;
+        var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+         column.attribute = attribute;
+      }
+      
+      if(attribute.getType() == 'sqlfloat'){
+        var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlfloat('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),false));
+        selectable.attribute = attribute;
+        var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+         column.attribute = attribute;
+      }
+      
+      if(attribute.getType() == 'sqldouble'){
+        var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),false));
         selectable.attribute = attribute;
         var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
          column.attribute = attribute;
