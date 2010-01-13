@@ -13,8 +13,8 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       this._mosquitoCollection = new this._groupByClass();
 
       this._commonQueryClasses = [
-                                  Mojo.$.dss.vector.solutions.general.Insecticide.CLASS,
-                                  Mojo.$.dss.vector.solutions.entomology.assay.AbstractAssay.CLASS,
+                                 // Mojo.$.dss.vector.solutions.general.Insecticide.CLASS,
+                                 Mojo.$.dss.vector.solutions.entomology.assay.AbstractAssay.CLASS,
                                  ];
       this._geoEntityAttribs = [
                              {
@@ -45,9 +45,56 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       picker.setPolitical(false);
       picker.setSprayTargetAllowed(false);
  
-      }
+      },
 				
-      
+       /**
+       * Helper method to add Entomology attributes to selectables and as a column.
+       */
+      _addVisibleAttribute : function(attribute)
+      {
+        var attributeName = attribute.getAttributeName();
+
+        if(attribute.mainQueryClass)
+        {
+          this._mainQueryClass = attribute.mainQueryClass;
+        }
+
+        if(attribute.getType() == 'sqlcharacter'){
+          var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
+          selectable.attribute = attribute;
+          var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+           column.attribute = attribute;
+        }else
+        if(attribute.getType() == 'sqlinteger'){
+          var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
+          selectable.attribute = attribute;
+          var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+           column.attribute = attribute;
+      	}else
+        if(attribute.getType() == 'sqlfloat'){
+          var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlfloat('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
+          selectable.attribute = attribute;
+          var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+           column.attribute = attribute;
+        }else
+        if(attribute.getType() == 'sqldouble'){
+          var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
+          selectable.attribute = attribute;
+          var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+           column.attribute = attribute;
+        }
+        else
+        {
+          var selectable = attribute.getSelectable(true);
+          selectable.attribute = attribute;
+          var column = new YAHOO.widget.Column(attribute.getColumnObject());
+           column.attribute = attribute;
+        }
+
+        column = this._queryPanel.insertColumn(column);
+
+        this._visibleSelectables[attribute.getKey()] = selectable;
+      },
 
     }
 });
