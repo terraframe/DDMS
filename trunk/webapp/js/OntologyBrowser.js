@@ -1142,11 +1142,31 @@ focus : function() {
  * @method getInputValue
  */
 getInputValue : function() {
-  return this._lastSelected != null ? this._lastSelected.getTermId() : '';
+  if(this._lastSelected != null)
+  {
+    if(this._lastSelected instanceof Mojo.$.dss.vector.solutions.ontology.TermView || this._lastSelected instanceof Mojo.$.dss.vector.solutions.ontology.BrowserRootView)
+    {
+      return this._lastSelected.getTermId();
+    }
+  
+    return this._lastSelected.getValue(Mojo.$.dss.vector.solutions.ontology.Term.ID);
+  }
+  
+  return '';
 },
 
 getInputDisplayLabel : function() {
-  return this._lastSelected != null ? MDSS.OntologyBrowser.formatLabelFromView(this._lastSelected) : '';
+  if(this._lastSelected != null)
+  {
+    if(this._lastSelected instanceof Mojo.$.dss.vector.solutions.ontology.TermView || this._lastSelected instanceof Mojo.$.dss.vector.solutions.ontology.BrowserRootView)
+    {
+      return MDSS.OntologyBrowser.formatLabelFromView(this._lastSelected);
+    }
+
+    return MDSS.OntologyBrowser.formatLabelFromValueObject(this._lastSelected);
+  }
+  
+  return '';
 }
 
 
