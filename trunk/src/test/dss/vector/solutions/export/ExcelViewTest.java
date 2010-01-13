@@ -31,7 +31,6 @@ import com.terraframe.mojo.session.StartSession;
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.MDSSUserQuery;
 import dss.vector.solutions.Person;
-import dss.vector.solutions.entomology.MosquitoCollectionView;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.EfficacyAssay;
 import dss.vector.solutions.entomology.assay.EfficacyAssayQuery;
@@ -91,7 +90,7 @@ public class ExcelViewTest extends TestCase
   
   protected static void classSetUp()
   {
-    sessionId = Facade.login("MDSS", "mdsstest2", Locale.US);
+    sessionId = Facade.login("MDSS", "mdsstest2", new Locale[]{Locale.US});
     // Create data that is referenced by other views
     try
     {

@@ -75,10 +75,10 @@ public abstract class PermissionTest extends TestCase implements DoNotWeave
 
     setupVars();
 
-    clientSession = WebClientSession.createUserSession(username, password, Locale.US);
+    clientSession = WebClientSession.createUserSession(username, password, new Locale[]{Locale.US});
     request = clientSession.getRequest();
 
-    systemSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
+    systemSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, new Locale[]{Locale.US});
     systemRequest = systemSession.getRequest();
   }
 

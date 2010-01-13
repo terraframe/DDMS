@@ -22,7 +22,6 @@ import dss.vector.solutions.PeriodWeekProblemDTO;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
-import dss.vector.solutions.geo.generated.SentinelSiteDTO;
 
 public class AggregatedCaseTestDTO extends TestCase implements DoNotWeave
 {
@@ -76,7 +75,7 @@ public class AggregatedCaseTestDTO extends TestCase implements DoNotWeave
 
   protected static void classSetUp()
   {
-    clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
+    clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, new Locale[]{Locale.US});
     clientRequest = clientSession.getRequest();
     clientRequest.setKeepMessages(false);
 

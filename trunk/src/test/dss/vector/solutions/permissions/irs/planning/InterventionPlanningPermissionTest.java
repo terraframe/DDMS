@@ -64,7 +64,7 @@ public abstract class InterventionPlanningPermissionTest extends TestCase
     username = new Long(System.currentTimeMillis()).toString();
     setupVars();
 
-    clientSession = WebClientSession.createUserSession(username, password, Locale.US);
+    clientSession = WebClientSession.createUserSession(username, password, new Locale[]{Locale.US});
     request = clientSession.getRequest();
   }
 

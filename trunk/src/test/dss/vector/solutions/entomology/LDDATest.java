@@ -103,7 +103,7 @@ public class LDDATest extends TestCase
 
   protected static void classSetUp()
   {
-    clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
+    clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, new Locale[]{Locale.US});
     clientRequest = clientSession.getRequest();
     clientRequest.setKeepMessages(false);
 
