@@ -282,19 +282,19 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
       {
         String columnAlias = s.getColumnAlias();
         
-        if (columnAlias.contains("abundance_1"))
+        if (columnAlias.equals("abundance_1"))
         {
           columnAlias = "1.0*((total_of_children_z+abundance_sum+abundance)/abundance_count) AS abundance_1";
         }
-        if (columnAlias.contains("abundance_10"))
+        if (columnAlias.equals("abundance_10"))
         {
           columnAlias = "10.0*((total_of_children_z+abundance_sum+abundance)/abundance_count) AS abundance_10";
         }
-        if (columnAlias.contains("abundance_100"))
+        if (columnAlias.equals("abundance_100"))
         {
           columnAlias = "100.0*((total_of_children_z+abundance_sum+abundance)/abundance_count) AS abundance_100";
         }
-        if (columnAlias.contains("abundance_1000"))
+        if (columnAlias.equals("abundance_1000"))
         {
           columnAlias = "1000.0*((total_of_children_z+abundance_sum+abundance)/abundance_count) AS abundance_1000";
         }
