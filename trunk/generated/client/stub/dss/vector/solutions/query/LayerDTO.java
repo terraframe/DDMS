@@ -1,5 +1,7 @@
 package dss.vector.solutions.query;
 
+import java.math.BigDecimal;
+
 public class LayerDTO extends LayerDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   private static final long serialVersionUID = 1240900979001L;

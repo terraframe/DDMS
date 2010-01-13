@@ -56,6 +56,9 @@
       </c:forEach>
     </select>
   </mjl:dt>
+  <mjl:dt attribute="showThematicValue">
+    <mjl:boolean param="showThematicValue" />
+  </mjl:dt>
   <mjl:dt attribute="renderAs">
     <mjl:radioGroup var="current" valueAttribute="enumName" items="${renderAsOptions}" param="renderAs">
       <mjl:radioOption
@@ -65,19 +68,33 @@
       </mjl:radioOption>
     </mjl:radioGroup>
   </mjl:dt>  
-  <mjl:dt attribute="opacity">
-    <mjl:input type="text" param="opacity" />
+  <mjl:dt attribute="clipToBaseLayer">
+    <mjl:boolean param="clipToBaseLayer" />
   </mjl:dt>
+  <mjl:dt attribute="opacity">
+    <div id="${layer.id}_opacitySliderBG" class="yui-h-slider" style="width: 100px">
+      <div id="${layer.id}_opacityThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
+    </div>
+    <div>
+      <span id="${layer.id}_opacityDisplay" class="opacitySliderDisplay">&nbsp;</span>
+      <mjl:input type="hidden" param="opacity" id="${layer.id}_opacity" />
+    </div>
+  </mjl:dt>
+
+<script type="text/javascript">
+MDSS.MapPanel.attachOpacitySlider('${layer.id}_opacity');
+</script>
 </mjl:component>
+
 <jsp:include page="../Styles/form.jsp"></jsp:include>
 
 <div id="categories">
   <fmt:message key="Add_Category" />: 
 <c:choose>
 <c:when test="${!isNewInstance}">
-  <ul id="categoryList">
   <mjl:command value="Exact_Category" action="dss.vector.solutions.query.NonRangeCategoryController.newInstance.mojo" name="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo.button" />
   <mjl:command value="Range_Category" action="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo" name="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo.button" />
+  <ul id="categoryList">
     <c:forEach items="${categories}" var="category">
       <li>
       <c:set var="category" value="${category}" scope="request"></c:set>

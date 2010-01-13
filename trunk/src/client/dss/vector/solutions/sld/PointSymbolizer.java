@@ -22,6 +22,9 @@ public class PointSymbolizer extends Symbolizer implements Reloadable
     String strokeWidth = style.getPointWidth().toString();
     WellKnownNamesDTO wknDTO = style.getPointMarker().get(0);
     String wkn = wknDTO.name().toLowerCase();
+    String strokeOpacity = style.getPointStrokeOpacity().toString();
+    String pointSize = style.getPointSize().toString();
+    String rotation = style.getPointRotation().toString();
 
     writer.writeln("<PointSymbolizer>");
     writer.writeln("<Graphic>");
@@ -29,8 +32,9 @@ public class PointSymbolizer extends Symbolizer implements Reloadable
     writer.writeln("<WellKnownName>" + wkn + "</WellKnownName><Stroke>");
     writer.writeln("<CssParameter name=\"stroke\">" + stroke + "</CssParameter>");
     writer.writeln("<CssParameter name=\"stroke-width\">" + strokeWidth + "</CssParameter>");
+    writer.writeln("<CssParameter name=\"opacity\">"+strokeOpacity+"</CssParameter>");
     writer.writeln("</Stroke>");
-    writer.writeln("</Mark><Size>12</Size><Rotation>0</Rotation>");
+    writer.writeln("</Mark><Size>"+pointSize+"</Size><Rotation>"+rotation+"</Rotation>");
     writer.writeln("</Graphic>");
     writer.writeln("</PointSymbolizer>");
   }

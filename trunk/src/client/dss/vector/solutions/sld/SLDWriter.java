@@ -19,7 +19,6 @@ import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.RangeCategoryDTO;
 import dss.vector.solutions.query.SavedMapDTO;
 import dss.vector.solutions.query.StylesDTO;
-import dss.vector.solutions.query.WellKnownNamesDTO;
 
 public class SLDWriter implements Reloadable
 {
@@ -74,7 +73,16 @@ public class SLDWriter implements Reloadable
         StylesDTO categoryStyle = category.getStyles();
         
         Symbolizer sym = getSymbolizer(asPoint, categoryStyle);
-        ThematicTextSymbolizer tSym = new ThematicTextSymbolizer(categoryStyle);
+        
+        Symbolizer tSym;
+        if(layer.getShowThematicValue())
+        {
+          tSym = new ThematicTextSymbolizer(categoryStyle);
+        }
+        else
+        {
+          tSym = new TextSymbolizer(categoryStyle);
+        }
         
         // Write one rule for having the thematic value. If the
         // thematic value is null then it will get default styles
@@ -94,7 +102,15 @@ public class SLDWriter implements Reloadable
       rule.write(this);
 
       // Write the rule that will include the thematic label.
-      ThematicTextSymbolizer tSymbolizer = new ThematicTextSymbolizer(defaultStyle);
+      Symbolizer tSymbolizer;
+      if(layer.getShowThematicValue())
+      {
+        tSymbolizer = new ThematicTextSymbolizer(defaultStyle);
+      }
+      else
+      {
+        tSymbolizer = new TextSymbolizer(defaultStyle);
+      }
       ElseFilter elseFilter = new ElseFilter();
       Rule thematicRule = new Rule(elseFilter, sym, tSymbolizer);
       thematicRule.write(this);

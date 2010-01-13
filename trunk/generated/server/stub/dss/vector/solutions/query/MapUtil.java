@@ -2,9 +2,11 @@ package dss.vector.solutions.query;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,6 +46,20 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
   {
     super();
   }
+  
+  /**
+   * Attempts to delete the view with the given name.
+   * A database level cascade is also used to remove
+   * any dependencies on other views.
+   * 
+   * @param viewName
+   */
+  public static void deleteMapView(String viewName)
+  {
+    List<String> batch = new LinkedList<String>();
+    batch.add("DROP VIEW IF EXISTS "+viewName+" CASCADE");
+    Database.executeBatch(batch);
+  }
 
   /**
    * Creates database views for each layer provided and returns a JSON string
@@ -78,14 +94,15 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       String error = "Could not create the mapping data.";
       throw new ProgrammingErrorException(error, e);
     }
-
-    String sessionId = Session.getCurrentSession().getId();
-    List<LayerReload> reloads = new LinkedList<LayerReload>();
-    for (int i = 0; i < layers.length; i++)
+    
+    // Map all Layers to their ValueQuery objects
+    Map<String, ValueQuery> layerValueQueries = new HashMap<String, ValueQuery>();
+    boolean isClipping = false;
+    String baseView = null;
+    for(int i=0; i<layers.length; i++)
     {
       Layer layer = layers[i];
-      String viewName = layer.getViewName();
-
+      
       SavedSearch search = layer.getSavedSearch();
       String xml = search.getQueryXml();
       String config = search.getConfig();
@@ -97,24 +114,64 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       String queryClass = QueryConstants.getQueryClass(queryType);
       ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, layer);
 
-      long count = valueQuery.getCount();
-      String sql = valueQuery.getSQL();
-
-      if (i == 0 && count == 0)
+      // The base layer must have geo entities or geoserver bombs out
+      if(i == 0 && valueQuery.getCount() == 0)
       {
-        // The base layer must have geo entities or geoserver bombs out
         String error = "The thematic layer doesn't contain spatial data.";
         throw new NoEntitiesInThematicLayerException(error);
       }
-      else if (count == 0)
+      else if(i == 0)
       {
-        // There is nothing to map, so omit the layer
+        baseView = layer.getViewName();
+      }
+      
+      layerValueQueries.put(layer.getId(), valueQuery);
+      
+      if(i != 0 && !isClipping && layer.getClipToBaseLayer())
+      {
+        isClipping = true;
+      }
+    }
+    
+    String sessionId = Session.getCurrentSession().getId();
+    List<LayerReload> reloads = new LinkedList<LayerReload>();
+    for (int i = 0; i < layers.length; i++)
+    {
+      Layer layer = layers[i];
+      String viewName = layer.getViewName();
+      
+      ValueQuery valueQuery = layerValueQueries.get(layer.getId());
+
+      // Any non-base layer will be omitted from the map to
+      // keep geoserver from acting funky.
+      if (i > 0 && valueQuery.getCount() == 0)
+      {
         continue;
       }
 
+      String sql;
+      if(i != 0 && layer.getClipToBaseLayer())
+      {
+        valueQuery.FROM(baseView, "geoentity_clipping");
+        sql = valueQuery.getSQL();
+        
+        String inter = "intersection($2, geoentity_clipping."+QueryConstants.GEOMETRY_NAME_COLUMN+")";
+        String pattern = "^(.*?)(\\w+\\.\\w+)(\\s+AS\\s+"+QueryConstants.GEOMETRY_NAME_COLUMN+")(.*)$";
+        Pattern p = Pattern.compile(pattern, Pattern.DOTALL);
+        Matcher m = p.matcher(sql);
+        m.matches();
+        
+        sql = m.replaceFirst("$1"+inter+"$3$4 AND $2 && geoentity_clipping."+QueryConstants.GEOMETRY_NAME_COLUMN);
+      }
+      else
+      {
+        sql = valueQuery.getSQL();
+      }
+
+
       try
       {
-        Database.dropView(viewName, sql, false);
+        deleteMapView(viewName);
       }
       catch (DatabaseException e)
       {

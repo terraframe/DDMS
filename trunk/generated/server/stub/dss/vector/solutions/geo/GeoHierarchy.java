@@ -128,6 +128,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       }
       
       ValueQuery vq = new ValueQuery(f);
+      
       vq.SELECT(selectables.toArray(new Selectable[selectables.size()]));
       
       // Rename the column aliases so GeoServer and the SLD can read them

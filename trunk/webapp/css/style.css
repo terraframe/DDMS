@@ -925,6 +925,10 @@ input.browserOpenBtn {
   margin: 10px 2px;
 }
 
+#slider-bg {
+  background:url(imgs/bg-fader.gif) 5px 0 no-repeat;
+}
+
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
 /*---------------------------------------------------------------*/

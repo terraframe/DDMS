@@ -119,16 +119,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var html = '';
       html += '<div id="'+MDSS.MapPanel.LEFT_COLUMN+'">';
       
-      /* 
-      // Query List
-      html += MDSS.Localized.Available_Queries+':<br />';
-      
-      html += '<select id="'+MDSS.MapPanel.QUERY_LIST+'" class="queryList">'; 
-      html += Mojo.Iter.map(this._queryList, function(query){
-        return '<option value="'+query.id+'">'+query.name+'</option>'; 
-      }).join('');
-      */ 
-      
       // Add query button
       html += MDSS.localize('Available_Layers')+':&nbsp;';
       html += '<input type="button" id="'+MDSS.MapPanel.ADD_LAYER_BUTTON+'" value="'+MDSS.localize('Add_Layer')+'">';
@@ -762,23 +752,12 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
           // make OL compute scale according to WMS spec
           OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
-      
-          var bbox = mapData.bbox;
-          var bounds;
-          if(bbox.length === 2)
-          {
-            bounds = new OpenLayers.Bounds();
-            bounds.extend(new OpenLayers.Geometry.Point(bbox[0], bbox[1]));
-          }
-          else
-          {
-            bounds = new OpenLayers.Bounds(bbox[0], bbox[1], bbox[2], bbox[3]);
-          }
           
           var options = {
               controls: [],
               projection: "EPSG:4326",
-              units: 'degrees'
+              units: 'degrees',
+              numZoomLevels : 20
           };
       
       
@@ -829,13 +808,26 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       
           that._map.addLayers(mapLayers);
       
+          // Restrict the bounding box to that of the base layer, and zoom
+          // out entirely except for a couple of levels.
+          var bbox = mapData.bbox;
+          var bounds;
+          if(bbox.length === 2)
+          {
+            bounds = new OpenLayers.Bounds();
+            bounds.extend(new OpenLayers.Geometry.Point(bbox[0], bbox[1]));
+          }
+          else
+          {
+            bounds = new OpenLayers.Bounds(bbox[0], bbox[1], bbox[2], bbox[3]);
+          }
+          that._map.zoomToExtent(bounds);
+
           // build up all controls
           that._map.addControl(new OpenLayers.Control.PanZoomBar({
               position: new OpenLayers.Pixel(2, 15)
           }));
           that._map.addControl(new OpenLayers.Control.Navigation());
-          //this._map.addControl(new OpenLayers.Control.ScaleLine());
-          that._map.zoomToExtent(bounds);
         } 
       });
       
@@ -931,6 +923,120 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
   },  
   
   Static : {
+  
+    attachDisplacementSlider : function(attribute)
+    {
+      var Event = YAHOO.util.Event,
+          Dom   = YAHOO.util.Dom,
+          lang  = YAHOO.lang,
+          bg=attribute+"SliderBG", thumb=attribute+"Thumb", 
+          textfield=attribute+"Converted"
+  
+      var value = parseInt(document.getElementById(attribute).value);
+      var asPixel = value/2+100;
+
+      var slider = YAHOO.widget.Slider.getHorizSlider(bg, 
+                           thumb, 0, 200, 1);
+      
+      slider.animate = false;
+      slider.setValue(asPixel);
+                           
+      slider.subscribe("change", function(offsetFromStart) {
+        var px = parseInt(offsetFromStart);
+        var dis = 2*px-200;
+      
+        document.getElementById(attribute+'Display').innerHTML = dis;
+        document.getElementById(attribute).value = dis;
+      });
+    },
+  
+    attachAnchorSlider : function(attribute)
+    {
+      var Event = YAHOO.util.Event,
+          Dom   = YAHOO.util.Dom,
+          lang  = YAHOO.lang,
+          bg=attribute+"SliderBG", thumb=attribute+"Thumb", 
+          textfield=attribute+"Converted"
+  
+      var value = document.getElementById(attribute).value;
+      var asPixel = value*100;
+
+      var slider = YAHOO.widget.Slider.getHorizSlider(bg, 
+                           thumb, 0, 100, 1);
+      
+      slider.animate = false;
+      slider.setValue(asPixel);
+                           
+      slider.subscribe("change", function(offsetFromStart) {
+        var anchor = offsetFromStart/100;
+      
+        document.getElementById(attribute+'Display').innerHTML = anchor;
+        document.getElementById(attribute).value = anchor;
+      });
+    },
+    
+    attachRotationCanvas : function(attribute)
+    {
+      var canvas = document.getElementById(attribute+'Canvas');
+      var context = canvas.getContext('2d');
+      
+      var image = new Image();
+      image.src = 'imgs/rotationLine.png';
+      
+      var value = parseInt(document.getElementById(attribute).value);
+      
+      canvas.setAttribute('width', image.width);
+      canvas.setAttribute('height', image.height);
+      context.rotate(value * Math.PI / 180);
+      context.drawImage(image, 0, 0);
+      
+      document.getElementById(attribute+'Display').innerHTML = value;
+      
+      var handler = function(e, changeBy)
+      {
+        var el = document.getElementById(attribute);
+        var value = parseInt(el.value)+changeBy;
+        canvas.setAttribute('width', image.width);
+        canvas.setAttribute('height', image.height);
+        
+        context.translate(canvas.width/2, canvas.height/2);
+        context.rotate(value * Math.PI / 180);
+        context.translate(-1*(canvas.width/2), -1*(canvas.height/2));
+        context.drawImage(image, 0, 0);
+        
+        el.value = value;
+        document.getElementById(attribute+'Display').innerHTML = value;
+      };
+      
+      // Clockwise
+      YAHOO.util.Event.on(attribute+'CW', 'click', handler, 5);
+      
+      // Counter-Clockwise
+      YAHOO.util.Event.on(attribute+'CCW', 'click', handler, -5);
+    },
+  
+    attachOpacitySlider : function(attribute)
+    {
+      var Event = YAHOO.util.Event,
+          Dom   = YAHOO.util.Dom,
+          lang  = YAHOO.lang,
+          bg=attribute+"SliderBG", thumb=attribute+"Thumb", 
+          textfield=attribute+"Converted"
+  
+      var value = document.getElementById(attribute).value;
+      var asPixel = value * 100;
+
+      var slider = YAHOO.widget.Slider.getHorizSlider(bg, 
+                           thumb, 0, 100, 1);
+      
+      slider.animate = false;
+      slider.setValue(asPixel);
+                           
+      slider.subscribe("change", function(offsetFromStart) {
+        document.getElementById(attribute+'Display').innerHTML = offsetFromStart+'%';
+        document.getElementById(attribute).value = offsetFromStart / 100;
+      });
+    },
   
     _currentMap : null,
     

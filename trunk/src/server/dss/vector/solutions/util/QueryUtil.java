@@ -429,6 +429,9 @@ public class QueryUtil implements Reloadable
         String alias = joinData.geoThematicAlias != null ? joinData.geoThematicAlias : thematicUserAlias;
         valueQuery.getSelectable(alias).setColumnAlias(QueryConstants.THEMATIC_DATA_COLUMN);
       }
+      
+      // exclude any rows without geometry data
+      valueQuery.AND(valueQuery.getSelectable(attr).NE(null));
     }
 
     for (String attributeKey : joinData.attributeKeysAndJoins.keySet())

@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 845349949)
+@com.terraframe.mojo.business.ClassSignature(hash = 1336628907)
 public abstract class LayerDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Layer";
-  private static final long serialVersionUID = 845349949;
+  private static final long serialVersionUID = 1336628907;
   
   protected LayerDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -27,6 +27,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return CLASS;
   }
   
+  public static java.lang.String CLIPTOBASELAYER = "clipToBaseLayer";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DEFAULTSTYLES = "defaultStyles";
@@ -44,6 +45,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public static java.lang.String RENDERAS = "renderAs";
   public static java.lang.String SAVEDSEARCH = "savedSearch";
   public static java.lang.String SEQ = "seq";
+  public static java.lang.String SHOWTHEMATICVALUE = "showThematicValue";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SLDFILE = "sldFile";
   public static java.lang.String THEMATICUSERALIAS = "thematicUserAlias";
@@ -51,6 +53,43 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
+  public Boolean getClipToBaseLayer()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CLIPTOBASELAYER));
+  }
+  
+  public void setClipToBaseLayer(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(CLIPTOBASELAYER, "");
+    }
+    else
+    {
+      setValue(CLIPTOBASELAYER, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isClipToBaseLayerWritable()
+  {
+    return isWritable(CLIPTOBASELAYER);
+  }
+  
+  public boolean isClipToBaseLayerReadable()
+  {
+    return isReadable(CLIPTOBASELAYER);
+  }
+  
+  public boolean isClipToBaseLayerModified()
+  {
+    return isModified(CLIPTOBASELAYER);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getClipToBaseLayerMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CLIPTOBASELAYER).getAttributeMdDTO();
+  }
+  
   public java.util.Date getCreateDate()
   {
     return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
@@ -641,6 +680,43 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+  }
+  
+  public Boolean getShowThematicValue()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SHOWTHEMATICVALUE));
+  }
+  
+  public void setShowThematicValue(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SHOWTHEMATICVALUE, "");
+    }
+    else
+    {
+      setValue(SHOWTHEMATICVALUE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isShowThematicValueWritable()
+  {
+    return isWritable(SHOWTHEMATICVALUE);
+  }
+  
+  public boolean isShowThematicValueReadable()
+  {
+    return isReadable(SHOWTHEMATICVALUE);
+  }
+  
+  public boolean isShowThematicValueModified()
+  {
+    return isModified(SHOWTHEMATICVALUE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getShowThematicValueMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SHOWTHEMATICVALUE).getAttributeMdDTO();
   }
   
   public String getSiteMaster()

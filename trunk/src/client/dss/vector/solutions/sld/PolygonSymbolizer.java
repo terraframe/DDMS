@@ -19,14 +19,18 @@ public class PolygonSymbolizer extends Symbolizer implements Reloadable
     String fill = style.getPolygonFill();
     String stroke = style.getPolygonStroke();
     String strokeWidth = style.getPolygonWidth().toString();
+    String strokeOpacity = style.getPolygonStrokeOpacity().toString();
+    String fillOpacity = style.getPolygonFillOpacity().toString();
     
     writer.writeln("<PolygonSymbolizer>");
     writer.writeln("<Fill>");
     writer.writeln("<CssParameter name=\"fill\">"+fill+"</CssParameter>");
+    writer.writeln("<CssParameter name=\"opacity\">"+fillOpacity+"</CssParameter>");
     writer.writeln("</Fill>");
     writer.writeln("<Stroke>");
     writer.writeln("<CssParameter name=\"stroke\">"+stroke+"</CssParameter>");
     writer.writeln("<CssParameter name=\"stroke-width\">"+strokeWidth+"</CssParameter>");
+    writer.writeln("<CssParameter name=\"opacity\">"+strokeOpacity+"</CssParameter>");
     writer.writeln("</Stroke>");
     writer.writeln("</PolygonSymbolizer>");
   }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1407628872)
+@com.terraframe.mojo.business.ClassSignature(hash = -935194344)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,8 +11,12 @@ package dss.vector.solutions.query;
 public abstract class StylesBase extends com.terraframe.mojo.business.Business implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Styles";
+  public static java.lang.String ANCHORPOINTX = "anchorPointX";
+  public static java.lang.String ANCHORPOINTY = "anchorPointY";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DISPLACEMENTX = "displacementX";
+  public static java.lang.String DISPLACEMENTY = "displacementY";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String FILL = "fill";
   public static java.lang.String FONTFAMILY = "fontFamily";
@@ -20,24 +24,86 @@ public abstract class StylesBase extends com.terraframe.mojo.business.Business i
   public static java.lang.String FONTSTYLE = "fontStyle";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
+  public static java.lang.String LABELROTATION = "labelRotation";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String POINTMARKER = "pointMarker";
+  public static java.lang.String POINTROTATION = "pointRotation";
+  public static java.lang.String POINTSIZE = "pointSize";
   public static java.lang.String POINTSTROKE = "pointStroke";
+  public static java.lang.String POINTSTROKEOPACITY = "pointStrokeOpacity";
   public static java.lang.String POINTWIDTH = "pointWidth";
   public static java.lang.String POLYGONFILL = "polygonFill";
+  public static java.lang.String POLYGONFILLOPACITY = "polygonFillOpacity";
   public static java.lang.String POLYGONSTROKE = "polygonStroke";
+  public static java.lang.String POLYGONSTROKEOPACITY = "polygonStrokeOpacity";
   public static java.lang.String POLYGONWIDTH = "polygonWidth";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1407628872;
+  private static final long serialVersionUID = -935194344;
   
   public StylesBase()
   {
     super();
+  }
+  
+  public java.math.BigDecimal getAnchorPointX()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(ANCHORPOINTX));
+  }
+  
+  public void validateAnchorPointX()
+  {
+    this.validateAttribute(ANCHORPOINTX);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAnchorPointXMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
+    return mdClassIF.definesAttribute(ANCHORPOINTX);
+  }
+  
+  public void setAnchorPointX(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(ANCHORPOINTX, "");
+    }
+    else
+    {
+      setValue(ANCHORPOINTX, value.toString());
+    }
+  }
+  
+  public java.math.BigDecimal getAnchorPointY()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(ANCHORPOINTY));
+  }
+  
+  public void validateAnchorPointY()
+  {
+    this.validateAttribute(ANCHORPOINTY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAnchorPointYMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
+    return mdClassIF.definesAttribute(ANCHORPOINTY);
+  }
+  
+  public void setAnchorPointY(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(ANCHORPOINTY, "");
+    }
+    else
+    {
+      setValue(ANCHORPOINTY, value.toString());
+    }
   }
   
   public java.util.Date getCreateDate()
@@ -77,6 +143,62 @@ public abstract class StylesBase extends com.terraframe.mojo.business.Business i
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
     return mdClassIF.definesAttribute(CREATEDBY);
+  }
+  
+  public Integer getDisplacementX()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLACEMENTX));
+  }
+  
+  public void validateDisplacementX()
+  {
+    this.validateAttribute(DISPLACEMENTX);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getDisplacementXMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
+    return mdClassIF.definesAttribute(DISPLACEMENTX);
+  }
+  
+  public void setDisplacementX(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(DISPLACEMENTX, "");
+    }
+    else
+    {
+      setValue(DISPLACEMENTX, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getDisplacementY()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLACEMENTY));
+  }
+  
+  public void validateDisplacementY()
+  {
+    this.validateAttribute(DISPLACEMENTY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getDisplacementYMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
+    return mdClassIF.definesAttribute(DISPLACEMENTY);
+  }
+  
+  public void setDisplacementY(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(DISPLACEMENTY, "");
+    }
+    else
+    {
+      setValue(DISPLACEMENTY, java.lang.Integer.toString(value));
+    }
   }
   
   public com.terraframe.mojo.system.metadata.MdDomain getEntityDomain()
@@ -270,6 +392,34 @@ public abstract class StylesBase extends com.terraframe.mojo.business.Business i
     }
   }
   
+  public Integer getLabelRotation()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LABELROTATION));
+  }
+  
+  public void validateLabelRotation()
+  {
+    this.validateAttribute(LABELROTATION);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLabelRotationMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
+    return mdClassIF.definesAttribute(LABELROTATION);
+  }
+  
+  public void setLabelRotation(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LABELROTATION, "");
+    }
+    else
+    {
+      setValue(LABELROTATION, java.lang.Integer.toString(value));
+    }
+  }
+  
   public java.util.Date getLastUpdateDate()
   {
     return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
@@ -405,6 +555,62 @@ public abstract class StylesBase extends com.terraframe.mojo.business.Business i
     return mdClassIF.definesAttribute(POINTMARKER);
   }
   
+  public Integer getPointRotation()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTROTATION));
+  }
+  
+  public void validatePointRotation()
+  {
+    this.validateAttribute(POINTROTATION);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getPointRotationMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
+    return mdClassIF.definesAttribute(POINTROTATION);
+  }
+  
+  public void setPointRotation(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(POINTROTATION, "");
+    }
+    else
+    {
+      setValue(POINTROTATION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getPointSize()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTSIZE));
+  }
+  
+  public void validatePointSize()
+  {
+    this.validateAttribute(POINTSIZE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getPointSizeMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
+    return mdClassIF.definesAttribute(POINTSIZE);
+  }
+  
+  public void setPointSize(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(POINTSIZE, "");
+    }
+    else
+    {
+      setValue(POINTSIZE, java.lang.Integer.toString(value));
+    }
+  }
+  
   public String getPointStroke()
   {
     return getValue(POINTSTROKE);
@@ -430,6 +636,34 @@ public abstract class StylesBase extends com.terraframe.mojo.business.Business i
     else
     {
       setValue(POINTSTROKE, value);
+    }
+  }
+  
+  public java.math.BigDecimal getPointStrokeOpacity()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(POINTSTROKEOPACITY));
+  }
+  
+  public void validatePointStrokeOpacity()
+  {
+    this.validateAttribute(POINTSTROKEOPACITY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getPointStrokeOpacityMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
+    return mdClassIF.definesAttribute(POINTSTROKEOPACITY);
+  }
+  
+  public void setPointStrokeOpacity(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(POINTSTROKEOPACITY, "");
+    }
+    else
+    {
+      setValue(POINTSTROKEOPACITY, value.toString());
     }
   }
   
@@ -489,6 +723,34 @@ public abstract class StylesBase extends com.terraframe.mojo.business.Business i
     }
   }
   
+  public java.math.BigDecimal getPolygonFillOpacity()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(POLYGONFILLOPACITY));
+  }
+  
+  public void validatePolygonFillOpacity()
+  {
+    this.validateAttribute(POLYGONFILLOPACITY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getPolygonFillOpacityMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
+    return mdClassIF.definesAttribute(POLYGONFILLOPACITY);
+  }
+  
+  public void setPolygonFillOpacity(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(POLYGONFILLOPACITY, "");
+    }
+    else
+    {
+      setValue(POLYGONFILLOPACITY, value.toString());
+    }
+  }
+  
   public String getPolygonStroke()
   {
     return getValue(POLYGONSTROKE);
@@ -514,6 +776,34 @@ public abstract class StylesBase extends com.terraframe.mojo.business.Business i
     else
     {
       setValue(POLYGONSTROKE, value);
+    }
+  }
+  
+  public java.math.BigDecimal getPolygonStrokeOpacity()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(POLYGONSTROKEOPACITY));
+  }
+  
+  public void validatePolygonStrokeOpacity()
+  {
+    this.validateAttribute(POLYGONSTROKEOPACITY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getPolygonStrokeOpacityMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
+    return mdClassIF.definesAttribute(POLYGONSTROKEOPACITY);
+  }
+  
+  public void setPolygonStrokeOpacity(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(POLYGONSTROKEOPACITY, "");
+    }
+    else
+    {
+      setValue(POLYGONSTROKEOPACITY, value.toString());
     }
   }
   

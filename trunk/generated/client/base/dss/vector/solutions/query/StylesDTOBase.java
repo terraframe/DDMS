@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1118243640)
+@com.terraframe.mojo.business.ClassSignature(hash = -1181294696)
 public abstract class StylesDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Styles";
-  private static final long serialVersionUID = 1118243640;
+  private static final long serialVersionUID = -1181294696;
   
   protected StylesDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -27,8 +27,12 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return CLASS;
   }
   
+  public static java.lang.String ANCHORPOINTX = "anchorPointX";
+  public static java.lang.String ANCHORPOINTY = "anchorPointY";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DISPLACEMENTX = "displacementX";
+  public static java.lang.String DISPLACEMENTY = "displacementY";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String FILL = "fill";
   public static java.lang.String FONTFAMILY = "fontFamily";
@@ -36,19 +40,99 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String FONTSTYLE = "fontStyle";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
+  public static java.lang.String LABELROTATION = "labelRotation";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String POINTMARKER = "pointMarker";
+  public static java.lang.String POINTROTATION = "pointRotation";
+  public static java.lang.String POINTSIZE = "pointSize";
   public static java.lang.String POINTSTROKE = "pointStroke";
+  public static java.lang.String POINTSTROKEOPACITY = "pointStrokeOpacity";
   public static java.lang.String POINTWIDTH = "pointWidth";
   public static java.lang.String POLYGONFILL = "polygonFill";
+  public static java.lang.String POLYGONFILLOPACITY = "polygonFillOpacity";
   public static java.lang.String POLYGONSTROKE = "polygonStroke";
+  public static java.lang.String POLYGONSTROKEOPACITY = "polygonStrokeOpacity";
   public static java.lang.String POLYGONWIDTH = "polygonWidth";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
+  public java.math.BigDecimal getAnchorPointX()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(ANCHORPOINTX));
+  }
+  
+  public void setAnchorPointX(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(ANCHORPOINTX, "");
+    }
+    else
+    {
+      setValue(ANCHORPOINTX, value.toString());
+    }
+  }
+  
+  public boolean isAnchorPointXWritable()
+  {
+    return isWritable(ANCHORPOINTX);
+  }
+  
+  public boolean isAnchorPointXReadable()
+  {
+    return isReadable(ANCHORPOINTX);
+  }
+  
+  public boolean isAnchorPointXModified()
+  {
+    return isModified(ANCHORPOINTX);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getAnchorPointXMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ANCHORPOINTX).getAttributeMdDTO();
+  }
+  
+  public java.math.BigDecimal getAnchorPointY()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(ANCHORPOINTY));
+  }
+  
+  public void setAnchorPointY(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(ANCHORPOINTY, "");
+    }
+    else
+    {
+      setValue(ANCHORPOINTY, value.toString());
+    }
+  }
+  
+  public boolean isAnchorPointYWritable()
+  {
+    return isWritable(ANCHORPOINTY);
+  }
+  
+  public boolean isAnchorPointYReadable()
+  {
+    return isReadable(ANCHORPOINTY);
+  }
+  
+  public boolean isAnchorPointYModified()
+  {
+    return isModified(ANCHORPOINTY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getAnchorPointYMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ANCHORPOINTY).getAttributeMdDTO();
+  }
+  
   public java.util.Date getCreateDate()
   {
     return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
@@ -104,6 +188,80 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+  }
+  
+  public Integer getDisplacementX()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLACEMENTX));
+  }
+  
+  public void setDisplacementX(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(DISPLACEMENTX, "");
+    }
+    else
+    {
+      setValue(DISPLACEMENTX, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isDisplacementXWritable()
+  {
+    return isWritable(DISPLACEMENTX);
+  }
+  
+  public boolean isDisplacementXReadable()
+  {
+    return isReadable(DISPLACEMENTX);
+  }
+  
+  public boolean isDisplacementXModified()
+  {
+    return isModified(DISPLACEMENTX);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDisplacementXMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLACEMENTX).getAttributeMdDTO();
+  }
+  
+  public Integer getDisplacementY()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLACEMENTY));
+  }
+  
+  public void setDisplacementY(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(DISPLACEMENTY, "");
+    }
+    else
+    {
+      setValue(DISPLACEMENTY, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isDisplacementYWritable()
+  {
+    return isWritable(DISPLACEMENTY);
+  }
+  
+  public boolean isDisplacementYReadable()
+  {
+    return isReadable(DISPLACEMENTY);
+  }
+  
+  public boolean isDisplacementYModified()
+  {
+    return isModified(DISPLACEMENTY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDisplacementYMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLACEMENTY).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
@@ -335,6 +493,43 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
+  public Integer getLabelRotation()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LABELROTATION));
+  }
+  
+  public void setLabelRotation(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LABELROTATION, "");
+    }
+    else
+    {
+      setValue(LABELROTATION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isLabelRotationWritable()
+  {
+    return isWritable(LABELROTATION);
+  }
+  
+  public boolean isLabelRotationReadable()
+  {
+    return isReadable(LABELROTATION);
+  }
+  
+  public boolean isLabelRotationModified()
+  {
+    return isModified(LABELROTATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLabelRotationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LABELROTATION).getAttributeMdDTO();
+  }
+  
   public java.util.Date getLastUpdateDate()
   {
     return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
@@ -514,6 +709,80 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(POINTMARKER).getAttributeMdDTO();
   }
   
+  public Integer getPointRotation()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTROTATION));
+  }
+  
+  public void setPointRotation(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(POINTROTATION, "");
+    }
+    else
+    {
+      setValue(POINTROTATION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isPointRotationWritable()
+  {
+    return isWritable(POINTROTATION);
+  }
+  
+  public boolean isPointRotationReadable()
+  {
+    return isReadable(POINTROTATION);
+  }
+  
+  public boolean isPointRotationModified()
+  {
+    return isModified(POINTROTATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPointRotationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POINTROTATION).getAttributeMdDTO();
+  }
+  
+  public Integer getPointSize()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTSIZE));
+  }
+  
+  public void setPointSize(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(POINTSIZE, "");
+    }
+    else
+    {
+      setValue(POINTSIZE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isPointSizeWritable()
+  {
+    return isWritable(POINTSIZE);
+  }
+  
+  public boolean isPointSizeReadable()
+  {
+    return isReadable(POINTSIZE);
+  }
+  
+  public boolean isPointSizeModified()
+  {
+    return isModified(POINTSIZE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPointSizeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POINTSIZE).getAttributeMdDTO();
+  }
+  
   public String getPointStroke()
   {
     return getValue(POINTSTROKE);
@@ -549,6 +818,43 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPointStrokeMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POINTSTROKE).getAttributeMdDTO();
+  }
+  
+  public java.math.BigDecimal getPointStrokeOpacity()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(POINTSTROKEOPACITY));
+  }
+  
+  public void setPointStrokeOpacity(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(POINTSTROKEOPACITY, "");
+    }
+    else
+    {
+      setValue(POINTSTROKEOPACITY, value.toString());
+    }
+  }
+  
+  public boolean isPointStrokeOpacityWritable()
+  {
+    return isWritable(POINTSTROKEOPACITY);
+  }
+  
+  public boolean isPointStrokeOpacityReadable()
+  {
+    return isReadable(POINTSTROKEOPACITY);
+  }
+  
+  public boolean isPointStrokeOpacityModified()
+  {
+    return isModified(POINTSTROKEOPACITY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getPointStrokeOpacityMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(POINTSTROKEOPACITY).getAttributeMdDTO();
   }
   
   public Integer getPointWidth()
@@ -625,6 +931,43 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POLYGONFILL).getAttributeMdDTO();
   }
   
+  public java.math.BigDecimal getPolygonFillOpacity()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(POLYGONFILLOPACITY));
+  }
+  
+  public void setPolygonFillOpacity(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(POLYGONFILLOPACITY, "");
+    }
+    else
+    {
+      setValue(POLYGONFILLOPACITY, value.toString());
+    }
+  }
+  
+  public boolean isPolygonFillOpacityWritable()
+  {
+    return isWritable(POLYGONFILLOPACITY);
+  }
+  
+  public boolean isPolygonFillOpacityReadable()
+  {
+    return isReadable(POLYGONFILLOPACITY);
+  }
+  
+  public boolean isPolygonFillOpacityModified()
+  {
+    return isModified(POLYGONFILLOPACITY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getPolygonFillOpacityMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(POLYGONFILLOPACITY).getAttributeMdDTO();
+  }
+  
   public String getPolygonStroke()
   {
     return getValue(POLYGONSTROKE);
@@ -660,6 +1003,43 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPolygonStrokeMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POLYGONSTROKE).getAttributeMdDTO();
+  }
+  
+  public java.math.BigDecimal getPolygonStrokeOpacity()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(POLYGONSTROKEOPACITY));
+  }
+  
+  public void setPolygonStrokeOpacity(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(POLYGONSTROKEOPACITY, "");
+    }
+    else
+    {
+      setValue(POLYGONSTROKEOPACITY, value.toString());
+    }
+  }
+  
+  public boolean isPolygonStrokeOpacityWritable()
+  {
+    return isWritable(POLYGONSTROKEOPACITY);
+  }
+  
+  public boolean isPolygonStrokeOpacityReadable()
+  {
+    return isReadable(POLYGONSTROKEOPACITY);
+  }
+  
+  public boolean isPolygonStrokeOpacityModified()
+  {
+    return isModified(POLYGONSTROKEOPACITY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getPolygonStrokeOpacityMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(POLYGONSTROKEOPACITY).getAttributeMdDTO();
   }
   
   public Integer getPolygonWidth()

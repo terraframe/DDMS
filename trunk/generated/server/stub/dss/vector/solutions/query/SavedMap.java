@@ -8,6 +8,7 @@ import java.util.Map;
 import com.terraframe.mojo.business.rbac.UserDAOIF;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.database.Database;
+import com.terraframe.mojo.dataaccess.database.DatabaseException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -279,7 +280,6 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
   public static void cleanOldViews()
   {
     long anHourAgo = System.currentTimeMillis() - (60 * 60 * 1000);
-    List<String> viewsToDelete = new LinkedList<String>();
     for (String viewName : Database.getViewsByPrefix(Layer.GEO_VIEW_PREFIX))
     {
       String next = viewName;
@@ -288,8 +288,14 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
         long parseLong = Long.parseLong(next.substring(Layer.GEO_VIEW_PREFIX.length()));
         if (parseLong < anHourAgo)
         {
-          // This view is old.  Add it to the deletion list
-          viewsToDelete.add(viewName);
+          try
+          {
+            MapUtil.deleteMapView(viewName); 
+          }
+          catch(DatabaseException e)
+          {
+            // This is okay 
+          }
         }
       }
       catch (NumberFormatException e)
@@ -297,8 +303,6 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
         // This can happen if there's a view that matches the prefix but doesn't have the timestamp.  Just ignore it.
       }
     }
-    // Perform the actual drop commands
-    Database.dropViews(viewsToDelete);
   }  
   
 }

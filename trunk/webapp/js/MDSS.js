@@ -98,9 +98,9 @@ var MDSS = {
 
       }, {toggle: toggleId, element: elementId, hidden: hiddenId}, this);
   	}
-
+  	
   },
-
+  
   ErrorModal : function(content)
   {
       var modal = new YAHOO.widget.Panel("errorModal" + Mojo.Util.generateId(),

@@ -12,122 +12,32 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
   {
     super(style);
   }
-  
-  protected void include(SLDWriter writer, StylesDTO style)
-  {
-//    String fontFamily = style.getFontFamily();
-//    String fontStyle = style.getFontStyle();
-//    String fontSize = style.getFontSize().toString();
-//    String fill = style.getFill();
-//    
-//    LayerDTO layer = this.getLayer();
-//    String thematicVar = layer.getThematicUserAlias();
-//    if(thematicVar != null && thematicVar.length() > 0)
-//    {
-//      writer.writeln("<Rule>");
-//      writer.writeln("<Filter>");
-//      writer.writeln("<PropertyIsEqualTo>");
-//      writer.writeln("<Function name=\"isNull\">");
-//      writer.writeln("<PropertyName>"+QueryConstants.THEMATIC_DATA_COLUMN+"</PropertyName>");
-//      writer.writeln("</Function>");
-//      writer.writeln("<Literal>false</Literal>");
-//      writer.writeln("</PropertyIsEqualTo>");
-//      writer.writeln("</Filter>");
-//      writer.writeln("<TextSymbolizer>");
-//      writer.writeln("<Label>");
-//      writer.write("<ogc:PropertyName>"+QueryConstants.ENTITY_NAME_COLUMN+"</ogc:PropertyName>");
-//      writer.writeln(" (<ogc:PropertyName>"+QueryConstants.THEMATIC_DATA_COLUMN+"</ogc:PropertyName>)");
-//      writer.writeln("</Label>");
-//      writer.writeln("<Font>");
-//      writer.writeln("<CssParameter name=\"font-family\">"+fontFamily+"</CssParameter>");
-//      writer.writeln("<CssParameter name=\"font-style\">"+fontStyle+"</CssParameter>");
-//      writer.writeln("<CssParameter name=\"font-size\">"+fontSize+"</CssParameter>");
-//      writer.writeln("<CssParameter name=\"fill\">"+fill+"</CssParameter>");
-//      writer.writeln("</Font>");
-//      writer.writeln("<LabelPlacement>");
-//      writer.writeln("<PointPlacement>");
-//      writer.writeln("<Displacement>");
-//      writer.writeln("<DisplacementX>10</DisplacementX>");
-//      writer.writeln("<DisplacementY>0</DisplacementY>");
-//      writer.writeln("</Displacement>");
-//      writer.writeln("</PointPlacement>");
-//      writer.writeln("</LabelPlacement>");
-//      writer.writeln("<VendorOption name=\"spaceAround\">-100</VendorOption>");
-//      writer.writeln("</TextSymbolizer>");
-//      writer.writeln("</Rule>");
-//      writer.writeln("<Rule>");
-//      writer.writeln("<Filter>");
-//      writer.writeln("<PropertyIsEqualTo>");
-//      writer.writeln("<Function name=\"isNull\">");
-//      writer.writeln("<PropertyName>"+QueryConstants.THEMATIC_DATA_COLUMN+"</PropertyName>");
-//      writer.writeln("</Function>");
-//      writer.writeln("<Literal>true</Literal>");
-//      writer.writeln("</PropertyIsEqualTo>");
-//      writer.writeln("</Filter>");
-//      writer.writeln("<TextSymbolizer>");
-//      writer.writeln("<Label>");
-//      writer.writeln("<ogc:PropertyName>"+QueryConstants.ENTITY_NAME_COLUMN+"</ogc:PropertyName>");
-//      writer.writeln("</Label>");
-//      writer.writeln("<Font>");
-//      writer.writeln("<CssParameter name=\"font-family\">"+fontFamily+"</CssParameter>");
-//      writer.writeln("<CssParameter name=\"font-style\">"+fontStyle+"</CssParameter>");
-//      writer.writeln("<CssParameter name=\"font-size\">"+fontSize+"</CssParameter>");
-//      writer.writeln("<CssParameter name=\"fill\">"+fill+"</CssParameter>");
-//      writer.writeln("</Font>");
-//      writer.writeln("<LabelPlacement>");
-//      writer.writeln("<PointPlacement>");
-//      writer.writeln("<Displacement>");
-//      writer.writeln("<DisplacementX>10</DisplacementX>");
-//      writer.writeln("<DisplacementY>0</DisplacementY>");
-//      writer.writeln("</Displacement>");
-//      writer.writeln("</PointPlacement>");
-//      writer.writeln("</LabelPlacement>");
-//      writer.writeln("<VendorOption name=\"spaceAround\">-100</VendorOption>");
-//      writer.writeln("</TextSymbolizer>");
-//      writer.writeln("</Rule>");
-//    }
-//    else
-//    {
-//      writer.writeln("<TextSymbolizer>");
-//      writer.writeln("<Label>");
-//      writer.writeln("<ogc:PropertyName>"+QueryConstants.ENTITY_NAME_COLUMN+"</ogc:PropertyName>");
-//      writer.writeln("</Label>");
-//      writer.writeln("<Font>");
-//      writer.writeln("<CssParameter name=\"font-family\">"+fontFamily+"</CssParameter>");
-//      writer.writeln("<CssParameter name=\"font-style\">"+fontStyle+"</CssParameter>");
-//      writer.writeln("<CssParameter name=\"font-size\">"+fontSize+"</CssParameter>");
-//      writer.writeln("</Font>");
-//      writer.writeln("<Fill>");
-//      writer.writeln("<CssParameter name=\"fill\">"+fill+"</CssParameter>");
-//      writer.writeln("</Fill>");
-//      writer.writeln("<LabelPlacement>");
-//      writer.writeln("<PointPlacement>");
-//      writer.writeln("<Displacement>");
-//      writer.writeln("<DisplacementX>10</DisplacementX>");
-//      writer.writeln("<DisplacementY>0</DisplacementY>");
-//      writer.writeln("</Displacement>");
-//      writer.writeln("</PointPlacement>");
-//      writer.writeln("</LabelPlacement>");
-//      writer.writeln("<VendorOption name=\"spaceAround\">-100</VendorOption>");
-//      writer.writeln("</TextSymbolizer>");
-//
-//    }    
-  }
 
   @Override
   protected void write(SLDWriter writer)
   {
     StylesDTO style = this.getStyles();
     
-    String fontFamily = style.getFontFamily();
-    String fontStyle = style.getFontStyle();
-    String fontSize = style.getFontSize().toString();
-    String fill = style.getFill();
-    
     writer.writeln("<TextSymbolizer>");
     writer.writeln("<Label>");
     writer.writeln("<ogc:PropertyName>"+QueryConstants.ENTITY_NAME_COLUMN+"</ogc:PropertyName>");
     writer.writeln("</Label>");
+    writeCommonStyle(writer, style);
+    writer.writeln("</TextSymbolizer>");
+  }
+  
+  protected static void writeCommonStyle(SLDWriter writer, StylesDTO style)
+  {
+    String fontFamily = style.getFontFamily();
+    String fontStyle = style.getFontStyle();
+    String fontSize = style.getFontSize().toString();
+    String fill = style.getFill();
+    String anchorX = style.getAnchorPointX().toString();
+    String anchorY = style.getAnchorPointY().toString();
+    String disX = style.getDisplacementX().toString();
+    String disY = style.getDisplacementY().toString();
+    String rotation = style.getLabelRotation().toString();
+    
     writer.writeln("<Font>");
     writer.writeln("<CssParameter name=\"font-family\">"+fontFamily+"</CssParameter>");
     writer.writeln("<CssParameter name=\"font-style\">"+fontStyle+"</CssParameter>");
@@ -138,14 +48,22 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
     writer.writeln("</Fill>");
     writer.writeln("<LabelPlacement>");
     writer.writeln("<PointPlacement>");
+    writer.writeln("<AnchorPoint>");
+    writer.writeln("<AnchorPointX>"+anchorX+"</AnchorPointX>");
+    writer.writeln("<AnchorPointY>"+anchorY+"</AnchorPointY>");
+    writer.writeln("</AnchorPoint>");
     writer.writeln("<Displacement>");
-    writer.writeln("<DisplacementX>10</DisplacementX>");
-    writer.writeln("<DisplacementY>0</DisplacementY>");
+    writer.writeln("<DisplacementX>"+disX+"</DisplacementX>");
+    writer.writeln("<DisplacementY>"+disY+"</DisplacementY>");
     writer.writeln("</Displacement>");
+    writer.writeln("<Rotation>"+rotation+"</Rotation>");
     writer.writeln("</PointPlacement>");
     writer.writeln("</LabelPlacement>");
     writer.writeln("<VendorOption name=\"spaceAround\">-100</VendorOption>");
-    writer.writeln("</TextSymbolizer>");
+//    writer.writeln("<VendorOption name=\"conflictResolution\">false</VendorOption>");
+    writer.writeln("<VendorOption name=\"goodnessOfFit\">0</VendorOption>");
+    writer.writeln("<VendorOption name=\"group\">On</VendorOption>");
+
   }
 
 }

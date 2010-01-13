@@ -1373,6 +1373,7 @@ Mojo.Meta.newClass('Mojo.Util', {
               }
 
               if (rep && typeof rep === 'object') {
+              
                   length = rep.length;
                   for (i = 0; i < length; i += 1) {
                       k = rep[i];
@@ -1780,12 +1781,12 @@ Mojo.Meta.newClass('Mojo.Util', {
         {
           for(var i=0; i<entry.length; i++)
           {
-            params.push(key + "[]=" + encodeURIComponent(entry[i]));
+            params.push(encodeURIComponent(key) + "[]=" + encodeURIComponent(entry[i]));
           }
         }
         else
         {
-          params.push(key + "=" + encodeURIComponent(entry));
+          params.push(encodeURIComponent(key) + "=" + encodeURIComponent(entry));
         }
       }
 
@@ -2294,7 +2295,7 @@ Mojo.Meta.newClass('Mojo.AjaxCall', {
           var paramArray = [];
           for(var i in parameters)
           {
-            paramArray.push(i+'='+encodeURIComponent(parameters[i]));
+            paramArray.push(encodeURIComponent(i)+'='+encodeURIComponent(parameters[i]));
           }
           paramStr = paramArray.join('&');
         }
