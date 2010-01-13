@@ -180,8 +180,6 @@ public class MultiMOTagSupport extends SimpleTagSupport implements Reloadable
       }
     }
     
-    int _index = (_value != null ? _value.size() - 1 : -1);
-
     // <mjl:input id="collectionMethodDisplay" param="#_collectionMethodDisplay" type="text"/>
     InputTagSupport displayInput = new InputTagSupport();
     displayInput.setJspBody(this.getJspBody());
@@ -204,21 +202,6 @@ public class MultiMOTagSupport extends SimpleTagSupport implements Reloadable
     out.write("<div id=\"" + _id + "Results\">\n");
     out.write("<ul id=\"" + _id + "ResultList\">\n");
     
-    if(_value != null)
-    {
-      for(int i = 0; i < _value.size(); i++)
-      {
-        TermDTO term = _value.get(i);
-        String component = _id + '_' + i;
-
-        out.write("<li>\n");
-        out.write("<input type=\"hidden\" class=\"" + _id + "\" name=\"" + component + ".componentId\" value=\"" + term.getId() + "\" />\n");
-        out.write("<input type=\"hidden\" name=\"" + component + ".isNew\" value=\"false\" />\n");
-        out.write(term.getDisplayLabel() + "\n");
-        out.write("<li>\n");
-      }
-    }
-    
     out.write("</ul>\n");
     out.write("</div>\n");
 
@@ -227,7 +210,17 @@ public class MultiMOTagSupport extends SimpleTagSupport implements Reloadable
       out.write("<script type=\"text/javascript\">\n");
       out.write("(function(){\n");
       out.write("YAHOO.util.Event.onDOMReady(function(){\n");
-      out.write("new MDSS.GenericMultiOntologyBrowser('" + _browserClass + "', {attributeName:'" + _id + "', browserField:'" + _browserAttribute + "', multipleSelect:true, index:" + _index + "});\n");
+      out.write("var browser = new MDSS.GenericMultiOntologyBrowser('" + _browserClass + "', {attributeName:'" + _id + "', browserField:'" + _browserAttribute + "', multipleSelect:true});\n");
+
+      if(_value != null)
+      {
+        for(TermDTO term : _value)
+        {
+          out.write("browser.addSelection('" + term.getDisplayLabel()  + "', '" + term.getId() + "');\n");
+        }
+      }
+           
+      
       out.write("})\n");
       out.write("})();\n");
       out.write("</script>\n");

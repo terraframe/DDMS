@@ -895,7 +895,8 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
       this.attributeName = config.attributeName;
       this.attributeClass = Mojo.Util.isString(config.className) ? config.className : className;
       this.browserField = Mojo.Util.isString(config.browserField) ? config.browserField : config.attributeName;       
-      this.index = Mojo.Util.isNumber(config.index) ? config.index : -1;
+      this.index = -1;
+      this.map = {};
           
       // Setup the ontology browser
       this.browser = new MDSS.OntologyBrowser(true, this.attributeClass, this.browserField);
@@ -920,13 +921,16 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
       var resultEl = document.getElementById(this.attributeName + 'ResultList');        
 
       if(selected.length > 0) {
+        this.map = {};
         var innerHTML = '';
         
         for(var i = 0; i < selected.length; i++) {
           var label = this._displayFunction(selected[i]);
           var id = this._idFunction(selected[i]);
-        	
+        
           innerHTML += this._getInnerHTML(i, label, id);
+          
+          this.map[id] = label;
         }
 
         resultEl.innerHTML = innerHTML;
@@ -935,6 +939,7 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
       else {
         resultEL.innerHTML = '';
         this.index = 0;
+        this.map = {};        
       }      
     },        
 
@@ -970,15 +975,21 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
       return ++this.index;
     },
     
-    _addSelection : function(label, id)
+    addSelection : function(label, id)
     {
-      var resultEl = document.getElementById(this.attributeName + 'ResultList');        
+      //IMPORTANT: Must check that this id is not already being displayed
+      if(this.map[id] == null)
+      {
+        var resultEl = document.getElementById(this.attributeName + 'ResultList');        
 
-      var index = this._nextTermNumber();
+        var index = this._nextTermNumber();
       
-      var innerHTML = this._getInnerHTML(index, label, id);
+        var innerHTML = this._getInnerHTML(index, label, id);
 
-      resultEl.innerHTML += innerHTML;    
+        resultEl.innerHTML += innerHTML; 
+        
+        this.map[id] = label;
+      }
     },
     
     _getInnerHTML : function(index, label, id)
@@ -1023,7 +1034,7 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
     
     _selectionHandler : function(selection)
     {
-      this._addSelection(selection.label, selection.id);
+      this.addSelection(selection.label, selection.id);
       
       this.attributeElement.value = '';
     }        
