@@ -64,27 +64,27 @@ import dss.vector.solutions.query.QueryConstants;
 public class QueryUtil implements Reloadable
 {
 
-  private static final String DATEGROUP_EPIWEEK = "dategroup_epiweek";
+  private static final String DATEGROUP_EPIWEEK    = "dategroup_epiweek";
 
-  private static final String DATEGROUP_MONTH   = "dategroup_month";
+  private static final String DATEGROUP_MONTH      = "dategroup_month";
 
-  private static final String DATEGROUP_QUARTER = "dategroup_quarter";
+  private static final String DATEGROUP_QUARTER    = "dategroup_quarter";
 
-  private static final String DATEGROUP_YEAR    = "dategroup_year";
+  private static final String DATEGROUP_YEAR       = "dategroup_year";
 
-  private static final String DATEGROUP_SEASON  = "dategroup_season";
+  private static final String DATEGROUP_SEASON     = "dategroup_season";
 
-  private static final String START_DATE_RANGE  = "start_date_range";
+  private static final String START_DATE_RANGE     = "start_date_range";
 
-  private static final String RATIO             = "ratio_of_this_row_to_total_count";
+  private static final String RATIO                = "ratio_of_this_row_to_total_count";
 
-  private static final String END_DATE_RANGE    = "end_date_range";
+  private static final String END_DATE_RANGE       = "end_date_range";
 
-  private static final String DATE_ATTRIBUTE    = "date_attribute";
+  private static final String DATE_ATTRIBUTE       = "date_attribute";
 
-  private static final String DATE_REGEX        = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
-  
-  public static final String DISPLAY_LABEL_SUFFIX = "_displayLabel";
+  private static final String DATE_REGEX           = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
+
+  public static final String  DISPLAY_LABEL_SUFFIX = "_displayLabel";
 
   public static String getRelationshipTermSubSelect(String attribute, String parentClass, String relClass)
   {
@@ -92,8 +92,8 @@ public class QueryUtil implements Reloadable
     String relTable = MdEntity.getMdEntity(relClass).getTableName();
     String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
 
-    return "(select pJoin.id AS id, tJoin." + Term.NAME + " as " + attribute + "_displayLabel from" + " " + parentTable + " AS pJoin LEFT JOIN " + relTable + " rJoin ON rJoin." + RelationshipInfo.PARENT_ID + " = pJoin.id" + " LEFT JOIN " + termTable + " tJoin on rJoin." + RelationshipInfo.CHILD_ID
-        + " = tJoin.id)";
+    return "(select pJoin.id AS id, tJoin." + Term.NAME + " as " + attribute + "_displayLabel from" + " " + parentTable + " AS pJoin LEFT JOIN " + relTable + " rJoin ON rJoin." + RelationshipInfo.PARENT_ID + " = pJoin.id" + " LEFT JOIN " + termTable
+        + " tJoin on rJoin." + RelationshipInfo.CHILD_ID + " = tJoin.id)";
   }
 
   public static ValueQuery joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
@@ -106,6 +106,19 @@ public class QueryUtil implements Reloadable
       String table = MdBusiness.getMdBusiness(klass).getTableName();
       valueQuery.AND(new InnerJoinEq("id", table, query.getTableAlias(), "id", sql, subSelect));
     }
+    return valueQuery;
+
+  }
+
+  public static ValueQuery joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias)
+  {
+
+    String[] personAttributes = Term.getTermAttributes(klass);
+    String sql = "(" + QueryUtil.getTermSubSelect(klass, personAttributes) + ")";
+    String subSelect = klass.replace('.', '_') + "TermSubSel";
+    String table = MdBusiness.getMdBusiness(klass).getTableName();
+    valueQuery.AND(new InnerJoinEq("id", table, tableAlias, "id", sql, subSelect));
+
     return valueQuery;
 
   }
@@ -307,7 +320,7 @@ public class QueryUtil implements Reloadable
 
     return sql;
   }
-  
+
   /**
    * Joins the ValueQuery with any selected/restricting geo entity information.
    * This method does not perform the final join between the AllPathsQuery and
@@ -345,13 +358,14 @@ public class QueryUtil implements Reloadable
       }
     }
 
-    // If we're mapping, dereference the MdAttribute that will be joined with the GeoEntity
+    // If we're mapping, dereference the MdAttribute that will be joined with
+    // the GeoEntity
     // table.
     String key = null;
     String attr = null;
     String layerGeoEntityType = null;
     String thematicUserAlias = null;
-    if(layer != null)
+    if (layer != null)
     {
       thematicUserAlias = layer.getThematicUserAlias();
       layerGeoEntityType = layer.getGeoHierarchy().getQualifiedType();
@@ -359,7 +373,7 @@ public class QueryUtil implements Reloadable
       key = mdAttribute.getKey();
       attr = layer.getRenderAs().get(0) == AllRenderTypes.POINT ? GeoEntity.GEOPOINT : GeoEntity.GEOMULTIPOLYGON;
     }
-    
+
     // Normal query (non-mapping)
     GeoEntityJoinData joinData = new GeoEntityJoinData();
     try
@@ -379,8 +393,7 @@ public class QueryUtil implements Reloadable
             selectedUniversals[i] = universals.getString(i);
           }
 
-          addUniversalsForAttribute(joinData, queryFactory, attributeKey, selectedUniversals, valueQueryParser,
-            key, attr, layerGeoEntityType, thematicUserAlias);
+          addUniversalsForAttribute(joinData, queryFactory, attributeKey, selectedUniversals, valueQueryParser, key, attr, layerGeoEntityType, thematicUserAlias);
         }
       }
     }
@@ -390,35 +403,34 @@ public class QueryUtil implements Reloadable
     }
 
     // Include the geometry column/attribute in the ValueQuery if we are mapping
-    if(layer != null)
+    if (layer != null)
     {
       String entityAlias = key + "__" + layerGeoEntityType;
-      
+
       valueQueryParser.addAttributeSelectable(entityAlias, attr, attr, QueryConstants.GEOMETRY_NAME_COLUMN);
-      
-      if(joinData.geoThematicAlias != null)
+
+      if (joinData.geoThematicAlias != null)
       {
-        valueQueryParser.addAttributeSelectable(joinData.geoThematicEntity, 
-            joinData.geoThematicAttr, joinData.geoThematicAlias, QueryConstants.THEMATIC_DATA_COLUMN);
+        valueQueryParser.addAttributeSelectable(joinData.geoThematicEntity, joinData.geoThematicAttr, joinData.geoThematicAlias, QueryConstants.THEMATIC_DATA_COLUMN);
       }
     }
-    
+
     queryMap = valueQueryParser.parse();
-    
+
     // Set the entity name and geo id columns to something predictable
-    if(layer != null)
+    if (layer != null)
     {
       valueQuery.getSelectable(joinData.entityNameAlias).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
       valueQuery.getSelectable(joinData.geoIdAlias).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
 
       // Name the thematic column if a thematic variable has been selected
-      if(thematicUserAlias != null && thematicUserAlias.length() > 0)
+      if (thematicUserAlias != null && thematicUserAlias.length() > 0)
       {
         String alias = joinData.geoThematicAlias != null ? joinData.geoThematicAlias : thematicUserAlias;
         valueQuery.getSelectable(alias).setColumnAlias(QueryConstants.THEMATIC_DATA_COLUMN);
       }
     }
-    
+
     for (String attributeKey : joinData.attributeKeysAndJoins.keySet())
     {
       AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS + "_" + attributeKey);
@@ -428,18 +440,17 @@ public class QueryUtil implements Reloadable
     }
 
     return queryMap;
-    
+
   }
-  
-  private static void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory, String attributeKey,
-      String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType,
+
+  private static void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType,
       String thematicUserAlias)
   {
     List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
     for (String selectedGeoEntityType : selectedUniversals)
     {
       List<Selectable> selectables = new LinkedList<Selectable>();
-      
+
       GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
 
       AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
@@ -458,50 +469,50 @@ public class QueryUtil implements Reloadable
 
       SelectableReference selectable3 = subAllPathsQuery.getChildGeoEntity("child_id");
       selectables.add(selectable3);
-      
+
       String geoVQEntityAlias = attributeKey + "__" + selectedGeoEntityType;
       GeoEntityQuery geoEntityQuery2 = null;
-      if(layerKey != null && attributeKey.equals(layerKey)
-          && selectedGeoEntityType.equals(layerGeoEntityType))
+      if (layerKey != null && attributeKey.equals(layerKey) && selectedGeoEntityType.equals(layerGeoEntityType))
       {
         // save the aliases used for mapping the entity name and geo id columns
         joinData.entityNameAlias = entityNameAlias;
         joinData.geoIdAlias = geoIdAlias;
-        
+
         // If the thematic variable is either the entity name or geo id
         // then create a new selectable because those columns already have
-        // a custom name and cannot be renamed to QueryConstants.THEMATIC_DATA_COLUMN.
+        // a custom name and cannot be renamed to
+        // QueryConstants.THEMATIC_DATA_COLUMN.
         Selectable thematicSel = null;
-        if(thematicUserAlias != null && thematicUserAlias.length() > 0)
+        if (thematicUserAlias != null && thematicUserAlias.length() > 0)
         {
-          if(thematicUserAlias.equals(entityNameAlias))
+          if (thematicUserAlias.equals(entityNameAlias))
           {
             geoEntityQuery2 = new GeoEntityQuery(queryFactory);
-            
+
             joinData.geoThematicEntity = geoVQEntityAlias;
-            joinData.geoThematicAlias = entityNameAlias+"_"+QueryConstants.THEMATIC_DATA_COLUMN;
+            joinData.geoThematicAlias = entityNameAlias + "_" + QueryConstants.THEMATIC_DATA_COLUMN;
             joinData.geoThematicAttr = GeoEntity.ENTITYNAME;
             thematicSel = geoEntityQuery2.getEntityName(joinData.geoThematicAlias);
             selectables.add(thematicSel);
           }
-          else if(thematicUserAlias.equals(geoIdAlias))
+          else if (thematicUserAlias.equals(geoIdAlias))
           {
             geoEntityQuery2 = new GeoEntityQuery(queryFactory);
-            
+
             joinData.geoThematicEntity = geoVQEntityAlias;
-            joinData.geoThematicAlias = geoIdAlias+"_"+QueryConstants.THEMATIC_DATA_COLUMN;
+            joinData.geoThematicAlias = geoIdAlias + "_" + QueryConstants.THEMATIC_DATA_COLUMN;
             joinData.geoThematicAttr = GeoEntity.GEOID;
             thematicSel = geoEntityQuery2.getGeoId(joinData.geoThematicAlias);
             selectables.add(thematicSel);
           }
         }
-        
+
         Selectable geometrySel = geoEntityQuery.aAttribute(geoAttr);
         selectables.add(geometrySel);
       }
-      
+
       geoEntityVQ.SELECT(selectables.toArray(new Selectable[selectables.size()]));
-      
+
       List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
       Condition[] geoConditions = new Condition[allClasses.size()];
       for (int i = 0; i < allClasses.size(); i++)
@@ -512,11 +523,11 @@ public class QueryUtil implements Reloadable
       geoEntityVQ.WHERE(OR.get(geoConditions));
       geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
 
-      if(geoEntityQuery2 != null)
+      if (geoEntityQuery2 != null)
       {
         geoEntityVQ.AND(geoEntityQuery.getId().EQ(geoEntityQuery2.getId()));
       }
-      
+
       leftJoinValueQueries.add(geoEntityVQ);
 
       valueQueryParser.setValueQuery(geoVQEntityAlias, geoEntityVQ);
@@ -594,7 +605,7 @@ public class QueryUtil implements Reloadable
           valueQuery.AND(dateAttriute.LE(end));
         }
       }
-      
+
       // now we set the columns that show the restictions
       if (xml.indexOf(START_DATE_RANGE) > 0)
       {
@@ -615,7 +626,6 @@ public class QueryUtil implements Reloadable
         }
       }
 
-      
       return setQueryDates(xml, valueQuery, attributeName);
     }
     catch (JSONException e)
@@ -637,7 +647,7 @@ public class QueryUtil implements Reloadable
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_SEASON);
       String table = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
-      dateGroup.setSQL("SELECT " + MalariaSeason.SEASONNAME + " FROM " + table + " AS ms " + " WHERE ms." + MalariaSeason.STARTDATE + " < " + da + " AND ms." + MalariaSeason.ENDDATE + " > " + da);
+      dateGroup.setSQL("SELECT " + MalariaSeason.SEASONNAME + " FROM " + table + " AS ms " + " WHERE ms." + MalariaSeason.STARTDATE + " <= " + da + " AND ms." + MalariaSeason.ENDDATE + " >= " + da);
     }
 
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
@@ -678,23 +688,23 @@ public class QueryUtil implements Reloadable
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_SEASON);
 
       String table = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
-      dateGroup.setSQL("SELECT " + MalariaSeason.SEASONNAME + " FROM " + table + " AS ms" + " WHERE ms." + MalariaSeason.STARTDATE + " < " + sd + " AND ms." + MalariaSeason.ENDDATE + " > " + ed);
+      dateGroup.setSQL("SELECT " + MalariaSeason.SEASONNAME + " FROM " + table + " AS ms" + " WHERE ms." + MalariaSeason.STARTDATE + " <= " + sd + " AND ms." + MalariaSeason.ENDDATE + " >= " + ed);
     }
 
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_EPIWEEK);
 
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")" + "THEN to_char(" + sd + ",'IW')" + "ELSE to_char(" + ed
-          + ",'IW') END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")"
+          + "THEN to_char(" + sd + ",'IW')" + "ELSE to_char(" + ed + ",'IW') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
     if (xml.indexOf(DATEGROUP_MONTH) > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_MONTH);
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DAY FROM " + sd + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")" + "THEN to_char(" + sd + ",'MM')" + "ELSE to_char(" + ed
-          + ",'MM') END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DAY FROM " + sd + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")"
+          + "THEN to_char(" + sd + ",'MM')" + "ELSE to_char(" + ed + ",'MM') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
@@ -702,19 +712,19 @@ public class QueryUtil implements Reloadable
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_QUARTER);
 
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('quarter'," + ed
-          + ")))" + "THEN to_char(" + sd + ",'Q')" + "ELSE to_char(" + ed + ",'Q') END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + " >  (extract(DOY FROM " + ed
+          + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + "THEN to_char(" + sd + ",'Q')" + "ELSE to_char(" + ed + ",'Q') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
     if (xml.indexOf(DATEGROUP_YEAR) > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_YEAR);
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('year'," + ed + ")))"
-          + "THEN to_char(" + sd + ",'YYYY')" + "ELSE to_char(" + ed + ",'YYYY') END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed
+          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + "THEN to_char(" + sd + ",'YYYY')" + "ELSE to_char(" + ed + ",'YYYY') END";
       dateGroup.setSQL(dateGroupSql);
     }
-    
+
     String sql = valueQuery.getSQL();
 
     return setQueryDates(xml, valueQuery);
@@ -778,20 +788,21 @@ public class QueryUtil implements Reloadable
    * Class to help with the structure of the join criteria for GeoEntity data
    * and mapping.
    */
-  private static class GeoEntityJoinData implements Reloadable{
-    
-    private String entityNameAlias;
-    
-    private String geoIdAlias;
-    
-    private String geoThematicAlias;
-    
-    private String geoThematicAttr;
-    
-    private String geoThematicEntity;
-    
+  private static class GeoEntityJoinData implements Reloadable
+  {
+
+    private String                        entityNameAlias;
+
+    private String                        geoIdAlias;
+
+    private String                        geoThematicAlias;
+
+    private String                        geoThematicAttr;
+
+    private String                        geoThematicEntity;
+
     private Map<String, List<ValueQuery>> attributeKeysAndJoins;
-    
+
     private GeoEntityJoinData()
     {
       entityNameAlias = null;
