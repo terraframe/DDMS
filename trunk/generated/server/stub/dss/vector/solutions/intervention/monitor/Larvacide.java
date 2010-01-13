@@ -31,6 +31,17 @@ public class Larvacide extends LarvacideBase implements com.terraframe.mojo.gene
   }
 
   @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    
+    return this.getClassDisplayLabel();
+  }
+
+  @Override
   public LarvacideInstanceView[] getInstanceViews()
   {
     List<? extends LarvacideInstance> instances = this.getAllInstances().getAll();
@@ -84,10 +95,11 @@ public class Larvacide extends LarvacideBase implements com.terraframe.mojo.gene
       valueQuery.WHERE(larvacideAssQuery.childId().EQ(larvacideInstanceQuery.getId()));
       if (personQuery != null)
       {
-        Pattern pattern = Pattern.compile("("+Person.FIRSTNAME+"|"+Person.LASTNAME+")[a-zA-z_]+Criteria");
+        Pattern pattern = Pattern.compile("(" + Person.FIRSTNAME + "|" + Person.LASTNAME + ")[a-zA-z_]+Criteria");
         Matcher matcher = pattern.matcher(config);
-        // if there is no restriction on person, we left join, otherwise we inner join
-        if (! matcher.find())
+        // if there is no restriction on person, we left join, otherwise we
+        // inner join
+        if (!matcher.find())
         {
           valueQuery.WHERE(larvacideQuery.getTeamLeader(Larvacide.TEAMLEADER).LEFT_JOIN_EQ((SelectableSingle) personQuery.getSprayLeaderDelegate(Person.SPRAYLEADERDELEGATE)));
         }

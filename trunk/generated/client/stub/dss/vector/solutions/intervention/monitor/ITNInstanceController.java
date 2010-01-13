@@ -64,7 +64,7 @@ public class ITNInstanceController extends ITNInstanceControllerBase implements 
   {
     this.setupReferences(dto);
     req.setAttribute("item", dto);
-    
+
     render("createComponent.jsp");
   }
 
@@ -95,18 +95,33 @@ public class ITNInstanceController extends ITNInstanceControllerBase implements 
   {
     this.setupReferences(dto);
     req.setAttribute("item", dto);
-    
+
     render("editComponent.jsp");
   }
 
   public void edit(String id) throws IOException, ServletException
   {
-    ITNInstanceViewDTO dto = ITNInstanceDTO.lockView(super.getClientRequest(), id);
+    try
+    {
+      ITNInstanceViewDTO dto = ITNInstanceDTO.lockView(super.getClientRequest(), id);
 
-    this.setupReferences(dto);    
-    req.setAttribute("item", dto);
-    
-    render("editComponent.jsp");
+      this.setupReferences(dto);
+      req.setAttribute("item", dto);
+
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -116,19 +131,37 @@ public class ITNInstanceController extends ITNInstanceControllerBase implements 
 
   public void newInstance(String householdId) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    
-    ITNInstanceViewDTO dto = new ITNInstanceViewDTO(clientRequest);
-    dto.setValue(ITNInstanceViewDTO.HOUSEHOLD, householdId);
-    
-    this.setupReferences(dto);
-    req.setAttribute("item", dto);
-    render("createComponent.jsp");
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      
+      //Ensure the user has permissions to create a ITN Instance
+      new ITNInstanceDTO(clientRequest);
+
+      ITNInstanceViewDTO dto = new ITNInstanceViewDTO(clientRequest);
+      dto.setValue(ITNInstanceViewDTO.HOUSEHOLD, householdId);
+
+      this.setupReferences(dto);
+      req.setAttribute("item", dto);
+      render("createComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failNewInstance(householdId);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failNewInstance(householdId);
+    }
   }
 
   public void failNewInstance(String householdId) throws IOException, ServletException
   {
-    this.viewAll();
+    new HouseholdController(req, resp, isAsynchronous).view(householdId);
   }
 
   public void update(ITNInstanceViewDTO dto) throws IOException, ServletException
@@ -152,14 +185,14 @@ public class ITNInstanceController extends ITNInstanceControllerBase implements 
 
   public void failUpdate(ITNInstanceViewDTO dto) throws IOException, ServletException
   {
-    this.setupReferences(dto);    
+    this.setupReferences(dto);
     req.setAttribute("item", dto);
 
     render("editComponent.jsp");
   }
 
   public void view(String id) throws IOException, ServletException
-  {    
+  {
     view(ITNInstanceDTO.getView(super.getClientRequest(), id));
   }
 
@@ -208,7 +241,7 @@ public class ITNInstanceController extends ITNInstanceControllerBase implements 
   private void setupReferences(ITNInstanceViewDTO dto)
   {
     ClientRequestIF request = super.getClientSession().getRequest();
-    
+
     List<MonthOfYearMasterDTO> months = MonthOfYearDTO.allItems(request);
     Collections.sort(months, new MonthComparator());
 

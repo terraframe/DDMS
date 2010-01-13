@@ -1,5 +1,7 @@
 package dss.vector.solutions.intervention.monitor;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
@@ -29,6 +31,23 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
   public IndividualIPT()
   {
     super();
+  }  
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: "+ this.getClassDisplayLabel();
+    }
+    else if (this.getServiceDate() != null && this.getFacility() != null)
+    {      
+      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT, Session.getCurrentLocale());
+
+      return this.getClassDisplayLabel() + ": (" + this.getFacility().getLabel() + ", " + format.format(this.getServiceDate()) + ")";
+    }
+    
+    return this.buildKey();
   }
 
   @Override

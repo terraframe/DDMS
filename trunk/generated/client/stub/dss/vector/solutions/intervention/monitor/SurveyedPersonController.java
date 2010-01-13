@@ -60,7 +60,7 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
   }
 
   public void failCreate(SurveyedPersonViewDTO dto, TermDTO[] locations, TermDTO[] treatments) throws IOException, ServletException
-  {    
+  {
     this.setupReference(dto, locations, treatments);
     req.setAttribute("item", dto);
     render("createComponent.jsp");
@@ -93,17 +93,32 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
   {
     this.setupReference(dto);
     req.setAttribute("item", dto);
-    
+
     render("editComponent.jsp");
   }
 
   public void edit(String id) throws IOException, ServletException
   {
-    SurveyedPersonViewDTO dto = SurveyedPersonDTO.lockView(super.getClientRequest(), id);
+    try
+    {
+      SurveyedPersonViewDTO dto = SurveyedPersonDTO.lockView(super.getClientRequest(), id);
 
-    this.setupReference(dto);
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+      this.setupReference(dto);
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -113,20 +128,38 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
 
   public void newInstance(String householdId) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
 
-    SurveyedPersonViewDTO dto = new SurveyedPersonViewDTO(clientRequest);
-    dto.setValue(SurveyedPersonViewDTO.HOUSEHOLD, householdId);
+      // Ensure the user has permissions to create a SurveyedPerson
+      new SurveyedPersonDTO(clientRequest);
 
-    this.setupReference(dto);    
-    req.setAttribute("item", dto);
-    
-    render("createComponent.jsp");
+      SurveyedPersonViewDTO dto = new SurveyedPersonViewDTO(clientRequest);
+      dto.setValue(SurveyedPersonViewDTO.HOUSEHOLD, householdId);
+
+      this.setupReference(dto);
+      req.setAttribute("item", dto);
+
+      render("createComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failNewInstance(householdId);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failNewInstance(householdId);
+    }
   }
 
   public void failNewInstance(String householdId) throws IOException, ServletException
   {
-    this.viewAll();
+    new HouseholdController(req, resp, isAsynchronous).view(householdId);
   }
 
   public void update(SurveyedPersonViewDTO dto, TermDTO[] locations, TermDTO[] treatments) throws IOException, ServletException
@@ -152,7 +185,7 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
   {
     this.setupReference(dto, locations, treatments);
     req.setAttribute("item", dto);
-    
+
     render("editComponent.jsp");
   }
 
@@ -168,16 +201,16 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     this.setupReference(dto);
-    
+
     String netId = dto.getValue(SurveyedPersonViewDTO.SLEPTUNDERNET);
-    
-    if(netId != null && !netId.equals(""))
+
+    if (netId != null && !netId.equals(""))
     {
       ITNInstanceViewDTO net = ITNInstanceDTO.getView(this.getClientRequest(), netId);
 
       req.setAttribute("net", net);
     }
-    
+
     req.setAttribute("item", dto);
 
     render("viewComponent.jsp");
@@ -206,7 +239,7 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
     ClientRequestIF clientRequest = super.getClientRequest();
     SurveyedPersonQueryDTO query = SurveyedPersonDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    
+
     render("viewAllComponent.jsp");
   }
 
@@ -214,21 +247,21 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
   {
     resp.sendError(500);
   }
-  
+
   private void setupReference(SurveyedPersonViewDTO dto)
   {
     this.setupReference(dto, dto.getLocations(), dto.getTreatments());
   }
-  
+
   private void setupReference(SurveyedPersonViewDTO dto, TermDTO[] locations, TermDTO[] treatments)
   {
     ClientRequestIF request = super.getClientSession().getRequest();
-    
+
     String householdId = dto.getValue(SurveyedPersonViewDTO.HOUSEHOLD);
 
     HouseholdViewDTO household = HouseholdDTO.getView(request, householdId);
     ITNInstanceViewDTO[] itns = household.getItns();
-    
+
     req.setAttribute("locations", Arrays.asList(locations));
     req.setAttribute("treatments", Arrays.asList(treatments));
     req.setAttribute("sleptUnderNet", Arrays.asList(itns));

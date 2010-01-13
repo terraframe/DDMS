@@ -10,6 +10,17 @@ public class LarvacideInstance extends LarvacideInstanceBase implements com.terr
   }
   
   @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    
+    return this.getClassDisplayLabel();
+  }
+  
+  @Override
   public LarvacideInstanceView getView()
   {
     LarvacideInstanceView view = new LarvacideInstanceView();

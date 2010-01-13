@@ -34,6 +34,17 @@ public class StockItem extends StockItemBase implements com.terraframe.mojo.gene
   {
     super();
   }
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    
+    return this.getClassDisplayLabel() + ": " + this.getItemId();
+  }  
 
   @Override
   protected String buildKey()

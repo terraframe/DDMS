@@ -16,6 +16,7 @@ import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -29,6 +30,23 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
   public SurveyPoint()
   {
     super();
+  }
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }    
+    else if (this.getGeoEntity() != null && this.getSurveyDate() != null)
+    {
+      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT, Session.getCurrentLocale());
+
+      return this.getClassDisplayLabel() + ": (" + this.getGeoEntity().getLabel() + ", " + format.format(this.getSurveyDate()) + ")";
+    }
+    
+    return super.toString();
   }
 
   @Override

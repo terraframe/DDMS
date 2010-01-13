@@ -24,6 +24,21 @@ public class ITNInstance extends ITNInstanceBase implements com.terraframe.mojo.
   }
 
   @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }    
+    else if (this.getNetId() != null)
+    {
+      return this.getClassDisplayLabel() + ": " + this.getNetId();
+    }
+    
+    return super.toString();
+  }
+  
+  @Override
   protected String buildKey()
   {
     if (this.getNetId() != null)

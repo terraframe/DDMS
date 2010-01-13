@@ -674,7 +674,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     String universal = this.getTypeDisplayLabel();
     String geoEntityName = this.getEntityName();
 
-    return geoEntityName + " (" + universal + ")";
+    return geoEntityName + " (" + universal + ") - " + this.getGeoId();
   }
 
   /**

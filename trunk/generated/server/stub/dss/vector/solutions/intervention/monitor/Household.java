@@ -17,6 +17,21 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
   {
     super();
   }
+    
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }    
+    else if (this.getHouseholdName() != null)
+    {
+      return this.getClassDisplayLabel() + ": " + this.getHouseholdName();
+    }
+    
+    return super.toString();
+  }
 
   @Override
   protected String buildKey()

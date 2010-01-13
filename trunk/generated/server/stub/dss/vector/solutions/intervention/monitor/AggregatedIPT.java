@@ -14,6 +14,7 @@ import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.EpiDate;
@@ -38,6 +39,17 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.m
     {
       return "New: "+ this.getClassDisplayLabel();
     }
+    else if (this.getGeoEntity() != null && this.getStartDate() != null && this.getEndDate() != null)
+    {
+      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT, Session.getCurrentLocale());
+
+      String entityLabel = this.getGeoEntity().getLabel();
+      String startLabel = format.format(this.getStartDate());
+      String endLabel = format.format(this.getEndDate());
+      
+      return this.getClassDisplayLabel() + ": (" + entityLabel + ", " + startLabel + " - " + endLabel +")";
+    }
+
     
     return this.buildKey();
   }

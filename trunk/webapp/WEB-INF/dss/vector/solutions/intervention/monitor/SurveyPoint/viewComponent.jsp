@@ -14,7 +14,7 @@
       </label>
     </dt>
     <dd>
-      ${item.geoId}
+      ${entity.displayString}
     </dd>
     <dt>
       <label> ${item.surveyDateMd.displayLabel} </label>

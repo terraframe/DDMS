@@ -14,6 +14,7 @@ import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.query.Layer;
@@ -27,6 +28,28 @@ public class ITNDistribution extends ITNDistributionBase implements com.terrafra
   {
     super();
   }
+    
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: "+ this.getClassDisplayLabel();
+    }
+    else if(this.getDistributionDate() != null && this.getFacility() != null && this.getRecipient() != null)
+    {
+      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT, Session.getCurrentLocale());
+      Person person = this.getRecipient().getPerson();
+      
+      String entityLabel = this.getFacility().getLabel();
+      String dateLabel = format.format(this.getDistributionDate());
+      String personLabel = person.getFirstName() + " " + person.getLastName();
+      
+      return this.getClassDisplayLabel() + ": (" + entityLabel + ", " + dateLabel + ", " + personLabel + ")";
+    }
+    
+    return super.toString();
+  }  
   
   public static ITNDistributionView getView(String id)
   {

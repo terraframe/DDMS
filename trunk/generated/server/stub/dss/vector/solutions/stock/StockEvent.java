@@ -16,6 +16,17 @@ public class StockEvent extends StockEventBase implements com.terraframe.mojo.ge
   {
     super();
   }
+    
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    
+    return this.getClassDisplayLabel();
+  }  
 
   @Override
   protected String buildKey()

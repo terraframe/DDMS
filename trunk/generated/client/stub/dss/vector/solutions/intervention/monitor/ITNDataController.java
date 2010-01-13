@@ -48,6 +48,12 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     utility.put("id", dto.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
+    String geoId = dto.getGeoId();
+    if (geoId != null && !geoId.equals(""))
+    {
+      req.setAttribute("entity", GeoEntityDTO.searchByGeoId(this.getClientRequest(), geoId));
+    }
+
     this.prepareRelationships(dto);
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
@@ -100,8 +106,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     render("editComponent.jsp");
   }
 
-  public void create(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups,
-      ITNServiceDTO[] services) throws IOException, ServletException
+  public void create(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups, ITNServiceDTO[] services) throws IOException, ServletException
   {
     try
     {
@@ -122,8 +127,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     }
   }
 
-  public void failCreate(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups,
-      ITNServiceDTO[] services) throws IOException, ServletException
+  public void failCreate(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups, ITNServiceDTO[] services) throws IOException, ServletException
   {
     this.prepareRelationships(services, targetGroups, nets);
 
@@ -131,8 +135,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     render("createComponent.jsp");
   }
 
-  public void update(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups,
-      ITNServiceDTO[] services) throws IOException, ServletException
+  public void update(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups, ITNServiceDTO[] services) throws IOException, ServletException
   {
     try
     {
@@ -153,8 +156,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     }
   }
 
-  public void failUpdate(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups,
-      ITNServiceDTO[] services) throws IOException, ServletException
+  public void failUpdate(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups, ITNServiceDTO[] services) throws IOException, ServletException
   {
     this.prepareRelationships(services, targetGroups, nets);
 
@@ -220,8 +222,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     this.view(id);
   }
 
-  public void searchByGeoIdAndPeriod(String geoId, String periodType, Integer period, Integer year)
-      throws IOException, ServletException
+  public void searchByGeoIdAndPeriod(String geoId, String periodType, Integer period, Integer year) throws IOException, ServletException
   {
     try
     {
@@ -229,22 +230,24 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
       validateParameters(geoId, periodType, period, year);
 
       PeriodTypeDTO type = PeriodTypeDTO.valueOf(periodType);
-      GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(this.getClientRequest(), geoId);
+      GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(request, geoId);
 
-      ITNDataViewDTO dto = ITNDataDTO
-          .searchByGeoEntityAndEpiDate(request, geoEntity, type, period, year);
-
-      String jsp = "createComponent.jsp";
+      ITNDataViewDTO dto = ITNDataDTO.searchByGeoEntityAndEpiDate(request, geoEntity, type, period, year);
 
       if (dto.hasConcreteId())
       {
-        jsp = "viewComponent.jsp";
+        this.view(dto);
       }
-
-      // Load all of the corresponding grid values
-      this.prepareRelationships(dto);
-      req.setAttribute("item", dto);
-      render(jsp);
+      else
+      {
+        // Ensure the user has the ability to create new Aggregated ITN data
+        new ITNDataDTO(request);
+        
+        // Load all of the corresponding grid values
+        this.prepareRelationships(dto);
+        req.setAttribute("item", dto);
+        render("createComponent.jsp");        
+      }
     }
     catch (ProblemExceptionDTO e)
     {
@@ -266,8 +269,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     }
   }
 
-  public void failSearchByGeoIdAndPeriod(String geoId, String periodType, String period, String year)
-      throws IOException, ServletException
+  public void failSearchByGeoIdAndPeriod(String geoId, String periodType, String period, String year) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
     List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
@@ -286,8 +288,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     prepareRelationships(dto.getITNServices(), dto.getITNTargetGroups(), dto.getITNNets());
   }
 
-  private void prepareRelationships(ITNServiceDTO[] services, ITNTargetGroupDTO[] targetGroups,
-      ITNNetDTO[] nets)
+  private void prepareRelationships(ITNServiceDTO[] services, ITNTargetGroupDTO[] targetGroups, ITNNetDTO[] nets)
   {
     req.setAttribute("services", Arrays.asList(services));
     req.setAttribute("targetGroups", Arrays.asList(targetGroups));

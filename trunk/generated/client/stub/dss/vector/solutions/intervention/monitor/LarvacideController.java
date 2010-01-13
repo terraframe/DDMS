@@ -68,11 +68,24 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
 
   public void newInstance() throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    LarvacideDTO dto = new LarvacideDTO(clientRequest);
-    req.setAttribute("teamLeader", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    render("createComponent.jsp");
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      LarvacideDTO dto = new LarvacideDTO(clientRequest);
+      req.setAttribute("teamLeader", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+      req.setAttribute("item", dto);
+      render("createComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failNewInstance();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failNewInstance();
+    }
   }
 
   public void failNewInstance() throws IOException, ServletException
@@ -91,7 +104,7 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
 
     LarvacideInstanceViewDTO view = new LarvacideInstanceViewDTO(clientRequest);
     view.setValue(LarvacideInstanceViewDTO.CONTROLID, dto.getId());
-    
+
     req.setAttribute("rows", dto.getInstanceViews());
     req.setAttribute("view", view);
     req.setAttribute("item", dto);
@@ -129,10 +142,23 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
 
   public void edit(String id) throws IOException, ServletException
   {
-    LarvacideDTO dto = LarvacideDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("teamLeader", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    try
+    {
+      LarvacideDTO dto = LarvacideDTO.lock(super.getClientRequest(), id);
+      req.setAttribute("teamLeader", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failEdit(id);
+    }
   }
 
   public void failEdit(String id) throws IOException, ServletException

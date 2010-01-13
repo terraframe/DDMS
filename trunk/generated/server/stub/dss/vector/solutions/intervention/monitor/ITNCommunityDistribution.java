@@ -30,6 +30,17 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
   }
 
   @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+
+    return this.getClassDisplayLabel();
+  }
+
+  @Override
   protected String buildKey()
   {
     // ITN Community Distribution class has no attributes that can form a unique
@@ -139,15 +150,15 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
 
       p.throwIt();
     }
-    
-    if(this.getEntryType() != null && this.getEntryType() && this.getHouseholdAddress() == null)
+
+    if (this.getEntryType() != null && this.getEntryType() && this.getHouseholdAddress() == null)
     {
       String msg = "Household address must have a value when the entry type is by household";
-      
+
       RequiredAttributeProblem p = new RequiredAttributeProblem(msg);
       p.setNotification(this, HOUSEHOLDADDRESS);
       p.apply();
-      
+
       p.throwIt();
     }
   }
@@ -165,7 +176,7 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
       NotApplicableProblem p = new NotApplicableProblem(msg);
       p.setNotification(this, HOUSEHOLDNAME);
       p.setInputAttribute(getEntryTypeMd().getDisplayLabel(locale));
-      p.setInputValue(( (MdAttributeBooleanDAOIF) getEntryTypeMd() ).getNegativeDisplayLabel(locale));
+      p.setInputValue( ( (MdAttributeBooleanDAOIF) getEntryTypeMd() ).getNegativeDisplayLabel(locale));
       p.apply();
 
       p.throwIt();
@@ -176,7 +187,7 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
   public void validateHouseholdSurname()
   {
     String value = this.getHouseholdSurname();
-    
+
     if (this.getEntryType() != null && value != null && !value.equals("") && !this.getEntryType())
     {
       String msg = "Household head surname is not applicable when the entry type is Distribution Location";
@@ -226,18 +237,18 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
 
       p.throwIt();
     }
-    
-    if(this.getEntryType() != null && !this.getEntryType() && this.getDistributionLocation() == null)
+
+    if (this.getEntryType() != null && !this.getEntryType() && this.getDistributionLocation() == null)
     {
       String msg = "Distribution Location must have a value when the entry type is by distribution location";
-      
+
       RequiredAttributeProblem p = new RequiredAttributeProblem(msg);
       p.setNotification(this, DISTRIBUTIONLOCATION);
       p.apply();
-      
+
       p.throwIt();
     }
-    
+
   }
 
   @Override
@@ -289,7 +300,7 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
   @Override
   public void validateCurrencyReceived()
   {
-    if (this.getCurrencyReceived() != null && ( this.getSold() == null || !this.getSold()))
+    if (this.getCurrencyReceived() != null && ( this.getSold() == null || !this.getSold() ))
     {
       String msg = "Currency received cannot be set when the ITN's sold is false.";
       CurrencyAmountProblem p = new CurrencyAmountProblem(msg);
@@ -303,7 +314,7 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
   @Override
   public void validateNumberRetrieved()
   {
-    if (this.getNumberRetrieved() != null && ( this.getRetrieved() == null || !this.getRetrieved()))
+    if (this.getNumberRetrieved() != null && ( this.getRetrieved() == null || !this.getRetrieved() ))
     {
       String msg = "Number of nets retrieved is not applicable when the nets retrieved is no.";
       MdAttributeBooleanDAOIF retrievedMd = (MdAttributeBooleanDAOIF) getRetrievedMd();
@@ -318,12 +329,11 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
       p.throwIt();
     }
   }
-  
 
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
-   *
+   * 
    * @param xml
    * @return
    */
@@ -338,34 +348,29 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
     {
       throw new ProgrammingErrorException(e1);
     }
-    
+
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);   
-   
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
+
     ITNCommunityDistributionQuery itnQuery = (ITNCommunityDistributionQuery) queryMap.get(ITNCommunityDistribution.CLASS);
 
-    QueryUtil.getSingleAttribteGridSql(valueQuery,itnQuery.getTableAlias());
-    
-    QueryUtil.joinGeoDisplayLabels(valueQuery,ITNCommunityDistribution.CLASS,itnQuery);
-    
+    QueryUtil.getSingleAttribteGridSql(valueQuery, itnQuery.getTableAlias());
+
+    QueryUtil.joinGeoDisplayLabels(valueQuery, ITNCommunityDistribution.CLASS, itnQuery);
+
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
-    
+
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
-   
     String sd = itnQuery.getStartDate().getQualifiedName();
     String ed = itnQuery.getEndDate().getQualifiedName();
 
     return QueryUtil.setQueryDates(xml, valueQuery, sd, ed);
 
   }
-  
-
-
-
 
 }

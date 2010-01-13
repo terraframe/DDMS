@@ -16,7 +16,7 @@
       ${item.lastName}
     </mjl:dt>
     <mjl:dt attribute="residentialGeoId">
-      ${item.residentialGeoId}
+      ${residential.displayString}
     </mjl:dt>
     <mjl:dt attribute="sex">
       <c:if test="${sex != null}">

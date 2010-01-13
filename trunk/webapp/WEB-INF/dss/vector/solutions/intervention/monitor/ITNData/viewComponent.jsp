@@ -12,7 +12,7 @@
     <mjl:input value="${item.concreteId}" type="hidden" param="id" />
     <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="geoId">
-        ${item.geoId}
+        ${entity.displayString}
       </mjl:dt>
       <mjl:dt attribute="periodType">
         <ul>

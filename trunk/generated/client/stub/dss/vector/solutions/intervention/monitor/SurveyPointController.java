@@ -10,11 +10,11 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class SurveyPointController extends SurveyPointControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class SurveyPointController extends SurveyPointControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/intervention/monitor/SurveyPoint/";
 
@@ -22,8 +22,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements
 
   private static final long  serialVersionUID = 1239641276396L;
 
-  public SurveyPointController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public SurveyPointController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
@@ -49,8 +48,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements
     }
   }
 
-  public void failUpdate(SurveyPointViewDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failUpdate(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     EarthDTO earth = EarthDTO.getEarthInstance(super.getClientSession().getRequest());
 
@@ -95,8 +93,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements
     }
   }
 
-  public void failCreate(SurveyPointViewDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failCreate(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     EarthDTO earth = EarthDTO.getEarthInstance(super.getClientSession().getRequest());
 
@@ -108,11 +105,30 @@ public class SurveyPointController extends SurveyPointControllerBase implements
 
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    SurveyPointViewDTO dto = new SurveyPointViewDTO(clientRequest);
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      
+      //Ensure the user has permissions to create a survey point
+      new SurveyPointDTO(clientRequest);
+      
+      SurveyPointViewDTO dto = new SurveyPointViewDTO(clientRequest);
 
-    req.setAttribute("item", dto);
-    render("createComponent.jsp");
+      req.setAttribute("item", dto);
+      render("createComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failNewInstance();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failNewInstance();
+    }
   }
 
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -130,6 +146,13 @@ public class SurveyPointController extends SurveyPointControllerBase implements
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", survey.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
+    
+    String geoId = survey.getGeoId();
+
+    if(geoId != null && !geoId.equals(""))
+    {
+      req.setAttribute("entity", GeoEntityDTO.searchByGeoId(this.getClientRequest(), geoId));
+    }
 
     req.setAttribute("item", survey);
     req.setAttribute("households", Arrays.asList(survey.getHouseholdViews()));
@@ -172,8 +195,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements
     }
   }
 
-  public void failDelete(SurveyPointViewDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failDelete(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     EarthDTO earth = EarthDTO.getEarthInstance(super.getClientSession().getRequest());
 
@@ -182,20 +204,15 @@ public class SurveyPointController extends SurveyPointControllerBase implements
     render("editComponent.jsp");
   }
 
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending,
-      java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    SurveyPointQueryDTO query = SurveyPointDTO.getAllInstances(clientRequest, sortAttribute,
-        isAscending, pageSize, pageNumber);
+    SurveyPointQueryDTO query = SurveyPointDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending,
-      java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }

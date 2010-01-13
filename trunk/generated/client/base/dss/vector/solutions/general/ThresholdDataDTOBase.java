@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1591147556)
+@com.terraframe.mojo.business.ClassSignature(hash = 1349682100)
 public abstract class ThresholdDataDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdData";
-  private static final long serialVersionUID = 1591147556;
+  private static final long serialVersionUID = 1349682100;
   
   protected ThresholdDataDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -448,6 +448,14 @@ public abstract class ThresholdDataDTOBase extends com.terraframe.mojo.business.
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public static final void checkFacilityThresholdViolation(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Date date, dss.vector.solutions.geo.generated.GeoEntityDTO entity, java.lang.Long count)
+  {
+    String[] _declaredTypes = new String[]{"java.util.Date", "dss.vector.solutions.geo.generated.GeoEntity", "java.lang.Long"};
+    Object[] _parameters = new Object[]{date, entity, count};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.ThresholdDataDTO.CLASS, "checkFacilityThresholdViolation", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final void checkThresholdViolation(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Date date, dss.vector.solutions.geo.generated.GeoEntityDTO entity, java.lang.Long count)

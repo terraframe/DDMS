@@ -81,7 +81,7 @@ public class ITNCommunityDistributionController extends ITNCommunityDistribution
 
     this.prepareRelationships(dto);
     this.getGeoEntities(dto);
-        
+
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }
@@ -89,13 +89,13 @@ public class ITNCommunityDistributionController extends ITNCommunityDistribution
   private void getGeoEntities(ITNCommunityDistributionViewDTO dto)
   {
     ClientRequestIF request = super.getClientSession().getRequest();
-    
-    if(dto.getDistributionLocation() != null && !dto.getDistributionLocation().equals(""))
+
+    if (dto.getDistributionLocation() != null && !dto.getDistributionLocation().equals(""))
     {
       req.setAttribute("distributionLocation", GeoEntityDTO.searchByGeoId(request, dto.getDistributionLocation()));
     }
 
-    if(dto.getHouseholdAddress() != null && !dto.getHouseholdAddress().equals(""))
+    if (dto.getHouseholdAddress() != null && !dto.getHouseholdAddress().equals(""))
     {
       req.setAttribute("householdAddress", GeoEntityDTO.searchByGeoId(request, dto.getHouseholdAddress()));
     }
@@ -108,12 +108,30 @@ public class ITNCommunityDistributionController extends ITNCommunityDistribution
 
   public void newInstance() throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    ITNCommunityDistributionViewDTO dto = new ITNCommunityDistributionViewDTO(clientRequest);
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
 
-    this.prepareRelationships(dto);
-    req.setAttribute("item", dto);
-    render("createComponent.jsp");
+      // Ensure the user has permissions to create a new ITN Community
+      // Distribution
+      new ITNCommunityDistributionDTO(clientRequest);
+
+      ITNCommunityDistributionViewDTO dto = new ITNCommunityDistributionViewDTO(clientRequest);
+
+      this.prepareRelationships(dto);
+      req.setAttribute("item", dto);
+      render("createComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failNewInstance();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failNewInstance();
+    }
   }
 
   public void failNewInstance() throws IOException, ServletException
@@ -151,11 +169,25 @@ public class ITNCommunityDistributionController extends ITNCommunityDistribution
 
   public void edit(String id) throws IOException, ServletException
   {
-    ITNCommunityDistributionViewDTO dto = ITNCommunityDistributionDTO.lockView(super.getClientRequest(), id);
+    try
+    {
+      ITNCommunityDistributionViewDTO dto = ITNCommunityDistributionDTO.lockView(super.getClientRequest(), id);
 
-    this.prepareRelationships(dto);
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+      this.prepareRelationships(dto);
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException

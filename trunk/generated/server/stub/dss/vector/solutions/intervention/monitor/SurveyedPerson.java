@@ -19,6 +19,21 @@ public class SurveyedPerson extends SurveyedPersonBase implements com.terraframe
   {
     super();
   }
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }    
+    else if (this.getPersonId() != null)
+    {
+      return this.getClassDisplayLabel() + ": " + this.getPersonId();
+    }
+    
+    return super.toString();
+  }
 
   @Override
   protected String buildKey()

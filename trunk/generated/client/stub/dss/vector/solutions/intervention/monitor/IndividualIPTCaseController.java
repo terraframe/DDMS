@@ -105,33 +105,59 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   @Override
   public void newInstance(String patientId) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-
-    PersonViewDTO view = PersonDTO.getView(clientRequest, patientId);
-
-    IndividualIPTCaseViewDTO dto = new IndividualIPTCaseViewDTO(clientRequest);
-    dto.setValue(IndividualIPTCaseViewDTO.PATIENT, view.getPersonId());
-    dto.setResidentialLocation(view.getResidentialGeoId());
-
-    IndividualIPTViewDTO instance = new IndividualIPTViewDTO(clientRequest);
-
-    String serviceDate = req.getParameter("serviceDate");
-
-    if (serviceDate != null && !serviceDate.equals(""))
+    try
     {
-      instance.setServiceDate((Date) new DefaultConverter(Date.class).parse(serviceDate, req.getLocale()));
-    }
+      ClientRequestIF clientRequest = super.getClientRequest();
 
-    req.setAttribute("item", dto);
-    req.setAttribute("instance", instance);
-    req.setAttribute("person", view);
-    render("createComponent.jsp");
+      // Ensure the user has permissions to create a new Individual IPT Case
+      new IndividualIPTCaseDTO(clientRequest);
+
+      PersonViewDTO view = PersonDTO.getView(clientRequest, patientId);
+
+      IndividualIPTCaseViewDTO dto = new IndividualIPTCaseViewDTO(clientRequest);
+      dto.setValue(IndividualIPTCaseViewDTO.PATIENT, view.getPersonId());
+      dto.setResidentialLocation(view.getResidentialGeoId());
+
+      IndividualIPTViewDTO instance = new IndividualIPTViewDTO(clientRequest);
+
+      String serviceDate = req.getParameter("serviceDate");
+
+      if (serviceDate != null && !serviceDate.equals(""))
+      {
+        instance.setServiceDate((Date) new DefaultConverter(Date.class).parse(serviceDate, req.getLocale()));
+      }
+
+      req.setAttribute("item", dto);
+      req.setAttribute("instance", instance);
+      req.setAttribute("person", view);
+      render("createComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failNewInstance(patientId);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failNewInstance(patientId);
+    }
   }
 
   @Override
   public void failNewInstance(String patientId) throws IOException, ServletException
   {
-    this.search();
+    String serviceDate = req.getParameter("serviceDate");
+    Date date = null;
+
+    if (serviceDate != null && !serviceDate.equals(""))
+    {
+      date = (Date) new DefaultConverter(Date.class).parse(serviceDate, req.getLocale());
+    }
+
+    this.viewCasePage(null, null, null, null, date, patientId);
   }
 
   public void create(IndividualIPTCaseViewDTO dto) throws IOException, ServletException
@@ -165,13 +191,13 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      
+
       this.failCreateCaseAndInstance(dto, instance);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
-      
+
       this.failCreateCaseAndInstance(dto, instance);
     }
   }
@@ -186,7 +212,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     req.setAttribute("serviceDate", serviceDate);
     req.setAttribute("instance", instance);
     req.setAttribute("item", dto);
-    
+
     render("createComponent.jsp");
   }
 
@@ -198,15 +224,31 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
   public void edit(String id) throws IOException, ServletException
   {
-    IndividualIPTCaseViewDTO dto = IndividualIPTCaseDTO.lockView(super.getClientRequest(), id);
-    String serviceDate = req.getParameter("serviceDate");
+    try
+    {
+      IndividualIPTCaseViewDTO dto = IndividualIPTCaseDTO.lockView(super.getClientRequest(), id);
+      String serviceDate = req.getParameter("serviceDate");
 
-    PersonViewDTO person = dto.getPatientView();
+      PersonViewDTO person = dto.getPatientView();
 
-    req.setAttribute("person", person);
-    req.setAttribute("serviceDate", serviceDate);
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+      req.setAttribute("person", person);
+      req.setAttribute("serviceDate", serviceDate);
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException

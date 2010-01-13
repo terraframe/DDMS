@@ -85,6 +85,10 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
     try
     {
       ClientRequestIF request = super.getClientRequest();
+
+      // Ensure the user has the ability to create new Individual IPT instances
+      new IndividualIPTDTO(request);
+
       IndividualIPTCaseViewDTO view = IndividualIPTCaseDTO.getView(request, caseId);
 
       IndividualIPTViewDTO dto = new IndividualIPTViewDTO(request);
@@ -150,12 +154,26 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
 
   public void edit(String id) throws IOException, ServletException
   {
-    IndividualIPTViewDTO dto = IndividualIPTDTO.lockView(super.getClientRequest(), id);
+    try
+    {
+      IndividualIPTViewDTO dto = IndividualIPTDTO.lockView(super.getClientRequest(), id);
 
-    this.setupRequest(dto);
+      this.setupRequest(dto);
 
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -237,15 +255,15 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
 
     IndividualIPTCaseViewDTO c = IndividualIPTCaseDTO.getView(request, dto.getValue(IndividualIPTViewDTO.IPTCASE));
     PersonViewDTO person = c.getPatientView();
-    
+
     String residential = person.getResidentialGeoId();
-    
-    if(residential != null && !residential.equals(""))
+
+    if (residential != null && !residential.equals(""))
     {
       GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, residential);
       req.setAttribute("residential", entity);
     }
-    
+
     req.setAttribute("person", person);
     req.setAttribute("patientType", dto.getPatientType());
     req.setAttribute("doseNumber", dto.getDoseNumber());

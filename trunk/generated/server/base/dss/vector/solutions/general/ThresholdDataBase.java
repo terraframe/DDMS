@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2033567068)
+@com.terraframe.mojo.business.ClassSignature(hash = -1824947660)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class ThresholdDataBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -2033567068;
+  private static final long serialVersionUID = -1824947660;
   
   public ThresholdDataBase()
   {
@@ -428,6 +428,12 @@ public abstract class ThresholdDataBase extends com.terraframe.mojo.business.Bus
   public static ThresholdData getByKey(String key)
   {
     return (ThresholdData) com.terraframe.mojo.business.Business.get(CLASS, key);
+  }
+  
+  public static void checkFacilityThresholdViolation(java.util.Date date, dss.vector.solutions.geo.generated.GeoEntity entity, java.lang.Long count)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdData.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static void checkThresholdViolation(java.util.Date date, dss.vector.solutions.geo.generated.GeoEntity entity, java.lang.Long count)

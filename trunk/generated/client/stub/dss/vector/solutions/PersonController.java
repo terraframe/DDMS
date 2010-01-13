@@ -12,6 +12,7 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -199,6 +200,12 @@ public class PersonController extends PersonControllerBase implements Reloadable
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", view.getPersonId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
+    
+    String residentialGeoId = view.getResidentialGeoId();
+    if(residentialGeoId != null && !residentialGeoId.equals(""))
+    {
+      req.setAttribute("residential", GeoEntityDTO.searchByGeoId(this.getClientRequest(), residentialGeoId));
+    }
 
     req.setAttribute("sex", view.getSex());
     req.setAttribute("item", view);

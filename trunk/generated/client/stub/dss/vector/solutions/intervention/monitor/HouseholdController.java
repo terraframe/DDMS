@@ -27,7 +27,7 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   public void create(HouseholdViewDTO dto) throws IOException, ServletException
   {
     try
@@ -100,7 +100,7 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
     req.setAttribute("people", Arrays.asList(dto.getSurveyedPeople()));
     req.setAttribute("itns", Arrays.asList(dto.getItns()));
     req.setAttribute("item", dto);
-    
+
     render("viewComponent.jsp");
   }
 
@@ -113,7 +113,7 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
   {
     ClientRequestIF request = this.getClientRequest();
     HouseholdDTO.unlock(request, dto.getConcreteId());
-    
+
     this.view(dto.getConcreteId());
   }
 
@@ -137,12 +137,30 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
 
   public void newInstance(String surveyId) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
 
-    HouseholdViewDTO dto = new HouseholdViewDTO(clientRequest);
-    dto.setSurveyPoint(SurveyPointDTO.get(clientRequest, surveyId));
+      // Ensure the use has permissions to create a new Household
+      new HouseholdDTO(clientRequest);
+      
+      HouseholdViewDTO dto = new HouseholdViewDTO(clientRequest);
+      dto.setSurveyPoint(SurveyPointDTO.get(clientRequest, surveyId));
 
-    this.newInstance(dto);
+      this.newInstance(dto);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failNewInstance(surveyId);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failNewInstance(surveyId);
+    }
   }
 
   private void newInstance(HouseholdViewDTO dto) throws IOException, ServletException
@@ -156,7 +174,7 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
 
   public void failNewInstance(String surveyId) throws IOException, ServletException
   {
-    this.viewAll();
+    new SurveyPointController(req, resp, isAsynchronous).view(surveyId);
   }
 
   public void update(HouseholdViewDTO dto) throws IOException, ServletException
@@ -190,7 +208,7 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
     try
     {
       HouseholdViewDTO dto = HouseholdDTO.lockView(super.getClientRequest(), id);
-      
+
       this.edit(dto);
     }
     catch (ProblemExceptionDTO e)
@@ -212,7 +230,7 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
     this.setupRequest();
     this.setupReferences(dto);
     req.setAttribute("item", dto);
-    
+
     render("editComponent.jsp");
   }
 
@@ -235,12 +253,12 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
   {
     resp.sendError(500);
   }
-  
+
   private void setupRequest()
   {
     req.setAttribute("hasBeenSprayed", ResponseDTO.allItems(this.getClientSession().getRequest()));
   }
-  
+
   private void setupReferences(HouseholdViewDTO dto)
   {
     req.setAttribute("windowType", dto.getWindowType());

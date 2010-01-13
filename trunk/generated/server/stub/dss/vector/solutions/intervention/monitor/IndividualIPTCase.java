@@ -13,6 +13,24 @@ public class IndividualIPTCase extends IndividualIPTCaseBase implements com.terr
   }
   
   @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: "+ this.getClassDisplayLabel();
+    }
+    else if (this.getPatient() != null)
+    {      
+      Person person = this.getPatient().getPerson();
+      String label = person.getFirstName() + " " + person.getLastName();
+      
+      return this.getClassDisplayLabel() + ": (" + label + ")";
+    }
+    
+    return this.buildKey();
+  }
+  
+  @Override
   protected String buildKey()
   {
     return this.getId();

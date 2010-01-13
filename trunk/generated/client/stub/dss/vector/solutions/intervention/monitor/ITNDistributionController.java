@@ -48,12 +48,12 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
       this.setupReferences(dto);
 
       String facility = dto.getFacility();
-      if(facility != null && !facility.equals(""))
+      if (facility != null && !facility.equals(""))
       {
         GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(clientRequest, facility);
         req.setAttribute("facility", entity);
       }
-      
+
       req.setAttribute("targetGroups", Arrays.asList(dto.getDistributionTargetGroups()));
       req.setAttribute("item", dto);
 
@@ -151,7 +151,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     try
     {
       PersonWithDelegatesViewQueryDTO query = recipient.searchForDuplicates();
-      
+
       if (query.getCount() == 0)
       {
         renderConfirm(itn, recipient);
@@ -160,7 +160,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
       {
         // Method chaining here is ok because we know there's exactly 1 result
         PersonWithDelegatesViewDTO delegates = query.getResultSet().get(0);
-        
+
         renderConfirm(itn, PersonDTO.getView(this.getClientRequest(), delegates.getPersonId()));
       }
       else if (query.getCount() > 1)
@@ -188,40 +188,85 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     req.setAttribute("sex", recipient.getSex());
     render("confirmRecipient.jsp");
   }
-  
-  
+
   @Override
   public void newInstance(String person, String facility, String batchNumber, Date distributionDate) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      
+      // Ensure the user has permissions to create a new ITN Distribution
+      new ITNDistributionDTO(clientRequest);
 
-    ITNDistributionViewDTO view = new ITNDistributionViewDTO(clientRequest);
-    view.setValue(ITNDistributionViewDTO.PERSON, person);
-    view.setValue(ITNDistributionViewDTO.FACILITY, facility);
-    view.setBatchNumber(batchNumber);
-    view.setDistributionDate(distributionDate);
-    
-    ITNDistributionTargetGroupDTO[] groups = view.getDistributionTargetGroups();
+      ITNDistributionViewDTO view = new ITNDistributionViewDTO(clientRequest);
+      view.setValue(ITNDistributionViewDTO.PERSON, person);
+      view.setValue(ITNDistributionViewDTO.FACILITY, facility);
+      view.setBatchNumber(batchNumber);
+      view.setDistributionDate(distributionDate);
 
-    req.setAttribute("targetGroups", Arrays.asList(groups));
-    req.setAttribute("item", view);
-    render("createComponent.jsp");
+      ITNDistributionTargetGroupDTO[] groups = view.getDistributionTargetGroups();
+
+      req.setAttribute("targetGroups", Arrays.asList(groups));
+      req.setAttribute("item", view);
+      render("createComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      String failDistributionDate = ( distributionDate == null ) ? null : new DefaultConverter(Date.class).format(distributionDate, req.getLocale());
+
+      this.failNewInstance(person, facility, batchNumber, failDistributionDate);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      String failDistributionDate = ( distributionDate == null ) ? null : new DefaultConverter(Date.class).format(distributionDate, req.getLocale());
+
+      this.failNewInstance(person, facility, batchNumber, failDistributionDate);
+    }
   }
 
-  public void failNewInstance() throws IOException, ServletException
+  @Override
+  public void failNewInstance(String person, String facility, String batchNumber, String distributionDate) throws IOException, ServletException
   {
-    this.viewAll();
+    ClientRequestIF request = this.getClientSession().getRequest();
+    
+    Date date = (Date) new DefaultConverter(Date.class).parse(distributionDate, req.getLocale());
+    ITNDistributionViewDTO view = new ITNDistributionViewDTO(request);
+    view.setValue(ITNDistributionViewDTO.PERSON, person);
+    view.setValue(ITNDistributionViewDTO.FACILITY, facility);
+    view.setValue(ITNDistributionViewDTO.BATCHNUMBER, batchNumber);
+    view.setDistributionDate(date);
+    
+    this.viewHistory(view);
   }
 
   public void edit(String id) throws IOException, ServletException
   {
-    ITNDistributionViewDTO itn = ITNDistributionDTO.lockView(super.getClientRequest(), id);
+    try
+    {
+      ITNDistributionViewDTO itn = ITNDistributionDTO.lockView(super.getClientRequest(), id);
 
-    this.setupReferences(itn);
+      this.setupReferences(itn);
 
-    req.setAttribute("targetGroups", Arrays.asList(itn.getDistributionTargetGroups()));
-    req.setAttribute("item", itn);
-    render("editComponent.jsp");
+      req.setAttribute("targetGroups", Arrays.asList(itn.getDistributionTargetGroups()));
+      req.setAttribute("item", itn);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -316,7 +361,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     // This should never happen
     req.getRequestDispatcher("index.jsp").forward(req, resp);
   }
-  
+
   @Override
   public void viewHistory(ITNDistributionViewDTO view) throws IOException, ServletException
   {
@@ -325,26 +370,26 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
       ClientRequestIF request = this.getClientRequest();
 
       ITNDistributionViewQueryDTO query = ITNDistributionViewDTO.searchHistory(request, view);
-      
+
       Date date = view.getDistributionDate();
       String batchNumber = view.getBatchNumber();
       String facility = view.getFacility();
-      
-      if(date != null)
+
+      if (date != null)
       {
         req.setAttribute("distributionDate", new DefaultConverter(Date.class).format(date, req.getLocale()));
       }
-      
-      if(facility != null && !facility.equals(""))
+
+      if (facility != null && !facility.equals(""))
       {
         req.setAttribute("facility", facility);
       }
-      
-      if(batchNumber != null && !batchNumber.equals(""))
+
+      if (batchNumber != null && !batchNumber.equals(""))
       {
         req.setAttribute("batchNumber", batchNumber);
       }
-      
+
       req.setAttribute("item", view);
       req.setAttribute("query", query);
       render("viewAllComponent.jsp");

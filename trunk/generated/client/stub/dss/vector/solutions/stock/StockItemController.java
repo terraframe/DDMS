@@ -75,12 +75,29 @@ public class StockItemController extends StockItemControllerBase implements Relo
 
   public void newInstance() throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    StockItemViewDTO dto = new StockItemViewDTO(clientRequest);
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      
+      //Ensure the user has permissions to create a stock item
+      new StockItemDTO(clientRequest);
+      
+      StockItemViewDTO dto = new StockItemViewDTO(clientRequest);
 
-    this.setupReferences(dto);
-    req.setAttribute("item", dto);
-    render("createComponent.jsp");
+      this.setupReferences(dto);
+      req.setAttribute("item", dto);
+      render("createComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failNewInstance();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failNewInstance();
+    }
   }
 
   public void failNewInstance() throws IOException, ServletException
@@ -116,10 +133,23 @@ public class StockItemController extends StockItemControllerBase implements Relo
 
   public void edit(String id) throws IOException, ServletException
   {
-    StockItemViewDTO dto = StockItemDTO.lockView(super.getClientRequest(), id);
-    this.setupReferences(dto);
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    try
+    {
+      StockItemViewDTO dto = StockItemDTO.lockView(super.getClientRequest(), id);
+      this.setupReferences(dto);
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failEdit(id);
+    }
   }
 
   public void failEdit(String id) throws IOException, ServletException
