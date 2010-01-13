@@ -7,7 +7,9 @@ import org.json.JSONObject;
 
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.InnerJoin;
 import com.terraframe.mojo.query.InnerJoinEq;
+import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableMoment;
 import com.terraframe.mojo.query.SelectableSQL;
@@ -174,6 +176,16 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     {
       QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
     }
+    else
+    {
+      // this ensures that the date attribute is joined correctly
+      mosquitoCollectionQuery = new MosquitoCollectionQuery(queryFactory);
+      SelectableMoment dateAttribute = mosquitoCollectionQuery.getCollectionDate();
+      for (Join join : dateAttribute.getJoinStatements())
+      {
+        valueQuery.WHERE((InnerJoin) join);
+      }
+    }
     
     AbstractAssayQuery abstractAssayQuery = (AbstractAssayQuery) queryMap.get(AbstractAssay.CLASS);
     if (abstractAssayQuery != null)
@@ -233,17 +245,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    SelectableMoment dateAttribute = mosquitoCollectionQuery.getCollectionDate();
-    // this ensures that the date attribute is joined correctly
-   /* MosquitoCollectionQuery concreteCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
-    if (concreteCollectionQuery == null)
-    {
-      for (Join join : dateAttribute.getJoinStatements())
-      {
-        valueQuery.WHERE((InnerJoin) join);
-      }
-    }
-   */
     if(joinResults!= null)
     {
       valueQuery.WHERE(joinResults.getCollection().EQ(mosquitoCollectionQuery));
