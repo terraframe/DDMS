@@ -14,5 +14,14 @@ public class PersonViewDTO extends PersonViewDTOBase
   {
     return this.getFirstName() + " " + this.getLastName();
   }
+
+  public boolean getIsStockStaffReadable()
+  {
+    return this.isIsStockStaffReadable();
+  }
   
+  public boolean getIsSupervisorReadable()
+  {
+    return this.isIsSupervisorReadable();
+  }
 }

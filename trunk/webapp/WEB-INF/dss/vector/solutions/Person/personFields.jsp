@@ -193,40 +193,44 @@
           </fieldset>
         </div>
       </dd>
-      <dt>
-        <label>
-          ${item.isStockStaffMd.displayLabel}
-          <span id="stockStaffSwitch" class="clickable">
-          <c:choose>
-            <c:when test="${item.isStockStaff}"><fmt:message key="Click_to_Remove" /></c:when>
-            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
-          </c:choose>
-          </span>
-        </label>
-      </dt>
-      <dd>
-        <mjl:input id="stockStaffInput" type="hidden" value="${item.isStockStaff}" param="isStockStaff" />
-        <div id="stockStaffDiv" style="display: ${item.isStockStaff ? 'block' : 'none'}">
-          <!-- Patient Fieldset -->
-        </div>
-      </dd>      
-      <dt>
-        <label>
-          ${item.isSupervisorMd.displayLabel}
-          <span id="supervisorSwitch" class="clickable">
-          <c:choose>
-            <c:when test="${item.isSupervisor}"><fmt:message key="Click_to_Remove" /></c:when>
-            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
-          </c:choose>
-          </span>
-        </label>
-      </dt>
-      <dd>
-        <mjl:input id="supervisorInput" type="hidden" value="${item.isSupervisor}" param="isSupervisor" />
-        <div id="supervisorDiv" style="display: ${item.isSupervisor ? 'block' : 'none'}">
-          <!-- Patient Fieldset -->
-        </div>
-      </dd>      
+      <c:if test="${item.isStockStaffReadable}">
+        <dt>
+          <label>
+            ${item.isStockStaffMd.displayLabel}
+            <span id="stockStaffSwitch" class="clickable">
+            <c:choose>
+              <c:when test="${item.isStockStaff}"><fmt:message key="Click_to_Remove" /></c:when>
+              <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
+            </c:choose>
+            </span>
+          </label>
+        </dt>
+        <dd>
+          <mjl:input id="stockStaffInput" type="hidden" value="${item.isStockStaff}" param="isStockStaff" />
+          <div id="stockStaffDiv" style="display: ${item.isStockStaff ? 'block' : 'none'}">
+            <!-- Patient Fieldset -->
+          </div>
+        </dd>      
+      </c:if>
+      <c:if test="${item.isStockStaffReadable}">      
+        <dt>
+          <label>
+            ${item.isSupervisorMd.displayLabel}
+            <span id="supervisorSwitch" class="clickable">
+            <c:choose>
+              <c:when test="${item.isSupervisor}"><fmt:message key="Click_to_Remove" /></c:when>
+              <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
+            </c:choose>
+            </span>
+          </label>
+        </dt>
+        <dd>
+          <mjl:input id="supervisorInput" type="hidden" value="${item.isSupervisor}" param="isSupervisor" />
+          <div id="supervisorDiv" style="display: ${item.isSupervisor ? 'block' : 'none'}">
+            <!-- Patient Fieldset -->
+          </div>
+        </dd>
+      </c:if>      
   </mjl:component>
 
 <script type="text/javascript">  

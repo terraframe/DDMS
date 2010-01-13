@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.transport.attributes.AttributeDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
@@ -35,7 +36,9 @@ public class PersonController extends PersonControllerBase implements Reloadable
     PersonWithDelegatesViewQueryDTO query = person.searchForDuplicates();
     req.setAttribute("query", query);
     req.setAttribute("newPerson", person);
-
+    
+    this.setupQueryLabels(query);
+    
     // Saving the sex is a pain. This is a shortcut.
     req.setAttribute("sexEnumName", person.getSex().getDisplayLabel());
     render("searchResults.jsp");
@@ -231,10 +234,33 @@ public class PersonController extends PersonControllerBase implements Reloadable
       ClientRequestIF clientRequest = super.getClientRequest();
 
       PersonWithDelegatesViewQueryDTO query = PersonWithDelegatesViewDTO.getPage(clientRequest, null, true, 20, 1);
+      
+      this.setupQueryLabels(query);
 
       req.setAttribute("query", query);
       render("viewAllComponent.jsp");
     }
+  }
+
+  private void setupQueryLabels(PersonWithDelegatesViewQueryDTO query)
+  {
+    this.setupQueryLabel(query, PersonWithDelegatesViewDTO.ISMDSSUSER, "userLabel");
+    this.setupQueryLabel(query, PersonWithDelegatesViewDTO.ISSPRAYOPERATOR, "sprayOperatorLabel");
+    this.setupQueryLabel(query, PersonWithDelegatesViewDTO.ISSPRAYLEADER, "sprayLeaderLabel");
+    this.setupQueryLabel(query, PersonWithDelegatesViewDTO.ISSTOCKSTAFF, "stockStaffLabel");
+    this.setupQueryLabel(query, PersonWithDelegatesViewDTO.ISSUPERVISOR, "supervisorLabel");    
+  }
+  
+  private void setupQueryLabel(PersonWithDelegatesViewQueryDTO query, String accessor, String label)
+  {
+    AttributeDTO attribute = query.getAttributeDTO(accessor);
+    
+    if(attribute != null && attribute.isReadable())
+    {
+      String attributeLabel = attribute.getAttributeMdDTO().getDisplayLabel();
+
+      req.setAttribute(label, attributeLabel);
+    }    
   }
 
   public void failViewAll() throws IOException, ServletException

@@ -1,24 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@page import="com.terraframe.mojo.constants.Constants" %>
-
-
-<%
-  ComponentQueryDTO query = (ComponentQueryDTO) request.getAttribute("query");
-  String userLabel = query.getAttributeDTO(PersonWithDelegatesViewDTO.ISMDSSUSER).getAttributeMdDTO().getDisplayLabel();
-  String sprayOperatorLabel = query.getAttributeDTO(PersonWithDelegatesViewDTO.ISSPRAYOPERATOR).getAttributeMdDTO().getDisplayLabel();
-  String sprayLeaderLabel = query.getAttributeDTO(PersonWithDelegatesViewDTO.ISSPRAYLEADER).getAttributeMdDTO().getDisplayLabel();
-  String stockStaffLabel = query.getAttributeDTO(PersonWithDelegatesViewDTO.ISSTOCKSTAFF).getAttributeMdDTO().getDisplayLabel();
-  String supervisorLabel = query.getAttributeDTO(PersonWithDelegatesViewDTO.ISSUPERVISOR).getAttributeMdDTO().getDisplayLabel();
-  
-  request.setAttribute("userLabel", userLabel);
-  request.setAttribute("sprayOperatorLabel", sprayOperatorLabel);
-  request.setAttribute("sprayLeaderLabel", sprayLeaderLabel);
-  request.setAttribute("stockStaffLabel", stockStaffLabel);
-  request.setAttribute("supervisorLabel", supervisorLabel);
-%>
-
 
 <c:set var="page_title" value="Search_Person" scope="request" />
 
