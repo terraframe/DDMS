@@ -114,6 +114,7 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
 
       req.setAttribute("geoId", entity);
     }
+    
     req.setAttribute("checkedType", periodType);
 
     render("searchComponent.jsp");

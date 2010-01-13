@@ -12,7 +12,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonViewDTO;
-import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -256,14 +256,7 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
     IndividualIPTCaseViewDTO c = IndividualIPTCaseDTO.getView(request, dto.getValue(IndividualIPTViewDTO.IPTCASE));
     PersonViewDTO person = c.getPatientView();
 
-    String residential = person.getResidentialGeoId();
-
-    if (residential != null && !residential.equals(""))
-    {
-      GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, residential);
-      req.setAttribute("residential", entity);
-    }
-
+    req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("person", person);
     req.setAttribute("patientType", dto.getPatientType());
     req.setAttribute("doseNumber", dto.getDoseNumber());
@@ -272,8 +265,7 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
 
     if (dto.getConcreteId() != null && !dto.getConcreteId().equals(""))
     {
-      GeoEntityDTO facility = GeoEntityDTO.searchByGeoId(request, dto.getFacility());
-      req.setAttribute("facility", facility);
+      req.setAttribute("facility", AttributeUtil.getGeoEntityFromGeoId(IndividualIPTViewDTO.FACILITY, dto));
     }
   }
 }

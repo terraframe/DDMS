@@ -10,8 +10,10 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -273,11 +275,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
 
   private void setupReferences(EfficacyAssayViewDTO dto)
   {
-    if (dto.getGeoId() != null && !dto.getGeoId().equals(""))
-    {
-      req.setAttribute("geoId", GeoEntityDTO.searchByGeoId(this.getClientRequest(), dto.getGeoId()));
-    }
-
+    req.setAttribute("geoId", AttributeUtil.getGeoEntityFromGeoId(EfficacyAssayViewDTO.GEOID, dto));
     req.setAttribute("surfacePostion", dto.getSurfacePostion());
     req.setAttribute("sex", dto.getSex());
     req.setAttribute("specie", dto.getSpecie());

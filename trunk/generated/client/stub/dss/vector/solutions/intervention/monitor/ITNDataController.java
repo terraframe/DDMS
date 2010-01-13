@@ -21,6 +21,7 @@ import dss.vector.solutions.surveillance.RequiredGeoIdProblemDTO;
 import dss.vector.solutions.surveillance.RequiredPeriodProblemDTO;
 import dss.vector.solutions.surveillance.RequiredPeriodTypeProblemDTO;
 import dss.vector.solutions.surveillance.RequiredYearProblemDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -48,12 +49,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     utility.put("id", dto.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    String geoId = dto.getGeoId();
-    if (geoId != null && !geoId.equals(""))
-    {
-      req.setAttribute("entity", GeoEntityDTO.searchByGeoId(this.getClientRequest(), geoId));
-    }
-
+    req.setAttribute("entity", AttributeUtil.getGeoEntityFromGeoId(ITNDataViewDTO.GEOID, dto));
     this.prepareRelationships(dto);
     req.setAttribute("item", dto);
     render("viewComponent.jsp");

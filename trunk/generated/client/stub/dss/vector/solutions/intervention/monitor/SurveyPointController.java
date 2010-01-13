@@ -11,6 +11,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -147,13 +148,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
     utility.put("id", survey.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
     
-    String geoId = survey.getGeoId();
-
-    if(geoId != null && !geoId.equals(""))
-    {
-      req.setAttribute("entity", GeoEntityDTO.searchByGeoId(this.getClientRequest(), geoId));
-    }
-
+    req.setAttribute("entity", AttributeUtil.getGeoEntityFromGeoId(SurveyPointViewDTO.GEOID, survey));
     req.setAttribute("item", survey);
     req.setAttribute("households", Arrays.asList(survey.getHouseholdViews()));
     render("viewComponent.jsp");

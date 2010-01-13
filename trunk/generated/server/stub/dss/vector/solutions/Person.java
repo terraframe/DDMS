@@ -325,13 +325,19 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   {
     QueryFactory f = new QueryFactory();
 
-    PersonQuery personQuery = new PersonQuery(f);
     ValueQuery valueQuery = new ValueQuery(f);
+    PersonQuery personQuery = new PersonQuery(valueQuery);
 
     String residentialLabel = Person.RESIDENTIALGEOENTITY + QueryUtil.DISPLAY_LABEL_SUFFIX;
 
-    Selectable[] selectables = new Selectable[] { personQuery.getId(PersonView.ID), personQuery.getFirstName(PersonView.FIRSTNAME), personQuery.getLastName(PersonView.LASTNAME), personQuery.getDateOfBirth(PersonView.DATEOFBIRTH), personQuery.getSex().getName(PersonView.SEX),
-        valueQuery.aSQLCharacter(PersonView.RESIDENTIALGEOID, residentialLabel), };
+    Selectable[] selectables = new Selectable[] {
+        personQuery.getId(PersonView.ID),
+        personQuery.getFirstName(PersonView.FIRSTNAME),
+        personQuery.getLastName(PersonView.LASTNAME),
+        personQuery.getDateOfBirth(PersonView.DATEOFBIRTH),
+        personQuery.getSex().getName(PersonView.SEX),
+        valueQuery.aSQLCharacter(PersonView.RESIDENTIALGEOID, residentialLabel)
+    };
 
     valueQuery.SELECT(selectables);
 
@@ -355,7 +361,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     valueQuery.WHERE(or);
     valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(Person.FIRSTNAME));
 
-    valueQuery.restrictRows(20, 1);
+    valueQuery.restrictRows(15, 1);
 
     return valueQuery;
   }

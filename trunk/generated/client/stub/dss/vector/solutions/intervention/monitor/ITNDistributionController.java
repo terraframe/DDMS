@@ -17,6 +17,7 @@ import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.PersonWithDelegatesViewDTO;
 import dss.vector.solutions.PersonWithDelegatesViewQueryDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -47,13 +48,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
 
       this.setupReferences(dto);
 
-      String facility = dto.getFacility();
-      if (facility != null && !facility.equals(""))
-      {
-        GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(clientRequest, facility);
-        req.setAttribute("facility", entity);
-      }
-
+      req.setAttribute("facility", AttributeUtil.getGeoEntityFromGeoId(ITNDistributionViewDTO.FACILITY, dto));
       req.setAttribute("targetGroups", Arrays.asList(dto.getDistributionTargetGroups()));
       req.setAttribute("item", dto);
 

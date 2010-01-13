@@ -11,7 +11,9 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -88,17 +90,8 @@ public class ITNCommunityDistributionController extends ITNCommunityDistribution
 
   private void getGeoEntities(ITNCommunityDistributionViewDTO dto)
   {
-    ClientRequestIF request = super.getClientSession().getRequest();
-
-    if (dto.getDistributionLocation() != null && !dto.getDistributionLocation().equals(""))
-    {
-      req.setAttribute("distributionLocation", GeoEntityDTO.searchByGeoId(request, dto.getDistributionLocation()));
-    }
-
-    if (dto.getHouseholdAddress() != null && !dto.getHouseholdAddress().equals(""))
-    {
-      req.setAttribute("householdAddress", GeoEntityDTO.searchByGeoId(request, dto.getHouseholdAddress()));
-    }
+    req.setAttribute("distributionLocation", AttributeUtil.getGeoEntityFromGeoId(ITNCommunityDistributionViewDTO.DISTRIBUTIONLOCATION, dto));
+    req.setAttribute("householdAddress", AttributeUtil.getGeoEntityFromGeoId(ITNCommunityDistributionViewDTO.HOUSEHOLDADDRESS, dto));
   }
 
   public void failView(String id) throws IOException, ServletException

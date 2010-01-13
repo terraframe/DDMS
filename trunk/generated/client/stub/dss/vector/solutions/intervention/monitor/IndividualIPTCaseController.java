@@ -18,7 +18,9 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.RequiredAttributeProblemDTO;
+import dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -81,15 +83,9 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
     ClientRequestIF request = this.getClientRequest();
 
-    String location = view.getResidentialLocation();
-
-    if (location != null && !location.equals(""))
-    {
-      req.setAttribute("residentialLocation", GeoEntityDTO.searchByGeoId(request, location));
-    }
-
     PersonViewDTO person = view.getPatientView();
 
+    req.setAttribute("residentialLocation", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("person", person);
     req.setAttribute("serviceDate", req.getParameter("serviceDate"));
     req.setAttribute("query", IndividualIPTViewDTO.getCaseInstances(request, sortAttribute, isAscending, pageSize, pageNumber, view.getConcreteId()));
@@ -349,15 +345,8 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
       String formatDate = new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
 
       PersonViewDTO person = PersonDTO.getView(request, patientId);
-
-      String residential = person.getResidentialGeoId();
-
-      if (residential != null && !residential.equals(""))
-      {
-        GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(request, residential);
-        req.setAttribute("residential", entity);
-      }
-
+      
+      req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
       req.setAttribute("person", person);
       req.setAttribute("view", new IndividualIPTCaseViewDTO(request));
       req.setAttribute("serviceDate", formatDate);
