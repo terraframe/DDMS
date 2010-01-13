@@ -178,7 +178,7 @@ Mojo.Meta.newClass('MDSS.SelectElementCondition', {
   Extends : MDSS.ElementCondition,
   Instance: {
     initialize: function(option, condition) {
-    this.$initialize(option, condition);
+      this.$initialize(option, condition);
     },
   
     evaluate : function () {
@@ -194,14 +194,12 @@ Mojo.Meta.newClass('MDSS.SelectElementCondition', {
 Mojo.Meta.newClass('MDSS.AbstractHiddenElement', {
   IsAbstract : true,
   Instance : {
-    getElements : function() {
-      IsAbstract : true
+    initialize : function(prop) {
+      this._visible = true;
+      this._clearValue = Mojo.Util.isBoolean(prop.clearValue) ? prop.clearValue : true;
+      this._elements = YAHOO.util.Selector.query('.' + prop.element);      
     },
     
-    getClearValue : function() {
-      IsAbstract : true
-    },
-  
     updateValues : function() {
       IsAbstract : true
     },
@@ -214,36 +212,52 @@ Mojo.Meta.newClass('MDSS.AbstractHiddenElement', {
       IsAbstract : true
     },
 
-    hideElement : function() {
-      this.updateValues();
-      
-      var clear = this.getClearValue();
-    
-      if(clear === true) {
-        this.clearValues();
-      }
+    getClearValue : function() {
+      return this._clearValue;
+    },
 
-      var elements = this.getElements();
+    getElements : function() {
+      return this._elements;
+    },          
+
+    hideElement : function() {
+      if(this._visible == true) {
+        this.updateValues();
       
-      for(var i = 0; i < elements.length; i++) {
-        elements[i].style.display = "none";      
+        var clear = this.getClearValue();
+    
+        if(clear === true) {
+          this.clearValues();
+        }
+
+        var elements = this.getElements();
+      
+        for(var i = 0; i < elements.length; i++) {
+          elements[i].style.display = "none";      
+        }
+        
+        this._visible = false;
       }
     },
   
     showElement : function() {
-      this.resetValues();
+      if(this._visible == false) {
+        this.resetValues();
       
-      var elements = this.getElements();
+        var elements = this.getElements();
         
-      for(var i = 0; i < elements.length; i++) {
-        var element = elements[i];
+        for(var i = 0; i < elements.length; i++) {
+          var element = elements[i];
         
-        if(element.tagName && element.tagName == 'div') {
-          element.style.display = "block";
+          if(element.tagName && element.tagName == 'div') {
+            element.style.display = "block";
+          }
+        
+          element.style.display = "inline";      
         }
         
-        element.style.display = "inline";      
-      }      
+        this._visible = true;
+      } 
     }
   }
 });
@@ -252,20 +266,12 @@ Mojo.Meta.newClass('MDSS.HiddenRadioElement', {
   Extends : MDSS.AbstractHiddenElement,  
   Instance: {
     initialize: function(prop) {
-      this._elements = YAHOO.util.Selector.query('.' + prop.element);      
+      this.$initialize(prop);
+
       this._positiveElement = document.getElementById(prop.element + '.positive');
       this._negativeElement = document.getElementById(prop.element + '.negative');
-      this._clearValue = Mojo.Util.isBoolean(prop.clearValue) ? prop.clearValue : true;
     
       this.updateValues();
-    },
-    
-    getElements : function() {
-      return this._elements;
-    },
-    
-    getClearValue : function() {
-      return this._clearValue;
     },
     
     updateValues : function() {
@@ -290,21 +296,14 @@ Mojo.Meta.newClass('MDSS.HiddenSelectElement', {
   Extends : MDSS.AbstractHiddenElement,  
   Instance: {
     initialize: function(prop) {
-      this._elements = YAHOO.util.Selector.query('.' + prop.element);      
+      this.$initialize(prop);
+
       this._inputElement = document.getElementById(prop.element);
       this._clearValue = Mojo.Util.isBoolean(prop.clearValue) ? prop.clearValue : true;
     
       this.updateValues();
     },
     
-    getElements : function() {
-      return this._elements;
-    },
-
-    getClearValue : function() {
-      return this._clearValue;
-    },
-      
     updateValues : function() {
       this._selectedIndex = this._inputElement.selectedIndex;
     },
@@ -336,21 +335,14 @@ Mojo.Meta.newClass('MDSS.HiddenInputElement', {
   Extends : MDSS.AbstractHiddenElement,  
   Instance: {
     initialize: function(prop) {
-      this._elements = YAHOO.util.Selector.query('.' + prop.element);      
+      this.$initialize(prop);
+    
       this._inputElement = document.getElementById(prop.element);
       this._clearValue = Mojo.Util.isBoolean(prop.clearValue) ? prop.clearValue : true;      
       
       this.updateValues();
     },
 
-    getElements : function() {
-      return this._elements;
-    },
-
-    getClearValue : function() {
-      return this._clearValue;
-    },
-    
     updateValues : function() {
       this._inputValue = this._inputElement.value;
     },
@@ -382,31 +374,28 @@ Mojo.Meta.newClass('MDSS.HiddenMultiTermElement', {
   Extends : MDSS.AbstractHiddenElement,  
   Instance: {
     initialize: function(prop) {
-      this._elements = YAHOO.util.Selector.query('.' + prop.element);      
+      this.$initialize(prop);
+
+      this._resultList = document.getElementById(prop.element + 'ResultList');      
       this._inputElement = document.getElementById(prop.element);
       this._clearValue = Mojo.Util.isBoolean(prop.clearValue) ? prop.clearValue : true;      
       
       this.updateValues();
     },
 
-    getElements : function() {
-      return this._elements;
-    },
-
-    getClearValue : function() {
-      return this._clearValue;
-    },
-    
     updateValues : function() {
-      this._inputValue = this._inputElement.innerHTML;
+      this._inputValue = this._inputElement.value;
+      this._results = this._resultList.innerHTML;
     },
     
     clearValues : function() {
-      this._inputElement.innerHTML = '';
+      this._inputElement.value = '';
+      this._resultList.innerHTML = '';
     },
     
     resetValues : function() {
-      this._inputElement.innerHTML = this._inputValue;
+      this._inputElement.value = this._inputValue;
+      this._resultList.innerHTML = this._results;
     }    
   }
 });

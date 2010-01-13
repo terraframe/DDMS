@@ -161,7 +161,7 @@
     MDSS.ElementHandler.setupBooleanHandler('performedBloodslide.negative', 'performedBloodslide.positive', [bloodslideReason]);
     MDSS.ElementHandler.setupBooleanHandler('performedBloodslide.positive', 'performedBloodslide.negative', [bloodslideResult, bloodslideDetail]);
     
-    var feverHandler = MDSS.ElementHandler.setupSelectHandler('fever.YES', new Array('fever', 'fever.NO', 'fever.DONT_KNOW'), [malaria]);    
+    var feverHandler = MDSS.ElementHandler.setupSelectHandler('fever.YES', new Array('fever', 'fever.NO', 'fever.DONT_KNOW'), [malaria]);
     var malariaHandler = MDSS.ElementHandler.setupSelectHandler('malaria.YES', new Array('malaria', 'malaria.NO', 'malaria.DONT_KNOW'), [malariaConformationTechnique, locations, treatments, payment]);
 
     feverHandler.addListener(malariaHandler);
