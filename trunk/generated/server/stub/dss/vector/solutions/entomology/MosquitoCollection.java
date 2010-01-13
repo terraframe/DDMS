@@ -263,7 +263,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
 
     QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
 
-    if (xml.contains("abundance_"))
+    if (xml.contains("abundance_1"))
     {
 
       String viewName = "abundance_view";
