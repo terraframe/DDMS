@@ -94,4 +94,25 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.terr
       it.close();
     }
   }
+
+  public Float getTargetArea()
+  {    
+    for(TargetUnit unit : this.getTargetUnit())
+    {
+      if(unit.equals(TargetUnit.HOUSEHOLD))
+      {
+        return this.getHousehold();
+      }
+      else if(unit.equals(TargetUnit.ROOM))
+      {
+        return this.getRoom();
+      }
+      if(unit.equals(TargetUnit.STRUCTURE))
+      {
+        return this.getStructureArea();
+      }      
+    }
+    
+    return this.getHousehold();
+  }
 }

@@ -28,13 +28,15 @@ public class InsecticideInterventionPlanningView extends InsecticideIntervention
   {
   }
 
-  private double calculate(Float coverage, BigDecimal ratio, Integer sachets, Integer weight)
+  private double calculate(Float coverage, Float area, Double weight, Integer sachets)
   {
     if (validateCalculation())
     {
+//      Formula : #Targets x target unit area (MDSS106) * sachet weight in gr (MDSS106) * sachets per refill (MDSS106) / (unit nozzle can area coverage (MDSS106) x 1000)
+
       double targets = this.getTargets().doubleValue();
 
-      return targets * coverage * ratio.doubleValue() * sachets * weight / 1000;
+      return (targets * area * weight * sachets) / (coverage * 1000);
     }
     
     return 0.0;
@@ -77,17 +79,16 @@ public class InsecticideInterventionPlanningView extends InsecticideIntervention
     InsecticideNozzleView configuration = InsecticideNozzle.getView(configurationId);
 
     InsecticideBrand brand = configuration.getBrand();
-    Nozzle nozzle = configuration.getNozzle();
     AreaStandardsView area = AreaStandardsView.getMostRecent();
 
     Float coverage = area.getUnitNozzleAreaCoverage();
-    BigDecimal ratio = nozzle.getRatio();
     Integer sachets = brand.getSachetsPerRefill();
-    Integer weight = brand.getSachetsPerRefill();
+    BigDecimal weight = brand.getWeight();
+    Float targetArea = area.getTargetArea();
 
     for (InsecticideInterventionPlanningView view : views)
     {
-      double insecticide = view.calculate(coverage, ratio, sachets, weight);
+      double insecticide = view.calculate(coverage, targetArea, weight.doubleValue(), sachets);
 
       view.setRequiredInsecticide(insecticide);
     }
