@@ -31,27 +31,35 @@ public class AttributeUtil implements Reloadable
     }
     catch (Throwable t)
     {
-      // TODO Change exception type
+      // Propigate the excepection
+      if (t instanceof RuntimeException)
+      {
+        throw (RuntimeException) t;
+      }
+
+      // TODO This code will only be reached if an invalid accessorName is
+      // supplied. As such change exception type to the client layer equivalent
+      // of Application Exception
       throw new RuntimeException(t);
     }
   }
-  
+
   public static String getString(String accessorName, MutableDTO mutableDTO)
   {
-    return (String) AttributeUtil.getValue(accessorName, mutableDTO);    
+    return (String) AttributeUtil.getValue(accessorName, mutableDTO);
   }
 
   public static GeoEntityDTO getGeoEntityFromGeoId(String accessorName, MutableDTO mutableDTO)
   {
     String geoId = (String) AttributeUtil.getValue(accessorName, mutableDTO);
-    
-    if(geoId != null && !geoId.equals(""))
+
+    if (geoId != null && !geoId.equals(""))
     {
       ClientRequestIF request = mutableDTO.getRequest();
-      
+
       return GeoEntityDTO.searchByGeoId(request, geoId);
     }
-    
+
     return null;
   }
 }
