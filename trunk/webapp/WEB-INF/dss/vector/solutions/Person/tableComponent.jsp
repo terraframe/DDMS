@@ -19,33 +19,39 @@
         <span class="formatDate"> ${item.dateOfBirth} </span>
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:freeColumn>
-      <mjl:header>${userLabel}</mjl:header>
-      <mjl:row>
-        <c:choose>
-          <c:when test="${item.userDelegate != null}"><fmt:message key="Yes" /></c:when>
-          <c:otherwise><fmt:message key="No" /></c:otherwise>
-        </c:choose>
-      </mjl:row>
-    </mjl:freeColumn>
-    <mjl:freeColumn>
-      <mjl:header>${sprayOperatorLabel}</mjl:header>
-      <mjl:row>
-        <c:choose>
-          <c:when test="${item.sprayOperatorDelegate != null}"><fmt:message key="Yes" /></c:when>
-          <c:otherwise><fmt:message key="Yes" /></c:otherwise>
-        </c:choose>
-      </mjl:row>
-    </mjl:freeColumn>
-    <mjl:freeColumn>
-      <mjl:header>${sprayLeaderLabel}</mjl:header>
-      <mjl:row>
-        <c:choose>
-          <c:when test="${item.sprayLeaderDelegate != null}"><fmt:message key="Yes" /></c:when>
-          <c:otherwise><fmt:message key="No" /></c:otherwise>
-        </c:choose>
-      </mjl:row>
-    </mjl:freeColumn>
+    <c:if test="${userLabel != null}">    
+      <mjl:freeColumn>
+        <mjl:header>${userLabel}</mjl:header>
+        <mjl:row>
+          <c:choose>
+            <c:when test="${item.userDelegate != null}"><fmt:message key="Yes" /></c:when>
+            <c:otherwise><fmt:message key="No" /></c:otherwise>
+          </c:choose>
+        </mjl:row>
+      </mjl:freeColumn>
+    </c:if>
+    <c:if test="${sprayOperatorLabel != null}">    
+      <mjl:freeColumn>
+        <mjl:header>${sprayOperatorLabel}</mjl:header>
+        <mjl:row>
+          <c:choose>
+            <c:when test="${item.sprayOperatorDelegate != null}"><fmt:message key="Yes" /></c:when>
+            <c:otherwise><fmt:message key="No" /></c:otherwise>
+          </c:choose>
+        </mjl:row>
+      </mjl:freeColumn>
+    </c:if>    
+    <c:if test="${sprayLeaderLabel != null}">    
+      <mjl:freeColumn>
+        <mjl:header>${sprayLeaderLabel}</mjl:header>
+        <mjl:row>
+          <c:choose>
+            <c:when test="${item.sprayLeaderDelegate != null}"><fmt:message key="Yes" /></c:when>
+            <c:otherwise><fmt:message key="No" /></c:otherwise>
+          </c:choose>
+        </mjl:row>
+      </mjl:freeColumn>
+    </c:if>
     <c:if test="${stockStaffLabel != null}">
       <mjl:freeColumn>
         <mjl:header>${stockStaffLabel}</mjl:header>
