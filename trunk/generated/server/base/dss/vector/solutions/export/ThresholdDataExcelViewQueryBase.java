@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -678275349)
+@com.terraframe.mojo.business.ClassSignature(hash = 1519200650)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class ThresholdDataExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -678275349;
+private static final long serialVersionUID = 1519200650;
 
   public ThresholdDataExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -26,24 +26,6 @@ private static final long serialVersionUID = -678275349;
   {
     return dss.vector.solutions.export.ThresholdDataExcelView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeMoment getEndDate()
-  {
-    return getEndDate(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.ENDDATE, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.ENDDATE, alias, displayLabel);
-
-  }
- 
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity()
   {
     return getGeoEntity(null);
@@ -2007,21 +1989,21 @@ private static final long serialVersionUID = -678275349;
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getStartDate()
+  public com.terraframe.mojo.query.AttributeBoolean getThresholdType()
   {
-    return getStartDate(null);
+    return getThresholdType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias)
+  public com.terraframe.mojo.query.AttributeBoolean getThresholdType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.STARTDATE, alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.THRESHOLDTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeBoolean getThresholdType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.STARTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.THRESHOLDTYPE, alias, displayLabel);
 
   }
  

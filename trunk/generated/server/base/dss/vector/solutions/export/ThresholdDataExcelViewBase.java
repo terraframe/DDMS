@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -844860414)
+@com.terraframe.mojo.business.ClassSignature(hash = 1743601377)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.export;
 public abstract class ThresholdDataExcelViewBase extends com.terraframe.mojo.business.View implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.ThresholdDataExcelView";
-  public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATION_0 = "identification_0";
@@ -121,40 +120,12 @@ public abstract class ThresholdDataExcelViewBase extends com.terraframe.mojo.bus
   public static java.lang.String OUTBREAK_8 = "outbreak_8";
   public static java.lang.String OUTBREAK_9 = "outbreak_9";
   public static java.lang.String SEASONNAME = "seasonName";
-  public static java.lang.String STARTDATE = "startDate";
-  private static final long serialVersionUID = -844860414;
+  public static java.lang.String THRESHOLDTYPE = "thresholdType";
+  private static final long serialVersionUID = 1743601377;
   
   public ThresholdDataExcelViewBase()
   {
     super();
-  }
-  
-  public java.util.Date getEndDate()
-  {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
-  }
-  
-  public void validateEndDate()
-  {
-    this.validateAttribute(ENDDATE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getEndDateMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(ENDDATE);
-  }
-  
-  public void setEndDate(java.util.Date value)
-  {
-    if(value == null)
-    {
-      setValue(ENDDATE, "");
-    }
-    else
-    {
-      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
-    }
   }
   
   public dss.vector.solutions.geo.generated.GeoEntity getGeoEntity()
@@ -3204,31 +3175,31 @@ public abstract class ThresholdDataExcelViewBase extends com.terraframe.mojo.bus
     }
   }
   
-  public java.util.Date getStartDate()
+  public Boolean getThresholdType()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(THRESHOLDTYPE));
   }
   
-  public void validateStartDate()
+  public void validateThresholdType()
   {
-    this.validateAttribute(STARTDATE);
+    this.validateAttribute(THRESHOLDTYPE);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getStartDateMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getThresholdTypeMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(STARTDATE);
+    return mdClassIF.definesAttribute(THRESHOLDTYPE);
   }
   
-  public void setStartDate(java.util.Date value)
+  public void setThresholdType(Boolean value)
   {
     if(value == null)
     {
-      setValue(STARTDATE, "");
+      setValue(THRESHOLDTYPE, "");
     }
     else
     {
-      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(THRESHOLDTYPE, java.lang.Boolean.toString(value));
     }
   }
   

@@ -9,7 +9,7 @@
     ${person.lastName}
   </mjl:dt>
   <mjl:dt attribute="residentialGeoId">
-    ${person.residentialGeoId}
+    ${residential.displayString}
   </mjl:dt>
   <mjl:dt attribute="sex">
     ${person.sex.displayLabel}

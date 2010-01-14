@@ -13,6 +13,7 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -47,7 +48,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     try
     {
       dto.applyAll(symptoms);
-      
+
       ClientRequestIF request = dto.getRequest();
 
       ErrorUtility.prepareInformation(request.getInformation(), req);
@@ -78,7 +79,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     try
     {
       dto.applyAll(symptoms);
-      
+
       ClientRequestIF request = dto.getRequest();
 
       ErrorUtility.prepareInformation(request.getInformation(), req);
@@ -96,12 +97,12 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
       this.failCreate(dto, symptoms);
     }
   }
-  
+
   public void failCreate(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
   {
     renderCreate(dto, symptoms, dto.getValue(IndividualInstanceDTO.INDIVIDUALCASE));
   }
-  
+
   public void createWithCase(IndividualInstanceDTO dto, IndividualCaseDTO newCase, String personId, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
   {
     try
@@ -120,7 +121,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
       this.failCreateWithCase(dto, newCase, personId, symptoms);
     }
   }
-  
+
   public void failCreateWithCase(IndividualInstanceDTO dto, IndividualCaseDTO newCase, String personId, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
   {
     renderCreateWithCase(dto, newCase, personId);
@@ -141,14 +142,30 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   public void edit(String id) throws IOException, ServletException
   {
+    try
+    {
     IndividualInstanceDTO dto = IndividualInstanceDTO.lock(super.getClientRequest(), id);
     renderEdit(dto);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      
+      this.failEdit(id);
+    }
   }
 
   private void renderEdit(IndividualInstanceDTO dto) throws IOException, ServletException
   {
     PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
     req.setAttribute("person", person);
+    req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("item", dto);
     req.setAttribute("healthFacility", dto.getHealthFacility());
     req.setAttribute("symptoms", Arrays.asList(dto.getSymptoms()));
@@ -163,7 +180,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   public void cancel(IndividualInstanceDTO dto) throws IOException, ServletException
   {
     dto.unlock();
-    
+
     this.view(dto);
   }
 
@@ -174,19 +191,35 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   public void newInstance(String caseId) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    IndividualInstanceDTO dto = new IndividualInstanceDTO(clientRequest);
-    dto.setValue(IndividualInstanceDTO.INDIVIDUALCASE, caseId);
-    renderCreate(dto, dto.getSymptoms(), caseId);
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      IndividualInstanceDTO dto = new IndividualInstanceDTO(clientRequest);
+      dto.setValue(IndividualInstanceDTO.INDIVIDUALCASE, caseId);
+      renderCreate(dto, dto.getSymptoms(), caseId);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      
+      this.failNewInstance(caseId);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      
+      this.failNewInstance(caseId);
+    }
+
   }
-  
+
   public void newInstanceWithCase(IndividualCaseDTO newCase, String personId) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     IndividualInstanceDTO dto = new IndividualInstanceDTO(clientRequest);
     renderCreateWithCase(dto, newCase, personId);
   }
-  
+
   private void renderCreateWithCase(IndividualInstanceDTO dto, IndividualCaseDTO newCase, String personId) throws IOException, ServletException
   {
     prepareCreateReq(dto, dto.getSymptoms());
@@ -198,10 +231,11 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   private void renderCreate(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms, String caseId) throws IOException, ServletException
   {
     prepareCreateReq(dto, symptoms);
-    
+
     PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
 
     req.setAttribute("person", person);
+    req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));    
     req.setAttribute("caseId", caseId);
     render("createComponent.jsp");
   }
@@ -215,7 +249,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   public void failNewInstance(String caseId) throws IOException, ServletException
   {
-    this.viewAll();
+    new IndividualCaseController(req, resp, isAsynchronous).view(caseId);
   }
 
   public void delete(IndividualInstanceDTO dto) throws IOException, ServletException
@@ -223,7 +257,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     try
     {
       String caseId = dto.getIndividualCase().getId();
-      
+
       dto.delete();
 
       new IndividualCaseController(req, resp, isAsynchronous).view(caseId);
@@ -255,10 +289,11 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    
+
     PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
 
     req.setAttribute("person", person);
+    req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("item", dto);
     req.setAttribute("symptoms", Arrays.asList(dto.getSymptoms()));
     render("viewComponent.jsp");

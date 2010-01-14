@@ -43,11 +43,21 @@ import dss.vector.solutions.util.QueryUtil;
 public class IndividualCase extends IndividualCaseBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1254360073722L;
-  private static String timePeriod;
 
   public IndividualCase()
   {
     super();
+  }
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    
+    return this.getClassDisplayLabel();
   }
 
   @Override

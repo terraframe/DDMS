@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2075565438)
+@com.terraframe.mojo.business.ClassSignature(hash = 1292602721)
 public abstract class ThresholdDataExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.ThresholdDataExcelView";
-  private static final long serialVersionUID = -2075565438;
+  private static final long serialVersionUID = 1292602721;
   
   protected ThresholdDataExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -16,7 +16,6 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.terraframe.mojo.
     return CLASS;
   }
   
-  public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATION_0 = "identification_0";
@@ -126,44 +125,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.terraframe.mojo.
   public static java.lang.String OUTBREAK_8 = "outbreak_8";
   public static java.lang.String OUTBREAK_9 = "outbreak_9";
   public static java.lang.String SEASONNAME = "seasonName";
-  public static java.lang.String STARTDATE = "startDate";
-  public java.util.Date getEndDate()
-  {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
-  }
-  
-  public void setEndDate(java.util.Date value)
-  {
-    if(value == null)
-    {
-      setValue(ENDDATE, "");
-    }
-    else
-    {
-      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
-    }
-  }
-  
-  public boolean isEndDateWritable()
-  {
-    return isWritable(ENDDATE);
-  }
-  
-  public boolean isEndDateReadable()
-  {
-    return isReadable(ENDDATE);
-  }
-  
-  public boolean isEndDateModified()
-  {
-    return isModified(ENDDATE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getEndDateMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
-  }
-  
+  public static java.lang.String THRESHOLDTYPE = "thresholdType";
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
   {
     if(getValue(GEOENTITY) == null || getValue(GEOENTITY).trim().equals(""))
@@ -4167,41 +4129,41 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.terraframe.mojo.
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SEASONNAME).getAttributeMdDTO();
   }
   
-  public java.util.Date getStartDate()
+  public Boolean getThresholdType()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(THRESHOLDTYPE));
   }
   
-  public void setStartDate(java.util.Date value)
+  public void setThresholdType(Boolean value)
   {
     if(value == null)
     {
-      setValue(STARTDATE, "");
+      setValue(THRESHOLDTYPE, "");
     }
     else
     {
-      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(THRESHOLDTYPE, java.lang.Boolean.toString(value));
     }
   }
   
-  public boolean isStartDateWritable()
+  public boolean isThresholdTypeWritable()
   {
-    return isWritable(STARTDATE);
+    return isWritable(THRESHOLDTYPE);
   }
   
-  public boolean isStartDateReadable()
+  public boolean isThresholdTypeReadable()
   {
-    return isReadable(STARTDATE);
+    return isReadable(THRESHOLDTYPE);
   }
   
-  public boolean isStartDateModified()
+  public boolean isThresholdTypeModified()
   {
-    return isModified(STARTDATE);
+    return isModified(THRESHOLDTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getStartDateMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getThresholdTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(THRESHOLDTYPE).getAttributeMdDTO();
   }
   
   public static ThresholdDataExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

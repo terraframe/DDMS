@@ -26,6 +26,17 @@ public class IndividualInstance extends IndividualInstanceBase implements com.te
   {
     super();
   }
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    
+    return this.getClassDisplayLabel();
+  }
 
   @Override
   @Transaction

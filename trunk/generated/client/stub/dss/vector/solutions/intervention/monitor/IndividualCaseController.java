@@ -17,6 +17,7 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.surveillance.RequiredDiagnosisDateProblemDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -55,8 +56,12 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
       ClientRequestIF clientRequest = getClientRequest();
       IndividualCaseDTO individualCase = IndividualCaseDTO.searchForExistingCase(clientRequest, diagnosisDate, personId);
+
       if (individualCase.isNewInstance())
       {
+        // Ensure the use has permissions to create a new Instance
+        new IndividualCaseDTO(clientRequest);
+
         individualCase.setDiagnosisDate(diagnosisDate);
         individualCase.setCaseReportDate(caseReportDate);
         renderCreate(individualCase, personId);
@@ -77,6 +82,8 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     }
     catch (Throwable t)
     {
+      ErrorUtility.prepareThrowable(t, req);
+
       String failDiagnosis = ( diagnosisDate != null ? new DefaultConverter(Date.class).format(diagnosisDate, req.getLocale()) : null );
       String failCase = ( caseReportDate != null ? new DefaultConverter(Date.class).format(caseReportDate, req.getLocale()) : null );
 
@@ -102,24 +109,30 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
   private void renderCreate(IndividualCaseDTO individualCase, String personId) throws IOException, ServletException
   {
-    req.setAttribute("person", PersonDTO.getView(this.getClientRequest(), personId));
+    PersonViewDTO person = PersonDTO.getView(this.getClientRequest(), personId);
+    
+    req.setAttribute("person", person);
+    req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));    
     req.setAttribute("individualCase", individualCase);
     req.setAttribute("personId", personId);
+    
     render("createComponent.jsp");
   }
 
   @Override
   public void failSearch(String diagnosisDate, String caseReportDate, String personId) throws IOException, ServletException
   {
+    ClientRequestIF request = this.getClientSession().getRequest();
+
     req.setAttribute("diagnosisDate", diagnosisDate);
     req.setAttribute("caseReportDate", caseReportDate);
 
     if (personId != null && !personId.equals(""))
     {
-      req.setAttribute("person", PersonDTO.getView(this.getClientRequest(), personId));
+      req.setAttribute("person", PersonDTO.getView(request, personId));
     }
 
-    renderSearch(new IndividualCaseDTO(getClientRequest()));
+    renderSearch(new IndividualCaseViewDTO(request));
   }
 
   public void cancel(IndividualCaseDTO dto) throws IOException, ServletException
@@ -147,6 +160,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     PersonViewDTO person = individualCaseDTO.getPatient().getPerson().getView();
 
     req.setAttribute("person", person);
+    req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("query", individualCaseDTO.getInstances());
     req.setAttribute("item", individualCaseDTO);
 
@@ -185,8 +199,21 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
   public void edit(String id) throws IOException, ServletException
   {
-    IndividualCaseDTO dto = IndividualCaseDTO.lock(super.getClientRequest(), id);
-    renderEdit(dto);
+    try
+    {
+      IndividualCaseDTO dto = IndividualCaseDTO.lock(super.getClientRequest(), id);
+      renderEdit(dto);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failEdit(id);
+    }
   }
 
   private void renderEdit(IndividualCaseDTO dto) throws IOException, ServletException
@@ -194,6 +221,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     PersonViewDTO person = dto.getPatient().getPerson().getView();
 
     req.setAttribute("person", person);
+    req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("individualCase", dto);
     render("editComponent.jsp");
   }
@@ -255,7 +283,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     try
     {
       ClientRequestIF clientRequest = super.getClientRequest();
-      IndividualCaseDTO dto = new IndividualCaseDTO(clientRequest);
+      IndividualCaseViewDTO dto = new IndividualCaseViewDTO(clientRequest);
       renderSearch(dto);
     }
     catch (ProblemExceptionDTO e)
@@ -272,7 +300,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     }
   }
 
-  private void renderSearch(IndividualCaseDTO dto) throws IOException, ServletException
+  private void renderSearch(IndividualCaseViewDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
     render("searchComponent.jsp");
