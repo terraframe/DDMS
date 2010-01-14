@@ -1,8 +1,11 @@
 package dss.vector.solutions;
 
+import com.terraframe.mojo.query.AttributeReference;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectablePrimitive;
+
+import dss.vector.solutions.ontology.Term;
 
 public class PersonWithDelegatesView extends PersonWithDelegatesViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -24,6 +27,11 @@ public class PersonWithDelegatesView extends PersonWithDelegatesViewBase impleme
     
     Selectable selectable = query.getComponentQuery().getSelectable(sortAttribute);
     
+    if(sortAttribute.equalsIgnoreCase(SEX))
+    {
+      selectable = ((AttributeReference) selectable.getAttribute()).aAttribute(Term.DISPLAY);
+    }
+    
     if (isAscending)
     {
       query.ORDER_BY_ASC((SelectablePrimitive) selectable);
@@ -38,8 +46,6 @@ public class PersonWithDelegatesView extends PersonWithDelegatesViewBase impleme
       query.restrictRows(pageSize, pageNumber);
     }
     
-    System.out.println(query.getSQL());
-
     return query;
   }
 

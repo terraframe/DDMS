@@ -214,8 +214,9 @@ public class PersonController extends PersonControllerBase implements Reloadable
   {
     ClientRequestIF clientRequest = super.getClientRequest();
 
-    PersonWithDelegatesViewQueryDTO query = PersonWithDelegatesViewDTO.getPage(clientRequest, null, true, 20, 1);
+    PersonWithDelegatesViewQueryDTO query = PersonWithDelegatesViewDTO.getPage(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
 
+    this.setupQueryLabels(query);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
