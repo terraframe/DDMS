@@ -52,9 +52,9 @@ private static final long serialVersionUID = 1253643992282L;
       vQuery.map(IndividualIPTView.VISITNUMBER, query.getVisitNumber());
       vQuery.map(IndividualIPTView.DOSENUMBER, query.getDoseNumber());
       vQuery.map(IndividualIPTView.DOSETYPE, query.getDoseType());
-      vQuery.map(IndividualIPTView.RECIEVEDSUPPLEMENT, query.getRecievedSupplement());
-      vQuery.map(IndividualIPTView.RECIEVEDITN, query.getRecievedITN());
-      vQuery.map(IndividualIPTView.NUMBEROFRECIEVEDITNS, query.getNumberOfRecievedITNs());
+      vQuery.map(IndividualIPTView.RECEIVEDSUPPLEMENT, query.getReceivedSupplement());
+      vQuery.map(IndividualIPTView.RECEIVEDITN, query.getReceivedITN());
+      vQuery.map(IndividualIPTView.NUMBEROFRECEIVEDITNS, query.getNumberOfReceivedITNs());
       vQuery.map(IndividualIPTView.ADMINISTRATORNAME, query.getAdministratorName());
       vQuery.map(IndividualIPTView.ADMINISTRATORSURNAME, query.getAdministratorSurname());
     }

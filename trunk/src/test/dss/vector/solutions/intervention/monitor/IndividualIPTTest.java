@@ -125,9 +125,9 @@ public class IndividualIPTTest extends TestCase
     concrete.setVisitNumber(term);
     concrete.setDoseNumber(term);
     concrete.setDoseType(term);
-    concrete.setRecievedSupplement(true);
-    concrete.setRecievedITN(true);
-    concrete.setNumberOfRecievedITNs(5);
+    concrete.setReceivedSupplement(true);
+    concrete.setReceivedITN(true);
+    concrete.setNumberOfReceivedITNs(5);
     concrete.setAdministratorName("Justin");
     concrete.setAdministratorSurname("Smethie");
     concrete.apply();
@@ -144,9 +144,9 @@ public class IndividualIPTTest extends TestCase
       assertEquals(concrete.getVisitNumber().getId(), test.getVisitNumber().getId());
       assertEquals(concrete.getDoseNumber().getId(), test.getDoseNumber().getId());
       assertEquals(concrete.getDoseType().getId(), test.getDoseType().getId());
-      assertEquals(concrete.getRecievedSupplement(), test.getRecievedSupplement());
-      assertEquals(concrete.getRecievedITN(), test.getRecievedITN());
-      assertEquals(concrete.getNumberOfRecievedITNs(), test.getNumberOfRecievedITNs());
+      assertEquals(concrete.getReceivedSupplement(), test.getReceivedSupplement());
+      assertEquals(concrete.getReceivedITN(), test.getReceivedITN());
+      assertEquals(concrete.getNumberOfReceivedITNs(), test.getNumberOfReceivedITNs());
       assertEquals(concrete.getAdministratorName(), test.getAdministratorName());
       assertEquals(concrete.getAdministratorSurname(), test.getAdministratorSurname());
     }
@@ -167,9 +167,9 @@ public class IndividualIPTTest extends TestCase
     view.setVisitNumber(term);
     view.setDoseNumber(term);
     view.setDoseType(term);
-    view.setRecievedSupplement(true);
-    view.setRecievedITN(true);
-    view.setNumberOfRecievedITNs(5);
+    view.setReceivedSupplement(true);
+    view.setReceivedITN(true);
+    view.setNumberOfReceivedITNs(5);
     view.setAdministratorName("Justin");
     view.setAdministratorSurname("Smethie");
     view.apply();
@@ -187,9 +187,9 @@ public class IndividualIPTTest extends TestCase
       assertEquals(view.getVisitNumber().getId(), test.getVisitNumber().getId());
       assertEquals(view.getDoseNumber().getId(), test.getDoseNumber().getId());
       assertEquals(view.getDoseType().getId(), test.getDoseType().getId());
-      assertEquals(view.getRecievedSupplement(), test.getRecievedSupplement());
-      assertEquals(view.getRecievedITN(), test.getRecievedITN());
-      assertEquals(view.getNumberOfRecievedITNs(), test.getNumberOfRecievedITNs());
+      assertEquals(view.getReceivedSupplement(), test.getReceivedSupplement());
+      assertEquals(view.getReceivedITN(), test.getReceivedITN());
+      assertEquals(view.getNumberOfReceivedITNs(), test.getNumberOfReceivedITNs());
       assertEquals(view.getAdministratorName(), test.getAdministratorName());
       assertEquals(view.getAdministratorSurname(), test.getAdministratorSurname());
     }
@@ -211,9 +211,9 @@ public class IndividualIPTTest extends TestCase
     view.setVisitNumber(term);
     view.setDoseNumber(term);
     view.setDoseType(term);
-    view.setRecievedSupplement(true);
-    view.setRecievedITN(true);
-    view.setNumberOfRecievedITNs(5);
+    view.setReceivedSupplement(true);
+    view.setReceivedITN(true);
+    view.setNumberOfReceivedITNs(5);
     view.setAdministratorName("Justin");
     view.setAdministratorSurname("Smethie");
     view.apply();
@@ -228,9 +228,9 @@ public class IndividualIPTTest extends TestCase
       edit.setVisitNumber(term);
       edit.setDoseNumber(term);
       edit.setDoseType(term);
-      edit.setRecievedSupplement(true);
-      edit.setRecievedITN(true);
-      edit.setNumberOfRecievedITNs(2);
+      edit.setReceivedSupplement(true);
+      edit.setReceivedITN(true);
+      edit.setNumberOfReceivedITNs(2);
       edit.setAdministratorName("Justin");
       edit.setAdministratorSurname("Smethie");
       edit.apply();
@@ -244,9 +244,9 @@ public class IndividualIPTTest extends TestCase
       assertEquals(edit.getVisitNumber().getId(), test.getVisitNumber().getId());
       assertEquals(edit.getDoseNumber().getId(), test.getDoseNumber().getId());
       assertEquals(edit.getDoseType().getId(), test.getDoseType().getId());
-      assertEquals(edit.getRecievedSupplement(), test.getRecievedSupplement());
-      assertEquals(edit.getRecievedITN(), test.getRecievedITN());
-      assertEquals(edit.getNumberOfRecievedITNs(), test.getNumberOfRecievedITNs());
+      assertEquals(edit.getReceivedSupplement(), test.getReceivedSupplement());
+      assertEquals(edit.getReceivedITN(), test.getReceivedITN());
+      assertEquals(edit.getNumberOfReceivedITNs(), test.getNumberOfReceivedITNs());
       assertEquals(edit.getAdministratorName(), test.getAdministratorName());
       assertEquals(edit.getAdministratorSurname(), test.getAdministratorSurname());
     }
@@ -268,9 +268,9 @@ public class IndividualIPTTest extends TestCase
     view.setVisitNumber(term);
     view.setDoseNumber(term);
     view.setDoseType(term);
-    view.setRecievedSupplement(true);
-    view.setRecievedITN(true);
-    view.setNumberOfRecievedITNs(5);
+    view.setReceivedSupplement(true);
+    view.setReceivedITN(true);
+    view.setNumberOfReceivedITNs(5);
     view.setAdministratorName("Justin");
     view.setAdministratorSurname("Smethie");
     view.apply();
@@ -291,9 +291,9 @@ public class IndividualIPTTest extends TestCase
       assertEquals(view.getVisitNumber().getId(), test.getVisitNumber().getId());
       assertEquals(view.getDoseNumber().getId(), test.getDoseNumber().getId());
       assertEquals(view.getDoseType().getId(), test.getDoseType().getId());
-      assertEquals(view.getRecievedSupplement(), test.getRecievedSupplement());
-      assertEquals(view.getRecievedITN(), test.getRecievedITN());
-      assertEquals(view.getNumberOfRecievedITNs(), test.getNumberOfRecievedITNs());
+      assertEquals(view.getReceivedSupplement(), test.getReceivedSupplement());
+      assertEquals(view.getReceivedITN(), test.getReceivedITN());
+      assertEquals(view.getNumberOfReceivedITNs(), test.getNumberOfReceivedITNs());
       assertEquals(view.getAdministratorName(), test.getAdministratorName());
       assertEquals(view.getAdministratorSurname(), test.getAdministratorSurname());
     }
@@ -303,7 +303,7 @@ public class IndividualIPTTest extends TestCase
     }
   }
 
-  public void testNumberOfRecievedITNs()
+  public void testNumberOfReceivedITNs()
   {
     try
     {
@@ -317,16 +317,16 @@ public class IndividualIPTTest extends TestCase
       view.setVisitNumber(term);
       view.setDoseNumber(term);
       view.setDoseType(term);
-      view.setRecievedSupplement(true);
-      view.setRecievedITN(false);
-      view.setNumberOfRecievedITNs(5);
+      view.setReceivedSupplement(true);
+      view.setReceivedITN(false);
+      view.setNumberOfReceivedITNs(5);
       view.setAdministratorName("Justin");
       view.setAdministratorSurname("Smethie");
       view.apply();
 
       view.deleteConcrete();
 
-      fail("Able to create individual IPT information with a number of recieved ITNs when Recieved ITNs is false");
+      fail("Able to create individual IPT information with a number of recieved ITNs when Received ITNs is false");
     }
     catch (ProblemException e)
     {
@@ -355,9 +355,9 @@ public class IndividualIPTTest extends TestCase
       view.setVisitNumber(term);
       view.setDoseNumber(term);
       view.setDoseType(term);
-      view.setRecievedSupplement(true);
-      view.setRecievedITN(true);
-      view.setNumberOfRecievedITNs(5);
+      view.setReceivedSupplement(true);
+      view.setReceivedITN(true);
+      view.setNumberOfReceivedITNs(5);
       view.setAdministratorName("Justin");
       view.setAdministratorSurname("Smethie");
       view.apply();

@@ -43,9 +43,9 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
     view.setVisitNumber(Term.validateByDisplayLabel(this.getVisitNumber(), IndividualIPTView.getVisitNumberMd()));
     view.setDoseNumber(Term.validateByDisplayLabel(this.getDoseNumber(), IndividualIPTView.getDoseNumberMd()));
     view.setDoseType(Term.validateByDisplayLabel(this.getDoseType(), IndividualIPTView.getDoseTypeMd()));
-    view.setRecievedSupplement(this.getRecievedSupplement());
-    view.setRecievedITN(this.getRecievedITN());
-    view.setNumberOfRecievedITNs(this.getNumberOfRecievedITNs());
+    view.setReceivedSupplement(this.getReceivedSupplement());
+    view.setReceivedITN(this.getReceivedITN());
+    view.setNumberOfReceivedITNs(this.getNumberOfReceivedITNs());
     view.setAdministratorName(this.getAdministratorName());
     view.setAdministratorSurname(this.getAdministratorSurname());
     view.apply();

@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1654735285)
+@com.terraframe.mojo.business.ClassSignature(hash = -584434237)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,7 +17,7 @@ public abstract class ITNInstanceViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String HOUSEHOLD = "household";
   public static java.lang.String ID = "id";
   public static java.lang.String ISNETUSED = "isNetUsed";
-  public static java.lang.String MONTHRECIEVED = "monthRecieved";
+  public static java.lang.String MONTHRECEIVED = "monthReceived";
   public static java.lang.String MONTHRETREATED = "monthRetreated";
   public static java.lang.String NETBRAND = "netBrand";
   public static java.lang.String NETID = "netId";
@@ -26,14 +26,14 @@ public abstract class ITNInstanceViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String PRICE = "price";
   public static java.lang.String PURPOSE = "purpose";
   public static java.lang.String PURPOSECOMMENTS = "purposeComments";
-  public static java.lang.String RETEATED = "reteated";
+  public static java.lang.String RETREATED = "retreated";
   public static java.lang.String SLEPTUNDERNET = "sleptUnderNet";
   public static java.lang.String WASHFREQUENCY = "washFrequency";
   public static java.lang.String WASHPERIOD = "washPeriod";
   public static java.lang.String WASHED = "washed";
-  public static java.lang.String YEARRECIEVED = "yearRecieved";
+  public static java.lang.String YEARRECEIVED = "yearReceived";
   public static java.lang.String YEARRETREATED = "yearRetreated";
-  private static final long serialVersionUID = -1654735285;
+  private static final long serialVersionUID = -584434237;
   
   public ITNInstanceViewBase()
   {
@@ -218,41 +218,41 @@ public abstract class ITNInstanceViewBase extends com.terraframe.mojo.business.V
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<dss.vector.solutions.MonthOfYear> getMonthRecieved()
+  public java.util.List<dss.vector.solutions.MonthOfYear> getMonthReceived()
   {
-    return (java.util.List<dss.vector.solutions.MonthOfYear>) getEnumValues(MONTHRECIEVED);
+    return (java.util.List<dss.vector.solutions.MonthOfYear>) getEnumValues(MONTHRECEIVED);
   }
   
-  public void addMonthRecieved(dss.vector.solutions.MonthOfYear value)
-  {
-    if(value != null)
-    {
-      addEnumItem(MONTHRECIEVED, value.getId());
-    }
-  }
-  
-  public void removeMonthRecieved(dss.vector.solutions.MonthOfYear value)
+  public void addMonthReceived(dss.vector.solutions.MonthOfYear value)
   {
     if(value != null)
     {
-      removeEnumItem(MONTHRECIEVED, value.getId());
+      addEnumItem(MONTHRECEIVED, value.getId());
     }
   }
   
-  public void clearMonthRecieved()
+  public void removeMonthReceived(dss.vector.solutions.MonthOfYear value)
   {
-    clearEnum(MONTHRECIEVED);
+    if(value != null)
+    {
+      removeEnumItem(MONTHRECEIVED, value.getId());
+    }
   }
   
-  public void validateMonthRecieved()
+  public void clearMonthReceived()
   {
-    this.validateAttribute(MONTHRECIEVED);
+    clearEnum(MONTHRECEIVED);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getMonthRecievedMd()
+  public void validateMonthReceived()
+  {
+    this.validateAttribute(MONTHRECEIVED);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getMonthReceivedMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(MONTHRECIEVED);
+    return mdClassIF.definesAttribute(MONTHRECEIVED);
   }
   
   @SuppressWarnings("unchecked")
@@ -510,31 +510,31 @@ public abstract class ITNInstanceViewBase extends com.terraframe.mojo.business.V
     }
   }
   
-  public Boolean getReteated()
+  public Boolean getRetreated()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RETEATED));
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RETREATED));
   }
   
-  public void validateReteated()
+  public void validateRetreated()
   {
-    this.validateAttribute(RETEATED);
+    this.validateAttribute(RETREATED);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getReteatedMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getRetreatedMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(RETEATED);
+    return mdClassIF.definesAttribute(RETREATED);
   }
   
-  public void setReteated(Boolean value)
+  public void setRetreated(Boolean value)
   {
     if(value == null)
     {
-      setValue(RETEATED, "");
+      setValue(RETREATED, "");
     }
     else
     {
-      setValue(RETEATED, java.lang.Boolean.toString(value));
+      setValue(RETREATED, java.lang.Boolean.toString(value));
     }
   }
   
@@ -667,31 +667,31 @@ public abstract class ITNInstanceViewBase extends com.terraframe.mojo.business.V
     return mdClassIF.definesAttribute(WASHED);
   }
   
-  public Integer getYearRecieved()
+  public Integer getYearReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(YEARRECIEVED));
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(YEARRECEIVED));
   }
   
-  public void validateYearRecieved()
+  public void validateYearReceived()
   {
-    this.validateAttribute(YEARRECIEVED);
+    this.validateAttribute(YEARRECEIVED);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getYearRecievedMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getYearReceivedMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(YEARRECIEVED);
+    return mdClassIF.definesAttribute(YEARRECEIVED);
   }
   
-  public void setYearRecieved(Integer value)
+  public void setYearReceived(Integer value)
   {
     if(value == null)
     {
-      setValue(YEARRECIEVED, "");
+      setValue(YEARRECEIVED, "");
     }
     else
     {
-      setValue(YEARRECIEVED, java.lang.Integer.toString(value));
+      setValue(YEARRECEIVED, java.lang.Integer.toString(value));
     }
   }
   

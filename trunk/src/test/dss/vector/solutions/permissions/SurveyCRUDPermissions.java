@@ -120,7 +120,7 @@ public class SurveyCRUDPermissions extends PermissionTest implements DoNotWeave
       try
       {
         ITNInstanceViewDTO view = new ITNInstanceViewDTO(request);
-        view.addMonthRecieved(MonthOfYearDTO.JANUARY);
+        view.addMonthReceived(MonthOfYearDTO.JANUARY);
         view.addMonthRetreated(MonthOfYearDTO.APRIL);
         view.addWashed(ResponseDTO.YES);
         view.setDamaged(term);
@@ -134,11 +134,11 @@ public class SurveyCRUDPermissions extends PermissionTest implements DoNotWeave
         view.setPrice(new BigDecimal(4.50000));
         view.setPurpose(term);
         view.setPurposeComments("Ch30248");
-        view.setReteated(true);
+        view.setRetreated(true);
         view.setSleptUnderNet(5L);
         view.setWashFrequency(3);
         view.setWashPeriod(term);
-        view.setYearRecieved(2007);
+        view.setYearReceived(2007);
         view.setYearRetreated(2009);
         view.apply();
 
@@ -156,18 +156,18 @@ public class SurveyCRUDPermissions extends PermissionTest implements DoNotWeave
           update.setPrice(new BigDecimal(4.50000));
           update.setPurpose(term);
           update.setPurposeComments("Ch30248");
-          update.setReteated(true);
+          update.setRetreated(true);
           update.setSleptUnderNet(5L);
           update.setWashFrequency(3);
           update.setWashPeriod(term);
-          update.setYearRecieved(2007);
+          update.setYearReceived(2007);
           update.setYearRetreated(2009);
           update.apply();          
 
           ITNInstanceViewDTO test = ITNInstanceDTO.getView(request, view.getConcreteId());
 
           assertEquals(update.getConcreteId(), test.getConcreteId());
-          assertTrue(test.getMonthRecieved().containsAll(update.getMonthRecieved()));
+          assertTrue(test.getMonthReceived().containsAll(update.getMonthReceived()));
           assertTrue(test.getMonthRetreated().containsAll(update.getMonthRetreated()));
           assertTrue(test.getWashed().containsAll(update.getWashed()));
           assertEquals(update.getDamaged().getId(), test.getDamaged().getId());
@@ -180,11 +180,11 @@ public class SurveyCRUDPermissions extends PermissionTest implements DoNotWeave
           assertEquals(update.getPrice().doubleValue(), test.getPrice().doubleValue());
           assertEquals(update.getPurpose().getId(), test.getPurpose().getId());
           assertEquals(update.getPurposeComments(), test.getPurposeComments());
-          assertEquals(update.getReteated(), test.getReteated());
+          assertEquals(update.getRetreated(), test.getRetreated());
           assertEquals(update.getSleptUnderNet(), test.getSleptUnderNet());
           assertEquals(update.getWashFrequency(), test.getWashFrequency());
           assertEquals(update.getWashPeriod(), test.getWashPeriod());
-          assertEquals(update.getYearRecieved(), test.getYearRecieved());
+          assertEquals(update.getYearReceived(), test.getYearReceived());
           assertEquals(update.getYearRetreated(), test.getYearRetreated());          
         }
         finally

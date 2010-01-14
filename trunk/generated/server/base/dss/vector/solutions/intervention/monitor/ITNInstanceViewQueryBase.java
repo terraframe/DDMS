@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 175525122)
+@com.terraframe.mojo.business.ClassSignature(hash = 1654192826)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class ITNInstanceViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 175525122;
+private static final long serialVersionUID = 1654192826;
 
   public ITNInstanceViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -137,21 +137,21 @@ private static final long serialVersionUID = 175525122;
 
   }
  
-  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthRecieved()
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthReceived()
   {
-    return getMonthRecieved(null);
+    return getMonthReceived(null);
 
   }
  
-  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthRecieved(String alias)
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthReceived(String alias)
   {
-    return (dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNInstanceView.MONTHRECIEVED, alias, null);
+    return (dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNInstanceView.MONTHRECEIVED, alias, null);
 
   }
  
-  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthRecieved(String alias, String displayLabel)
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthReceived(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNInstanceView.MONTHRECIEVED, alias, displayLabel);
+    return (dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNInstanceView.MONTHRECEIVED, alias, displayLabel);
 
   }
   public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthRetreated()
@@ -300,21 +300,21 @@ private static final long serialVersionUID = 175525122;
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getReteated()
+  public com.terraframe.mojo.query.AttributeBoolean getRetreated()
   {
-    return getReteated(null);
+    return getRetreated(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getReteated(String alias)
+  public com.terraframe.mojo.query.AttributeBoolean getRetreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNInstanceView.RETEATED, alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNInstanceView.RETREATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getReteated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeBoolean getRetreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNInstanceView.RETEATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNInstanceView.RETREATED, alias, displayLabel);
 
   }
  
@@ -390,21 +390,21 @@ private static final long serialVersionUID = 175525122;
     return (dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNInstanceView.WASHED, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getYearRecieved()
+  public com.terraframe.mojo.query.AttributeInteger getYearReceived()
   {
-    return getYearRecieved(null);
+    return getYearReceived(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getYearRecieved(String alias)
+  public com.terraframe.mojo.query.AttributeInteger getYearReceived(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNInstanceView.YEARRECIEVED, alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNInstanceView.YEARRECEIVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getYearRecieved(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeInteger getYearReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNInstanceView.YEARRECIEVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNInstanceView.YEARRECEIVED, alias, displayLabel);
 
   }
  

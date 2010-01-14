@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2134334006)
+@com.terraframe.mojo.business.ClassSignature(hash = 1515845786)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String LASTSPRAYED = "lastSprayed";
   public static java.lang.String MALARIA = "malaria";
   public static java.lang.String MALARIACONFORMATIONTECHNIQUE = "malariaConformationTechnique";
-  public static java.lang.String MONTHRECIEVED = "monthRecieved";
+  public static java.lang.String MONTHRECEIVED = "monthReceived";
   public static java.lang.String MONTHRETREATED = "monthRetreated";
   public static java.lang.String NETBRAND = "netBrand";
   public static java.lang.String NETID = "netId";
@@ -52,7 +52,7 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String RDTDETAIL = "rdtDetail";
   public static java.lang.String RDTRESULT = "rdtResult";
   public static java.lang.String RDTTREATMENT = "rdtTreatment";
-  public static java.lang.String RETEATED = "reteated";
+  public static java.lang.String RETREATED = "retreated";
   public static java.lang.String ROOFINFO = "roofInfo";
   public static java.lang.String ROOFSURFACE = "roofSurface";
   public static java.lang.String ROOMS = "rooms";
@@ -67,9 +67,9 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String WASHPERIOD = "washPeriod";
   public static java.lang.String WASHED = "washed";
   public static java.lang.String WINDOWTYPE = "windowType";
-  public static java.lang.String YEARRECIEVED = "yearRecieved";
+  public static java.lang.String YEARRECEIVED = "yearReceived";
   public static java.lang.String YEARRETREATED = "yearRetreated";
-  private static final long serialVersionUID = -2134334006;
+  private static final long serialVersionUID = 1515845786;
   
   public SurveyExcelViewBase()
   {
@@ -687,31 +687,31 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
     }
   }
   
-  public String getMonthRecieved()
+  public String getMonthReceived()
   {
-    return getValue(MONTHRECIEVED);
+    return getValue(MONTHRECEIVED);
   }
   
-  public void validateMonthRecieved()
+  public void validateMonthReceived()
   {
-    this.validateAttribute(MONTHRECIEVED);
+    this.validateAttribute(MONTHRECEIVED);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getMonthRecievedMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getMonthReceivedMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(MONTHRECIEVED);
+    return mdClassIF.definesAttribute(MONTHRECEIVED);
   }
   
-  public void setMonthRecieved(String value)
+  public void setMonthReceived(String value)
   {
     if(value == null)
     {
-      setValue(MONTHRECIEVED, "");
+      setValue(MONTHRECEIVED, "");
     }
     else
     {
-      setValue(MONTHRECIEVED, value);
+      setValue(MONTHRECEIVED, value);
     }
   }
   
@@ -1219,31 +1219,31 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
     }
   }
   
-  public Boolean getReteated()
+  public Boolean getRetreated()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RETEATED));
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RETREATED));
   }
   
-  public void validateReteated()
+  public void validateRetreated()
   {
-    this.validateAttribute(RETEATED);
+    this.validateAttribute(RETREATED);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getReteatedMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getRetreatedMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(RETEATED);
+    return mdClassIF.definesAttribute(RETREATED);
   }
   
-  public void setReteated(Boolean value)
+  public void setRetreated(Boolean value)
   {
     if(value == null)
     {
-      setValue(RETEATED, "");
+      setValue(RETREATED, "");
     }
     else
     {
-      setValue(RETEATED, java.lang.Boolean.toString(value));
+      setValue(RETREATED, java.lang.Boolean.toString(value));
     }
   }
   
@@ -1639,31 +1639,31 @@ public abstract class SurveyExcelViewBase extends com.terraframe.mojo.business.V
     }
   }
   
-  public Integer getYearRecieved()
+  public Integer getYearReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(YEARRECIEVED));
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(YEARRECEIVED));
   }
   
-  public void validateYearRecieved()
+  public void validateYearReceived()
   {
-    this.validateAttribute(YEARRECIEVED);
+    this.validateAttribute(YEARRECEIVED);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getYearRecievedMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getYearReceivedMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(YEARRECIEVED);
+    return mdClassIF.definesAttribute(YEARRECEIVED);
   }
   
-  public void setYearRecieved(Integer value)
+  public void setYearReceived(Integer value)
   {
     if(value == null)
     {
-      setValue(YEARRECIEVED, "");
+      setValue(YEARRECEIVED, "");
     }
     else
     {
-      setValue(YEARRECIEVED, java.lang.Integer.toString(value));
+      setValue(YEARRECEIVED, java.lang.Integer.toString(value));
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1884872195)
+@com.terraframe.mojo.business.ClassSignature(hash = -295033613)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,17 +18,17 @@ public abstract class IndividualIPTExcelViewBase extends com.terraframe.mojo.bus
   public static java.lang.String FACILITY = "facility";
   public static java.lang.String ID = "id";
   public static java.lang.String ISANCVISIT = "isANCVisit";
-  public static java.lang.String NUMBEROFRECIEVEDITNS = "numberOfRecievedITNs";
+  public static java.lang.String NUMBEROFRECEIVEDITNS = "numberOfReceivedITNs";
   public static java.lang.String PATIENTDOB = "patientDOB";
   public static java.lang.String PATIENTFIRSTNAME = "patientFirstName";
   public static java.lang.String PATIENTLASTNAME = "patientLastName";
   public static java.lang.String PATIENTTYPE = "patientType";
-  public static java.lang.String RECIEVEDITN = "recievedITN";
-  public static java.lang.String RECIEVEDSUPPLEMENT = "recievedSupplement";
+  public static java.lang.String RECEIVEDITN = "receivedITN";
+  public static java.lang.String RECEIVEDSUPPLEMENT = "receivedSupplement";
   public static java.lang.String RESIDENTIALLOCATION = "residentialLocation";
   public static java.lang.String SERVICEDATE = "serviceDate";
   public static java.lang.String VISITNUMBER = "visitNumber";
-  private static final long serialVersionUID = 1884872195;
+  private static final long serialVersionUID = -295033613;
   
   public IndividualIPTExcelViewBase()
   {
@@ -226,31 +226,31 @@ public abstract class IndividualIPTExcelViewBase extends com.terraframe.mojo.bus
     }
   }
   
-  public Integer getNumberOfRecievedITNs()
+  public Integer getNumberOfReceivedITNs()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFRECIEVEDITNS));
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFRECEIVEDITNS));
   }
   
-  public void validateNumberOfRecievedITNs()
+  public void validateNumberOfReceivedITNs()
   {
-    this.validateAttribute(NUMBEROFRECIEVEDITNS);
+    this.validateAttribute(NUMBEROFRECEIVEDITNS);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getNumberOfRecievedITNsMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getNumberOfReceivedITNsMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBEROFRECIEVEDITNS);
+    return mdClassIF.definesAttribute(NUMBEROFRECEIVEDITNS);
   }
   
-  public void setNumberOfRecievedITNs(Integer value)
+  public void setNumberOfReceivedITNs(Integer value)
   {
     if(value == null)
     {
-      setValue(NUMBEROFRECIEVEDITNS, "");
+      setValue(NUMBEROFRECEIVEDITNS, "");
     }
     else
     {
-      setValue(NUMBEROFRECIEVEDITNS, java.lang.Integer.toString(value));
+      setValue(NUMBEROFRECEIVEDITNS, java.lang.Integer.toString(value));
     }
   }
   
@@ -366,59 +366,59 @@ public abstract class IndividualIPTExcelViewBase extends com.terraframe.mojo.bus
     }
   }
   
-  public Boolean getRecievedITN()
+  public Boolean getReceivedITN()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RECIEVEDITN));
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RECEIVEDITN));
   }
   
-  public void validateRecievedITN()
+  public void validateReceivedITN()
   {
-    this.validateAttribute(RECIEVEDITN);
+    this.validateAttribute(RECEIVEDITN);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getRecievedITNMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getReceivedITNMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(RECIEVEDITN);
+    return mdClassIF.definesAttribute(RECEIVEDITN);
   }
   
-  public void setRecievedITN(Boolean value)
+  public void setReceivedITN(Boolean value)
   {
     if(value == null)
     {
-      setValue(RECIEVEDITN, "");
+      setValue(RECEIVEDITN, "");
     }
     else
     {
-      setValue(RECIEVEDITN, java.lang.Boolean.toString(value));
+      setValue(RECEIVEDITN, java.lang.Boolean.toString(value));
     }
   }
   
-  public Boolean getRecievedSupplement()
+  public Boolean getReceivedSupplement()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RECIEVEDSUPPLEMENT));
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RECEIVEDSUPPLEMENT));
   }
   
-  public void validateRecievedSupplement()
+  public void validateReceivedSupplement()
   {
-    this.validateAttribute(RECIEVEDSUPPLEMENT);
+    this.validateAttribute(RECEIVEDSUPPLEMENT);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getRecievedSupplementMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getReceivedSupplementMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(RECIEVEDSUPPLEMENT);
+    return mdClassIF.definesAttribute(RECEIVEDSUPPLEMENT);
   }
   
-  public void setRecievedSupplement(Boolean value)
+  public void setReceivedSupplement(Boolean value)
   {
     if(value == null)
     {
-      setValue(RECIEVEDSUPPLEMENT, "");
+      setValue(RECEIVEDSUPPLEMENT, "");
     }
     else
     {
-      setValue(RECIEVEDSUPPLEMENT, java.lang.Boolean.toString(value));
+      setValue(RECEIVEDSUPPLEMENT, java.lang.Boolean.toString(value));
     }
   }
   

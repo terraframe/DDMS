@@ -102,7 +102,7 @@ public class SurveyNoPermissions extends PermissionTest implements DoNotWeave
       try
       {
         ITNInstanceViewDTO view = new ITNInstanceViewDTO(request);
-        view.addMonthRecieved(MonthOfYearDTO.JANUARY);
+        view.addMonthReceived(MonthOfYearDTO.JANUARY);
         view.addMonthRetreated(MonthOfYearDTO.APRIL);
         view.addWashed(ResponseDTO.YES);
         view.setDamaged(term);
@@ -116,11 +116,11 @@ public class SurveyNoPermissions extends PermissionTest implements DoNotWeave
         view.setPrice(new BigDecimal(4.50000));
         view.setPurpose(term);
         view.setPurposeComments("Ch30248");
-        view.setReteated(true);
+        view.setRetreated(true);
         view.setSleptUnderNet(5L);
         view.setWashFrequency(3);
         view.setWashPeriod(term);
-        view.setYearRecieved(2007);
+        view.setYearReceived(2007);
         view.setYearRetreated(2009);
         view.apply();
         

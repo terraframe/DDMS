@@ -15,17 +15,17 @@
       <mjl:dt attribute="netBrand">
         ${item.netBrand.displayLabel}
       </mjl:dt>
-      <mjl:dt attribute="monthRecieved">
+      <mjl:dt attribute="monthReceived">
         <ul>
-          <c:forEach items="${item.monthRecievedEnumNames}" var="enumName">
+          <c:forEach items="${item.monthReceivedEnumNames}" var="enumName">
             <li>
-              ${item.monthRecievedMd.enumItems[enumName]}
+              ${item.monthReceivedMd.enumItems[enumName]}
             </li>
           </c:forEach>
         </ul>
       </mjl:dt>      
-      <mjl:dt attribute="yearRecieved">
-        ${item.yearRecieved}
+      <mjl:dt attribute="yearReceived">
+        ${item.yearReceived}
       </mjl:dt>      
       <mjl:dt attribute="obtained">
         ${item.obtained.displayLabel}
@@ -33,8 +33,8 @@
       <mjl:dt attribute="price">
         ${item.price}
       </mjl:dt>
-      <mjl:dt attribute="reteated">
-        ${item.reteated ? item.reteatedMd.positiveDisplayLabel : item.reteatedMd.negativeDisplayLabel}
+      <mjl:dt attribute="retreated">
+        ${item.retreated ? item.retreatedMd.positiveDisplayLabel : item.retreatedMd.negativeDisplayLabel}
       </mjl:dt>
       <mjl:dt attribute="monthRetreated">
         <ul>

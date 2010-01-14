@@ -98,7 +98,7 @@
         generateController="false" />
 
       <object
-        key="YES"
+        key="dss.vector.solutions.ResponseMaster.YES"
         type="dss.vector.solutions.ResponseMaster">
         <attribute
           name="enumName"
@@ -112,7 +112,7 @@
       </object>
 
       <object
-        key="NO"
+        key="dss.vector.solutions.ResponseMaster.NO"
         type="dss.vector.solutions.ResponseMaster">
         <attribute
           name="enumName"
@@ -126,7 +126,7 @@
       </object>
 
       <object
-        key="DONT_KNOW"
+        key="dss.vector.solutions.ResponseMaster.DONT_KNOW"
         type="dss.vector.solutions.ResponseMaster">
         <attribute
           name="enumName"
@@ -140,7 +140,7 @@
       </object>
 
       <object
-        key="REFUSED"
+        key="dss.vector.solutions.ResponseMaster.REFUSED"
         type="dss.vector.solutions.ResponseMaster">
         <attribute
           name="enumName"

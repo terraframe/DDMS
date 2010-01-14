@@ -97,7 +97,7 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var netMaps = {<%=(String) request.getAttribute("itnMap")%>};
     var net = new dss.vector.solutions.intervention.monitor.ITNInstance;
-    var netAttribs = ["damaged","hanging","household","monthRecieved","monthRetreated","netBrand","netId","notUsedForSleeping",
+    var netAttribs = ["damaged","hanging","household","monthReceived","monthRetreated","netBrand","netId","notUsedForSleeping",
                       "obtained","price","purpose","purposeComments","retreated","steptUnderNet","washFrequency","washPeriod",
                       "yearRecived","yearRetreated"];
     netColumns =   netAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:net, suffix:'net',dropDownMaps:netMaps});

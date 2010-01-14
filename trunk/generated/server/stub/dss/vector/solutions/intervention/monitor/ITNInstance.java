@@ -53,7 +53,7 @@ public class ITNInstance extends ITNInstanceBase implements com.terraframe.mojo.
   @Transaction
   public void apply()
   {
-    validateYearRecieved();
+    validateYearReceived();
     validateMonthRetreated();
     validateYearRetreated();
     validatePurpose();
@@ -63,7 +63,7 @@ public class ITNInstance extends ITNInstanceBase implements com.terraframe.mojo.
 
     boolean first = this.isNew() && !this.isAppliedToDB();
     
-    this.setRecievedDate();
+    this.setReceivedDate();
     this.setRetreatedDate();
     
     super.apply();
@@ -156,17 +156,17 @@ public class ITNInstance extends ITNInstanceBase implements com.terraframe.mojo.
     this.setRetreatedDate(date);
   }
 
-  private void setRecievedDate()
+  private void setReceivedDate()
   {
-    Date date = this.getDate(this.getYearRecieved(), this.getMonthRecieved());
+    Date date = this.getDate(this.getYearReceived(), this.getMonthReceived());
 
-    this.setRecievedDate(date);
+    this.setReceivedDate(date);
   }
 
   @Override
-  public void validateYearRecieved()
+  public void validateYearReceived()
   {
-    if (this.getYearRecieved() != null && this.getYearRecieved() > Calendar.getInstance().get(Calendar.YEAR))
+    if (this.getYearReceived() != null && this.getYearReceived() > Calendar.getInstance().get(Calendar.YEAR))
     {
       String msg = "Year of net retreatment cannont be greater than the current year";
       CurrentYearProblem p = new CurrentYearProblem(msg);
@@ -181,13 +181,13 @@ public class ITNInstance extends ITNInstanceBase implements com.terraframe.mojo.
   @Override
   public void validateMonthRetreated()
   {
-    if (this.getMonthRetreated().size() > 0 && this.getReteated() != null && !this.getReteated())
+    if (this.getMonthRetreated().size() > 0 && this.getRetreated() != null && !this.getRetreated())
     {
       String msg = "Cannot have month of net retreatment when retreatment is false";
       NotApplicableProblem p = new NotApplicableProblem(msg);
       p.setNotification(this, MONTHRETREATED);
-      p.setInputAttribute(getReteatedMd().getDisplayLabel(Session.getCurrentLocale()));
-      p.setInputValue( ( (MdAttributeBooleanDAOIF) getReteatedMd() ).getNegativeDisplayLabel(Session.getCurrentLocale()));
+      p.setInputAttribute(getRetreatedMd().getDisplayLabel(Session.getCurrentLocale()));
+      p.setInputValue( ( (MdAttributeBooleanDAOIF) getRetreatedMd() ).getNegativeDisplayLabel(Session.getCurrentLocale()));
       p.apply();
       p.throwIt();
     }
@@ -198,13 +198,13 @@ public class ITNInstance extends ITNInstanceBase implements com.terraframe.mojo.
   {
     if (this.getYearRetreated() != null)
     {
-      if (this.getReteated() != null && !this.getReteated())
+      if (this.getRetreated() != null && !this.getRetreated())
       {
         String msg = "Cannot have month of net retreatment when retreatment is false";
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, YEARRETREATED);
-        p.setInputAttribute(getReteatedMd().getDisplayLabel(Session.getCurrentLocale()));
-        p.setInputValue( ( (MdAttributeBooleanDAOIF) getReteatedMd() ).getNegativeDisplayLabel(Session.getCurrentLocale()));
+        p.setInputAttribute(getRetreatedMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.setInputValue( ( (MdAttributeBooleanDAOIF) getRetreatedMd() ).getNegativeDisplayLabel(Session.getCurrentLocale()));
         p.apply();
         p.throwIt();
       }

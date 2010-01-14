@@ -4,6 +4,102 @@
     <delete>
 
       <object
+        key="dss.vector.solutions.LineStyle"
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
+      <object
+        key="dss.vector.solutions.query.TextStyle"
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
+      <object
+        key="dss.vector.solutions.PointStyle"
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
+      <object
+        key="dss.vector.solutions.PolygonStyle"
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
+      <object
+        key="dss.vector.solutions.query.GeometryStyle"
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
+         
+      <object
+        key="dss.vector.solutions.query.StyleRule"
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>  
+        
+      <object
+        key="dss.vector.solutions.query.MappingController.updateLayer"
+        type="com.terraframe.mojo.system.metadata.MdAction"/>
+      <object
+        key="dss.vector.solutions.query.Layer.updateLayer"
+        type="com.terraframe.mojo.system.metadata.MdMethod"/>    
+    
+      <object
+        key="dss.vector.solutions.query.DefinesLayers"
+        type="com.terraframe.mojo.system.metadata.MdRelationship" />
+
+      <object
+        key="dss.vector.solutions.query.DefinesCategories"
+        type="com.terraframe.mojo.system.metadata.MdRelationship" />
+        
+      <object
+        key="dss.vector.solutions.query.ThematicLayer"
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
+      <object
+        key="dss.vector.solutions.query.UniversalLayer"
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
+      
+      <object
+        key="dss.vector.solutions.query.SavedSearchView.thematicLayer"
+        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+      <object
+        key="dss.vector.solutions.query.SavedSearchView.thematicLayerId"
+        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+      <object
+        key="dss.vector.solutions.query.SavedSearch.thematicLayer"
+        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+      
+      <object
+        key="dss.vector.solutions.query.Layer.geometryStyle"
+        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+      <object
+        key="dss.vector.solutions.query.Layer.textStyle"
+        type="com.terraframe.mojo.system.metadata.MdAttribute"/>       
+      
+      <object
+        key="dss.vector.solutions.query.LayerView.isThematic"
+        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        
+      <object
+        key="dss.vector.solutions.query.LayerView.thematicType"
+        type="com.terraframe.mojo.system.metadata.MdAttribute"/>              
+        
+      <object
+        key="dss.vector.solutions.query.SavedSearch.getAllLayers"
+        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+        
+      <object
+        key="dss.vector.solutions.intervention.monitor.SurveyPoint.xmlToValueQuery.thematicLayer"
+        type="com.terraframe.mojo.system.metadata.MdParameter"/>      
+      <object
+        key="dss.vector.solutions.surveillance.AggregatedCase.xmlToValueQuery.thematicLayer"
+        type="com.terraframe.mojo.system.metadata.MdParameter"/>      
+      <object
+        key="dss.vector.solutions.irs.AbstractSpray.xmlToValueQuery.thematicLayer"
+        type="com.terraframe.mojo.system.metadata.MdParameter"/>      
+      <object
+        key="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.xmlToValueQuery.thematicLayer"
+        type="com.terraframe.mojo.system.metadata.MdParameter"/>                   
+      <object
+        key="dss.vector.solutions.surveillance.AggregatedCase.mapQuery"
+        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+      <object
+        key="dss.vector.solutions.irs.AbstractSpray.mapQuery"
+        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+      <object
+        key="dss.vector.solutions.intervention.monitor.SurveyPoint.mapQuery"
+        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+      <object
+        key="dss.vector.solutions.query.QueryBuilder.mapQuery"
+        type="com.terraframe.mojo.system.metadata.MdMethod"/>        
+
+      <object
         key="dss.vector.solutions.LineStyleController"
         type="com.terraframe.mojo.system.metadata.MdController"/>
         
@@ -43,104 +139,7 @@
         key="dss.vector.solutions.query.UniversalLayerController"
         type="com.terraframe.mojo.system.metadata.MdController"/>
     
-      <object
-        key="dss.vector.solutions.query.MappingController.updateLayer"
-        type="com.terraframe.mojo.system.metadata.MdAction"/>
-      <object
-        key="dss.vector.solutions.query.Layer.updateLayer"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>    
-    
-      <object
-        key="dss.vector.solutions.query.DefinesLayers"
-        type="com.terraframe.mojo.system.metadata.MdRelationship" />
 
-      <object
-        key="dss.vector.solutions.query.DefinesCategories"
-        type="com.terraframe.mojo.system.metadata.MdRelationship" />
-        
-      <object
-        key="dss.vector.solutions.query.ThematicLayer"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
-      <object
-        key="dss.vector.solutions.query.UniversalLayer"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
-      
-      <object
-        key="dss.vector.solutions.query.SavedSearch.thematicLayer"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
-      <object
-        key="dss.vector.solutions.query.SavedSearchView.thematicLayer"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
-      <object
-        key="dss.vector.solutions.query.SavedSearchView.thematicLayerId"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
-      
-      <object
-        key="dss.vector.solutions.query.Layer.geometryStyle"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
-      <object
-        key="dss.vector.solutions.query.Layer.textStyle"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
-      
-      
-      
-      <object
-        key="dss.vector.solutions.LineStyle"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
-      <object
-        key="dss.vector.solutions.query.TextStyle"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
-      <object
-        key="dss.vector.solutions.PointStyle"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
-      <object
-        key="dss.vector.solutions.PolygonStyle"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
-      <object
-        key="dss.vector.solutions.query.GeometryStyle"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
-         
-      <object
-        key="dss.vector.solutions.query.StyleRule"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>  
-        
-      
-      <object
-        key="dss.vector.solutions.query.LayerView.isThematic"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
-        
-      <object
-        key="dss.vector.solutions.query.LayerView.thematicType"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>              
-        
-      <object
-        key="dss.vector.solutions.query.SavedSearch.getAllLayers"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
-        
-      <object
-        key="dss.vector.solutions.intervention.monitor.SurveyPoint.xmlToValueQuery.thematicLayer"
-        type="com.terraframe.mojo.system.metadata.MdParameter"/>      
-      <object
-        key="dss.vector.solutions.surveillance.AggregatedCase.xmlToValueQuery.thematicLayer"
-        type="com.terraframe.mojo.system.metadata.MdParameter"/>      
-      <object
-        key="dss.vector.solutions.irs.AbstractSpray.xmlToValueQuery.thematicLayer"
-        type="com.terraframe.mojo.system.metadata.MdParameter"/>      
-      <object
-        key="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.xmlToValueQuery.thematicLayer"
-        type="com.terraframe.mojo.system.metadata.MdParameter"/>                   
-      <object
-        key="dss.vector.solutions.surveillance.AggregatedCase.mapQuery"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
-      <object
-        key="dss.vector.solutions.irs.AbstractSpray.mapQuery"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
-      <object
-        key="dss.vector.solutions.intervention.monitor.SurveyPoint.mapQuery"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
-      <object
-        key="dss.vector.solutions.query.QueryBuilder.mapQuery"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>        
       
     </delete>
   

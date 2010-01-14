@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2037555220)
+@com.terraframe.mojo.business.ClassSignature(hash = 77506268)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class IndividualIPTExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -2037555220;
+private static final long serialVersionUID = 77506268;
 
   public IndividualIPTExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -153,21 +153,21 @@ private static final long serialVersionUID = -2037555220;
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs()
+  public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs()
   {
-    return getNumberOfRecievedITNs(null);
+    return getNumberOfReceivedITNs(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs(String alias)
+  public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.NUMBEROFRECIEVEDITNS, alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.NUMBEROFRECEIVEDITNS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.NUMBEROFRECIEVEDITNS, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.NUMBEROFRECEIVEDITNS, alias, displayLabel);
 
   }
  
@@ -243,39 +243,39 @@ private static final long serialVersionUID = -2037555220;
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedITN()
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedITN()
   {
-    return getRecievedITN(null);
+    return getReceivedITN(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedITN(String alias)
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedITN(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECIEVEDITN, alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECEIVEDITN, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedITN(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedITN(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECIEVEDITN, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECEIVEDITN, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement()
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement()
   {
-    return getRecievedSupplement(null);
+    return getReceivedSupplement(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement(String alias)
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECIEVEDSUPPLEMENT, alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECEIVEDSUPPLEMENT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECIEVEDSUPPLEMENT, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECEIVEDSUPPLEMENT, alias, displayLabel);
 
   }
  

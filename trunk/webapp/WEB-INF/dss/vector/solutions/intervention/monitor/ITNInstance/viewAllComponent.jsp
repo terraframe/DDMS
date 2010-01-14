@@ -23,7 +23,7 @@
         ${item.household.keyName}
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="monthRecieved">
+    <mjl:attributeColumn attributeName="monthReceived">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="monthRetreated">
     </mjl:attributeColumn>
@@ -50,7 +50,7 @@
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="purposeComments">
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="reteated">
+    <mjl:attributeColumn attributeName="retreated">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="sleptUnderNet">
     </mjl:attributeColumn>
@@ -72,7 +72,7 @@
         </ul>
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="yearRecieved">
+    <mjl:attributeColumn attributeName="yearReceived">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="yearRetreated">
     </mjl:attributeColumn>

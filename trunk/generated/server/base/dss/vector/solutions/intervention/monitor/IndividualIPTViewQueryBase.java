@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2061457223)
+@com.terraframe.mojo.business.ClassSignature(hash = -1853644233)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class IndividualIPTViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2061457223;
+private static final long serialVersionUID = -1853644233;
 
   public IndividualIPTViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -191,21 +191,21 @@ private static final long serialVersionUID = 2061457223;
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs()
+  public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs()
   {
-    return getNumberOfRecievedITNs(null);
+    return getNumberOfReceivedITNs(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs(String alias)
+  public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTView.NUMBEROFRECIEVEDITNS, alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTView.NUMBEROFRECEIVEDITNS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTView.NUMBEROFRECIEVEDITNS, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTView.NUMBEROFRECEIVEDITNS, alias, displayLabel);
 
   }
  
@@ -228,39 +228,39 @@ private static final long serialVersionUID = 2061457223;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTView.PATIENTTYPE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedITN()
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedITN()
   {
-    return getRecievedITN(null);
+    return getReceivedITN(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedITN(String alias)
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedITN(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTView.RECIEVEDITN, alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTView.RECEIVEDITN, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedITN(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedITN(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTView.RECIEVEDITN, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTView.RECEIVEDITN, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement()
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement()
   {
-    return getRecievedSupplement(null);
+    return getReceivedSupplement(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement(String alias)
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTView.RECIEVEDSUPPLEMENT, alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTView.RECEIVEDSUPPLEMENT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTView.RECIEVEDSUPPLEMENT, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTView.RECEIVEDSUPPLEMENT, alias, displayLabel);
 
   }
  

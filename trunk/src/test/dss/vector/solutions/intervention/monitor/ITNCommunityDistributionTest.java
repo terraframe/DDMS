@@ -623,7 +623,7 @@ public class ITNCommunityDistributionTest extends TestCase
 
   }
 
-  public void testNotApplicableCurrencyRecieved()
+  public void testNotApplicableCurrencyReceived()
   {
     ITNCommunityDistributionView view = new ITNCommunityDistributionView();
     view.setStartDate(new Date());

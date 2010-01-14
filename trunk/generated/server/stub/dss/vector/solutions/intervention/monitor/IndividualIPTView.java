@@ -38,9 +38,9 @@ public class IndividualIPTView extends IndividualIPTViewBase implements com.terr
     this.setVisitNumber(concrete.getVisitNumber());
     this.setDoseNumber(concrete.getDoseNumber());
     this.setDoseType(concrete.getDoseType());
-    this.setRecievedSupplement(concrete.getRecievedSupplement());
-    this.setRecievedITN(concrete.getRecievedITN());
-    this.setNumberOfRecievedITNs(concrete.getNumberOfRecievedITNs());
+    this.setReceivedSupplement(concrete.getReceivedSupplement());
+    this.setReceivedITN(concrete.getReceivedITN());
+    this.setNumberOfReceivedITNs(concrete.getNumberOfReceivedITNs());
     this.setAdministratorName(concrete.getAdministratorName());
     this.setAdministratorSurname(concrete.getAdministratorSurname());
   }
@@ -71,9 +71,9 @@ public class IndividualIPTView extends IndividualIPTViewBase implements com.terr
     concrete.setVisitNumber(this.getVisitNumber());
     concrete.setDoseNumber(this.getDoseNumber());
     concrete.setDoseType(this.getDoseType());
-    concrete.setRecievedSupplement(this.getRecievedSupplement());
-    concrete.setRecievedITN(this.getRecievedITN());
-    concrete.setNumberOfRecievedITNs(this.getNumberOfRecievedITNs());
+    concrete.setReceivedSupplement(this.getReceivedSupplement());
+    concrete.setReceivedITN(this.getReceivedITN());
+    concrete.setNumberOfReceivedITNs(this.getNumberOfReceivedITNs());
     concrete.setAdministratorName(this.getAdministratorName());
     concrete.setAdministratorSurname(this.getAdministratorSurname());
   }
@@ -88,9 +88,9 @@ public class IndividualIPTView extends IndividualIPTViewBase implements com.terr
     new AttributeNotificationMap(concrete, IndividualIPT.VISITNUMBER, this, IndividualIPTView.VISITNUMBER);
     new AttributeNotificationMap(concrete, IndividualIPT.DOSENUMBER, this, IndividualIPTView.DOSENUMBER);
     new AttributeNotificationMap(concrete, IndividualIPT.DOSETYPE, this, IndividualIPTView.DOSETYPE);
-    new AttributeNotificationMap(concrete, IndividualIPT.RECIEVEDSUPPLEMENT, this, IndividualIPTView.RECIEVEDSUPPLEMENT);
-    new AttributeNotificationMap(concrete, IndividualIPT.RECIEVEDITN, this, IndividualIPTView.RECIEVEDITN);
-    new AttributeNotificationMap(concrete, IndividualIPT.NUMBEROFRECIEVEDITNS, this, IndividualIPTView.NUMBEROFRECIEVEDITNS);
+    new AttributeNotificationMap(concrete, IndividualIPT.RECEIVEDSUPPLEMENT, this, IndividualIPTView.RECEIVEDSUPPLEMENT);
+    new AttributeNotificationMap(concrete, IndividualIPT.RECEIVEDITN, this, IndividualIPTView.RECEIVEDITN);
+    new AttributeNotificationMap(concrete, IndividualIPT.NUMBEROFRECEIVEDITNS, this, IndividualIPTView.NUMBEROFRECEIVEDITNS);
     new AttributeNotificationMap(concrete, IndividualIPT.ADMINISTRATORNAME, this, IndividualIPTView.ADMINISTRATORNAME);
     new AttributeNotificationMap(concrete, IndividualIPT.ADMINISTRATORSURNAME, this, IndividualIPTView.ADMINISTRATORSURNAME);
   }

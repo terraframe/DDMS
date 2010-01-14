@@ -204,12 +204,12 @@
             label="Net brand"
             type="dss.vector.solutions.ontology.Term" />
           <enumeration
-            name="monthRecieved"
+            name="monthReceived"
             label="When was the net received (Month)"
             selectMultiple="false"
             type="dss.vector.solutions.MonthOfYear" />
           <integer
-            name="yearRecieved"
+            name="yearReceived"
             label="When was the net received (Year)"
             rejectNegative="true"
             required="true" />
@@ -224,7 +224,7 @@
             decimal="5"
             defaultValue="0.00" />
           <boolean
-            name="reteated"
+            name="retreated"
             label="Has the net been retreated"
             positiveLabel="Yes"
             negativeLabel="No"
@@ -328,10 +328,10 @@
             concrete="netBrand"
             type="dss.vector.solutions.intervention.monitor.ITNInstance" />
           <virtual
-            concrete="monthRecieved"
+            concrete="monthReceived"
             type="dss.vector.solutions.intervention.monitor.ITNInstance" />
           <virtual
-            concrete="yearRecieved"
+            concrete="yearReceived"
             type="dss.vector.solutions.intervention.monitor.ITNInstance" />
           <virtual
             concrete="obtained"
@@ -340,7 +340,7 @@
             concrete="price"
             type="dss.vector.solutions.intervention.monitor.ITNInstance" />
           <virtual
-            concrete="reteated"
+            concrete="retreated"
             type="dss.vector.solutions.intervention.monitor.ITNInstance" />
           <virtual
             concrete="monthRetreated"

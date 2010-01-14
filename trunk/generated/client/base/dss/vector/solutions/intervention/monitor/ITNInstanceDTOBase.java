@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1818005431)
+@com.terraframe.mojo.business.ClassSignature(hash = -408179309)
 public abstract class ITNInstanceDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNInstance";
-  private static final long serialVersionUID = -1818005431;
+  private static final long serialVersionUID = -408179309;
   
   protected ITNInstanceDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -38,7 +38,7 @@ public abstract class ITNInstanceDTOBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
-  public static java.lang.String MONTHRECIEVED = "monthRecieved";
+  public static java.lang.String MONTHRECEIVED = "monthReceived";
   public static java.lang.String MONTHRETREATED = "monthRetreated";
   public static java.lang.String NETBRAND = "netBrand";
   public static java.lang.String NETID = "netId";
@@ -48,8 +48,8 @@ public abstract class ITNInstanceDTOBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String PRICE = "price";
   public static java.lang.String PURPOSE = "purpose";
   public static java.lang.String PURPOSECOMMENTS = "purposeComments";
-  public static java.lang.String RECIEVEDDATE = "recievedDate";
-  public static java.lang.String RETEATED = "reteated";
+  public static java.lang.String RECEIVEDDATE = "receivedDate";
+  public static java.lang.String RETREATED = "retreated";
   public static java.lang.String RETREATEDDATE = "retreatedDate";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
@@ -58,7 +58,7 @@ public abstract class ITNInstanceDTOBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String WASHFREQUENCY = "washFrequency";
   public static java.lang.String WASHPERIOD = "washPeriod";
   public static java.lang.String WASHED = "washed";
-  public static java.lang.String YEARRECIEVED = "yearRecieved";
+  public static java.lang.String YEARRECEIVED = "yearReceived";
   public static java.lang.String YEARRETREATED = "yearRetreated";
   public java.util.Date getCreateDate()
   {
@@ -420,55 +420,55 @@ public abstract class ITNInstanceDTOBase extends com.terraframe.mojo.business.Bu
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<dss.vector.solutions.MonthOfYearDTO> getMonthRecieved()
+  public java.util.List<dss.vector.solutions.MonthOfYearDTO> getMonthReceived()
   {
-    return (java.util.List<dss.vector.solutions.MonthOfYearDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.MonthOfYear", getEnumNames(MONTHRECIEVED));
+    return (java.util.List<dss.vector.solutions.MonthOfYearDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.MonthOfYearDTO.CLASS, getEnumNames(MONTHRECEIVED));
   }
   
-  public java.util.List<String> getMonthRecievedEnumNames()
+  public java.util.List<String> getMonthReceivedEnumNames()
   {
-    return getEnumNames(MONTHRECIEVED);
+    return getEnumNames(MONTHRECEIVED);
   }
   
-  public void addMonthRecieved(dss.vector.solutions.MonthOfYearDTO enumDTO)
+  public void addMonthReceived(dss.vector.solutions.MonthOfYearDTO enumDTO)
   {
-    addEnumItem(MONTHRECIEVED, enumDTO.toString());
+    addEnumItem(MONTHRECEIVED, enumDTO.toString());
   }
   
-  public void removeMonthRecieved(dss.vector.solutions.MonthOfYearDTO enumDTO)
+  public void removeMonthReceived(dss.vector.solutions.MonthOfYearDTO enumDTO)
   {
-    removeEnumItem(MONTHRECIEVED, enumDTO.toString());
+    removeEnumItem(MONTHRECEIVED, enumDTO.toString());
   }
   
-  public void clearMonthRecieved()
+  public void clearMonthReceived()
   {
-    clearEnum(MONTHRECIEVED);
+    clearEnum(MONTHRECEIVED);
   }
   
-  public boolean isMonthRecievedWritable()
+  public boolean isMonthReceivedWritable()
   {
-    return isWritable(MONTHRECIEVED);
+    return isWritable(MONTHRECEIVED);
   }
   
-  public boolean isMonthRecievedReadable()
+  public boolean isMonthReceivedReadable()
   {
-    return isReadable(MONTHRECIEVED);
+    return isReadable(MONTHRECEIVED);
   }
   
-  public boolean isMonthRecievedModified()
+  public boolean isMonthReceivedModified()
   {
-    return isModified(MONTHRECIEVED);
+    return isModified(MONTHRECEIVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getMonthRecievedMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getMonthReceivedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(MONTHRECIEVED).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(MONTHRECEIVED).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.MonthOfYearDTO> getMonthRetreated()
   {
-    return (java.util.List<dss.vector.solutions.MonthOfYearDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.MonthOfYear", getEnumNames(MONTHRETREATED));
+    return (java.util.List<dss.vector.solutions.MonthOfYearDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.MonthOfYearDTO.CLASS, getEnumNames(MONTHRETREATED));
   }
   
   public java.util.List<String> getMonthRetreatedEnumNames()
@@ -835,78 +835,78 @@ public abstract class ITNInstanceDTOBase extends com.terraframe.mojo.business.Bu
     return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(PURPOSECOMMENTS).getAttributeMdDTO();
   }
   
-  public java.util.Date getRecievedDate()
+  public java.util.Date getReceivedDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(RECIEVEDDATE));
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(RECEIVEDDATE));
   }
   
-  public void setRecievedDate(java.util.Date value)
+  public void setReceivedDate(java.util.Date value)
   {
     if(value == null)
     {
-      setValue(RECIEVEDDATE, "");
+      setValue(RECEIVEDDATE, "");
     }
     else
     {
-      setValue(RECIEVEDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(RECEIVEDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
-  public boolean isRecievedDateWritable()
+  public boolean isReceivedDateWritable()
   {
-    return isWritable(RECIEVEDDATE);
+    return isWritable(RECEIVEDDATE);
   }
   
-  public boolean isRecievedDateReadable()
+  public boolean isReceivedDateReadable()
   {
-    return isReadable(RECIEVEDDATE);
+    return isReadable(RECEIVEDDATE);
   }
   
-  public boolean isRecievedDateModified()
+  public boolean isReceivedDateModified()
   {
-    return isModified(RECIEVEDDATE);
+    return isModified(RECEIVEDDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getRecievedDateMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getReceivedDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(RECIEVEDDATE).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(RECEIVEDDATE).getAttributeMdDTO();
   }
   
-  public Boolean getReteated()
+  public Boolean getRetreated()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RETEATED));
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RETREATED));
   }
   
-  public void setReteated(Boolean value)
+  public void setRetreated(Boolean value)
   {
     if(value == null)
     {
-      setValue(RETEATED, "");
+      setValue(RETREATED, "");
     }
     else
     {
-      setValue(RETEATED, java.lang.Boolean.toString(value));
+      setValue(RETREATED, java.lang.Boolean.toString(value));
     }
   }
   
-  public boolean isReteatedWritable()
+  public boolean isRetreatedWritable()
   {
-    return isWritable(RETEATED);
+    return isWritable(RETREATED);
   }
   
-  public boolean isReteatedReadable()
+  public boolean isRetreatedReadable()
   {
-    return isReadable(RETEATED);
+    return isReadable(RETREATED);
   }
   
-  public boolean isReteatedModified()
+  public boolean isRetreatedModified()
   {
-    return isModified(RETEATED);
+    return isModified(RETREATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getReteatedMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getRetreatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(RETEATED).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(RETREATED).getAttributeMdDTO();
   }
   
   public java.util.Date getRetreatedDate()
@@ -1117,7 +1117,7 @@ public abstract class ITNInstanceDTOBase extends com.terraframe.mojo.business.Bu
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.ResponseDTO> getWashed()
   {
-    return (java.util.List<dss.vector.solutions.ResponseDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.Response", getEnumNames(WASHED));
+    return (java.util.List<dss.vector.solutions.ResponseDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.ResponseDTO.CLASS, getEnumNames(WASHED));
   }
   
   public java.util.List<String> getWashedEnumNames()
@@ -1160,41 +1160,41 @@ public abstract class ITNInstanceDTOBase extends com.terraframe.mojo.business.Bu
     return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(WASHED).getAttributeMdDTO();
   }
   
-  public Integer getYearRecieved()
+  public Integer getYearReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(YEARRECIEVED));
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(YEARRECEIVED));
   }
   
-  public void setYearRecieved(Integer value)
+  public void setYearReceived(Integer value)
   {
     if(value == null)
     {
-      setValue(YEARRECIEVED, "");
+      setValue(YEARRECEIVED, "");
     }
     else
     {
-      setValue(YEARRECIEVED, java.lang.Integer.toString(value));
+      setValue(YEARRECEIVED, java.lang.Integer.toString(value));
     }
   }
   
-  public boolean isYearRecievedWritable()
+  public boolean isYearReceivedWritable()
   {
-    return isWritable(YEARRECIEVED);
+    return isWritable(YEARRECEIVED);
   }
   
-  public boolean isYearRecievedReadable()
+  public boolean isYearReceivedReadable()
   {
-    return isReadable(YEARRECIEVED);
+    return isReadable(YEARRECEIVED);
   }
   
-  public boolean isYearRecievedModified()
+  public boolean isYearReceivedModified()
   {
-    return isModified(YEARRECIEVED);
+    return isModified(YEARRECEIVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getYearRecievedMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getYearReceivedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(YEARRECIEVED).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(YEARRECEIVED).getAttributeMdDTO();
   }
   
   public Integer getYearRetreated()

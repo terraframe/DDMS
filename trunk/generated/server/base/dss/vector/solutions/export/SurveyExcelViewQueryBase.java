@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -553999629)
+@com.terraframe.mojo.business.ClassSignature(hash = -201240701)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class SurveyExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -553999629;
+private static final long serialVersionUID = -201240701;
 
   public SurveyExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -423,21 +423,21 @@ private static final long serialVersionUID = -553999629;
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMonthRecieved()
+  public com.terraframe.mojo.query.AttributeChar getMonthReceived()
   {
-    return getMonthRecieved(null);
+    return getMonthReceived(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMonthRecieved(String alias)
+  public com.terraframe.mojo.query.AttributeChar getMonthReceived(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MONTHRECIEVED, alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MONTHRECEIVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMonthRecieved(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeChar getMonthReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MONTHRECIEVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.MONTHRECEIVED, alias, displayLabel);
 
   }
  
@@ -765,21 +765,21 @@ private static final long serialVersionUID = -553999629;
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getReteated()
+  public com.terraframe.mojo.query.AttributeBoolean getRetreated()
   {
-    return getReteated(null);
+    return getRetreated(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getReteated(String alias)
+  public com.terraframe.mojo.query.AttributeBoolean getRetreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.RETEATED, alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.RETREATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getReteated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeBoolean getRetreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.RETEATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.RETREATED, alias, displayLabel);
 
   }
  
@@ -1035,21 +1035,21 @@ private static final long serialVersionUID = -553999629;
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getYearRecieved()
+  public com.terraframe.mojo.query.AttributeInteger getYearReceived()
   {
-    return getYearRecieved(null);
+    return getYearReceived(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getYearRecieved(String alias)
+  public com.terraframe.mojo.query.AttributeInteger getYearReceived(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.YEARRECIEVED, alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.YEARRECEIVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getYearRecieved(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeInteger getYearReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.YEARRECIEVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.SurveyExcelView.YEARRECEIVED, alias, displayLabel);
 
   }
  

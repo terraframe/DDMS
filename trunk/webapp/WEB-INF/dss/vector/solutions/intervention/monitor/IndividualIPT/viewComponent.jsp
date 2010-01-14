@@ -39,14 +39,14 @@
           ${doseType.displayLabel}
         </c:if>      
       </mjl:dt>
-      <mjl:dt attribute="recievedSupplement">
-        ${item.recievedSupplement ? item.recievedSupplementMd.positiveDisplayLabel : item.recievedSupplementMd.negativeDisplayLabel}
+      <mjl:dt attribute="receivedSupplement">
+        ${item.receivedSupplement ? item.receivedSupplementMd.positiveDisplayLabel : item.receivedSupplementMd.negativeDisplayLabel}
       </mjl:dt>
-      <mjl:dt attribute="recievedITN">
-        ${item.recievedITN ? item.recievedITNMd.positiveDisplayLabel : item.recievedITNMd.negativeDisplayLabel}
+      <mjl:dt attribute="receivedITN">
+        ${item.receivedITN ? item.receivedITNMd.positiveDisplayLabel : item.receivedITNMd.negativeDisplayLabel}
       </mjl:dt>
-      <mjl:dt attribute="numberOfRecievedITNs">
-        ${item.numberOfRecievedITNs}
+      <mjl:dt attribute="numberOfReceivedITNs">
+        ${item.numberOfReceivedITNs}
       </mjl:dt>
       <mjl:dt attribute="administratorName">
         ${item.administratorName}

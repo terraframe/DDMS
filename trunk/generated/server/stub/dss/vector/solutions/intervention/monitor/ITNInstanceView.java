@@ -21,16 +21,16 @@ public class ITNInstanceView extends ITNInstanceViewBase implements com.terrafra
     this.setNetId(concrete.getNetId());
     this.setNetBrand(concrete.getNetBrand());
 
-    this.clearMonthRecieved();
-    for (MonthOfYear month : concrete.getMonthRecieved())
+    this.clearMonthReceived();
+    for (MonthOfYear month : concrete.getMonthReceived())
     {
-      this.addMonthRecieved(month);
+      this.addMonthReceived(month);
     }
 
-    this.setYearRecieved(concrete.getYearRecieved());
+    this.setYearReceived(concrete.getYearReceived());
     this.setObtained(concrete.getObtained());
     this.setPrice(concrete.getPrice());
-    this.setReteated(concrete.getReteated());
+    this.setRetreated(concrete.getRetreated());
 
     this.clearMonthRetreated();
     for (MonthOfYear month : concrete.getMonthRetreated())
@@ -65,16 +65,16 @@ public class ITNInstanceView extends ITNInstanceViewBase implements com.terrafra
     concrete.setNetId(this.getNetId());
     concrete.setNetBrand(this.getNetBrand());
 
-    concrete.clearMonthRecieved();
-    for (MonthOfYear month : this.getMonthRecieved())
+    concrete.clearMonthReceived();
+    for (MonthOfYear month : this.getMonthReceived())
     {
-      concrete.addMonthRecieved(month);
+      concrete.addMonthReceived(month);
     }
 
-    concrete.setYearRecieved(this.getYearRecieved());
+    concrete.setYearReceived(this.getYearReceived());
     concrete.setObtained(this.getObtained());
     concrete.setPrice(this.getPrice());
-    concrete.setReteated(this.getReteated());
+    concrete.setRetreated(this.getRetreated());
 
     concrete.clearMonthRetreated();
     for (MonthOfYear month : this.getMonthRetreated())
@@ -106,11 +106,11 @@ public class ITNInstanceView extends ITNInstanceViewBase implements com.terrafra
     new AttributeNotificationMap(concrete, ITNInstance.HOUSEHOLD, this, ITNInstanceView.HOUSEHOLD);
     new AttributeNotificationMap(concrete, ITNInstance.NETID, this, ITNInstanceView.NETID);
     new AttributeNotificationMap(concrete, ITNInstance.NETBRAND, this, ITNInstanceView.NETBRAND);
-    new AttributeNotificationMap(concrete, ITNInstance.MONTHRECIEVED, this, ITNInstanceView.MONTHRECIEVED);
-    new AttributeNotificationMap(concrete, ITNInstance.YEARRECIEVED, this, ITNInstanceView.YEARRECIEVED);
+    new AttributeNotificationMap(concrete, ITNInstance.MONTHRECEIVED, this, ITNInstanceView.MONTHRECEIVED);
+    new AttributeNotificationMap(concrete, ITNInstance.YEARRECEIVED, this, ITNInstanceView.YEARRECEIVED);
     new AttributeNotificationMap(concrete, ITNInstance.OBTAINED, this, ITNInstanceView.OBTAINED);
     new AttributeNotificationMap(concrete, ITNInstance.PRICE, this, ITNInstanceView.PRICE);
-    new AttributeNotificationMap(concrete, ITNInstance.RETEATED, this, ITNInstanceView.RETEATED);
+    new AttributeNotificationMap(concrete, ITNInstance.RETREATED, this, ITNInstanceView.RETREATED);
     new AttributeNotificationMap(concrete, ITNInstance.MONTHRETREATED, this, ITNInstanceView.MONTHRETREATED);
     new AttributeNotificationMap(concrete, ITNInstance.YEARRETREATED, this, ITNInstanceView.YEARRETREATED);
     new AttributeNotificationMap(concrete, ITNInstance.DAMAGED, this, ITNInstanceView.DAMAGED);

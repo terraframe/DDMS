@@ -101,11 +101,11 @@
               label="Net Brand"
               size="255"/>
             <char
-              name="monthRecieved"
+              name="monthReceived"
               label="When was the net received (Month)"
               size="255"/>
             <virtual
-              concrete="yearRecieved"
+              concrete="yearReceived"
               type="dss.vector.solutions.intervention.monitor.ITNInstance"/>
             <char
               name="obtained"
@@ -115,7 +115,7 @@
               concrete="price"
               type="dss.vector.solutions.intervention.monitor.ITNInstance"/>
             <virtual
-              concrete="reteated"
+              concrete="retreated"
               type="dss.vector.solutions.intervention.monitor.ITNInstance"/>
             <char
               name="monthRetreated"
@@ -228,10 +228,10 @@
         key="dss.vector.solutions.export.SurveyExcelView.netBrand"
         type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
       <object
-        key="dss.vector.solutions.export.SurveyExcelView.monthRecieved"
+        key="dss.vector.solutions.export.SurveyExcelView.monthReceived"
         type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
       <object
-        key="dss.vector.solutions.export.SurveyExcelView.yearRecieved"
+        key="dss.vector.solutions.export.SurveyExcelView.yearReceived"
         type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.obtained"
@@ -240,7 +240,7 @@
         key="dss.vector.solutions.export.SurveyExcelView.price"
         type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
       <object
-        key="dss.vector.solutions.export.SurveyExcelView.reteated"
+        key="dss.vector.solutions.export.SurveyExcelView.retreated"
         type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.monthRetreated"

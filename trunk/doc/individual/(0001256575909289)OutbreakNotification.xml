@@ -22,7 +22,8 @@
       </mdBusiness>
 
       <mdTree
-        name="dss.vector.solutions.general.WeeklyThreshold">
+        name="dss.vector.solutions.general.WeeklyThreshold"
+        label="Weekly Threshold">
         <attributes>
           <integer
             name="notification"

@@ -148,8 +148,8 @@
             label="IPT administrator surname"
             size="255" />
           <integer
-            name="numberOfRecievedITNs"
-            label="Number of recieved ITNs"
+            name="numberOfReceivedITNs"
+            label="Number of received ITNs"
             rejectNegative="true" />
           <char
             name="administratorName"
@@ -183,12 +183,12 @@
             negativeLabel="No"
             defaultValue="false" />
           <boolean
-            name="recievedSupplement"
+            name="receivedSupplement"
             label="Did the patient receive iron supplement"
             positiveLabel="Yes"
             negativeLabel="No" />
           <boolean
-            name="recievedITN"
+            name="receivedITN"
             label="Did the patient receive ITN"
             positiveLabel="Yes"
             negativeLabel="No" />
@@ -239,8 +239,8 @@
             concrete="administratorName"
             type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
           <virtual
-            name="numberOfRecievedITNs"
-            concrete="numberOfRecievedITNs"
+            name="numberOfReceivedITNs"
+            concrete="numberOfReceivedITNs"
             type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
           <virtual
             name="iptCase"
@@ -267,12 +267,12 @@
             concrete="doseType"
             type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
           <virtual
-            name="recievedSupplement"
-            concrete="recievedSupplement"
+            name="receivedSupplement"
+            concrete="receivedSupplement"
             type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
           <virtual
-            name="recievedITN"
-            concrete="recievedITN"
+            name="receivedITN"
+            concrete="receivedITN"
             type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
           <char
             name="concreteId"

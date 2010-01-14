@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2028250806)
+@com.terraframe.mojo.business.ClassSignature(hash = -920022226)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  class IndividualIPTQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2028250806;
+private static final long serialVersionUID = -920022226;
 
   public IndividualIPTQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -342,21 +342,21 @@ private static final long serialVersionUID = 2028250806;
     return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualIPT.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs()
+  public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs()
   {
-    return getNumberOfRecievedITNs(null);
+    return getNumberOfReceivedITNs(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs(String alias)
+  public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualIPT.NUMBEROFRECIEVEDITNS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualIPT.NUMBEROFRECEIVEDITNS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualIPT.NUMBEROFRECIEVEDITNS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualIPT.NUMBEROFRECEIVEDITNS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -405,38 +405,38 @@ private static final long serialVersionUID = 2028250806;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualIPT.PATIENTTYPE, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedITN()
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedITN()
   {
-    return getRecievedITN(null);
+    return getReceivedITN(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedITN(String alias)
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedITN(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualIPT.RECIEVEDITN, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualIPT.RECEIVEDITN, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedITN(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedITN(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualIPT.RECIEVEDITN, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualIPT.RECEIVEDITN, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement()
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement()
   {
-    return getRecievedSupplement(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualIPT.RECIEVEDSUPPLEMENT, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return getReceivedSupplement(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualIPT.RECIEVEDSUPPLEMENT, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualIPT.RECEIVEDSUPPLEMENT, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.IndividualIPT.RECEIVEDSUPPLEMENT, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -662,21 +662,21 @@ private static final long serialVersionUID = 2028250806;
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs();
-    public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs();
+    public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs(String alias);
+    public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs(String alias, String displayLabel);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPatientType();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPatientType(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPatientType(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeBoolean getRecievedITN();
-    public com.terraframe.mojo.query.AttributeBoolean getRecievedITN(String alias);
-    public com.terraframe.mojo.query.AttributeBoolean getRecievedITN(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement();
-    public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement(String alias);
-    public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeBoolean getReceivedITN();
+    public com.terraframe.mojo.query.AttributeBoolean getReceivedITN(String alias);
+    public com.terraframe.mojo.query.AttributeBoolean getReceivedITN(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement();
+    public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement(String alias);
+    public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeLong getSeq();
     public com.terraframe.mojo.query.AttributeLong getSeq(String alias);
     public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel);
@@ -707,7 +707,7 @@ private static final long serialVersionUID = 2028250806;
  implements IndividualIPTQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1905911000;
+private static final long serialVersionUID = -1042362032;
 
   public IndividualIPTQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -981,21 +981,21 @@ private static final long serialVersionUID = 1905911000;
     return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs()
+  public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs()
   {
-    return getNumberOfRecievedITNs(null);
+    return getNumberOfReceivedITNs(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs(String alias)
+  public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("numberOfRecievedITNs", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("numberOfReceivedITNs", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberOfRecievedITNs(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeInteger getNumberOfReceivedITNs(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("numberOfRecievedITNs", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("numberOfReceivedITNs", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -1032,38 +1032,38 @@ private static final long serialVersionUID = 1905911000;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("patientType", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedITN()
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedITN()
   {
-    return getRecievedITN(null);
+    return getReceivedITN(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedITN(String alias)
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedITN(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("recievedITN", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("receivedITN", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedITN(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedITN(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("recievedITN", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("receivedITN", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement()
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement()
   {
-    return getRecievedSupplement(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("recievedSupplement", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return getReceivedSupplement(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRecievedSupplement(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("recievedSupplement", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("receivedSupplement", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getReceivedSupplement(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("receivedSupplement", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()

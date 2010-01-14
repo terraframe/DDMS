@@ -173,9 +173,9 @@ public class IndividualIPTCRUDPermissions extends PermissionTest implements DoNo
         view.setVisitNumber(TermDTO.get(request, termId));
         view.setDoseNumber(TermDTO.get(request, termId));
         view.setDoseType(TermDTO.get(request, termId));
-        view.setRecievedSupplement(true);
-        view.setRecievedITN(true);
-        view.setNumberOfRecievedITNs(5);
+        view.setReceivedSupplement(true);
+        view.setReceivedITN(true);
+        view.setNumberOfReceivedITNs(5);
         view.setAdministratorName("Justin");
         view.setAdministratorSurname("Smethie");
         view.setServiceDate(new Date());
@@ -191,9 +191,9 @@ public class IndividualIPTCRUDPermissions extends PermissionTest implements DoNo
           edit.setVisitNumber(TermDTO.get(request, termId));
           edit.setDoseNumber(TermDTO.get(request, termId));
           edit.setDoseType(TermDTO.get(request, termId));
-          edit.setRecievedSupplement(true);
-          edit.setRecievedITN(true);
-          edit.setNumberOfRecievedITNs(2);
+          edit.setReceivedSupplement(true);
+          edit.setReceivedITN(true);
+          edit.setNumberOfReceivedITNs(2);
           edit.setAdministratorName("Justin");
           edit.setAdministratorSurname("Smethie");
           edit.apply();
@@ -208,9 +208,9 @@ public class IndividualIPTCRUDPermissions extends PermissionTest implements DoNo
           assertEquals(edit.getVisitNumber().getId(), test.getVisitNumber().getId());
           assertEquals(edit.getDoseNumber().getId(), test.getDoseNumber().getId());
           assertEquals(edit.getDoseType().getId(), test.getDoseType().getId());
-          assertEquals(edit.getRecievedSupplement(), test.getRecievedSupplement());
-          assertEquals(edit.getRecievedITN(), test.getRecievedITN());
-          assertEquals(edit.getNumberOfRecievedITNs(), test.getNumberOfRecievedITNs());
+          assertEquals(edit.getReceivedSupplement(), test.getReceivedSupplement());
+          assertEquals(edit.getReceivedITN(), test.getReceivedITN());
+          assertEquals(edit.getNumberOfReceivedITNs(), test.getNumberOfReceivedITNs());
           assertEquals(edit.getAdministratorName(), test.getAdministratorName());
           assertEquals(edit.getAdministratorSurname(), test.getAdministratorSurname());
         }

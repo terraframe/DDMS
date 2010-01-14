@@ -107,9 +107,9 @@ public class IndividualIPTNoPermissions extends PermissionTest implements DoNotW
           view.setVisitNumber(TermDTO.get(request, termId));
           view.setDoseNumber(TermDTO.get(request, termId));
           view.setDoseType(TermDTO.get(request, termId));
-          view.setRecievedSupplement(true);
-          view.setRecievedITN(true);
-          view.setNumberOfRecievedITNs(5);
+          view.setReceivedSupplement(true);
+          view.setReceivedITN(true);
+          view.setNumberOfReceivedITNs(5);
           view.setAdministratorName("Justin");
           view.setAdministratorSurname("Smethie");
           view.apply();

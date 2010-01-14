@@ -245,7 +245,7 @@ public class ITNInstanceController extends ITNInstanceControllerBase implements 
     List<MonthOfYearMasterDTO> months = MonthOfYearDTO.allItems(request);
     Collections.sort(months, new MonthComparator());
 
-    req.setAttribute("monthRecieved", months);
+    req.setAttribute("monthReceived", months);
     req.setAttribute("monthRetreated", months);
     req.setAttribute("damaged", dto.getDamaged());
     req.setAttribute("hanging", dto.getHanging());

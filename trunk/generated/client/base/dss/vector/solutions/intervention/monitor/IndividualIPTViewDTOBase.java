@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 373437648)
+@com.terraframe.mojo.business.ClassSignature(hash = 753303488)
 public abstract class IndividualIPTViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualIPTView";
-  private static final long serialVersionUID = 373437648;
+  private static final long serialVersionUID = 753303488;
   
   protected IndividualIPTViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -25,10 +25,10 @@ public abstract class IndividualIPTViewDTOBase extends com.terraframe.mojo.busin
   public static java.lang.String ID = "id";
   public static java.lang.String IPTCASE = "iptCase";
   public static java.lang.String ISANCVISIT = "isANCVisit";
-  public static java.lang.String NUMBEROFRECIEVEDITNS = "numberOfRecievedITNs";
+  public static java.lang.String NUMBEROFRECEIVEDITNS = "numberOfReceivedITNs";
   public static java.lang.String PATIENTTYPE = "patientType";
-  public static java.lang.String RECIEVEDITN = "recievedITN";
-  public static java.lang.String RECIEVEDSUPPLEMENT = "recievedSupplement";
+  public static java.lang.String RECEIVEDITN = "receivedITN";
+  public static java.lang.String RECEIVEDSUPPLEMENT = "receivedSupplement";
   public static java.lang.String SERVICEDATE = "serviceDate";
   public static java.lang.String VISITNUMBER = "visitNumber";
   public String getAdministratorName()
@@ -348,41 +348,41 @@ public abstract class IndividualIPTViewDTOBase extends com.terraframe.mojo.busin
     return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISANCVISIT).getAttributeMdDTO();
   }
   
-  public Integer getNumberOfRecievedITNs()
+  public Integer getNumberOfReceivedITNs()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFRECIEVEDITNS));
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFRECEIVEDITNS));
   }
   
-  public void setNumberOfRecievedITNs(Integer value)
+  public void setNumberOfReceivedITNs(Integer value)
   {
     if(value == null)
     {
-      setValue(NUMBEROFRECIEVEDITNS, "");
+      setValue(NUMBEROFRECEIVEDITNS, "");
     }
     else
     {
-      setValue(NUMBEROFRECIEVEDITNS, java.lang.Integer.toString(value));
+      setValue(NUMBEROFRECEIVEDITNS, java.lang.Integer.toString(value));
     }
   }
   
-  public boolean isNumberOfRecievedITNsWritable()
+  public boolean isNumberOfReceivedITNsWritable()
   {
-    return isWritable(NUMBEROFRECIEVEDITNS);
+    return isWritable(NUMBEROFRECEIVEDITNS);
   }
   
-  public boolean isNumberOfRecievedITNsReadable()
+  public boolean isNumberOfReceivedITNsReadable()
   {
-    return isReadable(NUMBEROFRECIEVEDITNS);
+    return isReadable(NUMBEROFRECEIVEDITNS);
   }
   
-  public boolean isNumberOfRecievedITNsModified()
+  public boolean isNumberOfReceivedITNsModified()
   {
-    return isModified(NUMBEROFRECIEVEDITNS);
+    return isModified(NUMBEROFRECEIVEDITNS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberOfRecievedITNsMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberOfReceivedITNsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBEROFRECIEVEDITNS).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBEROFRECEIVEDITNS).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getPatientType()
@@ -429,78 +429,78 @@ public abstract class IndividualIPTViewDTOBase extends com.terraframe.mojo.busin
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PATIENTTYPE).getAttributeMdDTO();
   }
   
-  public Boolean getRecievedITN()
+  public Boolean getReceivedITN()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RECIEVEDITN));
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RECEIVEDITN));
   }
   
-  public void setRecievedITN(Boolean value)
+  public void setReceivedITN(Boolean value)
   {
     if(value == null)
     {
-      setValue(RECIEVEDITN, "");
+      setValue(RECEIVEDITN, "");
     }
     else
     {
-      setValue(RECIEVEDITN, java.lang.Boolean.toString(value));
+      setValue(RECEIVEDITN, java.lang.Boolean.toString(value));
     }
   }
   
-  public boolean isRecievedITNWritable()
+  public boolean isReceivedITNWritable()
   {
-    return isWritable(RECIEVEDITN);
+    return isWritable(RECEIVEDITN);
   }
   
-  public boolean isRecievedITNReadable()
+  public boolean isReceivedITNReadable()
   {
-    return isReadable(RECIEVEDITN);
+    return isReadable(RECEIVEDITN);
   }
   
-  public boolean isRecievedITNModified()
+  public boolean isReceivedITNModified()
   {
-    return isModified(RECIEVEDITN);
+    return isModified(RECEIVEDITN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getRecievedITNMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getReceivedITNMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(RECIEVEDITN).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(RECEIVEDITN).getAttributeMdDTO();
   }
   
-  public Boolean getRecievedSupplement()
+  public Boolean getReceivedSupplement()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RECIEVEDSUPPLEMENT));
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RECEIVEDSUPPLEMENT));
   }
   
-  public void setRecievedSupplement(Boolean value)
+  public void setReceivedSupplement(Boolean value)
   {
     if(value == null)
     {
-      setValue(RECIEVEDSUPPLEMENT, "");
+      setValue(RECEIVEDSUPPLEMENT, "");
     }
     else
     {
-      setValue(RECIEVEDSUPPLEMENT, java.lang.Boolean.toString(value));
+      setValue(RECEIVEDSUPPLEMENT, java.lang.Boolean.toString(value));
     }
   }
   
-  public boolean isRecievedSupplementWritable()
+  public boolean isReceivedSupplementWritable()
   {
-    return isWritable(RECIEVEDSUPPLEMENT);
+    return isWritable(RECEIVEDSUPPLEMENT);
   }
   
-  public boolean isRecievedSupplementReadable()
+  public boolean isReceivedSupplementReadable()
   {
-    return isReadable(RECIEVEDSUPPLEMENT);
+    return isReadable(RECEIVEDSUPPLEMENT);
   }
   
-  public boolean isRecievedSupplementModified()
+  public boolean isReceivedSupplementModified()
   {
-    return isModified(RECIEVEDSUPPLEMENT);
+    return isModified(RECEIVEDSUPPLEMENT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getRecievedSupplementMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getReceivedSupplementMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(RECIEVEDSUPPLEMENT).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(RECEIVEDSUPPLEMENT).getAttributeMdDTO();
   }
   
   public java.util.Date getServiceDate()

@@ -36,7 +36,6 @@
           </mdBusinessPermission>
           <mdBusinessPermission type="dss.vector.solutions.Person">
             <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdViewPermission type="dss.vector.solutions.PersonView">
             <operation name="READ" />

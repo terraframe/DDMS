@@ -46,11 +46,11 @@
     <delete>
     
       <object
-        key="dss.vector.solutions.geo.generated.GeoEntity.gazId"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
-
-      <object
         key="dss.vector.solutions.export.GeoEntityExcelView.gazId"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        
+      <object
+        key="dss.vector.solutions.geo.generated.GeoEntity.gazId"
         type="com.terraframe.mojo.system.metadata.MdAttribute" />
 
       <object

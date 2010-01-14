@@ -50,15 +50,15 @@
   <mjl:dt attribute="doseType">
     <mdss:mo param="doseType" value="${doseType}"/>
   </mjl:dt>
-  <mjl:dt attribute="recievedSupplement">
-    <mjl:boolean param="recievedSupplement" />
+  <mjl:dt attribute="receivedSupplement">
+    <mjl:boolean param="receivedSupplement" />
   </mjl:dt>
-  <mjl:dt attribute="recievedITN">
-    <mjl:boolean param="recievedITN" id="recievedITN" />
+  <mjl:dt attribute="receivedITN">
+    <mjl:boolean param="receivedITN" id="receivedITN" />
   </mjl:dt>
-  <div class="numberOfRecievedITNs">
-    <mjl:dt attribute="numberOfRecievedITNs" classes="numberOfRecievedITNs">
-      <mjl:input param="numberOfRecievedITNs" type="text" id="numberOfRecievedITNs" />
+  <div class="numberOfReceivedITNs">
+    <mjl:dt attribute="numberOfReceivedITNs" classes="numberOfReceivedITNs">
+      <mjl:input param="numberOfReceivedITNs" type="text" id="numberOfReceivedITNs" />
     </mjl:dt>
   </div>
   <mjl:dt attribute="administratorName">
@@ -73,7 +73,7 @@
 (function(){
   YAHOO.util.Event.onDOMReady(function(){
     MDSS.ElementHandler.setupBooleanHandler('isANCVisit.positive', 'isANCVisit.negative', MDSS.HiddenInputElement.toArray(['visitNumber']));
-    MDSS.ElementHandler.setupBooleanHandler('recievedITN.positive', 'recievedITN.negative', MDSS.HiddenInputElement.toArray(['numberOfRecievedITNs']));    
+    MDSS.ElementHandler.setupBooleanHandler('receivedITN.positive', 'receivedITN.negative', MDSS.HiddenInputElement.toArray(['numberOfReceivedITNs']));    
   })
 })();
 </script>

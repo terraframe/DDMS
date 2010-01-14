@@ -18,15 +18,15 @@
   <mjl:dt attribute="netBrand">
     <mdss:mo param="netBrand" value="${netBrand}"/>
   </mjl:dt>  
-  <mjl:dt attribute="monthRecieved">
-    <mjl:select param="monthRecieved" items="${monthRecieved}" var="current" valueAttribute="enumName" includeBlank="true">
-      <mjl:option selected="${mjl:contains(item.monthRecievedEnumNames, current.enumName) ? 'selected' : 'false'}">
-        ${item.monthRecievedMd.enumItems[current.enumName]}
+  <mjl:dt attribute="monthReceived">
+    <mjl:select param="monthReceived" items="${monthReceived}" var="current" valueAttribute="enumName" includeBlank="true">
+      <mjl:option selected="${mjl:contains(item.monthReceivedEnumNames, current.enumName) ? 'selected' : 'false'}">
+        ${item.monthReceivedMd.enumItems[current.enumName]}
       </mjl:option>
     </mjl:select>
   </mjl:dt>  
-  <mjl:dt attribute="yearRecieved">
-    <mjl:input param="yearRecieved" type="text" id="yearRecieved" />
+  <mjl:dt attribute="yearReceived">
+    <mjl:input param="yearReceived" type="text" id="yearReceived" />
   </mjl:dt>  
   <mjl:dt attribute="obtained">
     <mdss:mo param="obtained" value="${obtained}"/>
@@ -34,8 +34,8 @@
   <mjl:dt attribute="price">
     <mjl:input param="price" type="text" />
   </mjl:dt>
-  <mjl:dt attribute="reteated">
-    <mjl:boolean param="reteated" id="retreated" />
+  <mjl:dt attribute="retreated">
+    <mjl:boolean param="retreated" id="retreated" />
   </mjl:dt>
   <div class="monthRetreated">
     <mjl:dt attribute="monthRetreated">
@@ -105,7 +105,7 @@
     //**********************************************************
     // SETUP YEAR COMBO BOXES
     //**********************************************************
-    MDSS.GenericSearch.createYearSearch('yearRecieved');
+    MDSS.GenericSearch.createYearSearch('yearReceived');
     MDSS.GenericSearch.createYearSearch('yearRetreated');
         
     //**********************************************************

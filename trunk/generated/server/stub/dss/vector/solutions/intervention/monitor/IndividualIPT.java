@@ -90,7 +90,7 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
   @Override
   public void apply()
   {
-    validateNumberOfRecievedITNs();
+    validateNumberOfReceivedITNs();
     validateServiceDate();
 
     // Set the service date to the last update time
@@ -103,17 +103,17 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
   }
 
   @Override
-  public void validateNumberOfRecievedITNs()
+  public void validateNumberOfReceivedITNs()
   {
-    if (this.getNumberOfRecievedITNs() != null && ( this.getRecievedITN() == null || !this.getRecievedITN() ))
+    if (this.getNumberOfReceivedITNs() != null && ( this.getReceivedITN() == null || !this.getReceivedITN() ))
     {
       String msg = "Number of nets recieved is not applicable when no nets are recieved.";
 
-      MdAttributeBooleanDAOIF retrievedMd = (MdAttributeBooleanDAOIF) getRecievedITNMd();
+      MdAttributeBooleanDAOIF retrievedMd = (MdAttributeBooleanDAOIF) getReceivedITNMd();
       Locale locale = Session.getCurrentLocale();
 
       NotApplicableProblem p = new NotApplicableProblem(msg);
-      p.setNotification(this, NUMBEROFRECIEVEDITNS);
+      p.setNotification(this, NUMBEROFRECEIVEDITNS);
       p.setInputAttribute(retrievedMd.getDisplayLabel(locale));
       p.setInputValue(retrievedMd.getNegativeDisplayLabel(locale));
       p.apply();

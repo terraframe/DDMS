@@ -91,8 +91,8 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var iIPTAttribs = ["facility","serviceDate",
                        "doseNumber","doseType","isANCVisit",
-                       "numberOfRecievedITNs","patientType","recievedITN",
-                       "recievedSupplement","visitNumber","administratorName","administratorSurname",];
+                       "numberOfReceivedITNs","patientType","receivedITN",
+                       "receivedSupplement","visitNumber","administratorName","administratorSurname",];
 
     
     var iIPTColumns =   iIPTAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualIPT, suffix:'_ipt', dropDownMaps:iptMaps});

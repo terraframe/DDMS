@@ -32,7 +32,7 @@
             concrete="administratorSurname"
             type="dss.vector.solutions.intervention.monitor.IndividualIPT"/>
           <virtual
-            concrete="numberOfRecievedITNs"
+            concrete="numberOfReceivedITNs"
             type="dss.vector.solutions.intervention.monitor.IndividualIPT"/>
           <virtual
             concrete="administratorName"
@@ -57,10 +57,10 @@
             concrete="isANCVisit"
             type="dss.vector.solutions.intervention.monitor.IndividualIPT"/>
           <virtual
-            concrete="recievedSupplement"
+            concrete="receivedSupplement"
             type="dss.vector.solutions.intervention.monitor.IndividualIPT"/>
           <virtual
-            concrete="recievedITN"
+            concrete="receivedITN"
             type="dss.vector.solutions.intervention.monitor.IndividualIPT"/>
         </attributes>
       </mdView>

@@ -60,11 +60,11 @@
         ${current.doseType.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="recievedSupplement">
+    <mjl:attributeColumn attributeName="receivedSupplement">
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="recievedITN">
+    <mjl:attributeColumn attributeName="receivedITN">
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="numberOfRecievedITNs">
+    <mjl:attributeColumn attributeName="numberOfReceivedITNs">
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>

@@ -8,8 +8,8 @@
         <create>
           <attributes>
             <date
-              name="recievedDate"
-              label="Recieved"
+              name="receivedDate"
+              label="Received"
               required="true" />
             <date
               name="retreatedDate"
@@ -41,7 +41,7 @@
   <undoIt>
     <delete>
       <object
-        key="dss.vector.solutions.intervention.monitor.ITNInstance.recievedDate"
+        key="dss.vector.solutions.intervention.monitor.ITNInstance.receivedDate"
         type="com.terraframe.mojo.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNInstance.retreatedDate"

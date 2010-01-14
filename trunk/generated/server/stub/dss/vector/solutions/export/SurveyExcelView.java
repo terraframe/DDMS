@@ -65,11 +65,11 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     itn.setNetId(this.getNetId());
     itn.setHousehold(Household.get(house.getConcreteId()));
     itn.setNetBrand(Term.validateByDisplayLabel(this.getNetBrand(), ITNInstance.getNetBrandMd()));
-    itn.addMonthRecieved(getMonthOfYearByLabel(this.getMonthRecieved()));
-    itn.setYearRecieved(this.getYearRecieved());
+    itn.addMonthReceived(getMonthOfYearByLabel(this.getMonthReceived()));
+    itn.setYearReceived(this.getYearReceived());
     itn.setObtained(Term.validateByDisplayLabel(this.getObtained(), ITNInstance.getObtainedMd()));
     itn.setPrice(this.getPrice());
-    itn.setReteated(this.getReteated());
+    itn.setRetreated(this.getRetreated());
     itn.addMonthRetreated(getMonthOfYearByLabel(this.getMonthRetreated()));
     itn.setYearRetreated(this.getYearRetreated());
     itn.setDamaged(Term.validateByDisplayLabel(this.getDamaged(), ITNInstance.getDamagedMd()));
