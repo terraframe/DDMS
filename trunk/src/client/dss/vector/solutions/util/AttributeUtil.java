@@ -35,6 +35,11 @@ public class AttributeUtil implements Reloadable
       throw new RuntimeException(t);
     }
   }
+  
+  public static String getString(String accessorName, MutableDTO mutableDTO)
+  {
+    return (String) AttributeUtil.getValue(accessorName, mutableDTO);    
+  }
 
   public static GeoEntityDTO getGeoEntityFromGeoId(String accessorName, MutableDTO mutableDTO)
   {

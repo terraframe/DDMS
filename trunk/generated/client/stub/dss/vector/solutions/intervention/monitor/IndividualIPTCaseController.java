@@ -18,8 +18,6 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.RequiredAttributeProblemDTO;
-import dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO;
-import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
@@ -112,7 +110,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
       IndividualIPTCaseViewDTO dto = new IndividualIPTCaseViewDTO(clientRequest);
       dto.setValue(IndividualIPTCaseViewDTO.PATIENT, view.getPersonId());
-      dto.setResidentialLocation(view.getResidentialGeoId());
+      dto.setResidentialLocation(AttributeUtil.getString(PersonViewDTO.RESIDENTIALGEOID, view));
 
       IndividualIPTViewDTO instance = new IndividualIPTViewDTO(clientRequest);
 

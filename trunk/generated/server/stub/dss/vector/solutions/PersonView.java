@@ -362,6 +362,16 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
 
     this.populateAttributeMapping(person);
 
+    this.populateConcrete(person);
+
+    // Applying the person with validate it's attributes
+    person.apply();
+    
+    return person;
+  }
+
+  private void populateConcrete(Person person)
+  {
     person.setFirstName(this.getFirstName());
     person.setLastName(this.getLastName());
     person.setSex(this.getSex());
@@ -383,6 +393,10 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     {
       person.setResidentialGeoEntity(GeoEntity.searchByGeoId(residentialId));
     }
+    else
+    {
+      person.setResidentialGeoEntity(null);
+    }
 
     person.setResidentialInformation(this.getResidentialInformation());
 
@@ -392,12 +406,12 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     {
       person.setWorkGeoEntity(GeoEntity.searchByGeoId(workId));
     }
+    else
+    {
+      person.setWorkGeoEntity(null);
+    }
 
     person.setResidentialInformation(this.getResidentialInformation());
-
-    // Applying the person with validate it's attributes
-    person.apply();
-    return person;
   }
 
   private void populateAttributeMapping(Person person)
