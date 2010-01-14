@@ -156,7 +156,7 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
   
   Static : {
     setUpPersonModal : function(prop) {
-	  prop.concrete = (Mojo.Util.isString(prop.concrete) ? document.getElementById(prop.concrete) : prop.concrete);
+  prop.concrete = (Mojo.Util.isString(prop.concrete) ? document.getElementById(prop.concrete) : prop.concrete);
       prop.createLink = (Mojo.Util.isString(prop.createLink) ? document.getElementById(prop.createLink) : prop.createLink);
       prop.editLink = (Mojo.Util.isString(prop.editLink) ? document.getElementById(prop.editLink) : prop.editLink);
       prop.button = (Mojo.Util.isString(prop.button) ? document.getElementById(prop.button) : prop.button);
@@ -169,8 +169,12 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
         var residential = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.RESIDENTIALGEOID);
 
         var formattedDateOfBirth = MDSS.Calendar.getLocalizedString(dateOfBirth);
+        
+        if(residential != null && residential != '') {
+          return  firstName + ' ' + lastName  + ' (' + sex + '), DOB: ' + formattedDateOfBirth + ', ' + residential;
+        }
 
-       return  firstName + ' ' + lastName  + ' (' + sex + '), DOB: ' + formattedDateOfBirth + ', ' + residential;
+        return  firstName + ' ' + lastName  + ' (' + sex + '), DOB: ' + formattedDateOfBirth;
      };
 
      var idFunction = function(valueObject) {
