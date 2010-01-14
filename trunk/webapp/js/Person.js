@@ -129,13 +129,8 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
        */
       this._currentModal._removeFocusHandlers();
       
-      // now attach geo searching to each geo input
-//      this._residentialGeoSearch = new MDSS.GeoSearch('residentialGeoId', this._selectSearch);
-//      this._workGeoSearch = new MDSS.GeoSearch('workGeoId', this._selectSearch);
-      
       // Populate the first and last name values
       if(this._recipientIdEl != '') {
-        // This is a hack
         document.getElementById(this._firstName).value = document.getElementById(this._elements[0]).value;
         document.getElementById(this._lastName).value = document.getElementById(this._elements[1]).value;
       }
@@ -145,12 +140,6 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
     {
       this._currentModal.destroy();
       this._currentModal = null;
-      
-//      this._residentialGeoSearch.destroy();
-//      this._workGeoSearch.destroy();
-      
-//      this._residentialGeoSearch = null;
-//      this._workGeoSearch = null;
     }
   },
   
