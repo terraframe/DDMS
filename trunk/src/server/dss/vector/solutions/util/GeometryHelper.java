@@ -16,7 +16,7 @@ import com.vividsolutions.jts.io.WKTReader;
 
 public class GeometryHelper {
 	private static double TRIANGLE_DELTA = 0.01d;
-	private static double OUTLINE_DELTA = 0.001d;
+	private static double OUTLINE_DELTA = 0.00000001d;
 	
 	public Geometry getGeometry(String wktString) {
 		Geometry g = null;
