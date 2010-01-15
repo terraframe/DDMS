@@ -15,6 +15,8 @@
 <%@page import="dss.vector.solutions.util.ColumnSetup"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.entomology.LifeStageDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%>
 
 <c:set var="page_title" value="Create_Mosquito_Collection"  scope="request"/>
 <mjl:messages>
@@ -22,6 +24,11 @@
 </mjl:messages>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
+
+<%
+  List<String> entityUniversals = Arrays.asList(new String[]{CollectionSiteDTO.CLASS}); 
+  request.setAttribute("entityUniversals", entityUniversals);
+%>
 
 <c:set var="entity" scope="request" value="${item.geoEntity}" />
 
@@ -41,7 +48,7 @@
         <mjl:input param="collectionDate" type="text" classes="DatePick NoFuture" id="collectionDate"/>
        </mjl:dt>
        <mjl:dt attribute="geoEntity">
-         <mdss:geo param="geoEntity" value="${entity}" />
+         <mdss:geo param="geoEntity" universals="${entityUniversals}" value="${entity}" />
        </mjl:dt>
        <mjl:dt attribute="lifeStage">
          <mjl:select param="lifeStage" items="${lifeStage}" var="current" valueAttribute="enumName" id="lifeStage">
