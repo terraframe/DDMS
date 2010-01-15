@@ -95,38 +95,12 @@
   <mjl:dt attribute="symptomComments">
     <mjl:textarea param="symptomComments" cols="3" rows="3"/>
   </mjl:dt>
-</mjl:component>
+  <mjl:dt attribute="symptom">
+    <mdss:multimo param="symptoms" id="symptoms" browserAttribute="symptom" value="${symptoms}" />
+  </mjl:dt>  
+</mjl:component>  
 
-<%--
-<c:if test="${item.isSymptomReadable}">
-</c:if>
-  --%>
-  <dt>
-    
-  </dt>
-  <dd>
-    <table class="displayTable">
-      <tr>
-        <th><fmt:message key="Malaria_Symptom"/></th>
-        <th><fmt:message key="Patient_Has_Symptom"/></th>
-      </tr>
-      <mjl:components items="${symptoms}" param="symptoms" var="current" varStatus="status">
-        <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-          <td>
-            ${current.child.displayLabel}
-          </td>
-          <td>
-            <mjl:boolean param="hasSymptom"/>
-            <mjl:messages attribute="hasSymptom">
-              <mjl:message />
-            </mjl:messages>
-          </td>
-        </tr>
-      </mjl:components>
-    </table>
-  </dd>
-  
-  <script type="text/javascript">
+<script type="text/javascript">
 (function(){
   YAHOO.util.Event.onDOMReady(function(){
     //**********************************************************

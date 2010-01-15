@@ -17,7 +17,6 @@ import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.intervention.monitor.IndividualCaseDTO;
 import dss.vector.solutions.intervention.monitor.IndividualInstanceDTO;
 import dss.vector.solutions.ontology.TermDTO;
-import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
 
 public class IndividualCaseNoPermissions extends PermissionTest implements DoNotWeave
 {
@@ -154,15 +153,7 @@ public class IndividualCaseNoPermissions extends PermissionTest implements DoNot
         view.setTreatment(term);
         view.setTreatmentMethod(term);
         view.setTreatmentStartDate(new Date());
-
-        IndividualCaseSymptomDTO[] symptoms = view.getSymptoms();
-
-        for (IndividualCaseSymptomDTO symptom : symptoms)
-        {
-          symptom.setHasSymptom(true);
-        }
-
-        view.applyAll(symptoms);
+        view.applyAll(new TermDTO[]{term});
 
         view.delete();
         

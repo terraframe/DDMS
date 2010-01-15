@@ -109,36 +109,14 @@
       <mjl:dt attribute="symptomComments">
         ${item.symptomComments}
       </mjl:dt>
+      <mjl:dt attribute="symptom">
+        <ul>
+          <c:forEach items="${symptoms}" var="current"> 
+            <li> ${current.displayLabel} </li> 
+          </c:forEach>
+        </ul>      
+      </mjl:dt>          
     </mjl:component>
-    
-	<%--
-	<c:if test="${item.isCaseStocksReadable}">
-	</c:if>
-	--%>
-	<dt>
-	</dt>
-	<dd>
-	  <table class="displayTable">
-	    <tr>
-	        <th><fmt:message key="Malaria_Symptom"/></th>
-	        <th><fmt:message key="Patient_Has_Symptom"/></th>
-	    </tr>
-	  
-	    <mjl:components items="${symptoms}" param="symptoms" var="current" varStatus="status">
-	      <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-	        <td>
-	          ${current.child.displayLabel}
-	        </td>
-	        <td>
-	          ${current.hasSymptom ? current.hasSymptomMd.positiveDisplayLabel :current.hasSymptomMd.negativeDisplayLabel}
-	          <mjl:messages attribute="symptoms">
-	            <mjl:message />
-	          </mjl:messages>
-	        </td>
-	      </tr>
-	    </mjl:components>
-	  </table>
-	</dd>
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.IndividualInstanceController.edit.mojo" name="dss.vector.solutions.intervention.monitor.IndividualInstance.form.edit.button" />
   </mjl:form>
 </dl>

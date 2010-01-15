@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1043499646)
+@com.terraframe.mojo.business.ClassSignature(hash = -323757568)
 public abstract class IndividualInstanceDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualInstance";
-  private static final long serialVersionUID = -1043499646;
+  private static final long serialVersionUID = -323757568;
   
   protected IndividualInstanceDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -1463,36 +1463,36 @@ public abstract class IndividualInstanceDTOBase extends com.terraframe.mojo.busi
     return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(TREATMENTSTARTDATE).getAttributeMdDTO();
   }
   
-  public final void applyAll(dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[] symptoms)
+  public final void applyAll(dss.vector.solutions.ontology.TermDTO[] symptoms)
   {
-    String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.surveillance.IndividualCaseSymptom;"};
+    String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.ontology.Term;"};
     Object[] _parameters = new Object[]{symptoms};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO.CLASS, "applyAll", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[] symptoms)
+  public static final void applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.ontology.TermDTO[] symptoms)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "[Ldss.vector.solutions.surveillance.IndividualCaseSymptom;"};
+    String[] _declaredTypes = new String[]{"java.lang.String", "[Ldss.vector.solutions.ontology.Term;"};
     Object[] _parameters = new Object[]{id, symptoms};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO.CLASS, "applyAll", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[] getSymptoms()
+  public final dss.vector.solutions.ontology.TermDTO[] getSymptoms()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO.CLASS, "getSymptoms", _declaredTypes);
-    return (dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+    return (dss.vector.solutions.ontology.TermDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[] getSymptoms(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.ontology.TermDTO[] getSymptoms(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualInstanceDTO.CLASS, "getSymptoms", _declaredTypes);
-    return (dss.vector.solutions.surveillance.IndividualCaseSymptomDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (dss.vector.solutions.ontology.TermDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   @SuppressWarnings("unchecked")

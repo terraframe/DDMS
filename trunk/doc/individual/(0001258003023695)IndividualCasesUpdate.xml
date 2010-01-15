@@ -88,7 +88,7 @@
               type="dss.vector.solutions.ontology.Term" />
             <reference
               name="symptom"
-              label="Symptom"
+              label="Symptoms"
               type="dss.vector.solutions.ontology.Term"/>
             <text
               name="symptomComments"
@@ -121,7 +121,7 @@
           <mdMethod
             name="getSymptoms"
             label="Get Symptoms"
-            returnType="dss.vector.solutions.surveillance.IndividualCaseSymptom[]"/>
+            returnType="dss.vector.solutions.ontology.Term[]"/>
           <mdMethod
             name="applyAll"
             label="Apply All"
@@ -129,7 +129,7 @@
             <mdParameter
               name="symptoms"
               label="Symptoms"
-              type="dss.vector.solutions.surveillance.IndividualCaseSymptom[]"
+              type="dss.vector.solutions.ontology.Term[]"
               order="0"/>
           </mdMethod>
         </create>
@@ -156,7 +156,7 @@
             <mdParameter
               name="symptoms"
               label="Symptoms"
-              type="dss.vector.solutions.surveillance.IndividualCaseSymptom[]"
+              type="dss.vector.solutions.ontology.Term[]"
               order="1"/>
           </create>
         </mdAction>
@@ -167,7 +167,7 @@
             <mdParameter
               name="symptoms"
               label="Symptoms"
-              type="dss.vector.solutions.surveillance.IndividualCaseSymptom[]"
+              type="dss.vector.solutions.ontology.Term[]"
               order="1"/>
           </create>
         </mdAction>
@@ -209,7 +209,7 @@
             <mdParameter
               name="symptoms"
               label="Symptoms"
-              type="dss.vector.solutions.surveillance.IndividualCaseSymptom[]"
+              type="dss.vector.solutions.ontology.Term[]"
               order="3"/>
           </mdAction>
         </create>

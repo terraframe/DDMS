@@ -20,7 +20,6 @@ import dss.vector.solutions.geo.generated.SettlementSubdivision;
 import dss.vector.solutions.intervention.monitor.IndividualCase;
 import dss.vector.solutions.intervention.monitor.IndividualInstance;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.surveillance.IndividualCaseSymptom;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class IndividualCaseExcelView extends IndividualCaseExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -101,17 +100,17 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     instance.setTreatment(Term.validateByDisplayLabel(this.getTreatment(), IndividualInstance.getTreatmentMd()));
     instance.setSymptomComments(this.getSymptomComments());
     
-    IndividualCaseSymptom[] symptomArray = new IndividualCaseSymptom[symptomNames.size()];
-    for (int i = 0; i < symptomArray.length; i++)
-    {
-      if (i < symptomValues.size())
-      {
-        symptomArray[i] = new IndividualCaseSymptom(instance, symptomNames.get(i));
-        symptomArray[i].setHasSymptom(symptomValues.get(i));
-      }
-    }
-    
-    instance.applyAll(symptomArray);
+//    IndividualCaseSymptom[] symptomArray = new IndividualCaseSymptom[symptomNames.size()];
+//    for (int i = 0; i < symptomArray.length; i++)
+//    {
+//      if (i < symptomValues.size())
+//      {
+//        symptomArray[i] = new IndividualCaseSymptom(instance, symptomNames.get(i));
+//        symptomArray[i].setHasSymptom(symptomValues.get(i));
+//      }
+//    }
+//    
+//    instance.applyAll(symptomArray);
   }
 
   /**

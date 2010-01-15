@@ -18,7 +18,6 @@ import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.intervention.monitor.IndividualCaseDTO;
 import dss.vector.solutions.intervention.monitor.IndividualInstanceDTO;
 import dss.vector.solutions.ontology.TermDTO;
-import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
 
 public class IndividualCaseCRUDPermissions extends PermissionTest implements DoNotWeave
 {
@@ -199,6 +198,8 @@ public class IndividualCaseCRUDPermissions extends PermissionTest implements DoN
 
       try
       {
+        TermDTO[] symptoms = new TermDTO[]{term};
+        
         IndividualInstanceDTO view = new IndividualInstanceDTO(request);
         view.setActivelyDetected(true);
         view.setAdmissionDate(new Date());
@@ -226,15 +227,7 @@ public class IndividualCaseCRUDPermissions extends PermissionTest implements DoN
         view.setTestSampleDate(new Date());
         view.setTreatment(term);
         view.setTreatmentMethod(term);
-        view.setTreatmentStartDate(new Date());
-        
-        IndividualCaseSymptomDTO[] symptoms = view.getSymptoms();
-        
-        for(IndividualCaseSymptomDTO symptom : symptoms)
-        {
-          symptom.setHasSymptom(true);
-        }
-        
+        view.setTreatmentStartDate(new Date());        
         view.applyAll(symptoms);
 
         try
@@ -267,15 +260,7 @@ public class IndividualCaseCRUDPermissions extends PermissionTest implements DoN
           edit.setTreatment(term);
           edit.setTreatmentMethod(term);
           edit.setTreatmentStartDate(calendar.getTime());
-          
-          IndividualCaseSymptomDTO[] editSymptoms = edit.getSymptoms();
-          
-          for(IndividualCaseSymptomDTO symptom : editSymptoms)
-          {
-            symptom.setHasSymptom(false);
-          }
-          
-          edit.applyAll(editSymptoms);
+          edit.applyAll(symptoms);
           
           IndividualInstanceDTO test = IndividualInstanceDTO.get(request, view.getId());
           
@@ -306,11 +291,11 @@ public class IndividualCaseCRUDPermissions extends PermissionTest implements DoN
           assertEquals(edit.getTreatmentMethod().getId(), test.getTreatmentMethod().getId());
           assertEquals(edit.getTreatmentStartDate(), test.getTreatmentStartDate());
 
-          IndividualCaseSymptomDTO[] testSymptoms = test.getSymptoms();
+          TermDTO[] testSymptoms = test.getSymptoms();
           
           for(int i = 0; i < testSymptoms.length; i++)
           {
-            assertEquals(editSymptoms[i].getHasSymptom(), testSymptoms[i].getHasSymptom());
+            assertEquals(symptoms[i].getId(), testSymptoms[i].getId());
           }          
         }
         finally

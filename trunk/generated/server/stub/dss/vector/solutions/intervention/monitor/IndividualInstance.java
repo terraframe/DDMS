@@ -2,20 +2,23 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
+import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.surveillance.GridComparator;
+import dss.vector.solutions.ontology.TermComparator;
 import dss.vector.solutions.surveillance.IndividualCaseSymptom;
 
 public class IndividualInstance extends IndividualInstanceBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -26,7 +29,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.te
   {
     super();
   }
-  
+
   @Override
   public String toString()
   {
@@ -34,7 +37,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.te
     {
       return "New: " + this.getClassDisplayLabel();
     }
-    
+
     return this.getClassDisplayLabel();
   }
 
@@ -62,7 +65,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.te
       HealthFacility facility = this.getHealthFacility();
 
       Date date = this.getFacilityVisit();
-      
+
       if (facility != null && date != null)
       {
         Date[] window = IndividualCase.getWindow(date);
@@ -187,16 +190,48 @@ public class IndividualInstance extends IndividualInstanceBase implements com.te
       p.throwIt();
     }
   }
-
+  
   @Transaction
-  public void applyAll(IndividualCaseSymptom[] symptom)
+  @Override
+  public void applyAll(Term[] symptoms)
   {
     this.apply();
 
-    for (IndividualCaseSymptom s : symptom)
+    List<Term> list = Arrays.asList(symptoms);
+    this.clearSymptoms(list);
+    this.setSymptoms(list);
+  }
+  
+  private void clearSymptoms(List<Term> symptoms)
+  {
+    // First delete all of the exiting relationships where the Term is not in
+    // the result list
+    List<? extends IndividualCaseSymptom> relationships = this.getAllSymptomsRel().getAll();
+
+    for (IndividualCaseSymptom relationship : relationships)
     {
-      s.overwriteParentId(this.getId());
-      s.apply();
+      if (!symptoms.contains(relationship.getChild()))
+      {
+        relationship.delete();
+      }
+    }
+  }
+  
+  private void setSymptoms(List<Term> symptoms)
+  {
+    Set<Term> set = new TreeSet<Term>(new TermComparator());
+    set.addAll(symptoms);
+
+    List<? extends Term> existing = this.getAllSymptoms().getAll();
+
+    // Get all of the new results which this Person does not already have
+    set.removeAll(existing);
+
+    for (Term result : set)
+    {
+      IndividualCaseSymptom relationship = this.addSymptoms(result);
+      relationship.setHasSymptom(true);
+      relationship.apply();
     }
   }
 
@@ -232,29 +267,20 @@ public class IndividualInstance extends IndividualInstanceBase implements com.te
    * @return
    */
   @Override
-  public IndividualCaseSymptom[] getSymptoms()
+  public Term[] getSymptoms()
   {
-    Set<IndividualCaseSymptom> set = new TreeSet<IndividualCaseSymptom>(new GridComparator());
-
-    for (Term d : Term.getRootChildren(getSymptomMd()))
+    OIterator<? extends Term> it = this.getAllSymptoms();
+    
+    try
     {
-      set.add(new IndividualCaseSymptom(this.getId(), d.getId()));
+      List<? extends Term> results = it.getAll();
+      
+      return results.toArray(new Term[results.size()]);
     }
-
-    for (IndividualCaseSymptom d : this.getAllSymptomsRel())
+    finally
     {
-      // We will only want grid options methods which are active. All active
-      // methods are already in the set. Thus, if the set already contains an
-      // entry for the Grid Option replace the default relationship with the
-      // actual relationship
-      if (set.contains(d))
-      {
-        set.remove(d);
-        set.add(d);
-      }
+      it.close();
     }
-
-    return set.toArray(new IndividualCaseSymptom[set.size()]);
   }
 
   @Override

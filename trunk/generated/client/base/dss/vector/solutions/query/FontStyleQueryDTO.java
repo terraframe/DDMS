@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 391047016)
+@com.terraframe.mojo.business.ClassSignature(hash = 2128898408)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public class FontStyleQueryDTO extends com.terraframe.mojo.system.EnumerationMasterQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 391047016;
+private static final long serialVersionUID = 2128898408;
 
   protected FontStyleQueryDTO(String type)
   {

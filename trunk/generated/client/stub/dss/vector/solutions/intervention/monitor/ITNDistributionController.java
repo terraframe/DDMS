@@ -16,7 +16,6 @@ import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.PersonWithDelegatesViewDTO;
 import dss.vector.solutions.PersonWithDelegatesViewQueryDTO;
-import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;

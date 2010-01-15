@@ -12,6 +12,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonViewDTO;
+import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
@@ -42,8 +43,9 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   {
     resp.sendError(500);
   }
-
-  public void update(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
+  
+  @Override
+  public void update(IndividualInstanceDTO dto, TermDTO[] symptoms) throws IOException, ServletException
   {
     try
     {
@@ -66,15 +68,17 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
       this.failUpdate(dto, symptoms);
     }
   }
-
-  public void failUpdate(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
+  
+  @Override
+  public void failUpdate(IndividualInstanceDTO dto, TermDTO[] symptoms) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("symptoms", Arrays.asList(symptoms));
     render("editComponent.jsp");
   }
-
-  public void create(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
+  
+  @Override
+  public void create(IndividualInstanceDTO dto, TermDTO[] symptoms) throws IOException, ServletException
   {
     try
     {
@@ -97,13 +101,15 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
       this.failCreate(dto, symptoms);
     }
   }
-
-  public void failCreate(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
+  
+  @Override
+  public void failCreate(IndividualInstanceDTO dto, TermDTO[] symptoms) throws IOException, ServletException
   {
     renderCreate(dto, symptoms, dto.getValue(IndividualInstanceDTO.INDIVIDUALCASE));
   }
-
-  public void createWithCase(IndividualInstanceDTO dto, IndividualCaseDTO newCase, String personId, IndividualCaseSymptomDTO[] symptoms) throws IOException, ServletException
+  
+  @Override
+  public void createWithCase(IndividualInstanceDTO dto, IndividualCaseDTO newCase, String personId, TermDTO[] symptoms) throws IOException, ServletException
   {
     try
     {
@@ -228,7 +234,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     render("createWithCase.jsp");
   }
 
-  private void renderCreate(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms, String caseId) throws IOException, ServletException
+  private void renderCreate(IndividualInstanceDTO dto, TermDTO[] symptoms, String caseId) throws IOException, ServletException
   {
     prepareCreateReq(dto, symptoms);
 
@@ -240,7 +246,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     render("createComponent.jsp");
   }
 
-  private void prepareCreateReq(IndividualInstanceDTO dto, IndividualCaseSymptomDTO[] symptoms)
+  private void prepareCreateReq(IndividualInstanceDTO dto, TermDTO[] symptoms)
   {
     req.setAttribute("item", dto);
     req.setAttribute("healthFacility", dto.getHealthFacility());

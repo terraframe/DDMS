@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1025289214)
+@com.terraframe.mojo.business.ClassSignature(hash = 1525667968)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -50,7 +50,7 @@ public abstract class IndividualInstanceBase extends com.terraframe.mojo.busines
   public static java.lang.String TREATMENTMETHOD = "treatmentMethod";
   public static java.lang.String TREATMENTSTARTDATE = "treatmentStartDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1025289214;
+  private static final long serialVersionUID = 1525667968;
   
   public IndividualInstanceBase()
   {
@@ -1218,25 +1218,25 @@ public abstract class IndividualInstanceBase extends com.terraframe.mojo.busines
     return (IndividualInstance) com.terraframe.mojo.business.Business.get(CLASS, key);
   }
   
-  public void applyAll(dss.vector.solutions.surveillance.IndividualCaseSymptom[] symptoms)
+  public void applyAll(dss.vector.solutions.ontology.Term[] symptoms)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualInstance.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final void applyAll(java.lang.String id, dss.vector.solutions.surveillance.IndividualCaseSymptom[] symptoms)
+  public static final void applyAll(java.lang.String id, dss.vector.solutions.ontology.Term[] symptoms)
   {
     IndividualInstance _instance = IndividualInstance.get(id);
     _instance.applyAll(symptoms);
   }
   
-  public dss.vector.solutions.surveillance.IndividualCaseSymptom[] getSymptoms()
+  public dss.vector.solutions.ontology.Term[] getSymptoms()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualInstance.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final dss.vector.solutions.surveillance.IndividualCaseSymptom[] getSymptoms(java.lang.String id)
+  public static final dss.vector.solutions.ontology.Term[] getSymptoms(java.lang.String id)
   {
     IndividualInstance _instance = IndividualInstance.get(id);
     return _instance.getSymptoms();
