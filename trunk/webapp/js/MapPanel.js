@@ -864,7 +864,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           that._map.addControl(new OpenLayers.Control.PanZoomBar({
               position: new OpenLayers.Pixel(2, 15)
           }));
-          that._map.addControl(new OpenLayers.Control.Navigation());
+//          that._map.addControl(new OpenLayers.Control.Navigation());
           that._map.addControl(new OpenLayers.Control.MousePosition());
           that._map.addControl(that._drawLineControl);
 
