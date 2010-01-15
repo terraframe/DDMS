@@ -3,8 +3,6 @@ package dss.vector.solutions.export;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.birt.report.model.elements.interfaces.IDimensionModel;
-
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.query.OIterator;
