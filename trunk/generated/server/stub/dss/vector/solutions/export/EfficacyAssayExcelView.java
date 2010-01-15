@@ -1,5 +1,8 @@
 package dss.vector.solutions.export;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
@@ -55,6 +58,29 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
     eav.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(), this.getInsecticideUnits(), this.getInsecticideAmount()));
     
     eav.apply();
+  }
+  
+  public static List<String> customAttributeOrder()
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(TESTDATE);
+    list.add(TESTMETHOD);
+    list.add(SPECIE);
+    list.add(COLONYNAME);
+    list.add(AGERANGE);
+    list.add(SEX);
+    list.add(GRAVID);
+    list.add(FED);
+    list.add(INSECTICIDEACTIVEINGREDIENT);
+    list.add(INSECTICIDEAMOUNT);
+    list.add(INSECTICIDEUNITS);
+    list.add(TIMEONSURFACE);
+    list.add(SURFACEPOSITION);
+    list.add(EXPOSURETIME);
+    list.add(HOLDINGTIME);
+    list.add(QUANTITYTESTED);
+    list.add(QUANTITYDEAD);
+    return list;
   }
   
   public static void setupExportListener(ExcelExporter exporter, String... params)

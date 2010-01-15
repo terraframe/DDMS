@@ -1,5 +1,8 @@
 package dss.vector.solutions.export;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import dss.vector.solutions.entomology.MolecularAssayView;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.ontology.Term;
@@ -30,5 +33,23 @@ public class MolecularAssayExcelView extends MolecularAssayExcelViewBase impleme
     assay.setNumberRS(this.getNumberRS());
     assay.setNumberSS(this.getNumberSS());
     assay.apply();
+  }
+  
+  public static List<String> customAttributeOrder()
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(COLLECTIONID);
+    list.add(MOSQUITOID);
+    list.add(SPECIES);
+    list.add(IDENTMETHOD);
+    list.add(SEX);
+    list.add(GENERATION);
+    list.add(ISOFEMALE);
+    list.add(ASSAYMETHOD);
+    list.add(TARGET);
+    list.add(NUMBERRR);
+    list.add(NUMBERRS);
+    list.add(NUMBERSS);
+    return list;
   }
 }

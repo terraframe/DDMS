@@ -1,5 +1,8 @@
 package dss.vector.solutions.export;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.PooledInfectionAssayView;
 import dss.vector.solutions.ontology.Term;
@@ -29,5 +32,22 @@ public class PooledInfectionAssayExcelView extends PooledInfectionAssayExcelView
     assay.setPoolsTested(this.getPoolsTested());
     assay.setNumberPositive(this.getNumberPositive());
     assay.apply();
+  }
+  
+  public static List<String> customAttributeOrder()
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(COLLECTIONID);
+    list.add(POOLID);
+    list.add(SPECIES);
+    list.add(IDENTMETHOD);
+    list.add(SEX);
+    list.add(PARASITE);
+    list.add(TESTMETHOD);
+    list.add(INFECTED);
+    list.add(MOSQUITOSTESTED);
+    list.add(POOLSTESTED);
+    list.add(NUMBERPOSITIVE);
+    return list;
   }
 }

@@ -20,8 +20,8 @@ import dss.vector.solutions.intervention.monitor.HouseholdView;
 import dss.vector.solutions.intervention.monitor.ITNInstance;
 import dss.vector.solutions.intervention.monitor.ITNInstanceQuery;
 import dss.vector.solutions.intervention.monitor.ITNInstanceView;
-import dss.vector.solutions.intervention.monitor.SurveyedPerson;
 import dss.vector.solutions.intervention.monitor.SurveyPoint;
+import dss.vector.solutions.intervention.monitor.SurveyedPerson;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonQuery;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonView;
 import dss.vector.solutions.ontology.Term;
@@ -32,14 +32,14 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
 {
   private static final long serialVersionUID = 1245785160306L;
   
-  private List<Term> nets;
-  private List<Integer> amounts;
+  private List<Term> locations;
+  private List<Term> treatments;
   
   public SurveyExcelView()
   {
     super();
-    nets = new LinkedList<Term>();
-    amounts = new LinkedList<Integer>();
+    locations = new LinkedList<Term>();
+    treatments = new LinkedList<Term>();
   }
   
   @Override
@@ -64,22 +64,22 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     ITNInstanceView itn = new ITNInstanceView();
     itn.setNetId(this.getNetId());
     itn.setHousehold(Household.get(house.getConcreteId()));
-    itn.setNetBrand(Term.validateByDisplayLabel(this.getNetBrand(), ITNInstance.getNetBrandMd()));
+    itn.setNetBrand(Term.validateByDisplayLabel(this.getNetBrand(), ITNInstanceView.getNetBrandMd()));
     itn.addMonthReceived(getMonthOfYearByLabel(this.getMonthReceived()));
     itn.setYearReceived(this.getYearReceived());
-    itn.setObtained(Term.validateByDisplayLabel(this.getObtained(), ITNInstance.getObtainedMd()));
+    itn.setObtained(Term.validateByDisplayLabel(this.getObtained(), ITNInstanceView.getObtainedMd()));
     itn.setPrice(this.getPrice());
     itn.setRetreated(this.getRetreated());
     itn.addMonthRetreated(getMonthOfYearByLabel(this.getMonthRetreated()));
     itn.setYearRetreated(this.getYearRetreated());
-    itn.setDamaged(Term.validateByDisplayLabel(this.getDamaged(), ITNInstance.getDamagedMd()));
-    itn.setHanging(Term.validateByDisplayLabel(this.getHanging(), ITNInstance.getHangingMd()));
+    itn.setDamaged(Term.validateByDisplayLabel(this.getDamaged(), ITNInstanceView.getDamagedMd()));
+    itn.setHanging(Term.validateByDisplayLabel(this.getHanging(), ITNInstanceView.getHangingMd()));
     itn.setNotUsedForSleeping(this.getNotUsedForSleeping());
-    itn.setPurpose(Term.validateByDisplayLabel(this.getPurpose(), ITNInstance.getPurposeMd()));
+    itn.setPurpose(Term.validateByDisplayLabel(this.getPurpose(), ITNInstanceView.getPurposeMd()));
     itn.setPurposeComments(this.getPurposeComments());
     itn.addWashed(getResponseByLabel(this.getWashed()));
     itn.setWashFrequency(this.getWashFrequency());
-    itn.setWashPeriod(Term.validateByDisplayLabel(this.getWashPeriod(), ITNInstance.getWashPeriodMd()));
+    itn.setWashPeriod(Term.validateByDisplayLabel(this.getWashPeriod(), ITNInstanceView.getWashPeriodMd()));
     itn.apply();
   }
 
@@ -112,51 +112,31 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     SurveyedPersonView person = new SurveyedPersonView();
     person.setHousehold(Household.get(house.getConcreteId()));
     person.setPersonId(this.getPersonId());
-    person.setHeadOfHousehold(Term.validateByDisplayLabel(this.getHeadOfHousehold(), SurveyedPerson.getHeadOfHouseholdMd()));
+    person.setHeadOfHousehold(Term.validateByDisplayLabel(this.getHeadOfHousehold(), SurveyedPersonView.getHeadOfHouseholdMd()));
     person.setDob(this.getDob());
     person.setAge(this.getAge());
-    person.setSex(Term.validateByDisplayLabel(this.getSex(), SurveyedPerson.getSexMd()));
+    person.setSex(Term.validateByDisplayLabel(this.getSex(), SurveyedPersonView.getSexMd()));
     person.setPregnant(this.getPregnant());
-    person.setImmuneCompromised(Term.validateByDisplayLabel(this.getImmuneCompromised(), SurveyedPerson.getImmuneCompromisedMd()));
+    person.setImmuneCompromised(Term.validateByDisplayLabel(this.getImmuneCompromised(), SurveyedPersonView.getImmuneCompromisedMd()));
     person.setSleptUnderNet(getNetById(this.getSleptUnderNetId()));
     person.addHaemoglobinMeasured(getRefusedResponseByLabel(this.getHaemoglobinMeasured()));
     person.setHaemoglobin(this.getHaemoglobin());
-    person.setAnaemiaTreatment(Term.validateByDisplayLabel(this.getAnaemiaTreatment(), SurveyedPerson.getAnaemiaTreatmentMd()));
+    person.setAnaemiaTreatment(Term.validateByDisplayLabel(this.getAnaemiaTreatment(), SurveyedPersonView.getAnaemiaTreatmentMd()));
     person.setIron(this.getIron());
     person.addPerformedRDT(getRefusedResponseByLabel(this.getPerformedRDT()));
     person.setRdtResult(this.getRdtResult());
-    person.setRdtDetail(Term.validateByDisplayLabel(this.getRdtDetail(), SurveyedPerson.getRdtDetailMd()));
-    person.setRdtTreatment(Term.validateByDisplayLabel(this.getRdtTreatment(), SurveyedPerson.getRdtTreatmentMd()));
+    person.setRdtDetail(Term.validateByDisplayLabel(this.getRdtDetail(), SurveyedPersonView.getRdtDetailMd()));
+    person.setRdtTreatment(Term.validateByDisplayLabel(this.getRdtTreatment(), SurveyedPersonView.getRdtTreatmentMd()));
     person.setPerformedBloodslide(this.getPerformedBloodslide());
-    person.setBloodslideReason(Term.validateByDisplayLabel(this.getBloodslideReason(), SurveyedPerson.getBloodslideReasonMd()));
+    person.setBloodslideReason(Term.validateByDisplayLabel(this.getBloodslideReason(), SurveyedPersonView.getBloodslideReasonMd()));
     person.setBloodslideResult(this.getBloodslideResult());
-    person.setBloodslideDetail(Term.validateByDisplayLabel(this.getBloodslideDetail(), SurveyedPerson.getBloodslideDetailMd()));
+    person.setBloodslideDetail(Term.validateByDisplayLabel(this.getBloodslideDetail(), SurveyedPersonView.getBloodslideDetailMd()));
     person.addFever(getResponseByLabel(this.getFever()));
     person.addMalaria(getResponseByLabel(this.getMalaria()));
-    person.setMalariaConformationTechnique(Term.validateByDisplayLabel(this.getMalariaConformationTechnique(), SurveyedPerson.getMalariaConformationTechniqueMd()));
-    // Treatments listeners go here
-    person.setPayment(Term.validateByDisplayLabel(this.getPayment(), SurveyedPerson.getPaymentMd()));
+    person.setMalariaConformationTechnique(Term.validateByDisplayLabel(this.getMalariaConformationTechnique(), SurveyedPersonView.getMalariaConformationTechniqueMd()));
+    person.setPayment(Term.validateByDisplayLabel(this.getPayment(), SurveyedPersonView.getPaymentMd()));
     
-    person.applyAll(new Term[0], new Term[0]);
-  }
-
-  public static void setupImportListener(ExcelImporter importer, String... params)
-  {
-    importer.addListener(new DynamicNetListener());
-    importer.addListener(createExcelGeoListener());
-  }
-
-  public static void setupExportListener(ExcelExporter exporter, String... params)
-  {
-    exporter.addListener(createExcelGeoListener());
-    exporter.addListener(new DynamicNetListener());
-  }
-
-  private static DynamicGeoColumnListener createExcelGeoListener()
-  {
-    HierarchyBuilder builder = new HierarchyBuilder();
-    builder.add(GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS));
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
+    person.applyAll(locations.toArray(new Term[locations.size()]), treatments.toArray(new Term[treatments.size()]));
   }
   
   public SurveyPoint getSurveyPoint()
@@ -203,12 +183,12 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
       house.setSurveyPoint(this.getSurveyPoint());
       house.setUrban(this.getUrban());
       house.setPeople(this.getPeople());
-      house.setWall(Term.validateByDisplayLabel(this.getWallSurface(), Household.getWallMd()));
+      house.setWall(Term.validateByDisplayLabel(this.getWallSurface(), HouseholdView.getWallMd()));
       house.setWallInfo(this.getWallInfo());
-      house.setRoof(Term.validateByDisplayLabel(this.getRoofSurface(), Household.getRoofMd()));
+      house.setRoof(Term.validateByDisplayLabel(this.getRoofSurface(), HouseholdView.getRoofMd()));
       house.setRoofInfo(this.getRoofInfo());
       house.setHasWindows(this.getHasWindows());
-      house.setWindowType(Term.validateByDisplayLabel(this.getWindowType(), Household.getWindowTypeMd()));
+      house.setWindowType(Term.validateByDisplayLabel(this.getWindowType(), HouseholdView.getWindowTypeMd()));
       house.setRooms(this.getRooms());
       house.addHasBeenSprayed(getResponseByLabel(this.getHasBeenSprayed()));
       house.setLastSprayed(this.getLastSprayed());
@@ -220,10 +200,95 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     return house;
   }
   
-  public void addNets(Term net, int count)
+  public static List<String> customAttributeOrder()
   {
-    nets.add(net);
-    amounts.add(count);
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(SURVEYDATE);
+    list.add(HOUSEHOLDNAME);
+    list.add(URBAN);
+    list.add(PEOPLE);
+    list.add(WALLSURFACE);
+    list.add(WALLINFO);
+    list.add(ROOFSURFACE);
+    list.add(ROOFINFO);
+    list.add(HASWINDOWS);
+    list.add(WINDOWTYPE);
+    list.add(ROOMS);
+    list.add(HASBEENSPRAYED);
+    list.add(LASTSPRAYED);
+    list.add(NETS);
+    list.add(PERSONID);
+    list.add(HEADOFHOUSEHOLD);
+    list.add(DOB);
+    list.add(AGE);
+    list.add(SEX);
+    list.add(PREGNANT);
+    list.add(IMMUNECOMPROMISED);
+    list.add(SLEPTUNDERNETID);
+    list.add(HAEMOGLOBINMEASURED);
+    list.add(HAEMOGLOBIN);
+    list.add(ANAEMIATREATMENT);
+    list.add(IRON);
+    list.add(PERFORMEDRDT);
+    list.add(RDTRESULT);
+    list.add(RDTDETAIL);
+    list.add(RDTTREATMENT);
+    list.add(PERFORMEDBLOODSLIDE);
+    list.add(BLOODSLIDEREASON);
+    list.add(BLOODSLIDERESULT);
+    list.add(BLOODSLIDEDETAIL);
+    list.add(FEVER);
+    list.add(MALARIA);
+    list.add(MALARIACONFORMATIONTECHNIQUE);
+    list.add(PAYMENT);
+    list.add(NETID);
+    list.add(NETBRAND);
+    list.add(MONTHRECEIVED);
+    list.add(YEARRECEIVED);
+    list.add(OBTAINED);
+    list.add(PRICE);
+    list.add(RETREATED);
+    list.add(MONTHRETREATED);
+    list.add(YEARRETREATED);
+    list.add(DAMAGED);
+    list.add(HANGING);
+    list.add(NOTUSEDFORSLEEPING);
+    list.add(PURPOSE);
+    list.add(PURPOSECOMMENTS);
+    list.add(WASHED);
+    list.add(WASHFREQUENCY);
+    list.add(WASHPERIOD);
+    list.add(SLEPTUNDERNET);
+    return list;
+  }
+
+  public static void setupImportListener(ExcelImporter importer, String... params)
+  {
+    importer.addListener(new SurveyExcelListener());
+    importer.addListener(createExcelGeoListener());
+  }
+
+  public static void setupExportListener(ExcelExporter exporter, String... params)
+  {
+    exporter.addListener(createExcelGeoListener());
+    exporter.addListener(new SurveyExcelListener());
+  }
+
+  private static DynamicGeoColumnListener createExcelGeoListener()
+  {
+    HierarchyBuilder builder = new HierarchyBuilder();
+    builder.add(GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS));
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
+  }
+  
+  public void addLocation(Term location)
+  {
+    locations.add(location);
+  }
+  
+  public void addTreatment(Term treatment)
+  {
+    treatments.add(treatment);
   }
 
   private MonthOfYear getMonthOfYearByLabel(String label)

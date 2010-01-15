@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1520349683)
+@com.terraframe.mojo.business.ClassSignature(hash = -989970651)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class LarvacideExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1520349683;
+private static final long serialVersionUID = -989970651;
 
   public LarvacideExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -168,6 +168,24 @@ private static final long serialVersionUID = -1520349683;
   public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.STARTDATE, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getSubstance()
+  {
+    return getSubstance(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getSubstance(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.SUBSTANCE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getSubstance(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.SUBSTANCE, alias, displayLabel);
 
   }
  

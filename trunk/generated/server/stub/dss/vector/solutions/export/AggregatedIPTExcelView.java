@@ -9,6 +9,7 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.SettlementSubdivision;
 import dss.vector.solutions.intervention.monitor.AggregatedIPT;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTView;
@@ -103,6 +104,20 @@ public class AggregatedIPTExcelView extends AggregatedIPTExcelViewBase implement
     
     ipt.applyAll(patientArray, visitArray, doseArray, treatmentArray);
   }
+  
+  public static List<String> customAttributeOrder()
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(PERIODTYPE);
+    list.add(PERIOD);
+    list.add(PERIODYEAR);
+    list.add(NUMBERPREGNANT);
+    list.add(NUMBERNATALCARE);
+    list.add(NUMBERPREGNANTIRON);
+    list.add(NUMBERPREGNANTITN);
+    list.add(TOTALITN);
+    return list;
+  }
 
   public static void setupImportListener(ExcelImporter importer, String... params)
   {
@@ -120,6 +135,7 @@ public class AggregatedIPTExcelView extends AggregatedIPTExcelViewBase implement
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     builder.add(GeoHierarchy.getGeoHierarchyFromType(SettlementSubdivision.CLASS));
+    builder.add(GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS));
     return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
 

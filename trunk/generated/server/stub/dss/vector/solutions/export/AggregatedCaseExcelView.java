@@ -174,6 +174,52 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
 
     acv.applyAll(treatmentArray, methodArray, stockArray, diagnosticArray, referralArray);
   }
+  
+  public static List<String> customAttributeOrder()
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(PERIODTYPE);
+    list.add(PERIOD);
+    list.add(EPIYEAR);
+    list.add(AGGREGATEDAGEGROUP);
+    list.add(CASES);
+    list.add(CASESFEMALE);
+    list.add(CASESMALE);
+    list.add(CASESPREGNANT);
+    list.add(CLINICALLYDIAGNOSED);
+    list.add(CLINICALLYDIAGNOSEDDEATH);
+    list.add(DAYSOUTOFSTOCK);
+    list.add(DEATHS);
+    list.add(DEATHSFEMALE);
+    list.add(DEATHSMALE);
+    list.add(DEATHSPREGNANT);
+    list.add(DEFINITIVELYDIAGNOSED);
+    list.add(DEFINITIVELYDIAGNOSEDDEATH);
+    list.add(INPATIENTS);
+    list.add(INPATIENTSANEMIA);
+    list.add(INPATIENTSCLINICALLY);
+    list.add(INPATIENTSDEFINITIVE);
+    list.add(INPATIENTSDISCHARGED);
+    list.add(INPATIENTSFEMALE);
+    list.add(INPATIENTSMALE);
+    list.add(INPATIENTSNOTTREATED);
+    list.add(INPATIENTSPREGNANTANEMIA);
+    list.add(INPATIENTSPREGNANTDIANOSIS);
+    list.add(INPATIENTSTOTAL);
+    list.add(OUTPATIENTS);
+    list.add(OUTPATIENTSFEMALE);
+    list.add(OUTPATIENTSMALE);
+    list.add(OUTPATIENTSNOTTREATED);
+    list.add(OUTPATIENTSTOTAL);
+    list.add(PATIENTSNOTTREATED);
+    list.add(PREGNANTDIAGNOSIS);
+    list.add(PREGNANTDIAGNOSISDEATH);
+    list.add(PREGNANTREFERRALSRECEIVED);
+    list.add(REFERRALSRECEIVED);
+    list.add(REFERRALSSENT);
+    list.add(STILLBIRTHS);
+    return list;
+  }
 
   public static void setupImportListener(ExcelImporter importer, String... params)
   {

@@ -1,5 +1,8 @@
 package dss.vector.solutions.export;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -85,6 +88,40 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
       view.setRefused(this.getRefused());
       view.apply();
     }
+  }
+  
+  public static List<String> customAttributeOrder()
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(BRANDNAME);
+    list.add(SPRAYDATE);
+    list.add(SPRAYMETHOD);
+    list.add(SPRAYTEAM);
+    list.add(LEADERID);
+    list.add(SURFACETYPE);
+    list.add(TEAMSPRAYWEEK);
+    list.add(TARGET);
+    list.add(OPERATORID);
+    list.add(OPERATORSPRAYWEEK);
+    list.add(OPERATORRECEIVED);
+    list.add(OPERATORREFILLS);
+    list.add(OPERATORRETURNED);
+    list.add(OPERATORUSED);
+    list.add(HOUSEHOLDS);
+    list.add(STRUCTURES);
+    list.add(SPRAYEDHOUSEHOLDS);
+    list.add(SPRAYEDSTRUCTURES);
+    list.add(PREVSPRAYEDHOUSEHOLDS);
+    list.add(PREVSPRAYEDSTRUCTURES);
+    list.add(ROOMS);
+    list.add(SPRAYEDROOMS);
+    list.add(PEOPLE);
+    list.add(BEDNETS);
+    list.add(ROOMSWITHBEDNETS);
+    list.add(LOCKED);
+    list.add(REFUSED);
+    list.add(OTHER);
+    return list;
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)

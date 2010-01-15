@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -61066076)
+@com.terraframe.mojo.business.ClassSignature(hash = 1477951740)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -19,12 +19,13 @@ public abstract class LarvacideExcelViewBase extends com.terraframe.mojo.busines
   public static java.lang.String NATUREOFCONTROL = "natureOfControl";
   public static java.lang.String PERSONCOUNT = "personCount";
   public static java.lang.String STARTDATE = "startDate";
+  public static java.lang.String SUBSTANCE = "substance";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADERID = "teamLeaderId";
   public static java.lang.String TREATED = "treated";
   public static java.lang.String UNIT = "unit";
   public static java.lang.String UNITSUSED = "unitsUsed";
-  private static final long serialVersionUID = -61066076;
+  private static final long serialVersionUID = 1477951740;
   
   public LarvacideExcelViewBase()
   {
@@ -247,6 +248,34 @@ public abstract class LarvacideExcelViewBase extends com.terraframe.mojo.busines
     else
     {
       setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public String getSubstance()
+  {
+    return getValue(SUBSTANCE);
+  }
+  
+  public void validateSubstance()
+  {
+    this.validateAttribute(SUBSTANCE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSubstanceMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
+    return mdClassIF.definesAttribute(SUBSTANCE);
+  }
+  
+  public void setSubstance(String value)
+  {
+    if(value == null)
+    {
+      setValue(SUBSTANCE, "");
+    }
+    else
+    {
+      setValue(SUBSTANCE, value);
     }
   }
   

@@ -158,6 +158,45 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     }
     return person;
   }
+  
+  public static List<String> customAttributeOrder()
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(CASEREPORTDATE);
+    list.add(DIAGNOSISDATE);
+    list.add(AGE);
+    list.add(PROBABLESOURCE);
+    list.add(FIRSTNAME);
+    list.add(LASTNAME);
+    list.add(DATEOFBIRTH);
+    list.add(SEX);
+    list.add(ACTIVELYDETECTED);
+    list.add(HEALTHFACILITY);
+    list.add(DETECTEDBY);
+    list.add(CLINICALDIAGNOSIS);
+    list.add(SYMPTOMONSET);
+    list.add(FACILITYVISIT);
+    list.add(PATIENTCATEGORY);
+    list.add(ADMISSIONDATE);
+    list.add(RELEASEDATE);
+    list.add(ANAEMIAPATIENT);
+    list.add(PREGNANT);
+    list.add(DIEDINFACILITY);
+    list.add(PROPERLYRELEASE);
+    list.add(REFERREDTO);
+    list.add(REFERREDFROM);
+    list.add(REFERRALREASON);
+    list.add(SAMPLETYPE);
+    list.add(LABTEST);
+    list.add(TESTSAMPLEDATE);
+    list.add(LABTESTDATE);
+    list.add(MALARIATYPE);
+    list.add(TREATMENTMETHOD);
+    list.add(TREATMENT);
+    list.add(TREATMENTSTARTDATE);
+    list.add(SYMPTOMCOMMENTS);
+    return list;
+  }
 
   public static void setupImportListener(ExcelImporter importer, String... params)
   {

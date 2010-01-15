@@ -1,5 +1,8 @@
 package dss.vector.solutions.export;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -10,6 +13,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.SettlementSubdivision;
 import dss.vector.solutions.intervention.monitor.Larvacide;
 import dss.vector.solutions.intervention.monitor.LarvacideInstance;
+import dss.vector.solutions.intervention.monitor.LarvacideInstanceView;
 import dss.vector.solutions.intervention.monitor.LarvacideQuery;
 import dss.vector.solutions.irs.SprayLeader;
 import dss.vector.solutions.irs.SprayLeaderQuery;
@@ -32,10 +36,11 @@ public class LarvacideExcelView extends LarvacideExcelViewBase implements com.te
     Larvacide larvacide = getLarvacide();
     
     LarvacideInstance instance = new LarvacideInstance();
-    instance.setTarget(Term.validateByDisplayLabel(this.getTarget(), LarvacideInstance.getTargetMd()));
+    instance.setTarget(Term.validateByDisplayLabel(this.getTarget(), LarvacideInstanceView.getTargetMd()));
     instance.setTreated(this.getTreated());
-    instance.setControlMethod(Term.validateByDisplayLabel(this.getControlMethod(), LarvacideInstance.getControlMethodMd()));
-    instance.setUnit(Term.validateByDisplayLabel(this.getUnit(), LarvacideInstance.getUnitMd()));
+    instance.setControlMethod(Term.validateByDisplayLabel(this.getControlMethod(), LarvacideInstanceView.getControlMethodMd()));
+    instance.setSubstance(Term.validateByDisplayLabel(this.getSubstance(), LarvacideInstanceView.getSubstanceMd()));
+    instance.setUnit(Term.validateByDisplayLabel(this.getUnit(), LarvacideInstanceView.getUnitMd()));
     instance.setUnitsUsed(this.getUnitsUsed());
     instance.apply();
     
@@ -75,7 +80,26 @@ public class LarvacideExcelView extends LarvacideExcelViewBase implements com.te
     }
     leaderIterator.close();
     
+    larvacide.apply();
     return larvacide;
+  }
+  
+  public static List<String> customAttributeOrder()
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(STARTDATE);
+    list.add(COMPLETIONDATE);
+    list.add(NATUREOFCONTROL);
+    list.add(PERSONCOUNT);
+    list.add(TEAMLEADERID);
+    list.add(TARGET);
+    list.add(TREATED);
+    list.add(CONTROLMETHOD);
+    list.add(SUBSTANCE);
+    list.add(UNIT);
+    list.add(UNITSUSED);
+    list.add(GEODESCRIPTION);
+    return list;
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)

@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -928160988)
+@com.terraframe.mojo.business.ClassSignature(hash = -233648260)
 public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.LarvacideExcelView";
-  private static final long serialVersionUID = -928160988;
+  private static final long serialVersionUID = -233648260;
   
   protected LarvacideExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -24,6 +24,7 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
   public static java.lang.String NATUREOFCONTROL = "natureOfControl";
   public static java.lang.String PERSONCOUNT = "personCount";
   public static java.lang.String STARTDATE = "startDate";
+  public static java.lang.String SUBSTANCE = "substance";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADERID = "teamLeaderId";
   public static java.lang.String TREATED = "treated";
@@ -293,6 +294,43 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getStartDateMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
+  }
+  
+  public String getSubstance()
+  {
+    return getValue(SUBSTANCE);
+  }
+  
+  public void setSubstance(String value)
+  {
+    if(value == null)
+    {
+      setValue(SUBSTANCE, "");
+    }
+    else
+    {
+      setValue(SUBSTANCE, value);
+    }
+  }
+  
+  public boolean isSubstanceWritable()
+  {
+    return isWritable(SUBSTANCE);
+  }
+  
+  public boolean isSubstanceReadable()
+  {
+    return isReadable(SUBSTANCE);
+  }
+  
+  public boolean isSubstanceModified()
+  {
+    return isModified(SUBSTANCE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSubstanceMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SUBSTANCE).getAttributeMdDTO();
   }
   
   public String getTarget()

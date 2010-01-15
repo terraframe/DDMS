@@ -1,6 +1,8 @@
 package dss.vector.solutions.export;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
@@ -12,6 +14,7 @@ import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.HealthFacility;
+import dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup;
 import dss.vector.solutions.intervention.monitor.ITNDistributionView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
@@ -20,9 +23,14 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
 {
   private static final long serialVersionUID = 1256860224442L;
   
+  private List<Term>        targetGroups;
+  private List<Integer>     targetGroupAmounts;
+  
   public ITNDistributionExcelView()
   {
     super();
+    targetGroups = new LinkedList<Term>();
+    targetGroupAmounts = new LinkedList<Integer>();
   }
   
   @Override
@@ -33,15 +41,26 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
     
     view.setDistributionDate(this.getDistributionDate());
     view.setFacility(this.getFacility().getGeoId());
-    view.setService(Term.validateByDisplayLabel(this.getService(), getServiceMd()));
+    view.setService(Term.validateByDisplayLabel(this.getService(), ITNDistributionView.getServiceMd()));
     view.setBatchNumber(this.getBatchNumber());
     view.setPerson(searchForRecipient());
-    view.setNet(Term.validateByDisplayLabel(this.getNet(), getNetMd()));
+    view.setNet(Term.validateByDisplayLabel(this.getNet(), ITNDistributionView.getNetMd()));
     view.setNumberSold(this.getNumberSold());
     view.setCurrencyReceived(this.getCurrencyReceived());
     view.setDistributorName(this.getDistributorName());
     view.setDistributorSurname(this.getDistributorSurname());
-    view.apply();
+    
+    ITNDistributionTargetGroup[] targetGroupArray = new ITNDistributionTargetGroup[targetGroups.size()];
+    for (int i = 0; i < targetGroupArray.length; i++)
+    {
+      if (i < targetGroupAmounts.size())
+      {
+        targetGroupArray[i] = new ITNDistributionTargetGroup(view.getConcreteId(), targetGroups.get(i).getId());
+        targetGroupArray[i].setAmount((targetGroupAmounts.get(i)));
+      }
+    }
+    
+    view.applyAll(targetGroupArray);
   }
   
   private Person searchForRecipient()
@@ -92,15 +111,34 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
     
     return person;
   }
-
-  public static void setupExportListener(ExcelExporter exporter, String... params)
+  
+  public static List<String> customAttributeOrder()
   {
-    exporter.addListener(createExcelGeoListener());
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(DISTRIBUTIONDATE);
+    list.add(BATCHNUMBER);
+    list.add(RECIPIENTFIRSTNAME);
+    list.add(RECIPIENTLASTNAME);
+    list.add(RECIPIENTDOB);
+    list.add(SERVICE);
+    list.add(NET);
+    list.add(NUMBERSOLD);
+    list.add(CURRENCYRECEIVED);
+    list.add(DISTRIBUTORNAME);
+    list.add(DISTRIBUTORSURNAME);
+    return list;
   }
 
   public static void setupImportListener(ExcelImporter importer, String... params)
   {
+    importer.addListener(new ITNDistributionListener());
     importer.addListener(createExcelGeoListener());
+  }
+
+  public static void setupExportListener(ExcelExporter exporter, String... params)
+  {
+    exporter.addListener(createExcelGeoListener());
+    exporter.addListener(new ITNDistributionListener());
   }
   
   private static DynamicGeoColumnListener createExcelGeoListener()
@@ -108,5 +146,11 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
     HierarchyBuilder builder = new HierarchyBuilder();
     builder.add(GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS));
     return new DynamicGeoColumnListener(CLASS, FACILITY, builder);
+  }
+
+  public void addTargetGroup(Term grid, Integer amount)
+  {
+    targetGroups.add(grid);
+    targetGroupAmounts.add(amount);
   }
 }

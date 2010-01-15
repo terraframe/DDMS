@@ -1,6 +1,8 @@
 package dss.vector.solutions.export;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
@@ -104,6 +106,7 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
       recipient.setPerson(person);
       recipient.apply();
       
+      person.lock();
       person.setIptRecipientDelegate(recipient);
       person.apply();
     }
@@ -129,6 +132,26 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
     }
     
     return kase;
+  }
+  
+  public static List<String> customAttributeOrder()
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(PATIENTFIRSTNAME);
+    list.add(PATIENTLASTNAME);
+    list.add(PATIENTDOB);
+    list.add(SERVICEDATE);
+    list.add(PATIENTTYPE);
+    list.add(ISANCVISIT);
+    list.add(VISITNUMBER);
+    list.add(DOSENUMBER);
+    list.add(DOSETYPE);
+    list.add(RECEIVEDSUPPLEMENT);
+    list.add(RECEIVEDITN);
+    list.add(NUMBEROFRECEIVEDITNS);
+    list.add(ADMINISTRATORNAME);
+    list.add(ADMINISTRATORSURNAME);
+    return list;
   }
   
   public static void setupExportListener(ExcelExporter exporter, String... params)

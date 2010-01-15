@@ -1,5 +1,10 @@
 package dss.vector.solutions.export;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import org.eclipse.birt.report.model.elements.interfaces.IDimensionModel;
+
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.query.OIterator;
@@ -64,6 +69,26 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
       view.addLifeStage(ExcelEnums.getLifeStage(this.getLifeStage()));
     }
     return view;
+  }
+  
+  public static List<String> customAttributeOrder()
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(COLLECTIONMETHOD);
+    list.add(COLLECTIONDATE);
+    list.add(COLLECTIONID);
+    list.add(ABUNDANCE);
+    list.add(LIFESTAGE);
+    list.add(SUBCOLLECTIONID);
+    list.add(IDENTMETHOD);
+    list.add(TAXON);
+    list.add(EGGS);
+    list.add(LARVAE);
+    list.add(PUPAE);
+    list.add(FEMALE);
+    list.add(MALE);
+    list.add(UNKNOWNS);
+    return list;
   }
 
   public static void setupImportListener(ExcelImporter importer, String... params)

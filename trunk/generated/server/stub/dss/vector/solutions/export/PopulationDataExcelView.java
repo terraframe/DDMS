@@ -1,5 +1,8 @@
 package dss.vector.solutions.export;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -7,6 +10,7 @@ import com.terraframe.mojo.query.OIterator;
 
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class PopulationDataExcelView extends PopulationDataExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -27,9 +31,22 @@ public class PopulationDataExcelView extends PopulationDataExcelViewBase impleme
     populationData.setGeoEntity(this.getGeoEntity());
     populationData.setYearOfData(this.getYearOfData());
     populationData.setPopulation(this.getPopulation());
-    populationData.setGrowthRate(this.getGrowthRate() / 100); // Ticket #822 calls for division by 100 to get a %
+    Double rate = this.getGrowthRate();
+    if (rate != null)
+    {
+      populationData.setGrowthRate(rate / 100); // Ticket #822 calls for division by 100 to get a %
+    }
     
     populationData.apply();
+  }
+  
+  public static List<String> customAttributeOrder()
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(YEAROFDATA);
+    list.add(POPULATION);
+    list.add(GROWTHRATE);
+    return list;
   }
   
   public static void setupExportListener(ExcelExporter exporter, String...params)
@@ -51,6 +68,7 @@ public class PopulationDataExcelView extends PopulationDataExcelViewBase impleme
       builder.add(iterator.next());
     }
     iterator.close();
+    builder.add(GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS));
     return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
   
