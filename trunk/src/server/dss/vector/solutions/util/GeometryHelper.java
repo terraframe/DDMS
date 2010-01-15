@@ -107,28 +107,36 @@ public class GeometryHelper {
 	 * @return
 	 */
 	private Polygon createPolygon(LineString lineString) {
-		Coordinate[] forward = lineString.getCoordinates();
+		Coordinate[] linePoints = lineString.getCoordinates();
 		
-		if (forward.length == 0 || lineString.isClosed()) {
-			return this.createPolygon(forward, lineString.getFactory());
+		if (linePoints.length == 0 || lineString.isClosed()) {
+			return this.createPolygon(linePoints, lineString.getFactory());
 		}
 
-		if (forward.length == 1) {
-			Coordinate[] points = this.createTriangle(forward[0]);
-			return this.createPolygon(points, lineString.getFactory());
+		if (linePoints.length == 1) {
+			Coordinate[] newPoints = this.createTriangle(linePoints[0]);
+			return this.createPolygon(newPoints, lineString.getFactory());
 		}
 		
+		if (linePoints.length == 2) {
+			Coordinate[] newPoints = new Coordinate[3];
+			newPoints[0] = linePoints[0];
+			//Interpolate a third, middle position so that we can create a diamond!
+			newPoints[1] = new Coordinate((linePoints[0].x + linePoints[1].x) / 2.0d, (linePoints[0].y + linePoints[1].y) / 2.0d);
+			newPoints[2] = linePoints[1];
+			linePoints = newPoints;
+		}
 		ArrayList<Coordinate> outline = new ArrayList<Coordinate>();
 		
-		addFirstPoint(outline, forward[0], forward[1]);
-		for (int i=1; i < forward.length-1; i++) {
-			addBisectedAnglePoint(outline, forward[i-1], forward[i], forward[i+1], true);
+		Coordinate offsetPoint = addFirstPoint(outline, linePoints[0], linePoints[1]);
+		for (int i=1; i < linePoints.length-1; i++) {
+			offsetPoint = addBisectedAnglePoint(outline, linePoints[i-1], linePoints[i], linePoints[i+1], offsetPoint);
 		}
-		addMidPoints(outline, forward[forward.length-1], forward[forward.length-2]);
-		for (int i=forward.length - 2; i > 0; i--) {
-			addBisectedAnglePoint(outline, forward[i+1], forward[i], forward[i-1], true);
+		offsetPoint = addMidPoint(outline, linePoints[linePoints.length-1], linePoints[linePoints.length-2], offsetPoint);
+		for (int i=linePoints.length - 2; i > 0; i--) {
+			offsetPoint = addBisectedAnglePoint(outline, linePoints[i+1], linePoints[i], linePoints[i-1], offsetPoint);
 		}
-		addLastPoints(outline, forward[1], forward[0]);
+		addLastPoint(outline, linePoints[0]);
 		
 		Coordinate[] full = outline.toArray(new Coordinate[outline.size()]);
 
@@ -142,50 +150,52 @@ public class GeometryHelper {
 		return polygon;
 	}
 	
-	private void addFirstPoint(ArrayList<Coordinate> outline, Coordinate p1, Coordinate p2) {
-		Coordinate[] perpendiculars = this.getPerpendicularPoints(outline, p1, p2);
+	private Coordinate addFirstPoint(ArrayList<Coordinate> outline, Coordinate thisPoint, Coordinate nextPoint) {
+		outline.add(thisPoint);
+		
+		Coordinate[] perpendiculars = this.getPerpendicularPoints(thisPoint, nextPoint);
 		this.orderPerpendiculars(perpendiculars);
-		outline.add(perpendiculars[0]);
+		return perpendiculars[0];
 	}
 	
-	private void addBisectedAnglePoint(ArrayList<Coordinate> outline, Coordinate p1, Coordinate p2, Coordinate p3, boolean isForward) {
-		Coordinate[] perpendiculars = this.getPerpendicularPoints(outline, p1, p2, p3);
-		this.orderPerpendiculars(perpendiculars, p1, p2, outline.get(outline.size() - 1));
+	private Coordinate addBisectedAnglePoint(ArrayList<Coordinate> outline, Coordinate lastPoint, Coordinate thisPoint, Coordinate nextPoint, Coordinate offsetPoint) {
+		Coordinate[] perpendiculars = this.getPerpendicularPoints(outline, lastPoint, thisPoint, nextPoint);
+		this.orderPerpendiculars(perpendiculars, lastPoint, thisPoint, offsetPoint);
 		outline.add(perpendiculars[0]);
+		return perpendiculars[0];
 	}
 	
-	private void addMidPoints(ArrayList<Coordinate> outline, Coordinate p1, Coordinate p2) {
-		Coordinate[] perpendiculars = this.getPerpendicularPoints(outline, p1, p2);
-		this.orderPerpendiculars(perpendiculars, p1, p2, outline.get(outline.size() - 1));
-		outline.add(perpendiculars[0]);
-		outline.add(perpendiculars[1]);
+	private Coordinate addMidPoint(ArrayList<Coordinate> outline, Coordinate thisPoint, Coordinate nextPoint, Coordinate offsetPoint) {
+		outline.add(thisPoint);
+		
+		Coordinate[] perpendiculars = this.getPerpendicularPoints(thisPoint, nextPoint);
+		this.orderPerpendiculars(perpendiculars, nextPoint, thisPoint, offsetPoint);
+		return perpendiculars[1];
 	}
 
-	private void addLastPoints(ArrayList<Coordinate> outline, Coordinate p1, Coordinate p2) {
-		Coordinate[] perpendiculars = this.getPerpendicularPoints(outline, p2, p1);
-		this.orderPerpendiculars(perpendiculars);
-		outline.add(perpendiculars[1]);
-		outline.add(perpendiculars[0]);
+	private Coordinate addLastPoint(ArrayList<Coordinate> outline, Coordinate p1) {
+		outline.add(p1);
+		return p1;
 	}
 
-	private Coordinate[] getPerpendicularPoints(ArrayList<Coordinate> outline, Coordinate p1, Coordinate p2) {
+	private Coordinate[] getPerpendicularPoints(Coordinate thisPoint, Coordinate otherPoint) {
 		Coordinate[] perpendiculars = new Coordinate[2];
 		
-		double dx = p2.x - p1.x;
-		double dy = p2.y - p1.y;
+		double dx = otherPoint.x - thisPoint.x;
+		double dy = otherPoint.y - thisPoint.y;
 		double l = this.length(dx, dy);
 		
-		perpendiculars[0] = new Coordinate(p1.x + (OUTLINE_DELTA * -dy / l), p1.y + (OUTLINE_DELTA * dx / l));
-		perpendiculars[1] = new Coordinate(p1.x + (OUTLINE_DELTA * dy / l), p1.y + (OUTLINE_DELTA * -dx / l));
+		perpendiculars[0] = new Coordinate(thisPoint.x + (OUTLINE_DELTA * -dy / l), thisPoint.y + (OUTLINE_DELTA * dx / l));
+		perpendiculars[1] = new Coordinate(thisPoint.x + (OUTLINE_DELTA * dy / l), thisPoint.y + (OUTLINE_DELTA * -dx / l));
 		
 		return perpendiculars;
 	}
 	
-	private Coordinate[] getPerpendicularPoints(ArrayList<Coordinate> outline, Coordinate p1, Coordinate p2, Coordinate p3) {
+	private Coordinate[] getPerpendicularPoints(ArrayList<Coordinate> outline, Coordinate lastPoint, Coordinate thisPoint, Coordinate nextPoint) {
 		Coordinate[] perpendiculars = new Coordinate[2];
 
-		Coordinate a = new Coordinate(p1.x-p2.x, p1.y-p2.y);
-		Coordinate b = new Coordinate(p3.x-p2.x, p3.y-p2.y);
+		Coordinate a = new Coordinate(lastPoint.x-thisPoint.x, lastPoint.y-thisPoint.y);
+		Coordinate b = new Coordinate(nextPoint.x-thisPoint.x, nextPoint.y-thisPoint.y);
 		double la = this.length(a.x, a.y);
 		double lb = this.length(b.x, b.y);
 		
@@ -193,10 +203,10 @@ public class GeometryHelper {
 		double lc = this.length(c.x, c.y);
 		
 		if (lc > 0.0) {
-			perpendiculars[0] = new Coordinate(p2.x + (OUTLINE_DELTA * c.x / lc), p2.y + (OUTLINE_DELTA * c.y / lc));
-			perpendiculars[1] = new Coordinate(p2.x - (OUTLINE_DELTA * c.x / lc), p2.y - (OUTLINE_DELTA * c.y / lc));
+			perpendiculars[0] = new Coordinate(thisPoint.x + (OUTLINE_DELTA * c.x / lc), thisPoint.y + (OUTLINE_DELTA * c.y / lc));
+			perpendiculars[1] = new Coordinate(thisPoint.x - (OUTLINE_DELTA * c.x / lc), thisPoint.y - (OUTLINE_DELTA * c.y / lc));
 		} else {
-			perpendiculars = this.getPerpendicularPoints(outline, p2, p3);
+			perpendiculars = this.getPerpendicularPoints(thisPoint, nextPoint);
 		}
 
 		return perpendiculars;
@@ -212,8 +222,8 @@ public class GeometryHelper {
 		}
 	}
 
-	private void orderPerpendiculars(Coordinate[] perpendiculars, Coordinate l1, Coordinate l2, Coordinate o) {
-		if ( (sgn(l1, l2, o) != sgn(l1, l2, perpendiculars[0])) && (sgn(l1, o, perpendiculars[0]) != sgn(l2, o, perpendiculars[0])) ) {
+	private void orderPerpendiculars(Coordinate[] perpendiculars, Coordinate thisPoint, Coordinate nextPoint, Coordinate offsetPoint) {
+		if ( (sgn(thisPoint, nextPoint, offsetPoint) != sgn(thisPoint, nextPoint, perpendiculars[0])) && (sgn(thisPoint, offsetPoint, perpendiculars[0]) != sgn(nextPoint, offsetPoint, perpendiculars[0])) ) {
 			Coordinate temp = perpendiculars[0];
 			perpendiculars[0] = perpendiculars[1];
 			perpendiculars[1] = temp;
