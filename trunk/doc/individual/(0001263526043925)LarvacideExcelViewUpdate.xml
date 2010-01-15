@@ -9,6 +9,7 @@
         description="Excel view for importing/exporting control of immatures">
         <attributes>
           <virtual
+            name="natureOfControl"
             concrete="natureOfControl"
             label="Nature of control activity"
             description="Routine Control or Emergency control"
