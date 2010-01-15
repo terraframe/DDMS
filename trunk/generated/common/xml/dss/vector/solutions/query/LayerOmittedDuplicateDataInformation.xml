@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
+  name="dss.vector.solutions.query.LayerOmittedDuplicateDataInformation">
+  <!--
+    - {id} id
+    - {layerName} layerName
+    -->
+  <locale language="en">The layer [{layerName}] has been omitted because it contains duplicate geo entities. Please restrict the query.</locale>
+</exception>
