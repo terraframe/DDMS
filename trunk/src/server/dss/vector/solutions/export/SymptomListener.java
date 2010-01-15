@@ -2,7 +2,6 @@ package dss.vector.solutions.export;
 
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
@@ -24,7 +23,7 @@ public class SymptomListener implements ExcelExportListener, ImportListener, Rel
   {
     for (Term term : Term.getRootChildren(IndividualInstance.getSymptomMd()))
     {
-      extraColumns.add(new ExcelColumn(SYMPTOM + term.getTermId(), term.getName().toString()));
+      extraColumns.add(new ExcelColumn(SYMPTOM + term.getTermId(), term.getDisplay()));
     }
   }
 
@@ -46,9 +45,10 @@ public class SymptomListener implements ExcelExportListener, ImportListener, Rel
       {
         if (column.getAttributeName().equals(SYMPTOM + term.getTermId()))
         {
-          HSSFCell cell = row.getCell(column.getIndex());
-          Boolean inStock = ExcelUtil.getBoolean(cell);
-          individualCase.addSymptom(term, inStock);
+          if (ExcelUtil.getBoolean(row.getCell(column.getIndex())))
+          {
+            individualCase.addSymptom(term);
+          }
         }
       }
     }

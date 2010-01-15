@@ -26,14 +26,12 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
 {
   private static final long serialVersionUID = -969902661;
 
-  private List<Term>        symptomNames;
-  private List<Boolean>     symptomValues;
+  private List<Term>        symptoms;
   
   public IndividualCaseExcelView()
   {
     super();
-    symptomNames = new LinkedList<Term>();
-    symptomValues = new LinkedList<Boolean>();
+    symptoms = new LinkedList<Term>();
   }
 
   @Override
@@ -100,17 +98,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     instance.setTreatment(Term.validateByDisplayLabel(this.getTreatment(), IndividualInstance.getTreatmentMd()));
     instance.setSymptomComments(this.getSymptomComments());
     
-//    IndividualCaseSymptom[] symptomArray = new IndividualCaseSymptom[symptomNames.size()];
-//    for (int i = 0; i < symptomArray.length; i++)
-//    {
-//      if (i < symptomValues.size())
-//      {
-//        symptomArray[i] = new IndividualCaseSymptom(instance, symptomNames.get(i));
-//        symptomArray[i].setHasSymptom(symptomValues.get(i));
-//      }
-//    }
-//    
-//    instance.applyAll(symptomArray);
+    instance.applyAll(symptoms.toArray(new Term[symptoms.size()]));
   }
 
   /**
@@ -229,9 +217,8 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     return new DynamicGeoColumnListener(CLASS, HEALTHFACILITY, builder);
   }
 
-  public void addSymptom(Term term, boolean patientHasSymptom)
+  public void addSymptom(Term term)
   {
-    symptomNames.add(term);
-    symptomValues.add(patientHasSymptom);
+    symptoms.add(term);
   }
 }
