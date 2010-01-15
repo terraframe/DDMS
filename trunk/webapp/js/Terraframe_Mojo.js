@@ -2223,7 +2223,7 @@ Mojo.Meta.newClass('Mojo.ClientRequest', {
       this._transport = null;
     },
      
-    getMessages : function() { return _warnings.concat(this._information); },
+    getMessages : function() { return this._warnings.concat(this._information); },
     
     setWarnings : function(warnings) { this._warnings = warnings; },
     

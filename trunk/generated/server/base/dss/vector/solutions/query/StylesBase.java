@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -935194344)
+@com.terraframe.mojo.business.ClassSignature(hash = 461871257)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,9 +21,12 @@ public abstract class StylesBase extends com.terraframe.mojo.business.Business i
   public static java.lang.String FILL = "fill";
   public static java.lang.String FONTFAMILY = "fontFamily";
   public static java.lang.String FONTSIZE = "fontSize";
-  public static java.lang.String FONTSTYLE = "fontStyle";
+  public static java.lang.String FONTSTYLES = "fontStyles";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
+  public static java.lang.String LABELHALOFILL = "labelHaloFill";
+  public static java.lang.String LABELHALOOPACITY = "labelHaloOpacity";
+  public static java.lang.String LABELHALORADIUS = "labelHaloRadius";
   public static java.lang.String LABELROTATION = "labelRotation";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
@@ -43,7 +46,7 @@ public abstract class StylesBase extends com.terraframe.mojo.business.Business i
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -935194344;
+  private static final long serialVersionUID = 461871257;
   
   public StylesBase()
   {
@@ -320,32 +323,42 @@ public abstract class StylesBase extends com.terraframe.mojo.business.Business i
     }
   }
   
-  public String getFontStyle()
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.query.FontStyles> getFontStyles()
   {
-    return getValue(FONTSTYLE);
+    return (java.util.List<dss.vector.solutions.query.FontStyles>) getEnumValues(FONTSTYLES);
   }
   
-  public void validateFontStyle()
+  public void addFontStyles(dss.vector.solutions.query.FontStyles value)
   {
-    this.validateAttribute(FONTSTYLE);
+    if(value != null)
+    {
+      addEnumItem(FONTSTYLES, value.getId());
+    }
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getFontStyleMd()
+  public void removeFontStyles(dss.vector.solutions.query.FontStyles value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(FONTSTYLES, value.getId());
+    }
+  }
+  
+  public void clearFontStyles()
+  {
+    clearEnum(FONTSTYLES);
+  }
+  
+  public void validateFontStyles()
+  {
+    this.validateAttribute(FONTSTYLES);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getFontStylesMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(FONTSTYLE);
-  }
-  
-  public void setFontStyle(String value)
-  {
-    if(value == null)
-    {
-      setValue(FONTSTYLE, "");
-    }
-    else
-    {
-      setValue(FONTSTYLE, value);
-    }
+    return mdClassIF.definesAttribute(FONTSTYLES);
   }
   
   public String getId()
@@ -389,6 +402,90 @@ public abstract class StylesBase extends com.terraframe.mojo.business.Business i
     else
     {
       setValue(KEYNAME, value);
+    }
+  }
+  
+  public String getLabelHaloFill()
+  {
+    return getValue(LABELHALOFILL);
+  }
+  
+  public void validateLabelHaloFill()
+  {
+    this.validateAttribute(LABELHALOFILL);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLabelHaloFillMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
+    return mdClassIF.definesAttribute(LABELHALOFILL);
+  }
+  
+  public void setLabelHaloFill(String value)
+  {
+    if(value == null)
+    {
+      setValue(LABELHALOFILL, "");
+    }
+    else
+    {
+      setValue(LABELHALOFILL, value);
+    }
+  }
+  
+  public java.math.BigDecimal getLabelHaloOpacity()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(LABELHALOOPACITY));
+  }
+  
+  public void validateLabelHaloOpacity()
+  {
+    this.validateAttribute(LABELHALOOPACITY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLabelHaloOpacityMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
+    return mdClassIF.definesAttribute(LABELHALOOPACITY);
+  }
+  
+  public void setLabelHaloOpacity(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(LABELHALOOPACITY, "");
+    }
+    else
+    {
+      setValue(LABELHALOOPACITY, value.toString());
+    }
+  }
+  
+  public Integer getLabelHaloRadius()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LABELHALORADIUS));
+  }
+  
+  public void validateLabelHaloRadius()
+  {
+    this.validateAttribute(LABELHALORADIUS);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLabelHaloRadiusMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
+    return mdClassIF.definesAttribute(LABELHALORADIUS);
+  }
+  
+  public void setLabelHaloRadius(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LABELHALORADIUS, "");
+    }
+    else
+    {
+      setValue(LABELHALORADIUS, java.lang.Integer.toString(value));
     }
   }
   

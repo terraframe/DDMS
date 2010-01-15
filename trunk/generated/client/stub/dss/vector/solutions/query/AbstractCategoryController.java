@@ -32,9 +32,7 @@ public class AbstractCategoryController extends AbstractCategoryControllerBase i
     try
     {
       req.setAttribute("category", category);
-      req.setAttribute("styles", styles);
-     
-      req.setAttribute("pointMarker", dss.vector.solutions.query.WellKnownNamesDTO.allItems(category.getRequest()));      
+      StylesController.populateRequestForStyles(req, styles);
     }
     catch(Throwable e)
     {

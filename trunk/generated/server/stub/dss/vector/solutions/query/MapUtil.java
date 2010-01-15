@@ -1,5 +1,6 @@
 package dss.vector.solutions.query;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +30,7 @@ import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DatabaseException;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.WebFile;
@@ -46,18 +49,17 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
   {
     super();
   }
-  
+
   /**
-   * Attempts to delete the view with the given name.
-   * A database level cascade is also used to remove
-   * any dependencies on other views.
+   * Attempts to delete the view with the given name. A database level cascade
+   * is also used to remove any dependencies on other views.
    * 
    * @param viewName
    */
   public static void deleteMapView(String viewName)
   {
     List<String> batch = new LinkedList<String>();
-    batch.add("DROP VIEW IF EXISTS "+viewName+" CASCADE");
+    batch.add("DROP VIEW IF EXISTS " + viewName + " CASCADE");
     Database.executeBatch(batch);
   }
 
@@ -94,15 +96,15 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       String error = "Could not create the mapping data.";
       throw new ProgrammingErrorException(error, e);
     }
-    
+
     // Map all Layers to their ValueQuery objects
     Map<String, ValueQuery> layerValueQueries = new HashMap<String, ValueQuery>();
     boolean isClipping = false;
     String baseView = null;
-    for(int i=0; i<layers.length; i++)
+    for (int i = 0; i < layers.length; i++)
     {
       Layer layer = layers[i];
-      
+
       SavedSearch search = layer.getSavedSearch();
       String xml = search.getQueryXml();
       String config = search.getConfig();
@@ -112,62 +114,118 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       // reflection.
       // TODO pass in queryType and have getValueQuery deref the class
       String queryClass = QueryConstants.getQueryClass(queryType);
-      ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, layer);
+
+      ValueQuery valueQuery;
+      try
+      {
+        valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, layer);
+      }
+      catch (ProgrammingErrorException e)
+      {
+        String layerName = layer.getLayerName();
+        String queryName = layer.getSavedSearch().getQueryName();
+        
+        String error = "The map could not be generated while getting the query ["
+          + queryName + "] for layer [" + layerName + "]";
+        
+        if (e.getCause() instanceof InvocationTargetException)
+        {
+          InvocationTargetException ex = (InvocationTargetException) e.getCause();
+          if (ex.getCause() instanceof QueryException)
+          {
+            if(i == 0)
+            {
+              BaseLayerQueryChangedException changeEx = new BaseLayerQueryChangedException();
+              changeEx.setLayerName(layerName);
+              changeEx.setQueryName(queryName);
+              throw changeEx;
+            }
+            else
+            {
+              LayerOmittedQueryChangedInformation info = new LayerOmittedQueryChangedInformation();
+              info.setLayerName(layerName);
+              info.setQueryName(queryName);
+              info.throwIt();
+              
+              layers[i] = null;
+              continue;
+            }
+          }
+        }
+        
+        GeoServerReloadException gsEX = new GeoServerReloadException(error, e.getCause());
+        throw gsEX;
+      }
 
       // The base layer must have geo entities or geoserver bombs out
-      if(i == 0 && valueQuery.getCount() == 0)
+      if (i == 0 && valueQuery.getCount() == 0)
       {
         String error = "The thematic layer doesn't contain spatial data.";
         throw new NoEntitiesInThematicLayerException(error);
       }
-      else if(i == 0)
+      else if (i == 0)
       {
         baseView = layer.getViewName();
       }
-      
+
       layerValueQueries.put(layer.getId(), valueQuery);
-      
-      if(i != 0 && !isClipping && layer.getClipToBaseLayer())
+
+      if (i != 0 && !isClipping && layer.getClipToBaseLayer())
       {
         isClipping = true;
       }
     }
-    
+
     String sessionId = Session.getCurrentSession().getId();
     List<LayerReload> reloads = new LinkedList<LayerReload>();
+    List<LayerReload> bboxLayers = new LinkedList<LayerReload>();
     for (int i = 0; i < layers.length; i++)
     {
       Layer layer = layers[i];
-      String viewName = layer.getViewName();
+      if(layer == null)
+      {
+        continue; // The layer failed the first past
+      }
       
+      String layerName = layer.getLayerName();
+      String viewName = layer.getViewName();
+      AllRenderTypes renderAs = layer.getRenderAs().get(0);
+      LayerReload layerReload = new LayerReload(layerName, viewName, renderAs);
+
       ValueQuery valueQuery = layerValueQueries.get(layer.getId());
 
       // Any non-base layer will be omitted from the map to
       // keep geoserver from acting funky.
       if (i > 0 && valueQuery.getCount() == 0)
       {
+        LayerOmittedNoDataInformation info = new LayerOmittedNoDataInformation();
+        info.setLayerName(layerName);
+        info.throwIt();
+
         continue;
       }
 
       String sql;
-      if(i != 0 && layer.getClipToBaseLayer())
+      if (i != 0 && layer.getClipToBaseLayer())
       {
         valueQuery.FROM(baseView, "geoentity_clipping");
         sql = valueQuery.getSQL();
-        
-        String inter = "intersection($2, geoentity_clipping."+QueryConstants.GEOMETRY_NAME_COLUMN+")";
-        String pattern = "^(.*?)(\\w+\\.\\w+)(\\s+AS\\s+"+QueryConstants.GEOMETRY_NAME_COLUMN+")(.*)$";
+
+        String inter = "intersection($2, geoentity_clipping." + QueryConstants.GEOMETRY_NAME_COLUMN
+            + ")";
+        String pattern = "^(.*?)(\\w+\\.\\w+)(\\s+AS\\s+" + QueryConstants.GEOMETRY_NAME_COLUMN
+            + ")(.*)$";
         Pattern p = Pattern.compile(pattern, Pattern.DOTALL);
         Matcher m = p.matcher(sql);
         m.matches();
-        
-        sql = m.replaceFirst("$1"+inter+"$3$4 AND $2 && geoentity_clipping."+QueryConstants.GEOMETRY_NAME_COLUMN);
+
+        sql = m.replaceFirst("$1" + inter + "$3$4 AND $2 && geoentity_clipping."
+            + QueryConstants.GEOMETRY_NAME_COLUMN);
       }
       else
       {
         sql = valueQuery.getSQL();
       }
-
 
       try
       {
@@ -184,8 +242,6 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
         Database.createView(viewName, sql);
       }
 
-      reloads.add(new LayerReload(viewName, layer.getRenderAs().get(0)));
-
       // make sure there are no duplicate geo entities
       String countSQL = "SELECT COUNT(*) " + Database.formatColumnAlias("ct") + " FROM " + viewName;
       countSQL += " GROUP BY " + QueryConstants.GEO_ID_COLUMN + " HAVING COUNT(*) > 1";
@@ -196,8 +252,22 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       {
         if (resultSet.next())
         {
-          DuplicateMapDataException ex = new DuplicateMapDataException();
-          throw ex;
+          // We have duplicate data! Throw an exception if this is the base
+          // layer,
+          // but only omit the layer with info if non-base.
+          if (i == 0)
+          {
+            DuplicateMapDataException ex = new DuplicateMapDataException();
+            throw ex;
+          }
+          else
+          {
+            LayerOmittedDuplicateDataInformation info = new LayerOmittedDuplicateDataInformation();
+            info.setLayerName(layerName);
+            info.throwIt();
+
+            continue;
+          }
         }
       }
       catch (SQLException sqlEx1)
@@ -218,6 +288,8 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
         }
       }
 
+      reloads.add(layerReload);
+
       // Update the view name on the layer so the old view can be cleaned up
       String newViewName = Layer.GEO_VIEW_PREFIX + System.currentTimeMillis();
       layer.appLock();
@@ -236,12 +308,10 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
         layerJSON.put("opacity", layer.getOpacity());
         layersJSON.put(layerJSON);
 
-        if (i == 0)
+        if (layer.getAddToBBox())
         {
-          // restrict the map bounds to the base layer
-          mapData.put("bbox", getThematicBBox(viewName));
+          bboxLayers.add(layerReload);
         }
-
       }
       catch (JSONException e)
       {
@@ -252,6 +322,17 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
     }
 
     reload(sessionId, reloads);
+
+    // restrict the map bounds to the applicable layers
+    try
+    {
+      mapData.put("bbox", getThematicBBox(bboxLayers));
+    }
+    catch (JSONException e)
+    {
+      String error = "Could not produce the bounding box.";
+      throw new ProgrammingErrorException(error, e);
+    }
 
     return mapData.toString();
   }
@@ -551,68 +632,79 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
    * 
    * @return
    */
-  public static JSONArray getThematicBBox(String viewName)
+  public static JSONArray getThematicBBox(List<LayerReload> layers)
   {
-    ResultSet resultSet = Database.query("SELECT AsText(extent(" + viewName + "."
-        + QueryConstants.GEOMETRY_NAME_COLUMN + ")) AS bbox FROM " + viewName);
     JSONArray bboxArr = new JSONArray();
-
-    try
+    if (layers.size() > 0)
     {
-      if (resultSet.next())
+      String[] layerNames = new String[layers.size()];
+      String sql;
+      if (layers.size() == 1)
       {
-        String bbox = resultSet.getString("bbox");
-        if (bbox != null)
+        LayerReload layer = layers.get(0);
+        String viewName = layer.viewName;
+        layerNames[0] = layer.layerName;
+
+        sql = "SELECT AsText(extent(" + viewName + "." + QueryConstants.GEOMETRY_NAME_COLUMN
+            + ")) AS bbox FROM " + viewName;
+      }
+      else
+      {
+        // More than one layer so union the geometry columns
+        sql = "SELECT AsText(extent(geo_v)) AS bbox FROM (\n";
+
+        for (int i = 0; i < layers.size(); i++)
         {
-          Pattern p = Pattern.compile("POLYGON\\(\\((.*)\\)\\)");
-          Matcher m = p.matcher(bbox);
+          LayerReload layer = layers.get(i);
+          String viewName = layer.viewName;
+          layerNames[i] = layer.layerName;
 
-          if (m.matches())
+          sql += "(SELECT " + QueryConstants.GEOMETRY_NAME_COLUMN + " AS geo_v FROM " + viewName
+              + ") \n";
+
+          if (i != layers.size() - 1)
           {
-            String coordinates = m.group(1);
-            List<Coordinate> coords = new LinkedList<Coordinate>();
-
-            for (String c : coordinates.split(","))
-            {
-              String[] xAndY = c.split(" ");
-              double x = Double.valueOf(xAndY[0]);
-              double y = Double.valueOf(xAndY[1]);
-
-              coords.add(new Coordinate(x, y));
-            }
-
-            Envelope e = new Envelope(coords.get(0), coords.get(2));
-
-            try
-            {
-              bboxArr.put(e.getMinX());
-              bboxArr.put(e.getMinY());
-              bboxArr.put(e.getMaxX());
-              bboxArr.put(e.getMaxY());
-            }
-            catch (JSONException ex)
-            {
-              throw new ProgrammingErrorException(ex);
-            }
+            sql += "UNION \n";
           }
-          else
-          {
-            // There will not be a match if there is a single point geo entity.
-            // In this case, return the x,y coordinates to OpenLayers.
+        }
 
-            p = Pattern.compile("POINT\\((.*)\\)");
-            m = p.matcher(bbox);
+        sql += ") bbox_union";
+      }
+
+      ResultSet resultSet = Database.query(sql);
+
+      try
+      {
+        if (resultSet.next())
+        {
+          String bbox = resultSet.getString("bbox");
+          if (bbox != null)
+          {
+            Pattern p = Pattern.compile("POLYGON\\(\\((.*)\\)\\)");
+            Matcher m = p.matcher(bbox);
+
             if (m.matches())
             {
-              String c = m.group(1);
-              String[] xAndY = c.split(" ");
-              double x = Double.valueOf(xAndY[0]);
-              double y = Double.valueOf(xAndY[1]);
+              String coordinates = m.group(1);
+              List<Coordinate> coords = new LinkedList<Coordinate>();
+
+              for (String c : coordinates.split(","))
+              {
+                String[] xAndY = c.split(" ");
+                double x = Double.valueOf(xAndY[0]);
+                double y = Double.valueOf(xAndY[1]);
+
+                coords.add(new Coordinate(x, y));
+              }
+
+              Envelope e = new Envelope(coords.get(0), coords.get(2));
 
               try
               {
-                bboxArr.put(x);
-                bboxArr.put(y);
+                bboxArr.put(e.getMinX());
+                bboxArr.put(e.getMinY());
+                bboxArr.put(e.getMaxX());
+                bboxArr.put(e.getMaxY());
               }
               catch (JSONException ex)
               {
@@ -621,31 +713,57 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
             }
             else
             {
-              String error = "The database view [" + viewName
-                  + "] does not contain a valid bounding box";
-              throw new GeoServerReloadException(error);
+              // There will not be a match if there is a single point geo
+              // entity.
+              // In this case, return the x,y coordinates to OpenLayers.
+
+              p = Pattern.compile("POINT\\((.*)\\)");
+              m = p.matcher(bbox);
+              if (m.matches())
+              {
+                String c = m.group(1);
+                String[] xAndY = c.split(" ");
+                double x = Double.valueOf(xAndY[0]);
+                double y = Double.valueOf(xAndY[1]);
+
+                try
+                {
+                  bboxArr.put(x);
+                  bboxArr.put(y);
+                }
+                catch (JSONException ex)
+                {
+                  throw new ProgrammingErrorException(ex);
+                }
+              }
+              else
+              {
+                String error = "The database view(s) [" + StringUtils.join(layerNames, ",")
+                    + "] could not be used to create a valid bounding box";
+                throw new GeoServerReloadException(error);
+              }
             }
           }
         }
-      }
 
-      return bboxArr;
-    }
-    catch (SQLException sqlEx1)
-    {
-      Database.throwDatabaseException(sqlEx1);
-    }
-    finally
-    {
-      try
-      {
-        java.sql.Statement statement = resultSet.getStatement();
-        resultSet.close();
-        statement.close();
+        return bboxArr;
       }
-      catch (SQLException sqlEx2)
+      catch (SQLException sqlEx1)
       {
-        Database.throwDatabaseException(sqlEx2);
+        Database.throwDatabaseException(sqlEx1);
+      }
+      finally
+      {
+        try
+        {
+          java.sql.Statement statement = resultSet.getStatement();
+          resultSet.close();
+          statement.close();
+        }
+        catch (SQLException sqlEx2)
+        {
+          Database.throwDatabaseException(sqlEx2);
+        }
       }
     }
 
@@ -666,15 +784,22 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
     return bboxArr;
   }
 
+  /**
+   * Class to represent a layer as it will be reloaded in a cycle. Because
+   * layer.getViewName() will return the name of the view for the NEXT reload
+   * cycle, this class is used to temporarly store the current layer data.
+   */
   private static class LayerReload implements Reloadable
   {
-
     private String         viewName;
+
+    private String         layerName;
 
     private AllRenderTypes renderType;
 
-    private LayerReload(String viewName, AllRenderTypes renderType)
+    private LayerReload(String layerName, String viewName, AllRenderTypes renderType)
     {
+      this.layerName = layerName;
       this.viewName = viewName;
       this.renderType = renderType;
     }

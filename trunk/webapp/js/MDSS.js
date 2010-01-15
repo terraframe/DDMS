@@ -257,6 +257,9 @@ MDSS.Set.prototype = {
   Mojo.Iter.forEach(imgs, function(img){
     new Image().src=img;
   });
+  
+  MDSS.rotationCircle = new Image();
+  MDSS.rotationCircle.src = 'imgs/rotationCircle.png';
 })();
 
 // Intercept all event listener calls and store them to be

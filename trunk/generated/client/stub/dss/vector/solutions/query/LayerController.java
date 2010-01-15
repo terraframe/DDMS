@@ -72,15 +72,14 @@ public class LayerController extends LayerControllerBase implements
     try
     {
       req.setAttribute("layer", layer);
-      req.setAttribute("styles", styles);
       req.setAttribute("isNewInstance", layer.isNewInstance());
+      StylesController.populateRequestForStyles(req, styles);
       
       // fetch queries
       SavedSearchViewQueryDTO query = SavedSearchDTO.getMappableSearches(this.getClientRequest());
       List<? extends SavedSearchViewDTO> results = query.getResultSet();
       
       this.req.setAttribute("queryList", results);
-      this.req.setAttribute("pointMarker", dss.vector.solutions.query.WellKnownNamesDTO.allItems(this.getClientRequest()));      
       this.req.setAttribute("renderAsOptions", AllRenderTypesDTO.allItems(this.getClientRequest()));
       
       // fetch categories

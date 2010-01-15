@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -197053247)
+@com.terraframe.mojo.business.ClassSignature(hash = 773590082)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  class StylesQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -197053247;
+private static final long serialVersionUID = 773590082;
 
   public StylesQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -221,21 +221,27 @@ private static final long serialVersionUID = -197053247;
     return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.FONTSIZE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getFontStyle()
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles()
   {
-    return getFontStyle(null);
+    return getFontStyles(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getFontStyle(String alias)
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.FONTSTYLE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("fontStyles");
+
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.getComponentQuery().internalAttributeFactory("fontStyles", mdAttributeIF, this, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getFontStyle(String alias, String displayLabel)
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.FONTSTYLE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("fontStyles");
+
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.getComponentQuery().internalAttributeFactory("fontStyles", mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -270,6 +276,57 @@ private static final long serialVersionUID = -197053247;
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getLabelHaloFill()
+  {
+    return getLabelHaloFill(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLabelHaloFill(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LABELHALOFILL, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLabelHaloFill(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LABELHALOFILL, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity()
+  {
+    return getLabelHaloOpacity(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LABELHALOOPACITY, "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LABELHALOOPACITY, "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius()
+  {
+    return getLabelHaloRadius(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LABELHALORADIUS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LABELHALORADIUS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getLabelRotation()
@@ -654,7 +711,11 @@ private static final long serialVersionUID = -197053247;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("pointMarker")) 
+    if (name.equals("fontStyles")) 
+    {
+       return new dss.vector.solutions.query.FontStyleQuery.FontStylesQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("pointMarker")) 
     {
        return new dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -727,15 +788,24 @@ private static final long serialVersionUID = -197053247;
     public com.terraframe.mojo.query.AttributeInteger getFontSize();
     public com.terraframe.mojo.query.AttributeInteger getFontSize(String alias);
     public com.terraframe.mojo.query.AttributeInteger getFontSize(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getFontStyle();
-    public com.terraframe.mojo.query.AttributeChar getFontStyle(String alias);
-    public com.terraframe.mojo.query.AttributeChar getFontStyle(String alias, String displayLabel);
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles();
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias);
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeChar getId();
     public com.terraframe.mojo.query.AttributeChar getId(String alias);
     public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeChar getKeyName();
     public com.terraframe.mojo.query.AttributeChar getKeyName(String alias);
     public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getLabelHaloFill();
+    public com.terraframe.mojo.query.AttributeChar getLabelHaloFill(String alias);
+    public com.terraframe.mojo.query.AttributeChar getLabelHaloFill(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity();
+    public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity(String alias);
+    public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius();
+    public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius(String alias);
+    public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeInteger getLabelRotation();
     public com.terraframe.mojo.query.AttributeInteger getLabelRotation(String alias);
     public com.terraframe.mojo.query.AttributeInteger getLabelRotation(String alias, String displayLabel);
@@ -808,7 +878,7 @@ private static final long serialVersionUID = -197053247;
  implements StylesQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -2051010973;
+private static final long serialVersionUID = -1369012764;
 
   public StylesQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -997,21 +1067,21 @@ private static final long serialVersionUID = -2051010973;
     return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("fontSize", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getFontStyle()
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles()
   {
-    return getFontStyle(null);
+    return getFontStyles(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getFontStyle(String alias)
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("fontStyle", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.attributeFactory("fontStyles", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getFontStyle(String alias, String displayLabel)
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("fontStyle", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.attributeFactory("fontStyles", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -1046,6 +1116,57 @@ private static final long serialVersionUID = -2051010973;
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getLabelHaloFill()
+  {
+    return getLabelHaloFill(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLabelHaloFill(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("labelHaloFill", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLabelHaloFill(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("labelHaloFill", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity()
+  {
+    return getLabelHaloOpacity(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeDecimal)this.attributeFactory("labelHaloOpacity", "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeDecimal)this.attributeFactory("labelHaloOpacity", "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius()
+  {
+    return getLabelHaloRadius(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("labelHaloRadius", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("labelHaloRadius", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getLabelRotation()
@@ -1406,7 +1527,11 @@ private static final long serialVersionUID = -2051010973;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("pointMarker")) 
+    if (name.equals("fontStyles")) 
+    {
+       return new dss.vector.solutions.query.FontStyleQuery.FontStylesQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("pointMarker")) 
     {
        return new dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

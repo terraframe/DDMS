@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1661973803)
+@com.terraframe.mojo.business.ClassSignature(hash = 1249030455)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,6 +11,7 @@ package dss.vector.solutions.query;
 public abstract class LayerBase extends com.terraframe.mojo.business.Business implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Layer";
+  public static java.lang.String ADDTOBBOX = "addToBBox";
   public static java.lang.String CLIPTOBASELAYER = "clipToBaseLayer";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
@@ -37,11 +38,39 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
-  private static final long serialVersionUID = 1661973803;
+  private static final long serialVersionUID = 1249030455;
   
   public LayerBase()
   {
     super();
+  }
+  
+  public Boolean getAddToBBox()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ADDTOBBOX));
+  }
+  
+  public void validateAddToBBox()
+  {
+    this.validateAttribute(ADDTOBBOX);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAddToBBoxMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(ADDTOBBOX);
+  }
+  
+  public void setAddToBBox(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ADDTOBBOX, "");
+    }
+    else
+    {
+      setValue(ADDTOBBOX, java.lang.Boolean.toString(value));
+    }
   }
   
   public Boolean getClipToBaseLayer()

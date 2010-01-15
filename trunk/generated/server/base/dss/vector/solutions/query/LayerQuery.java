@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1091051234)
+@com.terraframe.mojo.business.ClassSignature(hash = 943431662)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  class LayerQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1091051234;
+private static final long serialVersionUID = 943431662;
 
   public LayerQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -38,6 +38,23 @@ private static final long serialVersionUID = 1091051234;
   public String getClassType()
   {
     return dss.vector.solutions.query.Layer.CLASS;
+  }
+  public com.terraframe.mojo.query.AttributeBoolean getAddToBBox()
+  {
+    return getAddToBBox(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getAddToBBox(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Layer.ADDTOBBOX, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getAddToBBox(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Layer.ADDTOBBOX, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+
   }
   public com.terraframe.mojo.query.AttributeBoolean getClipToBaseLayer()
   {
@@ -761,6 +778,9 @@ private static final long serialVersionUID = 1091051234;
   public interface LayerQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.query.SelectableReference
   {
 
+    public com.terraframe.mojo.query.AttributeBoolean getAddToBBox();
+    public com.terraframe.mojo.query.AttributeBoolean getAddToBBox(String alias);
+    public com.terraframe.mojo.query.AttributeBoolean getAddToBBox(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeBoolean getClipToBaseLayer();
     public com.terraframe.mojo.query.AttributeBoolean getClipToBaseLayer(String alias);
     public com.terraframe.mojo.query.AttributeBoolean getClipToBaseLayer(String alias, String displayLabel);
@@ -880,7 +900,7 @@ private static final long serialVersionUID = 1091051234;
  implements LayerQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -2109563392;
+private static final long serialVersionUID = 456669452;
 
   public LayerQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -899,6 +919,23 @@ private static final long serialVersionUID = -2109563392;
       return this.NE(layer.getId());
     }
 
+  public com.terraframe.mojo.query.AttributeBoolean getAddToBBox()
+  {
+    return getAddToBBox(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getAddToBBox(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("addToBBox", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getAddToBBox(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("addToBBox", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeBoolean getClipToBaseLayer()
   {
     return getClipToBaseLayer(null);

@@ -71,6 +71,9 @@
   <mjl:dt attribute="clipToBaseLayer">
     <mjl:boolean param="clipToBaseLayer" />
   </mjl:dt>
+  <mjl:dt attribute="addToBBox">
+    <mjl:boolean param="addToBBox" />
+  </mjl:dt>
   <mjl:dt attribute="opacity">
     <div id="${layer.id}_opacitySliderBG" class="yui-h-slider" style="width: 100px">
       <div id="${layer.id}_opacityThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>

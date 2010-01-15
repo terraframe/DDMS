@@ -18,7 +18,7 @@ public enum AllRenderTypesDTO implements com.terraframe.mojo.business.Enumeratio
   
   public dss.vector.solutions.query.RenderTypesDTO item(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
-    return (dss.vector.solutions.query.RenderTypesDTO) clientRequest.getEnumeration("dss.vector.solutions.query.AllRenderTypes", this.name());
+    return (dss.vector.solutions.query.RenderTypesDTO) clientRequest.getEnumeration(dss.vector.solutions.query.AllRenderTypesDTO.CLASS, this.name());
   }
   
   @java.lang.SuppressWarnings("unchecked")
@@ -29,13 +29,13 @@ public enum AllRenderTypesDTO implements com.terraframe.mojo.business.Enumeratio
     {
       itemNames[i] = items[i].name();
     }
-    return (java.util.List<dss.vector.solutions.query.RenderTypesDTO>) clientRequest.getEnumerations("dss.vector.solutions.query.AllRenderTypes", itemNames);
+    return (java.util.List<dss.vector.solutions.query.RenderTypesDTO>) clientRequest.getEnumerations(dss.vector.solutions.query.AllRenderTypesDTO.CLASS, itemNames);
   }
   
   @java.lang.SuppressWarnings("unchecked")
   public static java.util.List<dss.vector.solutions.query.RenderTypesDTO> allItems(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
-    return (java.util.List<dss.vector.solutions.query.RenderTypesDTO>) clientRequest.getAllEnumerations("dss.vector.solutions.query.AllRenderTypes");
+    return (java.util.List<dss.vector.solutions.query.RenderTypesDTO>) clientRequest.getAllEnumerations(dss.vector.solutions.query.AllRenderTypesDTO.CLASS);
   }
   
   public java.lang.String getName()

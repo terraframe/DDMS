@@ -1,5 +1,14 @@
 package dss.vector.solutions.query;
 
+import java.awt.GraphicsEnvironment;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.terraframe.mojo.constants.ClientRequestIF;
+
 public class StylesController extends StylesControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/query/Styles/";
@@ -7,9 +16,47 @@ public class StylesController extends StylesControllerBase implements com.terraf
   
   private static final long serialVersionUID = 285080076;
   
+  private static final Object lockObj = new Object();
+  
+  private static String[] fontFamilies = null;
+  
   public StylesController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
+  }
+  
+  private static class FontStyleComparator implements Comparator<FontStyleDTO>, com.terraframe.mojo.generation.loader.Reloadable
+  {
+
+    public int compare(FontStyleDTO c1, FontStyleDTO c2)
+    {
+      return c1.getPriority().compareTo(c2.getPriority());
+    }
+    
+  }  
+  
+  protected static void populateRequestForStyles(HttpServletRequest req, StylesDTO styles)
+  {
+    ClientRequestIF request = styles.getRequest();
+    
+    req.setAttribute("styles", styles);
+    
+    List<FontStyleDTO> fontStyles =  FontStylesDTO.allItems(request);
+    Collections.sort(fontStyles, new FontStyleComparator());
+    
+    req.setAttribute("allFontStyles", fontStyles);
+    req.setAttribute("pointMarker", dss.vector.solutions.query.WellKnownNamesDTO.allItems(request));
+    
+    synchronized (lockObj) {
+      if(fontFamilies == null)
+      {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        fontFamilies = ge.getAvailableFontFamilyNames();
+      }
+    }
+    
+ 
+    req.setAttribute("fontFamilies", fontFamilies);
   }
   
   public void cancel(dss.vector.solutions.query.StylesDTO dto) throws java.io.IOException, javax.servlet.ServletException

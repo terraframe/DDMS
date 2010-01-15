@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1181294696)
+@com.terraframe.mojo.business.ClassSignature(hash = 1520723737)
 public abstract class StylesDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Styles";
-  private static final long serialVersionUID = -1181294696;
+  private static final long serialVersionUID = 1520723737;
   
   protected StylesDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -37,9 +37,12 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String FILL = "fill";
   public static java.lang.String FONTFAMILY = "fontFamily";
   public static java.lang.String FONTSIZE = "fontSize";
-  public static java.lang.String FONTSTYLE = "fontStyle";
+  public static java.lang.String FONTSTYLES = "fontStyles";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
+  public static java.lang.String LABELHALOFILL = "labelHaloFill";
+  public static java.lang.String LABELHALOOPACITY = "labelHaloOpacity";
+  public static java.lang.String LABELHALORADIUS = "labelHaloRadius";
   public static java.lang.String LABELROTATION = "labelRotation";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
@@ -419,41 +422,50 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FONTSIZE).getAttributeMdDTO();
   }
   
-  public String getFontStyle()
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.query.FontStylesDTO> getFontStyles()
   {
-    return getValue(FONTSTYLE);
+    return (java.util.List<dss.vector.solutions.query.FontStylesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.FontStylesDTO.CLASS, getEnumNames(FONTSTYLES));
   }
   
-  public void setFontStyle(String value)
+  public java.util.List<String> getFontStylesEnumNames()
   {
-    if(value == null)
-    {
-      setValue(FONTSTYLE, "");
-    }
-    else
-    {
-      setValue(FONTSTYLE, value);
-    }
+    return getEnumNames(FONTSTYLES);
   }
   
-  public boolean isFontStyleWritable()
+  public void addFontStyles(dss.vector.solutions.query.FontStylesDTO enumDTO)
   {
-    return isWritable(FONTSTYLE);
+    addEnumItem(FONTSTYLES, enumDTO.toString());
   }
   
-  public boolean isFontStyleReadable()
+  public void removeFontStyles(dss.vector.solutions.query.FontStylesDTO enumDTO)
   {
-    return isReadable(FONTSTYLE);
+    removeEnumItem(FONTSTYLES, enumDTO.toString());
   }
   
-  public boolean isFontStyleModified()
+  public void clearFontStyles()
   {
-    return isModified(FONTSTYLE);
+    clearEnum(FONTSTYLES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getFontStyleMd()
+  public boolean isFontStylesWritable()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FONTSTYLE).getAttributeMdDTO();
+    return isWritable(FONTSTYLES);
+  }
+  
+  public boolean isFontStylesReadable()
+  {
+    return isReadable(FONTSTYLES);
+  }
+  
+  public boolean isFontStylesModified()
+  {
+    return isModified(FONTSTYLES);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getFontStylesMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(FONTSTYLES).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -491,6 +503,117 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+  }
+  
+  public String getLabelHaloFill()
+  {
+    return getValue(LABELHALOFILL);
+  }
+  
+  public void setLabelHaloFill(String value)
+  {
+    if(value == null)
+    {
+      setValue(LABELHALOFILL, "");
+    }
+    else
+    {
+      setValue(LABELHALOFILL, value);
+    }
+  }
+  
+  public boolean isLabelHaloFillWritable()
+  {
+    return isWritable(LABELHALOFILL);
+  }
+  
+  public boolean isLabelHaloFillReadable()
+  {
+    return isReadable(LABELHALOFILL);
+  }
+  
+  public boolean isLabelHaloFillModified()
+  {
+    return isModified(LABELHALOFILL);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLabelHaloFillMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LABELHALOFILL).getAttributeMdDTO();
+  }
+  
+  public java.math.BigDecimal getLabelHaloOpacity()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(LABELHALOOPACITY));
+  }
+  
+  public void setLabelHaloOpacity(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(LABELHALOOPACITY, "");
+    }
+    else
+    {
+      setValue(LABELHALOOPACITY, value.toString());
+    }
+  }
+  
+  public boolean isLabelHaloOpacityWritable()
+  {
+    return isWritable(LABELHALOOPACITY);
+  }
+  
+  public boolean isLabelHaloOpacityReadable()
+  {
+    return isReadable(LABELHALOOPACITY);
+  }
+  
+  public boolean isLabelHaloOpacityModified()
+  {
+    return isModified(LABELHALOOPACITY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getLabelHaloOpacityMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(LABELHALOOPACITY).getAttributeMdDTO();
+  }
+  
+  public Integer getLabelHaloRadius()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LABELHALORADIUS));
+  }
+  
+  public void setLabelHaloRadius(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LABELHALORADIUS, "");
+    }
+    else
+    {
+      setValue(LABELHALORADIUS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isLabelHaloRadiusWritable()
+  {
+    return isWritable(LABELHALORADIUS);
+  }
+  
+  public boolean isLabelHaloRadiusReadable()
+  {
+    return isReadable(LABELHALORADIUS);
+  }
+  
+  public boolean isLabelHaloRadiusModified()
+  {
+    return isModified(LABELHALORADIUS);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLabelHaloRadiusMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LABELHALORADIUS).getAttributeMdDTO();
   }
   
   public Integer getLabelRotation()
@@ -666,7 +789,7 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.query.WellKnownNamesDTO> getPointMarker()
   {
-    return (java.util.List<dss.vector.solutions.query.WellKnownNamesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.query.WellKnownNames", getEnumNames(POINTMARKER));
+    return (java.util.List<dss.vector.solutions.query.WellKnownNamesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.WellKnownNamesDTO.CLASS, getEnumNames(POINTMARKER));
   }
   
   public java.util.List<String> getPointMarkerEnumNames()

@@ -89,7 +89,6 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
       Layer existingLayer = existingRel.getChild();
       Layer layer = new Layer();
       
-      // TODO assign an sld file
       layer.setLayerName(existingLayer.getLayerName());
       layer.setSavedSearch(existingLayer.getSavedSearch());
       layer.setMdAttribute(existingLayer.getMdAttribute());
@@ -102,7 +101,7 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
       styles.setFill(existingStyles.getFill());
       styles.setFontFamily(existingStyles.getFontFamily());
       styles.setFontSize(existingStyles.getFontSize());
-      styles.setFontStyle(existingStyles.getFontStyle());
+      styles.addFontStyles(existingStyles.getFontStyles().get(0));
       
       styles.setPointStroke(existingStyles.getPointStroke());
       styles.setPointWidth(existingStyles.getPointWidth());

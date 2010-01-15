@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.transport.conversion.json.JSONReturnObject;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
@@ -82,7 +83,10 @@ public class MappingController extends MappingControllerBase implements
       // Regenerate the database views
       String mapData = map.refreshMap();
       
-      resp.getWriter().print(mapData);
+      JSONReturnObject json = new JSONReturnObject(mapData);
+      json.setInformation(request.getInformation());
+      
+      resp.getWriter().print(json.toString());
     }
     catch(ProblemExceptionDTO e)
     {

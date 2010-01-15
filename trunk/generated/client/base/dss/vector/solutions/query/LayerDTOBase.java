@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1336628907)
+@com.terraframe.mojo.business.ClassSignature(hash = -110964041)
 public abstract class LayerDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Layer";
-  private static final long serialVersionUID = 1336628907;
+  private static final long serialVersionUID = -110964041;
   
   protected LayerDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -27,6 +27,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return CLASS;
   }
   
+  public static java.lang.String ADDTOBBOX = "addToBBox";
   public static java.lang.String CLIPTOBASELAYER = "clipToBaseLayer";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
@@ -53,6 +54,43 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
+  public Boolean getAddToBBox()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ADDTOBBOX));
+  }
+  
+  public void setAddToBBox(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ADDTOBBOX, "");
+    }
+    else
+    {
+      setValue(ADDTOBBOX, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isAddToBBoxWritable()
+  {
+    return isWritable(ADDTOBBOX);
+  }
+  
+  public boolean isAddToBBoxReadable()
+  {
+    return isReadable(ADDTOBBOX);
+  }
+  
+  public boolean isAddToBBoxModified()
+  {
+    return isModified(ADDTOBBOX);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getAddToBBoxMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ADDTOBBOX).getAttributeMdDTO();
+  }
+  
   public Boolean getClipToBaseLayer()
   {
     return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CLIPTOBASELAYER));
@@ -570,7 +608,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.query.AllRenderTypesDTO> getRenderAs()
   {
-    return (java.util.List<dss.vector.solutions.query.AllRenderTypesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.query.AllRenderTypes", getEnumNames(RENDERAS));
+    return (java.util.List<dss.vector.solutions.query.AllRenderTypesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.AllRenderTypesDTO.CLASS, getEnumNames(RENDERAS));
   }
   
   public java.util.List<String> getRenderAsEnumNames()

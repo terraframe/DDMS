@@ -42,9 +42,11 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
     if(isNew)
     {
       SavedMap map = SavedMap.get(savedMapId);
+      int count = (int) map.getLayerCount();
       
       HasLayers rel = this.addMap(map);
-      rel.setLayerPosition((int)map.getLayerCount());
+      rel.setLayerPosition((int)count);
+      
       rel.apply();
     }
   }

@@ -85,6 +85,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._MappingController = Mojo.$.dss.vector.solutions.query.MappingController;
       
       this._map = null;
+      this._drawLineBtn = null; // Ref to the button that lets a user draw a vector line on the map
     },
     
     render : function()
@@ -532,6 +533,15 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var mapButtonDiv = new YAHOO.util.Element(document.createElement('div'));
       mapButtonDiv.setStyle('float', 'right');
       
+      // Add the draw line button
+      this._drawLineBtn = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(this._drawLineBtn, 'type', 'button');
+      YAHOO.util.Dom.setAttribute(this._drawLineBtn, 'value', MDSS.Localized.Draw_Line);
+      YAHOO.util.Dom.addClass(this._drawLineBtn, 'queryButton');
+      YAHOO.util.Event.on(this._drawLineBtn, 'click', this._drawLine, null, this);
+      this._drawLineBtn.disabled = true;
+      mapButtonDiv.appendChild(this._drawLineBtn);
+      
       // Add the map buttons
       var annotation = document.createElement('input');
       YAHOO.util.Dom.setAttribute(annotation, 'type', 'button');
@@ -554,6 +564,11 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var mBottom = new YAHOO.util.Element(bottom.body);
       mBottom.appendChild(loadingDiv);
       mBottom.appendChild(mapButtonDiv);
+    },
+    
+    _drawLine : function()
+    {
+      this._drawLineControl.activate();
     },
     
     _saveMap : function()
@@ -731,11 +746,24 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     {
       var request = new MDSS.Request({
         that : this,
-        onSuccess : function(mapData)
+        onSuccess : function(retJSON)
         {
+          var retObj = Mojo.Util.getObject(retJSON);
+          var info = Mojo.Util.convertToType(retObj.information);
+          
+          if(info.length > 0)
+          {
+            var m = '';
+            for(var i=0, len=info.length; i<len; i++)
+            {
+              m += info[i].getMessage()+"<br />";
+            }
+            new MDSS.ErrorModal(m);
+          }
+        
           var that = this.that;
         
-          mapData = Mojo.Util.getObject(mapData);
+          var mapData = Mojo.Util.getObject(retObj.returnValue);
         
           var geoServerPath = mapData.geoserverURL;
           
@@ -753,61 +781,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           // make OL compute scale according to WMS spec
           OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
           
-          var options = {
-              controls: [],
-              projection: "EPSG:4326",
-              units: 'degrees',
-              numZoomLevels : 20
-          };
-      
-      
-          that._map = new OpenLayers.Map(MDSS.MapPanel.MAP_CONTAINER, options);
-      
-          // setup base tiled layer
-          var mapLayers = [];
-          var baseLayer = layers.shift();
-          var tiled = new OpenLayers.Layer.WMS(
-              "", geoServerPath+"/wms",
-              {
-                  srs: 'EPSG:4326',
-                  layers: baseLayer.view,
-                  styles: '',
-                  format: 'image/png',
-                  sld: Mojo.ClientSession.getBaseEndpoint()+baseLayer.sld,
-                  tiled: 'true'
-              },
-              {
-                buffer: 0,
-                opacity: baseLayer.opacity,
-                isBaseLayer: true
-          });
-          
-          mapLayers.push(tiled);
-      
-          for(var i=0; i<layers.length; i++)
-          {
-            var layer = layers[i];
-              var extraLayer = new OpenLayers.Layer.WMS(
-              "", geoServerPath+"/wms",
-              {
-                  srs: 'EPSG:4326',
-                  layers: layer.view,
-                  styles: '',
-                  format: 'image/png',
-                  sld: Mojo.ClientSession.getBaseEndpoint()+layer.sld,
-                  transparent: true,
-                  tiled: 'true'
-              },
-              {
-                buffer: 0,
-                opacity: layer.opacity
-            });
-      
-            mapLayers.push(extraLayer);
-          }
-      
-          that._map.addLayers(mapLayers);
-      
           // Restrict the bounding box to that of the base layer, and zoom
           // out entirely except for a couple of levels.
           var bbox = mapData.bbox;
@@ -821,18 +794,92 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           {
             bounds = new OpenLayers.Bounds(bbox[0], bbox[1], bbox[2], bbox[3]);
           }
-          that._map.zoomToExtent(bounds);
+          
+          var options = {
+              controls: [],
+              projection: "EPSG:4326",
+              units: 'degrees',
+              numZoomLevels : 20,
+              maxResolution : 'auto'
+          };
+      
+      
+          that._map = new OpenLayers.Map(MDSS.MapPanel.MAP_CONTAINER, options);
+
+          var mapLayers = [];
+
+
+          // setup base tiled layer
+          var baseLayer = layers.shift();
+          var base = new OpenLayers.Layer.WMS(
+              "", geoServerPath+"/wms",
+              {
+                  srs: 'EPSG:4326',
+                  layers: baseLayer.view,
+                  styles: '',
+                  format: 'image/png',
+                  sld: Mojo.ClientSession.getBaseEndpoint()+baseLayer.sld,
+              },
+              {
+                buffer: 0,
+                opacity: baseLayer.opacity,
+                  singleTile : true,
+                isBaseLayer: true
+          });
+          
+          mapLayers.push(base);
+      
+          for(var i=0; i<layers.length; i++)
+          {
+            var layer = layers[i];
+              var extraLayer = new OpenLayers.Layer.WMS(
+              "", geoServerPath+"/wms",
+              {
+                  srs: 'EPSG:4326',
+                  layers: layer.view,
+                  styles: '',
+                  format: 'image/png',
+                  sld: Mojo.ClientSession.getBaseEndpoint()+layer.sld,
+                  transparent: true,
+              },
+              {
+                buffer: 0,
+                  singleTile : true,
+                opacity: layer.opacity
+            });
+      
+            mapLayers.push(extraLayer);
+          }
+          
+  
+          var lineLayer = new OpenLayers.Layer.Vector("Line Layer");
+          that._drawLineControl = new OpenLayers.Control.DrawFeature(lineLayer,
+                        OpenLayers.Handler.Path);
+          
+          mapLayers.push(lineLayer);
+          
+          that._map.addLayers(mapLayers);
 
           // build up all controls
           that._map.addControl(new OpenLayers.Control.PanZoomBar({
               position: new OpenLayers.Pixel(2, 15)
           }));
           that._map.addControl(new OpenLayers.Control.Navigation());
+          that._map.addControl(new OpenLayers.Control.MousePosition());
+          that._map.addControl(that._drawLineControl);
+
+          that._map.zoomToExtent(bounds);      
+          
+          that._drawLineBtn.disabled = false;
+          
+          console.log(that._map.getResolutionForZoom(2));
         } 
       });
       
       var mapId = MDSS.MapPanel.getCurrentMap();
       this._MappingController.refreshMap(request, mapId);
+      
+      this._drawLineBtn.disabled = true;
     },
     
     _destroyModal : function()
@@ -980,15 +1027,15 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var canvas = document.getElementById(attribute+'Canvas');
       var context = canvas.getContext('2d');
       
-      var image = new Image();
-      image.src = 'imgs/rotationLine.png';
-      
       var value = parseInt(document.getElementById(attribute).value);
       
-      canvas.setAttribute('width', image.width);
-      canvas.setAttribute('height', image.height);
+      canvas.setAttribute('width', MDSS.rotationCircle.width);
+      canvas.setAttribute('height', MDSS.rotationCircle.height);
+      
+      context.translate(canvas.width/2, canvas.height/2);
       context.rotate(value * Math.PI / 180);
-      context.drawImage(image, 0, 0);
+      context.translate(-1*(canvas.width/2), -1*(canvas.height/2));
+      context.drawImage(MDSS.rotationCircle, 0, 0);
       
       document.getElementById(attribute+'Display').innerHTML = value;
       
@@ -996,16 +1043,26 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       {
         var el = document.getElementById(attribute);
         var value = parseInt(el.value)+changeBy;
-        canvas.setAttribute('width', image.width);
-        canvas.setAttribute('height', image.height);
+        
+        if(value < 0)
+        {
+          value = 355;
+        }
+        else
+        {
+          value = value % 360;
+        }
+        
+        canvas.setAttribute('width', MDSS.rotationCircle.width);
+        canvas.setAttribute('height', MDSS.rotationCircle.height);
         
         context.translate(canvas.width/2, canvas.height/2);
         context.rotate(value * Math.PI / 180);
         context.translate(-1*(canvas.width/2), -1*(canvas.height/2));
-        context.drawImage(image, 0, 0);
+        context.drawImage(MDSS.rotationCircle, 0, 0);
         
         el.value = value;
-        document.getElementById(attribute+'Display').innerHTML = value;
+        document.getElementById(attribute+'Display').innerHTML = value+'&nbsp;&deg;';
       };
       
       // Clockwise
@@ -1013,6 +1070,53 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       
       // Counter-Clockwise
       YAHOO.util.Event.on(attribute+'CCW', 'click', handler, -5);
+    },
+    
+    attach50Slider : function(attribute)
+    {
+      var Event = YAHOO.util.Event,
+          Dom   = YAHOO.util.Dom,
+          lang  = YAHOO.lang,
+          bg=attribute+"SliderBG", thumb=attribute+"Thumb", 
+          textfield=attribute+"Converted"
+  
+      var value = parseInt(document.getElementById(attribute).value);
+      var asPixel = value * 2;
+
+      var slider = YAHOO.widget.Slider.getHorizSlider(bg, 
+                           thumb, 0, 100, 2);
+      
+      slider.animate = false;
+      slider.setValue(asPixel);
+                           
+      slider.subscribe("change", function(offsetFromStart) {
+        var size = parseInt(offsetFromStart) / 2;
+      
+        document.getElementById(attribute+'Display').innerHTML = size;
+        document.getElementById(attribute).value = size;
+      });
+    },
+    
+    attach100Slider : function(attribute)
+    {
+      var Event = YAHOO.util.Event,
+          Dom   = YAHOO.util.Dom,
+          lang  = YAHOO.lang,
+          bg=attribute+"SliderBG", thumb=attribute+"Thumb", 
+          textfield=attribute+"Converted"
+  
+      var value = parseInt(document.getElementById(attribute).value);
+
+      var slider = YAHOO.widget.Slider.getHorizSlider(bg, 
+                           thumb, 0, 100, 1);
+      
+      slider.animate = false;
+      slider.setValue(value);
+                           
+      slider.subscribe("change", function(offsetFromStart) {
+        document.getElementById(attribute+'Display').innerHTML = offsetFromStart;
+        document.getElementById(attribute).value = offsetFromStart;
+      });
     },
   
     attachOpacitySlider : function(attribute)
