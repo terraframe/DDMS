@@ -248,4 +248,21 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     return view;
   }
 
+  public static Boolean hasBrowserRoot(String className, String attributeName)
+  {
+    if(className == null || attributeName == null)
+    {
+      return false;
+    }
+
+    QueryFactory factory = new QueryFactory();    
+
+    BrowserFieldQuery fieldQuery = BrowserField.getFieldForAttribute(className, attributeName, factory);
+    
+    BrowserRootQuery rootQuery = new BrowserRootQuery(factory);
+    rootQuery.WHERE(rootQuery.getTerm().getObsolete().EQ(false));
+    rootQuery.AND(rootQuery.field(fieldQuery));
+
+    return (rootQuery.getCount() > 0);
+  }
 }

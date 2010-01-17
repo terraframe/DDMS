@@ -81,20 +81,6 @@
     </attribute>
     <attribute>
       <name>
-        browserAttribute
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        true
-      </rtexprvalue>
-      <description>
-        The browser field attribute of this MO Tag
-      </description>
-    </attribute>
-    <attribute>
-      <name>
         browserClass
       </name>
       <required>
@@ -109,6 +95,20 @@
     </attribute>
     <attribute>
       <name>
+        browserAttribute
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        The browser field attribute of this MO Tag
+      </description>
+    </attribute>
+    <attribute>
+      <name>
         script
       </name>
       <required>
@@ -119,6 +119,20 @@
       </rtexprvalue>
       <description>
         Flag indicating if javascript should be created for this MO select field
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        enabled
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Flag indicating if Term select field is disabled
       </description>
     </attribute>
   </tag>
@@ -193,20 +207,6 @@
     </attribute>
     <attribute>
       <name>
-        browserAttribute
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        true
-      </rtexprvalue>
-      <description>
-        The browser field attribute of this MO Tag
-      </description>
-    </attribute>
-    <attribute>
-      <name>
         browserClass
       </name>
       <required>
@@ -221,6 +221,20 @@
     </attribute>
     <attribute>
       <name>
+        browserAttribute
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        The browser field attribute of this MO Tag
+      </description>
+    </attribute>
+    <attribute>
+      <name>
         script
       </name>
       <required>
@@ -231,6 +245,20 @@
       </rtexprvalue>
       <description>
         Flag indicating if javascript should be created for this MO select field
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        enabled
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Flag indicating if Term select field is disabled
       </description>
     </attribute>
   </tag>

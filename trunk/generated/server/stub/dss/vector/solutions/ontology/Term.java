@@ -20,7 +20,6 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.GeneratedViewQuery;
-import com.terraframe.mojo.query.LeftJoinEq;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
@@ -259,7 +258,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   public static ValueQuery termQuery(String value, String[] parentTermIds)
   {
     QueryFactory factory = new QueryFactory();
-    
+
     ValueQuery query = new ValueQuery(factory);
     AllPathsQuery pathsQuery = new AllPathsQuery(query);
     TermQuery termQuery = new TermQuery(query);
@@ -288,11 +287,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     Condition[] conditionArray = conditions.toArray(new Condition[conditions.size()]);
     String[] searchable = value.split(" ");
-    
+
     QueryBuilder.textLookup(query, factory, searchable, selectables, conditionArray);
 
     query.restrictRows(15, 1);
-    
+
     return query;
   }
 
@@ -460,25 +459,25 @@ public class Term extends TermBase implements Reloadable, OptionIF
   public static ValueQuery termQueryByIds(String[] termIds)
   {
     QueryFactory factory = new QueryFactory();
-    
+
     ValueQuery query = new ValueQuery(factory);
     TermQuery termQuery = new TermQuery(query);
 
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { termQuery.getId(Term.ID), termQuery.getDisplay(Term.DISPLAY), termQuery.getTermId(Term.TERMID) };
 
     query.SELECT(selectables);
-    
+
     // restrict by the term ids (ordering will be done client-side)
     if (termIds != null && termIds.length > 0)
     {
-      query.WHERE(termQuery.getId().IN(termIds));  
+      query.WHERE(termQuery.getId().IN(termIds));
     }
     else
     {
       // Use empty string to avoid SQL syntax error.
       query.WHERE(termQuery.getId().IN(""));
     }
-    
+
     return query;
   }
 
@@ -1074,67 +1073,123 @@ public class Term extends TermBase implements Reloadable, OptionIF
     BrowserRootQuery unselectableRootQuery = new BrowserRootQuery(query);
     AllPathsQuery pathsQuery = new AllPathsQuery(query);
     TermQuery termQuery = new TermQuery(query);
-    
+
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { termQuery.getId(Term.ID), termQuery.getDisplay(Term.DISPLAY), termQuery.getTermId(Term.TERMID) };
 
-    Condition fieldCondition = getBrowserFieldCondition(className, attribute, fieldQuery);
-    
-    List<Condition> conditionList = new LinkedList<Condition>();
-    conditionList.add(fieldCondition);
-    conditionList.add(rootQuery.getTerm().getObsolete().EQ(false));
-    conditionList.add(rootQuery.field(fieldQuery));
-    conditionList.add(pathsQuery.getChildTerm().EQ(termQuery));
-    conditionList.add(pathsQuery.getParentTerm().EQ(rootQuery.getTerm()));
-    
+    List<Condition> conditionList = Term.getConditions(className, attribute, fieldQuery, rootQuery, pathsQuery, termQuery);
+
     conditionList.addAll(getUnselectableConditions(className, attribute, fieldQuery, unselectableRootQuery, termQuery));
-    
+
     Condition[] conditions = conditionList.toArray(new Condition[conditionList.size()]);
 
-    String[] searchable = value.split(" ");
+    if(value != null && !value.equals(""))
+    {
+      String[] searchable = value.split(" ");
+      
+      QueryBuilder.textLookup(query, factory, searchable, selectables, conditions);
+    }
+    else
+    {      
+      SelectablePrimitive orderBy = selectables[1];
+      
+      QueryBuilder.orderedLookup(query, factory, orderBy, selectables, conditions);
+    }
 
-    QueryBuilder.textLookup(query, factory, searchable, selectables, conditions, new LeftJoinEq[] {});
-    
     query.restrictRows(15, 1);
-    
+
     return query;
   }
 
   private static List<Condition> getUnselectableConditions(String className, String attribute, BrowserFieldQuery fieldQuery, BrowserRootQuery unselectableRootQuery, TermQuery termQuery)
   {
     List<Condition> conditions = new LinkedList<Condition>();
-    
-    BrowserRootQuery countQuery = BrowserRoot.getAttributeRoots(className, attribute, new QueryFactory());
-    countQuery.AND(countQuery.getSelectable().EQ(false));
-    
-    long count = countQuery.getCount();
-    
-    if(count > 0)
+
+    if (className != null && attribute != null)
     {
-      conditions.add(unselectableRootQuery.getTerm().getObsolete().EQ(false));
-      conditions.add(unselectableRootQuery.getSelectable().EQ(false));
-      conditions.add(unselectableRootQuery.field(fieldQuery));
-      conditions.add(termQuery.getId().NEi(unselectableRootQuery.getTerm().getId()));      
+
+      BrowserRootQuery countQuery = BrowserRoot.getAttributeRoots(className, attribute, new QueryFactory());
+      countQuery.AND(countQuery.getSelectable().EQ(false));
+
+      long count = countQuery.getCount();
+
+      if (count > 0)
+      {
+        conditions.add(unselectableRootQuery.getTerm().getObsolete().EQ(false));
+        conditions.add(unselectableRootQuery.getSelectable().EQ(false));
+        conditions.add(unselectableRootQuery.field(fieldQuery));
+        conditions.add(termQuery.getId().NEi(unselectableRootQuery.getTerm().getId()));
+      }
     }
-    
+
     return conditions;
   }
 
-  private static Condition getBrowserFieldCondition(String className, String attribute, BrowserFieldQuery fieldQuery)
+  private static List<Condition> getConditions(String className, String attribute, BrowserFieldQuery fieldQuery, BrowserRootQuery rootQuery, AllPathsQuery pathsQuery, TermQuery termQuery)
   {
-    String keyName = BrowserField.buildKey(className, attribute);
+    List<Condition> list = new LinkedList<Condition>();
+    
+    list.add(termQuery.getObsolete().EQ(false));
 
-    Condition fieldCondition = OR.get(fieldQuery.getKeyName().EQ(keyName));
-
-    MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(className);
-
-    for (MdClassDAOIF superClass : mdClass.getSuperClasses())
-    {
-      String key = BrowserField.buildKey(superClass.definesType(), attribute);
-
-      fieldCondition = OR.get(fieldCondition, fieldQuery.getKeyName().EQ(key));
+    if (className == null && attribute == null)
+    {      
+      return list;
     }
 
-    return fieldCondition;
+    if(className != null && attribute != null)
+    {
+      String keyName = BrowserField.buildKey(className, attribute);
+
+      Condition fieldCondition = OR.get(fieldQuery.getKeyName().EQ(keyName));
+
+      MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(className);
+
+      for (MdClassDAOIF superClass : mdClass.getSuperClasses())
+      {
+        String key = BrowserField.buildKey(superClass.definesType(), attribute);
+
+        fieldCondition = OR.get(fieldCondition, fieldQuery.getKeyName().EQ(key));
+      }
+
+      list.add(fieldCondition);
+      list.add(rootQuery.field(fieldQuery));
+      list.add(rootQuery.getTerm().getObsolete().EQ(false));
+    }
+    else if (className != null)
+    {
+      return Term.getGeoEntityTermConditions(className, pathsQuery, termQuery);
+    }
+    else if (attribute != null)
+    {
+      list.add(fieldQuery.getMdAttribute().EQ(attribute));
+      list.add(rootQuery.field(fieldQuery));
+      list.add(rootQuery.getTerm().getObsolete().EQ(false));
+    }
+
+    list.add(pathsQuery.getChildTerm().EQ(termQuery));
+    list.add(pathsQuery.getParentTerm().EQ(rootQuery.getTerm()));
+
+    return list;
   }
 
+  private static List<Condition> getGeoEntityTermConditions(String className, AllPathsQuery pathsQuery, TermQuery termQuery)
+  {
+    List<Condition> conditions = new LinkedList<Condition>();
+    
+    BrowserRootView[] views = BrowserRoot.getDefaultGeoRoots(className);
+
+    if (views.length == 1)
+    {
+      conditions.add(pathsQuery.getChildTerm().EQ(termQuery));
+      conditions.add(pathsQuery.getParentTerm().EQ(views[0].getTermId()));
+    }
+    else
+    {
+      conditions.add(pathsQuery.getChildTerm().EQ(termQuery));
+      conditions.add(pathsQuery.getParentTerm().EQ(""));
+    }
+
+    conditions.add(termQuery.getObsolete().EQ(false));
+    
+    return conditions;
+  }
 }

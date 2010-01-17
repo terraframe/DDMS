@@ -6,10 +6,7 @@ import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.JspTag;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 
-import com.terraframe.mojo.business.MutableDTO;
-import com.terraframe.mojo.controller.DTOFacade;
 import com.terraframe.mojo.controller.tag.ComponentMarkerIF;
 import com.terraframe.mojo.controller.tag.InputTagSupport;
 import com.terraframe.mojo.controller.tag.develop.AttributeAnnotation;
@@ -19,105 +16,27 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.ontology.TermComponentIF;
 import dss.vector.solutions.ontology.TermDTO;
-import dss.vector.solutions.util.MDSSProperties;
 
 @TagAnnotation(name = "mo", bodyContent = "empty", description = "MO input tag")
-public class MOTagSupport extends SimpleTagSupport implements Reloadable
+public class MOTagSupport extends AbstractTermTagSupport implements Reloadable
 {
-  /**
-   * Name of the controller parameter or attribute being inputed
-   */
-  private String  param;
-
-  /**
-   * Optional name of the browser field class
-   */
-  private String  browserClass;
-
-  /**
-   * Optional name of the browser field attribute
-   */
-  private String  browserAttribute;
-
-  /**
-   * Class attribute
-   */
-  private String  classes;
-
-  /**
-   * Id attribute
-   */
-  private String  id;
-
   /**
    * Current value term
    */
   private TermComponentIF value;
 
-  /**
-   * Flag indicating if javascript should be generated for this MO field
-   */
-  private Boolean script;
-
-  @AttributeAnnotation(required = true, description = "The name of the controller parameter or attribute")
-  public String getParam()
-  {
-    return param;
-  }
-
-  public void setParam(String param)
-  {
-    this.param = param;
-  }
-
-  @AttributeAnnotation(required = false, rtexprvalue = true, description = "The browser field attribute of this MO Tag")
-  public String getBrowserAttribute()
-  {
-    return browserAttribute;
-  }
-
-  public void setBrowserAttribute(String browserAttribute)
-  {
-    this.browserAttribute = browserAttribute;
-  }
-
-  @AttributeAnnotation(required = false, rtexprvalue = true, description = "The browser field class of this MO Tag")
-  public String getBrowserClass()
-  {
-    return browserClass;
-  }
-
-  public void setBrowserClass(String browserClass)
-  {
-    this.browserClass = browserClass;
-  }
-
-  @AttributeAnnotation(required = false, rtexprvalue = true, description = "Classes of the MO input")
-  public String getClasses()
-  {
-    return classes;
-  }
-
-  public void setClasses(String classes)
-  {
-    this.classes = classes;
-  }
-
-  @AttributeAnnotation(required = false, rtexprvalue = true, description = "Id of the MO input")
-  public String getId()
-  {
-    return id;
-  }
-
-  public void setId(String id)
-  {
-    this.id = id;
-  }
-
   @AttributeAnnotation(required = false, rtexprvalue = true, description = "Current value for the MO input")
   public TermComponentIF getValue()
   {
     return value;
+  }
+  
+  public void setValue(Object object)
+  {
+    if(object instanceof TermComponentIF)
+    {
+      this.value = (TermComponentIF) object;
+    }
   }
 
   public void setValue(TermComponentIF value)
@@ -129,18 +48,7 @@ public class MOTagSupport extends SimpleTagSupport implements Reloadable
   {
     this.value = value;
   }
-
-  @AttributeAnnotation(required = false, rtexprvalue = true, description = "Flag indicating if javascript should be created for this MO select field")
-  public Boolean getScript()
-  {
-    return script;
-  }
-
-  public void setScript(Boolean script)
-  {
-    this.script = script;
-  }
-
+  
   @Override
   public void doTag() throws JspException, IOException
   {
@@ -148,64 +56,32 @@ public class MOTagSupport extends SimpleTagSupport implements Reloadable
     JspTag parent = findAncestorWithClass(this, ComponentMarkerIF.class);
 
     String _param = this.getParam();
-    TermComponentIF _value = this.getValue();
-
     String _id = ( this.getId() != null ) ? this.getId() : this.getParam();
-    String _browserClass = this.getBrowserClass();
+    String _browserClass = this.getBrowserClass(parent);
     String _browserAttribute = ( this.getBrowserAttribute() != null ) ? this.getBrowserAttribute() : this.getParam();
     Boolean _script = ( this.getScript() != null ) ? this.getScript() : new Boolean(true);
+    Boolean _enabled = this.getEnabled(parent, _browserClass, _browserAttribute);
+    TermComponentIF _value = (TermComponentIF) this.getValue(parent);
 
-    // If the input tag is in the context of a component then
-    // load update the parameter name and display value
-    if (parent != null)
-    {
-      ComponentMarkerIF component = (ComponentMarkerIF) parent;
-      MutableDTO item = component.getItem();
-
-      _param = component.getParam() + "." + this.getParam();
-
-      if (_value == null && item != null)
-      {
-        DTOFacade facade = new DTOFacade(this.getParam(), item);
-        try
-        {
-          Object current = facade.getValue();
-          if (current != null && current instanceof TermDTO)
-          {
-            _value = (TermDTO) current;
-          }
-
-        }
-        catch (Exception e)
-        {
-          // Do nothing the parameter does not exist on the MutableDTO so you
-          // cannot retrieve it's current value.
-        }
-      }
-
-      if (_browserClass == null)
-      {
-        _browserClass = item.getType();
-      }
-    }
-    
-    //<mjl:input id="collectionMethod" param="collectionMethod.componentId" type="hidden"/>
+    // <mjl:input id="collectionMethod" param="collectionMethod.componentId"
+    // type="hidden"/>
     InputTagSupport attributeInput = new InputTagSupport();
     attributeInput.setJspBody(this.getJspBody());
     attributeInput.setJspContext(this.getJspContext());
     attributeInput.setId(_id);
     attributeInput.setType("hidden");
     attributeInput.setParam(_param);
-    
-    if(_value != null)
+
+    if (_value != null)
     {
-//      attributeInput.setValue(_value.getId());
+      // attributeInput.setValue(_value.getId());
       attributeInput.setValue(_value.getTermComponentId());
-    }   
-    
+    }
+
     attributeInput.doTag();
 
-    //<mjl:input id="collectionMethodDisplay" param="#_collectionMethodDisplay" type="text"/>
+    // <mjl:input id="collectionMethodDisplay" param="#_collectionMethodDisplay"
+    // type="text"/>
     InputTagSupport displayInput = new InputTagSupport();
     displayInput.setJspBody(this.getJspBody());
     displayInput.setJspContext(this.getJspContext());
@@ -213,29 +89,29 @@ public class MOTagSupport extends SimpleTagSupport implements Reloadable
     displayInput.setType("text");
     displayInput.setParam("#_" + _id);
 
-    if(_value != null)
+    if (!_enabled)
     {
-//      displayInput.setValue(_value.getName() + "(" + _value.getTermId() + ")");
+      displayInput.setDisabled("disabled");
+    }
+    if (_value != null)
+    {
       displayInput.setValue(_value.getTermComponentDisplay());
     }
-    
+
     displayInput.doTag();
-    
-//    <span id="collectionMethodBtn" class="clickable">
-//      <img alt="Browser" src="./imgs/icons/tree.png" class="ontologyOpener">
-//    </span>
-    
-    String title = MDSSProperties.getString("Browser");
-    out.write("<span id=\"" + _id + "Btn\" class=\"clickable\">\n");
-    out.write("<img alt=\"" + title + "\" title=\"" + title + "\" src=\"./imgs/icons/term.png\" class=\"ontologyOpener\">\n");
-    out.write("</span>\n");
+
+    // <span id="collectionMethodBtn" class="clickable">
+    // <img alt="Browser" src="./imgs/icons/tree.png" class="ontologyOpener">
+    // </span>
+
+    writeClickableSpan(out, _id, _enabled);
 
     if (_script)
-    {      
+    {
       out.write("<script type=\"text/javascript\">\n");
       out.write("(function(){\n");
       out.write("YAHOO.util.Event.onDOMReady(function(){\n");
-      out.write("new MDSS.GenericOntologyBrowser('" + _browserClass + "', [{attributeName:'" + _browserAttribute + "'}]);\n");
+      out.write("new MDSS.GenericOntologyBrowser('" + _browserClass + "', [{attributeName:'" + _browserAttribute + "', enabled:" + _enabled + "}]);\n");
       out.write("})\n");
       out.write("})();\n");
       out.write("</script>\n");

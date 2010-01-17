@@ -7,6 +7,7 @@ import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.AttributePrimitive;
 import com.terraframe.mojo.query.COUNT;
 import com.terraframe.mojo.query.Condition;
@@ -232,5 +233,19 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     }
     sb.append(")");
     return sb.toString();
+  }
+
+  public static void orderedLookup(ValueQuery query, QueryFactory factory, SelectablePrimitive orderBy, SelectablePrimitive[] selectables, Condition[] conditions)
+  {
+    Condition condition = null;
+    
+    for (Condition cond : conditions)
+    {
+      condition = (condition == null) ? cond : AND.get(condition, cond);
+    }
+    
+    query.SELECT(selectables);
+    query.WHERE(condition);    
+    query.ORDER_BY_ASC(orderBy);
   }
 }

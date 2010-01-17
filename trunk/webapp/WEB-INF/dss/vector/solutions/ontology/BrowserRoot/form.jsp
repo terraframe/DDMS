@@ -5,7 +5,7 @@
 
 <mjl:component item="${item}" param="dto">
   <mjl:dt attribute="term">
-    <mdss:mo value="${term}" script="false" param="term" />
+    <mdss:mo value="${term}" script="false" enabled="true" param="term" />
   </mjl:dt>
   <mjl:dt attribute="selectable">
     <mjl:boolean param="selectable" />

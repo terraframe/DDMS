@@ -1870,4 +1870,16 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     }
     return null;
   }
+  
+  public static Boolean hasBrowserRoot(String className)
+  {
+    GeoHierarchy hierarchy = GeoHierarchy.getGeoHierarchyFromType(className);
+    
+    if(hierarchy != null)
+    {
+      return (hierarchy.getTerm() != null);    
+    }
+    
+    return false;
+  }
 }

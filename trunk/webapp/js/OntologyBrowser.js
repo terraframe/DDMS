@@ -797,15 +797,19 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       Mojo.Iter.forEach(configs, function(config){
         var attributeName = config.attributeName;
         var attributeClass = Mojo.Util.isString(config.className) ? config.className : className;
-        var browserField = Mojo.Util.isString(config.browserField) ? config.browserField : config.attributeName;        
+        var browserField = Mojo.Util.isString(config.browserField) ? config.browserField : config.attributeName;
+        var enabled = Mojo.Util.isBoolean(config.enabled) ? config.enabled : true;
         
         var attributeEl = document.getElementById(attributeName);
         var displayEl = document.getElementById(attributeName + 'Display');        
        
         // Setup the ontology browser
         var browser = new MDSS.OntologyBrowser(false, attributeClass, browserField);            
-        browser.setHandler(Mojo.Util.curry(this.setField, attributeName));     
-        YAHOO.util.Event.on(attributeName + 'Btn', "click", this.openBrowser, {browser:browser, attributeName:attributeName});
+        browser.setHandler(Mojo.Util.curry(this.setField, attributeName));
+        
+        if(enabled) {
+          YAHOO.util.Event.on(attributeName + 'Btn', "click", this.openBrowser, {browser:browser, attributeName:attributeName});
+        }
         
         // Setup the ontology search
         var searchFunction = function(request, value) {
@@ -895,6 +899,7 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
       this.attributeName = config.attributeName;
       this.attributeClass = Mojo.Util.isString(config.className) ? config.className : className;
       this.browserField = Mojo.Util.isString(config.browserField) ? config.browserField : config.attributeName;       
+      this.enabled = Mojo.Util.isBoolean(config.enabled) ? config.enabled : true;
       this.index = -1;
       this.map = {};
           
@@ -902,7 +907,9 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
       this.browser = new MDSS.OntologyBrowser(true, this.attributeClass, this.browserField);
       this.browser.setHandler(Mojo.Util.bind(this, this.setField));     
       
-      YAHOO.util.Event.on(this.attributeName + 'Btn', "click", this.openBrowser, this, this);
+      if(this.enabled == true) {
+        YAHOO.util.Event.on(this.attributeName + 'Btn', "click", this.openBrowser, this, this);
+      }
           
       // Setup the ontology search
       this.attributeElement = document.getElementById(this.attributeName);

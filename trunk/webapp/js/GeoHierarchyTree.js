@@ -244,28 +244,33 @@ MDSS.GeoHierarchyTree = (function(){
     
     // hook events to launch ontology browser
     YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
-    new MDSS.GenericSearch('termDisplay', 'term', _listFunction, _displayFunction, _idFunction, _searchFunction);
+    new MDSS.GenericSearch('termDisplay', 'term', _displayFunction, _displayFunction, _idFunction, _searchFunction);
   }
   
-  function  _displayFunction(view)
+  function _displayFunction(valueObject)
   {
-    return MDSS.OntologyBrowser.formatLabel(view);
+    if(valueObject instanceof Mojo.$.dss.vector.solutions.ontology.TermView || valueObject instanceof Mojo.$.dss.vector.solutions.ontology.BrowserRootView)
+    {
+      return MDSS.OntologyBrowser.formatLabelFromView(valueObject);
+    }
+
+    return MDSS.OntologyBrowser.formatLabelFromValueObject(valueObject);
   }
   
-  function  _listFunction(view)
+  function _idFunction(valueObject)
   {
-    return MDSS.OntologyBrowser.formatLabel(view);
-  }
-    
-  function  _idFunction(view)
-  {
-    return view.getTermId();
-  }
+    if(valueObject instanceof Mojo.$.dss.vector.solutions.ontology.TermView || valueObject instanceof Mojo.$.dss.vector.solutions.ontology.BrowserRootView)
+    {
+      return valueObject.getTermId();
+    }
+  
+    return valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.ID);
+  }  
     
   function  _searchFunction(request, value)
   {
     var params = ['dss.vector.solutions.geo.GeoEntityDefinition', 'term'];
-    Mojo.$.dss.vector.solutions.ontology.Term.searchTermsWithRoots(request, value, params);
+    Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, params);
   }    
 
   /**
@@ -790,8 +795,8 @@ MDSS.GeoHierarchyTree = (function(){
     if(selected.length > 0)
     {
       var sel = selected[0];
-      el.value = sel.getTermId();
-      dEl.value = MDSS.OntologyBrowser.formatLabel(sel);
+      el.value = this._idFunction(sel);
+      dEl.value = this._displayFunction(sel);
     }
     else
     {

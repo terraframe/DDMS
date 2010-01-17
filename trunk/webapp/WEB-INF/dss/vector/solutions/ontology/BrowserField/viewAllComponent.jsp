@@ -45,7 +45,7 @@ YAHOO.util.Event.onDOMReady(function() {
  <dd>
    <div class="defaultFieldTerm">
         <fmt:message key="Default_Term" />:
-        <mdss:mo value="${terms[defaultTerms[field.browserFieldId]]}" script="false" param="${field.mdAttributeId}_defaultTerm" />
+        <mdss:mo value="${terms[defaultTerms[field.browserFieldId]]}" enabled="true" script="false" param="${field.mdAttributeId}_defaultTerm" />
    </div>
    
    <table id="${field.browserFieldId}_table" cellpadding="3" cellspacing="0" border="1" class="ontologyFields">

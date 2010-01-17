@@ -62,7 +62,7 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
         // add event to open the browser for roots
         var dF = Mojo.Util.bind(this, this._displayFunction);
         var iF = Mojo.Util.bind(this, this._idFunction);
-        var lF = Mojo.Util.bind(this, this._listFunction);
+        var lF = Mojo.Util.bind(this, this._displayFunction);
         var sF = Mojo.Util.bind(this, this._defaultSearch, mdAttributeId);
         var sEH = Mojo.Util.bind(this, this._selectEventHandler, mdAttributeId);
       
@@ -91,28 +91,33 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
     _defaultSearch : function(mdAttributeId, request, value)
     {
       var params = [null, mdAttributeId];
-      Mojo.$.dss.vector.solutions.ontology.Term.searchTermsWithRoots(request, value, params);
+      Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, params);
     },
     
-    _displayFunction : function(view)
+    _displayFunction : function(valueObject)
     {
-      return MDSS.OntologyBrowser.formatLabel(view);
+      if(valueObject instanceof Mojo.$.dss.vector.solutions.ontology.TermView || valueObject instanceof Mojo.$.dss.vector.solutions.ontology.BrowserRootView)
+      {
+        return MDSS.OntologyBrowser.formatLabelFromView(valueObject);
+      }
+
+      return MDSS.OntologyBrowser.formatLabelFromValueObject(valueObject);
     },
     
-    _listFunction : function(view)
+    _idFunction : function(valueObject)
     {
-      return MDSS.OntologyBrowser.formatLabel(view);
-    },
+      if(valueObject instanceof Mojo.$.dss.vector.solutions.ontology.TermView || valueObject instanceof Mojo.$.dss.vector.solutions.ontology.BrowserRootView)
+      {
+        return valueObject.getTermId();
+      }
     
-    _idFunction : function(view)
-    {
-      return view.getTermId();
+      return valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.ID);
     },
     
     _searchFunction : function(request, value)
     {
       var params = [null, null];
-      Mojo.$.dss.vector.solutions.ontology.Term.searchTermsWithRoots(request, value, params);
+      Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, params);
     },    
     
     _createModal : function(html, closeWin)
@@ -135,11 +140,10 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       // add event to open the browser for roots
       var dF = Mojo.Util.bind(this, this._displayFunction);
       var iF = Mojo.Util.bind(this, this._idFunction);
-      var lF = Mojo.Util.bind(this, this._listFunction);
+      var lF = Mojo.Util.bind(this, this._displayFunction);
       var sF = Mojo.Util.bind(this, this._searchFunction);
       
-      this._rootSearch = new MDSS.GenericSearch(this._currentRootDisplay, this._currentRootInput,
-        lF, dF, iF, sF);
+      this._rootSearch = new MDSS.GenericSearch(this._currentRootDisplay, this._currentRootInput, lF, dF, iF, sF);
 
       YAHOO.util.Event.on(this._currentRootBtn, 'click', this._openBrowser, null, this);
       
@@ -221,7 +225,9 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       {
         // set the default term
         var sel = selected[0];
-        view.setDefaultValue(sel.getTermId());
+        var termId = this._idFunction(sel);
+        
+        view.setDefaultValue(termId);
         view.applyDefaultValue(request);
       }
       else
@@ -243,8 +249,8 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       if(selected.length > 0)
       {
         var sel = selected[0];
-        el.value = sel.getTermId();
-        dEl.value = MDSS.OntologyBrowser.formatLabel(sel);
+        el.value = this._idFunction(sel);
+        dEl.value = this._displayFunction(sel);
       }
       else
       {

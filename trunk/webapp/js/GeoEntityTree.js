@@ -110,25 +110,25 @@ MDSS.GeoEntityTree = (function(){
    */
   function _destroyAll()
   {
-  	_nodeToGeoEntityMap = {};
-  	_geoEntityViewCache = {};
-  	_selectedNode = null;
-  	_modal = null;
-  	_selectCallback = null;
+    _nodeToGeoEntityMap = {};
+    _geoEntityViewCache = {};
+    _selectedNode = null;
+    _modal = null;
+    _selectCallback = null;
 
-  	// this.cfg of the ContextMenu is null which throws an error.
-  	// TODO find official fix for this
+    // this.cfg of the ContextMenu is null which throws an error.
+    // TODO find official fix for this
     try
     {
-  	  _menu.destroy();
+      _menu.destroy();
     }
     catch(e)
     {
       _menu = null;
     }
 
-  	_geoTree.destroy();
-  	_geoTree = null;
+    _geoTree.destroy();
+    _geoTree = null;
   }
 
   /**
@@ -197,7 +197,7 @@ MDSS.GeoEntityTree = (function(){
     {
       if(nodeIds[i] === nodeId)
       {
-      	nodeIds.splice(i, 1);
+        nodeIds.splice(i, 1);
         break;
       }
     }
@@ -249,8 +249,8 @@ MDSS.GeoEntityTree = (function(){
           var nodeIds = _geoEntityIdToNodeIdMap[parentGeoEntityView.getGeoEntityId()];
           for(var i=0; i<nodeIds.length; i++)
           {
-          	var parentEl = document.getElementById(nodeIds[i]);
-          	var parent = _geoTree.getNodeByElement(parentEl);
+            var parentEl = document.getElementById(nodeIds[i]);
+            var parent = _geoTree.getNodeByElement(parentEl);
 
             // don't expand the node if the parent's children haven't been loaded (it's wasteful)
             if(parent.dynamicLoadComplete)
@@ -299,14 +299,14 @@ MDSS.GeoEntityTree = (function(){
     var request = new MDSS.Request({
       onSuccess: function(ids, geoEntity){
 
-      	// replace the contents (active status will be modified in
-      	// another operation).
-      	var div = _selectedNode.getContentEl().innerHTML;
+        // replace the contents (active status will be modified in
+        // another operation).
+        var div = _selectedNode.getContentEl().innerHTML;
         var view = _copyEntityToView(geoEntity);
-      	var span = _createContentSpan(view, true);
-      	div = div.replace(/(<div class=["']\w*["']>).*?(<\/div>)/, '$1'+span+'$2');
+        var span = _createContentSpan(view, true);
+        div = div.replace(/(<div class=["']\w*["']>).*?(<\/div>)/, '$1'+span+'$2');
 
-      	// update selected node and all copies
+        // update selected node and all copies
         var nodeIds = _geoEntityIdToNodeIdMap[geoEntity.getId()];
         for(var i=0; i<nodeIds.length; i++)
         {
@@ -337,7 +337,7 @@ MDSS.GeoEntityTree = (function(){
       params: params,
       onSuccess: function(geoEntity)
       {
-      	_performUpdate(this.params, geoEntity);
+        _performUpdate(this.params, geoEntity);
       }
     });
 
@@ -364,9 +364,9 @@ MDSS.GeoEntityTree = (function(){
    */
   function _createTypeSelected(e, obj)
   {
-  	var type = obj.type;
-  	_setCurrentBrowser(type);
-  	
+    var type = obj.type;
+    _setCurrentBrowser(type);
+    
     var request = new MDSS.Request({
       label : obj.label,
       onSuccess : function(html){
@@ -388,8 +388,14 @@ MDSS.GeoEntityTree = (function(){
         _modal.setBody(outer);
         
         // FIXME
-        YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
-        new MDSS.GenericSearch('termDisplay', 'term', _listFunction, _displayFunction, _idFunction, _searchFunction);
+        var disabled = document.getElementById('termDisplay').disabled;
+        
+        if(disabled == false)
+        {
+          YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
+        }
+        
+        new MDSS.GenericSearch('termDisplay', 'term', _displayFunction, _displayFunction, _idFunction, _searchFunction);
 
         eval(executable);
       }
@@ -407,8 +413,8 @@ MDSS.GeoEntityTree = (function(){
     if(selected.length > 0)
     {
       var sel = selected[0];
-      el.value = sel.getTermId();
-      dEl.value = MDSS.OntologyBrowser.formatLabel(sel);
+      el.value = this._idFunction(sel);
+      dEl.value = this._displayFunction(sel);
     }
     else
     {
@@ -475,13 +481,13 @@ MDSS.GeoEntityTree = (function(){
       oldId : geoEntityView.getGeoEntityId(),
       onSuccess : function(view){
 
-      	var div = _selectedNode.getContentEl().innerHTML;
-      	var span = _createContentSpan(view);
-      	div = div.replace(/(<div class=["']\w*["']>).*?(<\/div>)/, '$1'+span+'$2');
+        var div = _selectedNode.getContentEl().innerHTML;
+        var span = _createContentSpan(view);
+        div = div.replace(/(<div class=["']\w*["']>).*?(<\/div>)/, '$1'+span+'$2');
 
         var newId = view.getGeoEntityId();
 
-      	// update selected node and all copies
+        // update selected node and all copies
         var nodeIds = _geoEntityIdToNodeIdMap[this.oldId];
         for(var i=0; i<nodeIds.length; i++)
         {
@@ -494,14 +500,14 @@ MDSS.GeoEntityTree = (function(){
         delete _geoEntityViewCache[this.oldId];
 
         // copy node mappings to new id
-  	    var nodeIds = _geoEntityIdToNodeIdMap[this.oldId];
-  	    delete _geoEntityIdToNodeIdMap[this.oldId];
-  	    _geoEntityIdToNodeIdMap[newId] = nodeIds;
-  	    for(var i=0; i<nodeIds.length; i++)
-  	    {
-  	      var nodeId = nodeIds[i];
-  	      _nodeToGeoEntityMap[nodeId] = newId;
-  	    }
+        var nodeIds = _geoEntityIdToNodeIdMap[this.oldId];
+        delete _geoEntityIdToNodeIdMap[this.oldId];
+        _geoEntityIdToNodeIdMap[newId] = nodeIds;
+        for(var i=0; i<nodeIds.length; i++)
+        {
+          var nodeId = nodeIds[i];
+          _nodeToGeoEntityMap[nodeId] = newId;
+        }
 
         _setMapping(_selectedNode, view);
 
@@ -622,10 +628,10 @@ MDSS.GeoEntityTree = (function(){
       var allowedChildren = MDSS.GeoTreeSelectables.types[parent].children;
       for(var i=0; i<allowedChildren.length; i++)
       {
-      	var childType = allowedChildren[i];
-      	types.push(childType);
+        var childType = allowedChildren[i];
+        types.push(childType);
 
-      	collectSubtypes(types, childType);
+        collectSubtypes(types, childType);
       }
     }
 
@@ -694,14 +700,14 @@ MDSS.GeoEntityTree = (function(){
    */
   function _postDeleteCleanup(deleteAll)
   {
-  	if(deleteAll)
-  	{
-  	   var geoEntityView = _getGeoEntityView(_selectedNode);
-  	   var nodeIds = _geoEntityIdToNodeIdMap[geoEntityView.getGeoEntityId()];
-  	   for(var i=nodeIds.length-1; i>=0; i--)
-  	   {
-  	     var nodeId = nodeIds[i];
-  	     var nodeEl = document.getElementById(nodeId);
+    if(deleteAll)
+    {
+       var geoEntityView = _getGeoEntityView(_selectedNode);
+       var nodeIds = _geoEntityIdToNodeIdMap[geoEntityView.getGeoEntityId()];
+       for(var i=nodeIds.length-1; i>=0; i--)
+       {
+         var nodeId = nodeIds[i];
+         var nodeEl = document.getElementById(nodeId);
          var node = _geoTree.getNodeByElement(nodeEl);
 
          _removeMapping(node);
@@ -710,16 +716,16 @@ MDSS.GeoEntityTree = (function(){
          _geoTree.removeNode(node);
 
          parent.refresh();
-  	   }
-  	}
-  	else
-  	{
+       }
+    }
+    else
+    {
       _removeMapping(_selectedNode);
 
       var parent = _selectedNode.parent;
       _geoTree.removeNode(_selectedNode);
       parent.refresh();
-  	}
+    }
   }
 
   /**
@@ -729,30 +735,30 @@ MDSS.GeoEntityTree = (function(){
    */
   function _deleteAfterConfirmation(e, obj)
   {
-  	var geoEntity = obj.childEntity;
+    var geoEntity = obj.childEntity;
 
-  	var request = new MDSS.Request({
-  	
-  	  // deleting the GeoEntity means all parent nodes containing
-  	  // the child must delete the child node.
-  	  deleteAll: obj.deleteEntity,
-  	  modal:obj.modal,
-  	  onSuccess: function()
-  	  {
-  	  	this.modal.destroy();
+    var request = new MDSS.Request({
+    
+      // deleting the GeoEntity means all parent nodes containing
+      // the child must delete the child node.
+      deleteAll: obj.deleteEntity,
+      modal:obj.modal,
+      onSuccess: function()
+      {
+        this.modal.destroy();
 
-  	  	_postDeleteCleanup(this.deleteAll);
-  	  }
-  	});
+        _postDeleteCleanup(this.deleteAll);
+      }
+    });
 
-  	if(obj.deleteEntity)
-  	{
-  	  geoEntity.deleteEntity(request);
-  	}
-  	else
-  	{
-  	  geoEntity.deleteRelationship(request, obj.parentId);
-  	}
+    if(obj.deleteEntity)
+    {
+      geoEntity.deleteEntity(request);
+    }
+    else
+    {
+      geoEntity.deleteRelationship(request, obj.parentId);
+    }
   }
 
   /**
@@ -782,25 +788,25 @@ MDSS.GeoEntityTree = (function(){
       },
       onConfirmDeleteEntityException: function(e){
 
-  	  	var modal = new YAHOO.widget.Panel("confirmDelete", {
-  	  	  fixedcenter: true,
-  	  	  width: '300px',
-  	  	  visible: true,
-  	  	  draggable: false,
-  	  	  zindex: 8000,
-  	  	  modal:true
-  	  	});
+        var modal = new YAHOO.widget.Panel("confirmDelete", {
+          fixedcenter: true,
+          width: '300px',
+          visible: true,
+          draggable: false,
+          zindex: 8000,
+          modal:true
+        });
 
-  	  	var upperDiv = document.createElement('div');
-  	  	YAHOO.util.Dom.addClass(upperDiv, 'modalAlertBox');
+        var upperDiv = document.createElement('div');
+        YAHOO.util.Dom.addClass(upperDiv, 'modalAlertBox');
 
-  	  	var message = document.createElement('span');
-  	  	message.innerHTML = e.getLocalizedMessage();
-  	  	upperDiv.appendChild(message);
+        var message = document.createElement('span');
+        message.innerHTML = e.getLocalizedMessage();
+        upperDiv.appendChild(message);
 
-  	  	// yes/no buttons
-  	  	var lowerDiv = document.createElement('div');
-  	  	YAHOO.util.Dom.addClass(lowerDiv, 'modalAlertBox');
+        // yes/no buttons
+        var lowerDiv = document.createElement('div');
+        YAHOO.util.Dom.addClass(lowerDiv, 'modalAlertBox');
 
         var delEntityObj = {
           deleteEntity:true,
@@ -808,10 +814,10 @@ MDSS.GeoEntityTree = (function(){
           parentId:this.parentId,
           modal:modal
         }
-  	  	var delEntity = document.createElement('input');
-  	  	YAHOO.util.Dom.setAttribute(delEntity, 'type', 'button');
-  	  	YAHOO.util.Dom.setAttribute(delEntity, 'value', MDSS.Localized.Delete_Entity);
-  	  	YAHOO.util.Event.on(delEntity, 'click', _deleteAfterConfirmation, delEntityObj);
+        var delEntity = document.createElement('input');
+        YAHOO.util.Dom.setAttribute(delEntity, 'type', 'button');
+        YAHOO.util.Dom.setAttribute(delEntity, 'value', MDSS.Localized.Delete_Entity);
+        YAHOO.util.Event.on(delEntity, 'click', _deleteAfterConfirmation, delEntityObj);
         lowerDiv.appendChild(delEntity);
 
         var delRelObj = {
@@ -820,18 +826,18 @@ MDSS.GeoEntityTree = (function(){
           parentId:this.parentId,
           modal:modal
         }
-  	  	var delRel = document.createElement('input');
-  	  	YAHOO.util.Dom.setAttribute(delRel, 'type', 'button');
-  	  	YAHOO.util.Dom.setAttribute(delRel, 'value', MDSS.Localized.Delete_Relationship);
-  	  	YAHOO.util.Event.on(delRel, 'click', _deleteAfterConfirmation, delRelObj);
-  	  	lowerDiv.appendChild(delRel);
+        var delRel = document.createElement('input');
+        YAHOO.util.Dom.setAttribute(delRel, 'type', 'button');
+        YAHOO.util.Dom.setAttribute(delRel, 'value', MDSS.Localized.Delete_Relationship);
+        YAHOO.util.Event.on(delRel, 'click', _deleteAfterConfirmation, delRelObj);
+        lowerDiv.appendChild(delRel);
 
-  	  	var wrapperDiv = document.createElement('div');
-  	  	wrapperDiv.appendChild(upperDiv);
-  	  	wrapperDiv.appendChild(lowerDiv);
+        var wrapperDiv = document.createElement('div');
+        wrapperDiv.appendChild(upperDiv);
+        wrapperDiv.appendChild(lowerDiv);
 
-  	  	modal.bringToTop();
-  	  	modal.setBody(wrapperDiv);
+        modal.bringToTop();
+        modal.setBody(wrapperDiv);
         modal.render(document.body);
       }
     });
@@ -857,7 +863,7 @@ MDSS.GeoEntityTree = (function(){
     var request = new MDSS.Request({
       onSuccess: function(geoEntity)
       {
-      	_performDelete(true, geoEntity);
+        _performDelete(true, geoEntity);
       }
     });
 
@@ -892,9 +898,15 @@ MDSS.GeoEntityTree = (function(){
         outer.appendChild(contentDiv);
 
         _createModal(outer, false);
+
+        var disabled = document.getElementById('termDisplay').disabled;
         
-        YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
-        new MDSS.GenericSearch('termDisplay', 'term', _listFunction, _displayFunction, _idFunction, _searchFunction);        
+        if(disabled == false)
+        {
+          YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
+        }
+        
+        new MDSS.GenericSearch('termDisplay', 'term', _displayFunction, _displayFunction, _idFunction, _searchFunction);
 
         eval(executable);
       }
@@ -907,26 +919,31 @@ MDSS.GeoEntityTree = (function(){
     controller.edit(request, geoEntityView.getGeoEntityId());
   }
   
-  function  _displayFunction(view)
+  function _displayFunction(valueObject)
   {
-    return MDSS.OntologyBrowser.formatLabel(view);
+    if(valueObject instanceof Mojo.$.dss.vector.solutions.ontology.TermView || valueObject instanceof Mojo.$.dss.vector.solutions.ontology.BrowserRootView)
+    {
+      return MDSS.OntologyBrowser.formatLabelFromView(valueObject);
+    }
+
+    return MDSS.OntologyBrowser.formatLabelFromValueObject(valueObject);
   }
   
-  function  _listFunction(view)
+  function _idFunction(valueObject)
   {
-    return MDSS.OntologyBrowser.formatLabel(view);
-  }
-    
-  function  _idFunction(view)
-  {
-    return view.getTermId();
-  }
-    
+    if(valueObject instanceof Mojo.$.dss.vector.solutions.ontology.TermView || valueObject instanceof Mojo.$.dss.vector.solutions.ontology.BrowserRootView)
+    {
+      return valueObject.getTermId();
+    }
+  
+    return valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.ID);
+  }  
+        
   function _searchFunction(request, value)
   {
     var params = [_currentType, null];
-    Mojo.$.dss.vector.solutions.ontology.Term.searchTermsWithRoots(request, value, params);
-  }  
+    Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, params);
+  }
 
   /**
    * Deletes the selected node from the tree.
@@ -938,7 +955,7 @@ MDSS.GeoEntityTree = (function(){
     var request = new MDSS.Request({
       onSuccess: function(geoEntity)
       {
-      	_performDelete(false, geoEntity);
+        _performDelete(false, geoEntity);
       }
     });
 
@@ -1092,54 +1109,54 @@ MDSS.GeoEntityTree = (function(){
    */
   function _dragDropHandler(id)
   {
-  	// create popup asking if this is for a copy operation
-  	var request = new MDSS.Request({
-  	  references: {childId:this.id, parentId:id, ddThis:this},
-  	  onConfirmParentChangeException : function(e)
-  	  {
-  	  	var modal = new YAHOO.widget.Panel("confirmParentChange", {
-  	  	  fixedcenter: true,
-  	  	  width: '300px',
-  	  	  visible: true,
-  	  	  draggable: false,
-  	  	  zindex: 8000,
-  	  	  modal:true
-  	  	});
+    // create popup asking if this is for a copy operation
+    var request = new MDSS.Request({
+      references: {childId:this.id, parentId:id, ddThis:this},
+      onConfirmParentChangeException : function(e)
+      {
+        var modal = new YAHOO.widget.Panel("confirmParentChange", {
+          fixedcenter: true,
+          width: '300px',
+          visible: true,
+          draggable: false,
+          zindex: 8000,
+          modal:true
+        });
 
-  	  	var upperDiv = document.createElement('div');
-  	  	YAHOO.util.Dom.addClass(upperDiv, 'modalAlertBox');
+        var upperDiv = document.createElement('div');
+        YAHOO.util.Dom.addClass(upperDiv, 'modalAlertBox');
 
-  	  	var message = document.createElement('span');
-  	  	message.innerHTML = e.getLocalizedMessage();
-  	  	upperDiv.appendChild(message);
+        var message = document.createElement('span');
+        message.innerHTML = e.getLocalizedMessage();
+        upperDiv.appendChild(message);
 
-  	  	// yes/no buttons
-  	  	var lowerDiv = document.createElement('div');
-  	  	YAHOO.util.Dom.addClass(lowerDiv, 'modalAlertBox');
+        // yes/no buttons
+        var lowerDiv = document.createElement('div');
+        YAHOO.util.Dom.addClass(lowerDiv, 'modalAlertBox');
 
         this.references.modal = modal;
 
-  	  	var yes = document.createElement('input');
-  	  	YAHOO.util.Dom.setAttribute(yes, 'type', 'button');
-  	  	YAHOO.util.Dom.setAttribute(yes, 'value', MDSS.Localized.Choice.Yes);
-  	  	YAHOO.util.Event.on(yes, 'click', _addChildToParent, {clone:false, references:this.references}); // this == tree
+        var yes = document.createElement('input');
+        YAHOO.util.Dom.setAttribute(yes, 'type', 'button');
+        YAHOO.util.Dom.setAttribute(yes, 'value', MDSS.Localized.Choice.Yes);
+        YAHOO.util.Event.on(yes, 'click', _addChildToParent, {clone:false, references:this.references}); // this == tree
         lowerDiv.appendChild(yes);
 
-  	  	var no = document.createElement('input');
-  	  	YAHOO.util.Dom.setAttribute(no, 'type', 'button');
-  	  	YAHOO.util.Dom.setAttribute(no, 'value', MDSS.Localized.Choice.No);
-  	  	YAHOO.util.Event.on(no, 'click', _addChildToParent, {clone:true, references:this.references}); // this == tree
-  	  	lowerDiv.appendChild(no);
+        var no = document.createElement('input');
+        YAHOO.util.Dom.setAttribute(no, 'type', 'button');
+        YAHOO.util.Dom.setAttribute(no, 'value', MDSS.Localized.Choice.No);
+        YAHOO.util.Event.on(no, 'click', _addChildToParent, {clone:true, references:this.references}); // this == tree
+        lowerDiv.appendChild(no);
 
-  	  	var wrapperDiv = document.createElement('div');
-  	  	wrapperDiv.appendChild(upperDiv);
-  	  	wrapperDiv.appendChild(lowerDiv);
+        var wrapperDiv = document.createElement('div');
+        wrapperDiv.appendChild(upperDiv);
+        wrapperDiv.appendChild(lowerDiv);
 
-  	  	modal.bringToTop();
-  	  	modal.setBody(wrapperDiv);
+        modal.bringToTop();
+        modal.setBody(wrapperDiv);
         modal.render(document.body);
-  	  }
-  	});
+      }
+    });
 
 
     var childGeoEntityView = _getGeoEntityView(this.id);
@@ -1221,7 +1238,7 @@ MDSS.GeoEntityTree = (function(){
   {
     var view = _copyEntityToView(geoEntity);
 
-  	var div = _createNodeDiv(view);
+    var div = _createNodeDiv(view);
     var node =  {type:"HTML", html:div};
 
     _geoTree = new YAHOO.widget.TreeViewDD(treeId, [node], _dragDropHandler);
