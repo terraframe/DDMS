@@ -184,7 +184,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       Layer layer = layers[i];
       if(layer == null)
       {
-        continue; // The layer failed the first past
+        continue; // The layer failed the first pass
       }
       
       String layerName = layer.getLayerName();
@@ -192,9 +192,15 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       AllRenderTypes renderAs = layer.getRenderAs().get(0);
       LayerReload layerReload = new LayerReload(layerName, viewName, renderAs);
 
+      // Update the view name on the layer so the old view can be cleaned up
+      String newViewName = Layer.GEO_VIEW_PREFIX + System.currentTimeMillis();
+      layer.appLock();
+      layer.setViewName(newViewName);
+      layer.apply();
+      
       ValueQuery valueQuery = layerValueQueries.get(layer.getId());
 
-      // Any non-base layer will be omitted from the map to
+      // Any empty non-base layer will be omitted from the map to
       // keep geoserver from acting funky.
       if (i > 0 && valueQuery.getCount() == 0)
       {
@@ -208,10 +214,10 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       String sql;
       if (i != 0 && layer.getClipToBaseLayer())
       {
-        valueQuery.FROM(baseView, "geoentity_clipping");
+        valueQuery.FROM("(SELECT buffer(collect("+QueryConstants.GEOMETRY_NAME_COLUMN+"), 0) AS "+QueryConstants.GEOMETRY_NAME_COLUMN+" FROM "+baseView+")", "geoentity_clipping");
         sql = valueQuery.getSQL();
 
-        String inter = "intersection($2, geoentity_clipping." + QueryConstants.GEOMETRY_NAME_COLUMN
+        String inter = "intersection(buffer($2, 0), geoentity_clipping." + QueryConstants.GEOMETRY_NAME_COLUMN
             + ")";
         String pattern = "^(.*?)(\\w+\\.\\w+)(\\s+AS\\s+" + QueryConstants.GEOMETRY_NAME_COLUMN
             + ")(.*)$";
@@ -241,7 +247,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
         // Create a new view that will reflect the current state of the query.
         Database.createView(viewName, sql);
       }
-
+      
       // make sure there are no duplicate geo entities
       String countSQL = "SELECT COUNT(*) " + Database.formatColumnAlias("ct") + " FROM " + viewName;
       countSQL += " GROUP BY " + QueryConstants.GEO_ID_COLUMN + " HAVING COUNT(*) > 1";
@@ -265,7 +271,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
             LayerOmittedDuplicateDataInformation info = new LayerOmittedDuplicateDataInformation();
             info.setLayerName(layerName);
             info.throwIt();
-
+            
             continue;
           }
         }
@@ -290,12 +296,6 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
 
       reloads.add(layerReload);
 
-      // Update the view name on the layer so the old view can be cleaned up
-      String newViewName = Layer.GEO_VIEW_PREFIX + System.currentTimeMillis();
-      layer.appLock();
-      layer.setViewName(newViewName);
-      layer.apply();
-
       String namespacedView = QueryConstants.MDSS_NAMESPACE + ":" + viewName;
       String sldFile = formatSLD(layer);
 
@@ -308,7 +308,8 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
         layerJSON.put("opacity", layer.getOpacity());
         layersJSON.put(layerJSON);
 
-        if (layer.getAddToBBox())
+        // Always add the base layer to the bounding box
+        if (i == 0 || layer.getAddToBBox())
         {
           bboxLayers.add(layerReload);
         }
