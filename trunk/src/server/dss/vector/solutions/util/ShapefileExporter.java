@@ -20,7 +20,7 @@ public class ShapefileExporter {
 
 		public Layer(String name, String sqlTableOrView, String geoField) {
 			this.name = name;
-			this.sql = sql;
+			this.sql = sqlTableOrView;
 			this.geoField = geoField;
 		}
 
