@@ -1,5 +1,6 @@
 package dss.vector.solutions.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -42,6 +43,7 @@ import com.terraframe.mojo.query.SelectableSingle;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryParser;
 import com.terraframe.mojo.system.metadata.MdAttribute;
+import com.terraframe.mojo.system.metadata.MdAttributeEnumeration;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdEntity;
 import com.terraframe.mojo.system.metadata.MdRelationship;
@@ -64,27 +66,29 @@ import dss.vector.solutions.query.QueryConstants;
 public class QueryUtil implements Reloadable
 {
 
-  private static final String DATEGROUP_EPIWEEK    = "dategroup_epiweek";
+  private static final String DATEGROUP_EPIWEEK            = "dategroup_epiweek";
 
-  private static final String DATEGROUP_MONTH      = "dategroup_month";
+  private static final String DATEGROUP_MONTH              = "dategroup_month";
 
-  private static final String DATEGROUP_QUARTER    = "dategroup_quarter";
+  private static final String DATEGROUP_QUARTER            = "dategroup_quarter";
 
-  private static final String DATEGROUP_YEAR       = "dategroup_year";
+  private static final String DATEGROUP_YEAR               = "dategroup_year";
 
-  private static final String DATEGROUP_SEASON     = "dategroup_season";
+  private static final String DATEGROUP_SEASON             = "dategroup_season";
 
-  private static final String START_DATE_RANGE     = "start_date_range";
+  public static final String  DUMMY_RELATIONSHIP_VALUE_ONE = "one";
 
-  private static final String RATIO                = "ratio_of_this_row_to_total_count";
+  private static final String START_DATE_RANGE             = "start_date_range";
 
-  private static final String END_DATE_RANGE       = "end_date_range";
+  private static final String RATIO                        = "ratio_of_this_row_to_total_count";
 
-  private static final String DATE_ATTRIBUTE       = "date_attribute";
+  private static final String END_DATE_RANGE               = "end_date_range";
 
-  private static final String DATE_REGEX           = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
+  private static final String DATE_ATTRIBUTE               = "date_attribute";
 
-  public static final String  DISPLAY_LABEL_SUFFIX = "_displayLabel";
+  private static final String DATE_REGEX                   = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
+
+  public static final String  DISPLAY_LABEL_SUFFIX         = "_displayLabel";
 
   public static String getRelationshipTermSubSelect(String attribute, String parentClass, String relClass)
   {
@@ -96,45 +100,197 @@ public class QueryUtil implements Reloadable
         + " tJoin on rJoin." + RelationshipInfo.CHILD_ID + " = tJoin.id)";
   }
 
+
+  public static String[] filterSelectedAttributes(ValueQuery valueQuery, String[] attributes)
+  {
+
+    ArrayList<String> selectedTerms = new ArrayList<String>();
+
+    // make a list of terms that are included as selectables
+    for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
+    {
+      while (s instanceof Function)
+      {
+        Function f = (Function) s;
+        s = f.getSelectable();
+      }
+
+      if (s instanceof SelectableSQL)
+      {
+        String columnAlias = s.getColumnAlias();
+        for (String termAttrib : Arrays.asList(attributes))
+        {
+          if (columnAlias.equals(termAttrib + DISPLAY_LABEL_SUFFIX))
+          {
+            selectedTerms.add(termAttrib);
+          }
+        }
+      }
+    }
+
+    return selectedTerms.toArray(new String[selectedTerms.size()]);
+
+  }
+  
+  
+  public static SelectableSQL[] filterSelectedSelectables(ValueQuery valueQuery, String[] attributes)
+  {
+
+    ArrayList<SelectableSQL> selectedTerms = new ArrayList<SelectableSQL>();
+
+    // make a list of terms that are included as selectables
+    for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
+    {
+      while (s instanceof Function)
+      {
+        Function f = (Function) s;
+        s = f.getSelectable();
+      }
+
+      if (s instanceof SelectableSQL)
+      {
+        String columnAlias = s.getColumnAlias();
+        for (String termAttrib : Arrays.asList(attributes))
+        {
+          if (columnAlias.equals(termAttrib + DISPLAY_LABEL_SUFFIX))
+          {
+            selectedTerms.add((SelectableSQL) s);
+          }
+        }
+      }
+    }
+
+    return selectedTerms.toArray(new SelectableSQL[selectedTerms.size()]);
+
+  }
+  
+  
+ 
+  
   public static ValueQuery joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
   {
-    if (query != null)
-    {
-      String[] personAttributes = Term.getTermAttributes(klass);
-      String sql = "(" + QueryUtil.getTermSubSelect(klass, personAttributes) + ")";
-      String subSelect = klass.replace('.', '_') + "TermSubSel";
-      String table = MdBusiness.getMdBusiness(klass).getTableName();
-      valueQuery.AND(new InnerJoinEq("id", table, query.getTableAlias(), "id", sql, subSelect));
-    }
-    return valueQuery;
-
+    
+    String tableAlias = query.getTableAlias();
+    
+    return joinTermAllpaths(valueQuery, klass, tableAlias);
+    
   }
 
   public static ValueQuery joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias)
   {
 
-    String[] personAttributes = Term.getTermAttributes(klass);
-    String sql = "(" + QueryUtil.getTermSubSelect(klass, personAttributes) + ")";
-    String subSelect = klass.replace('.', '_') + "TermSubSel";
-    String table = MdBusiness.getMdBusiness(klass).getTableName();
-    valueQuery.AND(new InnerJoinEq("id", table, tableAlias, "id", sql, subSelect));
+    String[] termAttributes = filterSelectedAttributes(valueQuery, Term.getTermAttributes(klass));
 
+    // optimization: do nothing if there are no terms selected
+    if (termAttributes.length > 0)
+    {
+      String sql = "(" + QueryUtil.getTermSubSelect(klass, termAttributes) + ")";
+      String subSelect = klass.replace('.', '_') + "TermSubSel";
+      String table = MdBusiness.getMdBusiness(klass).getTableName();
+      valueQuery.AND(new InnerJoinEq("id", table, tableAlias, "id", sql, subSelect));
+    }
     return valueQuery;
 
+  }
+  
+  public static ValueQuery leftJoinTermDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query, String attributeId)
+  {
+    
+    SelectableSQL[] termAttributes = filterSelectedSelectables(valueQuery, Term.getTermAttributes(klass));
+    String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
+    String tableName = MdBusiness.getMdBusiness(klass).getTableName();  
+    
+    for (SelectableSQL s : Arrays.asList(termAttributes))
+    {
+      String attrib = s.getColumnAlias();
+      attrib = attrib.substring(0,attrib.length()-DISPLAY_LABEL_SUFFIX.length()); 
+
+      String sql = "SELECT term." + Term.NAME + "  FROM " + tableName + " as t" ;
+      sql += " LEFT JOIN " + termTable + " as term  on t." + attrib + " = term.id";
+      sql += " WHERE t.id = " + attributeId + "";
+      
+      s.setSQL(sql);
+    }
+    return valueQuery;
+    
   }
 
   public static ValueQuery joinGeoDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
   {
     if (query != null)
     {
-      String[] geoAttributes = GeoEntity.getGeoAttributes(klass);
-      String sql = "(" + QueryUtil.getGeoDisplayLabelSubSelect(klass, geoAttributes) + ")";
-      String subSelect = klass.replace('.', '_') + "GeoSubSel";
-      String table = MdBusiness.getMdBusiness(klass).getTableName();
-      valueQuery.AND(new InnerJoinEq("id", table, query.getTableAlias(), "id", sql, subSelect));
+      String[] geoAttributes = filterSelectedAttributes(valueQuery, GeoEntity.getGeoAttributes(klass));
+      if (geoAttributes.length > 0)
+      {
+        String sql = "(" + QueryUtil.getGeoDisplayLabelSubSelect(klass, geoAttributes) + ")";
+        String subSelect = klass.replace('.', '_') + "GeoSubSel";
+        String table = MdBusiness.getMdBusiness(klass).getTableName();
+        valueQuery.AND(new InnerJoinEq("id", table, query.getTableAlias(), "id", sql, subSelect));
+      }
     }
     return valueQuery;
 
+  }
+
+  public static ValueQuery joinEnumerationDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
+  {
+    if (query != null)
+    {
+      String[] enumAttributes = filterSelectedAttributes(valueQuery, QueryUtil.getEnumAttributes(klass));
+      if (enumAttributes.length > 0)
+      {
+        String sql = "(" + QueryUtil.getEnumerationDisplayLabelSubSelect(klass, enumAttributes) + ")";
+        String subSelect = klass.replace('.', '_') + "EnumSubSel";
+        String table = MdBusiness.getMdBusiness(klass).getTableName();
+        valueQuery.AND(new InnerJoinEq("id", table, query.getTableAlias(), "id", sql, subSelect));
+      }
+    }
+    return valueQuery;
+
+    
+    
+  }
+  
+  public static ValueQuery leftJoinEnumerationDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query, String attributeId)
+  {
+    
+    SelectableSQL[] enumAttributes = filterSelectedSelectables(valueQuery, QueryUtil.getEnumAttributes(klass));
+    String tableName = MdBusiness.getMdBusiness(klass).getTableName();  
+    
+    for (SelectableSQL s : Arrays.asList(enumAttributes))
+    {
+      String attrib = s.getColumnAlias();
+      attrib = attrib.substring(0,attrib.length()-DISPLAY_LABEL_SUFFIX.length()); 
+      String sql = " SELECT defaultLocale FROM enumeration_master em JOIN metadatadisplaylabel md on em.displaylabel = md.id  " ;
+      sql += " JOIN " + tableName + " as t  ON t." + attrib + "_c = em.id";
+      sql += " WHERE t.id = " + attributeId + "";
+      
+      s.setSQL(sql);
+    }
+    return valueQuery;
+    
+  }
+
+  /**
+   * Returns all enumerated attributes
+   * 
+   * @param className
+   * @return
+   */
+  private static String[] getEnumAttributes(String className)
+  {
+    MdBusiness md = MdBusiness.getMdBusiness(className);
+    List<String> list = new LinkedList<String>();
+
+    for (MdAttribute mdAttr : md.getAllAttribute())
+    {
+      if (mdAttr instanceof MdAttributeEnumeration)
+      {
+        list.add( ( (MdAttributeEnumeration) mdAttr ).getAttributeName());
+      }
+    }
+
+    return list.toArray(new String[list.size()]);
   }
 
   public static ValueQuery getSingleAttribteGridSql(ValueQuery valueQuery, String tableAlias)
@@ -155,6 +311,13 @@ public class QueryUtil implements Reloadable
         if (index1 > 0 && index2 > 0)
         {
           String attrib = gridAlias.substring(0, index1);
+
+          // here we make a dummy value when the relationship has no ammount
+          if (attrib.equals(DUMMY_RELATIONSHIP_VALUE_ONE))
+          {
+            attrib = "1";
+          }
+
           String klass = gridAlias.substring(index1 + 2, index2).replace("_", ".");
           String term_id = gridAlias.substring(index2 + 2, gridAlias.length());
 
@@ -265,6 +428,9 @@ public class QueryUtil implements Reloadable
     return valueQuery;
   }
 
+  
+  
+  
   public static String getTermSubSelect(String className, String... attributes)
   {
     String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
@@ -312,6 +478,31 @@ public class QueryUtil implements Reloadable
       }
 
       from += " LEFT JOIN " + geoView + " as geo" + count + " on " + tableName + "." + attr + " = geo" + count + ".id";
+
+      count++;
+    }
+
+    String sql = select + from;
+
+    return sql;
+  }
+
+  public static String getEnumerationDisplayLabelSubSelect(String className, String... attributes)
+  {
+    String tableName = MdBusiness.getMdBusiness(className).getTableName();
+
+    String select = "SELECT " + tableName + ".id ,";
+    String from = " FROM " + tableName + " as " + tableName;
+
+    int count = 0;
+    for (String attr : attributes)
+    {
+      select += "(SELECT defaultLocale FROM enumeration_master em join metadatadisplaylabel md on em.displaylabel = md.id  WHERE em.id = " + attr + "_c) as " + attr + "_displayLabel";
+
+      if (count != attributes.length - 1)
+      {
+        select += ",";
+      }
 
       count++;
     }
@@ -429,7 +620,7 @@ public class QueryUtil implements Reloadable
         String alias = joinData.geoThematicAlias != null ? joinData.geoThematicAlias : thematicUserAlias;
         valueQuery.getSelectable(alias).setColumnAlias(QueryConstants.THEMATIC_DATA_COLUMN);
       }
-      
+
       // exclude any rows without geometry data
       valueQuery.AND(valueQuery.getSelectable(attr).NE(null));
     }
