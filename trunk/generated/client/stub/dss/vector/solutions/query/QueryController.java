@@ -37,6 +37,7 @@ import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO;
+import dss.vector.solutions.intervention.monitor.HouseholdDTO;
 import dss.vector.solutions.intervention.monitor.IPTANCVisitDTO;
 import dss.vector.solutions.intervention.monitor.IPTDoseDTO;
 import dss.vector.solutions.intervention.monitor.IPTPatientsDTO;
@@ -60,6 +61,7 @@ import dss.vector.solutions.intervention.monitor.IndividualInstanceDTO;
 import dss.vector.solutions.intervention.monitor.LarvacideDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonDTO;
+import dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO;
 import dss.vector.solutions.irs.SprayStatusDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.stock.StockEventDTO;
@@ -161,52 +163,41 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       loadQuerySpecifics(SurveyPointDTO.CLASS, QueryConstants.QueryType.QUERY_INDICATOR_SURVEY);
       
       ClientRequestIF request = this.getClientRequest();
+
+      JSONObject ordered = new JSONObject();
+
+      // locations
+      JSONObject location = new JSONObject();
+      location.put("type", TermDTO.CLASS);
+      //location.put("label", MDSSProperties.getObject("Locations"));
+      location.put("relType", IPTANCVisitDTO.CLASS);
+      location.put("relAttribute", IPTANCVisitDTO.AMOUNT);
+      location.put("options",getAllTermsForGrid(request, SurveyedPersonViewDTO.CLASS, SurveyedPersonViewDTO.DISPLAYLOCATIONS));
+      ordered.put("locations", location);
+
+      // Treatment
+      JSONObject treatment = new JSONObject();
+      treatment.put("type", TermDTO.CLASS);
+      //treatment.put("label", MDSSProperties.getObject("Treatments"));
+      treatment.put("relType", IPTTreatmentDTO.CLASS);
+      treatment.put("relAttribute", IPTTreatmentDTO.AMOUNT);
+      treatment.put("options",getAllTermsForGrid(request, SurveyedPersonViewDTO.CLASS, SurveyedPersonViewDTO.DISPLAYTREATMENTS));
+      ordered.put("treatments", treatment);
+
+      req.setAttribute("orderedGrids", ordered.toString());
       
-      // 24. RDT Result (special case). Use new PersonViewDTO object
-      // as a template to get display values.
-//      JSONObject rdtResult = new JSONObject();
-//      ClientRequestIF request = this.getClientRequest();
-//      String display = new PersonViewDTO(this.getClientRequest()).getRDTResultMd().getDisplayLabel();
-//      rdtResult.put("displayLabel", display);
-//      rdtResult.put("attributeName", PersonViewDTO.RDTRESULT);
-//      JSONArray items = new JSONArray();
-//      rdtResult.put("items", items);
-//      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
-//      {
-//        JSONObject item = new JSONObject();
-//        item.put("displayLabel", term.getDisplayLabel());
-//        item.put("value", term.getId());
-//
-//        items.put(item);
-//      }
-//
-//      req.setAttribute("rdtResults", rdtResult.toString());
-//
-//
-//      JSONArray nets = new JSONArray();
-//      for (TermDTO term : TermDTO.getAllTermsForField(this.getClientRequest(), HouseholdViewDTO.CLASS, HouseholdViewDTO.DISPLAYNETS))
-//      {
-//        JSONObject net = new JSONObject();
-//        net.put("entityAlias", HouseholdNetDTO.CLASS + "_" + term.getId());
-//        net.put("key", HouseholdNetDTO.AMOUNT + "_" + term.getId());
-//        net.put("displayLabel", term.getDisplayLabel());
-//        net.put("attributeName", HouseholdNetDTO.AMOUNT);
-//        net.put("type", HouseholdNetDTO.CLASS);
-//
-//        nets.put(net);
-//      }
-//
-//      req.setAttribute("nets", nets.toString());
-      
-      // Load label map for Adult Discriminating Dose Assay
       ClassQueryDTO surveyedPerson = request.getQuery(SurveyedPersonDTO.CLASS);
       String surveyedPersonMap = Halp.getDropDownMaps(surveyedPerson, request, ", ");
       req.setAttribute("surveyedPersonMap", surveyedPersonMap); 
       
-      // Load label map for Adult Discriminating Dose Assay
       ClassQueryDTO iTNInstance = request.getQuery(ITNInstanceDTO.CLASS);
       String itnMap = Halp.getDropDownMaps(iTNInstance, request, ", ");
       req.setAttribute("itnMap", itnMap);
+      
+
+      ClassQueryDTO householdQuery = request.getQuery(HouseholdDTO.CLASS);
+      String householdMap = Halp.getDropDownMaps(householdQuery, request, ", ");
+      req.setAttribute("householdMap", householdMap);
 
       req.getRequestDispatcher(QUERY_SURVEY).forward(req, resp);
     }
