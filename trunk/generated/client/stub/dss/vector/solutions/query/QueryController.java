@@ -61,6 +61,8 @@ import dss.vector.solutions.intervention.monitor.IndividualInstanceDTO;
 import dss.vector.solutions.intervention.monitor.LarvacideDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonDTO;
+import dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO;
+import dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO;
 import dss.vector.solutions.irs.SprayStatusDTO;
 import dss.vector.solutions.ontology.TermDTO;
@@ -78,6 +80,7 @@ import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.MDSSProperties;
+import dss.vector.solutions.util.QueryUtil;
 
 public class QueryController extends QueryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -170,8 +173,8 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       JSONObject location = new JSONObject();
       location.put("type", TermDTO.CLASS);
       //location.put("label", MDSSProperties.getObject("Locations"));
-      location.put("relType", IPTANCVisitDTO.CLASS);
-      location.put("relAttribute", IPTANCVisitDTO.AMOUNT);
+      location.put("relType", SurveyedPersonTreatmentLocationDTO.CLASS);
+      location.put("relAttribute", QueryUtil.DUMMY_RELATIONSHIP_VALUE_ONE);
       location.put("options",getAllTermsForGrid(request, SurveyedPersonViewDTO.CLASS, SurveyedPersonViewDTO.DISPLAYLOCATIONS));
       ordered.put("locations", location);
 
@@ -179,8 +182,8 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       JSONObject treatment = new JSONObject();
       treatment.put("type", TermDTO.CLASS);
       //treatment.put("label", MDSSProperties.getObject("Treatments"));
-      treatment.put("relType", IPTTreatmentDTO.CLASS);
-      treatment.put("relAttribute", IPTTreatmentDTO.AMOUNT);
+      treatment.put("relType", SurveyedPersonTreatmentDTO.CLASS);
+      treatment.put("relAttribute", QueryUtil.DUMMY_RELATIONSHIP_VALUE_ONE);
       treatment.put("options",getAllTermsForGrid(request, SurveyedPersonViewDTO.CLASS, SurveyedPersonViewDTO.DISPLAYTREATMENTS));
       ordered.put("treatments", treatment);
 
