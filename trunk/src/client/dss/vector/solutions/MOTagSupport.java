@@ -55,14 +55,14 @@ public class MOTagSupport extends AbstractTermTagSupport implements Reloadable
     JspWriter out = this.getJspContext().getOut();
     JspTag parent = findAncestorWithClass(this, ComponentMarkerIF.class);
 
-    String _param = this.getParam();
+    String _param =  this.getParam(parent);
     String _id = ( this.getId() != null ) ? this.getId() : this.getParam();
     String _browserClass = this.getBrowserClass(parent);
     String _browserAttribute = ( this.getBrowserAttribute() != null ) ? this.getBrowserAttribute() : this.getParam();
     Boolean _script = ( this.getScript() != null ) ? this.getScript() : new Boolean(true);
     Boolean _enabled = this.getEnabled(parent, _browserClass, _browserAttribute);
     TermComponentIF _value = (TermComponentIF) this.getValue(parent);
-
+    
     // <mjl:input id="collectionMethod" param="collectionMethod.componentId"
     // type="hidden"/>
     InputTagSupport attributeInput = new InputTagSupport();
@@ -116,6 +116,20 @@ public class MOTagSupport extends AbstractTermTagSupport implements Reloadable
       out.write("})();\n");
       out.write("</script>\n");
     }
+  }
+
+  private String getParam(JspTag parent)
+  {
+    String _param = this.getParam();
+    
+    if (parent != null)
+    {
+      ComponentMarkerIF component = (ComponentMarkerIF) parent;
+
+      _param = component.getParam() + "." + this.getParam();
+    }
+    
+    return _param;
   }
 
   public static void main(String[] args)
