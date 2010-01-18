@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.LeftJoinEq;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
@@ -204,12 +205,14 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
     {
       QueryUtil.joinGeoDisplayLabels(valueQuery, SurveyPoint.CLASS, surveyPointQuery);
     }
+    
     HouseholdQuery householdQuery = (HouseholdQuery) queryMap.get(Household.CLASS);
     if (householdQuery != null)
     {
-      valueQuery.WHERE(surveyPointQuery.households(householdQuery));
+      valueQuery.WHERE(householdQuery.getSurveyPoint().EQ(surveyPointQuery.getId()));
 
       QueryUtil.joinTermAllpaths(valueQuery, Household.CLASS, householdQuery);
+      QueryUtil.joinEnumerationDisplayLabels(valueQuery, Household.CLASS, householdQuery);
     }
 
     SurveyedPersonQuery personQuery = (SurveyedPersonQuery) queryMap.get(SurveyedPerson.CLASS);
@@ -218,48 +221,45 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
       if (householdQuery == null)
       {
         householdQuery = new HouseholdQuery(queryFactory);
-        valueQuery.WHERE(surveyPointQuery.households(householdQuery));
-        valueQuery.FROM(householdQuery);
+        valueQuery.WHERE(householdQuery.getSurveyPoint().EQ(surveyPointQuery.getId()));
       }
 
       valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
 
       QueryUtil.joinTermAllpaths(valueQuery, SurveyedPerson.CLASS, personQuery);
+      QueryUtil.joinEnumerationDisplayLabels(valueQuery, SurveyedPerson.CLASS, personQuery);
+      QueryUtil.getSingleAttribteGridSql(valueQuery, personQuery.getTableAlias());
     }
     
-    // Convert Treatments which is relationship between Surveyed Person and Term
-    /*
-    TermQuery termQuery = (TermQuery) queryMap.get(Term.CLASS);
-    try
+    ITNInstanceQuery itnQuery = (ITNInstanceQuery) queryMap.get(ITNInstance.CLASS);
+    
+    if (itnQuery != null)
     {
-      
-      SelectableSQLCharacter sel = (SelectableSQLCharacter) valueQuery.getSelectable(SurveyedPersonView.RDTRESULT);
-
-      // If TermQuery exists then restrict by inner joins instead of doing left joins
-      if(termQuery != null)
+      if (householdQuery == null)
       {
-        valueQuery.WHERE(personQuery.locations(termQuery));
-        String sql = termQuery.getTableAlias()+"."+Term.NAME;
-        sel.setSQL(sql);
+        householdQuery = new HouseholdQuery(queryFactory);
+        valueQuery.WHERE(householdQuery.getSurveyPoint().EQ(surveyPointQuery.getId()));
+      }
+      if(personQuery == null)
+      {
+        //join against the house if there is no person
+        valueQuery.WHERE(householdQuery.iTNs(itnQuery));
+        QueryUtil.joinTermAllpaths(valueQuery, ITNInstance.CLASS, itnQuery);
+        QueryUtil.joinEnumerationDisplayLabels(valueQuery, ITNInstance.CLASS, itnQuery);
       }
       else
       {
-        String subSelect = QueryUtil.getRelationshipTermSubSelect(SurveyedPersonView.RDTRESULT, SurveyedPerson.CLASS, SurveyedPersonView.CLASS);
-        String subSelectName = "rdtResultTermSubSel";
-
-        String sql = subSelectName+".rDTResult_displayLabel";
-        sel.setSQL(sql);
-
-        InnerJoinEq join = new InnerJoinEq("id", personTable, personQuery.getTableAlias(), "id", subSelect, subSelectName);
-        valueQuery.AND(join);
+        //left join against the person is person is in this query
+        LeftJoinEq leftJoin = personQuery.getSleptUnderNet().LEFT_JOIN_EQ(itnQuery);
+        valueQuery.WHERE(leftJoin);
+        QueryUtil.leftJoinTermDisplayLabels(valueQuery, ITNInstance.CLASS, itnQuery,itnQuery.getId().getColumnAlias());
+        QueryUtil.leftJoinEnumerationDisplayLabels(valueQuery, ITNInstance.CLASS, itnQuery,itnQuery.getId().getColumnAlias());
       }
+      
 
+      
     }
-    catch(QueryException e)
-    {
-      // RDTResult not included in the query
-    }*/
-
+    
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 
     QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
@@ -268,32 +268,6 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
     
-
-
-    // Add net selectables
-    for (String entityAlias : queryMap.keySet())
-    {
-      // if(entityAlias.startsWith(HouseholdNet.CLASS))
-      // {
-      // if(householdQuery == null)
-      // {
-      // householdQuery = new HouseholdQuery(queryFactory);
-      // valueQuery.WHERE(surveyPointQuery.households(householdQuery));
-      // valueQuery.FROM(householdQuery);
-      // }
-      //
-      // TermQuery termNetQuery = new TermQuery(queryFactory);
-      //
-      // String termId = entityAlias.substring(entityAlias.indexOf("_")+1);
-      //
-      // HouseholdNetQuery householdNetQuery = (HouseholdNetQuery)
-      // queryMap.get(entityAlias);
-      //
-      // valueQuery.AND(householdQuery.nets(householdNetQuery));
-      // valueQuery.AND(householdNetQuery.hasChild(termNetQuery));
-      // valueQuery.AND(termNetQuery.getId().EQ(termId));
-      // }
-    }
 
     /*
      * // Default prevalence addPrevalenceColumn("prevalence", valueQuery,
