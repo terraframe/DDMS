@@ -8,10 +8,13 @@
                   <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Administration" /></a>
               </li>
               <li class="yuimenubaritem">
+                  <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Case_Surveillance"/></a>
+              </li>
+              <li class="yuimenubaritem">
                   <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Entomology_Surveillance"/></a>
               </li>
               <li class="yuimenubaritem">
-                  <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Case_Surveillance"/></a>
+                  <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Surveys"/></a>
               </li>
               <li class="yuimenubaritem">
                   <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Intervention_Planning"/></a>
@@ -21,9 +24,6 @@
               </li>
               <li class="yuimenubaritem">
                   <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Stock_Control"/></a>
-              </li>
-              <li class="yuimenubaritem">
-                  <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Surveys"/></a>
               </li>
               <li class="yuimenubaritem">
                   <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="GIS"/></a>
