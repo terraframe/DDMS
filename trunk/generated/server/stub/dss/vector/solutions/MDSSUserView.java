@@ -21,7 +21,7 @@ public class MDSSUserView extends MDSSUserViewBase implements com.terraframe.moj
       sortAttribute = USERNAME;
     }
     
-    SelectablePrimitive selectable = (SelectablePrimitive)query.getComponentQuery().getSelectable(sortAttribute);
+    SelectablePrimitive selectable = (SelectablePrimitive)query.getComponentQuery().getSelectableRef(sortAttribute);
 
     if (isAscending)
     {
