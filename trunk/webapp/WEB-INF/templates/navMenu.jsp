@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<div class="navContainer" style="min-width: 1024px;">
+<div class="navContainer" style="min-width: 1152px;">
  <div id="mainNav" class="yuimenubar yuimenubarnav">
       <div class="bd">
           <ul class="first-of-type">
@@ -37,7 +37,6 @@
               <a href="javascript:window.print()" style="margin-left:10px;"  tabindex="-1"> 
                   <img src="./imgs/icons/printer.png">
               </a>
-
           </ul>
       </div>
   </div>
