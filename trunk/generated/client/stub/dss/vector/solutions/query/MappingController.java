@@ -1,6 +1,7 @@
 package dss.vector.solutions.query;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.sld.SLDWriter;
+import dss.vector.solutions.util.FileDownloadUtil;
 
 public class MappingController extends MappingControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -36,7 +38,22 @@ public class MappingController extends MappingControllerBase implements
     super(req, resp, isAsynchronous);
   }
   
- 
+  @Override
+  public void exportShapefile(String mapId) throws IOException, ServletException
+  {
+    try
+    {
+      SavedMapDTO map = SavedMapDTO.get(this.getClientRequest(), mapId);
+    
+      InputStream stream = SavedMapDTO.exportShapefile(this.getClientRequest(), mapId);
+    
+      FileDownloadUtil.writeZIP(resp, map.getMapName(), stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
+  }
   
   public void generateMaps() throws IOException, ServletException
   {
@@ -74,14 +91,15 @@ public class MappingController extends MappingControllerBase implements
       
       SavedMapDTO map = SavedMapDTO.get(request, savedMapId);
       
+      
+      // Regenerate the database views
+      String mapData = map.refreshMap();
+
       // Re-print all SLD files for the layers
       for(LayerDTO layer : map.getAllLayer())
       {
         new SLDWriter(map, layer).write();
       }
-      
-      // Regenerate the database views
-      String mapData = map.refreshMap();
       
       JSONReturnObject json = new JSONReturnObject(mapData);
       json.setInformation(request.getInformation());

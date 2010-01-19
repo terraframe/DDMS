@@ -7,6 +7,7 @@ import com.terraframe.mojo.constants.LocalProperties;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.system.WebFile;
 import com.terraframe.mojo.util.FileIO;
 
@@ -42,6 +43,23 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
     if(isNew)
     {
       SavedMap map = SavedMap.get(savedMapId);
+
+      QueryFactory f = new QueryFactory();
+      HasLayersQuery hQ = new HasLayersQuery(f);
+      LayerQuery lQ = new LayerQuery(f);
+      
+      lQ.WHERE(hQ.parentId().EQ(savedMapId));
+      lQ.AND(lQ.map(hQ));
+      
+      lQ.WHERE(lQ.getLayerName().EQ(this.getLayerName()));
+      
+      if(lQ.getCount() > 0)
+      {
+        String error = "The layer name ["+this.getLayerName()+"] already " +
+        		"exists for the map ["+map.getMapName()+"].";
+        throw new NonUniqueLayerNameException(error);
+      }
+      
       int count = (int) map.getLayerCount();
       
       HasLayers rel = this.addMap(map);

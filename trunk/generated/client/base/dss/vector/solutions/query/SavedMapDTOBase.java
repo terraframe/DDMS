@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 314740230)
+@com.terraframe.mojo.business.ClassSignature(hash = -1594135797)
 public abstract class SavedMapDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedMap";
-  private static final long serialVersionUID = 314740230;
+  private static final long serialVersionUID = -1594135797;
   
   protected SavedMapDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -436,6 +436,22 @@ public abstract class SavedMapDTOBase extends com.terraframe.mojo.business.Busin
     Object[] _parameters = new Object[]{id, layerId};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "deleteLayerFromMap", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final java.io.InputStream exportShapefile()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "exportShapefile", _declaredTypes);
+    return (java.io.InputStream) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.io.InputStream exportShapefile(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "exportShapefile", _declaredTypes);
+    return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final dss.vector.solutions.query.LayerViewQueryDTO getAllLayers()

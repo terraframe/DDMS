@@ -4,9 +4,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import junit.framework.TestCase;
+
+import com.terraframe.mojo.generation.loader.Reloadable;
+
+import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.ShapefileExporter;
 
-public class ShapefileExportTest extends TestCase {
+public class ShapefileExportTest extends TestCase implements Reloadable {
 	protected void setUp() throws Exception {
 		super.setUp();
 	}
@@ -18,6 +22,10 @@ public class ShapefileExportTest extends TestCase {
 
 
 	public void testExport() {
+	  
+	  /* 
+	  Layer layer = new Layer();
+	  
 		ShapefileExporter.Layer[] layers = new ShapefileExporter.Layer[1];
 		ShapefileExporter exporter = new ShapefileExporter();
 		layers[0] = exporter.new Layer(
@@ -34,6 +42,8 @@ public class ShapefileExportTest extends TestCase {
 			e.printStackTrace();
 		}
 		//System.out.println(output.size() + " byte(s)");
+		 * 
+		 */
 	}
 
 

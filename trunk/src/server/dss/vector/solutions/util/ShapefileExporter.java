@@ -7,12 +7,20 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class ShapefileExporter {
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
+import com.terraframe.mojo.generation.loader.Reloadable;
+
+import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.query.QueryConstants;
+
+public class ShapefileExporter implements Reloadable {
 	private static final int BUFFER_SIZE = 4096;
 
+	/*
 	public class Layer {
 		String sql;
 		String name;
@@ -37,12 +45,17 @@ public class ShapefileExporter {
 		}
 
 	}
+	*/
 	
-	public void export(Layer[] layers, OutputStream output) {
+	public void export(List<Layer> layers, OutputStream output) {
 		File dir = this.createTempDir("shapefile");
 		if (dir != null) {
-			for (int i = 0; i < layers.length; i++) {
-				this.pgsql2shp(dir, layers[i].getName(), layers[i].getGeoField(), layers[i].getSql());
+			for (Layer layer : layers) {
+			  
+			  String name = layer.getLayerName();
+			  String dbView = layer.getViewName();
+			  
+				this.pgsql2shp(dir, name, dbView);
 			}
 			this.zipDir(dir, output);
 		}
@@ -70,7 +83,7 @@ public class ShapefileExporter {
 			// This should be impossible, since we're iterating over a directory listing
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {}
+		} finally {  }
 	}
 
 	private synchronized File createTempDir(String prefix) {
@@ -88,13 +101,13 @@ public class ShapefileExporter {
 		return dir;
 	}
 
-	private void pgsql2shp(File dir, String name, String geoField, String sql) {
+	private void pgsql2shp(File dir, String name, String viewName) {
 		String cmd[] = new String[13];
 		cmd[0] = "/usr/bin/pgsql2shp";
 		cmd[1] = "-f";
 		cmd[2] = name;
 		cmd[3] = "-g";
-		cmd[4] = geoField;
+		cmd[4] = QueryConstants.GEOMETRY_NAME_COLUMN;
 		cmd[5] = "-h";
 		cmd[6] = "localhost";
 		cmd[7] = "-u";
@@ -102,7 +115,7 @@ public class ShapefileExporter {
 		cmd[9] = "-P";
 		cmd[10] = "mdssdeploy";
 		cmd[11] = "mdssdeploy";
-		cmd[12] = sql;
+		cmd[12] = viewName;
 
 		String output = this.run(cmd, dir);
 		System.out.println(output);
@@ -122,8 +135,7 @@ public class ShapefileExporter {
 			}
 			exitVal = pr.waitFor();
 		} catch (IOException e) {
-			sb.append(e.getStackTrace());
-			System.out.println(e);
+      throw new ProgrammingErrorException(e);
 		} catch (InterruptedException e) {
 			// Do nothing);
 		}

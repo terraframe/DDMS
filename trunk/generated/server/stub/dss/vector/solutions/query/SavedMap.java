@@ -1,11 +1,19 @@
 package dss.vector.solutions.query;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.terraframe.mojo.business.rbac.UserDAOIF;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DatabaseException;
@@ -16,6 +24,7 @@ import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.util.ShapefileExporter;
 
 public class SavedMap extends SavedMapBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -49,6 +58,80 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
   @Transaction
   public String refreshMap()
   {
+    JSONObject mapData;
+    JSONArray layersJSON;
+    
+    List<Layer> layersInMap = MapUtil.createDBViews(getOrderedLayers()); 
+    
+    try
+    {
+      String geoserverPath = MapUtil.getGeoServerRemoteURL();
+
+      mapData = new JSONObject();
+      layersJSON = new JSONArray();
+
+      mapData.put("geoserverURL", geoserverPath);
+      mapData.put("layers", layersJSON);
+    }
+    catch (JSONException e)
+    {
+      String error = "Could not create the mapping data.";
+      throw new ProgrammingErrorException(error, e);
+    }
+    
+    // Create the JSON for the layers that will be passed to OpenLayers
+    List<Layer> bboxLayers = new LinkedList<Layer>();
+    for(int i=0; i<layersInMap.size(); i++)
+    {
+      Layer layer = layersInMap.get(i);
+      
+      String namespacedView = QueryConstants.MDSS_NAMESPACE + ":" + layer.getViewName();
+      String sldFile = MapUtil.formatSLD(layer);
+
+      JSONObject layerJSON = new JSONObject();
+      try
+      {
+        layerJSON.put("view", namespacedView);
+        layerJSON.put("sld", sldFile);
+        layerJSON.put("opacity", layer.getOpacity());
+        layersJSON.put(layerJSON);
+
+        // Always add the base layer to the bounding box
+        if (i == 0 || layer.getAddToBBox())
+        {
+          bboxLayers.add(layer);
+        }
+      }
+      catch (JSONException e)
+      {
+        String error = "Could not produce the information for the layer [" + layer.getLayerName() + "]";
+        throw new ProgrammingErrorException(error, e);
+      }
+    }
+    
+
+    // restrict the map bounds to the applicable layers
+    try
+    {
+      mapData.put("bbox", MapUtil.getThematicBBox(bboxLayers));
+    }
+    catch (JSONException e)
+    {
+      String error = "Could not produce the bounding box.";
+      throw new ProgrammingErrorException(error, e);
+    }    
+    
+    return mapData.toString();
+  };
+  
+  /**
+   * Returns the layers of this map in order of position on map, starting
+   * with the base layer at index 0.
+   * 
+   * @return
+   */
+  private Layer[] getOrderedLayers()
+  {
     QueryFactory f = new QueryFactory();
     HasLayersQuery hasQ = new HasLayersQuery(f);
     
@@ -69,8 +152,30 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
       ordered[positions.get(layer.getId())] = layer;
     }
     
-    return MapUtil.createDBViews(ordered); 
-  };
+    return ordered;
+  }
+  
+  @Override
+  public InputStream exportShapefile()
+  {
+    List<? extends Layer> layers = this.getAllLayer().getAll();
+    if(layers.size() == 0)
+    {
+      String error = "The map [] does not have any layers to export.";
+      throw new NoLayersInExportException(error);
+    }
+    
+    List<Layer> layersInMap = MapUtil.createDBViews(getOrderedLayers()); 
+    
+    ShapefileExporter exporter = new ShapefileExporter();
+    
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    exporter.export(layersInMap, output);
+    
+    InputStream input = new ByteArrayInputStream(output.toByteArray());
+    
+    return input;
+  }
   
   /**
    * Creates a SavedMap and clones the given layers to be

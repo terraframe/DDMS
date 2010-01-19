@@ -533,6 +533,14 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var mapButtonDiv = new YAHOO.util.Element(document.createElement('div'));
       mapButtonDiv.setStyle('float', 'right');
       
+      var exportShape = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(exportShape, 'type', 'button');
+      YAHOO.util.Dom.setAttribute(exportShape, 'value', MDSS.Localized.Export_Shapefile);
+      YAHOO.util.Dom.addClass(exportShape, 'queryButton');
+      YAHOO.util.Event.on(exportShape, 'click', this._exportShapefile, null, this);
+      mapButtonDiv.appendChild(exportShape);
+      
+      
       // Add the draw line button
       this._drawLineBtn = document.createElement('input');
       YAHOO.util.Dom.setAttribute(this._drawLineBtn, 'type', 'button');
@@ -564,6 +572,12 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var mBottom = new YAHOO.util.Element(bottom.body);
       mBottom.appendChild(loadingDiv);
       mBottom.appendChild(mapButtonDiv);
+    },
+    
+    _exportShapefile : function()
+    {
+      var form = document.getElementById('exportShapefile');
+      form.submit();
     },
     
     _drawLine : function()
@@ -1147,6 +1161,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     setCurrentMap : function(mapId)
     {
       MDSS.MapPanel._currentMap = mapId;
+      
+      // update the export form
+      document.getElementById('export_mapId').value = mapId;
     },
     
     getCurrentMap : function()

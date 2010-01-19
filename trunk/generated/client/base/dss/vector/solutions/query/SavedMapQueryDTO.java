@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2040734927)
+@com.terraframe.mojo.business.ClassSignature(hash = 565213588)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public class SavedMapQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2040734927;
+private static final long serialVersionUID = 565213588;
 
   protected SavedMapQueryDTO(String type)
   {

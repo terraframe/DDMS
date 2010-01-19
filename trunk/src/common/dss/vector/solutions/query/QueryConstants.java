@@ -20,7 +20,13 @@ public class QueryConstants implements Reloadable
   public static final String GEOMETRY_NAME_COLUMN = "geometry_v";
 
   public static final String VIEW_NAME_SUFFIX = "_view";
-
+  
+  public static final String SLD_WEB_DIR = "styles/";
+  
+  public static final String SLD_PREFIX = "style_";
+  
+  public static final String SLD_EXTENSION = "sld";
+  
   // Query types
   public static final String SELECTED_UNIVERSALS = "selectedUniversals";
   
@@ -87,5 +93,10 @@ public class QueryConstants implements Reloadable
   {
     String name = namespacedType.split(NAMESPACE_DELIM)[1];
     return QueryType.valueOf(name);
+  }
+  
+  public static String createSLDName(String layerId)
+  {
+    return SLD_PREFIX+layerId.substring(0, 32);
   }
 }

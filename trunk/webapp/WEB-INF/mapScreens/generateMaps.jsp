@@ -30,6 +30,24 @@
 <jwr:script src="/bundles/mapBundle.js"/>
 
 <script type="text/javascript">
+
+
+YAHOO.util.Event.onDOMReady(function(){
+
+    // attach load listener to Iframe to receive message when error occurs during
+    // export operations
+    YAHOO.util.Event.on('exportIframe', 'load', function(e){
+      var body = e.target.contentDocument.getElementsByTagName('body')[0];
+      var text = typeof body.textContent !== 'undefined' ? body.textContent : body.innerText;
+      text = MDSS.util.stripWhitespace(text);
+      if(text.length > 0)
+      {
+        new MDSS.ErrorModal(text);
+      }
+
+    }, null, this);
+});
+
 <%
 ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
@@ -55,6 +73,14 @@ YAHOO.util.Event.onDOMReady(function(){
 
 <div class="yui-skin-sam">
   <div id="mapPanel"></div>
+</div>
+
+<iframe id="exportIframe" name="exportIframe" style="display: none; width: 1px; height: 1px;"></iframe>
+
+<div style="display: none">
+  <form id="exportShapefile" target="exportIframe" method="POST" action="dss.vector.solutions.query.MappingController.exportShapefile.mojo">
+    <input type="hidden" id="export_mapId" name="mapId" />
+  </form>
 </div>
 
 <jsp:include page="../templates/footer.jsp"></jsp:include>

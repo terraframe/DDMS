@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -596850989)
+@com.terraframe.mojo.business.ClassSignature(hash = 1885520277)
 public abstract class WellKnownNamesMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.WellKnownNamesMaster";
-  private static final long serialVersionUID = -596850989;
+  private static final long serialVersionUID = 1885520277;
   
   protected WellKnownNamesMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

@@ -24,7 +24,12 @@ public class FileDownloadUtil
   {
     writeFile(resp, filename, "txt", inputStream);
   }
-
+  
+  public static void writeZIP(HttpServletResponse resp, String filename, InputStream inputStream) throws IOException
+  {
+    writeFile(resp, filename, "zip", inputStream);
+  }
+  
   private static void writeFile(HttpServletResponse resp, String filename, String extension, InputStream inputStream) throws IOException
   {
     resp.addHeader("Content-Disposition", "attachment;filename=\""+filename+"."+extension+"\"");

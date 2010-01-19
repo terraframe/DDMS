@@ -22,18 +22,15 @@ import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.terraframe.mojo.business.Business;
 import com.terraframe.mojo.constants.LocalProperties;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DatabaseException;
-import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
-import com.terraframe.mojo.system.WebFile;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Envelope;
 
@@ -70,31 +67,12 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
    * @param layers
    * @return
    */
-  public static String createDBViews(Layer[] layers)
+  public static List<Layer> createDBViews(Layer[] layers)
   {
     if (layers.length == 0)
     {
       String error = "A user tried to create a map without layers.";
       throw new NoThematicLayerException(error);
-    }
-
-    JSONObject mapData;
-    JSONArray layersJSON;
-
-    try
-    {
-      String geoserverPath = getGeoServerRemoteURL();
-
-      mapData = new JSONObject();
-      layersJSON = new JSONArray();
-
-      mapData.put("geoserverURL", geoserverPath);
-      mapData.put("layers", layersJSON);
-    }
-    catch (JSONException e)
-    {
-      String error = "Could not create the mapping data.";
-      throw new ProgrammingErrorException(error, e);
     }
 
     // Map all Layers to their ValueQuery objects
@@ -177,8 +155,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
     }
 
     String sessionId = Session.getCurrentSession().getId();
-    List<LayerReload> reloads = new LinkedList<LayerReload>();
-    List<LayerReload> bboxLayers = new LinkedList<LayerReload>();
+    List<Layer> reloads = new LinkedList<Layer>();
     for (int i = 0; i < layers.length; i++)
     {
       Layer layer = layers[i];
@@ -187,12 +164,23 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
         continue; // The layer failed the first pass
       }
       
+      
+      // Remove the old layer
+      try
+      {
+        String viewName = layer.getViewName();
+        deleteMapView(viewName);
+      }
+      catch (DatabaseException e)
+      {
+        // View doesn't exist, but that's okay. It may have never
+        // been created or a cleanup task has removed it.
+      }
+      
+      
       String layerName = layer.getLayerName();
-      String viewName = layer.getViewName();
-      AllRenderTypes renderAs = layer.getRenderAs().get(0);
-      LayerReload layerReload = new LayerReload(layerName, viewName, renderAs);
 
-      // Update the view name on the layer so the old view can be cleaned up
+      // Update the view name on the layer for this refresh cycle
       String newViewName = Layer.GEO_VIEW_PREFIX + System.currentTimeMillis();
       layer.appLock();
       layer.setViewName(newViewName);
@@ -233,23 +221,12 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
         sql = valueQuery.getSQL();
       }
 
-      try
-      {
-        deleteMapView(viewName);
-      }
-      catch (DatabaseException e)
-      {
-        // View doesn't exist, but that's okay. It may have never
-        // been created or a cleanup task has removed it.
-      }
-      finally
-      {
-        // Create a new view that will reflect the current state of the query.
-        Database.createView(viewName, sql);
-      }
+
+      // Create a new view that will reflect the current state of the query.
+      Database.createView(newViewName, sql);
       
       // make sure there are no duplicate geo entities
-      String countSQL = "SELECT COUNT(*) " + Database.formatColumnAlias("ct") + " FROM " + viewName;
+      String countSQL = "SELECT COUNT(*) " + Database.formatColumnAlias("ct") + " FROM " + newViewName;
       countSQL += " GROUP BY " + QueryConstants.GEO_ID_COLUMN + " HAVING COUNT(*) > 1";
 
       ResultSet resultSet = Database.query(countSQL);
@@ -294,48 +271,15 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
         }
       }
 
-      reloads.add(layerReload);
+      reloads.add(layer);
 
-      String namespacedView = QueryConstants.MDSS_NAMESPACE + ":" + viewName;
-      String sldFile = formatSLD(layer);
 
-      // Create the JSON for this layer that will be passed to OpenLayers
-      JSONObject layerJSON = new JSONObject();
-      try
-      {
-        layerJSON.put("view", namespacedView);
-        layerJSON.put("sld", sldFile);
-        layerJSON.put("opacity", layer.getOpacity());
-        layersJSON.put(layerJSON);
-
-        // Always add the base layer to the bounding box
-        if (i == 0 || layer.getAddToBBox())
-        {
-          bboxLayers.add(layerReload);
-        }
-      }
-      catch (JSONException e)
-      {
-        String error = "Could not produce the information for the layer [" + layer.getLayerName() + "]";
-        throw new ProgrammingErrorException(error, e);
-      }
 
     }
 
     reload(sessionId, reloads);
 
-    // restrict the map bounds to the applicable layers
-    try
-    {
-      mapData.put("bbox", getThematicBBox(bboxLayers));
-    }
-    catch (JSONException e)
-    {
-      String error = "Could not produce the bounding box.";
-      throw new ProgrammingErrorException(error, e);
-    }
-
-    return mapData.toString();
+    return reloads;
   }
 
   /**
@@ -345,9 +289,8 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
    * @param layer
    * @return
    */
-  private static String formatSLD(Layer layer)
+  public static String formatSLD(Layer layer)
   {
-    WebFile file = WebFile.get(layer.getSldFile());
     String fullWebDir = LocalProperties.getWebDirectory();
 
     if (fullWebDir.endsWith("/"))
@@ -359,8 +302,8 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
     {
       webDir = webDir.substring(1);
     }
-    String filePath = webDir + "/" + file.getFilePath() + file.getFileName() + "."
-        + file.getFileExtension();
+    String filePath = webDir + "/" + QueryConstants.SLD_WEB_DIR + QueryConstants.createSLDName(layer.getId()) + "."
+        + QueryConstants.SLD_EXTENSION;
 
     // Generated a random query string to force GeoServer to not cache the SLD
     String random = String.valueOf(Math.random());
@@ -396,7 +339,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
     return bundle.getString("geoserver.remote.path");
   }
 
-  public static void reload(String sessionId, List<LayerReload> reloads)
+  public static void reload(String sessionId, List<Layer> reloads)
   {
     try
     {
@@ -473,10 +416,10 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       }
 
       // Create each layer as a feature on GeoServer
-      for (LayerReload reload : reloads)
+      for (Layer reload : reloads)
       {
-        String viewName = reload.viewName;
-        String defaultStyle = reload.renderType == AllRenderTypes.POINT ? "point" : "polygon";
+        String viewName = reload.getViewName();
+        String defaultStyle = reload.getRenderAs().get(0) == AllRenderTypes.POINT ? "point" : "polygon";
 
         PostMethod newPost = null;
         try
@@ -633,7 +576,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
    * 
    * @return
    */
-  public static JSONArray getThematicBBox(List<LayerReload> layers)
+  public static JSONArray getThematicBBox(List<Layer> layers)
   {
     JSONArray bboxArr = new JSONArray();
     if (layers.size() > 0)
@@ -642,9 +585,9 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       String sql;
       if (layers.size() == 1)
       {
-        LayerReload layer = layers.get(0);
-        String viewName = layer.viewName;
-        layerNames[0] = layer.layerName;
+        Layer layer = layers.get(0);
+        String viewName = layer.getViewName();
+        layerNames[0] = layer.getLayerName();
 
         sql = "SELECT AsText(extent(" + viewName + "." + QueryConstants.GEOMETRY_NAME_COLUMN
             + ")) AS bbox FROM " + viewName;
@@ -656,9 +599,9 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
 
         for (int i = 0; i < layers.size(); i++)
         {
-          LayerReload layer = layers.get(i);
-          String viewName = layer.viewName;
-          layerNames[i] = layer.layerName;
+          Layer layer = layers.get(i);
+          String viewName = layer.getViewName();
+          layerNames[i] = layer.getLayerName();
 
           sql += "(SELECT " + QueryConstants.GEOMETRY_NAME_COLUMN + " AS geo_v FROM " + viewName
               + ") \n";
@@ -783,28 +726,6 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
     }
 
     return bboxArr;
-  }
-
-  /**
-   * Class to represent a layer as it will be reloaded in a cycle. Because
-   * layer.getViewName() will return the name of the view for the NEXT reload
-   * cycle, this class is used to temporarly store the current layer data.
-   */
-  private static class LayerReload implements Reloadable
-  {
-    private String         viewName;
-
-    private String         layerName;
-
-    private AllRenderTypes renderType;
-
-    private LayerReload(String layerName, String viewName, AllRenderTypes renderType)
-    {
-      this.layerName = layerName;
-      this.viewName = viewName;
-      this.renderType = renderType;
-    }
-
   }
 
 }

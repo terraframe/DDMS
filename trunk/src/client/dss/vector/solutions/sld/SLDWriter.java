@@ -148,16 +148,14 @@ public class SLDWriter implements Reloadable
 
     writeSequence();
     
-    String path = "styles/";
-    String fileName = "style_" + this.layer.getId().substring(0, 32);
-    String extension = "sld";
+    String fileName = QueryConstants.createSLDName(layer.getId());
     String oldFileId = this.layer.getSldFile();
     
     // delete the previous file if it exists
-    deleteExistingSLD(requestIF, path, fileName, extension, oldFileId);
+    deleteExistingSLD(requestIF, QueryConstants.SLD_WEB_DIR, fileName, QueryConstants.SLD_EXTENSION, oldFileId);
 
     ByteArrayInputStream stream = new ByteArrayInputStream(builder.toString().getBytes());
-    BusinessDTO webFile = requestIF.newFile(path, fileName, extension, stream);
+    BusinessDTO webFile = requestIF.newFile(QueryConstants.SLD_WEB_DIR, fileName, QueryConstants.SLD_EXTENSION, stream);
 
     // Lock this layer. This lock all objects used by this layer
     this.layer.setSldFile(webFile.getId());
