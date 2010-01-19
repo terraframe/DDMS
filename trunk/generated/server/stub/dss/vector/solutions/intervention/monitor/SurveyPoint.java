@@ -15,11 +15,15 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.LeftJoinEq;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQLFloat;
+import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.RefusedResponse;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
@@ -256,9 +260,39 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
         QueryUtil.leftJoinEnumerationDisplayLabels(valueQuery, ITNInstance.CLASS, itnQuery,itnQuery.getId().getColumnAlias());
       }
       
-
-      
     }
+    
+    
+    try
+    {
+      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectable("prevalence");
+      String tableAlias = personQuery.getTableAlias();
+      
+      String rtdTested = "CASE "+tableAlias+"."+SurveyedPerson.PERFORMEDRDT+"_c WHEN '"+RefusedResponse.YES.getId()+"' THEN 1 ELSE NULL END";
+      
+      String totalTested ="SUM(COALESCE("+rtdTested+","+SurveyedPerson.PERFORMEDBLOODSLIDE+",0))::FLOAT" ;
+      
+      String totalPositive ="SUM(COALESCE("+SurveyedPerson.RDTRESULT+","+SurveyedPerson.BLOODSLIDERESULT+",0))::FLOAT" ;
+     
+      calc.setSQL(totalPositive+" / NULLIF("+totalTested+",0.0)");
+    }
+    catch (QueryException e)
+    {
+    }
+    
+    try
+    {
+      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable("age");
+
+      String personTableAlias = personQuery.getTableAlias();
+      String sql = "EXTRACT(year from AGE(NOW(), " + personTableAlias + ".dob))";
+      dobSel.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+      // Person.DOB not included in query.
+    }
+
     
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 
@@ -269,14 +303,6 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
     
 
-    /*
-     * // Default prevalence addPrevalenceColumn("prevalence", valueQuery,
-     * personQuery, null);
-     * 
-     * // specific prevalences for(RDTResult result : RDTResult.values()) {
-     * addPrevalenceColumn("prevalence_"+result.getId(), valueQuery,
-     * personQuery, result); }
-     */
 
     return valueQuery;
   }
