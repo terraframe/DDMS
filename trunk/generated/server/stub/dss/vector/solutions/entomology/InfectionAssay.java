@@ -172,13 +172,13 @@ public class InfectionAssay extends InfectionAssayBase implements com.terraframe
     MolecularAssayQuery molecularQuery = (MolecularAssayQuery) queryMap.get(MolecularAssay.CLASS);
     if (molecularQuery != null)
     {
-      unionQueries.add(PooledInfectionAssay.getUnionSubQuery(xml,config,layer));
+      unionQueries.add(MolecularAssay.getUnionSubQuery(xml,config,layer));
     }
     
     BiochemicalAssayQuery biochemicalQuery = (BiochemicalAssayQuery) queryMap.get(BiochemicalAssay.CLASS);
     if (biochemicalQuery != null)
     {
-      unionQueries.add(PooledInfectionAssay.getUnionSubQuery(xml,config,layer));
+      unionQueries.add(BiochemicalAssay.getUnionSubQuery(xml,config,layer));
     }
     
     if(unionQueries.size() == 0)
