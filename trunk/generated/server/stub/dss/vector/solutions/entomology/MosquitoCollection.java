@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -248,12 +247,13 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
       valueQuery.WHERE(subCollectionQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
 
       QueryUtil.joinTermAllpaths(valueQuery, SubCollection.CLASS, subCollectionQuery);
-
     }
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
 
     QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
+    
+    QueryUtil.joinEnumerationDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
