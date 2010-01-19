@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2009485859)
+@com.terraframe.mojo.business.ClassSignature(hash = 499685251)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -29,7 +29,7 @@ public abstract class GeoHierarchyBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
-  private static final long serialVersionUID = -2009485859;
+  private static final long serialVersionUID = 499685251;
   
   public GeoHierarchyBase()
   {
@@ -719,6 +719,12 @@ public abstract class GeoHierarchyBase extends com.terraframe.mojo.business.Busi
   {
     GeoHierarchy _instance = GeoHierarchy.get(id);
     return _instance.getViewForGeoHierarchy();
+  }
+  
+  public static java.lang.Boolean hasBrowserRoot(java.lang.String className)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoHierarchy.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static void updateFromView(dss.vector.solutions.geo.GeoHierarchyView view)

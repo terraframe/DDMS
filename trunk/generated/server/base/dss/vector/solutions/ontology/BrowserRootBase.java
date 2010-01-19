@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1798165171)
+@com.terraframe.mojo.business.ClassSignature(hash = -1781586474)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class BrowserRootBase extends com.terraframe.mojo.business.Busin
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1798165171;
+  private static final long serialVersionUID = -1781586474;
   
   public BrowserRootBase()
   {
@@ -427,6 +427,12 @@ public abstract class BrowserRootBase extends com.terraframe.mojo.business.Busin
   }
   
   public static dss.vector.solutions.ontology.BrowserRootView[] getDefaultRoot()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.BrowserRoot.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.lang.Boolean hasBrowserRoot(java.lang.String className, java.lang.String attributeName)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.BrowserRoot.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

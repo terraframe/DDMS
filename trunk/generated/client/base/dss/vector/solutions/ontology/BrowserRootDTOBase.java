@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 344116941)
+@com.terraframe.mojo.business.ClassSignature(hash = 1124190038)
 public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.BrowserRoot";
-  private static final long serialVersionUID = 344116941;
+  private static final long serialVersionUID = 1124190038;
   
   protected BrowserRootDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -473,6 +473,14 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     Object[] _parameters = new Object[]{};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "getDefaultRoot", _declaredTypes);
     return (dss.vector.solutions.ontology.BrowserRootViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.Boolean hasBrowserRoot(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String className, java.lang.String attributeName)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{className, attributeName};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "hasBrowserRoot", _declaredTypes);
+    return (java.lang.Boolean) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final dss.vector.solutions.ontology.BrowserRootViewDTO update(dss.vector.solutions.ontology.BrowserRootDTO browserRoot)
