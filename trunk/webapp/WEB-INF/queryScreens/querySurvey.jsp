@@ -15,6 +15,8 @@
 <%@page import="dss.vector.solutions.intervention.monitor.SurveyPointDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.HouseholdDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.SurveyedPersonDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.ITNInstanceDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
@@ -36,7 +38,7 @@
 
 <%
   ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-  String[] mosquitoTypes = new String[]{ SurveyPointDTO.CLASS, HouseholdDTO.CLASS, SurveyedPersonDTO.CLASS, ITNInstanceDTO.CLASS};
+  String[] mosquitoTypes = new String[]{ SurveyPointDTO.CLASS, HouseholdDTO.CLASS, SurveyedPersonDTO.CLASS, SurveyedPersonTreatmentLocationDTO.CLASS,SurveyedPersonTreatmentDTO.CLASS, ITNInstanceDTO.CLASS};
   String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
 
@@ -77,36 +79,56 @@ YAHOO.util.Event.onDOMReady(function(){
     var surveyPointMaps = {};
     var surveyPoint = new dss.vector.solutions.intervention.monitor.SurveyPoint;
     var surveyPointAttribs = ["geoEntity","surveyDate"];
-    surveyPointColumns =   surveyPointAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:surveyPoint, suffix:'_collection',dropDownMaps:surveyPointMaps});
+    var surveyPointColumns =   surveyPointAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:surveyPoint, suffix:'_surveyPoint',dropDownMaps:surveyPointMaps});
 
- //   var householdMaps = {<%=(String) request.getAttribute("householdMaps")%>};
- //   var household = new dss.vector.solutions.intervention.monitor.SurveyHousehold;
- //   var householdAttribs = ["mosquitoId","species","identMethod","sex","parasite","testMethod","infected","numberTested","numberPositive"];
- //   householdColumns =   householdAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:household, suffix:'_infection',dropDownMaps:householdMaps});
-
+    var householdMaps = {<%=(String) request.getAttribute("householdMap")%>};
+    var household = new dss.vector.solutions.intervention.monitor.Household;
+    var householdAttribs = ["householdName","urban","people","wall","wallInfo","roof","roofInfo",
+                            "hasWindows","windowType","rooms","hasBeenSprayed","lastSprayed","nets"];
+    var householdColumns =   householdAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:household, suffix:'_household',dropDownMaps:householdMaps});
     
     var surveyedPersonMaps = {<%=(String) request.getAttribute("surveyedPersonMap")%>};
     var person = new dss.vector.solutions.intervention.monitor.SurveyedPerson;
-    var personAttribs = ["anaemiaTreatment","bloodslideDetail","bloodslideReason","bloodslideResult",
-                        "dob","fever","haemoglobin","haemoglobinMeasured","headOfHousehold",
-                        "immuneCompromised","iron","malaria","malariaConformationTechnique","payment",
-                        "performedBloodslide","performedRDT","personId","pregnant","rdtDetail","rdtResult",
-                        "rdtTreatment","sex"];
-    personColumns =   personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_pooledInfection',dropDownMaps:surveyedPersonMaps});
+    var personAttribs = ["personId","headOfHousehold","dob","age","sex","pregnant","immuneCompromised",
+                         "haemoglobinMeasured","haemoglobin", "anaemiaTreatment","iron",
+                         "performedRDT","rdtResult","rdtDetail","rdtTreatment",
+                         "performedBloodslide","bloodslideReason","bloodslideResult","bloodslideDetail",
+                        "fever", "malaria","malariaConformationTechnique","payment"
+                        ];
+    var personColumns =   personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_person',dropDownMaps:surveyedPersonMaps});
 
-    
+    personColumns = personColumns.concat(
+        [                          {
+          displayLabel:"prevalence",
+          key:"prevalence",
+          type:"sqlfloat",
+          attributeName:"prevalence",
+          isAggregate:true
+        },
+        ]);
+
     var netMaps = {<%=(String) request.getAttribute("itnMap")%>};
     var net = new dss.vector.solutions.intervention.monitor.ITNInstance;
-    var netAttribs = ["damaged","hanging","household","monthReceived","monthRetreated","netBrand","netId","notUsedForSleeping",
-                      "obtained","price","purpose","purposeComments","retreated","steptUnderNet","washFrequency","washPeriod",
-                      "yearRecived","yearRetreated"];
-    netColumns =   netAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:net, suffix:'net',dropDownMaps:netMaps});
+    var netAttribs = ["netId","netBrand","monthReceived","yearReceived","receivedDate","obtained","price",
+                      "retreated","monthRetreated","yearRetreated","retreatedDate",
+                      "damaged","hanging","notUsedForSleeping","purpose","purposeComments",
+                      "washFrequency","washPeriod","sleptUnderNet"
+                     ];
+    var netColumns =   netAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:net, suffix:'_net',dropDownMaps:netMaps});
+
+    var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
+
+    var locationColumns = orderedGrids.locations.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.locations);
+
+    var treatmentColumns = orderedGrids.treatments.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.treatments);
 
     var selectableGroups = [
                 {title:"Survey_Point", values:surveyPointColumns, group:"sp", klass:surveyPoint.CLASS},
-               // {title:"Household", values:householdColumns, group:"sp", klass:surveyPoint.CLASS},
-                {title:"Person", values:personColumns, group:"sp", klass:surveyPoint.CLASS},
+                {title:"Household", values:householdColumns, group:"sp", klass:surveyPoint.CLASS},
                 {title:"ITN", values:netColumns, group:"sp", klass:surveyPoint.CLASS},
+                {title:"Person", values:personColumns, group:"sp", klass:surveyPoint.CLASS},
+                {title:"Locations", values:locationColumns, group:"sp", klass:dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocation.CLASS},
+                {title:"Treatments", values:treatmentColumns, group:"sp", klass:dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment.CLASS}
         ];
 
     var query = new MDSS.QuerySurvey(selectableGroups, queryList);
