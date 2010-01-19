@@ -359,7 +359,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
 
     // The person must be a IPT Recipient
     valueQuery.WHERE(or);
-    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(Person.FIRSTNAME));
+    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectableRef(Person.FIRSTNAME));
 
     valueQuery.restrictRows(15, 1);
 
