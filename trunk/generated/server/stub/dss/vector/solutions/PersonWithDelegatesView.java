@@ -25,7 +25,7 @@ public class PersonWithDelegatesView extends PersonWithDelegatesViewBase impleme
       sortAttribute = FIRSTNAME;
     }
     
-    Selectable selectable = query.getComponentQuery().getSelectable(sortAttribute);
+    Selectable selectable = query.getComponentQuery().getSelectableRef(sortAttribute);
     
     if(sortAttribute.equalsIgnoreCase(SEX))
     {
