@@ -165,7 +165,7 @@ public class BiochemicalAssay extends BiochemicalAssayBase implements com.terraf
       
       if(xml.indexOf(">elevated<") > 0)
       {
-        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("elevated");
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("elevated");
         s.setSQL("100.0 * SUM(numberElevated) / SUM(numberTested)");
       }
     }

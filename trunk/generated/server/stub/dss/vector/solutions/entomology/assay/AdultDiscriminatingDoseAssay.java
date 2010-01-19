@@ -260,7 +260,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     if(xml.indexOf(">"+result+"<") > 0)
     {
-      SelectableSQL s = (SelectableSQL) valueQuery.getSelectable(result);
+      SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef(result);
       s.setSQL(result);
 
       String[] labels = { susceptibleLabel, potentialyResistantLabel, resistantLabel };

@@ -1,5 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
+import com.terraframe.mojo.constants.EnumerationMasterInfo;
 import com.terraframe.mojo.query.AttributeEnumeration;
 import com.terraframe.mojo.query.AttributeLocal;
 import com.terraframe.mojo.query.AttributeReference;
@@ -24,11 +25,11 @@ public class LarvaeDiscriminatingDoseAssayView extends LarvaeDiscriminatingDoseA
     
     sortAttribute = (sortAttribute == null ? LarvaeDiscriminatingDoseAssayView.COLLECTIONLABEL : sortAttribute); 
     
-    Selectable attribute = query.getComponentQuery().getSelectable(sortAttribute);
+    Selectable attribute = query.getComponentQuery().getSelectableRef(sortAttribute);
 
     if (attribute instanceof AttributeEnumeration)
     {
-      attribute = ( (AttributeEnumeration) attribute ).aCharacter("enumName");
+      attribute = ( (AttributeEnumeration) attribute ).aCharacter(EnumerationMasterInfo.NAME);
     }
     else if (attribute instanceof AttributeReference)
     {

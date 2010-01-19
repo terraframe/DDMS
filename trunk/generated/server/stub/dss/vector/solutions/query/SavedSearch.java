@@ -455,19 +455,19 @@ public class SavedSearch extends SavedSearchBase implements
       String queryClass = QueryConstants.getQueryClass(queryType);
       ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null);
 
-      Selectable[] selectables = valueQuery.getSelectables();
-      ThematicVariable[] thematicVars = new ThematicVariable[selectables.length];
+      List<Selectable> selectables = valueQuery.getSelectableRefs();
+      ThematicVariable[] thematicVars = new ThematicVariable[selectables.size()];
 
-      for (int i = 0; i < selectables.length; i++)
+      int loopCount = 0;
+      for (Selectable sel : selectables)
       {
-        Selectable sel = selectables[i];
-
         ThematicVariable var = new ThematicVariable();
         var.setAttributeName(sel.getQualifiedName());
         var.setDisplayLabel(sel.getUserDefinedDisplayLabel());
         var.setUserAlias(sel.getUserDefinedAlias());
 
-        thematicVars[i] = var;
+        thematicVars[loopCount] = var;
+        loopCount++;
       }
 
       return thematicVars;

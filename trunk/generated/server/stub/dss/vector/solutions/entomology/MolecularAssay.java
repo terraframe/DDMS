@@ -169,27 +169,27 @@ public class MolecularAssay extends MolecularAssayBase implements com.terraframe
       
       if(xml.indexOf(">percentRR<") > 0)
       {
-        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("percentRR");
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("percentRR");
         s.setSQL("100.0 * SUM(numberrr) / SUM(numberrr+numberrs+numberss)");
       }
       if(xml.indexOf(">percentRS<") > 0)
       {
-        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("percentRS");
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("percentRS");
         s.setSQL("100.0 * SUM(numberrs) / SUM(numberrr+numberrs+numberss)");
       }
       if(xml.indexOf(">percentSS<") > 0)
       {
-        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("percentSS");
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("percentSS");
         s.setSQL("100.0 * SUM(numberss) / SUM(numberrr+numberrs+numberss)");
       }
       if(xml.indexOf(">frequencyR<") > 0)
       {
-        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("frequencyR");
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("frequencyR");
         s.setSQL("100.0 * (SUM(numberrr +(0.5*numberrs) ) ) / SUM(numberrr+numberrs+numberss)");
       }
       if(xml.indexOf(">frequencyS<") > 0)
       {
-        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("frequencyS");
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("frequencyS");
         s.setSQL("100.0 * (SUM(numberss +(0.5*numberrs) ) ) / SUM(numberrr+numberrs+numberss)");
       }
     }

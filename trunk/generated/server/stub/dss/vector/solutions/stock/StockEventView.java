@@ -209,7 +209,7 @@ public class StockEventView extends StockEventViewBase implements com.terraframe
       sortAttribute = StockEventView.EVENTDATE;
     }
 
-    Selectable attribute = query.getComponentQuery().getSelectable(sortAttribute);
+    Selectable attribute = query.getComponentQuery().getSelectableRef(sortAttribute);
 
     if (attribute instanceof AttributeEnumeration)
     {

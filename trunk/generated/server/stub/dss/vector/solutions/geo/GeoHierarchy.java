@@ -132,19 +132,19 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       vq.SELECT(selectables.toArray(new Selectable[selectables.size()]));
       
       // Rename the column aliases so GeoServer and the SLD can read them
-      vq.getSelectable(GeoEntity.ENTITYNAME).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
-      vq.getSelectable(GeoEntity.GEOID).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
+      vq.getSelectableRef(GeoEntity.ENTITYNAME).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
+      vq.getSelectableRef(GeoEntity.GEOID).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
       
       if(layer != null)
       {
-        Selectable geometry = vq.getSelectable(QueryConstants.GEOMETRY_NAME_COLUMN);
+        Selectable geometry = vq.getSelectableRef(QueryConstants.GEOMETRY_NAME_COLUMN);
         geometry.setColumnAlias(QueryConstants.GEOMETRY_NAME_COLUMN);
         vq.WHERE(geometry.NE(null));
         
         String thematicUserAlias = layer.getThematicUserAlias();
         if(thematicUserAlias != null && thematicUserAlias.length() > 0)
         {
-          vq.getSelectable(QueryConstants.THEMATIC_DATA_COLUMN).setColumnAlias(QueryConstants.THEMATIC_DATA_COLUMN);
+          vq.getSelectableRef(QueryConstants.THEMATIC_DATA_COLUMN).setColumnAlias(QueryConstants.THEMATIC_DATA_COLUMN);
           
           vq.AND(geoQuery.getId().EQ(geoQuery2.getId()));
         }
@@ -1455,7 +1455,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     if (md.getId().equals(definingMd.getId()))
     {
       BusinessQuery q = f.businessQuery(md.definesType());
-      vQuery.SELECT(q.aAttribute(attrName), entityNameAttr);
+      vQuery.SELECT(q.get(attrName), entityNameAttr);
       vQuery.WHERE(q.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
     }
     else
@@ -1464,13 +1464,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       // that defines the geometry attribute.
       BusinessQuery q1 = f.businessQuery(md.definesType());
       BusinessQuery q2 = f.businessQuery(definingMd.definesType());
-      vQuery.SELECT(q2.aAttribute(attrName), entityNameAttr);
+      vQuery.SELECT(q2.get(attrName), entityNameAttr);
       vQuery.WHERE(q1.aCharacter(ComponentInfo.ID).EQ(q2.aCharacter(ComponentInfo.ID)));
       vQuery.WHERE(q2.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
     }
 
     // exclude any entity without spatial data
-    Selectable geometrySelectable = vQuery.getSelectable(attrName);
+    Selectable geometrySelectable = vQuery.getSelectableRef(attrName);
     vQuery.AND(geometrySelectable.NE(null));
 
     String sql = vQuery.getSQL();

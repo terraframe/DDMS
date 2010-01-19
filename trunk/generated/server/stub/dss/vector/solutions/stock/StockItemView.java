@@ -89,7 +89,7 @@ public class StockItemView extends StockItemViewBase implements com.terraframe.m
       sortAttribute = StockItemView.ITEMID;
     }
 
-    Selectable attribute = query.getComponentQuery().getSelectable(sortAttribute);
+    Selectable attribute = query.getComponentQuery().getSelectableRef(sortAttribute);
 
     if (attribute instanceof AttributeEnumeration)
     {

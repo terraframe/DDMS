@@ -141,7 +141,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
         String attrib = key.substring(0, index1);
         String klass = key.substring(index1+2, index2).replace("_", ".");
         String attrib2 = key.substring(index2+2,key.length());
-        Selectable term  = valueQuery.getSelectable(attrib2);
+        Selectable term  = valueQuery.getSelectableRef(attrib2);
         
         
         valueQuery.WHERE(new InnerJoinEq("id", term.getDefiningTableName(), term.getDefiningTableAlias(), "childTerm", allPathsQuery.getMdClassIF().getTableName(), allPathsQuery.getTableAlias()));
@@ -171,7 +171,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
      */
 
     // set all the spray selectable sql to match up with the temp table columns
-    for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
+    for (Selectable s : valueQuery.getSelectableRefs())
     {
       if (s instanceof SelectableSQL)
       {

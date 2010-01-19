@@ -42,7 +42,7 @@ public abstract class Facade extends FacadeBase implements com.terraframe.mojo.g
 // Heads up: clean up?
 //    classQuery.WHERE(classQuery.NOT_IN(classQuery.getId(), valueQuery));
 //    classQuery.WHERE(classQuery.getId().SUBSELECT_NOT_IN(valueQuery));
-    classQuery.WHERE(classQuery.getId().SUBSELECT_NOT_IN(valueQuery.aAttribute("id")));
+    classQuery.WHERE(classQuery.getId().SUBSELECT_NOT_IN(valueQuery.get("id")));
     classQuery.ORDER_BY_ASC(classQuery.getDisplayLabel().currentLocale());
 
     return classQuery;

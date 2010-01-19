@@ -175,7 +175,7 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
       sortAttribute = PATIENT;
     }
 
-    Selectable selectable = (Selectable) query.getComponentQuery().getSelectable(sortAttribute);
+    Selectable selectable = (Selectable) query.getComponentQuery().getSelectableRef(sortAttribute);
 
     if (sortAttribute.equals(PATIENT))
     {

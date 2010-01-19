@@ -242,7 +242,7 @@ public class InfectionAssay extends InfectionAssayBase implements com.terraframe
       
       if(xml.indexOf(">prevalence<") > 0)
       {
-        SelectableSQL s = (SelectableSQL) valueQuery.getSelectable("prevalence");
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("prevalence");
         s.setSQL("100.0 * SUM(numberPositive) / SUM(numberTested)");
       }
       

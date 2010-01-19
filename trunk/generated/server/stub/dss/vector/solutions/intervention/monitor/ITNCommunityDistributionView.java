@@ -237,7 +237,7 @@ public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBa
       sortAttribute = STARTDATE;
     }
 
-    SelectablePrimitive selectable = (SelectablePrimitive) query.getComponentQuery().getSelectable(sortAttribute);
+    SelectablePrimitive selectable = (SelectablePrimitive) query.getComponentQuery().getSelectableRef(sortAttribute);
 
     if (isAscending)
     {

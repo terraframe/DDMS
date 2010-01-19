@@ -190,7 +190,7 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
 
     try
     {
-      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable("age");
+      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("age");
 
       String personTableAlias = personQuery.getTableAlias();
       String sql = "EXTRACT(year from AGE(NOW(), " + personTableAlias + ".dateofbirth))";

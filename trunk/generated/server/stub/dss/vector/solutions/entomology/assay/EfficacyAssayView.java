@@ -182,7 +182,7 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
       sortAttribute = COLONYNAME;
     }
     
-    SelectablePrimitive selectable = (SelectablePrimitive)query.getComponentQuery().getSelectable(sortAttribute);
+    SelectablePrimitive selectable = (SelectablePrimitive)query.getComponentQuery().getSelectableRef(sortAttribute);
 
     if (isAscending)
     {

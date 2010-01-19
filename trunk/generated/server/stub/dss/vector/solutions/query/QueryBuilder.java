@@ -169,19 +169,19 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     Selectable[] selectClauseArray = new Selectable[selectableArray.length + 2];
     for (int k = 0; k < selectableArray.length; k++)
     {
-      selectClauseArray[k] = uQ.aAttribute(selectableArray[k].getResultAttributeName());
+      selectClauseArray[k] = uQ.get(selectableArray[k].getResultAttributeName());
     }
-    selectClauseArray[selectableArray.length] = F.COUNT(uQ.aAttribute("weight"), "weight");
-    selectClauseArray[selectableArray.length + 1] = F.SUM(uQ.aAttribute("weight"), "sum");
+    selectClauseArray[selectableArray.length] = F.COUNT(uQ.get("weight"), "weight");
+    selectClauseArray[selectableArray.length + 1] = F.SUM(uQ.get("weight"), "sum");
 
     valueQuery.SELECT(selectClauseArray);
-    valueQuery.ORDER_BY_DESC(F.COUNT(uQ.aAttribute("weight"), "weight"));
-    valueQuery.ORDER_BY_DESC(F.SUM(uQ.aAttribute("weight"), "sum"));
+    valueQuery.ORDER_BY_DESC(F.COUNT(uQ.get("weight"), "weight"));
+    valueQuery.ORDER_BY_DESC(F.SUM(uQ.get("weight"), "sum"));
     for (SelectablePrimitive selectable : selectableArray)
     {
-      valueQuery.ORDER_BY_ASC((AttributePrimitive) uQ.aAttribute(selectable.getResultAttributeName()));
+      valueQuery.ORDER_BY_ASC((AttributePrimitive) uQ.get(selectable.getResultAttributeName()));
     }
-    valueQuery.HAVING(F.COUNT(uQ.aAttribute("weight")).EQ(tokenArray.length));
+    valueQuery.HAVING(F.COUNT(uQ.get("weight")).EQ(tokenArray.length));
 
     for (ValueObject valueObject : valueQuery.getIterator())
     {

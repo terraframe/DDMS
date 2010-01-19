@@ -301,7 +301,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     valueQuery.WHERE(or);
     valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
     valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
-    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(GeoEntity.ENTITYNAME));
+    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectableRef(GeoEntity.ENTITYNAME));
 
     valueQuery.restrictRows(20, 1);
 
@@ -396,7 +396,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     valueQuery.WHERE(and);
     valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
     valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
-    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectable(GeoEntity.ENTITYNAME));
+    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectableRef(GeoEntity.ENTITYNAME));
     valueQuery.restrictRows(20, 1);
 
     return valueQuery;    

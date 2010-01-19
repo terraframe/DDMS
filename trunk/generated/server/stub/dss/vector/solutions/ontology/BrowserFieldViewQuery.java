@@ -90,12 +90,12 @@ private static final long serialVersionUID = 1252959713156L;
       
       query.map(BrowserFieldView.BROWSERFIELDID, this.fieldQuery.getId());
       
-      query.map(BrowserFieldView.MDCLASSID, this.unioned.aAttribute("classId"));
-      query.map(BrowserFieldView.MDCLASSLABEL, this.unioned.aAttribute("classLabel"));
+      query.map(BrowserFieldView.MDCLASSID, this.unioned.get("classId"));
+      query.map(BrowserFieldView.MDCLASSLABEL, this.unioned.get("classLabel"));
 
-      query.map(BrowserFieldView.MDATTRIBUTEID, this.unioned.aAttribute("attributeId"));
-      query.map(BrowserFieldView.MDATTRIBUTELABEL, this.unioned.aAttribute("attributeLabel"));
-      query.map(BrowserFieldView.DEFAULTVALUE, this.unioned.aAttribute("defaultValue"));
+      query.map(BrowserFieldView.MDATTRIBUTEID, this.unioned.get("attributeId"));
+      query.map(BrowserFieldView.MDATTRIBUTELABEL, this.unioned.get("attributeLabel"));
+      query.map(BrowserFieldView.DEFAULTVALUE, this.unioned.get("defaultValue"));
     }
 
     /**
@@ -110,9 +110,9 @@ private static final long serialVersionUID = 1252959713156L;
       this.virtualQuery.AND(this.mdVirtualQuery.getMdAttributeConcrete().EQ(this.mdVirtualRefQuery));
       
       // join the MOField to the MdAttribute
-      query.WHERE(this.fieldQuery.getMdAttribute().getId().EQ((SelectableChar) this.unioned.aAttribute("attributeId")));
+      query.WHERE(this.fieldQuery.getMdAttribute().getId().EQ((SelectableChar) this.unioned.get("attributeId")));
       
-      query.ORDER_BY_ASC((SelectablePrimitive) this.unioned.aAttribute("classLabel"));
+      query.ORDER_BY_ASC((SelectablePrimitive) this.unioned.get("classLabel"));
     }
 
   }

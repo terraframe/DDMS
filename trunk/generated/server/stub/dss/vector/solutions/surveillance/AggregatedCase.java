@@ -463,7 +463,7 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
     
     try
     {
-      SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectable("sqldouble__cfr");
+      SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectableRef("sqldouble__cfr");
       String sql = "(SUM(deaths::FLOAT)/SUM(cases))*100.0";
       calc.setSQL(sql);
     }
@@ -492,7 +492,7 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
   {
     try
     {
-      SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectable("sqldouble__incidence_"+multiplier);
+      SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectableRef("sqldouble__incidence_"+multiplier);
       
       String geoType = null;
       
@@ -531,7 +531,7 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
         timePeriod = "seasonal";
       }
       
-      Selectable s = valueQuery.getSelectable(geoType);
+      Selectable s = valueQuery.getSelectableRef(geoType);
       
       String columnAlias = s.getQualifiedName();
       

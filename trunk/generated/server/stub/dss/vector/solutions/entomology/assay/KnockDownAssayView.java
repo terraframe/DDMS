@@ -24,7 +24,7 @@ public class KnockDownAssayView extends KnockDownAssayViewBase implements com.te
     
     sortAttribute = (sortAttribute == null ? KnockDownAssayView.COLLECTIONLABEL : sortAttribute); 
     
-    Selectable attribute = query.getComponentQuery().getSelectable(sortAttribute);
+    Selectable attribute = query.getComponentQuery().getSelectableRef(sortAttribute);
 
     if (attribute instanceof AttributeEnumeration)
     {

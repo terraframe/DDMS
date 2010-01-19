@@ -345,7 +345,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
 
     try
     {
-      SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectable("instances");
+      SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("instances");
       String sql = "COUNT(*)";
       calc.setSQL(sql);
     }
@@ -355,7 +355,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
 
     try
     {
-      SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectable("cases");
+      SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("cases");
       String tableAlias = caseQuery.getTableAlias();
       String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
       String sql = "SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii.individualcase = " + tableAlias + ".id))";
@@ -367,7 +367,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
 
     try
     {
-      SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectable("deaths");
+      SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("deaths");
       String sql = "SUM(diedInFacility)";
       calc.setSQL(sql);
     }
@@ -377,7 +377,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
 
     try
     {
-      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectable("cfr");
+      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("cfr");
       String tableAlias = caseQuery.getTableAlias();
       String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
       String sql = "(SUM(diedInFacility)/SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii.individualcase = " + tableAlias + ".id)))*100.0";
@@ -412,7 +412,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
   {
     try
     {
-      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectable("incidence_"+multiplier);
+      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("incidence_"+multiplier);
       
       String geoType = null;
       
@@ -450,7 +450,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
         timePeriod = "seasonal";
       }
       
-      Selectable s = valueQuery.getSelectable(geoType);
+      Selectable s = valueQuery.getSelectableRef(geoType);
       
       String columnAlias = s.getQualifiedName();
       

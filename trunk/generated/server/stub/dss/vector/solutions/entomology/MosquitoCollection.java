@@ -278,7 +278,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
       
       
       String sql = "";
-      for (Selectable s : Arrays.asList(valueQuery.getSelectables()))
+      for (Selectable s : valueQuery.getSelectableRefs())
       {
         String columnAlias = s.getColumnAlias();
         
@@ -316,7 +316,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     try
     {
       String selectableName = "abundance_" + multiplier;
-      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectable(selectableName);
+      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef(selectableName);
 
       calc.setSQL(sql);
     }

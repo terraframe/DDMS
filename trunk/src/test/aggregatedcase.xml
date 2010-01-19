@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-<query xsi:noNamespaceSchemaLocation="file:/Users/nathan/workspace3.4/mojo/trunk/profiles/query.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<query xsi:noNamespaceSchemaLocation="file:/Users/nathan/workspace3.5/mojo/trunk/profiles/query.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 -->
 <query>
   <entities>

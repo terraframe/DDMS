@@ -24,7 +24,7 @@ public class AdultDiscriminatingDoseAssayView extends AdultDiscriminatingDoseAss
     
     sortAttribute = (sortAttribute == null ? AdultDiscriminatingDoseAssayView.COLLECTIONLABEL : sortAttribute); 
     
-    Selectable attribute = query.getComponentQuery().getSelectable(sortAttribute);
+    Selectable attribute = query.getComponentQuery().getSelectableRef(sortAttribute);
 
     if (attribute instanceof AttributeEnumeration)
     {

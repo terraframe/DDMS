@@ -160,7 +160,7 @@ public class ITNDistribution extends ITNDistributionBase implements com.terrafra
     
     try
     {
-      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable("age");
+      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("age");
 
       String personTableAlias = personQuery.getTableAlias();
       String sql = "EXTRACT(year from AGE(NOW(), " + personTableAlias + ".dateofbirth))";

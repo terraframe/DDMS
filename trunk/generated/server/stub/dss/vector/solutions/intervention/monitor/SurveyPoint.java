@@ -265,7 +265,7 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
     
     try
     {
-      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectable("prevalence");
+      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("prevalence");
       String tableAlias = personQuery.getTableAlias();
       
       String rtdTested = "CASE "+tableAlias+"."+SurveyedPerson.PERFORMEDRDT+"_c WHEN '"+RefusedResponse.YES.getId()+"' THEN 1 ELSE NULL END";
@@ -282,7 +282,7 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
     
     try
     {
-      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable("age");
+      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("age");
 
       String personTableAlias = personQuery.getTableAlias();
       String sql = "EXTRACT(year from AGE(NOW(), " + personTableAlias + ".dob))";

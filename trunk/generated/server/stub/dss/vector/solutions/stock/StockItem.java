@@ -206,7 +206,7 @@ public class StockItem extends StockItemBase implements com.terraframe.mojo.gene
     
     try
     {
-      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable("quanity_instock");
+      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("quanity_instock");
 
       String tableAlias = stockItemQuery.getTableAlias();
       

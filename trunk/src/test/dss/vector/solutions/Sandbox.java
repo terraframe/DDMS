@@ -197,19 +197,19 @@ public class Sandbox
     Selectable[] selectClauseArray = new Selectable[selectableArray.length + 2];
     for (int k=0; k<selectableArray.length; k++)
     {
-      selectClauseArray[k] = uQ.aAttribute(selectableArray[k].getResultAttributeName());
+      selectClauseArray[k] = uQ.get(selectableArray[k].getResultAttributeName());
     }
-    selectClauseArray[selectableArray.length] = F.COUNT(uQ.aAttribute("weight"), "weight");
-    selectClauseArray[selectableArray.length + 1] = F.SUM(uQ.aAttribute("weight"), "sum");
+    selectClauseArray[selectableArray.length] = F.COUNT(uQ.get("weight"), "weight");
+    selectClauseArray[selectableArray.length + 1] = F.SUM(uQ.get("weight"), "sum");
 
     resultQuery.SELECT(selectClauseArray);
-    resultQuery.ORDER_BY_DESC(F.COUNT(uQ.aAttribute("weight"), "weight"));
-    resultQuery.ORDER_BY_DESC(F.SUM(uQ.aAttribute("weight"), "sum"));
+    resultQuery.ORDER_BY_DESC(F.COUNT(uQ.get("weight"), "weight"));
+    resultQuery.ORDER_BY_DESC(F.SUM(uQ.get("weight"), "sum"));
     for (SelectablePrimitive selectable : selectableArray)
     {
-      resultQuery.ORDER_BY_ASC((AttributePrimitive)uQ.aAttribute(selectable.getResultAttributeName()));
+      resultQuery.ORDER_BY_ASC((AttributePrimitive)uQ.get(selectable.getResultAttributeName()));
     }
-    resultQuery.HAVING(F.COUNT(uQ.aAttribute("weight")).EQ(tokenArray.length));
+    resultQuery.HAVING(F.COUNT(uQ.get("weight")).EQ(tokenArray.length));
     System.out.println(resultQuery.getSQL());
 
 
@@ -308,7 +308,7 @@ public class Sandbox
 
 //    try
 //    {
-//      FileInputStream fileInputStream = new FileInputStream(new File("/Users/nathan/workspace3.4/MDSS/PersonExcelView.xls"));
+//      FileInputStream fileInputStream = new FileInputStream(new File("/Users/nathan/workspace3.5/MDSS/PersonExcelView.xls"));
 //
 //      GeoEntitySearcher geoSynonymMatcher = new GeoEntitySearcher();
 //      geoSynonymMatcher.checkExcelGeoHierarchy(fileInputStream);

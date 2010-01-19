@@ -113,7 +113,7 @@ public class Larvacide extends LarvacideBase implements com.terraframe.mojo.gene
 
     try
     {
-      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable("age");
+      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("age");
 
       String personTableAlias = personQuery.getTableAlias();
       String sql = "EXTRACT(year from AGE(NOW(), " + personTableAlias + ".dateofbirth))";

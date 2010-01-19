@@ -139,7 +139,7 @@ public class IndividualIPTView extends IndividualIPTViewBase implements com.terr
       sortAttribute = IndividualIPTView.ADMINISTRATORNAME;
     }
 
-    Selectable attribute = query.getComponentQuery().getSelectable(sortAttribute);
+    Selectable attribute = query.getComponentQuery().getSelectableRef(sortAttribute);
 
     if (attribute instanceof AttributeEnumeration)
     {
@@ -147,7 +147,7 @@ public class IndividualIPTView extends IndividualIPTViewBase implements com.terr
     }
     else if (attribute instanceof AttributeReference)
     {
-      attribute = query.getComponentQuery().getSelectable(IndividualIPTView.ADMINISTRATORNAME);
+      attribute = query.getComponentQuery().getSelectableRef(IndividualIPTView.ADMINISTRATORNAME);
     }
     else if (attribute instanceof AttributeLocal)
     {
@@ -181,7 +181,7 @@ public class IndividualIPTView extends IndividualIPTViewBase implements com.terr
       sortAttribute = IPTCASE;
     }
 
-    Selectable attribute = query.getComponentQuery().getSelectable(sortAttribute);
+    Selectable attribute = query.getComponentQuery().getSelectableRef(sortAttribute);
 
     if (attribute instanceof AttributeEnumeration)
     {
