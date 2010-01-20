@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1851775818)
+@com.terraframe.mojo.business.ClassSignature(hash = -163812970)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  class ResponseMasterQuery extends com.terraframe.mojo.system.EnumerationMasterQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1851775818;
+private static final long serialVersionUID = -163812970;
 
   public ResponseMasterQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -68,44 +68,6 @@ private static final long serialVersionUID = 1851775818;
  * 
  **/
 
-  public com.terraframe.mojo.query.Condition enum_Response()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(com.terraframe.mojo.system.metadata.EnumerationAttributeItem.CLASS);
-
-    com.terraframe.mojo.business.BusinessQuery businessQuery = queryFactory.businessQuery(com.terraframe.mojo.system.metadata.MdEnumeration.CLASS);
-    com.terraframe.mojo.dataaccess.MdEnumerationDAOIF mdEnumerationIF = com.terraframe.mojo.dataaccess.metadata.MdEnumerationDAO.getMdEnumerationDAO(dss.vector.solutions.Response.CLASS); 
-    businessQuery.WHERE(businessQuery.id().EQ(mdEnumerationIF.getId()));
-
-    relationshipQuery.WHERE(relationshipQuery.hasParent(businessQuery));
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-
-/**
- * 
- **/
-
-  public com.terraframe.mojo.query.Condition notEnum_Response()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(com.terraframe.mojo.system.metadata.EnumerationAttributeItem.CLASS);
-
-    com.terraframe.mojo.business.BusinessQuery businessQuery = queryFactory.businessQuery(com.terraframe.mojo.system.metadata.MdEnumeration.CLASS);
-    com.terraframe.mojo.dataaccess.MdEnumerationDAOIF mdEnumerationIF = com.terraframe.mojo.dataaccess.metadata.MdEnumerationDAO.getMdEnumerationDAO(dss.vector.solutions.Response.CLASS); 
-    businessQuery.WHERE(businessQuery.id().EQ(mdEnumerationIF.getId()));
-
-    relationshipQuery.WHERE(relationshipQuery.hasParent(businessQuery));
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-
-/**
- * 
- **/
-
   public com.terraframe.mojo.query.Condition enum_RefusedResponse()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -141,6 +103,44 @@ private static final long serialVersionUID = 1851775818;
 
 
 /**
+ * 
+ **/
+
+  public com.terraframe.mojo.query.Condition enum_Response()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(com.terraframe.mojo.system.metadata.EnumerationAttributeItem.CLASS);
+
+    com.terraframe.mojo.business.BusinessQuery businessQuery = queryFactory.businessQuery(com.terraframe.mojo.system.metadata.MdEnumeration.CLASS);
+    com.terraframe.mojo.dataaccess.MdEnumerationDAOIF mdEnumerationIF = com.terraframe.mojo.dataaccess.metadata.MdEnumerationDAO.getMdEnumerationDAO(dss.vector.solutions.Response.CLASS); 
+    businessQuery.WHERE(businessQuery.id().EQ(mdEnumerationIF.getId()));
+
+    relationshipQuery.WHERE(relationshipQuery.hasParent(businessQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+
+/**
+ * 
+ **/
+
+  public com.terraframe.mojo.query.Condition notEnum_Response()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(com.terraframe.mojo.system.metadata.EnumerationAttributeItem.CLASS);
+
+    com.terraframe.mojo.business.BusinessQuery businessQuery = queryFactory.businessQuery(com.terraframe.mojo.system.metadata.MdEnumeration.CLASS);
+    com.terraframe.mojo.dataaccess.MdEnumerationDAOIF mdEnumerationIF = com.terraframe.mojo.dataaccess.metadata.MdEnumerationDAO.getMdEnumerationDAO(dss.vector.solutions.Response.CLASS); 
+    businessQuery.WHERE(businessQuery.id().EQ(mdEnumerationIF.getId()));
+
+    relationshipQuery.WHERE(relationshipQuery.hasParent(businessQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+
+/**
  * Interface that masks all type unsafe query methods and defines all type safe methods.
  * This type is used when a join is performed on this class as a reference.
  **/
@@ -162,7 +162,7 @@ private static final long serialVersionUID = 1851775818;
  implements ResponseMasterQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1995422484;
+private static final long serialVersionUID = 283956024;
 
   public ResponseMasterQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -200,7 +200,7 @@ private static final long serialVersionUID = -1995422484;
   public static class ResponseMasterQueryEnumeration extends com.terraframe.mojo.system.EnumerationMasterQuery.EnumerationMasterQueryEnumeration
  implements ResponseMasterQueryEnumerationIF, com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1364227718;
+private static final long serialVersionUID = 915150790;
 
   public ResponseMasterQueryEnumeration(com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.terraframe.mojo.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -208,19 +208,6 @@ private static final long serialVersionUID = -1364227718;
 
   }
 
-  }
-
-/**
- * Specifies type safe query methods for the enumeration dss.vector.solutions.Response.
- * This type is used when a join is performed on this class as an enumeration.
- **/
-  public interface ResponseQueryIF extends com.terraframe.mojo.generation.loader.Reloadable, ResponseMasterQueryEnumerationIF  {
-
-    public com.terraframe.mojo.query.Condition containsAny(dss.vector.solutions.Response ... response);
-    public com.terraframe.mojo.query.Condition notContainsAny(dss.vector.solutions.Response ... response);
-    public com.terraframe.mojo.query.Condition containsAll(dss.vector.solutions.Response ... response);
-    public com.terraframe.mojo.query.Condition notContainsAll(dss.vector.solutions.Response ... response);
-    public com.terraframe.mojo.query.Condition containsExactly(dss.vector.solutions.Response ... response);
   }
 
 /**
@@ -237,77 +224,18 @@ private static final long serialVersionUID = -1364227718;
   }
 
 /**
- * Implements type safe query methods for the enumeration dss.vector.solutions.Response.
+ * Specifies type safe query methods for the enumeration dss.vector.solutions.Response.
  * This type is used when a join is performed on this class as an enumeration.
  **/
-  public static class ResponseQuery extends ResponseMasterQueryEnumeration implements  ResponseQueryIF, com.terraframe.mojo.generation.loader.Reloadable
-  {
-  public ResponseQuery(com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.terraframe.mojo.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
-  {
-    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterMdBusinessIF, masterTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+  public interface ResponseQueryIF extends com.terraframe.mojo.generation.loader.Reloadable, ResponseMasterQueryEnumerationIF  {
 
+    public com.terraframe.mojo.query.Condition containsAny(dss.vector.solutions.Response ... response);
+    public com.terraframe.mojo.query.Condition notContainsAny(dss.vector.solutions.Response ... response);
+    public com.terraframe.mojo.query.Condition containsAll(dss.vector.solutions.Response ... response);
+    public com.terraframe.mojo.query.Condition notContainsAll(dss.vector.solutions.Response ... response);
+    public com.terraframe.mojo.query.Condition containsExactly(dss.vector.solutions.Response ... response);
   }
 
-    public com.terraframe.mojo.query.Condition containsAny(dss.vector.solutions.Response ... response)  {
-
-      String[] enumIdArray = new String[response.length]; 
-
-      for (int i=0; i<response.length; i++)
-      {
-        enumIdArray[i] = response[i].getId();
-      }
-
-      return this.containsAny(enumIdArray);
-  }
-
-    public com.terraframe.mojo.query.Condition notContainsAny(dss.vector.solutions.Response ... response)  {
-
-      String[] enumIdArray = new String[response.length]; 
-
-      for (int i=0; i<response.length; i++)
-      {
-        enumIdArray[i] = response[i].getId();
-      }
-
-      return this.notContainsAny(enumIdArray);
-  }
-
-    public com.terraframe.mojo.query.Condition containsAll(dss.vector.solutions.Response ... response)  {
-
-      String[] enumIdArray = new String[response.length]; 
-
-      for (int i=0; i<response.length; i++)
-      {
-        enumIdArray[i] = response[i].getId();
-      }
-
-      return this.containsAll(enumIdArray);
-  }
-
-    public com.terraframe.mojo.query.Condition notContainsAll(dss.vector.solutions.Response ... response)  {
-
-      String[] enumIdArray = new String[response.length]; 
-
-      for (int i=0; i<response.length; i++)
-      {
-        enumIdArray[i] = response[i].getId();
-      }
-
-      return this.notContainsAll(enumIdArray);
-  }
-
-    public com.terraframe.mojo.query.Condition containsExactly(dss.vector.solutions.Response ... response)  {
-
-      String[] enumIdArray = new String[response.length]; 
-
-      for (int i=0; i<response.length; i++)
-      {
-        enumIdArray[i] = response[i].getId();
-      }
-
-      return this.containsExactly(enumIdArray);
-  }
-  }
 /**
  * Implements type safe query methods for the enumeration dss.vector.solutions.RefusedResponse.
  * This type is used when a join is performed on this class as an enumeration.
@@ -375,6 +303,78 @@ private static final long serialVersionUID = -1364227718;
       for (int i=0; i<refusedResponse.length; i++)
       {
         enumIdArray[i] = refusedResponse[i].getId();
+      }
+
+      return this.containsExactly(enumIdArray);
+  }
+  }
+/**
+ * Implements type safe query methods for the enumeration dss.vector.solutions.Response.
+ * This type is used when a join is performed on this class as an enumeration.
+ **/
+  public static class ResponseQuery extends ResponseMasterQueryEnumeration implements  ResponseQueryIF, com.terraframe.mojo.generation.loader.Reloadable
+  {
+  public ResponseQuery(com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.terraframe.mojo.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterMdBusinessIF, masterTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+    public com.terraframe.mojo.query.Condition containsAny(dss.vector.solutions.Response ... response)  {
+
+      String[] enumIdArray = new String[response.length]; 
+
+      for (int i=0; i<response.length; i++)
+      {
+        enumIdArray[i] = response[i].getId();
+      }
+
+      return this.containsAny(enumIdArray);
+  }
+
+    public com.terraframe.mojo.query.Condition notContainsAny(dss.vector.solutions.Response ... response)  {
+
+      String[] enumIdArray = new String[response.length]; 
+
+      for (int i=0; i<response.length; i++)
+      {
+        enumIdArray[i] = response[i].getId();
+      }
+
+      return this.notContainsAny(enumIdArray);
+  }
+
+    public com.terraframe.mojo.query.Condition containsAll(dss.vector.solutions.Response ... response)  {
+
+      String[] enumIdArray = new String[response.length]; 
+
+      for (int i=0; i<response.length; i++)
+      {
+        enumIdArray[i] = response[i].getId();
+      }
+
+      return this.containsAll(enumIdArray);
+  }
+
+    public com.terraframe.mojo.query.Condition notContainsAll(dss.vector.solutions.Response ... response)  {
+
+      String[] enumIdArray = new String[response.length]; 
+
+      for (int i=0; i<response.length; i++)
+      {
+        enumIdArray[i] = response[i].getId();
+      }
+
+      return this.notContainsAll(enumIdArray);
+  }
+
+    public com.terraframe.mojo.query.Condition containsExactly(dss.vector.solutions.Response ... response)  {
+
+      String[] enumIdArray = new String[response.length]; 
+
+      for (int i=0; i<response.length; i++)
+      {
+        enumIdArray[i] = response[i].getId();
       }
 
       return this.containsExactly(enumIdArray);

@@ -8,10 +8,7 @@ import java.util.List;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.system.metadata.MdBusiness;
 
-import dss.vector.solutions.Person;
-import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class TeamSpray extends TeamSprayBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -40,11 +37,11 @@ public class TeamSpray extends TeamSprayBase implements com.terraframe.mojo.gene
   @Override
   protected String buildKey()
   {
-    if (this.getBrand() != null && this.getGeoEntity() != null && this.getSprayDate() != null && this.getSprayMethodName() != null  && this.getSprayTeam() != null)
+    if (this.getBrand() != null && this.getGeoEntity() != null && this.getSprayDate() != null && this.getSprayMethodForIndex() != null  && this.getSprayTeam() != null)
     {
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
       String dateFormat = format.format(this.getSprayDate());
-      String methodName = this.getSprayMethodName();
+      String methodName = this.getSprayMethodForIndex();
 
       return this.getBrand().getKey() + "." + this.getGeoEntity().getGeoId() + "." + dateFormat + "." + methodName + "." + this.getSprayTeam().getKey();
     }
@@ -59,9 +56,14 @@ public class TeamSpray extends TeamSprayBase implements com.terraframe.mojo.gene
 
     if(_sprayMethod.size() > 0)
     {
-      this.setSprayMethodName(_sprayMethod.get(0).getEnumName());
+      this.setSprayMethodForIndex(_sprayMethod.get(0).getEnumName());
       
     }
+    
+    this.setGeoEntityForIndex(this.getGeoEntity());
+    this.setBrandForIndex(this.getBrand());
+    this.setSprayDateForIndex(this.getSprayDate());
+
     super.apply();
   }
   

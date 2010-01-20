@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1957927040)
-public abstract class OperatorSprayDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.terraframe.mojo.business.ClassSignature(hash = 239141266)
+public abstract class OperatorSprayDTOBase extends dss.vector.solutions.irs.AbstractSprayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.OperatorSpray";
-  private static final long serialVersionUID = 1957927040;
+  private static final long serialVersionUID = 239141266;
   
   protected OperatorSprayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -27,347 +27,106 @@ public abstract class OperatorSprayDTOBase extends com.terraframe.mojo.business.
     return CLASS;
   }
   
-  public static java.lang.String BRAND = "brand";
-  public static java.lang.String CREATEDATE = "createDate";
-  public static java.lang.String CREATEDBY = "createdBy";
-  public static java.lang.String ENTITYDOMAIN = "entityDomain";
-  public static java.lang.String GEOENTITY = "geoEntity";
-  public static java.lang.String ID = "id";
-  public static java.lang.String KEYNAME = "keyName";
-  public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
-  public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
-  public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String BRANDFORINDEX = "brandForIndex";
+  public static java.lang.String GEOENTITYFORINDEX = "geoEntityForIndex";
   public static java.lang.String OPERATORSPRAYWEEK = "operatorSprayWeek";
-  public static java.lang.String OWNER = "owner";
   public static java.lang.String RECEIVED = "received";
   public static java.lang.String REFILLS = "refills";
   public static java.lang.String RETURNED = "returned";
-  public static java.lang.String SEQ = "seq";
-  public static java.lang.String SITEMASTER = "siteMaster";
-  public static java.lang.String SPRAYDATE = "sprayDate";
-  public static java.lang.String SPRAYMETHOD = "sprayMethod";
-  public static java.lang.String SPRAYMETHODNAME = "sprayMethodName";
+  public static java.lang.String SPRAYDATEFORINDEX = "sprayDateForIndex";
+  public static java.lang.String SPRAYMETHODFORINDEX = "sprayMethodForIndex";
   public static java.lang.String SPRAYOPERATOR = "sprayOperator";
   public static java.lang.String SPRAYTEAM = "sprayTeam";
-  public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
   public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
-  public static java.lang.String TYPE = "type";
   public static java.lang.String USED = "used";
-  public dss.vector.solutions.irs.InsecticideBrandDTO getBrand()
+  public dss.vector.solutions.irs.InsecticideBrandDTO getBrandForIndex()
   {
-    if(getValue(BRAND) == null || getValue(BRAND).trim().equals(""))
+    if(getValue(BRANDFORINDEX) == null || getValue(BRANDFORINDEX).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return dss.vector.solutions.irs.InsecticideBrandDTO.get(getRequest(), getValue(BRAND));
+      return dss.vector.solutions.irs.InsecticideBrandDTO.get(getRequest(), getValue(BRANDFORINDEX));
     }
   }
   
-  public void setBrand(dss.vector.solutions.irs.InsecticideBrandDTO value)
+  public void setBrandForIndex(dss.vector.solutions.irs.InsecticideBrandDTO value)
   {
     if(value == null)
     {
-      setValue(BRAND, "");
+      setValue(BRANDFORINDEX, "");
     }
     else
     {
-      setValue(BRAND, value.getId());
+      setValue(BRANDFORINDEX, value.getId());
     }
   }
   
-  public boolean isBrandWritable()
+  public boolean isBrandForIndexWritable()
   {
-    return isWritable(BRAND);
+    return isWritable(BRANDFORINDEX);
   }
   
-  public boolean isBrandReadable()
+  public boolean isBrandForIndexReadable()
   {
-    return isReadable(BRAND);
+    return isReadable(BRANDFORINDEX);
   }
   
-  public boolean isBrandModified()
+  public boolean isBrandForIndexModified()
   {
-    return isModified(BRAND);
+    return isModified(BRANDFORINDEX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getBrandMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getBrandForIndexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(BRAND).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(BRANDFORINDEX).getAttributeMdDTO();
   }
   
-  public java.util.Date getCreateDate()
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntityForIndex()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
-  }
-  
-  public boolean isCreateDateWritable()
-  {
-    return isWritable(CREATEDATE);
-  }
-  
-  public boolean isCreateDateReadable()
-  {
-    return isReadable(CREATEDATE);
-  }
-  
-  public boolean isCreateDateModified()
-  {
-    return isModified(CREATEDATE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
-  }
-  
-  public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
-  {
-    if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
+    if(getValue(GEOENTITYFORINDEX) == null || getValue(GEOENTITYFORINDEX).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITYFORINDEX));
     }
   }
   
-  public boolean isCreatedByWritable()
-  {
-    return isWritable(CREATEDBY);
-  }
-  
-  public boolean isCreatedByReadable()
-  {
-    return isReadable(CREATEDBY);
-  }
-  
-  public boolean isCreatedByModified()
-  {
-    return isModified(CREATEDBY);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
-  }
-  
-  public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
-  {
-    if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
-    }
-  }
-  
-  public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
+  public void setGeoEntityForIndex(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
     {
-      setValue(ENTITYDOMAIN, "");
+      setValue(GEOENTITYFORINDEX, "");
     }
     else
     {
-      setValue(ENTITYDOMAIN, value.getId());
+      setValue(GEOENTITYFORINDEX, value.getId());
     }
   }
   
-  public boolean isEntityDomainWritable()
+  public boolean isGeoEntityForIndexWritable()
   {
-    return isWritable(ENTITYDOMAIN);
+    return isWritable(GEOENTITYFORINDEX);
   }
   
-  public boolean isEntityDomainReadable()
+  public boolean isGeoEntityForIndexReadable()
   {
-    return isReadable(ENTITYDOMAIN);
+    return isReadable(GEOENTITYFORINDEX);
   }
   
-  public boolean isEntityDomainModified()
+  public boolean isGeoEntityForIndexModified()
   {
-    return isModified(ENTITYDOMAIN);
+    return isModified(GEOENTITYFORINDEX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityForIndexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
-  {
-    if(getValue(GEOENTITY) == null || getValue(GEOENTITY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
-    }
-  }
-  
-  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
-  {
-    if(value == null)
-    {
-      setValue(GEOENTITY, "");
-    }
-    else
-    {
-      setValue(GEOENTITY, value.getId());
-    }
-  }
-  
-  public boolean isGeoEntityWritable()
-  {
-    return isWritable(GEOENTITY);
-  }
-  
-  public boolean isGeoEntityReadable()
-  {
-    return isReadable(GEOENTITY);
-  }
-  
-  public boolean isGeoEntityModified()
-  {
-    return isModified(GEOENTITY);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
-  }
-  
-  public String getKeyName()
-  {
-    return getValue(KEYNAME);
-  }
-  
-  public void setKeyName(String value)
-  {
-    if(value == null)
-    {
-      setValue(KEYNAME, "");
-    }
-    else
-    {
-      setValue(KEYNAME, value);
-    }
-  }
-  
-  public boolean isKeyNameWritable()
-  {
-    return isWritable(KEYNAME);
-  }
-  
-  public boolean isKeyNameReadable()
-  {
-    return isReadable(KEYNAME);
-  }
-  
-  public boolean isKeyNameModified()
-  {
-    return isModified(KEYNAME);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
-  }
-  
-  public java.util.Date getLastUpdateDate()
-  {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
-  }
-  
-  public boolean isLastUpdateDateWritable()
-  {
-    return isWritable(LASTUPDATEDATE);
-  }
-  
-  public boolean isLastUpdateDateReadable()
-  {
-    return isReadable(LASTUPDATEDATE);
-  }
-  
-  public boolean isLastUpdateDateModified()
-  {
-    return isModified(LASTUPDATEDATE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
-  }
-  
-  public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
-  {
-    if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
-    }
-  }
-  
-  public boolean isLastUpdatedByWritable()
-  {
-    return isWritable(LASTUPDATEDBY);
-  }
-  
-  public boolean isLastUpdatedByReadable()
-  {
-    return isReadable(LASTUPDATEDBY);
-  }
-  
-  public boolean isLastUpdatedByModified()
-  {
-    return isModified(LASTUPDATEDBY);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
-  }
-  
-  public com.terraframe.mojo.system.UsersDTO getLockedBy()
-  {
-    if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
-    }
-  }
-  
-  public boolean isLockedByWritable()
-  {
-    return isWritable(LOCKEDBY);
-  }
-  
-  public boolean isLockedByReadable()
-  {
-    return isReadable(LOCKEDBY);
-  }
-  
-  public boolean isLockedByModified()
-  {
-    return isModified(LOCKEDBY);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITYFORINDEX).getAttributeMdDTO();
   }
   
   public Integer getOperatorSprayWeek()
@@ -405,50 +164,6 @@ public abstract class OperatorSprayDTOBase extends com.terraframe.mojo.business.
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getOperatorSprayWeekMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OPERATORSPRAYWEEK).getAttributeMdDTO();
-  }
-  
-  public com.terraframe.mojo.system.ActorDTO getOwner()
-  {
-    if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
-    }
-  }
-  
-  public void setOwner(com.terraframe.mojo.system.ActorDTO value)
-  {
-    if(value == null)
-    {
-      setValue(OWNER, "");
-    }
-    else
-    {
-      setValue(OWNER, value.getId());
-    }
-  }
-  
-  public boolean isOwnerWritable()
-  {
-    return isWritable(OWNER);
-  }
-  
-  public boolean isOwnerReadable()
-  {
-    return isReadable(OWNER);
-  }
-  
-  public boolean isOwnerModified()
-  {
-    return isModified(OWNER);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Integer getReceived()
@@ -562,174 +277,78 @@ public abstract class OperatorSprayDTOBase extends com.terraframe.mojo.business.
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RETURNED).getAttributeMdDTO();
   }
   
-  public Long getSeq()
+  public java.util.Date getSprayDateForIndex()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SPRAYDATEFORINDEX));
   }
   
-  public boolean isSeqWritable()
-  {
-    return isWritable(SEQ);
-  }
-  
-  public boolean isSeqReadable()
-  {
-    return isReadable(SEQ);
-  }
-  
-  public boolean isSeqModified()
-  {
-    return isModified(SEQ);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
-  }
-  
-  public String getSiteMaster()
-  {
-    return getValue(SITEMASTER);
-  }
-  
-  public boolean isSiteMasterWritable()
-  {
-    return isWritable(SITEMASTER);
-  }
-  
-  public boolean isSiteMasterReadable()
-  {
-    return isReadable(SITEMASTER);
-  }
-  
-  public boolean isSiteMasterModified()
-  {
-    return isModified(SITEMASTER);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
-  }
-  
-  public java.util.Date getSprayDate()
-  {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SPRAYDATE));
-  }
-  
-  public void setSprayDate(java.util.Date value)
+  public void setSprayDateForIndex(java.util.Date value)
   {
     if(value == null)
     {
-      setValue(SPRAYDATE, "");
+      setValue(SPRAYDATEFORINDEX, "");
     }
     else
     {
-      setValue(SPRAYDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(SPRAYDATEFORINDEX, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
-  public boolean isSprayDateWritable()
+  public boolean isSprayDateForIndexWritable()
   {
-    return isWritable(SPRAYDATE);
+    return isWritable(SPRAYDATEFORINDEX);
   }
   
-  public boolean isSprayDateReadable()
+  public boolean isSprayDateForIndexReadable()
   {
-    return isReadable(SPRAYDATE);
+    return isReadable(SPRAYDATEFORINDEX);
   }
   
-  public boolean isSprayDateModified()
+  public boolean isSprayDateForIndexModified()
   {
-    return isModified(SPRAYDATE);
+    return isModified(SPRAYDATEFORINDEX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getSprayDateMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getSprayDateForIndexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SPRAYDATE).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SPRAYDATEFORINDEX).getAttributeMdDTO();
   }
   
-  @SuppressWarnings("unchecked")
-  public java.util.List<dss.vector.solutions.irs.SprayMethodDTO> getSprayMethod()
+  public String getSprayMethodForIndex()
   {
-    return (java.util.List<dss.vector.solutions.irs.SprayMethodDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.irs.SprayMethodDTO.CLASS, getEnumNames(SPRAYMETHOD));
+    return getValue(SPRAYMETHODFORINDEX);
   }
   
-  public java.util.List<String> getSprayMethodEnumNames()
-  {
-    return getEnumNames(SPRAYMETHOD);
-  }
-  
-  public void addSprayMethod(dss.vector.solutions.irs.SprayMethodDTO enumDTO)
-  {
-    addEnumItem(SPRAYMETHOD, enumDTO.toString());
-  }
-  
-  public void removeSprayMethod(dss.vector.solutions.irs.SprayMethodDTO enumDTO)
-  {
-    removeEnumItem(SPRAYMETHOD, enumDTO.toString());
-  }
-  
-  public void clearSprayMethod()
-  {
-    clearEnum(SPRAYMETHOD);
-  }
-  
-  public boolean isSprayMethodWritable()
-  {
-    return isWritable(SPRAYMETHOD);
-  }
-  
-  public boolean isSprayMethodReadable()
-  {
-    return isReadable(SPRAYMETHOD);
-  }
-  
-  public boolean isSprayMethodModified()
-  {
-    return isModified(SPRAYMETHOD);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSprayMethodMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(SPRAYMETHOD).getAttributeMdDTO();
-  }
-  
-  public String getSprayMethodName()
-  {
-    return getValue(SPRAYMETHODNAME);
-  }
-  
-  public void setSprayMethodName(String value)
+  public void setSprayMethodForIndex(String value)
   {
     if(value == null)
     {
-      setValue(SPRAYMETHODNAME, "");
+      setValue(SPRAYMETHODFORINDEX, "");
     }
     else
     {
-      setValue(SPRAYMETHODNAME, value);
+      setValue(SPRAYMETHODFORINDEX, value);
     }
   }
   
-  public boolean isSprayMethodNameWritable()
+  public boolean isSprayMethodForIndexWritable()
   {
-    return isWritable(SPRAYMETHODNAME);
+    return isWritable(SPRAYMETHODFORINDEX);
   }
   
-  public boolean isSprayMethodNameReadable()
+  public boolean isSprayMethodForIndexReadable()
   {
-    return isReadable(SPRAYMETHODNAME);
+    return isReadable(SPRAYMETHODFORINDEX);
   }
   
-  public boolean isSprayMethodNameModified()
+  public boolean isSprayMethodForIndexModified()
   {
-    return isModified(SPRAYMETHODNAME);
+    return isModified(SPRAYMETHODFORINDEX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSprayMethodNameMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSprayMethodForIndexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPRAYMETHODNAME).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPRAYMETHODFORINDEX).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.irs.TeamMemberDTO getSprayOperator()
@@ -818,50 +437,6 @@ public abstract class OperatorSprayDTOBase extends com.terraframe.mojo.business.
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSprayTeamMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPRAYTEAM).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.ontology.TermDTO getSurfaceType()
-  {
-    if(getValue(SURFACETYPE) == null || getValue(SURFACETYPE).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SURFACETYPE));
-    }
-  }
-  
-  public void setSurfaceType(dss.vector.solutions.ontology.TermDTO value)
-  {
-    if(value == null)
-    {
-      setValue(SURFACETYPE, "");
-    }
-    else
-    {
-      setValue(SURFACETYPE, value.getId());
-    }
-  }
-  
-  public boolean isSurfaceTypeWritable()
-  {
-    return isWritable(SURFACETYPE);
-  }
-  
-  public boolean isSurfaceTypeReadable()
-  {
-    return isReadable(SURFACETYPE);
-  }
-  
-  public boolean isSurfaceTypeModified()
-  {
-    return isModified(SURFACETYPE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSurfaceTypeMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURFACETYPE).getAttributeMdDTO();
   }
   
   public Integer getTarget()

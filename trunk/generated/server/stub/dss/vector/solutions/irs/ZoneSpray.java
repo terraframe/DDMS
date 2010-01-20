@@ -40,11 +40,11 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
   @Override
   protected String buildKey()
   {
-    if (this.getBrand() != null && this.getGeoEntity() != null && this.getSprayDate() != null && this.getSprayMethodName() != null)
+    if (this.getBrand() != null && this.getGeoEntity() != null && this.getSprayDate() != null && this.getSprayMethodForIndex() != null)
     {
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
       String dateFormat = format.format(this.getSprayDate());
-      String methodName = this.getSprayMethodName();
+      String methodName = this.getSprayMethodForIndex();
 
       return this.getBrand().getKey() + "." + this.getGeoEntity().getGeoId() + "." + dateFormat + "." + methodName;
     }
@@ -59,9 +59,13 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
 
     if (_sprayMethod.size() > 0)
     {
-      this.setSprayMethodName(_sprayMethod.get(0).getEnumName());
-
+      this.setSprayMethodForIndex(_sprayMethod.get(0).getEnumName());
     }
+    
+    this.setGeoEntityForIndex(this.getGeoEntity());
+    this.setBrandForIndex(this.getBrand());
+    this.setSprayDateForIndex(this.getSprayDate());
+
     super.apply();
   }
 

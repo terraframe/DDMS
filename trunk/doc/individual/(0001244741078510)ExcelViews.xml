@@ -507,7 +507,7 @@
             type="dss.vector.solutions.PersonView" />
           <virtual
             concrete="memberId"
-            type="dss.vector.solutions.irs.TeamMember" />            
+            type="dss.vector.solutions.irs.TeamMember" />
         </attributes>
       </mdView>
       <mdView
@@ -753,7 +753,7 @@
           <virtual
             name="sprayDate"
             concrete="sprayDate"
-            type="dss.vector.solutions.irs.OperatorSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <char
             name="sprayMethod"
             label="Spray Method"
@@ -823,7 +823,7 @@
           <virtual
             name="sprayDate"
             concrete="sprayDate"
-            type="dss.vector.solutions.irs.TeamSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <char
             name="sprayMethod"
             label="Spray Method"
@@ -885,7 +885,7 @@
           <virtual
             name="sprayDate"
             concrete="sprayDate"
-            type="dss.vector.solutions.irs.ZoneSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <char
             name="sprayMethod"
             label="Spray Method"

@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2129973343)
+@com.terraframe.mojo.business.ClassSignature(hash = 149405165)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public abstract class ResponseMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ResponseMaster";
-  private static final long serialVersionUID = -2129973343;
+  private static final long serialVersionUID = 149405165;
   
   public ResponseMasterBase()
   {

@@ -498,9 +498,10 @@
       </mdView>
 
       <mdBusiness
-        name="dss.vector.solutions.irs.OperatorSpray"
-        label="Operator Spray"
-        generateController="true">
+        name="dss.vector.solutions.irs.AbstractSpray"
+        label="Abstract Spray"
+        isAbstract="true"
+        extendable="true">
         <attributes>
           <reference
             name="geoEntity"
@@ -518,11 +519,6 @@
             type="dss.vector.solutions.irs.SprayMethod"
             selectMultiple="false"
             defaultValue="MAIN_SPRAY" />
-          <char
-            name="sprayMethodName"
-            label="Spray Method"
-            required="true"
-            size="255" />
           <reference
             name="brand"
             label="Insecticide Brand"
@@ -532,7 +528,35 @@
             name="surfaceType"
             label="Surface Type"
             required="true"
-            type="dss.vector.solutions.ontology.Term" />
+            type="dss.vector.solutions.ontology.Term" />        
+        </attributes>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.OperatorSpray"
+        label="Operator Spray"
+        generateController="true"
+        extends="dss.vector.solutions.irs.AbstractSpray">
+        <attributes>
+          <reference
+            name="geoEntityForIndex"
+            label="Geo Entity For Index"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            required="true" />
+          <date
+            name="sprayDateForIndex"
+            label="Spray Date"
+            required="true" />
+          <reference
+            name="brandForIndex"
+            label="Insecticide Brand For Index"
+            required="true"
+            type="dss.vector.solutions.irs.InsecticideBrand" />
+          <char
+            name="sprayMethodForIndex"
+            label="Spray Method"
+            required="true"
+            size="255" />            
           <reference
             name="sprayOperator"
             label="Operator"
@@ -607,16 +631,16 @@
         unique="true"
         active="true">
         <attribute
-          name="geoEntity"
+          name="geoEntityForIndex"
           indexOrder="0" />
         <attribute
-          name="sprayDate"
+          name="sprayDateForIndex"
           indexOrder="1" />
         <attribute
-          name="sprayMethodName"
+          name="sprayMethodForIndex"
           indexOrder="2" />
         <attribute
-          name="brand"
+          name="brandForIndex"
           indexOrder="3" />
         <attribute
           name="sprayOperator"
@@ -634,23 +658,23 @@
           <virtual
             name="geoEntity"
             concrete="geoEntity"
-            type="dss.vector.solutions.irs.OperatorSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="sprayDate"
             concrete="sprayDate"
-            type="dss.vector.solutions.irs.OperatorSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="sprayMethod"
             concrete="sprayMethod"
-            type="dss.vector.solutions.irs.OperatorSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="brand"
             concrete="brand"
-            type="dss.vector.solutions.irs.OperatorSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="surfaceType"
             concrete="surfaceType"
-            type="dss.vector.solutions.irs.OperatorSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="sprayOperator"
             concrete="sprayOperator"
@@ -729,39 +753,28 @@
       <mdBusiness
         name="dss.vector.solutions.irs.TeamSpray"
         label="Team Spray"
-        generateController="true">
+        generateController="true"        
+        extends="dss.vector.solutions.irs.AbstractSpray">
         <attributes>
           <reference
-            name="geoEntity"
-            label="Geo Entity"
+            name="geoEntityForIndex"
+            label="Geo Entity For Index"
             type="dss.vector.solutions.geo.generated.GeoEntity"
             required="true" />
           <date
-            name="sprayDate"
+            name="sprayDateForIndex"
             label="Spray Date"
             required="true" />
-          <enumeration
-            name="sprayMethod"
-            label="Spray Method"
-            required="true"
-            type="dss.vector.solutions.irs.SprayMethod"
-            selectMultiple="false"
-            defaultValue="MAIN_SPRAY" />
-          <char
-            name="sprayMethodName"
-            label="Spray Method"
-            required="true"
-            size="255" />
           <reference
-            name="brand"
-            label="Insecticide Brand"
+            name="brandForIndex"
+            label="Insecticide Brand For Index"
             required="true"
             type="dss.vector.solutions.irs.InsecticideBrand" />
-          <reference
-            name="surfaceType"
-            label="Surface Type"
+          <char
+            name="sprayMethodForIndex"
+            label="Spray Method"
             required="true"
-            type="dss.vector.solutions.ontology.Term" />
+            size="255" />  
           <reference
             name="sprayTeam"
             label="Team"
@@ -831,16 +844,16 @@
         unique="true"
         active="true">
         <attribute
-          name="geoEntity"
+          name="geoEntityForIndex"
           indexOrder="0" />
         <attribute
-          name="sprayDate"
+          name="sprayDateForIndex"
           indexOrder="1" />
         <attribute
-          name="sprayMethodName"
+          name="sprayMethodForIndex"
           indexOrder="2" />
         <attribute
-          name="brand"
+          name="brandForIndex"
           indexOrder="3" />
         <attribute
           name="sprayTeam"
@@ -858,23 +871,23 @@
           <virtual
             name="geoEntity"
             concrete="geoEntity"
-            type="dss.vector.solutions.irs.TeamSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="sprayDate"
             concrete="sprayDate"
-            type="dss.vector.solutions.irs.TeamSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="sprayMethod"
             concrete="sprayMethod"
-            type="dss.vector.solutions.irs.TeamSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="brand"
             concrete="brand"
-            type="dss.vector.solutions.irs.TeamSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="surfaceType"
             concrete="surfaceType"
-            type="dss.vector.solutions.irs.TeamSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="sprayTeam"
             concrete="sprayTeam"
@@ -949,39 +962,28 @@
       <mdBusiness
         name="dss.vector.solutions.irs.ZoneSpray"
         label="Zone Spray"
-        generateController="true">
+        generateController="true"        
+        extends="dss.vector.solutions.irs.AbstractSpray">
         <attributes>
           <reference
-            name="geoEntity"
-            label="Geo Entity"
+            name="geoEntityForIndex"
+            label="Geo Entity For Index"
             type="dss.vector.solutions.geo.generated.GeoEntity"
             required="true" />
           <date
-            name="sprayDate"
+            name="sprayDateForIndex"
             label="Spray Date"
             required="true" />
-          <enumeration
-            name="sprayMethod"
-            label="Spray Method"
-            required="true"
-            type="dss.vector.solutions.irs.SprayMethod"
-            selectMultiple="false"
-            defaultValue="MAIN_SPRAY" />
-          <char
-            name="sprayMethodName"
-            label="Spray Method"
-            required="true"
-            size="255" />
           <reference
-            name="brand"
-            label="Insecticide Brand"
+            name="brandForIndex"
+            label="Insecticide Brand For Index"
             required="true"
             type="dss.vector.solutions.irs.InsecticideBrand" />
-          <reference
-            name="surfaceType"
-            label="Surface Type"
+          <char
+            name="sprayMethodForIndex"
+            label="Spray Method"
             required="true"
-            type="dss.vector.solutions.ontology.Term" />
+            size="255" />  
           <integer
             name="sprayWeek"
             label="Location Spray Week"
@@ -1034,16 +1036,16 @@
         unique="true"
         active="true">
         <attribute
-          name="geoEntity"
+          name="geoEntityForIndex"
           indexOrder="0" />
         <attribute
-          name="sprayDate"
+          name="sprayDateForIndex"
           indexOrder="1" />
         <attribute
-          name="sprayMethodName"
+          name="sprayMethodForIndex"
           indexOrder="2" />
         <attribute
-          name="brand"
+          name="brandForIndex"
           indexOrder="3" />
       </mdIndex>
 
@@ -1058,23 +1060,23 @@
           <virtual
             name="geoEntity"
             concrete="geoEntity"
-            type="dss.vector.solutions.irs.ZoneSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="sprayDate"
             concrete="sprayDate"
-            type="dss.vector.solutions.irs.ZoneSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="sprayMethod"
             concrete="sprayMethod"
-            type="dss.vector.solutions.irs.ZoneSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="brand"
             concrete="brand"
-            type="dss.vector.solutions.irs.ZoneSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="surfaceType"
             concrete="surfaceType"
-            type="dss.vector.solutions.irs.ZoneSpray" />
+            type="dss.vector.solutions.irs.AbstractSpray" />
           <virtual
             name="supervisorSurname"
             concrete="supervisorSurname"
@@ -1217,7 +1219,7 @@
           returnType="dss.vector.solutions.irs.HouseholdSprayStatusView"
           label="Unlock View">
         </mdMethod>
-        
+
       </mdBusiness>
 
 
