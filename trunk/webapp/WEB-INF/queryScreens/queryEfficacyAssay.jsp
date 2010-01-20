@@ -79,44 +79,12 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var insecticideMaps = {<%//=(String) request.getAttribute("insecticideMap")%>};
 
-    var mapAttribs = function(attribName,index){
-      var attrib = this.obj.attributeMap[attribName];
-      var row = {};
-      if(attrib){
-        row.attributeName = attrib.attributeName;
-        if(attrib.dtoType.indexOf('AttributeReferenceDTO') != -1)
-        {
-          //row.attributeName += '.name';
-        }
-        if(attrib.dtoType.indexOf('AttributeEnumerationDTO') != -1)
-        {
-          row.attributeName += '.displayLabel.currentValue';
-        }
-        row.key = attrib.attributeName + this.suffix;
-        row.type = this.obj.getType();
-        row.dtoType = attrib.dtoType;
-        row.displayLabel = attrib.attributeMdDTO.displayLabel;
-        var uppFirst = attrib.attributeName.slice(0,1).toUpperCase() + attrib.attributeName.slice(1);
-        if(this.dropDownMaps[uppFirst]){
-          row.dropDownMap = this.dropDownMaps[uppFirst];
-        }
-      }else{
-        row.attributeName = attribName;
-        row.type = 'sqlcharacter';
-        row.displayLabel = attribName;
-        row.key = attribName;
-
-      }
-      return row;
-    }
-
-
 
     var insectcide = new Mojo.$.dss.vector.solutions.general.Insecticide();
     var insectcideAttribs = ["activeIngredient","amount","units"];
 
 
-    var insectcideColumns =   insectcideAttribs.map(mapAttribs, {obj:insectcide, suffix:'_eff', dropDownMaps:insecticideMaps});
+    var insectcideColumns =   insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_eff', dropDownMaps:insecticideMaps});
 
     
     var efficacyAssay = new Mojo.$.dss.vector.solutions.entomology.assay.EfficacyAssay();
@@ -124,7 +92,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var efficacyAttribs = ["testDate","specie","testMethod","holdingTime","colonyName","sex","fed","gravid","quantityTested","quantityDead","quantityLive","mortality","surfacePostion","timeOnSurface"];
     //var efficacyCalculations = ["quanityAlive","percentMortality","controlTestMortality"];
 
-    var efficacyColumns =  efficacyAttribs.map(mapAttribs, {obj:efficacyAssay, suffix:'_efficacy', dropDownMaps:efficacyMaps});
+    var efficacyColumns =  efficacyAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:efficacyAssay, suffix:'_efficacy', dropDownMaps:efficacyMaps});
 
     //efficacyColumns[0].type = Mojo.$.dss.vector.solutions.entomology.assay.AbstractAssay.CLASS;
 
